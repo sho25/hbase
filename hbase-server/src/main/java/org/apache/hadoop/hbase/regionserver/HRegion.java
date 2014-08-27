@@ -7987,8 +7987,6 @@ comment|// edits in the WAL system. Up the sequence number so the resulting flus
 comment|// sure just beyond the last appended region edit (useful as a marker when bulk loading,
 comment|// etc.)
 comment|// wal can be null replaying edits.
-try|try
-block|{
 if|if
 condition|(
 name|wal
@@ -8067,6 +8065,7 @@ argument_list|)
 return|;
 block|}
 block|}
+block|}
 finally|finally
 block|{
 name|this
@@ -8079,11 +8078,6 @@ operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
-block|}
-block|}
-block|}
-finally|finally
-block|{
 if|if
 condition|(
 name|w
@@ -16566,7 +16560,6 @@ break|break;
 block|}
 else|else
 block|{
-comment|// Row is already locked by some other thread, give up or wait for it
 if|if
 condition|(
 operator|!
@@ -16579,6 +16572,7 @@ return|;
 block|}
 try|try
 block|{
+comment|// Row is already locked by some other thread, give up or wait for it
 if|if
 condition|(
 operator|!
@@ -28575,6 +28569,49 @@ name|RowLock
 argument_list|(
 name|this
 argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+name|Thread
+name|t
+init|=
+name|this
+operator|.
+name|thread
+decl_stmt|;
+return|return
+literal|"Thread="
+operator|+
+operator|(
+name|t
+operator|==
+literal|null
+condition|?
+literal|"null"
+else|:
+name|t
+operator|.
+name|getName
+argument_list|()
+operator|)
+operator|+
+literal|", row="
+operator|+
+name|this
+operator|.
+name|row
+operator|+
+literal|", lockCount="
+operator|+
+name|this
+operator|.
+name|lockCount
 return|;
 block|}
 name|void

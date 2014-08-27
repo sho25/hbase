@@ -747,6 +747,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|RegionTooBusyException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 operator|.
 name|OperationStatusCode
@@ -28713,10 +28727,18 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|info
+argument_list|(
+literal|"Count="
+operator|+
+name|count
+operator|+
+literal|", "
+operator|+
+name|e
+argument_list|)
 expr_stmt|;
 break|break;
 block|}
@@ -29205,10 +29227,22 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|info
+argument_list|(
+literal|"Count="
+operator|+
+name|count
+operator|+
+literal|", max="
+operator|+
+name|appendCounter
+operator|+
+literal|", "
+operator|+
+name|e
+argument_list|)
 expr_stmt|;
 break|break;
 block|}
@@ -29313,7 +29347,7 @@ block|}
 block|}
 block|}
 decl_stmt|;
-comment|// after all append finished, the value will append to threadNum *
+comment|// After all append finished, the value will append to threadNum *
 comment|// appendCounter Appender.CHAR
 name|int
 name|threadNum
