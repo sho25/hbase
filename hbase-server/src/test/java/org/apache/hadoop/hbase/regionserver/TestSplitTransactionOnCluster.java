@@ -7366,21 +7366,6 @@ name|cp
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Override
-specifier|protected
-name|void
-name|startCatalogJanitorChore
-parameter_list|()
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Customised master executed."
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 specifier|private
 specifier|static

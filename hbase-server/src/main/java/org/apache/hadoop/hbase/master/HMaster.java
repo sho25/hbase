@@ -1756,10 +1756,6 @@ specifier|private
 name|TableNamespaceManager
 name|tableNamespaceManager
 decl_stmt|;
-specifier|private
-name|NamespaceJanitor
-name|namespaceJanitorChore
-decl_stmt|;
 comment|// Metrics for the HMaster
 specifier|final
 name|MetricsMaster
@@ -3477,40 +3473,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Useful for testing purpose also where we have    * master restart scenarios.    */
-specifier|protected
-name|void
-name|startCatalogJanitorChore
-parameter_list|()
-block|{
-name|Threads
-operator|.
-name|setDaemonThreadRunning
-argument_list|(
-name|catalogJanitorChore
-operator|.
-name|getThread
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Useful for testing purpose also where we have    * master restart scenarios.    */
-specifier|protected
-name|void
-name|startNamespaceJanitorChore
-parameter_list|()
-block|{
-name|Threads
-operator|.
-name|setDaemonThreadRunning
-argument_list|(
-name|namespaceJanitorChore
-operator|.
-name|getThread
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Create a {@link ServerManager} instance.    * @param master    * @param services    * @return An instance of {@link ServerManager}    * @throws org.apache.hadoop.hbase.ZooKeeperConnectionException    * @throws IOException    */
 name|ServerManager
 name|createServerManager
@@ -4710,21 +4672,6 @@ literal|null
 condition|)
 block|{
 name|clusterStatusPublisherChore
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|this
-operator|.
-name|namespaceJanitorChore
-operator|!=
-literal|null
-condition|)
-block|{
-name|namespaceJanitorChore
 operator|.
 name|interrupt
 argument_list|()
