@@ -581,42 +581,6 @@ operator|+
 literal|" was carrying META. Trying to assign."
 argument_list|)
 expr_stmt|;
-name|am
-operator|.
-name|regionOffline
-argument_list|(
-name|HRegionInfo
-operator|.
-name|FIRST_META_REGIONINFO
-argument_list|)
-expr_stmt|;
-name|verifyAndAssignMetaWithRetries
-argument_list|()
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-operator|!
-name|server
-operator|.
-name|getMetaTableLocator
-argument_list|()
-operator|.
-name|isLocationAvailable
-argument_list|(
-name|this
-operator|.
-name|server
-operator|.
-name|getZooKeeper
-argument_list|()
-argument_list|)
-condition|)
-block|{
-comment|// the meta location as per master is null. This could happen in case when meta assignment
-comment|// in previous run failed, while meta znode has been updated to null. We should try to
-comment|// assign the meta again.
 name|verifyAndAssignMetaWithRetries
 argument_list|()
 expr_stmt|;

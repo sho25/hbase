@@ -61,12 +61,12 @@ operator|.
 name|MessageOrBuilder
 block|{
 comment|// required .ServerName server = 1;
-comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently.      *</pre>      */
+comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
 name|boolean
 name|hasServer
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently.      *</pre>      */
+comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -85,7 +85,7 @@ name|ServerName
 name|getServer
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently.      *</pre>      */
+comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -113,6 +113,33 @@ function_decl|;
 comment|/**      *<code>optional uint32 rpc_version = 2;</code>      *      *<pre>      * The major version of the rpc the server speaks.  This is used so that      * clients connecting to the cluster can have prior knowledge of what version      * to send to a RegionServer.  AsyncHBase will use this to detect versions.      *</pre>      */
 name|int
 name|getRpcVersion
+parameter_list|()
+function_decl|;
+comment|// optional .RegionState.State state = 3;
+comment|/**      *<code>optional .RegionState.State state = 3;</code>      *      *<pre>      * State of the region transition. OPEN means fully operational 'hbase:meta'      *</pre>      */
+name|boolean
+name|hasState
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional .RegionState.State state = 3;</code>      *      *<pre>      * State of the region transition. OPEN means fully operational 'hbase:meta'      *</pre>      */
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
+operator|.
+name|RegionState
+operator|.
+name|State
+name|getState
 parameter_list|()
 function_decl|;
 block|}
@@ -486,6 +513,90 @@ argument_list|()
 expr_stmt|;
 break|break;
 block|}
+case|case
+literal|24
+case|:
+block|{
+name|int
+name|rawValue
+init|=
+name|input
+operator|.
+name|readEnum
+argument_list|()
+decl_stmt|;
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
+operator|.
+name|RegionState
+operator|.
+name|State
+name|value
+init|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
+operator|.
+name|RegionState
+operator|.
+name|State
+operator|.
+name|valueOf
+argument_list|(
+name|rawValue
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|value
+operator|==
+literal|null
+condition|)
+block|{
+name|unknownFields
+operator|.
+name|mergeVarintField
+argument_list|(
+literal|3
+argument_list|,
+name|rawValue
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|state_
+operator|=
+name|value
+expr_stmt|;
+block|}
+break|break;
+block|}
 block|}
 block|}
 block|}
@@ -788,7 +899,7 @@ operator|.
 name|ServerName
 name|server_
 decl_stmt|;
-comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently.      *</pre>      */
+comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
 specifier|public
 name|boolean
 name|hasServer
@@ -806,7 +917,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently.      *</pre>      */
+comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -830,7 +941,7 @@ return|return
 name|server_
 return|;
 block|}
-comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently.      *</pre>      */
+comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -895,6 +1006,79 @@ return|return
 name|rpcVersion_
 return|;
 block|}
+comment|// optional .RegionState.State state = 3;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|STATE_FIELD_NUMBER
+init|=
+literal|3
+decl_stmt|;
+specifier|private
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
+operator|.
+name|RegionState
+operator|.
+name|State
+name|state_
+decl_stmt|;
+comment|/**      *<code>optional .RegionState.State state = 3;</code>      *      *<pre>      * State of the region transition. OPEN means fully operational 'hbase:meta'      *</pre>      */
+specifier|public
+name|boolean
+name|hasState
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional .RegionState.State state = 3;</code>      *      *<pre>      * State of the region transition. OPEN means fully operational 'hbase:meta'      *</pre>      */
+specifier|public
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
+operator|.
+name|RegionState
+operator|.
+name|State
+name|getState
+parameter_list|()
+block|{
+return|return
+name|state_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -924,6 +1108,28 @@ expr_stmt|;
 name|rpcVersion_
 operator|=
 literal|0
+expr_stmt|;
+name|state_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
+operator|.
+name|RegionState
+operator|.
+name|State
+operator|.
+name|OFFLINE
 expr_stmt|;
 block|}
 specifier|private
@@ -1066,6 +1272,32 @@ name|rpcVersion_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeEnum
+argument_list|(
+literal|3
+argument_list|,
+name|state_
+operator|.
+name|getNumber
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -1165,6 +1397,40 @@ argument_list|(
 literal|2
 argument_list|,
 name|rpcVersion_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeEnumSize
+argument_list|(
+literal|3
+argument_list|,
+name|state_
+operator|.
+name|getNumber
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1399,6 +1665,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasState
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasState
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasState
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getState
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getState
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -1518,6 +1819,37 @@ operator|)
 operator|+
 name|getRpcVersion
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasState
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|STATE_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashEnum
+argument_list|(
+name|getState
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -2408,6 +2740,37 @@ operator|~
 literal|0x00000002
 operator|)
 expr_stmt|;
+name|state_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
+operator|.
+name|RegionState
+operator|.
+name|State
+operator|.
+name|OFFLINE
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -2692,6 +3055,30 @@ name|rpcVersion_
 operator|=
 name|rpcVersion_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|state_
+operator|=
+name|state_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -2856,6 +3243,23 @@ argument_list|(
 name|other
 operator|.
 name|getRpcVersion
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasState
+argument_list|()
+condition|)
+block|{
+name|setState
+argument_list|(
+name|other
+operator|.
+name|getState
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3134,7 +3538,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|serverBuilder_
 decl_stmt|;
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently.        *</pre>        */
+comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|boolean
 name|hasServer
@@ -3152,7 +3556,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently.        *</pre>        */
+comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -3193,7 +3597,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently.        *</pre>        */
+comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|Builder
 name|setServer
@@ -3262,7 +3666,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently.        *</pre>        */
+comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|Builder
 name|setServer
@@ -3326,7 +3730,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently.        *</pre>        */
+comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|Builder
 name|mergeServer
@@ -3451,7 +3855,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently.        *</pre>        */
+comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|Builder
 name|clearServer
@@ -3510,7 +3914,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently.        *</pre>        */
+comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -3547,7 +3951,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently.        *</pre>        */
+comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -3588,7 +3992,7 @@ name|server_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently.        *</pre>        */
+comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -3813,6 +4217,188 @@ expr_stmt|;
 name|rpcVersion_
 operator|=
 literal|0
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional .RegionState.State state = 3;
+specifier|private
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
+operator|.
+name|RegionState
+operator|.
+name|State
+name|state_
+init|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
+operator|.
+name|RegionState
+operator|.
+name|State
+operator|.
+name|OFFLINE
+decl_stmt|;
+comment|/**        *<code>optional .RegionState.State state = 3;</code>        *        *<pre>        * State of the region transition. OPEN means fully operational 'hbase:meta'        *</pre>        */
+specifier|public
+name|boolean
+name|hasState
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional .RegionState.State state = 3;</code>        *        *<pre>        * State of the region transition. OPEN means fully operational 'hbase:meta'        *</pre>        */
+specifier|public
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
+operator|.
+name|RegionState
+operator|.
+name|State
+name|getState
+parameter_list|()
+block|{
+return|return
+name|state_
+return|;
+block|}
+comment|/**        *<code>optional .RegionState.State state = 3;</code>        *        *<pre>        * State of the region transition. OPEN means fully operational 'hbase:meta'        *</pre>        */
+specifier|public
+name|Builder
+name|setState
+parameter_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
+operator|.
+name|RegionState
+operator|.
+name|State
+name|value
+parameter_list|)
+block|{
+if|if
+condition|(
+name|value
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|()
+throw|;
+block|}
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|state_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional .RegionState.State state = 3;</code>        *        *<pre>        * State of the region transition. OPEN means fully operational 'hbase:meta'        *</pre>        */
+specifier|public
+name|Builder
+name|clearState
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
+name|state_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
+operator|.
+name|RegionState
+operator|.
+name|State
+operator|.
+name|OFFLINE
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -50585,71 +51171,73 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\017ZooKeeper.proto\032\013HBase.proto\"D\n\020MetaRe"
+literal|"\n\017ZooKeeper.proto\032\013HBase.proto\032\023ClusterS"
 operator|+
-literal|"gionServer\022\033\n\006server\030\001 \002(\0132\013.ServerName\022"
+literal|"tatus.proto\"g\n\020MetaRegionServer\022\033\n\006serve"
 operator|+
-literal|"\023\n\013rpc_version\030\002 \001(\r\":\n\006Master\022\033\n\006master"
+literal|"r\030\001 \002(\0132\013.ServerName\022\023\n\013rpc_version\030\002 \001("
 operator|+
-literal|"\030\001 \002(\0132\013.ServerName\022\023\n\013rpc_version\030\002 \001(\r"
+literal|"\r\022!\n\005state\030\003 \001(\0162\022.RegionState.State\":\n\006"
 operator|+
-literal|"\"\037\n\tClusterUp\022\022\n\nstart_date\030\001 \002(\t\"\214\002\n\014Sp"
+literal|"Master\022\033\n\006master\030\001 \002(\0132\013.ServerName\022\023\n\013r"
 operator|+
-literal|"litLogTask\022\"\n\005state\030\001 \002(\0162\023.SplitLogTask"
+literal|"pc_version\030\002 \001(\r\"\037\n\tClusterUp\022\022\n\nstart_d"
 operator|+
-literal|".State\022 \n\013server_name\030\002 \002(\0132\013.ServerName"
+literal|"ate\030\001 \002(\t\"\214\002\n\014SplitLogTask\022\"\n\005state\030\001 \002("
 operator|+
-literal|"\0221\n\004mode\030\003 \001(\0162\032.SplitLogTask.RecoveryMo"
+literal|"\0162\023.SplitLogTask.State\022 \n\013server_name\030\002 "
 operator|+
-literal|"de:\007UNKNOWN\"C\n\005State\022\016\n\nUNASSIGNED\020\000\022\t\n\005"
+literal|"\002(\0132\013.ServerName\0221\n\004mode\030\003 \001(\0162\032.SplitLo"
 operator|+
-literal|"OWNED\020\001\022\014\n\010RESIGNED\020\002\022\010\n\004DONE\020\003\022\007\n\003ERR\020\004"
+literal|"gTask.RecoveryMode:\007UNKNOWN\"C\n\005State\022\016\n\n"
 block|,
-literal|"\">\n\014RecoveryMode\022\013\n\007UNKNOWN\020\000\022\021\n\rLOG_SPL"
+literal|"UNASSIGNED\020\000\022\t\n\005OWNED\020\001\022\014\n\010RESIGNED\020\002\022\010\n"
 operator|+
-literal|"ITTING\020\001\022\016\n\nLOG_REPLAY\020\002\"n\n\005Table\022$\n\005sta"
+literal|"\004DONE\020\003\022\007\n\003ERR\020\004\">\n\014RecoveryMode\022\013\n\007UNKN"
 operator|+
-literal|"te\030\001 \002(\0162\014.Table.State:\007ENABLED\"?\n\005State"
+literal|"OWN\020\000\022\021\n\rLOG_SPLITTING\020\001\022\016\n\nLOG_REPLAY\020\002"
 operator|+
-literal|"\022\013\n\007ENABLED\020\000\022\014\n\010DISABLED\020\001\022\r\n\tDISABLING"
+literal|"\"n\n\005Table\022$\n\005state\030\001 \002(\0162\014.Table.State:\007"
 operator|+
-literal|"\020\002\022\014\n\010ENABLING\020\003\"\215\001\n\017ReplicationPeer\022\022\n\n"
+literal|"ENABLED\"?\n\005State\022\013\n\007ENABLED\020\000\022\014\n\010DISABLE"
 operator|+
-literal|"clusterkey\030\001 \002(\t\022\037\n\027replicationEndpointI"
+literal|"D\020\001\022\r\n\tDISABLING\020\002\022\014\n\010ENABLING\020\003\"\215\001\n\017Rep"
 operator|+
-literal|"mpl\030\002 \001(\t\022\035\n\004data\030\003 \003(\0132\017.BytesBytesPair"
+literal|"licationPeer\022\022\n\nclusterkey\030\001 \002(\t\022\037\n\027repl"
 operator|+
-literal|"\022&\n\rconfiguration\030\004 \003(\0132\017.NameStringPair"
+literal|"icationEndpointImpl\030\002 \001(\t\022\035\n\004data\030\003 \003(\0132"
 operator|+
-literal|"\"^\n\020ReplicationState\022&\n\005state\030\001 \002(\0162\027.Re"
+literal|"\017.BytesBytesPair\022&\n\rconfiguration\030\004 \003(\0132"
 operator|+
-literal|"plicationState.State\"\"\n\005State\022\013\n\007ENABLED"
+literal|"\017.NameStringPair\"^\n\020ReplicationState\022&\n\005"
 block|,
-literal|"\020\000\022\014\n\010DISABLED\020\001\"+\n\027ReplicationHLogPosit"
+literal|"state\030\001 \002(\0162\027.ReplicationState.State\"\"\n\005"
 operator|+
-literal|"ion\022\020\n\010position\030\001 \002(\003\"%\n\017ReplicationLock"
+literal|"State\022\013\n\007ENABLED\020\000\022\014\n\010DISABLED\020\001\"+\n\027Repl"
 operator|+
-literal|"\022\022\n\nlock_owner\030\001 \002(\t\"\230\001\n\tTableLock\022\036\n\nta"
+literal|"icationHLogPosition\022\020\n\010position\030\001 \002(\003\"%\n"
 operator|+
-literal|"ble_name\030\001 \001(\0132\n.TableName\022\037\n\nlock_owner"
+literal|"\017ReplicationLock\022\022\n\nlock_owner\030\001 \002(\t\"\230\001\n"
 operator|+
-literal|"\030\002 \001(\0132\013.ServerName\022\021\n\tthread_id\030\003 \001(\003\022\021"
+literal|"\tTableLock\022\036\n\ntable_name\030\001 \001(\0132\n.TableNa"
 operator|+
-literal|"\n\tis_shared\030\004 \001(\010\022\017\n\007purpose\030\005 \001(\t\022\023\n\013cr"
+literal|"me\022\037\n\nlock_owner\030\002 \001(\0132\013.ServerName\022\021\n\tt"
 operator|+
-literal|"eate_time\030\006 \001(\003\";\n\017StoreSequenceId\022\023\n\013fa"
+literal|"hread_id\030\003 \001(\003\022\021\n\tis_shared\030\004 \001(\010\022\017\n\007pur"
 operator|+
-literal|"mily_name\030\001 \002(\014\022\023\n\013sequence_id\030\002 \002(\004\"g\n\026"
+literal|"pose\030\005 \001(\t\022\023\n\013create_time\030\006 \001(\003\";\n\017Store"
 operator|+
-literal|"RegionStoreSequenceIds\022 \n\030last_flushed_s"
+literal|"SequenceId\022\023\n\013family_name\030\001 \002(\014\022\023\n\013seque"
 operator|+
-literal|"equence_id\030\001 \002(\004\022+\n\021store_sequence_id\030\002 "
+literal|"nce_id\030\002 \002(\004\"g\n\026RegionStoreSequenceIds\022 "
 block|,
-literal|"\003(\0132\020.StoreSequenceIdBE\n*org.apache.hado"
+literal|"\n\030last_flushed_sequence_id\030\001 \002(\004\022+\n\021stor"
 operator|+
-literal|"op.hbase.protobuf.generatedB\017ZooKeeperPr"
+literal|"e_sequence_id\030\002 \003(\0132\020.StoreSequenceIdBE\n"
 operator|+
-literal|"otosH\001\210\001\001\240\001\001"
+literal|"*org.apache.hadoop.hbase.protobuf.genera"
+operator|+
+literal|"tedB\017ZooKeeperProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -50744,6 +51332,8 @@ block|{
 literal|"Server"
 block|,
 literal|"RpcVersion"
+block|,
+literal|"State"
 block|, }
 argument_list|)
 expr_stmt|;
@@ -51258,6 +51848,23 @@ operator|.
 name|generated
 operator|.
 name|HBaseProtos
+operator|.
+name|getDescriptor
+argument_list|()
+block|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
 operator|.
 name|getDescriptor
 argument_list|()
