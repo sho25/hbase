@@ -3818,6 +3818,26 @@ condition|(
 name|verifyBulkLoads
 condition|)
 block|{
+name|long
+name|verificationStartTime
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Full verification started for bulk load hfile: "
+operator|+
+name|srcPath
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|Cell
 name|prevKV
 init|=
@@ -4035,6 +4055,31 @@ name|next
 argument_list|()
 condition|)
 do|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Full verification complete for bulk load hfile: "
+operator|+
+name|srcPath
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" took "
+operator|+
+operator|(
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|verificationStartTime
+operator|)
+operator|+
+literal|" ms"
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 finally|finally
