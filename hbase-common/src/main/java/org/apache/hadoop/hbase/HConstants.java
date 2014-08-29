@@ -2787,6 +2787,15 @@ name|HBASE_COORDINATED_STATE_MANAGER_CLASS
 init|=
 literal|"hbase.coordinated.state.manager.class"
 decl_stmt|;
+comment|/** Configuration key for SplitLog manager timeout */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_SPLITLOG_MANAGER_TIMEOUT
+init|=
+literal|"hbase.splitlog.manager.timeout"
+decl_stmt|;
 comment|/**    * Configuration keys for Bucket cache    */
 comment|// TODO moving these bucket cache implementation specific configs to this level is violation of
 comment|// encapsulation. But as these has to be referred from hbase-common and bucket cache

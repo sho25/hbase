@@ -915,22 +915,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|SplitLogManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -2390,6 +2374,22 @@ operator|.
 name|util
 operator|.
 name|Strings
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZKSplitLog
 import|;
 end_import
 
@@ -8189,7 +8189,7 @@ block|{
 comment|// check if the region to be opened is marked in recovering state in ZK
 if|if
 condition|(
-name|SplitLogManager
+name|ZKSplitLog
 operator|.
 name|isRegionMarkedRecoveringInZK
 argument_list|(
@@ -8263,7 +8263,7 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|SplitLogManager
+name|ZKSplitLog
 operator|.
 name|deleteRecoveringRegionZNodes
 argument_list|(

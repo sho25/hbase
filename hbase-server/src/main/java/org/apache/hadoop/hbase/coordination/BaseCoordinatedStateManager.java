@@ -150,6 +150,20 @@ name|InterruptedException
 throws|,
 name|CoordinatedStateException
 function_decl|;
+comment|/**    * Method to retrieve coordination for split log worker    */
+specifier|public
+specifier|abstract
+name|SplitLogWorkerCoordination
+name|getSplitLogWorkerCoordination
+parameter_list|()
+function_decl|;
+comment|/**    * Method to retrieve coordination for split log manager    */
+specifier|public
+specifier|abstract
+name|SplitLogManagerCoordination
+name|getSplitLogManagerCoordination
+parameter_list|()
+function_decl|;
 block|}
 end_class
 

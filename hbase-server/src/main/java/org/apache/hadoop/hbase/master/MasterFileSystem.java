@@ -543,18 +543,6 @@ name|RemoteException
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
-import|;
-end_import
-
 begin_comment
 comment|/**  * This class abstracts a bunch of operations the HMaster needs to interact with  * the underlying file system, including splitting log files, checking file  * system status, etc.  */
 end_comment
@@ -672,6 +660,8 @@ operator|new
 name|PathFilter
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|accept
@@ -700,6 +690,8 @@ operator|new
 name|PathFilter
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|accept
@@ -841,8 +833,6 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-try|try
-block|{
 name|this
 operator|.
 name|splitLogManager
@@ -851,9 +841,6 @@ operator|new
 name|SplitLogManager
 argument_list|(
 name|master
-operator|.
-name|getZooKeeper
-argument_list|()
 argument_list|,
 name|master
 operator|.
@@ -870,37 +857,16 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-name|e
-argument_list|)
-throw|;
-block|}
 name|this
 operator|.
 name|distributedLogReplay
 operator|=
-operator|(
 name|this
 operator|.
 name|splitLogManager
 operator|.
-name|getRecoveryMode
+name|isLogReplaying
 argument_list|()
-operator|==
-name|RecoveryMode
-operator|.
-name|LOG_REPLAY
-operator|)
 expr_stmt|;
 block|}
 comment|/**    * Create initial layout in filesystem.    *<ol>    *<li>Check if the meta region exists and is readable, if not create it.    * Create hbase.version and the hbase:meta directory if not one.    *</li>    *<li>Create a log archive directory for RS to put archived logs</li>    *</ol>    * Idempotent.    */
@@ -1834,34 +1800,17 @@ condition|)
 block|{
 return|return;
 block|}
-try|try
-block|{
 name|this
 operator|.
 name|splitLogManager
 operator|.
-name|markRegionsRecoveringInZK
+name|markRegionsRecovering
 argument_list|(
 name|serverName
 argument_list|,
 name|regions
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-name|e
-argument_list|)
-throw|;
-block|}
 block|}
 specifier|public
 name|void
@@ -1885,7 +1834,7 @@ name|NON_META_FILTER
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Wrapper function on {@link SplitLogManager#removeStaleRecoveringRegionsFromZK(Set)}    * @param failedServers    * @throws KeeperException    */
+comment|/**    * Wrapper function on {@link SplitLogManager#removeStaleRecoveringRegions(Set)}    * @param failedServers    * @throws IOException    */
 name|void
 name|removeStaleRecoveringRegionsFromZK
 parameter_list|(
@@ -1897,7 +1846,7 @@ argument_list|>
 name|failedServers
 parameter_list|)
 throws|throws
-name|KeeperException
+name|IOException
 throws|,
 name|InterruptedIOException
 block|{
@@ -1905,7 +1854,7 @@ name|this
 operator|.
 name|splitLogManager
 operator|.
-name|removeStaleRecoveringRegionsFromZK
+name|removeStaleRecoveringRegions
 argument_list|(
 name|failedServers
 argument_list|)
@@ -3279,15 +3228,13 @@ return|return
 name|htd
 return|;
 block|}
-comment|/**    * The function is used in SSH to set recovery mode based on configuration after all outstanding    * log split tasks drained.    * @throws KeeperException    * @throws InterruptedIOException    */
+comment|/**    * The function is used in SSH to set recovery mode based on configuration after all outstanding    * log split tasks drained.    * @throws IOException    */
 specifier|public
 name|void
 name|setLogRecoveryMode
 parameter_list|()
 throws|throws
 name|IOException
-block|{
-try|try
 block|{
 name|this
 operator|.
@@ -3298,21 +3245,6 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-name|e
-argument_list|)
-throw|;
-block|}
 block|}
 specifier|public
 name|RecoveryMode

@@ -5654,8 +5654,6 @@ literal|null
 argument_list|,
 literal|null
 argument_list|,
-literal|null
-argument_list|,
 name|this
 operator|.
 name|mode
@@ -6428,8 +6426,6 @@ literal|null
 argument_list|,
 literal|null
 argument_list|,
-literal|null
-argument_list|,
 name|this
 operator|.
 name|mode
@@ -6647,8 +6643,6 @@ argument_list|,
 name|HBASEDIR
 argument_list|,
 name|fs
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|,
@@ -8103,8 +8097,6 @@ argument_list|,
 name|HBASEDIR
 argument_list|,
 name|fs
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|,
