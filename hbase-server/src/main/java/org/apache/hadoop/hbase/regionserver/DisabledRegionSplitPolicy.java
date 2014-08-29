@@ -17,11 +17,29 @@ name|regionserver
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * A {@link RegionSplitPolicy} that disables region splits.  * This should be used with care, since it will disable automatic sharding.  * Most of the time, using {@link ConstantSizeRegionSplitPolicy} with a  * large region size (10GB, etc) is safer.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|DisabledRegionSplitPolicy
