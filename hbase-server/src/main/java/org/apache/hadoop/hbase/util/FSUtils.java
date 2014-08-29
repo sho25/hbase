@@ -2602,31 +2602,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Update the format
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Updating the hbase.version file format with version="
-operator|+
-name|version
-argument_list|)
-expr_stmt|;
-name|setVersion
-argument_list|(
-name|fs
-argument_list|,
-name|rootdir
-argument_list|,
-name|version
-argument_list|,
-literal|0
-argument_list|,
-name|HConstants
-operator|.
-name|DEFAULT_VERSION_FILE_WRITE_ATTEMPTS
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 catch|catch
@@ -2944,7 +2919,7 @@ name|msg
 init|=
 literal|"HBase file layout needs to be upgraded."
 operator|+
-literal|"  You have version "
+literal|" You have version "
 operator|+
 name|version
 operator|+
@@ -2954,7 +2929,9 @@ name|HConstants
 operator|.
 name|FILE_SYSTEM_VERSION
 operator|+
-literal|".  Is your hbase.rootdir valid?  If so, you may need to run "
+literal|". Consult http://hbase.apache.org/book.html for further information about upgrading HBase."
+operator|+
+literal|" Is your hbase.rootdir valid? If so, you may need to run "
 operator|+
 literal|"'hbase hbck -fixVersionFile'."
 decl_stmt|;
