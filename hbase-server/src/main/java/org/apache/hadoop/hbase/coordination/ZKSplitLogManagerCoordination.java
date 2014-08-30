@@ -1346,7 +1346,7 @@ name|time
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|task
@@ -1542,7 +1542,7 @@ name|heartbeatNoDetails
 argument_list|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3231,7 +3231,7 @@ name|heartbeat
 argument_list|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|,
 name|new_version
@@ -3462,7 +3462,7 @@ name|lastRecoveringNodeCreationTime
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 for|for
@@ -3813,7 +3813,7 @@ name|heartbeatNoDetails
 argument_list|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|)
 expr_stmt|;

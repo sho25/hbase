@@ -3823,7 +3823,7 @@ name|verificationStartTime
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|LOG
@@ -4071,7 +4071,7 @@ operator|+
 operator|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|verificationStartTime
