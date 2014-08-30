@@ -4278,7 +4278,7 @@ literal|"BULK LOAD time,size,store size,store files ["
 operator|+
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|+
 literal|","
@@ -5367,7 +5367,7 @@ literal|"FLUSH time,count,size,store size,store files ["
 operator|+
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|+
 literal|","
@@ -5774,7 +5774,7 @@ name|compactionStartTime
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|List
@@ -6376,7 +6376,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|StringBuilder
@@ -7885,7 +7885,7 @@ name|getUnneededFiles
 argument_list|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|cfTtl
@@ -10008,7 +10008,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 return|return

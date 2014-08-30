@@ -1887,7 +1887,7 @@ name|currentTime
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 comment|// assume that it took PERIOD seconds to start the executor.

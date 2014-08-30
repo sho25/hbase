@@ -844,7 +844,7 @@ name|t
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 comment|// create three versions for "row"

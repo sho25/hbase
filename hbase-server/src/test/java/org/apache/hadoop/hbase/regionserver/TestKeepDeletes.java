@@ -571,7 +571,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-comment|/* HBASE-6832: [WINDOWS] Tests should use explicit timestamp for Puts, and not rely on      * implicit RS timing.      * Use an explicit timer (IncrementingEnvironmentEdge) so that the put, delete      * compact timestamps are tracked. Otherwise, forced major compaction will not purge      * Delete's having the same timestamp. see ScanQueryMatcher.match():      * if (retainDeletesInOutput      *     || (!isUserScan&& (EnvironmentEdgeManager.currentTimeMillis() - timestamp)      *<= timeToPurgeDeletes) ... )      *      */
+comment|/* HBASE-6832: [WINDOWS] Tests should use explicit timestamp for Puts, and not rely on      * implicit RS timing.      * Use an explicit timer (IncrementingEnvironmentEdge) so that the put, delete      * compact timestamps are tracked. Otherwise, forced major compaction will not purge      * Delete's having the same timestamp. see ScanQueryMatcher.match():      * if (retainDeletesInOutput      *     || (!isUserScan&& (EnvironmentEdgeManager.currentTime() - timestamp)      *<= timeToPurgeDeletes) ... )      *      */
 name|EnvironmentEdgeManagerTestHelper
 operator|.
 name|injectEdge
@@ -650,7 +650,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|Put
@@ -1184,7 +1184,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|Put
@@ -1432,7 +1432,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|Put
@@ -1817,7 +1817,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|Put
@@ -2529,7 +2529,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|Delete
@@ -2767,7 +2767,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|Put
@@ -3122,7 +3122,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|Put
@@ -3844,7 +3844,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|Put
@@ -4293,7 +4293,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|Put
@@ -4643,7 +4643,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 literal|2000

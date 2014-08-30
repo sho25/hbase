@@ -901,7 +901,7 @@ name|lastAccessTime
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 name|connection
@@ -966,7 +966,7 @@ name|lastAccessTime
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 return|return
@@ -992,7 +992,7 @@ if|if
 condition|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|>
 name|timeoutTime

@@ -2314,7 +2314,7 @@ literal|"compact-"
 operator|+
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|)
 decl_stmt|;

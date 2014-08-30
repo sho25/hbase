@@ -1576,7 +1576,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|long
@@ -1699,7 +1699,7 @@ name|startTs
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|ResultScanner
@@ -1781,7 +1781,7 @@ name|timeTaken
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|startTs
@@ -1893,7 +1893,7 @@ name|now
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 block|}

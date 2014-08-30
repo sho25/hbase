@@ -602,7 +602,7 @@ argument_list|)
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|ttl
@@ -1226,7 +1226,7 @@ literal|null
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|ttl
@@ -1571,7 +1571,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|ScanQueryMatcher
@@ -1924,7 +1924,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|ScanQueryMatcher
@@ -2508,7 +2508,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 comment|// Set time to purge deletes to negative value to avoid it ever happening.

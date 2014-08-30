@@ -1059,7 +1059,7 @@ name|logSeqNum
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|,
 name|EMPTY_UUIDS

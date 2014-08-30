@@ -2544,7 +2544,7 @@ name|TEST_Q1
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|+
 literal|1000000

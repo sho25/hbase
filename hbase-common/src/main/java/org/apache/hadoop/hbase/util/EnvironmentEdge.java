@@ -44,9 +44,9 @@ specifier|public
 interface|interface
 name|EnvironmentEdge
 block|{
-comment|/**    * Returns the currentTimeMillis.    *    * @return currentTimeMillis.    */
+comment|/**    * Returns the currentTime.    *    * @return Current time.    */
 name|long
-name|currentTimeMillis
+name|currentTime
 parameter_list|()
 function_decl|;
 block|}

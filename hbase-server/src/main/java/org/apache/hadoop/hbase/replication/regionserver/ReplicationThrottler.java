@@ -124,7 +124,7 @@ name|cycleStartTick
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 block|}
@@ -173,7 +173,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 comment|// 1. if cyclePushSize exceeds bandwidth, we need to sleep some
@@ -376,7 +376,7 @@ name|cycleStartTick
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 block|}

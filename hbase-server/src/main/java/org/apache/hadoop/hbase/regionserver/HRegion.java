@@ -3838,7 +3838,7 @@ name|lastFlushTime
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 comment|// Use maximum of log sequenceid or that which was found in stores
@@ -7799,7 +7799,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 comment|//if we flushed in the recent past, we don't need to do again now
@@ -7932,7 +7932,7 @@ name|startTime
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 comment|// If nothing to flush, return, but we need to safely update the region sequence id
@@ -9036,7 +9036,7 @@ name|lastFlushTime
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 comment|// Update the last flushed sequence id for region. TODO: This is dup'd inside the WAL/FSHlog.
@@ -9063,7 +9063,7 @@ name|time
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|startTime
@@ -11386,7 +11386,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 while|while
@@ -11781,7 +11781,7 @@ name|now
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 name|byte
@@ -15280,7 +15280,7 @@ name|lastReport
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 while|while
@@ -15373,7 +15373,7 @@ name|cur
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 if|if
@@ -20955,7 +20955,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -22291,7 +22291,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|doProcessRowWithTimeout
@@ -22497,7 +22497,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 try|try
@@ -23597,7 +23597,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 comment|// Process each family
@@ -24897,7 +24897,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 comment|// Process each family

@@ -2333,7 +2333,7 @@ name|timeStamp
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 name|this
@@ -2520,7 +2520,7 @@ operator|>=
 operator|(
 name|edge
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|storeTtl
@@ -2595,7 +2595,7 @@ operator|<
 operator|(
 name|edge
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|storeTtl
@@ -4851,7 +4851,7 @@ name|qf1
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|,
 name|Bytes

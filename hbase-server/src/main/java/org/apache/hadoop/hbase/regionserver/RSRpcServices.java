@@ -3542,7 +3542,7 @@ name|before
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|Append
@@ -3680,7 +3680,7 @@ name|updateAppend
 argument_list|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|before
@@ -3719,7 +3719,7 @@ name|before
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|Increment
@@ -3859,7 +3859,7 @@ name|updateIncrement
 argument_list|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|before
@@ -4468,7 +4468,7 @@ name|before
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|boolean
@@ -4811,7 +4811,7 @@ name|after
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 if|if
@@ -4880,7 +4880,7 @@ name|before
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|boolean
@@ -5108,7 +5108,7 @@ name|after
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 if|if
@@ -8464,7 +8464,7 @@ name|before
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|CellScanner
@@ -9049,7 +9049,7 @@ name|updateReplay
 argument_list|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|before
@@ -9982,7 +9982,7 @@ name|before
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 try|try
@@ -10324,7 +10324,7 @@ name|updateGet
 argument_list|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|before

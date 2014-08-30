@@ -284,7 +284,7 @@ name|when
 argument_list|(
 name|mock
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|)
 operator|.
@@ -298,7 +298,7 @@ name|result
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|verify
@@ -306,7 +306,7 @@ argument_list|(
 name|mock
 argument_list|)
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 name|assertEquals

@@ -1823,7 +1823,7 @@ operator|+
 operator|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|fqe
@@ -2398,7 +2398,7 @@ name|start
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 synchronized|synchronized
@@ -2447,7 +2447,7 @@ name|startTime
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -2533,7 +2533,7 @@ name|took
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|start
@@ -2579,7 +2579,7 @@ name|totalTime
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|startTime
@@ -2920,7 +2920,7 @@ name|createTime
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 name|this
@@ -2946,7 +2946,7 @@ return|return
 operator|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|this
@@ -2969,7 +2969,7 @@ operator|.
 name|requeueCount
 return|;
 block|}
-comment|/**      * @param when When to expire, when to come up out of the queue.      * Specify in milliseconds.  This method adds EnvironmentEdgeManager.currentTimeMillis()      * to whatever you pass.      * @return This.      */
+comment|/**      * @param when When to expire, when to come up out of the queue.      * Specify in milliseconds.  This method adds EnvironmentEdgeManager.currentTime()      * to whatever you pass.      * @return This.      */
 specifier|public
 name|FlushRegionEntry
 name|requeue
@@ -2985,7 +2985,7 @@ name|whenToExpire
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|+
 name|when
@@ -3020,7 +3020,7 @@ name|whenToExpire
 operator|-
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|,
 name|TimeUnit

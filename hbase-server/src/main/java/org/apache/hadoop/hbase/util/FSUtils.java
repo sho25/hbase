@@ -7848,7 +7848,7 @@ name|src
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|,
 operator|-
@@ -8065,7 +8065,7 @@ name|startTime
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|Path
@@ -8465,7 +8465,7 @@ name|overhead
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|startTime

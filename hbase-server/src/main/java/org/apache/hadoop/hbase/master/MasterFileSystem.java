@@ -1909,7 +1909,7 @@ name|splitTime
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 name|splitLogSize
@@ -1929,7 +1929,7 @@ name|splitTime
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|splitTime

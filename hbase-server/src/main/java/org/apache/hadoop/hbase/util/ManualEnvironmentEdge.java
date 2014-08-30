@@ -83,7 +83,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|currentTimeMillis
+name|currentTime
 parameter_list|()
 block|{
 return|return

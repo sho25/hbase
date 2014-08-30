@@ -12381,7 +12381,7 @@ name|canRetryUntil
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|+
 name|timeout
@@ -12419,7 +12419,7 @@ literal|1
 operator|&&
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|<
 name|this

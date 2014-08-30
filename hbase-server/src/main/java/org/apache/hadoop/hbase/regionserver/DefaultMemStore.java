@@ -736,7 +736,7 @@ name|snapshotId
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 name|this
@@ -1182,7 +1182,7 @@ name|timeOfOldestEdit
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 block|}

@@ -1292,7 +1292,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|log
@@ -1590,7 +1590,7 @@ name|now
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 comment|// addFamilyMapToWALEdit(p.getFamilyMap(), edit);
@@ -2409,7 +2409,7 @@ name|qualifierBytes
 argument_list|,
 name|ee
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|,
 name|columnBytes
@@ -2428,7 +2428,7 @@ name|edit
 argument_list|,
 name|ee
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|,
 name|htd

@@ -5166,7 +5166,7 @@ name|now
 init|=
 name|ee
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|edit
@@ -5221,7 +5221,7 @@ name|now
 operator|=
 name|ee
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 name|edit
@@ -6295,7 +6295,7 @@ name|qualifierBytes
 argument_list|,
 name|ee
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|,
 name|columnBytes
@@ -6314,7 +6314,7 @@ name|edit
 argument_list|,
 name|ee
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|,
 name|htd
@@ -6424,7 +6424,7 @@ name|qualifier
 argument_list|,
 name|ee
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|,
 name|rowName

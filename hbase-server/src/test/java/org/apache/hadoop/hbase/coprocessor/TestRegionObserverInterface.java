@@ -3241,7 +3241,7 @@ name|lastCompaction
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 block|}
@@ -3262,7 +3262,7 @@ name|lastFlush
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 block|}

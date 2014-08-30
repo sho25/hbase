@@ -1653,7 +1653,7 @@ literal|" - "
 operator|+
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|Configuration
@@ -3549,7 +3549,7 @@ literal|"_check"
 operator|+
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|Path

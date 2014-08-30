@@ -1057,7 +1057,7 @@ name|startcode
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 comment|// Server to handle client requests.

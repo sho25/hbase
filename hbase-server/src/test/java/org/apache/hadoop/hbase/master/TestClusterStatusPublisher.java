@@ -324,7 +324,7 @@ name|int
 operator|)
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 condition|)
 block|{

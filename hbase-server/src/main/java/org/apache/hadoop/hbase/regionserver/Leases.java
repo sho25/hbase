@@ -1060,7 +1060,7 @@ name|expirationTime
 operator|-
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|,
 name|TimeUnit
@@ -1132,7 +1132,7 @@ name|expirationTime
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|+
 name|this

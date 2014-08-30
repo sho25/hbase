@@ -481,7 +481,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 literal|2000
@@ -734,7 +734,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 literal|2000
@@ -1052,7 +1052,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 literal|2000
@@ -1393,7 +1393,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 literal|2000
@@ -1813,7 +1813,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 literal|2000
@@ -2330,7 +2330,7 @@ name|ts
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 literal|2000

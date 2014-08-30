@@ -1310,7 +1310,7 @@ name|FLUSH
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|,
 name|f
@@ -1400,7 +1400,7 @@ name|REGION_EVENT
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|,
 name|regionEventDesc
@@ -1502,7 +1502,7 @@ name|COMPACTION
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|,
 name|pbbytes

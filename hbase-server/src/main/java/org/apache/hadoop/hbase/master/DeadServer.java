@@ -435,7 +435,7 @@ name|sn
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|)
 expr_stmt|;

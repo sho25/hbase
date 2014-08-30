@@ -4620,7 +4620,7 @@ name|end
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|+
 literal|20000
@@ -4640,7 +4640,7 @@ literal|"Timed out waiting for postOpen to be called"
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|>
 name|end

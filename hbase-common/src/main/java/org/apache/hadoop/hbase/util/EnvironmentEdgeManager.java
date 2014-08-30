@@ -113,18 +113,18 @@ name|edge
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Defers to the delegate and calls the    * {@link EnvironmentEdge#currentTimeMillis()} method.    *    * @return current time in millis according to the delegate.    */
+comment|/**    * Defers to the delegate and calls the    * {@link EnvironmentEdge#currentTime()} method.    *    * @return current time in millis according to the delegate.    */
 specifier|public
 specifier|static
 name|long
-name|currentTimeMillis
+name|currentTime
 parameter_list|()
 block|{
 return|return
 name|getDelegate
 argument_list|()
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 return|;
 block|}

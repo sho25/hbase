@@ -7132,7 +7132,7 @@ name|timeBase
 init|=
 name|timeMachine
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|long

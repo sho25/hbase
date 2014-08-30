@@ -730,7 +730,7 @@ name|rid
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 comment|// Regionid is timestamp.  Can't be less than that of parent else will insert

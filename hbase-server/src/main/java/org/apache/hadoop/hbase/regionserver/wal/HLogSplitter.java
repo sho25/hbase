@@ -9082,7 +9082,7 @@ name|endTime
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|+
 name|timeout
@@ -9136,7 +9136,7 @@ name|endTime
 operator|>
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 condition|)
 block|{

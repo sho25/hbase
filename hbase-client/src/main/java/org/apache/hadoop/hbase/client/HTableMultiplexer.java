@@ -2199,7 +2199,7 @@ name|elapsed
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 comment|// Clear the processingList, putToStatusMap and failedCount
@@ -2502,7 +2502,7 @@ name|elapsed
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|start
@@ -2590,7 +2590,7 @@ name|elapsed
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|start

@@ -268,7 +268,7 @@ name|expireDate
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|expireTimeout

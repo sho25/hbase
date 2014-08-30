@@ -5404,7 +5404,7 @@ name|start
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 while|while
@@ -5428,7 +5428,7 @@ literal|"Timed out in waiting split parent to be in state SPLIT"
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|start

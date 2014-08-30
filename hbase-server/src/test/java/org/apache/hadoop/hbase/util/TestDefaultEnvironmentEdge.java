@@ -122,7 +122,7 @@ name|edgeTime
 init|=
 name|edge
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -168,7 +168,7 @@ name|secondEdgeTime
 init|=
 name|edge
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|assertTrue

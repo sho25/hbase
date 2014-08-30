@@ -559,7 +559,7 @@ name|needSetup
 operator|&&
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|>
 name|lastSetupTry
@@ -606,7 +606,7 @@ name|lastSetupTry
 operator|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 expr_stmt|;
 if|if
@@ -970,7 +970,7 @@ name|max
 argument_list|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|Bytes

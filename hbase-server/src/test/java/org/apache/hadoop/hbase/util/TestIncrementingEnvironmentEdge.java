@@ -18,16 +18,14 @@ package|;
 end_package
 
 begin_import
-import|import
-name|org
+import|import static
+name|junit
 operator|.
-name|apache
+name|framework
 operator|.
-name|hadoop
+name|Assert
 operator|.
-name|hbase
-operator|.
-name|MediumTests
+name|assertEquals
 import|;
 end_import
 
@@ -69,18 +67,6 @@ name|Category
 import|;
 end_import
 
-begin_import
-import|import static
-name|junit
-operator|.
-name|framework
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
 begin_comment
 comment|/**  * Tests that the incrementing environment edge increments time instead of using  * the default.  */
 end_comment
@@ -119,7 +105,7 @@ literal|1
 argument_list|,
 name|edge
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -129,7 +115,7 @@ literal|2
 argument_list|,
 name|edge
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -139,7 +125,7 @@ literal|3
 argument_list|,
 name|edge
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -149,7 +135,7 @@ literal|4
 argument_list|,
 name|edge
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 argument_list|)
 expr_stmt|;

@@ -1954,7 +1954,7 @@ name|rid
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 comment|// Regionid is timestamp. Merged region's id can't be less than that of

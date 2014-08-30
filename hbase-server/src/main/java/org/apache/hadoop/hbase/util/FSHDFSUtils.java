@@ -810,7 +810,7 @@ name|startWaiting
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 comment|// Default is 15 minutes. It's huge, but the idea is that if we have a major issue, HDFS
@@ -957,7 +957,7 @@ name|localStartWaiting
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 while|while
@@ -965,7 +965,7 @@ condition|(
 operator|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|localStartWaiting
@@ -1128,7 +1128,7 @@ name|recoveryTimeout
 operator|<
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 condition|)
 block|{
@@ -1329,7 +1329,7 @@ operator|+
 operator|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|startWaiting

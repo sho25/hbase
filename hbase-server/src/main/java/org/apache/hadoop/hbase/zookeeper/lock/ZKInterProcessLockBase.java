@@ -695,7 +695,7 @@ name|hasTimeout
 condition|?
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|+
 name|timeoutMs
@@ -871,7 +871,7 @@ name|waitUntilMs
 operator|-
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 if|if

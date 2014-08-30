@@ -855,7 +855,7 @@ name|setExpiration
 argument_list|(
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 literal|1000

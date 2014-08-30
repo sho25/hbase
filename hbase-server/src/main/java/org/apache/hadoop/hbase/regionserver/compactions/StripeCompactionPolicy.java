@@ -1810,7 +1810,7 @@ name|timestampCutoff
 init|=
 name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 operator|-
 name|cfTtl
