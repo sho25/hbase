@@ -1413,7 +1413,7 @@ name|to
 operator|=
 name|to
 operator|+
-literal|4
+literal|16
 operator|*
 literal|100
 expr_stmt|;
@@ -3281,9 +3281,6 @@ name|toByteArray
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|int
-name|version
-init|=
 name|ZKUtil
 operator|.
 name|checkExists
@@ -3292,7 +3289,7 @@ name|zkw
 argument_list|,
 name|tasknode
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 comment|// Could be small race here.
 if|if
 condition|(
