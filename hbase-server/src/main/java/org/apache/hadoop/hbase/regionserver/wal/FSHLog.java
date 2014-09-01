@@ -481,6 +481,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -5242,9 +5256,9 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
-name|memstoreKVs
+name|memstoreCells
 parameter_list|)
 throws|throws
 name|IOException
@@ -5266,14 +5280,14 @@ literal|false
 argument_list|,
 name|inMemstore
 argument_list|,
-name|memstoreKVs
+name|memstoreCells
 argument_list|)
 return|;
 block|}
 end_function
 
 begin_comment
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id.    * @param key    * @param edits    * @param htd This comes in here just so it is available on a pre append for replications.  Get    * rid of it.  It is kinda crazy this comes in here when we have tablename and regioninfo.    * Replication gets its scope from the HTD.    * @param hri region info    * @param sync shall we sync after we call the append?    * @param inMemstore    * @param sequenceId The region sequence id reference.    * @param memstoreKVs    * @return txid of this transaction or if nothing to do, the last txid    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id.    * @param key    * @param edits    * @param htd This comes in here just so it is available on a pre append for replications.  Get    * rid of it.  It is kinda crazy this comes in here when we have tablename and regioninfo.    * Replication gets its scope from the HTD.    * @param hri region info    * @param sync shall we sync after we call the append?    * @param inMemstore    * @param sequenceId The region sequence id reference.    * @param memstoreCells    * @return txid of this transaction or if nothing to do, the last txid    * @throws IOException    */
 end_comment
 
 begin_function
@@ -5327,9 +5341,9 @@ name|inMemstore
 parameter_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
-name|memstoreKVs
+name|memstoreCells
 parameter_list|)
 throws|throws
 name|IOException
@@ -5431,7 +5445,7 @@ name|htd
 argument_list|,
 name|hri
 argument_list|,
-name|memstoreKVs
+name|memstoreCells
 argument_list|)
 expr_stmt|;
 name|truck

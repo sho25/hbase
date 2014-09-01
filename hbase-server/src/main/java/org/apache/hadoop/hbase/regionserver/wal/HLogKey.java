@@ -375,7 +375,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|SequenceNumber
+name|SequenceId
 import|;
 end_import
 
@@ -496,7 +496,7 @@ argument_list|<
 name|HLogKey
 argument_list|>
 implements|,
-name|SequenceNumber
+name|SequenceId
 block|{
 specifier|public
 specifier|static
@@ -1252,7 +1252,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getSequenceNumber
+name|getSequenceId
 parameter_list|()
 throws|throws
 name|IOException

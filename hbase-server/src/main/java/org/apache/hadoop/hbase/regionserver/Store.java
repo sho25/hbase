@@ -494,7 +494,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Adds a value to the memstore    * @param kv    * @return memstore size delta& newly added KV which maybe different than the passed in KV    */
+comment|/**    * Adds a value to the memstore    * @param cell    * @return memstore size delta& newly added KV which maybe different than the passed in KV    */
 name|Pair
 argument_list|<
 name|Long
@@ -503,8 +503,8 @@ name|Cell
 argument_list|>
 name|add
 parameter_list|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|)
 function_decl|;
 comment|/**    * When was the last edit done in the memstore    */
@@ -512,13 +512,13 @@ name|long
 name|timeOfOldestEdit
 parameter_list|()
 function_decl|;
-comment|/**    * Removes a kv from the memstore. The KeyValue is removed only if its key& memstoreTS match the    * key& memstoreTS value of the kv parameter.    * @param kv    */
+comment|/**    * Removes a Cell from the memstore. The Cell is removed only if its key& memstoreTS match the    * key& memstoreTS value of the cell parameter.    * @param cell    */
 name|void
 name|rollback
 parameter_list|(
 specifier|final
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|)
 function_decl|;
 comment|/**    * Find the key that matches<i>row</i> exactly, or the one that immediately precedes it. WARNING:    * Only use this method on a table where writes occur with strictly increasing timestamps. This    * method assumes this pattern of writes in order to make it reasonably performant. Also our    * search is dependent on the axiom that deletes are for cells that are in the container that    * follows whether a memstore snapshot or a storefile, not for the current container: i.e. we'll    * see deletes before we come across cells we are to delete. Presumption is that the    * memstore#kvset is processed before memstore#snapshot and so on.    * @param row The row key of the targeted row.    * @return Found keyvalue or null if none found.    * @throws IOException    */

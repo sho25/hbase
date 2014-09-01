@@ -3435,8 +3435,8 @@ argument_list|>
 name|add
 parameter_list|(
 specifier|final
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|)
 block|{
 name|lock
@@ -3456,7 +3456,7 @@ name|memstore
 operator|.
 name|add
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 return|;
 block|}
@@ -3536,8 +3536,8 @@ name|void
 name|rollback
 parameter_list|(
 specifier|final
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|)
 block|{
 name|lock
@@ -3556,7 +3556,7 @@ name|memstore
 operator|.
 name|rollback
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 block|}

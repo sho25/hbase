@@ -747,20 +747,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|RegionTooBusyException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 operator|.
 name|OperationStatusCode
@@ -7619,7 +7605,7 @@ argument_list|,
 operator|(
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 operator|)
 name|any
@@ -31067,7 +31053,7 @@ argument_list|,
 operator|(
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 operator|)
 name|any
@@ -38762,7 +38748,7 @@ argument_list|,
 operator|(
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 operator|)
 name|any
@@ -39289,7 +39275,7 @@ argument_list|,
 operator|(
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 operator|)
 name|any

@@ -139,6 +139,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|SettableSequenceId
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 operator|.
 name|KVComparator
@@ -1429,12 +1443,18 @@ return|;
 block|}
 block|}
 comment|/**    * Copies only the key part of the keybuffer by doing a deep copy and passes the     * seeker state members for taking a clone.    * Note that the value byte[] part is still pointing to the currentBuffer and the     * represented by the valueOffset and valueLength    */
+comment|// We return this as a Cell to the upper layers of read flow and might try setting a new SeqId
+comment|// there. So this has to be an instance of SettableSequenceId. SeekerState need not be
+comment|// SettableSequenceId as we never return that to top layers. When we have to, we make
+comment|// ClonedSeekerState from it.
 specifier|protected
 specifier|static
 class|class
 name|ClonedSeekerState
 implements|implements
 name|Cell
+implements|,
+name|SettableSequenceId
 block|{
 specifier|private
 name|byte
@@ -1496,7 +1516,7 @@ name|cloneTagsBuffer
 decl_stmt|;
 specifier|private
 name|long
-name|memstoreTS
+name|seqId
 decl_stmt|;
 specifier|private
 name|TagCompressionContext
@@ -1543,7 +1563,7 @@ name|int
 name|valueOffset
 parameter_list|,
 name|long
-name|memStoreTS
+name|seqId
 parameter_list|,
 name|int
 name|tagsOffset
@@ -1635,12 +1655,6 @@ name|valueOffset
 expr_stmt|;
 name|this
 operator|.
-name|memstoreTS
-operator|=
-name|memStoreTS
-expr_stmt|;
-name|this
-operator|.
 name|tagsOffset
 operator|=
 name|tagsOffset
@@ -1701,6 +1715,11 @@ name|tagsLength
 argument_list|)
 expr_stmt|;
 block|}
+name|setSequenceId
+argument_list|(
+name|seqId
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -1830,13 +1849,16 @@ return|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|long
 name|getMvccVersion
 parameter_list|()
 block|{
 return|return
-name|memstoreTS
+name|getSequenceId
+argument_list|()
 return|;
 block|}
 annotation|@
@@ -1847,7 +1869,7 @@ name|getSequenceId
 parameter_list|()
 block|{
 return|return
-name|memstoreTS
+name|seqId
 return|;
 block|}
 annotation|@
@@ -2062,6 +2084,23 @@ operator|.
 name|toString
 argument_list|()
 return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|setSequenceId
+parameter_list|(
+name|long
+name|seqId
+parameter_list|)
+block|{
+name|this
+operator|.
+name|seqId
+operator|=
+name|seqId
+expr_stmt|;
 block|}
 block|}
 specifier|protected

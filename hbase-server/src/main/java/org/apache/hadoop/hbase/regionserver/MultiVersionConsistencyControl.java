@@ -262,8 +262,8 @@ parameter_list|(
 name|WriteEntry
 name|e
 parameter_list|,
-name|SequenceNumber
-name|seqNum
+name|SequenceId
+name|seqId
 parameter_list|)
 throws|throws
 name|IOException
@@ -277,7 +277,7 @@ condition|)
 return|return;
 if|if
 condition|(
-name|seqNum
+name|seqId
 operator|!=
 literal|null
 condition|)
@@ -286,9 +286,9 @@ name|e
 operator|.
 name|setWriteNumber
 argument_list|(
-name|seqNum
+name|seqId
 operator|.
-name|getSequenceNumber
+name|getSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;

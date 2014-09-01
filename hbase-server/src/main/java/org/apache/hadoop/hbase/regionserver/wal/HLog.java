@@ -203,6 +203,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseInterfaceAudience
 import|;
 end_import
@@ -232,20 +246,6 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
 import|;
 end_import
 
@@ -899,7 +899,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Append a set of edits to the WAL. The WAL is not flushed/sync'd after this transaction    * completes BUT on return this edit must have its region edit/sequence id assigned    * else it messes up our unification of mvcc and sequenceid.  On return<code>key</code> will    * have the region edit/sequence id filled in.    * @param info    * @param key Modified by this call; we add to it this edits region edit/sequence id.    * @param edits Edits to append. MAY CONTAIN NO EDITS for case where we want to get an edit    * sequence id that is after all currently appended edits.    * @param htd    * @param sequenceId A reference to the atomic long the<code>info</code> region is using as    * source of its incrementing edits sequence id.  Inside in this call we will increment it and    * attach the sequence to the edit we apply the WAL.    * @param inMemstore Always true except for case where we are writing a compaction completion    * record into the WAL; in this case the entry is just so we can finish an unfinished compaction    * -- it is not an edit for memstore.    * @param memstoreKVs list of KVs added into memstore    * @return Returns a 'transaction id' and<code>key</code> will have the region edit/sequence id    * in it.    * @throws IOException    */
+comment|/**    * Append a set of edits to the WAL. The WAL is not flushed/sync'd after this transaction    * completes BUT on return this edit must have its region edit/sequence id assigned    * else it messes up our unification of mvcc and sequenceid.  On return<code>key</code> will    * have the region edit/sequence id filled in.    * @param info    * @param key Modified by this call; we add to it this edits region edit/sequence id.    * @param edits Edits to append. MAY CONTAIN NO EDITS for case where we want to get an edit    * sequence id that is after all currently appended edits.    * @param htd    * @param sequenceId A reference to the atomic long the<code>info</code> region is using as    * source of its incrementing edits sequence id.  Inside in this call we will increment it and    * attach the sequence to the edit we apply the WAL.    * @param inMemstore Always true except for case where we are writing a compaction completion    * record into the WAL; in this case the entry is just so we can finish an unfinished compaction    * -- it is not an edit for memstore.    * @param memstoreCells list of Cells added into memstore    * @return Returns a 'transaction id' and<code>key</code> will have the region edit/sequence id    * in it.    * @throws IOException    */
 name|long
 name|appendNoSync
 parameter_list|(
@@ -923,9 +923,9 @@ name|inMemstore
 parameter_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
-name|memstoreKVs
+name|memstoreCells
 parameter_list|)
 throws|throws
 name|IOException

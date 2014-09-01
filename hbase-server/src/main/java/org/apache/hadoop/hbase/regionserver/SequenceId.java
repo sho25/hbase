@@ -42,7 +42,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface which abstracts implementations on log sequence number assignment  */
+comment|/**  * Interface which abstracts implementations on log sequenceId assignment  */
 end_comment
 
 begin_interface
@@ -52,11 +52,11 @@ operator|.
 name|Private
 specifier|public
 interface|interface
-name|SequenceNumber
+name|SequenceId
 block|{
 specifier|public
 name|long
-name|getSequenceNumber
+name|getSequenceId
 parameter_list|()
 throws|throws
 name|IOException
