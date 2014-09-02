@@ -2064,6 +2064,13 @@ name|getEnvironment
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"post labels region log replay"
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 specifier|private
@@ -3078,13 +3085,15 @@ condition|(
 operator|!
 name|initialized
 condition|)
+block|{
 throw|throw
 operator|new
-name|IOException
+name|VisibilityControllerNotReadyException
 argument_list|(
-literal|"VisibilityController not yet initialized!!"
+literal|"VisibilityController not yet initialized!"
 argument_list|)
 throw|;
+block|}
 name|HRegion
 name|region
 init|=
@@ -3550,13 +3559,15 @@ condition|(
 operator|!
 name|initialized
 condition|)
+block|{
 throw|throw
 operator|new
-name|IOException
+name|VisibilityControllerNotReadyException
 argument_list|(
-literal|"VisibilityController not yet initialized!!"
+literal|"VisibilityController not yet initialized!"
 argument_list|)
 throw|;
+block|}
 name|HRegion
 name|region
 init|=
@@ -4326,9 +4337,9 @@ name|size
 argument_list|()
 argument_list|,
 operator|new
-name|CoprocessorException
+name|VisibilityControllerNotReadyException
 argument_list|(
-literal|"VisibilityController not yet initialized"
+literal|"VisibilityController not yet initialized!"
 argument_list|)
 argument_list|,
 name|response
@@ -4683,9 +4694,9 @@ name|size
 argument_list|()
 argument_list|,
 operator|new
-name|CoprocessorException
+name|VisibilityControllerNotReadyException
 argument_list|(
-literal|"VisibilityController not yet initialized"
+literal|"VisibilityController not yet initialized!"
 argument_list|)
 argument_list|,
 name|response
