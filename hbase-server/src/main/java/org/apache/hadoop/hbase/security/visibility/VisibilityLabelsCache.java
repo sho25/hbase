@@ -301,6 +301,8 @@ name|Private
 specifier|public
 class|class
 name|VisibilityLabelsCache
+implements|implements
+name|VisibilityLabelOrdinalProvider
 block|{
 specifier|private
 specifier|static
@@ -825,6 +827,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * @param label Not null label string    * @return The ordinal for the label. The ordinal starts from 1. Returns 0 when passed a non    *         existing label.    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getLabelOrdinal

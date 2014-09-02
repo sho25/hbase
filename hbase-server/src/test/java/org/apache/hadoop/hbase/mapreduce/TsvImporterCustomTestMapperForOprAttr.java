@@ -127,8 +127,8 @@ block|{
 annotation|@
 name|Override
 specifier|protected
-name|KeyValue
-name|createPuts
+name|void
+name|populatePut
 parameter_list|(
 name|byte
 index|[]
@@ -357,9 +357,6 @@ argument_list|(
 name|kv
 argument_list|)
 expr_stmt|;
-return|return
-name|kv
-return|;
 block|}
 block|}
 end_class
