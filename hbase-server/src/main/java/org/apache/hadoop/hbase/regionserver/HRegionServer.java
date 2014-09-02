@@ -3440,6 +3440,18 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+synchronized|synchronized
+init|(
+name|this
+init|)
+block|{
+if|if
+condition|(
+name|shortCircuitConnection
+operator|==
+literal|null
+condition|)
+block|{
 name|shortCircuitConnection
 operator|=
 name|createShortCircuitConnection
@@ -3451,6 +3463,8 @@ operator|new
 name|MetaTableLocator
 argument_list|()
 expr_stmt|;
+block|}
+block|}
 comment|// watch for snapshots and other procedures
 try|try
 block|{
