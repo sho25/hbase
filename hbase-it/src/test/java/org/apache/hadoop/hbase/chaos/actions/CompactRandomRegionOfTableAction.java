@@ -121,38 +121,6 @@ name|Admin
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HBaseAdmin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
-import|;
-end_import
-
 begin_comment
 comment|/**  * Region that queues a compaction of a random region from the table.  */
 end_comment
@@ -182,7 +150,7 @@ decl_stmt|;
 specifier|public
 name|CompactRandomRegionOfTableAction
 parameter_list|(
-name|String
+name|TableName
 name|tableName
 parameter_list|,
 name|float
@@ -206,7 +174,7 @@ parameter_list|(
 name|int
 name|sleepTime
 parameter_list|,
-name|String
+name|TableName
 name|tableName
 parameter_list|,
 name|float
@@ -236,12 +204,7 @@ name|this
 operator|.
 name|tableName
 operator|=
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|tableName
-argument_list|)
 expr_stmt|;
 block|}
 annotation|@
@@ -375,7 +338,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|majorCompact
+name|majorCompactRegion
 argument_list|(
 name|region
 operator|.
@@ -400,7 +363,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|compact
+name|compactRegion
 argument_list|(
 name|region
 operator|.

@@ -615,7 +615,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|String
+name|TableName
 name|getTablename
 parameter_list|()
 block|{
@@ -631,6 +631,10 @@ name|getSimpleName
 argument_list|()
 decl_stmt|;
 return|return
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|conf
 operator|.
 name|get
@@ -649,6 +653,7 @@ name|OPT_TABLE_NAME
 argument_list|)
 argument_list|,
 name|clazz
+argument_list|)
 argument_list|)
 return|;
 block|}
@@ -694,13 +699,8 @@ argument_list|()
 operator|.
 name|tableExists
 argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|getTablename
 argument_list|()
-argument_list|)
 argument_list|)
 condition|)
 block|{
@@ -708,13 +708,8 @@ name|util
 operator|.
 name|deleteTable
 argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|getTablename
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1081,6 +1076,9 @@ name|add
 argument_list|(
 name|getTablename
 argument_list|()
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// pass all remaining args from conf with keys<test class name>.<load test tool arg>
@@ -1213,6 +1211,9 @@ operator|.
 name|add
 argument_list|(
 name|getTablename
+argument_list|()
+operator|.
+name|getNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;

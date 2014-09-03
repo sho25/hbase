@@ -1306,13 +1306,12 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|byte
-index|[]
+name|TableName
 name|tableName
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testStoreCount"
 argument_list|)

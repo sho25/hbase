@@ -846,9 +846,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|String

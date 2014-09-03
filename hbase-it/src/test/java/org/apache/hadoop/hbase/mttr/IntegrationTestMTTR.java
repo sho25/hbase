@@ -1003,9 +1003,6 @@ operator|.
 name|DEFAULT_MOVE_REGIONS_MAX_TIME
 argument_list|,
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Kill the master
@@ -1789,6 +1786,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString

@@ -401,22 +401,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|HTable
 import|;
 end_import
@@ -3714,9 +3698,6 @@ argument_list|(
 name|TableName
 operator|.
 name|NAMESPACE_TABLE_NAME
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Put some stuff into table2, to make sure we have some files to compact.
@@ -3748,7 +3729,7 @@ name|flush
 argument_list|(
 name|table2
 operator|.
-name|getTableName
+name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3807,7 +3788,7 @@ name|flush
 argument_list|(
 name|table2
 operator|.
-name|getTableName
+name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3901,7 +3882,7 @@ name|flush
 argument_list|(
 name|table
 operator|.
-name|getTableName
+name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;

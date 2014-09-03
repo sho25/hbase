@@ -161,22 +161,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|HTable
 import|;
 end_import
@@ -824,9 +808,6 @@ operator|.
 name|split
 argument_list|(
 name|TABLE
-operator|.
-name|toBytes
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// give some time for the split to happen

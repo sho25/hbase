@@ -207,20 +207,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|HBaseAdmin
@@ -596,7 +582,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A large test which loads a lot of data with cell visibility, and verifies the data. Test adds 2  * users with different sets of visibility labels authenticated for them. Every row (so cells in  * that) added with visibility expressions. In load step, 200 map tasks are launched, which in turn  * write loadmapper.num_to_write (default 100K) rows to an hbase table. Rows are written in blocks,  * for a total of 100 blocks.  *   * Verify step scans the table as both users with Authorizations. This step asserts that user can  * see only those rows (and so cells) with visibility for which they have label auth.  *   * This class can be run as a unit test, as an integration test, or from the command line.  *   * Originally taken from Apache Bigtop.  * Issue user names as comma seperated list.  *./hbase IntegrationTestWithCellVisibilityLoadAndVerify -u usera,userb  */
+comment|/**  * A large test which loads a lot of data with cell visibility, and verifies the data. Test adds 2  * users with different sets of visibility labels authenticated for them. Every row (so cells in  * that) added with visibility expressions. In load step, 200 map tasks are launched, which in turn  * write loadmapper.num_to_write (default 100K) rows to an hbase table. Rows are written in blocks,  * for a total of 100 blocks.  *  * Verify step scans the table as both users with Authorizations. This step asserts that user can  * see only those rows (and so cells) with visibility for which they have label auth.  *  * This class can be run as a unit test, as an integration test, or from the command line.  *  * Originally taken from Apache Bigtop.  * Issue user names as comma seperated list.  *./hbase IntegrationTestWithCellVisibilityLoadAndVerify -u usera,userb  */
 end_comment
 
 begin_class
@@ -1959,6 +1945,8 @@ return|return
 name|job
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|setMapperClass
@@ -1977,6 +1965,8 @@ name|class
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|doVerify
@@ -2771,6 +2761,8 @@ name|lpr
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|usage
@@ -2863,6 +2855,8 @@ literal|"Number hbase scanner caching rows to read (default 50)"
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|runTestFromCommandLine
@@ -2892,24 +2886,14 @@ literal|5
 argument_list|)
 decl_stmt|;
 comment|// create HTableDescriptor for specified table
-name|String
-name|table
-init|=
-name|getTablename
-argument_list|()
-decl_stmt|;
 name|HTableDescriptor
 name|htd
 init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
-name|table
-argument_list|)
+name|getTablename
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|htd

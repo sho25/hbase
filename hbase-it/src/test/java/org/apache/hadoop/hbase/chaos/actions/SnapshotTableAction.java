@@ -63,22 +63,6 @@ name|Admin
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HBaseAdmin
-import|;
-end_import
-
 begin_comment
 comment|/** * Action that tries to take a snapshot of a table. */
 end_comment
@@ -103,7 +87,7 @@ decl_stmt|;
 specifier|public
 name|SnapshotTableAction
 parameter_list|(
-name|String
+name|TableName
 name|tableName
 parameter_list|)
 block|{
@@ -122,7 +106,7 @@ parameter_list|(
 name|int
 name|sleepTime
 parameter_list|,
-name|String
+name|TableName
 name|tableName
 parameter_list|)
 block|{
@@ -130,12 +114,7 @@ name|this
 operator|.
 name|tableName
 operator|=
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|tableName
-argument_list|)
 expr_stmt|;
 name|this
 operator|.

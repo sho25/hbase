@@ -1599,6 +1599,8 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -1830,7 +1832,7 @@ try|try
 block|{
 name|admin
 operator|.
-name|split
+name|splitRegion
 argument_list|(
 name|region
 operator|.
@@ -2533,7 +2535,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|flush
+name|flushRegion
 argument_list|(
 name|regionName
 argument_list|)
@@ -2612,7 +2614,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|majorCompact
+name|majorCompactRegion
 argument_list|(
 name|regionName
 argument_list|)

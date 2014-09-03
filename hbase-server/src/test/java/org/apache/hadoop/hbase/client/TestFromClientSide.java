@@ -2070,13 +2070,12 @@ throws|throws
 name|Exception
 block|{
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|TABLENAME
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testPurgeFutureDeletes"
 argument_list|)

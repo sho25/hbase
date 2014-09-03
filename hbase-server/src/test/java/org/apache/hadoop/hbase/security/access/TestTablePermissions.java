@@ -315,22 +315,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|HTable
 import|;
 end_import
@@ -849,7 +833,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Writes a set of permissions as {@link org.apache.hadoop.io.Writable} instances                                                                                                                         * and returns the resulting byte array.  Used to verify we can read stuff written    * with Writable.    */
+comment|/**    * Writes a set of permissions as {@link org.apache.hadoop.io.Writable} instances    * and returns the resulting byte array.  Used to verify we can read stuff written    * with Writable.    */
 specifier|public
 specifier|static
 name|byte
@@ -2057,9 +2041,6 @@ operator|.
 name|split
 argument_list|(
 name|TEST_TABLE
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// wait for split

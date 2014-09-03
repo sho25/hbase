@@ -7051,7 +7051,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|String
+name|TableName
 name|getTablename
 parameter_list|()
 block|{
@@ -7062,6 +7062,10 @@ name|getConf
 argument_list|()
 decl_stmt|;
 return|return
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|c
 operator|.
 name|get
@@ -7069,6 +7073,7 @@ argument_list|(
 name|TABLE_NAME_KEY
 argument_list|,
 name|DEFAULT_TABLE_NAME
+argument_list|)
 argument_list|)
 return|;
 block|}

@@ -959,10 +959,15 @@ throws|throws
 name|InterruptedException
 block|{
 specifier|final
-name|String
+name|TableName
 name|unknowntable
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"fubar"
+argument_list|)
 decl_stmt|;
 name|Exception
 name|exception
@@ -7746,9 +7751,6 @@ operator|.
 name|split
 argument_list|(
 name|tableName
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|splitPoint
 argument_list|)
@@ -7772,6 +7774,8 @@ argument_list|(
 literal|"CheckForSplit"
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run

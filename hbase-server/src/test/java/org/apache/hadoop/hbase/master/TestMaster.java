@@ -726,9 +726,6 @@ operator|.
 name|split
 argument_list|(
 name|TABLENAME
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|LOG

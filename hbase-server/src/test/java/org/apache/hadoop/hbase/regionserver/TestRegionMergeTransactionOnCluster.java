@@ -1398,7 +1398,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|compact
+name|compactRegion
 argument_list|(
 name|mergedRegionInfo
 operator|.

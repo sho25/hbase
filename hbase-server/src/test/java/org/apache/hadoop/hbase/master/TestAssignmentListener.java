@@ -203,22 +203,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|HTable
 import|;
 end_import
@@ -314,20 +298,6 @@ operator|.
 name|junit
 operator|.
 name|Test
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Joiner
 import|;
 end_import
 
@@ -461,6 +431,8 @@ specifier|public
 name|DummyAssignmentListener
 parameter_list|()
 block|{     }
+annotation|@
+name|Override
 specifier|public
 name|void
 name|regionOpened
@@ -498,6 +470,8 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|regionClosed
@@ -604,6 +578,8 @@ specifier|public
 name|DummyServerListener
 parameter_list|()
 block|{     }
+annotation|@
+name|Override
 specifier|public
 name|void
 name|serverAdded
@@ -633,6 +609,8 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|serverRemoved
@@ -1199,9 +1177,14 @@ name|admin
 operator|.
 name|split
 argument_list|(
-name|TABLE_NAME_STR
+name|TABLE_NAME
 argument_list|,
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
 literal|"row-3"
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|listener
@@ -1265,7 +1248,7 @@ name|admin
 operator|.
 name|majorCompact
 argument_list|(
-name|TABLE_NAME_STR
+name|TABLE_NAME
 argument_list|)
 expr_stmt|;
 name|mergeable

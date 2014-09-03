@@ -21,16 +21,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|List
@@ -1536,7 +1526,7 @@ expr_stmt|;
 comment|// Split a region on the parent table
 name|admin
 operator|.
-name|split
+name|splitRegion
 argument_list|(
 name|originalTableHRegions
 operator|.

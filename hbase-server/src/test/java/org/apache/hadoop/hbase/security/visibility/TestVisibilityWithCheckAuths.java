@@ -650,6 +650,8 @@ name|VisibilityLabelsResponse
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|VisibilityLabelsResponse
 name|run
@@ -727,6 +729,8 @@ name|VisibilityLabelsResponse
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|VisibilityLabelsResponse
 name|run
@@ -851,9 +855,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -869,6 +870,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -1027,6 +1030,8 @@ name|VisibilityLabelsResponse
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|VisibilityLabelsResponse
 name|run
@@ -1144,6 +1149,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -1244,6 +1251,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -1334,6 +1343,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run

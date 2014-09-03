@@ -871,6 +871,8 @@ name|REFERENCES_WRITTEN
 block|,
 name|REFERENCES_CHECKED
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setUpCluster
@@ -2849,6 +2851,8 @@ literal|0
 index|]
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|runTestFromCommandLine
@@ -2972,7 +2976,7 @@ literal|1
 return|;
 block|}
 comment|// create HTableDescriptor for specified table
-name|String
+name|TableName
 name|table
 init|=
 name|getTablename
@@ -2984,12 +2988,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|table
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|htd
@@ -3092,11 +3091,15 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|String
+name|TableName
 name|getTablename
 parameter_list|()
 block|{
 return|return
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|getConf
 argument_list|()
 operator|.
@@ -3105,6 +3108,7 @@ argument_list|(
 name|TABLE_NAME_KEY
 argument_list|,
 name|TEST_NAME
+argument_list|)
 argument_list|)
 return|;
 block|}

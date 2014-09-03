@@ -218,7 +218,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An integration test to test {@link TableSnapshotInputFormat} which enables  * reading directly from snapshot files without going through hbase servers.  *  * This test creates a table and loads the table with the rows ranging from  * 'aaa' to 'zzz', and for each row, sets the columns f1:(null) and f2:(null) to be  * the the same as the row value.  *<pre>  * aaa, f1: => aaa  * aaa, f2: => aaa  * aab, f1: => aab  * ....  * zzz, f2: => zzz  *</pre>  *  * Then the test creates a snapshot from this table, and overrides the values in the original  * table with values 'after_snapshot_value'. The test, then runs a mapreduce job over the snapshot  * with a scan start row 'bbb' and stop row 'yyy'. The data is saved in a single reduce output   * file, and  * inspected later to verify that the MR job has seen all the values from the snapshot.  *  *<p> These parameters can be used to configure the job:  *<br>"IntegrationTestTableSnapshotInputFormat.table" =&gt; the name of the table  *<br>"IntegrationTestTableSnapshotInputFormat.snapshot" =&gt; the name of the snapshot  *<br>"IntegrationTestTableSnapshotInputFormat.numRegions" =&gt; number of regions in the table   * to be created (default, 32).  *<br>"IntegrationTestTableSnapshotInputFormat.tableDir" =&gt; temporary directory to restore the  * snapshot files  *  */
+comment|/**  * An integration test to test {@link TableSnapshotInputFormat} which enables  * reading directly from snapshot files without going through hbase servers.  *  * This test creates a table and loads the table with the rows ranging from  * 'aaa' to 'zzz', and for each row, sets the columns f1:(null) and f2:(null) to be  * the the same as the row value.  *<pre>  * aaa, f1: => aaa  * aaa, f2: => aaa  * aab, f1: => aab  * ....  * zzz, f2: => zzz  *</pre>  *  * Then the test creates a snapshot from this table, and overrides the values in the original  * table with values 'after_snapshot_value'. The test, then runs a mapreduce job over the snapshot  * with a scan start row 'bbb' and stop row 'yyy'. The data is saved in a single reduce output  * file, and  * inspected later to verify that the MR job has seen all the values from the snapshot.  *  *<p> These parameters can be used to configure the job:  *<br>"IntegrationTestTableSnapshotInputFormat.table" =&gt; the name of the table  *<br>"IntegrationTestTableSnapshotInputFormat.snapshot" =&gt; the name of the snapshot  *<br>"IntegrationTestTableSnapshotInputFormat.numRegions" =&gt; number of regions in the table  * to be created (default, 32).  *<br>"IntegrationTestTableSnapshotInputFormat.tableDir" =&gt; temporary directory to restore the  * snapshot files  *  */
 end_comment
 
 begin_class
@@ -747,7 +747,7 @@ annotation|@
 name|Override
 comment|// CM is not intended to be run with this test
 specifier|public
-name|String
+name|TableName
 name|getTablename
 parameter_list|()
 block|{

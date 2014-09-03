@@ -245,16 +245,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Random
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Map
 operator|.
 name|Entry
@@ -587,20 +577,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|RegionLocations
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ServerName
 import|;
 end_import
@@ -789,22 +765,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Mutation
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Put
 import|;
 end_import
@@ -854,22 +814,6 @@ operator|.
 name|client
 operator|.
 name|ResultScanner
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|RowMutations
 import|;
 end_import
 
@@ -936,22 +880,6 @@ operator|.
 name|master
 operator|.
 name|HMaster
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|RegionState
 import|;
 end_import
 
@@ -4039,9 +3967,6 @@ operator|.
 name|flush
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertNoErrors
@@ -4100,9 +4025,6 @@ operator|.
 name|flush
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertNoErrors
@@ -4261,9 +4183,6 @@ operator|.
 name|flush
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertNoErrors
@@ -7465,9 +7384,6 @@ operator|.
 name|flush
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Mess it up by leaving a hole in the hdfs data
@@ -7766,9 +7682,6 @@ operator|.
 name|flush
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Mess it up by leaving a hole in the hdfs data
@@ -8110,9 +8023,6 @@ operator|.
 name|flush
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Mess it up by deleting hdfs dirs
@@ -8877,9 +8787,6 @@ operator|.
 name|flush
 argument_list|(
 name|table1
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Mess them up by leaving a hole in the hdfs data
@@ -8928,9 +8835,6 @@ operator|.
 name|flush
 argument_list|(
 name|table2
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Mess them up by leaving a hole in the hdfs data
@@ -9137,9 +9041,6 @@ operator|.
 name|flush
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|HRegionLocation
@@ -9303,9 +9204,6 @@ argument_list|(
 name|TableName
 operator|.
 name|META_TABLE_NAME
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|HBaseFsck
@@ -9516,9 +9414,6 @@ argument_list|(
 name|TableName
 operator|.
 name|META_TABLE_NAME
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// fix other issues
@@ -9618,9 +9513,6 @@ operator|.
 name|flush
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|HRegionLocation
@@ -9679,7 +9571,7 @@ argument_list|()
 decl_stmt|;
 name|admin
 operator|.
-name|split
+name|splitRegion
 argument_list|(
 name|location
 operator|.
@@ -9908,9 +9800,6 @@ operator|.
 name|flush
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|HRegionLocation
@@ -9969,7 +9858,7 @@ argument_list|()
 decl_stmt|;
 name|admin
 operator|.
-name|split
+name|splitRegion
 argument_list|(
 name|location
 operator|.
@@ -10523,9 +10412,6 @@ operator|.
 name|flush
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Mess it up by deleting region dir
@@ -11821,9 +11707,6 @@ operator|.
 name|flush
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// flush is async.
@@ -12075,9 +11958,6 @@ operator|.
 name|flush
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// flush is async.
@@ -14599,9 +14479,6 @@ operator|.
 name|flush
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|HRegionInfo

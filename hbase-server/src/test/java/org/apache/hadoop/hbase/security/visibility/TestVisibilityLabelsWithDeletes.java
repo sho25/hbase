@@ -283,22 +283,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|HTable
 import|;
 end_import
@@ -896,6 +880,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -1007,9 +993,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -1194,6 +1177,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -1291,9 +1276,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -1493,6 +1475,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -1604,9 +1588,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -1806,6 +1787,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -1919,9 +1902,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -2096,9 +2076,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -2114,6 +2091,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -2227,9 +2206,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -2582,9 +2558,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -2600,6 +2573,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -2968,9 +2943,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -2986,6 +2958,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -3403,9 +3377,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -3421,6 +3392,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -3915,9 +3888,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -3933,6 +3903,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -4129,6 +4101,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -4520,9 +4494,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -4538,6 +4509,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -4736,6 +4709,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -5143,6 +5118,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -5542,7 +5519,7 @@ operator|.
 name|flushCommits
 argument_list|()
 expr_stmt|;
-comment|//TEST_UTIL.getHBaseAdmin().flush(tableName.getNameAsString());
+comment|//TEST_UTIL.getHBaseAdmin().flush(tableName);
 name|Scan
 name|s
 init|=
@@ -5613,6 +5590,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -5873,9 +5852,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -5891,6 +5867,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -6302,9 +6280,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -6320,6 +6295,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -7151,9 +7128,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|put
@@ -7811,9 +7785,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|put
@@ -7900,9 +7871,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -7918,6 +7886,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -8031,9 +8001,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -8492,9 +8459,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -8510,6 +8474,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -8609,9 +8575,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -9022,9 +8985,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Put
@@ -9085,6 +9045,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -9180,9 +9142,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -9633,9 +9592,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|s
@@ -9823,9 +9779,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -9841,6 +9794,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -9940,9 +9895,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Put
@@ -10002,9 +9954,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
@@ -10015,9 +9964,6 @@ operator|.
 name|majorCompact
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Sleep to ensure compaction happens. Need to do it in a better way
@@ -10431,9 +10377,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -10449,6 +10392,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -10546,9 +10491,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -10848,9 +10790,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -10866,6 +10805,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -10967,9 +10908,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -11520,9 +11458,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -11538,6 +11473,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -11927,9 +11864,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -11945,6 +11879,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -12198,9 +12134,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -12216,6 +12149,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -12298,9 +12233,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -12490,6 +12422,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -12587,9 +12521,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -13048,9 +12979,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -13066,6 +12994,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -13177,9 +13107,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -13532,9 +13459,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -13550,6 +13474,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -13661,9 +13587,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Put
@@ -13723,9 +13646,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
@@ -13736,9 +13656,6 @@ operator|.
 name|compact
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -13999,6 +13916,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -14450,6 +14369,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -14829,6 +14750,8 @@ name|VisibilityLabelsResponse
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|VisibilityLabelsResponse
 name|run
@@ -14921,6 +14844,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -15055,9 +14980,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -15363,6 +15285,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -15515,9 +15439,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -15762,6 +15683,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -16065,6 +15988,8 @@ name|VisibilityLabelsResponse
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|VisibilityLabelsResponse
 name|run
@@ -16157,6 +16082,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -16307,9 +16234,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -16554,6 +16478,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -16883,6 +16809,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -17324,6 +17252,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -17789,6 +17719,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -18244,6 +18176,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -18750,6 +18684,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -19256,6 +19192,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -19774,6 +19712,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -20215,6 +20155,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -20594,6 +20536,8 @@ name|VisibilityLabelsResponse
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|VisibilityLabelsResponse
 name|run
@@ -20703,6 +20647,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -21156,6 +21102,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -21605,9 +21553,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -21623,6 +21568,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -21709,9 +21656,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -21789,6 +21733,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -21875,9 +21821,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|s
@@ -21951,6 +21894,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -22035,9 +21980,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|s
@@ -22111,6 +22053,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -22193,9 +22137,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|s
@@ -22269,6 +22210,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -22353,9 +22296,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|s
@@ -22429,6 +22369,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -22513,9 +22455,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|s
@@ -23130,9 +23069,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|PrivilegedExceptionAction
@@ -23148,6 +23084,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -23245,9 +23183,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -23697,9 +23632,6 @@ operator|.
 name|flush
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|i
@@ -23731,6 +23663,8 @@ name|VisibilityLabelsResponse
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|VisibilityLabelsResponse
 name|run

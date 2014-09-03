@@ -835,7 +835,7 @@ name|Exception
 function_decl|;
 specifier|public
 specifier|abstract
-name|String
+name|TableName
 name|getTablename
 parameter_list|()
 function_decl|;

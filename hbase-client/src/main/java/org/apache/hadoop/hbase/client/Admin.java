@@ -970,83 +970,67 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Flush a table or an individual region. Synchronous operation.    *    * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Flush a table. Synchronous operation.    *    * @param tableName table to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 name|void
 name|flush
 parameter_list|(
 specifier|final
-name|String
-name|tableNameOrRegionName
+name|TableName
+name|tableName
 parameter_list|)
 throws|throws
 name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Flush a table or an individual region. Synchronous operation.    *    * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Flush an individual region. Synchronous operation.    *    * @param regionName region to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 name|void
-name|flush
+name|flushRegion
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|tableNameOrRegionName
+name|regionName
 parameter_list|)
 throws|throws
 name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Compact a table or an individual region. Asynchronous operation.    *    * @param tableNameOrRegionName table or region to compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Compact a table. Asynchronous operation.    *    * @param tableName table to compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 name|void
 name|compact
 parameter_list|(
 specifier|final
-name|String
-name|tableNameOrRegionName
+name|TableName
+name|tableName
 parameter_list|)
 throws|throws
 name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Compact a table or an individual region. Asynchronous operation.    *    * @param tableNameOrRegionName table or region to compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Compact an individual region. Asynchronous operation.    *    * @param regionName region to compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 name|void
-name|compact
-parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|tableNameOrRegionName
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
-function_decl|;
-comment|/**    * Compact a column family within a table or region. Asynchronous operation.    *    * @param tableOrRegionName table or region to compact    * @param columnFamily column family within a table or region    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
-name|void
-name|compact
-parameter_list|(
-name|String
-name|tableOrRegionName
-parameter_list|,
-name|String
-name|columnFamily
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
-function_decl|;
-comment|/**    * Compact a column family within a table or region. Asynchronous operation.    *    * @param tableNameOrRegionName table or region to compact    * @param columnFamily column family within a table or region    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
-name|void
-name|compact
+name|compactRegion
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|tableNameOrRegionName
+name|regionName
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+function_decl|;
+comment|/**    * Compact a column family within a table. Asynchronous operation.    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+name|void
+name|compact
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
 parameter_list|,
 specifier|final
 name|byte
@@ -1058,43 +1042,18 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Major compact a table or an individual region. Asynchronous operation.    *    * @param tableNameOrRegionName table or region to major compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Compact a column family within a region. Asynchronous operation.    *    * @param regionName region to compact    * @param columnFamily column family within a region    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 name|void
-name|majorCompact
-parameter_list|(
-specifier|final
-name|String
-name|tableNameOrRegionName
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
-function_decl|;
-comment|/**    * Major compact a table or an individual region. Asynchronous operation.    *    * @param tableNameOrRegionName table or region to major compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
-name|void
-name|majorCompact
+name|compactRegion
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|tableNameOrRegionName
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
-function_decl|;
-comment|/**    * Major compact a column family within a table or region. Asynchronous operation.    *    * @param tableNameOrRegionName table or region to major compact    * @param columnFamily column family within a table or region    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
-name|void
-name|majorCompact
-parameter_list|(
-specifier|final
-name|String
-name|tableNameOrRegionName
+name|regionName
 parameter_list|,
 specifier|final
-name|String
+name|byte
+index|[]
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -1102,14 +1061,57 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Major compact a column family within a table or region. Asynchronous operation.    *    * @param tableNameOrRegionName table or region to major compact    * @param columnFamily column family within a table or region    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Major compact a table. Asynchronous operation.    *    * @param tableName table to major compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 name|void
 name|majorCompact
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+function_decl|;
+comment|/**    * Major compact a table or an individual region. Asynchronous operation.    *    * @param regionName region to major compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+name|void
+name|majorCompactRegion
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|tableNameOrRegionName
+name|regionName
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+function_decl|;
+comment|/**    * Major compact a column family within a table. Asynchronous operation.    *    * @param tableName table to major compact    * @param columnFamily column family within a table    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+name|void
+name|majorCompact
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+function_decl|;
+comment|/**    * Major compact a column family within region. Asynchronous operation.    *    * @param regionName egion to major compact    * @param columnFamily column family within a region    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+name|void
+name|majorCompactRegion
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
 parameter_list|,
 specifier|final
 name|byte
@@ -1269,42 +1271,44 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Split a table or an individual region. Asynchronous operation.    *    * @param tableNameOrRegionName table or region to split    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Split a table. Asynchronous operation.    *    * @param tableName table to split    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 name|void
 name|split
 parameter_list|(
 specifier|final
-name|String
-name|tableNameOrRegionName
+name|TableName
+name|tableName
 parameter_list|)
 throws|throws
 name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Split a table or an individual region.  Implicitly finds an optimal split point.  Asynchronous    * operation.    *    * @param tableNameOrRegionName table to region to split    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 name|void
-name|split
+name|splitRegion
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|tableNameOrRegionName
+name|regionName
 parameter_list|)
 throws|throws
 name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
+comment|/**    * Split a table. Asynchronous operation.    *    * @param tableName table to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException interrupt exception occurred    */
 name|void
 name|split
 parameter_list|(
 specifier|final
-name|String
-name|tableNameOrRegionName
+name|TableName
+name|tableName
 parameter_list|,
 specifier|final
-name|String
+name|byte
+index|[]
 name|splitPoint
 parameter_list|)
 throws|throws
@@ -1312,14 +1316,14 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Split a table or an individual region. Asynchronous operation.    *    * @param tableNameOrRegionName table to region to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException interrupt exception occurred    */
+comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException interrupt exception occurred    */
 name|void
-name|split
+name|splitRegion
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|tableNameOrRegionName
+name|regionName
 parameter_list|,
 specifier|final
 name|byte
@@ -1529,7 +1533,7 @@ index|[]
 name|getMasterCoprocessors
 parameter_list|()
 function_decl|;
-comment|/**    * Get the current compaction state of a table or region. It could be in a major compaction, a    * minor compaction, both, or none.    *    * @param tableNameOrRegionName table or region to major compact    * @return the current compaction state    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Get the current compaction state of a table. It could be in a major compaction, a minor    * compaction, both, or none.    *    * @param tableName table to examine    * @return the current compaction state    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 name|AdminProtos
 operator|.
 name|GetRegionInfoResponse
@@ -1538,26 +1542,26 @@ name|CompactionState
 name|getCompactionState
 parameter_list|(
 specifier|final
-name|String
-name|tableNameOrRegionName
+name|TableName
+name|tableName
 parameter_list|)
 throws|throws
 name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Get the current compaction state of a table or region. It could be in a major compaction, a    * minor compaction, both, or none.    *    * @param tableNameOrRegionName table or region to major compact    * @return the current compaction state    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Get the current compaction state of region. It could be in a major compaction, a minor    * compaction, both, or none.    *    * @param regionName region to examine    * @return the current compaction state    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 name|AdminProtos
 operator|.
 name|GetRegionInfoResponse
 operator|.
 name|CompactionState
-name|getCompactionState
+name|getCompactionStateForRegion
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|tableNameOrRegionName
+name|regionName
 parameter_list|)
 throws|throws
 name|IOException

@@ -896,7 +896,7 @@ name|flush
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
