@@ -2194,6 +2194,17 @@ literal|" recovered edits files."
 argument_list|)
 expr_stmt|;
 block|}
+comment|// check that the log file is moved
+name|assertFalse
+argument_list|(
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|logDir
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|assertEquals
 argument_list|(
 name|NUM_LOG_LINES

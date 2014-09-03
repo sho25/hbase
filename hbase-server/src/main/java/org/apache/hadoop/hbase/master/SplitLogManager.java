@@ -667,6 +667,20 @@ name|Threads
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_comment
 comment|/**  * Distributes the task of log splitting to the available region servers.  * Coordination happens via coordination engine. For every log file that has to be split a  * task is created. SplitLogWorkers race to grab a task.  *  *<p>SplitLogManager monitors the tasks that it creates using the  * timeoutMonitor thread. If a task's progress is slow then  * {@link SplitLogManagerCoordination#checkTasks} will take away the  * task from the owner {@link SplitLogWorker} and the task will be up for grabs again. When the  * task is done then it is deleted by SplitLogManager.  *  *<p>Clients call {@link #splitLogDistributed(Path)} to split a region server's  * log files. The caller thread waits in this method until all the log files  * have been split.  *  *<p>All the coordination calls made by this class are asynchronous. This is mainly  * to help reduce response time seen by the callers.  *  *<p>There is race in this design between the SplitLogManager and the  * SplitLogWorker. SplitLogManager might re-queue a task that has in reality  * already been completed by a SplitLogWorker. We rely on the idempotency of  * the log splitting task for correctness.  *  *<p>It is also assumed that every log splitting task is unique and once  * completed (either with success or with error) it will be not be submitted  * again. If a task is resubmitted then there is a risk that old "delete task"  * can delete the re-submission.  */
 end_comment
@@ -2056,6 +2070,21 @@ return|return;
 block|}
 block|}
 block|}
+block|}
+annotation|@
+name|VisibleForTesting
+name|ConcurrentMap
+argument_list|<
+name|String
+argument_list|,
+name|Task
+argument_list|>
+name|getTasks
+parameter_list|()
+block|{
+return|return
+name|tasks
+return|;
 block|}
 specifier|private
 name|int
