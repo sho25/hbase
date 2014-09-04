@@ -219,9 +219,15 @@ name|InterfaceAudience
 operator|.
 name|LimitedPrivate
 argument_list|(
+block|{
 name|HBaseInterfaceAudience
 operator|.
 name|COPROC
+block|,
+name|HBaseInterfaceAudience
+operator|.
+name|CONFIG
+block|}
 argument_list|)
 annotation|@
 name|InterfaceStability

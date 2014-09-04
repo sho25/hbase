@@ -391,6 +391,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|http
 operator|.
 name|conf
@@ -5637,6 +5651,15 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * A Servlet input filter that quotes all HTML active characters in the    * parameter names and values. The goal is to quote the characters to make    * all of the servlets resistant to cross-site scripting attacks.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|CONFIG
+argument_list|)
 specifier|public
 specifier|static
 class|class
