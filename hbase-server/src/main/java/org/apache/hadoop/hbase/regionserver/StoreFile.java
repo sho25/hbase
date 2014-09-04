@@ -3795,6 +3795,7 @@ name|getPath
 argument_list|()
 return|;
 block|}
+specifier|public
 name|boolean
 name|hasGeneralBloom
 parameter_list|()
