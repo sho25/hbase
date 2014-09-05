@@ -84,6 +84,15 @@ name|PHOENIX
 init|=
 literal|"Phoenix"
 decl_stmt|;
+comment|/**    * Denotes class names that appear in user facing configuration files.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CONFIG
+init|=
+literal|"Configuration"
+decl_stmt|;
 block|}
 end_class
 

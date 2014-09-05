@@ -213,6 +213,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ClusterStatus
 import|;
 end_import
@@ -818,6 +832,15 @@ literal|false
 return|;
 block|}
 comment|/**    * An implementation using a multicast message between the master& the client.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|CONFIG
+argument_list|)
 class|class
 name|MulticastListener
 implements|implements

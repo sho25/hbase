@@ -305,6 +305,10 @@ block|,
 name|HBaseInterfaceAudience
 operator|.
 name|PHOENIX
+block|,
+name|HBaseInterfaceAudience
+operator|.
+name|CONFIG
 block|}
 argument_list|)
 specifier|public
