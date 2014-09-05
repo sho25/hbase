@@ -369,6 +369,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ipc
+operator|.
+name|RequestContext
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|AssignmentManager
@@ -668,6 +684,22 @@ operator|.
 name|generated
 operator|.
 name|ZooKeeperProtos
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|User
 import|;
 end_import
 
@@ -1492,30 +1524,6 @@ name|SnapshotDoesNotExistException
 throws|,
 name|IOException
 block|{
-comment|// call coproc pre hook
-name|MasterCoprocessorHost
-name|cpHost
-init|=
-name|master
-operator|.
-name|getMasterCoprocessorHost
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|cpHost
-operator|!=
-literal|null
-condition|)
-block|{
-name|cpHost
-operator|.
-name|preDeleteSnapshot
-argument_list|(
-name|snapshot
-argument_list|)
-expr_stmt|;
-block|}
 comment|// check to see if it is completed
 if|if
 condition|(
@@ -1542,22 +1550,16 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Deleting snapshot: "
-operator|+
-name|snapshotName
-argument_list|)
-expr_stmt|;
 comment|// first create the snapshot description and check to see if it exists
-name|MasterFileSystem
+name|FileSystem
 name|fs
 init|=
 name|master
 operator|.
 name|getMasterFileSystem
+argument_list|()
+operator|.
+name|getFileSystem
 argument_list|()
 decl_stmt|;
 name|Path
@@ -1572,14 +1574,57 @@ argument_list|,
 name|rootDir
 argument_list|)
 decl_stmt|;
+comment|// Get snapshot info from file system. The one passed as parameter is a "fake" snapshotInfo with
+comment|// just the "name" and it does not contains the "real" snapshot information
+name|snapshot
+operator|=
+name|SnapshotDescriptionUtils
+operator|.
+name|readSnapshotInfo
+argument_list|(
+name|fs
+argument_list|,
+name|snapshotDir
+argument_list|)
+expr_stmt|;
+comment|// call coproc pre hook
+name|MasterCoprocessorHost
+name|cpHost
+init|=
+name|master
+operator|.
+name|getMasterCoprocessorHost
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|cpHost
+operator|!=
+literal|null
+condition|)
+block|{
+name|cpHost
+operator|.
+name|preDeleteSnapshot
+argument_list|(
+name|snapshot
+argument_list|)
+expr_stmt|;
+block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Deleting snapshot: "
+operator|+
+name|snapshotName
+argument_list|)
+expr_stmt|;
 comment|// delete the existing snapshot
 if|if
 condition|(
 operator|!
 name|fs
-operator|.
-name|getFileSystem
-argument_list|()
 operator|.
 name|delete
 argument_list|(
@@ -2635,6 +2680,16 @@ name|snapshot
 argument_list|)
 throw|;
 block|}
+name|SnapshotDescription
+operator|.
+name|Builder
+name|builder
+init|=
+name|snapshot
+operator|.
+name|toBuilder
+argument_list|()
+decl_stmt|;
 comment|// if not specified, set the snapshot format
 if|if
 condition|(
@@ -2645,12 +2700,7 @@ name|hasVersion
 argument_list|()
 condition|)
 block|{
-name|snapshot
-operator|=
-name|snapshot
-operator|.
-name|toBuilder
-argument_list|()
+name|builder
 operator|.
 name|setVersion
 argument_list|(
@@ -2658,11 +2708,51 @@ name|SnapshotDescriptionUtils
 operator|.
 name|SNAPSHOT_LAYOUT_VERSION
 argument_list|)
+expr_stmt|;
+block|}
+name|User
+name|user
+init|=
+name|RequestContext
+operator|.
+name|getRequestUser
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|User
+operator|.
+name|isHBaseSecurityEnabled
+argument_list|(
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+operator|&&
+name|user
+operator|!=
+literal|null
+condition|)
+block|{
+name|builder
+operator|.
+name|setOwner
+argument_list|(
+name|user
+operator|.
+name|getShortName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+name|snapshot
+operator|=
+name|builder
 operator|.
 name|build
 argument_list|()
 expr_stmt|;
-block|}
 comment|// call pre coproc hook
 name|MasterCoprocessorHost
 name|cpHost
@@ -3209,9 +3299,11 @@ name|reqSnapshot
 argument_list|)
 throw|;
 block|}
-comment|// read snapshot information
+comment|// Get snapshot info from file system. The reqSnapshot is a "fake" snapshotInfo with
+comment|// just the snapshot "name" and table name to restore. It does not contains the "real" snapshot
+comment|// information.
 name|SnapshotDescription
-name|fsSnapshot
+name|snapshot
 init|=
 name|SnapshotDescriptionUtils
 operator|.
@@ -3238,7 +3330,7 @@ name|fs
 argument_list|,
 name|snapshotDir
 argument_list|,
-name|fsSnapshot
+name|snapshot
 argument_list|)
 decl_stmt|;
 name|HTableDescriptor
@@ -3313,7 +3405,7 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|fsSnapshot
+name|snapshot
 operator|.
 name|getTable
 argument_list|()
@@ -3339,7 +3431,7 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|fsSnapshot
+name|snapshot
 operator|.
 name|getTable
 argument_list|()
@@ -3373,7 +3465,7 @@ expr_stmt|;
 block|}
 name|restoreSnapshot
 argument_list|(
-name|fsSnapshot
+name|snapshot
 argument_list|,
 name|snapshotTableDesc
 argument_list|)
@@ -3384,7 +3476,7 @@ name|info
 argument_list|(
 literal|"Restore snapshot="
 operator|+
-name|fsSnapshot
+name|snapshot
 operator|.
 name|getName
 argument_list|()
@@ -3445,7 +3537,7 @@ expr_stmt|;
 block|}
 name|cloneSnapshot
 argument_list|(
-name|fsSnapshot
+name|snapshot
 argument_list|,
 name|htd
 argument_list|)
@@ -3456,7 +3548,7 @@ name|info
 argument_list|(
 literal|"Clone snapshot="
 operator|+
-name|fsSnapshot
+name|snapshot
 operator|.
 name|getName
 argument_list|()
