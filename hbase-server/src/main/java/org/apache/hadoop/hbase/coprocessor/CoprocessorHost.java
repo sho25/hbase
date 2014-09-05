@@ -1719,6 +1719,10 @@ specifier|private
 name|Configuration
 name|conf
 decl_stmt|;
+specifier|private
+name|ClassLoader
+name|classLoader
+decl_stmt|;
 comment|/**      * Constructor      * @param impl the coprocessor instance      * @param priority chaining priority      */
 specifier|public
 name|Environment
@@ -1745,6 +1749,18 @@ operator|.
 name|impl
 operator|=
 name|impl
+expr_stmt|;
+name|this
+operator|.
+name|classLoader
+operator|=
+name|impl
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getClassLoader
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -2094,13 +2110,7 @@ name|getClassLoader
 parameter_list|()
 block|{
 return|return
-name|impl
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getClassLoader
-argument_list|()
+name|classLoader
 return|;
 block|}
 annotation|@
