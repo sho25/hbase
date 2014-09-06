@@ -1259,7 +1259,7 @@ comment|/**    * Set whether this Delete should be written to the WAL or not.   
 annotation|@
 name|Deprecated
 specifier|public
-name|void
+name|Mutation
 name|setWriteToWAL
 parameter_list|(
 name|boolean
@@ -1279,10 +1279,13 @@ operator|.
 name|SKIP_WAL
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Set the durability for this mutation    * @param d    */
 specifier|public
-name|void
+name|Mutation
 name|setDurability
 parameter_list|(
 name|Durability
@@ -1295,6 +1298,9 @@ name|durability
 operator|=
 name|d
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/** Get the current durability */
 specifier|public
@@ -1331,7 +1337,7 @@ return|;
 block|}
 comment|/**    * Method for setting the put's familyMap    */
 specifier|public
-name|void
+name|Mutation
 name|setFamilyCellMap
 parameter_list|(
 name|NavigableMap
@@ -1355,6 +1361,9 @@ name|familyMap
 operator|=
 name|map
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Method for retrieving the put's familyMap that is deprecated and inefficient.    * @return the map    * @deprecated use {@link #getFamilyCellMap()} instead.    */
 annotation|@
@@ -1490,7 +1499,7 @@ comment|/**    * Method for setting the put's familyMap that is deprecated and i
 annotation|@
 name|Deprecated
 specifier|public
-name|void
+name|Mutation
 name|setFamilyMap
 parameter_list|(
 name|NavigableMap
@@ -1587,6 +1596,9 @@ name|familyMap
 operator|=
 name|fm
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Method to check if the familyMap is empty    * @return true if empty, false otherwise    */
 specifier|public
@@ -1658,7 +1670,7 @@ return|;
 block|}
 comment|/**    * Marks that the clusters with the given clusterIds have consumed the mutation    * @param clusterIds of the clusters that have consumed the mutation    */
 specifier|public
-name|void
+name|Mutation
 name|setClusterIds
 parameter_list|(
 name|List
@@ -1725,6 +1737,9 @@ name|toByteArray
 argument_list|()
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * @return the set of clusterIds that have consumed the mutation    */
 specifier|public
@@ -1824,7 +1839,7 @@ return|;
 block|}
 comment|/**    * Sets the visibility expression associated with cells in this Mutation.    * It is illegal to set<code>CellVisibility</code> on<code>Delete</code> mutation.    * @param expression    */
 specifier|public
-name|void
+name|Mutation
 name|setCellVisibility
 parameter_list|(
 name|CellVisibility
@@ -1850,6 +1865,9 @@ name|toByteArray
 argument_list|()
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * @return CellVisibility associated with cells in this Mutation.    * @throws DeserializationException    */
 specifier|public
@@ -2144,7 +2162,7 @@ return|;
 block|}
 comment|/**    * @param user User short name    * @param perms Permissions for the user    */
 specifier|public
-name|void
+name|Mutation
 name|setACL
 parameter_list|(
 name|String
@@ -2173,10 +2191,13 @@ name|toByteArray
 argument_list|()
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * @param perms A map of permissions for a user or users    */
 specifier|public
-name|void
+name|Mutation
 name|setACL
 parameter_list|(
 name|Map
@@ -2252,6 +2273,9 @@ name|toByteArray
 argument_list|()
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Subclasses should override this method to add the heap size of their own fields.    * @return the heap size to add (will be aligned).    */
 specifier|protected

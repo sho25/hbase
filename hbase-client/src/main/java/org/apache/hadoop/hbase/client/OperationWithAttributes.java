@@ -145,8 +145,10 @@ name|ID_ATRIBUTE
 init|=
 literal|"_operation.attributes.id"
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
-name|void
+name|OperationWithAttributes
 name|setAttribute
 parameter_list|(
 name|String
@@ -168,7 +170,9 @@ operator|==
 literal|null
 condition|)
 block|{
-return|return;
+return|return
+name|this
+return|;
 block|}
 if|if
 condition|(
@@ -232,7 +236,12 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|this
+return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -262,6 +271,8 @@ name|name
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Map
 argument_list|<
@@ -397,7 +408,7 @@ return|;
 block|}
 comment|/**    * This method allows you to set an identifier on an operation. The original    * motivation for this was to allow the identifier to be used in slow query    * logging, but this could obviously be useful in other places. One use of    * this could be to put a class.method identifier in here to see where the    * slow query is coming from.    * @param id    *          id to set for the scan    */
 specifier|public
-name|void
+name|OperationWithAttributes
 name|setId
 parameter_list|(
 name|String
@@ -416,6 +427,9 @@ name|id
 argument_list|)
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * This method allows you to retrieve the identifier for the operation if one    * was set.    * @return the id or null if not set    */
 specifier|public

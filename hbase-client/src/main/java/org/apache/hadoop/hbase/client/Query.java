@@ -271,7 +271,7 @@ return|;
 block|}
 comment|/**    * Sets the authorizations to be used by this Query    * @param authorizations    */
 specifier|public
-name|void
+name|Query
 name|setAuthorizations
 parameter_list|(
 name|Authorizations
@@ -297,6 +297,9 @@ name|toByteArray
 argument_list|()
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * @return The authorizations this Query is associated with.    * @throws DeserializationException    */
 specifier|public
@@ -355,7 +358,7 @@ return|;
 block|}
 comment|/**    * @param user User short name    * @param perms Permissions for the user    */
 specifier|public
-name|void
+name|Query
 name|setACL
 parameter_list|(
 name|String
@@ -384,10 +387,13 @@ name|toByteArray
 argument_list|()
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * @param perms A map of permissions for a user or users    */
 specifier|public
-name|void
+name|Query
 name|setACL
 parameter_list|(
 name|Map
@@ -463,6 +469,9 @@ name|toByteArray
 argument_list|()
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Returns the consistency level for this operation    * @return the consistency level    */
 specifier|public
@@ -476,7 +485,7 @@ return|;
 block|}
 comment|/**    * Sets the consistency level for this operation    * @param consistency the consistency level    */
 specifier|public
-name|void
+name|Query
 name|setConsistency
 parameter_list|(
 name|Consistency
@@ -489,10 +498,13 @@ name|consistency
 operator|=
 name|consistency
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Specify region replica id where Query will fetch data from. Use this together with    * {@link #setConsistency(Consistency)} passing {@link Consistency#TIMELINE} to read data from    * a specific replicaId.    *<br><b> Expert:</b>This is an advanced API exposed. Only use it if you know what you are doing    * @param Id    */
 specifier|public
-name|void
+name|Query
 name|setReplicaId
 parameter_list|(
 name|int
@@ -505,6 +517,9 @@ name|targetReplicaId
 operator|=
 name|Id
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Returns region replica id where Query will fetch data from.    * @return region replica id or -1 if not set.    */
 specifier|public
