@@ -1162,7 +1162,7 @@ argument_list|()
 operator|>
 name|Bytes
 operator|.
-name|SIZEOF_LONG
+name|SIZEOF_INT
 condition|)
 block|{
 name|String
@@ -1184,7 +1184,7 @@ argument_list|()
 operator|+
 name|Bytes
 operator|.
-name|SIZEOF_LONG
+name|SIZEOF_INT
 argument_list|,
 name|reference
 operator|.
@@ -1193,7 +1193,7 @@ argument_list|()
 operator|-
 name|Bytes
 operator|.
-name|SIZEOF_LONG
+name|SIZEOF_INT
 argument_list|)
 decl_stmt|;
 name|Path

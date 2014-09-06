@@ -1419,7 +1419,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|long
+name|int
 name|valueLength1
 init|=
 name|key1
@@ -1427,7 +1427,7 @@ operator|.
 name|getValueLength
 argument_list|()
 decl_stmt|;
-name|long
+name|int
 name|valueLength2
 init|=
 name|key2
@@ -1435,7 +1435,7 @@ operator|.
 name|getValueLength
 argument_list|()
 decl_stmt|;
-name|long
+name|int
 name|valueLength3
 init|=
 name|key3

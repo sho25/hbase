@@ -1558,7 +1558,7 @@ name|value
 argument_list|,
 name|Bytes
 operator|.
-name|SIZEOF_LONG
+name|SIZEOF_INT
 argument_list|,
 name|value
 operator|.
@@ -1566,7 +1566,7 @@ name|length
 operator|-
 name|Bytes
 operator|.
-name|SIZEOF_LONG
+name|SIZEOF_INT
 argument_list|)
 decl_stmt|;
 name|Path

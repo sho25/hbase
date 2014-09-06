@@ -922,7 +922,7 @@ argument_list|(
 name|tableNameTag
 argument_list|)
 expr_stmt|;
-name|long
+name|int
 name|valueLength
 init|=
 name|kv
