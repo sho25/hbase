@@ -95,22 +95,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|ByteStringer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -155,7 +139,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|CellUtil
 import|;
 end_import
 
@@ -169,7 +153,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|HConstants
 import|;
 end_import
 
@@ -330,6 +314,22 @@ operator|.
 name|wal
 operator|.
 name|WALEdit
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ByteStringer
 import|;
 end_import
 
@@ -507,7 +507,7 @@ index|[]
 name|encodedRegionName
 parameter_list|)
 block|{
-comment|// Accumulate all the KVs seen in here.
+comment|// Accumulate all the Cells seen in here.
 name|List
 argument_list|<
 name|List
@@ -517,7 +517,7 @@ extends|extends
 name|Cell
 argument_list|>
 argument_list|>
-name|allkvs
+name|allCells
 init|=
 operator|new
 name|ArrayList
@@ -910,46 +910,48 @@ block|}
 block|}
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
-name|kvs
+name|cells
 init|=
 name|edit
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 decl_stmt|;
 comment|// Add up the size.  It is used later serializing out the kvs.
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 range|:
-name|kvs
+name|cells
 control|)
 block|{
 name|size
 operator|+=
-name|kv
+name|CellUtil
 operator|.
-name|getLength
-argument_list|()
+name|estimatedLengthOf
+argument_list|(
+name|cell
+argument_list|)
 expr_stmt|;
 block|}
-comment|// Collect up the kvs
-name|allkvs
+comment|// Collect up the cells
+name|allCells
 operator|.
 name|add
 argument_list|(
-name|kvs
+name|cells
 argument_list|)
 expr_stmt|;
-comment|// Write out how many kvs associated with this entry.
+comment|// Write out how many cells associated with this entry.
 name|entryBuilder
 operator|.
 name|setAssociatedCellCount
 argument_list|(
-name|kvs
+name|cells
 operator|.
 name|size
 argument_list|()
@@ -984,7 +986,7 @@ argument_list|()
 argument_list|,
 name|getCellScanner
 argument_list|(
-name|allkvs
+name|allCells
 argument_list|,
 name|size
 argument_list|)

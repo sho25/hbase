@@ -594,16 +594,6 @@ range|:
 name|cells
 control|)
 block|{
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|cell
-argument_list|)
-decl_stmt|;
 if|if
 condition|(
 name|writeToWAL
@@ -612,7 +602,7 @@ name|walEdit
 operator|.
 name|add
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 block|}
@@ -892,15 +882,15 @@ block|{
 comment|// Add the WALEdit created by CP hook
 for|for
 control|(
-name|KeyValue
-name|walKv
+name|Cell
+name|walCell
 range|:
 name|walEditsFromCP
 index|[
 name|i
 index|]
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 control|)
 block|{
@@ -908,7 +898,7 @@ name|walEdit
 operator|.
 name|add
 argument_list|(
-name|walKv
+name|walCell
 argument_list|)
 expr_stmt|;
 block|}

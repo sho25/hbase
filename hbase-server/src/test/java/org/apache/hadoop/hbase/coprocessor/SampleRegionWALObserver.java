@@ -85,6 +85,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -423,26 +437,26 @@ comment|// here we're going to remove one keyvalue from the WALEdit, and add
 comment|// another one to it.
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
-name|kvs
+name|cells
 init|=
 name|logEdit
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 decl_stmt|;
-name|KeyValue
-name|deletedKV
+name|Cell
+name|deletedCell
 init|=
 literal|null
 decl_stmt|;
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 range|:
-name|kvs
+name|cells
 control|)
 block|{
 comment|// assume only one kv from the WALEdit matches.
@@ -450,7 +464,7 @@ name|byte
 index|[]
 name|family
 init|=
-name|kv
+name|cell
 operator|.
 name|getFamily
 argument_list|()
@@ -459,7 +473,7 @@ name|byte
 index|[]
 name|qulifier
 init|=
-name|kv
+name|cell
 operator|.
 name|getQualifier
 argument_list|()
@@ -492,9 +506,9 @@ argument_list|(
 literal|"Found the KeyValue from WALEdit which should be ignored."
 argument_list|)
 expr_stmt|;
-name|deletedKV
+name|deletedCell
 operator|=
-name|kv
+name|cell
 expr_stmt|;
 block|}
 if|if
@@ -525,12 +539,12 @@ argument_list|(
 literal|"Found the KeyValue from WALEdit which should be changed."
 argument_list|)
 expr_stmt|;
-name|kv
+name|cell
 operator|.
 name|getValueArray
 argument_list|()
 index|[
-name|kv
+name|cell
 operator|.
 name|getValueOffset
 argument_list|()
@@ -540,7 +554,7 @@ literal|1
 expr_stmt|;
 block|}
 block|}
-name|kvs
+name|cells
 operator|.
 name|add
 argument_list|(
@@ -557,7 +571,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|deletedKV
+name|deletedCell
 operator|!=
 literal|null
 condition|)
@@ -569,11 +583,11 @@ argument_list|(
 literal|"About to delete a KeyValue from WALEdit."
 argument_list|)
 expr_stmt|;
-name|kvs
+name|cells
 operator|.
 name|remove
 argument_list|(
-name|deletedKV
+name|deletedCell
 argument_list|)
 expr_stmt|;
 block|}

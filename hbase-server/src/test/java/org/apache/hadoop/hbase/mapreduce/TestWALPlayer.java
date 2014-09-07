@@ -54,6 +54,54 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Matchers
+operator|.
+name|any
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+operator|.
+name|doAnswer
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+operator|.
+name|mock
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+operator|.
+name|when
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -80,16 +128,6 @@ operator|.
 name|util
 operator|.
 name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
 import|;
 end_import
 
@@ -131,7 +169,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|Cell
 import|;
 end_import
 
@@ -145,7 +183,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|CellUtil
 import|;
 end_import
 
@@ -216,6 +254,20 @@ operator|.
 name|hbase
 operator|.
 name|MiniHBaseCluster
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -514,30 +566,6 @@ operator|.
 name|stubbing
 operator|.
 name|Answer
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|mockito
-operator|.
-name|Matchers
-operator|.
-name|any
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|mockito
-operator|.
-name|Mockito
-operator|.
-name|*
 import|;
 end_import
 
@@ -1079,14 +1107,14 @@ argument_list|)
 decl_stmt|;
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|values
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -1147,7 +1175,7 @@ name|when
 argument_list|(
 name|value
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 argument_list|)
 operator|.

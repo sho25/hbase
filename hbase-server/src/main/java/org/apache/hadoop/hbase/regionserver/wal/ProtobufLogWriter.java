@@ -137,7 +137,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseInterfaceAudience
+name|Cell
 import|;
 end_import
 
@@ -151,7 +151,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -727,15 +727,15 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 range|:
 name|entry
 operator|.
 name|getEdit
 argument_list|()
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 control|)
 block|{
@@ -744,7 +744,7 @@ name|cellEncoder
 operator|.
 name|write
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 block|}

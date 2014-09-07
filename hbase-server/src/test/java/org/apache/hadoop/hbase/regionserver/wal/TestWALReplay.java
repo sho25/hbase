@@ -3734,8 +3734,8 @@ parameter_list|(
 name|Store
 name|s
 parameter_list|,
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|)
 block|{
 name|boolean
@@ -3747,7 +3747,7 @@ name|restoreEdit
 argument_list|(
 name|s
 argument_list|,
-name|kv
+name|cell
 argument_list|)
 decl_stmt|;
 name|countOfRestoredEdits

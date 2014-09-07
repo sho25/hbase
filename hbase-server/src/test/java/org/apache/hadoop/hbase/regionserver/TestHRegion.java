@@ -6781,7 +6781,7 @@ operator|.
 name|getEdit
 argument_list|()
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 operator|.
 name|get
@@ -7238,9 +7238,9 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
-name|kvs
+name|cells
 init|=
 operator|(
 operator|(
@@ -7249,12 +7249,12 @@ operator|)
 name|edit
 operator|)
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|kvs
+name|cells
 operator|.
 name|isEmpty
 argument_list|()
@@ -7270,7 +7270,7 @@ name|WALEdit
 operator|.
 name|isMetaEditFamily
 argument_list|(
-name|kvs
+name|cells
 operator|.
 name|get
 argument_list|(
@@ -7292,7 +7292,7 @@ name|WALEdit
 operator|.
 name|getFlushDescriptor
 argument_list|(
-name|kvs
+name|cells
 operator|.
 name|get
 argument_list|(
@@ -38772,7 +38772,7 @@ name|assertNotNull
 argument_list|(
 name|edit
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -38782,7 +38782,7 @@ literal|1
 argument_list|,
 name|edit
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 operator|.
 name|size
@@ -38798,7 +38798,7 @@ name|getRegionEventDescriptor
 argument_list|(
 name|edit
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 operator|.
 name|get
@@ -39304,7 +39304,7 @@ name|assertNotNull
 argument_list|(
 name|edit
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -39314,7 +39314,7 @@ literal|1
 argument_list|,
 name|edit
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 operator|.
 name|size
@@ -39330,7 +39330,7 @@ name|getRegionEventDescriptor
 argument_list|(
 name|edit
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 operator|.
 name|get

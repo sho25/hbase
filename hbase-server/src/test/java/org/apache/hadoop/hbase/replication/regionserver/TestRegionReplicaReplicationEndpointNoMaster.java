@@ -1342,7 +1342,7 @@ operator|.
 name|getEdit
 argument_list|()
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 operator|.
 name|get

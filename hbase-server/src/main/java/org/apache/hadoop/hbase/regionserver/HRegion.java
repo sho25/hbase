@@ -12354,12 +12354,12 @@ condition|)
 block|{
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 range|:
 name|fromCP
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 control|)
 block|{
@@ -12367,7 +12367,7 @@ name|walEdit
 operator|.
 name|add
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 block|}
@@ -14514,12 +14514,7 @@ name|walEdit
 operator|.
 name|add
 argument_list|(
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
 name|cell
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -15526,12 +15521,12 @@ literal|false
 decl_stmt|;
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 range|:
 name|val
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 control|)
 block|{
@@ -15543,7 +15538,7 @@ name|CellUtil
 operator|.
 name|matchingFamily
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 name|WALEdit
 operator|.
@@ -15578,7 +15573,7 @@ name|WALEdit
 operator|.
 name|getCompaction
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 decl_stmt|;
 if|if
@@ -15612,7 +15607,7 @@ name|CellUtil
 operator|.
 name|matchingFamily
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 name|store
 operator|.
@@ -15628,7 +15623,7 @@ name|store
 operator|=
 name|getStore
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 block|}
@@ -15647,7 +15642,7 @@ name|warn
 argument_list|(
 literal|"No family for "
 operator|+
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 name|skippedEdits
@@ -15682,10 +15677,12 @@ operator|++
 expr_stmt|;
 continue|continue;
 block|}
-name|kv
+name|CellUtil
 operator|.
 name|setSequenceId
 argument_list|(
+name|cell
+argument_list|,
 name|currentReplaySeqId
 argument_list|)
 expr_stmt|;
@@ -15698,7 +15695,7 @@ name|restoreEdit
 argument_list|(
 name|store
 argument_list|,
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 name|editsCount
@@ -16012,7 +16009,7 @@ name|compaction
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Used by tests    * @param s Store to add edit too.    * @param kv KeyValue to add.    * @return True if we should flush.    */
+comment|/**    * Used by tests    * @param s Store to add edit too.    * @param cell Cell to add.    * @return True if we should flush.    */
 specifier|protected
 name|boolean
 name|restoreEdit
@@ -16022,8 +16019,8 @@ name|Store
 name|s
 parameter_list|,
 specifier|final
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|)
 block|{
 name|long
@@ -16033,7 +16030,7 @@ name|s
 operator|.
 name|add
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 operator|.
 name|getFirst

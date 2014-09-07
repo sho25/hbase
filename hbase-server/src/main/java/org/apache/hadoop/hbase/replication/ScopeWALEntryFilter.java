@@ -61,7 +61,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|Cell
 import|;
 end_import
 
@@ -75,7 +75,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|HConstants
 import|;
 end_import
 
@@ -159,22 +159,22 @@ return|;
 block|}
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
-name|kvs
+name|cells
 init|=
 name|entry
 operator|.
 name|getEdit
 argument_list|()
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 decl_stmt|;
 name|int
 name|size
 init|=
-name|kvs
+name|cells
 operator|.
 name|size
 argument_list|()
@@ -196,10 +196,10 @@ name|i
 operator|--
 control|)
 block|{
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 init|=
-name|kvs
+name|cells
 operator|.
 name|get
 argument_list|(
@@ -215,7 +215,7 @@ name|scopes
 operator|.
 name|containsKey
 argument_list|(
-name|kv
+name|cell
 operator|.
 name|getFamily
 argument_list|()
@@ -225,7 +225,7 @@ name|scopes
 operator|.
 name|get
 argument_list|(
-name|kv
+name|cell
 operator|.
 name|getFamily
 argument_list|()
@@ -236,7 +236,7 @@ operator|.
 name|REPLICATION_SCOPE_LOCAL
 condition|)
 block|{
-name|kvs
+name|cells
 operator|.
 name|remove
 argument_list|(
@@ -247,7 +247,7 @@ block|}
 block|}
 if|if
 condition|(
-name|kvs
+name|cells
 operator|.
 name|size
 argument_list|()
@@ -257,7 +257,7 @@ operator|/
 literal|2
 condition|)
 block|{
-name|kvs
+name|cells
 operator|.
 name|trimToSize
 argument_list|()
