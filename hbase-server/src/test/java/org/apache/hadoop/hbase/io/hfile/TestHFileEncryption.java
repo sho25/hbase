@@ -20,54 +20,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertNotNull
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|fail
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -467,6 +419,18 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|*
+import|;
+end_import
+
 begin_class
 annotation|@
 name|Category
@@ -772,6 +736,9 @@ parameter_list|(
 name|long
 name|pos
 parameter_list|,
+name|HFileContext
+name|ctx
+parameter_list|,
 name|HFileBlock
 operator|.
 name|FSReaderV2
@@ -815,6 +782,25 @@ name|b
 operator|.
 name|sanityCheck
 argument_list|()
+expr_stmt|;
+name|assertFalse
+argument_list|(
+name|b
+operator|.
+name|isUnpacked
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|b
+operator|=
+name|b
+operator|.
+name|unpack
+argument_list|(
+name|ctx
+argument_list|,
+name|hbr
+argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
@@ -1140,6 +1126,8 @@ operator|+=
 name|readAndVerifyBlock
 argument_list|(
 name|pos
+argument_list|,
+name|fileContext
 argument_list|,
 name|hbr
 argument_list|,

@@ -2680,7 +2680,7 @@ operator|new
 name|BlockIndexChunk
 argument_list|()
 decl_stmt|;
-comment|/**      * The number of block index levels. This is one if there is only root      * level (even empty), two if there a leaf level and root level, and is      * higher if there are intermediate levels. This is only final after      * {@link #writeIndexBlocks(FSDataOutputStream)} has been called. The      * initial value accounts for the root level, and will be increased to two      * as soon as we find out there is a leaf-level in      * {@link #blockWritten(long, int)}.      */
+comment|/**      * The number of block index levels. This is one if there is only root      * level (even empty), two if there a leaf level and root level, and is      * higher if there are intermediate levels. This is only final after      * {@link #writeIndexBlocks(FSDataOutputStream)} has been called. The      * initial value accounts for the root level, and will be increased to two      * as soon as we find out there is a leaf-level in      * {@link #blockWritten(long, int, int)}.      */
 specifier|private
 name|int
 name|numLevels
@@ -2725,10 +2725,10 @@ specifier|private
 name|boolean
 name|singleLevelOnly
 decl_stmt|;
-comment|/** Block cache, or null if cache-on-write is disabled */
+comment|/** CacheConfig, or null if cache-on-write is disabled */
 specifier|private
-name|BlockCache
-name|blockCache
+name|CacheConfig
+name|cacheConf
 decl_stmt|;
 comment|/** Name to use for computing cache keys */
 specifier|private
@@ -2754,7 +2754,7 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
-comment|/**      * Creates a multi-level block index writer.      *      * @param blockWriter the block writer to use to write index blocks      * @param blockCache if this is not null, index blocks will be cached      *    on write into this block cache.      */
+comment|/**      * Creates a multi-level block index writer.      *      * @param blockWriter the block writer to use to write index blocks      * @param cacheConf used to determine when and how a block should be cached-on-write.      */
 specifier|public
 name|BlockIndexWriter
 parameter_list|(
@@ -2763,8 +2763,8 @@ operator|.
 name|Writer
 name|blockWriter
 parameter_list|,
-name|BlockCache
-name|blockCache
+name|CacheConfig
+name|cacheConf
 parameter_list|,
 name|String
 name|nameForCaching
@@ -2773,7 +2773,7 @@ block|{
 if|if
 condition|(
 operator|(
-name|blockCache
+name|cacheConf
 operator|==
 literal|null
 operator|)
@@ -2803,9 +2803,9 @@ name|blockWriter
 expr_stmt|;
 name|this
 operator|.
-name|blockCache
+name|cacheConf
 operator|=
-name|blockCache
+name|cacheConf
 expr_stmt|;
 name|this
 operator|.
@@ -3350,7 +3350,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|blockCache
+name|cacheConf
 operator|!=
 literal|null
 condition|)
@@ -3361,9 +3361,14 @@ init|=
 name|blockWriter
 operator|.
 name|getBlockForCaching
-argument_list|()
+argument_list|(
+name|cacheConf
+argument_list|)
 decl_stmt|;
-name|blockCache
+name|cacheConf
+operator|.
+name|getBlockCache
+argument_list|()
 operator|.
 name|cacheBlock
 argument_list|(
@@ -3829,9 +3834,14 @@ name|getCacheOnWrite
 parameter_list|()
 block|{
 return|return
-name|blockCache
+name|cacheConf
 operator|!=
 literal|null
+operator|&&
+name|cacheConf
+operator|.
+name|shouldCacheIndexesOnWrite
+argument_list|()
 return|;
 block|}
 comment|/**      * The total uncompressed size of the root index block, intermediate-level      * index blocks, and leaf-level index blocks.      *      * @return the total uncompressed size of all index blocks      */

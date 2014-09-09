@@ -625,9 +625,6 @@ argument_list|,
 name|cacheIndexesOnWrite
 condition|?
 name|cacheConf
-operator|.
-name|getBlockCache
-argument_list|()
 else|:
 literal|null
 argument_list|,
@@ -716,7 +713,7 @@ name|newBlock
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** Clean up the current block */
+comment|/** Clean up the current data block */
 specifier|private
 name|void
 name|finishBlock
@@ -946,7 +943,9 @@ init|=
 name|fsBlockWriter
 operator|.
 name|getBlockForCaching
-argument_list|()
+argument_list|(
+name|cacheConf
+argument_list|)
 decl_stmt|;
 name|cacheConf
 operator|.

@@ -1433,6 +1433,13 @@ literal|1
 argument_list|,
 literal|false
 argument_list|)
+operator|.
+name|unpack
+argument_list|(
+name|context
+argument_list|,
+name|blockReader
+argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
@@ -1839,6 +1846,13 @@ operator|-
 literal|1
 argument_list|,
 literal|false
+argument_list|)
+operator|.
+name|unpack
+argument_list|(
+name|context
+argument_list|,
+name|blockReader
 argument_list|)
 decl_stmt|;
 name|assertEquals

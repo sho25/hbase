@@ -1257,6 +1257,7 @@ name|isCompaction
 argument_list|)
 return|;
 block|}
+comment|/**    * Retrieve block from cache. Validates the retrieved block's type vs {@code expectedBlockType}    * and its encoding vs. {@code expectedDataBlockEncoding}. Unpacks the block as necessary.    */
 specifier|private
 name|HFileBlock
 name|getCachedBlock
@@ -1328,6 +1329,34 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|cacheConf
+operator|.
+name|shouldCacheCompressed
+argument_list|(
+name|cachedBlock
+operator|.
+name|getBlockType
+argument_list|()
+operator|.
+name|getCategory
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|cachedBlock
+operator|=
+name|cachedBlock
+operator|.
+name|unpack
+argument_list|(
+name|hfileContext
+argument_list|,
+name|fsBlockReader
+argument_list|)
+expr_stmt|;
+block|}
 name|validateBlockType
 argument_list|(
 name|cachedBlock
@@ -1627,6 +1656,14 @@ operator|!=
 literal|null
 condition|)
 block|{
+assert|assert
+name|cachedBlock
+operator|.
+name|isUnpacked
+argument_list|()
+operator|:
+literal|"Packed block leak."
+assert|;
 comment|// Return a distinct 'shallow copy' of the block,
 comment|// so pos does not get messed by the scanner
 return|return
@@ -1653,6 +1690,13 @@ operator|-
 literal|1
 argument_list|,
 literal|true
+argument_list|)
+operator|.
+name|unpack
+argument_list|(
+name|hfileContext
+argument_list|,
+name|fsBlockReader
 argument_list|)
 decl_stmt|;
 comment|// Cache the block
@@ -1694,7 +1738,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * Read in a file block of the given {@link BlockType} and    * {@link DataBlockEncoding}.    * @param dataBlockOffset offset to read.    * @param onDiskBlockSize size of the block    * @param cacheBlock    * @param pread Use positional read instead of seek+read (positional is    *          better doing random reads whereas seek+read is better scanning).    * @param isCompaction is this block being read as part of a compaction    * @param expectedBlockType the block type we are expecting to read with this    *          read operation, or null to read whatever block type is available    *          and avoid checking (that might reduce caching efficiency of    *          encoded data blocks)    * @param expectedDataBlockEncoding the data block encoding the caller is    *          expecting data blocks to be in, or null to not perform this    *          check and return the block irrespective of the encoding. This    *          check only applies to data blocks and can be set to null when    *          the caller is expecting to read a non-data block and has set    *          expectedBlockType accordingly.    * @return Block wrapped in a ByteBuffer.    * @throws IOException    */
+comment|/**    * Read in a file block of the given {@link BlockType} and    * {@link DataBlockEncoding}. Unpacks the block as necessary.    * @param dataBlockOffset offset to read.    * @param onDiskBlockSize size of the block    * @param cacheBlock    * @param pread Use positional read instead of seek+read (positional is    *          better doing random reads whereas seek+read is better scanning).    * @param isCompaction is this block being read as part of a compaction    * @param expectedBlockType the block type we are expecting to read with this    *          read operation, or null to read whatever block type is available    *          and avoid checking (that might reduce caching efficiency of    *          encoded data blocks)    * @param expectedDataBlockEncoding the data block encoding the caller is    *          expecting data blocks to be in, or null to not perform this    *          check and return the block irrespective of the encoding. This    *          check only applies to data blocks and can be set to null when    *          the caller is expecting to read a non-data block and has set    *          expectedBlockType accordingly.    * @return Block wrapped in a ByteBuffer.    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -1874,13 +1918,14 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|validateBlockType
-argument_list|(
+assert|assert
 name|cachedBlock
-argument_list|,
-name|expectedBlockType
-argument_list|)
-expr_stmt|;
+operator|.
+name|isUnpacked
+argument_list|()
+operator|:
+literal|"Packed block leak."
+assert|;
 if|if
 condition|(
 name|cachedBlock
@@ -2012,6 +2057,31 @@ argument_list|,
 name|expectedBlockType
 argument_list|)
 expr_stmt|;
+name|HFileBlock
+name|unpacked
+init|=
+name|hfileBlock
+operator|.
+name|unpack
+argument_list|(
+name|hfileContext
+argument_list|,
+name|fsBlockReader
+argument_list|)
+decl_stmt|;
+name|BlockType
+operator|.
+name|BlockCategory
+name|category
+init|=
+name|hfileBlock
+operator|.
+name|getBlockType
+argument_list|()
+operator|.
+name|getCategory
+argument_list|()
+decl_stmt|;
 comment|// Cache the block if necessary
 if|if
 condition|(
@@ -2021,13 +2091,7 @@ name|cacheConf
 operator|.
 name|shouldCacheBlockOnRead
 argument_list|(
-name|hfileBlock
-operator|.
-name|getBlockType
-argument_list|()
-operator|.
-name|getCategory
-argument_list|()
+name|category
 argument_list|)
 condition|)
 block|{
@@ -2040,7 +2104,16 @@ name|cacheBlock
 argument_list|(
 name|cacheKey
 argument_list|,
+name|cacheConf
+operator|.
+name|shouldCacheCompressed
+argument_list|(
+name|category
+argument_list|)
+condition|?
 name|hfileBlock
+else|:
+name|unpacked
 argument_list|,
 name|cacheConf
 operator|.
@@ -2078,7 +2151,7 @@ argument_list|()
 expr_stmt|;
 block|}
 return|return
-name|hfileBlock
+name|unpacked
 return|;
 block|}
 block|}
