@@ -333,7 +333,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTableInterface
+name|Table
 import|;
 end_import
 
@@ -474,7 +474,7 @@ name|IOException
 throws|,
 name|TableNotFoundException
 block|{
-name|HTableInterface
+name|Table
 name|table
 init|=
 name|servlet

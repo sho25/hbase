@@ -205,7 +205,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTableInterface
+name|Scan
 import|;
 end_import
 
@@ -221,7 +221,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Scan
+name|Table
 import|;
 end_import
 
@@ -895,7 +895,7 @@ operator|+
 name|batchSize
 argument_list|)
 expr_stmt|;
-name|HTableInterface
+name|Table
 name|hTable
 init|=
 name|RESTServlet

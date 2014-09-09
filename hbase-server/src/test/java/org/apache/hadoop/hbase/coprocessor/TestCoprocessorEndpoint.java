@@ -153,6 +153,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|ByteStringer
@@ -778,7 +794,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new
@@ -842,7 +858,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -937,7 +953,7 @@ argument_list|>
 name|sum
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|,
 specifier|final
@@ -1113,7 +1129,7 @@ parameter_list|()
 throws|throws
 name|Throwable
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -2395,7 +2411,7 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new

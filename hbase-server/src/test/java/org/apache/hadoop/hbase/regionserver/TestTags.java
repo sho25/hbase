@@ -423,6 +423,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|coprocessor
 operator|.
 name|BaseRegionObserver
@@ -760,7 +776,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -1343,7 +1359,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -2145,7 +2161,7 @@ argument_list|(
 literal|"rowe"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -3120,7 +3136,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -4297,7 +4313,7 @@ name|byte
 index|[]
 name|row2
 parameter_list|,
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|byte

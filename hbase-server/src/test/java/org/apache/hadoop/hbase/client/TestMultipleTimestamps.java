@@ -333,7 +333,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -645,7 +645,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -923,7 +923,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -1356,7 +1356,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -1874,7 +1874,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -2077,7 +2077,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -2215,7 +2215,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -2351,7 +2351,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -2594,7 +2594,7 @@ name|Cell
 index|[]
 name|getNVersions
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -2707,7 +2707,7 @@ specifier|private
 name|ResultScanner
 name|scan
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -2885,7 +2885,7 @@ specifier|private
 name|void
 name|put
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -3011,7 +3011,7 @@ specifier|private
 name|void
 name|putNVersions
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -3126,7 +3126,7 @@ specifier|private
 name|void
 name|deleteOneVersion
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -3204,7 +3204,7 @@ specifier|private
 name|void
 name|deleteAllVersionsBefore
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -3281,7 +3281,7 @@ specifier|private
 name|void
 name|deleteColumn
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -3353,7 +3353,7 @@ specifier|private
 name|void
 name|deleteFamily
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte

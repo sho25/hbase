@@ -345,7 +345,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTableInterface
+name|Put
 import|;
 end_import
 
@@ -361,7 +361,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Put
+name|Table
 import|;
 end_import
 
@@ -1323,7 +1323,7 @@ name|build
 argument_list|()
 return|;
 block|}
-name|HTableInterface
+name|Table
 name|table
 init|=
 literal|null
@@ -1825,7 +1825,7 @@ name|build
 argument_list|()
 return|;
 block|}
-name|HTableInterface
+name|Table
 name|table
 init|=
 literal|null
@@ -2824,7 +2824,7 @@ return|;
 block|}
 block|}
 block|}
-name|HTableInterface
+name|Table
 name|table
 init|=
 literal|null
@@ -2955,7 +2955,7 @@ name|CellSetModel
 name|model
 parameter_list|)
 block|{
-name|HTableInterface
+name|Table
 name|table
 init|=
 literal|null
@@ -3559,7 +3559,7 @@ name|CellSetModel
 name|model
 parameter_list|)
 block|{
-name|HTableInterface
+name|Table
 name|table
 init|=
 literal|null

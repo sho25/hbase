@@ -83,7 +83,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTableInterface
+name|Table
 import|;
 end_import
 
@@ -412,7 +412,7 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Caller closes the table afterwards.    */
-name|HTableInterface
+name|Table
 name|getTable
 parameter_list|(
 name|String

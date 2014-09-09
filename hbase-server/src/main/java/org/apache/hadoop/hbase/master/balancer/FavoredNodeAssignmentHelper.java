@@ -295,6 +295,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|RackManager
@@ -797,7 +813,7 @@ expr_stmt|;
 block|}
 block|}
 comment|// Write the region assignments to the meta table.
-name|HTable
+name|Table
 name|metaTable
 init|=
 literal|null

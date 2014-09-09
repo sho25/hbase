@@ -1651,7 +1651,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-name|HTable
+name|Table
 name|h
 init|=
 operator|new
@@ -2128,7 +2128,7 @@ argument_list|(
 literal|"value"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -2880,7 +2880,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -3098,7 +3098,7 @@ argument_list|,
 name|keyPrefix3
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -3334,7 +3334,7 @@ specifier|private
 name|void
 name|deleteColumns
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|String
@@ -3452,7 +3452,7 @@ parameter_list|,
 name|String
 name|value
 parameter_list|,
-name|HTable
+name|Table
 name|ht
 parameter_list|)
 throws|throws
@@ -3579,7 +3579,7 @@ parameter_list|,
 name|String
 name|value
 parameter_list|,
-name|HTable
+name|Table
 name|ht
 parameter_list|)
 throws|throws
@@ -3747,7 +3747,7 @@ specifier|private
 name|void
 name|putRows
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|int
@@ -4489,7 +4489,7 @@ name|int
 name|countRows
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|t
 parameter_list|,
 specifier|final
@@ -4547,7 +4547,7 @@ name|void
 name|assertRowCount
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|t
 parameter_list|,
 specifier|final
@@ -4778,7 +4778,7 @@ argument_list|(
 literal|"testSuperSimple"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -4904,7 +4904,7 @@ argument_list|(
 literal|"hbase.client.keyvalue.maxsize"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -5060,7 +5060,7 @@ argument_list|(
 literal|"testFilters"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -5384,7 +5384,7 @@ argument_list|(
 literal|"testKeyOnlyFilter"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -5692,7 +5692,7 @@ argument_list|(
 literal|"testSimpleMissing"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -6430,7 +6430,7 @@ argument_list|,
 literal|10
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -8698,7 +8698,7 @@ name|Exception
 name|e
 parameter_list|)
 block|{}
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -9241,7 +9241,7 @@ argument_list|,
 literal|20
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -11919,7 +11919,7 @@ argument_list|,
 literal|10
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -13859,7 +13859,7 @@ block|,
 literal|5000
 block|}
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -14194,7 +14194,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -15114,7 +15114,7 @@ block|,
 literal|5000
 block|}
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -18010,7 +18010,7 @@ argument_list|,
 name|numColsPerRow
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -18579,7 +18579,7 @@ argument_list|(
 literal|7
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -19160,7 +19160,7 @@ argument_list|(
 literal|7
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -19637,7 +19637,7 @@ argument_list|(
 literal|"testJiraTest1014"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -19774,7 +19774,7 @@ argument_list|(
 literal|7
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -20196,7 +20196,7 @@ argument_list|(
 literal|7
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -20431,7 +20431,7 @@ specifier|private
 name|void
 name|getVersionRangeAndVerifyGreaterThan
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -20543,7 +20543,7 @@ specifier|private
 name|void
 name|getVersionRangeAndVerify
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -20654,7 +20654,7 @@ specifier|private
 name|void
 name|getAllVersionsAndVerify
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -20748,7 +20748,7 @@ specifier|private
 name|void
 name|scanVersionRangeAndVerifyGreaterThan
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -20860,7 +20860,7 @@ specifier|private
 name|void
 name|scanVersionRangeAndVerify
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -20971,7 +20971,7 @@ specifier|private
 name|void
 name|scanAllVersionsAndVerify
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -21065,7 +21065,7 @@ specifier|private
 name|void
 name|getVersionAndVerify
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -21154,7 +21154,7 @@ specifier|private
 name|void
 name|getVersionAndVerifyMissing
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -21229,7 +21229,7 @@ specifier|private
 name|void
 name|scanVersionAndVerify
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -21318,7 +21318,7 @@ specifier|private
 name|void
 name|scanVersionAndVerifyMissing
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -21393,7 +21393,7 @@ specifier|private
 name|void
 name|getTestNull
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -21571,7 +21571,7 @@ specifier|private
 name|void
 name|scanTestNull
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -21607,7 +21607,7 @@ specifier|private
 name|void
 name|scanTestNull
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -21810,7 +21810,7 @@ specifier|private
 name|void
 name|singleRowGetTest
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -22819,7 +22819,7 @@ specifier|private
 name|void
 name|singleRowScanTest
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -23779,7 +23779,7 @@ specifier|private
 name|void
 name|getVerifySingleColumn
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -24247,7 +24247,7 @@ specifier|private
 name|void
 name|scanVerifySingleColumn
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -24739,7 +24739,7 @@ specifier|private
 name|void
 name|getVerifySingleEmpty
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -24963,7 +24963,7 @@ specifier|private
 name|void
 name|scanVerifySingleEmpty
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -27076,7 +27076,7 @@ specifier|private
 name|Result
 name|getSingleScanResult
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|Scan
@@ -27533,7 +27533,7 @@ argument_list|,
 literal|20
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -30153,7 +30153,7 @@ argument_list|(
 literal|"testUpdates"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|hTable
 init|=
 name|TEST_UTIL
@@ -30538,7 +30538,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|hTable
 init|=
 name|TEST_UTIL
@@ -30979,7 +30979,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|hTable
 init|=
 name|TEST_UTIL
@@ -31426,7 +31426,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -31487,7 +31487,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -31646,7 +31646,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -31860,7 +31860,7 @@ argument_list|(
 literal|"abcd"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -32143,7 +32143,7 @@ argument_list|(
 literal|100
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -32278,7 +32278,7 @@ argument_list|(
 literal|"abcd"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -33171,7 +33171,7 @@ literal|"fam2"
 argument_list|)
 decl_stmt|;
 comment|// Open table
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -33779,7 +33779,7 @@ name|FAMILY
 argument_list|)
 expr_stmt|;
 block|}
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new
@@ -34291,7 +34291,7 @@ argument_list|(
 literal|"value"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|a
 init|=
 name|TEST_UTIL
@@ -34305,7 +34305,7 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|b
 init|=
 name|TEST_UTIL
@@ -34349,7 +34349,7 @@ name|put
 argument_list|)
 expr_stmt|;
 comment|// open a new connection to A and a connection to b
-name|HTable
+name|Table
 name|newA
 init|=
 operator|new
@@ -34457,7 +34457,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// Opening a new connection to A will cause the tables to be reloaded
-name|HTable
+name|Table
 name|anotherA
 init|=
 operator|new
@@ -35726,7 +35726,7 @@ argument_list|(
 literal|"testRow1"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 name|TEST_UTIL
@@ -35975,7 +35975,7 @@ argument_list|(
 literal|"testRowMutation"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 name|TEST_UTIL
@@ -36251,7 +36251,7 @@ argument_list|(
 literal|"testAppend"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 name|TEST_UTIL
@@ -36579,7 +36579,7 @@ argument_list|(
 literal|"testIncrementWithDeletes"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -36729,7 +36729,7 @@ argument_list|(
 literal|"testIncrementingInvalidValue"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -36887,7 +36887,7 @@ argument_list|(
 literal|"testIncrementInvalidArguments"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -37153,7 +37153,7 @@ argument_list|(
 literal|"testIncrementOutOfOrder"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -37499,7 +37499,7 @@ argument_list|(
 literal|"testIncrement"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -38240,7 +38240,7 @@ argument_list|,
 name|poolSize
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -38513,7 +38513,7 @@ name|poolSize
 argument_list|)
 expr_stmt|;
 specifier|final
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -39054,7 +39054,7 @@ argument_list|(
 literal|"abcd"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -39328,7 +39328,7 @@ argument_list|(
 literal|"dddd"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -39985,7 +39985,7 @@ argument_list|(
 literal|"dddd"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -42244,7 +42244,7 @@ argument_list|,
 literal|10
 argument_list|)
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new
@@ -42872,7 +42872,7 @@ argument_list|(
 literal|"testJira6912"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|foo
 init|=
 name|TEST_UTIL
@@ -43077,7 +43077,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -43276,7 +43276,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -44093,7 +44093,7 @@ argument_list|(
 literal|"testRawScan"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -44537,7 +44537,7 @@ argument_list|(
 literal|"testSmallScan"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -44750,7 +44750,7 @@ argument_list|(
 literal|"testSuperSimpleWithReverseScan"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -45175,7 +45175,7 @@ argument_list|(
 literal|"testFiltersWithReverseScan"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -45493,7 +45493,7 @@ argument_list|(
 literal|"testKeyOnlyFilterWithReverseScan"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -45802,7 +45802,7 @@ argument_list|(
 literal|"testSimpleMissingWithReverseScan"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -46221,7 +46221,7 @@ argument_list|(
 literal|"testNullWithReverseScan"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -46559,7 +46559,7 @@ block|,
 literal|5000
 block|}
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -49043,7 +49043,7 @@ specifier|private
 name|void
 name|reverseScanTest
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|boolean

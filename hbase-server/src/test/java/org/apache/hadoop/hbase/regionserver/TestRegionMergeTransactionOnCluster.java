@@ -335,22 +335,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Put
 import|;
 end_import
@@ -416,6 +400,22 @@ operator|.
 name|client
 operator|.
 name|Scan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -869,7 +869,7 @@ literal|"testWholesomeMerge"
 argument_list|)
 decl_stmt|;
 comment|// Create table and load data.
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndLoadData
@@ -1135,7 +1135,7 @@ literal|"testCleanMergeReference"
 argument_list|)
 decl_stmt|;
 comment|// Create table and load data.
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndLoadData
@@ -1609,7 +1609,7 @@ decl_stmt|;
 try|try
 block|{
 comment|// Create table and load data.
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndLoadData
@@ -2531,7 +2531,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|HTable
+name|Table
 name|createTableAndLoadData
 parameter_list|(
 name|HMaster
@@ -2557,7 +2557,7 @@ argument_list|)
 return|;
 block|}
 specifier|private
-name|HTable
+name|Table
 name|createTableAndLoadData
 parameter_list|(
 name|HMaster
@@ -2636,7 +2636,7 @@ name|numRegions
 index|]
 expr_stmt|;
 block|}
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -2883,7 +2883,7 @@ specifier|private
 name|void
 name|loadData
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|)
 throws|throws
@@ -2945,7 +2945,7 @@ specifier|private
 name|void
 name|verifyRowCount
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|int

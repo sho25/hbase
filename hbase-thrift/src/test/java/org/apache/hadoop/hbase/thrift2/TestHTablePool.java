@@ -99,6 +99,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -332,7 +348,7 @@ name|TABLENAME
 argument_list|)
 decl_stmt|;
 comment|// Request a table from an empty pool
-name|HTableInterface
+name|Table
 name|table
 init|=
 name|pool
@@ -356,7 +372,7 @@ name|close
 argument_list|()
 expr_stmt|;
 comment|// Request a table of the same name
-name|HTableInterface
+name|Table
 name|sameTable
 init|=
 name|pool
@@ -425,7 +441,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Request a table from an empty pool
-name|HTableInterface
+name|Table
 name|table
 init|=
 name|pool
@@ -449,7 +465,7 @@ name|close
 argument_list|()
 expr_stmt|;
 comment|// Request a table of the same name
-name|HTableInterface
+name|Table
 name|sameTable
 init|=
 name|pool
@@ -548,7 +564,7 @@ name|CATALOG_FAMILY
 argument_list|)
 expr_stmt|;
 comment|// Request a table from an empty pool
-name|HTableInterface
+name|Table
 name|table1
 init|=
 name|pool
@@ -558,7 +574,7 @@ argument_list|(
 name|TABLENAME
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|table2
 init|=
 name|pool
@@ -587,7 +603,7 @@ name|close
 argument_list|()
 expr_stmt|;
 comment|// Request tables of the same names
-name|HTableInterface
+name|Table
 name|sameTable1
 init|=
 name|pool
@@ -597,7 +613,7 @@ argument_list|(
 name|TABLENAME
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|sameTable2
 init|=
 name|pool
@@ -702,7 +718,7 @@ decl_stmt|;
 comment|// Request a table from
 comment|// an
 comment|// empty pool
-name|HTableInterface
+name|Table
 name|table
 init|=
 name|pool
@@ -783,7 +799,7 @@ name|table
 argument_list|)
 expr_stmt|;
 comment|// Request a table of the same name
-name|HTableInterface
+name|Table
 name|sameTable
 init|=
 name|pool
@@ -864,7 +880,7 @@ comment|// an
 comment|// empty pool
 comment|// get table will return proxy implementation
 specifier|final
-name|HTableInterface
+name|Table
 name|table
 init|=
 name|pool
@@ -966,7 +982,7 @@ name|TABLENAME
 argument_list|)
 decl_stmt|;
 comment|// Request a table from an empty pool
-name|HTableInterface
+name|Table
 name|table
 init|=
 name|pool
@@ -1119,7 +1135,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Request tables from an empty pool
-name|HTableInterface
+name|Table
 name|table1
 init|=
 name|pool
@@ -1129,7 +1145,7 @@ argument_list|(
 name|TABLENAME
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|table2
 init|=
 name|pool
@@ -1139,7 +1155,7 @@ argument_list|(
 name|TABLENAME
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|table3
 init|=
 name|pool
@@ -1167,7 +1183,7 @@ name|close
 argument_list|()
 expr_stmt|;
 comment|// Request tables of the same name
-name|HTableInterface
+name|Table
 name|sameTable1
 init|=
 name|pool
@@ -1177,7 +1193,7 @@ argument_list|(
 name|TABLENAME
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|sameTable2
 init|=
 name|pool
@@ -1187,7 +1203,7 @@ argument_list|(
 name|TABLENAME
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|sameTable3
 init|=
 name|pool
@@ -1381,12 +1397,12 @@ name|tableDescriptor
 argument_list|)
 expr_stmt|;
 comment|// Request tables from an empty pool
-name|HTableInterface
+name|Table
 index|[]
 name|tables
 init|=
 operator|new
-name|HTableInterface
+name|Table
 index|[
 literal|4
 index|]
@@ -1551,7 +1567,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Request tables from an empty pool
-name|HTableInterface
+name|Table
 name|table1
 init|=
 name|pool
@@ -1561,7 +1577,7 @@ argument_list|(
 name|TABLENAME
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|table2
 init|=
 name|pool
@@ -1571,7 +1587,7 @@ argument_list|(
 name|TABLENAME
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|table3
 init|=
 name|pool
@@ -1600,7 +1616,7 @@ name|close
 argument_list|()
 expr_stmt|;
 comment|// Request tables of the same name
-name|HTableInterface
+name|Table
 name|sameTable1
 init|=
 name|pool
@@ -1610,7 +1626,7 @@ argument_list|(
 name|TABLENAME
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|sameTable2
 init|=
 name|pool
@@ -1620,7 +1636,7 @@ argument_list|(
 name|TABLENAME
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|sameTable3
 init|=
 name|pool
@@ -1814,12 +1830,12 @@ name|tableDescriptor
 argument_list|)
 expr_stmt|;
 comment|// Request tables from an empty pool
-name|HTableInterface
+name|Table
 index|[]
 name|tables
 init|=
 operator|new
-name|HTableInterface
+name|Table
 index|[
 literal|4
 index|]

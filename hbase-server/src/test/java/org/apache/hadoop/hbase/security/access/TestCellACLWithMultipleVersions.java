@@ -259,22 +259,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|HTable
 import|;
 end_import
@@ -308,6 +292,22 @@ operator|.
 name|client
 operator|.
 name|Put
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -1116,7 +1116,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -1408,7 +1408,7 @@ argument_list|(
 literal|10
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -1479,7 +1479,7 @@ argument_list|(
 literal|10
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -1545,7 +1545,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -1849,7 +1849,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -2027,7 +2027,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -2243,7 +2243,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -2331,7 +2331,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -2429,7 +2429,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -2510,7 +2510,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -2681,7 +2681,7 @@ argument_list|,
 name|TEST_Q1
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -2752,7 +2752,7 @@ argument_list|,
 name|TEST_Q2
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -2841,7 +2841,7 @@ argument_list|(
 name|TEST_FAMILY1
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -2931,7 +2931,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -3272,7 +3272,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -3349,7 +3349,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -3519,7 +3519,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -3998,7 +3998,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -4095,7 +4095,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -4294,7 +4294,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -4628,7 +4628,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -4729,7 +4729,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -4917,7 +4917,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -5253,7 +5253,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -5372,7 +5372,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -5541,7 +5541,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -6010,7 +6010,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -6099,7 +6099,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -6198,7 +6198,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new

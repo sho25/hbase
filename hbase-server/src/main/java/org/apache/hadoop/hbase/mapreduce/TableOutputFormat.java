@@ -213,6 +213,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|zookeeper
 operator|.
 name|ZKUtil
@@ -407,14 +423,14 @@ argument_list|>
 block|{
 comment|/** The table to write to. */
 specifier|private
-name|HTable
+name|Table
 name|table
 decl_stmt|;
 comment|/**      * Instantiate a TableRecordWriter with the HBase HClient for writing.      *      * @param table  The table to write to.      */
 specifier|public
 name|TableRecordWriter
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|)
 block|{

@@ -479,6 +479,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|fs
 operator|.
 name|HFileSystem
@@ -1203,7 +1219,7 @@ operator|.
 name|getWAL
 argument_list|()
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|createTestTable
@@ -1510,7 +1526,7 @@ block|}
 name|void
 name|writeData
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|int
@@ -1549,7 +1565,7 @@ block|}
 name|void
 name|validateData
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|int
@@ -1649,7 +1665,7 @@ block|}
 name|void
 name|batchWriteAndWait
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|int
@@ -2049,7 +2065,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -2616,7 +2632,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// When the hbase:meta table can be opened, the region servers are running
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -3573,18 +3589,18 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
 decl_stmt|;
-name|HTable
+name|Table
 name|table2
 init|=
 literal|null
 decl_stmt|;
 comment|// When the hbase:meta table can be opened, the region servers are running
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -3953,7 +3969,7 @@ specifier|private
 name|void
 name|doPut
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|int
@@ -4007,7 +4023,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|HTable
+name|Table
 name|createTestTable
 parameter_list|(
 name|String

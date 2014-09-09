@@ -662,7 +662,7 @@ argument_list|(
 literal|"testScannerNextRPCTimesout"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -955,7 +955,7 @@ specifier|private
 name|void
 name|putToTable
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte

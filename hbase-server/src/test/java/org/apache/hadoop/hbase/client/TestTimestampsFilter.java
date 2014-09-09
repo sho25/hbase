@@ -369,7 +369,7 @@ name|kvs
 index|[]
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -916,7 +916,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -1464,7 +1464,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -1618,7 +1618,7 @@ specifier|private
 name|void
 name|verifyInsertedValues
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -2040,7 +2040,7 @@ name|Cell
 index|[]
 name|getNVersions
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -2150,7 +2150,7 @@ name|Result
 index|[]
 name|scanNVersions
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -2261,7 +2261,7 @@ specifier|private
 name|void
 name|putNVersions
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -2376,7 +2376,7 @@ specifier|private
 name|void
 name|deleteOneVersion
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte

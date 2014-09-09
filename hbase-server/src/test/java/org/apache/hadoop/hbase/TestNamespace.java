@@ -249,6 +249,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|HMaster
@@ -1564,7 +1580,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|//sanity check try to write and read from table
-name|HTable
+name|Table
 name|table
 init|=
 operator|new

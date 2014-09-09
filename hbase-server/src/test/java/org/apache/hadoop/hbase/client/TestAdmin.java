@@ -1626,7 +1626,7 @@ argument_list|(
 literal|"testDisableAndEnableTable"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -1953,7 +1953,7 @@ argument_list|(
 literal|"testDisableAndEnableTable2"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht1
 init|=
 name|TEST_UTIL
@@ -1967,7 +1967,7 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht2
 init|=
 name|TEST_UTIL
@@ -2666,7 +2666,7 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -6368,7 +6368,7 @@ name|CATALOG_FAMILY
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|ladmin
 init|=
 operator|new
@@ -9077,7 +9077,7 @@ block|,
 literal|9
 block|}
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|hbaseadmin
 init|=
 operator|new
@@ -9179,7 +9179,7 @@ argument_list|(
 literal|"testReadOnlyTable"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -9540,7 +9540,7 @@ argument_list|(
 literal|"testTableNotDisabledExceptionWithATable"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 name|TEST_UTIL
@@ -9596,7 +9596,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|ht
 init|=
 operator|new
@@ -11428,7 +11428,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new

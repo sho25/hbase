@@ -473,6 +473,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -977,7 +993,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndWriteDataWithLabels
@@ -1199,7 +1215,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndWriteDataWithLabels
@@ -1512,7 +1528,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndWriteDataWithLabels
@@ -1807,7 +1823,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndWriteDataWithLabels
@@ -2132,7 +2148,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndWriteDataWithLabels
@@ -2288,7 +2304,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndWriteDataWithLabels
@@ -2398,7 +2414,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndWriteDataWithLabels
@@ -2879,7 +2895,7 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -2995,7 +3011,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndWriteDataWithLabels
@@ -3263,7 +3279,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndWriteDataWithLabels
@@ -3419,7 +3435,7 @@ argument_list|(
 name|action
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 literal|null
@@ -4189,7 +4205,7 @@ name|isEmpty
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 literal|null
@@ -4435,7 +4451,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -4690,7 +4706,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -4940,7 +4956,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -5557,7 +5573,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -6371,7 +6387,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -6588,7 +6604,7 @@ expr_stmt|;
 block|}
 block|}
 specifier|static
-name|HTable
+name|Table
 name|createTableAndWriteDataWithLabels
 parameter_list|(
 name|TableName
@@ -6601,7 +6617,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null

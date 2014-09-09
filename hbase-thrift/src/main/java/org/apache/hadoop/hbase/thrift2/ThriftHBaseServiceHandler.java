@@ -323,6 +323,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|UserProvider
@@ -948,7 +964,7 @@ block|}
 expr_stmt|;
 block|}
 specifier|private
-name|HTableInterface
+name|Table
 name|getTable
 parameter_list|(
 name|ByteBuffer
@@ -1008,7 +1024,7 @@ specifier|private
 name|void
 name|closeTable
 parameter_list|(
-name|HTableInterface
+name|Table
 name|table
 parameter_list|)
 throws|throws
@@ -1163,7 +1179,7 @@ name|TIOError
 throws|,
 name|TException
 block|{
-name|HTableInterface
+name|Table
 name|htable
 init|=
 name|getTable
@@ -1224,7 +1240,7 @@ name|TIOError
 throws|,
 name|TException
 block|{
-name|HTableInterface
+name|Table
 name|htable
 init|=
 name|getTable
@@ -1294,7 +1310,7 @@ name|TIOError
 throws|,
 name|TException
 block|{
-name|HTableInterface
+name|Table
 name|htable
 init|=
 name|getTable
@@ -1358,7 +1374,7 @@ name|TIOError
 throws|,
 name|TException
 block|{
-name|HTableInterface
+name|Table
 name|htable
 init|=
 name|getTable
@@ -1430,7 +1446,7 @@ name|TIOError
 throws|,
 name|TException
 block|{
-name|HTableInterface
+name|Table
 name|htable
 init|=
 name|getTable
@@ -1522,7 +1538,7 @@ name|TIOError
 throws|,
 name|TException
 block|{
-name|HTableInterface
+name|Table
 name|htable
 init|=
 name|getTable
@@ -1582,7 +1598,7 @@ name|TIOError
 throws|,
 name|TException
 block|{
-name|HTableInterface
+name|Table
 name|htable
 init|=
 name|getTable
@@ -1648,7 +1664,7 @@ name|TIOError
 throws|,
 name|TException
 block|{
-name|HTableInterface
+name|Table
 name|htable
 init|=
 name|getTable
@@ -1726,7 +1742,7 @@ name|TIOError
 throws|,
 name|TException
 block|{
-name|HTableInterface
+name|Table
 name|htable
 init|=
 name|getTable
@@ -1846,7 +1862,7 @@ name|TIOError
 throws|,
 name|TException
 block|{
-name|HTableInterface
+name|Table
 name|htable
 init|=
 name|getTable
@@ -1910,7 +1926,7 @@ name|TIOError
 throws|,
 name|TException
 block|{
-name|HTableInterface
+name|Table
 name|htable
 init|=
 name|getTable
@@ -1974,7 +1990,7 @@ name|TIOError
 throws|,
 name|TException
 block|{
-name|HTableInterface
+name|Table
 name|htable
 init|=
 name|getTable
@@ -2136,7 +2152,7 @@ name|TIOError
 throws|,
 name|TException
 block|{
-name|HTableInterface
+name|Table
 name|htable
 init|=
 name|getTable
@@ -2320,7 +2336,7 @@ name|TIOError
 throws|,
 name|TException
 block|{
-name|HTableInterface
+name|Table
 name|htable
 init|=
 name|getTable

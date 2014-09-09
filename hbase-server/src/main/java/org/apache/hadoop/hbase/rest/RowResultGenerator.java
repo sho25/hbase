@@ -159,7 +159,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTableInterface
+name|Result
 import|;
 end_import
 
@@ -175,7 +175,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Result
+name|Table
 import|;
 end_import
 
@@ -270,7 +270,7 @@ name|IllegalArgumentException
 throws|,
 name|IOException
 block|{
-name|HTableInterface
+name|Table
 name|table
 init|=
 name|RESTServlet

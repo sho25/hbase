@@ -63,16 +63,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Collections
 import|;
 end_import
@@ -7777,7 +7767,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new

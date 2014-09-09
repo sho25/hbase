@@ -271,6 +271,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|coprocessor
 operator|.
 name|Batch
@@ -715,7 +731,7 @@ argument_list|(
 literal|"testBulkDeleteEndpoint"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|createTable
@@ -868,7 +884,7 @@ argument_list|(
 literal|"testBulkDeleteEndpointWhenRowBatchSizeLessThanRowsToDeleteFromARegion"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|createTable
@@ -1029,7 +1045,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|HTable
+name|Table
 name|ht
 init|=
 operator|new
@@ -1248,7 +1264,7 @@ argument_list|(
 literal|"testBulkDeleteWithConditionBasedDelete"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|createTable
@@ -1469,7 +1485,7 @@ argument_list|(
 literal|"testBulkDeleteColumn"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|createTable
@@ -1777,7 +1793,7 @@ argument_list|,
 literal|5
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 operator|new
@@ -2004,7 +2020,7 @@ argument_list|(
 literal|"testBulkDeleteColumnVersion"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|createTable
@@ -2420,7 +2436,7 @@ argument_list|(
 literal|"testBulkDeleteColumnVersionBasedOnTS"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|createTable
@@ -2845,7 +2861,7 @@ argument_list|(
 literal|"testBulkDeleteWithNumberOfVersions"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|createTable
@@ -3534,7 +3550,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|byte
@@ -3608,7 +3624,7 @@ argument_list|,
 literal|5
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 operator|new

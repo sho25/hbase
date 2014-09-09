@@ -805,6 +805,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|coordination
 operator|.
 name|BaseCoordinatedStateManager
@@ -2297,7 +2313,7 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|installTable
@@ -2917,7 +2933,7 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|installTable
@@ -3008,7 +3024,7 @@ parameter_list|(
 name|HRegionServer
 name|hrs
 parameter_list|,
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 specifier|final
@@ -3343,7 +3359,7 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|installTable
@@ -3674,7 +3690,7 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|installTable
@@ -4018,7 +4034,7 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|installTable
@@ -4496,7 +4512,7 @@ operator|.
 name|getZooKeeper
 argument_list|()
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|installTable
@@ -5091,7 +5107,7 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|disablingHT
 init|=
 name|installTable
@@ -5105,7 +5121,7 @@ argument_list|,
 name|NUM_REGIONS_TO_CREATE
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|installTable
@@ -6811,7 +6827,7 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|installTable
@@ -7852,7 +7868,7 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|installTable
@@ -8518,7 +8534,7 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|installTable

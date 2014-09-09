@@ -127,7 +127,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Put
 import|;
 end_import
 
@@ -143,7 +143,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Put
+name|Table
 import|;
 end_import
 
@@ -539,7 +539,7 @@ block|,
 name|FAMILY_B
 block|}
 decl_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 name|UTIL

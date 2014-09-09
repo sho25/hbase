@@ -585,7 +585,7 @@ name|test
 block|}
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 operator|new
@@ -725,7 +725,7 @@ parameter_list|()
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|ht
 init|=
 operator|new
@@ -1000,7 +1000,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
-name|HTable
+name|Table
 name|ht
 init|=
 operator|new

@@ -1085,7 +1085,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -1186,7 +1186,7 @@ argument_list|(
 literal|"test=testBatchWithGet"
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -1492,7 +1492,7 @@ argument_list|(
 literal|"test=testBadFam"
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -2177,7 +2177,7 @@ argument_list|(
 literal|"test=testBatchWithPut"
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -2366,7 +2366,7 @@ argument_list|(
 literal|"test=testBatchWithDelete"
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -2554,7 +2554,7 @@ argument_list|(
 literal|"test=testHTableDeleteWithList"
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -2741,7 +2741,7 @@ argument_list|(
 literal|"test=testBatchWithManyColsInOneRowGetAndPut"
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -3036,7 +3036,7 @@ argument_list|(
 literal|"qual4"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -3613,7 +3613,7 @@ name|void
 name|run
 parameter_list|()
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -3848,7 +3848,7 @@ argument_list|(
 literal|"test=testBatchWithMixedActions"
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -4376,7 +4376,7 @@ specifier|private
 name|void
 name|validateLoadedData
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|)
 throws|throws

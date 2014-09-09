@@ -581,7 +581,7 @@ specifier|private
 name|void
 name|randomCFPuts
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|byte
@@ -1704,7 +1704,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -1833,7 +1833,7 @@ throws|throws
 name|Exception
 block|{
 comment|// Test with a single region table.
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -2076,7 +2076,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -2729,7 +2729,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new

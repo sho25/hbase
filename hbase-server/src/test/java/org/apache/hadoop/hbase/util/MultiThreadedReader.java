@@ -231,6 +231,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|test
@@ -663,7 +679,7 @@ name|readerId
 decl_stmt|;
 specifier|protected
 specifier|final
-name|HTableInterface
+name|Table
 name|table
 decl_stmt|;
 comment|/** The "current" key being read. Increases from startKey to endKey. */
@@ -1705,7 +1721,7 @@ name|Result
 index|[]
 name|results
 parameter_list|,
-name|HTableInterface
+name|Table
 name|table
 parameter_list|,
 name|boolean
@@ -1780,7 +1796,7 @@ parameter_list|,
 name|Result
 name|result
 parameter_list|,
-name|HTableInterface
+name|Table
 name|table
 parameter_list|,
 name|boolean
@@ -1828,7 +1844,7 @@ parameter_list|,
 name|Result
 name|result
 parameter_list|,
-name|HTableInterface
+name|Table
 name|table
 parameter_list|,
 name|boolean

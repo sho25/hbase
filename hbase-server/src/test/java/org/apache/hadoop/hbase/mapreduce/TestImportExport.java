@@ -479,6 +479,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|filter
 operator|.
 name|Filter
@@ -1209,7 +1225,7 @@ name|EXPORT_TABLE
 init|=
 literal|"exportSimpleCase"
 decl_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 name|UTIL
@@ -1612,7 +1628,7 @@ name|IMPORT_TABLE
 init|=
 literal|"importTableExportedFrom94"
 decl_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 name|UTIL
@@ -1733,7 +1749,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -1959,7 +1975,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -2436,7 +2452,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|exportTable
 init|=
 operator|new
@@ -2643,7 +2659,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|importTable
 init|=
 operator|new
@@ -2816,7 +2832,7 @@ specifier|private
 name|int
 name|getCount
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|Filter
@@ -3690,7 +3706,7 @@ name|exportTableName
 init|=
 literal|"exporttestDurability"
 decl_stmt|;
-name|HTable
+name|Table
 name|exportTable
 init|=
 name|UTIL
@@ -3857,7 +3873,7 @@ name|importTableName
 init|=
 literal|"importTestDurability1"
 decl_stmt|;
-name|HTable
+name|Table
 name|importTable
 init|=
 name|UTIL

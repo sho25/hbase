@@ -87,6 +87,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|ByteStringer
@@ -246,22 +262,6 @@ operator|.
 name|client
 operator|.
 name|Get
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HTable
 import|;
 end_import
 
@@ -551,7 +551,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
-name|HTable
+name|Table
 name|table1
 decl_stmt|;
 specifier|private
@@ -622,7 +622,7 @@ block|}
 decl_stmt|;
 specifier|private
 specifier|static
-name|HTable
+name|Table
 name|table2
 decl_stmt|;
 comment|/**    * @throws java.lang.Exception    */

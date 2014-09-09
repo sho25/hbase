@@ -1575,12 +1575,9 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
-operator|(
-name|HBaseAdmin
-operator|)
 name|con1
 operator|.
 name|getAdmin
@@ -2846,7 +2843,7 @@ name|idleTime
 argument_list|)
 expr_stmt|;
 specifier|final
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -4957,7 +4954,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table0
 init|=
 name|TEST_UTIL
@@ -4982,7 +4979,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|table
 init|=
 name|conn
@@ -7742,7 +7739,7 @@ operator|+
 name|c1
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -7991,7 +7988,7 @@ argument_list|(
 name|config
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|table
 init|=
 name|connection

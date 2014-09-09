@@ -185,6 +185,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|compress
@@ -628,7 +644,7 @@ argument_list|(
 literal|"Trying to scan meta"
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|metaTable
 init|=
 operator|new

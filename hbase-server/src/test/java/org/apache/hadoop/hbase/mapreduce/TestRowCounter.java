@@ -175,7 +175,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Put
 import|;
 end_import
 
@@ -191,7 +191,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Put
+name|Table
 import|;
 end_import
 
@@ -446,7 +446,7 @@ operator|.
 name|startMiniMapReduceCluster
 argument_list|()
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -740,7 +740,7 @@ specifier|static
 name|void
 name|writeRows
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|)
 throws|throws

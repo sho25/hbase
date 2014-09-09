@@ -241,6 +241,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|User
@@ -590,7 +606,7 @@ throws|throws
 name|Exception
 block|{
 specifier|final
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -624,7 +640,7 @@ name|void
 name|doQualifierAccess
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|)
 throws|throws
@@ -822,7 +838,7 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -1015,7 +1031,7 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -1187,7 +1203,7 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new

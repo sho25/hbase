@@ -315,6 +315,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Delete
 import|;
 end_import
@@ -396,6 +412,22 @@ operator|.
 name|client
 operator|.
 name|Scan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -976,7 +1008,7 @@ expr_stmt|;
 name|createLabels
 argument_list|()
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new
@@ -1321,7 +1353,7 @@ argument_list|(
 literal|"Validating table after delete."
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -2445,7 +2477,7 @@ argument_list|(
 literal|"Validating table."
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new

@@ -499,6 +499,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|RegionLocator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Result
 import|;
 end_import
@@ -532,6 +548,22 @@ operator|.
 name|client
 operator|.
 name|Scan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -3327,7 +3359,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test for {@link HFileOutputFormat2#configureCompression(HTable,    * Configuration)} and {@link HFileOutputFormat2#createFamilyCompressionMap    * (Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
+comment|/**    * Test for {@link HFileOutputFormat2#configureCompression(org.apache.hadoop.hbase.client.Table,    * Configuration)} and {@link HFileOutputFormat2#createFamilyCompressionMap    * (Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
 annotation|@
 name|Test
 specifier|public
@@ -3381,7 +3413,7 @@ argument_list|(
 name|numCfs
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|Mockito
@@ -3479,7 +3511,7 @@ specifier|private
 name|void
 name|setupMockColumnFamiliesForCompression
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|Map
@@ -3706,7 +3738,7 @@ return|return
 name|familyToCompression
 return|;
 block|}
-comment|/**    * Test for {@link HFileOutputFormat2#configureBloomType(HTable,    * Configuration)} and {@link HFileOutputFormat2#createFamilyBloomTypeMap    * (Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
+comment|/**    * Test for {@link HFileOutputFormat2#configureBloomType(org.apache.hadoop.hbase.client.Table,    * Configuration)} and {@link HFileOutputFormat2#createFamilyBloomTypeMap    * (Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
 annotation|@
 name|Test
 specifier|public
@@ -3758,7 +3790,7 @@ argument_list|(
 name|numCfs
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|Mockito
@@ -3857,7 +3889,7 @@ specifier|private
 name|void
 name|setupMockColumnFamiliesForBloomType
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|Map
@@ -4046,7 +4078,7 @@ return|return
 name|familyToBloomType
 return|;
 block|}
-comment|/**    * Test for {@link HFileOutputFormat2#configureBlockSize(HTable,    * Configuration)} and {@link HFileOutputFormat2#createFamilyBlockSizeMap    * (Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
+comment|/**    * Test for {@link HFileOutputFormat2#configureBlockSize(org.apache.hadoop.hbase.client.Table,    * Configuration)} and {@link HFileOutputFormat2#createFamilyBlockSizeMap    * (Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
 annotation|@
 name|Test
 specifier|public
@@ -4098,7 +4130,7 @@ argument_list|(
 name|numCfs
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|Mockito
@@ -4197,7 +4229,7 @@ specifier|private
 name|void
 name|setupMockColumnFamiliesForBlockSize
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|Map
@@ -4402,7 +4434,7 @@ return|return
 name|familyToBlockSize
 return|;
 block|}
-comment|/**    * Test for {@link HFileOutputFormat2#configureDataBlockEncoding(HTable,    * Configuration)} and {@link HFileOutputFormat2#createFamilyDataBlockEncodingMap    * (Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
+comment|/**    * Test for {@link HFileOutputFormat2#configureDataBlockEncoding(org.apache.hadoop.hbase.client.Table,    * Configuration)} and {@link HFileOutputFormat2#createFamilyDataBlockEncodingMap    * (Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
 annotation|@
 name|Test
 specifier|public
@@ -4454,7 +4486,7 @@ argument_list|(
 name|numCfs
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|Mockito
@@ -4553,7 +4585,7 @@ specifier|private
 name|void
 name|setupMockColumnFamiliesForDataBlockEncoding
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|Map
@@ -4766,7 +4798,7 @@ specifier|private
 name|void
 name|setupMockStartKeys
 parameter_list|(
-name|HTable
+name|RegionLocator
 name|table
 parameter_list|)
 throws|throws

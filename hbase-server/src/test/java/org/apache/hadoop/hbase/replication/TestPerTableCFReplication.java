@@ -271,6 +271,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|replication
 operator|.
 name|ReplicationAdmin
@@ -2034,7 +2050,7 @@ argument_list|(
 name|tabC
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|htab1A
 init|=
 operator|new
@@ -2045,7 +2061,7 @@ argument_list|,
 name|tabAName
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|htab2A
 init|=
 operator|new
@@ -2056,7 +2072,7 @@ argument_list|,
 name|tabAName
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|htab3A
 init|=
 operator|new
@@ -2067,7 +2083,7 @@ argument_list|,
 name|tabAName
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|htab1B
 init|=
 operator|new
@@ -2078,7 +2094,7 @@ argument_list|,
 name|tabBName
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|htab2B
 init|=
 operator|new
@@ -2089,7 +2105,7 @@ argument_list|,
 name|tabBName
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|htab3B
 init|=
 operator|new
@@ -2100,7 +2116,7 @@ argument_list|,
 name|tabBName
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|htab1C
 init|=
 operator|new
@@ -2111,7 +2127,7 @@ argument_list|,
 name|tabCName
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|htab2C
 init|=
 operator|new
@@ -2122,7 +2138,7 @@ argument_list|,
 name|tabCName
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|htab3C
 init|=
 operator|new
@@ -2750,7 +2766,7 @@ name|byte
 index|[]
 name|fam
 parameter_list|,
-name|HTable
+name|Table
 modifier|...
 name|tables
 parameter_list|)
@@ -2775,7 +2791,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|HTable
+name|Table
 name|table
 range|:
 name|tables
@@ -2815,10 +2831,10 @@ name|byte
 index|[]
 name|fam
 parameter_list|,
-name|HTable
+name|Table
 name|source
 parameter_list|,
-name|HTable
+name|Table
 modifier|...
 name|targets
 parameter_list|)
@@ -2901,7 +2917,7 @@ literal|true
 decl_stmt|;
 for|for
 control|(
-name|HTable
+name|Table
 name|target
 range|:
 name|targets
@@ -2972,10 +2988,10 @@ name|byte
 index|[]
 name|fam
 parameter_list|,
-name|HTable
+name|Table
 name|source
 parameter_list|,
-name|HTable
+name|Table
 modifier|...
 name|targets
 parameter_list|)
@@ -3062,7 +3078,7 @@ literal|true
 decl_stmt|;
 for|for
 control|(
-name|HTable
+name|Table
 name|target
 range|:
 name|targets

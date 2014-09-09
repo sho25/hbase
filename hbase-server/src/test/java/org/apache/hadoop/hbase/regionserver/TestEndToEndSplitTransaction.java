@@ -461,6 +461,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|PayloadCarryingRpcController
@@ -1412,7 +1428,7 @@ argument_list|)
 decl_stmt|;
 comment|//SplitTransaction will update the meta table by offlining the parent region, and adding info
 comment|//for daughters.
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -1522,7 +1538,7 @@ block|{
 name|Throwable
 name|ex
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 decl_stmt|;
 name|TableName
@@ -1540,7 +1556,7 @@ name|rs
 decl_stmt|;
 name|RegionSplitter
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|)
 throws|throws
@@ -2713,7 +2729,7 @@ name|daughterB
 init|=
 literal|null
 decl_stmt|;
-name|HTable
+name|Table
 name|metaTable
 init|=
 operator|new
@@ -2937,7 +2953,7 @@ specifier|static
 name|Result
 name|getRegionRow
 parameter_list|(
-name|HTable
+name|Table
 name|metaTable
 parameter_list|,
 name|byte
@@ -2970,7 +2986,7 @@ specifier|static
 name|void
 name|blockUntilRegionIsInMeta
 parameter_list|(
-name|HTable
+name|Table
 name|metaTable
 parameter_list|,
 name|long
@@ -3116,7 +3132,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new

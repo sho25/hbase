@@ -843,6 +843,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|hfile
@@ -1643,7 +1659,7 @@ argument_list|)
 expr_stmt|;
 comment|// Now let's mess it up and change the assignment in hbase:meta to
 comment|// point to a different region server
-name|HTable
+name|Table
 name|meta
 init|=
 operator|new
@@ -1933,7 +1949,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// comment needed - what is the purpose of this line
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -2006,7 +2022,7 @@ operator|.
 name|getHBaseCluster
 argument_list|()
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 literal|null
@@ -2157,7 +2173,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|meta
 init|=
 operator|new
@@ -2787,7 +2803,7 @@ condition|(
 name|metaRow
 condition|)
 block|{
-name|HTable
+name|Table
 name|meta
 init|=
 operator|new
@@ -2863,7 +2879,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Setup a clean table before we start mucking with it.    *    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
-name|HTable
+name|Table
 name|setupTable
 parameter_list|(
 name|TableName
@@ -2882,7 +2898,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Setup a clean table with a certain region_replica count    * @param tableName    * @param replicaCount    * @return    * @throws Exception    */
-name|HTable
+name|Table
 name|setupTableWithRegionReplica
 parameter_list|(
 name|TableName
@@ -3087,7 +3103,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new
@@ -4209,7 +4225,7 @@ comment|// the next few lines inject a location in meta for a replica, and then
 comment|// asks the master to assign the replica (the meta needs to be injected
 comment|// for the master to treat the request for assignment as valid; the master
 comment|// checks the region is valid either from its memory or meta)
-name|HTable
+name|Table
 name|meta
 init|=
 operator|new
@@ -4410,9 +4426,6 @@ name|HBaseFsckRepair
 operator|.
 name|fixUnassigned
 argument_list|(
-operator|(
-name|HBaseAdmin
-operator|)
 name|TEST_UTIL
 operator|.
 name|getHBaseAdmin
@@ -4425,9 +4438,6 @@ name|HBaseFsckRepair
 operator|.
 name|waitUntilAssigned
 argument_list|(
-operator|(
-name|HBaseAdmin
-operator|)
 name|TEST_UTIL
 operator|.
 name|getHBaseAdmin
@@ -5921,7 +5931,7 @@ argument_list|(
 name|serverName
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|meta
 init|=
 operator|new
@@ -7519,7 +7529,7 @@ argument_list|(
 literal|"tableNotInHdfs"
 argument_list|)
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new
@@ -9010,7 +9020,7 @@ argument_list|(
 literal|"testLingeringSplitParent"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|meta
 init|=
 literal|null
@@ -9482,7 +9492,7 @@ argument_list|(
 literal|"testLingeringSplitParent"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|meta
 init|=
 literal|null
@@ -9769,7 +9779,7 @@ argument_list|(
 literal|"testSplitdaughtersNotInMeta"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|meta
 init|=
 literal|null
@@ -12823,7 +12833,7 @@ name|Delete
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|HTable
+name|Table
 name|meta
 init|=
 operator|new
@@ -14434,7 +14444,7 @@ argument_list|(
 literal|"testMergeRegionFilesInHdfs"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|meta
 init|=
 literal|null

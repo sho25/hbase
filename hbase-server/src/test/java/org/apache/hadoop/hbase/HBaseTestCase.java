@@ -283,6 +283,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|HRegion
@@ -2075,7 +2091,7 @@ implements|implements
 name|Incommon
 block|{
 specifier|final
-name|HTable
+name|Table
 name|table
 decl_stmt|;
 comment|/**      * @param table      */
@@ -2083,7 +2099,7 @@ specifier|public
 name|HTableIncommon
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|)
 block|{

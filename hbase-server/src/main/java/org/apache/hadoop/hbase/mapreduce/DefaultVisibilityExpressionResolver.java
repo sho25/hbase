@@ -275,6 +275,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|visibility
@@ -427,7 +443,7 @@ parameter_list|()
 block|{
 comment|// Reading all the labels and ordinal.
 comment|// This scan should be done by user with global_admin previliges.. Ensure that it works
-name|HTable
+name|Table
 name|labelsTable
 init|=
 literal|null

@@ -363,6 +363,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|HBaseAdmin
 import|;
 end_import
@@ -695,7 +711,7 @@ name|boolean
 name|enforceMinAssignmentMove
 decl_stmt|;
 specifier|private
-name|HBaseAdmin
+name|Admin
 name|admin
 decl_stmt|;
 specifier|private
@@ -847,7 +863,7 @@ block|}
 block|}
 comment|/**    * @return the cached HBaseAdmin    * @throws IOException    */
 specifier|private
-name|HBaseAdmin
+name|Admin
 name|getHBaseAdmin
 parameter_list|()
 throws|throws

@@ -1040,7 +1040,7 @@ argument_list|,
 name|cloneTableName
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|clonedTable
 init|=
 operator|new

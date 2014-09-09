@@ -31,16 +31,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|InterruptedIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|net
 operator|.
 name|InetAddress
@@ -54,16 +44,6 @@ operator|.
 name|net
 operator|.
 name|InetSocketAddress
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|text
-operator|.
-name|MessageFormat
 import|;
 end_import
 

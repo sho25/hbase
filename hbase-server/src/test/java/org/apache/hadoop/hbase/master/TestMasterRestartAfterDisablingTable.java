@@ -185,6 +185,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|HBaseAdmin
 import|;
 end_import
@@ -629,7 +645,7 @@ literal|"Enabling table\n"
 argument_list|)
 expr_stmt|;
 comment|// Need a new Admin, the previous one is on the old master
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new

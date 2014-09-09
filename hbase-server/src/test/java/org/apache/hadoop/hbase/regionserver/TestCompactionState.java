@@ -179,7 +179,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Put
 import|;
 end_import
 
@@ -195,7 +195,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Put
+name|Table
 import|;
 end_import
 
@@ -537,7 +537,7 @@ name|caughtMajorCompact
 init|=
 literal|false
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 literal|null
@@ -727,7 +727,7 @@ argument_list|)
 argument_list|)
 block|}
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 literal|null
@@ -1280,7 +1280,7 @@ name|void
 name|loadData
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 specifier|final

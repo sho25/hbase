@@ -223,7 +223,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
+name|HTable
 import|;
 end_import
 
@@ -239,7 +239,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Table
 import|;
 end_import
 
@@ -1547,7 +1547,7 @@ argument_list|(
 name|args
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new

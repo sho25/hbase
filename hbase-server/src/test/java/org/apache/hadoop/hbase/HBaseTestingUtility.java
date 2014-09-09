@@ -573,7 +573,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTableInterface
+name|Put
 import|;
 end_import
 
@@ -589,7 +589,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Put
+name|RegionLocator
 import|;
 end_import
 
@@ -638,6 +638,22 @@ operator|.
 name|client
 operator|.
 name|Scan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -4031,7 +4047,7 @@ name|regionserverClass
 argument_list|)
 expr_stmt|;
 comment|// Don't leave here till we've done a successful scan of the hbase:meta
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -4126,7 +4142,7 @@ name|servers
 argument_list|)
 expr_stmt|;
 comment|// Don't leave here till we've done a successful scan of the hbase:meta
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -8056,7 +8072,7 @@ name|void
 name|loadNumericRows
 parameter_list|(
 specifier|final
-name|HTableInterface
+name|Table
 name|t
 parameter_list|,
 specifier|final
@@ -8297,7 +8313,7 @@ name|void
 name|deleteNumericRows
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|t
 parameter_list|,
 specifier|final
@@ -8382,7 +8398,7 @@ name|int
 name|countRows
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|)
 throws|throws
@@ -8444,7 +8460,7 @@ name|int
 name|countRows
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|,
 specifier|final
@@ -8533,7 +8549,7 @@ name|String
 name|checksumRows
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|)
 throws|throws
@@ -9367,7 +9383,7 @@ operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|meta
 init|=
 operator|new
@@ -9741,7 +9757,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|meta
 init|=
 operator|new
@@ -9880,7 +9896,7 @@ throws|throws
 name|IOException
 block|{
 comment|// TODO: Redo using MetaTableAccessor class
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -9998,7 +10014,7 @@ throws|throws
 name|IOException
 block|{
 comment|// TODO: Redo using MetaTableAccessor.
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -11842,7 +11858,7 @@ parameter_list|(
 name|String
 name|row
 parameter_list|,
-name|HTable
+name|RegionLocator
 name|table
 parameter_list|)
 throws|throws
@@ -11876,7 +11892,7 @@ name|byte
 index|[]
 name|row
 parameter_list|,
-name|HTable
+name|RegionLocator
 name|table
 parameter_list|)
 throws|throws
@@ -13206,7 +13222,7 @@ throws|throws
 name|IOException
 block|{
 specifier|final
-name|HTable
+name|Table
 name|meta
 init|=
 operator|new
@@ -15395,7 +15411,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|RegionLocator
 name|table
 init|=
 operator|new

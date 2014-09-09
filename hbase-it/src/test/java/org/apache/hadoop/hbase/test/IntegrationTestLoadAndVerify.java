@@ -3002,7 +3002,7 @@ name|TEST_FAMILY
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new

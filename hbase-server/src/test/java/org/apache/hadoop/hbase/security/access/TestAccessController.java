@@ -479,22 +479,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|HConnection
 import|;
 end_import
@@ -608,6 +592,22 @@ operator|.
 name|client
 operator|.
 name|Scan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -1292,24 +1292,6 @@ operator|.
 name|util
 operator|.
 name|TestTableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|security
-operator|.
-name|access
-operator|.
-name|AccessControlClient
 import|;
 end_import
 
@@ -4726,7 +4708,7 @@ argument_list|(
 name|TEST_FAMILY
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -4800,7 +4782,7 @@ argument_list|(
 name|TEST_FAMILY
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -4940,7 +4922,7 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -5016,7 +4998,7 @@ argument_list|(
 name|TEST_FAMILY
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -5096,7 +5078,7 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -5182,7 +5164,7 @@ argument_list|(
 name|TEST_FAMILY
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -5280,7 +5262,7 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -6094,7 +6076,7 @@ literal|2
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -6189,7 +6171,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|acl
 init|=
 operator|new
@@ -6288,7 +6270,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|acl
 init|=
 operator|new
@@ -6387,7 +6369,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|acl
 init|=
 operator|new
@@ -6764,7 +6746,7 @@ literal|"v2"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -6845,7 +6827,7 @@ literal|"v1"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -6926,7 +6908,7 @@ literal|"v2"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -7000,7 +6982,7 @@ argument_list|(
 name|family2
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -7067,7 +7049,7 @@ argument_list|(
 name|family1
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -7134,7 +7116,7 @@ argument_list|(
 name|family2
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -7208,7 +7190,7 @@ argument_list|(
 name|family2
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -7275,7 +7257,7 @@ argument_list|(
 name|family1
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -7342,7 +7324,7 @@ argument_list|(
 name|family2
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -8298,7 +8280,7 @@ argument_list|,
 name|qualifier
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -8374,7 +8356,7 @@ literal|"v1"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -8444,7 +8426,7 @@ name|qualifier
 argument_list|)
 expr_stmt|;
 comment|// d.deleteFamily(family1);
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -8849,7 +8831,7 @@ name|UserPermission
 argument_list|>
 name|perms
 decl_stmt|;
-name|HTable
+name|Table
 name|acl
 init|=
 operator|new
@@ -9575,7 +9557,7 @@ name|UserPermission
 argument_list|>
 name|perms
 decl_stmt|;
-name|HTable
+name|Table
 name|acl
 init|=
 operator|new
@@ -9838,7 +9820,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|HTable
+name|Table
 name|acl
 init|=
 operator|new
@@ -10045,7 +10027,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|HTable
+name|Table
 name|acl
 init|=
 operator|new
@@ -10898,7 +10880,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|HTable
+name|Table
 name|acl
 init|=
 operator|new
@@ -12646,7 +12628,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -13099,7 +13081,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -13238,7 +13220,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new

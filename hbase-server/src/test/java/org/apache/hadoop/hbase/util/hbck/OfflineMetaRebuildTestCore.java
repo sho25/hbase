@@ -447,6 +447,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|HRegionFileSystem
@@ -944,7 +960,7 @@ specifier|private
 name|void
 name|populateTable
 parameter_list|(
-name|HTable
+name|Table
 name|tbl
 parameter_list|)
 throws|throws
@@ -1338,7 +1354,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|meta
 init|=
 operator|new
@@ -1420,7 +1436,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|HTable
+name|Table
 name|htbl
 parameter_list|,
 name|byte
@@ -1434,7 +1450,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|meta
 init|=
 operator|new
@@ -1614,7 +1630,7 @@ operator|new
 name|Scan
 argument_list|()
 decl_stmt|;
-name|HTable
+name|Table
 name|meta
 init|=
 operator|new
@@ -1761,7 +1777,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 operator|new

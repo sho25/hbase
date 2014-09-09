@@ -669,7 +669,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// setup the admin and run the test
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new
@@ -798,7 +798,7 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new
@@ -1126,7 +1126,7 @@ specifier|private
 name|void
 name|failSnapshotStart
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|SnapshotDescription

@@ -287,6 +287,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|coprocessor
 operator|.
 name|CoprocessorHost
@@ -960,7 +976,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|HTable
+name|Table
 name|acl
 init|=
 operator|new
@@ -2160,7 +2176,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|acl
 init|=
 operator|new
@@ -2282,7 +2298,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|acl
 init|=
 operator|new
@@ -2408,7 +2424,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|acl
 init|=
 operator|new
@@ -2536,7 +2552,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|acl
 init|=
 operator|new
@@ -2674,7 +2690,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|acl
 init|=
 operator|new
@@ -2816,7 +2832,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|acl
 init|=
 operator|new

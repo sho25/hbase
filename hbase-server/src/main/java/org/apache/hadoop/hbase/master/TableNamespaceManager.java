@@ -387,6 +387,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|constraint
 operator|.
 name|ConstraintException
@@ -721,7 +737,7 @@ expr_stmt|;
 block|}
 specifier|private
 specifier|synchronized
-name|HTable
+name|Table
 name|getNamespaceTable
 parameter_list|()
 throws|throws
@@ -814,7 +830,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 name|getNamespaceTable
@@ -858,7 +874,7 @@ specifier|private
 name|NamespaceDescriptor
 name|get
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|String
@@ -940,7 +956,7 @@ specifier|private
 name|void
 name|create
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|NamespaceDescriptor
@@ -1021,7 +1037,7 @@ specifier|private
 name|void
 name|upsert
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|NamespaceDescriptor

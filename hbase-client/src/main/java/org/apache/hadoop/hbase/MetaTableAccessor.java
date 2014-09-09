@@ -267,6 +267,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|CoprocessorRpcChannel
@@ -764,7 +780,7 @@ block|}
 comment|/**    * Callers should call close on the returned {@link HTable} instance.    * @param hConnection connection we're using to access table    * @param tableName Table to get an {@link org.apache.hadoop.hbase.client.HTable} against.    * @return An {@link org.apache.hadoop.hbase.client.HTable} for<code>tableName</code>    * @throws IOException    * @SuppressWarnings("deprecation")    */
 specifier|private
 specifier|static
-name|HTable
+name|Table
 name|getHTable
 parameter_list|(
 specifier|final
@@ -811,7 +827,7 @@ return|;
 block|}
 comment|/**    * Callers should call close on the returned {@link HTable} instance.    * @param hConnection connection we're using to access Meta    * @return An {@link HTable} for<code>hbase:meta</code>    * @throws IOException    */
 specifier|static
-name|HTable
+name|Table
 name|getMetaHTable
 parameter_list|(
 specifier|final
@@ -839,7 +855,7 @@ name|Result
 name|get
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|t
 parameter_list|,
 specifier|final
@@ -2666,7 +2682,7 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|metaTable
 init|=
 name|getMetaHTable
@@ -4066,7 +4082,7 @@ name|void
 name|put
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|t
 parameter_list|,
 specifier|final
@@ -4115,7 +4131,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 name|getMetaHTable
@@ -4208,7 +4224,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 name|getMetaHTable
@@ -4372,7 +4388,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 name|getMetaHTable
@@ -4472,7 +4488,7 @@ specifier|static
 name|void
 name|addRegionToMeta
 parameter_list|(
-name|HTable
+name|Table
 name|meta
 parameter_list|,
 name|HRegionInfo
@@ -4499,7 +4515,7 @@ specifier|static
 name|void
 name|addRegionToMeta
 parameter_list|(
-name|HTable
+name|Table
 name|meta
 parameter_list|,
 name|HRegionInfo
@@ -4581,7 +4597,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|meta
 init|=
 name|getMetaHTable
@@ -4821,7 +4837,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|meta
 init|=
 name|getMetaHTable
@@ -4983,7 +4999,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|meta
 init|=
 name|getMetaHTable
@@ -5127,7 +5143,7 @@ specifier|static
 name|void
 name|multiMutate
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|byte

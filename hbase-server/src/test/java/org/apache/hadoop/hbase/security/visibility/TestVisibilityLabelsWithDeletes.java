@@ -377,6 +377,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -849,7 +865,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndWriteDataWithLabels
@@ -889,7 +905,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -1146,7 +1162,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndWriteDataWithLabels
@@ -1188,7 +1204,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -1442,7 +1458,7 @@ literal|125l
 block|}
 decl_stmt|;
 specifier|final
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndWriteDataWithLabels
@@ -1484,7 +1500,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -1754,7 +1770,7 @@ literal|125l
 block|}
 decl_stmt|;
 specifier|final
-name|HTable
+name|Table
 name|table
 init|=
 name|createTableAndWriteDataWithLabels
@@ -1796,7 +1812,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -2054,7 +2070,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -2102,7 +2118,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -2536,7 +2552,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -2584,7 +2600,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -2921,7 +2937,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -2969,7 +2985,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -3355,7 +3371,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -3403,7 +3419,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -3731,7 +3747,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -3914,7 +3930,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -4112,7 +4128,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -4337,7 +4353,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -4520,7 +4536,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -4720,7 +4736,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -4947,7 +4963,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -5129,7 +5145,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -5361,7 +5377,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -5601,7 +5617,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -5830,7 +5846,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -5878,7 +5894,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -6258,7 +6274,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -6306,7 +6322,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -6772,7 +6788,7 @@ block|}
 block|}
 block|}
 specifier|private
-name|HTable
+name|Table
 name|doPuts
 parameter_list|(
 name|TableName
@@ -6787,7 +6803,7 @@ name|RetriesExhaustedWithDetailsException
 throws|,
 name|InterruptedException
 block|{
-name|HTable
+name|Table
 name|table
 decl_stmt|;
 name|Admin
@@ -7195,7 +7211,7 @@ name|table
 return|;
 block|}
 specifier|private
-name|HTable
+name|Table
 name|doPutsWithDiffCols
 parameter_list|(
 name|TableName
@@ -7210,7 +7226,7 @@ name|RetriesExhaustedWithDetailsException
 throws|,
 name|InterruptedException
 block|{
-name|HTable
+name|Table
 name|table
 decl_stmt|;
 name|Admin
@@ -7536,7 +7552,7 @@ name|table
 return|;
 block|}
 specifier|private
-name|HTable
+name|Table
 name|doPutsWithoutVisibility
 parameter_list|(
 name|TableName
@@ -7551,7 +7567,7 @@ name|RetriesExhaustedWithDetailsException
 throws|,
 name|InterruptedException
 block|{
-name|HTable
+name|Table
 name|table
 decl_stmt|;
 name|Admin
@@ -7849,7 +7865,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -7897,7 +7913,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -8437,7 +8453,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -8485,7 +8501,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -8963,7 +8979,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -9056,7 +9072,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -9757,7 +9773,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -9805,7 +9821,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -10355,7 +10371,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -10403,7 +10419,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -10768,7 +10784,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -10816,7 +10832,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -11297,7 +11313,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -11484,7 +11500,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -11703,7 +11719,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -11890,7 +11906,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -12112,7 +12128,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -12160,7 +12176,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -12395,7 +12411,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -12433,7 +12449,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -12957,7 +12973,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -13005,7 +13021,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -13437,7 +13453,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -13485,7 +13501,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -13888,7 +13904,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -13927,7 +13943,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -14380,7 +14396,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -14821,7 +14837,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|doPuts
@@ -14855,7 +14871,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -15262,7 +15278,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|doPuts
@@ -15296,7 +15312,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -15694,7 +15710,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -16059,7 +16075,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|doPuts
@@ -16093,7 +16109,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -16489,7 +16505,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -16781,7 +16797,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -16820,7 +16836,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -17263,7 +17279,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -17691,7 +17707,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -17730,7 +17746,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -18187,7 +18203,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -18656,7 +18672,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -18695,7 +18711,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -19203,7 +19219,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -19684,7 +19700,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -19723,7 +19739,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -20166,7 +20182,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -20619,7 +20635,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -20658,7 +20674,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -21113,7 +21129,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -21531,7 +21547,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -21579,7 +21595,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -21744,7 +21760,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -21905,7 +21921,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -22064,7 +22080,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -22221,7 +22237,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -22380,7 +22396,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -22904,7 +22920,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -23095,7 +23111,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -23384,7 +23400,7 @@ block|}
 block|}
 specifier|public
 specifier|static
-name|HTable
+name|Table
 name|createTableAndWriteDataWithLabels
 parameter_list|(
 name|TableName
@@ -23397,7 +23413,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -23506,7 +23522,7 @@ return|;
 block|}
 specifier|public
 specifier|static
-name|HTable
+name|Table
 name|createTableAndWriteDataWithLabels
 parameter_list|(
 name|TableName
@@ -23523,7 +23539,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null

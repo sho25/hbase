@@ -1240,7 +1240,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -1419,7 +1419,7 @@ operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -1570,7 +1570,7 @@ expr_stmt|;
 comment|// Go against meta else we will try to find first region for the table on construction which
 comment|// means we'll have to do a bunch more mocking.  Tests that go against meta only should be
 comment|// good for a bit of testing.
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -1669,7 +1669,7 @@ expr_stmt|;
 comment|// Go against meta else we will try to find first region for the table on construction which
 comment|// means we'll have to do a bunch more mocking.  Tests that go against meta only should be
 comment|// good for a bit of testing.
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -4404,7 +4404,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTableInterface
+name|Table
 name|table
 init|=
 name|sharedConnection

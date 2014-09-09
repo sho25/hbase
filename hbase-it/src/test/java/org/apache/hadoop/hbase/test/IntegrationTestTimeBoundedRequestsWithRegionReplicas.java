@@ -305,7 +305,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTableInterface
+name|Result
 import|;
 end_import
 
@@ -321,7 +321,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Result
+name|Table
 import|;
 end_import
 
@@ -1804,7 +1804,7 @@ name|Result
 index|[]
 name|results
 parameter_list|,
-name|HTableInterface
+name|Table
 name|table
 parameter_list|,
 name|boolean

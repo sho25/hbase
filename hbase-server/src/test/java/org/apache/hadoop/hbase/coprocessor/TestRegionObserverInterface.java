@@ -547,6 +547,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|hfile
@@ -1050,7 +1066,7 @@ argument_list|)
 decl_stmt|;
 comment|// recreate table every time in order to reset the status of the
 comment|// coprocessor.
-name|HTable
+name|Table
 name|table
 init|=
 name|util
@@ -1524,7 +1540,7 @@ operator|+
 literal|".testRowMutation"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|util
@@ -1775,7 +1791,7 @@ operator|+
 literal|".testIncrementHook"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|util
@@ -1934,7 +1950,7 @@ operator|+
 literal|".testCheckAndPutHooks"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|util
@@ -2142,7 +2158,7 @@ operator|+
 literal|".testCheckAndDeleteHooks"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|util
@@ -2347,7 +2363,7 @@ operator|+
 literal|".testAppendHook"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|util
@@ -2563,7 +2579,7 @@ literal|false
 block|}
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -2823,7 +2839,7 @@ literal|false
 block|}
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -3343,7 +3359,7 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -3762,7 +3778,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|util

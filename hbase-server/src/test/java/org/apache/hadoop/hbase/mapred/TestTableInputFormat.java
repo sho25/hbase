@@ -209,22 +209,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Put
 import|;
 end_import
@@ -274,6 +258,22 @@ operator|.
 name|client
 operator|.
 name|Scan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -523,7 +523,7 @@ block|}
 comment|/**    * Setup a table with two rows and values.    *     * @param tableName    * @return    * @throws IOException    */
 specifier|public
 specifier|static
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|byte
@@ -533,7 +533,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 name|UTIL
@@ -700,7 +700,7 @@ specifier|static
 name|void
 name|runTestMapred
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|)
 throws|throws
@@ -876,7 +876,7 @@ specifier|static
 name|void
 name|runTestMapreduce
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|)
 throws|throws
@@ -1085,7 +1085,7 @@ expr_stmt|;
 block|}
 comment|/**    * Create a table that IOE's on first scanner next call    *     * @throws IOException    */
 specifier|static
-name|HTable
+name|Table
 name|createIOEScannerTable
 parameter_list|(
 name|byte
@@ -1212,7 +1212,7 @@ return|;
 block|}
 block|}
 decl_stmt|;
-name|HTable
+name|Table
 name|htable
 init|=
 name|spy
@@ -1248,7 +1248,7 @@ return|;
 block|}
 comment|/**    * Create a table that throws a DoNoRetryIOException on first scanner next    * call    *     * @throws IOException    */
 specifier|static
-name|HTable
+name|Table
 name|createDNRIOEScannerTable
 parameter_list|(
 name|byte
@@ -1380,7 +1380,7 @@ return|;
 block|}
 block|}
 decl_stmt|;
-name|HTable
+name|Table
 name|htable
 init|=
 name|spy
@@ -1424,7 +1424,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 name|createTable
@@ -1451,7 +1451,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|htable
 init|=
 name|createIOEScannerTable
@@ -1487,7 +1487,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|htable
 init|=
 name|createIOEScannerTable
@@ -1516,7 +1516,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|htable
 init|=
 name|createDNRIOEScannerTable
@@ -1560,7 +1560,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|htable
 init|=
 name|createDNRIOEScannerTable
@@ -1591,7 +1591,7 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 name|createTable
@@ -1620,7 +1620,7 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|HTable
+name|Table
 name|htable
 init|=
 name|createIOEScannerTable
@@ -1658,7 +1658,7 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|HTable
+name|Table
 name|htable
 init|=
 name|createIOEScannerTable
@@ -1689,7 +1689,7 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|HTable
+name|Table
 name|htable
 init|=
 name|createDNRIOEScannerTable
@@ -1735,7 +1735,7 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|HTable
+name|Table
 name|htable
 init|=
 name|createDNRIOEScannerTable

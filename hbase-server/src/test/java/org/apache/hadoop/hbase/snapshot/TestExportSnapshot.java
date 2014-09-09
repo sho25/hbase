@@ -153,20 +153,6 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|FSDataOutputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
 name|FileStatus
 import|;
 end_import
@@ -182,20 +168,6 @@ operator|.
 name|fs
 operator|.
 name|FileSystem
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
-name|FileUtil
 import|;
 end_import
 
@@ -237,20 +209,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -266,20 +224,6 @@ operator|.
 name|hbase
 operator|.
 name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
 import|;
 end_import
 
@@ -339,7 +283,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
+name|HTable
 import|;
 end_import
 
@@ -355,7 +299,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Table
 import|;
 end_import
 
@@ -465,22 +409,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|HRegionFileSystem
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -500,22 +428,6 @@ operator|.
 name|util
 operator|.
 name|FSUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|FSTableDescriptors
 import|;
 end_import
 
@@ -877,7 +789,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 comment|// Add some rows
-name|HTable
+name|Table
 name|table
 init|=
 operator|new

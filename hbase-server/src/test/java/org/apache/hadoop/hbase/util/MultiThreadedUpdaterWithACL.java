@@ -303,6 +303,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|User
@@ -399,7 +415,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HTableInterface
+name|Table
 argument_list|>
 name|userVsTable
 init|=
@@ -408,7 +424,7 @@ name|HashMap
 argument_list|<
 name|String
 argument_list|,
-name|HTableInterface
+name|Table
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -540,7 +556,7 @@ extends|extends
 name|HBaseUpdaterThread
 block|{
 specifier|private
-name|HTableInterface
+name|Table
 name|table
 decl_stmt|;
 specifier|private
@@ -603,7 +619,7 @@ expr_stmt|;
 block|}
 for|for
 control|(
-name|HTableInterface
+name|Table
 name|table
 range|:
 name|userVsTable
@@ -712,7 +728,7 @@ name|res
 init|=
 literal|null
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|localTable
 init|=
 literal|null
@@ -1031,7 +1047,7 @@ name|void
 name|mutate
 parameter_list|(
 specifier|final
-name|HTableInterface
+name|Table
 name|table
 parameter_list|,
 name|Mutation
@@ -1183,7 +1199,7 @@ name|Object
 argument_list|>
 block|{
 specifier|private
-name|HTableInterface
+name|Table
 name|table
 decl_stmt|;
 specifier|private

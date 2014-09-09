@@ -1002,7 +1002,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|HTU
@@ -1233,7 +1233,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|HTU
@@ -1573,7 +1573,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new
@@ -1888,7 +1888,7 @@ name|row
 argument_list|)
 expr_stmt|;
 specifier|final
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -2061,7 +2061,7 @@ literal|"stale get on the first cluster done. Now for the second."
 argument_list|)
 expr_stmt|;
 specifier|final
-name|HTable
+name|Table
 name|table2
 init|=
 operator|new
@@ -2299,7 +2299,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|HTU

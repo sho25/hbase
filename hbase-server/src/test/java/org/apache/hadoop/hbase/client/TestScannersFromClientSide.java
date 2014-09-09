@@ -599,7 +599,7 @@ argument_list|,
 literal|8
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -1129,7 +1129,7 @@ argument_list|,
 literal|20
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -2269,7 +2269,7 @@ argument_list|,
 literal|10
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -2568,7 +2568,7 @@ argument_list|,
 literal|20
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL

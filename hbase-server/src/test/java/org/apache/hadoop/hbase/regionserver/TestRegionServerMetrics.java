@@ -1190,7 +1190,7 @@ argument_list|,
 name|cf
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -1402,7 +1402,7 @@ name|cf
 argument_list|)
 expr_stmt|;
 comment|//Force a hfile.
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -1595,7 +1595,7 @@ argument_list|,
 name|cf
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -1832,7 +1832,7 @@ argument_list|,
 name|cf
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -2026,7 +2026,7 @@ argument_list|,
 name|cf
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new

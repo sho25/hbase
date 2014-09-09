@@ -443,6 +443,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|exceptions
 operator|.
 name|DeserializationException
@@ -1143,7 +1159,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|HTable
+name|Table
 name|acls
 init|=
 literal|null
@@ -1248,7 +1264,7 @@ argument_list|,
 name|key
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|acls
 init|=
 literal|null
@@ -1332,7 +1348,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-name|HTable
+name|Table
 name|acls
 init|=
 literal|null
@@ -1421,7 +1437,7 @@ name|namespace
 argument_list|)
 expr_stmt|;
 block|}
-name|HTable
+name|Table
 name|acls
 init|=
 literal|null
@@ -1506,7 +1522,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-name|HTable
+name|Table
 name|acls
 init|=
 literal|null
@@ -2291,7 +2307,7 @@ argument_list|(
 name|ACL_LIST_FAMILY
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|acls
 init|=
 literal|null
@@ -2509,7 +2525,7 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
-name|HTable
+name|Table
 name|acls
 init|=
 literal|null

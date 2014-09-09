@@ -259,6 +259,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|crypto
@@ -750,7 +766,7 @@ throws|throws
 name|Exception
 block|{
 comment|// Populate the table with some data
-name|HTable
+name|Table
 name|table
 init|=
 operator|new

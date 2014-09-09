@@ -374,7 +374,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -511,7 +511,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -704,7 +704,7 @@ operator|*
 literal|100
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|higherScanTimeoutTable
 init|=
 operator|new
@@ -873,7 +873,7 @@ operator|*
 literal|100
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -1047,7 +1047,7 @@ operator|*
 literal|100
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|higherScanTimeoutTable
 init|=
 operator|new

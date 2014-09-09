@@ -489,6 +489,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Consistency
 import|;
 end_import
@@ -634,6 +650,22 @@ operator|.
 name|client
 operator|.
 name|Scan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -1400,7 +1432,7 @@ decl_stmt|;
 try|try
 block|{
 comment|// Create table then get the single region for our new table.
-name|HTable
+name|Table
 name|t
 init|=
 name|createTableAndWait
@@ -1842,7 +1874,7 @@ argument_list|(
 name|regionServerIndex
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 operator|new
@@ -3159,7 +3191,7 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -3995,7 +4027,7 @@ literal|"testTableExistsIfTheSpecifiedTableRegionIsSplitParent"
 argument_list|)
 decl_stmt|;
 comment|// Create table then get the single region for our new table.
-name|HTable
+name|Table
 name|t
 init|=
 name|createTableAndWait
@@ -4276,7 +4308,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Create table then get the single region for our new table.
-name|HTable
+name|Table
 name|t
 init|=
 name|TESTING_UTIL
@@ -4812,7 +4844,7 @@ parameter_list|,
 name|HBaseAdmin
 name|admin
 parameter_list|,
-name|HTable
+name|Table
 name|t
 parameter_list|)
 throws|throws
@@ -5730,12 +5762,12 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table1
 init|=
 literal|null
 decl_stmt|;
-name|HTable
+name|Table
 name|table2
 init|=
 literal|null
@@ -6630,7 +6662,7 @@ name|int
 name|ensureTableRegionNotOnSameServerAsMeta
 parameter_list|(
 specifier|final
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 specifier|final

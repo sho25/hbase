@@ -247,22 +247,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HConnectionTestingUtility
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google
@@ -436,7 +420,7 @@ name|masterAdmin
 argument_list|)
 expr_stmt|;
 comment|// Mock up our admin Interfaces
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new

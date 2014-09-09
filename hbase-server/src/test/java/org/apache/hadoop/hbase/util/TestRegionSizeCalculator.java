@@ -127,6 +127,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|HBaseAdmin
 import|;
 end_import
@@ -327,7 +343,7 @@ argument_list|,
 literal|"region3"
 argument_list|)
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|mockAdmin
@@ -479,7 +495,7 @@ argument_list|(
 literal|"largeRegion"
 argument_list|)
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|mockAdmin
@@ -556,7 +572,7 @@ argument_list|(
 name|regionName
 argument_list|)
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|mockAdmin
@@ -791,7 +807,7 @@ return|;
 block|}
 comment|/**    * Creates mock returing ClusterStatus info about given servers.   */
 specifier|private
-name|HBaseAdmin
+name|Admin
 name|mockAdmin
 parameter_list|(
 name|ServerLoad
@@ -802,7 +818,7 @@ throws|throws
 name|Exception
 block|{
 comment|//get clusterstatus
-name|HBaseAdmin
+name|Admin
 name|mockAdmin
 init|=
 name|Mockito

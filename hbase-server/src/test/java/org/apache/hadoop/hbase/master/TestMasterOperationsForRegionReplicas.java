@@ -337,6 +337,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Delete
 import|;
 end_import
@@ -418,6 +434,22 @@ operator|.
 name|client
 operator|.
 name|Result
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -519,7 +551,7 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
-name|HBaseAdmin
+name|Admin
 name|admin
 decl_stmt|;
 specifier|private
@@ -1909,7 +1941,7 @@ argument_list|)
 expr_stmt|;
 comment|// now delete one replica info from all the rows
 comment|// this is to make the meta appear to be only partially updated
-name|HTable
+name|Table
 name|metaTable
 init|=
 operator|new

@@ -317,7 +317,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTableInterface
+name|RpcRetryingCaller
 import|;
 end_import
 
@@ -333,7 +333,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|RpcRetryingCaller
+name|Table
 import|;
 end_import
 
@@ -1083,7 +1083,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|table
 init|=
 name|connection
@@ -1093,7 +1093,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|tableNoReplicas
 init|=
 name|connection
@@ -1542,7 +1542,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|table
 init|=
 name|connection
@@ -1856,7 +1856,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|table
 init|=
 name|connection
@@ -1866,7 +1866,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|tableToBeDisabled
 init|=
 name|connection

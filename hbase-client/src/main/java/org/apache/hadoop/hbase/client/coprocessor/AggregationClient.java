@@ -285,6 +285,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|coprocessor
 operator|.
 name|ColumnInterpreter
@@ -549,7 +565,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -617,7 +633,7 @@ name|R
 name|max
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|,
 specifier|final
@@ -1067,7 +1083,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -1135,7 +1151,7 @@ name|R
 name|min
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|,
 specifier|final
@@ -1472,7 +1488,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -1540,7 +1556,7 @@ name|long
 name|rowCount
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|,
 specifier|final
@@ -1844,7 +1860,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -1912,7 +1928,7 @@ name|S
 name|sum
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|,
 specifier|final
@@ -2228,7 +2244,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -2301,7 +2317,7 @@ argument_list|>
 name|getAvgArgs
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|,
 specifier|final
@@ -2784,7 +2800,7 @@ name|double
 name|avg
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|,
 specifier|final
@@ -2873,7 +2889,7 @@ argument_list|>
 name|getStdArgs
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|,
 specifier|final
@@ -3448,7 +3464,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -3516,7 +3532,7 @@ name|double
 name|std
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|ColumnInterpreter
@@ -3678,7 +3694,7 @@ argument_list|>
 name|getMedianArgs
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|,
 specifier|final
@@ -4178,7 +4194,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 literal|null
@@ -4246,7 +4262,7 @@ name|R
 name|median
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|ColumnInterpreter

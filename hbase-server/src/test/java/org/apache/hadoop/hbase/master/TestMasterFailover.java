@@ -323,7 +323,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|RegionLocator
 import|;
 end_import
 
@@ -1388,7 +1388,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Create a table with a region online
-name|HTable
+name|RegionLocator
 name|onlineTable
 init|=
 name|TEST_UTIL

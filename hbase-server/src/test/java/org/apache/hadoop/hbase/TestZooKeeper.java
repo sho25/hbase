@@ -195,6 +195,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Get
 import|;
 end_import
@@ -324,6 +340,22 @@ operator|.
 name|client
 operator|.
 name|Scan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -1492,7 +1524,7 @@ operator|+
 name|tableName
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new
@@ -1522,7 +1554,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -1617,7 +1649,7 @@ name|InvocationTargetException
 throws|,
 name|IllegalAccessException
 block|{
-name|HTable
+name|Table
 name|localMeta
 init|=
 operator|new
@@ -1660,7 +1692,7 @@ argument_list|,
 literal|"127.0.0.1"
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|ipMeta
 init|=
 operator|new
@@ -2745,7 +2777,7 @@ name|getNumberOfListeners
 argument_list|()
 decl_stmt|;
 comment|// now the cluster is up. So assign some regions.
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new
@@ -3001,7 +3033,7 @@ name|getMaster
 argument_list|()
 decl_stmt|;
 comment|// now the cluster is up. So assign some regions.
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new
@@ -3013,7 +3045,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 literal|null

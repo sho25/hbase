@@ -117,7 +117,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Put
 import|;
 end_import
 
@@ -133,7 +133,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Put
+name|Table
 import|;
 end_import
 
@@ -374,7 +374,7 @@ operator|.
 name|ALWAYS
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 decl_stmt|;
 try|try

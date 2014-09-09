@@ -669,7 +669,7 @@ operator|+
 literal|1
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 operator|new
@@ -1034,7 +1034,7 @@ block|}
 name|int
 name|doScan
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|Scan

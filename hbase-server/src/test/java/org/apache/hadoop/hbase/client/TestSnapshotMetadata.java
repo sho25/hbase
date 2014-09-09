@@ -1036,7 +1036,7 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|original
 init|=
 operator|new
@@ -1206,7 +1206,7 @@ argument_list|,
 name|clonedTableName
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|clonedTable
 init|=
 operator|new
@@ -1755,7 +1755,7 @@ name|originalTableName
 argument_list|)
 expr_stmt|;
 comment|// verify that the descrption is reverted
-name|HTable
+name|Table
 name|original
 init|=
 operator|new
