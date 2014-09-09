@@ -6481,7 +6481,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"failed "
+literal|"failed="
 argument_list|)
 operator|.
 name|append
@@ -6491,7 +6491,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" ops"
+literal|"ops"
 argument_list|)
 operator|.
 name|append
@@ -6552,7 +6552,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|", retrying after "
+literal|", retrying after="
 argument_list|)
 operator|.
 name|append
@@ -6562,12 +6562,12 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" ms"
+literal|"ms"
 argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|", replay "
+literal|", replay="
 argument_list|)
 operator|.
 name|append
@@ -6577,7 +6577,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" ops"
+literal|"ops"
 argument_list|)
 expr_stmt|;
 block|}

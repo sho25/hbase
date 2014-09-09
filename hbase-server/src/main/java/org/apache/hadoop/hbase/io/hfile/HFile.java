@@ -808,6 +808,7 @@ literal|16
 operator|*
 literal|1024
 decl_stmt|;
+comment|// TODO: This define is done in three places.  Fix.
 specifier|public
 specifier|static
 specifier|final

@@ -611,13 +611,6 @@ argument_list|(
 name|useTags
 argument_list|)
 operator|.
-name|withChecksumType
-argument_list|(
-name|HFile
-operator|.
-name|DEFAULT_CHECKSUM_TYPE
-argument_list|)
-operator|.
 name|withBytesPerCheckSum
 argument_list|(
 name|HFile
@@ -1291,13 +1284,6 @@ operator|.
 name|withBytesPerCheckSum
 argument_list|(
 name|bytesPerChecksum
-argument_list|)
-operator|.
-name|withChecksumType
-argument_list|(
-name|HFile
-operator|.
-name|DEFAULT_CHECKSUM_TYPE
 argument_list|)
 operator|.
 name|build

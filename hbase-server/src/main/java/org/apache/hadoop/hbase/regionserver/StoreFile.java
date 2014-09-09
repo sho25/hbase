@@ -545,22 +545,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|ChecksumType
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|Writables
 import|;
 end_import
@@ -2958,11 +2942,6 @@ name|long
 name|deleteFamilyCnt
 init|=
 literal|0
-decl_stmt|;
-comment|/** Checksum type */
-specifier|protected
-name|ChecksumType
-name|checksumType
 decl_stmt|;
 comment|/** Bytes per Checksum */
 specifier|protected

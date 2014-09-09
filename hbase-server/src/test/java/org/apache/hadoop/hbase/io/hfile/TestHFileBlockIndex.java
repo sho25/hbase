@@ -1508,13 +1508,6 @@ argument_list|(
 name|compr
 argument_list|)
 operator|.
-name|withChecksumType
-argument_list|(
-name|HFile
-operator|.
-name|DEFAULT_CHECKSUM_TYPE
-argument_list|)
-operator|.
 name|withBytesPerCheckSum
 argument_list|(
 name|HFile

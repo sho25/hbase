@@ -605,15 +605,15 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Closing scanner "
+literal|"Closing scanner id="
 operator|+
 name|currentScannerCallable
 operator|.
@@ -1225,13 +1225,13 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Setting current scanner as "
+literal|"Setting current scanner as id="
 operator|+
 name|currentScannerCallable
 operator|.
 name|scannerId
 operator|+
-literal|" associated with "
+literal|" associated with replica="
 operator|+
 name|currentScannerCallable
 operator|.
@@ -1263,21 +1263,43 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Closing scanner "
+literal|"Closing scanner id="
 operator|+
 name|s
 operator|.
 name|scannerId
 operator|+
-literal|" because this was slow and another replica succeeded"
+literal|", replica="
+operator|+
+name|s
+operator|.
+name|getHRegionInfo
+argument_list|()
+operator|.
+name|getRegionId
+argument_list|()
+operator|+
+literal|" because slow and replica="
+operator|+
+name|this
+operator|.
+name|currentScannerCallable
+operator|.
+name|getHRegionInfo
+argument_list|()
+operator|.
+name|getReplicaId
+argument_list|()
+operator|+
+literal|" succeeded"
 argument_list|)
 expr_stmt|;
 block|}

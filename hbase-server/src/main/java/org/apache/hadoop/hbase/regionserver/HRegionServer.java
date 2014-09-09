@@ -4517,6 +4517,16 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// so callers waiting for meta without timeout can stop
+if|if
+condition|(
+name|this
+operator|.
+name|metaTableLocator
+operator|!=
+literal|null
+condition|)
+name|this
+operator|.
 name|metaTableLocator
 operator|.
 name|stop

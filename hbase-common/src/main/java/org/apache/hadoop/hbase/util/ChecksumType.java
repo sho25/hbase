@@ -205,9 +205,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Checksum using "
-operator|+
 name|PURECRC32
+operator|+
+literal|" available"
 argument_list|)
 expr_stmt|;
 block|}
@@ -251,9 +251,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Checksum can use "
-operator|+
 name|JDKCRC
+operator|+
+literal|" available"
 argument_list|)
 expr_stmt|;
 block|}
@@ -397,9 +397,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Checksum can use "
-operator|+
 name|PURECRC32C
+operator|+
+literal|" available"
 argument_list|)
 expr_stmt|;
 block|}
