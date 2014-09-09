@@ -3793,10 +3793,6 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|regionCount
-operator|>
-literal|0
-operator|||
 name|serverManager
 operator|.
 name|isServerOnline
