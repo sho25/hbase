@@ -694,6 +694,9 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
+operator|(
+name|long
+operator|)
 name|threshold
 argument_list|)
 argument_list|)
@@ -826,7 +829,12 @@ name|sb
 operator|.
 name|append
 argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|mobColumnFamily
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|sb
