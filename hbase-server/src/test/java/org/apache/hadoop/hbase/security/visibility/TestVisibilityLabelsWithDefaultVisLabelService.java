@@ -1048,6 +1048,16 @@ literal|10
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
+name|vcInitialized
+operator|.
+name|set
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 else|else
 name|LOG
