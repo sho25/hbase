@@ -394,7 +394,6 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|// the actual ZooKeeper client instance
-specifier|volatile
 specifier|private
 name|ZooKeeper
 name|zk
@@ -652,6 +651,7 @@ expr_stmt|;
 block|}
 comment|/**    * Try to create a Zookeeper connection. Turns any exception encountered into a    * KeeperException.OperationTimeoutException so it can retried.    * @return The created Zookeeper connection object    * @throws KeeperException    */
 specifier|protected
+specifier|synchronized
 name|ZooKeeper
 name|checkZk
 parameter_list|()
@@ -713,6 +713,7 @@ name|zk
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|void
 name|reconnectAfterExpiration
 parameter_list|()
