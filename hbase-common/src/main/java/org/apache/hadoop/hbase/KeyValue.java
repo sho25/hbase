@@ -221,6 +221,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|util
+operator|.
+name|StreamUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -10354,7 +10372,7 @@ operator|.
 name|SIZEOF_INT
 return|;
 block|}
-comment|/**    * Write out a KeyValue in the manner in which we used to when KeyValue was a Writable but do    * not require a {@link DataOutput}, just take plain {@link OutputStream}    * Named<code>oswrite</code> so does not clash with {@link #write(KeyValue, DataOutput)}    * @param kv    * @param out    * @return Length written on stream    * @throws IOException    * @see #create(DataInput) for the inverse function    * @see #write(KeyValue, DataOutput)    */
+comment|/**    * Write out a KeyValue in the manner in which we used to when KeyValue was a Writable but do    * not require a {@link DataOutput}, just take plain {@link OutputStream}    * Named<code>oswrite</code> so does not clash with {@link #write(KeyValue, DataOutput)}    * @param kv    * @param out    * @return Length written on stream    * @throws IOException    * @see #create(DataInput) for the inverse function    * @see #write(KeyValue, DataOutput)    * @deprecated use {@link #oswrite(KeyValue, OutputStream, boolean)} instead    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -10419,7 +10437,7 @@ operator|.
 name|SIZEOF_INT
 return|;
 block|}
-comment|/**    * Write out a KeyValue in the manner in which we used to when KeyValue was a Writable but do    * not require a {@link DataOutput}, just take plain {@link OutputStream}    * Named<code>oswrite</code> so does not clash with {@link #write(KeyValue, DataOutput)}    * @param kv    * @param out    * @param withTags    * @return Length written on stream    * @throws IOException    * @see #create(DataInput) for the inverse function    * @see #write(KeyValue, DataOutput)    */
+comment|/**    * Write out a KeyValue in the manner in which we used to when KeyValue was a Writable but do    * not require a {@link DataOutput}, just take plain {@link OutputStream}    * Named<code>oswrite</code> so does not clash with {@link #write(KeyValue, DataOutput)}    * @param kv    * @param out    * @param withTags    * @return Length written on stream    * @throws IOException    * @see #create(DataInput) for the inverse function    * @see #write(KeyValue, DataOutput)    * @see KeyValueUtil#oswrite(Cell, OutputStream, boolean)    */
 specifier|public
 specifier|static
 name|long
@@ -10440,6 +10458,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// In KeyValueUtil#oswrite we do a Cell serialization as KeyValue. Any changes doing here, pls
+comment|// check KeyValueUtil#oswrite also and do necessary changes.
 name|int
 name|length
 init|=
@@ -10470,16 +10490,13 @@ name|KEYVALUE_INFRASTRUCTURE_SIZE
 expr_stmt|;
 block|}
 comment|// This does same as DataOuput#writeInt (big-endian, etc.)
+name|StreamUtils
+operator|.
+name|writeInt
+argument_list|(
 name|out
-operator|.
-name|write
-argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
+argument_list|,
 name|length
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|out
