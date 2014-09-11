@@ -1395,6 +1395,22 @@ index|[]
 name|args
 parameter_list|)
 block|{
+if|if
+condition|(
+name|getConf
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"A Configuration instance must be provided."
+argument_list|)
+throw|;
+block|}
 try|try
 block|{
 name|FSUtils

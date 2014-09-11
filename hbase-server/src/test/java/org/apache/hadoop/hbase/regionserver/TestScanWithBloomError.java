@@ -1096,7 +1096,9 @@ argument_list|()
 expr_stmt|;
 operator|new
 name|HFilePrettyPrinter
-argument_list|()
+argument_list|(
+name|conf
+argument_list|)
 operator|.
 name|run
 argument_list|(
