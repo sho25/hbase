@@ -1386,6 +1386,15 @@ argument_list|,
 name|mu
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|lruCacheSize
+operator|<
+literal|0
+condition|)
+return|return
+literal|null
+return|;
 name|int
 name|blockSize
 init|=
@@ -1776,6 +1785,14 @@ argument_list|,
 name|mu
 argument_list|)
 decl_stmt|;
+comment|// blockCacheDisabled is set as a side-effect of getL1(), so check it again after the call.
+if|if
+condition|(
+name|blockCacheDisabled
+condition|)
+return|return
+literal|null
+return|;
 name|BucketCache
 name|l2
 init|=
