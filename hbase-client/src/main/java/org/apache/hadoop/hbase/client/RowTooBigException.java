@@ -13,7 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|client
 package|;
 end_package
 
@@ -31,21 +31,8 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_comment
-comment|/**  * Gets or Scans throw this exception if running without in-row scan flag  * set and row size appears to exceed max configured size (configurable via  * hbase.table.max.rowsize).  *  * @deprecated use {@link org.apache.hadoop.hbase.client.RowTooBigException} instead.  */
-end_comment
-
-begin_class
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Public
-annotation|@
-name|Deprecated
-specifier|public
-class|class
-name|RowTooBigException
-extends|extends
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -54,9 +41,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|RegionException
+import|;
+end_import
+
+begin_comment
+comment|/**  * Gets or Scans throw this exception if running without in-row scan flag  * set and row size appears to exceed max configured size (configurable via  * hbase.table.max.rowsize).  */
+end_comment
+
+begin_class
+annotation|@
+name|InterfaceAudience
 operator|.
+name|Public
+specifier|public
+class|class
 name|RowTooBigException
+extends|extends
+name|RegionException
 block|{
 specifier|public
 name|RowTooBigException

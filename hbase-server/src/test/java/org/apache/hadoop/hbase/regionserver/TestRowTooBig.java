@@ -73,6 +73,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|RowTooBigException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -134,7 +150,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test case to check HRS throws {@link RowTooBigException}  * when row size exceeds configured limits.  */
+comment|/**  * Test case to check HRS throws {@link org.apache.hadoop.hbase.client.RowTooBigException}  * when row size exceeds configured limits.  */
 end_comment
 
 begin_class
