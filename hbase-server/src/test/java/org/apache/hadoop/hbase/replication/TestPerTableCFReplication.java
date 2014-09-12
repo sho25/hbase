@@ -1252,7 +1252,7 @@ parameter_list|()
 block|{
 name|Map
 argument_list|<
-name|String
+name|TableName
 argument_list|,
 name|List
 argument_list|<
@@ -1266,7 +1266,7 @@ decl_stmt|;
 comment|// 1. null or empty string, result should be null
 name|tabCFsMap
 operator|=
-name|ReplicationPeerZKImpl
+name|ReplicationAdmin
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1282,7 +1282,7 @@ argument_list|)
 expr_stmt|;
 name|tabCFsMap
 operator|=
-name|ReplicationPeerZKImpl
+name|ReplicationAdmin
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1298,7 +1298,7 @@ argument_list|)
 expr_stmt|;
 name|tabCFsMap
 operator|=
-name|ReplicationPeerZKImpl
+name|ReplicationAdmin
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1312,10 +1312,40 @@ argument_list|,
 name|tabCFsMap
 argument_list|)
 expr_stmt|;
+name|TableName
+name|tab1
+init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+literal|"tab1"
+argument_list|)
+decl_stmt|;
+name|TableName
+name|tab2
+init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+literal|"tab2"
+argument_list|)
+decl_stmt|;
+name|TableName
+name|tab3
+init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+literal|"tab3"
+argument_list|)
+decl_stmt|;
 comment|// 2. single table: "tab1" / "tab2:cf1" / "tab3:cf1,cf3"
 name|tabCFsMap
 operator|=
-name|ReplicationPeerZKImpl
+name|ReplicationAdmin
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1339,7 +1369,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-literal|"tab1"
+name|tab1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1350,7 +1380,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-literal|"tab2"
+name|tab2
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1363,14 +1393,14 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab1"
+name|tab1
 argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// null cf-list,
 name|tabCFsMap
 operator|=
-name|ReplicationPeerZKImpl
+name|ReplicationAdmin
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1394,7 +1424,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-literal|"tab2"
+name|tab2
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1405,7 +1435,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-literal|"tab1"
+name|tab1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1418,7 +1448,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab2"
+name|tab2
 argument_list|)
 operator|.
 name|size
@@ -1434,7 +1464,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab2"
+name|tab2
 argument_list|)
 operator|.
 name|get
@@ -1446,7 +1476,7 @@ expr_stmt|;
 comment|// the only cf is "cf1"
 name|tabCFsMap
 operator|=
-name|ReplicationPeerZKImpl
+name|ReplicationAdmin
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1470,7 +1500,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1481,7 +1511,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-literal|"tab1"
+name|tab1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1494,7 +1524,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 operator|.
 name|size
@@ -1508,7 +1538,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 operator|.
 name|contains
@@ -1524,7 +1554,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 operator|.
 name|contains
@@ -1537,7 +1567,7 @@ comment|// contains "cf3"
 comment|// 3. multiple tables: "tab1 ; tab2:cf1 ; tab3:cf1,cf3"
 name|tabCFsMap
 operator|=
-name|ReplicationPeerZKImpl
+name|ReplicationAdmin
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1561,7 +1591,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-literal|"tab1"
+name|tab1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1571,7 +1601,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-literal|"tab2"
+name|tab2
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1581,7 +1611,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1594,7 +1624,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab1"
+name|tab1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1607,7 +1637,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab2"
+name|tab2
 argument_list|)
 operator|.
 name|size
@@ -1622,7 +1652,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab2"
+name|tab2
 argument_list|)
 operator|.
 name|get
@@ -1640,7 +1670,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 operator|.
 name|size
@@ -1653,7 +1683,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 operator|.
 name|contains
@@ -1668,7 +1698,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 operator|.
 name|contains
@@ -1681,7 +1711,7 @@ comment|// 4. contiguous or additional ";"(table delimiter) or ","(cf delimiter)
 comment|// still use the example of multiple tables: "tab1 ; tab2:cf1 ; tab3:cf1,cf3"
 name|tabCFsMap
 operator|=
-name|ReplicationPeerZKImpl
+name|ReplicationAdmin
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1705,7 +1735,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-literal|"tab1"
+name|tab1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1715,7 +1745,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-literal|"tab2"
+name|tab2
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1725,7 +1755,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1738,7 +1768,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab1"
+name|tab1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1751,7 +1781,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab2"
+name|tab2
 argument_list|)
 operator|.
 name|size
@@ -1766,7 +1796,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab2"
+name|tab2
 argument_list|)
 operator|.
 name|get
@@ -1784,7 +1814,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 operator|.
 name|size
@@ -1797,7 +1827,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 operator|.
 name|contains
@@ -1812,7 +1842,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 operator|.
 name|contains
@@ -1825,7 +1855,7 @@ comment|// 5. invalid format "tab1:tt:cf1 ; tab2::cf1 ; tab3:cf1,cf3"
 comment|//    "tab1:tt:cf1" and "tab2::cf1" are invalid and will be ignored totally
 name|tabCFsMap
 operator|=
-name|ReplicationPeerZKImpl
+name|ReplicationAdmin
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1850,7 +1880,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-literal|"tab1"
+name|tab1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1860,7 +1890,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-literal|"tab2"
+name|tab2
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1870,7 +1900,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1883,7 +1913,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 operator|.
 name|size
@@ -1896,7 +1926,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 operator|.
 name|contains
@@ -1911,7 +1941,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-literal|"tab3"
+name|tab3
 argument_list|)
 operator|.
 name|contains

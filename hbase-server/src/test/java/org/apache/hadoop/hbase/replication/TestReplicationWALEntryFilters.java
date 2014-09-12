@@ -1488,7 +1488,7 @@ argument_list|)
 expr_stmt|;
 name|Map
 argument_list|<
-name|String
+name|TableName
 argument_list|,
 name|List
 argument_list|<
@@ -1500,7 +1500,7 @@ init|=
 operator|new
 name|HashMap
 argument_list|<
-name|String
+name|TableName
 argument_list|,
 name|List
 argument_list|<
@@ -1559,7 +1559,7 @@ operator|=
 operator|new
 name|HashMap
 argument_list|<
-name|String
+name|TableName
 argument_list|,
 name|List
 argument_list|<
@@ -1572,7 +1572,12 @@ name|tableCfs
 operator|.
 name|put
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"bar"
+argument_list|)
 argument_list|,
 literal|null
 argument_list|)
@@ -1627,7 +1632,7 @@ operator|=
 operator|new
 name|HashMap
 argument_list|<
-name|String
+name|TableName
 argument_list|,
 name|List
 argument_list|<
@@ -1640,7 +1645,12 @@ name|tableCfs
 operator|.
 name|put
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"foo"
+argument_list|)
 argument_list|,
 name|Lists
 operator|.
@@ -1705,7 +1715,7 @@ operator|=
 operator|new
 name|HashMap
 argument_list|<
-name|String
+name|TableName
 argument_list|,
 name|List
 argument_list|<
@@ -1718,7 +1728,12 @@ name|tableCfs
 operator|.
 name|put
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"foo"
+argument_list|)
 argument_list|,
 name|Lists
 operator|.

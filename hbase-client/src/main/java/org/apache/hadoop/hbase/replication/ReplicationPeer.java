@@ -79,6 +79,20 @@ name|HBaseInterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
+import|;
+end_import
+
 begin_comment
 comment|/**  * ReplicationPeer manages enabled / disabled state for the peer.  */
 end_comment
@@ -140,7 +154,7 @@ comment|/**    * Get replicable (table, cf-list) map of this peer    * @return t
 specifier|public
 name|Map
 argument_list|<
-name|String
+name|TableName
 argument_list|,
 name|List
 argument_list|<
