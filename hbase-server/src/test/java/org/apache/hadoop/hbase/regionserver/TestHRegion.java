@@ -11626,7 +11626,7 @@ argument_list|(
 name|val1
 argument_list|)
 argument_list|,
-name|put
+name|delete
 argument_list|,
 literal|true
 argument_list|)
