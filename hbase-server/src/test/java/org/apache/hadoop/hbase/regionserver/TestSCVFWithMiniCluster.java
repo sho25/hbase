@@ -121,7 +121,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
 name|MediumTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|RegionServerTests
 import|;
 end_import
 
@@ -445,9 +463,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|RegionServerTests
+operator|.
+name|class
+block|,
 name|MediumTests
 operator|.
 name|class
+block|}
 argument_list|)
 comment|/*  * This test verifies that the scenarios illustrated by HBASE-10850 work  * w.r.t. essential column family optimization  */
 specifier|public

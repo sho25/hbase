@@ -27,7 +27,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|SmallTests
+name|testclassification
+operator|.
+name|MiscTests
 import|;
 end_import
 
@@ -41,9 +43,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|http
+name|testclassification
 operator|.
-name|HttpRequestLogAppender
+name|SmallTests
 import|;
 end_import
 
@@ -87,9 +89,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|MiscTests
+operator|.
+name|class
+block|,
 name|SmallTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class

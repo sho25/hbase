@@ -18,30 +18,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -153,7 +129,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|SmallTests
+name|test
+operator|.
+name|MetricsAssertHelper
 import|;
 end_import
 
@@ -167,9 +145,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|test
+name|testclassification
 operator|.
-name|MetricsAssertHelper
+name|ClientTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|SmallTests
 import|;
 end_import
 
@@ -261,9 +255,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|ClientTests
+operator|.
+name|class
+block|,
 name|SmallTests
 operator|.
 name|class
+block|}
 argument_list|)
 annotation|@
 name|RunWith

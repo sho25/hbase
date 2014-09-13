@@ -245,6 +245,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
 name|IntegrationTests
 import|;
 end_import

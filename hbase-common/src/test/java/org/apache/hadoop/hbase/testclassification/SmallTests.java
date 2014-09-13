@@ -12,17 +12,19 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|testclassification
 package|;
 end_package
 
 begin_comment
-comment|/**  * Tag a test as 'Medium', meaning that the test class has the following  * characteristics:  *  - executed in an isolated JVM. Tests can however be executed in different  *    JVM on the same machine simultaneously.  *  - will have to be executed by the developer before submitting a bug  *  - ideally, last less than 1 minutes to help parallelization  *  *  Use it for tests that cannot be tagged as 'Small'.  *  * @see SmallTests  * @see LargeTests  * @see IntegrationTests  */
+comment|/**  * Tag a test as 'small', meaning that the test class has the following  * characteristics:  *  - can be run simultaneously with other small tests in the same JVM  *  - ideally, last less than 15 seconds  *  - does not use a cluster  *  * @see MediumTests  * @see LargeTests  * @see IntegrationTests  */
 end_comment
 
 begin_interface
 specifier|public
 interface|interface
-name|MediumTests
+name|SmallTests
 block|{ }
 end_interface
 

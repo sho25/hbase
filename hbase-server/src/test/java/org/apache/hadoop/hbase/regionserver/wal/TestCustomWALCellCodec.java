@@ -67,7 +67,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|testclassification
+operator|.
+name|RegionServerTests
 import|;
 end_import
 
@@ -80,6 +82,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|testclassification
 operator|.
 name|SmallTests
 import|;
@@ -117,9 +121,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|RegionServerTests
+operator|.
+name|class
+block|,
 name|SmallTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class

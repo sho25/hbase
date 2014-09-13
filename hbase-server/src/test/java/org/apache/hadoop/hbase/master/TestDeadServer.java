@@ -27,7 +27,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MediumTests
+name|ServerName
 import|;
 end_import
 
@@ -41,7 +41,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerName
+name|testclassification
+operator|.
+name|MasterTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|MediumTests
 import|;
 end_import
 
@@ -175,9 +193,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|MasterTests
+operator|.
+name|class
+block|,
 name|MediumTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class

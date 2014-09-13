@@ -41,6 +41,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
 name|MediumTests
 import|;
 end_import
@@ -55,23 +57,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|SmallTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|testclassification
 operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|EnvironmentEdge
+name|RPCTests
 import|;
 end_import
 
@@ -155,9 +143,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|RPCTests
+operator|.
+name|class
+block|,
 name|MediumTests
 operator|.
 name|class
+block|}
 argument_list|)
 comment|// Can't be small, we're playing with the EnvironmentEdge
 specifier|public

@@ -105,7 +105,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MediumTests
+name|ipc
+operator|.
+name|RpcClient
 import|;
 end_import
 
@@ -119,9 +121,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|testclassification
 operator|.
-name|RpcClient
+name|ClientTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|MediumTests
 import|;
 end_import
 
@@ -193,9 +211,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
 name|MediumTests
 operator|.
 name|class
+block|,
+name|ClientTests
+operator|.
+name|class
+block|}
 argument_list|)
 specifier|public
 class|class

@@ -55,7 +55,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|SmallTests
+name|filter
+operator|.
+name|CompareFilter
+operator|.
+name|CompareOp
 import|;
 end_import
 
@@ -69,11 +73,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|filter
+name|testclassification
 operator|.
-name|CompareFilter
+name|FilterTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|CompareOp
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|SmallTests
 import|;
 end_import
 
@@ -157,9 +175,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|FilterTests
+operator|.
+name|class
+block|,
 name|SmallTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class
