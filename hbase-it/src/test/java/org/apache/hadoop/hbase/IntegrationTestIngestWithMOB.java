@@ -341,6 +341,9 @@ name|add
 argument_list|(
 name|getTablename
 argument_list|()
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// pass all remaining args from conf with keys<test class name>.<load test tool arg>
@@ -599,7 +602,7 @@ init|=
 name|getTablename
 argument_list|()
 operator|.
-name|getBytes
+name|getName
 argument_list|()
 decl_stmt|;
 name|HBaseAdmin
