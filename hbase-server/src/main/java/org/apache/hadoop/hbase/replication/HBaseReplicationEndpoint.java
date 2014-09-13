@@ -451,7 +451,12 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
+comment|// Synchronize peer cluster connection attempts to avoid races and rate
+comment|// limit connections when multiple replication sources try to connect to
+comment|// the peer cluster. If the peer cluster is down we can get out of control
+comment|// over time.
 specifier|public
+specifier|synchronized
 name|UUID
 name|getPeerUUID
 parameter_list|()
@@ -684,7 +689,12 @@ name|addresses
 return|;
 block|}
 comment|/**    * Get a list of all the addresses of all the region servers    * for this peer cluster    * @return list of addresses    * @throws KeeperException    */
+comment|// Synchronize peer cluster connection attempts to avoid races and rate
+comment|// limit connections when multiple replication sources try to connect to
+comment|// the peer cluster. If the peer cluster is down we can get out of control
+comment|// over time.
 specifier|public
+specifier|synchronized
 name|List
 argument_list|<
 name|ServerName
@@ -724,7 +734,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Fetch salves addresses failed."
+literal|"Fetch slaves addresses failed"
 argument_list|,
 name|ke
 argument_list|)
