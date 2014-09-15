@@ -266,6 +266,34 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * This will be called before executing user request to roll a region server WAL.    * @param ctx An instance of ObserverContext    * @throws IOException Signals that an I/O exception has occurred.    */
+name|void
+name|preRollWALWriterRequest
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionServerCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * This will be called after executing user request to roll a region server WAL.    * @param ctx An instance of ObserverContext    * @throws IOException Signals that an I/O exception has occurred.    */
+name|void
+name|postRollWALWriterRequest
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionServerCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

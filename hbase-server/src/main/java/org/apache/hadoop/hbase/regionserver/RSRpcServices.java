@@ -9098,6 +9098,14 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
+name|regionServer
+operator|.
+name|getRegionServerCoprocessorHost
+argument_list|()
+operator|.
+name|preRollWALWriterRequest
+argument_list|()
+expr_stmt|;
 name|HLog
 name|wal
 init|=
