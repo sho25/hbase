@@ -309,11 +309,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|client
 operator|.
-name|generated
-operator|.
-name|ZooKeeperProtos
+name|TableState
 import|;
 end_import
 
@@ -611,9 +609,7 @@ name|isTableState
 argument_list|(
 name|TABLENAME
 argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
+name|TableState
 operator|.
 name|State
 operator|.

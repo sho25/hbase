@@ -211,6 +211,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Get
@@ -1016,9 +1030,13 @@ argument_list|)
 operator|.
 name|createTableDescriptor
 argument_list|(
+operator|new
+name|TableDescriptor
+argument_list|(
 name|this
 operator|.
 name|desc
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|/*        * Create the regions we will merge        */

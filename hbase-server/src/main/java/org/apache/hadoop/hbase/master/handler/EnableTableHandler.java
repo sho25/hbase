@@ -121,20 +121,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CoordinatedStateException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableName
 import|;
 end_import
@@ -220,6 +206,22 @@ operator|.
 name|hbase
 operator|.
 name|MetaTableAccessor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableState
 import|;
 end_import
 
@@ -414,24 +416,6 @@ operator|.
 name|TableLockManager
 operator|.
 name|TableLock
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ZooKeeperProtos
 import|;
 end_import
 
@@ -687,8 +671,6 @@ name|tableName
 argument_list|)
 throw|;
 block|}
-try|try
-block|{
 name|this
 operator|.
 name|assignmentManager
@@ -696,48 +678,11 @@ operator|.
 name|getTableStateManager
 argument_list|()
 operator|.
-name|checkAndRemoveTableState
+name|setDeletedTable
 argument_list|(
 name|tableName
-argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
-operator|.
-name|State
-operator|.
-name|ENABLING
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
-throw|throw
-operator|new
-name|TableNotFoundException
-argument_list|(
-name|tableName
-argument_list|)
-throw|;
-block|}
-catch|catch
-parameter_list|(
-name|CoordinatedStateException
-name|e
-parameter_list|)
-block|{
-comment|// TODO : Use HBCK to clear such nodes
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Failed to delete the ENABLING node for the table "
-operator|+
-name|tableName
-operator|+
-literal|".  The table will remain unusable. Run HBCK to manually fix the problem."
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|// There could be multiple client requests trying to disable or enable
 comment|// the table at the same time. Ensure only the first request is honored
@@ -748,8 +693,6 @@ condition|(
 operator|!
 name|skipTableStateCheck
 condition|)
-block|{
-try|try
 block|{
 if|if
 condition|(
@@ -767,17 +710,13 @@ name|this
 operator|.
 name|tableName
 argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
+name|TableState
 operator|.
 name|State
 operator|.
 name|ENABLING
 argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
+name|TableState
 operator|.
 name|State
 operator|.
@@ -803,25 +742,6 @@ argument_list|(
 name|this
 operator|.
 name|tableName
-argument_list|)
-throw|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|CoordinatedStateException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Unable to ensure that the table will be"
-operator|+
-literal|" enabling because of a coordination engine issue"
-argument_list|,
-name|e
 argument_list|)
 throw|;
 block|}
@@ -982,45 +902,7 @@ block|}
 catch|catch
 parameter_list|(
 name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Error trying to enable the table "
-operator|+
-name|this
-operator|.
-name|tableName
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|CoordinatedStateException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Error trying to enable the table "
-operator|+
-name|this
-operator|.
-name|tableName
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
+decl||
 name|InterruptedException
 name|e
 parameter_list|)
@@ -1095,13 +977,10 @@ parameter_list|()
 throws|throws
 name|IOException
 throws|,
-name|CoordinatedStateException
-throws|,
 name|InterruptedException
 block|{
 comment|// I could check table is disabling and if so, not enable but require
 comment|// that user first finish disabling but that might be obnoxious.
-comment|// Set table enabling flag up in zk.
 name|this
 operator|.
 name|assignmentManager
@@ -1115,9 +994,7 @@ name|this
 operator|.
 name|tableName
 argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
+name|TableState
 operator|.
 name|State
 operator|.
@@ -1495,9 +1372,7 @@ name|this
 operator|.
 name|tableName
 argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
+name|TableState
 operator|.
 name|State
 operator|.

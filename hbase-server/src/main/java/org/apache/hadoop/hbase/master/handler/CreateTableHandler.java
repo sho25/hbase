@@ -177,20 +177,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -206,6 +192,20 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -247,7 +247,35 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableExistsException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -277,7 +305,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MetaTableAccessor
+name|client
+operator|.
+name|TableState
 import|;
 end_import
 
@@ -440,24 +470,6 @@ operator|.
 name|TableLockManager
 operator|.
 name|TableLock
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ZooKeeperProtos
 import|;
 end_import
 
@@ -908,13 +920,6 @@ name|tableName
 argument_list|)
 throw|;
 block|}
-name|checkAndSetEnablingTable
-argument_list|(
-name|assignmentManager
-argument_list|,
-name|tableName
-argument_list|)
-expr_stmt|;
 name|success
 operator|=
 literal|true
@@ -936,159 +941,6 @@ block|}
 return|return
 name|this
 return|;
-block|}
-specifier|static
-name|void
-name|checkAndSetEnablingTable
-parameter_list|(
-specifier|final
-name|AssignmentManager
-name|assignmentManager
-parameter_list|,
-specifier|final
-name|TableName
-name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-comment|// If we have multiple client threads trying to create the table at the
-comment|// same time, given the async nature of the operation, the table
-comment|// could be in a state where hbase:meta table hasn't been updated yet in
-comment|// the process() function.
-comment|// Use enabling state to tell if there is already a request for the same
-comment|// table in progress. This will introduce a new zookeeper call. Given
-comment|// createTable isn't a frequent operation, that should be ok.
-comment|// TODO: now that we have table locks, re-evaluate above -- table locks are not enough.
-comment|// We could have cleared the hbase.rootdir and not zk.  How can we detect this case?
-comment|// Having to clean zk AND hdfs is awkward.
-try|try
-block|{
-if|if
-condition|(
-operator|!
-name|assignmentManager
-operator|.
-name|getTableStateManager
-argument_list|()
-operator|.
-name|setTableStateIfNotInStates
-argument_list|(
-name|tableName
-argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
-operator|.
-name|State
-operator|.
-name|ENABLING
-argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
-operator|.
-name|State
-operator|.
-name|ENABLING
-argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
-operator|.
-name|State
-operator|.
-name|ENABLED
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|TableExistsException
-argument_list|(
-name|tableName
-argument_list|)
-throw|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|CoordinatedStateException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Unable to ensure that the table will be"
-operator|+
-literal|" enabling because of a ZooKeeper issue"
-argument_list|,
-name|e
-argument_list|)
-throw|;
-block|}
-block|}
-specifier|static
-name|void
-name|removeEnablingTable
-parameter_list|(
-specifier|final
-name|AssignmentManager
-name|assignmentManager
-parameter_list|,
-specifier|final
-name|TableName
-name|tableName
-parameter_list|)
-block|{
-comment|// Try deleting the enabling node in case of error
-comment|// If this does not happen then if the client tries to create the table
-comment|// again with the same Active master
-comment|// It will block the creation saying TableAlreadyExists.
-try|try
-block|{
-name|assignmentManager
-operator|.
-name|getTableStateManager
-argument_list|()
-operator|.
-name|checkAndRemoveTableState
-argument_list|(
-name|tableName
-argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
-operator|.
-name|State
-operator|.
-name|ENABLING
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|CoordinatedStateException
-name|e
-parameter_list|)
-block|{
-comment|// Keeper exception should not happen here
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Got a keeper exception while removing the ENABLING table znode "
-operator|+
-name|tableName
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 annotation|@
 name|Override
@@ -1340,28 +1192,6 @@ name|exception
 operator|)
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|exception
-operator|!=
-literal|null
-condition|)
-block|{
-name|removeEnablingTable
-argument_list|(
-name|this
-operator|.
-name|assignmentManager
-argument_list|,
-name|this
-operator|.
-name|hTableDescriptor
-operator|.
-name|getTableName
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**    * Responsible of table creation (on-disk and META) and assignment.    * - Create the table directory and descriptor (temp folder)    * - Create the on-disk regions (temp folder)    *   [If something fails here: we've just some trash in temp]    * - Move the table from temp to the root directory    *   [If something fails here: we've the table in place but some of the rows required    *    present in META. (hbck needed)]    * - Add regions to META    *   [If something fails here: we don't have regions assigned: table disabled]    * - Assign regions to Region Servers    *   [If something fails here: we still have the table in disabled state]    * - Update ZooKeeper with the enabled state    */
 specifier|private
@@ -1393,6 +1223,24 @@ name|getFileSystem
 argument_list|()
 decl_stmt|;
 comment|// 1. Create Table Descriptor
+comment|// using a copy of descriptor, table will be created enabling first
+name|TableDescriptor
+name|underConstruction
+init|=
+operator|new
+name|TableDescriptor
+argument_list|(
+name|this
+operator|.
+name|hTableDescriptor
+argument_list|,
+name|TableState
+operator|.
+name|State
+operator|.
+name|ENABLING
+argument_list|)
+decl_stmt|;
 name|Path
 name|tempTableDir
 init|=
@@ -1417,9 +1265,7 @@ name|createTableDescriptorForTableDirectory
 argument_list|(
 name|tempTableDir
 argument_list|,
-name|this
-operator|.
-name|hTableDescriptor
+name|underConstruction
 argument_list|,
 literal|false
 argument_list|)
@@ -1541,9 +1387,7 @@ name|regionInfos
 argument_list|)
 expr_stmt|;
 block|}
-comment|// 8. Set table enabled flag up in zk.
-try|try
-block|{
+comment|// 6. Enable table
 name|assignmentManager
 operator|.
 name|getTableStateManager
@@ -1553,9 +1397,7 @@ name|setTableState
 argument_list|(
 name|tableName
 argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
+name|TableState
 operator|.
 name|State
 operator|.
@@ -1563,30 +1405,7 @@ name|ENABLED
 argument_list|)
 expr_stmt|;
 block|}
-catch|catch
-parameter_list|(
-name|CoordinatedStateException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Unable to ensure that "
-operator|+
-name|tableName
-operator|+
-literal|" will be"
-operator|+
-literal|" enabled because of a ZooKeeper issue"
-argument_list|,
-name|e
-argument_list|)
-throw|;
-block|}
-block|}
-comment|/**    * Create any replicas for the regions (the default replicas that was    * already created is passed to the method)    * @param hTableDescriptor    * @param regions default replicas    * @return the combined list of default and non-default replicas    */
+comment|/**    * Create any replicas for the regions (the default replicas that was    * already created is passed to the method)    * @param hTableDescriptor descriptor to use    * @param regions default replicas    * @return the combined list of default and non-default replicas    */
 specifier|protected
 name|List
 argument_list|<

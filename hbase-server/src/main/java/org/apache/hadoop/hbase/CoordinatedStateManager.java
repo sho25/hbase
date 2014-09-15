@@ -65,15 +65,6 @@ name|Server
 name|getServer
 parameter_list|()
 function_decl|;
-comment|/**    * Returns implementation of TableStateManager.    * @throws InterruptedException if operation is interrupted    * @throws CoordinatedStateException if error happens in underlying coordination mechanism    */
-name|TableStateManager
-name|getTableStateManager
-parameter_list|()
-throws|throws
-name|InterruptedException
-throws|,
-name|CoordinatedStateException
-function_decl|;
 block|}
 end_interface
 

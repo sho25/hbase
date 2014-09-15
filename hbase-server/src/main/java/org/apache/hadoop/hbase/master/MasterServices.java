@@ -245,6 +245,11 @@ name|TableLockManager
 name|getTableLockManager
 parameter_list|()
 function_decl|;
+comment|/**    * @return Master's instance of {@link TableStateManager}    */
+name|TableStateManager
+name|getTableStateManager
+parameter_list|()
+function_decl|;
 comment|/**    * @return Master's instance of {@link MasterCoprocessorHost}    */
 name|MasterCoprocessorHost
 name|getMasterCoprocessorHost

@@ -462,6 +462,17 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Retrieve TableState, represent current table state.    * @param tableName table state for    * @return state of the table    */
+specifier|public
+name|TableState
+name|getTableState
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * @param tableName table name    * @return true if all regions of the table are available, false otherwise    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|isTableAvailable

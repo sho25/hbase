@@ -485,6 +485,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|TableState
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|coprocessor
 operator|.
 name|BaseRegionObserver
@@ -567,24 +583,6 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|RegionState
-operator|.
-name|State
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
 name|balancer
 operator|.
 name|StochasticLoadBalancer
@@ -610,24 +608,6 @@ operator|.
 name|RegionStateTransition
 operator|.
 name|TransitionCode
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ZooKeeperProtos
 import|;
 end_import
 
@@ -1119,6 +1099,8 @@ operator|.
 name|getState
 argument_list|()
 argument_list|,
+name|RegionState
+operator|.
 name|State
 operator|.
 name|OPEN
@@ -1275,6 +1257,8 @@ operator|.
 name|getState
 argument_list|()
 argument_list|,
+name|RegionState
+operator|.
 name|State
 operator|.
 name|OPEN
@@ -1596,6 +1580,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
+comment|//restart the master so that conf take into affect
 name|TEST_UTIL
 operator|.
 name|getMiniHBaseCluster
@@ -1604,7 +1589,6 @@ operator|.
 name|startMaster
 argument_list|()
 expr_stmt|;
-comment|//restart the master so that conf take into affect
 name|ServerName
 name|deadServer
 init|=
@@ -4072,6 +4056,8 @@ name|updateRegionState
 argument_list|(
 name|hri
 argument_list|,
+name|RegionState
+operator|.
 name|State
 operator|.
 name|PENDING_OPEN
@@ -4088,9 +4074,7 @@ name|setTableState
 argument_list|(
 name|table
 argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
+name|TableState
 operator|.
 name|State
 operator|.
@@ -4171,9 +4155,7 @@ name|setTableState
 argument_list|(
 name|table
 argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
+name|TableState
 operator|.
 name|State
 operator|.

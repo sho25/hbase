@@ -83,19 +83,6 @@ name|String
 name|getClusterId
 parameter_list|()
 function_decl|;
-comment|/**    * @param enabled Return true if table is enabled    * @throws IOException    */
-name|boolean
-name|isTableOnlineState
-parameter_list|(
-name|TableName
-name|tableName
-parameter_list|,
-name|boolean
-name|enabled
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * @return Count of 'running' regionservers    * @throws IOException    */
 name|int
 name|getCurrentNrHRS

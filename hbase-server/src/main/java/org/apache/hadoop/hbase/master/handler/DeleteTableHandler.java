@@ -143,6 +143,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -439,6 +453,9 @@ name|hTableDescriptor
 operator|=
 name|getTableDescriptor
 argument_list|()
+operator|.
+name|getHTableDescriptor
+argument_list|()
 expr_stmt|;
 block|}
 specifier|protected
@@ -696,16 +713,36 @@ argument_list|(
 name|regions
 argument_list|)
 expr_stmt|;
-try|try
-block|{
 comment|// 2. Remove table from hbase:meta and HDFS
 name|removeTableData
 argument_list|(
 name|regions
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|cpHost
+operator|!=
+literal|null
+condition|)
+block|{
+name|cpHost
+operator|.
+name|postDeleteTableHandler
+argument_list|(
+name|this
+operator|.
+name|tableName
+argument_list|)
+expr_stmt|;
 block|}
-finally|finally
+block|}
+specifier|private
+name|void
+name|cleanupTableState
+parameter_list|()
+throws|throws
+name|IOException
 block|{
 comment|// 3. Update table descriptor cache
 name|LOG
@@ -763,7 +800,7 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-comment|// 5. If entry for this table in zk, and up in AssignmentManager, remove it.
+comment|// 5. If entry for this table states, remove it.
 name|LOG
 operator|.
 name|debug
@@ -786,24 +823,6 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|cpHost
-operator|!=
-literal|null
-condition|)
-block|{
-name|cpHost
-operator|.
-name|postDeleteTableHandler
-argument_list|(
-name|this
-operator|.
-name|tableName
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 comment|/**    * Removes the table from hbase:meta and archives the HDFS files.    */
 specifier|protected
 name|void
@@ -820,6 +839,8 @@ throws|throws
 name|IOException
 throws|,
 name|CoordinatedStateException
+block|{
+try|try
 block|{
 comment|// 1. Remove regions from META
 name|LOG
@@ -961,6 +982,13 @@ operator|+
 literal|"' archived!"
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|cleanupTableState
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override

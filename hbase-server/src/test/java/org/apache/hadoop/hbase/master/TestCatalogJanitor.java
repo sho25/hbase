@@ -253,6 +253,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -486,6 +500,22 @@ operator|.
 name|hbase
 operator|.
 name|CoordinatedStateManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableState
 import|;
 end_import
 
@@ -1756,7 +1786,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// TODO Auto-generated method stub
+comment|// noop
 return|return
 literal|null
 return|;
@@ -1775,7 +1805,26 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// TODO Auto-generated method stub
+comment|// noop
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|TableDescriptor
+argument_list|>
+name|getAllDescriptors
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+comment|// noop
 return|return
 literal|null
 return|;
@@ -1794,6 +1843,23 @@ name|IOException
 block|{
 return|return
 name|createHTableDescriptor
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|TableDescriptor
+name|getDescriptor
+parameter_list|(
+name|TableName
+name|tablename
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createTableDescriptor
 argument_list|()
 return|;
 block|}
@@ -1830,7 +1896,21 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// TODO Auto-generated method stub
+comment|// noop
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|add
+parameter_list|(
+name|TableDescriptor
+name|htd
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// noop
 block|}
 block|}
 return|;
@@ -2092,6 +2172,17 @@ name|Override
 specifier|public
 name|TableLockManager
 name|getTableLockManager
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|TableStateManager
+name|getTableStateManager
 parameter_list|()
 block|{
 return|return
@@ -5681,6 +5772,31 @@ literal|"f"
 argument_list|)
 argument_list|)
 expr_stmt|;
+return|return
+name|htd
+return|;
+block|}
+specifier|private
+name|TableDescriptor
+name|createTableDescriptor
+parameter_list|()
+block|{
+name|TableDescriptor
+name|htd
+init|=
+operator|new
+name|TableDescriptor
+argument_list|(
+name|createHTableDescriptor
+argument_list|()
+argument_list|,
+name|TableState
+operator|.
+name|State
+operator|.
+name|ENABLED
+argument_list|)
+decl_stmt|;
 return|return
 name|htd
 return|;

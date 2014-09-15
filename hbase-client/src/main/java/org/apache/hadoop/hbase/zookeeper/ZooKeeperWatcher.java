@@ -378,6 +378,8 @@ name|String
 name|clusterStateZNode
 decl_stmt|;
 comment|// znode used for table disabling/enabling
+annotation|@
+name|Deprecated
 specifier|public
 name|String
 name|tableZNode

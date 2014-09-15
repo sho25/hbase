@@ -284,6 +284,9 @@ name|htd
 init|=
 name|getTableDescriptor
 argument_list|()
+operator|.
+name|getHTableDescriptor
+argument_list|()
 decl_stmt|;
 name|this
 operator|.

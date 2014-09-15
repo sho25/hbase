@@ -16652,7 +16652,7 @@ comment|// @@protoc_insertion_point(class_scope:SplitLogTask)
 block|}
 specifier|public
 interface|interface
-name|TableOrBuilder
+name|DeprecatedTableStateOrBuilder
 extends|extends
 name|com
 operator|.
@@ -16662,13 +16662,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .Table.State state = 1 [default = ENABLED];
-comment|/**      *<code>required .Table.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
+comment|// required .DeprecatedTableState.State state = 1 [default = ENABLED];
+comment|/**      *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
 name|boolean
 name|hasState
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .Table.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
+comment|/**      *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -16683,19 +16683,19 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|State
 name|getState
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Table}    *    *<pre>    **    * The znode that holds state of table.    *</pre>    */
+comment|/**    * Protobuf type {@code DeprecatedTableState}    *    *<pre>    **    * The znode that holds state of table.    * Deprected, table state is stored in table descriptor on HDFS.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|Table
+name|DeprecatedTableState
 extends|extends
 name|com
 operator|.
@@ -16705,11 +16705,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|TableOrBuilder
+name|DeprecatedTableStateOrBuilder
 block|{
-comment|// Use Table.newBuilder() to construct.
+comment|// Use DeprecatedTableState.newBuilder() to construct.
 specifier|private
-name|Table
+name|DeprecatedTableState
 parameter_list|(
 name|com
 operator|.
@@ -16742,7 +16742,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|Table
+name|DeprecatedTableState
 parameter_list|(
 name|boolean
 name|noInit
@@ -16767,12 +16767,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|Table
+name|DeprecatedTableState
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|Table
+name|DeprecatedTableState
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -16781,7 +16781,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|Table
+name|DeprecatedTableState
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -16825,7 +16825,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|Table
+name|DeprecatedTableState
 parameter_list|(
 name|com
 operator|.
@@ -16968,7 +16968,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|State
 name|value
@@ -16987,7 +16987,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|State
 operator|.
@@ -17128,7 +17128,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_Table_descriptor
+name|internal_static_DeprecatedTableState_descriptor
 return|;
 block|}
 specifier|protected
@@ -17159,7 +17159,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_Table_fieldAccessorTable
+name|internal_static_DeprecatedTableState_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -17177,7 +17177,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|class
 argument_list|,
@@ -17195,7 +17195,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|Builder
 operator|.
@@ -17213,7 +17213,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|Table
+name|DeprecatedTableState
 argument_list|>
 name|PARSER
 init|=
@@ -17226,12 +17226,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|Table
+name|DeprecatedTableState
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|Table
+name|DeprecatedTableState
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -17263,7 +17263,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|Table
+name|DeprecatedTableState
 argument_list|(
 name|input
 argument_list|,
@@ -17288,7 +17288,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|Table
+name|DeprecatedTableState
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -17297,7 +17297,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code Table.State}      *      *<pre>      * Table's current state      *</pre>      */
+comment|/**      * Protobuf enum {@code DeprecatedTableState.State}      *      *<pre>      * Table's current state      *</pre>      */
 specifier|public
 enum|enum
 name|State
@@ -17579,7 +17579,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|getDescriptor
 argument_list|()
@@ -17686,13 +17686,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:Table.State)
+comment|// @@protoc_insertion_point(enum_scope:DeprecatedTableState.State)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .Table.State state = 1 [default = ENABLED];
+comment|// required .DeprecatedTableState.State state = 1 [default = ENABLED];
 specifier|public
 specifier|static
 specifier|final
@@ -17716,12 +17716,12 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|State
 name|state_
 decl_stmt|;
-comment|/**      *<code>required .Table.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
+comment|/**      *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
 specifier|public
 name|boolean
 name|hasState
@@ -17739,7 +17739,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .Table.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
+comment|/**      *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -17755,7 +17755,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|State
 name|getState
@@ -17786,7 +17786,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|State
 operator|.
@@ -18071,7 +18071,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|)
 condition|)
 block|{
@@ -18098,7 +18098,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|other
 init|=
 operator|(
@@ -18116,7 +18116,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|)
 name|obj
 decl_stmt|;
@@ -18295,7 +18295,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|parseFrom
 parameter_list|(
 name|com
@@ -18341,7 +18341,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|parseFrom
 parameter_list|(
 name|com
@@ -18398,7 +18398,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|parseFrom
 parameter_list|(
 name|byte
@@ -18439,7 +18439,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|parseFrom
 parameter_list|(
 name|byte
@@ -18491,7 +18491,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|parseFrom
 parameter_list|(
 name|java
@@ -18533,7 +18533,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|parseFrom
 parameter_list|(
 name|java
@@ -18586,7 +18586,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -18628,7 +18628,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -18681,7 +18681,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|parseFrom
 parameter_list|(
 name|com
@@ -18725,7 +18725,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|parseFrom
 parameter_list|(
 name|com
@@ -18806,7 +18806,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|prototype
 parameter_list|)
 block|{
@@ -18867,7 +18867,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Table}      *      *<pre>      **      * The znode that holds state of table.      *</pre>      */
+comment|/**      * Protobuf type {@code DeprecatedTableState}      *      *<pre>      **      * The znode that holds state of table.      * Deprected, table state is stored in table descriptor on HDFS.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -18901,7 +18901,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|TableOrBuilder
+name|DeprecatedTableStateOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -18933,7 +18933,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_Table_descriptor
+name|internal_static_DeprecatedTableState_descriptor
 return|;
 block|}
 specifier|protected
@@ -18964,7 +18964,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_Table_fieldAccessorTable
+name|internal_static_DeprecatedTableState_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -18982,7 +18982,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|class
 argument_list|,
@@ -19000,7 +19000,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|Builder
 operator|.
@@ -19008,7 +19008,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.ZooKeeperProtos.Table.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.ZooKeeperProtos.DeprecatedTableState.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -19098,7 +19098,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|State
 operator|.
@@ -19161,7 +19161,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_Table_descriptor
+name|internal_static_DeprecatedTableState_descriptor
 return|;
 block|}
 specifier|public
@@ -19179,7 +19179,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -19198,7 +19198,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -19219,7 +19219,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|build
 parameter_list|()
 block|{
@@ -19237,7 +19237,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|result
 init|=
 name|buildPartial
@@ -19278,7 +19278,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|buildPartial
 parameter_list|()
 block|{
@@ -19296,7 +19296,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|result
 init|=
 operator|new
@@ -19314,7 +19314,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 argument_list|(
 name|this
 argument_list|)
@@ -19398,7 +19398,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 condition|)
 block|{
 return|return
@@ -19419,7 +19419,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|)
 name|other
 argument_list|)
@@ -19457,7 +19457,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|other
 parameter_list|)
 block|{
@@ -19479,7 +19479,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -19582,7 +19582,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 name|parsedMessage
 init|=
 literal|null
@@ -19630,7 +19630,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|)
 name|e
 operator|.
@@ -19665,7 +19665,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .Table.State state = 1 [default = ENABLED];
+comment|// required .DeprecatedTableState.State state = 1 [default = ENABLED];
 specifier|private
 name|org
 operator|.
@@ -19681,7 +19681,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|State
 name|state_
@@ -19700,13 +19700,13 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|State
 operator|.
 name|ENABLED
 decl_stmt|;
-comment|/**        *<code>required .Table.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
+comment|/**        *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
 specifier|public
 name|boolean
 name|hasState
@@ -19724,7 +19724,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .Table.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
+comment|/**        *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -19740,7 +19740,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|State
 name|getState
@@ -19750,7 +19750,7 @@ return|return
 name|state_
 return|;
 block|}
-comment|/**        *<code>required .Table.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
+comment|/**        *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
 specifier|public
 name|Builder
 name|setState
@@ -19769,7 +19769,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|State
 name|value
@@ -19803,7 +19803,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Table.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
+comment|/**        *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
 specifier|public
 name|Builder
 name|clearState
@@ -19834,7 +19834,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|Table
+name|DeprecatedTableState
 operator|.
 name|State
 operator|.
@@ -19847,14 +19847,14 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Table)
+comment|// @@protoc_insertion_point(builder_scope:DeprecatedTableState)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|Table
+name|DeprecatedTableState
 argument_list|(
 literal|true
 argument_list|)
@@ -19865,7 +19865,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Table)
+comment|// @@protoc_insertion_point(class_scope:DeprecatedTableState)
 block|}
 specifier|public
 interface|interface
@@ -50932,7 +50932,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Table_descriptor
+name|internal_static_DeprecatedTableState_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -50945,7 +50945,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Table_fieldAccessorTable
+name|internal_static_DeprecatedTableState_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -51197,47 +51197,49 @@ literal|"\004DONE\020\003\022\007\n\003ERR\020\004\">\n\014RecoveryMode\022\013\
 operator|+
 literal|"OWN\020\000\022\021\n\rLOG_SPLITTING\020\001\022\016\n\nLOG_REPLAY\020\002"
 operator|+
-literal|"\"n\n\005Table\022$\n\005state\030\001 \002(\0162\014.Table.State:\007"
+literal|"\"\214\001\n\024DeprecatedTableState\0223\n\005state\030\001 \002(\016"
 operator|+
-literal|"ENABLED\"?\n\005State\022\013\n\007ENABLED\020\000\022\014\n\010DISABLE"
+literal|"2\033.DeprecatedTableState.State:\007ENABLED\"?"
 operator|+
-literal|"D\020\001\022\r\n\tDISABLING\020\002\022\014\n\010ENABLING\020\003\"\215\001\n\017Rep"
+literal|"\n\005State\022\013\n\007ENABLED\020\000\022\014\n\010DISABLED\020\001\022\r\n\tDI"
 operator|+
-literal|"licationPeer\022\022\n\nclusterkey\030\001 \002(\t\022\037\n\027repl"
+literal|"SABLING\020\002\022\014\n\010ENABLING\020\003\"\215\001\n\017ReplicationP"
 operator|+
-literal|"icationEndpointImpl\030\002 \001(\t\022\035\n\004data\030\003 \003(\0132"
+literal|"eer\022\022\n\nclusterkey\030\001 \002(\t\022\037\n\027replicationEn"
 operator|+
-literal|"\017.BytesBytesPair\022&\n\rconfiguration\030\004 \003(\0132"
+literal|"dpointImpl\030\002 \001(\t\022\035\n\004data\030\003 \003(\0132\017.BytesBy"
 operator|+
-literal|"\017.NameStringPair\"^\n\020ReplicationState\022&\n\005"
+literal|"tesPair\022&\n\rconfiguration\030\004 \003(\0132\017.NameStr"
 block|,
-literal|"state\030\001 \002(\0162\027.ReplicationState.State\"\"\n\005"
+literal|"ingPair\"^\n\020ReplicationState\022&\n\005state\030\001 \002"
 operator|+
-literal|"State\022\013\n\007ENABLED\020\000\022\014\n\010DISABLED\020\001\"+\n\027Repl"
+literal|"(\0162\027.ReplicationState.State\"\"\n\005State\022\013\n\007"
 operator|+
-literal|"icationHLogPosition\022\020\n\010position\030\001 \002(\003\"%\n"
+literal|"ENABLED\020\000\022\014\n\010DISABLED\020\001\"+\n\027ReplicationHL"
 operator|+
-literal|"\017ReplicationLock\022\022\n\nlock_owner\030\001 \002(\t\"\230\001\n"
+literal|"ogPosition\022\020\n\010position\030\001 \002(\003\"%\n\017Replicat"
 operator|+
-literal|"\tTableLock\022\036\n\ntable_name\030\001 \001(\0132\n.TableNa"
+literal|"ionLock\022\022\n\nlock_owner\030\001 \002(\t\"\230\001\n\tTableLoc"
 operator|+
-literal|"me\022\037\n\nlock_owner\030\002 \001(\0132\013.ServerName\022\021\n\tt"
+literal|"k\022\036\n\ntable_name\030\001 \001(\0132\n.TableName\022\037\n\nloc"
 operator|+
-literal|"hread_id\030\003 \001(\003\022\021\n\tis_shared\030\004 \001(\010\022\017\n\007pur"
+literal|"k_owner\030\002 \001(\0132\013.ServerName\022\021\n\tthread_id\030"
 operator|+
-literal|"pose\030\005 \001(\t\022\023\n\013create_time\030\006 \001(\003\";\n\017Store"
+literal|"\003 \001(\003\022\021\n\tis_shared\030\004 \001(\010\022\017\n\007purpose\030\005 \001("
 operator|+
-literal|"SequenceId\022\023\n\013family_name\030\001 \002(\014\022\023\n\013seque"
+literal|"\t\022\023\n\013create_time\030\006 \001(\003\";\n\017StoreSequenceI"
 operator|+
-literal|"nce_id\030\002 \002(\004\"g\n\026RegionStoreSequenceIds\022 "
+literal|"d\022\023\n\013family_name\030\001 \002(\014\022\023\n\013sequence_id\030\002 "
 block|,
-literal|"\n\030last_flushed_sequence_id\030\001 \002(\004\022+\n\021stor"
+literal|"\002(\004\"g\n\026RegionStoreSequenceIds\022 \n\030last_fl"
 operator|+
-literal|"e_sequence_id\030\002 \003(\0132\020.StoreSequenceIdBE\n"
+literal|"ushed_sequence_id\030\001 \002(\004\022+\n\021store_sequenc"
 operator|+
-literal|"*org.apache.hadoop.hbase.protobuf.genera"
+literal|"e_id\030\002 \003(\0132\020.StoreSequenceIdBE\n*org.apac"
 operator|+
-literal|"tedB\017ZooKeeperProtosH\001\210\001\001\240\001\001"
+literal|"he.hadoop.hbase.protobuf.generatedB\017ZooK"
+operator|+
+literal|"eeperProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -51463,7 +51465,7 @@ literal|"Mode"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_Table_descriptor
+name|internal_static_DeprecatedTableState_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -51476,7 +51478,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_Table_fieldAccessorTable
+name|internal_static_DeprecatedTableState_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -51489,7 +51491,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Table_descriptor
+name|internal_static_DeprecatedTableState_descriptor
 argument_list|,
 operator|new
 name|java

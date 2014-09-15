@@ -217,11 +217,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|client
 operator|.
-name|generated
-operator|.
-name|ZooKeeperProtos
+name|TableState
 import|;
 end_import
 
@@ -645,17 +643,13 @@ argument_list|(
 literal|"tableRestart"
 argument_list|)
 argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
+name|TableState
 operator|.
 name|State
 operator|.
 name|DISABLED
 argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
+name|TableState
 operator|.
 name|State
 operator|.
@@ -761,9 +755,7 @@ argument_list|(
 literal|"tableRestart"
 argument_list|)
 argument_list|,
-name|ZooKeeperProtos
-operator|.
-name|Table
+name|TableState
 operator|.
 name|State
 operator|.

@@ -339,6 +339,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -356,6 +370,22 @@ operator|.
 name|backup
 operator|.
 name|HFileArchiver
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableState
 import|;
 end_import
 
@@ -2332,6 +2362,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Create tableinfo-s for hbase:meta if not already there.
+comment|// assume, created table descriptor is for enabling table
 operator|new
 name|FSTableDescriptors
 argument_list|(
@@ -2342,9 +2373,19 @@ argument_list|)
 operator|.
 name|createTableDescriptor
 argument_list|(
+operator|new
+name|TableDescriptor
+argument_list|(
 name|HTableDescriptor
 operator|.
 name|META_TABLEDESC
+argument_list|,
+name|TableState
+operator|.
+name|State
+operator|.
+name|ENABLING
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return

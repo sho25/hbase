@@ -776,8 +776,9 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
-name|htd
-operator|=
+name|TableDescriptor
+name|td
+init|=
 name|FSTableDescriptors
 operator|.
 name|getTableDescriptorFromFs
@@ -789,10 +790,13 @@ argument_list|()
 argument_list|,
 name|tableDir
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|hcds
 operator|=
-name|htd
+name|td
+operator|.
+name|getHTableDescriptor
+argument_list|()
 operator|.
 name|getColumnFamilies
 argument_list|()
