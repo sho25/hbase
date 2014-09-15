@@ -3413,6 +3413,8 @@ name|RequestConverter
 operator|.
 name|buildOpenRegionRequest
 argument_list|(
+name|server
+argument_list|,
 name|regionOpenInfos
 argument_list|,
 operator|(
