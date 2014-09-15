@@ -1506,7 +1506,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 operator|.
-name|addWritableMap
+name|addBytesMap
 argument_list|(
 name|family
 operator|.

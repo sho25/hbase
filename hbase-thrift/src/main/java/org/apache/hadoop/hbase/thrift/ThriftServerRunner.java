@@ -1517,6 +1517,14 @@ name|DEFAULT_LISTEN_PORT
 init|=
 literal|9090
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|HREGION_VERSION
+init|=
+literal|1
+decl_stmt|;
 specifier|private
 specifier|final
 name|int
@@ -4632,11 +4640,9 @@ name|region
 operator|.
 name|version
 operator|=
-name|info
-operator|.
-name|getVersion
-argument_list|()
+name|HREGION_VERSION
 expr_stmt|;
+comment|// HRegion now not versioned, PB encoding used
 name|results
 operator|.
 name|add
@@ -9859,11 +9865,9 @@ name|region
 operator|.
 name|version
 operator|=
-name|regionInfo
-operator|.
-name|getVersion
-argument_list|()
+name|HREGION_VERSION
 expr_stmt|;
+comment|// version not used anymore, PB encoding used.
 comment|// find region assignment to server
 name|ServerName
 name|serverName

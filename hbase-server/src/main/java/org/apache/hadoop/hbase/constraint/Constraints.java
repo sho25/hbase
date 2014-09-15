@@ -211,22 +211,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|ImmutableBytesWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -447,14 +431,14 @@ expr_stmt|;
 comment|// remove all the constraint settings
 name|List
 argument_list|<
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|>
 name|keys
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -465,9 +449,9 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|,
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|>
 name|e
 range|:
@@ -533,7 +517,7 @@ block|}
 comment|// now remove all the keys we found
 for|for
 control|(
-name|ImmutableBytesWritable
+name|Bytes
 name|key
 range|:
 name|keys
@@ -1666,9 +1650,9 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|,
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|>
 name|e
 range|:

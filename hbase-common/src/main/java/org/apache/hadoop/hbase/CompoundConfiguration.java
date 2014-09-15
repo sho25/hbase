@@ -149,9 +149,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|util
 operator|.
-name|ImmutableBytesWritable
+name|Bytes
 import|;
 end_import
 
@@ -492,17 +492,17 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Add ImmutableBytesWritable map to config list. This map is generally    * created by HTableDescriptor or HColumnDescriptor, but can be abstractly    * used. The added configuration overrides the previous ones if there are    * name collisions.    *    * @param map    *          ImmutableBytesWritable map    * @return this, for builder pattern    */
+comment|/**    * Add Bytes map to config list. This map is generally    * created by HTableDescriptor or HColumnDescriptor, but can be abstractly    * used. The added configuration overrides the previous ones if there are    * name collisions.    *    * @param map    *          Bytes map    * @return this, for builder pattern    */
 specifier|public
 name|CompoundConfiguration
-name|addWritableMap
+name|addBytesMap
 parameter_list|(
 specifier|final
 name|Map
 argument_list|<
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|,
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|>
 name|map
 parameter_list|)
@@ -525,9 +525,9 @@ argument_list|()
 block|{
 name|Map
 argument_list|<
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|,
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|>
 name|m
 init|=
@@ -573,9 +573,9 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|,
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|>
 name|entry
 range|:
@@ -656,11 +656,11 @@ name|String
 name|key
 parameter_list|)
 block|{
-name|ImmutableBytesWritable
+name|Bytes
 name|ibw
 init|=
 operator|new
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|(
 name|Bytes
 operator|.
@@ -683,7 +683,7 @@ condition|)
 return|return
 literal|null
 return|;
-name|ImmutableBytesWritable
+name|Bytes
 name|value
 init|=
 name|m
