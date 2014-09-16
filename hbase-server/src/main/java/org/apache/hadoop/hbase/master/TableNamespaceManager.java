@@ -599,7 +599,7 @@ specifier|final
 name|int
 name|DEFAULT_NS_INIT_TIMEOUT
 init|=
-literal|60000
+literal|300000
 decl_stmt|;
 specifier|public
 name|TableNamespaceManager
@@ -690,8 +690,13 @@ decl_stmt|;
 while|while
 condition|(
 operator|!
+operator|(
 name|isTableAssigned
 argument_list|()
+operator|&&
+name|isTableEnabled
+argument_list|()
+operator|)
 condition|)
 block|{
 if|if
@@ -708,14 +713,23 @@ operator|>
 name|timeout
 condition|)
 block|{
-name|LOG
-operator|.
-name|warn
+comment|// We can't do anything if ns is not online.
+throw|throw
+operator|new
+name|IOException
 argument_list|(
-literal|"Timedout waiting for namespace table to be assigned."
+literal|"Timedout "
+operator|+
+name|timeout
+operator|+
+literal|"ms waiting for namespace table to "
+operator|+
+literal|"be assigned and enabled: "
+operator|+
+name|getTableState
+argument_list|()
 argument_list|)
-expr_stmt|;
-return|return;
+throw|;
 block|}
 name|Thread
 operator|.
@@ -1840,8 +1854,10 @@ literal|false
 return|;
 block|}
 specifier|private
-name|boolean
-name|isTableEnabled
+name|TableState
+operator|.
+name|State
+name|getTableState
 parameter_list|()
 throws|throws
 name|IOException
@@ -1858,6 +1874,18 @@ name|TableName
 operator|.
 name|NAMESPACE_TABLE_NAME
 argument_list|)
+return|;
+block|}
+specifier|private
+name|boolean
+name|isTableEnabled
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+name|getTableState
+argument_list|()
 operator|.
 name|equals
 argument_list|(
