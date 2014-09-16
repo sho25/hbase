@@ -554,9 +554,13 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Will look for classes in "
+literal|"Looking in "
 operator|+
 name|resourcePath
+operator|+
+literal|"; isJar="
+operator|+
+name|isJar
 argument_list|)
 expr_stmt|;
 if|if
@@ -1033,12 +1037,12 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to find "
-operator|+
 name|baseDirectory
 operator|.
 name|getAbsolutePath
 argument_list|()
+operator|+
+literal|" does not exist"
 argument_list|)
 expr_stmt|;
 return|return
