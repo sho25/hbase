@@ -23,16 +23,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|Closeable
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 import|;
 end_import
@@ -98,20 +88,6 @@ operator|.
 name|conf
 operator|.
 name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Abortable
 import|;
 end_import
 
@@ -278,7 +254,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A cluster connection.  Knows how to find the master, locate regions out on the cluster,  * keeps a cache of locations and then knows how to re-calibrate after they move.  You need one  * of these to talk to your HBase cluster. {@link HConnectionManager} manages instances of this  * class.  See it for how to get one of these.  *  *<p>This is NOT a connection to a particular server but to ALL servers in the cluster.  Individual  * connections are managed at a lower level.  *  *<p>HConnections are used by {@link HTable} mostly but also by  * {@link HBaseAdmin}, and {@link org.apache.hadoop.hbase.zookeeper.MetaTableLocator}.  * HConnection instances can be shared.  Sharing  * is usually what you want because rather than each HConnection instance  * having to do its own discovery of regions out on the cluster, instead, all  * clients get to share the one cache of locations.  {@link HConnectionManager} does the  * sharing for you if you go by it getting connections.  Sharing makes cleanup of  * HConnections awkward.  See {@link HConnectionManager} for cleanup discussion.  *  * @see HConnectionManager  */
+comment|/**  * A cluster connection.  Knows how to find the master, locate regions out on the cluster,  * keeps a cache of locations and then knows how to re-calibrate after they move.  You need one  * of these to talk to your HBase cluster. {@link HConnectionManager} manages instances of this  * class.  See it for how to get one of these.  *  *<p>This is NOT a connection to a particular server but to ALL servers in the cluster.  Individual  * connections are managed at a lower level.  *  *<p>HConnections are used by {@link HTable} mostly but also by  * {@link HBaseAdmin}, and {@link org.apache.hadoop.hbase.zookeeper.MetaTableLocator}.  * HConnection instances can be shared.  Sharing  * is usually what you want because rather than each HConnection instance  * having to do its own discovery of regions out on the cluster, instead, all  * clients get to share the one cache of locations.  {@link HConnectionManager} does the  * sharing for you if you go by it getting connections.  Sharing makes cleanup of  * HConnections awkward.  See {@link HConnectionManager} for cleanup discussion.  *  * @see HConnectionManager  * @deprecated in favor of {@link Connection} and {@link ConnectionFactory}  */
 end_comment
 
 begin_interface
@@ -290,13 +266,13 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Stable
+annotation|@
+name|Deprecated
 specifier|public
 interface|interface
 name|HConnection
 extends|extends
-name|Abortable
-extends|,
-name|Closeable
+name|Connection
 block|{
 comment|/**    * Key for configuration in Configuration whose value is the class we implement making a    * new HConnection instance.    */
 specifier|public
@@ -308,6 +284,8 @@ init|=
 literal|"hbase.client.connection.impl"
 decl_stmt|;
 comment|/**    * @return Configuration instance being used by this HConnection instance.    */
+annotation|@
+name|Override
 name|Configuration
 name|getConfiguration
 parameter_list|()
@@ -336,6 +314,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Retrieve an HTableInterface implementation for access to a table.    * The returned HTableInterface is not thread safe, a new instance should    * be created for each using thread.    * This is a lightweight operation, pooling or caching of the returned HTableInterface    * is neither required nor desired.    * Note that the HConnection needs to be unmanaged    * (created with {@link HConnectionManager#createConnection(Configuration)}).    * @param tableName    * @return an HTable to use for interactions with this table    */
+annotation|@
+name|Override
 specifier|public
 name|HTableInterface
 name|getTable
@@ -376,6 +356,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Retrieve an HTableInterface implementation for access to a table.    * The returned HTableInterface is not thread safe, a new instance should    * be created for each using thread.    * This is a lightweight operation, pooling or caching of the returned HTableInterface    * is neither required nor desired.    * Note that the HConnection needs to be unmanaged    * (created with {@link HConnectionManager#createConnection(Configuration)}).    * @param tableName    * @param pool The thread pool to use for batch operations, null to use a default pool.    * @return an HTable to use for interactions with this table    */
+annotation|@
+name|Override
 specifier|public
 name|HTableInterface
 name|getTable
@@ -390,6 +372,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Retrieve a RegionLocator implementation to inspect region information on a table. The returned    * RegionLocator is not thread-safe, so a new instance should be created for each using thread.    *    * This is a lightweight operation.  Pooling or caching of the returned RegionLocator is neither    * required nor desired.    *    * RegionLocator needs to be unmanaged    * (created with {@link HConnectionManager#createConnection(Configuration)}).    *    * @param tableName Name of the table who's region is to be examined    * @return A RegionLocator instance    */
+annotation|@
+name|Override
 specifier|public
 name|RegionLocator
 name|getRegionLocator
@@ -401,6 +385,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Retrieve an Admin implementation to administer an HBase cluster.    * The returned Admin is not guaranteed to be thread-safe.  A new instance should be created for    * each using thread.  This is a lightweight operation.  Pooling or caching of the returned    * Admin is not recommended.  Note that HConnection needs to be unmanaged    *    * @return an Admin instance for cluster administration    */
+annotation|@
+name|Override
 name|Admin
 name|getAdmin
 parameter_list|()
@@ -1187,6 +1173,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @return true if this connection is closed    */
+annotation|@
+name|Override
 name|boolean
 name|isClosed
 parameter_list|()

@@ -2299,7 +2299,7 @@ specifier|private
 name|void
 name|undeployRegion
 parameter_list|(
-name|Admin
+name|HBaseAdmin
 name|admin
 parameter_list|,
 name|ServerName
@@ -3127,7 +3127,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Admin
+name|HBaseAdmin
 name|admin
 init|=
 operator|new
@@ -4623,7 +4623,7 @@ argument_list|>
 name|getDeployedHRIs
 parameter_list|(
 specifier|final
-name|Admin
+name|HBaseAdmin
 name|admin
 parameter_list|)
 throws|throws
@@ -4958,7 +4958,7 @@ comment|// Yikes! The assignment manager can't tell between diff between two
 comment|// different regions with the same start/endkeys since it doesn't
 comment|// differentiate on ts/regionId!  We actually need to recheck
 comment|// deployments!
-name|Admin
+name|HBaseAdmin
 name|admin
 init|=
 name|TEST_UTIL
@@ -5905,7 +5905,7 @@ expr_stmt|;
 break|break;
 block|}
 block|}
-name|Admin
+name|HBaseAdmin
 name|admin
 init|=
 name|TEST_UTIL
@@ -9870,7 +9870,7 @@ name|getRegionInfo
 argument_list|()
 decl_stmt|;
 comment|// do a regular split
-name|Admin
+name|HBaseAdmin
 name|admin
 init|=
 name|TEST_UTIL
@@ -14049,9 +14049,12 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|Admin
+name|HBaseAdmin
 name|admin
 init|=
+operator|(
+name|HBaseAdmin
+operator|)
 name|unmanagedConnection
 operator|.
 name|getAdmin

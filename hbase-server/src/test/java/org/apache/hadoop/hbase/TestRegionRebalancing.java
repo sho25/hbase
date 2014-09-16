@@ -617,7 +617,7 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|Admin
+name|HBaseAdmin
 name|admin
 init|=
 operator|new

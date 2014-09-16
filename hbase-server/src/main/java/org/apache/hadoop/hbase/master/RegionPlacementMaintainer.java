@@ -711,7 +711,7 @@ name|boolean
 name|enforceMinAssignmentMove
 decl_stmt|;
 specifier|private
-name|Admin
+name|HBaseAdmin
 name|admin
 decl_stmt|;
 specifier|private
@@ -863,7 +863,7 @@ block|}
 block|}
 comment|/**    * @return the cached HBaseAdmin    * @throws IOException    */
 specifier|private
-name|Admin
+name|HBaseAdmin
 name|getHBaseAdmin
 parameter_list|()
 throws|throws

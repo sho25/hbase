@@ -575,7 +575,7 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
-name|Admin
+name|HBaseAdmin
 name|admin
 decl_stmt|;
 specifier|private

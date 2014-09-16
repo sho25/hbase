@@ -494,8 +494,8 @@ name|boolean
 name|isAborted
 parameter_list|()
 function_decl|;
-comment|/**    * @return HConnection used by this object.    */
-name|HConnection
+comment|/**    * @return Connection used by this object.    */
+name|Connection
 name|getConnection
 parameter_list|()
 function_decl|;

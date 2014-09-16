@@ -11603,7 +11603,7 @@ end_comment
 begin_function
 specifier|public
 specifier|synchronized
-name|Admin
+name|HBaseAdmin
 name|getHBaseAdmin
 parameter_list|()
 throws|throws

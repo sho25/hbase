@@ -66,7 +66,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface for client-side scanning.  * Go to {@link HTable} to obtain instances.  */
+comment|/**  * Interface for client-side scanning.  * Go to {@link Table} to obtain instances.  */
 end_comment
 
 begin_interface
@@ -108,6 +108,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Closes the scanner and releases any resources it has allocated    */
+annotation|@
+name|Override
 name|void
 name|close
 parameter_list|()
