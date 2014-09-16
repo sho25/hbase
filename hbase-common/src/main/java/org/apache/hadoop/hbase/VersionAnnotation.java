@@ -93,6 +93,11 @@ name|String
 name|revision
 parameter_list|()
 function_decl|;
+comment|/**    * Get a checksum of the source files from which HBase was compiled.    * @return a string that uniquely identifies the source    **/
+name|String
+name|srcChecksum
+parameter_list|()
+function_decl|;
 block|}
 end_annotation_defn
 

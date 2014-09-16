@@ -291,7 +291,7 @@ operator|+
 name|getVersion
 argument_list|()
 block|,
-literal|"Subversion "
+literal|"Source code repository "
 operator|+
 name|getUrl
 argument_list|()
@@ -310,7 +310,32 @@ literal|" on "
 operator|+
 name|getDate
 argument_list|()
+block|,
+literal|"From source with checksum "
+operator|+
+name|getSrcChecksum
+argument_list|()
 block|}
+return|;
+block|}
+comment|/**    * Get the checksum of the source files from which Hadoop was compiled.    * @return a string that uniquely identifies the source    **/
+specifier|public
+specifier|static
+name|String
+name|getSrcChecksum
+parameter_list|()
+block|{
+return|return
+name|version
+operator|!=
+literal|null
+condition|?
+name|version
+operator|.
+name|srcChecksum
+argument_list|()
+else|:
+literal|"Unknown"
 return|;
 block|}
 specifier|public
