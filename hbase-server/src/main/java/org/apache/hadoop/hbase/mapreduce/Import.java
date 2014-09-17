@@ -698,6 +698,14 @@ name|WAL_DURABILITY
 init|=
 literal|"import.wal.durability"
 decl_stmt|;
+specifier|private
+specifier|final
+specifier|static
+name|String
+name|JOB_NAME_CONF_KEY
+init|=
+literal|"mapreduce.job.name"
+decl_stmt|;
 comment|/**    * A mapper that just writes out KeyValues.    */
 specifier|public
 specifier|static
@@ -2443,11 +2451,18 @@ name|getInstance
 argument_list|(
 name|conf
 argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+name|JOB_NAME_CONF_KEY
+argument_list|,
 name|NAME
 operator|+
 literal|"_"
 operator|+
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|job
@@ -2816,6 +2831,19 @@ operator|+
 literal|" Filter.ReturnCode#INCLUDE and #INCLUDE_AND_NEXT_COL will be considered as including"
 operator|+
 literal|" the KeyValue."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -D "
+operator|+
+name|JOB_NAME_CONF_KEY
+operator|+
+literal|"=jobName - use the specified mapreduce job name for the import"
 argument_list|)
 expr_stmt|;
 name|System

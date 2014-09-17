@@ -330,6 +330,14 @@ name|NAME
 init|=
 literal|"rowcounter"
 decl_stmt|;
+specifier|private
+specifier|final
+specifier|static
+name|String
+name|JOB_NAME_CONF_KEY
+init|=
+literal|"mapreduce.job.name"
+decl_stmt|;
 comment|/**    * Mapper that runs the count.    */
 specifier|static
 class|class
@@ -564,11 +572,18 @@ name|getInstance
 argument_list|(
 name|conf
 argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+name|JOB_NAME_CONF_KEY
+argument_list|,
 name|NAME
 operator|+
 literal|"_"
 operator|+
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|job

@@ -515,6 +515,14 @@ name|TABLE_MAP_KEY
 init|=
 literal|"hlog.input.tablesmap"
 decl_stmt|;
+specifier|private
+specifier|final
+specifier|static
+name|String
+name|JOB_NAME_CONF_KEY
+init|=
+literal|"mapreduce.job.name"
+decl_stmt|;
 comment|/**    * A mapper that just writes out KeyValues.    * This one can be used together with {@link KeyValueSortReducer}    */
 specifier|static
 class|class
@@ -1392,11 +1400,18 @@ name|getInstance
 argument_list|(
 name|conf
 argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+name|JOB_NAME_CONF_KEY
+argument_list|,
 name|NAME
 operator|+
 literal|"_"
 operator|+
 name|inputDir
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|job
@@ -1802,6 +1817,19 @@ operator|.
 name|END_TIME_KEY
 operator|+
 literal|"=[date|ms]"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -D "
+operator|+
+name|JOB_NAME_CONF_KEY
+operator|+
+literal|"=jobName - use the specified mapreduce job name for the wal player"
 argument_list|)
 expr_stmt|;
 name|System

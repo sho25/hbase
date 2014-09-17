@@ -2130,11 +2130,7 @@ name|getInstance
 argument_list|(
 name|conf
 argument_list|,
-name|NAME
-operator|+
-literal|"_"
-operator|+
-name|tableName
+name|jobName
 argument_list|)
 decl_stmt|;
 name|job
