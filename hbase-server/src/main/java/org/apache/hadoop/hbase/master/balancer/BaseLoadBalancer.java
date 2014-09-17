@@ -917,6 +917,11 @@ name|rackManager
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|protected
 name|Cluster
 parameter_list|(
@@ -5374,20 +5379,15 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|// The weight means that each region on the active/backup master is
+comment|// The weight means that each region on the backup master is
 comment|// equal to that many regions on a normal regionserver, in calculating
-comment|// the region load by the load balancer. So that the active/backup master
+comment|// the region load by the load balancer. So that the backup master
 comment|// can host less (or equal if weight = 1) regions than normal regionservers.
 comment|//
 comment|// The weight can be used to control the number of regions on backup
 comment|// masters, which shouldn't host as many regions as normal regionservers.
 comment|// So that we don't need to move around too many regions when a
 comment|// backup master becomes the active one.
-comment|//
-comment|// Currently, the active master weight is used only by StockasticLoadBalancer.
-comment|// Generally, we don't put any user regions on the active master, which
-comment|// only hosts regions of tables defined in TABLES_ON_MASTER.
-comment|// That's why the default activeMasterWeight is high.
 specifier|public
 specifier|static
 specifier|final
@@ -5403,22 +5403,6 @@ name|int
 name|DEFAULT_BACKUP_MASTER_WEIGHT
 init|=
 literal|1
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|ACTIVE_MASTER_WEIGHT_KEY
-init|=
-literal|"hbase.balancer.activeMasterWeight"
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_ACTIVE_MASTER_WEIGHT
-init|=
-literal|200
 decl_stmt|;
 comment|// Regions of these tables are put on the master by default.
 specifier|private
@@ -5453,10 +5437,6 @@ operator|.
 name|getNameAsString
 argument_list|()
 block|}
-decl_stmt|;
-specifier|protected
-name|int
-name|activeMasterWeight
 decl_stmt|;
 specifier|protected
 name|int
@@ -5568,17 +5548,6 @@ operator|.
 name|config
 operator|=
 name|conf
-expr_stmt|;
-name|activeMasterWeight
-operator|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-name|ACTIVE_MASTER_WEIGHT_KEY
-argument_list|,
-name|DEFAULT_ACTIVE_MASTER_WEIGHT
-argument_list|)
 expr_stmt|;
 name|backupMasterWeight
 operator|=
