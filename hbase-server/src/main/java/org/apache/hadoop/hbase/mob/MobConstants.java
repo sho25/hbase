@@ -131,7 +131,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"isMob"
+literal|"IS_MOB"
 argument_list|)
 decl_stmt|;
 specifier|public
@@ -145,7 +145,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"mobThreshold"
+literal|"MOB_THRESHOLD"
 argument_list|)
 decl_stmt|;
 specifier|public
