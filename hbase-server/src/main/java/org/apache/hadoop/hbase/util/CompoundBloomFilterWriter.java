@@ -602,7 +602,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * Adds a Bloom filter key. This key must be greater than the previous key,    * as defined by the comparator this compound Bloom filter is configured    * with. For efficiency, key monotonicity is not checked here. See    * {@link org.apache.hadoop.hbase.regionserver.StoreFile.Writer#append(    * org.apache.hadoop.hbase.KeyValue)} for the details of deduplication.    */
+comment|/**    * Adds a Bloom filter key. This key must be greater than the previous key,    * as defined by the comparator this compound Bloom filter is configured    * with. For efficiency, key monotonicity is not checked here. See    * {@link org.apache.hadoop.hbase.regionserver.StoreFile.Writer#append(    * org.apache.hadoop.hbase.Cell)} for the details of deduplication.    */
 annotation|@
 name|Override
 specifier|public

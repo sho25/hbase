@@ -63,7 +63,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
 import|;
 end_import
 
@@ -175,12 +175,12 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Encodes a KeyValue.    * @param kv    * @param encodingCtx    * @param out    * @return unencoded kv size    * @throws IOException    */
+comment|/**    * Encodes a KeyValue.    * @param cell    * @param encodingCtx    * @param out    * @return unencoded kv size    * @throws IOException    */
 name|int
 name|encode
 parameter_list|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|,
 name|HFileBlockEncodingContext
 name|encodingCtx

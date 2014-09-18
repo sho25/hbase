@@ -3694,14 +3694,14 @@ name|decodeNext
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * @param kv    * @param out    * @param encodingCtx    * @return unencoded size added    * @throws IOException    */
+comment|/**    * @param cell    * @param out    * @param encodingCtx    * @return unencoded size added    * @throws IOException    */
 specifier|protected
 specifier|final
 name|int
 name|afterEncodingKeyValue
 parameter_list|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|,
 name|DataOutputStream
 name|out
@@ -3731,7 +3731,7 @@ block|{
 name|int
 name|tagsLength
 init|=
-name|kv
+name|cell
 operator|.
 name|getTagsLength
 argument_list|()
@@ -3776,12 +3776,12 @@ name|compressTags
 argument_list|(
 name|out
 argument_list|,
-name|kv
+name|cell
 operator|.
 name|getTagsArray
 argument_list|()
 argument_list|,
-name|kv
+name|cell
 operator|.
 name|getTagsOffset
 argument_list|()
@@ -3796,12 +3796,12 @@ name|out
 operator|.
 name|write
 argument_list|(
-name|kv
+name|cell
 operator|.
 name|getTagsArray
 argument_list|()
 argument_list|,
-name|kv
+name|cell
 operator|.
 name|getTagsOffset
 argument_list|()
@@ -3835,9 +3835,9 @@ comment|// Copy memstore timestamp from the byte buffer to the output stream.
 name|long
 name|memstoreTS
 init|=
-name|kv
+name|cell
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 decl_stmt|;
 name|WritableUtils
@@ -4363,8 +4363,8 @@ specifier|public
 name|int
 name|encode
 parameter_list|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|,
 name|HFileBlockEncodingContext
 name|encodingCtx
@@ -4391,7 +4391,7 @@ name|encodedKvSize
 init|=
 name|internalEncode
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 operator|(
 name|HFileBlockDefaultEncodingContext
@@ -4416,8 +4416,8 @@ specifier|abstract
 name|int
 name|internalEncode
 parameter_list|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|,
 name|HFileBlockDefaultEncodingContext
 name|encodingCtx

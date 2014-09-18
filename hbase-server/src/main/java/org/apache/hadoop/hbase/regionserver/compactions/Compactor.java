@@ -568,7 +568,6 @@ name|MIN_KEEP_SEQID_PERIOD
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * TODO: Replace this with CellOutputStream when StoreFile.Writer uses cells.    */
 specifier|public
 interface|interface
 name|CellSink
@@ -576,8 +575,8 @@ block|{
 name|void
 name|append
 parameter_list|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|)
 throws|throws
 name|IOException

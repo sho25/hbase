@@ -137,6 +137,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -496,7 +510,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Add key/value to file. Keys must be added in an order that agrees with the    * Comparator passed on construction.    *     * @param kv    *          KeyValue to add. Cannot be empty nor null.    * @throws IOException    */
+comment|/**    * Add key/value to file. Keys must be added in an order that agrees with the    * Comparator passed on construction.    *     * @param cell    *          Cell to add. Cannot be empty nor null.    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -504,8 +518,8 @@ name|void
 name|append
 parameter_list|(
 specifier|final
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|)
 throws|throws
 name|IOException
@@ -515,13 +529,13 @@ name|super
 operator|.
 name|append
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 name|int
 name|tagsLength
 init|=
-name|kv
+name|cell
 operator|.
 name|getTagsLength
 argument_list|()

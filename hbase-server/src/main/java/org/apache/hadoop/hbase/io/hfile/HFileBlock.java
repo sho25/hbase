@@ -193,6 +193,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -3178,13 +3192,13 @@ return|return
 name|userDataStream
 return|;
 block|}
-comment|/**      * Writes the kv to this block      * @param kv      * @throws IOException      */
+comment|/**      * Writes the Cell to this block      * @param cell      * @throws IOException      */
 specifier|public
 name|void
 name|write
 parameter_list|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|)
 throws|throws
 name|IOException
@@ -3206,7 +3220,7 @@ name|dataBlockEncoder
 operator|.
 name|encode
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 name|dataBlockEncodingCtx
 argument_list|,

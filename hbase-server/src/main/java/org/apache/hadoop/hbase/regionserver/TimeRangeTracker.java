@@ -71,6 +71,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellUtil
 import|;
 end_import
@@ -234,19 +248,19 @@ operator|=
 name|maximumTimestamp
 expr_stmt|;
 block|}
-comment|/**    * Update the current TimestampRange to include the timestamp from KeyValue    * If the Key is of type DeleteColumn or DeleteFamily, it includes the    * entire time range from 0 to timestamp of the key.    * @param kv the KeyValue to include    */
+comment|/**    * Update the current TimestampRange to include the timestamp from Cell    * If the Key is of type DeleteColumn or DeleteFamily, it includes the    * entire time range from 0 to timestamp of the key.    * @param cell the Cell to include    */
 specifier|public
 name|void
 name|includeTimestamp
 parameter_list|(
 specifier|final
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|)
 block|{
 name|includeTimestamp
 argument_list|(
-name|kv
+name|cell
 operator|.
 name|getTimestamp
 argument_list|()
@@ -258,7 +272,7 @@ name|CellUtil
 operator|.
 name|isDeleteColumnOrFamily
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 condition|)
 block|{

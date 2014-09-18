@@ -233,6 +233,7 @@ class|class
 name|KeyValueUtil
 block|{
 comment|/**************** length *********************/
+comment|/**    * Returns number of bytes this cell would have been used if serialized as in {@link KeyValue}    * @param cell    * @return the length    */
 specifier|public
 specifier|static
 name|int
@@ -346,7 +347,8 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-specifier|protected
+comment|/**    * Returns number of bytes this cell's key part would have been used if serialized as in    * {@link KeyValue}. Key includes rowkey, family, qualifier, timestamp and type.    * @param cell    * @return the key length    */
+specifier|public
 specifier|static
 name|int
 name|keyLength
@@ -574,7 +576,7 @@ name|cell
 argument_list|)
 index|]
 decl_stmt|;
-name|appendKeyToByteArrayWithoutValue
+name|appendKeyTo
 argument_list|(
 name|cell
 argument_list|,
@@ -650,10 +652,10 @@ return|return
 name|backingBytes
 return|;
 block|}
-specifier|protected
+specifier|public
 specifier|static
 name|int
-name|appendKeyToByteArrayWithoutValue
+name|appendKeyTo
 parameter_list|(
 specifier|final
 name|Cell
@@ -840,7 +842,7 @@ argument_list|)
 expr_stmt|;
 name|pos
 operator|=
-name|appendKeyToByteArrayWithoutValue
+name|appendKeyTo
 argument_list|(
 name|cell
 argument_list|,
