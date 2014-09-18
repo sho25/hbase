@@ -12545,16 +12545,6 @@ argument_list|,
 name|timeoutMillis
 argument_list|)
 expr_stmt|;
-name|long
-name|remainder
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-operator|-
-name|startWait
-decl_stmt|;
 while|while
 condition|(
 operator|!
@@ -12582,7 +12572,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
-name|remainder
+name|startWait
 operator|<
 name|timeoutMillis
 argument_list|)
