@@ -131,6 +131,33 @@ name|store
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Creates the DefaultMobCompactor.    */
+annotation|@
+name|Override
+specifier|protected
+name|void
+name|createCompactor
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
+name|Store
+name|store
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|compactor
+operator|=
+operator|new
+name|DefaultMobCompactor
+argument_list|(
+name|conf
+argument_list|,
+name|store
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 
