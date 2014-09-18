@@ -323,6 +323,10 @@ name|PolicyProvider
 name|pp
 parameter_list|)
 function_decl|;
+name|RpcScheduler
+name|getScheduler
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

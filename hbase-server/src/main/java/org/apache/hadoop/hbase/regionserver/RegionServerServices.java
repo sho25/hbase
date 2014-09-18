@@ -43,6 +43,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|ConcurrentMap
@@ -88,6 +98,20 @@ operator|.
 name|hbase
 operator|.
 name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -185,6 +209,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|quotas
+operator|.
+name|RegionServerQuotaManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|zookeeper
 operator|.
 name|KeeperException
@@ -241,6 +281,11 @@ function_decl|;
 comment|/**    * @return RegionServer's instance of {@link TableLockManager}    */
 name|TableLockManager
 name|getTableLockManager
+parameter_list|()
+function_decl|;
+comment|/**    * @return RegionServer's instance of {@link RegionServerQuotaManager}    */
+name|RegionServerQuotaManager
+name|getRegionServerQuotaManager
 parameter_list|()
 function_decl|;
 comment|/**    * Tasks to perform after region open to complete deploy of region on    * regionserver    *    * @param r Region to open.    * @throws KeeperException    * @throws IOException    */
@@ -328,6 +373,14 @@ comment|/**    * Only required for "old" log replay; if it's removed, remove thi
 specifier|public
 name|ServerNonceManager
 name|getNonceManager
+parameter_list|()
+function_decl|;
+comment|/**    * @return all the online tables in this RS    */
+name|Set
+argument_list|<
+name|TableName
+argument_list|>
+name|getOnlineTables
 parameter_list|()
 function_decl|;
 block|}

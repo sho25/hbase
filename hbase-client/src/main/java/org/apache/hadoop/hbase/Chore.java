@@ -199,6 +199,20 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+comment|/**    * @return the sleep period in milliseconds    */
+specifier|public
+specifier|final
+name|int
+name|getPeriod
+parameter_list|()
+block|{
+return|return
+name|sleeper
+operator|.
+name|getPeriod
+argument_list|()
+return|;
+block|}
 comment|/**    * @see java.lang.Thread#run()    */
 annotation|@
 name|Override

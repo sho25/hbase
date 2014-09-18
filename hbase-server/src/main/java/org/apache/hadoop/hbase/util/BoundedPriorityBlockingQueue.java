@@ -484,6 +484,13 @@ index|[
 name|head
 index|]
 decl_stmt|;
+name|objects
+index|[
+name|head
+index|]
+operator|=
+literal|null
+expr_stmt|;
 name|head
 operator|=
 operator|(

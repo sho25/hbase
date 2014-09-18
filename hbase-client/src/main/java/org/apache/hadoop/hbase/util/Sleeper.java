@@ -418,6 +418,17 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
+comment|/**    * @return the sleep period in milliseconds    */
+specifier|public
+specifier|final
+name|int
+name|getPeriod
+parameter_list|()
+block|{
+return|return
+name|period
+return|;
+block|}
 block|}
 end_class
 

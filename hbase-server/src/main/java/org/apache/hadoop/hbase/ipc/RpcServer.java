@@ -3114,6 +3114,17 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+specifier|public
+name|UserGroupInformation
+name|getRemoteUser
+parameter_list|()
+block|{
+return|return
+name|connection
+operator|.
+name|user
+return|;
+block|}
 block|}
 comment|/** Listens on the socket. Creates jobs for the handler threads*/
 specifier|private
@@ -11720,6 +11731,8 @@ name|e
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|RpcScheduler
 name|getScheduler
