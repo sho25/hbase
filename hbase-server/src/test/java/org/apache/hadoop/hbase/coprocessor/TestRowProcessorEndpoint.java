@@ -849,10 +849,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|sun
-operator|.
 name|org
 operator|.
 name|apache
@@ -867,10 +863,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|sun
-operator|.
 name|org
 operator|.
 name|apache
