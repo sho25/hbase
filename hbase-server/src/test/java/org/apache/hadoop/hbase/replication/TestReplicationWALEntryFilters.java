@@ -472,12 +472,9 @@ name|byte
 index|[]
 block|{}
 argument_list|,
-name|HTableDescriptor
+name|TableName
 operator|.
-name|NAMESPACE_TABLEDESC
-operator|.
-name|getTableName
-argument_list|()
+name|NAMESPACE_TABLE_NAME
 argument_list|)
 decl_stmt|;
 name|HLog

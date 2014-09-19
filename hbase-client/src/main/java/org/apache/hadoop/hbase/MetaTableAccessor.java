@@ -1408,12 +1408,9 @@ name|tableName
 operator|.
 name|equals
 argument_list|(
-name|HTableDescriptor
+name|TableName
 operator|.
-name|META_TABLEDESC
-operator|.
-name|getTableName
-argument_list|()
+name|META_TABLE_NAME
 argument_list|)
 condition|)
 block|{

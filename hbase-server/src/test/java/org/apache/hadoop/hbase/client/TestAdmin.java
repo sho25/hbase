@@ -8575,12 +8575,9 @@ name|msg
 operator|.
 name|contains
 argument_list|(
-name|HTableDescriptor
+name|TableName
 operator|.
-name|META_TABLEDESC
-operator|.
-name|getTableName
-argument_list|()
+name|META_TABLE_NAME
 operator|.
 name|getNameAsString
 argument_list|()

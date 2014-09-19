@@ -1881,12 +1881,9 @@ name|HTable
 argument_list|(
 name|conf
 argument_list|,
-name|HTableDescriptor
+name|TableName
 operator|.
-name|META_TABLEDESC
-operator|.
-name|getTableName
-argument_list|()
+name|META_TABLE_NAME
 argument_list|)
 decl_stmt|;
 name|ResultScanner
