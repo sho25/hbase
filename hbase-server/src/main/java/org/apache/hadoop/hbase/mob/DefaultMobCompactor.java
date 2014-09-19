@@ -758,7 +758,7 @@ if|if
 condition|(
 name|MobUtils
 operator|.
-name|isValidMobRefCellValue
+name|hasValidMobRefCellValue
 argument_list|(
 name|kv
 argument_list|)
