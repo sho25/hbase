@@ -579,20 +579,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableName
 import|;
 end_import
@@ -5565,6 +5551,16 @@ expr_stmt|;
 comment|// LinkedBlockingQueue because of
 comment|// http://www.javacodegeeks.com/2010/09/java-best-practices-queue-battle-and.html
 comment|// Could use other blockingqueues here or concurrent queues.
+comment|//
+comment|// We could let the capacity be 'open' but bound it so we get alerted in pathological case
+comment|// where we cannot sync and we have a bunch of threads all backed up waiting on their syncs
+comment|// to come in.  LinkedBlockingQueue actually shrinks when you remove elements so Q should
+comment|// stay neat and tidy in usual case.  Let the max size be three times the maximum handlers.
+comment|// The passed in maxHandlerCount is the user-level handlers which is what we put up most of
+comment|// but HBase has other handlers running too -- opening region handlers which want to write
+comment|// the meta table when succesful (i.e. sync), closing handlers -- etc.  These are usually
+comment|// much fewer in number than the user-space handlers so Q-size should be user handlers plus
+comment|// some space for these other handlers.  Lets multiply by 3 for good-measure.
 name|this
 operator|.
 name|syncFutures
@@ -5576,6 +5572,8 @@ name|SyncFuture
 argument_list|>
 argument_list|(
 name|maxHandlersCount
+operator|*
+literal|3
 argument_list|)
 expr_stmt|;
 block|}
@@ -8458,7 +8456,9 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Below expects that the offer 'transfers' responsibility for the outstanding syncs to the
-comment|// syncRunner.
+comment|// syncRunner. We should never get an exception in here. HBASE-11145 was because queue
+comment|// was sized exactly to the count of user handlers but we could have more if we factor in
+comment|// meta handlers doing opens and closes.
 name|int
 name|index
 init|=
@@ -8478,6 +8478,8 @@ name|syncRunners
 operator|.
 name|length
 decl_stmt|;
+try|try
+block|{
 name|this
 operator|.
 name|syncRunners
@@ -8498,6 +8500,24 @@ operator|.
 name|syncFuturesCount
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|cleanupOutstandingSyncsOnException
+argument_list|(
+name|sequence
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
+throw|;
+block|}
 name|attainSafePoint
 argument_list|(
 name|sequence
