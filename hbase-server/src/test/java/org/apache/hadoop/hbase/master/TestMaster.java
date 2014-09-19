@@ -650,11 +650,6 @@ name|getTableRegionsAndLocations
 argument_list|(
 name|m
 operator|.
-name|getZooKeeper
-argument_list|()
-argument_list|,
-name|m
-operator|.
 name|getShortCircuitConnection
 argument_list|()
 argument_list|,
@@ -801,11 +796,6 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegionsAndLocations
 argument_list|(
-name|m
-operator|.
-name|getZooKeeper
-argument_list|()
-argument_list|,
 name|m
 operator|.
 name|getShortCircuitConnection

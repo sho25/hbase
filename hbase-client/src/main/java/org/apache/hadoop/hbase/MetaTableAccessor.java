@@ -423,38 +423,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|MetaTableLocator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWatcher
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -1600,7 +1568,7 @@ operator|>=
 literal|1
 return|;
 block|}
-comment|/**    * Gets all of the regions of the specified table.    * @param zkw zookeeper connection to access meta table    * @param hConnection connection we're using    * @param tableName table we're looking for    * @return Ordered list of {@link HRegionInfo}.    * @throws IOException    */
+comment|/**    * Gets all of the regions of the specified table. Do not use this method    * to get meta table regions, use methods in MetaTableLocator instead.    * @param hConnection connection we're using    * @param tableName table we're looking for    * @return Ordered list of {@link HRegionInfo}.    * @throws IOException    */
 specifier|public
 specifier|static
 name|List
@@ -1609,9 +1577,6 @@ name|HRegionInfo
 argument_list|>
 name|getTableRegions
 parameter_list|(
-name|ZooKeeperWatcher
-name|zkw
-parameter_list|,
 name|HConnection
 name|hConnection
 parameter_list|,
@@ -1624,8 +1589,6 @@ block|{
 return|return
 name|getTableRegions
 argument_list|(
-name|zkw
-argument_list|,
 name|hConnection
 argument_list|,
 name|tableName
@@ -1634,7 +1597,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets all of the regions of the specified table.    * @param zkw zookeeper connection to access meta table    * @param hConnection connection we're using    * @param tableName table we're looking for    * @param excludeOfflinedSplitParents If true, do not include offlined split    * parents in the return.    * @return Ordered list of {@link HRegionInfo}.    * @throws IOException    */
+comment|/**    * Gets all of the regions of the specified table. Do not use this method    * to get meta table regions, use methods in MetaTableLocator instead.    * @param hConnection connection we're using    * @param tableName table we're looking for    * @param excludeOfflinedSplitParents If true, do not include offlined split    * parents in the return.    * @return Ordered list of {@link HRegionInfo}.    * @throws IOException    */
 specifier|public
 specifier|static
 name|List
@@ -1643,9 +1606,6 @@ name|HRegionInfo
 argument_list|>
 name|getTableRegions
 parameter_list|(
-name|ZooKeeperWatcher
-name|zkw
-parameter_list|,
 name|HConnection
 name|hConnection
 parameter_list|,
@@ -1669,8 +1629,6 @@ name|ServerName
 argument_list|>
 argument_list|>
 name|result
-init|=
-literal|null
 decl_stmt|;
 try|try
 block|{
@@ -1678,8 +1636,6 @@ name|result
 operator|=
 name|getTableRegionsAndLocations
 argument_list|(
-name|zkw
-argument_list|,
 name|hConnection
 argument_list|,
 name|tableName
@@ -1967,7 +1923,7 @@ return|return
 name|scan
 return|;
 block|}
-comment|/**    * @param zkw zookeeper connection to access meta table    * @param hConnection connection we're using    * @param tableName table we're looking for    * @return Return list of regioninfos and server.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Do not use this method to get meta table regions, use methods in MetaTableLocator instead.    * @param hConnection connection we're using    * @param tableName table we're looking for    * @return Return list of regioninfos and server.    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 specifier|static
 name|List
@@ -1981,9 +1937,6 @@ argument_list|>
 argument_list|>
 name|getTableRegionsAndLocations
 parameter_list|(
-name|ZooKeeperWatcher
-name|zkw
-parameter_list|,
 name|HConnection
 name|hConnection
 parameter_list|,
@@ -1998,8 +1951,6 @@ block|{
 return|return
 name|getTableRegionsAndLocations
 argument_list|(
-name|zkw
-argument_list|,
 name|hConnection
 argument_list|,
 name|tableName
@@ -2008,7 +1959,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * @param zkw ZooKeeperWatcher instance we're using to get hbase:meta location    * @param hConnection connection we're using    * @param tableName table to work with    * @return Return list of regioninfos and server addresses.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Do not use this method to get meta table regions, use methods in MetaTableLocator instead.    * @param hConnection connection we're using    * @param tableName table to work with    * @return Return list of regioninfos and server addresses.    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 specifier|static
 name|List
@@ -2022,9 +1973,6 @@ argument_list|>
 argument_list|>
 name|getTableRegionsAndLocations
 parameter_list|(
-name|ZooKeeperWatcher
-name|zkw
-parameter_list|,
 name|HConnection
 name|hConnection
 parameter_list|,
@@ -2053,65 +2001,15 @@ name|META_TABLE_NAME
 argument_list|)
 condition|)
 block|{
-comment|// If meta, do a bit of special handling.
-name|ServerName
-name|serverName
-init|=
+throw|throw
 operator|new
-name|MetaTableLocator
-argument_list|()
-operator|.
-name|getMetaRegionLocation
+name|IOException
 argument_list|(
-name|zkw
+literal|"This method can't be used to locate meta regions;"
+operator|+
+literal|" use MetaTableLocator instead"
 argument_list|)
-decl_stmt|;
-name|List
-argument_list|<
-name|Pair
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
-argument_list|>
-name|list
-init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|Pair
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
-argument_list|>
-argument_list|()
-decl_stmt|;
-name|list
-operator|.
-name|add
-argument_list|(
-operator|new
-name|Pair
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
-argument_list|(
-name|HRegionInfo
-operator|.
-name|FIRST_META_REGIONINFO
-argument_list|,
-name|serverName
-argument_list|)
-argument_list|)
-expr_stmt|;
-return|return
-name|list
-return|;
+throw|;
 block|}
 comment|// Make a version of CollectingVisitor that collects HRegionInfo and ServerAddress
 name|CollectingVisitor

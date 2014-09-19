@@ -778,11 +778,6 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegions
 argument_list|(
-name|TEST_UTIL
-operator|.
-name|getZooKeeperWatcher
-argument_list|()
-argument_list|,
 name|admin
 operator|.
 name|getConnection
@@ -938,11 +933,6 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegions
 argument_list|(
-name|TEST_UTIL
-operator|.
-name|getZooKeeperWatcher
-argument_list|()
-argument_list|,
 name|admin
 operator|.
 name|getConnection
@@ -1643,11 +1633,6 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegions
 argument_list|(
-name|TEST_UTIL
-operator|.
-name|getZooKeeperWatcher
-argument_list|()
-argument_list|,
 name|admin
 operator|.
 name|getConnection
@@ -1924,11 +1909,6 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegions
 argument_list|(
-name|TEST_UTIL
-operator|.
-name|getZooKeeperWatcher
-argument_list|()
-argument_list|,
 name|admin
 operator|.
 name|getConnection

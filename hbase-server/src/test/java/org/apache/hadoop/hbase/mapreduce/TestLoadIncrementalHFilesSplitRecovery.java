@@ -3033,11 +3033,6 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegions
 argument_list|(
-name|util
-operator|.
-name|getZooKeeperWatcher
-argument_list|()
-argument_list|,
 name|hConnection
 argument_list|,
 name|TableName
