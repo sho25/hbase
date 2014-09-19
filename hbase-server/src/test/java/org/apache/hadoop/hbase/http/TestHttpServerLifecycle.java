@@ -331,11 +331,6 @@ argument_list|(
 name|server
 argument_list|)
 expr_stmt|;
-name|stop
-argument_list|(
-name|server
-argument_list|)
-expr_stmt|;
 name|Logger
 operator|.
 name|getLogger
@@ -353,6 +348,11 @@ operator|.
 name|removeAppender
 argument_list|(
 name|requestLogAppender
+argument_list|)
+expr_stmt|;
+name|stop
+argument_list|(
+name|server
 argument_list|)
 expr_stmt|;
 block|}
