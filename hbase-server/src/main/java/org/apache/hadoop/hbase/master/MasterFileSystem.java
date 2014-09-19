@@ -2582,6 +2582,12 @@ argument_list|,
 name|HTableDescriptor
 operator|.
 name|META_TABLEDESC
+argument_list|,
+literal|null
+argument_list|,
+literal|true
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|setInfoFamilyCachingForMeta
