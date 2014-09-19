@@ -23,16 +23,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|Closeable
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 import|;
 end_import
@@ -198,18 +188,6 @@ operator|.
 name|concurrent
 operator|.
 name|TimeUnit
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -795,6 +773,20 @@ name|com
 operator|.
 name|google
 operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
 name|protobuf
 operator|.
 name|Descriptors
@@ -809,7 +801,7 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|Message
+name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -819,11 +811,9 @@ name|com
 operator|.
 name|google
 operator|.
-name|common
+name|protobuf
 operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
+name|Message
 import|;
 end_import
 
@@ -852,7 +842,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<p>Used to communicate with a single HBase table.  An implementation of  * {@link HTableInterface}.  Instances of this class can be constructed directly but it is  * encouraged that users get instances via {@link HConnection} and {@link HConnectionManager}.  * See {@link HConnectionManager} class comment for an example.  *  *<p>This class is not thread safe for reads nor write.  *  *<p>In case of writes (Put, Delete), the underlying write buffer can  * be corrupted if multiple threads contend over a single HTable instance.  *  *<p>In case of reads, some fields used by a Scan are shared among all threads.  * The HTable implementation can either not contract to be safe in case of a Get  *  *<p>Instances of HTable passed the same {@link Configuration} instance will  * share connections to servers out on the cluster and to the zookeeper ensemble  * as well as caches of region locations.  This is usually a *good* thing and it  * is recommended to reuse the same configuration object for all your tables.  * This happens because they will all share the same underlying  * {@link HConnection} instance. See {@link HConnectionManager} for more on  * how this mechanism works.  *  *<p>{@link HConnection} will read most of the  * configuration it needs from the passed {@link Configuration} on initial  * construction.  Thereafter, for settings such as  *<code>hbase.client.pause</code>,<code>hbase.client.retries.number</code>,  * and<code>hbase.client.rpc.maxattempts</code> updating their values in the  * passed {@link Configuration} subsequent to {@link HConnection} construction  * will go unnoticed.  To run with changed values, make a new  * {@link HTable} passing a new {@link Configuration} instance that has the  * new configuration.  *  *<p>Note that this class implements the {@link Closeable} interface. When a  * HTable instance is no longer required, it *should* be closed in order to ensure  * that the underlying resources are promptly released. Please note that the close  * method can throw java.io.IOException that must be handled.  *  * @see HBaseAdmin for create, drop, list, enable and disable of tables.  * @see HConnection  * @see HConnectionManager  */
+comment|/**  * An implementation of {@link Table}. Used to communicate with a single HBase table.  * Lightweight. Get as needed and just close when done.  * Instances of this class SHOULD NOT be constructed directly.  * Obtain an instance via {@link Connection}. See {@link ConnectionFactory}  * class comment for an example of how.  *  *<p>This class is NOT thread safe for reads nor write.  * In the case of writes (Put, Delete), the underlying write buffer can  * be corrupted if multiple threads contend over a single HTable instance.  * In the case of reads, some fields used by a Scan are shared among all threads.  *  * @see Admin for create, drop, list, enable and disable of tables.  * @see Connection  * @see ConnectionFactory  */
 end_comment
 
 begin_class
@@ -1002,7 +992,7 @@ specifier|private
 name|RpcControllerFactory
 name|rpcControllerFactory
 decl_stmt|;
-comment|/**    * Creates an object to access a HBase table.    * Shares zookeeper connection and other resources with other HTable instances    * created with the same<code>conf</code> instance.  Uses already-populated    * region cache if one is available, populated by any other HTable instances    * sharing this<code>conf</code> instance.  Recommended.    * @param conf Configuration object to use.    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    * @deprecated Constructing HTable objects manually has been deprecated. Please use    * {@link Connection} to instantiate a {@link Table} instead.    */
+comment|/**    * Creates an object to access a HBase table.    * @param conf Configuration object to use.    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    * @deprecated Constructing HTable objects manually has been deprecated. Please use    * {@link Connection} to instantiate a {@link Table} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1031,7 +1021,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    * Shares zookeeper connection and other resources with other HTable instances    * created with the same<code>conf</code> instance.  Uses already-populated    * region cache if one is available, populated by any other HTable instances    * sharing this<code>conf</code> instance.  Recommended.    * @param conf Configuration object to use.    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    * @deprecated Constructing HTable objects manually has been deprecated. Please use    * {@link Connection} to instantiate a {@link Table} instead.    */
+comment|/**    * Creates an object to access a HBase table.    * @param conf Configuration object to use.    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    * @deprecated Constructing HTable objects manually has been deprecated. Please use    * {@link Connection} to instantiate a {@link Table} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1061,7 +1051,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    * Shares zookeeper connection and other resources with other HTable instances    * created with the same<code>conf</code> instance.  Uses already-populated    * region cache if one is available, populated by any other HTable instances    * sharing this<code>conf</code> instance.  Recommended.    * @param conf Configuration object to use.    * @param tableName table name pojo    * @throws IOException if a remote or network exception occurs    * @deprecated Constructing HTable objects manually has been deprecated. Please use    * {@link Connection} to instantiate a {@link Table} instead.    */
+comment|/**    * Creates an object to access a HBase table.    * @param conf Configuration object to use.    * @param tableName table name pojo    * @throws IOException if a remote or network exception occurs    * @deprecated Constructing HTable objects manually has been deprecated. Please use    * {@link Connection} to instantiate a {@link Table} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1140,7 +1130,7 @@ name|finishSetup
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table. Shares zookeeper connection and other resources with    * other HTable instances created with the same<code>connection</code> instance. Use this    * constructor when the Connection instance is externally managed.    * @param tableName Name of the table.    * @param connection HConnection to be used.    * @throws IOException if a remote or network exception occurs    * @deprecated Do not use.    */
+comment|/**    * Creates an object to access a HBase table.    * @param tableName Name of the table.    * @param connection HConnection to be used.    * @throws IOException if a remote or network exception occurs    * @deprecated Do not use.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1208,6 +1198,11 @@ name|finishSetup
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Marked Private @since 1.0
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 name|ThreadPoolExecutor
@@ -1307,7 +1302,7 @@ return|return
 name|pool
 return|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    * Shares zookeeper connection and other resources with other HTable instances    * created with the same<code>conf</code> instance.  Uses already-populated    * region cache if one is available, populated by any other HTable instances    * sharing this<code>conf</code> instance.    * Use this constructor when the ExecutorService is externally managed.    * @param conf Configuration object to use.    * @param tableName Name of the table.    * @param pool ExecutorService to be used.    * @throws IOException if a remote or network exception occurs    * @deprecated Constructing HTable objects manually has been deprecated. Please use    * {@link Connection} to instantiate a {@link Table} instead.    */
+comment|/**    * Creates an object to access a HBase table.    * @param conf Configuration object to use.    * @param tableName Name of the table.    * @param pool ExecutorService to be used.    * @throws IOException if a remote or network exception occurs    * @deprecated Constructing HTable objects manually has been deprecated. Please use    * {@link Connection} to instantiate a {@link Table} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1343,7 +1338,7 @@ name|pool
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    * Shares zookeeper connection and other resources with other HTable instances    * created with the same<code>conf</code> instance.  Uses already-populated    * region cache if one is available, populated by any other HTable instances    * sharing this<code>conf</code> instance.    * Use this constructor when the ExecutorService is externally managed.    * @param conf Configuration object to use.    * @param tableName Name of the table.    * @param pool ExecutorService to be used.    * @throws IOException if a remote or network exception occurs    * @deprecated Constructing HTable objects manually has been deprecated. Please use    * {@link Connection} to instantiate a {@link Table} instead.    */
+comment|/**    * Creates an object to access a HBase table.    * @param conf Configuration object to use.    * @param tableName Name of the table.    * @param pool ExecutorService to be used.    * @throws IOException if a remote or network exception occurs    * @deprecated Constructing HTable objects manually has been deprecated. Please use    * {@link Connection} to instantiate a {@link Table} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1436,7 +1431,7 @@ name|finishSetup
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    * Shares zookeeper connection and other resources with other HTable instances    * created with the same<code>connection</code> instance.    * Use this constructor when the ExecutorService and HConnection instance are    * externally managed.    * @param tableName Name of the table.    * @param connection HConnection to be used.    * @param pool ExecutorService to be used.    * @throws IOException if a remote or network exception occurs.    * @deprecated Do not use, internal ctor.    */
+comment|/**    * Creates an object to access a HBase table.    * @param tableName Name of the table.    * @param connection HConnection to be used.    * @param pool ExecutorService to be used.    * @throws IOException if a remote or network exception occurs.    * @deprecated Do not use, internal ctor.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1506,7 +1501,7 @@ name|pool
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    * Shares zookeeper connection and other resources with other HTable instances    * created with the same<code>connection</code> instance.    * Visible only for HTableWrapper which is in different package.    * Should not be used by exernal code.    * @param tableName Name of the table.    * @param connection HConnection to be used.    * @param pool ExecutorService to be used.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Creates an object to access a HBase table.    * @param tableName Name of the table.    * @param connection HConnection to be used.    * @param pool ExecutorService to be used.    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -1622,6 +1617,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * For internal testing.    */
+annotation|@
+name|VisibleForTesting
 specifier|protected
 name|HTable
 parameter_list|()
@@ -1872,7 +1869,7 @@ return|return
 name|configuration
 return|;
 block|}
-comment|/**    * Tells whether or not a table is enabled or not. This method creates a    * new HBase configuration, so it might make your unit tests fail due to    * incorrect ZK client port.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs 	* @deprecated use {@link HBaseAdmin#isTableEnabled(byte[])}    */
+comment|/**    * Tells whether or not a table is enabled or not. This method creates a    * new HBase configuration, so it might make your unit tests fail due to    * incorrect ZK client port.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs    * @deprecated use {@link HBaseAdmin#isTableEnabled(byte[])}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1898,7 +1895,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Tells whether or not a table is enabled or not. This method creates a    * new HBase configuration, so it might make your unit tests fail due to    * incorrect ZK client port.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs 	* @deprecated use {@link HBaseAdmin#isTableEnabled(byte[])}    */
+comment|/**    * Tells whether or not a table is enabled or not. This method creates a    * new HBase configuration, so it might make your unit tests fail due to    * incorrect ZK client port.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs    * @deprecated use {@link HBaseAdmin#isTableEnabled(byte[])}    */
 annotation|@
 name|Deprecated
 specifier|public
