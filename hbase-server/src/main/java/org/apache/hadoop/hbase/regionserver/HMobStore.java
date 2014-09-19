@@ -1800,9 +1800,10 @@ name|MobZookeeper
 operator|.
 name|newInstance
 argument_list|(
-name|this
+name|region
 operator|.
-name|conf
+name|getBaseConf
+argument_list|()
 argument_list|,
 name|compactionName
 argument_list|)
