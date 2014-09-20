@@ -396,6 +396,11 @@ name|RECOVERED_LOG_TMPFILE_SUFFIX
 init|=
 literal|".temp"
 decl_stmt|;
+name|String
+name|SEQUENCE_ID_FILE_SUFFIX
+init|=
+literal|"_seqid"
+decl_stmt|;
 comment|/**    * WAL Reader Interface    */
 interface|interface
 name|Reader
