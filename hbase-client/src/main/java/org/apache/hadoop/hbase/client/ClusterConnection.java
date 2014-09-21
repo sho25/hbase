@@ -306,8 +306,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @param replicaId the replicaId of the region    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    */
-name|HRegionLocation
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @param replicaId the replicaId of the region    * @return RegionLocations that describe where to find the region in    * question    * @throws IOException if a remote or network exception occurs    */
+name|RegionLocations
 name|relocateRegion
 parameter_list|(
 specifier|final

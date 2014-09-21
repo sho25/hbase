@@ -1369,7 +1369,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HRegionLocation
+name|RegionLocations
 name|relocateRegion
 parameter_list|(
 name|TableName
