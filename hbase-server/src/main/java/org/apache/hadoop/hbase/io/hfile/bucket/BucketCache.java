@@ -1532,15 +1532,10 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-name|writerThreads
-index|[
-name|i
-index|]
-operator|.
-name|start
+block|}
+name|startWriterThreads
 argument_list|()
 expr_stmt|;
-block|}
 comment|// Run the statistics thread periodically to print the cache statistics log
 comment|// TODO: Add means of turning this off.  Bit obnoxious running thread just to make a log
 comment|// every five minutes.
@@ -1610,6 +1605,29 @@ operator|.
 name|bucketAllocator
 argument_list|)
 expr_stmt|;
+block|}
+comment|/**    * Called by the constructor to start the writer threads. Used by tests that need to override    * starting the threads.    */
+annotation|@
+name|VisibleForTesting
+specifier|protected
+name|void
+name|startWriterThreads
+parameter_list|()
+block|{
+for|for
+control|(
+name|WriterThread
+name|thread
+range|:
+name|writerThreads
+control|)
+block|{
+name|thread
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|VisibleForTesting
