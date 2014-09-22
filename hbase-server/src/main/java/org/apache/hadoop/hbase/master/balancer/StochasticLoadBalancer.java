@@ -782,8 +782,6 @@ operator|new
 name|RegionCountSkewCostFunction
 argument_list|(
 name|conf
-argument_list|,
-name|backupMasterWeight
 argument_list|)
 block|,
 operator|new
@@ -1019,11 +1017,6 @@ return|return
 name|plans
 return|;
 block|}
-name|filterExcludedServers
-argument_list|(
-name|clusterState
-argument_list|)
-expr_stmt|;
 comment|//The clusterState that is given to this method contains the state
 comment|//of all the regions in the table(s) (that's true today)
 comment|// Keep track of servers to iterate through them.
@@ -1040,9 +1033,6 @@ argument_list|,
 name|loads
 argument_list|,
 name|regionFinder
-argument_list|,
-name|getBackupMasters
-argument_list|()
 argument_list|,
 name|tablesOnMaster
 argument_list|,
@@ -2055,7 +2045,28 @@ condition|(
 name|cluster
 operator|.
 name|numServers
-operator|<=
+operator|<
+literal|2
+condition|)
+block|{
+return|return
+operator|-
+literal|1
+return|;
+block|}
+if|if
+condition|(
+name|cluster
+operator|.
+name|activeMasterIndex
+operator|!=
+operator|-
+literal|1
+operator|&&
+name|cluster
+operator|.
+name|numServers
+operator|==
 literal|2
 condition|)
 block|{
@@ -2498,21 +2509,6 @@ name|cluster
 operator|.
 name|serverIndicesSortedByRegionCount
 decl_stmt|;
-if|if
-condition|(
-name|servers
-operator|.
-name|length
-operator|<=
-literal|2
-condition|)
-block|{
-return|return
-name|thisServer
-operator|-
-literal|1
-return|;
-block|}
 name|int
 name|index
 init|=
@@ -2742,6 +2738,20 @@ argument_list|,
 name|thisRegion
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|otherServer
+operator|==
+operator|-
+literal|1
+condition|)
+block|{
+return|return
+name|Cluster
+operator|.
+name|NullAction
+return|;
+block|}
 comment|// pick an region on the other server to potentially swap
 name|int
 name|otherRegion
@@ -3608,9 +3618,10 @@ literal|1
 operator|&&
 name|cluster
 operator|.
-name|masterServerName
+name|activeMasterIndex
 operator|!=
-literal|null
+operator|-
+literal|1
 condition|)
 block|{
 name|count
@@ -4002,10 +4013,6 @@ literal|500
 decl_stmt|;
 specifier|private
 name|double
-name|backupMasterWeight
-decl_stmt|;
-specifier|private
-name|double
 index|[]
 name|stats
 init|=
@@ -4015,9 +4022,6 @@ name|RegionCountSkewCostFunction
 parameter_list|(
 name|Configuration
 name|conf
-parameter_list|,
-name|double
-name|backupMasterWeight
 parameter_list|)
 block|{
 name|super
@@ -4039,12 +4043,6 @@ argument_list|,
 name|DEFAULT_REGION_COUNT_SKEW_COST
 argument_list|)
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|backupMasterWeight
-operator|=
-name|backupMasterWeight
 expr_stmt|;
 block|}
 annotation|@
@@ -4110,26 +4108,6 @@ index|]
 operator|.
 name|length
 expr_stmt|;
-comment|// Use some weight on regions assigned to active/backup masters,
-comment|// so that they won't carry as many regions as normal regionservers.
-if|if
-condition|(
-name|cluster
-operator|.
-name|isBackupMaster
-argument_list|(
-name|i
-argument_list|)
-condition|)
-block|{
-name|stats
-index|[
-name|i
-index|]
-operator|*=
-name|backupMasterWeight
-expr_stmt|;
-block|}
 block|}
 return|return
 name|costFromArray

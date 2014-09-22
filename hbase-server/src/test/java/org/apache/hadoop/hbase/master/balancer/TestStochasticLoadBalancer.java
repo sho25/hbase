@@ -1771,8 +1771,6 @@ operator|.
 name|RegionCountSkewCostFunction
 argument_list|(
 name|conf
-argument_list|,
-literal|1
 argument_list|)
 decl_stmt|;
 for|for
@@ -2674,8 +2672,6 @@ argument_list|,
 literal|null
 argument_list|,
 literal|null
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|costFunction
@@ -2757,8 +2753,6 @@ argument_list|,
 literal|null
 argument_list|,
 literal|null
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|costFunction
@@ -2821,8 +2815,6 @@ argument_list|(
 name|master
 argument_list|,
 name|clusterState
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|,
@@ -3007,8 +2999,6 @@ argument_list|,
 literal|null
 argument_list|,
 literal|null
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|costFunction
@@ -3130,8 +3120,6 @@ argument_list|(
 name|master
 argument_list|,
 name|clusterState
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|,
@@ -3301,8 +3289,6 @@ argument_list|,
 literal|null
 argument_list|,
 literal|null
-argument_list|,
-literal|null
 argument_list|)
 argument_list|)
 argument_list|)
@@ -3407,8 +3393,6 @@ argument_list|(
 name|master
 argument_list|,
 name|map
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|,
