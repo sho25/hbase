@@ -185,11 +185,11 @@ return|return
 name|f
 return|;
 block|}
-comment|/**    * Does NOT add a column family. This object is immutable    * @param family HColumnDescriptor of familyto add.    */
+comment|/**    * Does NOT add a column family. This object is immutable    * @param family HColumnDescriptor of familyto add.    * @return    */
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HTableDescriptor
 name|addFamily
 parameter_list|(
 specifier|final
@@ -226,11 +226,11 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setReadOnly(boolean)    */
+comment|/**    * @return    * @see org.apache.hadoop.hbase.HTableDescriptor#setReadOnly(boolean)    */
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HTableDescriptor
 name|setReadOnly
 parameter_list|(
 name|boolean
@@ -245,11 +245,11 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setValue(byte[], byte[])    */
+comment|/**    * @return    * @see org.apache.hadoop.hbase.HTableDescriptor#setValue(byte[], byte[])    */
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HTableDescriptor
 name|setValue
 parameter_list|(
 name|byte
@@ -269,11 +269,11 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setValue(java.lang.String, java.lang.String)    */
+comment|/**    * @return    * @see org.apache.hadoop.hbase.HTableDescriptor#setValue(java.lang.String, java.lang.String)    */
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HTableDescriptor
 name|setValue
 parameter_list|(
 name|String
@@ -291,11 +291,11 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setMaxFileSize(long)    */
+comment|/**    * @return    * @see org.apache.hadoop.hbase.HTableDescriptor#setMaxFileSize(long)    */
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HTableDescriptor
 name|setMaxFileSize
 parameter_list|(
 name|long
@@ -310,11 +310,11 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setMemStoreFlushSize(long)    */
+comment|/**    * @return    * @see org.apache.hadoop.hbase.HTableDescriptor#setMemStoreFlushSize(long)    */
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HTableDescriptor
 name|setMemStoreFlushSize
 parameter_list|(
 name|long

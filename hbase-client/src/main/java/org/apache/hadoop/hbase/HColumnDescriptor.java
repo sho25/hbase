@@ -2570,7 +2570,7 @@ name|name
 argument_list|)
 return|;
 block|}
-comment|/**    * Set whether the tags should be compressed along with DataBlockEncoding. When no    * DataBlockEncoding is been used, this is having no effect.    *     * @param compressTags    * @return this (for chained invocation)    */
+comment|/**    * Set whether the tags should be compressed along with DataBlockEncoding. When no    * DataBlockEncoding is been used, this is having no effect.    *    * @param compressTags    * @return this (for chained invocation)    */
 specifier|public
 name|HColumnDescriptor
 name|setCompressTags
@@ -2672,7 +2672,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @return True if we are to favor keeping all values for this column family in the     * HRegionServer cache.    */
+comment|/**    * @return True if we are to favor keeping all values for this column family in the    * HRegionServer cache.    */
 specifier|public
 name|boolean
 name|isInMemory
@@ -4167,6 +4167,8 @@ name|result
 return|;
 block|}
 comment|// Comparable
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compareTo
@@ -4719,7 +4721,7 @@ return|;
 block|}
 comment|/**    * Setter for storing a configuration setting in {@link #configuration} map.    * @param key Config key. Same as XML config key e.g. hbase.something.or.other.    * @param value String value. If null, removes the configuration.    */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setConfiguration
 parameter_list|(
 name|String
@@ -4754,6 +4756,9 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Remove a configuration setting represented by the key from the {@link #configuration} map.    */
 specifier|public

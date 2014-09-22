@@ -1104,6 +1104,10 @@ name|BYTES_RAWCOMPARATOR
 argument_list|)
 decl_stmt|;
 comment|/**    *<em> INTERNAL</em> Private constructor used internally creating table descriptors for    * catalog tables,<code>hbase:meta</code> and<code>-ROOT-</code>.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|protected
 name|HTableDescriptor
 parameter_list|(
@@ -1800,7 +1804,7 @@ return|;
 block|}
 comment|/**    * Setter for storing metadata as a (key, value) pair in {@link #values} map    *    * @param key The key.    * @param value The value.    * @see #values    */
 specifier|public
-name|void
+name|HTableDescriptor
 name|setValue
 parameter_list|(
 name|byte
@@ -1827,10 +1831,13 @@ name|value
 argument_list|)
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/*    * @param key The key.    * @param value The value.    */
 specifier|private
-name|void
+name|HTableDescriptor
 name|setValue
 parameter_list|(
 specifier|final
@@ -1858,10 +1865,13 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/*    * Setter for storing metadata as a (key, value) pair in {@link #values} map    *    * @param key The key.    * @param value The value.    */
 specifier|public
-name|void
+name|HTableDescriptor
 name|setValue
 parameter_list|(
 specifier|final
@@ -1931,7 +1941,9 @@ else|:
 name|DEFAULT_DURABLITY
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+name|this
+return|;
 block|}
 name|values
 operator|.
@@ -1942,10 +1954,13 @@ argument_list|,
 name|value
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Setter for storing metadata as a (key, value) pair in {@link #values} map    *    * @param key The key.    * @param value The value.    * @see #values    */
 specifier|public
-name|void
+name|HTableDescriptor
 name|setValue
 parameter_list|(
 name|String
@@ -1988,6 +2003,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Remove metadata represented by the key from the {@link #values} map    *    * @param key Key whose key and value we're to remove from HTableDescriptor    * parameters.    */
 specifier|public
@@ -2069,7 +2087,7 @@ return|;
 block|}
 comment|/**    * Setting the table as read only sets all the columns in the table as read    * only. By default all tables are modifiable, but if the readOnly flag is    * set to true then the contents of the table can only be read but not modified.    *    * @param readOnly True if all of the columns in the table should be read    * only.    */
 specifier|public
-name|void
+name|HTableDescriptor
 name|setReadOnly
 parameter_list|(
 specifier|final
@@ -2077,6 +2095,7 @@ name|boolean
 name|readOnly
 parameter_list|)
 block|{
+return|return
 name|setValue
 argument_list|(
 name|READONLY_KEY
@@ -2087,7 +2106,7 @@ name|TRUE
 else|:
 name|FALSE
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * Check if the compaction enable flag of the table is true. If flag is    * false then no minor/major compactions will be done in real.    *    * @return true if table compaction enabled    */
 specifier|public
@@ -2106,7 +2125,7 @@ return|;
 block|}
 comment|/**    * Setting the table compaction enable flag.    *    * @param isEnable True if enable compaction.    */
 specifier|public
-name|void
+name|HTableDescriptor
 name|setCompactionEnabled
 parameter_list|(
 specifier|final
@@ -2125,10 +2144,13 @@ else|:
 name|FALSE
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Sets the {@link Durability} setting for the table. This defaults to Durability.USE_DEFAULT.    * @param durability enum value    */
 specifier|public
-name|void
+name|HTableDescriptor
 name|setDurability
 parameter_list|(
 name|Durability
@@ -2151,6 +2173,9 @@ name|name
 argument_list|()
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Returns the durability setting for the table.    * @return durability setting for the table.    */
 specifier|public
@@ -2262,7 +2287,9 @@ return|return
 name|name
 return|;
 block|}
-comment|/**    * Get the name of the table as a byte array.    *    * @return name of table    */
+comment|/**    * Get the name of the table as a byte array.    *    * @return name of table    * @deprecated Use {@link #getTableName()} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|byte
 index|[]
@@ -2291,7 +2318,7 @@ return|;
 block|}
 comment|/**    * This sets the class associated with the region split policy which    * determines when a region split should occur.  The class used by    * default is defined in {@link org.apache.hadoop.hbase.regionserver.RegionSplitPolicy}    * @param clazz the class name    */
 specifier|public
-name|void
+name|HTableDescriptor
 name|setRegionSplitPolicyClassName
 parameter_list|(
 name|String
@@ -2305,6 +2332,9 @@ argument_list|,
 name|clazz
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * This gets the class associated with the region split policy which    * determines when a region split should occur.  The class used by    * default is defined in {@link org.apache.hadoop.hbase.regionserver.RegionSplitPolicy}    *    * @return the class name of the region split policy for this table.    * If this returns null, the default split policy is used.    */
 specifier|public
@@ -2323,7 +2353,7 @@ comment|/**    * Set the name of the table.    *    * @param name name of table 
 annotation|@
 name|Deprecated
 specifier|public
-name|void
+name|HTableDescriptor
 name|setName
 parameter_list|(
 name|byte
@@ -2341,11 +2371,14 @@ name|name
 argument_list|)
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 annotation|@
 name|Deprecated
 specifier|public
-name|void
+name|HTableDescriptor
 name|setName
 parameter_list|(
 name|TableName
@@ -2365,6 +2398,9 @@ operator|.
 name|name
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Returns the maximum size upto which a region can grow to after which a region    * split is triggered. The region size is represented by the size of the biggest    * store file in that region.    *    * @return max hregion size for table, -1 if not set.    *    * @see #setMaxFileSize(long)    */
 specifier|public
@@ -2409,7 +2445,7 @@ return|;
 block|}
 comment|/**    * Sets the maximum size upto which a region can grow to after which a region    * split is triggered. The region size is represented by the size of the biggest    * store file in that region, i.e. If the biggest store file grows beyond the    * maxFileSize, then the region split is triggered. This defaults to a value of    * 256 MB.    *<p>    * This is not an absolute value and might vary. Assume that a single row exceeds    * the maxFileSize then the storeFileSize will be greater than maxFileSize since    * a single row cannot be split across multiple regions    *</p>    *    * @param maxFileSize The maximum file size that a store file can grow to    * before a split is triggered.    */
 specifier|public
-name|void
+name|HTableDescriptor
 name|setMaxFileSize
 parameter_list|(
 name|long
@@ -2428,6 +2464,9 @@ name|maxFileSize
 argument_list|)
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Returns the size of the memstore after which a flush to filesystem is triggered.    *    * @return memory cache flush size for each hregion, -1 if not set.    *    * @see #setMemStoreFlushSize(long)    */
 specifier|public
@@ -2472,7 +2511,7 @@ return|;
 block|}
 comment|/**    * Represents the maximum size of the memstore after which the contents of the    * memstore are flushed to the filesystem. This defaults to a size of 64 MB.    *    * @param memstoreFlushSize memory cache flush size for each hregion    */
 specifier|public
-name|void
+name|HTableDescriptor
 name|setMemStoreFlushSize
 parameter_list|(
 name|long
@@ -2491,10 +2530,13 @@ name|memstoreFlushSize
 argument_list|)
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Adds a column family.    * @param family HColumnDescriptor of family to add.    */
 specifier|public
-name|void
+name|HTableDescriptor
 name|addFamily
 parameter_list|(
 specifier|final
@@ -2543,6 +2585,9 @@ argument_list|,
 name|family
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Checks to see if this table contains the given column family    * @param familyName Family name or column name.    * @return true if the table contains the specified family name    */
 specifier|public
@@ -3831,7 +3876,7 @@ return|;
 block|}
 comment|/**    * Sets the number of replicas per region.    * @param regionReplication the replication factor per region    */
 specifier|public
-name|void
+name|HTableDescriptor
 name|setRegionReplication
 parameter_list|(
 name|int
@@ -3859,6 +3904,9 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Returns all the column family names of the current table. The map of    * HTableDescriptor contains mapping of family name to HColumnDescriptors.    * This returns all the keys of the family map which represents the column    * family names of the table.    *    * @return Immutable sorted set of the keys of the families.    */
 specifier|public
@@ -3962,7 +4010,7 @@ return|;
 block|}
 comment|/**    * Add a table coprocessor to this table. The coprocessor    * type must be {@link org.apache.hadoop.hbase.coprocessor.RegionObserver}    * or Endpoint.    * It won't check if the class can be loaded or not.    * Whether a coprocessor is loadable or not will be determined when    * a region is opened.    * @param className Full class name.    * @throws IOException    */
 specifier|public
-name|void
+name|HTableDescriptor
 name|addCoprocessor
 parameter_list|(
 name|String
@@ -3984,10 +4032,13 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Add a table coprocessor to this table. The coprocessor    * type must be {@link org.apache.hadoop.hbase.coprocessor.RegionObserver}    * or Endpoint.    * It won't check if the class can be loaded or not.    * Whether a coprocessor is loadable or not will be determined when    * a region is opened.    * @param jarFilePath Path of the jar file. If it's null, the class will be    * loaded from default classloader.    * @param className Full class name.    * @param priority Priority    * @param kvs Arbitrary key-value parameter pairs passed into the coprocessor.    * @throws IOException    */
 specifier|public
-name|void
+name|HTableDescriptor
 name|addCoprocessor
 parameter_list|(
 name|String
@@ -4320,6 +4371,9 @@ argument_list|,
 name|value
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Check if the table has an attached co-processor represented by the name className    *    * @param className - Class name of the co-processor    * @return true of the table has a co-processor className    */
 specifier|public
@@ -5016,13 +5070,14 @@ decl_stmt|;
 annotation|@
 name|Deprecated
 specifier|public
-name|void
+name|HTableDescriptor
 name|setOwner
 parameter_list|(
 name|User
 name|owner
 parameter_list|)
 block|{
+return|return
 name|setOwnerString
 argument_list|(
 name|owner
@@ -5036,13 +5091,13 @@ argument_list|()
 else|:
 literal|null
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|// used by admin.rb:alter(table_name,*args) to update owner.
 annotation|@
 name|Deprecated
 specifier|public
-name|void
+name|HTableDescriptor
 name|setOwnerString
 parameter_list|(
 name|String
@@ -5072,6 +5127,9 @@ name|OWNER_KEY
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|this
+return|;
 block|}
 annotation|@
 name|Deprecated
@@ -5609,7 +5667,7 @@ return|;
 block|}
 comment|/**    * Setter for storing a configuration setting in {@link #configuration} map.    * @param key Config key. Same as XML config key e.g. hbase.something.or.other.    * @param value String value. If null, removes the setting.    */
 specifier|public
-name|void
+name|HTableDescriptor
 name|setConfiguration
 parameter_list|(
 name|String
@@ -5644,6 +5702,9 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Remove a config setting represented by the key from the {@link #configuration} map    */
 specifier|public
