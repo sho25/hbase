@@ -234,14 +234,10 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|conf
+name|servlet
 operator|.
-name|getBoolean
-argument_list|(
-literal|"hbase.rest.support.proxyuser"
-argument_list|,
-literal|false
-argument_list|)
+name|supportsProxyuser
+argument_list|()
 condition|)
 block|{
 throw|throw
