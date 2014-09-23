@@ -75,34 +75,6 @@ name|Cell
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValueUtil
-import|;
-end_import
-
 begin_comment
 comment|/**  * Abstract base class to help you implement new Filters.  Common "ignore" or NOOP type  * methods can go here, helping to reduce boiler plate in an ever-expanding filter  * library.  *  * If you could instantiate FilterBase, it would end up being a "null" filter -  * that is one that never filters anything.  */
 end_comment
@@ -181,37 +153,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Old filters based off of this class will override KeyValue transform(KeyValue).
-comment|// Thus to maintain compatibility we need to call the old version.
 return|return
-name|transform
-argument_list|(
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
 name|v
-argument_list|)
-argument_list|)
-return|;
-block|}
-comment|/**    * WARNING: please to not override this method.  Instead override {@link #transformCell(Cell)}.    *    * This is for transition from 0.94 -> 0.96    */
-annotation|@
-name|Override
-annotation|@
-name|Deprecated
-specifier|public
-name|KeyValue
-name|transform
-parameter_list|(
-name|KeyValue
-name|currentKV
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|currentKV
 return|;
 block|}
 comment|/**    * Filters that never filter by modifying the returned List of Cells can    * inherit this implementation that does nothing.    *    * @inheritDoc    */
@@ -254,25 +197,6 @@ name|IOException
 block|{
 return|return
 literal|false
-return|;
-block|}
-comment|/**    * This method is deprecated and you should override Cell getNextKeyHint(Cell) instead.    */
-annotation|@
-name|Override
-annotation|@
-name|Deprecated
-specifier|public
-name|KeyValue
-name|getNextKeyHint
-parameter_list|(
-name|KeyValue
-name|currentKV
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-literal|null
 return|;
 block|}
 comment|/**    * Filters that are not sure which key must be next seeked to, can inherit    * this implementation that, by default, returns a null Cell.    *    * @inheritDoc    */

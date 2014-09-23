@@ -2702,7 +2702,7 @@ name|compare
 argument_list|(
 name|filterList
 operator|.
-name|getNextKeyHint
+name|getNextCellHint
 argument_list|(
 literal|null
 argument_list|)
@@ -2742,7 +2742,7 @@ name|assertNull
 argument_list|(
 name|filterList
 operator|.
-name|getNextKeyHint
+name|getNextCellHint
 argument_list|(
 literal|null
 argument_list|)
@@ -2776,7 +2776,7 @@ name|assertNull
 argument_list|(
 name|filterList
 operator|.
-name|getNextKeyHint
+name|getNextCellHint
 argument_list|(
 literal|null
 argument_list|)
@@ -2819,7 +2819,7 @@ name|compare
 argument_list|(
 name|filterList
 operator|.
-name|getNextKeyHint
+name|getNextCellHint
 argument_list|(
 literal|null
 argument_list|)
@@ -2873,7 +2873,7 @@ name|compare
 argument_list|(
 name|filterList
 operator|.
-name|getNextKeyHint
+name|getNextCellHint
 argument_list|(
 literal|null
 argument_list|)
@@ -2925,7 +2925,7 @@ name|compare
 argument_list|(
 name|filterList
 operator|.
-name|getNextKeyHint
+name|getNextCellHint
 argument_list|(
 literal|null
 argument_list|)
@@ -2980,7 +2980,7 @@ name|compare
 argument_list|(
 name|filterList
 operator|.
-name|getNextKeyHint
+name|getNextCellHint
 argument_list|(
 literal|null
 argument_list|)
@@ -3032,7 +3032,7 @@ name|compare
 argument_list|(
 name|filterList
 operator|.
-name|getNextKeyHint
+name|getNextCellHint
 argument_list|(
 literal|null
 argument_list|)
@@ -3084,7 +3084,7 @@ name|compare
 argument_list|(
 name|filterList
 operator|.
-name|getNextKeyHint
+name|getNextCellHint
 argument_list|(
 literal|null
 argument_list|)
@@ -3374,7 +3374,7 @@ name|ensureKeyValue
 argument_list|(
 name|flist
 operator|.
-name|transform
+name|transformCell
 argument_list|(
 name|kvQual1
 argument_list|)
@@ -3419,7 +3419,7 @@ name|ensureKeyValue
 argument_list|(
 name|flist
 operator|.
-name|transform
+name|transformCell
 argument_list|(
 name|kvQual2
 argument_list|)

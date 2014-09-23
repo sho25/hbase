@@ -89,20 +89,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|exceptions
 operator|.
 name|DeserializationException
@@ -110,7 +96,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface for row and column filters directly applied within the regionserver.  *  * A filter can expect the following call sequence:  *<ul>  *<li> {@link #reset()} : reset the filter state before filtering a new row.</li>  *<li> {@link #filterAllRemaining()}: true means row scan is over; false means keep going.</li>  *<li> {@link #filterRowKey(byte[],int,int)}: true means drop this row; false means include.</li>  *<li> {@link #filterKeyValue(Cell)}: decides whether to include or exclude this KeyValue.  *        See {@link ReturnCode}.</li>  *<li> {@link #transform(KeyValue)}: if the KeyValue is included, let the filter transform the  *        KeyValue.</li>  *<li> {@link #filterRowCells(List)}: allows direct modification of the final list to be submitted  *<li> {@link #filterRow()}: last chance to drop entire row based on the sequence of  *        filter calls. Eg: filter a row if it doesn't contain a specified column.</li>  *</ul>  *  * Filter instances are created one per region/scan.  This abstract class replaces  * the old RowFilterInterface.  *  * When implementing your own filters, consider inheriting {@link FilterBase} to help  * you reduce boilerplate.  *  * @see FilterBase  */
+comment|/**  * Interface for row and column filters directly applied within the regionserver.  *  * A filter can expect the following call sequence:  *<ul>  *<li> {@link #reset()} : reset the filter state before filtering a new row.</li>  *<li> {@link #filterAllRemaining()}: true means row scan is over; false means keep going.</li>  *<li> {@link #filterRowKey(byte[],int,int)}: true means drop this row; false means include.</li>  *<li> {@link #filterKeyValue(Cell)}: decides whether to include or exclude this Cell.  *        See {@link ReturnCode}.</li>  *<li> {@link #transformCell(Cell)}: if the Cell is included, let the filter transform the  *        Cell.</li>  *<li> {@link #filterRowCells(List)}: allows direct modification of the final list to be submitted  *<li> {@link #filterRow()}: last chance to drop entire row based on the sequence of  *        filter calls. Eg: filter a row if it doesn't contain a specified column.</li>  *</ul>  *  * Filter instances are created one per region/scan.  This abstract class replaces  * the old RowFilterInterface.  *  * When implementing your own filters, consider inheriting {@link FilterBase} to help  * you reduce boilerplate.  *  * @see FilterBase  */
 end_comment
 
 begin_class
@@ -181,7 +167,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Give the filter a chance to transform the passed KeyValue. If the Cell is changed a new    * Cell object must be returned.    *     * @see org.apache.hadoop.hbase.KeyValue#shallowCopy()    *      The transformed KeyValue is what is eventually returned to the client. Most filters will    *      return the passed KeyValue unchanged.    * @see org.apache.hadoop.hbase.filter.KeyOnlyFilter#transform(KeyValue) for an example of a    *      transformation.    *     *      Concrete implementers can signal a failure condition in their code by throwing an    *      {@link IOException}.    *     * @param v the KeyValue in question    * @return the changed KeyValue    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
+comment|/**    * Give the filter a chance to transform the passed KeyValue. If the Cell is changed a new    * Cell object must be returned.    *     * @see org.apache.hadoop.hbase.KeyValue#shallowCopy()    *      The transformed KeyValue is what is eventually returned to the client. Most filters will    *      return the passed KeyValue unchanged.    * @see org.apache.hadoop.hbase.filter.KeyOnlyFilter#transformCell(Cell) for an example of a    *      transformation.    *     *      Concrete implementers can signal a failure condition in their code by throwing an    *      {@link IOException}.    *     * @param v the KeyValue in question    * @return the changed KeyValue    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
 name|Cell
@@ -190,22 +176,6 @@ parameter_list|(
 specifier|final
 name|Cell
 name|v
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * WARNING: please to not override this method.  Instead override {@link #transformCell(Cell)}.    * This is for transition from 0.94 -> 0.96    **/
-annotation|@
-name|Deprecated
-comment|// use Cell transformCell(final Cell)
-specifier|abstract
-specifier|public
-name|KeyValue
-name|transform
-parameter_list|(
-specifier|final
-name|KeyValue
-name|currentKV
 parameter_list|)
 throws|throws
 name|IOException
@@ -269,21 +239,6 @@ specifier|public
 name|boolean
 name|filterRow
 parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
-annotation|@
-name|Deprecated
-comment|// use Cell GetNextKeyHint(final Cell)
-specifier|abstract
-specifier|public
-name|KeyValue
-name|getNextKeyHint
-parameter_list|(
-specifier|final
-name|KeyValue
-name|currentKV
-parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
