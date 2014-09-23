@@ -185,7 +185,7 @@ return|return
 name|f
 return|;
 block|}
-comment|/**    * Does NOT add a column family. This object is immutable    * @param family HColumnDescriptor of familyto add.    * @return    */
+comment|/**    * Does NOT add a column family. This object is immutable    * @param family HColumnDescriptor of familyto add.    */
 annotation|@
 name|Override
 specifier|public
@@ -226,7 +226,7 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @return    * @see org.apache.hadoop.hbase.HTableDescriptor#setReadOnly(boolean)    */
+comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setReadOnly(boolean)    */
 annotation|@
 name|Override
 specifier|public
@@ -245,7 +245,7 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @return    * @see org.apache.hadoop.hbase.HTableDescriptor#setValue(byte[], byte[])    */
+comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setValue(byte[], byte[])    */
 annotation|@
 name|Override
 specifier|public
@@ -269,7 +269,7 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @return    * @see org.apache.hadoop.hbase.HTableDescriptor#setValue(java.lang.String, java.lang.String)    */
+comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setValue(java.lang.String, java.lang.String)    */
 annotation|@
 name|Override
 specifier|public
@@ -291,7 +291,7 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @return    * @see org.apache.hadoop.hbase.HTableDescriptor#setMaxFileSize(long)    */
+comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setMaxFileSize(long)    */
 annotation|@
 name|Override
 specifier|public
@@ -310,7 +310,7 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @return    * @see org.apache.hadoop.hbase.HTableDescriptor#setMemStoreFlushSize(long)    */
+comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setMemStoreFlushSize(long)    */
 annotation|@
 name|Override
 specifier|public

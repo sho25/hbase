@@ -128,7 +128,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A non-instantiable class that manages creation of {@link Connection}s.  * Managing the lifecycle of the {@link Connection}s to the cluster is the responsibility of  * the caller.  * From this {@link Connection} {@link Table} implementations are retrieved  * with {@link Connection#getTable(TableName)}. Example:  *<pre>  * {@code  * Connection connection = ConnectionFactory.createConnection(config);  * Table table = connection.getTable(TableName.valueOf("table1"));  * try {  *   // Use the table as needed, for a single operation and a single thread  * } finally {  *   table.close();  *   connection.close();  * }  *</pre>  *   * Similarly, {@link Connection} also returns {@link RegionLocator} implementations.  *  * This class replaces {@link HConnectionManager}, which is now deprecated.  */
+comment|/**  * A non-instantiable class that manages creation of {@link Connection}s.  * Managing the lifecycle of the {@link Connection}s to the cluster is the responsibility of  * the caller.  * From this {@link Connection} {@link Table} implementations are retrieved  * with {@link Connection#getTable(TableName)}. Example:  *<pre>  * Connection connection = ConnectionFactory.createConnection(config);  * Table table = connection.getTable(TableName.valueOf("table1"));  * try {  *   // Use the table as needed, for a single operation and a single thread  * } finally {  *   table.close();  *   connection.close();  * }  *</pre>  *   * Similarly, {@link Connection} also returns {@link RegionLocator} implementations.  *  * This class replaces {@link HConnectionManager}, which is now deprecated.  */
 end_comment
 
 begin_class
