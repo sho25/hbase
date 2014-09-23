@@ -3391,8 +3391,12 @@ name|toArray
 argument_list|(
 operator|new
 name|HRegionInfo
-index|[]
-block|{}
+index|[
+name|check
+operator|.
+name|size
+argument_list|()
+index|]
 argument_list|)
 control|)
 block|{

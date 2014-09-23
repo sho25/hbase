@@ -1067,7 +1067,10 @@ argument_list|(
 operator|new
 name|MBeanAttributeInfo
 index|[
-literal|0
+name|attributes
+operator|.
+name|size
+argument_list|()
 index|]
 argument_list|)
 argument_list|,
