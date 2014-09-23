@@ -1676,7 +1676,7 @@ operator|.
 name|size
 argument_list|()
 operator|>=
-literal|15
+name|numRegionLoadsToRemember
 condition|)
 block|{
 name|rLoads
