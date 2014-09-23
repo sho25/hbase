@@ -526,15 +526,7 @@ argument_list|()
 operator|+
 literal|" currentKV: "
 operator|+
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
 name|currentCell
-argument_list|)
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 throw|;
 block|}

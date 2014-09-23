@@ -119,7 +119,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|CellUtil
 import|;
 end_import
 
@@ -133,7 +133,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueUtil
+name|KeyValue
 import|;
 end_import
 
@@ -480,24 +480,16 @@ name|cell
 parameter_list|)
 block|{
 comment|// Presume it is KeyValue for now.
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|cell
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|family
 init|=
-name|kv
+name|CellUtil
 operator|.
-name|getFamily
-argument_list|()
+name|cloneFamily
+argument_list|(
+name|cell
+argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
@@ -536,7 +528,7 @@ name|list
 operator|.
 name|add
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 name|this
