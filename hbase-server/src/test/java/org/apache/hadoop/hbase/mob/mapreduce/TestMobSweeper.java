@@ -514,6 +514,32 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
+literal|"hbase.hstore.compaction.min"
+argument_list|,
+literal|15
+argument_list|)
+expr_stmt|;
+comment|// avoid major compactions
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.hstore.compaction.max"
+argument_list|,
+literal|30
+argument_list|)
+expr_stmt|;
+comment|// avoid major compactions
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setInt
+argument_list|(
 literal|"hfile.format.version"
 argument_list|,
 literal|3
