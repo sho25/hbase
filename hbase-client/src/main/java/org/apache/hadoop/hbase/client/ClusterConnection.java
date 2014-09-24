@@ -45,6 +45,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|HRegionLocation
@@ -554,6 +568,14 @@ comment|/**    * @return Default AsyncProcess associated with this connection.  
 name|AsyncProcess
 name|getAsyncProcess
 parameter_list|()
+function_decl|;
+comment|/**    * Returns a new RpcRetryingCallerFactory from the given {@link Configuration}.    * This RpcRetryingCallerFactory lets the users create {@link RpcRetryingCaller}s which can be    * intercepted with the configured {@link RetryingCallerInterceptor}    * @param conf    * @return RpcRetryingCallerFactory    */
+name|RpcRetryingCallerFactory
+name|getNewRpcRetryingCallerFactory
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
 function_decl|;
 block|}
 end_interface

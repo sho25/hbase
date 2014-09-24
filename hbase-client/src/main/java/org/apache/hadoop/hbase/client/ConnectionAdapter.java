@@ -2000,6 +2000,25 @@ name|getAsyncProcess
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|RpcRetryingCallerFactory
+name|getNewRpcRetryingCallerFactory
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+block|{
+return|return
+name|wrappedConnection
+operator|.
+name|getNewRpcRetryingCallerFactory
+argument_list|(
+name|conf
+argument_list|)
+return|;
+block|}
 block|}
 end_class
 

@@ -1812,9 +1812,9 @@ name|this
 operator|.
 name|rpcCallerFactory
 operator|=
-name|RpcRetryingCallerFactory
+name|connection
 operator|.
-name|instantiate
+name|getNewRpcRetryingCallerFactory
 argument_list|(
 name|configuration
 argument_list|)

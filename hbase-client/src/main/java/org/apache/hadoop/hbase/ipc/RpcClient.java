@@ -521,6 +521,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|ConnectionClosingException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -2688,7 +2704,7 @@ name|IOException
 name|ie
 init|=
 operator|new
-name|IOException
+name|ConnectionClosingException
 argument_list|(
 literal|"Connection to "
 operator|+
@@ -3764,7 +3780,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|ConnectionClosingException
 argument_list|(
 name|getName
 argument_list|()
@@ -4524,7 +4540,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|ConnectionClosingException
 argument_list|(
 literal|"This connection is closing"
 argument_list|)
@@ -6217,7 +6233,7 @@ name|IOException
 name|ie
 init|=
 operator|new
-name|IOException
+name|ConnectionClosingException
 argument_list|(
 literal|"Connection to "
 operator|+
@@ -7393,7 +7409,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|ConnectionClosingException
 argument_list|(
 literal|"Call id="
 operator|+
@@ -7603,6 +7619,36 @@ operator|+
 name|addr
 operator|+
 literal|" failed because "
+operator|+
+name|exception
+argument_list|)
+operator|.
+name|initCause
+argument_list|(
+name|exception
+argument_list|)
+return|;
+block|}
+elseif|else
+if|if
+condition|(
+name|exception
+operator|instanceof
+name|ConnectionClosingException
+condition|)
+block|{
+return|return
+operator|(
+name|ConnectionClosingException
+operator|)
+operator|new
+name|ConnectionClosingException
+argument_list|(
+literal|"Call to "
+operator|+
+name|addr
+operator|+
+literal|" failed on local exception: "
 operator|+
 name|exception
 argument_list|)
