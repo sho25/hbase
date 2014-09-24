@@ -11434,7 +11434,7 @@ argument_list|(
 name|val2
 argument_list|)
 argument_list|,
-name|delete
+name|put
 argument_list|,
 literal|true
 argument_list|)
