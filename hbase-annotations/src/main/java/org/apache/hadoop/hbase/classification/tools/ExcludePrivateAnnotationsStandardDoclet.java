@@ -72,7 +72,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A<a href="http://java.sun.com/javase/6/docs/jdk/api/javadoc/doclet/">Doclet</a>  * for excluding elements that are annotated with  * {@link org.apache.hadoop.classification.InterfaceAudience.Private} or  * {@link org.apache.hadoop.classification.InterfaceAudience.LimitedPrivate}.  * It delegates to the Standard Doclet, and takes the same options.  */
+comment|/**  * A<a href="http://java.sun.com/javase/6/docs/jdk/api/javadoc/doclet/">Doclet</a>  * for excluding elements that are annotated with  * {@link org.apache.hadoop.hbase.classification.InterfaceAudience.Private} or  * {@link org.apache.hadoop.hbase.classification.InterfaceAudience.LimitedPrivate}.  * It delegates to the Standard Doclet, and takes the same options.  */
 end_comment
 
 begin_class
