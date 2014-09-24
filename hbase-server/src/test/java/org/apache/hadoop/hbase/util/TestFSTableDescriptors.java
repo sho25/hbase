@@ -2495,7 +2495,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testReadingArchiveDirectoryFromFS
+name|testReadingInvalidDirectoryFromFS
 parameter_list|()
 throws|throws
 name|IOException
@@ -2515,6 +2515,7 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+comment|// .tmp dir is an invalid table name
 operator|new
 name|FSTableDescriptors
 argument_list|(
@@ -2539,7 +2540,7 @@ name|valueOf
 argument_list|(
 name|HConstants
 operator|.
-name|HFILE_ARCHIVE_DIRECTORY
+name|HBASE_TEMP_DIRECTORY
 argument_list|)
 argument_list|)
 expr_stmt|;

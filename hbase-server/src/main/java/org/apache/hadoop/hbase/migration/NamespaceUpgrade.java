@@ -1610,6 +1610,19 @@ name|getQualifierAsString
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Moving "
+operator|+
+name|oldTableDir
+operator|+
+literal|" to "
+operator|+
+name|nsDir
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 operator|!
