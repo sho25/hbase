@@ -121,18 +121,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|TextFormat
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -1191,8 +1179,6 @@ specifier|public
 class|class
 name|RpcClient
 block|{
-comment|// The LOG key is intentionally not from this package to avoid ipc logging at DEBUG (all under
-comment|// o.a.h.hbase is set to DEBUG as default).
 specifier|public
 specifier|static
 specifier|final
@@ -2423,6 +2409,8 @@ return|return
 name|cts
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|close
@@ -3940,13 +3928,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 name|getName
 argument_list|()
@@ -3980,9 +3968,17 @@ name|InterruptedException
 name|t
 parameter_list|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 name|getName
 argument_list|()
@@ -3990,6 +3986,7 @@ operator|+
 literal|": interrupted while waiting for call responses"
 argument_list|)
 expr_stmt|;
+block|}
 name|markClosed
 argument_list|(
 name|ExceptionUtil
@@ -4007,6 +4004,14 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -4019,6 +4024,7 @@ argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
+block|}
 name|markClosed
 argument_list|(
 operator|new
@@ -4038,13 +4044,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 name|getName
 argument_list|()
@@ -4270,6 +4276,8 @@ name|Object
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Object
 name|run
@@ -4295,6 +4303,14 @@ operator|<
 name|maxRetries
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -4306,6 +4322,7 @@ operator|+
 name|ex
 argument_list|)
 expr_stmt|;
+block|}
 comment|//try re-login
 if|if
 condition|(
@@ -5212,13 +5229,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 name|getName
 argument_list|()
@@ -5238,13 +5255,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 name|getName
 argument_list|()
@@ -6070,13 +6087,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 name|getName
 argument_list|()

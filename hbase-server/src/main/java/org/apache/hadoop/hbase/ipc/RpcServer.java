@@ -3416,6 +3416,8 @@ name|open
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -6443,12 +6445,12 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Have read input token of size "
 operator|+
@@ -10273,6 +10275,8 @@ name|secretManager
 expr_stmt|;
 block|}
 comment|/**    * This is a server side method, which is invoked over RPC. On success    * the return response has protobuf response payload. On failure, the    * exception name and the stack trace are returned in the protobuf response.    */
+annotation|@
+name|Override
 specifier|public
 name|Pair
 argument_list|<
@@ -11082,6 +11086,8 @@ name|errorHandler
 return|;
 block|}
 comment|/**    * Returns the metrics instance for reporting RPC call statistics    */
+annotation|@
+name|Override
 specifier|public
 name|MetricsHBaseServer
 name|getMetrics
