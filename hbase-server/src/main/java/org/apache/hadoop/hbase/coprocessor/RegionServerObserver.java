@@ -97,6 +97,22 @@ name|HRegion
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ReplicationEndpoint
+import|;
+end_import
+
 begin_interface
 specifier|public
 interface|interface
@@ -293,6 +309,20 @@ name|ctx
 parameter_list|)
 throws|throws
 name|IOException
+function_decl|;
+comment|/**    * This will be called after the replication endpoint is instantiated.    * @param ctx    * @param endpoint - the base endpoint for replication    * @return the endpoint to use during replication.    */
+name|ReplicationEndpoint
+name|postCreateReplicationEndPoint
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|RegionServerCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|ReplicationEndpoint
+name|endpoint
+parameter_list|)
 function_decl|;
 block|}
 end_interface

@@ -129,6 +129,22 @@ name|HRegion
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ReplicationEndpoint
+import|;
+end_import
+
 begin_comment
 comment|/**  * An abstract class that implements RegionServerObserver.  * By extending it, you can create your own region server observer without  * overriding all abstract methods of RegionServerObserver.  */
 end_comment
@@ -360,6 +376,26 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{ }
+annotation|@
+name|Override
+specifier|public
+name|ReplicationEndpoint
+name|postCreateReplicationEndPoint
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|RegionServerCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|ReplicationEndpoint
+name|endpoint
+parameter_list|)
+block|{
+return|return
+name|endpoint
+return|;
+block|}
 block|}
 end_class
 
