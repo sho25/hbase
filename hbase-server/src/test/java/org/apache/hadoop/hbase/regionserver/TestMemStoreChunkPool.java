@@ -703,7 +703,7 @@ literal|0
 argument_list|,
 name|memstore
 operator|.
-name|kvset
+name|cellSet
 operator|.
 name|size
 argument_list|()
@@ -749,7 +749,7 @@ literal|2
 argument_list|,
 name|memstore
 operator|.
-name|kvset
+name|cellSet
 operator|.
 name|size
 argument_list|()
@@ -987,7 +987,7 @@ literal|0
 argument_list|,
 name|memstore
 operator|.
-name|kvset
+name|cellSet
 operator|.
 name|size
 argument_list|()
@@ -1033,7 +1033,7 @@ literal|2
 argument_list|,
 name|memstore
 operator|.
-name|kvset
+name|cellSet
 operator|.
 name|size
 argument_list|()

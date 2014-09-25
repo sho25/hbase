@@ -805,6 +805,8 @@ name|int
 name|offset
 parameter_list|)
 block|{
+comment|// TODO when cell instance of KV we can bypass all steps and just do backing single array
+comment|// copy(?)
 name|int
 name|pos
 init|=

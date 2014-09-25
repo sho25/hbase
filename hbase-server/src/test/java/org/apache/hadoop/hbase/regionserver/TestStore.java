@@ -3967,7 +3967,7 @@ operator|.
 name|memstore
 operator|)
 operator|.
-name|kvset
+name|cellSet
 operator|.
 name|size
 argument_list|()
@@ -4208,7 +4208,7 @@ operator|.
 name|memstore
 operator|)
 operator|.
-name|kvset
+name|cellSet
 operator|.
 name|size
 argument_list|()
@@ -4770,8 +4770,8 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 range|:
 operator|(
 operator|(
@@ -4784,7 +4784,7 @@ operator|.
 name|memstore
 operator|)
 operator|.
-name|kvset
+name|cellSet
 control|)
 block|{
 name|long
@@ -4794,7 +4794,7 @@ name|DefaultMemStore
 operator|.
 name|heapSizeChange
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 literal|true
 argument_list|)
@@ -4967,7 +4967,7 @@ operator|.
 name|memstore
 operator|)
 operator|.
-name|kvset
+name|cellSet
 operator|.
 name|size
 argument_list|()

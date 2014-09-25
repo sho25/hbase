@@ -335,6 +335,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|CellSkipListSet
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|DefaultMemStore
 import|;
 end_import
@@ -368,22 +384,6 @@ operator|.
 name|regionserver
 operator|.
 name|HStore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|KeyValueSkipListSet
 import|;
 end_import
 
@@ -1401,10 +1401,10 @@ name|actual
 argument_list|)
 expr_stmt|;
 block|}
-comment|// KeyValueSkipListSet
+comment|// CellSkipListSet
 name|cl
 operator|=
-name|KeyValueSkipListSet
+name|CellSkipListSet
 operator|.
 name|class
 expr_stmt|;
@@ -1423,7 +1423,7 @@ name|actual
 operator|=
 name|ClassSize
 operator|.
-name|KEYVALUE_SKIPLIST_SET
+name|CELL_SKIPLIST_SET
 expr_stmt|;
 if|if
 condition|(
@@ -1762,7 +1762,7 @@ name|ClassSize
 operator|.
 name|estimateBase
 argument_list|(
-name|KeyValueSkipListSet
+name|CellSkipListSet
 operator|.
 name|class
 argument_list|,
@@ -1835,7 +1835,7 @@ name|ClassSize
 operator|.
 name|estimateBase
 argument_list|(
-name|KeyValueSkipListSet
+name|CellSkipListSet
 operator|.
 name|class
 argument_list|,
@@ -1846,7 +1846,7 @@ name|ClassSize
 operator|.
 name|estimateBase
 argument_list|(
-name|KeyValueSkipListSet
+name|CellSkipListSet
 operator|.
 name|class
 argument_list|,

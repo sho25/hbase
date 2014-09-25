@@ -146,7 +146,7 @@ specifier|final
 specifier|private
 name|Iterable
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|data
 decl_stmt|;
@@ -159,12 +159,12 @@ decl_stmt|;
 specifier|private
 name|Iterator
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|iter
 decl_stmt|;
 specifier|private
-name|KeyValue
+name|Cell
 name|current
 decl_stmt|;
 specifier|public
@@ -172,7 +172,7 @@ name|CollectionBackedScanner
 parameter_list|(
 name|SortedSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|set
 parameter_list|)
@@ -192,7 +192,7 @@ name|CollectionBackedScanner
 parameter_list|(
 name|SortedSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|set
 parameter_list|,
@@ -221,7 +221,7 @@ name|CollectionBackedScanner
 parameter_list|(
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|list
 parameter_list|)
@@ -241,7 +241,7 @@ name|CollectionBackedScanner
 parameter_list|(
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|list
 parameter_list|,
@@ -282,7 +282,7 @@ operator|.
 name|KVComparator
 name|comparator
 parameter_list|,
-name|KeyValue
+name|Cell
 modifier|...
 name|array
 parameter_list|)
@@ -295,14 +295,14 @@ name|comparator
 expr_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|tmp
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|(
 name|array
@@ -368,7 +368,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|KeyValue
+name|Cell
 name|peek
 parameter_list|()
 block|{
@@ -379,11 +379,11 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|KeyValue
+name|Cell
 name|next
 parameter_list|()
 block|{
-name|KeyValue
+name|Cell
 name|oldCurrent
 init|=
 name|current
@@ -422,7 +422,7 @@ name|boolean
 name|seek
 parameter_list|(
 name|Cell
-name|seekKv
+name|seekCell
 parameter_list|)
 block|{
 comment|// restart iterator
@@ -436,7 +436,7 @@ expr_stmt|;
 return|return
 name|reseek
 argument_list|(
-name|seekKv
+name|seekCell
 argument_list|)
 return|;
 block|}
@@ -447,7 +447,7 @@ name|boolean
 name|reseek
 parameter_list|(
 name|Cell
-name|seekKv
+name|seekCell
 parameter_list|)
 block|{
 while|while
@@ -458,7 +458,7 @@ name|hasNext
 argument_list|()
 condition|)
 block|{
-name|KeyValue
+name|Cell
 name|next
 init|=
 name|iter
@@ -475,7 +475,7 @@ name|compare
 argument_list|(
 name|next
 argument_list|,
-name|seekKv
+name|seekCell
 argument_list|)
 decl_stmt|;
 if|if

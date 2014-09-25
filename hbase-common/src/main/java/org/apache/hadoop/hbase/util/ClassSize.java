@@ -297,12 +297,12 @@ specifier|final
 name|int
 name|TIMERANGE_TRACKER
 decl_stmt|;
-comment|/** Overhead for KeyValueSkipListSet */
+comment|/** Overhead for CellSkipListSet */
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|KEYVALUE_SKIPLIST_SET
+name|CELL_SKIPLIST_SET
 decl_stmt|;
 comment|/* Are we running on jdk7? */
 specifier|private
@@ -771,7 +771,7 @@ operator|*
 literal|2
 argument_list|)
 expr_stmt|;
-name|KEYVALUE_SKIPLIST_SET
+name|CELL_SKIPLIST_SET
 operator|=
 name|align
 argument_list|(

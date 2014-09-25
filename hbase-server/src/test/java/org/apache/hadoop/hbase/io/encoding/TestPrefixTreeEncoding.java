@@ -576,14 +576,14 @@ decl_stmt|;
 specifier|private
 name|ConcurrentSkipListSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvset
 init|=
 operator|new
 name|ConcurrentSkipListSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|(
 name|KeyValue
@@ -1869,7 +1869,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|KeyValue
+name|Cell
 name|kv
 range|:
 name|kvset
@@ -1893,7 +1893,7 @@ name|generateFixedTestData
 parameter_list|(
 name|ConcurrentSkipListSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvset
 parameter_list|,
@@ -1940,7 +1940,7 @@ name|generateFixedTestData
 parameter_list|(
 name|ConcurrentSkipListSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvset
 parameter_list|,
@@ -2123,7 +2123,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|KeyValue
+name|Cell
 name|kv
 range|:
 name|kvset
@@ -2160,7 +2160,7 @@ name|generateRandomTestData
 parameter_list|(
 name|ConcurrentSkipListSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvset
 parameter_list|,
@@ -2358,7 +2358,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|KeyValue
+name|Cell
 name|kv
 range|:
 name|kvset
