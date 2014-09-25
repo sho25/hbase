@@ -131,7 +131,7 @@ name|int
 name|seekTo
 parameter_list|(
 name|Cell
-name|kv
+name|c
 parameter_list|)
 throws|throws
 name|IOException
@@ -171,7 +171,7 @@ name|int
 name|reseekTo
 parameter_list|(
 name|Cell
-name|kv
+name|c
 parameter_list|)
 throws|throws
 name|IOException
