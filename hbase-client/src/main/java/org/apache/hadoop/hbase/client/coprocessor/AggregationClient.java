@@ -4695,7 +4695,7 @@ name|kv
 init|=
 name|r
 operator|.
-name|getColumnLatest
+name|getColumnLatestCell
 argument_list|(
 name|colFamily
 argument_list|,
@@ -4760,7 +4760,7 @@ name|kv
 operator|=
 name|r
 operator|.
-name|getColumnLatest
+name|getColumnLatestCell
 argument_list|(
 name|colFamily
 argument_list|,

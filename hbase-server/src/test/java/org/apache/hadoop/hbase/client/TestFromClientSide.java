@@ -36537,7 +36537,7 @@ name|assertEquals
 argument_list|(
 name|r
 operator|.
-name|getColumnLatest
+name|getColumnLatestCell
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -36552,7 +36552,7 @@ argument_list|()
 argument_list|,
 name|r
 operator|.
-name|getColumnLatest
+name|getColumnLatestCell
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -45426,7 +45426,7 @@ name|equals
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -45450,7 +45450,7 @@ name|equals
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -45737,7 +45737,7 @@ name|assertEquals
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -45759,7 +45759,7 @@ name|toInt
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -48214,7 +48214,7 @@ name|equals
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -48238,7 +48238,7 @@ name|equals
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|1
@@ -48262,7 +48262,7 @@ name|equals
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -48286,7 +48286,7 @@ name|equals
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|1
@@ -48334,7 +48334,7 @@ name|equals
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -48358,7 +48358,7 @@ name|equals
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
