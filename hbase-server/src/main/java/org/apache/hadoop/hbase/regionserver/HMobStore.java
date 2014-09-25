@@ -1732,7 +1732,7 @@ return|return
 name|mobFamilyPath
 return|;
 block|}
-comment|/**    * The compaction in the store of mob.    * The cells in this store contains the path of the mob files. There might be race    * condition between the major compaction and the sweeping in mob files.    * In order to avoid this, we need mutually exclude the running of the major compaction and    * sweeping in mob files.    * The minor compaction is not affected.    * The major compaction is converted to a minor one when a sweeping is in progress.    */
+comment|/**    * The compaction in the store of mob.    * The cells in this store contains the path of the mob files. There might be race    * condition between the major compaction and the sweeping in mob files.    * In order to avoid this, we need mutually exclude the running of the major compaction and    * sweeping in mob files.    * The minor compaction is not affected.    * The major compaction is marked as retainDeleteMarkers when a sweeping is in progress.    */
 annotation|@
 name|Override
 specifier|public
@@ -1749,7 +1749,7 @@ throws|throws
 name|IOException
 block|{
 comment|// If it's major compaction, try to find whether there's a sweeper is running
-comment|// If yes, change the major compaction to a minor one.
+comment|// If yes, mark the major compaction as retainDeleteMarkers
 if|if
 condition|(
 name|compaction
@@ -1757,16 +1757,16 @@ operator|.
 name|getRequest
 argument_list|()
 operator|.
-name|isMajor
+name|isAllFiles
 argument_list|()
 condition|)
 block|{
 comment|// Use the Zookeeper to coordinate.
 comment|// 1. Acquire a operation lock.
-comment|//   1.1. If no, convert the major compaction to a minor one and continue the compaction.
+comment|//   1.1. If no, mark the major compaction as retainDeleteMarkers and continue the compaction.
 comment|//   1.2. If the lock is obtained, search the node of sweeping.
-comment|//      1.2.1. If the node is there, the sweeping is in progress, convert the major
-comment|//             compaction to a minor one and continue the compaction.
+comment|//      1.2.1. If the node is there, the sweeping is in progress, mark the major
+comment|//             compaction as retainDeleteMarkers and continue the compaction.
 comment|//      1.2.2. If the node is not there, add a child to the major compaction node, and
 comment|//             run the compaction directly.
 name|String
@@ -1819,23 +1819,18 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Cannot connect to the zookeeper, ready to perform the minor compaction instead"
+literal|"Cannot connect to the zookeeper, forcing the delete markers to be retained"
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-comment|// change the major compaction into a minor one
 name|compaction
 operator|.
 name|getRequest
 argument_list|()
 operator|.
-name|setIsMajor
-argument_list|(
-literal|false
-argument_list|,
-literal|false
-argument_list|)
+name|forceRetainDeleteMarkers
+argument_list|()
 expr_stmt|;
 return|return
 name|super
@@ -1847,7 +1842,12 @@ argument_list|)
 return|;
 block|}
 name|boolean
-name|major
+name|keepDeleteMarkers
+init|=
+literal|true
+decl_stmt|;
+name|boolean
+name|majorCompactNodeAdded
 init|=
 literal|false
 decl_stmt|;
@@ -1884,7 +1884,7 @@ literal|"Obtain the lock for the store["
 operator|+
 name|this
 operator|+
-literal|"], ready to perform the major compaction"
+literal|"], forcing the delete markers to be retained"
 argument_list|)
 expr_stmt|;
 comment|// check the sweeping node to find out whether the sweeping is in progress.
@@ -1915,7 +1915,7 @@ name|hasSweeper
 condition|)
 block|{
 comment|// if not, add a child to the major compaction node of this store.
-name|major
+name|majorCompactNodeAdded
 operator|=
 name|zk
 operator|.
@@ -1935,6 +1935,12 @@ argument_list|()
 argument_list|,
 name|compactionName
 argument_list|)
+expr_stmt|;
+comment|// If we failed to add the major compact node, go with keep delete markers mode.
+name|keepDeleteMarkers
+operator|=
+operator|!
+name|majorCompactNodeAdded
 expr_stmt|;
 block|}
 block|}
@@ -1980,19 +1986,8 @@ try|try
 block|{
 if|if
 condition|(
-name|major
+name|keepDeleteMarkers
 condition|)
-block|{
-return|return
-name|super
-operator|.
-name|compact
-argument_list|(
-name|compaction
-argument_list|)
-return|;
-block|}
-else|else
 block|{
 name|LOG
 operator|.
@@ -2002,22 +1997,18 @@ literal|"Cannot obtain the lock or a sweep tool is running on this store["
 operator|+
 name|this
 operator|+
-literal|"], ready to perform the minor compaction instead"
+literal|"], forcing the delete markers to be retained"
 argument_list|)
 expr_stmt|;
-comment|// change the major compaction into a minor one
 name|compaction
 operator|.
 name|getRequest
 argument_list|()
 operator|.
-name|setIsMajor
-argument_list|(
-literal|false
-argument_list|,
-literal|false
-argument_list|)
+name|forceRetainDeleteMarkers
+argument_list|()
 expr_stmt|;
+block|}
 return|return
 name|super
 operator|.
@@ -2027,12 +2018,11 @@ name|compaction
 argument_list|)
 return|;
 block|}
-block|}
 finally|finally
 block|{
 if|if
 condition|(
-name|major
+name|majorCompactNodeAdded
 condition|)
 block|{
 try|try
