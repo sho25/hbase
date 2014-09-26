@@ -336,7 +336,7 @@ if|if
 condition|(
 name|userProvider
 operator|.
-name|isHBaseSecurityEnabled
+name|isHadoopSecurityEnabled
 argument_list|()
 condition|)
 block|{

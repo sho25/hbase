@@ -609,6 +609,22 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
+name|CoprocessorHost
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|coprocessor
+operator|.
 name|CoprocessorService
 import|;
 end_import
@@ -1739,6 +1755,24 @@ comment|// Enable security
 name|enableSecurity
 argument_list|(
 name|conf
+argument_list|)
+expr_stmt|;
+comment|// In this particular test case, we can't use SecureBulkLoadEndpoint because its doAs will fail
+comment|// to move a file for a random user
+name|conf
+operator|.
+name|set
+argument_list|(
+name|CoprocessorHost
+operator|.
+name|REGION_COPROCESSOR_CONF_KEY
+argument_list|,
+name|AccessController
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Verify enableSecurity sets up what we require

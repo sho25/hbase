@@ -1034,6 +1034,14 @@ parameter_list|)
 block|{
 try|try
 block|{
+if|if
+condition|(
+name|userProvider
+operator|.
+name|isHBaseSecurityEnabled
+argument_list|()
+condition|)
+block|{
 name|getAccessController
 argument_list|()
 operator|.
@@ -1042,6 +1050,7 @@ argument_list|(
 name|env
 argument_list|)
 expr_stmt|;
+block|}
 name|String
 name|bulkToken
 init|=
@@ -1130,6 +1139,14 @@ parameter_list|)
 block|{
 try|try
 block|{
+if|if
+condition|(
+name|userProvider
+operator|.
+name|isHBaseSecurityEnabled
+argument_list|()
+condition|)
+block|{
 name|getAccessController
 argument_list|()
 operator|.
@@ -1138,6 +1155,7 @@ argument_list|(
 name|env
 argument_list|)
 expr_stmt|;
+block|}
 name|fs
 operator|.
 name|delete
@@ -1286,10 +1304,32 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-specifier|final
 name|Token
 name|userToken
 init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|request
+operator|.
+name|getFsToken
+argument_list|()
+operator|.
+name|hasIdentifier
+argument_list|()
+operator|&&
+name|request
+operator|.
+name|getFsToken
+argument_list|()
+operator|.
+name|hasPassword
+argument_list|()
+condition|)
+block|{
+name|userToken
+operator|=
 operator|new
 name|Token
 argument_list|(
@@ -1339,7 +1379,8 @@ name|getService
 argument_list|()
 argument_list|)
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 specifier|final
 name|String
 name|bulkToken
@@ -1484,6 +1525,14 @@ comment|// Since we have checked the permission via 'preBulkLoadHFile', now let'
 comment|// the 'request user' necessary token to operate on the target fs.
 comment|// After this point the 'doAs' user will hold two tokens, one for the source fs
 comment|// ('request user'), another for the target fs (HBase region server principal).
+if|if
+condition|(
+name|userProvider
+operator|.
+name|isHadoopSecurityEnabled
+argument_list|()
+condition|)
+block|{
 name|FsDelegationToken
 name|targetfsDelegationToken
 init|=
@@ -1574,6 +1623,7 @@ argument_list|(
 name|targetFsToken
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|loaded
 operator|=
@@ -2011,6 +2061,11 @@ block|}
 comment|//this is for testing
 if|if
 condition|(
+name|userProvider
+operator|.
+name|isHadoopSecurityEnabled
+argument_list|()
+operator|&&
 literal|"simple"
 operator|.
 name|equalsIgnoreCase
