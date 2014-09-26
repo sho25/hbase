@@ -1433,7 +1433,7 @@ index|[]
 name|tableName
 parameter_list|,
 specifier|final
-name|HConnection
+name|Connection
 name|connection
 parameter_list|,
 specifier|final
@@ -1468,7 +1468,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HConnection
+name|Connection
 name|connection
 parameter_list|,
 specifier|final

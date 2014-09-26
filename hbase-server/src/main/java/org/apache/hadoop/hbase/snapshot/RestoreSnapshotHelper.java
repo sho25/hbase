@@ -347,7 +347,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|Connection
 import|;
 end_import
 
@@ -548,22 +548,6 @@ operator|.
 name|util
 operator|.
 name|FSUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
 import|;
 end_import
 
@@ -1544,8 +1528,8 @@ specifier|public
 name|void
 name|updateMetaParentRegions
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|List
@@ -1600,6 +1584,7 @@ name|parentRegions
 init|=
 operator|new
 name|LinkedList
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1731,7 +1716,7 @@ name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|regionInfo
 argument_list|,

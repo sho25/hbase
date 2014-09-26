@@ -2425,7 +2425,7 @@ name|Deprecated
 specifier|public
 name|HBaseAdmin
 parameter_list|(
-name|HConnection
+name|Connection
 name|connection
 parameter_list|)
 throws|throws

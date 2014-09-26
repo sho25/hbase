@@ -143,20 +143,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MetaTableAccessor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|Admin
@@ -175,7 +161,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
+name|Connection
 import|;
 end_import
 
@@ -191,7 +177,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|HBaseAdmin
 import|;
 end_import
 
@@ -729,8 +715,8 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 init|=
 name|HConnectionManager
 operator|.
@@ -749,7 +735,7 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegions
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|desc
 operator|.
@@ -821,7 +807,7 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegions
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|desc
 operator|.

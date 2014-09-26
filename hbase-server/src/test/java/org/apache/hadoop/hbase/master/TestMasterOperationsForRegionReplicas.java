@@ -323,7 +323,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Admin
+name|Connection
 import|;
 end_import
 
@@ -356,22 +356,6 @@ operator|.
 name|client
 operator|.
 name|HBaseAdmin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HConnection
 import|;
 end_import
 
@@ -2172,8 +2156,8 @@ parameter_list|,
 name|int
 name|numRegions
 parameter_list|,
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|)
 throws|throws
 name|IOException
@@ -2247,7 +2231,7 @@ name|MetaTableAccessor
 operator|.
 name|fullScan
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|visitor
 argument_list|)
@@ -2279,8 +2263,8 @@ parameter_list|,
 name|int
 name|numReplica
 parameter_list|,
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|)
 throws|throws
 name|IOException
@@ -2291,7 +2275,7 @@ init|=
 operator|new
 name|SnapshotOfRegionAssignmentFromMeta
 argument_list|(
-name|hConnection
+name|connection
 argument_list|)
 decl_stmt|;
 name|snapshot
@@ -2487,8 +2471,8 @@ specifier|private
 name|void
 name|validateSingleRegionServerAssignment
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|int
 name|numRegions
@@ -2505,7 +2489,7 @@ init|=
 operator|new
 name|SnapshotOfRegionAssignmentFromMeta
 argument_list|(
-name|hConnection
+name|connection
 argument_list|)
 decl_stmt|;
 name|snapshot

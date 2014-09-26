@@ -450,7 +450,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HConnection
+name|Connection
 name|lastConnection
 init|=
 literal|null
@@ -551,7 +551,7 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-name|HConnection
+name|Connection
 name|connection
 init|=
 name|admin

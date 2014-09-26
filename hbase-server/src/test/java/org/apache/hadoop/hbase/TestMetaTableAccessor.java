@@ -163,23 +163,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Get
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HConnection
+name|Connection
 import|;
 end_import
 
@@ -196,6 +180,22 @@ operator|.
 name|client
 operator|.
 name|HConnectionManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Get
 import|;
 end_import
 
@@ -435,8 +435,8 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 decl_stmt|;
 annotation|@
 name|BeforeClass
@@ -489,7 +489,7 @@ argument_list|,
 literal|10
 argument_list|)
 expr_stmt|;
-name|hConnection
+name|connection
 operator|=
 name|HConnectionManager
 operator|.
@@ -515,7 +515,7 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Does {@link MetaTableAccessor#getRegion(HConnection, byte[])} and a write    * against hbase:meta while its hosted server is restarted to prove our retrying    * works.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Does {@link MetaTableAccessor#getRegion(Connection, byte[])} and a write    * against hbase:meta while its hosted server is restarted to prove our retrying    * works.    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public
@@ -585,7 +585,7 @@ name|regions
 init|=
 name|testGettingTableRegions
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|name
 argument_list|,
@@ -598,7 +598,7 @@ init|=
 operator|new
 name|MetaTask
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 literal|"reader"
 argument_list|)
@@ -613,7 +613,7 @@ name|Throwable
 block|{
 name|testGetRegion
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|regions
 operator|.
@@ -649,7 +649,7 @@ init|=
 operator|new
 name|MetaTask
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 literal|"writer"
 argument_list|)
@@ -666,7 +666,7 @@ name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|regions
 operator|.
@@ -962,14 +962,14 @@ init|=
 literal|null
 decl_stmt|;
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 decl_stmt|;
 name|MetaTask
 parameter_list|(
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -983,9 +983,9 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|hConnection
+name|connection
 operator|=
-name|hConnection
+name|connection
 expr_stmt|;
 block|}
 annotation|@
@@ -1269,7 +1269,7 @@ name|MetaTableAccessor
 operator|.
 name|tableExists
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|name
 argument_list|)
@@ -1292,7 +1292,7 @@ name|MetaTableAccessor
 operator|.
 name|tableExists
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|name
 argument_list|)
@@ -1326,7 +1326,7 @@ name|MetaTableAccessor
 operator|.
 name|tableExists
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|name
 argument_list|)
@@ -1338,7 +1338,7 @@ name|MetaTableAccessor
 operator|.
 name|tableExists
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|TableName
 operator|.
@@ -1386,7 +1386,7 @@ name|MetaTableAccessor
 operator|.
 name|getRegion
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|Bytes
 operator|.
@@ -1486,7 +1486,7 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegions
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|name
 argument_list|)
@@ -1503,7 +1503,7 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegions
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|greaterName
 argument_list|)
@@ -1522,8 +1522,8 @@ argument_list|>
 name|testGettingTableRegions
 parameter_list|(
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|TableName
@@ -1548,7 +1548,7 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegions
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|name
 argument_list|)
@@ -1575,7 +1575,7 @@ name|MetaTableAccessor
 operator|.
 name|getRegion
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|regions
 operator|.
@@ -1619,8 +1619,8 @@ name|void
 name|testGetRegion
 parameter_list|(
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|HRegionInfo
@@ -1643,7 +1643,7 @@ name|MetaTableAccessor
 operator|.
 name|getRegion
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|region
 operator|.
@@ -2153,7 +2153,7 @@ name|MetaTableAccessor
 operator|.
 name|getMetaHTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|)
 decl_stmt|;
 try|try
@@ -2162,7 +2162,7 @@ name|MetaTableAccessor
 operator|.
 name|updateRegionLocation
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|primary
 argument_list|,
@@ -2195,7 +2195,7 @@ name|MetaTableAccessor
 operator|.
 name|updateRegionLocation
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|replica1
 argument_list|,
@@ -2247,7 +2247,7 @@ name|MetaTableAccessor
 operator|.
 name|updateRegionLocation
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|replica100
 argument_list|,

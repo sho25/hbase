@@ -111,6 +111,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Connection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Delete
 import|;
 end_import
@@ -128,22 +144,6 @@ operator|.
 name|client
 operator|.
 name|Get
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HConnection
 import|;
 end_import
 
@@ -654,8 +654,8 @@ name|Result
 argument_list|>
 name|fullScanOfMeta
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|)
 throws|throws
 name|IOException
@@ -669,7 +669,7 @@ argument_list|()
 decl_stmt|;
 name|fullScan
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|v
 argument_list|,
@@ -683,14 +683,14 @@ name|getResults
 argument_list|()
 return|;
 block|}
-comment|/**    * Performs a full scan of<code>hbase:meta</code>.    * @param hConnection connection we're using    * @param visitor Visitor invoked against each row.    * @throws IOException    */
+comment|/**    * Performs a full scan of<code>hbase:meta</code>.    * @param connection connection we're using    * @param visitor Visitor invoked against each row.    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
 name|fullScan
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|Visitor
@@ -701,7 +701,7 @@ name|IOException
 block|{
 name|fullScan
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|visitor
 argument_list|,
@@ -709,7 +709,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Performs a full scan of<code>hbase:meta</code>.    * @param hConnection connection we're using    * @return List of {@link Result}    * @throws IOException    */
+comment|/**    * Performs a full scan of<code>hbase:meta</code>.    * @param connection connection we're using    * @return List of {@link Result}    * @throws IOException    */
 specifier|public
 specifier|static
 name|List
@@ -718,8 +718,8 @@ name|Result
 argument_list|>
 name|fullScan
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|)
 throws|throws
 name|IOException
@@ -733,7 +733,7 @@ argument_list|()
 decl_stmt|;
 name|fullScan
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|v
 argument_list|,
@@ -747,15 +747,15 @@ name|getResults
 argument_list|()
 return|;
 block|}
-comment|/**    * Callers should call close on the returned {@link HTable} instance.    * @param hConnection connection we're using to access table    * @param tableName Table to get an {@link org.apache.hadoop.hbase.client.HTable} against.    * @return An {@link org.apache.hadoop.hbase.client.HTable} for<code>tableName</code>    * @throws IOException    * @SuppressWarnings("deprecation")    */
+comment|/**    * Callers should call close on the returned {@link HTable} instance.    * @param connection connection we're using to access table    * @param tableName Table to get an {@link org.apache.hadoop.hbase.client.HTable} against.    * @return An {@link org.apache.hadoop.hbase.client.HTable} for<code>tableName</code>    * @throws IOException    * @SuppressWarnings("deprecation")    */
 specifier|private
 specifier|static
 name|Table
 name|getHTable
 parameter_list|(
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|TableName
@@ -764,14 +764,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// We used to pass whole CatalogTracker in here, now we just pass in HConnection
+comment|// We used to pass whole CatalogTracker in here, now we just pass in Connection
 if|if
 condition|(
-name|hConnection
+name|connection
 operator|==
 literal|null
 operator|||
-name|hConnection
+name|connection
 operator|.
 name|isClosed
 argument_list|()
@@ -791,18 +791,18 @@ name|HTable
 argument_list|(
 name|tableName
 argument_list|,
-name|hConnection
+name|connection
 argument_list|)
 return|;
 block|}
-comment|/**    * Callers should call close on the returned {@link HTable} instance.    * @param hConnection connection we're using to access Meta    * @return An {@link HTable} for<code>hbase:meta</code>    * @throws IOException    */
+comment|/**    * Callers should call close on the returned {@link HTable} instance.    * @param connection connection we're using to access Meta    * @return An {@link HTable} for<code>hbase:meta</code>    * @throws IOException    */
 specifier|static
 name|Table
 name|getMetaHTable
 parameter_list|(
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|)
 throws|throws
 name|IOException
@@ -810,7 +810,7 @@ block|{
 return|return
 name|getHTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|TableName
 operator|.
@@ -855,7 +855,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Gets the region info and assignment for the specified region.    * @param hConnection connection we're using    * @param regionName Region to lookup.    * @return Location and HRegionInfo for<code>regionName</code>    * @throws IOException    * @deprecated use {@link #getRegionLocation(HConnection, byte[])} instead    */
+comment|/**    * Gets the region info and assignment for the specified region.    * @param connection connection we're using    * @param regionName Region to lookup.    * @return Location and HRegionInfo for<code>regionName</code>    * @throws IOException    * @deprecated use {@link #getRegionLocation(Connection, byte[])} instead    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -868,8 +868,8 @@ name|ServerName
 argument_list|>
 name|getRegion
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|byte
 index|[]
@@ -883,7 +883,7 @@ name|location
 init|=
 name|getRegionLocation
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|regionName
 argument_list|)
@@ -915,14 +915,14 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns the HRegionLocation from meta for the given region    * @param hConnection connection we're using    * @param regionName region we're looking for    * @return HRegionLocation for the given region    * @throws IOException    */
+comment|/**    * Returns the HRegionLocation from meta for the given region    * @param connection connection we're using    * @param regionName region we're looking for    * @return HRegionLocation for the given region    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegionLocation
 name|getRegionLocation
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|byte
 index|[]
@@ -992,7 +992,7 @@ name|get
 argument_list|(
 name|getMetaHTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|)
 argument_list|,
 name|get
@@ -1030,14 +1030,14 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns the HRegionLocation from meta for the given region    * @param hConnection connection we're using    * @param regionInfo region information    * @return HRegionLocation for the given region    * @throws IOException    */
+comment|/**    * Returns the HRegionLocation from meta for the given region    * @param connection connection we're using    * @param regionInfo region information    * @return HRegionLocation for the given region    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegionLocation
 name|getRegionLocation
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|HRegionInfo
 name|regionInfo
@@ -1079,7 +1079,7 @@ name|get
 argument_list|(
 name|getMetaHTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|)
 argument_list|,
 name|get
@@ -1225,14 +1225,14 @@ name|replicaId
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the result in hbase:meta for the specified region.    * @param hConnection connection we're using    * @param regionName region we're looking for    * @return result of the specified region    * @throws IOException    */
+comment|/**    * Gets the result in hbase:meta for the specified region.    * @param connection connection we're using    * @param regionName region we're looking for    * @return result of the specified region    * @throws IOException    */
 specifier|public
 specifier|static
 name|Result
 name|getRegionResult
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|byte
 index|[]
@@ -1264,7 +1264,7 @@ name|get
 argument_list|(
 name|getMetaHTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|)
 argument_list|,
 name|get
@@ -1282,8 +1282,8 @@ name|HRegionInfo
 argument_list|>
 name|getRegionsFromMergeQualifier
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|byte
 index|[]
@@ -1297,7 +1297,7 @@ name|result
 init|=
 name|getRegionResult
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|regionName
 argument_list|)
@@ -1356,14 +1356,14 @@ name|mergeB
 argument_list|)
 return|;
 block|}
-comment|/**    * Checks if the specified table exists.  Looks at the hbase:meta table hosted on    * the specified server.    * @param hConnection connection we're using    * @param tableName table to check    * @return true if the table exists in meta, false if not    * @throws IOException    */
+comment|/**    * Checks if the specified table exists.  Looks at the hbase:meta table hosted on    * the specified server.    * @param connection connection we're using    * @param tableName table to check    * @return true if the table exists in meta, false if not    * @throws IOException    */
 specifier|public
 specifier|static
 name|boolean
 name|tableExists
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|TableName
@@ -1547,7 +1547,7 @@ block|}
 decl_stmt|;
 name|fullScan
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|visitor
 argument_list|,
@@ -1570,7 +1570,7 @@ operator|>=
 literal|1
 return|;
 block|}
-comment|/**    * Gets all of the regions of the specified table. Do not use this method    * to get meta table regions, use methods in MetaTableLocator instead.    * @param hConnection connection we're using    * @param tableName table we're looking for    * @return Ordered list of {@link HRegionInfo}.    * @throws IOException    */
+comment|/**    * Gets all of the regions of the specified table. Do not use this method    * to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table we're looking for    * @return Ordered list of {@link HRegionInfo}.    * @throws IOException    */
 specifier|public
 specifier|static
 name|List
@@ -1579,8 +1579,8 @@ name|HRegionInfo
 argument_list|>
 name|getTableRegions
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|TableName
 name|tableName
@@ -1591,7 +1591,7 @@ block|{
 return|return
 name|getTableRegions
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|tableName
 argument_list|,
@@ -1599,7 +1599,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets all of the regions of the specified table. Do not use this method    * to get meta table regions, use methods in MetaTableLocator instead.    * @param hConnection connection we're using    * @param tableName table we're looking for    * @param excludeOfflinedSplitParents If true, do not include offlined split    * parents in the return.    * @return Ordered list of {@link HRegionInfo}.    * @throws IOException    */
+comment|/**    * Gets all of the regions of the specified table. Do not use this method    * to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table we're looking for    * @param excludeOfflinedSplitParents If true, do not include offlined split    * parents in the return.    * @return Ordered list of {@link HRegionInfo}.    * @throws IOException    */
 specifier|public
 specifier|static
 name|List
@@ -1608,8 +1608,8 @@ name|HRegionInfo
 argument_list|>
 name|getTableRegions
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|TableName
 name|tableName
@@ -1638,7 +1638,7 @@ name|result
 operator|=
 name|getTableRegionsAndLocations
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|tableName
 argument_list|,
@@ -1925,7 +1925,7 @@ return|return
 name|scan
 return|;
 block|}
-comment|/**    * Do not use this method to get meta table regions, use methods in MetaTableLocator instead.    * @param hConnection connection we're using    * @param tableName table we're looking for    * @return Return list of regioninfos and server.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Do not use this method to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table we're looking for    * @return Return list of regioninfos and server.    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 specifier|static
 name|List
@@ -1939,8 +1939,8 @@ argument_list|>
 argument_list|>
 name|getTableRegionsAndLocations
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|TableName
 name|tableName
@@ -1953,7 +1953,7 @@ block|{
 return|return
 name|getTableRegionsAndLocations
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|tableName
 argument_list|,
@@ -1961,7 +1961,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * Do not use this method to get meta table regions, use methods in MetaTableLocator instead.    * @param hConnection connection we're using    * @param tableName table to work with    * @return Return list of regioninfos and server addresses.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Do not use this method to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table to work with    * @return Return list of regioninfos and server addresses.    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 specifier|static
 name|List
@@ -1975,8 +1975,8 @@ argument_list|>
 argument_list|>
 name|getTableRegionsAndLocations
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|TableName
@@ -2207,7 +2207,7 @@ block|}
 decl_stmt|;
 name|fullScan
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|visitor
 argument_list|,
@@ -2224,7 +2224,7 @@ name|getResults
 argument_list|()
 return|;
 block|}
-comment|/**    * @param hConnection connection we're using    * @param serverName server whose regions we're interested in    * @return List of user regions installed on this server (does not include    * catalog regions).    * @throws IOException    */
+comment|/**    * @param connection connection we're using    * @param serverName server whose regions we're interested in    * @return List of user regions installed on this server (does not include    * catalog regions).    * @throws IOException    */
 specifier|public
 specifier|static
 name|NavigableMap
@@ -2235,8 +2235,8 @@ name|Result
 argument_list|>
 name|getServerUserRegions
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|ServerName
@@ -2372,7 +2372,7 @@ block|}
 decl_stmt|;
 name|fullScan
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|v
 argument_list|)
@@ -2386,8 +2386,8 @@ specifier|static
 name|void
 name|fullScanMetaAndPrint
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|)
 throws|throws
 name|IOException
@@ -2491,20 +2491,20 @@ block|}
 decl_stmt|;
 name|fullScan
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|v
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Performs a full scan of a catalog table.    * @param hConnection connection we're using    * @param visitor Visitor invoked against each row.    * @param startrow Where to start the scan. Pass null if want to begin scan    * at first row.    *<code>hbase:meta</code>, the default (pass false to scan hbase:meta)    * @throws IOException    */
+comment|/**    * Performs a full scan of a catalog table.    * @param connection connection we're using    * @param visitor Visitor invoked against each row.    * @param startrow Where to start the scan. Pass null if want to begin scan    * at first row.    *<code>hbase:meta</code>, the default (pass false to scan hbase:meta)    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
 name|fullScan
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|Visitor
@@ -2548,7 +2548,7 @@ block|{
 name|int
 name|caching
 init|=
-name|hConnection
+name|connection
 operator|.
 name|getConfiguration
 argument_list|()
@@ -2584,7 +2584,7 @@ name|metaTable
 init|=
 name|getMetaHTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|)
 decl_stmt|;
 name|ResultScanner
@@ -3945,14 +3945,14 @@ return|return
 name|put
 return|;
 block|}
-comment|/**    * Put the passed<code>p</code> to the<code>hbase:meta</code> table.    * @param hConnection connection we're using    * @param p Put to add to hbase:meta    * @throws IOException    */
+comment|/**    * Put the passed<code>p</code> to the<code>hbase:meta</code> table.    * @param connection connection we're using    * @param p Put to add to hbase:meta    * @throws IOException    */
 specifier|static
 name|void
 name|putToMetaTable
 parameter_list|(
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|Put
@@ -3965,7 +3965,7 @@ name|put
 argument_list|(
 name|getMetaHTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|)
 argument_list|,
 name|p
@@ -4008,15 +4008,15 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Put the passed<code>ps</code> to the<code>hbase:meta</code> table.    * @param hConnection connection we're using    * @param ps Put to add to hbase:meta    * @throws IOException    */
+comment|/**    * Put the passed<code>ps</code> to the<code>hbase:meta</code> table.    * @param connection connection we're using    * @param ps Put to add to hbase:meta    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
 name|putsToMetaTable
 parameter_list|(
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|List
@@ -4033,7 +4033,7 @@ name|t
 init|=
 name|getMetaHTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|)
 decl_stmt|;
 try|try
@@ -4055,14 +4055,14 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Delete the passed<code>d</code> from the<code>hbase:meta</code> table.    * @param hConnection connection we're using    * @param d Delete to add to hbase:meta    * @throws IOException    */
+comment|/**    * Delete the passed<code>d</code> from the<code>hbase:meta</code> table.    * @param connection connection we're using    * @param d Delete to add to hbase:meta    * @throws IOException    */
 specifier|static
 name|void
 name|deleteFromMetaTable
 parameter_list|(
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|Delete
@@ -4095,21 +4095,21 @@ argument_list|)
 expr_stmt|;
 name|deleteFromMetaTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|dels
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete the passed<code>deletes</code> from the<code>hbase:meta</code> table.    * @param hConnection connection we're using    * @param deletes Deletes to add to hbase:meta  This list should support #remove.    * @throws IOException    */
+comment|/**    * Delete the passed<code>deletes</code> from the<code>hbase:meta</code> table.    * @param connection connection we're using    * @param deletes Deletes to add to hbase:meta  This list should support #remove.    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
 name|deleteFromMetaTable
 parameter_list|(
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|List
@@ -4126,7 +4126,7 @@ name|t
 init|=
 name|getMetaHTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|)
 decl_stmt|;
 try|try
@@ -4148,7 +4148,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Deletes some replica columns corresponding to replicas for the passed rows    * @param metaRows rows in hbase:meta    * @param replicaIndexToDeleteFrom the replica ID we would start deleting from    * @param numReplicasToRemove how many replicas to remove    * @param hConnection connection we're using to access meta table    * @throws IOException    */
+comment|/**    * Deletes some replica columns corresponding to replicas for the passed rows    * @param metaRows rows in hbase:meta    * @param replicaIndexToDeleteFrom the replica ID we would start deleting from    * @param numReplicasToRemove how many replicas to remove    * @param connection connection we're using to access meta table    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -4167,8 +4167,8 @@ parameter_list|,
 name|int
 name|numReplicasToRemove
 parameter_list|,
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|)
 throws|throws
 name|IOException
@@ -4258,22 +4258,22 @@ expr_stmt|;
 block|}
 name|deleteFromMetaTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|deleteReplicaLocations
 argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Execute the passed<code>mutations</code> against<code>hbase:meta</code> table.    * @param hConnection connection we're using    * @param mutations Puts and Deletes to execute on hbase:meta    * @throws IOException    */
+comment|/**    * Execute the passed<code>mutations</code> against<code>hbase:meta</code> table.    * @param connection connection we're using    * @param mutations Puts and Deletes to execute on hbase:meta    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
 name|mutateMetaTable
 parameter_list|(
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|List
@@ -4290,7 +4290,7 @@ name|t
 init|=
 name|getMetaHTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|)
 decl_stmt|;
 try|try
@@ -4341,14 +4341,14 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Adds a hbase:meta row for the specified new region.    * @param hConnection connection we're using    * @param regionInfo region information    * @throws IOException if problem connecting or updating meta    */
+comment|/**    * Adds a hbase:meta row for the specified new region.    * @param connection connection we're using    * @param regionInfo region information    * @throws IOException if problem connecting or updating meta    */
 specifier|public
 specifier|static
 name|void
 name|addRegionToMeta
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|HRegionInfo
 name|regionInfo
@@ -4358,7 +4358,7 @@ name|IOException
 block|{
 name|putToMetaTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|makePutFromRegionInfo
 argument_list|(
@@ -4406,7 +4406,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Adds a (single) hbase:meta row for the specified new region and its daughters. Note that this    * does not add its daughter's as different rows, but adds information about the daughters    * in the same row as the parent. Use    * {@link #splitRegion(org.apache.hadoop.hbase.client.HConnection,    *   HRegionInfo, HRegionInfo, HRegionInfo, ServerName)}    * if you want to do that.    * @param meta the HTable for META    * @param regionInfo region information    * @param splitA first split daughter of the parent regionInfo    * @param splitB second split daughter of the parent regionInfo    * @throws IOException if problem connecting or updating meta    */
+comment|/**    * Adds a (single) hbase:meta row for the specified new region and its daughters. Note that this    * does not add its daughter's as different rows, but adds information about the daughters    * in the same row as the parent. Use    * {@link #splitRegion(org.apache.hadoop.hbase.client.Connection,    *   HRegionInfo, HRegionInfo, HRegionInfo, ServerName)}    * if you want to do that.    * @param meta the HTable for META    * @param regionInfo region information    * @param splitA first split daughter of the parent regionInfo    * @param splitB second split daughter of the parent regionInfo    * @throws IOException if problem connecting or updating meta    */
 specifier|public
 specifier|static
 name|void
@@ -4473,14 +4473,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Adds a (single) hbase:meta row for the specified new region and its daughters. Note that this    * does not add its daughter's as different rows, but adds information about the daughters    * in the same row as the parent. Use    * {@link #splitRegion(HConnection, HRegionInfo, HRegionInfo, HRegionInfo, ServerName)}    * if you want to do that.    * @param hConnection connection we're using    * @param regionInfo region information    * @param splitA first split daughter of the parent regionInfo    * @param splitB second split daughter of the parent regionInfo    * @throws IOException if problem connecting or updating meta    */
+comment|/**    * Adds a (single) hbase:meta row for the specified new region and its daughters. Note that this    * does not add its daughter's as different rows, but adds information about the daughters    * in the same row as the parent. Use    * {@link #splitRegion(Connection, HRegionInfo, HRegionInfo, HRegionInfo, ServerName)}    * if you want to do that.    * @param connection connection we're using    * @param regionInfo region information    * @param splitA first split daughter of the parent regionInfo    * @param splitB second split daughter of the parent regionInfo    * @throws IOException if problem connecting or updating meta    */
 specifier|public
 specifier|static
 name|void
 name|addRegionToMeta
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|HRegionInfo
 name|regionInfo
@@ -4499,7 +4499,7 @@ name|meta
 init|=
 name|getMetaHTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|)
 decl_stmt|;
 try|try
@@ -4525,14 +4525,14 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Adds a hbase:meta row for each of the specified new regions.    * @param hConnection connection we're using    * @param regionInfos region information list    * @throws IOException if problem connecting or updating meta    */
+comment|/**    * Adds a hbase:meta row for each of the specified new regions.    * @param connection connection we're using    * @param regionInfos region information list    * @throws IOException if problem connecting or updating meta    */
 specifier|public
 specifier|static
 name|void
 name|addRegionsToMeta
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|List
 argument_list|<
@@ -4588,7 +4588,7 @@ block|}
 block|}
 name|putsToMetaTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|puts
 argument_list|)
@@ -4613,8 +4613,8 @@ name|void
 name|addDaughter
 parameter_list|(
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|HRegionInfo
@@ -4676,7 +4676,7 @@ expr_stmt|;
 block|}
 name|putToMetaTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|put
 argument_list|)
@@ -4709,15 +4709,15 @@ operator|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Merge the two regions into one in an atomic operation. Deletes the two    * merging regions in hbase:meta and adds the merged region with the information of    * two merging regions.    * @param hConnection connection we're using    * @param mergedRegion the merged region    * @param regionA    * @param regionB    * @param sn the location of the region    * @throws IOException    */
+comment|/**    * Merge the two regions into one in an atomic operation. Deletes the two    * merging regions in hbase:meta and adds the merged region with the information of    * two merging regions.    * @param connection connection we're using    * @param mergedRegion the merged region    * @param regionA    * @param regionB    * @param sn the location of the region    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
 name|mergeRegions
 parameter_list|(
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|HRegionInfo
 name|mergedRegion
@@ -4739,7 +4739,7 @@ name|meta
 init|=
 name|getMetaHTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|)
 decl_stmt|;
 try|try
@@ -4871,15 +4871,15 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Splits the region into two in an atomic operation. Offlines the parent    * region with the information that it is split into two, and also adds    * the daughter regions. Does not add the location information to the daughter    * regions since they are not open yet.    * @param hConnection connection we're using    * @param parent the parent region which is split    * @param splitA Split daughter region A    * @param splitB Split daughter region A    * @param sn the location of the region    */
+comment|/**    * Splits the region into two in an atomic operation. Offlines the parent    * region with the information that it is split into two, and also adds    * the daughter regions. Does not add the location information to the daughter    * regions since they are not open yet.    * @param connection connection we're using    * @param parent the parent region which is split    * @param splitA Split daughter region A    * @param splitB Split daughter region A    * @param sn the location of the region    */
 specifier|public
 specifier|static
 name|void
 name|splitRegion
 parameter_list|(
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|HRegionInfo
 name|parent
@@ -4901,7 +4901,7 @@ name|meta
 init|=
 name|getMetaHTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|)
 decl_stmt|;
 try|try
@@ -5208,14 +5208,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Updates the location of the specified region in hbase:meta to be the specified    * server hostname and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting    * hbase:meta and makes edits to that region.    *    * @param hConnection connection we're using    * @param regionInfo region to update location of    * @param sn Server name    * @throws IOException    */
+comment|/**    * Updates the location of the specified region in hbase:meta to be the specified    * server hostname and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting    * hbase:meta and makes edits to that region.    *    * @param connection connection we're using    * @param regionInfo region to update location of    * @param sn Server name    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
 name|updateRegionLocation
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|HRegionInfo
 name|regionInfo
@@ -5231,7 +5231,7 @@ name|IOException
 block|{
 name|updateLocation
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|regionInfo
 argument_list|,
@@ -5241,15 +5241,15 @@ name|updateSeqNum
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Updates the location of the specified region to be the specified server.    *<p>    * Connects to the specified server which should be hosting the specified    * catalog region name to perform the edit.    *    * @param hConnection connection we're using    * @param regionInfo region to update location of    * @param sn Server name    * @param openSeqNum the latest sequence number obtained when the region was open    * @throws IOException In particular could throw {@link java.net.ConnectException}    * if the server is down on other end.    */
+comment|/**    * Updates the location of the specified region to be the specified server.    *<p>    * Connects to the specified server which should be hosting the specified    * catalog region name to perform the edit.    *    * @param connection connection we're using    * @param regionInfo region to update location of    * @param sn Server name    * @param openSeqNum the latest sequence number obtained when the region was open    * @throws IOException In particular could throw {@link java.net.ConnectException}    * if the server is down on other end.    */
 specifier|private
 specifier|static
 name|void
 name|updateLocation
 parameter_list|(
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|HRegionInfo
 name|regionInfo
@@ -5292,7 +5292,7 @@ argument_list|)
 expr_stmt|;
 name|putToMetaTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|put
 argument_list|)
@@ -5314,14 +5314,14 @@ name|sn
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Deletes the specified region from META.    * @param hConnection connection we're using    * @param regionInfo region to be deleted from META    * @throws IOException    */
+comment|/**    * Deletes the specified region from META.    * @param connection connection we're using    * @param regionInfo region to be deleted from META    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
 name|deleteRegion
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|HRegionInfo
 name|regionInfo
@@ -5343,7 +5343,7 @@ argument_list|)
 decl_stmt|;
 name|deleteFromMetaTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|delete
 argument_list|)
@@ -5361,14 +5361,14 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Deletes the specified regions from META.    * @param hConnection connection we're using    * @param regionsInfo list of regions to be deleted from META    * @throws IOException    */
+comment|/**    * Deletes the specified regions from META.    * @param connection connection we're using    * @param regionsInfo list of regions to be deleted from META    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
 name|deleteRegions
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|List
 argument_list|<
@@ -5422,7 +5422,7 @@ expr_stmt|;
 block|}
 name|deleteFromMetaTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|deletes
 argument_list|)
@@ -5437,14 +5437,14 @@ name|regionsInfo
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Adds and Removes the specified regions from hbase:meta    * @param hConnection connection we're using    * @param regionsToRemove list of regions to be deleted from META    * @param regionsToAdd list of regions to be added to META    * @throws IOException    */
+comment|/**    * Adds and Removes the specified regions from hbase:meta    * @param connection connection we're using    * @param regionsToRemove list of regions to be deleted from META    * @param regionsToAdd list of regions to be added to META    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
 name|mutateRegions
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|List
@@ -5536,7 +5536,7 @@ block|}
 block|}
 name|mutateMetaTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|mutation
 argument_list|)
@@ -5590,14 +5590,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Overwrites the specified regions from hbase:meta    * @param hConnection connection we're using    * @param regionInfos list of regions to be added to META    * @throws IOException    */
+comment|/**    * Overwrites the specified regions from hbase:meta    * @param connection connection we're using    * @param regionInfos list of regions to be added to META    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
 name|overwriteRegions
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|List
 argument_list|<
@@ -5610,7 +5610,7 @@ name|IOException
 block|{
 name|deleteRegions
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|regionInfos
 argument_list|)
@@ -5628,7 +5628,7 @@ argument_list|)
 expr_stmt|;
 name|addRegionsToMeta
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|regionInfos
 argument_list|)
@@ -5643,14 +5643,14 @@ name|regionInfos
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Deletes merge qualifiers for the specified merged region.    * @param hConnection connection we're using    * @param mergedRegion    * @throws IOException    */
+comment|/**    * Deletes merge qualifiers for the specified merged region.    * @param connection connection we're using    * @param mergedRegion    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
 name|deleteMergeQualifiers
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|HRegionInfo
@@ -5699,7 +5699,7 @@ argument_list|)
 expr_stmt|;
 name|deleteFromMetaTable
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|delete
 argument_list|)

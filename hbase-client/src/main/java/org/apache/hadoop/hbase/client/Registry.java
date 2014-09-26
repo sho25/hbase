@@ -67,7 +67,7 @@ comment|/**    * @param connection    */
 name|void
 name|init
 parameter_list|(
-name|HConnection
+name|Connection
 name|connection
 parameter_list|)
 function_decl|;

@@ -285,7 +285,7 @@ decl_stmt|;
 specifier|public
 name|ConnectionAdapter
 parameter_list|(
-name|HConnection
+name|Connection
 name|c
 parameter_list|)
 block|{

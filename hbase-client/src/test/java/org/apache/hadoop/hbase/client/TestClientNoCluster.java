@@ -1150,7 +1150,7 @@ specifier|public
 name|void
 name|init
 parameter_list|(
-name|HConnection
+name|Connection
 name|connection
 parameter_list|)
 block|{     }
@@ -4403,7 +4403,7 @@ name|Configuration
 name|c
 parameter_list|,
 specifier|final
-name|HConnection
+name|Connection
 name|sharedConnection
 parameter_list|)
 throws|throws
@@ -4416,7 +4416,12 @@ name|sharedConnection
 operator|.
 name|getTable
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|BIG_USER_TABLE
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|table
@@ -4858,10 +4863,10 @@ decl_stmt|;
 comment|// Executors.newFixedThreadPool(servers * 10, Threads.getNamedThreadFactory("p"));
 comment|// Share a connection so I can keep counts in the 'server' on concurrency.
 specifier|final
-name|HConnection
+name|Connection
 name|sharedConnection
 init|=
-name|HConnectionManager
+name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(

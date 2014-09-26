@@ -201,7 +201,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|Connection
 import|;
 end_import
 
@@ -698,7 +698,7 @@ operator|.
 name|getMasterFileSystem
 argument_list|()
 decl_stmt|;
-name|HConnection
+name|Connection
 name|conn
 init|=
 name|masterServices

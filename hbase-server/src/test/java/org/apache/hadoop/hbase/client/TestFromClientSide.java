@@ -34118,7 +34118,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|HConnection
+name|Connection
 name|conn
 init|=
 name|t

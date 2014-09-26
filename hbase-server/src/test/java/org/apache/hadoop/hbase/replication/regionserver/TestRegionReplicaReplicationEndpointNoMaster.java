@@ -279,7 +279,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnectionManager
+name|ConnectionFactory
 import|;
 end_import
 
@@ -1220,7 +1220,7 @@ init|=
 operator|(
 name|ClusterConnection
 operator|)
-name|HConnectionManager
+name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
@@ -1503,7 +1503,7 @@ init|=
 operator|(
 name|ClusterConnection
 operator|)
-name|HConnectionManager
+name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
@@ -1693,7 +1693,7 @@ init|=
 operator|(
 name|ClusterConnection
 operator|)
-name|HConnectionManager
+name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
