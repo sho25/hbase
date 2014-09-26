@@ -611,12 +611,10 @@ operator|==
 literal|null
 operator|||
 operator|!
-name|MobUtils
-operator|.
-name|isMobFamily
-argument_list|(
 name|family
-argument_list|)
+operator|.
+name|isMobEnabled
+argument_list|()
 condition|)
 block|{
 throw|throw

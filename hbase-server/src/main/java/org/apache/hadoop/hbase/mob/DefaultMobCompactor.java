@@ -419,15 +419,13 @@ name|store
 expr_stmt|;
 name|mobSizeThreshold
 operator|=
-name|MobUtils
-operator|.
-name|getMobThreshold
-argument_list|(
 name|store
 operator|.
 name|getFamily
 argument_list|()
-argument_list|)
+operator|.
+name|getMobThreshold
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Creates a writer for a new file in a temporary directory.    * @param fd The file details.    * @param smallestReadPoint The smallest mvcc readPoint across all the scanners in this region.    * @return Writer for a new StoreFile in the tmp dir.    * @throws IOException    */

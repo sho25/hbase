@@ -1013,12 +1013,10 @@ control|)
 block|{
 if|if
 condition|(
-name|MobUtils
-operator|.
-name|isMobFamily
-argument_list|(
 name|hcd
-argument_list|)
+operator|.
+name|isMobEnabled
+argument_list|()
 condition|)
 block|{
 name|hasMob
