@@ -4316,11 +4316,13 @@ name|bytes
 parameter_list|)
 block|{
 return|return
-name|toShortUnsafe
+name|toShort
 argument_list|(
 name|bytes
 argument_list|,
 literal|0
+argument_list|,
+name|SIZEOF_SHORT
 argument_list|)
 return|;
 block|}
