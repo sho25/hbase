@@ -2414,7 +2414,9 @@ argument_list|)
 return|;
 block|}
 comment|/*************** misc **********************************/
-comment|/**    * @param cell    * @return<code>cell<code> if it is an instance of {@link KeyValue} else we will return a    * new {@link KeyValue} instance made from<code>cell</code>    */
+comment|/**    * @param cell    * @return<code>cell<code> if it is an instance of {@link KeyValue} else we will return a    * new {@link KeyValue} instance made from<code>cell</code>    * @deprecated without any replacement.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|KeyValue
@@ -2450,6 +2452,8 @@ name|cell
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|List
