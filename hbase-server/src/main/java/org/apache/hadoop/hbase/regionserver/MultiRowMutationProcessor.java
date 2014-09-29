@@ -475,7 +475,7 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|updateKVTimestamps
+name|updateCellTimestamps
 argument_list|(
 name|familyMap
 operator|.
