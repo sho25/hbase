@@ -1918,12 +1918,6 @@ comment|// monitor for distributed procedures
 name|MasterProcedureManagerHost
 name|mpmHost
 decl_stmt|;
-comment|// A flag to indicate if any table is configured to put on the active master
-specifier|protected
-specifier|final
-name|boolean
-name|tablesOnMaster
-decl_stmt|;
 specifier|private
 name|MasterQuotaManager
 name|quotaManager
@@ -2166,31 +2160,6 @@ argument_list|(
 name|this
 argument_list|)
 argument_list|)
-expr_stmt|;
-name|String
-index|[]
-name|tablesOnMaster
-init|=
-name|BaseLoadBalancer
-operator|.
-name|getTablesOnMaster
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
-name|this
-operator|.
-name|tablesOnMaster
-operator|=
-name|tablesOnMaster
-operator|!=
-literal|null
-operator|&&
-name|tablesOnMaster
-operator|.
-name|length
-operator|>
-literal|0
 expr_stmt|;
 comment|// Do we publish the status?
 name|boolean
@@ -2516,6 +2485,16 @@ name|void
 name|waitForMasterActive
 parameter_list|()
 block|{
+name|boolean
+name|tablesOnMaster
+init|=
+name|BaseLoadBalancer
+operator|.
+name|tablesOnMaster
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
 while|while
 condition|(
 operator|!
@@ -2651,7 +2630,12 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|BaseLoadBalancer
+operator|.
 name|tablesOnMaster
+argument_list|(
+name|conf
+argument_list|)
 condition|)
 block|{
 name|super
@@ -3369,7 +3353,12 @@ expr_stmt|;
 comment|// Wait for regionserver to finish initialization.
 if|if
 condition|(
+name|BaseLoadBalancer
+operator|.
 name|tablesOnMaster
+argument_list|(
+name|conf
+argument_list|)
 condition|)
 block|{
 name|waitForServerOnline

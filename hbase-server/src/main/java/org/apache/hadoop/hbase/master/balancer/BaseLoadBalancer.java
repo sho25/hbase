@@ -5335,7 +5335,7 @@ name|MasterServices
 name|services
 decl_stmt|;
 comment|/**    * By default, regions of some small system tables such as meta,    * namespace, and acl are assigned to the active master. If you don't    * want to assign any region to the active master, you need to    * configure "hbase.balancer.tablesOnMaster" to "none".    */
-specifier|public
+specifier|protected
 specifier|static
 name|String
 index|[]
@@ -5394,6 +5394,37 @@ name|getStrings
 argument_list|(
 name|valueString
 argument_list|)
+return|;
+block|}
+comment|/**    * Check if configured to put any tables on the active master    */
+specifier|public
+specifier|static
+name|boolean
+name|tablesOnMaster
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+block|{
+name|String
+index|[]
+name|tables
+init|=
+name|getTablesOnMaster
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+return|return
+name|tables
+operator|!=
+literal|null
+operator|&&
+name|tables
+operator|.
+name|length
+operator|>
+literal|0
 return|;
 block|}
 annotation|@
