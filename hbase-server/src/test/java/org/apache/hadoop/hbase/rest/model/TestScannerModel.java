@@ -241,7 +241,7 @@ literal|"startTime=\"1245219839331\">"
 operator|+
 literal|"<column>Y29sdW1uMQ==</column><column>Y29sdW1uMjpmb28=</column>"
 operator|+
-literal|"<label>private</label><label>public</label>"
+literal|"<labels>private</labels><labels>public</labels>"
 operator|+
 literal|"</Scanner>"
 expr_stmt|;

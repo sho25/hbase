@@ -3657,7 +3657,7 @@ name|XmlElement
 argument_list|(
 name|name
 operator|=
-literal|"label"
+literal|"labels"
 argument_list|)
 specifier|public
 name|List
