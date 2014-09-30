@@ -307,6 +307,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|HTable
@@ -859,7 +873,7 @@ parameter_list|(
 name|Path
 name|hfiles
 parameter_list|,
-name|String
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -876,6 +890,9 @@ name|toString
 argument_list|()
 block|,
 name|tableName
+operator|.
+name|getNameAsString
+argument_list|()
 block|}
 decl_stmt|;
 name|LOG
@@ -1179,9 +1196,13 @@ argument_list|(
 literal|"Running test testGenerateAndLoad."
 argument_list|)
 expr_stmt|;
-name|String
+name|TableName
 name|table
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|NAME
 operator|+
 literal|"-"
@@ -1190,6 +1211,7 @@ name|UUID
 operator|.
 name|randomUUID
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|String
 name|cf
@@ -1207,6 +1229,9 @@ operator|.
 name|getDataTestDirOnTestFS
 argument_list|(
 name|table
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 argument_list|,
 literal|"hfiles"
@@ -1253,6 +1278,9 @@ name|DELETE_AFTER_LOAD_CONF
 argument_list|)
 block|,
 name|table
+operator|.
+name|getNameAsString
+argument_list|()
 block|}
 decl_stmt|;
 comment|// run the job, complete the load.
@@ -1262,7 +1290,12 @@ name|createTable
 argument_list|(
 name|table
 argument_list|,
+operator|new
+name|String
+index|[]
+block|{
 name|cf
+block|}
 argument_list|)
 expr_stmt|;
 name|Tool
@@ -1310,6 +1343,9 @@ operator|.
 name|cleanupDataTestDirOnTestFS
 argument_list|(
 name|table
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|LOG

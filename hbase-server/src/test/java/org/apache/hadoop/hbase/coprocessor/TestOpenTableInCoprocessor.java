@@ -989,7 +989,12 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"primary"
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|Put

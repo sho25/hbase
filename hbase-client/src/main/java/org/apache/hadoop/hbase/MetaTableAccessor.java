@@ -3746,6 +3746,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Count regions in<code>hbase:meta</code> for passed table.    * @param c Configuration object    * @param tableName table name to count regions for    * @return Count or regions in table<code>tableName</code>    * @throws IOException    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|int
@@ -3757,6 +3759,37 @@ name|c
 parameter_list|,
 specifier|final
 name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|getRegionCount
+argument_list|(
+name|c
+argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+return|;
+block|}
+comment|/**    * Count regions in<code>hbase:meta</code> for passed table.    * @param c Configuration object    * @param tableName table name to count regions for    * @return Count or regions in table<code>tableName</code>    * @throws IOException    */
+specifier|public
+specifier|static
+name|int
+name|getRegionCount
+parameter_list|(
+specifier|final
+name|Configuration
+name|c
+parameter_list|,
+specifier|final
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws

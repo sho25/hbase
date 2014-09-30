@@ -790,9 +790,13 @@ name|close
 argument_list|()
 expr_stmt|;
 comment|// Create the test table and open it
-name|String
+name|TableName
 name|tableName
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|this
 operator|.
 name|getClass
@@ -800,6 +804,7 @@ argument_list|()
 operator|.
 name|getSimpleName
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|HTableDescriptor
 name|desc
@@ -807,12 +812,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|desc
@@ -846,7 +846,10 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|tableName
+name|desc
+operator|.
+name|getTableName
+argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
@@ -858,12 +861,7 @@ name|TEST_UTIL
 operator|.
 name|getRSForFirstRegionInTable
 argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|HLog

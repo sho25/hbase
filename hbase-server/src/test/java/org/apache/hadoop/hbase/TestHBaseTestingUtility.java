@@ -490,13 +490,12 @@ name|startMiniCluster
 argument_list|()
 expr_stmt|;
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|TABLE_NAME
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"test"
 argument_list|)

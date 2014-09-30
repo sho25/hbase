@@ -518,13 +518,12 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|byte
-index|[]
+name|TableName
 name|table
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testInvalidColumnFamily"
 argument_list|)

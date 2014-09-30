@@ -884,7 +884,10 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|tableName
+name|desc
+operator|.
+name|getTableName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|table
@@ -937,7 +940,10 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 argument_list|,
-name|tableName
+name|desc
+operator|.
+name|getTableName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Overwrite previous value

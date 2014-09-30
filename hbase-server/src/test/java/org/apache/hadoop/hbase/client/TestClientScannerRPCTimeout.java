@@ -675,13 +675,12 @@ throws|throws
 name|Exception
 block|{
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|TABLE_NAME
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testScannerNextRPCTimesout"
 argument_list|)

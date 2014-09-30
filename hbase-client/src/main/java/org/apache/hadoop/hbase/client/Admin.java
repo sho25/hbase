@@ -605,7 +605,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Method for getting the tableDescriptor    *    * @param tableName as a byte []    * @return the tableDescriptor    * @throws org.apache.hadoop.hbase.TableNotFoundException    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Method for getting the tableDescriptor    *    * @param tableName as a {@link TableName}    * @return the tableDescriptor    * @throws org.apache.hadoop.hbase.TableNotFoundException    * @throws IOException if a remote or network exception occurs    */
 name|HTableDescriptor
 name|getTableDescriptor
 parameter_list|(

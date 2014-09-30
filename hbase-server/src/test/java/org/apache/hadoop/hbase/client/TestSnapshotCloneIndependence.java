@@ -441,13 +441,12 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|TABLE_NAME
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 name|STRING_TABLE_NAME
 argument_list|)

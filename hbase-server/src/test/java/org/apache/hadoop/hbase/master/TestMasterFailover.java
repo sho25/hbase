@@ -1419,7 +1419,12 @@ name|TEST_UTIL
 operator|.
 name|createTable
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"onlineTable"
+argument_list|)
 argument_list|,
 literal|"family"
 argument_list|)

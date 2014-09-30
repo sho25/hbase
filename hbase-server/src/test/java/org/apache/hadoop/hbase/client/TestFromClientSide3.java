@@ -2107,9 +2107,9 @@ name|TEST_UTIL
 operator|.
 name|createTable
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testHTableExistsMethodMultipleRegionsSingleGet"
 argument_list|)
@@ -2230,9 +2230,9 @@ name|TEST_UTIL
 operator|.
 name|createTable
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testHTableExistsMethodMultipleRegionsMultipleGets"
 argument_list|)
@@ -2764,7 +2764,10 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-literal|"test"
+name|desc
+operator|.
+name|getTableName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|Put

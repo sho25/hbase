@@ -442,7 +442,12 @@ name|TEST_UTIL
 operator|.
 name|createTable
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|table
+argument_list|)
 argument_list|,
 name|family
 argument_list|)

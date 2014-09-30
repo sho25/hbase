@@ -420,8 +420,7 @@ name|Path
 argument_list|>
 name|findStorefilePaths
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -730,7 +729,7 @@ name|conf
 argument_list|,
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -834,7 +833,7 @@ name|findStorefilePaths
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;

@@ -820,6 +820,7 @@ argument_list|(
 name|action
 argument_list|)
 expr_stmt|;
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -933,10 +934,7 @@ name|HTable
 argument_list|(
 name|conf
 argument_list|,
-name|TEST_NAME
-operator|.
-name|getMethodName
-argument_list|()
+name|tableName
 argument_list|)
 expr_stmt|;
 name|Put
@@ -1121,6 +1119,7 @@ argument_list|(
 name|action
 argument_list|)
 expr_stmt|;
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -1212,10 +1211,7 @@ name|HTable
 argument_list|(
 name|conf
 argument_list|,
-name|TEST_NAME
-operator|.
-name|getMethodName
-argument_list|()
+name|tableName
 argument_list|)
 expr_stmt|;
 name|Put
@@ -1314,10 +1310,7 @@ name|HTable
 argument_list|(
 name|conf
 argument_list|,
-name|TEST_NAME
-operator|.
-name|getMethodName
-argument_list|()
+name|tableName
 argument_list|)
 expr_stmt|;
 name|Append
@@ -1406,10 +1399,7 @@ name|HTable
 argument_list|(
 name|conf
 argument_list|,
-name|TEST_NAME
-operator|.
-name|getMethodName
-argument_list|()
+name|tableName
 argument_list|)
 expr_stmt|;
 name|Append

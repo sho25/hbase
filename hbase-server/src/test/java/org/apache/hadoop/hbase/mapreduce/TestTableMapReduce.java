@@ -685,15 +685,10 @@ expr_stmt|;
 comment|// verify map-reduce results
 name|verify
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|table
 operator|.
-name|getTableName
+name|getName
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

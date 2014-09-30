@@ -598,7 +598,7 @@ name|HColumnDescriptor
 name|hcd
 decl_stmt|;
 specifier|private
-name|String
+name|TableName
 name|tableName
 decl_stmt|;
 specifier|private
@@ -681,9 +681,14 @@ name|IOException
 block|{
 name|tableName
 operator|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"test_table_"
 operator|+
 name|testId
+argument_list|)
 expr_stmt|;
 name|HTableDescriptor
 name|htd
@@ -691,12 +696,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|hcd
@@ -913,7 +913,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|String
+name|TableName
 name|tableName
 parameter_list|,
 name|int
@@ -1050,7 +1050,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|String
+name|TableName
 name|tableName
 parameter_list|,
 name|int

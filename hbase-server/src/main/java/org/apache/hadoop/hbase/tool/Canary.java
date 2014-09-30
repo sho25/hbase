@@ -3127,7 +3127,7 @@ name|serverName
 init|=
 literal|null
 decl_stmt|;
-name|String
+name|TableName
 name|tableName
 init|=
 literal|null
@@ -3219,9 +3219,6 @@ operator|=
 name|region
 operator|.
 name|getTable
-argument_list|()
-operator|.
-name|getNameAsString
 argument_list|()
 expr_stmt|;
 name|table
@@ -3338,6 +3335,9 @@ operator|.
 name|publishReadTiming
 argument_list|(
 name|tableName
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|,
 name|serverName
 argument_list|,
@@ -3385,6 +3385,9 @@ operator|.
 name|publishReadFailure
 argument_list|(
 name|tableName
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|,
 name|serverName
 argument_list|)
@@ -3411,6 +3414,9 @@ operator|.
 name|publishReadFailure
 argument_list|(
 name|tableName
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|,
 name|serverName
 argument_list|)

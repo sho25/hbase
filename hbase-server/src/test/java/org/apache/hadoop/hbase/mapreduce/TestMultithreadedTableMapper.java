@@ -460,13 +460,12 @@ argument_list|()
 decl_stmt|;
 specifier|static
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|MULTI_REGION_TABLE_NAME
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"mrtest"
 argument_list|)
@@ -864,15 +863,10 @@ name|TableMapReduceUtil
 operator|.
 name|initTableMapperJob
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|table
 operator|.
 name|getTableName
 argument_list|()
-argument_list|)
 argument_list|,
 name|scan
 argument_list|,
@@ -951,15 +945,10 @@ name|info
 argument_list|(
 literal|"Started "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|table
 operator|.
 name|getTableName
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -982,15 +971,10 @@ expr_stmt|;
 comment|// verify map-reduce results
 name|verify
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|table
 operator|.
-name|getTableName
+name|getName
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1034,7 +1018,7 @@ specifier|private
 name|void
 name|verify
 parameter_list|(
-name|String
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws

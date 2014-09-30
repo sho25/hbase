@@ -1223,7 +1223,12 @@ name|HTable
 argument_list|(
 name|conf
 argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|table

@@ -796,9 +796,9 @@ name|TEST_UTIL
 operator|.
 name|createTable
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 name|table
 argument_list|)

@@ -4657,7 +4657,7 @@ specifier|public
 name|HTable
 name|createTable
 parameter_list|(
-name|String
+name|TableName
 name|tableName
 parameter_list|,
 name|String
@@ -4669,12 +4669,7 @@ block|{
 return|return
 name|createTable
 argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|,
 operator|new
 name|String
@@ -10190,38 +10185,6 @@ end_function
 
 begin_comment
 comment|/**    * Tool to get the reference to the region server object that holds the    * region of the specified user table.    * It first searches for the meta rows that contain the region of the    * specified table, then gets the index of that RS, and finally retrieves    * the RS's reference.    * @param tableName user table to lookup in hbase:meta    * @return region server that holds it, null if the row doesn't exist    * @throws IOException    * @throws InterruptedException    */
-end_comment
-
-begin_function
-specifier|public
-name|HRegionServer
-name|getRSForFirstRegionInTable
-parameter_list|(
-name|byte
-index|[]
-name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
-block|{
-return|return
-name|getRSForFirstRegionInTable
-argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
-name|tableName
-argument_list|)
-argument_list|)
-return|;
-block|}
-end_function
-
-begin_comment
-comment|/**    * Tool to get the reference to the region server object that holds the    * region of the specified user table.    * It first searches for the meta rows that contain the region of the    * specified table, then gets the index of that RS, and finally retrieves    * the RS's reference.    * @param tableName user table to lookup in hbase:meta    * @return region server that holds it, null if the row doesn't exist    * @throws IOException    */
 end_comment
 
 begin_function

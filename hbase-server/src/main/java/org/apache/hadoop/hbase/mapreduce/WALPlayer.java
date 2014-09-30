@@ -1497,10 +1497,15 @@ name|HTable
 argument_list|(
 name|conf
 argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tables
 index|[
 literal|0
 index|]
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|job
