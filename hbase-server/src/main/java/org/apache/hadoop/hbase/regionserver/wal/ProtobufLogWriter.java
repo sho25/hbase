@@ -978,14 +978,14 @@ name|this
 operator|.
 name|output
 operator|.
-name|flush
+name|hflush
 argument_list|()
 expr_stmt|;
 name|this
 operator|.
 name|output
 operator|.
-name|sync
+name|hsync
 argument_list|()
 expr_stmt|;
 block|}
