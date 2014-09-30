@@ -1110,9 +1110,13 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-name|String
+name|TableName
 name|tableName
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|cmd
 operator|.
 name|getArgs
@@ -1120,6 +1124,7 @@ argument_list|()
 index|[
 literal|0
 index|]
+argument_list|)
 decl_stmt|;
 name|String
 name|splitClass
@@ -1274,7 +1279,7 @@ specifier|static
 name|void
 name|createPresplitTable
 parameter_list|(
-name|String
+name|TableName
 name|tableName
 parameter_list|,
 name|SplitAlgorithm
@@ -1356,12 +1361,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 decl_stmt|;
 for|for
@@ -1527,7 +1527,7 @@ specifier|static
 name|void
 name|rollingSplit
 parameter_list|(
-name|String
+name|TableName
 name|tableName
 parameter_list|,
 name|SplitAlgorithm

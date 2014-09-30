@@ -600,9 +600,6 @@ argument_list|(
 name|conf
 argument_list|,
 name|aclTableName
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Batch
@@ -1039,9 +1036,6 @@ argument_list|(
 name|conf
 argument_list|,
 name|aclTableName
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Batch
@@ -1420,9 +1414,6 @@ argument_list|(
 name|conf
 argument_list|,
 name|aclTableName
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|CoprocessorRpcChannel

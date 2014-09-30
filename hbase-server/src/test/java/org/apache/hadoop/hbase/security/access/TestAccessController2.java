@@ -383,9 +383,6 @@ argument_list|(
 name|AccessControlLists
 operator|.
 name|ACL_TABLE_NAME
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -534,9 +531,6 @@ argument_list|(
 name|TEST_TABLE
 operator|.
 name|getTableName
-argument_list|()
-operator|.
-name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;

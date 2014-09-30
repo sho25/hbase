@@ -394,7 +394,7 @@ argument_list|()
 argument_list|,
 name|HTestConst
 operator|.
-name|DEFAULT_TABLE_BYTES
+name|DEFAULT_TABLE
 argument_list|)
 decl_stmt|;
 name|ResultScanner

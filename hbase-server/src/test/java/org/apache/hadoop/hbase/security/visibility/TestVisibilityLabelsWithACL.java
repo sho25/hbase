@@ -1048,7 +1048,7 @@ name|conf
 argument_list|,
 name|table
 operator|.
-name|getTableName
+name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1257,7 +1257,7 @@ name|conf
 argument_list|,
 name|table
 operator|.
-name|getTableName
+name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1439,7 +1439,7 @@ name|conf
 argument_list|,
 name|table
 operator|.
-name|getTableName
+name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1656,7 +1656,7 @@ name|conf
 argument_list|,
 name|table
 operator|.
-name|getTableName
+name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;

@@ -2247,9 +2247,6 @@ operator|.
 name|createPresplitTable
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|,
 name|splitAlgo
 argument_list|,
@@ -2381,9 +2378,6 @@ operator|.
 name|rollingSplit
 argument_list|(
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|,
 name|splitAlgo
 argument_list|,
@@ -2566,6 +2560,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|hTable
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**      * List.indexOf() doesn't really work for a List<byte[]>, because byte[]      * doesn't override equals(). This method checks whether a list contains      * a given element by checking each element using the byte array      * comparator.      * @return the index of the first element that equals compareTo, or -1      * if no elements are equal.      */
 specifier|static

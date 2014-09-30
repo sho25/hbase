@@ -464,9 +464,6 @@ argument_list|(
 name|conf
 argument_list|,
 name|LABELS_TABLE_NAME
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Batch
@@ -735,9 +732,6 @@ argument_list|(
 name|conf
 argument_list|,
 name|LABELS_TABLE_NAME
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Batch
@@ -978,9 +972,6 @@ argument_list|(
 name|conf
 argument_list|,
 name|LABELS_TABLE_NAME
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Batch

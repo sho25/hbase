@@ -840,8 +840,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|table
 parameter_list|,
 name|byte
@@ -898,12 +897,7 @@ operator|=
 operator|new
 name|TablePermission
 argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|table
-argument_list|)
 argument_list|,
 name|family
 argument_list|,
@@ -934,8 +928,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|table
 parameter_list|,
 name|Permission

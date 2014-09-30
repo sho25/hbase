@@ -525,9 +525,6 @@ operator|.
 name|waitTableEnabled
 argument_list|(
 name|TABLE
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -683,9 +680,6 @@ operator|.
 name|waitTableAvailable
 argument_list|(
 name|TABLE
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -790,9 +784,6 @@ operator|.
 name|waitTableEnabled
 argument_list|(
 name|TABLE
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

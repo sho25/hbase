@@ -1556,13 +1556,12 @@ throws|throws
 name|Exception
 block|{
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|TABLENAME
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testKeepDeletesCells"
 argument_list|)
@@ -2943,13 +2942,12 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|byte
-index|[]
+name|TableName
 name|TABLE
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testWeirdCacheBehaviour"
 argument_list|)
@@ -34576,7 +34574,7 @@ operator|.
 name|getTableDescriptor
 argument_list|()
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 literal|"wrong table descriptor returned"
 argument_list|,
@@ -34584,11 +34582,8 @@ name|desc
 operator|.
 name|getTableName
 argument_list|()
-operator|.
-name|equals
-argument_list|(
+argument_list|,
 name|tableAname
-argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// check HTD attribute

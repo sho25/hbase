@@ -2417,9 +2417,6 @@ operator|.
 name|waitTableEnabled
 argument_list|(
 name|tableName
-operator|.
-name|toBytes
-argument_list|()
 argument_list|)
 expr_stmt|;
 while|while

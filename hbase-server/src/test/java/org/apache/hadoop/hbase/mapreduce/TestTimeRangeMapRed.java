@@ -694,13 +694,12 @@ decl_stmt|;
 comment|// maxStamp itself is excluded. so increment it.
 specifier|static
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|TABLE_NAME
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"table123"
 argument_list|)
@@ -1022,12 +1021,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|TABLE_NAME
-argument_list|)
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -1262,12 +1256,7 @@ name|TableMapReduceUtil
 operator|.
 name|initTableMapperJob
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|TABLE_NAME
-argument_list|)
 argument_list|,
 name|scan
 argument_list|,

@@ -5297,7 +5297,10 @@ name|HTable
 argument_list|(
 name|c
 argument_list|,
-name|tableName
+name|desc
+operator|.
+name|getTableName
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -5471,7 +5474,10 @@ name|HTable
 argument_list|(
 name|c
 argument_list|,
-name|tableName
+name|desc
+operator|.
+name|getTableName
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -6128,12 +6134,10 @@ expr_stmt|;
 comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
-name|TableName
+name|desc
 operator|.
-name|valueOf
-argument_list|(
-name|tableName
-argument_list|)
+name|getTableName
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
@@ -6143,7 +6147,10 @@ argument_list|(
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|tableName
+name|desc
+operator|.
+name|getTableName
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -12229,8 +12236,7 @@ specifier|public
 name|void
 name|waitTableAvailable
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|table
 parameter_list|)
 throws|throws
@@ -12244,6 +12250,9 @@ name|getHBaseAdmin
 argument_list|()
 argument_list|,
 name|table
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 literal|30000
 argument_list|)
@@ -12399,8 +12408,7 @@ specifier|public
 name|void
 name|waitTableEnabled
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|table
 parameter_list|)
 throws|throws
@@ -12414,6 +12422,9 @@ name|getHBaseAdmin
 argument_list|()
 argument_list|,
 name|table
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 literal|30000
 argument_list|)

@@ -279,16 +279,10 @@ decl_stmt|;
 specifier|private
 specifier|final
 specifier|static
-name|byte
-index|[]
+name|String
 name|TABLENAME
 init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 literal|"TestHTablePool"
-argument_list|)
 decl_stmt|;
 specifier|public
 specifier|abstract
@@ -317,7 +311,12 @@ name|TEST_UTIL
 operator|.
 name|createTable
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|TABLENAME
+argument_list|)
 argument_list|,
 name|HConstants
 operator|.
@@ -378,12 +377,7 @@ decl_stmt|;
 name|String
 name|tableName
 init|=
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|TABLENAME
-argument_list|)
 decl_stmt|;
 comment|// Request a table from an empty pool
 name|Table
@@ -746,12 +740,7 @@ decl_stmt|;
 name|String
 name|tableName
 init|=
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|TABLENAME
-argument_list|)
 decl_stmt|;
 comment|// Request a table from
 comment|// an
@@ -807,12 +796,7 @@ decl_stmt|;
 name|String
 name|tableName
 init|=
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|TABLENAME
-argument_list|)
 decl_stmt|;
 comment|// Request a table from
 comment|// an
@@ -906,12 +890,7 @@ decl_stmt|;
 name|String
 name|tableName
 init|=
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|TABLENAME
-argument_list|)
 decl_stmt|;
 comment|// Request a table from
 comment|// an
@@ -939,7 +918,12 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|TABLENAME
+argument_list|)
 argument_list|)
 block|{
 comment|// implementation doesn't matter as long the table is not from
@@ -1012,12 +996,7 @@ decl_stmt|;
 name|String
 name|tableName
 init|=
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|TABLENAME
-argument_list|)
 decl_stmt|;
 comment|// Request a table from an empty pool
 name|Table
@@ -1520,12 +1499,7 @@ name|pool
 operator|.
 name|getCurrentPoolSize
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|TABLENAME
-argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1546,12 +1520,7 @@ name|pool
 operator|.
 name|getCurrentPoolSize
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|TABLENAME
-argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1959,12 +1928,7 @@ name|pool
 operator|.
 name|getCurrentPoolSize
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|TABLENAME
-argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1985,12 +1949,7 @@ name|pool
 operator|.
 name|getCurrentPoolSize
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|TABLENAME
-argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;

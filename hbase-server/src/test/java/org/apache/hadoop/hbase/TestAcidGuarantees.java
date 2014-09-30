@@ -447,13 +447,12 @@ decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|TABLE_NAME
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"TestAcidGuarantees"
 argument_list|)

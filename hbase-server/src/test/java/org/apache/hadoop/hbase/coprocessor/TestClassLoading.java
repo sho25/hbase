@@ -3315,9 +3315,6 @@ operator|.
 name|waitTableEnabled
 argument_list|(
 name|name
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Now wait a bit longer for the coprocessor hosts to load the CPs

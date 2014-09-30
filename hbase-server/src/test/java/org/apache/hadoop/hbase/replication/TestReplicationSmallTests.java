@@ -2690,12 +2690,10 @@ index|[]
 block|{
 literal|"2"
 block|,
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
+operator|.
+name|getNameAsString
+argument_list|()
 block|}
 decl_stmt|;
 name|Job

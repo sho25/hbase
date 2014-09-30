@@ -360,13 +360,12 @@ decl_stmt|;
 specifier|protected
 specifier|static
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|MULTI_REGION_TABLE_NAME
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"mrtest"
 argument_list|)

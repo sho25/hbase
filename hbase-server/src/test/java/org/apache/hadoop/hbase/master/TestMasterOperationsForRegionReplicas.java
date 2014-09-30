@@ -890,9 +890,6 @@ operator|.
 name|waitTableEnabled
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|validateNumberOfRowsInMeta
@@ -1331,9 +1328,6 @@ operator|.
 name|waitTableEnabled
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|admin
@@ -1386,9 +1380,6 @@ operator|.
 name|waitTableEnabled
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|admin
@@ -1863,9 +1854,6 @@ operator|.
 name|waitTableEnabled
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Set

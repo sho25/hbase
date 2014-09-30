@@ -828,9 +828,6 @@ argument_list|(
 name|AccessControlLists
 operator|.
 name|ACL_TABLE_NAME
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// create a set of test users
@@ -993,9 +990,6 @@ argument_list|(
 name|TEST_TABLE
 operator|.
 name|getTableName
-argument_list|()
-operator|.
-name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;

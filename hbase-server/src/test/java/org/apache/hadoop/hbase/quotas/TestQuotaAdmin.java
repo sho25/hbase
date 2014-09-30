@@ -551,9 +551,6 @@ argument_list|(
 name|QuotaTableUtil
 operator|.
 name|QUOTA_TABLE_NAME
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

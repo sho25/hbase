@@ -2482,7 +2482,7 @@ argument_list|()
 argument_list|,
 name|tableDesc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3602,7 +3602,7 @@ argument_list|()
 argument_list|,
 name|tableDesc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
