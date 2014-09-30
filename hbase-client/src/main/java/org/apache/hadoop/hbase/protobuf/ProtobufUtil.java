@@ -2819,6 +2819,15 @@ index|[]
 name|bytes
 parameter_list|)
 block|{
+if|if
+condition|(
+name|bytes
+operator|==
+literal|null
+condition|)
+return|return
+literal|false
+return|;
 return|return
 name|isPBMagicPrefix
 argument_list|(

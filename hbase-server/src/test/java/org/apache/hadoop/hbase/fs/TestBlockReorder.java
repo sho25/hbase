@@ -1704,7 +1704,7 @@ name|startMiniHBaseCluster
 argument_list|(
 literal|1
 argument_list|,
-literal|0
+literal|1
 argument_list|)
 decl_stmt|;
 name|hbm

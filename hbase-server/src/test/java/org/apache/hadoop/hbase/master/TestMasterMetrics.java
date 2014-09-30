@@ -434,7 +434,7 @@ name|startMiniCluster
 argument_list|(
 literal|1
 argument_list|,
-literal|0
+literal|1
 argument_list|,
 literal|1
 argument_list|,
@@ -729,7 +729,7 @@ name|assertGauge
 argument_list|(
 literal|"numRegionServers"
 argument_list|,
-literal|1
+literal|2
 argument_list|,
 name|masterSource
 argument_list|)

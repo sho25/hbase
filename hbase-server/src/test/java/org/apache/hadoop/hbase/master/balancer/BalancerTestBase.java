@@ -1407,8 +1407,6 @@ name|BaseLoadBalancer
 operator|.
 name|Cluster
 argument_list|(
-literal|null
-argument_list|,
 name|mockClusterServers
 argument_list|(
 name|mockCluster
@@ -1416,8 +1414,6 @@ argument_list|,
 operator|-
 literal|1
 argument_list|)
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|,

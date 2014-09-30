@@ -2021,7 +2021,7 @@ name|numServers
 return|;
 block|}
 comment|/** @return the count of active regionservers */
-specifier|private
+specifier|public
 name|int
 name|countOfRegionServers
 parameter_list|()
