@@ -229,56 +229,8 @@ name|CoprocessorRpcChannel
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Descriptors
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Message
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Service
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ServiceException
-import|;
-end_import
-
 begin_comment
-comment|/**  * Used to communicate with a single HBase table.  * Obtain an instance from an {@link HConnection}.  *  * @since 0.99.0  */
+comment|/**  * Used to communicate with a single HBase table.  * Obtain an instance from a {@link Connection}.  *  * @since 0.99.0  */
 end_comment
 
 begin_interface
