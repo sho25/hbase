@@ -1145,15 +1145,6 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|plans
-operator|==
-literal|null
-condition|)
-return|return
-name|result
-return|;
 name|Map
 argument_list|<
 name|ServerName
@@ -1197,6 +1188,13 @@ name|sl
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|plans
+operator|!=
+literal|null
+condition|)
+block|{
 for|for
 control|(
 name|RegionPlan
@@ -1271,6 +1269,7 @@ name|getRegionInfo
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|result
 operator|.
