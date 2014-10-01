@@ -974,18 +974,21 @@ name|IOException
 block|{
 try|try
 block|{
+comment|// This looks to be a noop but its what we have always done.  Leaving for now.
+name|this
+operator|.
+name|output
+operator|.
+name|flush
+argument_list|()
+expr_stmt|;
+comment|// TODO: Add in option to call hsync. See HBASE-5954 Allow proper fsync support for HBase
+comment|//
 name|this
 operator|.
 name|output
 operator|.
 name|hflush
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|output
-operator|.
-name|hsync
 argument_list|()
 expr_stmt|;
 block|}
