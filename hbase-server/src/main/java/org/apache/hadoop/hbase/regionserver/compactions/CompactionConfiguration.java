@@ -111,10 +111,6 @@ begin_comment
 comment|/**  * Compaction configuration for a particular instance of HStore.  * Takes into account both global settings and ones set on the column family/store.  * Control knobs for default compaction algorithm:  *<p/>  * maxCompactSize - upper bound on file size to be included in minor compactions  * minCompactSize - lower bound below which compaction is selected without ratio test  * minFilesToCompact - lower bound on number of files in any minor compaction  * maxFilesToCompact - upper bound on number of files in any minor compaction  * compactionRatio - Ratio used for compaction  *<p/>  * Set parameter as "hbase.hstore.compaction.<attribute>"  */
 end_comment
 
-begin_comment
-comment|//TODO: revisit this class for online parameter updating (both in xml and on the CF)
-end_comment
-
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -186,36 +182,71 @@ name|HBASE_HSTORE_COMPACTION_MAX_SIZE_KEY
 init|=
 literal|"hbase.hstore.compaction.max.size"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_HSTORE_OFFPEAK_END_HOUR
+init|=
+literal|"hbase.offpeak.end.hour"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_HSTORE_OFFPEAK_START_HOUR
+init|=
+literal|"hbase.offpeak.start.hour"
+decl_stmt|;
 name|Configuration
 name|conf
 decl_stmt|;
 name|StoreConfigInformation
 name|storeConfigInfo
 decl_stmt|;
+specifier|private
+specifier|final
+name|double
+name|offPeakCompactionRatio
+decl_stmt|;
+comment|/** Since all these properties can change online, they are volatile **/
+specifier|private
+specifier|final
 name|long
 name|maxCompactSize
 decl_stmt|;
+specifier|private
+specifier|final
 name|long
 name|minCompactSize
 decl_stmt|;
+specifier|private
+specifier|final
 name|int
 name|minFilesToCompact
 decl_stmt|;
+specifier|private
+specifier|final
 name|int
 name|maxFilesToCompact
 decl_stmt|;
+specifier|private
+specifier|final
 name|double
 name|compactionRatio
 decl_stmt|;
-name|double
-name|offPeekCompactionRatio
-decl_stmt|;
+specifier|private
+specifier|final
 name|long
 name|throttlePoint
 decl_stmt|;
+specifier|private
+specifier|final
 name|long
 name|majorCompactionPeriod
 decl_stmt|;
+specifier|private
+specifier|final
 name|float
 name|majorCompactionJitter
 decl_stmt|;
@@ -315,7 +346,7 @@ argument_list|,
 literal|1.2F
 argument_list|)
 expr_stmt|;
-name|offPeekCompactionRatio
+name|offPeakCompactionRatio
 operator|=
 name|conf
 operator|.
@@ -411,7 +442,7 @@ name|maxFilesToCompact
 argument_list|,
 name|compactionRatio
 argument_list|,
-name|offPeekCompactionRatio
+name|offPeakCompactionRatio
 argument_list|,
 name|throttlePoint
 argument_list|,
@@ -422,6 +453,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return lower bound below which compaction is selected without ratio test    */
+specifier|public
 name|long
 name|getMinCompactSize
 parameter_list|()
@@ -431,6 +463,7 @@ name|minCompactSize
 return|;
 block|}
 comment|/**    * @return upper bound on file size to be included in minor compactions    */
+specifier|public
 name|long
 name|getMaxCompactSize
 parameter_list|()
@@ -440,6 +473,7 @@ name|maxCompactSize
 return|;
 block|}
 comment|/**    * @return upper bound on number of files to be included in minor compactions    */
+specifier|public
 name|int
 name|getMinFilesToCompact
 parameter_list|()
@@ -449,6 +483,7 @@ name|minFilesToCompact
 return|;
 block|}
 comment|/**    * @return upper bound on number of files to be included in minor compactions    */
+specifier|public
 name|int
 name|getMaxFilesToCompact
 parameter_list|()
@@ -458,6 +493,7 @@ name|maxFilesToCompact
 return|;
 block|}
 comment|/**    * @return Ratio used for compaction    */
+specifier|public
 name|double
 name|getCompactionRatio
 parameter_list|()
@@ -467,15 +503,17 @@ name|compactionRatio
 return|;
 block|}
 comment|/**    * @return Off peak Ratio used for compaction    */
+specifier|public
 name|double
 name|getCompactionRatioOffPeak
 parameter_list|()
 block|{
 return|return
-name|offPeekCompactionRatio
+name|offPeakCompactionRatio
 return|;
 block|}
 comment|/**    * @return ThrottlePoint used for classifying small and large compactions    */
+specifier|public
 name|long
 name|getThrottlePoint
 parameter_list|()
@@ -485,6 +523,7 @@ name|throttlePoint
 return|;
 block|}
 comment|/**    * @return Major compaction period from compaction.    * Major compactions are selected periodically according to this parameter plus jitter    */
+specifier|public
 name|long
 name|getMajorCompactionPeriod
 parameter_list|()
@@ -494,6 +533,7 @@ name|majorCompactionPeriod
 return|;
 block|}
 comment|/**    * @return Major the jitter fraction, the fraction within which the major compaction    *  period is randomly chosen from the majorCompactionPeriod in each store.    */
+specifier|public
 name|float
 name|getMajorCompactionJitter
 parameter_list|()

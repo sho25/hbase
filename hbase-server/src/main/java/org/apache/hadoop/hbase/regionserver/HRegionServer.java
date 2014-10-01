@@ -727,6 +727,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|conf
+operator|.
+name|ConfigurationManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|conf
+operator|.
+name|ConfigurationObserver
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|coordination
 operator|.
 name|BaseCoordinatedStateManager
@@ -2756,6 +2788,12 @@ specifier|protected
 name|BaseCoordinatedStateManager
 name|csm
 decl_stmt|;
+comment|/**    * Configuration manager is used to register/deregister and notify the configuration observers    * when the regionserver is notified that there was a change in the on disk configs.    */
+specifier|private
+specifier|final
+name|ConfigurationManager
+name|configurationManager
+decl_stmt|;
 comment|/**    * Starts a HRegionServer at the default location.    * @param conf    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 name|HRegionServer
@@ -3297,6 +3335,14 @@ name|start
 argument_list|()
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|configurationManager
+operator|=
+operator|new
+name|ConfigurationManager
+argument_list|()
+expr_stmt|;
 name|rpcServices
 operator|.
 name|start
@@ -4160,6 +4206,25 @@ name|this
 argument_list|)
 expr_stmt|;
 block|}
+name|registerConfigurationObservers
+argument_list|()
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|registerConfigurationObservers
+parameter_list|()
+block|{
+comment|// Registering the compactSplitThread object with the ConfigurationManager.
+name|configurationManager
+operator|.
+name|registerObserver
+argument_list|(
+name|this
+operator|.
+name|compactSplitThread
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * The HRegionServer sticks in this loop until closed.    */
 annotation|@
@@ -11357,6 +11422,13 @@ argument_list|,
 name|region
 argument_list|)
 expr_stmt|;
+name|configurationManager
+operator|.
+name|registerObserver
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * @return A new Map of online regions sorted by region size with the first entry being the    * biggest.  If two regions are the same size, then the last one found wins; i.e. this method    * may NOT return all regions.    */
 name|SortedMap
@@ -14904,6 +14976,16 @@ return|return
 name|this
 operator|.
 name|cacheConfig
+return|;
+block|}
+comment|/**    * @return : Returns the ConfigurationManager object for testing purposes.    */
+specifier|protected
+name|ConfigurationManager
+name|getConfigurationManager
+parameter_list|()
+block|{
+return|return
+name|configurationManager
 return|;
 block|}
 block|}
