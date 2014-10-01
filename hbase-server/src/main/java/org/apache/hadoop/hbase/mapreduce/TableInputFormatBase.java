@@ -195,9 +195,55 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Connection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|HTable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionLocator
 import|;
 end_import
 
@@ -230,6 +276,22 @@ operator|.
 name|client
 operator|.
 name|Scan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -428,7 +490,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A base for {@link TableInputFormat}s. Receives a {@link HTable}, an  * {@link Scan} instance that defines the input columns etc. Subclasses may use  * other TableRecordReader implementations.  *<p>  * An example of a subclass:  *<pre>  *   class ExampleTIF extends TableInputFormatBase implements JobConfigurable {  *  *     public void configure(JobConf job) {  *       HTable exampleTable = new HTable(HBaseConfiguration.create(job),  *         Bytes.toBytes("exampleTable"));  *       // mandatory  *       setHTable(exampleTable);  *       Text[] inputColumns = new byte [][] { Bytes.toBytes("cf1:columnA"),  *         Bytes.toBytes("cf2") };  *       // mandatory  *       setInputColumns(inputColumns);  *       RowFilterInterface exampleFilter = new RegExpRowFilter("keyPrefix.*");  *       // optional  *       setRowFilter(exampleFilter);  *     }  *  *     public void validateInput(JobConf job) throws IOException {  *     }  *  }  *</pre>  */
+comment|/**  * A base for {@link TableInputFormat}s. Receives a {@link Connection}, a {@link TableName},  * an {@link Scan} instance that defines the input columns etc. Subclasses may use  * other TableRecordReader implementations.  *<p>  * An example of a subclass:  *<pre>  *   class ExampleTIF extends TableInputFormatBase implements JobConfigurable {  *  *     public void configure(JobConf job) {  *       Connection connection =   *          ConnectionFactory.createConnection(HBaseConfiguration.create(job));  *       TableName tableName = TableName.valueOf("exampleTable");  *       // mandatory  *       initializeTable(connection, tableName);  *       Text[] inputColumns = new byte [][] { Bytes.toBytes("cf1:columnA"),  *         Bytes.toBytes("cf2") };  *       // mandatory  *       setInputColumns(inputColumns);  *       RowFilterInterface exampleFilter = new RegExpRowFilter("keyPrefix.*");  *       // optional  *       setRowFilter(exampleFilter);  *     }  *  *     public void validateInput(JobConf job) throws IOException {  *     }  *  }  *</pre>  */
 end_comment
 
 begin_class
@@ -465,19 +527,22 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/** Holds the details for the internal scanner. */
+comment|/** Holds the details for the internal scanner.     *    * @see Scan */
 specifier|private
 name|Scan
 name|scan
 init|=
 literal|null
 decl_stmt|;
-comment|/** The table to scan. */
+comment|/** The {@link Table} to scan. */
 specifier|private
-name|HTable
+name|Table
 name|table
-init|=
-literal|null
+decl_stmt|;
+comment|/** The {@link RegionLocator} of the table. */
+specifier|private
+name|RegionLocator
+name|regionLocator
 decl_stmt|;
 comment|/** The reader scanning the table, can be a custom one. */
 specifier|private
@@ -512,7 +577,7 @@ name|nameServer
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * Builds a TableRecordReader. If no TableRecordReader was provided, uses    * the default.    *    * @param split  The split to work with.    * @param context  The current context.    * @return The newly created record reader.    * @throws IOException When creating the reader fails.    * @see org.apache.hadoop.mapreduce.InputFormat#createRecordReader(    *   org.apache.hadoop.mapreduce.InputSplit,    *   org.apache.hadoop.mapreduce.TaskAttemptContext)    */
+comment|/**    * Builds a {@link TableRecordReader}. If no {@link TableRecordReader} was provided, uses    * the default.    *    * @param split  The split to work with.    * @param context  The current context.    * @return The newly created record reader.    * @throws IOException When creating the reader fails.    * @see org.apache.hadoop.mapreduce.InputFormat#createRecordReader(    *   org.apache.hadoop.mapreduce.InputSplit,    *   org.apache.hadoop.mapreduce.TaskAttemptContext)    */
 annotation|@
 name|Override
 specifier|public
@@ -641,7 +706,7 @@ argument_list|)
 expr_stmt|;
 name|trr
 operator|.
-name|setHTable
+name|setTable
 argument_list|(
 name|table
 argument_list|)
@@ -704,6 +769,9 @@ init|=
 operator|new
 name|RegionSizeCalculator
 argument_list|(
+operator|(
+name|HTable
+operator|)
 name|table
 argument_list|)
 decl_stmt|;
@@ -719,7 +787,7 @@ index|[]
 argument_list|>
 name|keys
 init|=
-name|table
+name|regionLocator
 operator|.
 name|getStartEndKeys
 argument_list|()
@@ -750,7 +818,7 @@ block|{
 name|HRegionLocation
 name|regLoc
 init|=
-name|table
+name|regionLocator
 operator|.
 name|getRegionLocation
 argument_list|(
@@ -923,7 +991,7 @@ block|}
 name|HRegionLocation
 name|location
 init|=
-name|table
+name|regionLocator
 operator|.
 name|getRegionLocation
 argument_list|(
@@ -1406,19 +1474,26 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Allows subclasses to get the {@link HTable}.    */
+comment|/**    * Allows subclasses to get the {@link HTable}.    *     * @deprecated Use {@link #getTable()} and {@link #getRegionLocator()} instead.    */
+annotation|@
+name|Deprecated
 specifier|protected
 name|HTable
 name|getHTable
 parameter_list|()
 block|{
 return|return
+operator|(
+name|HTable
+operator|)
 name|this
 operator|.
 name|table
 return|;
 block|}
-comment|/**    * Allows subclasses to set the {@link HTable}.    *    * @param table  The table to get the data from.    */
+comment|/**    * Allows subclasses to set the {@link HTable}.    *     * @param table  The {@link HTable} to get the data from.    * @deprecated Use {@link #initializeTable(Connection, TableName)} instead.    */
+annotation|@
+name|Deprecated
 specifier|protected
 name|void
 name|setHTable
@@ -1430,6 +1505,12 @@ block|{
 name|this
 operator|.
 name|table
+operator|=
+name|table
+expr_stmt|;
+name|this
+operator|.
+name|regionLocator
 operator|=
 name|table
 expr_stmt|;

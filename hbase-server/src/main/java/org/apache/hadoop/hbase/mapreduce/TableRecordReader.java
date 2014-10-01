@@ -71,22 +71,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Result
 import|;
 end_import
@@ -235,7 +219,9 @@ name|firstRow
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the HBase table.    *    * @param htable  The {@link HTable} to scan.    */
+comment|/**    * Sets the HBase table.    *    * @param htable  The {@link HTable} to scan.    * @deprecated Use setTable() instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|setHTable
@@ -246,11 +232,28 @@ parameter_list|)
 block|{
 name|this
 operator|.
+name|setTable
+argument_list|(
+name|htable
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * @param table the {@link Table} to scan.    */
+specifier|public
+name|void
+name|setTable
+parameter_list|(
+name|Table
+name|table
+parameter_list|)
+block|{
+name|this
+operator|.
 name|recordReaderImpl
 operator|.
 name|setHTable
 argument_list|(
-name|htable
+name|table
 argument_list|)
 expr_stmt|;
 block|}

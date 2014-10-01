@@ -348,7 +348,7 @@ parameter_list|(
 name|Configuration
 name|configuration
 parameter_list|,
-name|ClusterConnection
+name|Connection
 name|connection
 parameter_list|,
 name|MetaScannerVisitor
@@ -435,7 +435,7 @@ parameter_list|(
 name|Configuration
 name|configuration
 parameter_list|,
-name|ClusterConnection
+name|Connection
 name|connection
 parameter_list|,
 specifier|final
@@ -1183,7 +1183,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|ClusterConnection
+name|Connection
 name|connection
 parameter_list|,
 specifier|final
@@ -1332,7 +1332,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|ClusterConnection
+name|Connection
 name|connection
 parameter_list|,
 specifier|final
