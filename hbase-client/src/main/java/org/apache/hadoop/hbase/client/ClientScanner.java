@@ -141,6 +141,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|DoNotRetryIOException
 import|;
 end_import
@@ -184,20 +198,6 @@ operator|.
 name|hbase
 operator|.
 name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValueUtil
 import|;
 end_import
 
@@ -2016,10 +2016,11 @@ argument_list|(
 name|rs
 argument_list|)
 expr_stmt|;
+comment|// We don't make Iterator here
 for|for
 control|(
 name|Cell
-name|kv
+name|cell
 range|:
 name|rs
 operator|.
@@ -2027,18 +2028,14 @@ name|rawCells
 argument_list|()
 control|)
 block|{
-comment|// TODO make method in Cell or CellUtil
 name|remainingResultSize
 operator|-=
-name|KeyValueUtil
+name|CellUtil
 operator|.
-name|ensureKeyValue
+name|estimatedHeapSizeOf
 argument_list|(
-name|kv
+name|cell
 argument_list|)
-operator|.
-name|heapSize
-argument_list|()
 expr_stmt|;
 block|}
 name|countdown

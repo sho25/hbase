@@ -9347,7 +9347,7 @@ name|family
 argument_list|)
 decl_stmt|;
 comment|// get the closest key. (HStore.getRowKeyAtOrBefore can return null)
-name|KeyValue
+name|Cell
 name|key
 init|=
 name|store

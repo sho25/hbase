@@ -93,16 +93,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|LinkedList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
 import|;
 end_import
@@ -114,18 +104,6 @@ operator|.
 name|util
 operator|.
 name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-operator|.
-name|Entry
 import|;
 end_import
 
@@ -194,6 +172,20 @@ operator|.
 name|conf
 operator|.
 name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Cell
 import|;
 end_import
 
@@ -330,20 +322,6 @@ operator|.
 name|collect
 operator|.
 name|ImmutableList
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Lists
 import|;
 end_import
 
@@ -865,7 +843,7 @@ name|iterator
 argument_list|()
 return|;
 block|}
-comment|/** See {@link StoreFileManager#getCandidateFilesForRowKeyBefore(KeyValue)} and    * {@link StoreFileManager#updateCandidateFilesForRowKeyBefore(Iterator, KeyValue, KeyValue)}    * for details on this methods. */
+comment|/** See {@link StoreFileManager#getCandidateFilesForRowKeyBefore(KeyValue)} and    * {@link StoreFileManager#updateCandidateFilesForRowKeyBefore(Iterator, KeyValue, Cell)}    * for details on this methods. */
 annotation|@
 name|Override
 specifier|public
@@ -886,7 +864,7 @@ name|KeyValue
 name|targetKey
 parameter_list|,
 specifier|final
-name|KeyValue
+name|Cell
 name|candidate
 parameter_list|)
 block|{

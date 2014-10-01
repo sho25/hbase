@@ -2950,15 +2950,12 @@ control|)
 block|{
 name|size
 operator|+=
-name|KeyValueUtil
+name|CellUtil
 operator|.
-name|ensureKeyValue
+name|estimatedHeapSizeOf
 argument_list|(
 name|c
 argument_list|)
-operator|.
-name|heapSize
-argument_list|()
 expr_stmt|;
 block|}
 return|return

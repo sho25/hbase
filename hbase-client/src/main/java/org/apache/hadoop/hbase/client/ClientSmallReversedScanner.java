@@ -69,22 +69,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
@@ -115,7 +99,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|CellUtil
 import|;
 end_import
 
@@ -129,7 +113,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueUtil
+name|HConstants
 import|;
 end_import
 
@@ -791,10 +775,11 @@ argument_list|(
 name|rs
 argument_list|)
 expr_stmt|;
+comment|// We don't make Iterator here
 for|for
 control|(
 name|Cell
-name|kv
+name|cell
 range|:
 name|rs
 operator|.
@@ -804,15 +789,12 @@ control|)
 block|{
 name|remainingResultSize
 operator|-=
-name|KeyValueUtil
+name|CellUtil
 operator|.
-name|ensureKeyValue
+name|estimatedHeapSizeOf
 argument_list|(
-name|kv
+name|cell
 argument_list|)
-operator|.
-name|heapSize
-argument_list|()
 expr_stmt|;
 block|}
 name|countdown

@@ -83,7 +83,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
 import|;
 end_import
 
@@ -98,8 +98,6 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
-operator|.
-name|KVComparator
 import|;
 end_import
 
@@ -240,7 +238,7 @@ parameter_list|,
 name|KeyValue
 name|targetKey
 parameter_list|,
-name|KeyValue
+name|Cell
 name|candidate
 parameter_list|)
 function_decl|;
