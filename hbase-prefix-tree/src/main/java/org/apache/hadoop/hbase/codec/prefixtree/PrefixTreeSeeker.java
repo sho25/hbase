@@ -224,12 +224,6 @@ specifier|protected
 name|PrefixTreeArraySearcher
 name|ptSearcher
 decl_stmt|;
-specifier|protected
-name|boolean
-name|movedToPrevious
-init|=
-literal|false
-decl_stmt|;
 specifier|public
 name|PrefixTreeSeeker
 parameter_list|(

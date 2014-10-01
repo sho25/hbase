@@ -490,7 +490,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A base for {@link TableInputFormat}s. Receives a {@link Connection}, a {@link TableName},  * an {@link Scan} instance that defines the input columns etc. Subclasses may use  * other TableRecordReader implementations.  *<p>  * An example of a subclass:  *<pre>  *   class ExampleTIF extends TableInputFormatBase implements JobConfigurable {  *  *     public void configure(JobConf job) {  *       Connection connection =   *          ConnectionFactory.createConnection(HBaseConfiguration.create(job));  *       TableName tableName = TableName.valueOf("exampleTable");  *       // mandatory  *       initializeTable(connection, tableName);  *       Text[] inputColumns = new byte [][] { Bytes.toBytes("cf1:columnA"),  *         Bytes.toBytes("cf2") };  *       // mandatory  *       setInputColumns(inputColumns);  *       RowFilterInterface exampleFilter = new RegExpRowFilter("keyPrefix.*");  *       // optional  *       setRowFilter(exampleFilter);  *     }  *  *     public void validateInput(JobConf job) throws IOException {  *     }  *  }  *</pre>  */
+comment|/**  * A base for {@link TableInputFormat}s. Receives a {@link Connection}, a {@link TableName},  * an {@link Scan} instance that defines the input columns etc. Subclasses may use  * other TableRecordReader implementations.  *<p>  * An example of a subclass:  *<pre>  *   class ExampleTIF extends TableInputFormatBase implements JobConfigurable {  *  *     public void configure(JobConf job) {  *       Connection connection =  *          ConnectionFactory.createConnection(HBaseConfiguration.create(job));  *       TableName tableName = TableName.valueOf("exampleTable");  *       // mandatory  *       initializeTable(connection, tableName);  *       Text[] inputColumns = new byte [][] { Bytes.toBytes("cf1:columnA"),  *         Bytes.toBytes("cf2") };  *       // mandatory  *       setInputColumns(inputColumns);  *       RowFilterInterface exampleFilter = new RegExpRowFilter("keyPrefix.*");  *       // optional  *       setRowFilter(exampleFilter);  *     }  *  *     public void validateInput(JobConf job) throws IOException {  *     }  *  }  *</pre>  */
 end_comment
 
 begin_class
@@ -527,7 +527,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/** Holds the details for the internal scanner.     *    * @see Scan */
+comment|/** Holds the details for the internal scanner.    *    * @see Scan */
 specifier|private
 name|Scan
 name|scan
@@ -569,13 +569,6 @@ argument_list|,
 name|String
 argument_list|>
 argument_list|()
-decl_stmt|;
-comment|/** The NameServer address */
-specifier|private
-name|String
-name|nameServer
-init|=
-literal|null
 decl_stmt|;
 comment|/**    * Builds a {@link TableRecordReader}. If no {@link TableRecordReader} was provided, uses    * the default.    *    * @param split  The split to work with.    * @param context  The current context.    * @return The newly created record reader.    * @throws IOException When creating the reader fails.    * @see org.apache.hadoop.mapreduce.InputFormat#createRecordReader(    *   org.apache.hadoop.mapreduce.InputSplit,    *   org.apache.hadoop.mapreduce.TaskAttemptContext)    */
 annotation|@
@@ -746,23 +739,6 @@ literal|"No table was provided."
 argument_list|)
 throw|;
 block|}
-comment|// Get the name server address and the default value is null.
-name|this
-operator|.
-name|nameServer
-operator|=
-name|context
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|get
-argument_list|(
-literal|"hbase.nameserver.address"
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
 name|RegionSizeCalculator
 name|sizeCalculator
 init|=
@@ -1474,7 +1450,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Allows subclasses to get the {@link HTable}.    *     * @deprecated Use {@link #getTable()} and {@link #getRegionLocator()} instead.    */
+comment|/**    * Allows subclasses to get the {@link HTable}.    *    * @deprecated    */
 annotation|@
 name|Deprecated
 specifier|protected
@@ -1491,7 +1467,7 @@ operator|.
 name|table
 return|;
 block|}
-comment|/**    * Allows subclasses to set the {@link HTable}.    *     * @param table  The {@link HTable} to get the data from.    * @deprecated Use {@link #initializeTable(Connection, TableName)} instead.    */
+comment|/**    * Allows subclasses to set the {@link HTable}.    *    * @param table  The table to get the data from.    * @deprecated Use {@link #initializeTable(Connection, TableName)} instead.    */
 annotation|@
 name|Deprecated
 specifier|protected

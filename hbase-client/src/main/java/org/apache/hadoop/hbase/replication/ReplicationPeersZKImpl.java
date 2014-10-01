@@ -33,16 +33,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
 import|;
 end_import
@@ -2103,6 +2093,9 @@ return|return
 literal|false
 return|;
 block|}
+name|ReplicationPeerZKImpl
+name|previous
+init|=
 operator|(
 operator|(
 name|ConcurrentMap
@@ -2121,12 +2114,19 @@ name|peerId
 argument_list|,
 name|peer
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+if|if
+condition|(
+name|previous
+operator|==
+literal|null
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Added new peer cluster "
+literal|"Added new peer cluster="
 operator|+
 name|peer
 operator|.
@@ -2137,6 +2137,35 @@ name|getClusterKey
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Peer already present, "
+operator|+
+name|previous
+operator|.
+name|getPeerConfig
+argument_list|()
+operator|.
+name|getClusterKey
+argument_list|()
+operator|+
+literal|", new cluster="
+operator|+
+name|peer
+operator|.
+name|getPeerConfig
+argument_list|()
+operator|.
+name|getClusterKey
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|true
 return|;

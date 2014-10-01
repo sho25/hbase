@@ -145,6 +145,27 @@ name|toString
 argument_list|()
 return|;
 block|}
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"ICAST_INTEGER_MULTIPLY_CAST_TO_LONG"
+argument_list|,
+name|justification
+operator|=
+literal|"Will not overflow"
+argument_list|)
 specifier|private
 specifier|static
 name|String

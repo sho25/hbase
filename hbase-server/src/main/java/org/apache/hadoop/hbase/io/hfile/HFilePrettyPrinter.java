@@ -3554,7 +3554,7 @@ operator|.
 name|getDefault
 argument_list|()
 argument_list|,
-literal|"             count = %d\n"
+literal|"             count = %d%n"
 argument_list|,
 name|histogram
 operator|.

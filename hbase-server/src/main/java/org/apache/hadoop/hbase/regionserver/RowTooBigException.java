@@ -44,6 +44,27 @@ operator|.
 name|Public
 annotation|@
 name|Deprecated
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"NM_SAME_SIMPLE_NAME_AS_SUPERCLASS"
+argument_list|,
+name|justification
+operator|=
+literal|"Temporary glue. To be removed"
+argument_list|)
 specifier|public
 class|class
 name|RowTooBigException

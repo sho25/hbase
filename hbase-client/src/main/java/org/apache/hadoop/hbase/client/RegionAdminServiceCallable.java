@@ -154,6 +154,27 @@ comment|/**  * Similar to {@link RegionServerCallable} but for the AdminService 
 end_comment
 
 begin_class
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"
+argument_list|,
+name|justification
+operator|=
+literal|"stub used by ipc"
+argument_list|)
 specifier|public
 specifier|abstract
 class|class

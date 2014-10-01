@@ -1775,6 +1775,27 @@ throw|;
 block|}
 block|}
 annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"
+argument_list|,
+name|justification
+operator|=
+literal|"Is this an issue?"
+argument_list|)
+annotation|@
 name|Override
 specifier|public
 name|Result
@@ -1830,6 +1851,7 @@ name|timeout
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Findbugs says this null check is redundant.  Will result be set across the wait above?
 if|if
 condition|(
 name|result
@@ -1855,7 +1877,15 @@ block|}
 throw|throw
 operator|new
 name|TimeoutException
-argument_list|()
+argument_list|(
+literal|"timeout="
+operator|+
+name|timeout
+operator|+
+literal|", "
+operator|+
+name|unit
+argument_list|)
 throw|;
 block|}
 block|}
@@ -1937,7 +1967,7 @@ init|(
 name|tasks
 init|)
 block|{
-if|if
+while|while
 condition|(
 name|completed
 operator|==

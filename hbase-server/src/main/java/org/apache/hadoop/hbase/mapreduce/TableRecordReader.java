@@ -219,7 +219,7 @@ name|firstRow
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the HBase table.    *    * @param htable  The {@link HTable} to scan.    * @deprecated Use setTable() instead.    */
+comment|/**    * Sets the HBase table.    *    * @param htable  The table to scan.    * @deprecated Use setTable() instead.    */
 annotation|@
 name|Deprecated
 specifier|public

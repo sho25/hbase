@@ -5097,7 +5097,7 @@ return|return
 name|rpcClient
 return|;
 block|}
-comment|/**      * An identifier that will remain the same for a given connection.      * @return      */
+comment|/**      * An identifier that will remain the same for a given connection.      */
 annotation|@
 name|Override
 specifier|public
@@ -12307,7 +12307,7 @@ operator|.
 name|nonceGenerator
 return|;
 block|}
-comment|/**      * Connects to the master to get the table descriptor.      * @param tableName table name      * @return      * @throws IOException if the connection to master fails or if the table      *  is not found.      */
+comment|/**      * Connects to the master to get the table descriptor.      * @param tableName table name      * @throws IOException if the connection to master fails or if the table      *  is not found.      */
 annotation|@
 name|Override
 specifier|public

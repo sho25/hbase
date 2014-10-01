@@ -135,22 +135,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|fs
 operator|.
 name|FSDataInputStream
@@ -223,7 +207,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -462,7 +448,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Reading {@link HFile} version 1 and 2 blocks, and writing version 2 blocks.  *<ul>  *<li>In version 1 all blocks are always compressed or uncompressed, as  * specified by the {@link HFile}'s compression algorithm, with a type-specific  * magic record stored in the beginning of the compressed data (i.e. one needs  * to uncompress the compressed block to determine the block type). There is  * only a single compression algorithm setting for all blocks. Offset and size  * information from the block index are required to read a block.  *<li>In version 2 a block is structured as follows:  *<ul>  *<li>header (see {@link Writer#finishBlock()})  *<ul>  *<li>Magic record identifying the block type (8 bytes)  *<li>Compressed block size, excluding header, including checksum (4 bytes)  *<li>Uncompressed block size, excluding header, excluding checksum (4 bytes)  *<li>The offset of the previous block of the same type (8 bytes). This is  * used to be able to navigate to the previous block without going to the block  *<li>For minorVersions>=1, the ordinal describing checksum type (1 byte)  *<li>For minorVersions>=1, the number of data bytes/checksum chunk (4 bytes)  *<li>For minorVersions>=1, the size of data on disk, including header,  * excluding checksums (4 bytes)  *</ul>  *</li>  *<li>Raw/Compressed/Encrypted/Encoded data. The compression algorithm is the  * same for all the blocks in the {@link HFile}, similarly to what was done in  * version 1.  *<li>For minorVersions>=1, a series of 4 byte checksums, one each for  * the number of bytes specified by bytesPerChecksum.  *</ul>  *</ul>  */
+comment|/**  * Reading {@link HFile} version 1 and 2 blocks, and writing version 2 blocks.  *<ul>  *<li>In version 1 all blocks are always compressed or uncompressed, as  * specified by the {@link HFile}'s compression algorithm, with a type-specific  * magic record stored in the beginning of the compressed data (i.e. one needs  * to uncompress the compressed block to determine the block type). There is  * only a single compression algorithm setting for all blocks. Offset and size  * information from the block index are required to read a block.  *<li>In version 2 a block is structured as follows:  *<ul>  *<li>header (see Writer#finishBlock())  *<ul>  *<li>Magic record identifying the block type (8 bytes)  *<li>Compressed block size, excluding header, including checksum (4 bytes)  *<li>Uncompressed block size, excluding header, excluding checksum (4 bytes)  *<li>The offset of the previous block of the same type (8 bytes). This is  * used to be able to navigate to the previous block without going to the block  *<li>For minorVersions>=1, the ordinal describing checksum type (1 byte)  *<li>For minorVersions>=1, the number of data bytes/checksum chunk (4 bytes)  *<li>For minorVersions>=1, the size of data on disk, including header,  * excluding checksums (4 bytes)  *</ul>  *</li>  *<li>Raw/Compressed/Encrypted/Encoded data. The compression algorithm is the  * same for all the blocks in the {@link HFile}, similarly to what was done in  * version 1.  *<li>For minorVersions>=1, a series of 4 byte checksums, one each for  * the number of bytes specified by bytesPerChecksum.  *</ul>  *</ul>  */
 end_comment
 
 begin_class

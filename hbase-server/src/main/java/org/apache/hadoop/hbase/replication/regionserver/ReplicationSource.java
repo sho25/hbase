@@ -3651,6 +3651,27 @@ argument_list|)
 return|;
 block|}
 comment|/**    * If the queue isn't empty, switch to the next one    * Else if this is a recovered queue, it means we're done!    * Else we'll just continue to try reading the log file    * @return true if we're done with the current file, false if we should    * continue trying to read from it    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"DE_MIGHT_IGNORE"
+argument_list|,
+name|justification
+operator|=
+literal|"Yeah, this is how it works"
+argument_list|)
 specifier|protected
 name|boolean
 name|processEndOfFile

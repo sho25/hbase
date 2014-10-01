@@ -2371,7 +2371,7 @@ specifier|private
 name|RpcRetryingCallerFactory
 name|rpcCallerFactory
 decl_stmt|;
-comment|/**    * Constructor.    * See {@link #HBaseAdmin(HConnection connection)}    *    * @param c Configuration object. Copied internally.    */
+comment|/**    * Constructor.    * See {@link #HBaseAdmin(Connection connection)}    *    * @param c Configuration object. Copied internally.    */
 specifier|public
 name|HBaseAdmin
 parameter_list|(
@@ -2419,7 +2419,7 @@ return|return
 name|operationTimeout
 return|;
 block|}
-comment|/**    * Constructor for externally managed HConnections.    * The connection to master will be created when required by admin functions.    *    * @param connection The HConnection instance to use    * @throws MasterNotRunningException, ZooKeeperConnectionException are not    *  thrown anymore but kept into the interface for backward api compatibility    * @deprecated Do not use this internal ctor.    */
+comment|/**    * Constructor for externally managed Connections.    * The connection to master will be created when required by admin functions.    *    * @param connection The Connection instance to use    * @throws MasterNotRunningException, ZooKeeperConnectionException are not    *  thrown anymore but kept into the interface for backward api compatibility    * @deprecated Do not use this internal ctor.    */
 annotation|@
 name|Deprecated
 specifier|public

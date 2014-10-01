@@ -1477,6 +1477,27 @@ literal|false
 expr_stmt|;
 block|}
 comment|/* Create a new StoreFile.Writer.        * @param family        * @return A WriterLength, containing a new StoreFile.Writer.        * @throws IOException        */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"BX_UNBOXING_IMMEDIATELY_REBOXED"
+argument_list|,
+name|justification
+operator|=
+literal|"Not important"
+argument_list|)
 specifier|private
 name|WriterLength
 name|getNewWriter
