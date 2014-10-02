@@ -1856,7 +1856,7 @@ operator|.
 name|getQualifier
 argument_list|()
 argument_list|,
-name|namespace
+name|qualifier
 argument_list|)
 operator|&&
 name|Arrays
