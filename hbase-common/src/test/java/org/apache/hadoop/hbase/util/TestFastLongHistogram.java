@@ -47,7 +47,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
 name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|MiscTests
 import|;
 end_import
 
@@ -94,6 +112,10 @@ annotation|@
 name|Category
 argument_list|(
 block|{
+name|MiscTests
+operator|.
+name|class
+block|,
 name|SmallTests
 operator|.
 name|class
