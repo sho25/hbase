@@ -1143,8 +1143,6 @@ return|return
 name|fanIndexInBlock
 operator|+
 name|fanOffset
-operator|+
-literal|1
 return|;
 comment|// didn't find it, so compensate in reverse
 block|}
