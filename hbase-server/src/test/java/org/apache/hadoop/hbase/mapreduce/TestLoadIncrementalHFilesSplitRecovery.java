@@ -1548,7 +1548,7 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Checks that all columns have the expected value and that there is the    * expected number of rows.    * @throws IOException     */
+comment|/**    * Checks that all columns have the expected value and that there is the    * expected number of rows.    * @throws IOException    */
 name|void
 name|assertExpectedTable
 parameter_list|(
@@ -1735,7 +1735,7 @@ name|class
 argument_list|,
 name|timeout
 operator|=
-literal|120
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -2230,7 +2230,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|120
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -2431,7 +2431,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|120
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -2647,7 +2647,7 @@ name|class
 argument_list|,
 name|timeout
 operator|=
-literal|120
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -2809,7 +2809,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|120
+literal|120000
 argument_list|)
 specifier|public
 name|void
