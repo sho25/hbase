@@ -107,6 +107,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseConfiguration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -165,6 +179,29 @@ specifier|protected
 name|ConnectionFactory
 parameter_list|()
 block|{   }
+comment|/**    * Create a new Connection instance using default HBaseConfiguration. Connection    * encapsulates all housekeeping for a connection to the cluster. All tables and interfaces    * created from returned connection share zookeeper connection, meta cache, and connections    * to region servers and masters.    * The caller is responsible for calling {@link Connection#close()} on the returned    * connection instance.    *    * Typical usage:    *<pre>    * Connection connection = ConnectionFactory.createConnection();    * Table table = connection.getTable(TableName.valueOf("mytable"));    * try {    *   table.get(...);    *   ...    * } finally {    *   table.close();    *   connection.close();    * }    *</pre>    *    * @return Connection object for<code>conf</code>    */
+specifier|public
+specifier|static
+name|Connection
+name|createConnection
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+name|createConnection
+argument_list|(
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|()
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|)
+return|;
+block|}
 comment|/**    * Create a new Connection instance using the passed<code>conf</code> instance. Connection    * encapsulates all housekeeping for a connection to the cluster. All tables and interfaces    * created from returned connection share zookeeper connection, meta cache, and connections    * to region servers and masters.    * The caller is responsible for calling {@link Connection#close()} on the returned    * connection instance.    *    * Typical usage:    *<pre>    * Connection connection = ConnectionFactory.createConnection(conf);    * Table table = connection.getTable(TableName.valueOf("mytable"));    * try {    *   table.get(...);    *   ...    * } finally {    *   table.close();    *   connection.close();    * }    *</pre>    *    * @param conf configuration    * @return Connection object for<code>conf</code>    */
 specifier|public
 specifier|static
