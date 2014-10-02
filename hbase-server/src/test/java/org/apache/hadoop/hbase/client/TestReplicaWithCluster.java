@@ -1689,11 +1689,16 @@ argument_list|()
 expr_stmt|;
 block|}
 annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
+annotation|@
 name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|30000
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -2502,6 +2507,11 @@ argument_list|(
 literal|"Loading test data"
 argument_list|)
 expr_stmt|;
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|final
 name|HConnection
 name|conn
