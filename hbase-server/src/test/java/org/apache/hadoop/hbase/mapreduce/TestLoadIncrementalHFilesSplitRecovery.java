@@ -1732,6 +1732,10 @@ operator|=
 name|IOException
 operator|.
 name|class
+argument_list|,
+name|timeout
+operator|=
+literal|120
 argument_list|)
 specifier|public
 name|void
@@ -2223,6 +2227,11 @@ block|}
 comment|/**    * This test exercises the path where there is a split after initial    * validation but before the atomic bulk load call. We cannot use presplitting    * to test this path, so we actually inject a split just before the atomic    * region load.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|120
+argument_list|)
 specifier|public
 name|void
 name|testSplitWhileBulkLoadPhase
@@ -2419,6 +2428,11 @@ block|}
 comment|/**    * This test splits a table and attempts to bulk load.  The bulk import files    * should be split before atomically importing.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|120
+argument_list|)
 specifier|public
 name|void
 name|testGroupOrSplitPresplit
@@ -2630,6 +2644,10 @@ operator|=
 name|IOException
 operator|.
 name|class
+argument_list|,
+name|timeout
+operator|=
+literal|120
 argument_list|)
 specifier|public
 name|void
@@ -2788,6 +2806,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|120
+argument_list|)
 specifier|public
 name|void
 name|testGroupOrSplitWhenRegionHoleExistsInMeta
