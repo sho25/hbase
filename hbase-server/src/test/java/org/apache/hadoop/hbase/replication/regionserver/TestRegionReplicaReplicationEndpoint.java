@@ -1201,7 +1201,7 @@ name|regionReplication
 argument_list|,
 literal|0
 argument_list|,
-literal|1000
+literal|6000
 argument_list|)
 expr_stmt|;
 block|}
@@ -2154,7 +2154,7 @@ name|regionReplication
 argument_list|,
 literal|0
 argument_list|,
-literal|1000
+literal|6000
 argument_list|)
 expr_stmt|;
 block|}
