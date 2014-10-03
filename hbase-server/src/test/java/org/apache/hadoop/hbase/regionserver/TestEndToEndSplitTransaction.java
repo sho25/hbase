@@ -2227,7 +2227,9 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" regions"
+literal|" regions: "
+operator|+
+name|regions
 argument_list|)
 expr_stmt|;
 name|byte
@@ -2768,28 +2770,39 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+name|Result
+name|result
+init|=
+literal|null
+decl_stmt|;
+name|HRegionInfo
+name|region
+init|=
+literal|null
+decl_stmt|;
 while|while
 condition|(
+operator|(
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
 name|start
+operator|)
 operator|<
 name|timeout
 condition|)
 block|{
-name|Result
 name|result
-init|=
+operator|=
 name|getRegionRow
 argument_list|(
 name|metaTable
 argument_list|,
 name|regionName
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|result
@@ -2799,16 +2812,15 @@ condition|)
 block|{
 break|break;
 block|}
-name|HRegionInfo
 name|region
-init|=
+operator|=
 name|HRegionInfo
 operator|.
 name|getHRegionInfo
 argument_list|(
 name|result
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|region
@@ -2863,6 +2875,47 @@ argument_list|(
 literal|100
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|daughterA
+operator|==
+literal|null
+operator|||
+name|daughterB
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed to get daughters, daughterA="
+operator|+
+name|daughterA
+operator|+
+literal|", daughterB="
+operator|+
+name|daughterB
+operator|+
+literal|", timeout="
+operator|+
+name|timeout
+operator|+
+literal|", result="
+operator|+
+name|result
+operator|+
+literal|", regionName="
+operator|+
+name|regionName
+operator|+
+literal|", region="
+operator|+
+name|region
+argument_list|)
+throw|;
 block|}
 comment|//if we are here, this means the region split is complete or timed out
 if|if
