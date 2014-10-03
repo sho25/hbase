@@ -5427,7 +5427,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Check if a region belongs to some small system table.    * If so, it may be expected to be put on the master regionserver.    */
-specifier|protected
+specifier|public
 name|boolean
 name|shouldBeOnMaster
 parameter_list|(

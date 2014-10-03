@@ -5742,6 +5742,24 @@ argument_list|,
 name|destServers
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|dest
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Unable to determine a plan to assign "
+operator|+
+name|hri
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 block|}
 else|else
 block|{
@@ -5759,6 +5777,55 @@ name|destServerName
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|dest
+operator|.
+name|equals
+argument_list|(
+name|serverName
+argument_list|)
+operator|&&
+name|balancer
+operator|instanceof
+name|BaseLoadBalancer
+operator|&&
+operator|!
+operator|(
+operator|(
+name|BaseLoadBalancer
+operator|)
+name|balancer
+operator|)
+operator|.
+name|shouldBeOnMaster
+argument_list|(
+name|hri
+argument_list|)
+condition|)
+block|{
+comment|// To avoid unnecessary region moving later by balancer. Don't put user
+comment|// regions on master. Regions on master could be put on other region
+comment|// server intentionally by test however.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Skipping move of region "
+operator|+
+name|hri
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" to avoid unnecessary region moving later by load balancer,"
+operator|+
+literal|" because it should not be on master"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+block|}
 if|if
 condition|(
 name|dest
@@ -5791,7 +5858,6 @@ literal|"."
 argument_list|)
 expr_stmt|;
 return|return;
-block|}
 block|}
 comment|// Now we can do the move
 name|RegionPlan

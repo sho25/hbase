@@ -6399,6 +6399,21 @@ argument_list|,
 name|servers
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|bulkPlan
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to determine a plan to assign region(s)"
+argument_list|)
+throw|;
+block|}
 name|assign
 argument_list|(
 name|regions
@@ -6499,6 +6514,21 @@ argument_list|,
 name|servers
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|bulkPlan
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to determine a plan to assign region(s)"
+argument_list|)
+throw|;
+block|}
 name|processFavoredNodes
 argument_list|(
 name|regions
