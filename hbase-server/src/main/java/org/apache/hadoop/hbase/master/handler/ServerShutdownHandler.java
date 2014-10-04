@@ -726,7 +726,7 @@ if|if
 condition|(
 name|isCarryingMeta
 argument_list|()
-comment|// hbase:meta
+comment|/* hbase:meta */
 operator|||
 operator|!
 name|am
@@ -929,17 +929,6 @@ operator|.
 name|shouldSplitHlog
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Splitting logs for "
-operator|+
-name|serverName
-operator|+
-literal|" before assignment."
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|distributedLogReplay
@@ -949,7 +938,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Mark regions in recovery before assignment."
+literal|"Mark regions in recovery for crashed server "
+operator|+
+name|serverName
+operator|+
+literal|" before assignment; regions="
+operator|+
+name|hris
 argument_list|)
 expr_stmt|;
 name|MasterFileSystem
@@ -974,6 +969,22 @@ expr_stmt|;
 block|}
 else|else
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Splitting logs for "
+operator|+
+name|serverName
+operator|+
+literal|" before assignment; region count="
+operator|+
+name|hris
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|services

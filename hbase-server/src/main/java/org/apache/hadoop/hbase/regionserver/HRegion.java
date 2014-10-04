@@ -27572,8 +27572,6 @@ case|:
 comment|// when a region is in recovering state, no read, split or merge is allowed
 if|if
 condition|(
-name|this
-operator|.
 name|isRecovering
 argument_list|()
 operator|&&
@@ -27613,7 +27611,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" is recovering"
+literal|" is recovering; cannot take reads"
 argument_list|)
 throw|;
 block|}

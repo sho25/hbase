@@ -282,11 +282,11 @@ name|info
 argument_list|(
 name|path
 operator|+
-literal|" znode deleted. Region: "
+literal|" deleted; "
 operator|+
 name|regionName
 operator|+
-literal|" completes recovery."
+literal|" recovered."
 argument_list|)
 expr_stmt|;
 block|}

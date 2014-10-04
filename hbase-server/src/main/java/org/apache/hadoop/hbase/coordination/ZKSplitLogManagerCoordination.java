@@ -1917,7 +1917,7 @@ name|areDeadServersInProgress
 argument_list|()
 condition|)
 block|{
-comment|// no splitting work items left
+comment|// No splitting work items left
 name|ZKSplitLog
 operator|.
 name|deleteRecoveringRegionZNodes
@@ -1946,7 +1946,7 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-comment|// remove recovering regions which doesn't have any RS associated with it
+comment|// Remove recovering regions which don't have any RS associated with it
 name|List
 argument_list|<
 name|String
@@ -1979,6 +1979,32 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Processing recovering "
+operator|+
+name|regions
+operator|+
+literal|" and servers "
+operator|+
+name|recoveredServerNameSet
+operator|+
+literal|", isMetaRecovery="
+operator|+
+name|isMetaRecovery
+argument_list|)
+expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -3779,19 +3805,32 @@ literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Mark region "
+literal|"Marked "
 operator|+
 name|regionEncodeName
 operator|+
-literal|" recovering from failed region server "
+literal|" as recovering from "
 operator|+
 name|serverName
+operator|+
+literal|": "
+operator|+
+name|nodePath
 argument_list|)
 expr_stmt|;
+block|}
 comment|// break retry loop
 break|break;
 block|}

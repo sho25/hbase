@@ -8408,7 +8408,7 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-comment|// check if current region open is for distributedLogReplay. This check is to support
+comment|// Check if current region open is for distributedLogReplay. This check is to support
 comment|// rolling restart/upgrade where we want to Master/RS see same configuration
 if|if
 condition|(
@@ -8441,7 +8441,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// remove stale recovery region from ZK when we open region not for recovering which
+comment|// Remove stale recovery region from ZK when we open region not for recovering which
 comment|// could happen when turn distributedLogReplay off from on.
 name|List
 argument_list|<
