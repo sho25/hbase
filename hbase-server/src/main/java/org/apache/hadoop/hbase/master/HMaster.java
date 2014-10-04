@@ -7282,13 +7282,18 @@ name|tableName
 parameter_list|,
 specifier|final
 name|HColumnDescriptor
-name|column
+name|columnDescriptor
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 name|checkInitialized
 argument_list|()
+expr_stmt|;
+name|checkCompression
+argument_list|(
+name|columnDescriptor
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -7305,7 +7310,7 @@ name|preAddColumn
 argument_list|(
 name|tableName
 argument_list|,
-name|column
+name|columnDescriptor
 argument_list|)
 condition|)
 block|{
@@ -7318,7 +7323,7 @@ name|TableAddFamilyHandler
 argument_list|(
 name|tableName
 argument_list|,
-name|column
+name|columnDescriptor
 argument_list|,
 name|this
 argument_list|,
@@ -7344,7 +7349,7 @@ name|postAddColumn
 argument_list|(
 name|tableName
 argument_list|,
-name|column
+name|columnDescriptor
 argument_list|)
 expr_stmt|;
 block|}
