@@ -775,9 +775,10 @@ name|edit
 argument_list|,
 name|now
 argument_list|,
-name|HTableDescriptor
+name|TEST_UTIL
 operator|.
-name|META_TABLEDESC
+name|getMetaTableDescriptor
+argument_list|()
 argument_list|,
 name|sequenceId
 argument_list|)

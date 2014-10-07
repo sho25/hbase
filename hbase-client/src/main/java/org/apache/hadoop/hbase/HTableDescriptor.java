@@ -4873,7 +4873,9 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/** Table descriptor for<code>hbase:meta</code> catalog table */
+comment|/** Table descriptor for<code>hbase:meta</code> catalog table    * Deprecated, use TableDescriptors#get(TableName.META_TABLE) or    * Admin#getTableDescriptor(TableName.META_TABLE) instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final

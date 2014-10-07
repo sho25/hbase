@@ -559,9 +559,14 @@ init|=
 name|testDir
 decl_stmt|;
 comment|// Up flush size else we bind up when we use default catalog flush of 16k.
-name|HTableDescriptor
+name|fsTableDescriptors
 operator|.
-name|META_TABLEDESC
+name|get
+argument_list|(
+name|TableName
+operator|.
+name|META_TABLE_NAME
+argument_list|)
 operator|.
 name|setMemStoreFlushSize
 argument_list|(
@@ -589,9 +594,14 @@ name|this
 operator|.
 name|conf
 argument_list|,
-name|HTableDescriptor
+name|fsTableDescriptors
 operator|.
-name|META_TABLEDESC
+name|get
+argument_list|(
+name|TableName
+operator|.
+name|META_TABLE_NAME
+argument_list|)
 argument_list|)
 decl_stmt|;
 try|try

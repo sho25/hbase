@@ -13161,34 +13161,21 @@ range|:
 name|tableNamesList
 control|)
 block|{
-comment|// Do not deny if the table does not exist
-try|try
-block|{
+comment|// Skip checks for a table that does not exist
+if|if
+condition|(
+operator|!
 name|masterServices
 operator|.
-name|checkTableModifiable
+name|getTableStateManager
+argument_list|()
+operator|.
+name|isTablePresent
 argument_list|(
 name|tableName
 argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|TableNotFoundException
-name|ex
-parameter_list|)
-block|{
-comment|// Skip checks for a table that does not exist
+condition|)
 continue|continue;
-block|}
-catch|catch
-parameter_list|(
-name|TableNotDisabledException
-name|ex
-parameter_list|)
-block|{
-comment|// We don't care about this
-block|}
 name|requirePermission
 argument_list|(
 literal|"getTableDescriptors"

@@ -429,12 +429,9 @@ operator|.
 name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
-name|HTableDescriptor
+name|TableName
 operator|.
-name|META_TABLEDESC
-operator|.
-name|getTableName
-argument_list|()
+name|META_TABLE_NAME
 argument_list|)
 decl_stmt|;
 name|HLog

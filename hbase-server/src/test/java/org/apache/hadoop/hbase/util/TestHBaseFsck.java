@@ -14400,9 +14400,9 @@ name|rootDir
 operator|+
 literal|"/"
 operator|+
-name|HTableDescriptor
+name|TableName
 operator|.
-name|META_TABLEDESC
+name|META_TABLE_NAME
 operator|.
 name|getNameAsString
 argument_list|()
@@ -14488,9 +14488,9 @@ name|rootDir
 operator|+
 literal|"/"
 operator|+
-name|HTableDescriptor
+name|TableName
 operator|.
-name|META_TABLEDESC
+name|META_TABLE_NAME
 operator|.
 name|getNameAsString
 argument_list|()

@@ -1491,6 +1491,8 @@ init|=
 operator|new
 name|FSTableDescriptors
 argument_list|(
+name|conf
+argument_list|,
 name|filesystem
 argument_list|,
 name|rootdir

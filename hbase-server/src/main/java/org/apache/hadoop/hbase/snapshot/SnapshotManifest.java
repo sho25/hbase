@@ -1842,6 +1842,8 @@ comment|// write a copy of descriptor to the snapshot directory
 operator|new
 name|FSTableDescriptors
 argument_list|(
+name|conf
+argument_list|,
 name|fs
 argument_list|,
 name|rootDir

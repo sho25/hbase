@@ -8542,9 +8542,13 @@ name|admin
 operator|.
 name|createTable
 argument_list|(
+operator|new
 name|HTableDescriptor
+argument_list|(
+name|TableName
 operator|.
-name|META_TABLEDESC
+name|META_TABLE_NAME
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

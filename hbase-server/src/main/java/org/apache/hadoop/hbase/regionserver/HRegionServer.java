@@ -2926,6 +2926,10 @@ name|FSTableDescriptors
 argument_list|(
 name|this
 operator|.
+name|conf
+argument_list|,
+name|this
+operator|.
 name|fs
 argument_list|,
 name|this

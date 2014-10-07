@@ -603,6 +603,11 @@ comment|// for them first.
 operator|new
 name|FSTableDescriptors
 argument_list|(
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
 name|fs
 argument_list|,
 name|rootdir
@@ -1093,9 +1098,10 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|HTableDescriptor
+name|UTIL
 operator|.
-name|META_TABLEDESC
+name|getMetaTableDescriptor
+argument_list|()
 argument_list|)
 decl_stmt|;
 for|for

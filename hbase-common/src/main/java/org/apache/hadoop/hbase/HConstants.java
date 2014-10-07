@@ -1880,6 +1880,40 @@ name|DEFAULT_HBASE_META_SCANNER_CACHING
 init|=
 literal|100
 decl_stmt|;
+comment|/**    * Parameter name for number of versions, kept by meta table.    */
+specifier|public
+specifier|static
+name|String
+name|HBASE_META_VERSIONS
+init|=
+literal|"hbase.meta.versions"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_META_VERSIONS}.    */
+specifier|public
+specifier|static
+name|int
+name|DEFAULT_HBASE_META_VERSIONS
+init|=
+literal|3
+decl_stmt|;
+comment|/**    * Parameter name for number of versions, kept by meta table.    */
+specifier|public
+specifier|static
+name|String
+name|HBASE_META_BLOCK_SIZE
+init|=
+literal|"hbase.meta.blocksize"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_META_BLOCK_SIZE}.    */
+specifier|public
+specifier|static
+name|int
+name|DEFAULT_HBASE_META_BLOCK_SIZE
+init|=
+literal|8
+operator|*
+literal|1024
+decl_stmt|;
 comment|/**    * Parameter name for unique identifier for this {@link org.apache.hadoop.conf.Configuration}    * instance. If there are two or more {@link org.apache.hadoop.conf.Configuration} instances that,    * for all intents and purposes, are the same except for their instance ids, then they will not be    * able to share the same org.apache.hadoop.hbase.client.HConnection instance. On the other hand,    * even if the instance ids are the same, it could result in non-shared    * org.apache.hadoop.hbase.client.HConnection instances if some of the other connection parameters    * differ.    */
 specifier|public
 specifier|static
