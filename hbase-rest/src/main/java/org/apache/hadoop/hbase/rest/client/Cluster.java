@@ -298,6 +298,29 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"Cluster{"
+operator|+
+literal|"nodes="
+operator|+
+name|nodes
+operator|+
+literal|", lastHost='"
+operator|+
+name|lastHost
+operator|+
+literal|'\''
+operator|+
+literal|'}'
+return|;
+block|}
 block|}
 end_class
 
