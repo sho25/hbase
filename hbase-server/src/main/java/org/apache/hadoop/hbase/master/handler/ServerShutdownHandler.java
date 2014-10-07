@@ -979,10 +979,18 @@ name|serverName
 operator|+
 literal|" before assignment; region count="
 operator|+
+operator|(
+name|hris
+operator|==
+literal|null
+condition|?
+literal|0
+else|:
 name|hris
 operator|.
 name|size
 argument_list|()
+operator|)
 argument_list|)
 expr_stmt|;
 name|this
