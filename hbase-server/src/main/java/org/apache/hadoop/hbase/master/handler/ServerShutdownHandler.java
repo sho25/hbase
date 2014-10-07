@@ -1519,6 +1519,39 @@ name|ie
 argument_list|)
 throw|;
 block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Caught "
+operator|+
+name|ioe
+operator|+
+literal|" during region assignment, will retry"
+argument_list|)
+expr_stmt|;
+comment|// Only do HLog splitting if shouldSplitHlog and in DLR mode
+name|serverManager
+operator|.
+name|processDeadServer
+argument_list|(
+name|serverName
+argument_list|,
+name|this
+operator|.
+name|shouldSplitHlog
+operator|&&
+name|distributedLogReplay
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 if|if
 condition|(
 name|this
