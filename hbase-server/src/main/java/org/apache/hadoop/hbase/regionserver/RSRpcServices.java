@@ -11926,6 +11926,24 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Server shutting down and client tried to access missing scanner "
+operator|+
+name|scannerName
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|regionServer
+operator|.
+name|leases
+operator|!=
+literal|null
+condition|)
+block|{
 try|try
 block|{
 name|regionServer
@@ -11944,15 +11962,8 @@ name|LeaseException
 name|le
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Server shutting down and client tried to access missing scanner "
-operator|+
-name|scannerName
-argument_list|)
-expr_stmt|;
+comment|// No problem, ignore
+block|}
 block|}
 block|}
 throw|throw
