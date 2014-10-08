@@ -5275,6 +5275,22 @@ name|Retry
 operator|.
 name|NO_RETRIES_EXHAUSTED
 decl_stmt|;
+if|if
+condition|(
+name|tableName
+operator|==
+literal|null
+condition|)
+block|{
+comment|// tableName is null when we made a cross-table RPC call.
+name|hConnection
+operator|.
+name|clearCaches
+argument_list|(
+name|server
+argument_list|)
+expr_stmt|;
+block|}
 name|int
 name|failed
 init|=
@@ -5363,6 +5379,13 @@ decl_stmt|;
 comment|// Do not use the exception for updating cache because it might be coming from
 comment|// any of the regions in the MultiAction.
 comment|// TODO: depending on type of exception we might not want to update cache at all?
+if|if
+condition|(
+name|tableName
+operator|!=
+literal|null
+condition|)
+block|{
 name|hConnection
 operator|.
 name|updateCachedLocations
@@ -5378,6 +5401,7 @@ argument_list|,
 name|server
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|Action
