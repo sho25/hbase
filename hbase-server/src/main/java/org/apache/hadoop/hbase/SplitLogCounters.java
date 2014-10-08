@@ -742,6 +742,14 @@ name|getDeclaredFields
 argument_list|()
 control|)
 block|{
+if|if
+condition|(
+operator|!
+name|fld
+operator|.
+name|isSynthetic
+argument_list|()
+condition|)
 operator|(
 operator|(
 name|AtomicLong
