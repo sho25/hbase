@@ -12344,7 +12344,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|error
+name|debug
 argument_list|(
 literal|"Received CLOSE for a region which is not online, and we're not opening."
 argument_list|)

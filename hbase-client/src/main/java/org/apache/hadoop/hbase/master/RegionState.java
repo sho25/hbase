@@ -1109,7 +1109,7 @@ return|;
 block|}
 specifier|public
 name|boolean
-name|isClosingOnServer
+name|isClosingOrClosedOnServer
 parameter_list|(
 specifier|final
 name|ServerName
@@ -1122,8 +1122,13 @@ argument_list|(
 name|sn
 argument_list|)
 operator|&&
+operator|(
 name|isClosing
 argument_list|()
+operator|||
+name|isClosed
+argument_list|()
+operator|)
 return|;
 block|}
 specifier|public

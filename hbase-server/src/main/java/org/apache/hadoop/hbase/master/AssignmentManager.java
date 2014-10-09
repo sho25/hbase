@@ -10110,13 +10110,11 @@ name|ServerName
 name|serverName
 parameter_list|)
 block|{
-comment|// We didn't check if the region is already closed/offline on the server
-comment|// as we did for other transitions to handle reportRegionTransition RPC retry.
-comment|// There are two reasons. 1. Closed/offline states are transient. Region will be
-comment|// usually assigned right after closed. When a RPC retry comes in, the region may
-comment|// already have moved away from closed state. 2. On the region server side, we
-comment|// don't care much about the response for this transition. We only make sure
-comment|// master has got and processed this report, either successfully or not.
+comment|// Region will be usually assigned right after closed. When a RPC retry comes
+comment|// in, the region may already have moved away from closed state. However, on the
+comment|// region server side, we don't care much about the response for this transition.
+comment|// We only make sure master has got and processed this report, either
+comment|// successfully or not. So this is fine, not a problem at all.
 if|if
 condition|(
 name|current
@@ -10126,7 +10124,7 @@ operator|||
 operator|!
 name|current
 operator|.
-name|isClosingOnServer
+name|isClosingOrClosedOnServer
 argument_list|(
 name|serverName
 argument_list|)
@@ -10141,6 +10139,19 @@ operator|+
 literal|" is not closing on "
 operator|+
 name|serverName
+return|;
+block|}
+comment|// Just return in case of retrying
+if|if
+condition|(
+name|current
+operator|.
+name|isClosed
+argument_list|()
+condition|)
+block|{
+return|return
+literal|null
 return|;
 block|}
 if|if
@@ -13451,9 +13462,9 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|error
+name|info
 argument_list|(
-literal|"Failed to transition region from "
+literal|"Could not transition region from "
 operator|+
 name|current
 operator|+
