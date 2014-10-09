@@ -10522,9 +10522,54 @@ argument_list|(
 name|region
 argument_list|)
 decl_stmt|;
-name|lastFlushedSequenceId
+name|RegionServerStatusService
+operator|.
+name|BlockingInterface
+name|rss
+init|=
+name|rssStub
+decl_stmt|;
+if|if
+condition|(
+name|rss
+operator|==
+literal|null
+condition|)
+block|{
+comment|// Try to connect one more time
+name|createRegionServerStatusStub
+argument_list|()
+expr_stmt|;
+name|rss
 operator|=
 name|rssStub
+expr_stmt|;
+if|if
+condition|(
+name|rss
+operator|==
+literal|null
+condition|)
+block|{
+comment|// Still no luck, we tried
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unable to connect to the master to check "
+operator|+
+literal|"the last flushed sequence id"
+argument_list|)
+expr_stmt|;
+return|return
+operator|-
+literal|1l
+return|;
+block|}
+block|}
+name|lastFlushedSequenceId
+operator|=
+name|rss
 operator|.
 name|getLastFlushedSequenceId
 argument_list|(
