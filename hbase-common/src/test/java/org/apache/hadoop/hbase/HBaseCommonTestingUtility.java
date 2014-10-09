@@ -210,7 +210,7 @@ operator|=
 name|conf
 expr_stmt|;
 block|}
-comment|/**    * Returns this classes's instance of {@link Configuration}.    * @return Instance of Configuration.    */
+comment|/**    * Returns this classes's instance of {@link Configuration}.    *    * @return Instance of Configuration.    */
 specifier|public
 name|Configuration
 name|getConfiguration
@@ -240,14 +240,14 @@ name|DEFAULT_BASE_TEST_DIRECTORY
 init|=
 literal|"target/test-data"
 decl_stmt|;
-comment|/** Directory where we put the data for this instance of HBaseTestingUtility*/
+comment|/**    * Directory where we put the data for this instance of HBaseTestingUtility    */
 specifier|private
 name|File
 name|dataTestDir
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * @return Where to write test data on local filesystem, specific to    *  the test.  Useful for tests that do not use a cluster.    * Creates it if it does not exist already.    * @see #getTestFileSystem()    */
+comment|/**    * @return Where to write test data on local filesystem, specific to    * the test.  Useful for tests that do not use a cluster.    * Creates it if it does not exist already.    */
 specifier|public
 name|Path
 name|getDataTestDir
@@ -576,7 +576,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return Where to write test data on local filesystem; usually    * {@link #DEFAULT_BASE_TEST_DIRECTORY}    * Should not be used by the unit tests, hence its's private.    * Unit test will use a subdirectory of this directory.    * @see #setupDataTestDir()    * @see #getTestFileSystem()    */
+comment|/**    * @return Where to write test data on local filesystem; usually    * {@link #DEFAULT_BASE_TEST_DIRECTORY}    * Should not be used by the unit tests, hence its's private.    * Unit test will use a subdirectory of this directory.    * @see #setupDataTestDir()    */
 specifier|private
 name|Path
 name|getBaseTestDir
@@ -630,6 +630,17 @@ return|return
 literal|true
 return|;
 block|}
+name|int
+name|ntries
+init|=
+literal|0
+decl_stmt|;
+do|do
+block|{
+name|ntries
+operator|+=
+literal|1
+expr_stmt|;
 try|try
 block|{
 if|if
@@ -666,10 +677,41 @@ name|getAbsolutePath
 argument_list|()
 argument_list|)
 expr_stmt|;
-return|return
-literal|false
-return|;
 block|}
+catch|catch
+parameter_list|(
+name|IllegalArgumentException
+name|ex
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to delete "
+operator|+
+name|dir
+operator|.
+name|getAbsolutePath
+argument_list|()
+argument_list|,
+name|ex
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+do|while
+condition|(
+name|ntries
+operator|<
+literal|30
+condition|)
+do|;
+return|return
+name|ntries
+operator|<
+literal|30
+return|;
 block|}
 block|}
 end_class
