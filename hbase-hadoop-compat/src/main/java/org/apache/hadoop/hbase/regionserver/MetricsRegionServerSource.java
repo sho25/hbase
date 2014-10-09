@@ -629,6 +629,26 @@ name|MAJOR_COMPACTED_CELLS_SIZE_DESC
 init|=
 literal|"The total amount of data processed during major compactions, in bytes"
 decl_stmt|;
+name|String
+name|HEDGED_READS
+init|=
+literal|"hedgedReads"
+decl_stmt|;
+name|String
+name|HEDGED_READS_DESC
+init|=
+literal|"The number of times we started a hedged read"
+decl_stmt|;
+name|String
+name|HEDGED_READ_WINS
+init|=
+literal|"hedgedReadWins"
+decl_stmt|;
+name|String
+name|HEDGED_READ_WINS_DESC
+init|=
+literal|"The number of times we started a hedged read and a hedged read won"
+decl_stmt|;
 block|}
 end_interface
 

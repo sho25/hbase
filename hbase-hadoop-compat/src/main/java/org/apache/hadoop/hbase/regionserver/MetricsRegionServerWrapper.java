@@ -246,6 +246,18 @@ name|long
 name|getMajorCompactedCellsSize
 parameter_list|()
 function_decl|;
+comment|/**    * @return Count of hedged read operations    */
+specifier|public
+name|long
+name|getHedgedReadOps
+parameter_list|()
+function_decl|;
+comment|/**    * @return Count of times a hedged read beat out the primary read.    */
+specifier|public
+name|long
+name|getHedgedReadWins
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 
