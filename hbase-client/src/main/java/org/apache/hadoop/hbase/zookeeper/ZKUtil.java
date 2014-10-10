@@ -5143,6 +5143,25 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|//Zookeeper Watches are one time triggers; When children of parent nodes are deleted recursively.
+comment|//Must set another watch, get notified of delete node
+if|if
+condition|(
+name|zkw
+operator|.
+name|getRecoverableZooKeeper
+argument_list|()
+operator|.
+name|exists
+argument_list|(
+name|node
+argument_list|,
+name|zkw
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
 name|zkw
 operator|.
 name|getRecoverableZooKeeper
@@ -5156,6 +5175,7 @@ operator|-
 literal|1
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(

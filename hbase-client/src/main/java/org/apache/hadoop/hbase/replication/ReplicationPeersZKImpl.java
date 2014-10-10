@@ -609,6 +609,26 @@ literal|" because that id already exists."
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
+name|id
+operator|.
+name|contains
+argument_list|(
+literal|"-"
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Found invalid peer name:"
+operator|+
+name|id
+argument_list|)
+throw|;
+block|}
 name|ZKUtil
 operator|.
 name|createWithParents
