@@ -19,6 +19,18 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Service
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -384,6 +396,14 @@ name|TableName
 argument_list|>
 name|getOnlineTables
 parameter_list|()
+function_decl|;
+comment|/**    * Registers a new protocol buffer {@link Service} subclass as a coprocessor endpoint to be    * available for handling    * @param instance the {@code Service} subclass instance to expose as a coprocessor endpoint    * @return {@code true} if the registration was successful, {@code false}    */
+name|boolean
+name|registerService
+parameter_list|(
+name|Service
+name|service
+parameter_list|)
 function_decl|;
 block|}
 end_interface

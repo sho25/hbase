@@ -441,6 +441,18 @@ name|KeeperException
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Service
+import|;
+end_import
+
 begin_comment
 comment|/**  * Basic mock region server services.  Should only be instantiated by HBaseTestingUtility.b  */
 end_comment
@@ -1137,6 +1149,21 @@ modifier|...
 name|hris
 parameter_list|)
 block|{
+return|return
+literal|false
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|registerService
+parameter_list|(
+name|Service
+name|service
+parameter_list|)
+block|{
+comment|// TODO Auto-generated method stub
 return|return
 literal|false
 return|;
