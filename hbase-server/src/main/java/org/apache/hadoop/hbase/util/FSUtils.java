@@ -5169,6 +5169,12 @@ operator|.
 name|getNameAsString
 argument_list|()
 argument_list|,
+name|cfCount
+operator|==
+literal|0
+condition|?
+literal|0
+else|:
 name|Math
 operator|.
 name|round
@@ -5192,6 +5198,12 @@ name|put
 argument_list|(
 literal|"-TOTAL-"
 argument_list|,
+name|cfCountTotal
+operator|==
+literal|0
+condition|?
+literal|0
+else|:
 name|Math
 operator|.
 name|round

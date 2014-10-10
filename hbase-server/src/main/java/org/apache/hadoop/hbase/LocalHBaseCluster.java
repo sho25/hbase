@@ -1982,6 +1982,8 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|HTableDescriptor
 name|htd
 init|=
@@ -2009,6 +2011,15 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|admin
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 name|cluster
 operator|.
 name|shutdown

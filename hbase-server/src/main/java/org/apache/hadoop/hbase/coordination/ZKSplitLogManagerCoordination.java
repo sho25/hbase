@@ -1658,9 +1658,8 @@ operator|.
 name|getServerName
 argument_list|()
 argument_list|,
-name|this
-operator|.
-name|recoveryMode
+name|getRecoveryMode
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|this
@@ -2510,9 +2509,8 @@ operator|.
 name|getServerName
 argument_list|()
 argument_list|,
-name|this
-operator|.
-name|recoveryMode
+name|getRecoveryMode
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|ZKUtil
@@ -4407,6 +4405,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|boolean
 name|isReplaying
 parameter_list|()
@@ -4424,6 +4423,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|boolean
 name|isSplitting
 parameter_list|()
@@ -4451,6 +4451,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+synchronized|synchronized
+init|(
+name|this
+init|)
+block|{
 if|if
 condition|(
 name|this
@@ -4462,6 +4467,7 @@ comment|// when there is no outstanding splitlogtask after master start up, we a
 comment|// recovery mode
 return|return;
 block|}
+block|}
 if|if
 condition|(
 name|this
@@ -4472,6 +4478,11 @@ literal|null
 condition|)
 block|{
 comment|// when watcher is null(testing code) and recovery mode can only be LOG_SPLITTING
+synchronized|synchronized
+init|(
+name|this
+init|)
+block|{
 name|this
 operator|.
 name|isDrainingDone
@@ -4486,6 +4497,7 @@ name|RecoveryMode
 operator|.
 name|LOG_SPLITTING
 expr_stmt|;
+block|}
 return|return;
 block|}
 name|boolean
@@ -4966,9 +4978,8 @@ operator|.
 name|getServerName
 argument_list|()
 argument_list|,
-name|this
-operator|.
-name|recoveryMode
+name|getRecoveryMode
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -6001,6 +6012,7 @@ begin_function
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|RecoveryMode
 name|getRecoveryMode
 parameter_list|()

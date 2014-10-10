@@ -900,6 +900,7 @@ literal|".tableName"
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|// TODO: THis HTable doesn't get closed.  Fix!
 name|Table
 name|replicatedTable
 init|=

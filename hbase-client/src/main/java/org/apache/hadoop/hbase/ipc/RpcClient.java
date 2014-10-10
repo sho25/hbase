@@ -1169,11 +1169,6 @@ end_comment
 
 begin_class
 annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"SynchronizationOnLocalVariableOrMethodParameter"
-argument_list|)
-annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
@@ -2207,11 +2202,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/** Thread that reads responses and notifies callers.  Each connection owns a    * socket connected to a remote address.  Calls are multiplexed through this    * socket: responses may be delivered out of order. */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"SynchronizeOnNonFinalField"
-argument_list|)
 specifier|protected
 class|class
 name|Connection
@@ -2242,7 +2232,14 @@ specifier|protected
 name|DataOutputStream
 name|out
 decl_stmt|;
-comment|// Warning: can be locked inside a class level lock.
+specifier|private
+name|Object
+name|outLock
+init|=
+operator|new
+name|Object
+argument_list|()
+decl_stmt|;
 specifier|private
 name|InetSocketAddress
 name|server
@@ -4872,6 +4869,13 @@ name|inStream
 argument_list|)
 argument_list|)
 expr_stmt|;
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|outLock
+init|)
+block|{
 name|this
 operator|.
 name|out
@@ -4886,6 +4890,7 @@ name|outStream
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Now write out the connection header
 name|writeConnectionHeader
 argument_list|()
@@ -5096,7 +5101,7 @@ synchronized|synchronized
 init|(
 name|this
 operator|.
-name|out
+name|outLock
 init|)
 block|{
 name|this
@@ -5179,6 +5184,13 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// close the streams and therefore the socket
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|outLock
+init|)
+block|{
 if|if
 condition|(
 name|this
@@ -5187,13 +5199,6 @@ name|out
 operator|!=
 literal|null
 condition|)
-block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|out
-init|)
 block|{
 name|IOUtils
 operator|.
@@ -5516,7 +5521,7 @@ synchronized|synchronized
 init|(
 name|this
 operator|.
-name|out
+name|outLock
 init|)
 block|{
 if|if

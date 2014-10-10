@@ -9852,6 +9852,11 @@ parameter_list|()
 throws|throws
 name|CloneNotSupportedException
 block|{
+name|super
+operator|.
+name|clone
+argument_list|()
+expr_stmt|;
 return|return
 operator|new
 name|KVComparator

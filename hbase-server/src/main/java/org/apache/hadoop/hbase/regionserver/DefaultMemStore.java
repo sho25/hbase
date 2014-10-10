@@ -2952,6 +2952,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**      * Lock on 'this' must be held by caller.      * @param it      * @return Next Cell      */
 specifier|private
 name|Cell
 name|getNext

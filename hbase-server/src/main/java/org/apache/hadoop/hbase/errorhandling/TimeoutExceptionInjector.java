@@ -91,22 +91,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
@@ -294,8 +278,13 @@ name|void
 name|complete
 parameter_list|()
 block|{
-comment|// warn if the timer is already marked complete. This isn't going to be thread-safe, but should
-comment|// be good enough and its not worth locking just for a warning.
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|timerTask
+init|)
+block|{
 if|if
 condition|(
 name|this
@@ -312,20 +301,24 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Marking timer as complete - no error notifications will be received for this timer."
+literal|"Marking timer as complete - no error notifications will be received for "
+operator|+
+literal|"this timer."
 argument_list|)
 expr_stmt|;
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|timerTask
-init|)
-block|{
+block|}
 name|this
 operator|.
 name|complete

@@ -415,10 +415,16 @@ name|startTime
 operator|)
 expr_stmt|;
 block|}
+synchronized|synchronized
+init|(
+name|sleepLock
+init|)
+block|{
 name|triggerWake
 operator|=
 literal|false
 expr_stmt|;
+block|}
 block|}
 comment|/**    * @return the sleep period in milliseconds    */
 specifier|public

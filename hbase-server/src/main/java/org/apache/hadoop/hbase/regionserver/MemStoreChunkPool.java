@@ -233,6 +233,11 @@ end_comment
 
 begin_class
 annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"javadoc"
+argument_list|)
+annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
@@ -785,13 +790,6 @@ condition|)
 return|return
 name|globalInstance
 return|;
-if|if
-condition|(
-name|chunkPoolDisabled
-condition|)
-return|return
-literal|null
-return|;
 synchronized|synchronized
 init|(
 name|MemStoreChunkPool
@@ -799,6 +797,13 @@ operator|.
 name|class
 init|)
 block|{
+if|if
+condition|(
+name|chunkPoolDisabled
+condition|)
+return|return
+literal|null
+return|;
 if|if
 condition|(
 name|globalInstance
