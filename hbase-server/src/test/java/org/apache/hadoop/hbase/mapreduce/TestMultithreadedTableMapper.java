@@ -563,6 +563,13 @@ operator|.
 name|startMiniMapReduceCluster
 argument_list|()
 expr_stmt|;
+name|UTIL
+operator|.
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|MULTI_REGION_TABLE_NAME
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|AfterClass
