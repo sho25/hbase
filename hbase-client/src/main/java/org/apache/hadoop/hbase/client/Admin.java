@@ -508,7 +508,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The administrative API for HBase. Obtain an instance from an {@link HConnection}.  *  * @since 0.99.0  */
+comment|/**  * The administrative API for HBase. Obtain an instance from a {@link Connection}.  *  * @since 0.99.0  */
 end_comment
 
 begin_interface
@@ -2012,7 +2012,7 @@ name|CoprocessorRpcChannel
 name|coprocessorService
 parameter_list|()
 function_decl|;
-comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance    * connected to the passed region server.    *    *<p>    * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published    * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:    *</p>    *    *<div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myAdmin.coprocessorService(serverName);    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *     * @param the server name to which the endpoint call is made    * @return A RegionServerCoprocessorRpcChannel instance    */
+comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance    * connected to the passed region server.    *    *<p>    * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published    * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:    *</p>    *    *<div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myAdmin.coprocessorService(serverName);    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *    * @param sn the server name to which the endpoint call is made    * @return A RegionServerCoprocessorRpcChannel instance    */
 name|CoprocessorRpcChannel
 name|coprocessorService
 parameter_list|(

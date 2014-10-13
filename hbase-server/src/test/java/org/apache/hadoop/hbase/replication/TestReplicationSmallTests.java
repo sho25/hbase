@@ -2349,11 +2349,18 @@ literal|300000
 argument_list|)
 specifier|public
 name|void
-name|loadTesting
+name|testLoading
 parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Writing out rows to table1 in testLoading"
+argument_list|)
+expr_stmt|;
 name|htable1
 operator|.
 name|setWriteBufferSize
@@ -2465,6 +2472,13 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Looking in table2 for replicated rows in testLoading"
+argument_list|)
+expr_stmt|;
 name|long
 name|start
 init|=
@@ -2472,6 +2486,16 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
+decl_stmt|;
+comment|// Retry more than NB_RETRIES.  As it was, retries were done in 5 seconds and we'd fail
+comment|// sometimes.
+specifier|final
+name|long
+name|retries
+init|=
+name|NB_RETRIES
+operator|*
+literal|10
 decl_stmt|;
 for|for
 control|(
@@ -2482,7 +2506,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|NB_RETRIES
+name|retries
 condition|;
 name|i
 operator|++
@@ -2530,7 +2554,7 @@ if|if
 condition|(
 name|i
 operator|==
-name|NB_RETRIES
+name|retries
 operator|-
 literal|1
 condition|)
@@ -2642,7 +2666,7 @@ name|res
 operator|.
 name|length
 operator|+
-literal|" rows"
+literal|" rows... retrying"
 argument_list|)
 expr_stmt|;
 name|Thread

@@ -10597,7 +10597,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Make a region server endpoint call    * @param client    * @param call    * @return    * @throws IOException    */
+comment|/**    * Make a region server endpoint call    * @param client    * @param call    * @return CoprocessorServiceResponse    * @throws IOException    */
 specifier|public
 specifier|static
 name|CoprocessorServiceResponse
