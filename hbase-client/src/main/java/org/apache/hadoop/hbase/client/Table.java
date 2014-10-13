@@ -230,7 +230,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to communicate with a single HBase table.  * Obtain an instance from a {@link Connection}.  *  * @since 0.99.0  */
+comment|/**  * Used to communicate with a single HBase table.  * Obtain an instance from a {@link Connection} and call {@link #close()} afterwards.  *  *<p>Table can be used to get, put, delete or scan data from a table.  * @see ConnectionFactory  * @see Connection  * @see Admin  * @see RegionLocator  * @since 0.99.0  */
 end_comment
 
 begin_interface
@@ -241,7 +241,7 @@ name|Public
 annotation|@
 name|InterfaceStability
 operator|.
-name|Stable
+name|Evolving
 specifier|public
 interface|interface
 name|Table

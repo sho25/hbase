@@ -2272,14 +2272,14 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Provides an interface to manage HBase database table metadata + general  * administrative functions.  Use HBaseAdmin to create, drop, list, enable and  * disable tables. Use it also to add and drop table column families.  *  *<p>See {@link HTable} to add, update, and delete data from an individual table.  *<p>Currently HBaseAdmin instances are not expected to be long-lived.  For  * example, an HBaseAdmin instance will not ride over a Master restart.  */
+comment|/**  * HBaseAdmin is no longer a client API. It is marked InterfaceAudience.Private indicating that  * this is an HBase-internal class as defined in  * https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/InterfaceClassification.html  * There are no guarantees for backwards source / binary compatibility and methods or class can  * change or go away without deprecation.  * Use {@link Connection#getAdmin()} to obtain an instance of {@link Admin} instead of constructing  * an HBaseAdmin directly.  *  *<p>Connection should be an<i>unmanaged</i> connection obtained via  * {@link ConnectionFactory#createConnection(Configuration)}  *  * @see ConnectionFactory  * @see Connection  * @see Admin  */
 end_comment
 
 begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
+name|Private
 annotation|@
 name|InterfaceStability
 operator|.
@@ -2367,7 +2367,9 @@ specifier|private
 name|RpcRetryingCallerFactory
 name|rpcCallerFactory
 decl_stmt|;
-comment|/**    * Constructor.    * See {@link #HBaseAdmin(Connection connection)}    *    * @param c Configuration object. Copied internally.    */
+comment|/**    * Constructor.    * See {@link #HBaseAdmin(Connection connection)}    *    * @param c Configuration object. Copied internally.    * @deprecated Constructing HBaseAdmin objects manually has been deprecated.    * Use {@link Connection#getAdmin()} to obtain an instance of {@link Admin} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HBaseAdmin
 parameter_list|(
@@ -2415,7 +2417,7 @@ return|return
 name|operationTimeout
 return|;
 block|}
-comment|/**    * Constructor for externally managed Connections.    * The connection to master will be created when required by admin functions.    *    * @param connection The Connection instance to use    * @throws MasterNotRunningException, ZooKeeperConnectionException are not    *  thrown anymore but kept into the interface for backward api compatibility    * @deprecated Do not use this internal ctor.    */
+comment|/**    * Constructor for externally managed Connections.    * The connection to master will be created when required by admin functions.    *    * @param connection The Connection instance to use    * @throws MasterNotRunningException, ZooKeeperConnectionException are not    *  thrown anymore but kept into the interface for backward api compatibility    * @deprecated Constructing HBaseAdmin objects manually has been deprecated.    * Use {@link Connection#getAdmin()} to obtain an instance of {@link Admin} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -15152,6 +15154,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Apply the new quota settings.    *    * @param quota the quota settings    * @throws IOException if a remote or network exception occurs    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setQuota
@@ -15212,6 +15216,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Return a Quota Scanner to list the quotas based on the filter.    *    * @param filter the quota settings filter    * @return the quota scanner    * @throws IOException if a remote or network exception occurs    */
+annotation|@
+name|Override
 specifier|public
 name|QuotaRetriever
 name|getQuotaRetriever
@@ -15480,7 +15486,7 @@ literal|true
 return|;
 block|}
 block|}
-comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance    * connected to the passed region server.    *    *<p>    * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published    * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:    *</p>    *    *<div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myAdmin.coprocessorService(serverName);    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *     * @param sn the server name to which the endpoint call is made    * @return A RegionServerCoprocessorRpcChannel instance    */
+comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance    * connected to the passed region server.    *    *<p>    * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published    * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:    *</p>    *    *<div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myAdmin.coprocessorService(serverName);    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *    * @param sn the server name to which the endpoint call is made    * @return A RegionServerCoprocessorRpcChannel instance    */
 annotation|@
 name|Override
 specifier|public

@@ -265,6 +265,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -508,10 +540,18 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The administrative API for HBase. Obtain an instance from a {@link Connection}.  *  * @since 0.99.0  */
+comment|/**  * The administrative API for HBase. Obtain an instance from an {@link Connection#getAdmin()} and  * call {@link #close()} afterwards.  *<p>Admin can be used to create, drop, list, enable and disable tables, add and drop table  * column families and other administrative operations.  *  * @see ConnectionFactory  * @see Connection  * @see Table  * @since 0.99.0  */
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 interface|interface
 name|Admin

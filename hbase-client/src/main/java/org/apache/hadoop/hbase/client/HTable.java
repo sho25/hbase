@@ -844,14 +844,14 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An implementation of {@link Table}. Used to communicate with a single HBase table.  * Lightweight. Get as needed and just close when done.  * Instances of this class SHOULD NOT be constructed directly.  * Obtain an instance via {@link Connection}. See {@link ConnectionFactory}  * class comment for an example of how.  *  *<p>This class is NOT thread safe for reads nor write.  * In the case of writes (Put, Delete), the underlying write buffer can  * be corrupted if multiple threads contend over a single HTable instance.  * In the case of reads, some fields used by a Scan are shared among all threads.  *  * @see Admin for create, drop, list, enable and disable of tables.  * @see Connection  * @see ConnectionFactory  */
+comment|/**  *  * HTable is no longer a client API. It is marked InterfaceAudience.Private indicating that  * this is an HBase-internal class as defined in  * https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/InterfaceClassification.html  * There are no guarantees for backwards source / binary compatibility and methods or class can  * change or go away without deprecation. Use {@link Connection#getTable(TableName)}  * to obtain an instance of {@link Table} instead of constructing an HTable directly.  *<p>An implementation of {@link Table}. Used to communicate with a single HBase table.  * Lightweight. Get as needed and just close when done.  * Instances of this class SHOULD NOT be constructed directly.  * Obtain an instance via {@link Connection}. See {@link ConnectionFactory}  * class comment for an example of how.  *  *<p>This class is NOT thread safe for reads nor write.  * In the case of writes (Put, Delete), the underlying write buffer can  * be corrupted if multiple threads contend over a single HTable instance.  * In the case of reads, some fields used by a Scan are shared among all threads.  *  * @see Table  * @see Admin  * @see Connection  * @see ConnectionFactory  */
 end_comment
 
 begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
+name|Private
 annotation|@
 name|InterfaceStability
 operator|.
