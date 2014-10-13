@@ -18,6 +18,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|java
+operator|.
+name|lang
+operator|.
+name|String
+operator|.
+name|format
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -1177,6 +1189,14 @@ name|ASSIGN_SEQ_IDS
 init|=
 literal|"hbase.mapreduce.bulkload.assign.sequenceNumbers"
 decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|String
+name|CREATE_TABLE_CONF_KEY
+init|=
+literal|"create.table"
+decl_stmt|;
 specifier|private
 name|int
 name|maxFilesPerRegionPerFamily
@@ -1341,9 +1361,17 @@ literal|"usage: "
 operator|+
 name|NAME
 operator|+
-literal|" /path/to/hfileoutputformat-output "
+literal|" /path/to/hfileoutputformat-output tablename"
 operator|+
-literal|"tablename"
+literal|"\n -D"
+operator|+
+name|CREATE_TABLE_CONF_KEY
+operator|+
+literal|"=no - can be used to avoid creation of table by this tool\n"
+operator|+
+literal|"  Note: if you set this to 'no', then the target table must already exist in HBase\n"
+operator|+
+literal|"\n"
 argument_list|)
 expr_stmt|;
 block|}
@@ -5619,6 +5647,25 @@ condition|(
 operator|!
 name|tableExists
 condition|)
+block|{
+if|if
+condition|(
+literal|"yes"
+operator|.
+name|equalsIgnoreCase
+argument_list|(
+name|getConf
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|CREATE_TABLE_CONF_KEY
+argument_list|,
+literal|"yes"
+argument_list|)
+argument_list|)
+condition|)
+block|{
 name|this
 operator|.
 name|createTable
@@ -5628,6 +5675,35 @@ argument_list|,
 name|dirPath
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|String
+name|errorMsg
+init|=
+name|format
+argument_list|(
+literal|"Table '%s' does not exist."
+argument_list|,
+name|tableName
+argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|errorMsg
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|TableNotFoundException
+argument_list|(
+name|errorMsg
+argument_list|)
+throw|;
+block|}
+block|}
 name|Path
 name|hfofDir
 init|=

@@ -275,6 +275,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Admin
@@ -721,6 +735,14 @@ init|=
 name|TsvImporterMapper
 operator|.
 name|class
+decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|String
+name|CREATE_TABLE_CONF_KEY
+init|=
+literal|"create.table"
 decl_stmt|;
 specifier|public
 specifier|static
@@ -2268,16 +2290,38 @@ name|tableName
 argument_list|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
+name|String
+name|errorMsg
+init|=
 name|format
 argument_list|(
 literal|"Table '%s' does not exist."
 argument_list|,
 name|tableName
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+literal|"yes"
+operator|.
+name|equalsIgnoreCase
+argument_list|(
+name|conf
+operator|.
+name|get
+argument_list|(
+name|CREATE_TABLE_CONF_KEY
+argument_list|,
+literal|"yes"
+argument_list|)
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|errorMsg
 argument_list|)
 expr_stmt|;
 comment|// TODO: this is backwards. Instead of depending on the existence of a table,
@@ -2291,6 +2335,24 @@ argument_list|,
 name|columns
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|errorMsg
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|TableNotFoundException
+argument_list|(
+name|errorMsg
+argument_list|)
+throw|;
+block|}
 block|}
 name|HTable
 name|table
@@ -2841,6 +2903,16 @@ operator|+
 name|JOB_NAME_CONF_KEY
 operator|+
 literal|"=jobName - use the specified mapreduce job name for the import\n"
+operator|+
+literal|"  -D"
+operator|+
+name|CREATE_TABLE_CONF_KEY
+operator|+
+literal|"=no - can be used to avoid creation of table by this tool\n"
+operator|+
+literal|"  Note: if you set this to 'no', then the target table must already exist in HBase\n"
+operator|+
+literal|"\n"
 operator|+
 literal|"For performance consider the following options:\n"
 operator|+
