@@ -498,6 +498,8 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+comment|// TODO: Replace setHTable() with initializeTable() once we have
+comment|//       a clean method of closing a connection.
 name|setHTable
 argument_list|(
 operator|new

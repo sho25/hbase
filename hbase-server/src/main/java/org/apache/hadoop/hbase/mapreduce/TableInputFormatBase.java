@@ -211,6 +211,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Connection
 import|;
 end_import
@@ -1488,7 +1504,7 @@ operator|.
 name|table
 return|;
 block|}
-comment|/**    * Allows subclasses to set the {@link HTable}.    *    * @param table  The table to get the data from.    * @deprecated Use {@link #initializeTable(Connection, TableName)} instead.    */
+comment|/**    * Allows subclasses to set the {@link HTable}.    *    * @param table  The table to get the data from.    * @throws IOExceptfion     * @deprecated Use {@link #initializeTable(Connection, TableName)} instead.    */
 annotation|@
 name|Deprecated
 specifier|protected
@@ -1498,6 +1514,8 @@ parameter_list|(
 name|HTable
 name|table
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.
@@ -1510,6 +1528,43 @@ operator|.
 name|regionLocator
 operator|=
 name|table
+expr_stmt|;
+block|}
+comment|/**    * Allows subclasses to initalize the table information.    *    * @param connection  The {@link Connection} to the HBase cluster.    * @param tableName  The {@link TableName} of the table to process.     * @throws IOExceptfion     */
+specifier|protected
+name|void
+name|initializeTable
+parameter_list|(
+name|Connection
+name|connection
+parameter_list|,
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+operator|.
+name|table
+operator|=
+name|connection
+operator|.
+name|getTable
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|regionLocator
+operator|=
+name|connection
+operator|.
+name|getRegionLocator
+argument_list|(
+name|tableName
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Gets the scan defining the actual details like columns etc.    *    * @return The internal scan instance.    */

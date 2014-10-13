@@ -467,8 +467,6 @@ argument_list|,
 literal|null
 argument_list|,
 name|tableName
-argument_list|,
-literal|false
 argument_list|)
 decl_stmt|;
 for|for

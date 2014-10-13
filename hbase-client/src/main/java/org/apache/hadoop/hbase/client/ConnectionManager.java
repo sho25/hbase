@@ -6041,8 +6041,6 @@ argument_list|,
 name|this
 argument_list|,
 name|tableName
-argument_list|,
-name|offlined
 argument_list|)
 decl_stmt|;
 specifier|final

@@ -891,10 +891,12 @@ init|=
 operator|new
 name|RegionSizeCalculator
 argument_list|(
-operator|(
-name|HTable
-operator|)
-name|table
+name|regionLocator
+argument_list|,
+name|conn
+operator|.
+name|getAdmin
+argument_list|()
 argument_list|)
 decl_stmt|;
 for|for
@@ -1149,7 +1151,7 @@ init|=
 operator|new
 name|TableSplit
 argument_list|(
-name|table
+name|regionLocator
 operator|.
 name|getName
 argument_list|()

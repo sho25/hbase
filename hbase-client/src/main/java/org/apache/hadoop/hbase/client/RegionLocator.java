@@ -113,6 +113,16 @@ name|IOException
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
 begin_comment
 comment|/**  * Used to view region location information for a single HBase table.  * Obtain an instance from an {@link HConnection}.  *  * @since 0.99.0  */
 end_comment
@@ -158,6 +168,17 @@ parameter_list|,
 name|boolean
 name|reload
 parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Retrieves all of the regions associated with this table.    * @return a {@link List} of all regions associated with this table.    * @throws IOException if a remote or network exception occurs    */
+specifier|public
+name|List
+argument_list|<
+name|HRegionLocation
+argument_list|>
+name|getAllRegionLocations
+parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
