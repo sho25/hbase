@@ -743,22 +743,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|conf
-operator|.
-name|ConfigurationObserver
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|coordination
 operator|.
 name|BaseCoordinatedStateManager
@@ -14987,6 +14971,33 @@ block|{
 return|return
 name|configurationManager
 return|;
+block|}
+comment|/**    * Reload the configuration from disk.    */
+specifier|public
+name|void
+name|updateConfiguration
+parameter_list|()
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Reloading the configuration from disk."
+argument_list|)
+expr_stmt|;
+comment|// Reload the configuration from disk.
+name|conf
+operator|.
+name|reloadConfiguration
+argument_list|()
+expr_stmt|;
+name|configurationManager
+operator|.
+name|notifyAllObservers
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class
