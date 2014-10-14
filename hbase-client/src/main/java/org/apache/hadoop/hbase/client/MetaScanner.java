@@ -1229,7 +1229,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Lists all of the table regions currently in META.    * @param conf    * @param offlined True if we are to include offlined regions, false and we'll    * leave out offlined regions from returned list.    * @return Map of all user-space regions to servers    * @throws IOException    */
+comment|/**    * Lists all of the table regions currently in META.    * @param conf    * @param connection    * @param tableName    * @return Map of all user-space regions to servers    * @throws IOException    */
 specifier|public
 specifier|static
 name|NavigableMap
