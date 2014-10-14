@@ -187,22 +187,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|RegionLocator
 import|;
 end_import
@@ -498,21 +482,21 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-comment|// TODO: Replace setHTable() with initializeTable() once we have
-comment|//       a clean method of closing a connection.
-name|setHTable
+comment|// NOTE: This connection doesn't currently get closed explicit1ly.
+name|initializeTable
 argument_list|(
-operator|new
-name|HTable
+name|ConnectionFactory
+operator|.
+name|createConnection
 argument_list|(
 operator|new
 name|Configuration
 argument_list|(
 name|conf
 argument_list|)
+argument_list|)
 argument_list|,
 name|tableName
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -926,7 +910,7 @@ name|scan
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Parses a combined family and qualifier and adds either both or just the    * family in case there is no qualifier. This assumes the older colon    * divided notation, e.g. "family:qualifier".    *    * @param scan The Scan to update.    * @param familyAndQualifier family and qualifier    * @return A reference to this instance.    * @throws IllegalArgumentException When familyAndQualifier is invalid.    */
+comment|/**    * Parses a combined family and qualifier and adds either both or just the    * family in case there is no qualifier. This assumes the older colon    * divided notation, e.g. "family:qualifier".    *    * @param scan The Scan to update.    * @param familyAndQualifier family and qualifier    * @throws IllegalArgumentException When familyAndQualifier is invalid.    */
 specifier|private
 specifier|static
 name|void

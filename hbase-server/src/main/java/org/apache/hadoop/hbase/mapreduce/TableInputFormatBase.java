@@ -550,6 +550,11 @@ name|scan
 init|=
 literal|null
 decl_stmt|;
+comment|/** The {@link Admin}. */
+specifier|private
+name|Admin
+name|admin
+decl_stmt|;
 comment|/** The {@link Table} to scan. */
 specifier|private
 name|Table
@@ -784,10 +789,9 @@ init|=
 operator|new
 name|RegionSizeCalculator
 argument_list|(
-operator|(
-name|HTable
-operator|)
-name|table
+name|regionLocator
+argument_list|,
+name|admin
 argument_list|)
 decl_stmt|;
 name|Pair
@@ -1504,7 +1508,7 @@ operator|.
 name|table
 return|;
 block|}
-comment|/**    * Allows subclasses to set the {@link HTable}.    *    * @param table  The table to get the data from.    * @throws IOExceptfion     * @deprecated Use {@link #initializeTable(Connection, TableName)} instead.    */
+comment|/**    * Allows subclasses to set the {@link HTable}.    *    * @param table  The table to get the data from.    * @throws IOException     * @deprecated Use {@link #initializeTable(Connection, TableName)} instead.    */
 annotation|@
 name|Deprecated
 specifier|protected
@@ -1529,8 +1533,20 @@ name|regionLocator
 operator|=
 name|table
 expr_stmt|;
+name|this
+operator|.
+name|admin
+operator|=
+name|table
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|getAdmin
+argument_list|()
+expr_stmt|;
 block|}
-comment|/**    * Allows subclasses to initalize the table information.    *    * @param connection  The {@link Connection} to the HBase cluster.    * @param tableName  The {@link TableName} of the table to process.     * @throws IOExceptfion     */
+comment|/**    * Allows subclasses to initialize the table information.    *    * @param connection  The {@link Connection} to the HBase cluster.    * @param tableName  The {@link TableName} of the table to process.     * @throws IOException     */
 specifier|protected
 name|void
 name|initializeTable
@@ -1565,6 +1581,15 @@ name|getRegionLocator
 argument_list|(
 name|tableName
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|admin
+operator|=
+name|connection
+operator|.
+name|getAdmin
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Gets the scan defining the actual details like columns etc.    *    * @return The internal scan instance.    */
