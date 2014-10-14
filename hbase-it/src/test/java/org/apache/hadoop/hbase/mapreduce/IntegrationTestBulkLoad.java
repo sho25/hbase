@@ -2955,9 +2955,14 @@ name|hashCode
 argument_list|()
 decl_stmt|;
 return|return
+name|Math
+operator|.
+name|abs
+argument_list|(
 name|hash
 operator|%
 name|numPartitions
+argument_list|)
 return|;
 block|}
 block|}
