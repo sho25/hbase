@@ -763,20 +763,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MetaTableAccessor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|Admin
@@ -1443,20 +1429,6 @@ name|hadoop
 operator|.
 name|security
 operator|.
-name|AccessControlException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|security
-operator|.
 name|UserGroupInformation
 import|;
 end_import
@@ -1862,6 +1834,13 @@ init|=
 literal|false
 decl_stmt|;
 comment|// fix table locks which are expired
+specifier|private
+name|boolean
+name|fixAny
+init|=
+literal|false
+decl_stmt|;
+comment|// Set to true if any of the fix is required.
 comment|// limit checking/fixes to listed tables, if empty attempt to check/fix all
 comment|// hbase:meta are always checked
 specifier|private
@@ -2469,6 +2448,8 @@ operator|new
 name|Thread
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -6029,17 +6010,6 @@ argument_list|>
 argument_list|>
 name|entry
 init|=
-operator|(
-name|Entry
-argument_list|<
-name|TableName
-argument_list|,
-name|Set
-argument_list|<
-name|String
-argument_list|>
-argument_list|>
-operator|)
 name|iter
 operator|.
 name|next
@@ -17636,9 +17606,6 @@ name|class
 argument_list|)
 decl_stmt|;
 return|return
-operator|(
-name|ErrorReporter
-operator|)
 name|ReflectionUtils
 operator|.
 name|newInstance
@@ -19310,6 +19277,10 @@ name|fixTableLocks
 operator|=
 name|shouldFix
 expr_stmt|;
+name|fixAny
+operator||=
+name|shouldFix
+expr_stmt|;
 block|}
 comment|/**    * Check if we should rerun fsck again. This checks if we've tried to    * fix something and we should rerun fsck tool again.    * Display the full report from fsck. This displays all live and dead    * region servers, and all known regions.    */
 name|void
@@ -19342,6 +19313,10 @@ name|fixAssignments
 operator|=
 name|shouldFix
 expr_stmt|;
+name|fixAny
+operator||=
+name|shouldFix
+expr_stmt|;
 block|}
 name|boolean
 name|shouldFixAssignments
@@ -19363,6 +19338,10 @@ name|fixMeta
 operator|=
 name|shouldFix
 expr_stmt|;
+name|fixAny
+operator||=
+name|shouldFix
+expr_stmt|;
 block|}
 name|boolean
 name|shouldFixMeta
@@ -19382,6 +19361,10 @@ parameter_list|)
 block|{
 name|fixEmptyMetaCells
 operator|=
+name|shouldFix
+expr_stmt|;
+name|fixAny
+operator||=
 name|shouldFix
 expr_stmt|;
 block|}
@@ -19426,6 +19409,10 @@ name|fixHdfsHoles
 operator|=
 name|shouldFix
 expr_stmt|;
+name|fixAny
+operator||=
+name|shouldFix
+expr_stmt|;
 block|}
 name|boolean
 name|shouldFixHdfsHoles
@@ -19445,6 +19432,10 @@ parameter_list|)
 block|{
 name|fixTableOrphans
 operator|=
+name|shouldFix
+expr_stmt|;
+name|fixAny
+operator||=
 name|shouldFix
 expr_stmt|;
 block|}
@@ -19468,6 +19459,10 @@ name|fixHdfsOverlaps
 operator|=
 name|shouldFix
 expr_stmt|;
+name|fixAny
+operator||=
+name|shouldFix
+expr_stmt|;
 block|}
 name|boolean
 name|shouldFixHdfsOverlaps
@@ -19489,6 +19484,10 @@ name|fixHdfsOrphans
 operator|=
 name|shouldFix
 expr_stmt|;
+name|fixAny
+operator||=
+name|shouldFix
+expr_stmt|;
 block|}
 name|boolean
 name|shouldFixHdfsOrphans
@@ -19508,6 +19507,10 @@ parameter_list|)
 block|{
 name|fixVersionFile
 operator|=
+name|shouldFix
+expr_stmt|;
+name|fixAny
+operator||=
 name|shouldFix
 expr_stmt|;
 block|}
@@ -19556,6 +19559,10 @@ name|fixSplitParents
 operator|=
 name|shouldFix
 expr_stmt|;
+name|fixAny
+operator||=
+name|shouldFix
+expr_stmt|;
 block|}
 name|boolean
 name|shouldFixSplitParents
@@ -19577,6 +19584,10 @@ name|fixReferenceFiles
 operator|=
 name|shouldFix
 expr_stmt|;
+name|fixAny
+operator||=
+name|shouldFix
+expr_stmt|;
 block|}
 name|boolean
 name|shouldFixReferenceFiles
@@ -19592,6 +19603,9 @@ name|shouldIgnorePreCheckPermission
 parameter_list|()
 block|{
 return|return
+operator|!
+name|fixAny
+operator|||
 name|ignorePreCheckPermission
 return|;
 block|}
