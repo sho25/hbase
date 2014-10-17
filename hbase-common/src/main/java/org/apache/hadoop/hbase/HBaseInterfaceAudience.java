@@ -61,9 +61,15 @@ name|InterfaceStability
 operator|.
 name|Evolving
 specifier|public
+specifier|final
 class|class
 name|HBaseInterfaceAudience
 block|{
+comment|/**    * Can't create this class.    */
+specifier|private
+name|HBaseInterfaceAudience
+parameter_list|()
+block|{}
 specifier|public
 specifier|static
 specifier|final

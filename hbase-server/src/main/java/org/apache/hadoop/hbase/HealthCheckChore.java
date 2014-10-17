@@ -309,7 +309,8 @@ condition|)
 block|{
 name|this
 operator|.
-name|stopper
+name|getStopper
+argument_list|()
 operator|.
 name|stop
 argument_list|(

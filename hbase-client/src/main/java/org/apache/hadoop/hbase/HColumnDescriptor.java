@@ -2463,7 +2463,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/** @return data block encoding algorithm used on disk */
+comment|/**    * @return data block encoding algorithm used on disk    * @deprecated See getDataBlockEncoding()    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2476,7 +2476,7 @@ name|getDataBlockEncoding
 argument_list|()
 return|;
 block|}
-comment|/**    * This method does nothing now. Flag ENCODE_ON_DISK is not used    * any more. Data blocks have the same encoding in cache as on disk.    * @return this (for chained invocation)    */
+comment|/**    * This method does nothing now. Flag ENCODE_ON_DISK is not used    * any more. Data blocks have the same encoding in cache as on disk.    * @return this (for chained invocation)    * @deprecated This does nothing now.    */
 annotation|@
 name|Deprecated
 specifier|public

@@ -127,7 +127,7 @@ specifier|final
 name|Sleeper
 name|sleeper
 decl_stmt|;
-specifier|protected
+specifier|private
 specifier|final
 name|Stoppable
 name|stopper
@@ -407,6 +407,24 @@ name|void
 name|cleanup
 parameter_list|()
 block|{   }
+specifier|protected
+name|Stoppable
+name|getStopper
+parameter_list|()
+block|{
+return|return
+name|stopper
+return|;
+block|}
+specifier|protected
+name|Sleeper
+name|getSleeper
+parameter_list|()
+block|{
+return|return
+name|sleeper
+return|;
+block|}
 block|}
 end_class
 

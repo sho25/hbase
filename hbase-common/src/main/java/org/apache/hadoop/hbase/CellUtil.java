@@ -217,6 +217,11 @@ specifier|final
 class|class
 name|CellUtil
 block|{
+comment|/**    * Private constructor to keep this class from being instantiated.    */
+specifier|private
+name|CellUtil
+parameter_list|()
+block|{}
 comment|/******************* ByteRange *******************************/
 specifier|public
 specifier|static

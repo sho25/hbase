@@ -2511,7 +2511,8 @@ name|ex
 operator|=
 name|ex
 expr_stmt|;
-name|stopper
+name|getStopper
+argument_list|()
 operator|.
 name|stop
 argument_list|(

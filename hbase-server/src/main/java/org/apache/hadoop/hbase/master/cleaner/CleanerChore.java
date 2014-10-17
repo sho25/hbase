@@ -991,7 +991,8 @@ argument_list|()
 operator|||
 name|this
 operator|.
-name|stopper
+name|getStopper
+argument_list|()
 operator|.
 name|isStopped
 argument_list|()

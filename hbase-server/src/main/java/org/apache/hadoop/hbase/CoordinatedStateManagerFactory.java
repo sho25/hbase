@@ -85,9 +85,15 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|CoordinatedStateManagerFactory
 block|{
+comment|/**    * Private to keep this class from being accidentally instantiated.    */
+specifier|private
+name|CoordinatedStateManagerFactory
+parameter_list|()
+block|{}
 comment|/**    * Creates consensus provider from the given configuration.    * @param conf Configuration    * @return Implementation of  {@link CoordinatedStateManager}    */
 specifier|public
 specifier|static

@@ -904,6 +904,8 @@ comment|//
 comment|// Getters
 comment|//
 comment|/**    * Returns detailed region server information: A list of    * {@link ServerName}.    * @return region server information    * @deprecated Use {@link #getServers()}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Collection
 argument_list|<

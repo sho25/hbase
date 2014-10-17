@@ -232,7 +232,8 @@ name|size
 parameter_list|()
 function_decl|;
 block|}
-specifier|protected
+specifier|private
+specifier|final
 name|List
 argument_list|<
 name|ImmutableConfigMap
@@ -252,6 +253,8 @@ name|ImmutableConfWrapper
 implements|implements
 name|ImmutableConfigMap
 block|{
+specifier|private
+specifier|final
 name|Configuration
 name|c
 decl_stmt|;
@@ -509,6 +512,8 @@ operator|new
 name|ImmutableConfigMap
 argument_list|()
 block|{
+specifier|private
+specifier|final
 name|Map
 argument_list|<
 name|Bytes
@@ -809,6 +814,8 @@ operator|new
 name|ImmutableConfigMap
 argument_list|()
 block|{
+specifier|private
+specifier|final
 name|Map
 argument_list|<
 name|String

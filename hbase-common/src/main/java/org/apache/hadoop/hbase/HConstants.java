@@ -490,7 +490,7 @@ name|MASTER_TYPE_BACKUP
 init|=
 literal|"hbase.master.backup"
 decl_stmt|;
-comment|/** by default every master is a possible primary master unless the conf explicitly overrides it */
+comment|/**    * by default every master is a possible primary master unless the conf explicitly overrides it    */
 specifier|public
 specifier|static
 specifier|final
@@ -566,7 +566,7 @@ name|DEFAULT_ZOOKEPER_CLIENT_PORT
 init|=
 literal|2181
 decl_stmt|;
-comment|/** Parameter name for the wait time for the recoverable zookeeper */
+comment|/**    * Parameter name for the wait time for the recoverable zookeeper    */
 specifier|public
 specifier|static
 specifier|final
@@ -1081,7 +1081,7 @@ comment|// followed by the meta regions, followed by user regions. Since the roo
 comment|// and meta regions always need to be on-line, this ensures that they will
 comment|// be the first to be reassigned if the server(s) they are being served by
 comment|// should go down.
-comment|/** The hbase:meta table's name. */
+comment|/**    * The hbase:meta table's name.    *     */
 annotation|@
 name|Deprecated
 comment|// for compat from 0.94 -> 0.96.
