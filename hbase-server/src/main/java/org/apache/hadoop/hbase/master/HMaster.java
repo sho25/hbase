@@ -2099,7 +2099,9 @@ name|conf
 operator|.
 name|getBoolean
 argument_list|(
-literal|"hbase.cluster.distributed"
+name|HConstants
+operator|.
+name|CLUSTER_DISTRIBUTED
 argument_list|,
 literal|false
 argument_list|)
