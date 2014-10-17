@@ -13123,6 +13123,22 @@ name|rsh
 operator|.
 name|s
 decl_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|scannerName
+operator|+
+literal|" encountered "
+operator|+
+name|ie
+operator|.
+name|getMessage
+argument_list|()
+operator|+
+literal|", closing ..."
+argument_list|)
+expr_stmt|;
 name|scanner
 operator|.
 name|close
@@ -13143,7 +13159,19 @@ parameter_list|(
 name|IOException
 name|e
 parameter_list|)
-block|{}
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Getting exception closing "
+operator|+
+name|scannerName
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 throw|throw

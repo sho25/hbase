@@ -18735,6 +18735,22 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|storeHeap
+operator|==
+literal|null
+condition|)
+block|{
+comment|// scanner is closed
+throw|throw
+operator|new
+name|UnknownScannerException
+argument_list|(
+literal|"Scanner was closed"
+argument_list|)
+throw|;
+block|}
 name|boolean
 name|returnResult
 decl_stmt|;
