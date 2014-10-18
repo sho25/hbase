@@ -130,7 +130,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Abstract base class for all HBase event handlers. Subclasses should  * implement the {@link #process()} and {@link #prepare()} methods.  Subclasses  * should also do all necessary checks up in their prepare() if possible -- check  * table exists, is disabled, etc. -- so they fail fast rather than later when process  * is running.  Do it this way because process be invoked directly but event  * handlers are also  * run in an executor context -- i.e. asynchronously -- and in this case,  * exceptions thrown at process time will not be seen by the invoker, not till  * we implement a call-back mechanism so the client can pick them up later.  *<p>  * Event handlers have an {@link EventType}.  * {@link EventType} is a list of ALL handler event types.  We need to keep  * a full list in one place -- and as enums is a good shorthand for an  * implemenations -- because event handlers can be passed to executors when  * they are to be run asynchronously. The  * hbase executor, see ExecutorService, has a switch for passing  * event type to executor.  *<p>  * Event listeners can be installed and will be called pre- and post- process if  * this EventHandler is run in a Thread (its a Runnable so if its {@link #run()}  * method gets called).  Implement  * {@link EventHandlerListener}s, and registering using  * {@link #setListener(EventHandlerListener)}.  * @see ExecutorService  */
+comment|/**  * Abstract base class for all HBase event handlers. Subclasses should  * implement the {@link #process()} and {@link #prepare()} methods.  Subclasses  * should also do all necessary checks up in their prepare() if possible -- check  * table exists, is disabled, etc. -- so they fail fast rather than later when process  * is running.  Do it this way because process be invoked directly but event  * handlers are also  * run in an executor context -- i.e. asynchronously -- and in this case,  * exceptions thrown at process time will not be seen by the invoker, not till  * we implement a call-back mechanism so the client can pick them up later.  *<p>  * Event handlers have an {@link EventType}.  * {@link EventType} is a list of ALL handler event types.  We need to keep  * a full list in one place -- and as enums is a good shorthand for an  * implemenations -- because event handlers can be passed to executors when  * they are to be run asynchronously. The  * hbase executor, see ExecutorService, has a switch for passing  * event type to executor.  *<p>  * @see ExecutorService  */
 end_comment
 
 begin_class
@@ -193,11 +193,6 @@ specifier|final
 name|long
 name|seqid
 decl_stmt|;
-comment|// Listener to call pre- and post- processing.  May be null.
-specifier|private
-name|EventHandlerListener
-name|listener
-decl_stmt|;
 comment|// Time to wait for events to happen, should be kept short
 specifier|protected
 name|int
@@ -208,28 +203,6 @@ specifier|final
 name|Span
 name|parent
 decl_stmt|;
-comment|/**    * This interface provides pre- and post-process hooks for events.    */
-specifier|public
-interface|interface
-name|EventHandlerListener
-block|{
-comment|/**      * Called before any event is processed      * @param event The event handler whose process method is about to be called.      */
-name|void
-name|beforeProcess
-parameter_list|(
-name|EventHandler
-name|event
-parameter_list|)
-function_decl|;
-comment|/**      * Called after any event is processed      * @param event The event handler whose process method is about to be called.      */
-name|void
-name|afterProcess
-parameter_list|(
-name|EventHandler
-name|event
-parameter_list|)
-function_decl|;
-block|}
 comment|/**    * Default base class constructor.    */
 specifier|public
 name|EventHandler
@@ -331,38 +304,8 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-if|if
-condition|(
-name|getListener
-argument_list|()
-operator|!=
-literal|null
-condition|)
-name|getListener
-argument_list|()
-operator|.
-name|beforeProcess
-argument_list|(
-name|this
-argument_list|)
-expr_stmt|;
 name|process
 argument_list|()
-expr_stmt|;
-if|if
-condition|(
-name|getListener
-argument_list|()
-operator|!=
-literal|null
-condition|)
-name|getListener
-argument_list|()
-operator|.
-name|afterProcess
-argument_list|(
-name|this
-argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -494,34 +437,6 @@ literal|1
 else|:
 literal|1
 return|;
-block|}
-comment|/**    * @return Current listener or null if none set.    */
-specifier|public
-specifier|synchronized
-name|EventHandlerListener
-name|getListener
-parameter_list|()
-block|{
-return|return
-name|listener
-return|;
-block|}
-comment|/**    * @param listener Listener to call pre- and post- {@link #process()}.    */
-specifier|public
-specifier|synchronized
-name|void
-name|setListener
-parameter_list|(
-name|EventHandlerListener
-name|listener
-parameter_list|)
-block|{
-name|this
-operator|.
-name|listener
-operator|=
-name|listener
-expr_stmt|;
 block|}
 annotation|@
 name|Override
