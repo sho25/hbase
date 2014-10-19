@@ -1199,6 +1199,8 @@ expr_stmt|;
 block|}
 comment|/**    * {@inheritDoc}    * @deprecated If any exception is thrown by one of the actions, there is no way to    * retrieve the partially executed results. Use {@link #batch(List, Object[])} instead.    */
 annotation|@
+name|Deprecated
+annotation|@
 name|Override
 specifier|public
 name|Object
@@ -1274,6 +1276,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * {@inheritDoc}    * @deprecated If any exception is thrown by one of the actions, there is no way to    * retrieve the partially executed results. Use     * {@link #batchCallback(List, Object[], org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)}    * instead.    */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public

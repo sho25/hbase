@@ -1707,6 +1707,11 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+name|HBaseFsck
+operator|.
+name|setDisplayFullReport
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|AfterClass
@@ -6326,12 +6331,6 @@ argument_list|()
 expr_stmt|;
 name|fsck
 operator|.
-name|setDisplayFullReport
-argument_list|()
-expr_stmt|;
-comment|// i.e. -details
-name|fsck
-operator|.
 name|setTimeLag
 argument_list|(
 literal|0
@@ -9640,12 +9639,6 @@ argument_list|()
 expr_stmt|;
 name|hbck
 operator|.
-name|setDisplayFullReport
-argument_list|()
-expr_stmt|;
-comment|// i.e. -details
-name|hbck
-operator|.
 name|setTimeLag
 argument_list|(
 literal|0
@@ -11082,12 +11075,6 @@ argument_list|()
 expr_stmt|;
 name|fsck
 operator|.
-name|setDisplayFullReport
-argument_list|()
-expr_stmt|;
-comment|// i.e. -details
-name|fsck
-operator|.
 name|setTimeLag
 argument_list|(
 literal|0
@@ -11137,12 +11124,6 @@ operator|.
 name|connect
 argument_list|()
 expr_stmt|;
-name|fsck
-operator|.
-name|setDisplayFullReport
-argument_list|()
-expr_stmt|;
-comment|// i.e. -details
 name|fsck
 operator|.
 name|setTimeLag
@@ -11327,12 +11308,6 @@ argument_list|()
 expr_stmt|;
 name|fsck
 operator|.
-name|setDisplayFullReport
-argument_list|()
-expr_stmt|;
-comment|// i.e. -details
-name|fsck
-operator|.
 name|setTimeLag
 argument_list|(
 literal|0
@@ -11382,12 +11357,6 @@ operator|.
 name|connect
 argument_list|()
 expr_stmt|;
-name|fsck
-operator|.
-name|setDisplayFullReport
-argument_list|()
-expr_stmt|;
-comment|// i.e. -details
 name|fsck
 operator|.
 name|setTimeLag
@@ -11709,12 +11678,6 @@ argument_list|()
 expr_stmt|;
 name|fsck
 operator|.
-name|setDisplayFullReport
-argument_list|()
-expr_stmt|;
-comment|// i.e. -details
-name|fsck
-operator|.
 name|setTimeLag
 argument_list|(
 literal|0
@@ -11760,12 +11723,6 @@ operator|.
 name|connect
 argument_list|()
 expr_stmt|;
-name|fsck
-operator|.
-name|setDisplayFullReport
-argument_list|()
-expr_stmt|;
-comment|// i.e. -details
 name|fsck
 operator|.
 name|setTimeLag

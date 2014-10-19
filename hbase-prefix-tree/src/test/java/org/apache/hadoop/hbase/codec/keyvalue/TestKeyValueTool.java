@@ -283,11 +283,9 @@ name|parameters
 parameter_list|()
 block|{
 return|return
-operator|new
 name|TestRowData
 operator|.
 name|InMemory
-argument_list|()
 operator|.
 name|getAllAsObjectArray
 argument_list|()

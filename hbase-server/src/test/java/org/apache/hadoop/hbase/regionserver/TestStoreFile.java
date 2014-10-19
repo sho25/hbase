@@ -813,8 +813,6 @@ argument_list|,
 operator|new
 name|Path
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 name|hri
@@ -1135,8 +1133,6 @@ argument_list|,
 operator|new
 name|Path
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 name|hri
@@ -1500,8 +1496,6 @@ name|setRootDir
 argument_list|(
 name|testConf
 argument_list|,
-name|this
-operator|.
 name|testDir
 argument_list|)
 expr_stmt|;
@@ -1520,8 +1514,6 @@ name|FSUtils
 operator|.
 name|getTableDir
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 name|hri
@@ -1798,8 +1790,6 @@ name|setRootDir
 argument_list|(
 name|testConf
 argument_list|,
-name|this
-operator|.
 name|testDir
 argument_list|)
 expr_stmt|;
@@ -1833,8 +1823,6 @@ name|FSUtils
 operator|.
 name|getTableDir
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 name|hri
@@ -1949,8 +1937,6 @@ name|FSUtils
 operator|.
 name|getTableDir
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 name|hri
@@ -2112,8 +2098,6 @@ name|logFileSystemState
 argument_list|(
 name|fs
 argument_list|,
-name|this
-operator|.
 name|testDir
 argument_list|,
 name|LOG
@@ -5772,8 +5756,6 @@ argument_list|(
 operator|new
 name|Path
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 literal|"7e0102"
@@ -6114,8 +6096,6 @@ argument_list|(
 operator|new
 name|Path
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 literal|"7e0102"
@@ -7363,8 +7343,6 @@ argument_list|(
 operator|new
 name|Path
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 literal|"7e0102"

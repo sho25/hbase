@@ -540,7 +540,7 @@ operator|.
 name|newArrayList
 argument_list|()
 argument_list|,
-name|tsif
+name|TableSnapshotInputFormatImpl
 operator|.
 name|getBestLocations
 argument_list|(
@@ -575,7 +575,7 @@ argument_list|(
 literal|"h1"
 argument_list|)
 argument_list|,
-name|tsif
+name|TableSnapshotInputFormatImpl
 operator|.
 name|getBestLocations
 argument_list|(
@@ -610,7 +610,7 @@ argument_list|(
 literal|"h1"
 argument_list|)
 argument_list|,
-name|tsif
+name|TableSnapshotInputFormatImpl
 operator|.
 name|getBestLocations
 argument_list|(
@@ -645,7 +645,7 @@ argument_list|(
 literal|"h1"
 argument_list|)
 argument_list|,
-name|tsif
+name|TableSnapshotInputFormatImpl
 operator|.
 name|getBestLocations
 argument_list|(
@@ -728,7 +728,7 @@ argument_list|(
 literal|"h1"
 argument_list|)
 argument_list|,
-name|tsif
+name|TableSnapshotInputFormatImpl
 operator|.
 name|getBestLocations
 argument_list|(
@@ -765,7 +765,7 @@ argument_list|,
 literal|"h2"
 argument_list|)
 argument_list|,
-name|tsif
+name|TableSnapshotInputFormatImpl
 operator|.
 name|getBestLocations
 argument_list|(
@@ -802,7 +802,7 @@ argument_list|,
 literal|"h1"
 argument_list|)
 argument_list|,
-name|tsif
+name|TableSnapshotInputFormatImpl
 operator|.
 name|getBestLocations
 argument_list|(
@@ -857,7 +857,7 @@ argument_list|,
 literal|"h1"
 argument_list|)
 argument_list|,
-name|tsif
+name|TableSnapshotInputFormatImpl
 operator|.
 name|getBestLocations
 argument_list|(
