@@ -1166,9 +1166,6 @@ expr_stmt|;
 block|}
 name|util
 operator|.
-name|getHBaseAdmin
-argument_list|()
-operator|.
 name|createTable
 argument_list|(
 name|htd
