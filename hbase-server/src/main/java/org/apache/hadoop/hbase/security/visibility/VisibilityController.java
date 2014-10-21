@@ -4969,7 +4969,7 @@ else|:
 literal|"null"
 operator|)
 operator|+
-literal|" is not authorized to perform this action."
+literal|"' is not authorized to perform this action."
 argument_list|)
 throw|;
 block|}
