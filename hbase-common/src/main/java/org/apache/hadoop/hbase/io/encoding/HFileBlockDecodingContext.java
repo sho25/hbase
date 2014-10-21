@@ -86,7 +86,7 @@ specifier|public
 interface|interface
 name|HFileBlockDecodingContext
 block|{
-comment|/**    * Perform all actions that need to be done before the encoder's real decoding process.    * Decompression needs to be done if {@link HFileContext#getCompression()} returns a valid compression    * algorithm.    *    * @param onDiskSizeWithoutHeader numBytes after block and encoding headers    * @param uncompressedSizeWithoutHeader numBytes without header required to store the block after    *          decompressing (not decoding)    * @param blockBufferWithoutHeader ByteBuffer pointed after the header but before the data    * @param onDiskBlock on disk bytes to be decoded    * @param offset data start offset in onDiskBlock    * @throws IOException    */
+comment|/**    * Perform all actions that need to be done before the encoder's real decoding process.    * Decompression needs to be done if {@link HFileContext#getCompression()} returns a valid compression    * algorithm.    *    * @param onDiskSizeWithoutHeader numBytes after block and encoding headers    * @param uncompressedSizeWithoutHeader numBytes without header required to store the block after    *          decompressing (not decoding)    * @param blockBufferWithoutHeader ByteBuffer pointed after the header but before the data    * @param onDiskBlock on disk data to be decoded    * @throws IOException    */
 name|void
 name|prepareDecoding
 parameter_list|(
@@ -99,12 +99,8 @@ parameter_list|,
 name|ByteBuffer
 name|blockBufferWithoutHeader
 parameter_list|,
-name|byte
-index|[]
+name|ByteBuffer
 name|onDiskBlock
-parameter_list|,
-name|int
-name|offset
 parameter_list|)
 throws|throws
 name|IOException
