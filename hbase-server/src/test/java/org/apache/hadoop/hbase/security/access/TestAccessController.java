@@ -1949,7 +1949,7 @@ expr_stmt|;
 comment|// Wait for the ACL table to become available
 name|TEST_UTIL
 operator|.
-name|waitTableEnabled
+name|waitUntilAllRegionsAssigned
 argument_list|(
 name|AccessControlLists
 operator|.
