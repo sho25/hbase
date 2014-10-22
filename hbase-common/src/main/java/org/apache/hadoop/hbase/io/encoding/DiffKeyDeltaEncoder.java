@@ -1659,6 +1659,15 @@ name|keyLength
 argument_list|)
 decl_stmt|;
 comment|// copy row
+assert|assert
+operator|!
+operator|(
+name|result
+operator|.
+name|isDirect
+argument_list|()
+operator|)
+assert|;
 name|int
 name|pos
 init|=

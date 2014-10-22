@@ -1422,7 +1422,7 @@ return|return
 name|buffer
 return|;
 block|}
-comment|/**    * Copy from one buffer to another from given offset    * @param out destination buffer    * @param in source buffer    * @param sourceOffset offset in the source buffer    * @param length how many bytes to copy    */
+comment|/**    * Copy from one buffer to another from given offset.    *<p>    * Note : This will advance the position marker of {@code out} but not change the position maker    * for {@code in}    * @param out destination buffer    * @param in source buffer    * @param sourceOffset offset in the source buffer    * @param length how many bytes to copy    */
 specifier|public
 specifier|static
 name|void
