@@ -91,9 +91,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|Tag
 import|;
 end_import
 
@@ -107,7 +105,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Tag
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 

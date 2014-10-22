@@ -39,6 +39,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -58,34 +72,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Cell
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
 import|;
 end_import
 
@@ -121,7 +107,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|EmptyMsg
+name|DoubleMsg
 import|;
 end_import
 
@@ -141,7 +127,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|DoubleMsg
+name|EmptyMsg
 import|;
 end_import
 

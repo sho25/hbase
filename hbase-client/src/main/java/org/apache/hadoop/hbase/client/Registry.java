@@ -41,20 +41,6 @@ name|RegionLocations
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TableName
-import|;
-end_import
-
 begin_comment
 comment|/**  * Cluster registry.  * Implemenations hold cluster information such as this cluster's id, location of hbase:meta, etc.  */
 end_comment

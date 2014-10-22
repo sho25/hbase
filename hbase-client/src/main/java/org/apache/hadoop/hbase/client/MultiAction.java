@@ -77,9 +77,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|HConstants
 import|;
 end_import
 
@@ -93,7 +91,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 

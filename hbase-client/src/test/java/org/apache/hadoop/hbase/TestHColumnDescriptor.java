@@ -181,11 +181,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|experimental
-operator|.
-name|categories
-operator|.
-name|Category
+name|Test
 import|;
 end_import
 
@@ -195,7 +191,11 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Test
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
 import|;
 end_import
 

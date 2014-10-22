@@ -69,9 +69,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|Stoppable
 import|;
 end_import
 
@@ -85,7 +83,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Stoppable
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 

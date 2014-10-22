@@ -37,9 +37,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
-operator|.
-name|ByteStringer
+name|Cell
 import|;
 end_import
 
@@ -85,20 +83,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Cell
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|exceptions
 operator|.
 name|DeserializationException
@@ -120,6 +104,22 @@ operator|.
 name|generated
 operator|.
 name|FilterProtos
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ByteStringer
 import|;
 end_import
 

@@ -47,20 +47,6 @@ name|InterfaceStability
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TableName
-import|;
-end_import
-
 begin_comment
 comment|/**  * Thrown when a table exists but should not  */
 end_comment

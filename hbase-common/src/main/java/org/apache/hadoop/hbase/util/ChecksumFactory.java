@@ -33,7 +33,9 @@ name|java
 operator|.
 name|lang
 operator|.
-name|ClassNotFoundException
+name|reflect
+operator|.
+name|Constructor
 import|;
 end_import
 
@@ -46,18 +48,6 @@ operator|.
 name|zip
 operator|.
 name|Checksum
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|lang
-operator|.
-name|reflect
-operator|.
-name|Constructor
 import|;
 end_import
 

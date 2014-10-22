@@ -49,7 +49,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|MiscTests
 import|;
 end_import
 
@@ -65,7 +65,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MiscTests
+name|SmallTests
 import|;
 end_import
 

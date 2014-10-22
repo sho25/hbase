@@ -67,11 +67,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|client
-operator|.
-name|Table
+name|Configuration
 import|;
 end_import
 
@@ -85,9 +83,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
-operator|.
-name|ByteStringer
+name|HConstants
 import|;
 end_import
 
@@ -131,23 +127,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
-operator|.
-name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|HConstants
+name|client
+operator|.
+name|HTable
 import|;
 end_import
 
@@ -163,7 +147,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Table
 import|;
 end_import
 
@@ -354,6 +338,22 @@ operator|.
 name|VisibilityLabelsProtos
 operator|.
 name|VisibilityLabelsService
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ByteStringer
 import|;
 end_import
 

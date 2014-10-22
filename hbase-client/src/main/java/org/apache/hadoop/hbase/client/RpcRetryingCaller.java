@@ -131,9 +131,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|DoNotRetryIOException
 import|;
 end_import
 
@@ -147,7 +145,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|DoNotRetryIOException
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 

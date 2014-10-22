@@ -59,6 +59,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -91,7 +105,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|protobuf
+operator|.
+name|ProtobufUtil
 import|;
 end_import
 
@@ -107,7 +123,11 @@ name|hbase
 operator|.
 name|protobuf
 operator|.
-name|ProtobufUtil
+name|generated
+operator|.
+name|MasterProtos
+operator|.
+name|SetQuotaRequest
 import|;
 end_import
 
@@ -146,26 +166,6 @@ operator|.
 name|QuotaProtos
 operator|.
 name|Quotas
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|MasterProtos
-operator|.
-name|SetQuotaRequest
 import|;
 end_import
 

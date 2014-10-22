@@ -47,16 +47,6 @@ name|InterfaceStability
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Thrown if a request is table schema modification is requested but  * made for an invalid family name.  */
 end_comment

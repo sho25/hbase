@@ -33,22 +33,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|ByteStringer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|commons
 operator|.
 name|logging
@@ -81,9 +65,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|HConstants
 import|;
 end_import
 
@@ -97,7 +79,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -168,6 +152,22 @@ operator|.
 name|ClientProtos
 operator|.
 name|CoprocessorServiceResponse
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ByteStringer
 import|;
 end_import
 

@@ -17,16 +17,6 @@ end_package
 
 begin_import
 import|import
-name|javax
-operator|.
-name|annotation
-operator|.
-name|Nonnull
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -159,13 +149,11 @@ end_import
 
 begin_import
 import|import
-name|com
+name|javax
 operator|.
-name|google
+name|annotation
 operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
+name|Nonnull
 import|;
 end_import
 
@@ -205,6 +193,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|fs
+operator|.
+name|Path
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|classification
@@ -226,20 +228,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
-name|Path
 import|;
 end_import
 
@@ -432,6 +420,18 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|InvalidProtocolBufferException
 import|;
 end_import
 

@@ -353,7 +353,9 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKUtil
+operator|.
+name|ZKUtilOp
 import|;
 end_import
 
@@ -369,9 +371,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZKUtil
-operator|.
-name|ZKUtilOp
+name|ZooKeeperWatcher
 import|;
 end_import
 

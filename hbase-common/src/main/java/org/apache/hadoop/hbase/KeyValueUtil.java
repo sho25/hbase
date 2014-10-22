@@ -75,9 +75,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
+name|KeyValue
 operator|.
-name|InterfaceAudience
+name|Type
 import|;
 end_import
 
@@ -91,9 +91,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|classification
 operator|.
-name|Type
+name|InterfaceAudience
 import|;
 end_import
 
