@@ -2508,10 +2508,7 @@ literal|null
 condition|)
 name|entryName
 operator|=
-name|ACL_TABLE_NAME
-operator|.
-name|getName
-argument_list|()
+name|ACL_GLOBAL_NAME
 expr_stmt|;
 comment|// for normal user tables, we just read the table row from _acl_
 name|ListMultimap
