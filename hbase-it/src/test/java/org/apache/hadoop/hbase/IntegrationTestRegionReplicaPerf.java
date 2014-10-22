@@ -487,22 +487,6 @@ specifier|private
 specifier|static
 specifier|final
 name|String
-name|NOMAPRED_KEY
-init|=
-literal|"nomapred"
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|boolean
-name|NOMAPRED_DEFAULT
-init|=
-literal|false
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|String
 name|REPLICA_COUNT_KEY
 init|=
 literal|"replicas"
@@ -563,12 +547,6 @@ decl_stmt|;
 specifier|private
 name|long
 name|sleepTime
-decl_stmt|;
-specifier|private
-name|boolean
-name|nomapred
-init|=
-name|NOMAPRED_DEFAULT
 decl_stmt|;
 specifier|private
 name|int
@@ -1047,13 +1025,6 @@ operator|+
 name|SLEEP_TIME_DEFAULT
 argument_list|)
 expr_stmt|;
-name|addOptNoArg
-argument_list|(
-name|NOMAPRED_KEY
-argument_list|,
-literal|"Run multiple clients using threads (rather than use mapreduce)"
-argument_list|)
-expr_stmt|;
 name|addOptWithArg
 argument_list|(
 name|REPLICA_COUNT_KEY
@@ -1124,15 +1095,6 @@ name|SLEEP_TIME_KEY
 argument_list|,
 name|SLEEP_TIME_DEFAULT
 argument_list|)
-argument_list|)
-expr_stmt|;
-name|nomapred
-operator|=
-name|cmd
-operator|.
-name|hasOption
-argument_list|(
-name|NOMAPRED_KEY
 argument_list|)
 expr_stmt|;
 name|replicaCount
@@ -1206,13 +1168,6 @@ argument_list|(
 name|SLEEP_TIME_KEY
 argument_list|,
 name|sleepTime
-argument_list|)
-operator|.
-name|add
-argument_list|(
-name|NOMAPRED_KEY
-argument_list|,
-name|nomapred
 argument_list|)
 operator|.
 name|add
@@ -1295,15 +1250,6 @@ init|=
 literal|3
 decl_stmt|;
 name|String
-name|mr
-init|=
-name|nomapred
-condition|?
-literal|"--nomapred"
-else|:
-literal|""
-decl_stmt|;
-name|String
 name|replicas
 init|=
 literal|"--replicas="
@@ -1328,9 +1274,7 @@ name|writeOpts
 init|=
 name|format
 argument_list|(
-literal|"%s %s --table=%s --presplit=16 sequentialWrite 4"
-argument_list|,
-name|mr
+literal|"%s --nomapred --table=%s --presplit=16 sequentialWrite 4"
 argument_list|,
 name|splitPolicy
 argument_list|,
@@ -1342,9 +1286,7 @@ name|readOpts
 init|=
 name|format
 argument_list|(
-literal|"%s --table=%s --latency --sampleRate=0.1 randomRead 4"
-argument_list|,
-name|mr
+literal|"--nomapred --table=%s --latency --sampleRate=0.1 randomRead 4"
 argument_list|,
 name|tableName
 argument_list|)
@@ -1522,7 +1464,7 @@ operator|+
 name|replicaCount
 argument_list|)
 expr_stmt|;
-name|util
+name|IntegrationTestingUtility
 operator|.
 name|setReplicas
 argument_list|(
