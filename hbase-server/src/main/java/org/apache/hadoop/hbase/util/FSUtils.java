@@ -3230,7 +3230,7 @@ block|{ }
 block|}
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Created version file at "
 operator|+
@@ -3261,7 +3261,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|debug
 argument_list|(
 literal|"Unable to create version file at "
 operator|+
