@@ -850,6 +850,22 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
+name|sleepForRetries
+operator|=
+name|this
+operator|.
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"replication.source.sleepforretries"
+argument_list|,
+literal|1000
+argument_list|)
+expr_stmt|;
+comment|// 1 second
+name|this
+operator|.
 name|maxRetriesMultiplier
 operator|=
 name|this
@@ -860,9 +876,10 @@ name|getInt
 argument_list|(
 literal|"replication.source.maxretriesmultiplier"
 argument_list|,
-literal|10
+literal|300
 argument_list|)
 expr_stmt|;
+comment|// 5 minutes @ 1 sec per
 name|this
 operator|.
 name|queue
@@ -935,21 +952,6 @@ operator|.
 name|manager
 operator|=
 name|manager
-expr_stmt|;
-name|this
-operator|.
-name|sleepForRetries
-operator|=
-name|this
-operator|.
-name|conf
-operator|.
-name|getLong
-argument_list|(
-literal|"replication.source.sleepforretries"
-argument_list|,
-literal|1000
-argument_list|)
 expr_stmt|;
 name|this
 operator|.

@@ -795,9 +795,10 @@ name|getLong
 argument_list|(
 literal|"replication.sleep.before.failover"
 argument_list|,
-literal|2000
+literal|30000
 argument_list|)
 expr_stmt|;
+comment|// 30 seconds
 name|this
 operator|.
 name|clusterId
