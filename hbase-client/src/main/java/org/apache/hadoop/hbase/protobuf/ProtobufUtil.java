@@ -9885,9 +9885,11 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+comment|// Either we couldn't instantiate the method object, or "parseFrom" failed.
+comment|// In either case, let's not retry.
 throw|throw
 operator|new
-name|IOException
+name|DoNotRetryIOException
 argument_list|(
 name|e
 argument_list|)
