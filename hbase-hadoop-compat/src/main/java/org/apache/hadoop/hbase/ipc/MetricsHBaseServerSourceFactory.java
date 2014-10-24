@@ -78,6 +78,13 @@ name|contains
 argument_list|(
 literal|"HMaster"
 argument_list|)
+operator|||
+name|serverName
+operator|.
+name|contains
+argument_list|(
+literal|"master"
+argument_list|)
 condition|)
 block|{
 return|return
@@ -92,6 +99,13 @@ operator|.
 name|contains
 argument_list|(
 literal|"HRegion"
+argument_list|)
+operator|||
+name|serverName
+operator|.
+name|contains
+argument_list|(
+literal|"regionserver"
 argument_list|)
 condition|)
 block|{

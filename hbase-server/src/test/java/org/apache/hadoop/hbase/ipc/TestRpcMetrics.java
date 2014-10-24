@@ -237,7 +237,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|"IPC"
+literal|"Master"
 argument_list|,
 name|masterSource
 operator|.
@@ -247,7 +247,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|"IPC"
+literal|"RegionServer"
 argument_list|,
 name|rsSource
 operator|.

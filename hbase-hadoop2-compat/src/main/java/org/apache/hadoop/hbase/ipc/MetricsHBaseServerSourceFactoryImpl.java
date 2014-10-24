@@ -149,7 +149,7 @@ operator|=
 operator|new
 name|MetricsHBaseServerSourceImpl
 argument_list|(
-name|METRICS_NAME
+name|context
 argument_list|,
 name|METRICS_DESCRIPTION
 argument_list|,
