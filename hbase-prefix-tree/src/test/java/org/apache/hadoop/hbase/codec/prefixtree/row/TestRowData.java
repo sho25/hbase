@@ -540,7 +540,6 @@ name|CellSearcher
 name|searcher
 parameter_list|)
 function_decl|;
-specifier|static
 class|class
 name|InMemory
 block|{

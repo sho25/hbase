@@ -1011,7 +1011,7 @@ comment|// (namely the part that shows the set of loaded coprocessors).
 comment|// In this test, there is only a single coprocessor (BuggyMasterObserver).
 name|assertTrue
 argument_list|(
-name|HMaster
+name|master
 operator|.
 name|getLoadedCoprocessors
 argument_list|()

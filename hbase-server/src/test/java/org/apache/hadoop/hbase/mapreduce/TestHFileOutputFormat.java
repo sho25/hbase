@@ -4968,7 +4968,9 @@ control|(
 name|HColumnDescriptor
 name|hcd
 range|:
-name|HBaseTestingUtility
+name|this
+operator|.
+name|util
 operator|.
 name|generateColumnDescriptors
 argument_list|()

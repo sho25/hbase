@@ -1027,6 +1027,8 @@ name|this
 operator|.
 name|fs
 argument_list|,
+name|this
+operator|.
 name|testDir
 argument_list|)
 operator|.
@@ -1075,6 +1077,8 @@ index|[
 name|i
 index|]
 argument_list|,
+name|this
+operator|.
 name|testDir
 argument_list|,
 name|this

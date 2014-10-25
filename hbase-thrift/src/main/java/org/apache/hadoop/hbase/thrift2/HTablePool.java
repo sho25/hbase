@@ -689,8 +689,6 @@ argument_list|)
 return|;
 block|}
 comment|/**    * This method is not needed anymore, clients should call    * HTableInterface.close() rather than returning the tables to the pool    *    * @param table    *          the proxy table user got from pool    * @deprecated    */
-annotation|@
-name|Deprecated
 specifier|public
 name|void
 name|putTable
@@ -1200,8 +1198,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**      * {@inheritDoc}      * @deprecated If any exception is thrown by one of the actions, there is no way to      * retrieve the partially executed results. Use {@link #batch(List, Object[])} instead.      */
-annotation|@
-name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -2103,8 +2099,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**      * {@inheritDoc}      * @deprecated If any exception is thrown by one of the actions, there is no way to      * retrieve the partially executed results. Use      * {@link #batchCallback(List, Object[], org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)}      * instead.      */
-annotation|@
-name|Deprecated
 annotation|@
 name|Override
 specifier|public

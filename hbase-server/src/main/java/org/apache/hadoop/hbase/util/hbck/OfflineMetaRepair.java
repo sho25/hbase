@@ -388,7 +388,7 @@ literal|"-details"
 argument_list|)
 condition|)
 block|{
-name|HBaseFsck
+name|fsck
 operator|.
 name|setDisplayFullReport
 argument_list|()

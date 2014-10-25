@@ -310,7 +310,7 @@ operator|.
 name|connect
 argument_list|()
 expr_stmt|;
-name|HBaseFsck
+name|fsck
 operator|.
 name|setDisplayFullReport
 argument_list|()
