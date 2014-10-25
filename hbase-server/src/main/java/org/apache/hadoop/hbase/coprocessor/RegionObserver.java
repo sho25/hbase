@@ -781,6 +781,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Called before the memstore is flushed to disk.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    * @deprecated use {@link #preFlush(ObserverContext, Store, InternalScanner)} instead    */
+annotation|@
+name|Deprecated
 name|void
 name|preFlush
 parameter_list|(
@@ -817,6 +819,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Called after the memstore is flushed to disk.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    * @deprecated use {@link #preFlush(ObserverContext, Store, InternalScanner)} instead.    */
+annotation|@
+name|Deprecated
 name|void
 name|postFlush
 parameter_list|(
@@ -1145,6 +1149,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use preSplit(    *    final ObserverContext<RegionCoprocessorEnvironment> c, byte[] splitRow)    */
+annotation|@
+name|Deprecated
 name|void
 name|preSplit
 parameter_list|(
@@ -1177,6 +1183,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Called after the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @param l the left daughter region    * @param r the right daughter region    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use postCompleteSplit() instead    */
+annotation|@
+name|Deprecated
 name|void
 name|postSplit
 parameter_list|(

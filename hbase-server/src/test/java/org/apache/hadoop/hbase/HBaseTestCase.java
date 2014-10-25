@@ -388,6 +388,8 @@ comment|/**  * Abstract HBase test class.  Initializes a few things that can com
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 specifier|abstract
 class|class
@@ -691,8 +693,6 @@ condition|(
 name|localfs
 condition|)
 block|{
-name|this
-operator|.
 name|testDir
 operator|=
 name|getUnitTestdir
@@ -724,8 +724,6 @@ block|}
 block|}
 else|else
 block|{
-name|this
-operator|.
 name|testDir
 operator|=
 name|FSUtils

@@ -533,8 +533,6 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 literal|"basic.hfile"

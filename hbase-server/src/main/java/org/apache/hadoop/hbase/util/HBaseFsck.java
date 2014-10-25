@@ -19224,7 +19224,6 @@ block|}
 empty_stmt|;
 comment|/**    * Display the full report from fsck. This displays all live and dead region    * servers, and all known regions.    */
 specifier|public
-specifier|static
 name|void
 name|setDisplayFullReport
 parameter_list|()
