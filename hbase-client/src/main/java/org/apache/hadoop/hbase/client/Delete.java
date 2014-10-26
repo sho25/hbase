@@ -218,7 +218,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to perform Delete operations on a single row.  *<p>  * To delete an entire row, instantiate a Delete object with the row  * to delete.  To further define the scope of what to delete, perform  * additional methods as outlined below.  *<p>  * To delete specific families, execute {@link #deleteFamily(byte[]) deleteFamily}  * for each family to delete.  *<p>  * To delete multiple versions of specific columns, execute  * {@link #deleteColumns(byte[], byte[]) deleteColumns}  * for each column to delete.  *<p>  * To delete specific versions of specific columns, execute  * {@link #deleteColumn(byte[], byte[], long) deleteColumn}  * for each column version to delete.  *<p>  * Specifying timestamps, deleteFamily and deleteColumns will delete all  * versions with a timestamp less than or equal to that passed.  If no  * timestamp is specified, an entry is added with a timestamp of 'now'  * where 'now' is the servers's System.currentTimeMillis().  * Specifying a timestamp to the deleteColumn method will  * delete versions only with a timestamp equal to that specified.  * If no timestamp is passed to deleteColumn, internally, it figures the  * most recent cell's timestamp and adds a delete at that timestamp; i.e.  * it deletes the most recently added cell.  *<p>The timestamp passed to the constructor is used ONLY for delete of  * rows.  For anything less -- a deleteColumn, deleteColumns or  * deleteFamily -- then you need to use the method overrides that take a  * timestamp.  The constructor timestamp is not referenced.  */
+comment|/**  * Used to perform Delete operations on a single row.  *<p>  * To delete an entire row, instantiate a Delete object with the row  * to delete.  To further define the scope of what to delete, perform  * additional methods as outlined below.  *<p>  * To delete specific families, execute {@link #addFamily(byte[]) deleteFamily}  * for each family to delete.  *<p>  * To delete multiple versions of specific columns, execute  * {@link #addColumns(byte[], byte[]) deleteColumns}  * for each column to delete.  *<p>  * To delete specific versions of specific columns, execute  * {@link #addColumn(byte[], byte[], long) deleteColumn}  * for each column version to delete.  *<p>  * Specifying timestamps, deleteFamily and deleteColumns will delete all  * versions with a timestamp less than or equal to that passed.  If no  * timestamp is specified, an entry is added with a timestamp of 'now'  * where 'now' is the servers's System.currentTimeMillis().  * Specifying a timestamp to the deleteColumn method will  * delete versions only with a timestamp equal to that specified.  * If no timestamp is passed to deleteColumn, internally, it figures the  * most recent cell's timestamp and adds a delete at that timestamp; i.e.  * it deletes the most recently added cell.  *<p>The timestamp passed to the constructor is used ONLY for delete of  * rows.  For anything less -- a deleteColumn, deleteColumns or  * deleteFamily -- then you need to use the method overrides that take a  * timestamp.  The constructor timestamp is not referenced.  */
 end_comment
 
 begin_class
@@ -622,11 +622,31 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Delete all versions of all columns of the specified family.    *<p>    * Overrides previous calls to deleteColumn and deleteColumns for the    * specified family.    * @param family family name    * @return this for invocation chaining    */
+comment|/**    * Delete all versions of all columns of the specified family.    *<p>    * Overrides previous calls to deleteColumn and deleteColumns for the    * specified family.    * @param family family name    * @return this for invocation chaining    * @deprecated Since 1.0.0. Use {@link #addFamily(byte[])}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Delete
 name|deleteFamily
 parameter_list|(
+name|byte
+index|[]
+name|family
+parameter_list|)
+block|{
+return|return
+name|addFamily
+argument_list|(
+name|family
+argument_list|)
+return|;
+block|}
+comment|/**    * Delete all versions of all columns of the specified family.    *<p>    * Overrides previous calls to deleteColumn and deleteColumns for the    * specified family.    * @param family family name    * @return this for invocation chaining    */
+specifier|public
+name|Delete
+name|addFamily
+parameter_list|(
+specifier|final
 name|byte
 index|[]
 name|family
@@ -647,12 +667,9 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Delete all columns of the specified family with a timestamp less than    * or equal to the specified timestamp.    *<p>    * Overrides previous calls to deleteColumn and deleteColumns for the    * specified family.    * @param family family name    * @param timestamp maximum version timestamp    * @return this for invocation chaining    */
+comment|/**    * Delete all columns of the specified family with a timestamp less than    * or equal to the specified timestamp.    *<p>    * Overrides previous calls to deleteColumn and deleteColumns for the    * specified family.    * @param family family name    * @param timestamp maximum version timestamp    * @return this for invocation chaining    * @deprecated Since 1.0.0. Use {@link #addFamily(byte[], long)}    */
 annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
+name|Deprecated
 specifier|public
 name|Delete
 name|deleteFamily
@@ -661,6 +678,30 @@ name|byte
 index|[]
 name|family
 parameter_list|,
+name|long
+name|timestamp
+parameter_list|)
+block|{
+return|return
+name|addFamily
+argument_list|(
+name|family
+argument_list|,
+name|timestamp
+argument_list|)
+return|;
+block|}
+comment|/**    * Delete all columns of the specified family with a timestamp less than    * or equal to the specified timestamp.    *<p>    * Overrides previous calls to deleteColumn and deleteColumns for the    * specified family.    * @param family family name    * @param timestamp maximum version timestamp    * @return this for invocation chaining    */
+specifier|public
+name|Delete
+name|addFamily
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|family
+parameter_list|,
+specifier|final
 name|long
 name|timestamp
 parameter_list|)
@@ -782,6 +823,32 @@ name|long
 name|timestamp
 parameter_list|)
 block|{
+return|return
+name|addFamilyVersion
+argument_list|(
+name|family
+argument_list|,
+name|timestamp
+argument_list|)
+return|;
+block|}
+comment|/**    * Delete all columns of the specified family with a timestamp equal to    * the specified timestamp.    * @param family family name    * @param timestamp version timestamp    * @return this for invocation chaining    * @deprecated Since hbase-1.0.0. Use {@link #addFamilyVersion(byte[], long)}    */
+annotation|@
+name|Deprecated
+specifier|public
+name|Delete
+name|addFamilyVersion
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|family
+parameter_list|,
+specifier|final
+name|long
+name|timestamp
+parameter_list|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -848,7 +915,9 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Delete all versions of the specified column.    * @param family family name    * @param qualifier column qualifier    * @return this for invocation chaining    */
+comment|/**    * Delete all versions of the specified column.    * @param family family name    * @param qualifier column qualifier    * @return this for invocation chaining    * @deprecated Since hbase-1.0.0. Use {@link #addColumns(byte[], byte[])}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Delete
 name|deleteColumns
@@ -862,9 +931,32 @@ index|[]
 name|qualifier
 parameter_list|)
 block|{
-name|this
-operator|.
-name|deleteColumns
+return|return
+name|addColumns
+argument_list|(
+name|family
+argument_list|,
+name|qualifier
+argument_list|)
+return|;
+block|}
+comment|/**    * Delete all versions of the specified column.    * @param family family name    * @param qualifier column qualifier    * @return this for invocation chaining    */
+specifier|public
+name|Delete
+name|addColumns
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|family
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|qualifier
+parameter_list|)
+block|{
+name|addColumns
 argument_list|(
 name|family
 argument_list|,
@@ -879,12 +971,9 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Delete all versions of the specified column with a timestamp less than    * or equal to the specified timestamp.    * @param family family name    * @param qualifier column qualifier    * @param timestamp maximum version timestamp    * @return this for invocation chaining    */
+comment|/**    * Delete all versions of the specified column with a timestamp less than    * or equal to the specified timestamp.    * @param family family name    * @param qualifier column qualifier    * @param timestamp maximum version timestamp    * @return this for invocation chaining    * @deprecated Since hbase-1.0.0. Use {@link #addColumns(byte[], byte[], long)}    */
 annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
+name|Deprecated
 specifier|public
 name|Delete
 name|deleteColumns
@@ -897,6 +986,37 @@ name|byte
 index|[]
 name|qualifier
 parameter_list|,
+name|long
+name|timestamp
+parameter_list|)
+block|{
+return|return
+name|addColumns
+argument_list|(
+name|family
+argument_list|,
+name|qualifier
+argument_list|,
+name|timestamp
+argument_list|)
+return|;
+block|}
+comment|/**    * Delete all versions of the specified column with a timestamp less than    * or equal to the specified timestamp.    * @param family family name    * @param qualifier column qualifier    * @param timestamp maximum version timestamp    * @return this for invocation chaining    */
+specifier|public
+name|Delete
+name|addColumns
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|family
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|qualifier
+parameter_list|,
+specifier|final
 name|long
 name|timestamp
 parameter_list|)
@@ -986,7 +1106,9 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Delete the latest version of the specified column.    * This is an expensive call in that on the server-side, it first does a    * get to find the latest versions timestamp.  Then it adds a delete using    * the fetched cells timestamp.    * @param family family name    * @param qualifier column qualifier    * @return this for invocation chaining    */
+comment|/**    * Delete the latest version of the specified column.    * This is an expensive call in that on the server-side, it first does a    * get to find the latest versions timestamp.  Then it adds a delete using    * the fetched cells timestamp.    * @param family family name    * @param qualifier column qualifier    * @return this for invocation chaining    * @deprecated Since hbase-1.0.0. Use {@link #addColumn(byte[], byte[])}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Delete
 name|deleteColumn
@@ -995,6 +1117,31 @@ name|byte
 index|[]
 name|family
 parameter_list|,
+name|byte
+index|[]
+name|qualifier
+parameter_list|)
+block|{
+return|return
+name|addColumn
+argument_list|(
+name|family
+argument_list|,
+name|qualifier
+argument_list|)
+return|;
+block|}
+comment|/**    * Delete the latest version of the specified column.    * This is an expensive call in that on the server-side, it first does a    * get to find the latest versions timestamp.  Then it adds a delete using    * the fetched cells timestamp.    * @param family family name    * @param qualifier column qualifier    * @return this for invocation chaining    */
+specifier|public
+name|Delete
+name|addColumn
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|family
+parameter_list|,
+specifier|final
 name|byte
 index|[]
 name|qualifier
@@ -1017,15 +1164,40 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Delete the specified version of the specified column.    * @param family family name    * @param qualifier column qualifier    * @param timestamp version timestamp    * @return this for invocation chaining    */
+comment|/**    * Delete the specified version of the specified column.    * @param family family name    * @param qualifier column qualifier    * @param timestamp version timestamp    * @return this for invocation chaining    * @deprecated Since hbase-1.0.0. Use {@link #addColumn(byte[], byte[], long)}    */
 annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
+name|Deprecated
 specifier|public
 name|Delete
 name|deleteColumn
+parameter_list|(
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|byte
+index|[]
+name|qualifier
+parameter_list|,
+name|long
+name|timestamp
+parameter_list|)
+block|{
+return|return
+name|addColumn
+argument_list|(
+name|family
+argument_list|,
+name|qualifier
+argument_list|,
+name|timestamp
+argument_list|)
+return|;
+block|}
+comment|/**    * Delete the specified version of the specified column.    * @param family family name    * @param qualifier column qualifier    * @param timestamp version timestamp    * @return this for invocation chaining    */
+specifier|public
+name|Delete
+name|addColumn
 parameter_list|(
 name|byte
 index|[]
