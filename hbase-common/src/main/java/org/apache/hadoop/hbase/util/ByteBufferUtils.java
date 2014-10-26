@@ -2121,7 +2121,7 @@ name|j
 operator|++
 control|)
 block|{
-name|byte
+name|int
 name|a
 init|=
 name|buf1
@@ -2130,8 +2130,10 @@ name|get
 argument_list|(
 name|i
 argument_list|)
+operator|&
+literal|0xFF
 decl_stmt|;
-name|byte
+name|int
 name|b
 init|=
 name|buf2
@@ -2140,6 +2142,8 @@ name|get
 argument_list|(
 name|j
 argument_list|)
+operator|&
+literal|0xFF
 decl_stmt|;
 if|if
 condition|(
