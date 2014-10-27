@@ -1383,20 +1383,9 @@ argument_list|)
 decl_stmt|;
 static|static
 block|{
-name|Logger
-operator|.
-name|getLogger
-argument_list|(
-literal|"org.apache.hadoop.hbase"
-argument_list|)
-operator|.
-name|setLevel
-argument_list|(
-name|Level
-operator|.
-name|DEBUG
-argument_list|)
-expr_stmt|;
+comment|// Uncomment the following line if more verbosity is needed for
+comment|// debugging (see HBASE-12285 for details).
+comment|//Logger.getLogger("org.apache.hadoop.hbase").setLevel(Level.DEBUG);
 comment|// test ThreeRSAbort fails under hadoop2 (2.0.2-alpha) if shortcircuit-read (scr) is on. this
 comment|// turns it off for this test.  TODO: Figure out why scr breaks recovery.
 name|System
