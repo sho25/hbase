@@ -341,6 +341,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|MockRegionServerServices
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -392,6 +406,22 @@ operator|.
 name|regionserver
 operator|.
 name|HRegion
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|LogRoller
 import|;
 end_import
 
@@ -474,6 +504,22 @@ operator|.
 name|util
 operator|.
 name|FSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Threads
 import|;
 end_import
 
@@ -2323,6 +2369,41 @@ index|[
 name|numRegions
 index|]
 decl_stmt|;
+specifier|final
+name|MockRegionServerServices
+name|mockServices
+init|=
+operator|new
+name|MockRegionServerServices
+argument_list|(
+name|getConf
+argument_list|()
+argument_list|)
+decl_stmt|;
+specifier|final
+name|LogRoller
+name|roller
+init|=
+operator|new
+name|LogRoller
+argument_list|(
+name|mockServices
+argument_list|,
+name|mockServices
+argument_list|)
+decl_stmt|;
+name|Threads
+operator|.
+name|setDaemonThreadRunning
+argument_list|(
+name|roller
+operator|.
+name|getThread
+argument_list|()
+argument_list|,
+literal|"WALPerfEval.logRoller"
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 for|for
@@ -2369,6 +2450,8 @@ argument_list|,
 name|wals
 argument_list|,
 name|roll
+argument_list|,
+name|roller
 argument_list|)
 expr_stmt|;
 name|benchmarks
@@ -2494,6 +2577,13 @@ condition|(
 name|verify
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"verifying written log entries."
+argument_list|)
+expr_stmt|;
 name|Path
 name|dir
 init|=
@@ -2627,6 +2717,13 @@ block|}
 block|}
 finally|finally
 block|{
+name|mockServices
+operator|.
+name|stop
+argument_list|(
+literal|"test clean up."
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|int
@@ -2661,6 +2758,31 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+if|if
+condition|(
+literal|null
+operator|!=
+name|roller
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"shutting down log roller."
+argument_list|)
+expr_stmt|;
+name|Threads
+operator|.
+name|shutdown
+argument_list|(
+name|roller
+operator|.
+name|getThread
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 name|wals
 operator|.
@@ -3381,6 +3503,10 @@ parameter_list|,
 specifier|final
 name|long
 name|whenToRoll
+parameter_list|,
+specifier|final
+name|LogRoller
+name|roller
 parameter_list|)
 throws|throws
 name|IOException
@@ -3424,6 +3550,13 @@ name|wal
 argument_list|)
 condition|)
 block|{
+name|roller
+operator|.
+name|addWAL
+argument_list|(
+name|wal
+argument_list|)
+expr_stmt|;
 name|wal
 operator|.
 name|registerWALActionsListener
@@ -3486,8 +3619,6 @@ expr_stmt|;
 comment|// We used to do explicit call to rollWriter but changed it to a request
 comment|// to avoid dead lock (there are less threads going on in this class than
 comment|// in the regionserver -- regionserver does not have the issue).
-comment|// TODO I think this means no rolling actually happens; the request relies on there
-comment|// being a LogRoller.
 name|DefaultWALProvider
 operator|.
 name|requestLogRoll
@@ -3557,11 +3688,6 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-expr_stmt|;
-name|wal
-operator|.
-name|rollWriter
-argument_list|()
 expr_stmt|;
 block|}
 return|return

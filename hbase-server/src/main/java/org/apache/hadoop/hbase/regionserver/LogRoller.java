@@ -249,6 +249,20 @@ name|RemoteException
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_comment
 comment|/**  * Runs periodically to determine if the WAL should be rolled.  *  * NOTE: This class extends Thread rather than Chore because the sleep time  * can be interrupted when there is something to do, rather than the Chore  * sleep time which is invariant.  *  * TODO: change to a pool of threads  */
 end_comment
@@ -258,6 +272,9 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|VisibleForTesting
+specifier|public
 class|class
 name|LogRoller
 extends|extends
