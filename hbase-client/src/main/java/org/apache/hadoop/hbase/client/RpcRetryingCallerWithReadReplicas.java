@@ -389,6 +389,16 @@ name|ServiceException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|htrace
+operator|.
+name|Trace
+import|;
+end_import
+
 begin_comment
 comment|/**  * Caller that goes to replica if the primary region does no answer within a configurable  * timeout. If the timeout is reached, it calls all the secondary replicas, and returns  * the first answer. If the answer comes from one of the secondary replica, it will  * be marked as stale.  */
 end_comment
@@ -1942,7 +1952,12 @@ name|executor
 operator|.
 name|execute
 argument_list|(
+name|Trace
+operator|.
+name|wrap
+argument_list|(
 name|newFuture
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|tasks
