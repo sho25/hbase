@@ -961,6 +961,13 @@ operator|.
 name|KEYS_FOR_HBA_CREATE_TABLE
 argument_list|)
 expr_stmt|;
+name|utility1
+operator|.
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 name|admin2
 operator|.
 name|createTable
@@ -970,6 +977,13 @@ argument_list|,
 name|HBaseTestingUtility
 operator|.
 name|KEYS_FOR_HBA_CREATE_TABLE
+argument_list|)
+expr_stmt|;
+name|utility2
+operator|.
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
 argument_list|)
 expr_stmt|;
 name|htable1

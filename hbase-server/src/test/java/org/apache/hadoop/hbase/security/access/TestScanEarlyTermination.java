@@ -985,7 +985,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|waitTableEnabled
+name|waitUntilAllRegionsAssigned
 argument_list|(
 name|TEST_TABLE
 operator|.

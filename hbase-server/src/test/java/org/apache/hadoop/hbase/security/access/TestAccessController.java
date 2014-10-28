@@ -6736,6 +6736,13 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 comment|// create temp users
 name|User
 name|tblUser
@@ -8320,6 +8327,13 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 comment|// create temp users
 name|User
 name|user
@@ -8919,6 +8933,13 @@ operator|.
 name|createTable
 argument_list|(
 name|htd
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
 argument_list|)
 expr_stmt|;
 name|List
@@ -12130,6 +12151,13 @@ operator|.
 name|createTable
 argument_list|(
 name|htd
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|TEST_TABLE2
 argument_list|)
 expr_stmt|;
 comment|// Starting a new RegionServer.
