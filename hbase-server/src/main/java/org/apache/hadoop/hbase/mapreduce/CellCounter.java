@@ -1486,7 +1486,7 @@ name|otherArgs
 operator|.
 name|length
 operator|<
-literal|1
+literal|2
 condition|)
 block|{
 name|System
