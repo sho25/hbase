@@ -161,6 +161,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|backoff
+operator|.
+name|ClientBackoffPolicy
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -582,6 +600,16 @@ function_decl|;
 comment|/**    *     * @return true if this is a managed connection.    */
 name|boolean
 name|isManaged
+parameter_list|()
+function_decl|;
+comment|/**    * @return the current statistics tracker associated with this connection    */
+name|ServerStatisticTracker
+name|getStatisticsTracker
+parameter_list|()
+function_decl|;
+comment|/**    * @return the configured client backoff policy    */
+name|ClientBackoffPolicy
+name|getBackoffPolicy
 parameter_list|()
 function_decl|;
 block|}

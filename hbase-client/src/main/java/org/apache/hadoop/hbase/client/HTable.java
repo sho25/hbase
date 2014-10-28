@@ -8710,6 +8710,11 @@ operator|.
 name|instantiate
 argument_list|(
 name|configuration
+argument_list|,
+name|connection
+operator|.
+name|getStatisticsTracker
+argument_list|()
 argument_list|)
 argument_list|,
 literal|true

@@ -1527,7 +1527,7 @@ argument_list|)
 decl_stmt|;
 return|return
 operator|new
-name|RpcRetryingCaller
+name|RpcRetryingCallerImpl
 argument_list|<
 name|MultiResponse
 argument_list|>
@@ -1591,7 +1591,7 @@ specifier|static
 class|class
 name|CallerWithFailure
 extends|extends
-name|RpcRetryingCaller
+name|RpcRetryingCallerImpl
 argument_list|<
 name|MultiResponse
 argument_list|>
@@ -2124,7 +2124,7 @@ expr_stmt|;
 block|}
 return|return
 operator|new
-name|RpcRetryingCaller
+name|RpcRetryingCallerImpl
 argument_list|<
 name|MultiResponse
 argument_list|>

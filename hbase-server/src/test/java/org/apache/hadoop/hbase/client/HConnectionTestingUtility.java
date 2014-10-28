@@ -712,6 +712,8 @@ argument_list|,
 name|RetryingCallerInterceptorFactory
 operator|.
 name|NO_OP_INTERCEPTOR
+argument_list|,
+literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;

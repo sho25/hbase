@@ -4386,6 +4386,8 @@ operator|.
 name|instantiate
 argument_list|(
 name|conf
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 operator|<

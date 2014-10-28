@@ -673,7 +673,7 @@ operator|(
 operator|(
 name|Log4JLogger
 operator|)
-name|RpcRetryingCaller
+name|RpcRetryingCallerImpl
 operator|.
 name|LOG
 operator|)

@@ -2931,6 +2931,23 @@ name|HBASE_CLIENT_FAST_FAIL_INTERCEPTOR_IMPL
 init|=
 literal|"hbase.client.fast.fail.interceptor.impl"
 decl_stmt|;
+comment|/** Config key for if the server should send backpressure and if the client should listen to    * that backpressure from the server */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ENABLE_CLIENT_BACKPRESSURE
+init|=
+literal|"hbase.client.backpressure.enabled"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_ENABLE_CLIENT_BACKPRESSURE
+init|=
+literal|false
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()

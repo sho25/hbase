@@ -14,6 +14,8 @@ operator|.
 name|hbase
 operator|.
 name|client
+operator|.
+name|backoff
 package|;
 end_package
 
@@ -27,6 +29,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -49,18 +65,8 @@ name|InterfaceStability
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
-comment|/**  *  */
+comment|/**  * Configurable policy for the amount of time a client should wait for a new request to the  * server when given the server load statistics.  *<p>  * Must have a single-argument constructor that takes a {@link org.apache.hadoop.conf.Configuration}  *</p>  */
 end_comment
 
 begin_interface
@@ -71,53 +77,34 @@ name|Public
 annotation|@
 name|InterfaceStability
 operator|.
-name|Evolving
+name|Unstable
 specifier|public
 interface|interface
-name|RpcRetryingCaller
-parameter_list|<
-name|T
-parameter_list|>
+name|ClientBackoffPolicy
 block|{
-name|void
-name|cancel
-parameter_list|()
-function_decl|;
-comment|/**    * Retries if invocation fails.    * @param callTimeout Timeout for this call    * @param callable The {@link RetryingCallable} to run.    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
-name|T
-name|callWithRetries
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|BACKOFF_POLICY_CLASS
+init|=
+literal|"hbase.client.statistics.backoff-policy"
+decl_stmt|;
+comment|/**    * @return the number of ms to wait on the client based on the    */
+specifier|public
+name|long
+name|getBackoffTime
 parameter_list|(
-name|RetryingCallable
-argument_list|<
-name|T
-argument_list|>
-name|callable
+name|ServerName
+name|serverName
 parameter_list|,
-name|int
-name|callTimeout
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|RuntimeException
-function_decl|;
-comment|/**    * Call the server once only.    * {@link RetryingCallable} has a strange shape so we can do retrys.  Use this invocation if you    * want to do a single call only (A call to {@link RetryingCallable#call(int)} will not likely    * succeed).    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
-name|T
-name|callWithoutRetries
-parameter_list|(
-name|RetryingCallable
-argument_list|<
-name|T
-argument_list|>
-name|callable
+name|byte
+index|[]
+name|region
 parameter_list|,
-name|int
-name|callTimeout
+name|ServerStatistics
+name|stats
 parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|RuntimeException
 function_decl|;
 block|}
 end_interface

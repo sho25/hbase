@@ -2749,7 +2749,7 @@ parameter_list|)
 block|{
 return|return
 operator|new
-name|RpcRetryingCaller
+name|RpcRetryingCallerImpl
 argument_list|<
 name|Void
 argument_list|>
