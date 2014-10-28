@@ -1389,7 +1389,7 @@ name|regionInfos
 argument_list|)
 expr_stmt|;
 block|}
-comment|// 6. Enable table
+comment|// 8. Enable table
 name|assignmentManager
 operator|.
 name|getTableStateManager
@@ -1404,6 +1404,24 @@ operator|.
 name|State
 operator|.
 name|ENABLED
+argument_list|)
+expr_stmt|;
+comment|// 9. Update the tabledescriptor cache.
+operator|(
+operator|(
+name|HMaster
+operator|)
+name|this
+operator|.
+name|server
+operator|)
+operator|.
+name|getTableDescriptors
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}

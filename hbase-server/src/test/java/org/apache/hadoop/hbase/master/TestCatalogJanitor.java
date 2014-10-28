@@ -1939,6 +1939,24 @@ name|IOException
 block|{
 comment|// noop
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|setCacheOn
+parameter_list|()
+throws|throws
+name|IOException
+block|{         }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|setCacheOff
+parameter_list|()
+throws|throws
+name|IOException
+block|{         }
 block|}
 return|;
 block|}

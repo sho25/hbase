@@ -3185,6 +3185,8 @@ argument_list|,
 operator|!
 name|canUpdateTableDescriptor
 argument_list|()
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|service

@@ -158,6 +158,20 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Enables the tabledescriptor cache    */
+name|void
+name|setCacheOn
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Disables the tabledescriptor cache    */
+name|void
+name|setCacheOff
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

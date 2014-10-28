@@ -1902,6 +1902,11 @@ decl_stmt|;
 name|MasterCoprocessorHost
 name|cpHost
 decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|preLoadTableDescriptors
+decl_stmt|;
 comment|// Time stamps for when a hmaster became active
 specifier|private
 name|long
@@ -2177,6 +2182,20 @@ name|MetricsMasterWrapperImpl
 argument_list|(
 name|this
 argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// preload table descriptor at startup
+name|this
+operator|.
+name|preLoadTableDescriptors
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.master.preload.tabledescriptors"
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Do we publish the status?
@@ -3131,6 +3150,35 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
+comment|// enable table descriptors cache
+name|this
+operator|.
+name|tableDescriptors
+operator|.
+name|setCacheOn
+argument_list|()
+expr_stmt|;
+comment|// warm-up HTDs cache on master initialization
+if|if
+condition|(
+name|preLoadTableDescriptors
+condition|)
+block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Pre-loading table descriptors"
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|tableDescriptors
+operator|.
+name|getAll
+argument_list|()
+expr_stmt|;
+block|}
 comment|// publish cluster ID
 name|status
 operator|.
