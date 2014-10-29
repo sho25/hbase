@@ -765,7 +765,7 @@ name|ctx
 parameter_list|,
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 name|hbr
 parameter_list|,
 name|int
@@ -1110,13 +1110,13 @@ try|try
 block|{
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 name|hbr
 init|=
 operator|new
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 argument_list|(
 name|is
 argument_list|,

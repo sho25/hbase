@@ -2113,7 +2113,7 @@ init|=
 operator|new
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 argument_list|(
 name|is
 argument_list|,
@@ -2217,7 +2217,7 @@ operator|=
 operator|new
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 argument_list|(
 name|is
 argument_list|,
@@ -2763,13 +2763,13 @@ argument_list|()
 expr_stmt|;
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 name|hbr
 init|=
 operator|new
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 argument_list|(
 name|is
 argument_list|,
@@ -3615,7 +3615,7 @@ init|=
 operator|new
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 argument_list|(
 name|is
 argument_list|,
@@ -4775,7 +4775,7 @@ init|=
 operator|new
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 argument_list|(
 name|is
 argument_list|,

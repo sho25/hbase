@@ -2116,11 +2116,10 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Across a block boundary now.
-comment|// h goes to the next block
+comment|// 'h' does not exist so we will get a '1' back for not found.
 name|assertEquals
 argument_list|(
-operator|-
-literal|2
+literal|0
 argument_list|,
 name|scanner
 operator|.
@@ -2128,7 +2127,7 @@ name|seekTo
 argument_list|(
 name|toKV
 argument_list|(
-literal|"h"
+literal|"i"
 argument_list|,
 name|tagUsage
 argument_list|)
@@ -2280,21 +2279,6 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|int
-name|klen
-init|=
-name|toKV
-argument_list|(
-literal|"a"
-argument_list|,
-name|tagUsage
-argument_list|)
-operator|.
-name|getKey
-argument_list|()
-operator|.
-name|length
-decl_stmt|;
 comment|// falls before the start of the file.
 name|assertEquals
 argument_list|(

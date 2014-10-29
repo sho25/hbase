@@ -1632,7 +1632,7 @@ literal|"at the first key of the block: key="
 operator|+
 name|CellUtil
 operator|.
-name|getCellKey
+name|getCellKeyAsString
 argument_list|(
 name|key
 argument_list|)

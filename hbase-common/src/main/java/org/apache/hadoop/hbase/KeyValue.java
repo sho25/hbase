@@ -7827,7 +7827,7 @@ block|{
 return|return
 name|CellComparator
 operator|.
-name|compareStatic
+name|compare
 argument_list|(
 name|left
 argument_list|,
@@ -7858,7 +7858,7 @@ name|compare
 init|=
 name|CellComparator
 operator|.
-name|compareStatic
+name|compare
 argument_list|(
 name|left
 argument_list|,
@@ -9339,7 +9339,9 @@ return|return
 name|fakeKey
 return|;
 block|}
-comment|/**      * This is a HFile block index key optimization.      * @param leftKey      * @param rightKey      * @return 0 if equal,<0 if left smaller,>0 if right smaller      */
+comment|/**      * This is a HFile block index key optimization.      * @param leftKey      * @param rightKey      * @return 0 if equal,<0 if left smaller,>0 if right smaller      * @deprecated Since 0.99.2; Use {@link CellComparator#getMidpoint(Cell, Cell)} instead.      */
+annotation|@
+name|Deprecated
 specifier|public
 name|byte
 index|[]
@@ -10716,6 +10718,9 @@ return|return
 literal|"org.apache.hadoop.hbase.util.Bytes$ByteArrayComparator"
 return|;
 block|}
+comment|/**      * @deprecated Since 0.99.2.      */
+annotation|@
+name|Deprecated
 specifier|public
 name|int
 name|compareFlatKey

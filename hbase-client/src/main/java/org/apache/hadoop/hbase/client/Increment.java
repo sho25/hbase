@@ -432,11 +432,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Add the specified KeyValue to this operation.    * @param cell individual Cell    * @return this    * @throws java.io.IOException e    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 name|Increment
 name|add
@@ -552,11 +547,6 @@ name|this
 return|;
 block|}
 comment|/**    * Increment the column from the specific family with the specified qualifier    * by the specified amount.    *<p>    * Overrides previous calls to addColumn for this family and qualifier.    * @param family family name    * @param qualifier column qualifier    * @param amount amount to increment by    * @return the Increment object    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 name|Increment
 name|addColumn
@@ -1130,7 +1120,7 @@ name|append
 argument_list|(
 name|CellUtil
 operator|.
-name|getCellKey
+name|getCellKeyAsString
 argument_list|(
 name|cell
 argument_list|)

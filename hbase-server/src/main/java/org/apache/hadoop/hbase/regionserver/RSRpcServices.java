@@ -12658,7 +12658,7 @@ name|totalCellSize
 operator|+=
 name|CellUtil
 operator|.
-name|estimatedLengthOf
+name|estimatedSerializedSizeOf
 argument_list|(
 name|cell
 argument_list|)
@@ -12834,7 +12834,7 @@ name|totalCellSize
 operator|+=
 name|CellUtil
 operator|.
-name|estimatedLengthOf
+name|estimatedSerializedSizeOf
 argument_list|(
 name|cell
 argument_list|)

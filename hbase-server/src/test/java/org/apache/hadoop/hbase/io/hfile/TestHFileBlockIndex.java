@@ -1181,7 +1181,7 @@ init|=
 operator|new
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 argument_list|(
 name|istream
 argument_list|,

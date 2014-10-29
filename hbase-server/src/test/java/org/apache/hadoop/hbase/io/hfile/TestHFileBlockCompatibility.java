@@ -1304,7 +1304,7 @@ init|=
 operator|new
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 argument_list|(
 operator|new
 name|FSDataInputStreamWrapper
@@ -1406,7 +1406,7 @@ operator|=
 operator|new
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 argument_list|(
 operator|new
 name|FSDataInputStreamWrapper
@@ -1938,13 +1938,13 @@ argument_list|()
 decl_stmt|;
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 name|hbr
 init|=
 operator|new
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 argument_list|(
 operator|new
 name|FSDataInputStreamWrapper

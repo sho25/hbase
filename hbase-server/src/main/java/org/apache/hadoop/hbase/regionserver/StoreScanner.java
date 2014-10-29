@@ -1728,7 +1728,7 @@ name|totalScannersSoughtBytes
 operator|+=
 name|CellUtil
 operator|.
-name|estimatedSizeOf
+name|estimatedSerializedSizeOf
 argument_list|(
 name|c
 argument_list|)
@@ -2484,7 +2484,7 @@ name|totalBytesRead
 operator|+=
 name|CellUtil
 operator|.
-name|estimatedSizeOf
+name|estimatedSerializedSizeOf
 argument_list|(
 name|cell
 argument_list|)

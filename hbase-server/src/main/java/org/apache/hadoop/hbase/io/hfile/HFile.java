@@ -1360,12 +1360,12 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/** An abstraction used by the block index */
+comment|/**    * An abstraction used by the block index.    * Implementations will check cache for any asked-for block and return cached block if found.    * Otherwise, after reading from fs, will try and put block into cache before returning.    */
 specifier|public
 interface|interface
 name|CachingBlockReader
 block|{
-comment|/**      * Read in a file block.      * @param offset offset to read.      * @param onDiskBlockSize size of the block      * @param cacheBlock      * @param pread      * @param isCompaction is this block being read as part of a compaction      * @param expectedBlockType the block type we are expecting to read with this read operation, or      *          null to read whatever block type is available and avoid checking (that might reduce      *          caching efficiency of encoded data blocks)      * @param expectedDataBlockEncoding the data block encoding the caller is      *          expecting data blocks to be in, or null to not perform this      *          check and return the block irrespective of the encoding. This      *          check only applies to data blocks and can be set to null when      *          the caller is expecting to read a non-data block and has set      *          expectedBlockType accordingly.      * @return Block wrapped in a ByteBuffer.      * @throws IOException      */
+comment|/**      * Read in a file block.      * @param offset offset to read.      * @param onDiskBlockSize size of the block      * @param cacheBlock      * @param pread      * @param isCompaction is this block being read as part of a compaction      * @param expectedBlockType the block type we are expecting to read with this read operation,      *  or null to read whatever block type is available and avoid checking (that might reduce      *  caching efficiency of encoded data blocks)      * @param expectedDataBlockEncoding the data block encoding the caller is expecting data blocks      *  to be in, or null to not perform this check and return the block irrespective of the      *  encoding. This check only applies to data blocks and can be set to null when the caller is      *  expecting to read a non-data block and has set expectedBlockType accordingly.      * @return Block wrapped in a ByteBuffer.      * @throws IOException      */
 name|HFileBlock
 name|readBlock
 parameter_list|(

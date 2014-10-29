@@ -2349,7 +2349,7 @@ literal|"\n\tprevious -> "
 operator|+
 name|CellUtil
 operator|.
-name|getCellKey
+name|getCellKeyAsString
 argument_list|(
 name|pCell
 argument_list|)
@@ -2358,7 +2358,7 @@ literal|"\n\tcurrent  -> "
 operator|+
 name|CellUtil
 operator|.
-name|getCellKey
+name|getCellKeyAsString
 argument_list|(
 name|cell
 argument_list|)
@@ -2425,7 +2425,7 @@ literal|"\n\tkeyvalue -> "
 operator|+
 name|CellUtil
 operator|.
-name|getCellKey
+name|getCellKeyAsString
 argument_list|(
 name|cell
 argument_list|)
@@ -2466,7 +2466,7 @@ literal|"\n\tprevious -> "
 operator|+
 name|CellUtil
 operator|.
-name|getCellKey
+name|getCellKeyAsString
 argument_list|(
 name|pCell
 argument_list|)
@@ -2475,7 +2475,7 @@ literal|"\n\tcurrent  -> "
 operator|+
 name|CellUtil
 operator|.
-name|getCellKey
+name|getCellKeyAsString
 argument_list|(
 name|cell
 argument_list|)

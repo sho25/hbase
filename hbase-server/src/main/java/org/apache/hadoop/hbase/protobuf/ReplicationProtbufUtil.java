@@ -934,7 +934,7 @@ name|size
 operator|+=
 name|CellUtil
 operator|.
-name|estimatedLengthOf
+name|estimatedSerializedSizeOf
 argument_list|(
 name|cell
 argument_list|)

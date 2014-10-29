@@ -141,11 +141,6 @@ name|TestDriver
 block|{
 annotation|@
 name|Test
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|public
 name|void
 name|testDriverMainMethod

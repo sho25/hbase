@@ -372,7 +372,7 @@ block|{
 return|return
 name|CellComparator
 operator|.
-name|compareStatic
+name|compare
 argument_list|(
 name|this
 argument_list|,
