@@ -1410,7 +1410,7 @@ argument_list|)
 expr_stmt|;
 name|to
 operator|=
-literal|6000
+literal|12000
 expr_stmt|;
 name|conf
 operator|.
