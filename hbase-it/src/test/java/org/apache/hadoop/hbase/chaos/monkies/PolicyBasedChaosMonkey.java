@@ -722,6 +722,18 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isDestructive
+parameter_list|()
+block|{
+comment|// TODO: we can look at the actions, and decide to do the restore cluster or not based on them.
+return|return
+literal|true
+return|;
+block|}
 block|}
 end_class
 

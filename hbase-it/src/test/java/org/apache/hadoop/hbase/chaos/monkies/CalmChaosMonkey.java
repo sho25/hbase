@@ -69,6 +69,17 @@ parameter_list|()
 throws|throws
 name|InterruptedException
 block|{    }
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isDestructive
+parameter_list|()
+block|{
+return|return
+literal|false
+return|;
+block|}
 block|}
 end_class
 

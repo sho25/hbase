@@ -80,6 +80,13 @@ parameter_list|()
 throws|throws
 name|InterruptedException
 function_decl|;
+comment|/**    * Returns whether the CM does destructive actions (killing servers) so that a cluster restore    * is needed after CM is stopped. Otherwise cluster will be left as it is    */
+specifier|public
+specifier|abstract
+name|boolean
+name|isDestructive
+parameter_list|()
+function_decl|;
 block|}
 end_class
 
