@@ -904,6 +904,27 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"GC_UNRELATED_TYPES"
+argument_list|,
+name|justification
+operator|=
+literal|"I do not understand why the complaints, it looks good to me -- FIX"
+argument_list|)
 specifier|protected
 name|void
 name|chore

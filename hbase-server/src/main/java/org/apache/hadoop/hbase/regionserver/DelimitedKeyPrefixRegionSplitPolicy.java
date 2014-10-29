@@ -149,13 +149,6 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|region
-operator|!=
-literal|null
-condition|)
-block|{
 comment|// read the prefix length from the table descriptor
 name|String
 name|delimiterString
@@ -214,7 +207,6 @@ argument_list|(
 name|delimiterString
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 annotation|@
 name|Override

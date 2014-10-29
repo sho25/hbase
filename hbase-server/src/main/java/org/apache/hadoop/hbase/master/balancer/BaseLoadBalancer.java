@@ -3492,6 +3492,7 @@ literal|"Mistake. Too disruptive to change now"
 argument_list|)
 specifier|public
 specifier|static
+specifier|final
 name|Action
 name|NullAction
 init|=

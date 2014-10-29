@@ -417,13 +417,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-name|hConnections
-operator|!=
-literal|null
-condition|)
-block|{
 for|for
 control|(
 name|Connection
@@ -476,7 +469,6 @@ name|hConnections
 operator|=
 literal|null
 expr_stmt|;
-block|}
 block|}
 block|}
 if|if

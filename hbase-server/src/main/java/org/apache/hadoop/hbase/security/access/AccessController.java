@@ -7887,7 +7887,6 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-empty_stmt|;
 name|authResult
 operator|.
 name|setReason
@@ -8012,7 +8011,6 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-empty_stmt|;
 name|authResult
 operator|.
 name|setReason

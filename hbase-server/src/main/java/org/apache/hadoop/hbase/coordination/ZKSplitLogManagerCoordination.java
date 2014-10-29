@@ -881,13 +881,6 @@ decl_stmt|;
 name|SplitLogManagerDetails
 name|details
 decl_stmt|;
-specifier|private
-specifier|final
-name|Stoppable
-name|stopper
-init|=
-literal|null
-decl_stmt|;
 comment|// When lastRecoveringNodeCreationTime is older than the following threshold, we'll check
 comment|// whether to GC stale recovering znodes
 specifier|private
@@ -3899,16 +3892,6 @@ name|retries
 operator|)
 operator|>
 literal|0
-operator|&&
-operator|(
-operator|!
-name|this
-operator|.
-name|stopper
-operator|.
-name|isStopped
-argument_list|()
-operator|)
 condition|)
 do|;
 block|}

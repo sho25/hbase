@@ -10961,13 +10961,6 @@ name|tmpNewCell
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|m
-operator|!=
-literal|null
-condition|)
-block|{
 name|m
 operator|.
 name|setDurability
@@ -10975,7 +10968,6 @@ argument_list|(
 name|durability
 argument_list|)
 expr_stmt|;
-block|}
 name|previousCell
 operator|=
 name|cell

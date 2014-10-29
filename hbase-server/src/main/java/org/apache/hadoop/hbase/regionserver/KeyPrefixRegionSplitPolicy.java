@@ -142,13 +142,6 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|region
-operator|!=
-literal|null
-condition|)
-block|{
 name|prefixLength
 operator|=
 literal|0
@@ -296,7 +289,6 @@ operator|+
 literal|". Using default RegionSplitPolicy"
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 annotation|@
