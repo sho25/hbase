@@ -492,15 +492,7 @@ argument_list|,
 name|keyLength
 argument_list|,
 name|bloomBuf
-operator|.
-name|array
-argument_list|()
 argument_list|,
-name|bloomBuf
-operator|.
-name|arrayOffset
-argument_list|()
-operator|+
 name|bloomBlock
 operator|.
 name|headerSize

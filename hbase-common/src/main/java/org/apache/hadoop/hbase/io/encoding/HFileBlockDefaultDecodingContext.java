@@ -432,6 +432,12 @@ operator|.
 name|getCompression
 argument_list|()
 decl_stmt|;
+assert|assert
+name|blockBufferWithoutHeader
+operator|.
+name|hasArray
+argument_list|()
+assert|;
 if|if
 condition|(
 name|compression

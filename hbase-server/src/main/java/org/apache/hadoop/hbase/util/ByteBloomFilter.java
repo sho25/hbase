@@ -1396,14 +1396,8 @@ argument_list|,
 name|length
 argument_list|,
 name|theBloom
-operator|.
-name|array
-argument_list|()
 argument_list|,
-name|theBloom
-operator|.
-name|arrayOffset
-argument_list|()
+literal|0
 argument_list|,
 operator|(
 name|int
@@ -1431,9 +1425,8 @@ parameter_list|,
 name|int
 name|length
 parameter_list|,
-name|byte
-index|[]
-name|bloomArray
+name|ByteBuffer
+name|bloomBuf
 parameter_list|,
 name|int
 name|bloomOffset
@@ -1538,7 +1531,7 @@ name|get
 argument_list|(
 name|hashLoc
 argument_list|,
-name|bloomArray
+name|bloomBuf
 argument_list|,
 name|bloomOffset
 argument_list|)
@@ -1585,7 +1578,7 @@ name|get
 argument_list|(
 name|hashLoc
 argument_list|,
-name|bloomArray
+name|bloomBuf
 argument_list|,
 name|bloomOffset
 argument_list|)
@@ -1670,9 +1663,8 @@ parameter_list|(
 name|int
 name|pos
 parameter_list|,
-name|byte
-index|[]
-name|bloomArray
+name|ByteBuffer
+name|bloomBuf
 parameter_list|,
 name|int
 name|bloomOffset
@@ -1694,15 +1686,18 @@ operator|&
 literal|0x7
 decl_stmt|;
 comment|//pos % 8
+comment|// TODO access this via Util API which can do Unsafe access if possible(?)
 name|byte
 name|curByte
 init|=
-name|bloomArray
-index|[
+name|bloomBuf
+operator|.
+name|get
+argument_list|(
 name|bloomOffset
 operator|+
 name|bytePos
-index|]
+argument_list|)
 decl_stmt|;
 name|curByte
 operator|&=

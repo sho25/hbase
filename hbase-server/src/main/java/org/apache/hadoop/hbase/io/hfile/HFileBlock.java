@@ -5750,6 +5750,12 @@ block|{
 comment|// the header has been read when reading the previous block, copy
 comment|// to this block's header
 comment|// headerBuf is HBB
+assert|assert
+name|headerBuf
+operator|.
+name|hasArray
+argument_list|()
+assert|;
 name|System
 operator|.
 name|arraycopy
