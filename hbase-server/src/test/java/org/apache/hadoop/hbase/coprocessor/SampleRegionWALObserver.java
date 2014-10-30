@@ -554,6 +554,13 @@ literal|1
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+literal|null
+operator|!=
+name|row
+condition|)
+block|{
 name|cells
 operator|.
 name|add
@@ -569,6 +576,7 @@ name|addedQualifier
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|deletedCell

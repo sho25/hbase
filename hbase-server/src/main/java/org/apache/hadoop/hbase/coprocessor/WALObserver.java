@@ -138,7 +138,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * It's provided to have a way for coprocessors to observe, rewrite,  * or skip WALEdits as they are being written to the WAL.  *  * {@link org.apache.hadoop.hbase.coprocessor.RegionObserver} provides  * hooks for adding logic for WALEdits in the region context during reconstruction,  *  * Defines coprocessor hooks for interacting with operations on the  * {@link org.apache.hadoop.hbase.regionserver.wal.HLog}.  */
+comment|/**  * It's provided to have a way for coprocessors to observe, rewrite,  * or skip WALEdits as they are being written to the WAL.  *  * Note that implementers of WALObserver will not see WALEdits that report themselves  * as empty via {@link WALEdit#isEmpty()}.  *  * {@link org.apache.hadoop.hbase.coprocessor.RegionObserver} provides  * hooks for adding logic for WALEdits in the region context during reconstruction,  *  * Defines coprocessor hooks for interacting with operations on the  * {@link org.apache.hadoop.hbase.regionserver.wal.HLog}.  */
 end_comment
 
 begin_interface
