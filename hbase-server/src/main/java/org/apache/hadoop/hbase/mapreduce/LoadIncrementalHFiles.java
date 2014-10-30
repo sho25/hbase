@@ -1554,20 +1554,6 @@ operator|.
 name|getPath
 argument_list|()
 decl_stmt|;
-comment|// Skip _logs, etc
-if|if
-condition|(
-name|familyDir
-operator|.
-name|getName
-argument_list|()
-operator|.
-name|startsWith
-argument_list|(
-literal|"_"
-argument_list|)
-condition|)
-continue|continue;
 name|byte
 index|[]
 name|family
@@ -5247,20 +5233,6 @@ operator|.
 name|getPath
 argument_list|()
 decl_stmt|;
-comment|// Skip _logs, etc
-if|if
-condition|(
-name|familyDir
-operator|.
-name|getName
-argument_list|()
-operator|.
-name|startsWith
-argument_list|(
-literal|"_"
-argument_list|)
-condition|)
-continue|continue;
 name|byte
 index|[]
 name|family
