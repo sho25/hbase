@@ -876,6 +876,13 @@ argument_list|(
 literal|"ReplicationExecutor-%d"
 argument_list|)
 expr_stmt|;
+name|tfb
+operator|.
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|executor
