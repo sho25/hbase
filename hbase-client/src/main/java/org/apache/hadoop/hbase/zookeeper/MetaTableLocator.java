@@ -632,7 +632,14 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<>
+argument_list|<
+name|Pair
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|ServerName
+argument_list|>
+argument_list|>
 argument_list|()
 decl_stmt|;
 name|list
@@ -641,7 +648,11 @@ name|add
 argument_list|(
 operator|new
 name|Pair
-argument_list|<>
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|ServerName
+argument_list|>
 argument_list|(
 name|HRegionInfo
 operator|.
@@ -734,7 +745,9 @@ name|result
 init|=
 operator|new
 name|ArrayList
-argument_list|<>
+argument_list|<
+name|HRegionInfo
+argument_list|>
 argument_list|(
 name|pairs
 operator|.
@@ -1319,6 +1332,9 @@ operator|+
 literal|", exception="
 operator|+
 name|t
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return

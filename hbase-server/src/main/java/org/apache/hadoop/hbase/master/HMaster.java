@@ -2032,7 +2032,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Initializes the HMaster. The steps are as follows:    *<p>    *<ol>    *<li>Initialize the local HRegionServer    *<li>Start the ActiveMasterManager.    *</ol>    *<p>    * Remaining steps of initialization occur in    * {@link #finishActiveMasterInitialization(MonitoredTask)} after    * the master becomes the active one.    *    * @throws KeeperException    * @throws IOException    */
+comment|/**    * Initializes the HMaster. The steps are as follows:    *<p>    *<ol>    *<li>Initialize the local HRegionServer    *<li>Start the ActiveMasterManager.    *</ol>    *<p>    * Remaining steps of initialization occur in    * #finishActiveMasterInitialization(MonitoredTask) after    * the master becomes the active one.    *    * @throws KeeperException    * @throws IOException    */
 specifier|public
 name|HMaster
 parameter_list|(
@@ -6660,13 +6660,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Adding ZNode for "
+literal|"Adding backup master ZNode "
 operator|+
 name|backupZNode
-operator|+
-literal|" in backup master directory"
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
 name|MasterAddressTracker
 operator|.
 name|setMasterAddress
@@ -6677,7 +6678,22 @@ name|backupZNode
 argument_list|,
 name|serverName
 argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed create of "
+operator|+
+name|backupZNode
+operator|+
+literal|" by "
+operator|+
+name|serverName
+argument_list|)
 expr_stmt|;
+block|}
 name|activeMasterManager
 operator|=
 operator|new

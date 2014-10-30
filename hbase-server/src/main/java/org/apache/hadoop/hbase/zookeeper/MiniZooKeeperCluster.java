@@ -804,6 +804,7 @@ argument_list|(
 name|server
 argument_list|)
 expr_stmt|;
+comment|// Runs a 'stat' against the servers.
 if|if
 condition|(
 operator|!
@@ -873,9 +874,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Started MiniZK Cluster and connect 1 ZK server "
+literal|"Started MiniZooKeeperCluster and ran successful 'stat' "
 operator|+
-literal|"on client port: "
+literal|"on client port="
 operator|+
 name|clientPort
 argument_list|)
