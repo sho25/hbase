@@ -975,6 +975,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|mob
+operator|.
+name|MobCacheConfig
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|procedure
 operator|.
 name|RegionServerProcedureManagerHost
@@ -2430,6 +2446,11 @@ specifier|final
 name|CacheConfig
 name|cacheConfig
 decl_stmt|;
+comment|// Cache configuration for mob
+specifier|final
+name|MobCacheConfig
+name|mobCacheConfig
+decl_stmt|;
 comment|/** The health check chore. */
 specifier|private
 name|HealthCheckChore
@@ -2805,6 +2826,14 @@ name|cacheConfig
 operator|=
 operator|new
 name|CacheConfig
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+name|mobCacheConfig
+operator|=
+operator|new
+name|MobCacheConfig
 argument_list|(
 name|conf
 argument_list|)
@@ -4306,6 +4335,14 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
+name|mobCacheConfig
+operator|.
+name|getMobFileCache
+argument_list|()
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|movedRegionsCleaner

@@ -629,6 +629,146 @@ name|MAJOR_COMPACTED_CELLS_SIZE_DESC
 init|=
 literal|"The total amount of data processed during major compactions, in bytes"
 decl_stmt|;
+name|String
+name|MOB_COMPACTED_INTO_MOB_CELLS_COUNT
+init|=
+literal|"mobCompactedIntoMobCellsCount"
+decl_stmt|;
+name|String
+name|MOB_COMPACTED_INTO_MOB_CELLS_COUNT_DESC
+init|=
+literal|"The number of cells moved to mob during compaction"
+decl_stmt|;
+name|String
+name|MOB_COMPACTED_FROM_MOB_CELLS_COUNT
+init|=
+literal|"mobCompactedFromMobCellsCount"
+decl_stmt|;
+name|String
+name|MOB_COMPACTED_FROM_MOB_CELLS_COUNT_DESC
+init|=
+literal|"The number of cells moved from mob during compaction"
+decl_stmt|;
+name|String
+name|MOB_COMPACTED_INTO_MOB_CELLS_SIZE
+init|=
+literal|"mobCompactedIntoMobCellsSize"
+decl_stmt|;
+name|String
+name|MOB_COMPACTED_INTO_MOB_CELLS_SIZE_DESC
+init|=
+literal|"The total amount of cells move to mob during compaction, in bytes"
+decl_stmt|;
+name|String
+name|MOB_COMPACTED_FROM_MOB_CELLS_SIZE
+init|=
+literal|"mobCompactedFromMobCellsSize"
+decl_stmt|;
+name|String
+name|MOB_COMPACTED_FROM_MOB_CELLS_SIZE_DESC
+init|=
+literal|"The total amount of cells move from mob during compaction, in bytes"
+decl_stmt|;
+name|String
+name|MOB_FLUSH_COUNT
+init|=
+literal|"mobFlushCount"
+decl_stmt|;
+name|String
+name|MOB_FLUSH_COUNT_DESC
+init|=
+literal|"The number of the flushes in mob-enabled stores"
+decl_stmt|;
+name|String
+name|MOB_FLUSHED_CELLS_COUNT
+init|=
+literal|"mobFlushedCellsCount"
+decl_stmt|;
+name|String
+name|MOB_FLUSHED_CELLS_COUNT_DESC
+init|=
+literal|"The number of mob cells flushed to disk"
+decl_stmt|;
+name|String
+name|MOB_FLUSHED_CELLS_SIZE
+init|=
+literal|"mobFlushedCellsSize"
+decl_stmt|;
+name|String
+name|MOB_FLUSHED_CELLS_SIZE_DESC
+init|=
+literal|"The total amount of mob cells flushed to disk, in bytes"
+decl_stmt|;
+name|String
+name|MOB_SCAN_CELLS_COUNT
+init|=
+literal|"mobScanCellsCount"
+decl_stmt|;
+name|String
+name|MOB_SCAN_CELLS_COUNT_DESC
+init|=
+literal|"The number of scanned mob cells"
+decl_stmt|;
+name|String
+name|MOB_SCAN_CELLS_SIZE
+init|=
+literal|"mobScanCellsSize"
+decl_stmt|;
+name|String
+name|MOB_SCAN_CELLS_SIZE_DESC
+init|=
+literal|"The total amount of scanned mob cells, in bytes"
+decl_stmt|;
+name|String
+name|MOB_FILE_CACHE_ACCESS_COUNT
+init|=
+literal|"mobFileCacheAccessCount"
+decl_stmt|;
+name|String
+name|MOB_FILE_CACHE_ACCESS_COUNT_DESC
+init|=
+literal|"The count of accesses to the mob file cache"
+decl_stmt|;
+name|String
+name|MOB_FILE_CACHE_MISS_COUNT
+init|=
+literal|"mobFileCacheMissCount"
+decl_stmt|;
+name|String
+name|MOB_FILE_CACHE_MISS_COUNT_DESC
+init|=
+literal|"The count of misses to the mob file cache"
+decl_stmt|;
+name|String
+name|MOB_FILE_CACHE_HIT_PERCENT
+init|=
+literal|"mobFileCacheHitPercent"
+decl_stmt|;
+name|String
+name|MOB_FILE_CACHE_HIT_PERCENT_DESC
+init|=
+literal|"The hit percent to the mob file cache"
+decl_stmt|;
+name|String
+name|MOB_FILE_CACHE_EVICTED_COUNT
+init|=
+literal|"mobFileCacheEvictedCount"
+decl_stmt|;
+name|String
+name|MOB_FILE_CACHE_EVICTED_COUNT_DESC
+init|=
+literal|"The number of items evicted from the mob file cache"
+decl_stmt|;
+name|String
+name|MOB_FILE_CACHE_COUNT
+init|=
+literal|"mobFileCacheCount"
+decl_stmt|;
+name|String
+name|MOB_FILE_CACHE_COUNT_DESC
+init|=
+literal|"The count of cached mob files"
+decl_stmt|;
 block|}
 end_interface
 

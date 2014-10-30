@@ -120,11 +120,29 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Instantiates the MobFileCache.    * @param conf The current configuration.    */
+specifier|public
+name|MobCacheConfig
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+name|instantiateMobFileCache
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Instantiates the MobFileCache.    * @param conf The current configuration.    * @return The current instance of MobFileCache.    */
 specifier|public
 specifier|static
 specifier|synchronized
-name|void
+name|MobFileCache
 name|instantiateMobFileCache
 parameter_list|(
 name|Configuration
@@ -147,6 +165,9 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|mobFileCache
+return|;
 block|}
 comment|/**    * Gets the MobFileCache.    * @return The MobFileCache.    */
 specifier|public
