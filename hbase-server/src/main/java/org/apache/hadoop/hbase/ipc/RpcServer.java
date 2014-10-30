@@ -3968,7 +3968,24 @@ parameter_list|(
 name|IOException
 name|ignored
 parameter_list|)
-block|{             }
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"ignored"
+argument_list|,
+name|ignored
+argument_list|)
+expr_stmt|;
+block|}
 name|key
 operator|=
 literal|null
@@ -4132,7 +4149,24 @@ parameter_list|(
 name|IOException
 name|ignored
 parameter_list|)
-block|{ }
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"ignored"
+argument_list|,
+name|ignored
+argument_list|)
+expr_stmt|;
+block|}
 name|selector
 operator|=
 literal|null
@@ -4837,7 +4871,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**      * Take the list of the connections that want to write, and register them      *  in the selector.      */
+comment|/**      * Take the list of the connections that want to write, and register them      * in the selector.      */
 specifier|private
 name|void
 name|registerWrites
@@ -4887,6 +4921,8 @@ argument_list|(
 name|writeSelector
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 if|if
 condition|(
 name|sk
@@ -4919,6 +4955,22 @@ name|e
 parameter_list|)
 block|{
 comment|// ignore: the client went away.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"ignored"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 else|else
@@ -4930,6 +4982,31 @@ argument_list|(
 name|SelectionKey
 operator|.
 name|OP_WRITE
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|CancelledKeyException
+name|e
+parameter_list|)
+block|{
+comment|// ignore: the client went away.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"ignored"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -5579,7 +5656,7 @@ return|;
 comment|// Socket can't take more, we will have to come back.
 block|}
 block|}
-comment|/**      * Process all the responses for this connection      *      * @return true if all the calls were processed or that someone else is doing it. false if there      * is still some work to do. In this case, we expect the caller to delay us.      * @throws IOException      */
+comment|/**      * Process all the responses for this connection      *      * @return true if all the calls were processed or that someone else is doing it.      * false if there * is still some work to do. In this case, we expect the caller to      * delay us.      * @throws IOException      */
 specifier|private
 name|boolean
 name|processAllResponses

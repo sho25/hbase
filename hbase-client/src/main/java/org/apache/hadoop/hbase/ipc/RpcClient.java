@@ -3583,6 +3583,22 @@ name|ignored
 parameter_list|)
 block|{
 comment|// Can happen if the socket is already closed
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"ignored"
+argument_list|,
+name|ignored
+argument_list|)
+expr_stmt|;
 block|}
 try|try
 block|{
@@ -3613,6 +3629,22 @@ name|ignored
 parameter_list|)
 block|{
 comment|// Can happen if the socket is already closed
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"ignored"
+argument_list|,
+name|ignored
+argument_list|)
+expr_stmt|;
 block|}
 try|try
 block|{
@@ -3643,6 +3675,22 @@ name|ignored
 parameter_list|)
 block|{
 comment|// Can happen if the socket is already closed
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"ignored"
+argument_list|,
+name|ignored
+argument_list|)
+expr_stmt|;
 block|}
 try|try
 block|{
@@ -5749,6 +5797,7 @@ argument_list|,
 name|whatIsLeftToRead
 argument_list|)
 expr_stmt|;
+return|return;
 block|}
 if|if
 condition|(
@@ -5774,10 +5823,6 @@ argument_list|(
 name|exceptionResponse
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|expectedCall
-condition|)
 name|call
 operator|.
 name|setException
@@ -5807,11 +5852,8 @@ name|value
 init|=
 literal|null
 decl_stmt|;
-comment|// Call may be null because it may have timeout and been cleaned up on this side already
 if|if
 condition|(
-name|expectedCall
-operator|&&
 name|call
 operator|.
 name|responseDefaultType
@@ -5913,12 +5955,6 @@ name|cellBlock
 argument_list|)
 expr_stmt|;
 block|}
-comment|// it's possible that this call may have been cleaned up due to a RPC
-comment|// timeout, so check if it still exists before setting the value.
-if|if
-condition|(
-name|expectedCall
-condition|)
 name|call
 operator|.
 name|setResponse
@@ -5957,6 +5993,22 @@ block|{
 comment|// Clean up open calls but don't treat this as a fatal condition,
 comment|// since we expect certain responses to not make it by the specified
 comment|// {@link ConnectionId#rpcTimeout}.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"ignored"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 else|else
 block|{
@@ -7298,11 +7350,6 @@ name|remove
 argument_list|(
 name|cts
 argument_list|)
-expr_stmt|;
-name|call
-operator|.
-name|callComplete
-argument_list|()
 expr_stmt|;
 block|}
 block|}
