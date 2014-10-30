@@ -404,13 +404,18 @@ operator|>
 name|this
 operator|.
 name|lastUpdateToPeers
+operator|||
+name|sinks
+operator|.
+name|isEmpty
+argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Current list of sinks is out of date, updating"
+literal|"Current list of sinks is out of date or empty, updating"
 argument_list|)
 expr_stmt|;
 name|chooseSinks
