@@ -2028,7 +2028,7 @@ init|=
 literal|0
 decl_stmt|;
 name|long
-name|testMobCompactedFromMobCellsSize
+name|tempMobCompactedFromMobCellsSize
 init|=
 literal|0
 decl_stmt|;
@@ -2264,7 +2264,7 @@ operator|.
 name|getMobCompactedIntoMobCellsSize
 argument_list|()
 expr_stmt|;
-name|testMobCompactedFromMobCellsSize
+name|tempMobCompactedFromMobCellsSize
 operator|+=
 name|mobStore
 operator|.
@@ -2578,7 +2578,7 @@ name|tempMobCompactedIntoMobCellsSize
 expr_stmt|;
 name|mobCompactedFromMobCellsSize
 operator|=
-name|testMobCompactedFromMobCellsSize
+name|tempMobCompactedFromMobCellsSize
 expr_stmt|;
 name|mobFlushCount
 operator|=
