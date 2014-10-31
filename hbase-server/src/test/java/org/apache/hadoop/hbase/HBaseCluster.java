@@ -290,7 +290,7 @@ return|return
 name|initialClusterStatus
 return|;
 block|}
-comment|/**    * Returns an {@link MasterAdminService.BlockingInterface} to the active master    */
+comment|/**    * Returns an {@link MasterService.BlockingInterface} to the active master    */
 specifier|public
 specifier|abstract
 name|MasterService
@@ -441,7 +441,11 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"did timeout waiting for region server to start:"
+literal|"did timeout "
+operator|+
+name|timeout
+operator|+
+literal|"ms waiting for region server to start: "
 operator|+
 name|hostname
 argument_list|)

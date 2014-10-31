@@ -1433,6 +1433,21 @@ literal|10
 else|:
 literal|3
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting "
+operator|+
+name|testName
+operator|+
+literal|" with "
+operator|+
+name|maxIters
+operator|+
+literal|" iterations."
+argument_list|)
+expr_stmt|;
 comment|// Array to keep track of times.
 name|ArrayList
 argument_list|<
@@ -1487,6 +1502,8 @@ operator|.
 name|nanoTime
 argument_list|()
 decl_stmt|;
+try|try
+block|{
 comment|// We're going to try this multiple times
 for|for
 control|(
@@ -1651,6 +1668,53 @@ argument_list|(
 literal|5000l
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|long
+name|runtimeMs
+init|=
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+operator|.
+name|convert
+argument_list|(
+name|System
+operator|.
+name|nanoTime
+argument_list|()
+operator|-
+name|start
+argument_list|,
+name|TimeUnit
+operator|.
+name|NANOSECONDS
+argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|testName
+operator|+
+literal|" failed after "
+operator|+
+name|runtimeMs
+operator|+
+literal|"ms."
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
+throw|;
 block|}
 name|long
 name|runtimeMs
