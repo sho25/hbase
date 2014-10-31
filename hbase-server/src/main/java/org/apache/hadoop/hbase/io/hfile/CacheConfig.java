@@ -566,7 +566,7 @@ argument_list|)
 operator|||
 name|family
 operator|.
-name|shouldCacheDataOnWrite
+name|isCacheDataOnWrite
 argument_list|()
 argument_list|,
 name|conf
@@ -580,7 +580,7 @@ argument_list|)
 operator|||
 name|family
 operator|.
-name|shouldCacheIndexesOnWrite
+name|isCacheIndexesOnWrite
 argument_list|()
 argument_list|,
 name|conf
@@ -594,7 +594,7 @@ argument_list|)
 operator|||
 name|family
 operator|.
-name|shouldCacheBloomsOnWrite
+name|isCacheBloomsOnWrite
 argument_list|()
 argument_list|,
 name|conf
@@ -608,7 +608,7 @@ argument_list|)
 operator|||
 name|family
 operator|.
-name|shouldEvictBlocksOnClose
+name|isEvictBlocksOnClose
 argument_list|()
 argument_list|,
 name|conf
@@ -631,7 +631,7 @@ argument_list|)
 operator|||
 name|family
 operator|.
-name|shouldPrefetchBlocksOnOpen
+name|isPrefetchBlocksOnOpen
 argument_list|()
 argument_list|,
 name|conf
@@ -649,7 +649,7 @@ argument_list|)
 operator|||
 name|family
 operator|.
-name|shouldCacheDataInL1
+name|isCacheDataInL1
 argument_list|()
 argument_list|)
 expr_stmt|;

@@ -2597,10 +2597,52 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return Whether KV tags should be compressed along with DataBlockEncoding. When no    *         DataBlockEncoding is been used, this is having no effect.    */
+comment|/**    * @return Whether KV tags should be compressed along with DataBlockEncoding. When no    *         DataBlockEncoding is been used, this is having no effect.    * @deprecated Use {@link #isCompressTags()} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|shouldCompressTags
+parameter_list|()
+block|{
+name|String
+name|compressTagsStr
+init|=
+name|getValue
+argument_list|(
+name|COMPRESS_TAGS
+argument_list|)
+decl_stmt|;
+name|boolean
+name|compressTags
+init|=
+name|DEFAULT_COMPRESS_TAGS
+decl_stmt|;
+if|if
+condition|(
+name|compressTagsStr
+operator|!=
+literal|null
+condition|)
+block|{
+name|compressTags
+operator|=
+name|Boolean
+operator|.
+name|valueOf
+argument_list|(
+name|compressTagsStr
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|compressTags
+return|;
+block|}
+comment|/**    * @return Whether KV tags should be compressed along with DataBlockEncoding. When no    *         DataBlockEncoding is been used, this is having no effect.    */
+specifier|public
+name|boolean
+name|isCompressTags
 parameter_list|()
 block|{
 name|String
@@ -3092,10 +3134,27 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return true if we should cache data blocks on write    */
+comment|/**    * @return true if we should cache data blocks on write    * @deprecated Use {@link #isCacheDataOnWrite()} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|shouldCacheDataOnWrite
+parameter_list|()
+block|{
+return|return
+name|setAndGetBoolean
+argument_list|(
+name|CACHE_DATA_ON_WRITE
+argument_list|,
+name|DEFAULT_CACHE_DATA_ON_WRITE
+argument_list|)
+return|;
+block|}
+comment|/**    * @return true if we should cache data blocks on write    */
+specifier|public
+name|boolean
+name|isCacheDataOnWrite
 parameter_list|()
 block|{
 return|return
@@ -3130,10 +3189,27 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return true if we should cache data blocks in the L1 cache (if block cache deploy    * has more than one tier; e.g. we are using CombinedBlockCache).    */
+comment|/**    * @return true if we should cache data blocks in the L1 cache (if block cache deploy    * has more than one tier; e.g. we are using CombinedBlockCache).    * @deprecated Use {@link #isCacheDataInL1()} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|shouldCacheDataInL1
+parameter_list|()
+block|{
+return|return
+name|setAndGetBoolean
+argument_list|(
+name|CACHE_DATA_IN_L1
+argument_list|,
+name|DEFAULT_CACHE_DATA_IN_L1
+argument_list|)
+return|;
+block|}
+comment|/**    * @return true if we should cache data blocks in the L1 cache (if block cache deploy has more    *         than one tier; e.g. we are using CombinedBlockCache).    */
+specifier|public
+name|boolean
+name|isCacheDataInL1
 parameter_list|()
 block|{
 return|return
@@ -3210,10 +3286,27 @@ return|return
 name|defaultSetting
 return|;
 block|}
-comment|/**    * @return true if we should cache index blocks on write    */
+comment|/**    * @return true if we should cache index blocks on write    * @deprecated Use {@link #isCacheIndexesOnWrite()} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|shouldCacheIndexesOnWrite
+parameter_list|()
+block|{
+return|return
+name|setAndGetBoolean
+argument_list|(
+name|CACHE_INDEX_ON_WRITE
+argument_list|,
+name|DEFAULT_CACHE_INDEX_ON_WRITE
+argument_list|)
+return|;
+block|}
+comment|/**    * @return true if we should cache index blocks on write    */
+specifier|public
+name|boolean
+name|isCacheIndexesOnWrite
 parameter_list|()
 block|{
 return|return
@@ -3248,10 +3341,27 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return true if we should cache bloomfilter blocks on write    */
+comment|/**    * @return true if we should cache bloomfilter blocks on write    * @deprecated Use {@link #isCacheBloomsOnWrite()} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|shouldCacheBloomsOnWrite
+parameter_list|()
+block|{
+return|return
+name|setAndGetBoolean
+argument_list|(
+name|CACHE_BLOOMS_ON_WRITE
+argument_list|,
+name|DEFAULT_CACHE_BLOOMS_ON_WRITE
+argument_list|)
+return|;
+block|}
+comment|/**    * @return true if we should cache bloomfilter blocks on write    */
+specifier|public
+name|boolean
+name|isCacheBloomsOnWrite
 parameter_list|()
 block|{
 return|return
@@ -3286,10 +3396,27 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return true if we should evict cached blocks from the blockcache on    * close    */
+comment|/**    * @return true if we should evict cached blocks from the blockcache on    * close    * @deprecated {@link #isEvictBlocksOnClose()} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|shouldEvictBlocksOnClose
+parameter_list|()
+block|{
+return|return
+name|setAndGetBoolean
+argument_list|(
+name|EVICT_BLOCKS_ON_CLOSE
+argument_list|,
+name|DEFAULT_EVICT_BLOCKS_ON_CLOSE
+argument_list|)
+return|;
+block|}
+comment|/**    * @return true if we should evict cached blocks from the blockcache on close    */
+specifier|public
+name|boolean
+name|isEvictBlocksOnClose
 parameter_list|()
 block|{
 return|return
@@ -3324,10 +3451,27 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return true if we should prefetch blocks into the blockcache on open    */
+comment|/**    * @return true if we should prefetch blocks into the blockcache on open    * @deprecated Use {@link #isPrefetchBlocksOnOpen()} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|shouldPrefetchBlocksOnOpen
+parameter_list|()
+block|{
+return|return
+name|setAndGetBoolean
+argument_list|(
+name|PREFETCH_BLOCKS_ON_OPEN
+argument_list|,
+name|DEFAULT_PREFETCH_BLOCKS_ON_OPEN
+argument_list|)
+return|;
+block|}
+comment|/**    * @return true if we should prefetch blocks into the blockcache on open    */
+specifier|public
+name|boolean
+name|isPrefetchBlocksOnOpen
 parameter_list|()
 block|{
 return|return

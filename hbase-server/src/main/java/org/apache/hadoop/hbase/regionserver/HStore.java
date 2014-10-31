@@ -5178,7 +5178,7 @@ name|withCompressTags
 argument_list|(
 name|family
 operator|.
-name|shouldCompressTags
+name|isCompressTags
 argument_list|()
 argument_list|)
 operator|.
