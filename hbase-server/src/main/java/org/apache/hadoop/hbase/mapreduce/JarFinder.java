@@ -14,8 +14,6 @@ operator|.
 name|hbase
 operator|.
 name|mapreduce
-operator|.
-name|hadoopbackport
 package|;
 end_package
 
@@ -194,7 +192,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Finds the Jar for a class. If the class is in a directory in the  * classpath, it creates a Jar on the fly with the contents of the directory  * and returns the path to that Jar. If a Jar is created, it is created in  * the system temporary directory.  *   * This file was forked from hadoop/common/branches/branch-2@1377176.  */
+comment|/**  * Finds the Jar for a class. If the class is in a directory in the  * classpath, it creates a Jar on the fly with the contents of the directory  * and returns the path to that Jar. If a Jar is created, it is created in  * the system temporary directory.  *  * This file was forked from hadoop/common/branches/branch-2@1377176.  */
 end_comment
 
 begin_class
@@ -1005,6 +1003,11 @@ argument_list|()
 operator|+
 literal|".jar"
 argument_list|)
+expr_stmt|;
+name|tempJar
+operator|.
+name|deleteOnExit
+argument_list|()
 expr_stmt|;
 name|createJar
 argument_list|(

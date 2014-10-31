@@ -14,8 +14,6 @@ operator|.
 name|hbase
 operator|.
 name|mapreduce
-operator|.
-name|hadoopbackport
 package|;
 end_package
 
@@ -30,22 +28,6 @@ operator|.
 name|logging
 operator|.
 name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|testclassification
-operator|.
-name|MapReduceTests
 import|;
 end_import
 
@@ -243,15 +225,9 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
-block|{
-name|MapReduceTests
-operator|.
-name|class
-block|,
 name|SmallTests
 operator|.
 name|class
-block|}
 argument_list|)
 specifier|public
 class|class
