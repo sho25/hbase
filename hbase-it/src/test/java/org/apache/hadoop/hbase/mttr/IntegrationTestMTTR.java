@@ -1000,6 +1000,26 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// allow a little more time for RS restart actions because RS start depends on having a master
+comment|// to report to and the master is also being monkeyed.
+name|util
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setLong
+argument_list|(
+name|Action
+operator|.
+name|START_RS_TIMEOUT_KEY
+argument_list|,
+literal|3
+operator|*
+literal|60
+operator|*
+literal|1000
+argument_list|)
+expr_stmt|;
 comment|// Set up the action that will restart a region server holding a region from our table
 comment|// because this table should only have one region we should be good.
 name|restartRSAction
