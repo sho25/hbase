@@ -217,7 +217,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"Subversion "
+literal|"Source code repository "
 operator|+
 name|org
 operator|.
@@ -232,7 +232,7 @@ operator|.
 name|getUrl
 argument_list|()
 operator|+
-literal|" -r "
+literal|" revision="
 operator|+
 name|org
 operator|.

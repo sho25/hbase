@@ -300,7 +300,7 @@ operator|+
 name|getUrl
 argument_list|()
 operator|+
-literal|" -r "
+literal|" revision="
 operator|+
 name|getRevision
 argument_list|()
