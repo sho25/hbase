@@ -10027,6 +10027,17 @@ name|long
 name|getCompleteSequenceId
 parameter_list|()
 function_decl|;
+comment|// optional float data_locality = 16;
+comment|/**      *<code>optional float data_locality = 16;</code>      *      *<pre>      ** The current data locality for region in the regionserver       *</pre>      */
+name|boolean
+name|hasDataLocality
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional float data_locality = 16;</code>      *      *<pre>      ** The current data locality for region in the regionserver       *</pre>      */
+name|float
+name|getDataLocality
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code RegionLoad}    */
 specifier|public
@@ -10615,6 +10626,23 @@ operator|=
 name|input
 operator|.
 name|readUInt64
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|133
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00008000
+expr_stmt|;
+name|dataLocality_
+operator|=
+name|input
+operator|.
+name|readFloat
 argument_list|()
 expr_stmt|;
 break|break;
@@ -11561,6 +11589,47 @@ return|return
 name|completeSequenceId_
 return|;
 block|}
+comment|// optional float data_locality = 16;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DATA_LOCALITY_FIELD_NUMBER
+init|=
+literal|16
+decl_stmt|;
+specifier|private
+name|float
+name|dataLocality_
+decl_stmt|;
+comment|/**      *<code>optional float data_locality = 16;</code>      *      *<pre>      ** The current data locality for region in the regionserver       *</pre>      */
+specifier|public
+name|boolean
+name|hasDataLocality
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00008000
+operator|)
+operator|==
+literal|0x00008000
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional float data_locality = 16;</code>      *      *<pre>      ** The current data locality for region in the regionserver       *</pre>      */
+specifier|public
+name|float
+name|getDataLocality
+parameter_list|()
+block|{
+return|return
+name|dataLocality_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -11642,6 +11711,10 @@ expr_stmt|;
 name|completeSequenceId_
 operator|=
 literal|0L
+expr_stmt|;
+name|dataLocality_
+operator|=
+literal|0F
 expr_stmt|;
 block|}
 specifier|private
@@ -12080,6 +12153,29 @@ argument_list|(
 literal|15
 argument_list|,
 name|completeSequenceId_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00008000
+operator|)
+operator|==
+literal|0x00008000
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeFloat
+argument_list|(
+literal|16
+argument_list|,
+name|dataLocality_
 argument_list|)
 expr_stmt|;
 block|}
@@ -12585,6 +12681,37 @@ argument_list|(
 literal|15
 argument_list|,
 name|completeSequenceId_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00008000
+operator|)
+operator|==
+literal|0x00008000
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeFloatSize
+argument_list|(
+literal|16
+argument_list|,
+name|dataLocality_
 argument_list|)
 expr_stmt|;
 block|}
@@ -13274,6 +13401,51 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasDataLocality
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasDataLocality
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasDataLocality
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|Float
+operator|.
+name|floatToIntBits
+argument_list|(
+name|getDataLocality
+argument_list|()
+argument_list|)
+operator|==
+name|Float
+operator|.
+name|floatToIntBits
+argument_list|(
+name|other
+operator|.
+name|getDataLocality
+argument_list|()
+argument_list|)
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -13770,6 +13942,39 @@ operator|+
 name|hashLong
 argument_list|(
 name|getCompleteSequenceId
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasDataLocality
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|DATA_LOCALITY_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|Float
+operator|.
+name|floatToIntBits
+argument_list|(
+name|getDataLocality
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -14831,6 +15036,19 @@ operator|~
 literal|0x00004000
 operator|)
 expr_stmt|;
+name|dataLocality_
+operator|=
+literal|0F
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00008000
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -15427,6 +15645,30 @@ name|completeSequenceId_
 operator|=
 name|completeSequenceId_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00008000
+operator|)
+operator|==
+literal|0x00008000
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00008000
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|dataLocality_
+operator|=
+name|dataLocality_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -15812,6 +16054,23 @@ argument_list|(
 name|other
 operator|.
 name|getCompleteSequenceId
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasDataLocality
+argument_list|()
+condition|)
+block|{
+name|setDataLocality
+argument_list|(
+name|other
+operator|.
+name|getDataLocality
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -17848,6 +18107,89 @@ expr_stmt|;
 name|completeSequenceId_
 operator|=
 literal|0L
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional float data_locality = 16;
+specifier|private
+name|float
+name|dataLocality_
+decl_stmt|;
+comment|/**        *<code>optional float data_locality = 16;</code>        *        *<pre>        ** The current data locality for region in the regionserver         *</pre>        */
+specifier|public
+name|boolean
+name|hasDataLocality
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00008000
+operator|)
+operator|==
+literal|0x00008000
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional float data_locality = 16;</code>        *        *<pre>        ** The current data locality for region in the regionserver         *</pre>        */
+specifier|public
+name|float
+name|getDataLocality
+parameter_list|()
+block|{
+return|return
+name|dataLocality_
+return|;
+block|}
+comment|/**        *<code>optional float data_locality = 16;</code>        *        *<pre>        ** The current data locality for region in the regionserver         *</pre>        */
+specifier|public
+name|Builder
+name|setDataLocality
+parameter_list|(
+name|float
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00008000
+expr_stmt|;
+name|dataLocality_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional float data_locality = 16;</code>        *        *<pre>        ** The current data locality for region in the regionserver         *</pre>        */
+specifier|public
+name|Builder
+name|clearDataLocality
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00008000
+operator|)
+expr_stmt|;
+name|dataLocality_
+operator|=
+literal|0F
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -48735,7 +49077,7 @@ literal|"nInTransition\022\036\n\004spec\030\001 \002(\0132\020.RegionSpec"
 operator|+
 literal|"ifier\022\"\n\014region_state\030\002 \002(\0132\014.RegionStat"
 operator|+
-literal|"e\"\320\003\n\nRegionLoad\022*\n\020region_specifier\030\001 \002"
+literal|"e\"\347\003\n\nRegionLoad\022*\n\020region_specifier\030\001 \002"
 operator|+
 literal|"(\0132\020.RegionSpecifier\022\016\n\006stores\030\002 \001(\r\022\022\n\n"
 operator|+
@@ -48757,47 +49099,47 @@ literal|"\030\014 \001(\r\022\"\n\032total_static_index_size_KB\030\r \001"
 operator|+
 literal|"(\r\022\"\n\032total_static_bloom_size_KB\030\016 \001(\r\022\034"
 operator|+
-literal|"\n\024complete_sequence_id\030\017 \001(\004\"\212\002\n\nServerL"
+literal|"\n\024complete_sequence_id\030\017 \001(\004\022\025\n\rdata_loc"
 operator|+
-literal|"oad\022\032\n\022number_of_requests\030\001 \001(\r\022 \n\030total"
+literal|"ality\030\020 \001(\002\"\212\002\n\nServerLoad\022\032\n\022number_of_"
 operator|+
-literal|"_number_of_requests\030\002 \001(\r\022\024\n\014used_heap_M"
+literal|"requests\030\001 \001(\r\022 \n\030total_number_of_reques"
 operator|+
-literal|"B\030\003 \001(\r\022\023\n\013max_heap_MB\030\004 \001(\r\022!\n\014region_l"
+literal|"ts\030\002 \001(\r\022\024\n\014used_heap_MB\030\003 \001(\r\022\023\n\013max_he"
 operator|+
-literal|"oads\030\005 \003(\0132\013.RegionLoad\022\"\n\014coprocessors\030"
+literal|"ap_MB\030\004 \001(\r\022!\n\014region_loads\030\005 \003(\0132\013.Regi"
 operator|+
-literal|"\006 \003(\0132\014.Coprocessor\022\031\n\021report_start_time"
+literal|"onLoad\022\"\n\014coprocessors\030\006 \003(\0132\014.Coprocess"
 operator|+
-literal|"\030\007 \001(\004\022\027\n\017report_end_time\030\010 \001(\004\022\030\n\020info_"
+literal|"or\022\031\n\021report_start_time\030\007 \001(\004\022\027\n\017report_"
 block|,
-literal|"server_port\030\t \001(\r\"O\n\016LiveServerInfo\022\033\n\006s"
+literal|"end_time\030\010 \001(\004\022\030\n\020info_server_port\030\t \001(\r"
 operator|+
-literal|"erver\030\001 \002(\0132\013.ServerName\022 \n\013server_load\030"
+literal|"\"O\n\016LiveServerInfo\022\033\n\006server\030\001 \002(\0132\013.Ser"
 operator|+
-literal|"\002 \002(\0132\013.ServerLoad\"\340\002\n\rClusterStatus\022/\n\r"
+literal|"verName\022 \n\013server_load\030\002 \002(\0132\013.ServerLoa"
 operator|+
-literal|"hbase_version\030\001 \001(\0132\030.HBaseVersionFileCo"
+literal|"d\"\340\002\n\rClusterStatus\022/\n\rhbase_version\030\001 \001"
 operator|+
-literal|"ntent\022%\n\014live_servers\030\002 \003(\0132\017.LiveServer"
+literal|"(\0132\030.HBaseVersionFileContent\022%\n\014live_ser"
 operator|+
-literal|"Info\022!\n\014dead_servers\030\003 \003(\0132\013.ServerName\022"
+literal|"vers\030\002 \003(\0132\017.LiveServerInfo\022!\n\014dead_serv"
 operator|+
-literal|"2\n\025regions_in_transition\030\004 \003(\0132\023.RegionI"
+literal|"ers\030\003 \003(\0132\013.ServerName\0222\n\025regions_in_tra"
 operator|+
-literal|"nTransition\022\036\n\ncluster_id\030\005 \001(\0132\n.Cluste"
+literal|"nsition\030\004 \003(\0132\023.RegionInTransition\022\036\n\ncl"
 operator|+
-literal|"rId\022)\n\023master_coprocessors\030\006 \003(\0132\014.Copro"
+literal|"uster_id\030\005 \001(\0132\n.ClusterId\022)\n\023master_cop"
 operator|+
-literal|"cessor\022\033\n\006master\030\007 \001(\0132\013.ServerName\022#\n\016b"
+literal|"rocessors\030\006 \003(\0132\014.Coprocessor\022\033\n\006master\030"
 block|,
-literal|"ackup_masters\030\010 \003(\0132\013.ServerName\022\023\n\013bala"
+literal|"\007 \001(\0132\013.ServerName\022#\n\016backup_masters\030\010 \003"
 operator|+
-literal|"ncer_on\030\t \001(\010BF\n*org.apache.hadoop.hbase"
+literal|"(\0132\013.ServerName\022\023\n\013balancer_on\030\t \001(\010BF\n*"
 operator|+
-literal|".protobuf.generatedB\023ClusterStatusProtos"
+literal|"org.apache.hadoop.hbase.protobuf.generat"
 operator|+
-literal|"H\001\240\001\001"
+literal|"edB\023ClusterStatusProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -49004,6 +49346,8 @@ block|,
 literal|"TotalStaticBloomSizeKB"
 block|,
 literal|"CompleteSequenceId"
+block|,
+literal|"DataLocality"
 block|, }
 argument_list|)
 expr_stmt|;
