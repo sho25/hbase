@@ -852,6 +852,7 @@ operator|.
 name|booleanValue
 argument_list|()
 else|:
+operator|!
 name|isAllFiles
 argument_list|()
 return|;
