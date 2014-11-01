@@ -450,7 +450,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Error when parsing command-line arguemnts"
+literal|"Error when parsing command-line arguments"
 argument_list|,
 name|e
 argument_list|)
