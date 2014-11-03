@@ -389,6 +389,36 @@ name|org
 operator|.
 name|junit
 operator|.
+name|After
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Before
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -491,7 +521,7 @@ argument_list|>
 name|startingMetrics
 decl_stmt|;
 annotation|@
-name|Override
+name|Before
 specifier|public
 name|void
 name|setUp
@@ -506,7 +536,7 @@ argument_list|()
 expr_stmt|;
 block|}
 annotation|@
-name|Override
+name|After
 specifier|public
 name|void
 name|tearDown
@@ -521,6 +551,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Test empty HFile.    * Test all features work reasonably when hfile is empty of entries.    * @throws IOException    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testEmptyHFile
@@ -640,6 +672,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Create 0-length hfile and show that it fails    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testCorrupt0LengthHFile
@@ -823,6 +857,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Create a truncated hfile and verify that exception thrown.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testCorruptTruncatedHFile
@@ -1964,6 +2000,8 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testTFileFeatures
@@ -1982,6 +2020,8 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|protected
 name|void
 name|testTFilefeaturesInternals
@@ -2429,6 +2469,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// test meta blocks for tfiles
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMetaBlocks
@@ -2447,6 +2489,8 @@ literal|"gz"
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testNullMetaBlocks

@@ -363,6 +363,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -536,6 +546,8 @@ argument_list|(
 literal|"040"
 argument_list|)
 decl_stmt|;
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testUsingMetaAndBinary
@@ -1385,6 +1397,8 @@ name|row
 return|;
 block|}
 comment|/**    * Test file of multiple deletes and with deletes as final key.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-751">HBASE-751</a>    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGetClosestRowBefore3
@@ -2139,6 +2153,8 @@ block|}
 block|}
 block|}
 comment|/** For HBASE-694 */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGetClosestRowBefore2

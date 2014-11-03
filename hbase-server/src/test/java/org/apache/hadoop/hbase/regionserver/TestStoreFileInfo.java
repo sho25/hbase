@@ -99,6 +99,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -142,6 +152,8 @@ name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
 comment|/**    * Validate that we can handle valid tables with '.', '_', and '-' chars.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testStoreFileNames

@@ -291,6 +291,26 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Before
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -400,6 +420,8 @@ specifier|private
 name|Scan
 name|scan
 decl_stmt|;
+annotation|@
+name|Before
 specifier|public
 name|void
 name|setUp
@@ -906,6 +928,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMatch_ExplicitColumns
@@ -1005,6 +1029,8 @@ name|expected
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMatch_ExplicitColumnsWithLookAhead
@@ -1129,6 +1155,8 @@ name|expected
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMatch_Wildcard
@@ -1533,6 +1561,8 @@ block|}
 block|}
 block|}
 comment|/**    * Verify that {@link ScanQueryMatcher} only skips expired KeyValue    * instances and does not exit early from the row (skipping    * later non-expired KeyValues).  This version mimics a Get with    * explicitly specified column qualifiers.    *    * @throws IOException    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMatch_ExpiredExplicit
@@ -1886,6 +1916,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Verify that {@link ScanQueryMatcher} only skips expired KeyValue    * instances and does not exit early from the row (skipping    * later non-expired KeyValues).  This version mimics a Get with    * wildcard-inferred column qualifiers.    *    * @throws IOException    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMatch_ExpiredWildcard
@@ -2234,6 +2266,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMatch_PartialRangeDropDeletes

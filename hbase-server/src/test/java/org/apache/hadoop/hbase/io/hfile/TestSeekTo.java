@@ -195,6 +195,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -725,6 +735,8 @@ return|return
 name|ncTFile
 return|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSeekBefore
@@ -1121,6 +1133,8 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSeekBeforeWithReSeekTo
@@ -1967,6 +1981,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSeekTo
@@ -2183,6 +2199,8 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testBlockContainingKey

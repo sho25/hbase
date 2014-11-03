@@ -117,6 +117,26 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Before
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -161,6 +181,8 @@ name|deleteType
 init|=
 literal|0
 decl_stmt|;
+annotation|@
+name|Before
 specifier|public
 name|void
 name|setUp
@@ -180,6 +202,8 @@ name|ScanDeleteTracker
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeletedBy_Delete
@@ -248,6 +272,8 @@ name|ret
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeletedBy_DeleteColumn
@@ -355,6 +381,8 @@ name|ret
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeletedBy_DeleteFamily
@@ -462,6 +490,8 @@ name|ret
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeletedBy_DeleteFamilyVersion
@@ -954,6 +984,8 @@ name|ret
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDelete_DeleteColumn
@@ -1125,6 +1157,8 @@ name|ret
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeleteColumn_Delete
@@ -1270,6 +1304,8 @@ block|}
 comment|//Testing new way where we save the Delete in case of a Delete for specific
 comment|//ts, could have just added the last line to the first test, but rather keep
 comment|//them separated
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDelete_KeepDelete
@@ -1353,6 +1389,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDelete_KeepVersionZero
