@@ -607,6 +607,10 @@ operator|+
 literal|"' on table '"
 operator|+
 name|tableName
+operator|+
+literal|"' at "
+operator|+
+name|location
 return|;
 block|}
 annotation|@
