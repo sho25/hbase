@@ -1637,6 +1637,14 @@ argument_list|,
 name|ex
 argument_list|)
 expr_stmt|;
+name|System
+operator|.
+name|exit
+argument_list|(
+operator|-
+literal|2
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 if|if
@@ -1718,6 +1726,14 @@ argument_list|(
 literal|"ERROR, file doesnt exist: "
 operator|+
 name|file
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|exit
+argument_list|(
+operator|-
+literal|2
 argument_list|)
 expr_stmt|;
 block|}
