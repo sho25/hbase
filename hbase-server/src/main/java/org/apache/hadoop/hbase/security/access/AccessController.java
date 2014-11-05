@@ -6590,7 +6590,7 @@ block|{
 comment|// initialize the ACL storage table
 name|AccessControlLists
 operator|.
-name|init
+name|createACLTable
 argument_list|(
 name|ctx
 operator|.
