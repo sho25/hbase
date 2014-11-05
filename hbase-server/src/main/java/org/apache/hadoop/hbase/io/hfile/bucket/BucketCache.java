@@ -1605,6 +1605,12 @@ operator|+
 name|this
 operator|.
 name|bucketAllocator
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
