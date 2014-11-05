@@ -143,6 +143,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeepDeletedCells
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -334,7 +348,9 @@ name|Long
 operator|.
 name|MAX_VALUE
 argument_list|,
-literal|false
+name|KeepDeletedCells
+operator|.
+name|FALSE
 argument_list|,
 literal|0
 argument_list|,
@@ -3996,7 +4012,9 @@ literal|1
 argument_list|,
 literal|500
 argument_list|,
-literal|false
+name|KeepDeletedCells
+operator|.
+name|FALSE
 argument_list|,
 literal|0
 argument_list|,
@@ -4476,7 +4494,9 @@ literal|1
 argument_list|,
 literal|500
 argument_list|,
-literal|false
+name|KeepDeletedCells
+operator|.
+name|FALSE
 argument_list|,
 literal|0
 argument_list|,
@@ -5086,7 +5106,9 @@ argument_list|,
 literal|500
 comment|/* ttl */
 argument_list|,
-literal|false
+name|KeepDeletedCells
+operator|.
+name|FALSE
 comment|/* keepDeletedCells */
 argument_list|,
 literal|200

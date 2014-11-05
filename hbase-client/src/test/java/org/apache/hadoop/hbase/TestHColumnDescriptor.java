@@ -346,10 +346,9 @@ name|hcd
 operator|.
 name|setKeepDeletedCells
 argument_list|(
-operator|!
-name|HColumnDescriptor
+name|KeepDeletedCells
 operator|.
-name|DEFAULT_KEEP_DELETED
+name|TRUE
 argument_list|)
 expr_stmt|;
 name|hcd

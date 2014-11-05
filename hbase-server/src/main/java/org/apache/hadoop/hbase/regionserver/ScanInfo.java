@@ -57,6 +57,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeepDeletedCells
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 operator|.
 name|KVComparator
@@ -126,7 +140,7 @@ name|long
 name|ttl
 decl_stmt|;
 specifier|private
-name|boolean
+name|KeepDeletedCells
 name|keepDeletedCells
 decl_stmt|;
 specifier|private
@@ -253,7 +267,7 @@ name|long
 name|ttl
 parameter_list|,
 specifier|final
-name|boolean
+name|KeepDeletedCells
 name|keepDeletedCells
 parameter_list|,
 specifier|final
@@ -346,7 +360,7 @@ name|ttl
 return|;
 block|}
 specifier|public
-name|boolean
+name|KeepDeletedCells
 name|getKeepDeletedCells
 parameter_list|()
 block|{

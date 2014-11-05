@@ -1020,7 +1020,7 @@ specifier|final
 name|int
 name|ttl
 parameter_list|,
-name|boolean
+name|KeepDeletedCells
 name|keepDeleted
 parameter_list|)
 block|{

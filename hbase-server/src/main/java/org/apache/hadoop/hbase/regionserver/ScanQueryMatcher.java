@@ -105,6 +105,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeepDeletedCells
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -303,7 +317,7 @@ decl_stmt|;
 comment|/** whether to return deleted rows */
 specifier|private
 specifier|final
-name|boolean
+name|KeepDeletedCells
 name|keepDeletedCells
 decl_stmt|;
 comment|/** whether time range queries can see rows "behind" a delete */
@@ -349,6 +363,11 @@ specifier|private
 specifier|final
 name|long
 name|earliestPutTs
+decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|ttl
 decl_stmt|;
 comment|/** readPoint over which the KVs are unconditionally included */
 specifier|protected
@@ -535,6 +554,12 @@ operator|.
 name|getTimeToPurgeDeletes
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|ttl
+operator|=
+name|oldestUnexpiredTS
+expr_stmt|;
 comment|/* how to deal with deletes */
 name|this
 operator|.
@@ -551,22 +576,27 @@ name|this
 operator|.
 name|keepDeletedCells
 operator|=
-operator|(
-name|scanInfo
-operator|.
-name|getKeepDeletedCells
-argument_list|()
-operator|&&
-operator|!
-name|isUserScan
-operator|)
-operator|||
 name|scan
 operator|.
 name|isRaw
 argument_list|()
+condition|?
+name|KeepDeletedCells
+operator|.
+name|TRUE
+else|:
+name|isUserScan
+condition|?
+name|KeepDeletedCells
+operator|.
+name|FALSE
+else|:
+name|scanInfo
+operator|.
+name|getKeepDeletedCells
+argument_list|()
 expr_stmt|;
-comment|// retain deletes: if minor compaction or raw scan
+comment|// retain deletes: if minor compaction or raw scanisDone
 name|this
 operator|.
 name|retainDeletesInOutput
@@ -591,6 +621,10 @@ name|scanInfo
 operator|.
 name|getKeepDeletedCells
 argument_list|()
+operator|!=
+name|KeepDeletedCells
+operator|.
+name|FALSE
 operator|&&
 name|isUserScan
 expr_stmt|;
@@ -1167,8 +1201,23 @@ condition|)
 block|{
 if|if
 condition|(
-operator|!
 name|keepDeletedCells
+operator|==
+name|KeepDeletedCells
+operator|.
+name|FALSE
+operator|||
+operator|(
+name|keepDeletedCells
+operator|==
+name|KeepDeletedCells
+operator|.
+name|TTL
+operator|&&
+name|timestamp
+operator|<
+name|ttl
+operator|)
 condition|)
 block|{
 comment|// first ignore delete markers if the scanner can do so, and the
@@ -1277,6 +1326,22 @@ elseif|else
 if|if
 condition|(
 name|keepDeletedCells
+operator|==
+name|KeepDeletedCells
+operator|.
+name|TRUE
+operator|||
+operator|(
+name|keepDeletedCells
+operator|==
+name|KeepDeletedCells
+operator|.
+name|TTL
+operator|&&
+name|timestamp
+operator|>=
+name|ttl
+operator|)
 condition|)
 block|{
 if|if
