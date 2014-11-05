@@ -169,6 +169,38 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Connection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ConnectionFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Delete
 import|;
 end_import
@@ -324,7 +356,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Convert Map/Reduce output and write it to an HBase table. The KEY is ignored  * while the output value<u>must</u> be either a {@link Put} or a  * {@link Delete} instance.  *  * @param<KEY>  The type of the key. Ignored in this class.  */
+comment|/**  * Convert Map/Reduce output and write it to an HBase table. The KEY is ignored  * while the output value<u>must</u> be either a {@link Put} or a  * {@link Delete} instance.  *  *<p><KEY> is the type of the key. Ignored in this class.  */
 end_comment
 
 begin_class
@@ -420,17 +452,17 @@ init|=
 literal|null
 decl_stmt|;
 specifier|private
-name|HTable
+name|Table
 name|table
+decl_stmt|;
+specifier|private
+name|Connection
+name|connection
 decl_stmt|;
 comment|/**    * Writes the reducer output to an HBase table.    *    * @param<KEY>  The type of the key.    */
 specifier|protected
-specifier|static
 class|class
 name|TableRecordWriter
-parameter_list|<
-name|KEY
-parameter_list|>
 extends|extends
 name|RecordWriter
 argument_list|<
@@ -439,26 +471,6 @@ argument_list|,
 name|Mutation
 argument_list|>
 block|{
-comment|/** The table to write to. */
-specifier|private
-name|Table
-name|table
-decl_stmt|;
-comment|/**      * Instantiate a TableRecordWriter with the HBase HClient for writing.      *      * @param table  The table to write to.      */
-specifier|public
-name|TableRecordWriter
-parameter_list|(
-name|Table
-name|table
-parameter_list|)
-block|{
-name|this
-operator|.
-name|table
-operator|=
-name|table
-expr_stmt|;
-block|}
 comment|/**      * Closes the writer, in this case flush table commits.      *      * @param context  The context.      * @throws IOException When closing the writer fails.      * @see org.apache.hadoop.mapreduce.RecordWriter#close(org.apache.hadoop.mapreduce.TaskAttemptContext)      */
 annotation|@
 name|Override
@@ -473,6 +485,11 @@ throws|throws
 name|IOException
 block|{
 name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|connection
 operator|.
 name|close
 argument_list|()
@@ -500,8 +517,6 @@ name|value
 operator|instanceof
 name|Put
 condition|)
-name|this
-operator|.
 name|table
 operator|.
 name|put
@@ -523,8 +538,6 @@ name|value
 operator|instanceof
 name|Delete
 condition|)
-name|this
-operator|.
 name|table
 operator|.
 name|delete
@@ -572,14 +585,7 @@ block|{
 return|return
 operator|new
 name|TableRecordWriter
-argument_list|<
-name|KEY
-argument_list|>
-argument_list|(
-name|this
-operator|.
-name|table
-argument_list|)
+argument_list|()
 return|;
 block|}
 comment|/**    * Checks if the output target exists.    *    * @param context  The current context.    * @throws IOException When the check fails.    * @throws InterruptedException When the job is aborted.    * @see org.apache.hadoop.mapreduce.OutputFormat#checkOutputSpecs(org.apache.hadoop.mapreduce.JobContext)    */
@@ -799,15 +805,25 @@ expr_stmt|;
 block|}
 name|this
 operator|.
-name|table
+name|connection
 operator|=
-operator|new
-name|HTable
+name|ConnectionFactory
+operator|.
+name|createConnection
 argument_list|(
 name|this
 operator|.
 name|conf
-argument_list|,
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|table
+operator|=
+name|connection
+operator|.
+name|getTable
+argument_list|(
 name|TableName
 operator|.
 name|valueOf
@@ -816,9 +832,14 @@ name|tableName
 argument_list|)
 argument_list|)
 expr_stmt|;
+operator|(
+operator|(
+name|HTable
+operator|)
 name|this
 operator|.
 name|table
+operator|)
 operator|.
 name|setAutoFlush
 argument_list|(
