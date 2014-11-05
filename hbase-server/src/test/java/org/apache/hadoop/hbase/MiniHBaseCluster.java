@@ -1129,6 +1129,9 @@ name|startRegionServer
 parameter_list|(
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -1258,6 +1261,9 @@ name|startMaster
 parameter_list|(
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException

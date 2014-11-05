@@ -244,6 +244,11 @@ name|server
 operator|.
 name|getHostname
 argument_list|()
+argument_list|,
+name|server
+operator|.
+name|getPort
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -262,6 +267,11 @@ argument_list|(
 name|server
 operator|.
 name|getHostname
+argument_list|()
+argument_list|,
+name|server
+operator|.
+name|getPort
 argument_list|()
 argument_list|,
 name|PolicyBasedChaosMonkey

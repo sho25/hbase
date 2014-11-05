@@ -153,6 +153,9 @@ name|service
 parameter_list|,
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -166,11 +169,14 @@ name|service
 parameter_list|,
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Restarts the service on the given host    */
+comment|/**    * Restart the service on the given host    */
 name|void
 name|restart
 parameter_list|(
@@ -179,6 +185,9 @@ name|service
 parameter_list|,
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -192,6 +201,9 @@ name|service
 parameter_list|,
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -205,6 +217,9 @@ name|service
 parameter_list|,
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -218,6 +233,9 @@ name|service
 parameter_list|,
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -231,6 +249,9 @@ name|service
 parameter_list|,
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException

@@ -337,6 +337,9 @@ name|startRegionServer
 parameter_list|(
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -372,6 +375,9 @@ name|waitForRegionServerToStart
 parameter_list|(
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|,
 name|long
 name|timeout
@@ -424,6 +430,13 @@ name|equals
 argument_list|(
 name|hostname
 argument_list|)
+operator|&&
+name|server
+operator|.
+name|getPort
+argument_list|()
+operator|==
+name|port
 condition|)
 block|{
 return|return;
@@ -474,6 +487,9 @@ name|startMaster
 parameter_list|(
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException

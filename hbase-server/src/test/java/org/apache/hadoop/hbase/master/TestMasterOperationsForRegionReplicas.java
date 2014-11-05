@@ -1269,6 +1269,11 @@ name|master
 operator|.
 name|getHostname
 argument_list|()
+argument_list|,
+name|master
+operator|.
+name|getPort
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL

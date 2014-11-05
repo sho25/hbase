@@ -1363,6 +1363,9 @@ name|service
 parameter_list|,
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -1390,6 +1393,9 @@ name|service
 parameter_list|,
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -1417,6 +1423,9 @@ name|service
 parameter_list|,
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -1478,6 +1487,9 @@ name|service
 parameter_list|,
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -1523,6 +1535,9 @@ name|service
 parameter_list|,
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -1548,6 +1563,9 @@ name|service
 parameter_list|,
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -1573,6 +1591,9 @@ name|service
 parameter_list|,
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
