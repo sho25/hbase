@@ -1535,6 +1535,8 @@ argument_list|(
 literal|100
 argument_list|,
 literal|10
+argument_list|,
+literal|9
 argument_list|)
 block|{
 annotation|@
@@ -1603,6 +1605,8 @@ argument_list|(
 literal|100
 argument_list|,
 literal|100
+argument_list|,
+literal|9
 argument_list|)
 expr_stmt|;
 block|}
@@ -2128,6 +2132,8 @@ argument_list|(
 literal|100
 argument_list|,
 literal|10
+argument_list|,
+literal|9
 argument_list|)
 block|{
 annotation|@

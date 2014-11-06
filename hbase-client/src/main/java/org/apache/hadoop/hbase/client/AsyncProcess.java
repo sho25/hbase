@@ -478,6 +478,23 @@ name|PRIMARY_CALL_TIMEOUT_KEY
 init|=
 literal|"hbase.client.primaryCallTimeout.multiget"
 decl_stmt|;
+comment|/**    * Configure the number of failures after which the client will start logging. A few failures    * is fine: region moved, then is not opened, then is overloaded. We try to have an acceptable    * heuristic for the number of errors we don't log. 9 was chosen because we wait for 1s at    * this stage.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|START_LOG_ERRORS_AFTER_COUNT_KEY
+init|=
+literal|"hbase.client.start.log.errors.counter"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_START_LOG_ERRORS_AFTER_COUNT
+init|=
+literal|9
+decl_stmt|;
 comment|/**    * The context used to wait for results from one submit call.    * 1) If AsyncProcess is set to track errors globally, and not per call (for HTable puts),    *    then errors and failed operations in this object will reflect global errors.    * 2) If submit call is made with needResults false, results will not be saved.    *  */
 specifier|public
 specifier|static
@@ -1197,9 +1214,6 @@ operator|.
 name|DEFAULT_HBASE_CLIENT_MAX_PERREGION_TASKS
 argument_list|)
 expr_stmt|;
-comment|// A few failure is fine: region moved, then is not opened, then is overloaded. We try
-comment|//  to have an acceptable heuristic for the number of errors we don't log.
-comment|//  9 was chosen because we wait for 1s at this stage.
 name|this
 operator|.
 name|startLogErrorsCnt
@@ -1208,9 +1222,9 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.client.start.log.errors.counter"
+name|START_LOG_ERRORS_AFTER_COUNT_KEY
 argument_list|,
-literal|9
+name|DEFAULT_START_LOG_ERRORS_AFTER_COUNT
 argument_list|)
 expr_stmt|;
 if|if

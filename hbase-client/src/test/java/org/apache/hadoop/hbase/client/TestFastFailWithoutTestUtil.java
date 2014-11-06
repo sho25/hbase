@@ -2759,6 +2759,8 @@ argument_list|,
 name|retries
 argument_list|,
 name|interceptor
+argument_list|,
+literal|9
 argument_list|)
 block|{
 annotation|@

@@ -270,6 +270,12 @@ name|MIN_RPC_TIMEOUT
 init|=
 literal|2000
 decl_stmt|;
+comment|/** How many retries are allowed before we start to log */
+specifier|private
+specifier|final
+name|int
+name|startLogErrorsCnt
+decl_stmt|;
 specifier|private
 specifier|final
 name|long
@@ -309,6 +315,9 @@ name|pause
 parameter_list|,
 name|int
 name|retries
+parameter_list|,
+name|int
+name|startLogErrorsCnt
 parameter_list|)
 block|{
 name|this
@@ -320,6 +329,8 @@ argument_list|,
 name|RetryingCallerInterceptorFactory
 operator|.
 name|NO_OP_INTERCEPTOR
+argument_list|,
+name|startLogErrorsCnt
 argument_list|)
 expr_stmt|;
 block|}
@@ -334,6 +345,9 @@ name|retries
 parameter_list|,
 name|RetryingCallerInterceptor
 name|interceptor
+parameter_list|,
+name|int
+name|startLogErrorsCnt
 parameter_list|)
 block|{
 name|this
@@ -360,6 +374,12 @@ name|interceptor
 operator|.
 name|createEmptyContext
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|startLogErrorsCnt
+operator|=
+name|startLogErrorsCnt
 expr_stmt|;
 block|}
 specifier|private
@@ -589,15 +609,14 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
+name|tries
+operator|>
+name|startLogErrorsCnt
 condition|)
 block|{
 name|LOG
 operator|.
-name|trace
+name|info
 argument_list|(
 literal|"Call exception, tries="
 operator|+
@@ -628,8 +647,13 @@ name|cancelled
 operator|.
 name|get
 argument_list|()
-argument_list|,
-name|t
+operator|+
+literal|", msg="
+operator|+
+name|callable
+operator|.
+name|getExceptionMessageAdditionalDetail
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
