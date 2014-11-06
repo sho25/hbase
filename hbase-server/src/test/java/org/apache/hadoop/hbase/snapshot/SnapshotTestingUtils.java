@@ -3151,17 +3151,6 @@ argument_list|(
 name|snapshotName
 argument_list|)
 decl_stmt|;
-name|htd
-operator|.
-name|addFamily
-argument_list|(
-operator|new
-name|HColumnDescriptor
-argument_list|(
-name|TEST_FAMILY
-argument_list|)
-argument_list|)
-expr_stmt|;
 name|RegionData
 index|[]
 name|regions

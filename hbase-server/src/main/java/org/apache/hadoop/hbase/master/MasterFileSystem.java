@@ -3193,7 +3193,7 @@ throw|;
 block|}
 name|htd
 operator|.
-name|addFamily
+name|modifyFamily
 argument_list|(
 name|hcd
 argument_list|)

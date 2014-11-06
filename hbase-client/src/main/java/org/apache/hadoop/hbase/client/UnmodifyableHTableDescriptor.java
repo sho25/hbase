@@ -209,6 +209,24 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|HTableDescriptor
+name|modifyFamily
+parameter_list|(
+name|HColumnDescriptor
+name|family
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"HTableDescriptor is read-only"
+argument_list|)
+throw|;
+block|}
 comment|/**    * @param column    * @return Column descriptor for the passed family name or the family on    * passed in column.    */
 annotation|@
 name|Override

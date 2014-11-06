@@ -1401,7 +1401,7 @@ argument_list|)
 expr_stmt|;
 name|htd
 operator|.
-name|addFamily
+name|modifyFamily
 argument_list|(
 name|hcd
 argument_list|)
@@ -1636,7 +1636,7 @@ argument_list|)
 expr_stmt|;
 name|htd
 operator|.
-name|addFamily
+name|modifyFamily
 argument_list|(
 name|hcd
 argument_list|)
