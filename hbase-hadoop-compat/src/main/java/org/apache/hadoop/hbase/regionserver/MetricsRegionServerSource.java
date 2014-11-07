@@ -143,6 +143,22 @@ name|void
 name|incrSlowAppend
 parameter_list|()
 function_decl|;
+comment|/**    * Update the split transaction time histogram    * @param t time it took, in milliseconds    */
+name|void
+name|updateSplitTime
+parameter_list|(
+name|long
+name|t
+parameter_list|)
+function_decl|;
+comment|/**    * Update the flush time histogram    * @param t time it took, in milliseconds    */
+name|void
+name|updateFlushTime
+parameter_list|(
+name|long
+name|t
+parameter_list|)
+function_decl|;
 comment|// Strings used for exporting to metrics system.
 name|String
 name|REGION_COUNT
@@ -648,6 +664,16 @@ name|String
 name|HEDGED_READ_WINS_DESC
 init|=
 literal|"The number of times we started a hedged read and a hedged read won"
+decl_stmt|;
+name|String
+name|SPLIT_KEY
+init|=
+literal|"splitTime"
+decl_stmt|;
+name|String
+name|FLUSH_KEY
+init|=
+literal|"flushTime"
 decl_stmt|;
 block|}
 end_interface

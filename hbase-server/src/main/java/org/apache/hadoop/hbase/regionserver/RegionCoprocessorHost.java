@@ -2997,6 +2997,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Invoked just before a split    * @throws IOException    */
+comment|// TODO: Deprecate this
 specifier|public
 name|void
 name|preSplit
