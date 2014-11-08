@@ -167,6 +167,17 @@ literal|null
 decl_stmt|;
 try|try
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Performing action: Restart random RS holding table "
+operator|+
+name|this
+operator|.
+name|tableName
+argument_list|)
+expr_stmt|;
 name|Configuration
 name|conf
 init|=
