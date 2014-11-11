@@ -1762,9 +1762,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"<outputDir><reportSeparator> [^[regex pattern] or "
+literal|"<tablename><outputDir><reportSeparator> [^[regex pattern] or "
 operator|+
-literal|"[Prefix] for row filter]]<tablename> --starttime=[starttime] --endtime=[endtime]"
+literal|"[Prefix] for row filter]] --starttime=[starttime] --endtime=[endtime]"
 argument_list|)
 expr_stmt|;
 name|System
