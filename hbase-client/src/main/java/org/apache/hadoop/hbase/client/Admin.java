@@ -1211,6 +1211,23 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
+comment|/**    * Compact all regions on the region server    * @param regionserver the region server name    * @param major if it's major compaction    * @throws IOException    * @throws InterruptedException    */
+specifier|public
+name|void
+name|compactRegionServer
+parameter_list|(
+specifier|final
+name|ServerName
+name|sn
+parameter_list|,
+name|boolean
+name|major
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+function_decl|;
 comment|/**    * Move the region<code>r</code> to<code>dest</code>.    *    * @param encodedRegionName The encoded region name; i.e. the hash that makes up the region name    * suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    * then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param destServerName The servername of the destination regionserver.  If passed the empty byte    * array we'll assign to a random server.  A server name is made of host, port and startcode.    * Here is an example:<code> host187.example.com,60020,1289493121758</code>    * @throws UnknownRegionException Thrown if we can't find a region named    *<code>encodedRegionName</code>    * @throws ZooKeeperConnectionException    * @throws MasterNotRunningException    */
 name|void
 name|move
