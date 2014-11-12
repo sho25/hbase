@@ -7974,6 +7974,13 @@ name|CompactionContext
 name|compaction
 parameter_list|)
 block|{
+if|if
+condition|(
+name|compaction
+operator|!=
+literal|null
+condition|)
+block|{
 name|finishCompactionRequest
 argument_list|(
 name|compaction
@@ -7982,6 +7989,7 @@ name|getRequest
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|private
 name|void
