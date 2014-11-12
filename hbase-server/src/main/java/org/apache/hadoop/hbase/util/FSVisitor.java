@@ -329,15 +329,24 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"No regions under directory:"
 operator|+
 name|tableDir
 argument_list|)
 expr_stmt|;
+block|}
 return|return;
 block|}
 for|for
@@ -412,15 +421,24 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"No regions under directory:"
 operator|+
 name|tableDir
 argument_list|)
 expr_stmt|;
+block|}
 return|return;
 block|}
 for|for
@@ -494,15 +512,24 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"No families under region directory:"
 operator|+
 name|regionDir
 argument_list|)
 expr_stmt|;
+block|}
 return|return;
 block|}
 name|PathFilter
@@ -563,9 +590,17 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"No hfiles found for family: "
 operator|+
@@ -574,6 +609,7 @@ operator|+
 literal|", skipping."
 argument_list|)
 expr_stmt|;
+block|}
 continue|continue;
 block|}
 for|for
@@ -663,15 +699,24 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"No recoveredEdits regions under directory:"
 operator|+
 name|tableDir
 argument_list|)
 expr_stmt|;
+block|}
 return|return;
 block|}
 for|for
@@ -848,15 +893,24 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"No logs under directory:"
 operator|+
 name|logsDir
 argument_list|)
 expr_stmt|;
+block|}
 return|return;
 block|}
 for|for
@@ -901,9 +955,17 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"No hfiles found for server: "
 operator|+
@@ -912,6 +974,7 @@ operator|+
 literal|", skipping."
 argument_list|)
 expr_stmt|;
+block|}
 continue|continue;
 block|}
 for|for
