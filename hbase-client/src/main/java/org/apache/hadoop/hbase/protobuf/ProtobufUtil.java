@@ -7953,6 +7953,11 @@ control|)
 block|{
 name|valueBuilder
 operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|valueBuilder
+operator|.
 name|setQualifier
 argument_list|(
 name|ByteStringer
@@ -8391,6 +8396,11 @@ name|getValue
 argument_list|()
 control|)
 block|{
+name|valueBuilder
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 name|valueBuilder
 operator|.
 name|setQualifier
