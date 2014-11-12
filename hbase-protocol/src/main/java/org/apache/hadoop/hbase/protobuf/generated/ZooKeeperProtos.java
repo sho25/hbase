@@ -4494,6 +4494,17 @@ name|int
 name|getRpcVersion
 parameter_list|()
 function_decl|;
+comment|// optional uint32 info_port = 3;
+comment|/**      *<code>optional uint32 info_port = 3;</code>      */
+name|boolean
+name|hasInfoPort
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional uint32 info_port = 3;</code>      */
+name|int
+name|getInfoPort
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code Master}    *    *<pre>    **    * Content of the master znode.    *</pre>    */
 specifier|public
@@ -4857,6 +4868,23 @@ operator||=
 literal|0x00000002
 expr_stmt|;
 name|rpcVersion_
+operator|=
+name|input
+operator|.
+name|readUInt32
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|24
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|infoPort_
 operator|=
 name|input
 operator|.
@@ -5274,6 +5302,47 @@ return|return
 name|rpcVersion_
 return|;
 block|}
+comment|// optional uint32 info_port = 3;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|INFO_PORT_FIELD_NUMBER
+init|=
+literal|3
+decl_stmt|;
+specifier|private
+name|int
+name|infoPort_
+decl_stmt|;
+comment|/**      *<code>optional uint32 info_port = 3;</code>      */
+specifier|public
+name|boolean
+name|hasInfoPort
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional uint32 info_port = 3;</code>      */
+specifier|public
+name|int
+name|getInfoPort
+parameter_list|()
+block|{
+return|return
+name|infoPort_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -5301,6 +5370,10 @@ name|getDefaultInstance
 argument_list|()
 expr_stmt|;
 name|rpcVersion_
+operator|=
+literal|0
+expr_stmt|;
+name|infoPort_
 operator|=
 literal|0
 expr_stmt|;
@@ -5445,6 +5518,29 @@ name|rpcVersion_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt32
+argument_list|(
+literal|3
+argument_list|,
+name|infoPort_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -5544,6 +5640,37 @@ argument_list|(
 literal|2
 argument_list|,
 name|rpcVersion_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt32Size
+argument_list|(
+literal|3
+argument_list|,
+name|infoPort_
 argument_list|)
 expr_stmt|;
 block|}
@@ -5778,6 +5905,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasInfoPort
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasInfoPort
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasInfoPort
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getInfoPort
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getInfoPort
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -5896,6 +6058,34 @@ name|hash
 operator|)
 operator|+
 name|getRpcVersion
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasInfoPort
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|INFO_PORT_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|getInfoPort
 argument_list|()
 expr_stmt|;
 block|}
@@ -6787,6 +6977,19 @@ operator|~
 literal|0x00000002
 operator|)
 expr_stmt|;
+name|infoPort_
+operator|=
+literal|0
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -7071,6 +7274,30 @@ name|rpcVersion_
 operator|=
 name|rpcVersion_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|infoPort_
+operator|=
+name|infoPort_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -7235,6 +7462,23 @@ argument_list|(
 name|other
 operator|.
 name|getRpcVersion
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasInfoPort
+argument_list|()
+condition|)
+block|{
+name|setInfoPort
+argument_list|(
+name|other
+operator|.
+name|getInfoPort
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -8190,6 +8434,89 @@ literal|0x00000002
 operator|)
 expr_stmt|;
 name|rpcVersion_
+operator|=
+literal|0
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional uint32 info_port = 3;
+specifier|private
+name|int
+name|infoPort_
+decl_stmt|;
+comment|/**        *<code>optional uint32 info_port = 3;</code>        */
+specifier|public
+name|boolean
+name|hasInfoPort
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional uint32 info_port = 3;</code>        */
+specifier|public
+name|int
+name|getInfoPort
+parameter_list|()
+block|{
+return|return
+name|infoPort_
+return|;
+block|}
+comment|/**        *<code>optional uint32 info_port = 3;</code>        */
+specifier|public
+name|Builder
+name|setInfoPort
+parameter_list|(
+name|int
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|infoPort_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional uint32 info_port = 3;</code>        */
+specifier|public
+name|Builder
+name|clearInfoPort
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
+name|infoPort_
 operator|=
 literal|0
 expr_stmt|;
@@ -51177,69 +51504,69 @@ literal|"tatus.proto\"g\n\020MetaRegionServer\022\033\n\006serve"
 operator|+
 literal|"r\030\001 \002(\0132\013.ServerName\022\023\n\013rpc_version\030\002 \001("
 operator|+
-literal|"\r\022!\n\005state\030\003 \001(\0162\022.RegionState.State\":\n\006"
+literal|"\r\022!\n\005state\030\003 \001(\0162\022.RegionState.State\"M\n\006"
 operator|+
 literal|"Master\022\033\n\006master\030\001 \002(\0132\013.ServerName\022\023\n\013r"
 operator|+
-literal|"pc_version\030\002 \001(\r\"\037\n\tClusterUp\022\022\n\nstart_d"
+literal|"pc_version\030\002 \001(\r\022\021\n\tinfo_port\030\003 \001(\r\"\037\n\tC"
 operator|+
-literal|"ate\030\001 \002(\t\"\214\002\n\014SplitLogTask\022\"\n\005state\030\001 \002("
+literal|"lusterUp\022\022\n\nstart_date\030\001 \002(\t\"\214\002\n\014SplitLo"
 operator|+
-literal|"\0162\023.SplitLogTask.State\022 \n\013server_name\030\002 "
+literal|"gTask\022\"\n\005state\030\001 \002(\0162\023.SplitLogTask.Stat"
 operator|+
-literal|"\002(\0132\013.ServerName\0221\n\004mode\030\003 \001(\0162\032.SplitLo"
+literal|"e\022 \n\013server_name\030\002 \002(\0132\013.ServerName\0221\n\004m"
 operator|+
-literal|"gTask.RecoveryMode:\007UNKNOWN\"C\n\005State\022\016\n\n"
+literal|"ode\030\003 \001(\0162\032.SplitLogTask.RecoveryMode:\007U"
 block|,
-literal|"UNASSIGNED\020\000\022\t\n\005OWNED\020\001\022\014\n\010RESIGNED\020\002\022\010\n"
+literal|"NKNOWN\"C\n\005State\022\016\n\nUNASSIGNED\020\000\022\t\n\005OWNED"
 operator|+
-literal|"\004DONE\020\003\022\007\n\003ERR\020\004\">\n\014RecoveryMode\022\013\n\007UNKN"
+literal|"\020\001\022\014\n\010RESIGNED\020\002\022\010\n\004DONE\020\003\022\007\n\003ERR\020\004\">\n\014R"
 operator|+
-literal|"OWN\020\000\022\021\n\rLOG_SPLITTING\020\001\022\016\n\nLOG_REPLAY\020\002"
+literal|"ecoveryMode\022\013\n\007UNKNOWN\020\000\022\021\n\rLOG_SPLITTIN"
 operator|+
-literal|"\"\214\001\n\024DeprecatedTableState\0223\n\005state\030\001 \002(\016"
+literal|"G\020\001\022\016\n\nLOG_REPLAY\020\002\"\214\001\n\024DeprecatedTableS"
 operator|+
-literal|"2\033.DeprecatedTableState.State:\007ENABLED\"?"
+literal|"tate\0223\n\005state\030\001 \002(\0162\033.DeprecatedTableSta"
 operator|+
-literal|"\n\005State\022\013\n\007ENABLED\020\000\022\014\n\010DISABLED\020\001\022\r\n\tDI"
+literal|"te.State:\007ENABLED\"?\n\005State\022\013\n\007ENABLED\020\000\022"
 operator|+
-literal|"SABLING\020\002\022\014\n\010ENABLING\020\003\"\215\001\n\017ReplicationP"
+literal|"\014\n\010DISABLED\020\001\022\r\n\tDISABLING\020\002\022\014\n\010ENABLING"
 operator|+
-literal|"eer\022\022\n\nclusterkey\030\001 \002(\t\022\037\n\027replicationEn"
+literal|"\020\003\"\215\001\n\017ReplicationPeer\022\022\n\nclusterkey\030\001 \002"
 operator|+
-literal|"dpointImpl\030\002 \001(\t\022\035\n\004data\030\003 \003(\0132\017.BytesBy"
+literal|"(\t\022\037\n\027replicationEndpointImpl\030\002 \001(\t\022\035\n\004d"
 operator|+
-literal|"tesPair\022&\n\rconfiguration\030\004 \003(\0132\017.NameStr"
+literal|"ata\030\003 \003(\0132\017.BytesBytesPair\022&\n\rconfigurat"
 block|,
-literal|"ingPair\"^\n\020ReplicationState\022&\n\005state\030\001 \002"
+literal|"ion\030\004 \003(\0132\017.NameStringPair\"^\n\020Replicatio"
 operator|+
-literal|"(\0162\027.ReplicationState.State\"\"\n\005State\022\013\n\007"
+literal|"nState\022&\n\005state\030\001 \002(\0162\027.ReplicationState"
 operator|+
-literal|"ENABLED\020\000\022\014\n\010DISABLED\020\001\"+\n\027ReplicationHL"
+literal|".State\"\"\n\005State\022\013\n\007ENABLED\020\000\022\014\n\010DISABLED"
 operator|+
-literal|"ogPosition\022\020\n\010position\030\001 \002(\003\"%\n\017Replicat"
+literal|"\020\001\"+\n\027ReplicationHLogPosition\022\020\n\010positio"
 operator|+
-literal|"ionLock\022\022\n\nlock_owner\030\001 \002(\t\"\230\001\n\tTableLoc"
+literal|"n\030\001 \002(\003\"%\n\017ReplicationLock\022\022\n\nlock_owner"
 operator|+
-literal|"k\022\036\n\ntable_name\030\001 \001(\0132\n.TableName\022\037\n\nloc"
+literal|"\030\001 \002(\t\"\230\001\n\tTableLock\022\036\n\ntable_name\030\001 \001(\013"
 operator|+
-literal|"k_owner\030\002 \001(\0132\013.ServerName\022\021\n\tthread_id\030"
+literal|"2\n.TableName\022\037\n\nlock_owner\030\002 \001(\0132\013.Serve"
 operator|+
-literal|"\003 \001(\003\022\021\n\tis_shared\030\004 \001(\010\022\017\n\007purpose\030\005 \001("
+literal|"rName\022\021\n\tthread_id\030\003 \001(\003\022\021\n\tis_shared\030\004 "
 operator|+
-literal|"\t\022\023\n\013create_time\030\006 \001(\003\";\n\017StoreSequenceI"
+literal|"\001(\010\022\017\n\007purpose\030\005 \001(\t\022\023\n\013create_time\030\006 \001("
 operator|+
-literal|"d\022\023\n\013family_name\030\001 \002(\014\022\023\n\013sequence_id\030\002 "
+literal|"\003\";\n\017StoreSequenceId\022\023\n\013family_name\030\001 \002("
 block|,
-literal|"\002(\004\"g\n\026RegionStoreSequenceIds\022 \n\030last_fl"
+literal|"\014\022\023\n\013sequence_id\030\002 \002(\004\"g\n\026RegionStoreSeq"
 operator|+
-literal|"ushed_sequence_id\030\001 \002(\004\022+\n\021store_sequenc"
+literal|"uenceIds\022 \n\030last_flushed_sequence_id\030\001 \002"
 operator|+
-literal|"e_id\030\002 \003(\0132\020.StoreSequenceIdBE\n*org.apac"
+literal|"(\004\022+\n\021store_sequence_id\030\002 \003(\0132\020.StoreSeq"
 operator|+
-literal|"he.hadoop.hbase.protobuf.generatedB\017ZooK"
+literal|"uenceIdBE\n*org.apache.hadoop.hbase.proto"
 operator|+
-literal|"eeperProtosH\001\210\001\001\240\001\001"
+literal|"buf.generatedB\017ZooKeeperProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -51378,6 +51705,8 @@ block|{
 literal|"Master"
 block|,
 literal|"RpcVersion"
+block|,
+literal|"InfoPort"
 block|, }
 argument_list|)
 expr_stmt|;

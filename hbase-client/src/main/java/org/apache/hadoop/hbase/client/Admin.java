@@ -2094,6 +2094,14 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Get the info port of the current master if one is available.    * @return master info port    * @throws IOException    */
+specifier|public
+name|int
+name|getMasterInfoPort
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

@@ -25,6 +25,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertFalse
 import|;
 end_import
@@ -412,6 +424,11 @@ name|port
 init|=
 literal|1234
 decl_stmt|;
+name|int
+name|infoPort
+init|=
+literal|1235
+decl_stmt|;
 name|ServerName
 name|sn
 init|=
@@ -448,6 +465,8 @@ name|getMasterAddressZNode
 argument_list|()
 argument_list|,
 name|sn
+argument_list|,
+name|infoPort
 argument_list|)
 expr_stmt|;
 comment|// Wait for the node to be created
@@ -494,6 +513,16 @@ name|equals
 argument_list|(
 name|sn
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+name|infoPort
+argument_list|,
+name|addressTracker
+operator|.
+name|getMasterInfoPort
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

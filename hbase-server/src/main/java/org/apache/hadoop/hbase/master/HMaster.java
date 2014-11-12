@@ -1967,6 +1967,10 @@ operator|.
 name|Server
 name|masterJettyServer
 decl_stmt|;
+specifier|private
+name|int
+name|masterInfoPort
+decl_stmt|;
 specifier|public
 specifier|static
 class|class
@@ -2517,6 +2521,13 @@ name|e
 argument_list|)
 throw|;
 block|}
+name|masterInfoPort
+operator|=
+name|connector
+operator|.
+name|getPort
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * For compatibility, if failed with regionserver credentials, try the master one    */
 specifier|protected
@@ -6725,6 +6736,8 @@ argument_list|,
 name|backupZNode
 argument_list|,
 name|serverName
+argument_list|,
+name|masterInfoPort
 argument_list|)
 condition|)
 block|{
@@ -6749,7 +6762,11 @@ name|ActiveMasterManager
 argument_list|(
 name|zooKeeper
 argument_list|,
+name|this
+operator|.
 name|serverName
+argument_list|,
+name|masterInfoPort
 argument_list|,
 name|this
 argument_list|)

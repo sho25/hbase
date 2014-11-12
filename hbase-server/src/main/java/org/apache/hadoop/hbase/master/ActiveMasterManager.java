@@ -292,6 +292,11 @@ name|sn
 decl_stmt|;
 specifier|private
 specifier|final
+name|int
+name|infoPort
+decl_stmt|;
+specifier|private
+specifier|final
 name|Server
 name|master
 decl_stmt|;
@@ -303,6 +308,9 @@ name|watcher
 parameter_list|,
 name|ServerName
 name|sn
+parameter_list|,
+name|int
+name|infoPort
 parameter_list|,
 name|Server
 name|master
@@ -325,6 +333,12 @@ operator|.
 name|sn
 operator|=
 name|sn
+expr_stmt|;
+name|this
+operator|.
+name|infoPort
+operator|=
+name|infoPort
 expr_stmt|;
 name|this
 operator|.
@@ -597,6 +611,8 @@ argument_list|,
 name|this
 operator|.
 name|sn
+argument_list|,
+name|infoPort
 argument_list|)
 condition|)
 block|{
