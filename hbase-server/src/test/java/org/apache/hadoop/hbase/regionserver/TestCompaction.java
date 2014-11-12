@@ -1242,14 +1242,6 @@ name|doRegionCompactionPrep
 argument_list|()
 expr_stmt|;
 comment|// force a minor compaction, but not before requesting a stop
-comment|// Accounting: Normally compaction requests go through HStore#requestCompaction
-name|r
-operator|.
-name|reportCompactionRequestStart
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 name|spyR
 operator|.
 name|compactStores
