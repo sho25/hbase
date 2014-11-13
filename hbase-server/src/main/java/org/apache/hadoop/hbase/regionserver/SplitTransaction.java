@@ -3115,16 +3115,6 @@ name|this
 operator|.
 name|parent
 operator|.
-name|writestate
-operator|.
-name|writesEnabled
-operator|=
-literal|true
-expr_stmt|;
-name|this
-operator|.
-name|parent
-operator|.
 name|getRegionFileSystem
 argument_list|()
 operator|.
