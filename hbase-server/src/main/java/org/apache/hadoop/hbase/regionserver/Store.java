@@ -884,16 +884,6 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**     * report the beginning of a compaction     * this must be called from the thread performing the compaction     */
-name|void
-name|reportCompactionStart
-parameter_list|()
-function_decl|;
-comment|/**     * report the completion of a compaction     * this must be called from the thread performing the compaction     */
-name|void
-name|reportCompactionEnd
-parameter_list|()
-function_decl|;
 block|}
 end_interface
 
