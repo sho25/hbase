@@ -2246,6 +2246,28 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|testDeleteExpiredStoreFiles
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+name|testDeleteExpiredStoreFiles
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
+block|}
+comment|/*    * @param minVersions the MIN_VERSIONS for the column family    */
+specifier|public
+name|void
+name|testDeleteExpiredStoreFiles
+parameter_list|(
+name|int
+name|minVersions
+parameter_list|)
+throws|throws
+name|Exception
+block|{
 name|int
 name|storeFileNum
 init|=
@@ -2309,6 +2331,13 @@ argument_list|(
 name|family
 argument_list|)
 decl_stmt|;
+name|hcd
+operator|.
+name|setMinVersions
+argument_list|(
+name|minVersions
+argument_list|)
+expr_stmt|;
 name|hcd
 operator|.
 name|setTimeToLive
@@ -2534,6 +2563,13 @@ name|getStorefiles
 argument_list|()
 decl_stmt|;
 comment|// Ensure i files are gone.
+if|if
+condition|(
+name|minVersions
+operator|==
+literal|0
+condition|)
+block|{
 name|assertEquals
 argument_list|(
 name|storeFileNum
@@ -2576,6 +2612,20 @@ operator|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+else|else
+block|{
+name|assertEquals
+argument_list|(
+name|storeFileNum
+argument_list|,
+name|sfs
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Let the next store file expired.
 name|edge
 operator|.
@@ -2609,6 +2659,13 @@ name|getStorefiles
 argument_list|()
 decl_stmt|;
 comment|// Assert the last expired file is not removed.
+if|if
+condition|(
+name|minVersions
+operator|==
+literal|0
+condition|)
+block|{
 name|assertEquals
 argument_list|(
 literal|1
@@ -2619,6 +2676,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|long
 name|ts
 init|=
