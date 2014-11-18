@@ -258,6 +258,12 @@ name|long
 name|getHedgedReadWins
 parameter_list|()
 function_decl|;
+comment|/**    * @return Count of requests blocked because the memstore size is larger than blockingMemStoreSize    */
+specifier|public
+name|long
+name|getBlockedRequestsCount
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

@@ -666,6 +666,18 @@ init|=
 literal|"The number of times we started a hedged read and a hedged read won"
 decl_stmt|;
 name|String
+name|BLOCKED_REQUESTS_COUNT
+init|=
+literal|"blockedRequestCount"
+decl_stmt|;
+name|String
+name|BLOCKED_REQUESTS_COUNT_DESC
+init|=
+literal|"The number of blocked requests because of memstore size is "
+operator|+
+literal|"larger than blockingMemStoreSize"
+decl_stmt|;
+name|String
 name|SPLIT_KEY
 init|=
 literal|"splitTime"

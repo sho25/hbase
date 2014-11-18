@@ -2386,6 +2386,31 @@ operator|new
 name|Counter
 argument_list|()
 decl_stmt|;
+comment|// Number of requests blocked by memstore size.
+specifier|private
+specifier|final
+name|Counter
+name|blockedRequestsCount
+init|=
+operator|new
+name|Counter
+argument_list|()
+decl_stmt|;
+comment|/**    * @return the number of blocked requests count.    */
+specifier|public
+name|long
+name|getBlockedRequestsCount
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|blockedRequestsCount
+operator|.
+name|get
+argument_list|()
+return|;
+block|}
 comment|// Compaction counters
 specifier|final
 name|AtomicLong
@@ -14332,6 +14357,11 @@ operator|.
 name|blockingMemStoreSize
 condition|)
 block|{
+name|blockedRequestsCount
+operator|.
+name|increment
+argument_list|()
+expr_stmt|;
 name|requestFlush
 argument_list|()
 expr_stmt|;
@@ -26605,7 +26635,7 @@ name|ClassSize
 operator|.
 name|ARRAY
 operator|+
-literal|41
+literal|42
 operator|*
 name|ClassSize
 operator|.
