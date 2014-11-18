@@ -310,7 +310,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testMasterMonitorCollableRetries
+name|testMasterMonitorCallableRetries
 parameter_list|()
 throws|throws
 name|MasterNotRunningException
@@ -360,7 +360,7 @@ argument_list|)
 expr_stmt|;
 comment|// Get mocked connection.   Getting the connection will register it so when HBaseAdmin is
 comment|// constructed with same configuration, it will find this mocked connection.
-name|HConnection
+name|ClusterConnection
 name|connection
 init|=
 name|HConnectionTestingUtility
@@ -443,14 +443,13 @@ argument_list|(
 name|masterAdmin
 argument_list|)
 expr_stmt|;
-comment|// Mock up our admin Interfaces
 name|Admin
 name|admin
 init|=
 operator|new
 name|HBaseAdmin
 argument_list|(
-name|configuration
+name|connection
 argument_list|)
 decl_stmt|;
 try|try
@@ -551,12 +550,10 @@ name|connection
 operator|!=
 literal|null
 condition|)
-name|HConnectionManager
+name|connection
 operator|.
-name|deleteConnection
-argument_list|(
-name|configuration
-argument_list|)
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 block|}

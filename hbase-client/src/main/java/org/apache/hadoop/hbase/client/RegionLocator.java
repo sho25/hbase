@@ -124,7 +124,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to view region location information for a single HBase table.  * Obtain an instance from an {@link HConnection}.  *  * @see ConnectionFactory  * @see Connection  * @see Table  * @since 0.99.0  */
+comment|/**  * Used to view region location information for a single HBase table.  * Obtain an instance from an {@link Connection}.  *  * @see ConnectionFactory  * @see Connection  * @see Table  * @since 0.99.0  */
 end_comment
 
 begin_interface
