@@ -459,7 +459,7 @@ specifier|private
 name|Connection
 name|connection
 decl_stmt|;
-comment|/**    * Writes the reducer output to an HBase table.    *    * @param<KEY>  The type of the key.    */
+comment|/**    * Writes the reducer output to an HBase table.    */
 specifier|protected
 class|class
 name|TableRecordWriter
