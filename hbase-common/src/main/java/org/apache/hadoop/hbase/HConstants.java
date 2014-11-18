@@ -1637,6 +1637,7 @@ decl_stmt|;
 comment|/**    * Retrying we multiply hbase.client.pause setting by what we have in this array until we    * run out of array items.  Retries beyond this use the last number in the array.  So, for    * example, if hbase.client.pause is 1 second, and maximum retries count    * hbase.client.retries.number is 10, we will retry at the following intervals:    * 1, 2, 3, 5, 10, 20, 40, 100, 100, 100.    * With 100ms, a back-off of 200 means 20s    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|RETRY_BACKOFF
 index|[]
@@ -1731,6 +1732,7 @@ decl_stmt|;
 comment|/**      * Parameter name for maximum number of bytes returned when calling a      * scanner's next method.      */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE_KEY
 init|=
@@ -1739,6 +1741,7 @@ decl_stmt|;
 comment|/**    * Maximum number of bytes returned when calling a scanner's next method.    * Note that when a single row is larger than this limit the row is still    * returned completely.    *    * The default value is unlimited.    */
 specifier|public
 specifier|static
+specifier|final
 name|long
 name|DEFAULT_HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE
 init|=
@@ -1749,6 +1752,7 @@ decl_stmt|;
 comment|/**    * Parameter name for client pause value, used mostly as value to wait    * before running a retry of a failed get, region lookup, etc.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_CLIENT_PAUSE
 init|=
@@ -1757,6 +1761,7 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_CLIENT_PAUSE}.    */
 specifier|public
 specifier|static
+specifier|final
 name|long
 name|DEFAULT_HBASE_CLIENT_PAUSE
 init|=
@@ -1819,6 +1824,7 @@ decl_stmt|;
 comment|/**    * Parameter name for server pause value, used mostly as value to wait before    * running a retry of a failed operation.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_SERVER_PAUSE
 init|=
@@ -1827,6 +1833,7 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_SERVER_PAUSE}.    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_SERVER_PAUSE
 init|=
@@ -1835,6 +1842,7 @@ decl_stmt|;
 comment|/**    * Parameter name for maximum retries, used as maximum for all retryable    * operations such as fetching of the root region from root region server,    * getting a cell's value, starting a row update, etc.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_CLIENT_RETRIES_NUMBER
 init|=
@@ -1843,6 +1851,7 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_CLIENT_RETRIES_NUMBER}.    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
 init|=
@@ -1851,6 +1860,7 @@ decl_stmt|;
 comment|/**    * Parameter name to set the default scanner caching for all clients.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_CLIENT_SCANNER_CACHING
 init|=
@@ -1859,6 +1869,7 @@ decl_stmt|;
 comment|/**    * Default value for {@link #HBASE_CLIENT_SCANNER_CACHING}    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_CLIENT_SCANNER_CACHING
 init|=
@@ -1867,6 +1878,7 @@ decl_stmt|;
 comment|/**    * Parameter name for number of rows that will be fetched when calling next on    * a scanner if it is not served from memory. Higher caching values will    * enable faster scanners but will eat up more memory and some calls of next    * may take longer and longer times when the cache is empty.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_META_SCANNER_CACHING
 init|=
@@ -1875,6 +1887,7 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_META_SCANNER_CACHING}.    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_META_SCANNER_CACHING
 init|=
@@ -1883,6 +1896,7 @@ decl_stmt|;
 comment|/**    * Parameter name for number of versions, kept by meta table.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_META_VERSIONS
 init|=
@@ -1891,6 +1905,7 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_META_VERSIONS}.    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_META_VERSIONS
 init|=
@@ -1899,6 +1914,7 @@ decl_stmt|;
 comment|/**    * Parameter name for number of versions, kept by meta table.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_META_BLOCK_SIZE
 init|=
@@ -1907,6 +1923,7 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_META_BLOCK_SIZE}.    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_META_BLOCK_SIZE
 init|=
@@ -1917,6 +1934,7 @@ decl_stmt|;
 comment|/**    * Parameter name for unique identifier for this {@link org.apache.hadoop.conf.Configuration}    * instance. If there are two or more {@link org.apache.hadoop.conf.Configuration} instances that,    * for all intents and purposes, are the same except for their instance ids, then they will not be    * able to share the same org.apache.hadoop.hbase.client.HConnection instance. On the other hand,    * even if the instance ids are the same, it could result in non-shared    * org.apache.hadoop.hbase.client.HConnection instances if some of the other connection parameters    * differ.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_CLIENT_INSTANCE_ID
 init|=
@@ -1925,6 +1943,7 @@ decl_stmt|;
 comment|/**    * The client scanner timeout period in milliseconds.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 init|=
@@ -1935,6 +1954,7 @@ annotation|@
 name|Deprecated
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
 init|=
@@ -1943,6 +1963,7 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD}.    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 init|=
@@ -1951,6 +1972,7 @@ decl_stmt|;
 comment|/**    * timeout for each RPC    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_RPC_TIMEOUT_KEY
 init|=
@@ -1959,6 +1981,7 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_RPC_TIMEOUT_KEY}    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_RPC_TIMEOUT
 init|=
@@ -1967,6 +1990,7 @@ decl_stmt|;
 comment|/**    * timeout for short operation RPC    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_RPC_SHORTOPERATION_TIMEOUT_KEY
 init|=
@@ -1975,6 +1999,7 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_RPC_SHORTOPERATION_TIMEOUT_KEY}    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_RPC_SHORTOPERATION_TIMEOUT
 init|=
@@ -2067,6 +2092,7 @@ decl_stmt|;
 comment|/** Whether nonces are enabled; default is true. */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_RS_NONCES_ENABLED
 init|=
