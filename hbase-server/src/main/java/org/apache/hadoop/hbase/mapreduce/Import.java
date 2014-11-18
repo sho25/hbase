@@ -1498,6 +1498,11 @@ name|zkw
 init|=
 literal|null
 decl_stmt|;
+name|Exception
+name|ex
+init|=
+literal|null
+decl_stmt|;
 try|try
 block|{
 name|zkw
@@ -1539,6 +1544,10 @@ name|ZooKeeperConnectionException
 name|e
 parameter_list|)
 block|{
+name|ex
+operator|=
+name|e
+expr_stmt|;
 name|LOG
 operator|.
 name|error
@@ -1555,6 +1564,10 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
+name|ex
+operator|=
+name|e
+expr_stmt|;
 name|LOG
 operator|.
 name|error
@@ -1571,6 +1584,10 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+name|ex
+operator|=
+name|e
+expr_stmt|;
 name|LOG
 operator|.
 name|error
@@ -1594,6 +1611,22 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|clusterIds
+operator|==
+literal|null
+condition|)
+block|{
+comment|// exit early if setup fails
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+name|ex
+argument_list|)
+throw|;
 block|}
 block|}
 block|}
