@@ -494,7 +494,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is responsible to manage all the replication  * sources. There are two classes of sources:  *<li> Normal sources are persistent and one per peer cluster</li>  *<li> Old sources are recovered from a failed region server and our  * only goal is to finish replicating the HLog queue it had up in ZK</li>  *  * When a region server dies, this class uses a watcher to get notified and it  * tries to grab a lock in order to transfer all the queues in a local  * old source.  *  * This class implements the ReplicationListener interface so that it can track changes in  * replication state.  */
+comment|/**  * This class is responsible to manage all the replication  * sources. There are two classes of sources:  *<li> Normal sources are persistent and one per peer cluster</li>  *<li> Old sources are recovered from a failed region server and our  * only goal is to finish replicating the WAL queue it had up in ZK</li>  *  * When a region server dies, this class uses a watcher to get notified and it  * tries to grab a lock in order to transfer all the queues in a local  * old source.  *  * This class implements the ReplicationListener interface so that it can track changes in  * replication state.  */
 end_comment
 
 begin_class
@@ -580,7 +580,7 @@ argument_list|<
 name|String
 argument_list|>
 argument_list|>
-name|hlogsById
+name|walsById
 decl_stmt|;
 comment|// Logs for recovered sources we are currently tracking
 specifier|private
@@ -594,7 +594,7 @@ argument_list|<
 name|String
 argument_list|>
 argument_list|>
-name|hlogsByIdRecoveredQueues
+name|walsByIdRecoveredQueues
 decl_stmt|;
 specifier|private
 specifier|final
@@ -611,13 +611,13 @@ specifier|private
 name|Path
 name|latestPath
 decl_stmt|;
-comment|// Path to the hlogs directories
+comment|// Path to the wals directories
 specifier|private
 specifier|final
 name|Path
 name|logDir
 decl_stmt|;
-comment|// Path to the hlog archive
+comment|// Path to the wal archive
 specifier|private
 specifier|final
 name|Path
@@ -640,7 +640,7 @@ specifier|final
 name|Random
 name|rand
 decl_stmt|;
-comment|/**    * Creates a replication manager and sets the watch on all the other registered region servers    * @param replicationQueues the interface for manipulating replication queues    * @param replicationPeers    * @param replicationTracker    * @param conf the configuration to use    * @param server the server for this region server    * @param fs the file system to use    * @param logDir the directory that contains all hlog directories of live RSs    * @param oldLogDir the directory where old logs are archived    * @param clusterId    */
+comment|/**    * Creates a replication manager and sets the watch on all the other registered region servers    * @param replicationQueues the interface for manipulating replication queues    * @param replicationPeers    * @param replicationTracker    * @param conf the configuration to use    * @param server the server for this region server    * @param fs the file system to use    * @param logDir the directory that contains all wal directories of live RSs    * @param oldLogDir the directory where old logs are archived    * @param clusterId    */
 specifier|public
 name|ReplicationSourceManager
 parameter_list|(
@@ -720,7 +720,7 @@ name|server
 expr_stmt|;
 name|this
 operator|.
-name|hlogsById
+name|walsById
 operator|=
 operator|new
 name|HashMap
@@ -736,7 +736,7 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|hlogsByIdRecoveredQueues
+name|walsByIdRecoveredQueues
 operator|=
 operator|new
 name|ConcurrentHashMap
@@ -904,7 +904,7 @@ name|Random
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Provide the id of the peer and a log key and this method will figure which    * hlog it belongs to and will log, for this region server, the current    * position. It will also clean old logs from the queue.    * @param log Path to the log currently being replicated from    * replication status in zookeeper. It will also delete older entries.    * @param id id of the peer cluster    * @param position current location in the log    * @param queueRecovered indicates if this queue comes from another region server    * @param holdLogInZK if true then the log is retained in ZK    */
+comment|/**    * Provide the id of the peer and a log key and this method will figure which    * wal it belongs to and will log, for this region server, the current    * position. It will also clean old logs from the queue.    * @param log Path to the log currently being replicated from    * replication status in zookeeper. It will also delete older entries.    * @param id id of the peer cluster    * @param position current location in the log    * @param queueRecovered indicates if this queue comes from another region server    * @param holdLogInZK if true then the log is retained in ZK    */
 specifier|public
 name|void
 name|logPositionAndCleanOldLogs
@@ -987,9 +987,9 @@ name|SortedSet
 argument_list|<
 name|String
 argument_list|>
-name|hlogs
+name|wals
 init|=
-name|hlogsByIdRecoveredQueues
+name|walsByIdRecoveredQueues
 operator|.
 name|get
 argument_list|(
@@ -998,12 +998,12 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|hlogs
+name|wals
 operator|!=
 literal|null
 operator|&&
 operator|!
-name|hlogs
+name|wals
 operator|.
 name|first
 argument_list|()
@@ -1016,7 +1016,7 @@ condition|)
 block|{
 name|cleanOldLogs
 argument_list|(
-name|hlogs
+name|wals
 argument_list|,
 name|key
 argument_list|,
@@ -1031,16 +1031,16 @@ synchronized|synchronized
 init|(
 name|this
 operator|.
-name|hlogsById
+name|walsById
 init|)
 block|{
 name|SortedSet
 argument_list|<
 name|String
 argument_list|>
-name|hlogs
+name|wals
 init|=
-name|hlogsById
+name|walsById
 operator|.
 name|get
 argument_list|(
@@ -1050,7 +1050,7 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|hlogs
+name|wals
 operator|.
 name|first
 argument_list|()
@@ -1063,7 +1063,7 @@ condition|)
 block|{
 name|cleanOldLogs
 argument_list|(
-name|hlogs
+name|wals
 argument_list|,
 name|key
 argument_list|,
@@ -1082,7 +1082,7 @@ name|SortedSet
 argument_list|<
 name|String
 argument_list|>
-name|hlogs
+name|wals
 parameter_list|,
 name|String
 name|key
@@ -1095,9 +1095,9 @@ name|SortedSet
 argument_list|<
 name|String
 argument_list|>
-name|hlogSet
+name|walSet
 init|=
-name|hlogs
+name|wals
 operator|.
 name|headSet
 argument_list|(
@@ -1110,22 +1110,22 @@ name|debug
 argument_list|(
 literal|"Removing "
 operator|+
-name|hlogSet
+name|walSet
 operator|.
 name|size
 argument_list|()
 operator|+
 literal|" logs in the list: "
 operator|+
-name|hlogSet
+name|walSet
 argument_list|)
 expr_stmt|;
 for|for
 control|(
 name|String
-name|hlog
+name|wal
 range|:
-name|hlogSet
+name|walSet
 control|)
 block|{
 name|this
@@ -1136,17 +1136,17 @@ name|removeLog
 argument_list|(
 name|id
 argument_list|,
-name|hlog
+name|wal
 argument_list|)
 expr_stmt|;
 block|}
-name|hlogSet
+name|walSet
 operator|.
 name|clear
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Adds a normal source per registered peer cluster and tries to process all    * old region server hlog queues    */
+comment|/**    * Adds a normal source per registered peer cluster and tries to process all    * old region server wal queues    */
 specifier|protected
 name|void
 name|init
@@ -1329,7 +1329,7 @@ synchronized|synchronized
 init|(
 name|this
 operator|.
-name|hlogsById
+name|walsById
 init|)
 block|{
 name|this
@@ -1343,7 +1343,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|hlogsById
+name|walsById
 operator|.
 name|put
 argument_list|(
@@ -1357,7 +1357,7 @@ argument_list|>
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Add the latest hlog to that source's queue
+comment|// Add the latest wal to that source's queue
 if|if
 condition|(
 name|this
@@ -1379,7 +1379,7 @@ argument_list|()
 decl_stmt|;
 name|this
 operator|.
-name|hlogsById
+name|walsById
 operator|.
 name|get
 argument_list|(
@@ -1459,7 +1459,7 @@ return|return
 name|src
 return|;
 block|}
-comment|/**    * Delete a complete queue of hlogs associated with a peer cluster    * @param peerId Id of the peer cluster queue of hlogs to delete    */
+comment|/**    * Delete a complete queue of wals associated with a peer cluster    * @param peerId Id of the peer cluster queue of wals to delete    */
 specifier|public
 name|void
 name|deleteSource
@@ -1548,7 +1548,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Get a copy of the hlogs of the first source on this rs    * @return a sorted set of hlog names    */
+comment|/**    * Get a copy of the wals of the first source on this rs    * @return a sorted set of wal names    */
 specifier|protected
 name|Map
 argument_list|<
@@ -1559,7 +1559,7 @@ argument_list|<
 name|String
 argument_list|>
 argument_list|>
-name|getHLogs
+name|getWALs
 parameter_list|()
 block|{
 return|return
@@ -1567,11 +1567,11 @@ name|Collections
 operator|.
 name|unmodifiableMap
 argument_list|(
-name|hlogsById
+name|walsById
 argument_list|)
 return|;
 block|}
-comment|/**    * Get a copy of the hlogs of the recovered sources on this rs    * @return a sorted set of hlog names    */
+comment|/**    * Get a copy of the wals of the recovered sources on this rs    * @return a sorted set of wal names    */
 specifier|protected
 name|Map
 argument_list|<
@@ -1582,7 +1582,7 @@ argument_list|<
 name|String
 argument_list|>
 argument_list|>
-name|getHlogsByIdRecoveredQueues
+name|getWalsByIdRecoveredQueues
 parameter_list|()
 block|{
 return|return
@@ -1590,7 +1590,7 @@ name|Collections
 operator|.
 name|unmodifiableMap
 argument_list|(
-name|hlogsByIdRecoveredQueues
+name|walsByIdRecoveredQueues
 argument_list|)
 return|;
 block|}
@@ -1637,7 +1637,7 @@ synchronized|synchronized
 init|(
 name|this
 operator|.
-name|hlogsById
+name|walsById
 init|)
 block|{
 name|String
@@ -1707,11 +1707,11 @@ name|SortedSet
 argument_list|<
 name|String
 argument_list|>
-name|hlogs
+name|wals
 range|:
 name|this
 operator|.
-name|hlogsById
+name|walsById
 operator|.
 name|values
 argument_list|()
@@ -1727,15 +1727,15 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-comment|// If there's no slaves, don't need to keep the old hlogs since
+comment|// If there's no slaves, don't need to keep the old wals since
 comment|// we only consider the last one when a new slave comes in
-name|hlogs
+name|wals
 operator|.
 name|clear
 argument_list|()
 expr_stmt|;
 block|}
-name|hlogs
+name|wals
 operator|.
 name|add
 argument_list|(
@@ -2209,7 +2209,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|hlogsByIdRecoveredQueues
+name|walsByIdRecoveredQueues
 operator|.
 name|remove
 argument_list|(
@@ -2713,7 +2713,7 @@ argument_list|()
 condition|)
 block|{
 comment|// We either didn't get the lock or the failed region server didn't have any outstanding
-comment|// HLogs to replicate, so we are done.
+comment|// WALs to replicate, so we are done.
 return|return;
 block|}
 for|for
@@ -2909,7 +2909,7 @@ name|SortedSet
 argument_list|<
 name|String
 argument_list|>
-name|hlogsSet
+name|walsSet
 init|=
 name|entry
 operator|.
@@ -2919,9 +2919,9 @@ decl_stmt|;
 for|for
 control|(
 name|String
-name|hlog
+name|wal
 range|:
-name|hlogsSet
+name|walsSet
 control|)
 block|{
 name|src
@@ -2933,7 +2933,7 @@ name|Path
 argument_list|(
 name|oldLogDir
 argument_list|,
-name|hlog
+name|wal
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2943,13 +2943,13 @@ operator|.
 name|startup
 argument_list|()
 expr_stmt|;
-name|hlogsByIdRecoveredQueues
+name|walsByIdRecoveredQueues
 operator|.
 name|put
 argument_list|(
 name|peerId
 argument_list|,
-name|hlogsSet
+name|walsSet
 argument_list|)
 expr_stmt|;
 block|}
@@ -2973,7 +2973,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Get the directory where hlogs are archived    * @return the directory where hlogs are archived    */
+comment|/**    * Get the directory where wals are archived    * @return the directory where wals are archived    */
 specifier|public
 name|Path
 name|getOldLogDir
@@ -2985,7 +2985,7 @@ operator|.
 name|oldLogDir
 return|;
 block|}
-comment|/**    * Get the directory where hlogs are stored by their RSs    * @return the directory where hlogs are stored by their RSs    */
+comment|/**    * Get the directory where wals are stored by their RSs    * @return the directory where wals are stored by their RSs    */
 specifier|public
 name|Path
 name|getLogDir

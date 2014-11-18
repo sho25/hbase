@@ -187,13 +187,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|util
 operator|.
-name|generated
-operator|.
-name|WALProtos
-operator|.
-name|WALTrailer
+name|FSUtils
 import|;
 end_import
 
@@ -207,9 +203,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|wal
 operator|.
-name|FSUtils
+name|WAL
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALProvider
 import|;
 end_import
 
@@ -306,7 +318,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of {@link HLog.Writer} that delegates to  * SequenceFile.Writer. Legacy implementation only used for compat tests.  */
+comment|/**  * Implementation of {@link WALProvider.Writer} that delegates to  * SequenceFile.Writer. Legacy implementation only used for compat tests.  *  * Note that because this class writes to the legacy hadoop-specific SequenceFile  * format, users of it must write {@link HLogKey} keys and not arbitrary  * {@link WALKey}s because the latter are not Writables (nor made to work with  * Hadoop serialization).  */
 end_comment
 
 begin_class
@@ -1014,7 +1026,7 @@ specifier|public
 name|void
 name|append
 parameter_list|(
-name|HLog
+name|WAL
 operator|.
 name|Entry
 name|entry
@@ -1199,17 +1211,6 @@ operator|.
 name|writer_out
 return|;
 block|}
-comment|/**    * This method is empty as trailer is added only in Protobuf based hlog readers/writers.    */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setWALTrailer
-parameter_list|(
-name|WALTrailer
-name|walTrailer
-parameter_list|)
-block|{   }
 block|}
 end_class
 

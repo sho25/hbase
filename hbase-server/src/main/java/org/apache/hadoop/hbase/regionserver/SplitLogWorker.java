@@ -267,11 +267,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|wal
+operator|.
+name|WALFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
 operator|.
 name|wal
 operator|.
-name|HLogSplitter
+name|WALSplitter
 import|;
 end_import
 
@@ -466,6 +480,10 @@ parameter_list|,
 specifier|final
 name|LastSequenceId
 name|sequenceIdChecker
+parameter_list|,
+specifier|final
+name|WALFactory
+name|factory
 parameter_list|)
 block|{
 name|this
@@ -552,7 +570,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|HLogSplitter
+name|WALSplitter
 operator|.
 name|splitLogFile
 argument_list|(
@@ -585,6 +603,8 @@ name|getCoordinatedStateManager
 argument_list|()
 argument_list|,
 name|mode
+argument_list|,
+name|factory
 argument_list|)
 condition|)
 block|{

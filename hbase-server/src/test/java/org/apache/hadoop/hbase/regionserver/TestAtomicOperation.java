@@ -623,11 +623,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
 import|;
 end_import
 
@@ -4042,7 +4040,7 @@ parameter_list|(
 name|Path
 name|tableDir
 parameter_list|,
-name|HLog
+name|WAL
 name|log
 parameter_list|,
 name|FileSystem

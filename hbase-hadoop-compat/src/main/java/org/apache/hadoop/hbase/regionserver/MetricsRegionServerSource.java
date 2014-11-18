@@ -181,24 +181,24 @@ init|=
 literal|"Number of Stores"
 decl_stmt|;
 name|String
-name|HLOGFILE_COUNT
+name|WALFILE_COUNT
 init|=
 literal|"hlogFileCount"
 decl_stmt|;
 name|String
-name|HLOGFILE_COUNT_DESC
+name|WALFILE_COUNT_DESC
 init|=
-literal|"Number of HLog Files"
+literal|"Number of WAL Files"
 decl_stmt|;
 name|String
-name|HLOGFILE_SIZE
+name|WALFILE_SIZE
 init|=
 literal|"hlogFileSize"
 decl_stmt|;
 name|String
-name|HLOGFILE_SIZE_DESC
+name|WALFILE_SIZE_DESC
 init|=
-literal|"Size of all HLog Files"
+literal|"Size of all WAL Files"
 decl_stmt|;
 name|String
 name|STOREFILE_COUNT

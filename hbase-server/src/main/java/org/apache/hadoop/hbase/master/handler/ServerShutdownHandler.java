@@ -431,9 +431,9 @@ decl_stmt|;
 specifier|protected
 specifier|final
 name|boolean
-name|shouldSplitHlog
+name|shouldSplitWal
 decl_stmt|;
-comment|// whether to split HLog or not
+comment|// whether to split WAL or not
 specifier|protected
 specifier|final
 name|int
@@ -460,7 +460,7 @@ name|serverName
 parameter_list|,
 specifier|final
 name|boolean
-name|shouldSplitHlog
+name|shouldSplitWal
 parameter_list|)
 block|{
 name|this
@@ -477,7 +477,7 @@ name|EventType
 operator|.
 name|M_SERVER_SHUTDOWN
 argument_list|,
-name|shouldSplitHlog
+name|shouldSplitWal
 argument_list|)
 expr_stmt|;
 block|}
@@ -504,7 +504,7 @@ name|type
 parameter_list|,
 specifier|final
 name|boolean
-name|shouldSplitHlog
+name|shouldSplitWal
 parameter_list|)
 block|{
 name|super
@@ -567,9 +567,9 @@ expr_stmt|;
 block|}
 name|this
 operator|.
-name|shouldSplitHlog
+name|shouldSplitWal
 operator|=
-name|shouldSplitHlog
+name|shouldSplitWal
 expr_stmt|;
 name|this
 operator|.
@@ -743,7 +743,7 @@ name|serverName
 argument_list|,
 name|this
 operator|.
-name|shouldSplitHlog
+name|shouldSplitWal
 argument_list|)
 expr_stmt|;
 return|return;
@@ -926,7 +926,7 @@ if|if
 condition|(
 name|this
 operator|.
-name|shouldSplitHlog
+name|shouldSplitWal
 condition|)
 block|{
 if|if
@@ -1536,7 +1536,7 @@ operator|+
 literal|" during region assignment, will retry"
 argument_list|)
 expr_stmt|;
-comment|// Only do HLog splitting if shouldSplitHlog and in DLR mode
+comment|// Only do wal splitting if shouldSplitWal and in DLR mode
 name|serverManager
 operator|.
 name|processDeadServer
@@ -1545,7 +1545,7 @@ name|serverName
 argument_list|,
 name|this
 operator|.
-name|shouldSplitHlog
+name|shouldSplitWal
 operator|&&
 name|distributedLogReplay
 argument_list|)
@@ -1556,7 +1556,7 @@ if|if
 condition|(
 name|this
 operator|.
-name|shouldSplitHlog
+name|shouldSplitWal
 operator|&&
 name|distributedLogReplay
 condition|)

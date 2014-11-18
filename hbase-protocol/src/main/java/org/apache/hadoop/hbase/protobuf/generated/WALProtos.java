@@ -5546,7 +5546,7 @@ name|getOrigSequenceNumber
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code WALKey}    *    *<pre>    * Protocol buffer version of HLogKey; see HLogKey comment, not really a key but WALEdit header for some KVs    *</pre>    */
+comment|/**    * Protobuf type {@code WALKey}    *    *<pre>    *    * Protocol buffer version of WALKey; see WALKey comment, not really a key but WALEdit header    * for some KVs    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -9854,7 +9854,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code WALKey}      *      *<pre>      * Protocol buffer version of HLogKey; see HLogKey comment, not really a key but WALEdit header for some KVs      *</pre>      */
+comment|/**      * Protobuf type {@code WALKey}      *      *<pre>      *      * Protocol buffer version of WALKey; see WALKey comment, not really a key but WALEdit header      * for some KVs      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -48748,7 +48748,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code WALTrailer}    *    *<pre>    **    * A trailer that is appended to the end of a properly closed HLog WAL file.    * If missing, this is either a legacy or a corrupted WAL file.    *</pre>    */
+comment|/**    * Protobuf type {@code WALTrailer}    *    *<pre>    **    * A trailer that is appended to the end of a properly closed WAL file.    * If missing, this is either a legacy or a corrupted WAL file.    * N.B. This trailer currently doesn't contain any information and we    * purposefully don't expose it in the WAL APIs. It's for future growth.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -50204,7 +50204,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code WALTrailer}      *      *<pre>      **      * A trailer that is appended to the end of a properly closed HLog WAL file.      * If missing, this is either a legacy or a corrupted WAL file.      *</pre>      */
+comment|/**      * Protobuf type {@code WALTrailer}      *      *<pre>      **      * A trailer that is appended to the end of a properly closed WAL file.      * If missing, this is either a legacy or a corrupted WAL file.      * N.B. This trailer currently doesn't contain any information and we      * purposefully don't expose it in the WAL APIs. It's for future growth.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final

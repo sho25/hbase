@@ -197,11 +197,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
 operator|.
 name|Entry
 import|;
@@ -997,6 +995,10 @@ return|;
 block|}
 end_function
 
+begin_comment
+comment|/**    * fill in the passed entry with teh next key/value.    * Note that because this format deals with our legacy storage, the provided    * Entery MUST use an {@link HLogKey} for the key.    * @return boolean indicating if the contents of Entry have been filled in.    */
+end_comment
+
 begin_function
 annotation|@
 name|Override
@@ -1012,6 +1014,60 @@ name|IOException
 block|{
 try|try
 block|{
+if|if
+condition|(
+operator|!
+operator|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+operator|instanceof
+name|HLogKey
+operator|)
+condition|)
+block|{
+specifier|final
+name|IllegalArgumentException
+name|exception
+init|=
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"SequenceFileLogReader only works when given entries that have HLogKey for keys. This"
+operator|+
+literal|" one had '"
+operator|+
+name|e
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|getClass
+argument_list|()
+operator|+
+literal|"'"
+argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"We need to use the legacy SequenceFileLogReader to handle a "
+operator|+
+literal|" pre-0.96 style WAL, but HBase internals failed to use the deprecated HLogKey class."
+operator|+
+literal|" This is a bug; please file an issue or email the developer mailing list. You will "
+operator|+
+literal|"need the following exception details when seeking help from the HBase community."
+argument_list|,
+name|exception
+argument_list|)
+expr_stmt|;
+throw|throw
+name|exception
+throw|;
+block|}
 name|boolean
 name|hasNext
 init|=
@@ -1021,6 +1077,9 @@ name|reader
 operator|.
 name|next
 argument_list|(
+operator|(
+name|HLogKey
+operator|)
 name|e
 operator|.
 name|getKey

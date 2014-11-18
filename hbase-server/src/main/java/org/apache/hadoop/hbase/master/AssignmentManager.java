@@ -825,29 +825,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
-name|HLogUtil
+name|DefaultWALProvider
 import|;
 end_import
 
@@ -2221,9 +2201,9 @@ name|failover
 condition|)
 block|{
 comment|// If we get here, we have a full cluster restart. It is a failover only
-comment|// if there are some HLogs are not split yet. For meta HLogs, they should have
+comment|// if there are some WALs are not split yet. For meta WALs, they should have
 comment|// been split already, if any. We can walk through those queued dead servers,
-comment|// if they don't have any HLogs, this restart should be considered as a clean one
+comment|// if they don't have any WALs, this restart should be considered as a clean one
 name|Set
 argument_list|<
 name|ServerName
@@ -2283,6 +2263,8 @@ range|:
 name|queuedDeadServers
 control|)
 block|{
+comment|// In the case of a clean exit, the shutdown handler would have presplit any WALs and
+comment|// removed empty directories.
 name|Path
 name|logDir
 init|=
@@ -2291,9 +2273,9 @@ name|Path
 argument_list|(
 name|rootdir
 argument_list|,
-name|HLogUtil
+name|DefaultWALProvider
 operator|.
-name|getHLogDirectoryName
+name|getWALDirectoryName
 argument_list|(
 name|serverName
 operator|.
@@ -2309,7 +2291,7 @@ name|logDir
 operator|.
 name|suffix
 argument_list|(
-name|HLog
+name|DefaultWALProvider
 operator|.
 name|SPLITTING_EXT
 argument_list|)

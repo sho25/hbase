@@ -1193,11 +1193,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogUtil
+name|WALSplitter
 import|;
 end_import
 
@@ -3934,7 +3932,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Orphaned regions are regions without a .regioninfo file in them.  We "adopt"    * these orphans by creating a new region, and moving the column families,    * recovered edits, HLogs, into the new region dir.  We determine the region    * startkey and endkeys by looking at all of the hfiles inside the column    * families to identify the min and max keys. The resulting region will    * likely violate table integrity but will be dealt with by merging    * overlapping regions.    */
+comment|/**    * Orphaned regions are regions without a .regioninfo file in them.  We "adopt"    * these orphans by creating a new region, and moving the column families,    * recovered edits, WALs, into the new region dir.  We determine the region    * startkey and endkeys by looking at all of the hfiles inside the column    * families to identify the min and max keys. The resulting region will    * likely violate table integrity but will be dealt with by merging    * overlapping regions.    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -18935,7 +18933,7 @@ decl_stmt|;
 name|Path
 name|ePath
 init|=
-name|HLogUtil
+name|WALSplitter
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(

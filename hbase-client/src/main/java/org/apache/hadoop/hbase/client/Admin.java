@@ -1618,13 +1618,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    * @param serverName The servername of the regionserver. A server name is made of host, port and    * startcode. This is mandatory. Here is an example:    *<code> host187.example.com,60020,1289493121758</code>    * @return If lots of logs, flush the returned regions so next time through we can clean logs.    * Returns null if nothing to flush.  Names are actual region names as returned by {@link    * HRegionInfo#getEncodedName()}    * @throws IOException if a remote or network exception occurs    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    */
-name|byte
-index|[]
-index|[]
-name|rollHLogWriter
+comment|/**    * Roll the log writer. I.e. for filesystem based write ahead logs, start writing to a new file.    *    * Note that the actual rolling of the log writer is asynchronous and may not be complete when    * this method returns. As a side effect of this call, the named region server may schedule    * store flushes at the request of the wal.    *    * @param serverName The servername of the regionserver.    * @throws IOException if a remote or network exception occurs    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    */
+name|void
+name|rollWALWriter
 parameter_list|(
-name|String
+name|ServerName
 name|serverName
 parameter_list|)
 throws|throws

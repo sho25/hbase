@@ -94,7 +94,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Context that holds the various dictionaries for compression in HLog.  */
+comment|/**  * Context that holds the various dictionaries for compression in WAL.  */
 end_comment
 
 begin_class
@@ -102,6 +102,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|public
 class|class
 name|CompressionContext
 block|{
@@ -112,14 +113,18 @@ name|ENABLE_WAL_TAGS_COMPRESSION
 init|=
 literal|"hbase.regionserver.wal.tags.enablecompression"
 decl_stmt|;
+comment|// visible only for WALKey, until we move everything into o.a.h.h.wal
+specifier|public
 specifier|final
 name|Dictionary
 name|regionDict
 decl_stmt|;
+specifier|public
 specifier|final
 name|Dictionary
 name|tableDict
 decl_stmt|;
+specifier|public
 specifier|final
 name|Dictionary
 name|familyDict

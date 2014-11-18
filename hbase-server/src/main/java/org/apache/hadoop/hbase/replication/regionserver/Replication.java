@@ -399,11 +399,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogKey
+name|WALKey
 import|;
 end_import
 
@@ -613,9 +611,11 @@ name|Private
 specifier|public
 class|class
 name|Replication
-implements|implements
+extends|extends
 name|WALActionsListener
-implements|,
+operator|.
+name|Base
+implements|implements
 name|ReplicationSourceService
 implements|,
 name|ReplicationSinkService
@@ -1073,7 +1073,7 @@ name|REPLICATION_ENABLE_DEFAULT
 argument_list|)
 return|;
 block|}
-comment|/*     * Returns an object to listen to new hlog changes     **/
+comment|/*     * Returns an object to listen to new wal changes     **/
 specifier|public
 name|WALActionsListener
 name|getWALActionsListener
@@ -1276,28 +1276,10 @@ specifier|public
 name|void
 name|visitLogEntryBeforeWrite
 parameter_list|(
-name|HRegionInfo
-name|info
-parameter_list|,
-name|HLogKey
-name|logKey
-parameter_list|,
-name|WALEdit
-name|logEdit
-parameter_list|)
-block|{
-comment|// Not interested
-block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|visitLogEntryBeforeWrite
-parameter_list|(
 name|HTableDescriptor
 name|htd
 parameter_list|,
-name|HLogKey
+name|WALKey
 name|logKey
 parameter_list|,
 name|WALEdit
@@ -1323,7 +1305,7 @@ parameter_list|(
 name|HTableDescriptor
 name|htd
 parameter_list|,
-name|HLogKey
+name|WALKey
 name|logKey
 parameter_list|,
 name|WALEdit
@@ -1506,40 +1488,6 @@ name|newPath
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|preLogArchive
-parameter_list|(
-name|Path
-name|oldPath
-parameter_list|,
-name|Path
-name|newPath
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-comment|// Not interested
-block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|postLogArchive
-parameter_list|(
-name|Path
-name|oldPath
-parameter_list|,
-name|Path
-name|newPath
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-comment|// Not interested
-block|}
 comment|/**    * This method modifies the master's configuration in order to inject    * replication-related features    * @param conf    */
 specifier|public
 specifier|static
@@ -1606,24 +1554,6 @@ name|cleanerClass
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|logRollRequested
-parameter_list|()
-block|{
-comment|// Not interested
-block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|logCloseRequested
-parameter_list|()
-block|{
-comment|// not interested
 block|}
 comment|/*    * Statistics thread. Periodically prints the cache statistics to the log.    */
 specifier|static

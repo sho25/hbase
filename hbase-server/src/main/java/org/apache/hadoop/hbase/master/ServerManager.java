@@ -2742,7 +2742,7 @@ name|ServerName
 name|serverName
 parameter_list|,
 name|boolean
-name|shouldSplitHlog
+name|shouldSplitWal
 parameter_list|)
 block|{
 comment|// When assignment manager is cleaning up the zookeeper nodes and rebuilding the
@@ -2771,7 +2771,7 @@ name|put
 argument_list|(
 name|serverName
 argument_list|,
-name|shouldSplitHlog
+name|shouldSplitWal
 argument_list|)
 expr_stmt|;
 return|return;
@@ -2811,7 +2811,7 @@ name|deadservers
 argument_list|,
 name|serverName
 argument_list|,
-name|shouldSplitHlog
+name|shouldSplitWal
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -4259,7 +4259,7 @@ name|queuedDeadServers
 argument_list|)
 return|;
 block|}
-comment|/**    * During startup, if we figure it is not a failover, i.e. there is    * no more HLog files to split, we won't try to recover these dead servers.    * So we just remove them from the queue. Use caution in calling this.    */
+comment|/**    * During startup, if we figure it is not a failover, i.e. there is    * no more WAL files to split, we won't try to recover these dead servers.    * So we just remove them from the queue. Use caution in calling this.    */
 name|void
 name|removeRequeuedDeadServers
 parameter_list|()

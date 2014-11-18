@@ -801,7 +801,7 @@ name|lastRecordedFlushedSequenceId
 operator|=
 name|ZKUtil
 operator|.
-name|parseHLogPositionFrom
+name|parseWALPositionFrom
 argument_list|(
 name|bytes
 argument_list|)

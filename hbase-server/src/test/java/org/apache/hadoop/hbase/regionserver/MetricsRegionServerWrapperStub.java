@@ -422,7 +422,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getNumHLogFiles
+name|getNumWALFiles
 parameter_list|()
 block|{
 return|return
@@ -433,7 +433,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getHLogFileSize
+name|getWALFileSize
 parameter_list|()
 block|{
 return|return

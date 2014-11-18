@@ -58,7 +58,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Thrown during flush if the possibility snapshot content was not properly  * persisted into store files.  Response should include replay of hlog content.  */
+comment|/**  * Thrown during flush if the possibility snapshot content was not properly  * persisted into store files.  Response should include replay of wal content.  */
 end_comment
 
 begin_class

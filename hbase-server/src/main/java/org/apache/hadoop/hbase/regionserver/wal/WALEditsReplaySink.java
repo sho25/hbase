@@ -429,6 +429,24 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WAL
+operator|.
+name|Entry
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -614,8 +632,6 @@ name|Pair
 argument_list|<
 name|HRegionLocation
 argument_list|,
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 argument_list|>
@@ -650,8 +666,6 @@ name|HRegionInfo
 argument_list|,
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 argument_list|>
@@ -664,8 +678,6 @@ name|HRegionInfo
 argument_list|,
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 argument_list|>
@@ -676,8 +688,6 @@ name|loc
 init|=
 literal|null
 decl_stmt|;
-name|HLog
-operator|.
 name|Entry
 name|entry
 init|=
@@ -685,8 +695,6 @@ literal|null
 decl_stmt|;
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|regionEntries
@@ -766,8 +774,6 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 argument_list|()
@@ -812,8 +818,6 @@ name|HRegionInfo
 argument_list|,
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 argument_list|>
@@ -835,8 +839,6 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|allActions
@@ -1010,8 +1012,6 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -1131,8 +1131,6 @@ decl_stmt|;
 specifier|private
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -1158,8 +1156,6 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -1246,8 +1242,6 @@ name|regionInfo
 parameter_list|,
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -1265,15 +1259,11 @@ name|isEmpty
 argument_list|()
 condition|)
 return|return;
-name|HLog
-operator|.
 name|Entry
 index|[]
 name|entriesArray
 init|=
 operator|new
-name|HLog
-operator|.
 name|Entry
 index|[
 name|entries
@@ -1396,8 +1386,6 @@ literal|false
 decl_stmt|;
 for|for
 control|(
-name|HLog
-operator|.
 name|Entry
 name|entry
 range|:
@@ -1433,7 +1421,7 @@ range|:
 name|cells
 control|)
 block|{
-comment|// filtering HLog meta entries
+comment|// filtering WAL meta entries
 name|setLocation
 argument_list|(
 name|conn

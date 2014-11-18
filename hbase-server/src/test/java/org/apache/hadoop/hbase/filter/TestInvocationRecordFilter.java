@@ -225,11 +225,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
 import|;
 end_import
 
@@ -1116,12 +1114,12 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HLog
-name|hlog
+name|WAL
+name|wal
 init|=
 name|region
 operator|.
-name|getLog
+name|getWAL
 argument_list|()
 decl_stmt|;
 name|region
@@ -1129,9 +1127,9 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|hlog
+name|wal
 operator|.
-name|closeAndDelete
+name|close
 argument_list|()
 expr_stmt|;
 block|}

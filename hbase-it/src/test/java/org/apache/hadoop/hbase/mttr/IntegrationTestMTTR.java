@@ -790,7 +790,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Integration test that should benchmark how fast HBase can recover from failures. This test starts  * different threads:  *<ol>  *<li>  * Load Test Tool.<br/>  * This runs so that all RegionServers will have some load and HLogs will be full.  *</li>  *<li>  * Scan thread.<br/>  * This thread runs a very short scan over and over again recording how log it takes to respond.  * The longest response is assumed to be the time it took to recover.  *</li>  *<li>  * Put thread.<br/>  * This thread just like the scan thread except it does a very small put.  *</li>  *<li>  * Admin thread.<br/>  * This thread will continually go to the master to try and get the cluster status.  Just like the  * put and scan threads, the time to respond is recorded.  *</li>  *<li>  * Chaos Monkey thread.<br/>  * This thread runs a ChaosMonkey.Action.  *</li>  *</ol>  *<p/>  * The ChaosMonkey actions currently run are:  *<ul>  *<li>Restart the RegionServer holding meta.</li>  *<li>Restart the RegionServer holding the table the scan and put threads are targeting.</li>  *<li>Move the Regions of the table used by the scan and put threads.</li>  *<li>Restart the master.</li>  *</ul>  *<p/>  * At the end of the test a log line is output on the INFO level containing the timing data that was  * collected.  */
+comment|/**  * Integration test that should benchmark how fast HBase can recover from failures. This test starts  * different threads:  *<ol>  *<li>  * Load Test Tool.<br/>  * This runs so that all RegionServers will have some load and WALs will be full.  *</li>  *<li>  * Scan thread.<br/>  * This thread runs a very short scan over and over again recording how log it takes to respond.  * The longest response is assumed to be the time it took to recover.  *</li>  *<li>  * Put thread.<br/>  * This thread just like the scan thread except it does a very small put.  *</li>  *<li>  * Admin thread.<br/>  * This thread will continually go to the master to try and get the cluster status.  Just like the  * put and scan threads, the time to respond is recorded.  *</li>  *<li>  * Chaos Monkey thread.<br/>  * This thread runs a ChaosMonkey.Action.  *</li>  *</ol>  *<p/>  * The ChaosMonkey actions currently run are:  *<ul>  *<li>Restart the RegionServer holding meta.</li>  *<li>Restart the RegionServer holding the table the scan and put threads are targeting.</li>  *<li>Move the Regions of the table used by the scan and put threads.</li>  *<li>Restart the master.</li>  *</ul>  *<p/>  * At the end of the test a log line is output on the INFO level containing the timing data that was  * collected.  */
 end_comment
 
 begin_class
@@ -902,7 +902,7 @@ specifier|static
 name|Action
 name|restartMasterAction
 decl_stmt|;
-comment|/**    * The load test tool used to create load and make sure that HLogs aren't empty.    */
+comment|/**    * The load test tool used to create load and make sure that WALs aren't empty.    */
 specifier|private
 specifier|static
 name|LoadTestTool

@@ -473,11 +473,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -491,11 +491,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogKey
+name|WALKey
 import|;
 end_import
 
@@ -1100,8 +1098,6 @@ block|{   }
 specifier|static
 name|ConcurrentLinkedQueue
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -1109,8 +1105,6 @@ init|=
 operator|new
 name|ConcurrentLinkedQueue
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 argument_list|()
@@ -1140,6 +1134,8 @@ name|postWALWrite
 parameter_list|(
 name|ObserverContext
 argument_list|<
+name|?
+extends|extends
 name|WALCoprocessorEnvironment
 argument_list|>
 name|ctx
@@ -1147,7 +1143,7 @@ parameter_list|,
 name|HRegionInfo
 name|info
 parameter_list|,
-name|HLogKey
+name|WALKey
 name|logKey
 parameter_list|,
 name|WALEdit
@@ -1182,8 +1178,6 @@ operator|.
 name|add
 argument_list|(
 operator|new
-name|HLog
-operator|.
 name|Entry
 argument_list|(
 name|logKey
@@ -1327,8 +1321,6 @@ name|connection
 parameter_list|,
 name|Queue
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -1338,8 +1330,6 @@ name|IOException
 throws|,
 name|RuntimeException
 block|{
-name|HLog
-operator|.
 name|Entry
 name|entry
 decl_stmt|;

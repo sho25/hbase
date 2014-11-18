@@ -262,7 +262,7 @@ comment|/**    * Conf key for the frequency to attempt to refresh the cache of h
 specifier|static
 specifier|final
 name|String
-name|HLOG_CACHE_REFRESH_PERIOD_CONF_KEY
+name|WAL_CACHE_REFRESH_PERIOD_CONF_KEY
 init|=
 literal|"hbase.master.hlogcleaner.plugins.snapshot.period"
 decl_stmt|;
@@ -271,7 +271,7 @@ specifier|private
 specifier|static
 specifier|final
 name|long
-name|DEFAULT_HLOG_CACHE_REFRESH_PERIOD
+name|DEFAULT_WAL_CACHE_REFRESH_PERIOD
 init|=
 literal|300000
 decl_stmt|;
@@ -371,9 +371,9 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
-name|HLOG_CACHE_REFRESH_PERIOD_CONF_KEY
+name|WAL_CACHE_REFRESH_PERIOD_CONF_KEY
 argument_list|,
-name|DEFAULT_HLOG_CACHE_REFRESH_PERIOD
+name|DEFAULT_WAL_CACHE_REFRESH_PERIOD
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -435,7 +435,7 @@ block|{
 return|return
 name|SnapshotReferenceUtil
 operator|.
-name|getHLogNames
+name|getWALNames
 argument_list|(
 name|fs
 argument_list|,

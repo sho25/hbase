@@ -57,11 +57,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -83,15 +83,11 @@ specifier|public
 interface|interface
 name|WALEntryFilter
 block|{
-comment|/**    * Applies the filter, possibly returning a different HLog.Entry instance.    * If null is returned, the entry will be skipped.    * @param entry WAL Entry to filter    * @return a (possibly modified) HLog.Entry to use. Returning null or an entry with    * no cells will cause the entry to be skipped for replication.    */
+comment|/**    * Applies the filter, possibly returning a different Entry instance.    * If null is returned, the entry will be skipped.    * @param entry Entry to filter    * @return a (possibly modified) Entry to use. Returning null or an entry with    * no cells will cause the entry to be skipped for replication.    */
 specifier|public
-name|HLog
-operator|.
 name|Entry
 name|filter
 parameter_list|(
-name|HLog
-operator|.
 name|Entry
 name|entry
 parameter_list|)

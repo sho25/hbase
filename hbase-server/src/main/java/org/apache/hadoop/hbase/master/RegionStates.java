@@ -2021,7 +2021,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * A dead server's hlogs have been split so that all the regions    * used to be open on it can be safely assigned now. Mark them assignable.    */
+comment|/**    * A dead server's wals have been split so that all the regions    * used to be open on it can be safely assigned now. Mark them assignable.    */
 specifier|public
 specifier|synchronized
 name|void
@@ -3200,7 +3200,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Checking if a region was assigned to a server which is not online now.    * If so, we should hold re-assign this region till SSH has split its hlogs.    * Once logs are split, the last assignment of this region will be reset,    * which means a null last assignment server is ok for re-assigning.    *    * A region server could be dead but we don't know it yet. We may    * think it's online falsely. Therefore if a server is online, we still    * need to confirm it reachable and having the expected start code.    */
+comment|/**    * Checking if a region was assigned to a server which is not online now.    * If so, we should hold re-assign this region till SSH has split its wals.    * Once logs are split, the last assignment of this region will be reset,    * which means a null last assignment server is ok for re-assigning.    *    * A region server could be dead but we don't know it yet. We may    * think it's online falsely. Therefore if a server is online, we still    * need to confirm it reachable and having the expected start code.    */
 specifier|synchronized
 name|boolean
 name|wasRegionOnDeadServer

@@ -1330,7 +1330,7 @@ name|rollWriters
 argument_list|()
 expr_stmt|;
 block|}
-comment|// create a new HLog writer, if necessary
+comment|// create a new WAL writer, if necessary
 if|if
 condition|(
 name|wl
@@ -1354,7 +1354,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|// we now have the proper HLog writer. full steam ahead
+comment|// we now have the proper WAL writer. full steam ahead
 name|kv
 operator|.
 name|updateLatestStamp

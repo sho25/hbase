@@ -561,11 +561,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogSplitter
+name|DefaultWALProvider
 import|;
 end_import
 
@@ -579,11 +577,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogUtil
+name|WALSplitter
 import|;
 end_import
 
@@ -947,7 +943,7 @@ parameter_list|)
 block|{
 try|try
 block|{
-name|HLogSplitter
+name|WALSplitter
 operator|.
 name|finishSplitLogFile
 argument_list|(
@@ -4153,9 +4149,9 @@ expr_stmt|;
 name|ServerName
 name|serverName
 init|=
-name|HLogUtil
+name|DefaultWALProvider
 operator|.
-name|getServerNameFromHLogDirectoryName
+name|getServerNameFromWALDirectoryName
 argument_list|(
 operator|new
 name|Path

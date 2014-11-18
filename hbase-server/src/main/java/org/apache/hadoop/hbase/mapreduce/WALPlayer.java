@@ -73,6 +73,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -315,11 +343,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogKey
+name|WALKey
 import|;
 end_import
 
@@ -486,6 +512,20 @@ name|Tool
 block|{
 specifier|final
 specifier|static
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|WALPlayer
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
+specifier|final
+specifier|static
 name|String
 name|NAME
 init|=
@@ -496,29 +536,80 @@ specifier|static
 name|String
 name|BULK_OUTPUT_CONF_KEY
 init|=
-literal|"hlog.bulk.output"
-decl_stmt|;
-specifier|final
-specifier|static
-name|String
-name|HLOG_INPUT_KEY
-init|=
-literal|"hlog.input.dir"
+literal|"wal.bulk.output"
 decl_stmt|;
 specifier|final
 specifier|static
 name|String
 name|TABLES_KEY
 init|=
-literal|"hlog.input.tables"
+literal|"wal.input.tables"
 decl_stmt|;
 specifier|final
 specifier|static
 name|String
 name|TABLE_MAP_KEY
 init|=
-literal|"hlog.input.tablesmap"
+literal|"wal.input.tablesmap"
 decl_stmt|;
+comment|// This relies on Hadoop Configuration to handle warning about deprecated configs and
+comment|// to set the correct non-deprecated configs when an old one shows up.
+static|static
+block|{
+name|Configuration
+operator|.
+name|addDeprecation
+argument_list|(
+literal|"hlog.bulk.output"
+argument_list|,
+name|BULK_OUTPUT_CONF_KEY
+argument_list|)
+expr_stmt|;
+name|Configuration
+operator|.
+name|addDeprecation
+argument_list|(
+literal|"hlog.input.tables"
+argument_list|,
+name|TABLES_KEY
+argument_list|)
+expr_stmt|;
+name|Configuration
+operator|.
+name|addDeprecation
+argument_list|(
+literal|"hlog.input.tablesmap"
+argument_list|,
+name|TABLE_MAP_KEY
+argument_list|)
+expr_stmt|;
+name|Configuration
+operator|.
+name|addDeprecation
+argument_list|(
+name|HLogInputFormat
+operator|.
+name|START_TIME_KEY
+argument_list|,
+name|WALInputFormat
+operator|.
+name|START_TIME_KEY
+argument_list|)
+expr_stmt|;
+name|Configuration
+operator|.
+name|addDeprecation
+argument_list|(
+name|HLogInputFormat
+operator|.
+name|END_TIME_KEY
+argument_list|,
+name|WALInputFormat
+operator|.
+name|END_TIME_KEY
+argument_list|)
+expr_stmt|;
+block|}
 specifier|private
 specifier|final
 specifier|static
@@ -530,11 +621,11 @@ decl_stmt|;
 comment|/**    * A mapper that just writes out KeyValues.    * This one can be used together with {@link KeyValueSortReducer}    */
 specifier|static
 class|class
-name|HLogKeyValueMapper
+name|WALKeyValueMapper
 extends|extends
 name|Mapper
 argument_list|<
-name|HLogKey
+name|WALKey
 argument_list|,
 name|WALEdit
 argument_list|,
@@ -554,7 +645,7 @@ specifier|public
 name|void
 name|map
 parameter_list|(
-name|HLogKey
+name|WALKey
 name|key
 parameter_list|,
 name|WALEdit
@@ -693,7 +784,7 @@ operator|!=
 literal|1
 condition|)
 block|{
-comment|// this can only happen when HLogMapper is used directly by a class other than WALPlayer
+comment|// this can only happen when WALMapper is used directly by a class other than WALPlayer
 throw|throw
 operator|new
 name|IOException
@@ -719,11 +810,11 @@ block|}
 comment|/**    * A mapper that writes out {@link Mutation} to be directly applied to    * a running HBase instance.    */
 specifier|static
 class|class
-name|HLogMapper
+name|WALMapper
 extends|extends
 name|Mapper
 argument_list|<
-name|HLogKey
+name|WALKey
 argument_list|,
 name|WALEdit
 argument_list|,
@@ -756,7 +847,7 @@ specifier|public
 name|void
 name|map
 parameter_list|(
-name|HLogKey
+name|WALKey
 name|key
 parameter_list|,
 name|WALEdit
@@ -849,7 +940,7 @@ name|getCells
 argument_list|()
 control|)
 block|{
-comment|// filtering HLog meta entries
+comment|// filtering WAL meta entries
 if|if
 condition|(
 name|WALEdit
@@ -1100,7 +1191,7 @@ operator|.
 name|length
 condition|)
 block|{
-comment|// this can only happen when HLogMapper is used directly by a class other than WALPlayer
+comment|// this can only happen when WALMapper is used directly by a class other than WALPlayer
 throw|throw
 operator|new
 name|IOException
@@ -1186,9 +1277,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|val
-operator|==
 literal|null
+operator|==
+name|val
 condition|)
 return|return;
 name|long
@@ -1440,7 +1531,7 @@ name|job
 operator|.
 name|setInputFormatClass
 argument_list|(
-name|HLogInputFormat
+name|WALInputFormat
 operator|.
 name|class
 argument_list|)
@@ -1512,7 +1603,7 @@ name|job
 operator|.
 name|setMapperClass
 argument_list|(
-name|HLogKeyValueMapper
+name|WALKeyValueMapper
 operator|.
 name|class
 argument_list|)
@@ -1592,7 +1683,7 @@ name|job
 operator|.
 name|setMapperClass
 argument_list|(
-name|HLogMapper
+name|WALMapper
 operator|.
 name|class
 argument_list|)
@@ -1806,7 +1897,7 @@ name|println
 argument_list|(
 literal|"  -D"
 operator|+
-name|HLogInputFormat
+name|WALInputFormat
 operator|.
 name|START_TIME_KEY
 operator|+
@@ -1821,7 +1912,7 @@ name|println
 argument_list|(
 literal|"  -D"
 operator|+
-name|HLogInputFormat
+name|WALInputFormat
 operator|.
 name|END_TIME_KEY
 operator|+

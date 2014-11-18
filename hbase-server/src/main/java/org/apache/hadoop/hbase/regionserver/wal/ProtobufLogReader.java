@@ -157,6 +157,34 @@ name|hadoop
 operator|.
 name|fs
 operator|.
+name|Path
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
+name|FileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
 name|FSDataInputStream
 import|;
 end_import
@@ -305,6 +333,24 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WAL
+operator|.
+name|Entry
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -372,6 +418,12 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+comment|// public for WALFactory until we move everything to o.a.h.h.wal
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+specifier|public
 specifier|static
 specifier|final
 name|byte
@@ -385,6 +437,12 @@ argument_list|(
 literal|"PWAL"
 argument_list|)
 decl_stmt|;
+comment|// public for TestWALSplit
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+specifier|public
 specifier|static
 specifier|final
 name|byte
@@ -398,6 +456,24 @@ argument_list|(
 literal|"LAWP"
 argument_list|)
 decl_stmt|;
+comment|/**    * Configuration name of WAL Trailer's warning size. If a waltrailer's size is greater than the    * configured size, providers should log a warning. e.g. this is used with Protobuf reader/writer.    */
+specifier|static
+specifier|final
+name|String
+name|WAL_TRAILER_WARN_SIZE
+init|=
+literal|"hbase.regionserver.waltrailer.warn.size"
+decl_stmt|;
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_WAL_TRAILER_WARN_SIZE
+init|=
+literal|1024
+operator|*
+literal|1024
+decl_stmt|;
+comment|// 1MB
 specifier|protected
 name|FSDataInputStream
 name|inputStream
@@ -427,7 +503,7 @@ init|=
 literal|false
 decl_stmt|;
 comment|// walEditsStopOffset is the position of the last byte to read. After reading the last WALEdit entry
-comment|// in the hlog, the inputstream's position is equal to walEditsStopOffset.
+comment|// in the wal, the inputstream's position is equal to walEditsStopOffset.
 specifier|private
 name|long
 name|walEditsStopOffset
@@ -435,6 +511,16 @@ decl_stmt|;
 specifier|private
 name|boolean
 name|trailerPresent
+decl_stmt|;
+specifier|protected
+name|WALTrailer
+name|trailer
+decl_stmt|;
+comment|// maximum size of the wal Trailer in bytes. If a user writes/reads a trailer with size larger
+comment|// than this size, it is written/read respectively, with a WARN message in the log.
+specifier|protected
+name|int
+name|trailerWarnSize
 decl_stmt|;
 specifier|private
 specifier|static
@@ -609,6 +695,54 @@ name|clsName
 argument_list|)
 expr_stmt|;
 comment|// We need a new decoder (at least).
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|init
+parameter_list|(
+name|FileSystem
+name|fs
+parameter_list|,
+name|Path
+name|path
+parameter_list|,
+name|Configuration
+name|conf
+parameter_list|,
+name|FSDataInputStream
+name|stream
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+operator|.
+name|trailerWarnSize
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|WAL_TRAILER_WARN_SIZE
+argument_list|,
+name|DEFAULT_WAL_TRAILER_WARN_SIZE
+argument_list|)
+expr_stmt|;
+name|super
+operator|.
+name|init
+argument_list|(
+name|fs
+argument_list|,
+name|path
+argument_list|,
+name|conf
+argument_list|,
+name|stream
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -1397,8 +1531,6 @@ specifier|protected
 name|boolean
 name|readNext
 parameter_list|(
-name|HLog
-operator|.
 name|Entry
 name|entry
 parameter_list|)
@@ -1841,7 +1973,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Read WALTrailer while reading WALEdits. hlog: "
+literal|"Read WALTrailer while reading WALEdits. wal: "
 operator|+
 name|this
 operator|.
@@ -2019,17 +2151,6 @@ return|;
 block|}
 return|return
 literal|null
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|WALTrailer
-name|getWALTrailer
-parameter_list|()
-block|{
-return|return
-name|trailer
 return|;
 block|}
 annotation|@

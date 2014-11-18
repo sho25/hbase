@@ -197,8 +197,56 @@ name|Preconditions
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WAL
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALProvider
+import|;
+end_import
+
 begin_comment
-comment|/**  * A set of static functions for running our custom WAL compression/decompression.  * Also contains a command line tool to compress and uncompress HLogs.  */
+comment|/**  * A set of static functions for running our custom WAL compression/decompression.  * Also contains a command line tool to compress and uncompress WALs.  */
 end_comment
 
 begin_class
@@ -317,7 +365,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"If<input> HLog is compressed,<output> will be decompressed."
+literal|"If<input> WAL is compressed,<output> will be decompressed."
 argument_list|)
 expr_stmt|;
 name|System
@@ -326,7 +374,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"If<input> HLog is uncompressed,<output> will be compressed."
+literal|"If<input> WAL is uncompressed,<output> will be compressed."
 argument_list|)
 expr_stmt|;
 return|return;
@@ -373,27 +421,23 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|HLog
+name|WAL
 operator|.
 name|Reader
 name|in
 init|=
-name|HLogFactory
+name|WALFactory
 operator|.
-name|createReader
+name|createReaderIgnoreCustomClass
 argument_list|(
 name|inFS
 argument_list|,
 name|input
 argument_list|,
 name|conf
-argument_list|,
-literal|null
-argument_list|,
-literal|false
 argument_list|)
 decl_stmt|;
-name|HLog
+name|WALProvider
 operator|.
 name|Writer
 name|out
@@ -458,7 +502,7 @@ argument_list|)
 expr_stmt|;
 name|out
 operator|=
-name|HLogFactory
+name|WALFactory
 operator|.
 name|createWALWriter
 argument_list|(
@@ -469,7 +513,7 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
-name|HLog
+name|WAL
 operator|.
 name|Entry
 name|e

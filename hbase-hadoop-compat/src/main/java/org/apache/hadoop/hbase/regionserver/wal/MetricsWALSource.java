@@ -36,7 +36,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface of the source that will export metrics about the region server's HLog.  */
+comment|/**  * Interface of the source that will export metrics about the region server's WAL.  */
 end_comment
 
 begin_interface
@@ -62,7 +62,7 @@ comment|/**    * Description    */
 name|String
 name|METRICS_DESCRIPTION
 init|=
-literal|"Metrics about HBase RegionServer HLog"
+literal|"Metrics about HBase RegionServer WAL"
 decl_stmt|;
 comment|/**    * The name of the metrics context that metrics will be under in jmx    */
 name|String
@@ -100,7 +100,7 @@ decl_stmt|;
 name|String
 name|APPEND_SIZE_DESC
 init|=
-literal|"Size (in bytes) of the data appended to the HLog."
+literal|"Size (in bytes) of the data appended to the WAL."
 decl_stmt|;
 name|String
 name|SLOW_APPEND_COUNT
@@ -120,7 +120,7 @@ decl_stmt|;
 name|String
 name|SYNC_TIME_DESC
 init|=
-literal|"The time it took to sync the HLog to HDFS."
+literal|"The time it took to sync the WAL to HDFS."
 decl_stmt|;
 comment|/**    * Add the append size.    */
 name|void
@@ -138,7 +138,7 @@ name|long
 name|time
 parameter_list|)
 function_decl|;
-comment|/**    * Increment the count of hlog appends    */
+comment|/**    * Increment the count of wal appends    */
 name|void
 name|incrementAppendCount
 parameter_list|()
@@ -148,7 +148,7 @@ name|void
 name|incrementSlowAppendCount
 parameter_list|()
 function_decl|;
-comment|/**    * Add the time it took to sync the hlog.    */
+comment|/**    * Add the time it took to sync the wal.    */
 name|void
 name|incrementSyncTime
 parameter_list|(

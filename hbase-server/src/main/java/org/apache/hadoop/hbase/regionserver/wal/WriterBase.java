@@ -135,6 +135,22 @@ name|FSUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|DefaultWALProvider
+import|;
+end_import
+
 begin_comment
 comment|/**  * Context used by our wal dictionary compressor. Null if we're not to do our  * custom dictionary compression.  */
 end_comment
@@ -149,7 +165,7 @@ specifier|abstract
 class|class
 name|WriterBase
 implements|implements
-name|HLog
+name|DefaultWALProvider
 operator|.
 name|Writer
 block|{

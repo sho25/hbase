@@ -389,11 +389,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
 import|;
 end_import
 
@@ -411,7 +409,7 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|HLogUtil
+name|WALUtil
 import|;
 end_import
 
@@ -645,7 +643,6 @@ comment|//((Log4JLogger)LeaseManager.LOG).getLogger().setLevel(Level.ALL);
 comment|//((Log4JLogger)LogFactory.getLog("org.apache.hadoop.hdfs.server.namenode.FSNamesystem"))
 comment|//    .getLogger().setLevel(Level.ALL);
 comment|//((Log4JLogger)DFSClient.LOG).getLogger().setLevel(Level.ALL);
-comment|//((Log4JLogger)HLog.LOG).getLogger().setLevel(Level.ALL);
 block|}
 specifier|public
 specifier|abstract
@@ -692,7 +689,7 @@ parameter_list|(
 name|Path
 name|tableDir
 parameter_list|,
-name|HLog
+name|WAL
 name|log
 parameter_list|,
 name|FileSystem
@@ -896,7 +893,7 @@ parameter_list|(
 name|Path
 name|tableDir
 parameter_list|,
-name|HLog
+name|WAL
 name|log
 parameter_list|,
 name|FileSystem
@@ -988,7 +985,7 @@ parameter_list|(
 name|Path
 name|tableDir
 parameter_list|,
-name|HLog
+name|WAL
 name|log
 parameter_list|,
 name|FileSystem
@@ -1655,13 +1652,13 @@ literal|"store_dir"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|HLogUtil
+name|WALUtil
 operator|.
 name|writeCompactionMarker
 argument_list|(
 name|compactingRegion
 operator|.
-name|getLog
+name|getWAL
 argument_list|()
 argument_list|,
 name|table

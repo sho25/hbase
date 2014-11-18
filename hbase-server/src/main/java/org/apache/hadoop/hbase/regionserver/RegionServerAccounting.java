@@ -111,7 +111,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-comment|// Store the edits size during replaying HLog. Use this to roll back the
+comment|// Store the edits size during replaying WAL. Use this to roll back the
 comment|// global memstore size once a region opening failed.
 specifier|private
 specifier|final

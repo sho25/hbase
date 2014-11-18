@@ -253,11 +253,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -744,8 +744,6 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -866,8 +864,6 @@ operator|.
 name|toArray
 argument_list|(
 operator|new
-name|HLog
-operator|.
 name|Entry
 index|[
 name|entries

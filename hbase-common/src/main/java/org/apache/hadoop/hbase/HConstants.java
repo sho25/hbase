@@ -2343,7 +2343,7 @@ name|DATA_FILE_UMASK_KEY
 init|=
 literal|"hbase.data.umask"
 decl_stmt|;
-comment|/** Configuration name of HLog Compression */
+comment|/** Configuration name of WAL Compression */
 specifier|public
 specifier|static
 specifier|final
@@ -2771,7 +2771,7 @@ name|CRYPTO_WAL_KEY_NAME_CONF_KEY
 init|=
 literal|"hbase.crypto.wal.key.name"
 decl_stmt|;
-comment|/** Configuration key for enabling HLog encryption, a boolean */
+comment|/** Configuration key for enabling WAL encryption, a boolean */
 specifier|public
 specifier|static
 specifier|final

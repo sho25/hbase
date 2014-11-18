@@ -867,7 +867,7 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|HLogUtil
+name|WALUtil
 import|;
 end_import
 
@@ -6097,7 +6097,7 @@ if|if
 condition|(
 name|region
 operator|.
-name|getLog
+name|getWAL
 argument_list|()
 operator|==
 literal|null
@@ -6217,13 +6217,13 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|HLogUtil
+name|WALUtil
 operator|.
 name|writeCompactionMarker
 argument_list|(
 name|region
 operator|.
-name|getLog
+name|getWAL
 argument_list|()
 argument_list|,
 name|this

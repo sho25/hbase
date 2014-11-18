@@ -611,11 +611,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogUtil
+name|DefaultWALProvider
 import|;
 end_import
 
@@ -735,10 +733,7 @@ name|Stoppable
 name|stopper
 decl_stmt|;
 specifier|private
-name|FileSystem
-name|fs
-decl_stmt|;
-specifier|private
+specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
@@ -1041,6 +1036,44 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+return|return
+name|getFileList
+argument_list|(
+name|conf
+argument_list|,
+name|logDirs
+argument_list|,
+name|filter
+argument_list|)
+return|;
+block|}
+comment|/**    * Get a list of paths that need to be split given a set of server-specific directories and    * optinally  a filter.    *    * See {@link DefaultWALProvider#getServerNameFromWALDirectoryName} for more info on directory    * layout.    *    * Should be package-private, but is needed by    * {@link org.apache.hadoop.hbase.wal.WALSplitter#split(Path, Path, Path, FileSystem,    *     Configuration, WALFactory)} for tests.    */
+annotation|@
+name|VisibleForTesting
+specifier|public
+specifier|static
+name|FileStatus
+index|[]
+name|getFileList
+parameter_list|(
+specifier|final
+name|Configuration
+name|conf
+parameter_list|,
+specifier|final
+name|List
+argument_list|<
+name|Path
+argument_list|>
+name|logDirs
+parameter_list|,
+specifier|final
+name|PathFilter
+name|filter
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 name|List
 argument_list|<
 name|FileStatus
@@ -1057,22 +1090,22 @@ decl_stmt|;
 for|for
 control|(
 name|Path
-name|hLogDir
+name|logDir
 range|:
 name|logDirs
 control|)
 block|{
-name|this
-operator|.
+specifier|final
+name|FileSystem
 name|fs
-operator|=
-name|hLogDir
+init|=
+name|logDir
 operator|.
 name|getFileSystem
 argument_list|(
 name|conf
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -1080,7 +1113,7 @@ name|fs
 operator|.
 name|exists
 argument_list|(
-name|hLogDir
+name|logDir
 argument_list|)
 condition|)
 block|{
@@ -1088,7 +1121,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-name|hLogDir
+name|logDir
 operator|+
 literal|" doesn't exist. Nothing to do!"
 argument_list|)
@@ -1105,7 +1138,7 @@ name|listStatus
 argument_list|(
 name|fs
 argument_list|,
-name|hLogDir
+name|logDir
 argument_list|,
 name|filter
 argument_list|)
@@ -1127,7 +1160,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-name|hLogDir
+name|logDir
 operator|+
 literal|" is empty dir, no logs to split"
 argument_list|)
@@ -1168,7 +1201,7 @@ name|a
 argument_list|)
 return|;
 block|}
-comment|/**    * @param logDir one region sever hlog dir path in .logs    * @throws IOException if there was an error while splitting any log file    * @return cumulative size of the logfiles split    * @throws IOException    */
+comment|/**    * @param logDir one region sever wal dir path in .logs    * @throws IOException if there was an error while splitting any log file    * @return cumulative size of the logfiles split    * @throws IOException    */
 specifier|public
 name|long
 name|splitLogDistributed
@@ -1260,9 +1293,9 @@ block|{
 name|ServerName
 name|serverName
 init|=
-name|HLogUtil
+name|DefaultWALProvider
 operator|.
-name|getServerNameFromHLogDirectoryName
+name|getServerNameFromWALDirectoryName
 argument_list|(
 name|logDir
 argument_list|)
@@ -1620,6 +1653,17 @@ argument_list|(
 literal|"Cleaning up log directory..."
 argument_list|)
 expr_stmt|;
+specifier|final
+name|FileSystem
+name|fs
+init|=
+name|logDir
+operator|.
+name|getFileSystem
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
 try|try
 block|{
 if|if

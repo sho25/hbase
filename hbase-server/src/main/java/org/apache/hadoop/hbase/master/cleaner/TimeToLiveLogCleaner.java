@@ -122,7 +122,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Log cleaner that uses the timestamp of the hlog to determine if it should  * be deleted. By default they are allowed to live for 10 minutes.  */
+comment|/**  * Log cleaner that uses the timestamp of the wal to determine if it should  * be deleted. By default they are allowed to live for 10 minutes.  */
 end_comment
 
 begin_class

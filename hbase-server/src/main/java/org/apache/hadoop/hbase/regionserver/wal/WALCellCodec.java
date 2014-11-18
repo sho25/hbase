@@ -593,7 +593,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|// TODO: it sucks that compression context is in HLog.Entry. It'd be nice if it was here.
+comment|// TODO: it sucks that compression context is in WAL.Entry. It'd be nice if it was here.
 comment|//       Dictionary could be gotten by enum; initially, based on enum, context would create
 comment|//       an array of dictionaries.
 specifier|static

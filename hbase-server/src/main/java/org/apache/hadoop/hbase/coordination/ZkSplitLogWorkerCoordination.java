@@ -413,7 +413,7 @@ name|regionserver
 operator|.
 name|handler
 operator|.
-name|HLogSplitterHandler
+name|WALSplitterHandler
 import|;
 end_import
 
@@ -427,11 +427,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogUtil
+name|DefaultWALProvider
 import|;
 end_import
 
@@ -1705,11 +1703,11 @@ argument_list|(
 name|zkVersion
 argument_list|)
 expr_stmt|;
-name|HLogSplitterHandler
+name|WALSplitterHandler
 name|hsh
 init|=
 operator|new
-name|HLogSplitterHandler
+name|WALSplitterHandler
 argument_list|(
 name|server
 argument_list|,
@@ -2203,7 +2201,7 @@ control|)
 block|{
 if|if
 condition|(
-name|HLogUtil
+name|DefaultWALProvider
 operator|.
 name|isMetaFile
 argument_list|(
@@ -2967,7 +2965,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/*    * Next part is related to HLogSplitterHandler    */
+comment|/*    * Next part is related to WALSplitterHandler    */
 comment|/**    * endTask() can fail and the only way to recover out of it is for the {@link SplitLogManager} to    * timeout the task node.    * @param slt    * @param ctr    */
 annotation|@
 name|Override

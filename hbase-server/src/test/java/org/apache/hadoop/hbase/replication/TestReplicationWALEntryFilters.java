@@ -183,11 +183,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -201,11 +201,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogKey
+name|WALKey
 import|;
 end_import
 
@@ -224,26 +222,6 @@ operator|.
 name|wal
 operator|.
 name|WALEdit
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
-name|HLog
-operator|.
-name|Entry
 import|;
 end_import
 
@@ -416,11 +394,11 @@ name|SystemTableWALEntryFilter
 argument_list|()
 decl_stmt|;
 comment|// meta
-name|HLogKey
+name|WALKey
 name|key1
 init|=
 operator|new
-name|HLogKey
+name|WALKey
 argument_list|(
 name|HRegionInfo
 operator|.
@@ -434,8 +412,6 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 decl_stmt|;
-name|HLog
-operator|.
 name|Entry
 name|metaEntry
 init|=
@@ -458,11 +434,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// ns table
-name|HLogKey
+name|WALKey
 name|key2
 init|=
 operator|new
-name|HLogKey
+name|WALKey
 argument_list|(
 operator|new
 name|byte
@@ -474,8 +450,6 @@ operator|.
 name|NAMESPACE_TABLE_NAME
 argument_list|)
 decl_stmt|;
-name|HLog
-operator|.
 name|Entry
 name|nsEntry
 init|=
@@ -498,11 +472,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// user table
-name|HLogKey
+name|WALKey
 name|key3
 init|=
 operator|new
-name|HLogKey
+name|WALKey
 argument_list|(
 operator|new
 name|byte
@@ -517,8 +491,6 @@ literal|"foo"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|HLog
-operator|.
 name|Entry
 name|userEntry
 init|=
@@ -557,8 +529,6 @@ operator|new
 name|ScopeWALEntryFilter
 argument_list|()
 decl_stmt|;
-name|HLog
-operator|.
 name|Entry
 name|userEntry
 init|=
@@ -569,8 +539,6 @@ argument_list|,
 name|b
 argument_list|)
 decl_stmt|;
-name|HLog
-operator|.
 name|Entry
 name|userEntryA
 init|=
@@ -579,8 +547,6 @@ argument_list|(
 name|a
 argument_list|)
 decl_stmt|;
-name|HLog
-operator|.
 name|Entry
 name|userEntryB
 init|=
@@ -589,8 +555,6 @@ argument_list|(
 name|b
 argument_list|)
 decl_stmt|;
-name|HLog
-operator|.
 name|Entry
 name|userEntryEmpty
 init|=
@@ -1107,8 +1071,6 @@ name|void
 name|testChainWALEntryFilter
 parameter_list|()
 block|{
-name|HLog
-operator|.
 name|Entry
 name|userEntry
 init|=
@@ -1450,8 +1412,6 @@ argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
-name|HLog
-operator|.
 name|Entry
 name|userEntry
 init|=
@@ -1803,8 +1763,6 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|HLog
-operator|.
 name|Entry
 name|createEntry
 parameter_list|(
@@ -1814,11 +1772,11 @@ modifier|...
 name|kvs
 parameter_list|)
 block|{
-name|HLogKey
+name|WALKey
 name|key1
 init|=
 operator|new
-name|HLogKey
+name|WALKey
 argument_list|(
 operator|new
 name|byte
@@ -1867,8 +1825,6 @@ expr_stmt|;
 block|}
 return|return
 operator|new
-name|HLog
-operator|.
 name|Entry
 argument_list|(
 name|key1
@@ -1881,13 +1837,9 @@ specifier|private
 name|void
 name|assertEquals
 parameter_list|(
-name|HLog
-operator|.
 name|Entry
 name|e1
 parameter_list|,
-name|HLog
-operator|.
 name|Entry
 name|e2
 parameter_list|)
@@ -1914,7 +1866,7 @@ condition|)
 block|{
 return|return;
 block|}
-comment|// do not compare HLogKeys
+comment|// do not compare WALKeys
 comment|// compare kvs
 name|Assert
 operator|.

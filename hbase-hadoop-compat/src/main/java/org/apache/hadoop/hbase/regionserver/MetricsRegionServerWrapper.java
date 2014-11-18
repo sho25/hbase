@@ -61,16 +61,16 @@ name|long
 name|getNumStores
 parameter_list|()
 function_decl|;
-comment|/**    * Get the number of HLog files of this region server.    */
+comment|/**    * Get the number of WAL files of this region server.    */
 specifier|public
 name|long
-name|getNumHLogFiles
+name|getNumWALFiles
 parameter_list|()
 function_decl|;
-comment|/**    * Get the size of HLog files of this region server.    */
+comment|/**    * Get the size of WAL files of this region server.    */
 specifier|public
 name|long
-name|getHLogFileSize
+name|getWALFileSize
 parameter_list|()
 function_decl|;
 comment|/**    * Get the number of store files hosted on this region server.    */

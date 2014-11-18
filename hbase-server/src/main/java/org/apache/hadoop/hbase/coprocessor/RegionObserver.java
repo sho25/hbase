@@ -645,6 +645,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|wal
+operator|.
+name|WALKey
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|wal
@@ -701,6 +717,9 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
+comment|// TODO as method signatures need to break, update to
+comment|// ObserverContext<? extends RegionCoprocessorEnvironment>
+comment|// so we can use additional environment state that isn't exposed to coprocessors.
 specifier|public
 interface|interface
 name|RegionObserver
@@ -2386,7 +2405,34 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    *    * @param ctx    * @param info    * @param logKey    * @param logEdit    * @throws IOException    */
+comment|/**    * Called before a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    */
+name|void
+name|preWALRestore
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|?
+extends|extends
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|HRegionInfo
+name|info
+parameter_list|,
+name|WALKey
+name|logKey
+parameter_list|,
+name|WALEdit
+name|logEdit
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called before a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    *    * This method is left in place to maintain binary compatibility with older    * {@link RegionObserver}s. If an implementation directly overrides    * {@link #preWALRestore(ObserverContext, HRegionInfo, WALKey, WALEdit)} then this version    * won't be called at all, barring problems with the Security Manager. To work correctly    * in the presence of a strict Security Manager, or in the case of an implementation that    * relies on a parent class to implement preWALRestore, you should implement this method    * as a call to the non-deprecated version.    *    * Users of this method will see all edits that can be treated as HLogKey. If there are    * edits that can't be treated as HLogKey they won't be offered to coprocessors that rely    * on this method. If a coprocessor gets skipped because of this mechanism, a log message    * at ERROR will be generated per coprocessor on the logger for {@link CoprocessorHost} once per    * classloader.    *    * @deprecated use {@link #preWALRestore(ObserverContext, HRegionInfo, WALKey, WALEdit)}    */
+annotation|@
+name|Deprecated
 name|void
 name|preWALRestore
 parameter_list|(
@@ -2409,7 +2455,34 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    *    * @param ctx    * @param info    * @param logKey    * @param logEdit    * @throws IOException    */
+comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    */
+name|void
+name|postWALRestore
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|?
+extends|extends
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|HRegionInfo
+name|info
+parameter_list|,
+name|WALKey
+name|logKey
+parameter_list|,
+name|WALEdit
+name|logEdit
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    *    * This method is left in place to maintain binary compatibility with older    * {@link RegionObserver}s. If an implementation directly overrides    * {@link #postWALRestore(ObserverContext, HRegionInfo, WALKey, WALEdit)} then this version    * won't be called at all, barring problems with the Security Manager. To work correctly    * in the presence of a strict Security Manager, or in the case of an implementation that    * relies on a parent class to implement preWALRestore, you should implement this method    * as a call to the non-deprecated version.    *    * Users of this method will see all edits that can be treated as HLogKey. If there are    * edits that can't be treated as HLogKey they won't be offered to coprocessors that rely    * on this method. If a coprocessor gets skipped because of this mechanism, a log message    * at ERROR will be generated per coprocessor on the logger for {@link CoprocessorHost} once per    * classloader.    *    * @deprecated use {@link #postWALRestore(ObserverContext, HRegionInfo, WALKey, WALEdit)}    */
+annotation|@
+name|Deprecated
 name|void
 name|postWALRestore
 parameter_list|(

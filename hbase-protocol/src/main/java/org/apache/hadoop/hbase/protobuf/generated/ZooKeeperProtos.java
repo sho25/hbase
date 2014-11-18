@@ -31446,7 +31446,7 @@ name|getPosition
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ReplicationHLogPosition}    *    *<pre>    **    * Used by replication. Holds the current position in an HLog file.    *</pre>    */
+comment|/**    * Protobuf type {@code ReplicationHLogPosition}    *    *<pre>    **    * Used by replication. Holds the current position in an WAL file.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -33109,7 +33109,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ReplicationHLogPosition}      *      *<pre>      **      * Used by replication. Holds the current position in an HLog file.      *</pre>      */
+comment|/**      * Protobuf type {@code ReplicationHLogPosition}      *      *<pre>      **      * Used by replication. Holds the current position in an WAL file.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final

@@ -415,11 +415,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -433,11 +433,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogKey
+name|WALKey
 import|;
 end_import
 
@@ -1924,18 +1922,14 @@ operator|.
 name|getEncodedNameAsBytes
 argument_list|()
 decl_stmt|;
-name|HLog
-operator|.
 name|Entry
 name|entry
 init|=
 operator|new
-name|HLog
-operator|.
 name|Entry
 argument_list|(
 operator|new
-name|HLogKey
+name|WALKey
 argument_list|(
 name|encodedRegionName
 argument_list|,

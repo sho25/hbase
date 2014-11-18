@@ -111,7 +111,7 @@ specifier|public
 specifier|final
 specifier|static
 name|AtomicLong
-name|tot_mgr_new_unexpected_hlogs
+name|tot_mgr_new_unexpected_wals
 init|=
 operator|new
 name|AtomicLong

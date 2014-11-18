@@ -115,11 +115,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -407,8 +407,6 @@ name|ReplicateContext
 block|{
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -430,8 +428,6 @@ name|setEntries
 parameter_list|(
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -468,8 +464,6 @@ block|}
 specifier|public
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|getEntries

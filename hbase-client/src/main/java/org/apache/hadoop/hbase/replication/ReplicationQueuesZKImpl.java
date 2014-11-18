@@ -276,7 +276,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class provides an implementation of the ReplicationQueues interface using Zookeeper. The  * base znode that this class works at is the myQueuesZnode. The myQueuesZnode contains a list of  * all outstanding HLog files on this region server that need to be replicated. The myQueuesZnode is  * the regionserver name (a concatenation of the region server’s hostname, client port and start  * code). For example:  *  * /hbase/replication/rs/hostname.example.org,6020,1234  *  * Within this znode, the region server maintains a set of HLog replication queues. These queues are  * represented by child znodes named using there give queue id. For example:  *  * /hbase/replication/rs/hostname.example.org,6020,1234/1  * /hbase/replication/rs/hostname.example.org,6020,1234/2  *  * Each queue has one child znode for every HLog that still needs to be replicated. The value of  * these HLog child znodes is the latest position that has been replicated. This position is updated  * every time a HLog entry is replicated. For example:  *  * /hbase/replication/rs/hostname.example.org,6020,1234/1/23522342.23422 [VALUE: 254]  */
+comment|/**  * This class provides an implementation of the ReplicationQueues interface using Zookeeper. The  * base znode that this class works at is the myQueuesZnode. The myQueuesZnode contains a list of  * all outstanding WAL files on this region server that need to be replicated. The myQueuesZnode is  * the regionserver name (a concatenation of the region server’s hostname, client port and start  * code). For example:  *  * /hbase/replication/rs/hostname.example.org,6020,1234  *  * Within this znode, the region server maintains a set of WAL replication queues. These queues are  * represented by child znodes named using there give queue id. For example:  *  * /hbase/replication/rs/hostname.example.org,6020,1234/1  * /hbase/replication/rs/hostname.example.org,6020,1234/2  *  * Each queue has one child znode for every WAL that still needs to be replicated. The value of  * these WAL child znodes is the latest position that has been replicated. This position is updated  * every time a WAL entry is replicated. For example:  *  * /hbase/replication/rs/hostname.example.org,6020,1234/1/23522342.23422 [VALUE: 254]  */
 end_comment
 
 begin_class
@@ -596,7 +596,7 @@ name|abortable
 operator|.
 name|abort
 argument_list|(
-literal|"Failed to remove hlog from queue (queueId="
+literal|"Failed to remove wal from queue (queueId="
 operator|+
 name|queueId
 operator|+
@@ -686,7 +686,7 @@ name|abortable
 operator|.
 name|abort
 argument_list|(
-literal|"Failed to write replication hlog position (filename="
+literal|"Failed to write replication wal position (filename="
 operator|+
 name|filename
 operator|+
@@ -809,7 +809,7 @@ block|{
 return|return
 name|ZKUtil
 operator|.
-name|parseHLogPositionFrom
+name|parseWALPositionFrom
 argument_list|(
 name|bytes
 argument_list|)
@@ -825,11 +825,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to parse HLogPosition for queueId="
+literal|"Failed to parse WALPosition for queueId="
 operator|+
 name|queueId
 operator|+
-literal|" and hlog="
+literal|" and wal="
 operator|+
 name|filename
 operator|+
@@ -837,7 +837,7 @@ literal|"znode content, continuing."
 argument_list|)
 expr_stmt|;
 block|}
-comment|// if we can not parse the position, start at the beginning of the hlog file
+comment|// if we can not parse the position, start at the beginning of the wal file
 comment|// again
 return|return
 literal|0
@@ -937,7 +937,7 @@ literal|"Atomically moving "
 operator|+
 name|regionserverZnode
 operator|+
-literal|"'s hlogs to my queue"
+literal|"'s wals to my queue"
 argument_list|)
 expr_stmt|;
 name|newQueues
@@ -958,7 +958,7 @@ literal|"Moving "
 operator|+
 name|regionserverZnode
 operator|+
-literal|"'s hlogs to my queue"
+literal|"'s wals to my queue"
 argument_list|)
 expr_stmt|;
 if|if
@@ -1112,7 +1112,7 @@ name|abortable
 operator|.
 name|abort
 argument_list|(
-literal|"Failed to get list of hlogs for queueId="
+literal|"Failed to get list of wals for queueId="
 operator|+
 name|queueId
 argument_list|,
@@ -1481,7 +1481,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * It "atomically" copies all the hlogs queues from another region server and returns them all    * sorted per peer cluster (appended with the dead server's znode).    * @param znode pertaining to the region server to copy the queues from    * @return HLog queues sorted per peer cluster    */
+comment|/**    * It "atomically" copies all the wals queues from another region server and returns them all    * sorted per peer cluster (appended with the dead server's znode).    * @param znode pertaining to the region server to copy the queues from    * @return WAL queues sorted per peer cluster    */
 specifier|private
 name|SortedMap
 argument_list|<
@@ -1667,7 +1667,7 @@ name|List
 argument_list|<
 name|String
 argument_list|>
-name|hlogs
+name|wals
 init|=
 name|ZKUtil
 operator|.
@@ -1682,11 +1682,11 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|hlogs
+name|wals
 operator|==
 literal|null
 operator|||
-name|hlogs
+name|wals
 operator|.
 name|size
 argument_list|()
@@ -1757,13 +1757,13 @@ comment|// get the offset of the logs and set it to new znodes
 for|for
 control|(
 name|String
-name|hlog
+name|wal
 range|:
-name|hlogs
+name|wals
 control|)
 block|{
 name|String
-name|oldHlogZnode
+name|oldWalZnode
 init|=
 name|ZKUtil
 operator|.
@@ -1771,7 +1771,7 @@ name|joinZNode
 argument_list|(
 name|oldClusterZnode
 argument_list|,
-name|hlog
+name|wal
 argument_list|)
 decl_stmt|;
 name|byte
@@ -1786,7 +1786,7 @@ name|this
 operator|.
 name|zookeeper
 argument_list|,
-name|oldHlogZnode
+name|oldWalZnode
 argument_list|)
 decl_stmt|;
 name|LOG
@@ -1795,7 +1795,7 @@ name|debug
 argument_list|(
 literal|"Creating "
 operator|+
-name|hlog
+name|wal
 operator|+
 literal|" with data "
 operator|+
@@ -1816,7 +1816,7 @@ name|joinZNode
 argument_list|(
 name|newPeerZnode
 argument_list|,
-name|hlog
+name|wal
 argument_list|)
 decl_stmt|;
 name|listOfOps
@@ -1842,7 +1842,7 @@ name|ZKUtilOp
 operator|.
 name|deleteNodeFailSilent
 argument_list|(
-name|oldHlogZnode
+name|oldWalZnode
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1850,7 +1850,7 @@ name|logQueue
 operator|.
 name|add
 argument_list|(
-name|hlog
+name|wal
 argument_list|)
 expr_stmt|;
 block|}
@@ -1969,7 +1969,7 @@ return|return
 name|queues
 return|;
 block|}
-comment|/**    * This methods copies all the hlogs queues from another region server and returns them all sorted    * per peer cluster (appended with the dead server's znode)    * @param znode server names to copy    * @return all hlogs for all peers of that cluster, null if an error occurred    */
+comment|/**    * This methods copies all the wals queues from another region server and returns them all sorted    * per peer cluster (appended with the dead server's znode)    * @param znode server names to copy    * @return all wals for all peers of that cluster, null if an error occurred    */
 specifier|private
 name|SortedMap
 argument_list|<
@@ -2156,7 +2156,7 @@ name|List
 argument_list|<
 name|String
 argument_list|>
-name|hlogs
+name|wals
 init|=
 name|ZKUtil
 operator|.
@@ -2172,11 +2172,11 @@ decl_stmt|;
 comment|// That region server didn't have anything to replicate for this cluster
 if|if
 condition|(
-name|hlogs
+name|wals
 operator|==
 literal|null
 operator|||
-name|hlogs
+name|wals
 operator|.
 name|size
 argument_list|()
@@ -2226,9 +2226,9 @@ expr_stmt|;
 for|for
 control|(
 name|String
-name|hlog
+name|wal
 range|:
-name|hlogs
+name|wals
 control|)
 block|{
 name|String
@@ -2240,7 +2240,7 @@ name|joinZNode
 argument_list|(
 name|clusterPath
 argument_list|,
-name|hlog
+name|wal
 argument_list|)
 decl_stmt|;
 name|byte
@@ -2269,7 +2269,7 @@ name|position
 operator|=
 name|ZKUtil
 operator|.
-name|parseHLogPositionFrom
+name|parseWALPositionFrom
 argument_list|(
 name|positionBytes
 argument_list|)
@@ -2285,7 +2285,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed parse of hlog position from the following znode: "
+literal|"Failed parse of wal position from the following znode: "
 operator|+
 name|z
 operator|+
@@ -2301,7 +2301,7 @@ name|debug
 argument_list|(
 literal|"Creating "
 operator|+
-name|hlog
+name|wal
 operator|+
 literal|" with data "
 operator|+
@@ -2317,7 +2317,7 @@ name|joinZNode
 argument_list|(
 name|newClusterZnode
 argument_list|,
-name|hlog
+name|wal
 argument_list|)
 decl_stmt|;
 comment|// Position doesn't actually change, we are just deserializing it for
@@ -2339,7 +2339,7 @@ name|logQueue
 operator|.
 name|add
 argument_list|(
-name|hlog
+name|wal
 argument_list|)
 expr_stmt|;
 block|}

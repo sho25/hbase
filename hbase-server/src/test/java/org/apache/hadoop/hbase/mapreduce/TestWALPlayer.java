@@ -367,7 +367,7 @@ name|mapreduce
 operator|.
 name|WALPlayer
 operator|.
-name|HLogKeyValueMapper
+name|WALKeyValueMapper
 import|;
 end_import
 
@@ -381,11 +381,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
 import|;
 end_import
 
@@ -399,11 +397,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogKey
+name|WALKey
 import|;
 end_import
 
@@ -838,7 +834,7 @@ name|d
 argument_list|)
 expr_stmt|;
 comment|// replay the WAL, map table 1 to table 2
-name|HLog
+name|WAL
 name|log
 init|=
 name|cluster
@@ -849,7 +845,9 @@ literal|0
 argument_list|)
 operator|.
 name|getWAL
-argument_list|()
+argument_list|(
+literal|null
+argument_list|)
 decl_stmt|;
 name|log
 operator|.
@@ -1011,13 +1009,47 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test HLogKeyValueMapper setup and map    */
+comment|/**    * Test WALKeyValueMapper setup and map    */
 annotation|@
 name|Test
 specifier|public
 name|void
-name|testHLogKeyValueMapper
+name|testWALKeyValueMapper
 parameter_list|()
+throws|throws
+name|Exception
+block|{
+name|testWALKeyValueMapper
+argument_list|(
+name|WALPlayer
+operator|.
+name|TABLES_KEY
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Test
+specifier|public
+name|void
+name|testWALKeyValueMapperWithDeprecatedConfig
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+name|testWALKeyValueMapper
+argument_list|(
+literal|"hlog.input.tables"
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|testWALKeyValueMapper
+parameter_list|(
+specifier|final
+name|String
+name|tableConfigKey
+parameter_list|)
 throws|throws
 name|Exception
 block|{
@@ -1032,26 +1064,24 @@ name|configuration
 operator|.
 name|set
 argument_list|(
-name|WALPlayer
-operator|.
-name|TABLES_KEY
+name|tableConfigKey
 argument_list|,
 literal|"table"
 argument_list|)
 expr_stmt|;
-name|HLogKeyValueMapper
+name|WALKeyValueMapper
 name|mapper
 init|=
 operator|new
-name|HLogKeyValueMapper
+name|WALKeyValueMapper
 argument_list|()
 decl_stmt|;
-name|HLogKey
+name|WALKey
 name|key
 init|=
 name|mock
 argument_list|(
-name|HLogKey
+name|WALKey
 operator|.
 name|class
 argument_list|)
@@ -1081,7 +1111,7 @@ literal|"unchecked"
 argument_list|)
 name|Mapper
 argument_list|<
-name|HLogKey
+name|WALKey
 argument_list|,
 name|WALEdit
 argument_list|,
@@ -1474,7 +1504,7 @@ argument_list|()
 operator|.
 name|contains
 argument_list|(
-literal|"-Dhlog.bulk.output=/path/for/output"
+literal|"-Dwal.bulk.output=/path/for/output"
 argument_list|)
 argument_list|)
 expr_stmt|;

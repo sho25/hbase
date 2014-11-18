@@ -82,7 +82,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Class that transitions metrics from HLog's MetricsWAL into the metrics subsystem.  *  * Implements BaseSource through BaseSourceImpl, following the pattern.  */
+comment|/**  * Class that transitions metrics from MetricsWAL into the metrics subsystem.  *  * Implements BaseSource through BaseSourceImpl, following the pattern.  * @see org.apache.hadoop.hbase.regionserver.wal.MetricsWAL  */
 end_comment
 
 begin_class

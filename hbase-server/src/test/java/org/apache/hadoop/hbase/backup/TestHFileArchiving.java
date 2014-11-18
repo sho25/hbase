@@ -2546,7 +2546,7 @@ name|file
 operator|.
 name|contains
 argument_list|(
-literal|"hlog"
+literal|"wal"
 argument_list|)
 condition|)
 block|{

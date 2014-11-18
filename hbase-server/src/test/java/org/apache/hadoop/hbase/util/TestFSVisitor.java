@@ -177,11 +177,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogUtil
+name|WALSplitter
 import|;
 end_import
 
@@ -1079,7 +1077,7 @@ block|{
 name|Path
 name|regionEditsDir
 init|=
-name|HLogUtil
+name|WALSplitter
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(
@@ -1172,7 +1170,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/*    * |-.logs/    * |----server5,5,1351969633508/    * |-------server5,5,1351969633508.0    * |----server6,6,1351969633512/    * |-------server6,6,1351969633512.0    * |-------server6,6,1351969633512.3    */
+comment|/*    * Old style    * |-.logs/    * |----server5,5,1351969633508/    * |-------server5,5,1351969633508.0    * |----server6,6,1351969633512/    * |-------server6,6,1351969633512.0    * |-------server6,6,1351969633512.3    * New style    * |-.logs/    * |----server3,5,1351969633508/    * |-------server3,5,1351969633508.default.0    * |----server4,6,1351969633512/    * |-------server4,6,1351969633512.default.0    * |-------server4,6,1351969633512.some_provider.3    */
 specifier|private
 name|void
 name|createLogs
@@ -1250,6 +1248,39 @@ argument_list|,
 name|server
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|s
+operator|%
+literal|2
+operator|==
+literal|0
+condition|)
+block|{
+if|if
+condition|(
+name|s
+operator|%
+literal|3
+operator|==
+literal|0
+condition|)
+block|{
+name|server
+operator|+=
+literal|".default"
+expr_stmt|;
+block|}
+else|else
+block|{
+name|server
+operator|+=
+literal|"."
+operator|+
+name|s
+expr_stmt|;
+block|}
+block|}
 name|fs
 operator|.
 name|mkdirs

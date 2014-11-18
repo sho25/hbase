@@ -125,8 +125,42 @@ name|HTableDescriptor
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WAL
+operator|.
+name|Entry
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALKey
+import|;
+end_import
+
 begin_comment
-comment|/**  * A WAL Entry for {@link FSHLog} implementation.  Immutable.  * A subclass of {@link HLog.Entry} that carries extra info across the ring buffer such as  * region sequence id (we want to use this later, just before we write the WAL to ensure region  * edits maintain order).  The extra info added here is not 'serialized' as part of the WALEdit  * hence marked 'transient' to underline this fact.  It also adds mechanism so we can wait on  * the assign of the region sequence id.  See {@link #stampRegionSequenceId()}.  */
+comment|/**  * A WAL Entry for {@link FSHLog} implementation.  Immutable.  * A subclass of {@link Entry} that carries extra info across the ring buffer such as  * region sequence id (we want to use this later, just before we write the WAL to ensure region  * edits maintain order).  The extra info added here is not 'serialized' as part of the WALEdit  * hence marked 'transient' to underline this fact.  It also adds mechanism so we can wait on  * the assign of the region sequence id.  See {@link #stampRegionSequenceId()}.  */
 end_comment
 
 begin_class
@@ -137,8 +171,6 @@ name|Private
 class|class
 name|FSWALEntry
 extends|extends
-name|HLog
-operator|.
 name|Entry
 block|{
 comment|// The below data members are denoted 'transient' just to highlight these are not persisted;
@@ -189,7 +221,7 @@ name|long
 name|sequence
 parameter_list|,
 specifier|final
-name|HLogKey
+name|WALKey
 name|key
 parameter_list|,
 specifier|final
@@ -385,7 +417,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|HLogKey
+name|WALKey
 name|key
 init|=
 name|getKey

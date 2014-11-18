@@ -6818,7 +6818,7 @@ name|position
 operator|=
 name|ZKUtil
 operator|.
-name|parseHLogPositionFrom
+name|parseWALPositionFrom
 argument_list|(
 name|ZKUtil
 operator|.
@@ -8026,7 +8026,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param position    * @return Serialized protobuf of<code>position</code> with pb magic prefix prepended suitable    *         for use as content of an hlog position in a replication queue.    */
+comment|/**    * @param position    * @return Serialized protobuf of<code>position</code> with pb magic prefix prepended suitable    *         for use as content of an wal position in a replication queue.    */
 specifier|public
 specifier|static
 name|byte
@@ -8069,11 +8069,11 @@ name|bytes
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes - Content of a HLog position znode.    * @return long - The current HLog position.    * @throws DeserializationException    */
+comment|/**    * @param bytes - Content of a WAL position znode.    * @return long - The current WAL position.    * @throws DeserializationException    */
 specifier|public
 specifier|static
 name|long
-name|parseHLogPositionFrom
+name|parseWALPositionFrom
 parameter_list|(
 specifier|final
 name|byte
@@ -8094,7 +8094,7 @@ throw|throw
 operator|new
 name|DeserializationException
 argument_list|(
-literal|"Unable to parse null HLog position."
+literal|"Unable to parse null WAL position."
 argument_list|)
 throw|;
 block|}

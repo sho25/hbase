@@ -449,7 +449,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|HLogLink
+name|WALLink
 import|;
 end_import
 
@@ -860,7 +860,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Export the specified snapshot to a given FileSystem.  *  * The .snapshot/name folder is copied to the destination cluster  * and then all the hfiles/hlogs are copied using a Map-Reduce Job in the .archive/ location.  * When everything is done, the second cluster can restore the snapshot.  */
+comment|/**  * Export the specified snapshot to a given FileSystem.  *  * The .snapshot/name folder is copied to the destination cluster  * and then all the hfiles/wals are copied using a Map-Reduce Job in the .archive/ location.  * When everything is done, the second cluster can restore the snapshot.  */
 end_comment
 
 begin_class
@@ -2811,7 +2811,7 @@ decl_stmt|;
 name|link
 operator|=
 operator|new
-name|HLogLink
+name|WALLink
 argument_list|(
 name|inputRoot
 argument_list|,
@@ -2949,7 +2949,7 @@ case|:
 name|link
 operator|=
 operator|new
-name|HLogLink
+name|WALLink
 argument_list|(
 name|inputRoot
 argument_list|,
@@ -3197,7 +3197,7 @@ block|}
 comment|// ==========================================================================
 comment|//  Input Format
 comment|// ==========================================================================
-comment|/**    * Extract the list of files (HFiles/HLogs) to copy using Map-Reduce.    * @return list of files referenced by the snapshot (pair of path and size)    */
+comment|/**    * Extract the list of files (HFiles/WALs) to copy using Map-Reduce.    * @return list of files referenced by the snapshot (pair of path and size)    */
 specifier|private
 specifier|static
 name|List
@@ -3515,7 +3515,7 @@ name|long
 name|size
 init|=
 operator|new
-name|HLogLink
+name|WALLink
 argument_list|(
 name|conf
 argument_list|,
@@ -5127,7 +5127,7 @@ name|snapshotDesc
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Execute the export snapshot by copying the snapshot metadata, hfiles and hlogs.    * @return 0 on success, and != 0 upon failure.    */
+comment|/**    * Execute the export snapshot by copying the snapshot metadata, hfiles and wals.    * @return 0 on success, and != 0 upon failure.    */
 annotation|@
 name|Override
 specifier|public

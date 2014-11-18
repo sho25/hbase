@@ -358,15 +358,10 @@ argument_list|)
 condition|)
 block|{
 comment|// Get an instance of our cipher
-name|Cipher
-name|cipher
+specifier|final
+name|String
+name|cipherName
 init|=
-name|Encryption
-operator|.
-name|getCipher
-argument_list|(
-name|conf
-argument_list|,
 name|conf
 operator|.
 name|get
@@ -377,6 +372,17 @@ name|CRYPTO_WAL_ALGORITHM_CONF_KEY
 argument_list|,
 name|DEFAULT_CIPHER
 argument_list|)
+decl_stmt|;
+name|Cipher
+name|cipher
+init|=
+name|Encryption
+operator|.
+name|getCipher
+argument_list|(
+name|conf
+argument_list|,
+name|cipherName
 argument_list|)
 decl_stmt|;
 if|if
@@ -392,7 +398,7 @@ name|RuntimeException
 argument_list|(
 literal|"Cipher '"
 operator|+
-name|cipher
+name|cipherName
 operator|+
 literal|"' is not available"
 argument_list|)

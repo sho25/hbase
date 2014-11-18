@@ -471,11 +471,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|DefaultWALProvider
 import|;
 end_import
 
@@ -489,11 +487,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogUtil
+name|WALSplitter
 import|;
 end_import
 
@@ -703,7 +699,7 @@ name|p
 parameter_list|)
 block|{
 return|return
-name|HLogUtil
+name|DefaultWALProvider
 operator|.
 name|isMetaFile
 argument_list|(
@@ -734,7 +730,7 @@ parameter_list|)
 block|{
 return|return
 operator|!
-name|HLogUtil
+name|DefaultWALProvider
 operator|.
 name|isMetaFile
 argument_list|(
@@ -1118,7 +1114,7 @@ name|getBoolean
 argument_list|(
 literal|"hbase.hlog.split.skip.errors"
 argument_list|,
-name|HLog
+name|WALSplitter
 operator|.
 name|SPLIT_SKIP_ERRORS_DEFAULT
 argument_list|)
@@ -1260,62 +1256,47 @@ range|:
 name|logFolders
 control|)
 block|{
-name|String
-name|sn
+specifier|final
+name|ServerName
+name|serverName
 init|=
+name|DefaultWALProvider
+operator|.
+name|getServerNameFromWALDirectoryName
+argument_list|(
 name|status
 operator|.
 name|getPath
 argument_list|()
-operator|.
-name|getName
-argument_list|()
+argument_list|)
 decl_stmt|;
-comment|// truncate splitting suffix if present (for ServerName parsing)
 if|if
 condition|(
-name|sn
-operator|.
-name|endsWith
-argument_list|(
-name|HLog
-operator|.
-name|SPLITTING_EXT
-argument_list|)
+literal|null
+operator|==
+name|serverName
 condition|)
 block|{
-name|sn
-operator|=
-name|sn
+name|LOG
 operator|.
-name|substring
+name|warn
 argument_list|(
-literal|0
-argument_list|,
-name|sn
+literal|"Log folder "
+operator|+
+name|status
 operator|.
-name|length
+name|getPath
 argument_list|()
-operator|-
-name|HLog
-operator|.
-name|SPLITTING_EXT
-operator|.
-name|length
-argument_list|()
+operator|+
+literal|" doesn't look like its name includes a "
+operator|+
+literal|"region server name; leaving in place. If you see later errors about missing "
+operator|+
+literal|"write ahead logs they may be saved in this location."
 argument_list|)
 expr_stmt|;
 block|}
-name|ServerName
-name|serverName
-init|=
-name|ServerName
-operator|.
-name|parseServerName
-argument_list|(
-name|sn
-argument_list|)
-decl_stmt|;
+elseif|else
 if|if
 condition|(
 operator|!
@@ -1523,7 +1504,7 @@ name|serverNames
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Specialized method to handle the splitting for meta HLog    * @param serverName    * @throws IOException    */
+comment|/**    * Specialized method to handle the splitting for meta WAL    * @param serverName    * @throws IOException    */
 specifier|public
 name|void
 name|splitMetaLog
@@ -1561,7 +1542,7 @@ name|serverNames
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Specialized method to handle the splitting for meta HLog    * @param serverNames    * @throws IOException    */
+comment|/**    * Specialized method to handle the splitting for meta WAL    * @param serverNames    * @throws IOException    */
 specifier|public
 name|void
 name|splitMetaLog
@@ -1584,6 +1565,29 @@ name|META_FILTER
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"UL_UNRELEASED_LOCK"
+argument_list|,
+name|justification
+operator|=
+literal|"We only release this lock when we set it. Updates to code that uses it should verify use "
+operator|+
+literal|"of the guard boolean."
+argument_list|)
 specifier|private
 name|List
 argument_list|<
@@ -1663,9 +1667,9 @@ name|this
 operator|.
 name|rootdir
 argument_list|,
-name|HLogUtil
+name|DefaultWALProvider
 operator|.
-name|getHLogDirectoryName
+name|getWALDirectoryName
 argument_list|(
 name|serverName
 operator|.
@@ -1681,12 +1685,12 @@ name|logDir
 operator|.
 name|suffix
 argument_list|(
-name|HLog
+name|DefaultWALProvider
 operator|.
 name|SPLITTING_EXT
 argument_list|)
 decl_stmt|;
-comment|// Rename the directory so a rogue RS doesn't create more HLogs
+comment|// Rename the directory so a rogue RS doesn't create more WALs
 if|if
 condition|(
 name|fs
@@ -1892,7 +1896,7 @@ name|failedServers
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * This method is the base split method that splits HLog files matching a filter. Callers should    * pass the appropriate filter for meta and non-meta HLogs.    * @param serverNames    * @param filter    * @throws IOException    */
+comment|/**    * This method is the base split method that splits WAL files matching a filter. Callers should    * pass the appropriate filter for meta and non-meta WALs.    * @param serverNames logs belonging to these servers will be split; this will rename the log    *                    directory out from under a soft-failed server    * @param filter    * @throws IOException    */
 specifier|public
 name|void
 name|splitLog

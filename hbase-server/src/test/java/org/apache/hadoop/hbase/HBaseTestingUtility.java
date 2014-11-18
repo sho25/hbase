@@ -1019,11 +1019,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
 import|;
 end_import
 
@@ -2980,7 +2978,7 @@ return|;
 block|}
 specifier|public
 name|MiniDFSCluster
-name|startMiniDFSClusterForTestHLog
+name|startMiniDFSClusterForTestWAL
 parameter_list|(
 name|int
 name|namenodePort
@@ -6936,7 +6934,7 @@ name|desc
 argument_list|)
 return|;
 block|}
-comment|/**    * Create an HRegion that writes to the local tmp dirs with specified hlog    * @param info regioninfo    * @param desc table descriptor    * @param hlog hlog for this region.    * @return created hregion    * @throws IOException    */
+comment|/**    * Create an HRegion that writes to the local tmp dirs with specified wal    * @param info regioninfo    * @param desc table descriptor    * @param wal wal for this region.    * @return created hregion    * @throws IOException    */
 specifier|public
 name|HRegion
 name|createLocalHRegion
@@ -6947,8 +6945,8 @@ parameter_list|,
 name|HTableDescriptor
 name|desc
 parameter_list|,
-name|HLog
-name|hlog
+name|WAL
+name|wal
 parameter_list|)
 throws|throws
 name|IOException
@@ -6968,7 +6966,7 @@ argument_list|()
 argument_list|,
 name|desc
 argument_list|,
-name|hlog
+name|wal
 argument_list|)
 return|;
 block|}
@@ -7001,8 +6999,8 @@ parameter_list|,
 name|Durability
 name|durability
 parameter_list|,
-name|HLog
-name|hlog
+name|WAL
+name|wal
 parameter_list|,
 name|byte
 index|[]
@@ -7101,7 +7099,7 @@ name|info
 argument_list|,
 name|htd
 argument_list|,
-name|hlog
+name|wal
 argument_list|)
 return|;
 block|}
@@ -8109,7 +8107,7 @@ if|if
 condition|(
 name|r
 operator|.
-name|getLog
+name|getWAL
 argument_list|()
 operator|==
 literal|null
@@ -13324,7 +13322,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Set maxRecoveryErrorCount in DFSClient.  In 0.20 pre-append its hard-coded to 5 and    * makes tests linger.  Here is the exception you'll see:    *<pre>    * 2010-06-15 11:52:28,511 WARN  [DataStreamer for file /hbase/.logs/hlog.1276627923013 block blk_928005470262850423_1021] hdfs.DFSClient$DFSOutputStream(2657): Error Recovery for block blk_928005470262850423_1021 failed  because recovery from primary datanode 127.0.0.1:53683 failed 4 times.  Pipeline was 127.0.0.1:53687, 127.0.0.1:53683. Will retry...    *</pre>    * @param stream A DFSClient.DFSOutputStream.    * @param max    * @throws NoSuchFieldException    * @throws SecurityException    * @throws IllegalAccessException    * @throws IllegalArgumentException    */
+comment|/**    * Set maxRecoveryErrorCount in DFSClient.  In 0.20 pre-append its hard-coded to 5 and    * makes tests linger.  Here is the exception you'll see:    *<pre>    * 2010-06-15 11:52:28,511 WARN  [DataStreamer for file /hbase/.logs/wal.1276627923013 block blk_928005470262850423_1021] hdfs.DFSClient$DFSOutputStream(2657): Error Recovery for block blk_928005470262850423_1021 failed  because recovery from primary datanode 127.0.0.1:53683 failed 4 times.  Pipeline was 127.0.0.1:53687, 127.0.0.1:53683. Will retry...    *</pre>    * @param stream A DFSClient.DFSOutputStream.    * @param max    * @throws NoSuchFieldException    * @throws SecurityException    * @throws IllegalAccessException    * @throws IllegalArgumentException    */
 end_comment
 
 begin_function

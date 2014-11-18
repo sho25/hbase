@@ -64,7 +64,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This provides an interface for maintaining a region server's replication queues. These queues  * keep track of the HLogs that still need to be replicated to remote clusters.  */
+comment|/**  * This provides an interface for maintaining a region server's replication queues. These queues  * keep track of the WALs that still need to be replicated to remote clusters.  */
 end_comment
 
 begin_interface
@@ -94,7 +94,7 @@ name|String
 name|queueId
 parameter_list|)
 function_decl|;
-comment|/**    * Add a new HLog file to the given queue. If the queue does not exist it is created.    * @param queueId a String that identifies the queue.    * @param filename name of the HLog    */
+comment|/**    * Add a new WAL file to the given queue. If the queue does not exist it is created.    * @param queueId a String that identifies the queue.    * @param filename name of the WAL    */
 name|void
 name|addLog
 parameter_list|(
@@ -107,7 +107,7 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Remove an HLog file from the given queue.    * @param queueId a String that identifies the queue.    * @param filename name of the HLog    */
+comment|/**    * Remove an WAL file from the given queue.    * @param queueId a String that identifies the queue.    * @param filename name of the WAL    */
 name|void
 name|removeLog
 parameter_list|(
@@ -118,7 +118,7 @@ name|String
 name|filename
 parameter_list|)
 function_decl|;
-comment|/**    * Set the current position for a specific HLog in a given queue.    * @param queueId a String that identifies the queue    * @param filename name of the HLog    * @param position the current position in the file    */
+comment|/**    * Set the current position for a specific WAL in a given queue.    * @param queueId a String that identifies the queue    * @param filename name of the WAL    * @param position the current position in the file    */
 name|void
 name|setLogPosition
 parameter_list|(
@@ -132,7 +132,7 @@ name|long
 name|position
 parameter_list|)
 function_decl|;
-comment|/**    * Get the current position for a specific HLog in a given queue.    * @param queueId a String that identifies the queue    * @param filename name of the HLog    * @return the current position in the file    */
+comment|/**    * Get the current position for a specific WAL in a given queue.    * @param queueId a String that identifies the queue    * @param filename name of the WAL    * @return the current position in the file    */
 name|long
 name|getLogPosition
 parameter_list|(
@@ -150,7 +150,7 @@ name|void
 name|removeAllQueues
 parameter_list|()
 function_decl|;
-comment|/**    * Get a list of all HLogs in the given queue.    * @param queueId a String that identifies the queue    * @return a list of HLogs, null if this region server is dead and has no outstanding queues    */
+comment|/**    * Get a list of all WALs in the given queue.    * @param queueId a String that identifies the queue    * @return a list of WALs, null if this region server is dead and has no outstanding queues    */
 name|List
 argument_list|<
 name|String
@@ -169,7 +169,7 @@ argument_list|>
 name|getAllQueues
 parameter_list|()
 function_decl|;
-comment|/**    * Take ownership for the set of queues belonging to a dead region server.    * @param regionserver the id of the dead region server    * @return A SortedMap of the queues that have been claimed, including a SortedSet of HLogs in    *         each queue. Returns an empty map if no queues were failed-over.    */
+comment|/**    * Take ownership for the set of queues belonging to a dead region server.    * @param regionserver the id of the dead region server    * @return A SortedMap of the queues that have been claimed, including a SortedSet of WALs in    *         each queue. Returns an empty map if no queues were failed-over.    */
 name|SortedMap
 argument_list|<
 name|String

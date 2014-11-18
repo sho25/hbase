@@ -88,7 +88,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Run the same test as TestReplicationKillMasterRS but with HLog compression enabled  * Do not add other tests in this class.  */
+comment|/**  * Run the same test as TestReplicationKillMasterRS but with WAL compression enabled  * Do not add other tests in this class.  */
 end_comment
 
 begin_class

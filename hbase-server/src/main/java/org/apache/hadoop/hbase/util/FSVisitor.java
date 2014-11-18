@@ -161,11 +161,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogUtil
+name|WALSplitter
 import|;
 end_import
 
@@ -770,7 +768,7 @@ name|Path
 argument_list|>
 name|files
 init|=
-name|HLogUtil
+name|WALSplitter
 operator|.
 name|getSplitEditFilesSorted
 argument_list|(
@@ -934,7 +932,7 @@ argument_list|()
 decl_stmt|;
 name|FileStatus
 index|[]
-name|hlogs
+name|wals
 init|=
 name|FSUtils
 operator|.
@@ -950,7 +948,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|hlogs
+name|wals
 operator|==
 literal|null
 condition|)
@@ -967,7 +965,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"No hfiles found for server: "
+literal|"No wals found for server: "
 operator|+
 name|serverName
 operator|+
@@ -980,9 +978,9 @@ block|}
 for|for
 control|(
 name|FileStatus
-name|hlogRef
+name|walRef
 range|:
-name|hlogs
+name|wals
 control|)
 block|{
 name|visitor
@@ -991,7 +989,7 @@ name|logFile
 argument_list|(
 name|serverName
 argument_list|,
-name|hlogRef
+name|walRef
 operator|.
 name|getPath
 argument_list|()

@@ -588,7 +588,7 @@ argument_list|,
 name|htd
 argument_list|)
 decl_stmt|;
-comment|// The above call to create a region will create an hlog file.  Each
+comment|// The above call to create a region will create an wal file.  Each
 comment|// log file create will also create a running thread to do syncing.  We need
 comment|// to close out this log else we will have a running thread trying to sync
 comment|// the file system continuously which is ugly when dfs is taken away at the

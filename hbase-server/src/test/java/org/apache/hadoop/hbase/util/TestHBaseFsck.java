@@ -7709,7 +7709,7 @@ name|countRows
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// make sure data in regions, if in hlog only there is no data loss
+comment|// make sure data in regions, if in wal only there is no data loss
 name|TEST_UTIL
 operator|.
 name|getHBaseAdmin
@@ -8344,7 +8344,7 @@ name|countRows
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// make sure data in regions, if in hlog only there is no data loss
+comment|// make sure data in regions, if in wal only there is no data loss
 name|TEST_UTIL
 operator|.
 name|getHBaseAdmin
@@ -9108,7 +9108,7 @@ argument_list|(
 name|table1
 argument_list|)
 expr_stmt|;
-comment|// make sure data in regions, if in hlog only there is no data loss
+comment|// make sure data in regions, if in wal only there is no data loss
 name|TEST_UTIL
 operator|.
 name|getHBaseAdmin
@@ -9156,7 +9156,7 @@ argument_list|(
 name|table2
 argument_list|)
 expr_stmt|;
-comment|// make sure data in regions, if in hlog only there is no data loss
+comment|// make sure data in regions, if in wal only there is no data loss
 name|TEST_UTIL
 operator|.
 name|getHBaseAdmin
@@ -9362,7 +9362,7 @@ name|countRows
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// make sure data in regions, if in hlog only there is no data loss
+comment|// make sure data in regions, if in wal only there is no data loss
 name|TEST_UTIL
 operator|.
 name|getHBaseAdmin
@@ -9831,7 +9831,7 @@ name|countRows
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// make sure data in regions, if in hlog only there is no data loss
+comment|// make sure data in regions, if in wal only there is no data loss
 name|TEST_UTIL
 operator|.
 name|getHBaseAdmin
@@ -10115,7 +10115,7 @@ name|countRows
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// make sure data in regions, if in hlog only there is no data loss
+comment|// make sure data in regions, if in wal only there is no data loss
 name|TEST_UTIL
 operator|.
 name|getHBaseAdmin
@@ -14809,7 +14809,7 @@ name|countRows
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// make sure data in regions, if in hlog only there is no data loss
+comment|// make sure data in regions, if in wal only there is no data loss
 name|TEST_UTIL
 operator|.
 name|getHBaseAdmin

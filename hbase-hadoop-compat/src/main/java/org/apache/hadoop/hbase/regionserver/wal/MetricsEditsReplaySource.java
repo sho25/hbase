@@ -62,7 +62,7 @@ comment|/**    * Description    */
 name|String
 name|METRICS_DESCRIPTION
 init|=
-literal|"Metrics about HBase RegionServer HLog Edits Replay"
+literal|"Metrics about HBase RegionServer WAL Edits Replay"
 decl_stmt|;
 comment|/**    * The name of the metrics context that metrics will be under in jmx    */
 name|String

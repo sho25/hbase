@@ -185,13 +185,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|util
 operator|.
-name|generated
-operator|.
-name|WALProtos
-operator|.
-name|WALTrailer
+name|FSUtils
 import|;
 end_import
 
@@ -205,9 +201,27 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|wal
 operator|.
-name|FSUtils
+name|DefaultWALProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WAL
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -232,7 +246,7 @@ specifier|abstract
 class|class
 name|ReaderBase
 implements|implements
-name|HLog
+name|DefaultWALProvider
 operator|.
 name|Reader
 block|{
@@ -272,16 +286,6 @@ decl_stmt|;
 specifier|protected
 name|long
 name|fileLength
-decl_stmt|;
-specifier|protected
-name|WALTrailer
-name|trailer
-decl_stmt|;
-comment|// maximum size of the wal Trailer in bytes. If a user writes/reads a trailer with size larger
-comment|// than this size, it is written/read respectively, with a WARN message in the log.
-specifier|protected
-name|int
-name|trailerWarnSize
 decl_stmt|;
 comment|/**    * Compression context to use reading.  Can be null if no compression.    */
 specifier|protected
@@ -355,23 +359,6 @@ argument_list|)
 operator|.
 name|getLen
 argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|trailerWarnSize
-operator|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-name|HLog
-operator|.
-name|WAL_TRAILER_WARN_SIZE
-argument_list|,
-name|HLog
-operator|.
-name|DEFAULT_WAL_TRAILER_WARN_SIZE
-argument_list|)
 expr_stmt|;
 name|String
 name|cellCodecClsName
@@ -458,8 +445,6 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HLog
-operator|.
 name|Entry
 name|next
 parameter_list|()
@@ -476,21 +461,15 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HLog
-operator|.
 name|Entry
 name|next
 parameter_list|(
-name|HLog
-operator|.
 name|Entry
 name|reuse
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HLog
-operator|.
 name|Entry
 name|e
 init|=
@@ -503,11 +482,11 @@ operator|==
 literal|null
 condition|)
 block|{
+comment|// we use HLogKey here instead of WALKey directly to support legacy coprocessors,
+comment|// seqencefile based readers, and HLogInputFormat.
 name|e
 operator|=
 operator|new
-name|HLog
-operator|.
 name|Entry
 argument_list|(
 operator|new
@@ -732,8 +711,6 @@ specifier|abstract
 name|boolean
 name|readNext
 parameter_list|(
-name|HLog
-operator|.
 name|Entry
 name|e
 parameter_list|)
@@ -752,17 +729,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-annotation|@
-name|Override
-specifier|public
-name|WALTrailer
-name|getWALTrailer
-parameter_list|()
-block|{
-return|return
-literal|null
-return|;
-block|}
 block|}
 end_class
 

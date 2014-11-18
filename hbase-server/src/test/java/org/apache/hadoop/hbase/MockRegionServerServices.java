@@ -373,11 +373,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
 import|;
 end_import
 
@@ -1016,7 +1014,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HLog
+name|WAL
 name|getWAL
 parameter_list|(
 name|HRegionInfo

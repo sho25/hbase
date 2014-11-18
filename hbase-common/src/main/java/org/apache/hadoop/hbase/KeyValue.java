@@ -5005,7 +5005,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * Produces a string map for this key/value pair. Useful for programmatic use    * and manipulation of the data stored in an HLogKey, for example, printing    * as JSON. Values are left out due to their tendency to be large. If needed,    * they can be added manually.    *    * @return the Map<String,?> containing data from this key    */
+comment|/**    * Produces a string map for this key/value pair. Useful for programmatic use    * and manipulation of the data stored in an WALKey, for example, printing    * as JSON. Values are left out due to their tendency to be large. If needed,    * they can be added manually.    *    * @return the Map<String,?> containing data from this key    */
 specifier|public
 name|Map
 argument_list|<

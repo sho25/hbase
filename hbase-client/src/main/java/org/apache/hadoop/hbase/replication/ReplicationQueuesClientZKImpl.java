@@ -251,7 +251,7 @@ name|abortable
 operator|.
 name|abort
 argument_list|(
-literal|"Failed to get list of hlogs for queueId="
+literal|"Failed to get list of wals for queueId="
 operator|+
 name|queueId
 operator|+

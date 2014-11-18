@@ -98001,7 +98001,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RollWALWriterResponse}    */
+comment|/**    * Protobuf type {@code RollWALWriterResponse}    *    *<pre>    *    * Roll request responses no longer include regions to flush    * this list will always be empty when talking to a 1.0 server    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -99782,7 +99782,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RollWALWriterResponse}      */
+comment|/**      * Protobuf type {@code RollWALWriterResponse}      *      *<pre>      *      * Roll request responses no longer include regions to flush      * this list will always be empty when talking to a 1.0 server      *</pre>      */
 specifier|public
 specifier|static
 specifier|final

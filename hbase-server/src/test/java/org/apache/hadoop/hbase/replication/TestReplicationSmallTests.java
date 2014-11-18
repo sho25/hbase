@@ -403,11 +403,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogKey
+name|WALKey
 import|;
 end_import
 
@@ -647,16 +645,21 @@ name|getRegionServerThreads
 argument_list|()
 control|)
 block|{
+name|utility1
+operator|.
+name|getHBaseAdmin
+argument_list|()
+operator|.
+name|rollWALWriter
+argument_list|(
 name|r
 operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getWAL
+name|getServerName
 argument_list|()
-operator|.
-name|rollWriter
-argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|utility1
@@ -2339,7 +2342,7 @@ break|break;
 block|}
 block|}
 block|}
-comment|/**    * Do a more intense version testSmallBatch, one  that will trigger    * hlog rolling and other non-trivial code paths    * @throws Exception    */
+comment|/**    * Do a more intense version testSmallBatch, one  that will trigger    * wal rolling and other non-trivial code paths    * @throws Exception    */
 annotation|@
 name|Test
 argument_list|(
@@ -3074,7 +3077,7 @@ name|getTableDescriptor
 argument_list|()
 argument_list|,
 operator|new
-name|HLogKey
+name|WALKey
 argument_list|()
 argument_list|,
 name|edit

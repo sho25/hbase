@@ -345,11 +345,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
 import|;
 end_import
 
@@ -1099,14 +1097,6 @@ name|merged
 init|=
 literal|null
 decl_stmt|;
-name|HLog
-name|log
-init|=
-name|utils
-operator|.
-name|getLog
-argument_list|()
-decl_stmt|;
 name|HRegion
 name|r1
 init|=
@@ -1118,7 +1108,12 @@ name|info1
 argument_list|,
 name|htd
 argument_list|,
-name|log
+name|utils
+operator|.
+name|getLog
+argument_list|(
+name|info1
+argument_list|)
 argument_list|,
 name|getConf
 argument_list|()
@@ -1137,7 +1132,12 @@ name|info2
 argument_list|,
 name|htd
 argument_list|,
-name|log
+name|utils
+operator|.
+name|getLog
+argument_list|(
+name|info2
+argument_list|)
 argument_list|,
 name|getConf
 argument_list|()

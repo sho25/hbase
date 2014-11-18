@@ -435,7 +435,7 @@ if|if
 condition|(
 name|this
 operator|.
-name|shouldSplitHlog
+name|shouldSplitWal
 condition|)
 block|{
 name|LOG
@@ -603,7 +603,7 @@ if|if
 condition|(
 name|this
 operator|.
-name|shouldSplitHlog
+name|shouldSplitWal
 operator|&&
 name|distributedLogReplay
 condition|)

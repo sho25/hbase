@@ -2249,11 +2249,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
 import|;
 end_import
 
@@ -2267,11 +2265,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogKey
+name|WALKey
 import|;
 end_import
 
@@ -2285,11 +2281,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogSplitter
+name|WALSplitter
 import|;
 end_import
 
@@ -5179,7 +5173,7 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|HLogSplitter
+name|WALSplitter
 operator|.
 name|MutationReplay
 argument_list|>
@@ -5214,7 +5208,7 @@ for|for
 control|(
 name|Iterator
 argument_list|<
-name|HLogSplitter
+name|WALSplitter
 operator|.
 name|MutationReplay
 argument_list|>
@@ -5232,7 +5226,7 @@ argument_list|()
 condition|;
 control|)
 block|{
-name|HLogSplitter
+name|WALSplitter
 operator|.
 name|MutationReplay
 name|m
@@ -5393,7 +5387,7 @@ operator|.
 name|toArray
 argument_list|(
 operator|new
-name|HLogSplitter
+name|WALSplitter
 operator|.
 name|MutationReplay
 index|[
@@ -7229,14 +7223,14 @@ name|ex
 parameter_list|)
 block|{
 comment|// Cache flush can fail in a few places. If it fails in a critical
-comment|// section, we get a DroppedSnapshotException and a replay of hlog
+comment|// section, we get a DroppedSnapshotException and a replay of wal
 comment|// is required. Currently the only way to do this is a restart of
 comment|// the server.
 name|regionServer
 operator|.
 name|abort
 argument_list|(
-literal|"Replay of HLog required. Forcing server shutdown"
+literal|"Replay of WAL required. Forcing server shutdown"
 argument_list|,
 name|ex
 argument_list|)
@@ -8997,7 +8991,7 @@ name|List
 argument_list|<
 name|Pair
 argument_list|<
-name|HLogKey
+name|WALKey
 argument_list|,
 name|WALEdit
 argument_list|>
@@ -9009,7 +9003,7 @@ name|ArrayList
 argument_list|<
 name|Pair
 argument_list|<
-name|HLogKey
+name|WALKey
 argument_list|,
 name|WALEdit
 argument_list|>
@@ -9187,7 +9181,7 @@ expr_stmt|;
 block|}
 name|Pair
 argument_list|<
-name|HLogKey
+name|WALKey
 argument_list|,
 name|WALEdit
 argument_list|>
@@ -9204,7 +9198,7 @@ else|:
 operator|new
 name|Pair
 argument_list|<
-name|HLogKey
+name|WALKey
 argument_list|,
 name|WALEdit
 argument_list|>
@@ -9212,13 +9206,13 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|HLogSplitter
+name|WALSplitter
 operator|.
 name|MutationReplay
 argument_list|>
 name|edits
 init|=
-name|HLogSplitter
+name|WALSplitter
 operator|.
 name|getMutationsFromWALEntry
 argument_list|(
@@ -9399,7 +9393,7 @@ for|for
 control|(
 name|Pair
 argument_list|<
-name|HLogKey
+name|WALKey
 argument_list|,
 name|WALEdit
 argument_list|>
@@ -9612,26 +9606,21 @@ operator|.
 name|preRollWALWriterRequest
 argument_list|()
 expr_stmt|;
-name|HLog
-name|wal
-init|=
 name|regionServer
 operator|.
-name|getWAL
-argument_list|()
-decl_stmt|;
-name|byte
-index|[]
-index|[]
-name|regionsToFlush
-init|=
-name|wal
+name|walRoller
 operator|.
-name|rollWriter
-argument_list|(
-literal|true
-argument_list|)
-decl_stmt|;
+name|requestRollAll
+argument_list|()
+expr_stmt|;
+name|regionServer
+operator|.
+name|getRegionServerCoprocessorHost
+argument_list|()
+operator|.
+name|postRollWALWriterRequest
+argument_list|()
+expr_stmt|;
 name|RollWALWriterResponse
 operator|.
 name|Builder
@@ -9642,36 +9631,6 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|regionsToFlush
-operator|!=
-literal|null
-condition|)
-block|{
-for|for
-control|(
-name|byte
-index|[]
-name|region
-range|:
-name|regionsToFlush
-control|)
-block|{
-name|builder
-operator|.
-name|addRegionToFlush
-argument_list|(
-name|ByteStringer
-operator|.
-name|wrap
-argument_list|(
-name|region
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 return|return
 name|builder
 operator|.

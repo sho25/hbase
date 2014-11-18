@@ -209,11 +209,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|quotas
 operator|.
-name|wal
-operator|.
-name|HLog
+name|RegionServerQuotaManager
 import|;
 end_import
 
@@ -227,9 +225,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|quotas
+name|wal
 operator|.
-name|RegionServerQuotaManager
+name|WAL
 import|;
 end_import
 
@@ -267,8 +265,8 @@ name|boolean
 name|isStopping
 parameter_list|()
 function_decl|;
-comment|/** @return the HLog for a particular region. Pass null for getting the    * default (common) WAL */
-name|HLog
+comment|/** @return the WAL for a particular region. Pass null for getting the    * default (common) WAL */
+name|WAL
 name|getWAL
 parameter_list|(
 name|HRegionInfo

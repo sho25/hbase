@@ -145,16 +145,14 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogUtil
+name|DefaultWALProvider
 import|;
 end_import
 
 begin_comment
-comment|/**  * This Chore, every time it runs, will attempt to delete the HLogs in the old logs folder. The HLog  * is only deleted if none of the cleaner delegates says otherwise.  * @see BaseLogCleanerDelegate  */
+comment|/**  * This Chore, every time it runs, will attempt to delete the WALs in the old logs folder. The WAL  * is only deleted if none of the cleaner delegates says otherwise.  * @see BaseLogCleanerDelegate  */
 end_comment
 
 begin_class
@@ -239,9 +237,9 @@ name|file
 parameter_list|)
 block|{
 return|return
-name|HLogUtil
+name|DefaultWALProvider
 operator|.
-name|validateHLogFilename
+name|validateWALFilename
 argument_list|(
 name|file
 operator|.

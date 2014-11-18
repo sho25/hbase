@@ -275,11 +275,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -293,11 +293,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogKey
+name|WALKey
 import|;
 end_import
 
@@ -372,7 +370,7 @@ specifier|public
 class|class
 name|ReplicationProtbufUtil
 block|{
-comment|/**    * A helper to replicate a list of HLog entries using admin protocol.    *    * @param admin    * @param entries    * @throws java.io.IOException    */
+comment|/**    * A helper to replicate a list of WAL entries using admin protocol.    *    * @param admin    * @param entries    * @throws java.io.IOException    */
 specifier|public
 specifier|static
 name|void
@@ -385,8 +383,6 @@ name|BlockingInterface
 name|admin
 parameter_list|,
 specifier|final
-name|HLog
-operator|.
 name|Entry
 index|[]
 name|entries
@@ -454,7 +450,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Create a new ReplicateWALEntryRequest from a list of HLog entries    *    * @param entries the HLog entries to be replicated    * @return a pair of ReplicateWALEntryRequest and a CellScanner over all the WALEdit values    * found.    */
+comment|/**    * Create a new ReplicateWALEntryRequest from a list of WAL entries    *    * @param entries the WAL entries to be replicated    * @return a pair of ReplicateWALEntryRequest and a CellScanner over all the WALEdit values    * found.    */
 specifier|public
 specifier|static
 name|Pair
@@ -468,8 +464,6 @@ argument_list|>
 name|buildReplicateWALEntryRequest
 parameter_list|(
 specifier|final
-name|HLog
-operator|.
 name|Entry
 index|[]
 name|entries
@@ -484,7 +478,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a new ReplicateWALEntryRequest from a list of HLog entries    *    * @param entries the HLog entries to be replicated    * @param encodedRegionName alternative region name to use if not null    * @return a pair of ReplicateWALEntryRequest and a CellScanner over all the WALEdit values    * found.    */
+comment|/**    * Create a new ReplicateWALEntryRequest from a list of WAL entries    *    * @param entries the WAL entries to be replicated    * @param encodedRegionName alternative region name to use if not null    * @return a pair of ReplicateWALEntryRequest and a CellScanner over all the WALEdit values    * found.    */
 specifier|public
 specifier|static
 name|Pair
@@ -498,8 +492,6 @@ argument_list|>
 name|buildReplicateWALEntryRequest
 parameter_list|(
 specifier|final
-name|HLog
-operator|.
 name|Entry
 index|[]
 name|entries
@@ -600,8 +592,6 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HLog
-operator|.
 name|Entry
 name|entry
 range|:
@@ -613,7 +603,7 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-comment|// TODO: this duplicates a lot in HLogKey#getBuilder
+comment|// TODO: this duplicates a lot in WALKey#getBuilder
 name|WALProtos
 operator|.
 name|WALKey
@@ -626,7 +616,7 @@ operator|.
 name|getKeyBuilder
 argument_list|()
 decl_stmt|;
-name|HLogKey
+name|WALKey
 name|key
 init|=
 name|entry
