@@ -1503,14 +1503,6 @@ name|getServerHoldingRegion
 argument_list|(
 name|region
 operator|.
-name|getTableDesc
-argument_list|()
-operator|.
-name|getTableName
-argument_list|()
-argument_list|,
-name|region
-operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
