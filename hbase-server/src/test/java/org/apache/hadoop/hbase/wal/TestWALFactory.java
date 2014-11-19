@@ -1149,6 +1149,26 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Test
+specifier|public
+name|void
+name|canCloseSingleton
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|WALFactory
+operator|.
+name|getInstance
+argument_list|(
+name|conf
+argument_list|)
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Just write multiple logs then split.  Before fix for HADOOP-2283, this    * would fail.    * @throws IOException    */
 annotation|@
 name|Test

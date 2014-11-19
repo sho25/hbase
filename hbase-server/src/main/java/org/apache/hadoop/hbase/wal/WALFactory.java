@@ -902,11 +902,21 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+comment|// close is called on a WALFactory with null provider in the case of contention handling
+comment|// within the getInstance method.
+if|if
+condition|(
+literal|null
+operator|!=
+name|provider
+condition|)
+block|{
 name|provider
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Tell the underlying WAL providers to shut down, but do not clean up underlying storage.    * If you are not ending cleanly and will need to replay edits from this factory's wals,    * use this method if you can as it will try to leave things as tidy as possible.    */
 specifier|public
