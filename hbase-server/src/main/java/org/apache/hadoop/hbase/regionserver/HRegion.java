@@ -20626,7 +20626,7 @@ literal|"hregion-"
 operator|+
 name|RandomStringUtils
 operator|.
-name|randomAscii
+name|randomNumeric
 argument_list|(
 literal|8
 argument_list|)
