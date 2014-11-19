@@ -1873,7 +1873,7 @@ name|SslSocketConnector
 name|c
 init|=
 operator|new
-name|SslSocketConnector
+name|SslSocketConnectorSecure
 argument_list|()
 decl_stmt|;
 name|c
