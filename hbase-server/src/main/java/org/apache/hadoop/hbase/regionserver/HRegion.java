@@ -20577,13 +20577,38 @@ name|ignoreWAL
 condition|)
 block|{
 comment|// TODO HBASE-11983 There'll be no roller for this wal?
+comment|// The WAL subsystem will use the default rootDir rather than the passed in rootDir
+comment|// unless I pass along via the conf.
+name|Configuration
+name|confForWAL
+init|=
+operator|new
+name|Configuration
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+name|confForWAL
+operator|.
+name|set
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_DIR
+argument_list|,
+name|rootDir
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|effectiveWAL
 operator|=
 operator|(
 operator|new
 name|WALFactory
 argument_list|(
-name|conf
+name|confForWAL
 argument_list|,
 name|Collections
 operator|.
@@ -20601,7 +20626,7 @@ literal|"hregion-"
 operator|+
 name|RandomStringUtils
 operator|.
-name|random
+name|randomAscii
 argument_list|(
 literal|8
 argument_list|)
