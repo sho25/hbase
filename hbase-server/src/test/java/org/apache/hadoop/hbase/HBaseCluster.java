@@ -606,10 +606,6 @@ block|{
 return|return
 name|getServerHoldingRegion
 argument_list|(
-name|TableName
-operator|.
-name|META_TABLE_NAME
-argument_list|,
 name|HRegionInfo
 operator|.
 name|FIRST_META_REGIONINFO
@@ -619,16 +615,12 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the ServerName of region server serving the specified region    * @param regionName Name of the region in bytes    * @param tn Table name that has the region.    * @return ServerName that hosts the region or null    */
+comment|/**    * Get the ServerName of region server serving the specified region    * @param regionName Name of the region in bytes    * @return ServerName that hosts the region or null    */
 specifier|public
 specifier|abstract
 name|ServerName
 name|getServerHoldingRegion
 parameter_list|(
-specifier|final
-name|TableName
-name|tn
-parameter_list|,
 name|byte
 index|[]
 name|regionName

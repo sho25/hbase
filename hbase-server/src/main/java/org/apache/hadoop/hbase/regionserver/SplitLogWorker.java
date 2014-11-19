@@ -183,6 +183,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|HConnectionManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|RetriesExhaustedException
 import|;
 end_import
@@ -779,6 +795,14 @@ name|coordination
 operator|.
 name|registerListener
 argument_list|()
+expr_stmt|;
+comment|// pre-initialize a new connection for splitlogworker configuration
+name|HConnectionManager
+operator|.
+name|getConnection
+argument_list|(
+name|conf
+argument_list|)
 expr_stmt|;
 comment|// wait for Coordination Engine is ready
 name|boolean

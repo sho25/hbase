@@ -381,7 +381,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
+name|HBaseAdmin
 import|;
 end_import
 
@@ -397,7 +397,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Connection
+name|HConnection
 import|;
 end_import
 
@@ -413,7 +413,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ConnectionFactory
+name|HConnectionManager
 import|;
 end_import
 
@@ -620,7 +620,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A tool that is used for manipulating and viewing favored nodes information  * for regions. Run with -h to get a list of the options  */
+comment|/**  * A tool that is used for manipulating and viewing favored nodes information  * for regions. Run with -h to get a list of the options  *  */
 end_comment
 
 begin_class
@@ -628,7 +628,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-comment|// TODO: Remove? Unused. Partially implemented only.
 specifier|public
 class|class
 name|RegionPlacementMaintainer
@@ -714,6 +713,10 @@ name|boolean
 name|enforceMinAssignmentMove
 decl_stmt|;
 specifier|private
+name|HBaseAdmin
+name|admin
+decl_stmt|;
+specifier|private
 name|RackManager
 name|rackManager
 decl_stmt|;
@@ -723,11 +726,6 @@ argument_list|<
 name|TableName
 argument_list|>
 name|targetTableSet
-decl_stmt|;
-specifier|private
-specifier|final
-name|Connection
-name|connection
 decl_stmt|;
 specifier|public
 name|RegionPlacementMaintainer
@@ -798,36 +796,6 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-try|try
-block|{
-name|this
-operator|.
-name|connection
-operator|=
-name|ConnectionFactory
-operator|.
-name|createConnection
-argument_list|(
-name|this
-operator|.
-name|conf
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-name|e
-argument_list|)
-throw|;
-block|}
 block|}
 specifier|private
 specifier|static
@@ -895,6 +863,42 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * @return the cached HBaseAdmin    * @throws IOException    */
+specifier|private
+name|HBaseAdmin
+name|getHBaseAdmin
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|admin
+operator|==
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|admin
+operator|=
+operator|new
+name|HBaseAdmin
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|this
+operator|.
+name|admin
+return|;
+block|}
 comment|/**    * @return the new RegionAssignmentSnapshot    * @throws IOException    */
 specifier|public
 name|SnapshotOfRegionAssignmentFromMeta
@@ -909,9 +913,9 @@ init|=
 operator|new
 name|SnapshotOfRegionAssignmentFromMeta
 argument_list|(
-name|ConnectionFactory
+name|HConnectionManager
 operator|.
-name|createConnection
+name|getConnection
 argument_list|(
 name|conf
 argument_list|)
@@ -1175,24 +1179,12 @@ name|ServerName
 argument_list|>
 argument_list|()
 decl_stmt|;
-try|try
-init|(
-name|Admin
-name|admin
-init|=
-name|this
-operator|.
-name|connection
-operator|.
-name|getAdmin
-argument_list|()
-init|)
-block|{
 name|servers
 operator|.
 name|addAll
 argument_list|(
-name|admin
+name|getHBaseAdmin
+argument_list|()
 operator|.
 name|getClusterStatus
 argument_list|()
@@ -1201,7 +1193,6 @@ name|getServers
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|LOG
 operator|.
 name|info
@@ -3922,6 +3913,17 @@ operator|.
 name|getRegionServerToRegionMap
 argument_list|()
 decl_stmt|;
+name|HConnection
+name|connection
+init|=
+name|this
+operator|.
+name|getHBaseAdmin
+argument_list|()
+operator|.
+name|getConnection
+argument_list|()
+decl_stmt|;
 comment|// track of the failed and succeeded updates
 name|int
 name|succeededNum
@@ -4103,14 +4105,7 @@ comment|// Update the current region server with its updated favored nodes
 name|BlockingInterface
 name|currentRegionServer
 init|=
-operator|(
-operator|(
-name|ClusterConnection
-operator|)
-name|this
-operator|.
 name|connection
-operator|)
 operator|.
 name|getAdmin
 argument_list|(

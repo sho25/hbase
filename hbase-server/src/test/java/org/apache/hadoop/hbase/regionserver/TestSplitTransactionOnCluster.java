@@ -1232,7 +1232,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Like TestSplitTransaction in that we're testing {@link SplitTransaction}  * only the below tests are against a running cluster where TestSplitTransaction  * is tests against a bare {@link HRegion}.  */
+comment|/**  * Like {@link TestSplitTransaction} in that we're testing {@link SplitTransaction}  * only the below tests are against a running cluster where {@link TestSplitTransaction}  * is tests against a bare {@link HRegion}.  */
 end_comment
 
 begin_class
@@ -6137,8 +6137,6 @@ name|cluster
 operator|.
 name|getServerHoldingRegion
 argument_list|(
-name|firstTable
-argument_list|,
 name|firstTableRegions
 operator|.
 name|get

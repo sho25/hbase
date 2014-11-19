@@ -681,7 +681,7 @@ decl_stmt|;
 specifier|protected
 specifier|final
 name|ClusterConnection
-name|connection
+name|hConnection
 decl_stmt|;
 specifier|protected
 specifier|final
@@ -1068,7 +1068,7 @@ throw|;
 block|}
 name|this
 operator|.
-name|connection
+name|hConnection
 operator|=
 name|hc
 expr_stmt|;
@@ -1536,7 +1536,7 @@ name|ng
 init|=
 name|this
 operator|.
-name|connection
+name|hConnection
 operator|.
 name|getNonceGenerator
 argument_list|()
@@ -1674,7 +1674,7 @@ comment|// Make sure we get 0-s replica.
 name|RegionLocations
 name|locs
 init|=
-name|connection
+name|hConnection
 operator|.
 name|locateRegion
 argument_list|(
@@ -2674,7 +2674,7 @@ name|ng
 init|=
 name|this
 operator|.
-name|connection
+name|hConnection
 operator|.
 name|getNonceGenerator
 argument_list|()
@@ -4814,7 +4814,7 @@ try|try
 block|{
 name|loc
 operator|=
-name|connection
+name|hConnection
 operator|.
 name|locateRegion
 argument_list|(
@@ -5297,7 +5297,7 @@ literal|null
 condition|)
 block|{
 comment|// tableName is null when we made a cross-table RPC call.
-name|connection
+name|hConnection
 operator|.
 name|clearCaches
 argument_list|(
@@ -5400,7 +5400,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|connection
+name|hConnection
 operator|.
 name|updateCachedLocations
 argument_list|(
@@ -6036,7 +6036,7 @@ name|regionFailureRegistered
 operator|=
 literal|true
 expr_stmt|;
-name|connection
+name|hConnection
 operator|.
 name|updateCachedLocations
 argument_list|(
@@ -6332,7 +6332,7 @@ name|numAttempt
 argument_list|)
 expr_stmt|;
 block|}
-name|connection
+name|hConnection
 operator|.
 name|updateCachedLocations
 argument_list|(
@@ -8035,7 +8035,7 @@ argument_list|<
 name|Row
 argument_list|>
 argument_list|(
-name|connection
+name|hConnection
 argument_list|,
 name|tableName
 argument_list|,

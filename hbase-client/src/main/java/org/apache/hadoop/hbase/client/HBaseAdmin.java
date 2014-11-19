@@ -969,6 +969,26 @@ name|protobuf
 operator|.
 name|generated
 operator|.
+name|ClientProtos
+operator|.
+name|ClientService
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
 name|HBaseProtos
 import|;
 end_import
@@ -2217,6 +2237,8 @@ name|ZK_IDENTIFIER_PREFIX
 init|=
 literal|"hbase-admin-on-"
 decl_stmt|;
+comment|// We use the implementation class rather then the interface because we
+comment|//  need the package protected functions to get the connection to master
 specifier|private
 name|ClusterConnection
 name|connection
@@ -10133,6 +10155,43 @@ block|}
 argument_list|)
 return|;
 block|}
+specifier|private
+name|HRegionLocation
+name|getFirstMetaServerForTable
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|connection
+operator|.
+name|locateRegion
+argument_list|(
+name|TableName
+operator|.
+name|META_TABLE_NAME
+argument_list|,
+name|HRegionInfo
+operator|.
+name|createRegionName
+argument_list|(
+name|tableName
+argument_list|,
+literal|null
+argument_list|,
+name|HConstants
+operator|.
+name|NINES
+argument_list|,
+literal|false
+argument_list|)
+argument_list|)
+return|;
+block|}
 comment|/**    * @return Configuration used by the instance.    */
 annotation|@
 name|Override
@@ -10807,8 +10866,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Check to see if HBase is running. Throw an exception if not.    * @param conf system configuration    * @throws MasterNotRunningException if the master is not running    * @throws ZooKeeperConnectionException if unable to connect to zookeeper    */
-comment|// Used by tests and by the Merge tool. Merge tool uses it to figure if HBase is up or not.
+comment|/**    * Check to see if HBase is running. Throw an exception if not.    * We consider that HBase is running if ZooKeeper and Master are running.    *    * @param conf system configuration    * @throws MasterNotRunningException if the master is not running    * @throws ZooKeeperConnectionException if unable to connect to zookeeper    */
 specifier|public
 specifier|static
 name|void
@@ -10857,24 +10915,28 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
-try|try
-init|(
-name|ClusterConnection
+name|ConnectionManager
+operator|.
+name|HConnectionImplementation
 name|connection
 init|=
 operator|(
-name|ClusterConnection
-operator|)
-name|ConnectionFactory
+name|ConnectionManager
 operator|.
-name|createConnection
+name|HConnectionImplementation
+operator|)
+name|HConnectionManager
+operator|.
+name|getConnection
 argument_list|(
 name|copyOfConf
 argument_list|)
-init|)
+decl_stmt|;
+try|try
 block|{
 comment|// Check ZK first.
-comment|// If the connection exists, we may have a connection to ZK that does not work anymore
+comment|// If the connection exists, we may have a connection to ZK that does
+comment|//  not work anymore
 name|ZooKeeperKeepAliveConnection
 name|zkw
 init|=
@@ -10882,17 +10944,9 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-comment|// This is NASTY. FIX!!!! Dependent on internal implementation! TODO
 name|zkw
 operator|=
-operator|(
-operator|(
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
-operator|)
 name|connection
-operator|)
 operator|.
 name|getKeepAliveZooKeeperWatcher
 argument_list|()
@@ -10985,9 +11039,18 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|// Check Master
 name|connection
 operator|.
 name|isMasterRunning
+argument_list|()
+expr_stmt|;
+block|}
+finally|finally
+block|{
+name|connection
+operator|.
+name|close
 argument_list|()
 expr_stmt|;
 block|}
@@ -15449,7 +15512,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// TODO: Fix!  Reaching into internal implementation!!!!
 name|ConnectionManager
 operator|.
 name|HConnectionImplementation
@@ -15460,9 +15522,12 @@ name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 operator|)
-name|this
+name|HConnectionManager
 operator|.
-name|connection
+name|getConnection
+argument_list|(
+name|conf
+argument_list|)
 decl_stmt|;
 name|ZooKeeperKeepAliveConnection
 name|zkw
