@@ -1409,7 +1409,7 @@ argument_list|)
 argument_list|,
 name|rsWrap
 operator|.
-name|getMobFileCacheAccessCount
+name|getMobFileCacheMissCount
 argument_list|()
 argument_list|)
 operator|.
