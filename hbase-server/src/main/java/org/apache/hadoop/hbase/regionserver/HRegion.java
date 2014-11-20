@@ -16102,43 +16102,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|// Start coprocessor replay here. The coprocessor is for each WALEdit
-comment|// instead of a KeyValue.
-if|if
-condition|(
-name|coprocessorHost
-operator|!=
-literal|null
-condition|)
-block|{
-name|status
-operator|.
-name|setStatus
-argument_list|(
-literal|"Running pre-WAL-restore hook in coprocessors"
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|coprocessorHost
-operator|.
-name|preWALRestore
-argument_list|(
-name|this
-operator|.
-name|getRegionInfo
-argument_list|()
-argument_list|,
-name|key
-argument_list|,
-name|val
-argument_list|)
-condition|)
-block|{
-comment|// if bypass this wal entry, ignore it ...
-continue|continue;
-block|}
-block|}
 if|if
 condition|(
 name|firstSeqIdInLog
@@ -16180,6 +16143,43 @@ argument_list|()
 else|:
 name|currentEditSeqId
 expr_stmt|;
+comment|// Start coprocessor replay here. The coprocessor is for each WALEdit
+comment|// instead of a KeyValue.
+if|if
+condition|(
+name|coprocessorHost
+operator|!=
+literal|null
+condition|)
+block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Running pre-WAL-restore hook in coprocessors"
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|coprocessorHost
+operator|.
+name|preWALRestore
+argument_list|(
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|,
+name|key
+argument_list|,
+name|val
+argument_list|)
+condition|)
+block|{
+comment|// if bypass this wal entry, ignore it ...
+continue|continue;
+block|}
+block|}
 name|boolean
 name|flush
 init|=
@@ -16355,6 +16355,12 @@ expr_stmt|;
 comment|// Once we are over the limit, restoreEdit will keep returning true to
 comment|// flush -- but don't flush until we've played all the kvs that make up
 comment|// the WALEdit.
+if|if
+condition|(
+operator|!
+name|flush
+condition|)
+block|{
 name|flush
 operator|=
 name|restoreEdit
@@ -16364,6 +16370,7 @@ argument_list|,
 name|cell
 argument_list|)
 expr_stmt|;
+block|}
 name|editsCount
 operator|++
 expr_stmt|;
@@ -16372,6 +16379,7 @@ if|if
 condition|(
 name|flush
 condition|)
+block|{
 name|internalFlushcache
 argument_list|(
 literal|null
@@ -16381,6 +16389,7 @@ argument_list|,
 name|status
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|coprocessorHost
