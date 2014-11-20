@@ -15013,7 +15013,55 @@ range|:
 name|snapshots
 control|)
 block|{
-comment|// do the delete
+try|try
+block|{
+name|internalDeleteSnapshot
+argument_list|(
+name|snapshot
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ex
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Failed to delete snapshot "
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" for table "
+operator|+
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
+argument_list|,
+name|ex
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+specifier|private
+name|void
+name|internalDeleteSnapshot
+parameter_list|(
+specifier|final
+name|SnapshotDescription
+name|snapshot
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 name|executeCallable
 argument_list|(
 operator|new
@@ -15067,7 +15115,6 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|/**    * Apply the new quota settings.    *    * @param quota the quota settings    * @throws IOException if a remote or network exception occurs    */
 annotation|@
