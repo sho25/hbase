@@ -1098,7 +1098,7 @@ specifier|final
 name|int
 name|maximumAttempts
 decl_stmt|;
-comment|/**    * The sleep time for which the assignment will wait before retrying in case of hbase:meta assignment    * failure due to lack of availability of region plan    */
+comment|/**    * The sleep time for which the assignment will wait before retrying in case of hbase:meta assignment    * failure due to lack of availability of region plan or bad region plan    */
 specifier|private
 specifier|final
 name|long
@@ -4661,6 +4661,7 @@ operator|+
 name|region
 argument_list|)
 expr_stmt|;
+comment|// For meta region, we have to keep retrying until succeeding
 if|if
 condition|(
 name|region
@@ -4669,51 +4670,40 @@ name|isMetaRegion
 argument_list|()
 condition|)
 block|{
-try|try
-block|{
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-name|this
-operator|.
-name|sleepTimeBeforeRetryingMetaAssignment
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|i
 operator|==
 name|maximumAttempts
 condition|)
+block|{
 name|i
 operator|=
-literal|1
+literal|0
 expr_stmt|;
-continue|continue;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
+comment|// re-set attempt count to 0 for at least 1 retry
 name|LOG
 operator|.
-name|error
+name|warn
 argument_list|(
-literal|"Got exception while waiting for hbase:meta assignment"
+literal|"Unable to determine a plan to assign a hbase:meta region "
+operator|+
+name|region
+operator|+
+literal|" after maximumAttempts ("
+operator|+
+name|this
+operator|.
+name|maximumAttempts
+operator|+
+literal|"). Reset attempts count and continue retrying."
 argument_list|)
 expr_stmt|;
-name|Thread
-operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|interrupt
+block|}
+name|waitForRetryingMetaAssignment
 argument_list|()
 expr_stmt|;
-block|}
+continue|continue;
 block|}
 name|regionStates
 operator|.
@@ -5209,9 +5199,45 @@ operator|.
 name|maximumAttempts
 condition|)
 block|{
+comment|// For meta region, we have to keep retrying until succeeding
+if|if
+condition|(
+name|region
+operator|.
+name|isMetaRegion
+argument_list|()
+condition|)
+block|{
+name|i
+operator|=
+literal|0
+expr_stmt|;
+comment|// re-set attempt count to 0 for at least 1 retry
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|assignMsg
+operator|+
+literal|", trying to assign a hbase:meta region reached to maximumAttempts ("
+operator|+
+name|this
+operator|.
+name|maximumAttempts
+operator|+
+literal|").  Reset attempt counts and continue retrying."
+argument_list|)
+expr_stmt|;
+name|waitForRetryingMetaAssignment
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
 comment|// Don't reset the region state or get a new plan any more.
 comment|// This is the last try.
 continue|continue;
+block|}
 block|}
 comment|// If region opened on destination of present plan, reassigning to new
 comment|// RS may cause double assignments. In case of RegionAlreadyInTransitionException
@@ -5907,6 +5933,47 @@ block|}
 return|return
 name|existingPlan
 return|;
+block|}
+comment|/**    * Wait for some time before retrying meta table region assignment    */
+specifier|private
+name|void
+name|waitForRetryingMetaAssignment
+parameter_list|()
+block|{
+try|try
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+name|this
+operator|.
+name|sleepTimeBeforeRetryingMetaAssignment
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Got exception while waiting for hbase:meta assignment"
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Unassigns the specified region.    *<p>    * Updates the RegionState and sends the CLOSE RPC unless region is being    * split by regionserver; then the unassign fails (silently) because we    * presume the region being unassigned no longer exists (its been split out    * of existence). TODO: What to do if split fails and is rolled back and    * parent is revivified?    *<p>    * If a RegionPlan is already set, it will remain.    *    * @param region server to be unassigned    */
 specifier|public
@@ -9778,6 +9845,12 @@ name|incrementAndGet
 argument_list|()
 operator|>=
 name|maximumAttempts
+operator|&&
+operator|!
+name|hri
+operator|.
+name|isMetaRegion
+argument_list|()
 condition|)
 block|{
 name|regionStates
@@ -9803,6 +9876,45 @@ expr_stmt|;
 block|}
 else|else
 block|{
+if|if
+condition|(
+name|hri
+operator|.
+name|isMetaRegion
+argument_list|()
+operator|&&
+name|failedOpenCount
+operator|.
+name|get
+argument_list|()
+operator|>=
+name|maximumAttempts
+condition|)
+block|{
+comment|// Log a warning message if a meta region failedOpenCount exceeds maximumAttempts
+comment|// so that we are aware of potential problem if it persists for a long time.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to open the hbase:meta region "
+operator|+
+name|hri
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" after"
+operator|+
+name|failedOpenCount
+operator|.
+name|get
+argument_list|()
+operator|+
+literal|" retries. Continue retrying."
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Handle this the same as if it were opened and then closed.
 name|RegionState
 name|regionState
