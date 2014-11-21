@@ -2169,7 +2169,7 @@ literal|"Obtain the lock for the store["
 operator|+
 name|this
 operator|+
-literal|"], forcing the delete markers to be retained"
+literal|"], ready to perform the major compaction"
 argument_list|)
 expr_stmt|;
 comment|// check the sweeping node to find out whether the sweeping is in progress.
