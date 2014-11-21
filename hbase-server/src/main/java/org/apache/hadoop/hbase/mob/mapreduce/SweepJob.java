@@ -2139,6 +2139,11 @@ name|EMPTY_STRING
 argument_list|)
 expr_stmt|;
 block|}
+name|writer
+operator|.
+name|hflush
+argument_list|()
+expr_stmt|;
 block|}
 finally|finally
 block|{
