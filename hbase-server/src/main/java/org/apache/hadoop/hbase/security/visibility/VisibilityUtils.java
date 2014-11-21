@@ -1289,8 +1289,14 @@ throw|;
 block|}
 block|}
 block|}
-comment|// If the conf is not configured by default we need to have one SLG to be used
-comment|// ie. DefaultScanLabelGenerator
+comment|// If no SLG is specified in conf, by default we'll add two SLGs
+comment|// 1. FeedUserAuthScanLabelGenerator
+comment|// 2. DefinedSetFilterScanLabelGenerator
+comment|// This stacking will achieve the following default behavior:
+comment|// 1. If there is no Auths in the scan, we will obtain the global defined set for the user
+comment|//    from the labels table.
+comment|// 2. If there is Auths in the scan, we will examine the passed in Auths and filter out the
+comment|//    labels that the user is not entitled to. Then use the resulting label set.
 if|if
 condition|(
 name|slgs
@@ -1307,7 +1313,23 @@ name|ReflectionUtils
 operator|.
 name|newInstance
 argument_list|(
-name|DefaultScanLabelGenerator
+name|FeedUserAuthScanLabelGenerator
+operator|.
+name|class
+argument_list|,
+name|conf
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|slgs
+operator|.
+name|add
+argument_list|(
+name|ReflectionUtils
+operator|.
+name|newInstance
+argument_list|(
+name|DefinedSetFilterScanLabelGenerator
 operator|.
 name|class
 argument_list|,
