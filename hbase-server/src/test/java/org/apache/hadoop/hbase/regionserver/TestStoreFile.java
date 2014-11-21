@@ -7129,6 +7129,8 @@ operator|.
 name|commitDaughterRegion
 argument_list|(
 name|hri
+argument_list|,
+literal|1
 argument_list|)
 decl_stmt|;
 return|return
