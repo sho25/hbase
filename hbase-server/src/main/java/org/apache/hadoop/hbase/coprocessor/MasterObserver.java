@@ -1303,6 +1303,42 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Called before listSnapshots request has been processed.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to list    * @throws IOException    */
+name|void
+name|preListSnapshot
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|SnapshotDescription
+name|snapshot
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after listSnapshots request has been processed.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to list    * @throws IOException    */
+name|void
+name|postListSnapshot
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|SnapshotDescription
+name|snapshot
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Called before a snapshot is cloned.    * Called as part of restoreSnapshot RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param hTableDescriptor the hTableDescriptor of the table to create    * @throws IOException    */
 name|void
 name|preCloneSnapshot
