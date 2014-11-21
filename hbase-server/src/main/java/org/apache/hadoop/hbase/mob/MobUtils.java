@@ -1820,6 +1820,18 @@ operator|.
 name|MOB_REF_TAG
 argument_list|)
 expr_stmt|;
+comment|// Add the tag of the source table name, this table is where this mob file is flushed
+comment|// from.
+comment|// It's very useful in cloning the snapshot. When reading from the cloning table, we need to
+comment|// find the original mob files by this table name. For details please see cloning
+comment|// snapshot for mob files.
+name|tags
+operator|.
+name|add
+argument_list|(
+name|tableNameTag
+argument_list|)
+expr_stmt|;
 comment|// Add the existing tags.
 name|tags
 operator|.
@@ -1844,18 +1856,6 @@ operator|.
 name|getTagsLength
 argument_list|()
 argument_list|)
-argument_list|)
-expr_stmt|;
-comment|// Add the tag of the source table name, this table is where this mob file is flushed
-comment|// from.
-comment|// It's very useful in cloning the snapshot. When reading from the cloning table, we need to
-comment|// find the original mob files by this table name. For details please see cloning
-comment|// snapshot for mob files.
-name|tags
-operator|.
-name|add
-argument_list|(
-name|tableNameTag
 argument_list|)
 expr_stmt|;
 name|int
