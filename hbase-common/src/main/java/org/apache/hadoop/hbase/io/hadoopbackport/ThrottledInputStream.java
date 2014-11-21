@@ -39,11 +39,31 @@ name|InputStream
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * The ThrottleInputStream provides bandwidth throttling on a specified  * InputStream. It is implemented as a wrapper on top of another InputStream  * instance.  * The throttling works by examining the number of bytes read from the underlying  * InputStream from the beginning, and sleep()ing for a time interval if  * the byte-transfer is found exceed the specified tolerable maximum.  * (Thus, while the read-rate might exceed the maximum for a given short interval,  * the average tends towards the specified maximum, overall.)  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|ThrottledInputStream

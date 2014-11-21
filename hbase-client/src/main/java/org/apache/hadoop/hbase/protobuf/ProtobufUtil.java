@@ -223,6 +223,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|conf
 operator|.
 name|Configuration
@@ -2243,6 +2259,11 @@ name|justification
 operator|=
 literal|"None. Address sometime."
 argument_list|)
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+comment|// TODO: some clients (Hive, etc) use this class
 specifier|public
 specifier|final
 class|class

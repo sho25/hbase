@@ -79,11 +79,31 @@ name|LogFactory
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Checksum types. The Checksum type is a one byte number  * that stores a representation of the checksum algorithm  * used to encode a hfile. The ordinal of these cannot   * change or else you risk breaking all existing HFiles out there.  */
+comment|/**  * Checksum types. The Checksum type is a one byte number  * that stores a representation of the checksum algorithm  * used to encode a hfile. The ordinal of these cannot  * change or else you risk breaking all existing HFiles out there.  */
 end_comment
 
 begin_enum
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 enum|enum
 name|ChecksumType

@@ -414,7 +414,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HTableMultiplexer provides a thread-safe non blocking PUT API across all the tables.  * Each put will be sharded into different buffer queues based on its destination region server.  * So each region server buffer queue will only have the puts which share the same destination.  * And each queue will have a flush worker thread to flush the puts request to the region server.  * If any queue is full, the HTableMultiplexer starts to drop the Put requests for that   * particular queue.  *   * Also all the puts will be retried as a configuration number before dropping.  * And the HTableMultiplexer can report the number of buffered requests and the number of the  * failed (dropped) requests in total or on per region server basis.  *   * This class is thread safe.  */
+comment|/**  * HTableMultiplexer provides a thread-safe non blocking PUT API across all the tables.  * Each put will be sharded into different buffer queues based on its destination region server.  * So each region server buffer queue will only have the puts which share the same destination.  * And each queue will have a flush worker thread to flush the puts request to the region server.  * If any queue is full, the HTableMultiplexer starts to drop the Put requests for that  * particular queue.  *  * Also all the puts will be retried as a configuration number before dropping.  * And the HTableMultiplexer can report the number of buffered requests and the number of the  * failed (dropped) requests in total or on per region server basis.  *  * This class is thread safe.  */
 end_comment
 
 begin_class
@@ -706,7 +706,7 @@ name|retryNum
 argument_list|)
 return|;
 block|}
-comment|/**    * The puts request will be buffered by their corresponding buffer queue.     * Return the list of puts which could not be queued.    * @param tableName    * @param puts    * @return the list of puts which could not be queued    * @throws IOException    */
+comment|/**    * The puts request will be buffered by their corresponding buffer queue.    * Return the list of puts which could not be queued.    * @param tableName    * @param puts    * @return the list of puts which could not be queued    * @throws IOException    */
 specifier|public
 name|List
 argument_list|<
@@ -1156,6 +1156,14 @@ argument_list|()
 return|;
 block|}
 comment|/**    * HTableMultiplexerStatus keeps track of the current status of the HTableMultiplexer.    * report the number of buffered requests and the number of the failed (dropped) requests    * in total or on per region server basis.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 specifier|static
 class|class

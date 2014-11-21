@@ -200,6 +200,14 @@ name|VERSION
 init|=
 literal|0
 decl_stmt|;
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 enum|enum
 name|Action
@@ -714,6 +722,8 @@ return|return
 name|result
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -817,6 +827,8 @@ argument_list|()
 return|;
 block|}
 comment|/** @return the object version number */
+annotation|@
+name|Override
 specifier|public
 name|byte
 name|getVersion

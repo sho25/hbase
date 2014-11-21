@@ -29,6 +29,38 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -46,6 +78,14 @@ comment|/**  * Extends the basic {@link SimpleByteRange} implementation with pos
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 specifier|abstract
 class|class
@@ -187,7 +227,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Update the beginning of this range. {@code offset + length} may not be    * greater than {@code bytes.length}. Resets {@code position} to 0.    *     * @param offset    *          the new start of this range.    * @return this.    */
+comment|/**    * Update the beginning of this range. {@code offset + length} may not be    * greater than {@code bytes.length}. Resets {@code position} to 0.    *    * @param offset    *          the new start of this range.    * @return this.    */
 annotation|@
 name|Override
 specifier|public
@@ -215,7 +255,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Update the length of this range. {@code offset + length} should not be    * greater than {@code bytes.length}. If {@code position} is greater than the    * new {@code length}, sets {@code position} to {@code length}.    *     * @param length    *          The new length of this range.    * @return this.    */
+comment|/**    * Update the length of this range. {@code offset + length} should not be    * greater than {@code bytes.length}. If {@code position} is greater than the    * new {@code length}, sets {@code position} to {@code length}.    *    * @param length    *          The new length of this range.    * @return this.    */
 annotation|@
 name|Override
 specifier|public

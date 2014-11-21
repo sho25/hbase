@@ -69,11 +69,31 @@ name|NoSuchElementException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * A collection class that contains multiple sub-lists, which allows us to not copy lists.  * This class does not support modification. The derived classes that add modifications are  * not thread-safe.  * NOTE: Doesn't implement list as it is not necessary for current usage, feel free to add.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|ConcatenatedLists

@@ -51,11 +51,31 @@ name|Checksum
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Utility class that is used to generate a Checksum object.  * The Checksum implementation is pluggable and an application  * can specify their own class that implements their own  * Checksum algorithm.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|ChecksumFactory

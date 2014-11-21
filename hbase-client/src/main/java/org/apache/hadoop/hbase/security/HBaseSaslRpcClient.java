@@ -401,7 +401,7 @@ specifier|final
 name|boolean
 name|fallbackAllowed
 decl_stmt|;
-comment|/**    * Create a HBaseSaslRpcClient for an authentication method    *     * @param method    *          the requested authentication method    * @param token    *          token to use if needed by the authentication method    * @param serverPrincipal    *          the server principal that we are trying to set the connection up to    * @param fallbackAllowed    *          does the client allow fallback to simple authentication    * @throws IOException    */
+comment|/**    * Create a HBaseSaslRpcClient for an authentication method    *    * @param method    *          the requested authentication method    * @param token    *          token to use if needed by the authentication method    * @param serverPrincipal    *          the server principal that we are trying to set the connection up to    * @param fallbackAllowed    *          does the client allow fallback to simple authentication    * @throws IOException    */
 specifier|public
 name|HBaseSaslRpcClient
 parameter_list|(
@@ -439,7 +439,7 @@ literal|"authentication"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a HBaseSaslRpcClient for an authentication method    *     * @param method    *          the requested authentication method    * @param token    *          token to use if needed by the authentication method    * @param serverPrincipal    *          the server principal that we are trying to set the connection up to    * @param fallbackAllowed    *          does the client allow fallback to simple authentication    * @param rpcProtection    *          the protection level ("authentication", "integrity" or "privacy")    * @throws IOException    */
+comment|/**    * Create a HBaseSaslRpcClient for an authentication method    *    * @param method    *          the requested authentication method    * @param token    *          token to use if needed by the authentication method    * @param serverPrincipal    *          the server principal that we are trying to set the connection up to    * @param fallbackAllowed    *          does the client allow fallback to simple authentication    * @param rpcProtection    *          the protection level ("authentication", "integrity" or "privacy")    * @throws IOException    */
 specifier|public
 name|HBaseSaslRpcClient
 parameter_list|(
@@ -806,7 +806,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Do client side SASL authentication with server via the given InputStream    * and OutputStream    *     * @param inS    *          InputStream to use    * @param outS    *          OutputStream to use    * @return true if connection is set up, or false if needs to switch     *             to simple Auth.    * @throws IOException    */
+comment|/**    * Do client side SASL authentication with server via the given InputStream    * and OutputStream    *    * @param inS    *          InputStream to use    * @param outS    *          OutputStream to use    * @return true if connection is set up, or false if needs to switch    *             to simple Auth.    * @throws IOException    */
 specifier|public
 name|boolean
 name|saslConnect
@@ -1220,7 +1220,7 @@ name|e
 throw|;
 block|}
 block|}
-comment|/**    * Get a SASL wrapped InputStream. Can be called only after saslConnect() has    * been called.    *     * @param in    *          the InputStream to wrap    * @return a SASL wrapped InputStream    * @throws IOException    */
+comment|/**    * Get a SASL wrapped InputStream. Can be called only after saslConnect() has    * been called.    *    * @param in    *          the InputStream to wrap    * @return a SASL wrapped InputStream    * @throws IOException    */
 specifier|public
 name|InputStream
 name|getInputStream
@@ -1258,7 +1258,7 @@ name|saslClient
 argument_list|)
 return|;
 block|}
-comment|/**    * Get a SASL wrapped OutputStream. Can be called only after saslConnect() has    * been called.    *     * @param out    *          the OutputStream to wrap    * @return a SASL wrapped OutputStream    * @throws IOException    */
+comment|/**    * Get a SASL wrapped OutputStream. Can be called only after saslConnect() has    * been called.    *    * @param out    *          the OutputStream to wrap    * @return a SASL wrapped OutputStream    * @throws IOException    */
 specifier|public
 name|OutputStream
 name|getOutputStream
@@ -1370,6 +1370,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|handle

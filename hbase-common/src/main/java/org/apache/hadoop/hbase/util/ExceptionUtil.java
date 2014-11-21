@@ -49,11 +49,31 @@ name|ClosedByInterruptException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class handles the different interruption classes.  * It can be:  * - InterruptedException  * - InterruptedIOException (inherits IOException); used in IO  * - ClosedByInterruptException (inherits IOException)  * - SocketTimeoutException inherits InterruptedIOException but is not a real  * interruption, so we have to distinguish the case. This pattern is unfortunately common.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|ExceptionUtil

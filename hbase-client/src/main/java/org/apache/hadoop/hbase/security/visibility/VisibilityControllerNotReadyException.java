@@ -45,6 +45,22 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
 begin_comment
 comment|/*  * This exception indicates that VisibilityController hasn't finished initialization.  */
 end_comment
@@ -54,6 +70,10 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 class|class
 name|VisibilityControllerNotReadyException

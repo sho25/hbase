@@ -21,6 +21,22 @@ end_package
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|sun
@@ -76,6 +92,10 @@ comment|/**  * A<a href="http://java.sun.com/javase/6/docs/jdk/api/javadoc/docle
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|IncludePublicAnnotationsStandardDoclet

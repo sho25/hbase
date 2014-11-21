@@ -141,6 +141,10 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Datastructure that allows adding more info around Throwable incident.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 class|class
@@ -260,6 +264,10 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Create a new RetriesExhaustedException from the list of prior failures.    * @param numTries    * @param exceptions List of exceptions that failed before giving up    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|RetriesExhaustedException
 parameter_list|(

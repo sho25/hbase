@@ -363,6 +363,14 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|/**    * Crypto context    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 specifier|static
 class|class

@@ -79,11 +79,31 @@ name|InputStream
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Copied from guava source code v15 (LimitedInputStream)  * Guava deprecated LimitInputStream in v14 and removed it in v15. Copying this class here  * allows to be compatible with guava 11 to 15+.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|final
 class|class

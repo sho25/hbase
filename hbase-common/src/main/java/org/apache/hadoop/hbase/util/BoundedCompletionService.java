@@ -121,11 +121,31 @@ name|TimeUnit
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * A completion service, close to the one available in the JDK 1.7  * However, this ones keeps the list of the future, and allows to cancel them all.  * This means as well that it can be used for a small set of tasks only.  *<br>Implementation is not Thread safe.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|BoundedCompletionService

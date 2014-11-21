@@ -325,6 +325,10 @@ index|]
 decl_stmt|;
 comment|//End HFileBlockConstants.
 comment|/**    * Status codes used for return values of bulk operations.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 enum|enum
 name|OperationStatusCode
@@ -1679,6 +1683,10 @@ init|=
 literal|"hbase.hregion.impl"
 decl_stmt|;
 comment|/** modifyTable op for replacing the table descriptor */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 enum|enum

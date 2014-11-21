@@ -296,6 +296,14 @@ name|Engine
 name|engine
 decl_stmt|;
 comment|/** Engine implementation type (default=JAVA) */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 enum|enum
 name|EngineType
@@ -483,6 +491,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return The comparator serialized using pb    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -658,6 +668,8 @@ name|comparator
 return|;
 block|}
 comment|/**    * @param other    * @return true if and only if the fields of the comparator that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+annotation|@
+name|Override
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(
@@ -769,7 +781,7 @@ return|return
 name|engine
 return|;
 block|}
-comment|/**    * This is an internal interface for abstracting access to different regular    * expression matching engines.     */
+comment|/**    * This is an internal interface for abstracting access to different regular    * expression matching engines.    */
 specifier|static
 interface|interface
 name|Engine

@@ -6435,6 +6435,14 @@ block|}
 comment|// end inner class InputStream
 comment|/* ******** I N N E R   C L A S S   O U T P U T S T R E A M ******** */
 comment|/**    * A {@link Base64.Base64OutputStream} will write data to another    *<tt>OutputStream</tt>, given in the constructor, and    * encode/decode to/from Base64 notation on the fly.    *    * @see Base64    * @since 1.3    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 specifier|static
 class|class

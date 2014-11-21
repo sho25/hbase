@@ -855,6 +855,14 @@ literal|""
 return|;
 block|}
 comment|/** A Comparator optimized for ImmutableBytesWritable.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 specifier|static
 class|class

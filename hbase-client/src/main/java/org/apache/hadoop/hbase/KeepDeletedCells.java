@@ -15,6 +15,38 @@ name|hbase
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
 begin_comment
 comment|/**  * Ways to keep cells marked for delete around.  */
 end_comment
@@ -24,6 +56,14 @@ comment|/*  * Don't change the TRUE/FALSE labels below, these have to be called 
 end_comment
 
 begin_enum
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 enum|enum
 name|KeepDeletedCells
