@@ -4413,6 +4413,15 @@ throws|throws
 name|IOException
 block|{
 comment|// get the data back and validate that it is correct
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Validating data on "
+operator|+
+name|table
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|byte
