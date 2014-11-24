@@ -21391,16 +21391,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Create a daughter region from given a temp directory with the region data.    * @param hri Spec. for daughter region to open.    * @param expectedReferenceFileCount    * @throws IOException    */
+comment|/**    * Create a daughter region from given a temp directory with the region data.    * @param hri Spec. for daughter region to open.    * @throws IOException    */
 name|HRegion
 name|createDaughterRegionFromSplits
 parameter_list|(
 specifier|final
 name|HRegionInfo
 name|hri
-parameter_list|,
-name|int
-name|expectedReferenceFileCount
 parameter_list|)
 throws|throws
 name|IOException
@@ -21411,8 +21408,6 @@ operator|.
 name|commitDaughterRegion
 argument_list|(
 name|hri
-argument_list|,
-name|expectedReferenceFileCount
 argument_list|)
 expr_stmt|;
 comment|// Create the daughter HRegion instance

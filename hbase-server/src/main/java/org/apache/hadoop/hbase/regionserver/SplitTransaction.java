@@ -1695,11 +1695,6 @@ argument_list|(
 name|this
 operator|.
 name|hri_a
-argument_list|,
-name|expectedReferences
-operator|.
-name|getFirst
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|assertReferenceFileCount
@@ -1781,11 +1776,6 @@ argument_list|(
 name|this
 operator|.
 name|hri_b
-argument_list|,
-name|expectedReferences
-operator|.
-name|getSecond
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|assertReferenceFileCount

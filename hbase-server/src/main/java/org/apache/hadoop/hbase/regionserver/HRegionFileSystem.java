@@ -2188,16 +2188,13 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Commit a daughter region, moving it from the split temporary directory    * to the proper location in the filesystem.    *    * @param regionInfo                 daughter {@link org.apache.hadoop.hbase.HRegionInfo}    * @param expectedReferenceFileCount number of expected reference files to have created and to    *                                   move into the new location.    * @throws IOException    */
+comment|/**    * Commit a daughter region, moving it from the split temporary directory    * to the proper location in the filesystem.    *    * @param regionInfo                 daughter {@link org.apache.hadoop.hbase.HRegionInfo}    * @throws IOException    */
 name|Path
 name|commitDaughterRegion
 parameter_list|(
 specifier|final
 name|HRegionInfo
 name|regionInfo
-parameter_list|,
-name|int
-name|expectedReferenceFileCount
 parameter_list|)
 throws|throws
 name|IOException
