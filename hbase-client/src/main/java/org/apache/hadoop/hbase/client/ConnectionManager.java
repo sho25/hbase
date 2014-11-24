@@ -2972,7 +2972,7 @@ specifier|static
 name|NonceGenerator
 name|injectNonceGeneratorForTesting
 parameter_list|(
-name|HConnection
+name|ClusterConnection
 name|conn
 parameter_list|,
 name|NonceGenerator

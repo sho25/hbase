@@ -368,7 +368,7 @@ specifier|static
 name|NonceGenerator
 name|injectNonceGeneratorForTesting
 parameter_list|(
-name|HConnection
+name|ClusterConnection
 name|conn
 parameter_list|,
 name|NonceGenerator
@@ -472,7 +472,7 @@ name|HConnection
 name|createShortCircuitHConnection
 parameter_list|(
 specifier|final
-name|HConnection
+name|Connection
 name|conn
 parameter_list|,
 specifier|final

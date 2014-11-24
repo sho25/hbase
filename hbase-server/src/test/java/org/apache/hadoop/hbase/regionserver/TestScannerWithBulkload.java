@@ -1503,11 +1503,6 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-name|admin
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|put0
 operator|=
 operator|new

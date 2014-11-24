@@ -1211,7 +1211,7 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Compact all regions on the region server    * @param regionserver the region server name    * @param major if it's major compaction    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Compact all regions on the region server    * @param sn the region server name    * @param major if it's major compaction    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 name|void
 name|compactRegionServer

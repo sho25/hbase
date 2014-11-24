@@ -616,7 +616,10 @@ init|=
 operator|new
 name|HBaseAdmin
 argument_list|(
-name|conf
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 argument_list|)
 decl_stmt|;
 try|try

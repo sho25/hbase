@@ -348,7 +348,12 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+operator|(
+operator|(
+name|HTable
+operator|)
 name|htable1
+operator|)
 operator|.
 name|setAutoFlush
 argument_list|(

@@ -6754,11 +6754,6 @@ operator|.
 name|getRegionLocations
 argument_list|()
 decl_stmt|;
-name|ht
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|assertEquals
 argument_list|(
 literal|"Tried to create "

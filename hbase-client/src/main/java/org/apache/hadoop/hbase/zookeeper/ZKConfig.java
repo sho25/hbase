@@ -381,6 +381,12 @@ name|Properties
 argument_list|()
 decl_stmt|;
 comment|// Directly map all of the hbase.zookeeper.property.KEY properties.
+comment|// Synchronize on conf so no loading of configs while we iterate
+synchronized|synchronized
+init|(
+name|conf
+init|)
+block|{
 for|for
 control|(
 name|Entry
@@ -391,14 +397,9 @@ name|String
 argument_list|>
 name|entry
 range|:
-operator|new
-name|Configuration
-argument_list|(
 name|conf
-argument_list|)
 control|)
 block|{
-comment|// copy for mt safety
 name|String
 name|key
 init|=
@@ -469,6 +470,7 @@ argument_list|,
 name|value
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|// If clientPort is not set, assign the default.

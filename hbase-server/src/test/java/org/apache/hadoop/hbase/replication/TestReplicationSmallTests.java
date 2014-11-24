@@ -618,7 +618,12 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+operator|(
+operator|(
+name|HTable
+operator|)
 name|htable1
+operator|)
 operator|.
 name|setAutoFlush
 argument_list|(
@@ -1628,7 +1633,12 @@ name|Put
 name|put
 decl_stmt|;
 comment|// normal Batch tests
+operator|(
+operator|(
+name|HTable
+operator|)
 name|htable1
+operator|)
 operator|.
 name|setAutoFlush
 argument_list|(
@@ -2371,7 +2381,12 @@ argument_list|(
 literal|1024
 argument_list|)
 expr_stmt|;
+operator|(
+operator|(
+name|HTable
+operator|)
 name|htable1
+operator|)
 operator|.
 name|setAutoFlush
 argument_list|(
