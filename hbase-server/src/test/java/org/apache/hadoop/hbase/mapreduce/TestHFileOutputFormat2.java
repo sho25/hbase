@@ -2508,6 +2508,8 @@ argument_list|(
 name|job
 argument_list|,
 name|table
+argument_list|,
+name|table
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -3327,6 +3329,8 @@ operator|.
 name|configureIncrementalLoad
 argument_list|(
 name|job
+argument_list|,
+name|table
 argument_list|,
 name|table
 argument_list|)
@@ -5035,6 +5039,8 @@ operator|.
 name|configureIncrementalLoad
 argument_list|(
 name|job
+argument_list|,
+name|table
 argument_list|,
 name|table
 argument_list|)

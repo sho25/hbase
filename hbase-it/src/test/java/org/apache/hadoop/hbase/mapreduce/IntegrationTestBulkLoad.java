@@ -1753,11 +1753,13 @@ name|p
 argument_list|)
 expr_stmt|;
 comment|// Configure the partitioner and other things needed for HFileOutputFormat.
-name|HFileOutputFormat
+name|HFileOutputFormat2
 operator|.
 name|configureIncrementalLoad
 argument_list|(
 name|job
+argument_list|,
+name|table
 argument_list|,
 name|table
 argument_list|)

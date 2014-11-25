@@ -879,7 +879,7 @@ name|cellVisibilityColumnIndex
 init|=
 name|DEFAULT_CELL_VISIBILITY_COLUMN_INDEX
 decl_stmt|;
-comment|/**      * @param columnsSpecification the list of columns to parser out, comma separated.      * The row key should be the special token TsvParser.ROWKEY_COLUMN_SPEC      * @param separatorStr       */
+comment|/**      * @param columnsSpecification the list of columns to parser out, comma separated.      * The row key should be the special token TsvParser.ROWKEY_COLUMN_SPEC      * @param separatorStr      */
 specifier|public
 name|TsvParser
 parameter_list|(
@@ -2676,11 +2676,13 @@ name|class
 argument_list|)
 expr_stmt|;
 block|}
-name|HFileOutputFormat
+name|HFileOutputFormat2
 operator|.
 name|configureIncrementalLoad
 argument_list|(
 name|job
+argument_list|,
+name|table
 argument_list|,
 name|table
 argument_list|)

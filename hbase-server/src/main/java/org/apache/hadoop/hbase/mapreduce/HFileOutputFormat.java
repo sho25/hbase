@@ -364,6 +364,8 @@ name|HFileOutputFormat2
 operator|.
 name|DATABLOCK_ENCODING_OVERRIDE_CONF_KEY
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|RecordWriter
 argument_list|<
@@ -414,9 +416,7 @@ name|job
 argument_list|,
 name|table
 argument_list|,
-name|HFileOutputFormat
-operator|.
-name|class
+name|table
 argument_list|)
 expr_stmt|;
 block|}

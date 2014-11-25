@@ -1644,11 +1644,13 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
-name|HFileOutputFormat
+name|HFileOutputFormat2
 operator|.
 name|configureIncrementalLoad
 argument_list|(
 name|job
+argument_list|,
+name|table
 argument_list|,
 name|table
 argument_list|)

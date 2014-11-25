@@ -513,6 +513,24 @@ name|io
 operator|.
 name|hfile
 operator|.
+name|HFile
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
 name|HFileContext
 import|;
 end_import
@@ -766,7 +784,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Writes HFiles. Passed Cells must arrive in order.  * Writes current time as the sequence id for the file. Sets the major compacted  * attribute on created hfiles. Calling write(null,null) will forcibly roll  * all HFiles being written.  *<p>  * Using this class as part of a MapReduce job is best done  * using {@link #configureIncrementalLoad(Job, HTable)}.  */
+comment|/**  * Writes HFiles. Passed Cells must arrive in order.  * Writes current time as the sequence id for the file. Sets the major compacted  * attribute on created @{link {@link HFile}s. Calling write(null,null) will forcibly roll  * all HFiles being written.  *<p>  * Using this class as part of a MapReduce job is best done  * using {@link #configureIncrementalLoad(Job, Table, RegionLocator, Class)}.  */
 end_comment
 
 begin_class
@@ -850,6 +868,8 @@ name|DATABLOCK_ENCODING_OVERRIDE_CONF_KEY
 init|=
 literal|"hbase.mapreduce.hfileoutputformat.datablock.encoding"
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|RecordWriter
 argument_list|<
@@ -895,8 +915,6 @@ name|context
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 block|{
 comment|// Get the path of the temporary output file
 specifier|final
@@ -1174,6 +1192,8 @@ name|rollRequested
 init|=
 literal|false
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|void
 name|write
@@ -1868,6 +1888,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|close
@@ -2174,7 +2196,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Configure a MapReduce Job to perform an incremental load into the given    * table. This    *<ul>    *<li>Inspects the table to configure a total order partitioner</li>    *<li>Uploads the partitions file to the cluster and adds it to the DistributedCache</li>    *<li>Sets the number of reduce tasks to match the current number of regions</li>    *<li>Sets the output key/value class to match HFileOutputFormat2's requirements</li>    *<li>Sets the reducer up to perform the appropriate sorting (either KeyValueSortReducer or    *     PutSortReducer)</li>    *</ul>    * The user should be sure to set the map output value class to either KeyValue or Put before    * running this function.    */
+comment|/**    * Configure a MapReduce Job to perform an incremental load into the given    * table. This    *<ul>    *<li>Inspects the table to configure a total order partitioner</li>    *<li>Uploads the partitions file to the cluster and adds it to the DistributedCache</li>    *<li>Sets the number of reduce tasks to match the current number of regions</li>    *<li>Sets the output key/value class to match HFileOutputFormat2's requirements</li>    *<li>Sets the reducer up to perform the appropriate sorting (either KeyValueSortReducer or    *     PutSortReducer)</li>    *</ul>    * The user should be sure to set the map output value class to either KeyValue or Put before    * running this function.    *     * @deprecated Use {@link #configureIncrementalLoad(Job, Table, RegionLocator)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|void
@@ -2195,6 +2219,36 @@ name|job
 argument_list|,
 name|table
 argument_list|,
+name|table
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Configure a MapReduce Job to perform an incremental load into the given    * table. This    *<ul>    *<li>Inspects the table to configure a total order partitioner</li>    *<li>Uploads the partitions file to the cluster and adds it to the DistributedCache</li>    *<li>Sets the number of reduce tasks to match the current number of regions</li>    *<li>Sets the output key/value class to match HFileOutputFormat2's requirements</li>    *<li>Sets the reducer up to perform the appropriate sorting (either KeyValueSortReducer or    *     PutSortReducer)</li>    *</ul>    * The user should be sure to set the map output value class to either KeyValue or Put before    * running this function.    */
+specifier|public
+specifier|static
+name|void
+name|configureIncrementalLoad
+parameter_list|(
+name|Job
+name|job
+parameter_list|,
+name|Table
+name|table
+parameter_list|,
+name|RegionLocator
+name|regionLocator
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|configureIncrementalLoad
+argument_list|(
+name|job
+argument_list|,
+name|table
+argument_list|,
+name|regionLocator
+argument_list|,
 name|HFileOutputFormat2
 operator|.
 name|class
@@ -2208,8 +2262,11 @@ parameter_list|(
 name|Job
 name|job
 parameter_list|,
-name|HTable
+name|Table
 name|table
+parameter_list|,
+name|RegionLocator
+name|regionLocator
 parameter_list|,
 name|Class
 argument_list|<
@@ -2397,15 +2454,10 @@ name|info
 argument_list|(
 literal|"Looking up current regions for table "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|table
 operator|.
-name|getTableName
+name|getName
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|List
@@ -2416,7 +2468,7 @@ name|startKeys
 init|=
 name|getRegionStartKeys
 argument_list|(
-name|table
+name|regionLocator
 argument_list|)
 decl_stmt|;
 name|LOG
@@ -2501,15 +2553,10 @@ name|info
 argument_list|(
 literal|"Incremental table "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|table
 operator|.
-name|getTableName
+name|getName
 argument_list|()
-argument_list|)
 operator|+
 literal|" output configured."
 argument_list|)
