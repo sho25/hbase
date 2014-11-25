@@ -3937,6 +3937,13 @@ specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
+comment|// cache the configuration value for tables so that we can avoid calling
+comment|// the expensive Configuration to fetch the value multiple times.
+specifier|private
+specifier|final
+name|TableConfiguration
+name|tableConfig
+decl_stmt|;
 comment|// Client rpc instance.
 specifier|private
 name|RpcClient
@@ -4227,6 +4234,16 @@ name|conf
 expr_stmt|;
 name|this
 operator|.
+name|tableConfig
+operator|=
+operator|new
+name|TableConfiguration
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
 name|closed
 operator|=
 literal|false
@@ -4252,18 +4269,10 @@ name|this
 operator|.
 name|numTries
 operator|=
-name|conf
+name|tableConfig
 operator|.
-name|getInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CLIENT_RETRIES_NUMBER
-argument_list|,
-name|HConstants
-operator|.
-name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
-argument_list|)
+name|getRetriesNumber
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -4544,6 +4553,12 @@ name|tableName
 argument_list|,
 name|this
 argument_list|,
+name|tableConfig
+argument_list|,
+name|rpcCallerFactory
+argument_list|,
+name|rpcControllerFactory
+argument_list|,
 name|pool
 argument_list|)
 return|;
@@ -4580,6 +4595,12 @@ argument_list|(
 name|tableName
 argument_list|,
 name|this
+argument_list|,
+name|tableConfig
+argument_list|,
+name|rpcCallerFactory
+argument_list|,
+name|rpcControllerFactory
 argument_list|,
 name|getBatchPool
 argument_list|()
