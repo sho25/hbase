@@ -815,7 +815,7 @@ name|SnapshotOfRegionAssignmentFromMeta
 argument_list|(
 name|master
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1255,7 +1255,7 @@ name|SnapshotOfRegionAssignmentFromMeta
 argument_list|(
 name|master
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|)
 expr_stmt|;

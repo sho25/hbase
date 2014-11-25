@@ -1142,7 +1142,7 @@ name|mutateMetaTable
 argument_list|(
 name|rs
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|metaEntries

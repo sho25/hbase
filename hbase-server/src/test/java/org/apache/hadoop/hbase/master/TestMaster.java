@@ -650,7 +650,7 @@ name|getTableRegionsAndLocations
 argument_list|(
 name|m
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|TABLENAME
@@ -798,7 +798,7 @@ name|getTableRegionsAndLocations
 argument_list|(
 name|m
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|TABLENAME
@@ -888,7 +888,7 @@ name|getRegion
 argument_list|(
 name|m
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|pair

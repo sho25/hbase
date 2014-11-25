@@ -21,11 +21,23 @@ begin_import
 import|import static
 name|org
 operator|.
-name|junit
+name|hamcrest
 operator|.
-name|Assert
+name|CoreMatchers
 operator|.
-name|assertEquals
+name|is
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|hamcrest
+operator|.
+name|CoreMatchers
+operator|.
+name|not
 import|;
 end_import
 
@@ -37,7 +49,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertTrue
+name|assertEquals
 import|;
 end_import
 
@@ -57,11 +69,11 @@ begin_import
 import|import static
 name|org
 operator|.
-name|hamcrest
+name|junit
 operator|.
-name|CoreMatchers
+name|Assert
 operator|.
-name|*
+name|assertTrue
 import|;
 end_import
 
@@ -235,38 +247,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|testclassification
-operator|.
-name|MediumTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|testclassification
-operator|.
-name|RegionServerTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|Server
 import|;
 end_import
@@ -339,7 +319,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|ClusterConnection
 import|;
 end_import
 
@@ -394,6 +374,38 @@ operator|.
 name|SplitLogTask
 operator|.
 name|RecoveryMode
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|MediumTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|RegionServerTests
 import|;
 end_import
 
@@ -819,8 +831,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HConnection
-name|getShortCircuitConnection
+name|ClusterConnection
+name|getConnection
 parameter_list|()
 block|{
 return|return

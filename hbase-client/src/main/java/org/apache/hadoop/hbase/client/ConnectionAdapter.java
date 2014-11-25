@@ -258,7 +258,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An internal class that adapts a {@link HConnection}.  * HConnection is created from HConnectionManager. The default  * implementation talks to region servers over RPC since it  * doesn't know if the connection is used by one region server  * itself. This adapter makes it possible to change some of the  * default logic. Especially, when the connection is used  * internally by some the region server.  *  * @see ConnectionUtils#createShortCircuitHConnection(HConnection, ServerName,  * AdminService.BlockingInterface, ClientService.BlockingInterface)  */
+comment|/**  * An internal class that delegates to an {@link HConnection} instance.  * A convenience to override when customizing method implementations.  *   *  * @see ConnectionUtils#createShortCircuitHConnection(HConnection, ServerName,  * AdminService.BlockingInterface, ClientService.BlockingInterface) for case where we make  * Connections skip RPC if request is to local server.  */
 end_comment
 
 begin_class
@@ -272,6 +272,7 @@ argument_list|(
 literal|"deprecation"
 argument_list|)
 comment|//NOTE: DO NOT make this class public. It was made package-private on purpose.
+specifier|abstract
 class|class
 name|ConnectionAdapter
 implements|implements

@@ -83,7 +83,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Set
+name|Random
 import|;
 end_import
 
@@ -93,7 +93,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Random
+name|Set
 import|;
 end_import
 
@@ -257,7 +257,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Get
+name|ClusterConnection
 import|;
 end_import
 
@@ -273,7 +273,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|Get
 import|;
 end_import
 
@@ -1510,7 +1510,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A mock RegionServer implementation.  * Use this when you can't bend Mockito to your liking (e.g. return null result  * when 'scanning' until master timesout and then return a coherent meta row  * result thereafter.  Have some facility for faking gets and scans.  See  * {@link #setGetResult(byte[], byte[], Result)} for how to fill the backing data  * store that the get pulls from.  */
+comment|/**  * A mock RegionServer implementation.  * Use this when you can't bend Mockito to your liking (e.g. return null result  * when 'scanning' until master timesout and then return a coherent meta row  * result thereafter.  Have some facility for faking gets and scans.  See  * setGetResult(byte[], byte[], Result) for how to fill the backing data  * store that the get pulls from.  */
 end_comment
 
 begin_class
@@ -2190,8 +2190,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HConnection
-name|getShortCircuitConnection
+name|ClusterConnection
+name|getConnection
 parameter_list|()
 block|{
 return|return

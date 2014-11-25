@@ -1256,8 +1256,20 @@ argument_list|(
 name|getConf
 argument_list|()
 argument_list|)
-init|;           RegionLocator rl = conn.getRegionLocator(splitTableName)
-block|)
+init|)
+block|{
+try|try
+init|(
+name|RegionLocator
+name|rl
+init|=
+name|conn
+operator|.
+name|getRegionLocator
+argument_list|(
+name|splitTableName
+argument_list|)
+init|)
 block|{
 return|return
 name|rl
@@ -1267,6 +1279,7 @@ argument_list|()
 return|;
 block|}
 block|}
+block|}
 return|return
 name|super
 operator|.
@@ -1274,13 +1287,7 @@ name|getStartEndKeys
 argument_list|()
 return|;
 block|}
-end_class
-
-begin_comment
 comment|/**    * Sets split table in map-reduce job.    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|void
@@ -1309,8 +1316,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-end_function
+block|}
+end_class
 
-unit|}
 end_unit
 

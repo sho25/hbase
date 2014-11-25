@@ -1486,6 +1486,7 @@ init|=
 literal|null
 decl_stmt|;
 specifier|private
+specifier|volatile
 name|HBaseCluster
 name|hbaseCluster
 init|=
@@ -1499,6 +1500,7 @@ literal|null
 decl_stmt|;
 comment|/** If there is a mini cluster running for this testing utility instance. */
 specifier|private
+specifier|volatile
 name|boolean
 name|miniClusterRunning
 decl_stmt|;
@@ -1519,6 +1521,12 @@ name|Path
 name|dataTestDirOnTestFS
 init|=
 literal|null
+decl_stmt|;
+comment|/**    * Shared cluster connection.    */
+specifier|private
+specifier|volatile
+name|Connection
+name|connection
 decl_stmt|;
 comment|/**    * System property key to get test directory value.    * Name is as it is because mini dfs has hard-codings to put test data here.    * It should NOT be used directly in HBase, as it's a property used in    *  mini dfs.    *  @deprecated can be used only with mini dfs    */
 annotation|@
@@ -4355,6 +4363,37 @@ argument_list|(
 literal|"Shutting down minicluster"
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|connection
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|this
+operator|.
+name|connection
+operator|.
+name|isClosed
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|connection
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|connection
+operator|=
+literal|null
+expr_stmt|;
+block|}
 name|shutdownMiniHBaseCluster
 argument_list|()
 expr_stmt|;
@@ -4708,7 +4747,7 @@ expr_stmt|;
 block|}
 comment|/**    * Create a table.    * @param tableName    * @param family    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|TableName
@@ -4772,7 +4811,7 @@ return|;
 block|}
 comment|/**    * Create a table.    * @param tableName    * @param families    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|TableName
@@ -4907,7 +4946,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @return An HT    * able instance for the created table.    * @throws IOException    */
 specifier|public
 name|HTable
 name|createTable
@@ -5217,11 +5256,14 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
-operator|new
+operator|(
 name|HTable
+operator|)
+name|getConnection
+argument_list|()
+operator|.
+name|getTable
 argument_list|(
-name|c
-argument_list|,
 name|htd
 operator|.
 name|getTableName
@@ -11693,6 +11735,65 @@ block|}
 end_function
 
 begin_comment
+comment|/**    * Get a Connection to the cluster.    * Not thread-safe (This class needs a lot of work to make it thread-safe).    * @return A Connection that can be shared. Don't close. Will be closed on shutdown of cluster.    * @throws IOException     */
+end_comment
+
+begin_function
+specifier|public
+name|Connection
+name|getConnection
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|connection
+operator|==
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+name|getMiniHBaseCluster
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"You cannot have a Connection if cluster is not up"
+argument_list|)
+throw|;
+block|}
+name|this
+operator|.
+name|connection
+operator|=
+name|ConnectionFactory
+operator|.
+name|createConnection
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|this
+operator|.
+name|connection
+return|;
+block|}
+end_function
+
+begin_comment
 comment|/**    * Returns a Admin instance.    * This instance is shared between HBaseTestingUtility instance users.    * Closing it has no effect, it will be closed automatically when the    * cluster shutdowns    *    * @return An Admin instance.    * @throws IOException    */
 end_comment
 
@@ -11712,12 +11813,14 @@ operator|==
 literal|null
 condition|)
 block|{
+name|this
+operator|.
 name|hbaseAdmin
 operator|=
 operator|new
 name|HBaseAdminForTests
 argument_list|(
-name|getConfiguration
+name|getConnection
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -11748,8 +11851,8 @@ block|{
 specifier|public
 name|HBaseAdminForTests
 parameter_list|(
-name|Configuration
-name|c
+name|Connection
+name|connection
 parameter_list|)
 throws|throws
 name|MasterNotRunningException
@@ -11760,7 +11863,7 @@ name|IOException
 block|{
 name|super
 argument_list|(
-name|c
+name|connection
 argument_list|)
 expr_stmt|;
 block|}
@@ -11778,7 +11881,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"close() called on HBaseAdmin instance returned from HBaseTestingUtility.getHBaseAdmin()"
+literal|"close() called on HBaseAdmin instance returned from "
+operator|+
+literal|"HBaseTestingUtility.getHBaseAdmin()"
 argument_list|)
 expr_stmt|;
 block|}

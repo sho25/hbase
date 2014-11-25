@@ -356,7 +356,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Convert Map/Reduce output and write it to an HBase table. The KEY is ignored  * while the output value<u>must</u> be either a {@link Put} or a  * {@link Delete} instance.  *  */
+comment|/**  * Convert Map/Reduce output and write it to an HBase table. The KEY is ignored  * while the output value<u>must</u> be either a {@link Put} or a  * {@link Delete} instance.  */
 end_comment
 
 begin_class

@@ -806,7 +806,7 @@ name|verifyMetaRegionLocation
 argument_list|(
 name|server
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|this

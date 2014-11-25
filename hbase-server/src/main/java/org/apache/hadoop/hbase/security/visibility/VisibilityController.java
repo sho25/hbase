@@ -1600,7 +1600,7 @@ name|tableExists
 argument_list|(
 name|master
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|LABELS_TABLE_NAME

@@ -443,7 +443,7 @@ name|super
 operator|.
 name|services
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|)
 decl_stmt|;

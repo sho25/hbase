@@ -844,7 +844,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *  * HTable is no longer a client API. It is marked InterfaceAudience.Private indicating that  * this is an HBase-internal class as defined in  * https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/InterfaceClassification.html  * There are no guarantees for backwards source / binary compatibility and methods or class can  * change or go away without deprecation. Use {@link Connection#getTable(TableName)}  * to obtain an instance of {@link Table} instead of constructing an HTable directly.  *<p>An implementation of {@link Table}. Used to communicate with a single HBase table.  * Lightweight. Get as needed and just close when done.  * Instances of this class SHOULD NOT be constructed directly.  * Obtain an instance via {@link Connection}. See {@link ConnectionFactory}  * class comment for an example of how.  *  *<p>This class is NOT thread safe for reads nor write.  * In the case of writes (Put, Delete), the underlying write buffer can  * be corrupted if multiple threads contend over a single HTable instance.  * In the case of reads, some fields used by a Scan are shared among all threads.  *  * @see Table  * @see Admin  * @see Connection  * @see ConnectionFactory  */
+comment|/**  * An implementation of {@link Table}. Used to communicate with a single HBase table.  * Lightweight. Get as needed and just close when done.  * Instances of this class SHOULD NOT be constructed directly.  * Obtain an instance via {@link Connection}. See {@link ConnectionFactory}  * class comment for an example of how.  *  *<p>This class is NOT thread safe for reads nor writes.  * In the case of writes (Put, Delete), the underlying write buffer can  * be corrupted if multiple threads contend over a single HTable instance.  * In the case of reads, some fields used by a Scan are shared among all threads.  *  *<p>HTable is no longer a client API. Use {@link Table} instead. It is marked  * InterfaceAudience.Private indicating that this is an HBase-internal class as defined in  *<a href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/InterfaceClassification.html">Hadoop  * Interface Classification</a>  * There are no guarantees for backwards source / binary compatibility and methods or class can  * change or go away without deprecation.  *  * @see Table  * @see Admin  * @see Connection  * @see ConnectionFactory  */
 end_comment
 
 begin_class
@@ -1503,7 +1503,7 @@ name|pool
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    * @param tableName Name of the table.    * @param connection HConnection to be used.    * @param pool ExecutorService to be used.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Creates an object to access a HBase table.    * Used by HBase internally.  DO NOT USE. See {@link ConnectionFactory} class comment for how to    * get a {@link Table} instance (use {@link Table} instead of {@link HTable}).    * @param tableName Name of the table.    * @param connection HConnection to be used.    * @param pool ExecutorService to be used.    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -8075,74 +8075,6 @@ literal|";"
 operator|+
 name|connection
 return|;
-block|}
-comment|/**    * Run basic test.    * @param args Pass table name and row and will get the content.    * @throws IOException    */
-specifier|public
-specifier|static
-name|void
-name|main
-parameter_list|(
-name|String
-index|[]
-name|args
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|Table
-name|t
-init|=
-operator|new
-name|HTable
-argument_list|(
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
-argument_list|,
-name|args
-index|[
-literal|0
-index|]
-argument_list|)
-decl_stmt|;
-try|try
-block|{
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-name|t
-operator|.
-name|get
-argument_list|(
-operator|new
-name|Get
-argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|args
-index|[
-literal|1
-index|]
-argument_list|)
-argument_list|)
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|t
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 comment|/**    * {@inheritDoc}    */
 annotation|@

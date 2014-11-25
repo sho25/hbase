@@ -3223,31 +3223,9 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-synchronized|synchronized
-init|(
-name|this
-init|)
-block|{
-if|if
-condition|(
-name|shortCircuitConnection
-operator|==
-literal|null
-condition|)
-block|{
-name|shortCircuitConnection
-operator|=
-name|createShortCircuitConnection
+name|setupClusterConnection
 argument_list|()
 expr_stmt|;
-name|metaTableLocator
-operator|=
-operator|new
-name|MetaTableLocator
-argument_list|()
-expr_stmt|;
-block|}
-block|}
 comment|// Invalidate all write locks held previously
 name|this
 operator|.
@@ -3927,7 +3905,7 @@ name|verifyMetaRegionLocation
 argument_list|(
 name|this
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|this
@@ -7868,6 +7846,9 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Return the region and current deployment for the region containing    * the given row. If the region cannot be found, returns null. If it    * is found, but not currently deployed, the second element of the pair    * may be null.    */
+annotation|@
+name|VisibleForTesting
+comment|// Used by TestMaster.
 name|Pair
 argument_list|<
 name|HRegionInfo
@@ -8163,7 +8144,7 @@ name|MetaTableAccessor
 operator|.
 name|tableExists
 argument_list|(
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|tableName

@@ -279,6 +279,20 @@ name|ExceptionUtil
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_comment
 comment|/**  * Scanner class that contains the<code>hbase:meta</code> table scanning logic.  * Provided visitors will be called for each row.  *  * Although public visibility, this is not a public-facing API and may evolve in  * minor releases.  *  *<p> Note that during concurrent region splits, the scanner might not see  * hbase:meta changes across rows (for parent and daughter entries) consistently.  * see HBASE-5986, and {@link DefaultMetaScannerVisitor} for details.</p>  */
 end_comment
@@ -308,7 +322,10 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Scans the meta table and calls a visitor on each RowResult and uses a empty    * start row value as table name.    *    * @param configuration conf    * @param visitor A custom visitor    * @throws IOException e    */
+comment|/**    * Scans the meta table and calls a visitor on each RowResult and uses a empty    * start row value as table name.    *     *<p>Visible for testing. Use {@link    * #metaScan(Configuration, Connection, MetaScannerVisitor, TableName)} instead.    *    * @param configuration conf    * @param visitor A custom visitor    * @throws IOException e    */
+annotation|@
+name|VisibleForTesting
+comment|// Do not use. Used by tests only and hbck.
 specifier|public
 specifier|static
 name|void
@@ -382,7 +399,10 @@ name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Scans the meta table and calls a visitor on each RowResult. Uses a table    * name and a row name to locate meta regions. And it only scans at most    *<code>rowLimit</code> of rows.    *    * @param configuration HBase configuration.    * @param visitor Visitor object.    * @param userTableName User table name in meta table to start scan at.  Pass    * null if not interested in a particular table.    * @param row Name of the row at the user table. The scan will start from    * the region row where the row resides.    * @param rowLimit Max of processed rows. If it is less than 0, it    * will be set to default value<code>Integer.MAX_VALUE</code>.    * @throws IOException e    */
+comment|/**    * Scans the meta table and calls a visitor on each RowResult. Uses a table    * name and a row name to locate meta regions. And it only scans at most    *<code>rowLimit</code> of rows.    *     *<p>Visible for testing. Use {@link    * #metaScan(Configuration, Connection, MetaScannerVisitor, TableName)} instead.    *    * @param configuration HBase configuration.    * @param visitor Visitor object.    * @param userTableName User table name in meta table to start scan at.  Pass    * null if not interested in a particular table.    * @param row Name of the row at the user table. The scan will start from    * the region row where the row resides.    * @param rowLimit Max of processed rows. If it is less than 0, it    * will be set to default value<code>Integer.MAX_VALUE</code>.    * @throws IOException e    */
+annotation|@
+name|VisibleForTesting
+comment|// Do not use. Used by Master but by a method that is used testing.
 specifier|public
 specifier|static
 name|void
@@ -506,20 +526,17 @@ name|byte
 index|[]
 name|startRow
 decl_stmt|;
-name|ResultScanner
-name|scanner
-init|=
-literal|null
-decl_stmt|;
-name|HTable
-name|metaTable
-init|=
-literal|null
-decl_stmt|;
+comment|// If the passed in 'connection' is 'managed' -- i.e. every second test uses
+comment|// an HTable or an HBaseAdmin with managed connections -- then doing
+comment|// connection.getTable will throw an exception saying you are NOT to use
+comment|// managed connections getting tables.  Leaving this as it is for now. Will
+comment|// revisit when inclined to change all tests.  User code probaby makes use of
+comment|// managed connections too so don't change it till post hbase 1.0.
 try|try
-block|{
+init|(
+name|Table
 name|metaTable
-operator|=
+init|=
 operator|new
 name|HTable
 argument_list|(
@@ -531,7 +548,8 @@ name|connection
 argument_list|,
 literal|null
 argument_list|)
-expr_stmt|;
+init|)
+block|{
 if|if
 condition|(
 name|row
@@ -540,37 +558,16 @@ literal|null
 condition|)
 block|{
 comment|// Scan starting at a particular row in a particular table
-name|byte
-index|[]
-name|searchRow
-init|=
-name|HRegionInfo
-operator|.
-name|createRegionName
-argument_list|(
-name|tableName
-argument_list|,
-name|row
-argument_list|,
-name|HConstants
-operator|.
-name|NINES
-argument_list|,
-literal|false
-argument_list|)
-decl_stmt|;
 name|Result
 name|startRowResult
 init|=
-name|metaTable
-operator|.
-name|getRowOrBefore
+name|getClosestRowOrBefore
 argument_list|(
-name|searchRow
+name|metaTable
 argument_list|,
-name|HConstants
-operator|.
-name|CATALOG_FAMILY
+name|tableName
+argument_list|,
+name|row
 argument_list|)
 decl_stmt|;
 if|if
@@ -586,11 +583,9 @@ name|TableNotFoundException
 argument_list|(
 literal|"Cannot find row in "
 operator|+
-name|TableName
+name|metaTable
 operator|.
-name|META_TABLE_NAME
-operator|.
-name|getNameAsString
+name|getName
 argument_list|()
 operator|+
 literal|" for table: "
@@ -603,7 +598,7 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
-name|searchRow
+name|row
 argument_list|)
 argument_list|)
 throw|;
@@ -637,7 +632,7 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
-name|searchRow
+name|row
 argument_list|)
 argument_list|)
 throw|;
@@ -823,15 +818,19 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Run the scan
-name|scanner
-operator|=
+try|try
+init|(
+name|ResultScanner
+name|resultScanner
+init|=
 name|metaTable
 operator|.
 name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-expr_stmt|;
+init|)
+block|{
 name|Result
 name|result
 decl_stmt|;
@@ -845,7 +844,7 @@ condition|(
 operator|(
 name|result
 operator|=
-name|scanner
+name|resultScanner
 operator|.
 name|next
 argument_list|()
@@ -885,47 +884,9 @@ condition|)
 break|break;
 block|}
 block|}
+block|}
 finally|finally
 block|{
-if|if
-condition|(
-name|scanner
-operator|!=
-literal|null
-condition|)
-block|{
-try|try
-block|{
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Throwable
-name|t
-parameter_list|)
-block|{
-name|ExceptionUtil
-operator|.
-name|rethrowIfInterrupt
-argument_list|(
-name|t
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Got exception in closing the result scanner"
-argument_list|,
-name|t
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 if|if
 condition|(
 name|visitor
@@ -967,54 +928,93 @@ block|}
 block|}
 if|if
 condition|(
-name|metaTable
-operator|!=
-literal|null
-condition|)
-block|{
-try|try
-block|{
-name|metaTable
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Throwable
-name|t
-parameter_list|)
-block|{
-name|ExceptionUtil
-operator|.
-name|rethrowIfInterrupt
-argument_list|(
-name|t
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Got exception in closing meta table"
-argument_list|,
-name|t
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-if|if
-condition|(
 name|closeConnection
 condition|)
 block|{
+if|if
+condition|(
+name|connection
+operator|!=
+literal|null
+condition|)
 name|connection
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+block|}
+comment|/**    * @return Get closest metatable region row to passed<code>row</code>    * @throws IOException    */
+specifier|private
+specifier|static
+name|Result
+name|getClosestRowOrBefore
+parameter_list|(
+specifier|final
+name|Table
+name|metaTable
+parameter_list|,
+specifier|final
+name|TableName
+name|userTableName
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|row
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|byte
+index|[]
+name|searchRow
+init|=
+name|HRegionInfo
+operator|.
+name|createRegionName
+argument_list|(
+name|userTableName
+argument_list|,
+name|row
+argument_list|,
+name|HConstants
+operator|.
+name|NINES
+argument_list|,
+literal|false
+argument_list|)
+decl_stmt|;
+name|Scan
+name|scan
+init|=
+name|Scan
+operator|.
+name|createGetClosestRowOrBeforeReverseScan
+argument_list|(
+name|searchRow
+argument_list|)
+decl_stmt|;
+try|try
+init|(
+name|ResultScanner
+name|resultScanner
+init|=
+name|metaTable
+operator|.
+name|getScanner
+argument_list|(
+name|scan
+argument_list|)
+init|)
+block|{
+return|return
+name|resultScanner
+operator|.
+name|next
+argument_list|()
+return|;
 block|}
 block|}
 comment|/**    * Returns HRegionInfo object from the column    * HConstants.CATALOG_FAMILY:HConstants.REGIONINFO_QUALIFIER of the catalog    * table Result.    * @param data a Result object from the catalog table scan    * @return HRegionInfo or null    * @deprecated Use {@link org.apache.hadoop.hbase.MetaTableAccessor#getRegionLocations(Result)}    */
@@ -1039,6 +1039,9 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Lists all of the regions currently in META.    * @param conf    * @param offlined True if we are to include offlined regions, false and we'll    * leave out offlined regions from returned list.    * @return List of all user-space regions.    * @throws IOException    */
+annotation|@
+name|VisibleForTesting
+comment|// And for hbck.
 specifier|public
 specifier|static
 name|List

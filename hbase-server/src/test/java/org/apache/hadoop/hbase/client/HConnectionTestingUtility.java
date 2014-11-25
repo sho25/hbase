@@ -206,7 +206,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * {@link HConnection} testing utility.  */
+comment|/**  * {@link ClusterConnection} testing utility.  */
 end_comment
 
 begin_class
@@ -215,7 +215,7 @@ class|class
 name|HConnectionTestingUtility
 block|{
 comment|/*    * Not part of {@link HBaseTestingUtility} because this class is not    * in same package as {@link HConnection}.  Would have to reveal ugly    * {@link HConnectionManager} innards to HBaseTestingUtility to give it access.    */
-comment|/**    * Get a Mocked {@link HConnection} that goes with the passed<code>conf</code>    * configuration instance.  Minimally the mock will return    *<code>conf</conf> when {@link HConnection#getConfiguration()} is invoked.    * Be sure to shutdown the connection when done by calling    * {@link HConnectionManager#deleteConnection(Configuration)} else it    * will stick around; this is probably not what you want.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
+comment|/**    * Get a Mocked {@link HConnection} that goes with the passed<code>conf</code>    * configuration instance.  Minimally the mock will return    *<code>conf</conf> when {@link ClusterConnection#getConfiguration()} is invoked.    * Be sure to shutdown the connection when done by calling    * {@link HConnectionManager#deleteConnection(Configuration)} else it    * will stick around; this is probably not what you want.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
 specifier|public
 specifier|static
 name|ClusterConnection
@@ -306,7 +306,7 @@ name|connection
 return|;
 block|}
 block|}
-comment|/**    * Calls {@link #getMockedConnection(Configuration)} and then mocks a few    * more of the popular {@link HConnection} methods so they do 'normal'    * operation (see return doc below for list). Be sure to shutdown the    * connection when done by calling    * {@link HConnectionManager#deleteConnection(Configuration)} else it    * will stick around; this is probably not what you want.    *    * @param conf Configuration to use    * @param admin An AdminProtocol; can be null but is usually    * itself a mock.    * @param client A ClientProtocol; can be null but is usually    * itself a mock.    * @param sn ServerName to include in the region location returned by this    *<code>connection</code>    * @param hri HRegionInfo to include in the location returned when    * getRegionLocator is called on the mocked connection    * @return Mock up a connection that returns a {@link Configuration} when    * {@link HConnection#getConfiguration()} is called, a 'location' when    * {@link HConnection#getRegionLocation(org.apache.hadoop.hbase.TableName, byte[], boolean)} is called,    * and that returns the passed {@link AdminProtos.AdminService.BlockingInterface} instance when    * {@link HConnection#getAdmin(ServerName)} is called, returns the passed    * {@link ClientProtos.ClientService.BlockingInterface} instance when    * {@link HConnection#getClient(ServerName)} is called (Be sure to call    * {@link HConnectionManager#deleteConnection(Configuration)}    * when done with this mocked Connection.    * @throws IOException    */
+comment|/**    * Calls {@link #getMockedConnection(Configuration)} and then mocks a few    * more of the popular {@link ClusterConnection} methods so they do 'normal'    * operation (see return doc below for list). Be sure to shutdown the    * connection when done by calling    * {@link HConnectionManager#deleteConnection(Configuration)} else it    * will stick around; this is probably not what you want.    *    * @param conf Configuration to use    * @param admin An AdminProtocol; can be null but is usually    * itself a mock.    * @param client A ClientProtocol; can be null but is usually    * itself a mock.    * @param sn ServerName to include in the region location returned by this    *<code>connection</code>    * @param hri HRegionInfo to include in the location returned when    * getRegionLocator is called on the mocked connection    * @return Mock up a connection that returns a {@link Configuration} when    * {@link ClusterConnection#getConfiguration()} is called, a 'location' when    * {@link ClusterConnection#getRegionLocation(org.apache.hadoop.hbase.TableName, byte[], boolean)}    * is called,    * and that returns the passed {@link AdminProtos.AdminService.BlockingInterface} instance when    * {@link ClusterConnection#getAdmin(ServerName)} is called, returns the passed    * {@link ClientProtos.ClientService.BlockingInterface} instance when    * {@link ClusterConnection#getClient(ServerName)} is called (Be sure to call    * {@link HConnectionManager#deleteConnection(Configuration)}    * when done with this mocked Connection.    * @throws IOException    */
 specifier|public
 specifier|static
 name|ClusterConnection
@@ -715,14 +715,49 @@ name|NO_OP_INTERCEPTOR
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|HTableInterface
+name|t
+init|=
+name|Mockito
+operator|.
+name|mock
+argument_list|(
+name|HTableInterface
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
+name|Mockito
+operator|.
+name|when
+argument_list|(
+name|c
+operator|.
+name|getTable
+argument_list|(
+operator|(
+name|TableName
+operator|)
+name|Mockito
+operator|.
+name|any
+argument_list|()
+argument_list|)
+argument_list|)
+operator|.
+name|thenReturn
+argument_list|(
+name|t
+argument_list|)
+expr_stmt|;
 return|return
 name|c
 return|;
 block|}
-comment|/**    * Get a Mockito spied-upon {@link HConnection} that goes with the passed    *<code>conf</code> configuration instance.    * Be sure to shutdown the connection when done by calling    * {@link HConnectionManager#deleteConnection(Configuration)} else it    * will stick around; this is probably not what you want.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    * @see @link    * {http://mockito.googlecode.com/svn/branches/1.6/javadoc/org/mockito/Mockito.html#spy(T)}    */
+comment|/**    * Get a Mockito spied-upon {@link ClusterConnection} that goes with the passed    *<code>conf</code> configuration instance.    * Be sure to shutdown the connection when done by calling    * {@link HConnectionManager#deleteConnection(Configuration)} else it    * will stick around; this is probably not what you want.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    * @see @link    * {http://mockito.googlecode.com/svn/branches/1.6/javadoc/org/mockito/Mockito.html#spy(T)}    */
 specifier|public
 specifier|static
-name|HConnection
+name|ClusterConnection
 name|getSpiedConnection
 parameter_list|(
 specifier|final

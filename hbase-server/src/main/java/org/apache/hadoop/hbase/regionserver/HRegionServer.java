@@ -725,41 +725,41 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|HConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HConnectionManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|conf
 operator|.
 name|ConfigurationManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ClusterConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ConnectionFactory
 import|;
 end_import
 
@@ -2387,10 +2387,10 @@ specifier|protected
 name|HeapMemoryManager
 name|hMemManager
 decl_stmt|;
-comment|/*    * Short-circuit (ie. bypassing RPC layer) HConnection to this Server    * to be used internally for miscellaneous needs. Initialized at the server startup    * and closed when server shuts down. Clients must never close it explicitly.    */
+comment|/**    * Cluster connection to be shared by services.    * Initialized at server startup and closed when server shuts down.    * Clients must never close it explicitly.    */
 specifier|protected
-name|HConnection
-name|shortCircuitConnection
+name|ClusterConnection
+name|clusterConnection
 decl_stmt|;
 comment|/*    * Long-living meta table locator, which is created when the server is started and stopped    * when server shuts down. References to this locator shall be used to perform according    * operations in EventHandlers. Primary reason for this decision is to make it mockable    * for tests.    */
 specifier|protected
@@ -3610,14 +3610,19 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Create wrapped short-circuit connection to this server.    * In its own method so can intercept and mock it over in tests.    * @throws IOException    */
+comment|/**    * Create a 'smarter' HConnection, one that is capable of by-passing RPC if the request is to    * the local server.  Safe to use going to local or remote server.    * Create this instance in a method can be intercepted and mocked in tests.    * @throws IOException    */
+annotation|@
+name|VisibleForTesting
 specifier|protected
-name|HConnection
-name|createShortCircuitConnection
+name|ClusterConnection
+name|createClusterConnection
 parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// Create a cluster connection that when appropriate, can short-circuit and go directly to the
+comment|// local server if the request is to the local server bypassing RPC. Can be used for both local
+comment|// and remote invocations.
 return|return
 name|ConnectionUtils
 operator|.
@@ -3720,29 +3725,25 @@ operator|.
 name|clusterId
 return|;
 block|}
-comment|/**    * All initialization needed before we go register with Master.    *    * @throws IOException    * @throws InterruptedException    */
-specifier|private
+comment|/**    * Setup our cluster connection if not already initialized.    * @throws IOException    */
+specifier|protected
+specifier|synchronized
 name|void
-name|preRegistrationInitialization
+name|setupClusterConnection
 parameter_list|()
-block|{
-try|try
-block|{
-synchronized|synchronized
-init|(
-name|this
-init|)
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
-name|shortCircuitConnection
+name|clusterConnection
 operator|==
 literal|null
 condition|)
 block|{
-name|shortCircuitConnection
+name|clusterConnection
 operator|=
-name|createShortCircuitConnection
+name|createClusterConnection
 argument_list|()
 expr_stmt|;
 name|metaTableLocator
@@ -3753,6 +3754,17 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * All initialization needed before we go register with Master.    *    * @throws IOException    * @throws InterruptedException    */
+specifier|private
+name|void
+name|preRegistrationInitialization
+parameter_list|()
+block|{
+try|try
+block|{
+name|setupClusterConnection
+argument_list|()
+expr_stmt|;
 comment|// Health checker thread.
 if|if
 condition|(
@@ -5030,12 +5042,12 @@ if|if
 condition|(
 name|this
 operator|.
-name|shortCircuitConnection
+name|clusterConnection
 operator|!=
 literal|null
 operator|&&
 operator|!
-name|shortCircuitConnection
+name|clusterConnection
 operator|.
 name|isClosed
 argument_list|()
@@ -5045,7 +5057,7 @@ try|try
 block|{
 name|this
 operator|.
-name|shortCircuitConnection
+name|clusterConnection
 operator|.
 name|close
 argument_list|()
@@ -5061,7 +5073,7 @@ comment|// Although the {@link Closeable} interface throws an {@link
 comment|// IOException}, in reality, the implementation would never do that.
 name|LOG
 operator|.
-name|error
+name|warn
 argument_list|(
 literal|"Attempt to close server's short circuit HConnection failed."
 argument_list|,
@@ -9070,14 +9082,14 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HConnection
-name|getShortCircuitConnection
+name|ClusterConnection
+name|getConnection
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|shortCircuitConnection
+name|clusterConnection
 return|;
 block|}
 annotation|@
@@ -9515,7 +9527,7 @@ name|MetaTableAccessor
 operator|.
 name|updateRegionLocation
 argument_list|(
-name|shortCircuitConnection
+name|clusterConnection
 argument_list|,
 name|hris
 index|[

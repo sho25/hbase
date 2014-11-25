@@ -2460,7 +2460,7 @@ operator|.
 name|getServer
 argument_list|()
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 decl_stmt|;
 name|TableName

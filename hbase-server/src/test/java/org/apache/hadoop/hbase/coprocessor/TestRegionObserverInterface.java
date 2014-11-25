@@ -3804,7 +3804,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-name|Table
+name|HTable
 name|table
 init|=
 name|util
@@ -3922,7 +3922,7 @@ argument_list|,
 name|A
 argument_list|)
 expr_stmt|;
-comment|//Bulk load
+comment|// Bulk load
 operator|new
 name|LoadIncrementalHFiles
 argument_list|(
@@ -3933,13 +3933,7 @@ name|doBulkLoad
 argument_list|(
 name|dir
 argument_list|,
-operator|new
-name|HTable
-argument_list|(
-name|conf
-argument_list|,
-name|tableName
-argument_list|)
+name|table
 argument_list|)
 expr_stmt|;
 name|verifyMethodResult

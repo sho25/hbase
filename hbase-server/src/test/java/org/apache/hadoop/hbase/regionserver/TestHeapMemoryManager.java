@@ -181,11 +181,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|client
 operator|.
-name|hfile
-operator|.
-name|BlockCache
+name|ClusterConnection
 import|;
 end_import
 
@@ -199,9 +197,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|io
 operator|.
-name|HConnection
+name|hfile
+operator|.
+name|BlockCache
 import|;
 end_import
 
@@ -2823,8 +2823,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HConnection
-name|getShortCircuitConnection
+name|ClusterConnection
+name|getConnection
 parameter_list|()
 block|{
 return|return

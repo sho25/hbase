@@ -1481,7 +1481,7 @@ name|getTableRegionsAndLocations
 argument_list|(
 name|master
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|tableName
@@ -1522,7 +1522,7 @@ name|getRegionResult
 argument_list|(
 name|master
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|mergedRegionInfo
@@ -1807,7 +1807,7 @@ name|getRegionResult
 argument_list|(
 name|master
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|mergedRegionInfo
@@ -2173,7 +2173,7 @@ name|getTableRegionsAndLocations
 argument_list|(
 name|master
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|tableName
@@ -2220,7 +2220,7 @@ name|getTableRegionsAndLocations
 argument_list|(
 name|master
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|tableName
@@ -2573,7 +2573,7 @@ name|getTableRegionsAndLocations
 argument_list|(
 name|master
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|tablename
@@ -2699,7 +2699,7 @@ name|getTableRegionsAndLocations
 argument_list|(
 name|master
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|tablename
@@ -2755,7 +2755,7 @@ name|getTableRegionsAndLocations
 argument_list|(
 name|master
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|tablename
@@ -2982,7 +2982,7 @@ name|getTableRegionsAndLocations
 argument_list|(
 name|master
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|tablename
@@ -3016,7 +3016,7 @@ name|getTableRegionsAndLocations
 argument_list|(
 name|master
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|tablename

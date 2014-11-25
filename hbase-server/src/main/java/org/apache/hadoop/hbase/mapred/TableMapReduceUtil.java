@@ -125,6 +125,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Put
@@ -1023,7 +1037,12 @@ argument_list|(
 name|job
 argument_list|)
 argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|table
+argument_list|)
 argument_list|)
 decl_stmt|;
 if|if
@@ -1316,6 +1335,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Ensures that the given number of reduce tasks for the given job    * configuration does not exceed the number of regions for the given table.    *    * @param table  The table to get the region count for.    * @param job  The current job configuration to adjust.    * @throws IOException When retrieving the table details fails.    */
+comment|// Used by tests.
 specifier|public
 specifier|static
 name|void
@@ -1344,7 +1364,12 @@ argument_list|(
 name|job
 argument_list|)
 argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|table
+argument_list|)
 argument_list|)
 decl_stmt|;
 if|if
@@ -1365,6 +1390,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Ensures that the given number of map tasks for the given job    * configuration does not exceed the number of regions for the given table.    *    * @param table  The table to get the region count for.    * @param job  The current job configuration to adjust.    * @throws IOException When retrieving the table details fails.    */
+comment|// Used by tests.
 specifier|public
 specifier|static
 name|void
@@ -1393,7 +1419,12 @@ argument_list|(
 name|job
 argument_list|)
 argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|table
+argument_list|)
 argument_list|)
 decl_stmt|;
 if|if
@@ -1443,7 +1474,12 @@ argument_list|(
 name|job
 argument_list|)
 argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|table
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1478,7 +1514,12 @@ argument_list|(
 name|job
 argument_list|)
 argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|table
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;

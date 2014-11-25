@@ -6675,7 +6675,7 @@ operator|.
 name|getMasterServices
 argument_list|()
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|AccessControlLists

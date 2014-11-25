@@ -4255,7 +4255,7 @@ name|tableExists
 argument_list|(
 name|regionServer
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|tableName
@@ -4335,7 +4335,7 @@ name|tableExists
 argument_list|(
 name|regionServer
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|tableName
@@ -4580,7 +4580,7 @@ name|tableExists
 argument_list|(
 name|regionServer
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|tableName
@@ -4775,7 +4775,7 @@ name|tableExists
 argument_list|(
 name|regionServer
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|tableName

@@ -85,7 +85,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|ClusterConnection
 import|;
 end_import
 
@@ -174,7 +174,7 @@ init|=
 literal|"zookeeper.znode.hfile.archive"
 decl_stmt|;
 specifier|private
-name|HConnection
+name|ClusterConnection
 name|connection
 decl_stmt|;
 specifier|public
@@ -183,7 +183,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|HConnection
+name|ClusterConnection
 name|connection
 parameter_list|)
 block|{

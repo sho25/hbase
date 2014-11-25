@@ -185,7 +185,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|ClusterConnection
 import|;
 end_import
 
@@ -1522,8 +1522,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HConnection
-name|getShortCircuitConnection
+name|ClusterConnection
+name|getConnection
 parameter_list|()
 block|{
 return|return

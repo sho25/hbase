@@ -703,7 +703,7 @@ name|conn
 init|=
 name|masterServices
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 decl_stmt|;
 name|FileSystem
@@ -959,7 +959,7 @@ name|this
 operator|.
 name|server
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|hris

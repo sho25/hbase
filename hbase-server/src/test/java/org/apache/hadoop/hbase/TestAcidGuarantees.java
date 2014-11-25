@@ -1705,14 +1705,10 @@ block|{
 name|HBaseAdmin
 name|admin
 init|=
-operator|new
-name|HBaseAdmin
-argument_list|(
 name|util
 operator|.
-name|getConfiguration
+name|getHBaseAdmin
 argument_list|()
-argument_list|)
 decl_stmt|;
 specifier|public
 name|void

@@ -529,13 +529,13 @@ name|HTableDescriptor
 index|[]
 name|htbls
 init|=
+name|getTables
+argument_list|(
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getConfiguration
 argument_list|()
-operator|.
-name|listTables
-argument_list|()
+argument_list|)
 decl_stmt|;
 name|LOG
 operator|.

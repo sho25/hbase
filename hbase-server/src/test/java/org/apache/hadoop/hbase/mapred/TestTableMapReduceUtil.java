@@ -923,11 +923,6 @@ block|}
 comment|/**    * Check what the given number of reduce tasks for the given job configuration    * does not exceed the number of regions for the given table.    */
 annotation|@
 name|Test
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|public
 name|void
 name|shouldNumberOfReduceTaskNotExceedNumberOfRegionsForGivenTable
@@ -1048,11 +1043,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|public
 name|void
 name|shouldNumberOfMapTaskNotExceedNumberOfRegionsForGivenTable
