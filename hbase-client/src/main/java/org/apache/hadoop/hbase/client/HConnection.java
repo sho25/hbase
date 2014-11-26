@@ -519,7 +519,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables.  In other words, scan the hbase:meta table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the hbase:meta table's region info.    *    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all the userspace tables.  In other words, scan the hbase:meta table.    *    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link Admin#listTables()} instead.    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|listTables
@@ -541,6 +543,7 @@ function_decl|;
 comment|// This is a bit ugly - We call this getTableNames in 0.94 and the
 comment|// successor function, returning TableName, listTableNames in later versions
 comment|// because Java polymorphism doesn't consider return value types
+comment|/**    * @deprecated Use {@link Admin#listTableNames()} instead.    */
 annotation|@
 name|Deprecated
 name|String
@@ -550,6 +553,9 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated Use {@link Admin#listTables()} instead.    */
+annotation|@
+name|Deprecated
 name|TableName
 index|[]
 name|listTableNames
@@ -558,6 +564,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @param tableName table name    * @return table metadata    * @throws IOException if a remote or network exception occurs    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 name|getHTableDescriptor
 parameter_list|(
@@ -1158,7 +1166,9 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param tableNames List of table names    * @return HTD[] table metadata    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * @param tableNames List of table names    * @return HTD[] table metadata    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link Admin#getTableDescriptor(TableName)} instead.    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|getHTableDescriptorsByTableName

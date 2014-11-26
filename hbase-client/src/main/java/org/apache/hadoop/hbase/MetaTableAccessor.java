@@ -1670,8 +1670,6 @@ argument_list|>
 argument_list|>
 name|result
 decl_stmt|;
-try|try
-block|{
 name|result
 operator|=
 name|getTableRegionsAndLocations
@@ -1683,27 +1681,6 @@ argument_list|,
 name|excludeOfflinedSplitParents
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|(
-name|InterruptedIOException
-operator|)
-operator|new
-name|InterruptedIOException
-argument_list|()
-operator|.
-name|initCause
-argument_list|(
-name|e
-argument_list|)
-throw|;
-block|}
 return|return
 name|getListOfHRegionInfos
 argument_list|(
@@ -1963,7 +1940,7 @@ return|return
 name|scan
 return|;
 block|}
-comment|/**    * Do not use this method to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table we're looking for    * @return Return list of regioninfos and server.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Do not use this method to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table we're looking for    * @return Return list of regioninfos and server.    * @throws IOException    */
 specifier|public
 specifier|static
 name|List
@@ -1985,8 +1962,6 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 block|{
 return|return
 name|getTableRegionsAndLocations
@@ -1999,7 +1974,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * Do not use this method to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table to work with    * @return Return list of regioninfos and server addresses.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Do not use this method to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table to work with    * @return Return list of regioninfos and server addresses.    * @throws IOException    */
 specifier|public
 specifier|static
 name|List
@@ -2026,8 +2001,6 @@ name|excludeOfflinedSplitParents
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 block|{
 if|if
 condition|(

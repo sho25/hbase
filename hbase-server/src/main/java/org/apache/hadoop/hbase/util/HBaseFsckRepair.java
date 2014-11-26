@@ -505,6 +505,8 @@ throws|throws
 name|IOException
 throws|,
 name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 name|HRegionInfo
 name|actualRegion
@@ -543,6 +545,8 @@ throws|,
 name|KeeperException
 throws|,
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 name|admin
 operator|.

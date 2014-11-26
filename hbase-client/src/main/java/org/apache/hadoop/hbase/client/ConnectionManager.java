@@ -317,6 +317,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|DoNotRetryIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -5149,6 +5163,8 @@ block|}
 block|}
 comment|/**      * @return true if the master is running, throws an exception otherwise      * @throws MasterNotRunningException - if the master is not running      * @throws ZooKeeperConnectionException      */
 annotation|@
+name|Deprecated
+annotation|@
 name|Override
 specifier|public
 name|boolean
@@ -7954,28 +7970,11 @@ expr_stmt|;
 block|}
 block|}
 comment|/**        * Create a stub against the master.  Retry if necessary.        * @return A stub to do<code>intf</code> against the master        * @throws MasterNotRunningException        */
-annotation|@
-name|edu
-operator|.
-name|umd
-operator|.
-name|cs
-operator|.
-name|findbugs
-operator|.
-name|annotations
-operator|.
-name|SuppressWarnings
-argument_list|(
-name|value
-operator|=
-literal|"SWL_SLEEP_WITH_LOCK_HELD"
-argument_list|)
 name|Object
 name|makeStub
 parameter_list|()
 throws|throws
-name|MasterNotRunningException
+name|IOException
 block|{
 comment|// The lock must be at the beginning to prevent multiple master creations
 comment|//  (and leaks) in a multithread context
@@ -7989,36 +7988,18 @@ name|exceptionCaught
 init|=
 literal|null
 decl_stmt|;
-name|Object
-name|stub
-init|=
-literal|null
-decl_stmt|;
-name|int
-name|tries
-init|=
-literal|0
-decl_stmt|;
-while|while
+if|if
 condition|(
 operator|!
 name|closed
-operator|&&
-name|stub
-operator|==
-literal|null
 condition|)
 block|{
-name|tries
-operator|++
-expr_stmt|;
 try|try
 block|{
-name|stub
-operator|=
+return|return
 name|makeStubNoRetries
 argument_list|()
-expr_stmt|;
+return|;
 block|}
 catch|catch
 parameter_list|(
@@ -8053,139 +8034,24 @@ operator|=
 name|e
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|exceptionCaught
-operator|!=
-literal|null
-condition|)
-comment|// It failed. If it's not the last try, we're going to wait a little
-if|if
-condition|(
-name|tries
-operator|<
-name|numTries
-operator|&&
-operator|!
-name|ExceptionUtil
-operator|.
-name|isInterrupt
-argument_list|(
-name|exceptionCaught
-argument_list|)
-condition|)
-block|{
-comment|// tries at this point is 1 or more; decrement to start from 0.
-name|long
-name|pauseTime
-init|=
-name|ConnectionUtils
-operator|.
-name|getPauseTime
-argument_list|(
-name|pause
-argument_list|,
-name|tries
-operator|-
-literal|1
-argument_list|)
-decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"getMaster attempt "
-operator|+
-name|tries
-operator|+
-literal|" of "
-operator|+
-name|numTries
-operator|+
-literal|" failed; retrying after sleep of "
-operator|+
-name|pauseTime
-operator|+
-literal|", exception="
-operator|+
-name|exceptionCaught
-argument_list|)
-expr_stmt|;
-try|try
-block|{
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-name|pauseTime
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
 throw|throw
 operator|new
 name|MasterNotRunningException
 argument_list|(
-literal|"Thread was interrupted while trying to connect to master."
-argument_list|,
-name|e
+name|exceptionCaught
 argument_list|)
 throw|;
-block|}
 block|}
 else|else
 block|{
-comment|// Enough tries, we stop now
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"getMaster attempt "
-operator|+
-name|tries
-operator|+
-literal|" of "
-operator|+
-name|numTries
-operator|+
-literal|" failed; no more retrying."
-argument_list|,
-name|exceptionCaught
-argument_list|)
-expr_stmt|;
 throw|throw
 operator|new
-name|MasterNotRunningException
-argument_list|(
-name|exceptionCaught
-argument_list|)
-throw|;
-block|}
-block|}
-if|if
-condition|(
-name|stub
-operator|==
-literal|null
-condition|)
-block|{
-comment|// implies this.closed true
-throw|throw
-operator|new
-name|MasterNotRunningException
+name|DoNotRetryIOException
 argument_list|(
 literal|"Connection was closed while trying to get master"
 argument_list|)
 throw|;
 block|}
-return|return
-name|stub
-return|;
 block|}
 block|}
 block|}
@@ -8220,28 +8086,13 @@ return|;
 block|}
 annotation|@
 name|Override
-annotation|@
-name|edu
-operator|.
-name|umd
-operator|.
-name|cs
-operator|.
-name|findbugs
-operator|.
-name|annotations
-operator|.
-name|SuppressWarnings
-argument_list|(
-literal|"SWL_SLEEP_WITH_LOCK_HELD"
-argument_list|)
 name|MasterService
 operator|.
 name|BlockingInterface
 name|makeStub
 parameter_list|()
 throws|throws
-name|MasterNotRunningException
+name|IOException
 block|{
 return|return
 operator|(
@@ -9187,6 +9038,8 @@ operator|new
 name|MasterServiceStubMaker
 argument_list|()
 decl_stmt|;
+try|try
+block|{
 name|this
 operator|.
 name|masterServiceState
@@ -9198,6 +9051,32 @@ operator|.
 name|makeStub
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|MasterNotRunningException
+name|ex
+parameter_list|)
+block|{
+throw|throw
+name|ex
+throw|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|// rethrow as MasterNotRunningException so that we can keep the method sig
+throw|throw
+operator|new
+name|MasterNotRunningException
+argument_list|(
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 name|resetMasterServiceState
 argument_list|(
@@ -11801,6 +11680,9 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**      * @deprecated Use {@link Admin#listTables()} instead      */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -11875,6 +11757,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**      * @deprecated Use {@link Admin#listTableNames()} instead      */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -12010,6 +11895,9 @@ return|return
 name|result
 return|;
 block|}
+comment|/**      * @deprecated Use {@link Admin#listTableNames()} instead      */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -12077,6 +11965,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**      * @deprecated Use {@link Admin#getTableDescriptorsByTableName(List)} instead      */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -12169,6 +12060,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**      * @deprecated Use {@link Admin#getTableDescriptorsByTableName(List)} instead      */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -12244,7 +12138,9 @@ operator|.
 name|nonceGenerator
 return|;
 block|}
-comment|/**      * Connects to the master to get the table descriptor.      * @param tableName table name      * @throws IOException if the connection to master fails or if the table      *  is not found.      */
+comment|/**      * Connects to the master to get the table descriptor.      * @param tableName table name      * @throws IOException if the connection to master fails or if the table      *  is not found.      * @deprecated Use {@link Admin#getTableDescriptor(TableName)} instead      */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -12363,6 +12259,9 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
+comment|/**      * @deprecated Use {@link Admin#getTableDescriptor(TableName)} instead      */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public

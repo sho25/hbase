@@ -228,9 +228,11 @@ name|ClusterConnection
 extends|extends
 name|HConnection
 block|{
-comment|/** @return - true if the master server is running */
+comment|/** @return - true if the master server is running    * @deprecated this has been deprecated without a replacement */
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 name|boolean
 name|isMasterRunning
 parameter_list|()
