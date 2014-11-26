@@ -4144,29 +4144,6 @@ argument_list|,
 name|regionserverClass
 argument_list|)
 expr_stmt|;
-comment|// Cluster confguration should set HbaseTestingUtility Conf
-name|MiniHBaseCluster
-name|miniHBaseCluster
-init|=
-operator|(
-name|MiniHBaseCluster
-operator|)
-name|this
-operator|.
-name|hbaseCluster
-decl_stmt|;
-name|this
-operator|.
-name|conf
-operator|=
-name|miniHBaseCluster
-operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|getConfiguration
-argument_list|()
-expr_stmt|;
 comment|// Don't leave here till we've done a successful scan of the hbase:meta
 name|Table
 name|t
@@ -4227,7 +4204,12 @@ literal|"Minicluster is up"
 argument_list|)
 expr_stmt|;
 return|return
-name|miniHBaseCluster
+operator|(
+name|MiniHBaseCluster
+operator|)
+name|this
+operator|.
+name|hbaseCluster
 return|;
 block|}
 comment|/**    * Starts the hbase cluster up again after shutting it down previously in a    * test.  Use this if you want to keep dfs/zk up and just stop/start hbase.    * @param servers number of region servers    * @throws IOException    */
