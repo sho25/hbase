@@ -1061,6 +1061,23 @@ argument_list|(
 literal|"5"
 argument_list|)
 expr_stmt|;
+name|int
+name|tmp
+init|=
+name|plChangedCount
+operator|.
+name|get
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Peer count="
+operator|+
+name|tmp
+argument_list|)
+expr_stmt|;
 name|ZKUtil
 operator|.
 name|deleteNode
@@ -1071,14 +1088,6 @@ literal|"/hbase/replication/peers/5/peer-state"
 argument_list|)
 expr_stmt|;
 comment|// wait for event
-name|int
-name|tmp
-init|=
-name|plChangedCount
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
 while|while
 condition|(
 name|plChangedCount
@@ -1093,7 +1102,16 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|5
+literal|100
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Peer count="
+operator|+
+name|tmp
 argument_list|)
 expr_stmt|;
 block|}
@@ -1352,16 +1370,21 @@ argument_list|(
 name|peerIds
 argument_list|)
 expr_stmt|;
+name|int
+name|count
+init|=
 name|plChangedCount
 operator|.
 name|getAndIncrement
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Received peerListChanged event"
+literal|"Received peerListChanged event "
+operator|+
+name|count
 argument_list|)
 expr_stmt|;
 block|}
