@@ -914,14 +914,26 @@ decl_stmt|;
 specifier|private
 name|boolean
 name|clearBufferOnFail
+init|=
+literal|true
 decl_stmt|;
 specifier|private
 name|boolean
 name|autoFlush
+init|=
+literal|true
 decl_stmt|;
 specifier|protected
 name|long
 name|currentWriteBufferSize
+init|=
+literal|0
+decl_stmt|;
+specifier|private
+name|boolean
+name|closed
+init|=
+literal|false
 decl_stmt|;
 specifier|protected
 name|int
@@ -936,10 +948,6 @@ name|ExecutorService
 name|pool
 decl_stmt|;
 comment|// For Multi& Scan
-specifier|private
-name|boolean
-name|closed
-decl_stmt|;
 specifier|private
 name|int
 name|operationTimeout
@@ -1618,12 +1626,14 @@ name|finishSetup
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * For internal testing.    */
+comment|/**    * For internal testing.    * @throws IOException     */
 annotation|@
 name|VisibleForTesting
 specifier|protected
 name|HTable
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|tableName
 operator|=
@@ -1721,24 +1731,6 @@ literal|"hbase.client.write.buffer"
 argument_list|,
 literal|2097152
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|clearBufferOnFail
-operator|=
-literal|true
-expr_stmt|;
-name|this
-operator|.
-name|autoFlush
-operator|=
-literal|true
-expr_stmt|;
-name|this
-operator|.
-name|currentWriteBufferSize
-operator|=
-literal|0
 expr_stmt|;
 name|this
 operator|.
@@ -1868,12 +1860,6 @@ name|this
 operator|.
 name|configuration
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|closed
-operator|=
-literal|false
 expr_stmt|;
 block|}
 comment|/**    * {@inheritDoc}    */

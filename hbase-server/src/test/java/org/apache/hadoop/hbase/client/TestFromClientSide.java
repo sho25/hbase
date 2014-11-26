@@ -32766,11 +32766,9 @@ argument_list|)
 decl_stmt|;
 name|table
 operator|.
-name|setAutoFlush
+name|setAutoFlushTo
 argument_list|(
 literal|false
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|ArrayList
@@ -33050,11 +33048,9 @@ argument_list|)
 decl_stmt|;
 name|table
 operator|.
-name|setAutoFlush
+name|setAutoFlushTo
 argument_list|(
 literal|false
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|table
@@ -35046,7 +35042,7 @@ comment|// set block size to 64 to making 2 kvs into one block, bypassing the wa
 comment|// in Store.rowAtOrBeforeFromStoreFile
 name|table
 operator|.
-name|setAutoFlush
+name|setAutoFlushTo
 argument_list|(
 literal|true
 argument_list|)

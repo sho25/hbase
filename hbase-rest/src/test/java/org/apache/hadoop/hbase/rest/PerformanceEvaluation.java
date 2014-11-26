@@ -5097,11 +5097,9 @@ name|this
 operator|.
 name|table
 operator|.
-name|setAutoFlush
+name|setAutoFlushTo
 argument_list|(
 literal|false
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}
