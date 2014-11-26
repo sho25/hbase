@@ -387,7 +387,10 @@ name|Override
 specifier|public
 name|void
 name|logRollRequested
-parameter_list|()
+parameter_list|(
+name|boolean
+name|lowReplicas
+parameter_list|)
 block|{
 name|walNeedsRoll
 operator|.

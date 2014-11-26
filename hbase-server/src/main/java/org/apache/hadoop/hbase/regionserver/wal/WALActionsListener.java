@@ -171,7 +171,10 @@ function_decl|;
 comment|/**    * A request was made that the WAL be rolled.    */
 name|void
 name|logRollRequested
-parameter_list|()
+parameter_list|(
+name|boolean
+name|tooFewReplicas
+parameter_list|)
 function_decl|;
 comment|/**    * The WAL is about to close.    */
 name|void
@@ -303,7 +306,10 @@ name|Override
 specifier|public
 name|void
 name|logRollRequested
-parameter_list|()
+parameter_list|(
+name|boolean
+name|tooFewReplicas
+parameter_list|)
 block|{}
 annotation|@
 name|Override

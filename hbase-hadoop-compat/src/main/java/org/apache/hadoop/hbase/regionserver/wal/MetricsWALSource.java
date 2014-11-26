@@ -122,6 +122,26 @@ name|SYNC_TIME_DESC
 init|=
 literal|"The time it took to sync the WAL to HDFS."
 decl_stmt|;
+name|String
+name|ROLL_REQUESTED
+init|=
+literal|"rollRequest"
+decl_stmt|;
+name|String
+name|ROLL_REQUESTED_DESC
+init|=
+literal|"How many times a log roll has been requested total"
+decl_stmt|;
+name|String
+name|LOW_REPLICA_ROLL_REQUESTED
+init|=
+literal|"lowReplicaRollRequest"
+decl_stmt|;
+name|String
+name|LOW_REPLICA_ROLL_REQUESTED_DESC
+init|=
+literal|"How many times a log roll was requested due to too few DN's in the write pipeline."
+decl_stmt|;
 comment|/**    * Add the append size.    */
 name|void
 name|incrementAppendSize
@@ -155,6 +175,14 @@ parameter_list|(
 name|long
 name|time
 parameter_list|)
+function_decl|;
+name|void
+name|incrementLogRollRequested
+parameter_list|()
+function_decl|;
+name|void
+name|incrementLowReplicationLogRoll
+parameter_list|()
 function_decl|;
 block|}
 end_interface
