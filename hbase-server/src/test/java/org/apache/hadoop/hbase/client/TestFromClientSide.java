@@ -2412,6 +2412,9 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**     * @deprecated Tests deprecated functionality. Remove when we are past 1.0.     * @throws Exception     */
+annotation|@
+name|Deprecated
 annotation|@
 name|Test
 specifier|public

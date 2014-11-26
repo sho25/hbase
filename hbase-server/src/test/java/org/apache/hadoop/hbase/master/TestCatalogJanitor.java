@@ -1600,30 +1600,7 @@ parameter_list|(
 name|String
 name|why
 parameter_list|)
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|connection
-operator|!=
-literal|null
-condition|)
-block|{
-name|HConnectionManager
-operator|.
-name|deleteConnection
-argument_list|(
-name|this
-operator|.
-name|connection
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-block|}
+block|{     }
 block|}
 comment|/**    * Mock MasterServices for tests below.    */
 class|class

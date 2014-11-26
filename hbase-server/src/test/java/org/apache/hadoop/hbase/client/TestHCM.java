@@ -5624,7 +5624,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Makes sure that there is no leaking of    * {@link ConnectionManager.HConnectionImplementation} in the {@link HConnectionManager}    * class.    */
+comment|/**    * Makes sure that there is no leaking of    * {@link ConnectionManager.HConnectionImplementation} in the {@link HConnectionManager}    * class.    * @deprecated Tests deprecated functionality.  Remove in 1.0.    */
+annotation|@
+name|Deprecated
 annotation|@
 name|Test
 specifier|public

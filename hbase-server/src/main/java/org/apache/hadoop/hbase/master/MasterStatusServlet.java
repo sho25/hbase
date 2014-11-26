@@ -279,15 +279,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-name|HBaseAdmin
-name|admin
-init|=
-operator|new
-name|HBaseAdmin
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
 name|Map
 argument_list|<
 name|String
@@ -464,8 +455,6 @@ name|getWriter
 argument_list|()
 argument_list|,
 name|master
-argument_list|,
-name|admin
 argument_list|)
 expr_stmt|;
 block|}

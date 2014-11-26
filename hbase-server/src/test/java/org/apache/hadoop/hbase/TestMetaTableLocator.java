@@ -137,23 +137,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HConnectionManager
+name|ClusterConnection
 import|;
 end_import
 
@@ -736,17 +720,6 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Clear out our doctored connection or could mess up subsequent tests.
-name|HConnectionManager
-operator|.
-name|deleteConnection
-argument_list|(
-name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|watcher
@@ -1258,7 +1231,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-name|HConnection
+name|ClusterConnection
 name|connection
 init|=
 name|mockConnection
@@ -1454,14 +1427,14 @@ name|KeeperException
 throws|,
 name|ServiceException
 block|{
-name|HConnection
+name|ClusterConnection
 name|connection
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|HConnection
+name|ClusterConnection
 operator|.
 name|class
 argument_list|)
@@ -1547,11 +1520,6 @@ name|ServerName
 operator|.
 name|class
 argument_list|)
-argument_list|,
-name|Mockito
-operator|.
-name|anyBoolean
-argument_list|()
 argument_list|)
 argument_list|)
 operator|.
@@ -1771,9 +1739,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param admin An {@link AdminProtos.AdminService.BlockingInterface} instance; you'll likely    * want to pass a mocked HRS; can be null.    * @param client A mocked ClientProtocol instance, can be null    * @return Mock up a connection that returns a {@link Configuration} when    * {@link HConnection#getConfiguration()} is called, a 'location' when    * {@link HConnection#getRegionLocation(byte[], byte[], boolean)} is called,    * and that returns the passed {@link AdminProtos.AdminService.BlockingInterface} instance when    * {@link HConnection#getAdmin(ServerName)} is called, returns the passed    * {@link ClientProtos.ClientService.BlockingInterface} instance when    * {@link HConnection#getClient(ServerName)} is called (Be sure to call    * {@link HConnectionManager#deleteConnection(org.apache.hadoop.conf.Configuration)}    * when done with this mocked Connection.    * @throws IOException    */
+comment|/**    * @param admin An {@link AdminProtos.AdminService.BlockingInterface} instance; you'll likely    * want to pass a mocked HRS; can be null.    * @param client A mocked ClientProtocol instance, can be null    * @return Mock up a connection that returns a {@link Configuration} when    * {@link HConnection#getConfiguration()} is called, a 'location' when    * {@link HConnection#getRegionLocation(byte[], byte[], boolean)} is called,    * and that returns the passed {@link AdminProtos.AdminService.BlockingInterface} instance when    * {@link HConnection#getAdmin(ServerName)} is called, returns the passed    * {@link ClientProtos.ClientService.BlockingInterface} instance when    * {@link HConnection#getClient(ServerName)} is called.    * @throws IOException    */
 specifier|private
-name|HConnection
+name|ClusterConnection
 name|mockConnection
 parameter_list|(
 specifier|final
@@ -1795,7 +1763,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HConnection
+name|ClusterConnection
 name|connection
 init|=
 name|HConnectionTestingUtility

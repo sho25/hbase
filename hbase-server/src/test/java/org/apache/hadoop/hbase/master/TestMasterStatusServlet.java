@@ -935,8 +935,6 @@ name|StringWriter
 argument_list|()
 argument_list|,
 name|master
-argument_list|,
-name|admin
 argument_list|)
 expr_stmt|;
 block|}
@@ -973,8 +971,6 @@ name|StringWriter
 argument_list|()
 argument_list|,
 name|master
-argument_list|,
-name|admin
 argument_list|)
 expr_stmt|;
 block|}
@@ -1078,8 +1074,6 @@ name|StringWriter
 argument_list|()
 argument_list|,
 name|master
-argument_list|,
-name|admin
 argument_list|)
 expr_stmt|;
 block|}
