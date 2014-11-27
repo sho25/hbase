@@ -1652,6 +1652,9 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Fails too often!  Needs work.  HBASE-12558
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 argument_list|(
