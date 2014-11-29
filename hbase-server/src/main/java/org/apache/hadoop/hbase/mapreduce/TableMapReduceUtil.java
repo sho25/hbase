@@ -3739,6 +3739,13 @@ argument_list|)
 operator|+
 literal|".class"
 decl_stmt|;
+if|if
+condition|(
+name|loader
+operator|!=
+literal|null
+condition|)
+block|{
 comment|// first search the classpath
 for|for
 control|(
@@ -3852,6 +3859,7 @@ argument_list|,
 literal|""
 argument_list|)
 return|;
+block|}
 block|}
 block|}
 comment|// now look in any jars we've packaged using JarFinder. Returns null when
