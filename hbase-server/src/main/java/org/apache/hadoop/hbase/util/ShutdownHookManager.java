@@ -17,16 +17,6 @@ name|util
 package|;
 end_package
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * This class provides ShutdownHookManager shims for HBase to interact with the Hadoop 1.0.x and the  * Hadoop 2.0+ series.  *   * NOTE: No testing done against 0.22.x, or 0.21.x.  */
 end_comment

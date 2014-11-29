@@ -97,24 +97,6 @@ name|CellOutputStream
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|encoding
-operator|.
-name|DataBlockEncoder
-import|;
-end_import
-
 begin_comment
 comment|/**  * Encoder/Decoder for Cell.  *  *<p>Like {@link DataBlockEncoder} only Cell-based rather than KeyValue version 1 based  * and without presuming an hfile context.  Intent is an Interface that will work for hfile and  * rpc.  */
 end_comment

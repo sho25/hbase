@@ -281,16 +281,6 @@ name|java
 operator|.
 name|net
 operator|.
-name|Inet4Address
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|net
-operator|.
 name|Inet6Address
 import|;
 end_import

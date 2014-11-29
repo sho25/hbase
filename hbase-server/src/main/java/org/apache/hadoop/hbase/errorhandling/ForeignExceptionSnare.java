@@ -33,22 +33,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * This is an interface for a cooperative exception throwing mechanism.  Implementations are  * containers that holds an exception from a separate thread. This can be used to receive  * exceptions from 'foreign' threads or from separate 'foreign' processes.  *<p>  * To use, one would pass an implementation of this object to a long running method and  * periodically check by calling {@link #rethrowException()}.  If any foreign exceptions have  * been received, the calling thread is then responsible for handling the rethrown exception.  *<p>  * One could use the boolean {@link #hasException()} to determine if there is an exceptoin as well.  *<p>  * NOTE: This is very similar to the InterruptedException/interrupt/interrupted pattern.  There,  * the notification state is bound to a Thread.  Using this, applications receive Exceptions in  * the snare.  The snare is referenced and checked by multiple threads which enables exception   * notification in all the involved threads/processes.   */
 end_comment

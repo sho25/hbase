@@ -81,20 +81,6 @@ name|PositionedByteRange
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Writable
-import|;
-end_import
-
 begin_comment
 comment|/**  *<p>  * {@code DataType} is the base class for all HBase data types. Data  * type implementations are designed to be serialized to and deserialized from  * byte[]. Serialized representations can retain the natural sort ordering of  * the source object, when a suitable encoding is supported by the underlying  * implementation. This is a desirable feature for use in rowkeys and column  * qualifiers.  *</p>  *<p>  * {@code DataType}s are different from Hadoop {@link Writable}s in two  * significant ways. First, {@code DataType} describes how to serialize a  * value, it does not encapsulate a serialized value. Second, {@code DataType}  * implementations provide hints to consumers about relationships between the  * POJOs they represent and richness of the encoded representation.  *</p>  *<p>  * Data type instances are designed to be stateless, thread-safe, and reused.  * Implementations should provide {@code static final} instances corresponding  * to each variation on configurable parameters. This is to encourage and  * simplify instance reuse. For instance, order-preserving types should provide  * static ASCENDING and DESCENDING instances. It is also encouraged for  * implementations operating on Java primitive types to provide primitive  * implementations of the {@code encode} and {@code decode} methods. This  * advice is a performance consideration to clients reading and writing values  * in tight loops.  *</p>  */
 end_comment

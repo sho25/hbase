@@ -185,24 +185,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|handler
-operator|.
-name|WALSplitterHandler
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google

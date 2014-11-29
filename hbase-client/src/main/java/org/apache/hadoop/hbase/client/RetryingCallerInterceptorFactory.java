@@ -101,24 +101,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
-import|;
-end_import
-
 begin_comment
 comment|/**  * Factory implementation to provide the {@link HConnectionImplementation} with  * the implementation of the {@link RetryingCallerInterceptor} that we would use  * to intercept the {@link RpcRetryingCaller} during the course of their calls.  *   */
 end_comment

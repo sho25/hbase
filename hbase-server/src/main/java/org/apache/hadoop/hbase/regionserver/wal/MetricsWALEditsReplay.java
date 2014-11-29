@@ -77,20 +77,6 @@ name|CompatibilitySingletonFactory
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|util
-operator|.
-name|StringUtils
-import|;
-end_import
-
 begin_comment
 comment|/**  * Class used to push numbers about WAL edits replay into the metrics subsystem. This will take a  * single function call and turn it into multiple manipulations of the hadoop metrics system.  */
 end_comment

@@ -83,22 +83,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Simple {@link java.util.SortedSet} implementation that uses an internal  * {@link java.util.TreeSet} to provide ordering. All mutation operations  * create a new copy of the<code>TreeSet</code> instance, so are very  * expensive.  This class is only intended for use on small, very rarely  * written collections that expect highly concurrent reads. Read operations  * are performed on a reference to the internal<code>TreeSet</code> at the  * time of invocation, so will not see any mutations to the collection during  * their operation.  *  *<p>Note that due to the use of a {@link java.util.TreeSet} internally,  * a {@link java.util.Comparator} instance must be provided, or collection  * elements must implement {@link java.lang.Comparable}.  *</p>  * @param<E> A class implementing {@link java.lang.Comparable} or able to be  * compared by a provided comparator.  */
 end_comment

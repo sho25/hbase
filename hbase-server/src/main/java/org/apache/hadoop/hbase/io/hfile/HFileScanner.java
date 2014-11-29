@@ -69,20 +69,6 @@ name|Cell
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
-import|;
-end_import
-
 begin_comment
 comment|/**  * A scanner allows you to position yourself within a HFile and  * scan through it.  It allows you to reposition yourself as well.  *  *<p>A scanner doesn't always have a key/value that it is pointing to  * when it is first created and before  * {@link #seekTo()}/{@link #seekTo(byte[])} are called.  * In this case, {@link #getKey()}/{@link #getValue()} returns null.  At most  * other times, a key and value will be available.  The general pattern is that  * you position the Scanner using the seekTo variants and then getKey and  * getValue.  */
 end_comment

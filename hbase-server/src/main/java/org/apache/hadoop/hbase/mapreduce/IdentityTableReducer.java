@@ -117,20 +117,6 @@ name|Writable
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|mapreduce
-operator|.
-name|OutputFormat
-import|;
-end_import
-
 begin_comment
 comment|/**  * Convenience class that simply writes all values (which must be  * {@link org.apache.hadoop.hbase.client.Put Put} or  * {@link org.apache.hadoop.hbase.client.Delete Delete} instances)  * passed to it out to the configured HBase table. This works in combination  * with {@link TableOutputFormat} which actually does the writing to HBase.<p>  *  * Keys are passed along but ignored in TableOutputFormat.  However, they can  * be used to control how your values will be divided up amongst the specified  * number of reducers.<p>  *  * You can also use the {@link TableMapReduceUtil} class to set up the two  * classes in one step:  *<blockquote><code>  * TableMapReduceUtil.initTableReducerJob("table", IdentityTableReducer.class, job);  *</code></blockquote>  * This will also set the proper {@link TableOutputFormat} which is given the  *<code>table</code> parameter. The  * {@link org.apache.hadoop.hbase.client.Put Put} or  * {@link org.apache.hadoop.hbase.client.Delete Delete} define the  * row and columns implicitly.  */
 end_comment

@@ -209,18 +209,6 @@ name|Bytes
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|RpcController
-import|;
-end_import
-
 begin_comment
 comment|/**  * A reversed ScannerCallable which supports backward scanning.  */
 end_comment

@@ -81,22 +81,6 @@ name|HRegionInfo
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Scan
-import|;
-end_import
-
 begin_comment
 comment|/**  * RegionScanner describes iterators over rows in an HRegion.  */
 end_comment

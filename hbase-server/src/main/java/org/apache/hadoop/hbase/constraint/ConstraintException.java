@@ -33,36 +33,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|DoNotRetryIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Put
-import|;
-end_import
-
 begin_comment
 comment|/**  * Exception that a user defined constraint throws on failure of a {@link Put}.  *<p>  * Does<b>NOT</b> attempt the {@link Put} multiple times, since the constraint  *<it>should</it> fail every time for the same {@link Put} (it should be  * idempotent).  */
 end_comment
