@@ -816,16 +816,6 @@ literal|true
 expr_stmt|;
 block|}
 specifier|final
-name|boolean
-name|needMvcc
-init|=
-name|fd
-operator|.
-name|maxMVCCReadpoint
-operator|>=
-name|smallestReadPoint
-decl_stmt|;
-specifier|final
 name|Compression
 operator|.
 name|Algorithm
@@ -872,7 +862,7 @@ name|compression
 argument_list|,
 literal|true
 argument_list|,
-name|needMvcc
+literal|true
 argument_list|,
 name|fd
 operator|.
