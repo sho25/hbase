@@ -107,12 +107,12 @@ specifier|private
 name|String
 name|name
 decl_stmt|;
-comment|/** 	 * Default constructor 	 */
+comment|/**    * Default constructor    */
 specifier|public
 name|TableModel
 parameter_list|()
 block|{}
-comment|/** 	 * Constructor 	 * @param name 	 */
+comment|/**    * Constructor    * @param name    */
 specifier|public
 name|TableModel
 parameter_list|(
@@ -130,7 +130,7 @@ operator|=
 name|name
 expr_stmt|;
 block|}
-comment|/** 	 * @return the name 	 */
+comment|/**    * @return the name    */
 annotation|@
 name|XmlAttribute
 specifier|public
@@ -142,7 +142,7 @@ return|return
 name|name
 return|;
 block|}
-comment|/** 	 * @param name the name to set 	 */
+comment|/**    * @param name the name to set    */
 specifier|public
 name|void
 name|setName
@@ -158,7 +158,7 @@ operator|=
 name|name
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc) 	 * @see java.lang.Object#toString() 	 */
+comment|/* (non-Javadoc)    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public

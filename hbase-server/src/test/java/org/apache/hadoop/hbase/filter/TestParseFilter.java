@@ -3747,7 +3747,7 @@ block|{
 name|String
 name|filterString
 init|=
-literal|"	InclusiveStopFilter ('''')"
+literal|" InclusiveStopFilter ('''')"
 decl_stmt|;
 name|InclusiveStopFilter
 name|inclusiveStopFilter

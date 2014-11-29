@@ -391,7 +391,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/** 	 * Used for generating docs. 	 */
+comment|/**    * Used for generating docs.    */
 specifier|public
 specifier|static
 name|void

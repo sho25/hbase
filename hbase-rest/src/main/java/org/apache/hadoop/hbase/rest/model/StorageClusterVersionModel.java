@@ -121,7 +121,7 @@ specifier|private
 name|String
 name|version
 decl_stmt|;
-comment|/** 	 * @return the storage cluster version 	 */
+comment|/**    * @return the storage cluster version    */
 annotation|@
 name|XmlValue
 specifier|public
@@ -133,7 +133,7 @@ return|return
 name|version
 return|;
 block|}
-comment|/** 	 * @param version the storage cluster version 	 */
+comment|/**    * @param version the storage cluster version    */
 specifier|public
 name|void
 name|setVersion
@@ -149,7 +149,7 @@ operator|=
 name|version
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc) 	 * @see java.lang.Object#toString() 	 */
+comment|/* (non-Javadoc)    * @see java.lang.Object#toString()    */
 annotation|@
 name|JsonValue
 annotation|@

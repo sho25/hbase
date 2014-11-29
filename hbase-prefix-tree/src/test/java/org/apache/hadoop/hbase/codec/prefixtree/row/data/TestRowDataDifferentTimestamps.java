@@ -301,7 +301,7 @@ name|kv2
 argument_list|)
 expr_stmt|;
 comment|//watch out... Long.MAX_VALUE comes back as 1332221664203, even with other encoders
-comment|//		d.add(new KeyValue(Brow, cf, cq1, Long.MAX_VALUE, v0));
+comment|//d.add(new KeyValue(Brow, cf, cq1, Long.MAX_VALUE, v0));
 name|KeyValue
 name|kv3
 init|=

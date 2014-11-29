@@ -310,7 +310,7 @@ name|getImplementationVersion
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** 	 * @return the REST gateway version 	 */
+comment|/**    * @return the REST gateway version    */
 annotation|@
 name|XmlAttribute
 argument_list|(
@@ -327,7 +327,7 @@ return|return
 name|restVersion
 return|;
 block|}
-comment|/** 	 * @return the JVM vendor and version 	 */
+comment|/**    * @return the JVM vendor and version    */
 annotation|@
 name|XmlAttribute
 argument_list|(
@@ -475,7 +475,7 @@ operator|=
 name|version
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc) 	 * @see java.lang.Object#toString() 	 */
+comment|/* (non-Javadoc)    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public

@@ -3655,7 +3655,7 @@ name|result
 return|;
 block|}
 comment|// Comparable
-comment|/**    * Compares the descriptor with another descriptor which is passed as a parameter.    * This compares the content of the two descriptors and not the reference.    *    * @return 0 if the contents of the descriptors are exactly matching,    * 		 1 if there is a mismatch in the contents    */
+comment|/**    * Compares the descriptor with another descriptor which is passed as a parameter.    * This compares the content of the two descriptors and not the reference.    *    * @return 0 if the contents of the descriptors are exactly matching,    *         1 if there is a mismatch in the contents    */
 annotation|@
 name|Override
 specifier|public

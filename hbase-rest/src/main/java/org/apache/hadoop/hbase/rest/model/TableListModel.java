@@ -187,12 +187,12 @@ name|TableModel
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/** 	 * Default constructor 	 */
+comment|/**    * Default constructor    */
 specifier|public
 name|TableListModel
 parameter_list|()
 block|{}
-comment|/** 	 * Add the table name model to the list 	 * @param table the table model 	 */
+comment|/**    * Add the table name model to the list    * @param table the table model    */
 specifier|public
 name|void
 name|add
@@ -209,7 +209,7 @@ name|table
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** 	 * @param index the index 	 * @return the table model 	 */
+comment|/**    * @param index the index    * @return the table model    */
 specifier|public
 name|TableModel
 name|get
@@ -227,7 +227,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/** 	 * @return the tables 	 */
+comment|/**    * @return the tables    */
 annotation|@
 name|XmlElementRef
 argument_list|(
@@ -247,7 +247,7 @@ return|return
 name|tables
 return|;
 block|}
-comment|/** 	 * @param tables the tables to set 	 */
+comment|/**    * @param tables the tables to set    */
 specifier|public
 name|void
 name|setTables
@@ -266,7 +266,7 @@ operator|=
 name|tables
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc) 	 * @see java.lang.Object#toString() 	 */
+comment|/* (non-Javadoc)    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public
