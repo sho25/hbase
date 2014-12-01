@@ -1508,6 +1508,36 @@ operator|.
 name|table
 return|;
 block|}
+comment|/**    * Allows subclasses to get the {@link RegionLocator}.    */
+specifier|protected
+name|RegionLocator
+name|getRegionLocator
+parameter_list|()
+block|{
+return|return
+name|regionLocator
+return|;
+block|}
+comment|/**    * Allows subclasses to get the {@link Table}.    */
+specifier|protected
+name|Table
+name|getTable
+parameter_list|()
+block|{
+return|return
+name|table
+return|;
+block|}
+comment|/**    * Allows subclasses to get the {@link Admin}.    */
+specifier|protected
+name|Admin
+name|getAdmin
+parameter_list|()
+block|{
+return|return
+name|admin
+return|;
+block|}
 comment|/**    * Allows subclasses to set the {@link HTable}.    *    * @param table  The table to get the data from.    * @throws IOException     * @deprecated Use {@link #initializeTable(Connection, TableName)} instead.    */
 annotation|@
 name|Deprecated
