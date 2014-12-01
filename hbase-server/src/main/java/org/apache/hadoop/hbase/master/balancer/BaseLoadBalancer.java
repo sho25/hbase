@@ -347,6 +347,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|conf
+operator|.
+name|ConfigurationObserver
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|LoadBalancer
@@ -8152,6 +8168,16 @@ argument_list|()
 return|;
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|onConfigurationChange
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+block|{   }
 block|}
 end_class
 

@@ -611,6 +611,23 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|onConfigurationChange
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+block|{
+name|setConf
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+specifier|synchronized
+name|void
 name|setConf
 parameter_list|(
 name|Configuration
@@ -622,6 +639,13 @@ operator|.
 name|setConf
 argument_list|(
 name|conf
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"loading config"
 argument_list|)
 expr_stmt|;
 name|maxSteps
@@ -668,6 +692,13 @@ argument_list|,
 name|numRegionLoadsToRemember
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|localityCandidateGenerator
+operator|==
+literal|null
+condition|)
+block|{
 name|localityCandidateGenerator
 operator|=
 operator|new
@@ -676,6 +707,7 @@ argument_list|(
 name|services
 argument_list|)
 expr_stmt|;
+block|}
 name|localityCost
 operator|=
 operator|new
@@ -686,6 +718,13 @@ argument_list|,
 name|services
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|candidateGenerators
+operator|==
+literal|null
+condition|)
+block|{
 name|candidateGenerators
 operator|=
 operator|new
@@ -705,8 +744,9 @@ block|,
 operator|new
 name|RegionReplicaRackCandidateGenerator
 argument_list|()
-block|,     }
+block|,       }
 expr_stmt|;
+block|}
 name|regionLoadFunctions
 operator|=
 operator|new

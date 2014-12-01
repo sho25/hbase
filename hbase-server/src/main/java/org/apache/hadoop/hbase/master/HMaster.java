@@ -3711,6 +3711,15 @@ argument_list|(
 literal|"Master has completed initialization"
 argument_list|)
 expr_stmt|;
+name|configurationManager
+operator|.
+name|registerObserver
+argument_list|(
+name|this
+operator|.
+name|balancer
+argument_list|)
+expr_stmt|;
 name|initialized
 operator|=
 literal|true

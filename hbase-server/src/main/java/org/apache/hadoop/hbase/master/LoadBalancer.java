@@ -61,9 +61,39 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|conf
+operator|.
+name|ConfigurationObserver
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|conf
 operator|.
 name|Configurable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|conf
+operator|.
+name|Configuration
 import|;
 end_import
 
@@ -153,6 +183,8 @@ extends|extends
 name|Configurable
 extends|,
 name|Stoppable
+extends|,
+name|ConfigurationObserver
 block|{
 comment|/**    * Set the current cluster status.  This allows a LoadBalancer to map host name to a server    * @param st    */
 name|void
@@ -311,6 +343,14 @@ name|regionOffline
 parameter_list|(
 name|HRegionInfo
 name|regionInfo
+parameter_list|)
+function_decl|;
+comment|/*    * Notification that config has changed    * @param conf    */
+name|void
+name|onConfigurationChange
+parameter_list|(
+name|Configuration
+name|conf
 parameter_list|)
 function_decl|;
 block|}

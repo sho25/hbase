@@ -2821,7 +2821,7 @@ name|BaseCoordinatedStateManager
 name|csm
 decl_stmt|;
 comment|/**    * Configuration manager is used to register/deregister and notify the configuration observers    * when the regionserver is notified that there was a change in the on disk configs.    */
-specifier|private
+specifier|protected
 specifier|final
 name|ConfigurationManager
 name|configurationManager
