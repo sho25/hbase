@@ -9877,6 +9877,41 @@ return|return
 name|tableNames
 return|;
 block|}
+comment|/**    * Reload the configuration from disk.    */
+specifier|public
+name|void
+name|updateConfiguration
+parameter_list|()
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Reloading the configuration from disk."
+argument_list|)
+expr_stmt|;
+comment|// Reload the configuration from disk.
+name|conf
+operator|.
+name|reloadConfiguration
+argument_list|()
+expr_stmt|;
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|balancer
+init|)
+block|{
+name|balancer
+operator|.
+name|setConf
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 end_class
 
