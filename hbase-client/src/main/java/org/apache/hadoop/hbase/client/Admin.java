@@ -1940,13 +1940,6 @@ name|ServerName
 name|sn
 parameter_list|)
 function_decl|;
-comment|/**    * Update the configuration and trigger an online config change    * on the master    * @throws IOException    */
-name|void
-name|updateMasterConfiguration
-parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * Update the configuration and trigger an online config change    * on the regionserver    * @param server : The server whose config needs to be updated.    * @throws IOException    */
 name|void
 name|updateConfiguration

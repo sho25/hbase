@@ -668,13 +668,6 @@ argument_list|,
 name|numRegionLoadsToRemember
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|localityCandidateGenerator
-operator|==
-literal|null
-condition|)
-block|{
 name|localityCandidateGenerator
 operator|=
 operator|new
@@ -683,7 +676,6 @@ argument_list|(
 name|services
 argument_list|)
 expr_stmt|;
-block|}
 name|localityCost
 operator|=
 operator|new
@@ -694,13 +686,6 @@ argument_list|,
 name|services
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|candidateGenerators
-operator|==
-literal|null
-condition|)
-block|{
 name|candidateGenerators
 operator|=
 operator|new
@@ -720,9 +705,8 @@ block|,
 operator|new
 name|RegionReplicaRackCandidateGenerator
 argument_list|()
-block|,       }
+block|,     }
 expr_stmt|;
-block|}
 name|regionLoadFunctions
 operator|=
 operator|new
