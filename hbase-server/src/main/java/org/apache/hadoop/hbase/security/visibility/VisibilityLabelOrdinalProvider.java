@@ -53,6 +53,15 @@ name|String
 name|label
 parameter_list|)
 function_decl|;
+comment|/**    * Returns the string associated with the ordinal. Not be used in MR.    * @param ordinal representing the visibility label's ordinal    * @return label associated with the string, null if not found    */
+specifier|public
+name|String
+name|getLabel
+parameter_list|(
+name|int
+name|ordinal
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 

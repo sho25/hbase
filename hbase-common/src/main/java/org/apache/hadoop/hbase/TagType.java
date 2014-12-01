@@ -106,6 +106,18 @@ name|byte
 operator|)
 literal|4
 decl_stmt|;
+comment|// String based tag type used in replication
+specifier|public
+specifier|static
+specifier|final
+name|byte
+name|STRING_VIS_TAG_TYPE
+init|=
+operator|(
+name|byte
+operator|)
+literal|7
+decl_stmt|;
 block|}
 end_class
 

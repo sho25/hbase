@@ -783,6 +783,25 @@ name|label
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|getLabel
+parameter_list|(
+name|int
+name|ordinal
+parameter_list|)
+block|{
+comment|// Unused
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"getLabel should not be used in VisibilityExpressionResolver"
+argument_list|)
+throw|;
+block|}
 block|}
 decl_stmt|;
 return|return

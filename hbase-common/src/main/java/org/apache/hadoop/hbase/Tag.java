@@ -130,7 +130,7 @@ name|TYPE_LENGTH_SIZE
 operator|+
 name|TAG_LENGTH_SIZE
 decl_stmt|;
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|int
