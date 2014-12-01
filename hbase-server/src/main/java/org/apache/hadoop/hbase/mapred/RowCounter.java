@@ -232,7 +232,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A job with a map to count rows.  * Map outputs table rows IF the input row has columns that have content.  * Uses an {@link IdentityReducer}  */
+comment|/**  * A job with a map to count rows.  * Map outputs table rows IF the input row has columns that have content.  * Uses a org.apache.hadoop.mapred.lib.IdentityReducer  */
 end_comment
 
 begin_class

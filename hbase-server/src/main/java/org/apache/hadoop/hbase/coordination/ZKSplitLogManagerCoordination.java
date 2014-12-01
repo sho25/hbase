@@ -710,7 +710,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * ZooKeeper based implementation of {@link SplitLogManagerCoordination}  */
+comment|/**  * ZooKeeper based implementation of  *  {@link org.apache.hadoop.hbase.master.SplitLogManagerCoordination}  */
 end_comment
 
 begin_class
@@ -3914,7 +3914,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * ZooKeeper implementation of    * {@link SplitLogManagerCoordination#removeStaleRecoveringRegions(Set)}    */
+comment|/**    * ZooKeeper implementation of    * {@link org.apache.hadoop.hbase.master.    * SplitLogManagerCoordination#removeStaleRecoveringRegions(Set)}    */
 annotation|@
 name|Override
 specifier|public
@@ -5067,7 +5067,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * {@link SplitLogManager} can use objects implementing this interface to finish off a partially    * done task by {@link SplitLogWorker}. This provides a serialization point at the end of the task    * processing. Must be restartable and idempotent.    */
+comment|/**    * {@link org.apache.hadoop.hbase.master.SplitLogManager} can use objects implementing this     * interface to finish off a partially done task by     * {@link org.apache.hadoop.hbase.regionserver.SplitLogWorker}. This provides a     * serialization point at the end of the task processing. Must be restartable and idempotent.    */
 specifier|public
 interface|interface
 name|TaskFinisher
@@ -5776,7 +5776,7 @@ block|}
 end_class
 
 begin_comment
-comment|/**    * Asynchronous handler for zk create RESCAN-node results. Retries on failures.    *<p>    * A RESCAN node is created using PERSISTENT_SEQUENTIAL flag. It is a signal for all the    * {@link SplitLogWorker}s to rescan for new tasks.    */
+comment|/**    * Asynchronous handler for zk create RESCAN-node results. Retries on failures.    *<p>    * A RESCAN node is created using PERSISTENT_SEQUENTIAL flag. It is a signal for all the    * {@link org.apache.hadoop.hbase.regionserver.SplitLogWorker}s to rescan for new tasks.    */
 end_comment
 
 begin_class

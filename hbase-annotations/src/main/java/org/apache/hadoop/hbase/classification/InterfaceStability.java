@@ -54,7 +54,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Annotation to inform users of how much to rely on a particular package,  * class or method not changing over time. Currently the stability can be  * {@link Stable}, {@link Evolving} or {@link Unstable}.<br>  *  *<ul><li>All classes that are annotated with {@link Public} or  * {@link LimitedPrivate} must have InterfaceStability annotation.</li>  *<li>Classes that are {@link Private} are to be considered unstable unless  * a different InterfaceStability annotation states otherwise.</li>  *<li>Incompatible changes must not be made to classes marked as stable.</li>  *</ul>  */
+comment|/**  * Annotation to inform users of how much to rely on a particular package,  * class or method not changing over time. Currently the stability can be  * {@link Stable}, {@link Evolving} or {@link Unstable}.<br>  *  *<ul><li>All classes that are annotated with   * {@link org.apache.hadoop.hbase.classification.InterfaceAudience.Public} or  * {@link org.apache.hadoop.hbase.classification.InterfaceAudience.LimitedPrivate}   * must have InterfaceStability annotation.</li>  *<li>Classes that are   * {@link org.apache.hadoop.hbase.classification.InterfaceAudience.LimitedPrivate}   * are to be considered unstable unless a different InterfaceStability annotation  *  states otherwise.</li>  *<li>Incompatible changes must not be made to classes marked as stable.</li>  *</ul>  */
 end_comment
 
 begin_class

@@ -514,7 +514,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The base class for load balancers. It provides the the functions used to by  * {@link AssignmentManager} to assign regions in the edge cases. It doesn't  * provide an implementation of the actual balancing algorithm.  *  */
+comment|/**  * The base class for load balancers. It provides the the functions used to by  * {@link org.apache.hadoop.hbase.master.AssignmentManager} to assign regions   * in the edge cases. It doesn't provide an implementation of the   * actual balancing algorithm.  *  */
 end_comment
 
 begin_class

@@ -82,7 +82,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used for server-side protobuf RPC service invocations.  This handler allows  * invocation exceptions to easily be passed through to the RPC server from coprocessor  * {@link Service} implementations.  *  *<p>  * When implementing {@link Service} defined methods, coprocessor endpoints can use the following  * pattern to pass exceptions back to the RPC client:  *<code>  * public void myMethod(RpcController controller, MyRequest request, RpcCallback<MyResponse> done) {  *   MyResponse response = null;  *   try {  *     // do processing  *     response = MyResponse.getDefaultInstance();  // or use a new builder to populate the response  *   } catch (IOException ioe) {  *     // pass exception back up  *     ResponseConverter.setControllerException(controller, ioe);  *   }  *   done.run(response);  * }  *</code>  *</p>  */
+comment|/**  * Used for server-side protobuf RPC service invocations.  This handler allows  * invocation exceptions to easily be passed through to the RPC server from coprocessor  * {@link com.google.protobuf.Service} implementations.  *  *<p>  * When implementing {@link com.google.protobuf.Service} defined methods,   * coprocessor endpoints can use the following pattern to pass exceptions back to the RPC client:  *<code>  * public void myMethod(RpcController controller, MyRequest request, RpcCallback<MyResponse> done) {  *   MyResponse response = null;  *   try {  *     // do processing  *     response = MyResponse.getDefaultInstance();  // or use a new builder to populate the response  *   } catch (IOException ioe) {  *     // pass exception back up  *     ResponseConverter.setControllerException(controller, ioe);  *   }  *   done.run(response);  * }  *</code>  *</p>  */
 end_comment
 
 begin_class
@@ -96,7 +96,7 @@ name|ServerRpcController
 implements|implements
 name|RpcController
 block|{
-comment|/**    * The exception thrown within    * {@link Service#callMethod(Descriptors.MethodDescriptor, RpcController, Message, RpcCallback)},    * if any.    */
+comment|/**    * The exception thrown within    * {@link com.google.protobuf.Service#callMethod(    *   Descriptors.MethodDescriptor, RpcController, Message, RpcCallback)},    * if any.    */
 comment|// TODO: it would be good widen this to just Throwable, but IOException is what we allow now
 specifier|private
 name|IOException
@@ -201,7 +201,7 @@ parameter_list|)
 block|{
 comment|// not implemented
 block|}
-comment|/**    * Sets an exception to be communicated back to the {@link Service} client.    * @param ioe the exception encountered during execution of the service method    */
+comment|/**    * Sets an exception to be communicated back to the {@link com.google.protobuf.Service} client.    * @param ioe the exception encountered during execution of the service method    */
 specifier|public
 name|void
 name|setFailedOn

@@ -52,7 +52,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Wraps together the mutations which are applied as a batch to the region and their operation  * status and WALEdits.   * @see RegionObserver#preBatchMutate(ObserverContext, MiniBatchOperationInProgress)  * @see RegionObserver#postBatchMutate(ObserverContext, MiniBatchOperationInProgress)  * @param<T> Pair<Mutation, Integer> pair of Mutations and associated rowlock ids .  */
+comment|/**  * Wraps together the mutations which are applied as a batch to the region and their operation  * status and WALEdits.   * @see org.apache.hadoop.hbase.coprocessor.RegionObserver#preBatchMutate(  * ObserverContext, MiniBatchOperationInProgress)  * @see org.apache.hadoop.hbase.coprocessor.RegionObserver#postBatchMutate(  * ObserverContext, MiniBatchOperationInProgress)  * @param<T> Pair<Mutation, Integer> pair of Mutations and associated rowlock ids .  */
 end_comment
 
 begin_class
@@ -183,7 +183,7 @@ argument_list|)
 index|]
 return|;
 block|}
-comment|/**    * Sets the status code for the operation(Mutation) at the specified position.    * By setting this status, {@link RegionObserver} can make HRegion to skip Mutations.    * @param index    * @param opStatus    */
+comment|/**    * Sets the status code for the operation(Mutation) at the specified position.    * By setting this status, {@link org.apache.hadoop.hbase.coprocessor.RegionObserver}     * can make HRegion to skip Mutations.    * @param index    * @param opStatus    */
 specifier|public
 name|void
 name|setOperationStatus

@@ -214,7 +214,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param htable the {@link HTable} to scan.    */
+comment|/**    * @param htable the {@link org.apache.hadoop.hbase.HTableDescriptor} to scan.    */
 specifier|public
 name|void
 name|setHTable

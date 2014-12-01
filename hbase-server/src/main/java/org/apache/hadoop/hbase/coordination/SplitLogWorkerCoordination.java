@@ -198,7 +198,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Coordinated operations for {@link SplitLogWorker} and {@link WALSplitterHandler} Important  * methods for SplitLogWorker:<BR>  * {@link #isReady()} called from {@link SplitLogWorker#run()} to check whether the coordination is  * ready to supply the tasks<BR>  * {@link #taskLoop()} loop for new tasks until the worker is stopped<BR>  * {@link #isStop()} a flag indicates whether worker should finish<BR>  * {@link #registerListener()} called from {@link SplitLogWorker#run()} and could register listener  * for external changes in coordination (if required)<BR>  * {@link #endTask(SplitLogTask, AtomicLong, SplitTaskDetails)} notify coordination engine that  *<p>  * Important methods for WALSplitterHandler:<BR>  * splitting task has completed.  */
+comment|/**  * Coordinated operations for {@link SplitLogWorker} and   * {@link org.apache.hadoop.hbase.regionserver.handler.WALSplitterHandler} Important  * methods for SplitLogWorker:<BR>  * {@link #isReady()} called from {@link SplitLogWorker#run()} to check whether the coordination is  * ready to supply the tasks<BR>  * {@link #taskLoop()} loop for new tasks until the worker is stopped<BR>  * {@link #isStop()} a flag indicates whether worker should finish<BR>  * {@link #registerListener()} called from {@link SplitLogWorker#run()} and could register listener  * for external changes in coordination (if required)<BR>  * {@link #endTask(SplitLogTask, AtomicLong, SplitTaskDetails)} notify coordination engine that  *<p>  * Important methods for WALSplitterHandler:<BR>  * splitting task has completed.  */
 end_comment
 
 begin_interface

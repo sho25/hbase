@@ -330,7 +330,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A {@link ReplicationEndpoint} implementation for replicating to another HBase cluster.  * For the slave cluster it selects a random number of peers  * using a replication ratio. For example, if replication ration = 0.1  * and slave cluster has 100 region servers, 10 will be selected.  *<p/>  * A stream is considered down when we cannot contact a region server on the  * peer cluster for more than 55 seconds by default.  */
+comment|/**  * A {@link org.apache.hadoop.hbase.replication.ReplicationEndpoint}   * implementation for replicating to another HBase cluster.  * For the slave cluster it selects a random number of peers  * using a replication ratio. For example, if replication ration = 0.1  * and slave cluster has 100 region servers, 10 will be selected.  *<p/>  * A stream is considered down when we cannot contact a region server on the  * peer cluster for more than 55 seconds by default.  */
 end_comment
 
 begin_class

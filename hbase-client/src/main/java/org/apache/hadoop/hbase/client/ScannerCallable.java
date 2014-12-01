@@ -639,7 +639,7 @@ specifier|protected
 name|RpcControllerFactory
 name|controllerFactory
 decl_stmt|;
-comment|/**    * @param connection which connection    * @param tableName table callable is on    * @param scan the scan to execute    * @param scanMetrics the ScanMetrics to used, if it is null, ScannerCallable won't collect    *          metrics    * @param rpcControllerFactory factory to use when creating {@link RpcController}    */
+comment|/**    * @param connection which connection    * @param tableName table callable is on    * @param scan the scan to execute    * @param scanMetrics the ScanMetrics to used, if it is null, ScannerCallable won't collect    *          metrics    * @param rpcControllerFactory factory to use when creating     *        {@link com.google.protobuf.RpcController}    */
 specifier|public
 name|ScannerCallable
 parameter_list|(

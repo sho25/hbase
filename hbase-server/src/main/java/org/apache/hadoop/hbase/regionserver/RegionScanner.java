@@ -119,7 +119,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @return The preferred max buffersize. See {@link Scan#setMaxResultSize(long)}    */
+comment|/**    * @return The preferred max buffersize. See     * {@link org.apache.hadoop.hbase.client.Scan#setMaxResultSize(long)}    */
 name|long
 name|getMaxResultSize
 parameter_list|()

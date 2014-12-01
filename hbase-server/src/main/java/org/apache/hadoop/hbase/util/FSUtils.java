@@ -7769,7 +7769,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * This function is to scan the root path of the file system to get the    * degree of locality for each region on each of the servers having at least    * one block of that region.    * This is used by the tool {@link RegionPlacementMaintainer}    *    * @param conf    *          the configuration to use    * @return the mapping from region encoded name to a map of server names to    *           locality fraction    * @throws IOException    *           in case of file system errors or interrupts    */
+comment|/**    * This function is to scan the root path of the file system to get the    * degree of locality for each region on each of the servers having at least    * one block of that region.    * This is used by the tool {@link org.apache.hadoop.hbase.master.RegionPlacementMaintainer}    *    * @param conf    *          the configuration to use    * @return the mapping from region encoded name to a map of server names to    *           locality fraction    * @throws IOException    *           in case of file system errors or interrupts    */
 end_comment
 
 begin_function

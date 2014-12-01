@@ -188,7 +188,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Simple {@link InputFormat} for {@link WAL} files.  * @deprecated use {@link WALInputFormat}  */
+comment|/**  * Simple {@link InputFormat} for {@link org.apache.hadoop.hbase.wal.WAL}   * files.  * @deprecated use {@link WALInputFormat}  */
 end_comment
 
 begin_class

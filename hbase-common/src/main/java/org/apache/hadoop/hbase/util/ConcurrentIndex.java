@@ -120,7 +120,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A simple concurrent map of sets. This is similar in concept to  * {@link Multiset}, with the following exceptions:  *<ul>  *<li>The set is thread-safe and concurrent: no external locking or  *   synchronization is required. This is important for the use case where  *   this class is used to index cached blocks by filename for their  *   efficient eviction from cache when the file is closed or compacted.</li>  *<li>The expectation is that all entries may only be removed for a key  *   once no more additions of values are being made under that key.</li>  *</ul>  * @param<K> Key type  * @param<V> Value type  */
+comment|/**  * A simple concurrent map of sets. This is similar in concept to  * {@link com.google.common.collect.Multiset}, with the following exceptions:  *<ul>  *<li>The set is thread-safe and concurrent: no external locking or  *   synchronization is required. This is important for the use case where  *   this class is used to index cached blocks by filename for their  *   efficient eviction from cache when the file is closed or compacted.</li>  *<li>The expectation is that all entries may only be removed for a key  *   once no more additions of values are being made under that key.</li>  *</ul>  * @param<K> Key type  * @param<V> Value type  */
 end_comment
 
 begin_class
@@ -320,7 +320,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Get all values associated with a specified key or null if no values are    * associated.<b>Note:</b> if the caller wishes to add or removes values    * to under the specified as they're iterating through the returned value,    * they should make a defensive copy; otherwise, a    * {@link ConcurrentModificationException} may be thrown.    * @param key The key    * @return All values associated with the specified key or null if no values    *         are associated with the key.    */
+comment|/**    * Get all values associated with a specified key or null if no values are    * associated.<b>Note:</b> if the caller wishes to add or removes values    * to under the specified as they're iterating through the returned value,    * they should make a defensive copy; otherwise, a    * {@link java.util.ConcurrentModificationException} may be thrown.    * @param key The key    * @return All values associated with the specified key or null if no values    *         are associated with the key.    */
 specifier|public
 name|Set
 argument_list|<

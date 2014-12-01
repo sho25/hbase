@@ -651,7 +651,7 @@ return|return
 name|m
 return|;
 block|}
-comment|/**    * Sets the HBase table.    *    * @param htable  The {@link HTable} to scan.    */
+comment|/**    * Sets the HBase table.    *    * @param htable  The {@link org.apache.hadoop.hbase.HTableDescriptor} to scan.    */
 specifier|public
 name|void
 name|setHTable

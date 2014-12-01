@@ -34,7 +34,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Exception that a user defined constraint throws on failure of a {@link Put}.  *<p>  * Does<b>NOT</b> attempt the {@link Put} multiple times, since the constraint  *<it>should</it> fail every time for the same {@link Put} (it should be  * idempotent).  */
+comment|/**  * Exception that a user defined constraint throws on failure of a  *  {@link org.apache.hadoop.hbase.client.Put}.  *<p>Does<b>NOT</b> attempt the  *  {@link org.apache.hadoop.hbase.client.Put} multiple times,   *  since the constraint<it>should</it> fail every time for   *  the same {@link org.apache.hadoop.hbase.client.Put} (it should be  * idempotent).  */
 end_comment
 
 begin_class

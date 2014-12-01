@@ -162,7 +162,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Handles Bloom filter initialization based on configuration and serialized  * metadata in the reader and writer of {@link StoreFile}.  */
+comment|/**  * Handles Bloom filter initialization based on configuration and serialized  * metadata in the reader and writer of {@link org.apache.hadoop.hbase.regionserver.StoreFile}.  */
 end_comment
 
 begin_class

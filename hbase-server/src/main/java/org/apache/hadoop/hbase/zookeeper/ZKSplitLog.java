@@ -212,7 +212,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Common methods and attributes used by {@link SplitLogManager} and {@link SplitLogWorker}  * running distributed splitting of WAL logs.  */
+comment|/**  * Common methods and attributes used by {@link org.apache.hadoop.hbase.master.SplitLogManager}   * and {@link org.apache.hadoop.hbase.regionserver.SplitLogWorker}  * running distributed splitting of WAL logs.  */
 end_comment
 
 begin_class

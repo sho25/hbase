@@ -64,7 +64,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A {@link RemoteException} with some extra information.  If source exception  * was a {@link DoNotRetryIOException}, {@link #isDoNotRetry()} will return true.  *<p>A {@link RemoteException} hosts exceptions we got from the server.  */
+comment|/**  * A {@link RemoteException} with some extra information.  If source exception  * was a {@link org.apache.hadoop.hbase.DoNotRetryIOException},   * {@link #isDoNotRetry()} will return true.  *<p>A {@link RemoteException} hosts exceptions we got from the server.  */
 end_comment
 
 begin_class

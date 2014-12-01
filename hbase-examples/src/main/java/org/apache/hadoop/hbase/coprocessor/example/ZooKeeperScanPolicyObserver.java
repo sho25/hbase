@@ -404,7 +404,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is an example showing how a RegionObserver could configured  * via ZooKeeper in order to control a Region compaction, flush, and scan policy.  *  * This also demonstrated the use of shared {@link RegionObserver} state.  * See {@link RegionCoprocessorEnvironment#getSharedData()}.  *  * This would be useful for an incremental backup tool, which would indicate the last  * time of a successful backup via ZK and instruct HBase to not delete data that was  * inserted since (based on wall clock time).   *  * This implements org.apache.zookeeper.Watcher directly instead of using  * {@link ZooKeeperWatcher}, because RegionObservers come and go and currently  * listeners registered with ZooKeeperWatcher cannot be removed.  */
+comment|/**  * This is an example showing how a RegionObserver could configured  * via ZooKeeper in order to control a Region compaction, flush, and scan policy.  *  * This also demonstrated the use of shared   * {@link org.apache.hadoop.hbase.coprocessor.RegionObserver} state.  * See {@link RegionCoprocessorEnvironment#getSharedData()}.  *  * This would be useful for an incremental backup tool, which would indicate the last  * time of a successful backup via ZK and instruct HBase to not delete data that was  * inserted since (based on wall clock time).   *  * This implements org.apache.zookeeper.Watcher directly instead of using  * {@link org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher},   * because RegionObservers come and go and currently  * listeners registered with ZooKeeperWatcher cannot be removed.  */
 end_comment
 
 begin_class

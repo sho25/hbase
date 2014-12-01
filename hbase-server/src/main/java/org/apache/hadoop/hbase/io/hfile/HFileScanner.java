@@ -226,7 +226,7 @@ name|ByteBuffer
 name|getValue
 parameter_list|()
 function_decl|;
-comment|/**    * @return Instance of {@link KeyValue}.    */
+comment|/**    * @return Instance of {@link org.apache.hadoop.hbase.KeyValue}.    */
 name|Cell
 name|getKeyValue
 parameter_list|()

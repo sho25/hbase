@@ -98,7 +98,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Encoder/Decoder for Cell.  *  *<p>Like {@link DataBlockEncoder} only Cell-based rather than KeyValue version 1 based  * and without presuming an hfile context.  Intent is an Interface that will work for hfile and  * rpc.  */
+comment|/**  * Encoder/Decoder for Cell.  *  *<p>Like {@link org.apache.hadoop.hbase.io.encoding.DataBlockEncoder}   * only Cell-based rather than KeyValue version 1 based  * and without presuming an hfile context.  Intent is an Interface that will work for hfile and  * rpc.  */
 end_comment
 
 begin_interface
@@ -121,7 +121,7 @@ specifier|public
 interface|interface
 name|Codec
 block|{
-comment|// TODO: interfacing with {@link DataBlockEncoder}
+comment|// TODO: interfacing with {@link org.apache.hadoop.hbase.io.encoding.DataBlockEncoder}
 comment|/**    * Call flush when done.  Some encoders may not put anything on the stream until flush is called.    * On flush, let go of any resources used by the encoder.    */
 interface|interface
 name|Encoder

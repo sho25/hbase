@@ -146,7 +146,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This filter is used to filter based on the key. It takes an operator  * (equal, greater, not equal, etc) and a byte [] comparator for the row,  * and column qualifier portions of a key.  *<p>  * This filter can be wrapped with {@link WhileMatchFilter} to add more control.  *<p>  * Multiple filters can be combined using {@link FilterList}.  *<p>  * If an already known row range needs to be scanned, use {@link Scan} start  * and stop rows directly rather than a filter.  */
+comment|/**  * This filter is used to filter based on the key. It takes an operator  * (equal, greater, not equal, etc) and a byte [] comparator for the row,  * and column qualifier portions of a key.  *<p>  * This filter can be wrapped with {@link WhileMatchFilter} to add more control.  *<p>  * Multiple filters can be combined using {@link FilterList}.  *<p>  * If an already known row range needs to be scanned,   * use {@link org.apache.hadoop.hbase.CellScanner} start  * and stop rows directly rather than a filter.  */
 end_comment
 
 begin_class

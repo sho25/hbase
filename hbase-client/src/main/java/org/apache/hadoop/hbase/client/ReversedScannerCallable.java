@@ -235,7 +235,7 @@ name|byte
 index|[]
 name|locateStartRow
 decl_stmt|;
-comment|/**    * @param connection    * @param tableName    * @param scan    * @param scanMetrics    * @param locateStartRow The start row for locating regions    * @param rpcFactory to create an {@link RpcController} to talk to the regionserver    */
+comment|/**    * @param connection    * @param tableName    * @param scan    * @param scanMetrics    * @param locateStartRow The start row for locating regions    * @param rpcFactory to create an {@link com.google.protobuf.RpcController}     * to talk to the regionserver    */
 specifier|public
 name|ReversedScannerCallable
 parameter_list|(
@@ -279,7 +279,7 @@ operator|=
 name|locateStartRow
 expr_stmt|;
 block|}
-comment|/**    * @param connection    * @param tableName    * @param scan    * @param scanMetrics    * @param locateStartRow The start row for locating regions    * @param rpcFactory to create an {@link RpcController} to talk to the regionserver    * @param replicaId the replica id    */
+comment|/**    * @param connection    * @param tableName    * @param scan    * @param scanMetrics    * @param locateStartRow The start row for locating regions    * @param rpcFactory to create an {@link com.google.protobuf.RpcController}     *        to talk to the regionserver    * @param replicaId the replica id    */
 specifier|public
 name|ReversedScannerCallable
 parameter_list|(
@@ -328,7 +328,7 @@ operator|=
 name|locateStartRow
 expr_stmt|;
 block|}
-comment|/**    * @deprecated use    *             {@link #ReversedScannerCallable(ClusterConnection, TableName, Scan, ScanMetrics, byte[], RpcControllerFactory )}    */
+comment|/**    * @deprecated use    *  {@link #ReversedScannerCallable(ClusterConnection, TableName, Scan,     *     ScanMetrics, byte[], RpcControllerFactory )}    */
 annotation|@
 name|Deprecated
 specifier|public

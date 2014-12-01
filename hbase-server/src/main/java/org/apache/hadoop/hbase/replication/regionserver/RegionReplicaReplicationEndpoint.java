@@ -854,7 +854,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A {@link ReplicationEndpoint} endpoint which receives the WAL edits from the  * WAL, and sends the edits to replicas of regions.  */
+comment|/**  * A {@link org.apache.hadoop.hbase.replication.ReplicationEndpoint} endpoint   * which receives the WAL edits from the WAL, and sends the edits to replicas   * of regions.  */
 end_comment
 
 begin_class

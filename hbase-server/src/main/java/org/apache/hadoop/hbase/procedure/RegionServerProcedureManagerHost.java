@@ -134,7 +134,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Provides the globally barriered procedure framework and environment  * for region server oriented operations.  {@link HRegionServer} interacts  * with the loaded procedure manager through this class.  */
+comment|/**  * Provides the globally barriered procedure framework and environment  * for region server oriented operations.   * {@link org.apache.hadoop.hbase.regionserver.HRegionServer} interacts  * with the loaded procedure manager through this class.  */
 end_comment
 
 begin_class

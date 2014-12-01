@@ -1728,7 +1728,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HMaster is the "master server" for HBase. An HBase cluster has one active  * master.  If many masters are started, all compete.  Whichever wins goes on to  * run the cluster.  All others park themselves in their constructor until  * master or cluster shutdown or until the active master loses its lease in  * zookeeper.  Thereafter, all running master jostle to take over master role.  *  *<p>The Master can be asked shutdown the cluster. See {@link #shutdown()}.  In  * this case it will tell all regionservers to go down and then wait on them  * all reporting in that they are down.  This master will then shut itself down.  *  *<p>You can also shutdown just this master.  Call {@link #stopMaster()}.  *  * @see Watcher  */
+comment|/**  * HMaster is the "master server" for HBase. An HBase cluster has one active  * master.  If many masters are started, all compete.  Whichever wins goes on to  * run the cluster.  All others park themselves in their constructor until  * master or cluster shutdown or until the active master loses its lease in  * zookeeper.  Thereafter, all running master jostle to take over master role.  *  *<p>The Master can be asked shutdown the cluster. See {@link #shutdown()}.  In  * this case it will tell all regionservers to go down and then wait on them  * all reporting in that they are down.  This master will then shut itself down.  *  *<p>You can also shutdown just this master.  Call {@link #stopMaster()}.  *  * @see org.apache.zookeeper.Watcher  */
 end_comment
 
 begin_class

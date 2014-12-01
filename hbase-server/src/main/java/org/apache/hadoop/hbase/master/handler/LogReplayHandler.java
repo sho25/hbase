@@ -166,7 +166,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Handle logReplay work from SSH. Having a separate handler is not to block SSH in re-assigning  * regions from dead servers. Otherwise, available SSH handlers could be blocked by logReplay work  * (from {@link MasterFileSystem#splitLog(ServerName)}). During logReplay, if a receiving RS(say A)  * fails again, regions on A won't be able to be assigned to another live RS which causes the log  * replay unable to complete because WAL edits replay depends on receiving RS to be live  */
+comment|/**  * Handle logReplay work from SSH. Having a separate handler is not to block SSH in re-assigning  * regions from dead servers. Otherwise, available SSH handlers could be blocked by logReplay work  * (from {@link org.apache.hadoop.hbase.master.MasterFileSystem#splitLog(ServerName)}).   * During logReplay, if a receiving RS(say A) fails again, regions on A won't be able   * to be assigned to another live RS which causes the log replay unable to complete   * because WAL edits replay depends on receiving RS to be live  */
 end_comment
 
 begin_class

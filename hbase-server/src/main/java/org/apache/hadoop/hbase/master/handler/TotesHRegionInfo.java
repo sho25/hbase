@@ -50,7 +50,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementors tote an HRegionInfo instance.  * This is a marker interface that can be put on {@link EventHandler}s that  * have an {@link HRegionInfo}.  */
+comment|/**  * Implementors tote an HRegionInfo instance.  * This is a marker interface that can be put on {@link java.beans.EventHandler}s that  * have an {@link HRegionInfo}.  */
 end_comment
 
 begin_interface

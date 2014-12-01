@@ -336,7 +336,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This worker is spawned in every regionserver, including master. The Worker waits for log  * splitting tasks to be put up by the {@link SplitLogManager} running in the master and races with  * other workers in other serves to acquire those tasks. The coordination is done via coordination  * engine.  *<p>  * If a worker has successfully moved the task from state UNASSIGNED to OWNED then it owns the task.  * It keeps heart beating the manager by periodically moving the task from UNASSIGNED to OWNED  * state. On success it moves the task to TASK_DONE. On unrecoverable error it moves task state to  * ERR. If it cannot continue but wants the master to retry the task then it moves the task state to  * RESIGNED.  *<p>  * The manager can take a task away from a worker by moving the task from OWNED to UNASSIGNED. In  * the absence of a global lock there is a unavoidable race here - a worker might have just finished  * its task when it is stripped of its ownership. Here we rely on the idempotency of the log  * splitting task for correctness  */
+comment|/**  * This worker is spawned in every regionserver, including master. The Worker waits for log  * splitting tasks to be put up by the {@link org.apache.hadoop.hbase.master.SplitLogManager}   * running in the master and races with other workers in other serves to acquire those tasks.   * The coordination is done via coordination engine.  *<p>  * If a worker has successfully moved the task from state UNASSIGNED to OWNED then it owns the task.  * It keeps heart beating the manager by periodically moving the task from UNASSIGNED to OWNED  * state. On success it moves the task to TASK_DONE. On unrecoverable error it moves task state to  * ERR. If it cannot continue but wants the master to retry the task then it moves the task state to  * RESIGNED.  *<p>  * The manager can take a task away from a worker by moving the task from OWNED to UNASSIGNED. In  * the absence of a global lock there is a unavoidable race here - a worker might have just finished  * its task when it is stripped of its ownership. Here we rely on the idempotency of the log  * splitting task for correctness  */
 end_comment
 
 begin_class
@@ -946,7 +946,7 @@ name|stopTask
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Objects implementing this interface actually do the task that has been    * acquired by a {@link SplitLogWorker}. Since there isn't a water-tight    * guarantee that two workers will not be executing the same task therefore it    * is better to have workers prepare the task and then have the    * {@link SplitLogManager} commit the work in SplitLogManager.TaskFinisher    */
+comment|/**    * Objects implementing this interface actually do the task that has been    * acquired by a {@link SplitLogWorker}. Since there isn't a water-tight    * guarantee that two workers will not be executing the same task therefore it    * is better to have workers prepare the task and then have the    * {@link org.apache.hadoop.hbase.master.SplitLogManager} commit the work in     * SplitLogManager.TaskFinisher    */
 specifier|public
 interface|interface
 name|TaskExecutor

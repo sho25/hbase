@@ -1321,7 +1321,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * The<code>ReusablePool</code> represents a {@link PoolMap.Pool} that builds    * on the {@link LinkedList} class. It essentially allows resources to be    * checked out, at which point it is removed from this pool. When the resource    * is no longer required, it should be returned to the pool in order to be    * reused.    *    *<p>    * If {@link #maxSize} is set to {@link Integer#MAX_VALUE}, then the size of    * the pool is unbounded. Otherwise, it caps the number of consumers that can    * check out a resource from this pool to the (non-zero positive) value    * specified in {@link #maxSize}.    *</p>    *    * @param<R>    *          the type of the resource    */
+comment|/**    * The<code>ReusablePool</code> represents a {@link PoolMap.Pool} that builds    * on the {@link java.util.LinkedList} class. It essentially allows resources to be    * checked out, at which point it is removed from this pool. When the resource    * is no longer required, it should be returned to the pool in order to be    * reused.    *    *<p>    * If {@link #maxSize} is set to {@link Integer#MAX_VALUE}, then the size of    * the pool is unbounded. Otherwise, it caps the number of consumers that can    * check out a resource from this pool to the (non-zero positive) value    * specified in {@link #maxSize}.    *</p>    *    * @param<R>    *          the type of the resource    */
 annotation|@
 name|SuppressWarnings
 argument_list|(

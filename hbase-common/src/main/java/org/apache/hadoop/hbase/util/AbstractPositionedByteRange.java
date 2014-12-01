@@ -85,7 +85,7 @@ name|AbstractByteRange
 implements|implements
 name|PositionedByteRange
 block|{
-comment|/**    * The current index into the range. Like {@link ByteBuffer} position, it    * points to the next value that will be read/written in the array. It    * provides the appearance of being 0-indexed, even though its value is    * calculated according to offset.    *<p>    * Position is considered transient and does not participate in    * {@link #equals(Object)} or {@link #hashCode()} comparisons.    *</p>    */
+comment|/**    * The current index into the range. Like {@link java.nio.ByteBuffer} position, it    * points to the next value that will be read/written in the array. It    * provides the appearance of being 0-indexed, even though its value is    * calculated according to offset.    *<p>    * Position is considered transient and does not participate in    * {@link #equals(Object)} or {@link #hashCode()} comparisons.    *</p>    */
 specifier|protected
 name|int
 name|position
@@ -586,7 +586,7 @@ name|long
 name|val
 parameter_list|)
 function_decl|;
-comment|/**    * Similar to {@link ByteBuffer#flip()}. Sets length to position, position to    * offset.    */
+comment|/**    * Similar to {@link java.nio.ByteBuffer#flip()}. Sets length to position, position to    * offset.    */
 annotation|@
 name|VisibleForTesting
 name|PositionedByteRange
@@ -608,7 +608,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Similar to {@link ByteBuffer#clear()}. Sets position to 0, length to    * capacity.    */
+comment|/**    * Similar to {@link java.nio.ByteBuffer#clear()}. Sets position to 0, length to    * capacity.    */
 annotation|@
 name|VisibleForTesting
 name|PositionedByteRange
