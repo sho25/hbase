@@ -8978,23 +8978,6 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// when tag is enabled, we need tag replay edits with log sequence number
-name|boolean
-name|needAddReplayTag
-init|=
-operator|(
-name|HFile
-operator|.
-name|getFormatVersion
-argument_list|(
-name|regionServer
-operator|.
-name|conf
-argument_list|)
-operator|>=
-literal|3
-operator|)
-decl_stmt|;
 comment|// Skip adding the edits to WAL if this is a secondary region replica
 name|boolean
 name|isPrimary
@@ -9189,8 +9172,6 @@ argument_list|,
 name|cells
 argument_list|,
 name|walEntry
-argument_list|,
-name|needAddReplayTag
 argument_list|,
 name|durability
 argument_list|)
