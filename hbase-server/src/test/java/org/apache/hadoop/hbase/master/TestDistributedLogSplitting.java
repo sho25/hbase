@@ -7879,6 +7879,15 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hfile.format.version"
+argument_list|,
+literal|3
+argument_list|)
+expr_stmt|;
 name|startCluster
 argument_list|(
 name|NUM_RS
@@ -8551,6 +8560,15 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hfile.format.version"
+argument_list|,
+literal|3
+argument_list|)
+expr_stmt|;
 name|startCluster
 argument_list|(
 name|NUM_RS
@@ -8576,7 +8594,7 @@ specifier|final
 name|int
 name|NUM_LOG_LINES
 init|=
-literal|2000
+literal|1000
 decl_stmt|;
 comment|// turn off load balancing to prevent regions from moving around otherwise
 comment|// they will consume recovered.edits

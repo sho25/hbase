@@ -552,7 +552,11 @@ name|compactionCompression
 argument_list|,
 literal|true
 argument_list|,
-literal|true
+name|fd
+operator|.
+name|maxMVCCReadpoint
+operator|>=
+name|smallestReadPoint
 argument_list|,
 name|fd
 operator|.

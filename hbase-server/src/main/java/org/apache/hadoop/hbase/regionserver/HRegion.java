@@ -12275,8 +12275,6 @@ argument_list|,
 name|mvccNum
 argument_list|,
 name|memstoreCells
-argument_list|,
-name|isInReplay
 argument_list|)
 expr_stmt|;
 block|}
@@ -14585,7 +14583,7 @@ name|p
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Atomically apply the given map of family->edits to the memstore.    * This handles the consistency control on its own, but the caller    * should already have locked updatesLock.readLock(). This also does    *<b>not</b> check the families for validity.    *    * @param familyMap Map of kvs per family    * @param localizedWriteEntry The WriteEntry of the MVCC for this transaction.    *        If null, then this method internally creates a mvcc transaction.    * @param output newly added KVs into memstore    * @param isInReplay true when adding replayed KVs into memstore    * @return the additional memory usage of the memstore caused by the    * new entries.    * @throws IOException    */
+comment|/**    * Atomically apply the given map of family->edits to the memstore.    * This handles the consistency control on its own, but the caller    * should already have locked updatesLock.readLock(). This also does    *<b>not</b> check the families for validity.    *    * @param familyMap Map of kvs per family    * @param localizedWriteEntry The WriteEntry of the MVCC for this transaction.    *        If null, then this method internally creates a mvcc transaction.    * @param output newly added KVs into memstore    * @return the additional memory usage of the memstore caused by the    * new entries.    * @throws IOException    */
 specifier|private
 name|long
 name|applyFamilyMapToMemstore
@@ -14610,9 +14608,6 @@ argument_list|<
 name|Cell
 argument_list|>
 name|memstoreCells
-parameter_list|,
-name|boolean
-name|isInReplay
 parameter_list|)
 throws|throws
 name|IOException
@@ -14751,25 +14746,6 @@ name|getSecond
 argument_list|()
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|isInReplay
-condition|)
-block|{
-comment|// set memstore newly added cells with replay mvcc number
-name|CellUtil
-operator|.
-name|setSequenceId
-argument_list|(
-name|ret
-operator|.
-name|getSecond
-argument_list|()
-argument_list|,
-name|mvccNum
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 return|return
@@ -15554,8 +15530,7 @@ continue|continue;
 block|}
 try|try
 block|{
-comment|// replay the edits. Replay can return -1 if everything is skipped, only update
-comment|// if seqId is greater
+comment|// replay the edits. Replay can return -1 if everything is skipped, only update if seqId is greater
 name|seqid
 operator|=
 name|Math

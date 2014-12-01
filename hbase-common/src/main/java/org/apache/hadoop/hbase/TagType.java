@@ -84,7 +84,17 @@ name|byte
 operator|)
 literal|2
 decl_stmt|;
-comment|// public static final byte LOG_REPLAY_TAG_TYPE = (byte) 3; // deprecated
+specifier|public
+specifier|static
+specifier|final
+name|byte
+name|LOG_REPLAY_TAG_TYPE
+init|=
+operator|(
+name|byte
+operator|)
+literal|3
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final

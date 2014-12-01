@@ -2804,15 +2804,6 @@ name|getTagsLength
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|seqId
-operator|=
-name|c
-operator|.
-name|getSequenceId
-argument_list|()
-expr_stmt|;
 block|}
 comment|/**    * Create an empty byte[] representing a KeyValue    * All lengths are preset and can be filled in later.    * @param rlength    * @param flength    * @param qlength    * @param timestamp    * @param type    * @param vlength    * @return The newly created byte array.    */
 specifier|private

@@ -4396,8 +4396,8 @@ operator|.
 name|isDrainingDone
 condition|)
 block|{
-comment|// when there is no outstanding splitlogtask after master start up, we already have up to
-comment|// date recovery mode
+comment|// when there is no outstanding splitlogtask after master start up, we already have up to date
+comment|// recovery mode
 return|return;
 block|}
 block|}
@@ -4824,6 +4824,22 @@ operator|.
 name|DEFAULT_DISTRIBUTED_LOG_REPLAY_CONFIG
 argument_list|)
 decl_stmt|;
+name|int
+name|version
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HFile
+operator|.
+name|FORMAT_VERSION_KEY
+argument_list|,
+name|HFile
+operator|.
+name|MAX_FORMAT_VERSION
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|LOG
@@ -4839,11 +4855,28 @@ argument_list|(
 literal|"Distributed log replay="
 operator|+
 name|dlr
+operator|+
+literal|", "
+operator|+
+name|HFile
+operator|.
+name|FORMAT_VERSION_KEY
+operator|+
+literal|"="
+operator|+
+name|version
 argument_list|)
 expr_stmt|;
 block|}
+comment|// For distributed log replay, hfile version must be 3 at least; we need tag support.
 return|return
 name|dlr
+operator|&&
+operator|(
+name|version
+operator|>=
+literal|3
+operator|)
 return|;
 block|}
 specifier|private
