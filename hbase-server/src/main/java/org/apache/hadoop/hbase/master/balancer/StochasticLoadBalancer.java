@@ -873,6 +873,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|setClusterStatus
 parameter_list|(
@@ -910,6 +911,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|setMasterServices
 parameter_list|(
@@ -946,6 +948,7 @@ block|}
 annotation|@
 name|Override
 specifier|protected
+specifier|synchronized
 name|boolean
 name|areSomeRegionReplicasColocated
 parameter_list|(
@@ -999,6 +1002,7 @@ comment|/**    * Given the cluster state this will try and approach an optimal b
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|List
 argument_list|<
 name|RegionPlan
