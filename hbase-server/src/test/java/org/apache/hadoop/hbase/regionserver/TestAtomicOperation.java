@@ -4083,7 +4083,7 @@ annotation|@
 name|Override
 specifier|public
 name|RowLock
-name|getRowLock
+name|getRowLockInternal
 parameter_list|(
 specifier|final
 name|byte
@@ -4117,7 +4117,7 @@ name|WrappedRowLock
 argument_list|(
 name|super
 operator|.
-name|getRowLock
+name|getRowLockInternal
 argument_list|(
 name|row
 argument_list|,
