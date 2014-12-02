@@ -8831,7 +8831,12 @@ operator|new
 name|CallQueueTooBigException
 argument_list|()
 argument_list|,
-literal|"Call queue is full, is hbase.ipc.server.max.callqueue.size too small?"
+literal|"Call queue is full on "
+operator|+
+name|getListenerAddress
+argument_list|()
+operator|+
+literal|", is hbase.ipc.server.max.callqueue.size too small?"
 argument_list|)
 expr_stmt|;
 name|responder
@@ -9023,7 +9028,10 @@ block|{
 name|String
 name|msg
 init|=
-literal|"Unable to read call parameter from client "
+name|getListenerAddress
+argument_list|()
+operator|+
+literal|" is unable to read call parameter from client "
 operator|+
 name|getHostAddress
 argument_list|()
