@@ -348,18 +348,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-operator|(
-operator|(
-name|HTable
-operator|)
 name|htable1
-operator|)
 operator|.
-name|setAutoFlush
+name|setAutoFlushTo
 argument_list|(
 literal|false
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// Starting and stopping replication can make us miss new logs,

@@ -4615,10 +4615,8 @@ name|ap
 expr_stmt|;
 name|ht
 operator|.
-name|setAutoFlush
+name|setAutoFlushTo
 argument_list|(
-literal|true
-argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
@@ -4844,11 +4842,9 @@ name|ap
 expr_stmt|;
 name|ht
 operator|.
-name|setAutoFlush
+name|setAutoFlushTo
 argument_list|(
 literal|false
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|ht
@@ -4982,8 +4978,6 @@ name|ht
 operator|.
 name|setAutoFlush
 argument_list|(
-literal|false
-argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
@@ -5469,8 +5463,6 @@ operator|.
 name|setAutoFlush
 argument_list|(
 literal|false
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|ht
@@ -5588,8 +5580,6 @@ name|ht
 operator|.
 name|setAutoFlush
 argument_list|(
-literal|false
-argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
