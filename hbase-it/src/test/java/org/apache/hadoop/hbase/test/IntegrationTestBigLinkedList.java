@@ -6840,13 +6840,22 @@ operator|+
 literal|" COMMAND [COMMAND options]"
 argument_list|)
 expr_stmt|;
+name|printCommands
+argument_list|()
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|printCommands
+parameter_list|()
+block|{
 name|System
 operator|.
 name|err
 operator|.
 name|println
 argument_list|(
-literal|"  where COMMAND is one of:"
+literal|"Commands:"
 argument_list|)
 expr_stmt|;
 name|System
@@ -6855,7 +6864,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|""
+literal|" Generator  Map only job that generates data."
 argument_list|)
 expr_stmt|;
 name|System
@@ -6864,7 +6873,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"  Generator                  A map only job that generates data."
+literal|" Verify     A map reduce job that looks for holes. Look at the counts "
 argument_list|)
 expr_stmt|;
 name|System
@@ -6873,7 +6882,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"  Verify                     A map reduce job that looks for holes"
+literal|"            after running. See REFERENCED and UNREFERENCED are ok. Any "
 argument_list|)
 expr_stmt|;
 name|System
@@ -6882,7 +6891,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"                             Look at the counts after running"
+literal|"            UNDEFINED counts are bad. Do not run with the Generator."
 argument_list|)
 expr_stmt|;
 name|System
@@ -6891,7 +6900,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"                             REFERENCED and UNREFERENCED are ok"
+literal|" Walker     "
+operator|+
+literal|"Standalong program that starts following a linked list& emits timing info."
 argument_list|)
 expr_stmt|;
 name|System
@@ -6900,7 +6911,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"                             any UNDEFINED counts are bad. Do not"
+literal|" Print      Standalone program that prints nodes in the linked list."
 argument_list|)
 expr_stmt|;
 name|System
@@ -6909,7 +6920,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"                             run at the same time as the Generator."
+literal|" Delete     Standalone program that deletes a·single node."
 argument_list|)
 expr_stmt|;
 name|System
@@ -6918,7 +6929,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"  Walker                     A standalong program that starts "
+literal|" Loop       Program to Loop through Generator and Verify steps"
 argument_list|)
 expr_stmt|;
 name|System
@@ -6927,88 +6938,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"                             following a linked list and emits"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"                             timing info."
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"  Print                      A standalone program that prints nodes"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"                             in the linked list."
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"  Delete                     A standalone program that deletes a·"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"                             single node."
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"  Loop                       A program to Loop through Generator and"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"                             Verify steps"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"  Clean                      A program to clean all left over detritus."
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"\t  "
+literal|" Clean      Program to clean all left over detritus."
 argument_list|)
 expr_stmt|;
 name|System
@@ -7056,6 +6986,23 @@ literal|1
 condition|)
 block|{
 name|printUsage
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+operator|+
+literal|"<general options> COMMAND [<COMMAND options>]"
+argument_list|,
+literal|"General options:"
+argument_list|,
+literal|""
+argument_list|)
+expr_stmt|;
+name|printCommands
 argument_list|()
 expr_stmt|;
 throw|throw
@@ -7125,7 +7072,7 @@ if|if
 condition|(
 name|toRun
 operator|.
-name|equals
+name|equalsIgnoreCase
 argument_list|(
 literal|"Verify"
 argument_list|)
@@ -7143,7 +7090,7 @@ if|if
 condition|(
 name|toRun
 operator|.
-name|equals
+name|equalsIgnoreCase
 argument_list|(
 literal|"Loop"
 argument_list|)
@@ -7172,7 +7119,7 @@ if|if
 condition|(
 name|toRun
 operator|.
-name|equals
+name|equalsIgnoreCase
 argument_list|(
 literal|"Walker"
 argument_list|)
@@ -7190,7 +7137,7 @@ if|if
 condition|(
 name|toRun
 operator|.
-name|equals
+name|equalsIgnoreCase
 argument_list|(
 literal|"Print"
 argument_list|)
@@ -7208,7 +7155,7 @@ if|if
 condition|(
 name|toRun
 operator|.
-name|equals
+name|equalsIgnoreCase
 argument_list|(
 literal|"Delete"
 argument_list|)
@@ -7226,7 +7173,7 @@ if|if
 condition|(
 name|toRun
 operator|.
-name|equals
+name|equalsIgnoreCase
 argument_list|(
 literal|"Clean"
 argument_list|)
