@@ -3414,6 +3414,7 @@ operator|.
 name|remove
 argument_list|()
 expr_stmt|;
+break|break;
 block|}
 block|}
 block|}
