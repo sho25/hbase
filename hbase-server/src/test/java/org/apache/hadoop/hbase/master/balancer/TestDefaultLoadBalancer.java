@@ -1049,6 +1049,11 @@ decl_stmt|;
 comment|/**    * Test the load balancing algorithm.    *    * Invariant is that all servers should be hosting either floor(average) or    * ceiling(average)    *    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testBalanceCluster
