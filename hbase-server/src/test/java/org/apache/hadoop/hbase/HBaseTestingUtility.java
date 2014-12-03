@@ -11755,22 +11755,6 @@ operator|==
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-name|getMiniHBaseCluster
-argument_list|()
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"You cannot have a Connection if cluster is not up"
-argument_list|)
-throw|;
-block|}
 name|this
 operator|.
 name|connection
