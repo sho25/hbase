@@ -6955,6 +6955,23 @@ operator|.
 name|getPath
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|family
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|HConstants
+operator|.
+name|RECOVERED_EDITS_DIR
+argument_list|)
+condition|)
+block|{
+continue|continue;
+block|}
 comment|// now in family, iterate over the StoreFiles and
 comment|// put in map
 name|FileStatus

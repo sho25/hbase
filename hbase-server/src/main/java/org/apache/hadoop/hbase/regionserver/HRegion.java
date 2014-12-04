@@ -4065,24 +4065,24 @@ name|long
 name|nextSeqid
 init|=
 name|maxSeqId
-operator|+
-literal|1
 decl_stmt|;
+comment|// In distributedLogReplay mode, we don't know the last change sequence number because region
+comment|// is opened before recovery completes. So we add a safety bumper to avoid new sequence number
+comment|// overlaps used sequence numbers
 if|if
 condition|(
 name|this
 operator|.
-name|isRecovering
+name|writestate
+operator|.
+name|writesEnabled
 condition|)
 block|{
-comment|// In distributedLogReplay mode, we don't know the last change sequence number because region
-comment|// is opened before recovery completes. So we add a safety bumper to avoid new sequence number
-comment|// overlaps used sequence numbers
 name|nextSeqid
 operator|=
 name|WALSplitter
 operator|.
-name|writeRegionOpenSequenceIdFile
+name|writeRegionSequenceIdFile
 argument_list|(
 name|this
 operator|.
@@ -4103,11 +4103,25 @@ argument_list|,
 operator|(
 name|this
 operator|.
+name|isRecovering
+condition|?
+operator|(
+name|this
+operator|.
 name|flushPerChanges
 operator|+
 literal|10000000
 operator|)
+else|:
+literal|1
+operator|)
 argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|nextSeqid
+operator|++
 expr_stmt|;
 block|}
 name|LOG
@@ -4927,6 +4941,57 @@ name|getSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Store SeqId in HDFS when a region closes
+comment|// checking region folder exists is due to many tests which delete the table folder while a
+comment|// table is still online
+if|if
+condition|(
+name|this
+operator|.
+name|fs
+operator|.
+name|getFileSystem
+argument_list|()
+operator|.
+name|exists
+argument_list|(
+name|this
+operator|.
+name|fs
+operator|.
+name|getRegionDir
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|WALSplitter
+operator|.
+name|writeRegionSequenceIdFile
+argument_list|(
+name|this
+operator|.
+name|fs
+operator|.
+name|getFileSystem
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|fs
+operator|.
+name|getRegionDir
+argument_list|()
+argument_list|,
+name|getSequenceId
+argument_list|()
+operator|.
+name|get
+argument_list|()
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * @return True if this region has references.    */
 specifier|public
@@ -6416,6 +6481,11 @@ name|getRegionServerServices
 argument_list|()
 operator|!=
 literal|null
+operator|&&
+operator|!
+name|writestate
+operator|.
+name|readOnly
 condition|)
 block|{
 name|writeRegionCloseMarker
@@ -16507,6 +16577,38 @@ name|getLogSeqNum
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|currentEditSeqId
+operator|>
+name|key
+operator|.
+name|getLogSeqNum
+argument_list|()
+condition|)
+block|{
+comment|// when this condition is true, it means we have a serious defect because we need to
+comment|// maintain increasing SeqId for WAL edits per region
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Found decreasing SeqId. PreId="
+operator|+
+name|currentEditSeqId
+operator|+
+literal|" key="
+operator|+
+name|key
+operator|+
+literal|"; edit="
+operator|+
+name|val
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|currentEditSeqId
 operator|=
 name|key
@@ -16514,6 +16616,7 @@ operator|.
 name|getLogSeqNum
 argument_list|()
 expr_stmt|;
+block|}
 name|currentReplaySeqId
 operator|=
 operator|(
