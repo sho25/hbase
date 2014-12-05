@@ -61,6 +61,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -86,6 +96,22 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -177,6 +203,22 @@ name|Token
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|security
+operator|.
+name|token
+operator|.
+name|TokenIdentifier
+import|;
+end_import
+
 begin_comment
 comment|/**  * Wrapper to abstract out usage of user and group information in HBase.  *  *<p>  * This class provides a common interface for interacting with user and group  * information across changing APIs in different versions of Hadoop.  It only  * provides access to the common set of functionality in  * {@link org.apache.hadoop.security.UserGroupInformation} currently needed by  * HBase, but can be extended as needs change.  *</p>  */
 end_comment
@@ -185,7 +227,11 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 specifier|abstract
 class|class
@@ -212,7 +258,7 @@ return|return
 name|ugi
 return|;
 block|}
-comment|/**    * Returns the full user name.  For Kerberos principals this will include    * the host and realm portions of the principal name.    * @return User full name.    */
+comment|/**    * Returns the full user name.  For Kerberos principals this will include    * the host and realm portions of the principal name.    *    * @return User full name.    */
 specifier|public
 name|String
 name|getName
@@ -239,7 +285,7 @@ name|getGroupNames
 argument_list|()
 return|;
 block|}
-comment|/**    * Returns the shortened version of the user name -- the portion that maps    * to an operating system user name.    * @return Short name    */
+comment|/**    * Returns the shortened version of the user name -- the portion that maps    * to an operating system user name.    *    * @return Short name    */
 specifier|public
 specifier|abstract
 name|String
@@ -282,7 +328,9 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Requests an authentication token for this user and stores it in the    * user's credentials.    *    * @throws IOException    */
+comment|/**    * Requests an authentication token for this user and stores it in the    * user's credentials.    *    * @throws IOException    * @deprecated Use {@code TokenUtil.obtainAuthTokenForJob(Connection,User,Job)}    *     instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|abstract
 name|void
@@ -299,7 +347,9 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Requests an authentication token for this user and stores it in the    * user's credentials.    *    * @throws IOException    */
+comment|/**    * Requests an authentication token for this user and stores it in the    * user's credentials.    *    * @throws IOException    * @deprecated Use {@code TokenUtil.obtainAuthTokenForJob(Connection,JobConf,User)}    *     instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|abstract
 name|void
@@ -387,6 +437,49 @@ block|}
 return|return
 literal|null
 return|;
+block|}
+comment|/**    * Returns all the tokens stored in the user's credentials.    */
+specifier|public
+name|Collection
+argument_list|<
+name|Token
+argument_list|<
+name|?
+extends|extends
+name|TokenIdentifier
+argument_list|>
+argument_list|>
+name|getTokens
+parameter_list|()
+block|{
+return|return
+name|ugi
+operator|.
+name|getTokens
+argument_list|()
+return|;
+block|}
+comment|/**    * Adds the given Token to the user's credentials.    *    * @param token the token to add    */
+specifier|public
+name|void
+name|addToken
+parameter_list|(
+name|Token
+argument_list|<
+name|?
+extends|extends
+name|TokenIdentifier
+argument_list|>
+name|token
+parameter_list|)
+block|{
+name|ugi
+operator|.
+name|addToken
+argument_list|(
+name|token
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
