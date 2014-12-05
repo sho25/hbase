@@ -369,6 +369,17 @@ specifier|final
 name|long
 name|ttl
 decl_stmt|;
+comment|/** The oldest timestamp we are interested in, based on TTL */
+specifier|private
+specifier|final
+name|long
+name|oldestUnexpiredTS
+decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|now
+decl_stmt|;
 comment|/** readPoint over which the KVs are unconditionally included */
 specifier|protected
 name|long
@@ -459,6 +470,9 @@ parameter_list|,
 name|long
 name|oldestUnexpiredTS
 parameter_list|,
+name|long
+name|now
+parameter_list|,
 name|RegionCoprocessorHost
 name|regionCoprocessorHost
 parameter_list|)
@@ -538,6 +552,18 @@ operator|.
 name|earliestPutTs
 operator|=
 name|earliestPutTs
+expr_stmt|;
+name|this
+operator|.
+name|oldestUnexpiredTS
+operator|=
+name|oldestUnexpiredTS
+expr_stmt|;
+name|this
+operator|.
+name|now
+operator|=
+name|now
 expr_stmt|;
 name|this
 operator|.
@@ -804,7 +830,7 @@ return|return
 name|tracker
 return|;
 block|}
-comment|/**    * Construct a QueryMatcher for a scan that drop deletes from a limited range of rows.    * @param scan    * @param scanInfo The store's immutable scan info    * @param columns    * @param earliestPutTs Earliest put seen in any of the store files.    * @param oldestUnexpiredTS the oldest timestamp we are interested in,    *  based on TTL    * @param dropDeletesFromRow The inclusive left bound of the range; can be EMPTY_START_ROW.    * @param dropDeletesToRow The exclusive right bound of the range; can be EMPTY_END_ROW.    * @param regionCoprocessorHost     * @throws IOException     */
+comment|/**    * Construct a QueryMatcher for a scan that drop deletes from a limited range of rows.    * @param scan    * @param scanInfo The store's immutable scan info    * @param columns    * @param earliestPutTs Earliest put seen in any of the store files.    * @param oldestUnexpiredTS the oldest timestamp we are interested in, based on TTL    * @param now the current server time    * @param dropDeletesFromRow The inclusive left bound of the range; can be EMPTY_START_ROW.    * @param dropDeletesToRow The exclusive right bound of the range; can be EMPTY_END_ROW.    * @param regionCoprocessorHost     * @throws IOException     */
 specifier|public
 name|ScanQueryMatcher
 parameter_list|(
@@ -829,6 +855,9 @@ name|earliestPutTs
 parameter_list|,
 name|long
 name|oldestUnexpiredTS
+parameter_list|,
+name|long
+name|now
 parameter_list|,
 name|byte
 index|[]
@@ -861,6 +890,8 @@ argument_list|,
 name|earliestPutTs
 argument_list|,
 name|oldestUnexpiredTS
+argument_list|,
+name|now
 argument_list|,
 name|regionCoprocessorHost
 argument_list|)
@@ -913,6 +944,9 @@ name|columns
 parameter_list|,
 name|long
 name|oldestUnexpiredTS
+parameter_list|,
+name|long
+name|now
 parameter_list|)
 throws|throws
 name|IOException
@@ -939,6 +973,8 @@ operator|.
 name|LATEST_TIMESTAMP
 argument_list|,
 name|oldestUnexpiredTS
+argument_list|,
+name|now
 argument_list|,
 literal|null
 argument_list|)
@@ -1170,6 +1206,31 @@ name|qualifierOffset
 argument_list|,
 name|qualifierLength
 argument_list|)
+return|;
+block|}
+comment|// check if the cell is expired by cell TTL
+if|if
+condition|(
+name|HStore
+operator|.
+name|isCellTTLExpired
+argument_list|(
+name|cell
+argument_list|,
+name|this
+operator|.
+name|oldestUnexpiredTS
+argument_list|,
+name|this
+operator|.
+name|now
+argument_list|)
+condition|)
+block|{
+return|return
+name|MatchCode
+operator|.
+name|SKIP
 return|;
 block|}
 comment|/*      * The delete logic is pretty complicated now.      * This is corroborated by the following:      * 1. The store might be instructed to keep deleted rows around.      * 2. A scan can optionally see past a delete marker now.      * 3. If deleted rows are kept, we have to find out when we can      *    remove the delete markers.      * 4. Family delete markers are always first (regardless of their TS)      * 5. Delete markers should not be counted as version      * 6. Delete markers affect puts of the *same* TS      * 7. Delete marker need to be version counted together with puts      *    they affect      */

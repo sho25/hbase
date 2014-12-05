@@ -1588,6 +1588,24 @@ name|perms
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|Delete
+name|setTTL
+parameter_list|(
+name|long
+name|ttl
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"Setting TTLs on Deletes is not supported"
+argument_list|)
+throw|;
+block|}
 block|}
 end_class
 

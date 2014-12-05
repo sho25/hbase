@@ -108,6 +108,17 @@ name|byte
 operator|)
 literal|7
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|byte
+name|TTL_TAG_TYPE
+init|=
+operator|(
+name|byte
+operator|)
+literal|8
+decl_stmt|;
 block|}
 end_class
 

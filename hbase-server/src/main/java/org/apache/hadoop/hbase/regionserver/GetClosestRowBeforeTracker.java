@@ -176,7 +176,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * State and utility processing {@link HRegion#getClosestRowBefore(byte[], byte[])}.  * Like {@link ScanDeleteTracker} and {@link ScanDeleteTracker} but does not  * implement the {@link DeleteTracker} interface since state spans rows (There  * is no update nor reset method).  */
+comment|/**  * State and utility processing {@link HRegion#getClosestRowBefore(byte[], byte[])}.  * Like {@link ScanQueryMatcher} and {@link ScanDeleteTracker} but does not  * implement the {@link DeleteTracker} interface since state spans rows (There  * is no update nor reset method).  */
 end_comment
 
 begin_class
@@ -196,7 +196,12 @@ comment|// Any cell w/ a ts older than this is expired.
 specifier|private
 specifier|final
 name|long
-name|oldestts
+name|now
+decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|oldestUnexpiredTs
 decl_stmt|;
 specifier|private
 name|Cell
@@ -340,12 +345,18 @@ literal|1
 expr_stmt|;
 name|this
 operator|.
-name|oldestts
+name|now
 operator|=
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|oldestUnexpiredTs
+operator|=
+name|now
 operator|-
 name|ttl
 expr_stmt|;
@@ -377,28 +388,6 @@ name|RowComparator
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-comment|/**    * @param kv    * @return True if this<code>kv</code> is expired.    */
-name|boolean
-name|isExpired
-parameter_list|(
-specifier|final
-name|Cell
-name|kv
-parameter_list|)
-block|{
-return|return
-name|HStore
-operator|.
-name|isExpired
-argument_list|(
-name|kv
-argument_list|,
-name|this
-operator|.
-name|oldestts
-argument_list|)
-return|;
 block|}
 comment|/*    * Add the specified KeyValue to the list of deletes.    * @param kv    */
 specifier|private
@@ -794,6 +783,42 @@ block|}
 block|}
 return|return
 literal|false
+return|;
+block|}
+comment|/**    * @param cell    * @return true if the cell is expired    */
+specifier|public
+name|boolean
+name|isExpired
+parameter_list|(
+specifier|final
+name|Cell
+name|cell
+parameter_list|)
+block|{
+return|return
+name|cell
+operator|.
+name|getTimestamp
+argument_list|()
+operator|<
+name|this
+operator|.
+name|oldestUnexpiredTs
+operator|||
+name|HStore
+operator|.
+name|isCellTTLExpired
+argument_list|(
+name|cell
+argument_list|,
+name|this
+operator|.
+name|oldestUnexpiredTs
+argument_list|,
+name|this
+operator|.
+name|now
+argument_list|)
 return|;
 block|}
 comment|/*    * Handle keys whose values hold deletes.    * Add to the set of deletes and then if the candidate keys contain any that    * might match, then check for a match and remove it.  Implies candidates    * is made with a Comparator that ignores key type.    * @param kv    * @return True if we removed<code>k</code> from<code>candidates</code>.    */
