@@ -340,7 +340,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Entry point for users of the Write Ahead Log.  * Acts as the shim between internal use and the particular WALProvider we use to handle wal  * requests.  *  * Configure which provider gets used with the configuration setting "hbase.wal.provider". Available  * implementations:  *<ul>  *<li><em>defaultProvider</em> : whatever provider is standard for the hbase version.</li>  *</ul>  *  * Alternatively, you may provide a custome implementation of {@link WALProvider} by class name.  */
+comment|/**  * Entry point for users of the Write Ahead Log.  * Acts as the shim between internal use and the particular WALProvider we use to handle wal  * requests.  *  * Configure which provider gets used with the configuration setting "hbase.wal.provider". Available  * implementations:  *<ul>  *<li><em>defaultProvider</em> : whatever provider is standard for the hbase version. Currently  *                                  "filesystem"</li>  *<li><em>filesystem</em> : a provider that will run on top of an implementation of the Hadoop  *                             FileSystem interface, normally HDFS.</li>  *<li><em>multiwal</em> : a provider that will use multiple "filesystem" wal instances per region  *                           server.</li>  *</ul>  *  * Alternatively, you may provide a custome implementation of {@link WALProvider} by class name.  */
 end_comment
 
 begin_class
@@ -378,6 +378,16 @@ name|DefaultWALProvider
 operator|.
 name|class
 parameter_list|)
+operator|,
+constructor|filesystem(DefaultWALProvider.class
+block|)
+enum|,
+name|multiwal
+parameter_list|(
+name|BoundedRegionGroupingProvider
+operator|.
+name|class
+parameter_list|)
 constructor_decl|;
 name|Class
 argument_list|<
@@ -406,6 +416,9 @@ name|clazz
 expr_stmt|;
 block|}
 block|}
+end_class
+
+begin_decl_stmt
 specifier|static
 specifier|final
 name|String
@@ -413,6 +426,9 @@ name|WAL_PROVIDER
 init|=
 literal|"hbase.wal.provider"
 decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 specifier|static
 specifier|final
 name|String
@@ -425,6 +441,9 @@ operator|.
 name|name
 argument_list|()
 decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 specifier|static
 specifier|final
 name|String
@@ -432,6 +451,9 @@ name|META_WAL_PROVIDER
 init|=
 literal|"hbase.wal.meta_provider"
 decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 specifier|static
 specifier|final
 name|String
@@ -444,17 +466,35 @@ operator|.
 name|name
 argument_list|()
 decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 specifier|final
 name|String
 name|factoryId
 decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 specifier|final
 name|WALProvider
 name|provider
 decl_stmt|;
+end_decl_stmt
+
+begin_comment
 comment|// The meta updates are written to a different wal. If this
+end_comment
+
+begin_comment
 comment|// regionserver holds meta regions, then this ref will be non-null.
+end_comment
+
+begin_comment
 comment|// lazily intialized; most RegionServers don't deal with META
+end_comment
+
+begin_decl_stmt
 specifier|final
 name|AtomicReference
 argument_list|<
@@ -469,7 +509,13 @@ name|WALProvider
 argument_list|>
 argument_list|()
 decl_stmt|;
+end_decl_stmt
+
+begin_comment
 comment|/**    * Configuration-specified WAL Reader used when a custom reader is requested    */
+end_comment
+
+begin_decl_stmt
 specifier|private
 specifier|final
 name|Class
@@ -482,18 +528,33 @@ name|Reader
 argument_list|>
 name|logReaderClass
 decl_stmt|;
+end_decl_stmt
+
+begin_comment
 comment|/**    * How long to attempt opening in-recovery wals    */
+end_comment
+
+begin_decl_stmt
 specifier|private
 specifier|final
 name|int
 name|timeoutMillis
 decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 specifier|private
 specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
+end_decl_stmt
+
+begin_comment
 comment|// Used for the singleton WALFactory, see below.
+end_comment
+
+begin_constructor
 specifier|private
 name|WALFactory
 parameter_list|(
@@ -552,7 +613,13 @@ operator|=
 name|SINGLETON_ID
 expr_stmt|;
 block|}
+end_constructor
+
+begin_comment
 comment|/**    * instantiate a provider from a config property.    * requires conf to have already been set (as well as anything the provider might need to read).    */
+end_comment
+
+begin_function
 name|WALProvider
 name|getProvider
 parameter_list|(
@@ -634,6 +701,15 @@ name|class
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Instantiating WALProvider of type "
+operator|+
+name|clazz
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 specifier|final
@@ -731,7 +807,13 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * @param conf must not be null, will keep a reference to read params in later reader/writer    *     instances.    * @param listeners may be null. will be given to all created wals (and not meta-wals)    * @param factoryId a unique identifier for this factory. used i.e. by filesystem implementations    *     to make a directory    */
+end_comment
+
+begin_constructor
 specifier|public
 name|WALFactory
 parameter_list|(
@@ -856,7 +938,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_constructor
+
+begin_comment
 comment|/**    * Shutdown all WALs and clean up any underlying storage.    * Use only when you will not need to replay and edits that have gone to any wals from this    * factory.    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|close
@@ -904,7 +992,13 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Tell the underlying WAL providers to shut down, but do not clean up underlying storage.    * If you are not ending cleanly and will need to replay edits from this factory's wals,    * use this method if you can as it will try to leave things as tidy as possible.    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|shutdown
@@ -972,7 +1066,13 @@ name|exception
 throw|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * @param identifier may not be null, contents will not be altered    */
+end_comment
+
+begin_function
 specifier|public
 name|WAL
 name|getWAL
@@ -994,7 +1094,13 @@ name|identifier
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @param identifier may not be null, contents will not be altered    */
+end_comment
+
+begin_function
 specifier|public
 name|WAL
 name|getMetaWAL
@@ -1098,6 +1204,9 @@ name|identifier
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|Reader
 name|createReader
@@ -1127,7 +1236,13 @@ literal|null
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Create a reader for the WAL. If you are reading from a file that's being written to and need    * to reopen it multiple times, use {@link WAL.Reader#reset()} instead of this method    * then just seek back to the last known good position.    * @return A WAL reader.  Close when done with it.    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|public
 name|Reader
 name|createReader
@@ -1159,6 +1274,9 @@ literal|true
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|Reader
 name|createReader
@@ -1560,7 +1678,13 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Create a writer for the WAL.    * should be package-private. public only for tests and    * {@link org.apache.hadoop.hbase.regionserver.wal.Compressor}    * @return A WAL writer.  Close when done with it.    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|public
 name|Writer
 name|createWALWriter
@@ -1591,7 +1715,13 @@ literal|false
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * should be package-private, visible for recovery testing.    * @return an overwritable writer for recovered edits. caller should close.    */
+end_comment
+
+begin_function
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -1624,10 +1754,25 @@ literal|true
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|// These static methods are currently used where it's impractical to
+end_comment
+
+begin_comment
 comment|// untangle the reliance on state in the filesystem. They rely on singleton
+end_comment
+
+begin_comment
 comment|// WALFactory that just provides Reader / Writers.
+end_comment
+
+begin_comment
 comment|// For now, first Configuration object wins. Practically this just impacts the reader/writer class
+end_comment
+
+begin_decl_stmt
 specifier|private
 specifier|static
 specifier|final
@@ -1644,6 +1789,9 @@ name|WALFactory
 argument_list|>
 argument_list|()
 decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 specifier|private
 specifier|static
 specifier|final
@@ -1657,7 +1805,13 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
+end_decl_stmt
+
+begin_comment
 comment|// public only for FSHLog
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|WALFactory
@@ -1748,7 +1902,13 @@ return|return
 name|factory
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Create a reader for the given path, accept custom reader classes from conf.    * If you already have a WALFactory, you should favor the instance method.    * @return a WAL Reader, caller must close.    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|Reader
@@ -1783,7 +1943,13 @@ name|path
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Create a reader for the given path, accept custom reader classes from conf.    * If you already have a WALFactory, you should favor the instance method.    * @return a WAL Reader, caller must close.    */
+end_comment
+
+begin_function
 specifier|static
 name|Reader
 name|createReader
@@ -1823,7 +1989,13 @@ name|reporter
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Create a reader for the given path, ignore custom reader classes from conf.    * If you already have a WALFactory, you should favor the instance method.    * only public pending move of {@link org.apache.hadoop.hbase.regionserver.wal.Compressor}    * @return a WAL Reader, caller must close.    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|Reader
@@ -1862,7 +2034,13 @@ literal|false
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * If you already have a WALFactory, you should favor the instance method.    * @return a Writer that will overwrite files. Caller must close.    */
+end_comment
+
+begin_function
 specifier|static
 name|Writer
 name|createRecoveredEditsWriter
@@ -1897,7 +2075,13 @@ literal|true
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * If you already have a WALFactory, you should favor the instance method.    * @return a writer that won't overwrite files. Caller must close.    */
+end_comment
+
+begin_function
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -1935,8 +2119,8 @@ literal|false
 argument_list|)
 return|;
 block|}
-block|}
-end_class
+end_function
 
+unit|}
 end_unit
 
