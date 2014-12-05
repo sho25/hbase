@@ -455,20 +455,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|net
-operator|.
-name|ScriptBasedMapping
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
 name|junit
 operator|.
 name|BeforeClass
@@ -766,8 +752,8 @@ specifier|public
 specifier|static
 class|class
 name|MockMapping
-extends|extends
-name|ScriptBasedMapping
+implements|implements
+name|DNSToSwitchMapping
 block|{
 specifier|public
 name|MockMapping
@@ -783,8 +769,6 @@ name|RACK
 init|=
 literal|"rack"
 decl_stmt|;
-annotation|@
-name|Override
 specifier|public
 name|List
 argument_list|<
@@ -837,6 +821,24 @@ return|return
 name|ret
 return|;
 block|}
+comment|// do not add @Override annotations here. It mighty break compilation with earlier Hadoops
+specifier|public
+name|void
+name|reloadCachedMappings
+parameter_list|()
+block|{     }
+comment|// do not add @Override annotations here. It mighty break compilation with earlier Hadoops
+specifier|public
+name|void
+name|reloadCachedMappings
+parameter_list|(
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|arg0
+parameter_list|)
+block|{     }
 block|}
 annotation|@
 name|BeforeClass
