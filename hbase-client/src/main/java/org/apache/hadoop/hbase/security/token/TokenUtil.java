@@ -701,7 +701,7 @@ literal|"default"
 argument_list|)
 return|;
 block|}
-comment|/**    * Obtain an authentication token for the given user and add it to the    * user's credentials.    * @param conf The configuration for connecting to the cluster    * @param user The user for whom to obtain the token    * @throws IOException If making a remote call to the    *     {@link AuthenticationProtos.AuthenticationService} fails    * @throws InterruptedException If executing as the given user is interrupted    * @deprecated Replaced by {@link #obtainAndCacheToken(Connection,User)}    */
+comment|/**    * Obtain an authentication token for the given user and add it to the    * user's credentials.    * @param conf The configuration for connecting to the cluster    * @param user The user for whom to obtain the token    * @throws IOException If making a remote call to the authentication service fails    * @throws InterruptedException If executing as the given user is interrupted    * @deprecated Replaced by {@link #obtainAndCacheToken(Connection,User)}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -765,7 +765,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Obtain an authentication token for the given user and add it to the    * user's credentials.    * @param conn The HBase cluster connection    * @param user The user for whom to obtain the token    * @throws IOException If making a remote call to the    *     {@link AuthenticationProtos.AuthenticationService} fails    * @throws InterruptedException If executing as the given user is interrupted    */
+comment|/**    * Obtain an authentication token for the given user and add it to the    * user's credentials.    * @param conn The HBase cluster connection    * @param user The user for whom to obtain the token    * @throws IOException If making a remote call to the authentication service fails    * @throws InterruptedException If executing as the given user is interrupted    */
 specifier|public
 specifier|static
 name|void
@@ -909,7 +909,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Obtain an authentication token on behalf of the given user and add it to    * the credentials for the given map reduce job.    * @param conf The configuration for connecting to the cluster    * @param user The user for whom to obtain the token    * @param job The job instance in which the token should be stored    * @throws IOException If making a remote call to the    *     {@link AuthenticationProtos.AuthenticationService} fails    * @throws InterruptedException If executing as the given user is interrupted    * @deprecated Replaced by {@link #obtainTokenForJob(Connection,User,Job)}    */
+comment|/**    * Obtain an authentication token on behalf of the given user and add it to    * the credentials for the given map reduce job.    * @param conf The configuration for connecting to the cluster    * @param user The user for whom to obtain the token    * @param job The job instance in which the token should be stored    * @throws IOException If making a remote call to the authentication service fails    * @throws InterruptedException If executing as the given user is interrupted    * @deprecated Replaced by {@link #obtainTokenForJob(Connection,User,Job)}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -978,7 +978,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Obtain an authentication token on behalf of the given user and add it to    * the credentials for the given map reduce job.    * @param conn The HBase cluster connection    * @param user The user for whom to obtain the token    * @param job The job instance in which the token should be stored    * @throws IOException If making a remote call to the    *     {@link AuthenticationProtos.AuthenticationService} fails    * @throws InterruptedException If executing as the given user is interrupted    */
+comment|/**    * Obtain an authentication token on behalf of the given user and add it to    * the credentials for the given map reduce job.    * @param conn The HBase cluster connection    * @param user The user for whom to obtain the token    * @param job The job instance in which the token should be stored    * @throws IOException If making a remote call to the authentication service fails    * @throws InterruptedException If executing as the given user is interrupted    */
 specifier|public
 specifier|static
 name|void
@@ -1145,7 +1145,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Obtain an authentication token on behalf of the given user and add it to    * the credentials for the given map reduce job.    * @param user The user for whom to obtain the token    * @param job The job configuration in which the token should be stored    * @throws IOException If making a remote call to the    *     {@link AuthenticationProtos.AuthenticationService} fails    * @throws InterruptedException If executing as the given user is interrupted    * @deprecated Replaced by {@link #obtainTokenForJob(Connection,JobConf,User)}    */
+comment|/**    * Obtain an authentication token on behalf of the given user and add it to    * the credentials for the given map reduce job.    * @param user The user for whom to obtain the token    * @param job The job configuration in which the token should be stored    * @throws IOException If making a remote call to the authentication service fails    * @throws InterruptedException If executing as the given user is interrupted    * @deprecated Replaced by {@link #obtainTokenForJob(Connection,JobConf,User)}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1211,7 +1211,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Obtain an authentication token on behalf of the given user and add it to    * the credentials for the given map reduce job.    * @param conn The HBase cluster connection    * @param user The user for whom to obtain the token    * @param job The job configuration in which the token should be stored    * @throws IOException If making a remote call to the    *     {@link AuthenticationProtos.AuthenticationService} fails    * @throws InterruptedException If executing as the given user is interrupted    */
+comment|/**    * Obtain an authentication token on behalf of the given user and add it to    * the credentials for the given map reduce job.    * @param conn The HBase cluster connection    * @param user The user for whom to obtain the token    * @param job The job configuration in which the token should be stored    * @throws IOException If making a remote call to the authentication service fails    * @throws InterruptedException If executing as the given user is interrupted    */
 specifier|public
 specifier|static
 name|void
@@ -1379,7 +1379,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Checks for an authentication token for the given user, obtaining a new token if necessary,    * and adds it to the credentials for the given map reduce job.    *    * @param conn The HBase cluster connection    * @param user The user for whom to obtain the token    * @param job The job configuration in which the token should be stored    * @throws IOException If making a remote call to the    *     {@link AuthenticationProtos.AuthenticationService} fails    * @throws InterruptedException If executing as the given user is interrupted    */
+comment|/**    * Checks for an authentication token for the given user, obtaining a new token if necessary,    * and adds it to the credentials for the given map reduce job.    *    * @param conn The HBase cluster connection    * @param user The user for whom to obtain the token    * @param job The job configuration in which the token should be stored    * @throws IOException If making a remote call to the authentication service fails    * @throws InterruptedException If executing as the given user is interrupted    */
 specifier|public
 specifier|static
 name|void
@@ -1450,7 +1450,7 @@ name|token
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Checks for an authentication token for the given user, obtaining a new token if necessary,    * and adds it to the credentials for the given map reduce job.    *    * @param conn The HBase cluster connection    * @param user The user for whom to obtain the token    * @param job The job instance in which the token should be stored    * @throws IOException If making a remote call to the    *     {@link AuthenticationProtos.AuthenticationService} fails    * @throws InterruptedException If executing as the given user is interrupted    */
+comment|/**    * Checks for an authentication token for the given user, obtaining a new token if necessary,    * and adds it to the credentials for the given map reduce job.    *    * @param conn The HBase cluster connection    * @param user The user for whom to obtain the token    * @param job The job instance in which the token should be stored    * @throws IOException If making a remote call to the authentication service fails    * @throws InterruptedException If executing as the given user is interrupted    */
 specifier|public
 specifier|static
 name|void
@@ -1520,7 +1520,7 @@ name|token
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Checks if an authentication tokens exists for the connected cluster,    * obtaining one if needed and adding it to the user's credentials.    *    * @param conn The HBase cluster connection    * @param user The user for whom to obtain the token    * @throws IOException If making a remote call to the    *     {@link AuthenticationProtos.AuthenticationService} fails    * @throws InterruptedException If executing as the given user is interrupted    * @return true if the token was added, false if it already existed    */
+comment|/**    * Checks if an authentication tokens exists for the connected cluster,    * obtaining one if needed and adding it to the user's credentials.    *    * @param conn The HBase cluster connection    * @param user The user for whom to obtain the token    * @throws IOException If making a remote call to the authentication service fails    * @throws InterruptedException If executing as the given user is interrupted    * @return true if the token was added, false if it already existed    */
 specifier|public
 specifier|static
 name|boolean
