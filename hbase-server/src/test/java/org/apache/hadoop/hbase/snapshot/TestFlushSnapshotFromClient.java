@@ -341,7 +341,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RpcClient
+name|AbstractRpcClient
 import|;
 end_import
 
@@ -688,7 +688,7 @@ block|{
 comment|// Uncomment the following lines if more verbosity is needed for
 comment|// debugging (see HBASE-12285 for details).
 comment|//((Log4JLogger)RpcServer.LOG).getLogger().setLevel(Level.ALL);
-comment|//((Log4JLogger)RpcClient.LOG).getLogger().setLevel(Level.ALL);
+comment|//((Log4JLogger)AbstractRpcClient.LOG).getLogger().setLevel(Level.ALL);
 comment|//((Log4JLogger)ScannerCallable.LOG).getLogger().setLevel(Level.ALL);
 name|setupConf
 argument_list|(

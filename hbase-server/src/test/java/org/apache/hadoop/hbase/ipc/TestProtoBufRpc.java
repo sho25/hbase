@@ -723,8 +723,9 @@ block|{
 name|RpcClient
 name|rpcClient
 init|=
-operator|new
-name|RpcClient
+name|RpcClientFactory
+operator|.
+name|createClient
 argument_list|(
 name|conf
 argument_list|,
@@ -887,7 +888,7 @@ finally|finally
 block|{
 name|rpcClient
 operator|.
-name|stop
+name|close
 argument_list|()
 expr_stmt|;
 block|}

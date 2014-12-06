@@ -757,22 +757,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|ConnectionFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|coordination
 operator|.
 name|BaseCoordinatedStateManager
@@ -954,6 +938,22 @@ operator|.
 name|ipc
 operator|.
 name|RpcClient
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|RpcClientFactory
 import|;
 end_import
 
@@ -4205,8 +4205,9 @@ expr_stmt|;
 comment|// Setup RPC client for master communication
 name|rpcClient
 operator|=
-operator|new
-name|RpcClient
+name|RpcClientFactory
+operator|.
+name|createClient
 argument_list|(
 name|conf
 argument_list|,
@@ -5210,7 +5211,7 @@ name|this
 operator|.
 name|rpcClient
 operator|.
-name|stop
+name|close
 argument_list|()
 expr_stmt|;
 block|}
