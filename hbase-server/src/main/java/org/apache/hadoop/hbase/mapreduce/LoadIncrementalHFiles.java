@@ -2125,9 +2125,9 @@ operator|>=
 name|maxRetries
 condition|)
 block|{
-name|LOG
-operator|.
-name|error
+throw|throw
+operator|new
+name|IOException
 argument_list|(
 literal|"Retry attempted "
 operator|+
@@ -2135,8 +2135,7 @@ name|count
 operator|+
 literal|" times without completing, bailing out"
 argument_list|)
-expr_stmt|;
-return|return;
+throw|;
 block|}
 name|count
 operator|++
