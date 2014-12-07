@@ -239,26 +239,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
-name|ProtobufLogReader
-operator|.
-name|WALHdrResult
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|security
 operator|.
 name|EncryptionUtil
@@ -278,6 +258,22 @@ operator|.
 name|security
 operator|.
 name|User
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|EncryptionTest
 import|;
 end_import
 
@@ -430,6 +426,20 @@ condition|)
 block|{
 comment|// Serialized header data has been merged into the builder from the
 comment|// stream.
+name|EncryptionTest
+operator|.
+name|testKeyProvider
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+name|EncryptionTest
+operator|.
+name|testCipherProvider
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 comment|// Retrieve a usable key
 name|byte
 index|[]
