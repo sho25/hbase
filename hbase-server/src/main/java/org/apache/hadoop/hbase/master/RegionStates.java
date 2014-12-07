@@ -1701,9 +1701,40 @@ name|oldServerName
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Onlined "
+operator|+
+name|hri
+operator|.
+name|getShortNameToLog
+argument_list|()
+operator|+
+literal|" on "
+operator|+
+name|serverName
+operator|+
+literal|" "
+operator|+
+name|hri
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"Onlined "
 operator|+
@@ -1717,6 +1748,7 @@ operator|+
 name|serverName
 argument_list|)
 expr_stmt|;
+block|}
 name|addToServerHoldings
 argument_list|(
 name|serverName

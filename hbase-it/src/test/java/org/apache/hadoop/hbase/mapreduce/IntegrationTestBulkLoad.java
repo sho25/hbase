@@ -1354,6 +1354,15 @@ argument_list|,
 name|desc
 argument_list|)
 expr_stmt|;
+comment|//sleep for sometime. Hope is that the regions are closed/opened before
+comment|//the sleep returns. TODO: do this better
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|30000
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Test
