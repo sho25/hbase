@@ -277,7 +277,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|FailedServerException
+name|RpcClient
 import|;
 end_import
 
@@ -1530,6 +1530,8 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|RpcClient
+operator|.
 name|FailedServerException
 name|e
 parameter_list|)

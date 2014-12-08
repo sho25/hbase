@@ -648,9 +648,8 @@ expr_stmt|;
 name|RpcClient
 name|rpcClient
 init|=
-name|RpcClientFactory
-operator|.
-name|createClient
+operator|new
+name|RpcClient
 argument_list|(
 name|conf
 argument_list|,
@@ -874,7 +873,7 @@ finally|finally
 block|{
 name|rpcClient
 operator|.
-name|close
+name|stop
 argument_list|()
 expr_stmt|;
 block|}
@@ -1107,9 +1106,8 @@ expr_stmt|;
 name|RpcClient
 name|rpcClient
 init|=
-name|RpcClientFactory
-operator|.
-name|createClient
+operator|new
+name|RpcClient
 argument_list|(
 name|conf
 argument_list|,
@@ -1332,7 +1330,7 @@ finally|finally
 block|{
 name|rpcClient
 operator|.
-name|close
+name|stop
 argument_list|()
 expr_stmt|;
 block|}
@@ -1764,9 +1762,8 @@ expr_stmt|;
 name|RpcClient
 name|rpcClient
 init|=
-name|RpcClientFactory
-operator|.
-name|createClient
+operator|new
+name|RpcClient
 argument_list|(
 name|conf
 argument_list|,
@@ -1970,7 +1967,7 @@ finally|finally
 block|{
 name|rpcClient
 operator|.
-name|close
+name|stop
 argument_list|()
 expr_stmt|;
 block|}

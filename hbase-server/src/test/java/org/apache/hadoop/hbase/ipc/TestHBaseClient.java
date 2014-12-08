@@ -179,10 +179,14 @@ argument_list|(
 name|ee
 argument_list|)
 expr_stmt|;
+name|RpcClient
+operator|.
 name|FailedServers
 name|fs
 init|=
 operator|new
+name|RpcClient
+operator|.
 name|FailedServers
 argument_list|(
 operator|new

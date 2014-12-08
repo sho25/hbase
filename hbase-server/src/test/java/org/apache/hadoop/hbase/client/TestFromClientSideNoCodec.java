@@ -107,7 +107,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|AbstractRpcClient
+name|RpcClient
 import|;
 end_import
 
@@ -612,7 +612,7 @@ expr_stmt|;
 name|String
 name|codec
 init|=
-name|AbstractRpcClient
+name|RpcClient
 operator|.
 name|getDefaultCodec
 argument_list|(

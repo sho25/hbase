@@ -181,7 +181,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|AbstractRpcClient
+name|RpcClient
 import|;
 end_import
 
@@ -538,7 +538,7 @@ operator|(
 operator|(
 name|Log4JLogger
 operator|)
-name|AbstractRpcClient
+name|RpcClient
 operator|.
 name|LOG
 operator|)
