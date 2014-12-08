@@ -1731,6 +1731,9 @@ specifier|static
 name|User
 name|USER_NONE
 decl_stmt|;
+comment|// TODO: convert this test to cover the full matrix in
+comment|// https://hbase.apache.org/book/appendix_acl_matrix.html
+comment|// creating all Scope x Permission combinations
 specifier|private
 specifier|static
 name|TableName
@@ -2884,6 +2887,8 @@ argument_list|,
 name|SUPERUSER
 argument_list|,
 name|USER_ADMIN
+argument_list|,
+name|USER_CREATE
 argument_list|)
 expr_stmt|;
 name|verifyDenied
@@ -2895,8 +2900,6 @@ argument_list|,
 name|USER_RO
 argument_list|,
 name|USER_NONE
-argument_list|,
-name|USER_CREATE
 argument_list|,
 name|USER_OWNER
 argument_list|)

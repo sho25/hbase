@@ -5763,6 +5763,10 @@ argument_list|,
 name|Action
 operator|.
 name|ADMIN
+argument_list|,
+name|Action
+operator|.
+name|CREATE
 argument_list|)
 expr_stmt|;
 specifier|final
