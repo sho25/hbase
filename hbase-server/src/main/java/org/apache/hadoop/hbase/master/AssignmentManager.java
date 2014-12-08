@@ -613,7 +613,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RpcClient
+name|FailedServerException
 import|;
 end_import
 
@@ -630,8 +630,6 @@ operator|.
 name|ipc
 operator|.
 name|RpcClient
-operator|.
-name|FailedServerException
 import|;
 end_import
 

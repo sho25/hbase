@@ -2676,14 +2676,6 @@ operator|.
 name|cancelConnections
 argument_list|(
 name|sn
-operator|.
-name|getHostname
-argument_list|()
-argument_list|,
-name|sn
-operator|.
-name|getPort
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Thread
