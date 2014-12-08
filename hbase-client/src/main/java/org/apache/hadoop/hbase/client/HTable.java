@@ -971,12 +971,6 @@ name|writeBufferSize
 decl_stmt|;
 specifier|private
 name|boolean
-name|clearBufferOnFail
-init|=
-literal|true
-decl_stmt|;
-specifier|private
-name|boolean
 name|autoFlush
 init|=
 literal|true
@@ -4709,18 +4703,6 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-name|List
-argument_list|<
-name|Row
-argument_list|>
-name|failedRows
-init|=
-name|clearBufferOnFail
-condition|?
-literal|null
-else|:
-name|writeAsyncBuffer
-decl_stmt|;
 name|RetriesExhaustedWithDetailsException
 name|error
 init|=
@@ -4728,7 +4710,7 @@ name|ap
 operator|.
 name|waitForAllPreviousOpsAndReset
 argument_list|(
-name|failedRows
+literal|null
 argument_list|)
 decl_stmt|;
 if|if
@@ -7393,12 +7375,11 @@ name|boolean
 name|autoFlush
 parameter_list|)
 block|{
-name|setAutoFlush
-argument_list|(
+name|this
+operator|.
 name|autoFlush
-argument_list|,
+operator|=
 name|autoFlush
-argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * {@inheritDoc}    */
@@ -7412,12 +7393,11 @@ name|boolean
 name|autoFlush
 parameter_list|)
 block|{
-name|setAutoFlush
-argument_list|(
+name|this
+operator|.
 name|autoFlush
-argument_list|,
-name|clearBufferOnFail
-argument_list|)
+operator|=
+name|autoFlush
 expr_stmt|;
 block|}
 comment|/**    * {@inheritDoc}    */
@@ -7439,14 +7419,6 @@ operator|.
 name|autoFlush
 operator|=
 name|autoFlush
-expr_stmt|;
-name|this
-operator|.
-name|clearBufferOnFail
-operator|=
-name|autoFlush
-operator|||
-name|clearBufferOnFail
 expr_stmt|;
 block|}
 comment|/**    * Returns the maximum size in bytes of the write buffer for this HTable.    *<p>    * The default value comes from the configuration parameter    * {@code hbase.client.write.buffer}.    * @return The size of the write buffer in bytes.    */

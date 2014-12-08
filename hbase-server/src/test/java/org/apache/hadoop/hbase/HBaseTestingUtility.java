@@ -7535,7 +7535,7 @@ name|IOException
 block|{
 name|t
 operator|.
-name|setAutoFlush
+name|setAutoFlushTo
 argument_list|(
 literal|false
 argument_list|)
