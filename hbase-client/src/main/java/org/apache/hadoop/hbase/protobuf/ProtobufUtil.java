@@ -695,6 +695,22 @@ name|hbase
 operator|.
 name|protobuf
 operator|.
+name|ProtobufMagic
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
 name|generated
 operator|.
 name|AccessControlProtos
@@ -2770,41 +2786,7 @@ name|TYPE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Magic we put ahead of a serialized protobuf message.    * For example, all znode content is protobuf messages with the below magic    * for preamble.    */
-specifier|public
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|PB_MAGIC
-init|=
-operator|new
-name|byte
-index|[]
-block|{
-literal|'P'
-block|,
-literal|'B'
-block|,
-literal|'U'
-block|,
-literal|'F'
-block|}
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|PB_MAGIC_STR
-init|=
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|PB_MAGIC
-argument_list|)
-decl_stmt|;
-comment|/**    * Prepend the passed bytes with four bytes of magic, {@link #PB_MAGIC}, to flag what    * follows as a protobuf in hbase.  Prepend these bytes to all content written to znodes, etc.    * @param bytes Bytes to decorate    * @return The passed<code>bytes</codes> with magic prepended (Creates a new    * byte array that is<code>bytes.length</code> plus {@link #PB_MAGIC}.length.    */
+comment|/**    * Prepend the passed bytes with four bytes of magic, {@link ProtobufMagic#PB_MAGIC},    * to flag what follows as a protobuf in hbase.  Prepend these bytes to all content written to    * znodes, etc.    * @param bytes Bytes to decorate    * @return The passed<code>bytes</codes> with magic prepended (Creates a new    * byte array that is<code>bytes.length</code> plus {@link ProtobufMagic#PB_MAGIC}.length.    */
 specifier|public
 specifier|static
 name|byte
@@ -2822,13 +2804,15 @@ name|Bytes
 operator|.
 name|add
 argument_list|(
+name|ProtobufMagic
+operator|.
 name|PB_MAGIC
 argument_list|,
 name|bytes
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes Bytes to check.    * @return True if passed<code>bytes</code> has {@link #PB_MAGIC} for a prefix.    */
+comment|/**    * @param bytes Bytes to check.    * @return True if passed<code>bytes</code> has {@link ProtobufMagic#PB_MAGIC} for a prefix.    */
 specifier|public
 specifier|static
 name|boolean
@@ -2862,7 +2846,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes Bytes to check.    * @return True if passed<code>bytes</code> has {@link #PB_MAGIC} for a prefix.    */
+comment|/**    * @param bytes Bytes to check.    * @return True if passed<code>bytes</code> has {@link ProtobufMagic#PB_MAGIC} for a prefix.    */
 specifier|public
 specifier|static
 name|boolean
@@ -2888,6 +2872,8 @@ literal|null
 operator|||
 name|len
 operator|<
+name|ProtobufMagic
+operator|.
 name|PB_MAGIC
 operator|.
 name|length
@@ -2900,10 +2886,14 @@ name|Bytes
 operator|.
 name|compareTo
 argument_list|(
+name|ProtobufMagic
+operator|.
 name|PB_MAGIC
 argument_list|,
 literal|0
 argument_list|,
+name|ProtobufMagic
+operator|.
 name|PB_MAGIC
 operator|.
 name|length
@@ -2912,6 +2902,8 @@ name|bytes
 argument_list|,
 name|offset
 argument_list|,
+name|ProtobufMagic
+operator|.
 name|PB_MAGIC
 operator|.
 name|length
@@ -2949,14 +2941,21 @@ name|DeserializationException
 argument_list|(
 literal|"Missing pb magic "
 operator|+
-name|PB_MAGIC_STR
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|ProtobufMagic
+operator|.
+name|PB_MAGIC
+argument_list|)
 operator|+
 literal|" prefix"
 argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @return Length of {@link #PB_MAGIC}    */
+comment|/**    * @return Length of {@link ProtobufMagic#PB_MAGIC}    */
 specifier|public
 specifier|static
 name|int
@@ -2964,6 +2963,8 @@ name|lengthOfPBMagic
 parameter_list|()
 block|{
 return|return
+name|ProtobufMagic
+operator|.
 name|PB_MAGIC
 operator|.
 name|length
@@ -11515,6 +11516,8 @@ name|baos
 operator|.
 name|write
 argument_list|(
+name|ProtobufMagic
+operator|.
 name|PB_MAGIC
 argument_list|)
 expr_stmt|;

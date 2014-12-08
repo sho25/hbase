@@ -355,7 +355,7 @@ name|hbase
 operator|.
 name|protobuf
 operator|.
-name|ProtobufUtil
+name|ProtobufMagic
 import|;
 end_import
 
@@ -2080,7 +2080,7 @@ block|{
 name|int
 name|magicLen
 init|=
-name|ProtobufUtil
+name|ProtobufMagic
 operator|.
 name|lengthOfPBMagic
 argument_list|()
@@ -2088,7 +2088,7 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|ProtobufUtil
+name|ProtobufMagic
 operator|.
 name|isPBMagicPrefix
 argument_list|(
@@ -2153,7 +2153,7 @@ name|stream
 operator|.
 name|write
 argument_list|(
-name|ProtobufUtil
+name|ProtobufMagic
 operator|.
 name|PB_MAGIC
 argument_list|)
