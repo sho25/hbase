@@ -21706,10 +21706,17 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Refuse to open the region if we are missing local compression support
 name|checkCompressionCodecs
 argument_list|()
 expr_stmt|;
+comment|// Refuse to open the region if encryption configuration is incorrect or
+comment|// codec support is missing
 name|checkEncryption
+argument_list|()
+expr_stmt|;
+comment|// Refuse to open the region if a required class cannot be loaded
+name|checkClassLoading
 argument_list|()
 expr_stmt|;
 name|this
@@ -21832,6 +21839,36 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+specifier|private
+name|void
+name|checkClassLoading
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|RegionSplitPolicy
+operator|.
+name|getSplitPolicyClass
+argument_list|(
+name|this
+operator|.
+name|htableDescriptor
+argument_list|,
+name|conf
+argument_list|)
+expr_stmt|;
+name|RegionCoprocessorHost
+operator|.
+name|testTableCoprocessorAttrs
+argument_list|(
+name|conf
+argument_list|,
+name|this
+operator|.
+name|htableDescriptor
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Create a daughter region from given a temp directory with the region data.    * @param hri Spec. for daughter region to open.    * @throws IOException    */
 name|HRegion
