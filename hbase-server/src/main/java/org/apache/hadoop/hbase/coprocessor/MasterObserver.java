@@ -1463,33 +1463,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a getTableDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param tableNamesList the list of table names, or null if querying for all    * @param descriptors an empty list, can be filled with what to return if bypassing    * @throws IOException    * @deprecated Use preGetTableDescriptors with regex instead.    */
-annotation|@
-name|Deprecated
-name|void
-name|preGetTableDescriptors
-parameter_list|(
-name|ObserverContext
-argument_list|<
-name|MasterCoprocessorEnvironment
-argument_list|>
-name|ctx
-parameter_list|,
-name|List
-argument_list|<
-name|TableName
-argument_list|>
-name|tableNamesList
-parameter_list|,
-name|List
-argument_list|<
-name|HTableDescriptor
-argument_list|>
-name|descriptors
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * Called before a getTableDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param tableNamesList the list of table names, or null if querying for all    * @param descriptors an empty list, can be filled with what to return if bypassing    * @param regex regular expression used for filtering the table names    * @throws IOException    */
 name|void
 name|preGetTableDescriptors
@@ -1518,11 +1491,37 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after a getTableDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors the list of descriptors about to be returned    * @throws IOException    * @deprecated Use postGetTableDescriptors with regex instead.    */
-annotation|@
-name|Deprecated
+comment|/**    * Called after a getTableDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param tableNamesList the list of table names, or null if querying for all    * @param descriptors the list of descriptors about to be returned    * @param regex regular expression used for filtering the table names    * @throws IOException    */
 name|void
 name|postGetTableDescriptors
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|List
+argument_list|<
+name|TableName
+argument_list|>
+name|tableNamesList
+parameter_list|,
+name|List
+argument_list|<
+name|HTableDescriptor
+argument_list|>
+name|descriptors
+parameter_list|,
+name|String
+name|regex
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called before a getTableNames request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors an empty list, can be filled with what to return if bypassing    * @param regex regular expression used for filtering the table names    * @throws IOException    */
+name|void
+name|preGetTableNames
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -1535,13 +1534,16 @@ argument_list|<
 name|HTableDescriptor
 argument_list|>
 name|descriptors
+parameter_list|,
+name|String
+name|regex
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after a getTableDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors the list of descriptors about to be returned    * @param regex regular expression used for filtering the table names    * @throws IOException    */
+comment|/**    * Called after a getTableNames request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors the list of descriptors about to be returned    * @param regex regular expression used for filtering the table names    * @throws IOException    */
 name|void
-name|postGetTableDescriptors
+name|postGetTableNames
 parameter_list|(
 name|ObserverContext
 argument_list|<

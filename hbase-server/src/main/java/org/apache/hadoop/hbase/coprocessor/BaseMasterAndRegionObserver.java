@@ -1662,6 +1662,9 @@ argument_list|<
 name|HTableDescriptor
 argument_list|>
 name|descriptors
+parameter_list|,
+name|String
+name|regex
 parameter_list|)
 throws|throws
 name|IOException
@@ -1670,7 +1673,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preGetTableDescriptors
+name|postGetTableDescriptors
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -1700,7 +1703,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postGetTableDescriptors
+name|preGetTableNames
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -1713,6 +1716,9 @@ argument_list|<
 name|HTableDescriptor
 argument_list|>
 name|descriptors
+parameter_list|,
+name|String
+name|regex
 parameter_list|)
 throws|throws
 name|IOException
@@ -1721,7 +1727,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postGetTableDescriptors
+name|postGetTableNames
 parameter_list|(
 name|ObserverContext
 argument_list|<

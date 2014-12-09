@@ -968,6 +968,8 @@ name|compile
 argument_list|(
 name|tableRegex
 argument_list|)
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 for|for

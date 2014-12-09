@@ -258,7 +258,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An internal class that delegates to an {@link HConnection} instance.  * A convenience to override when customizing method implementations.  *   *  * @see ConnectionUtils#createShortCircuitHConnection(HConnection, ServerName,  * AdminService.BlockingInterface, ClientService.BlockingInterface) for case where we make  * Connections skip RPC if request is to local server.  */
+comment|/**  * An internal class that delegates to an {@link HConnection} instance.  * A convenience to override when customizing method implementations.  *  *  * @see ConnectionUtils#createShortCircuitHConnection(HConnection, ServerName,  * AdminService.BlockingInterface, ClientService.BlockingInterface) for case where we make  * Connections skip RPC if request is to local server.  */
 end_comment
 
 begin_class
@@ -784,28 +784,6 @@ name|wrappedConnection
 operator|.
 name|listTables
 argument_list|()
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|HTableDescriptor
-index|[]
-name|listTables
-parameter_list|(
-name|String
-name|regex
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|wrappedConnection
-operator|.
-name|listTables
-argument_list|(
-name|regex
-argument_list|)
 return|;
 block|}
 annotation|@
