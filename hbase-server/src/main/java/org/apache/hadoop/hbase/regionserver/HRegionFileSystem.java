@@ -2375,7 +2375,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Write out a split reference. Package local so it doesnt leak out of    * regionserver.    * @param hri {@link HRegionInfo} of the destination    * @param familyName Column Family Name    * @param f File to split.    * @param splitRow Split Row    * @param top True if we are referring to the top half of the hfile.    * @return Path to created reference.    * @throws IOException    */
+comment|/**    * Write out a split reference. Package local so it doesnt leak out of    * regionserver.    * @param hri {@link HRegionInfo} of the destination    * @param familyName Column Family Name    * @param f File to split.    * @param splitRow Split Row    * @param top True if we are referring to the top half of the hfile.    * @param splitPolicy    * @return Path to created reference.    * @throws IOException    */
 name|Path
 name|splitStoreFile
 parameter_list|(
@@ -2399,9 +2399,25 @@ parameter_list|,
 specifier|final
 name|boolean
 name|top
+parameter_list|,
+name|RegionSplitPolicy
+name|splitPolicy
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+if|if
+condition|(
+name|splitPolicy
+operator|==
+literal|null
+operator|||
+operator|!
+name|splitPolicy
+operator|.
+name|skipStoreFileRangeCheck
+argument_list|()
+condition|)
 block|{
 comment|// Check whether the split row lies in the range of the store file
 comment|// If it is outside the range, return directly.
@@ -2564,6 +2580,7 @@ block|{
 return|return
 literal|null
 return|;
+block|}
 block|}
 block|}
 name|f

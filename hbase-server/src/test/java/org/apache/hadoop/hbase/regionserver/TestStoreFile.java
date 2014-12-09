@@ -7108,6 +7108,8 @@ argument_list|,
 name|splitKey
 argument_list|,
 name|isTopRef
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 if|if

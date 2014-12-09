@@ -6980,6 +6980,18 @@ operator|.
 name|wal
 return|;
 block|}
+comment|/**    * @return split policy for this region.    */
+specifier|public
+name|RegionSplitPolicy
+name|getSplitPolicy
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|splitPolicy
+return|;
+block|}
 comment|/**    * A split takes the config from the parent region& passes it to the daughter    * region's constructor. If 'conf' was passed, you would end up using the HTD    * of the parent region in addition to the new daughter HTD. Pass 'baseConf'    * to the daughter regions to avoid this tricky dedupe problem.    * @return Configuration object    */
 name|Configuration
 name|getBaseConf

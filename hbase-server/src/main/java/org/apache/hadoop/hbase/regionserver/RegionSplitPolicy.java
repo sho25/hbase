@@ -502,6 +502,16 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/**    * In {@link HRegionFileSystem#splitStoreFile(org.apache.hadoop.hbase.HRegionInfo,    * String, StoreFile, byte[], boolean)} we are not creating the split reference if split row    * not lies in the StoreFile range. But some use cases we may need to create the split reference    * even the split row not lies in the range.    * This method can be used to whether to skip the the StoreRile range check or not.    * @return whether to skip the StoreFile range check or or not    */
+specifier|protected
+name|boolean
+name|skipStoreFileRangeCheck
+parameter_list|()
+block|{
+return|return
+literal|false
+return|;
+block|}
 block|}
 end_class
 
