@@ -332,6 +332,7 @@ init|=
 literal|0
 decl_stmt|;
 comment|// This class is introduced because IP to rack resolution can be lengthy.
+specifier|public
 specifier|static
 class|class
 name|MockMapping
