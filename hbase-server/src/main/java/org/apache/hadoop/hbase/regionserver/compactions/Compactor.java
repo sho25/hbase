@@ -795,31 +795,12 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
-comment|// NOTE: getFilterEntries could cause under-sized blooms if the user
-comment|// switches bloom type (e.g. from ROW to ROWCOL)
+comment|// NOTE: use getEntries when compacting instead of getFilterEntries, otherwise under-sized
+comment|// blooms can cause progress to be miscalculated or if the user switches bloom
+comment|// type (e.g. from ROW to ROWCOL)
 name|long
 name|keyCount
 init|=
-operator|(
-name|r
-operator|.
-name|getBloomFilterType
-argument_list|()
-operator|==
-name|store
-operator|.
-name|getFamily
-argument_list|()
-operator|.
-name|getBloomFilterType
-argument_list|()
-operator|)
-condition|?
-name|r
-operator|.
-name|getFilterEntries
-argument_list|()
-else|:
 name|r
 operator|.
 name|getEntries
