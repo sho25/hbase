@@ -579,6 +579,11 @@ name|Configuration
 name|conf
 parameter_list|)
 function_decl|;
+comment|/**    *     * @return true if this is a managed connection.    */
+name|boolean
+name|isManaged
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

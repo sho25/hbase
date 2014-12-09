@@ -9302,7 +9302,7 @@ name|HBaseFsckRepair
 operator|.
 name|closeRegionSilentlyAndWait
 argument_list|(
-name|admin
+name|connection
 argument_list|,
 name|rse
 operator|.
@@ -9659,7 +9659,7 @@ name|HBaseFsckRepair
 operator|.
 name|closeRegionSilentlyAndWait
 argument_list|(
-name|admin
+name|connection
 argument_list|,
 name|serverName
 argument_list|,
@@ -10870,7 +10870,7 @@ name|HBaseFsckRepair
 operator|.
 name|fixMultiAssignment
 argument_list|(
-name|admin
+name|connection
 argument_list|,
 name|hbi
 operator|.
@@ -10951,7 +10951,7 @@ name|HBaseFsckRepair
 operator|.
 name|fixMultiAssignment
 argument_list|(
-name|admin
+name|connection
 argument_list|,
 name|hbi
 operator|.
@@ -11030,7 +11030,7 @@ name|HBaseFsckRepair
 operator|.
 name|fixMultiAssignment
 argument_list|(
-name|admin
+name|connection
 argument_list|,
 name|hbi
 operator|.
@@ -15510,7 +15510,7 @@ name|HBaseFsckRepair
 operator|.
 name|fixMultiAssignment
 argument_list|(
-name|admin
+name|connection
 argument_list|,
 name|metaHbckInfo
 operator|.

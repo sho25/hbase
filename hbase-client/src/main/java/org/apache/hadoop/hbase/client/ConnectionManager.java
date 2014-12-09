@@ -12294,6 +12294,17 @@ name|interceptor
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isManaged
+parameter_list|()
+block|{
+return|return
+name|managed
+return|;
+block|}
 block|}
 comment|/**    * The record of errors for servers.    */
 specifier|static

@@ -2020,6 +2020,20 @@ name|conf
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isManaged
+parameter_list|()
+block|{
+return|return
+name|wrappedConnection
+operator|.
+name|isManaged
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 
