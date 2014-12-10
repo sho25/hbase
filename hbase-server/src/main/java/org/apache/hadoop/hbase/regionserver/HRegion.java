@@ -7291,9 +7291,9 @@ init|=
 literal|null
 decl_stmt|;
 name|boolean
-name|didPerformCompaction
+name|requestNeedsCancellation
 init|=
-literal|false
+literal|true
 decl_stmt|;
 comment|// block waiting for the lock for compaction
 name|lock
@@ -7511,9 +7511,11 @@ operator|+
 name|store
 argument_list|)
 expr_stmt|;
-name|didPerformCompaction
+comment|// We no longer need to cancel the request on the way out of this
+comment|// method because Store#compact will clean up unconditionally
+name|requestNeedsCancellation
 operator|=
-literal|true
+literal|false
 expr_stmt|;
 name|store
 operator|.
@@ -7607,8 +7609,7 @@ try|try
 block|{
 if|if
 condition|(
-operator|!
-name|didPerformCompaction
+name|requestNeedsCancellation
 condition|)
 name|store
 operator|.

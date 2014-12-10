@@ -5668,12 +5668,15 @@ assert|assert
 name|compaction
 operator|!=
 literal|null
-operator|&&
-name|compaction
-operator|.
-name|hasSelection
-argument_list|()
 assert|;
+name|List
+argument_list|<
+name|StoreFile
+argument_list|>
+name|sfs
+init|=
+literal|null
+decl_stmt|;
 name|CompactionRequest
 name|cr
 init|=
@@ -5682,6 +5685,26 @@ operator|.
 name|getRequest
 argument_list|()
 decl_stmt|;
+empty_stmt|;
+try|try
+block|{
+comment|// Do all sanity checking in here if we have a valid CompactionRequest
+comment|// because we need to clean up after it on the way out in a finally
+comment|// block below
+name|long
+name|compactionStartTime
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+decl_stmt|;
+assert|assert
+name|compaction
+operator|.
+name|hasSelection
+argument_list|()
+assert|;
 name|Collection
 argument_list|<
 name|StoreFile
@@ -5766,24 +5789,6 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|long
-name|compactionStartTime
-init|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-decl_stmt|;
-name|List
-argument_list|<
-name|StoreFile
-argument_list|>
-name|sfs
-init|=
-literal|null
-decl_stmt|;
-try|try
-block|{
 comment|// Commence the compaction.
 name|List
 argument_list|<
@@ -5942,15 +5947,6 @@ literal|true
 argument_list|)
 expr_stmt|;
 comment|// Archive old files& update store size.
-block|}
-finally|finally
-block|{
-name|finishCompactionRequest
-argument_list|(
-name|cr
-argument_list|)
-expr_stmt|;
-block|}
 name|logCompactionEndMessage
 argument_list|(
 name|cr
@@ -5963,6 +5959,15 @@ expr_stmt|;
 return|return
 name|sfs
 return|;
+block|}
+finally|finally
+block|{
+name|finishCompactionRequest
+argument_list|(
+name|cr
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 specifier|private
 name|List
