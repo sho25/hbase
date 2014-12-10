@@ -7056,7 +7056,7 @@ else|else
 block|{
 name|requirePermission
 argument_list|(
-literal|"restore"
+literal|"restoreSnapshot"
 argument_list|,
 name|Action
 operator|.
