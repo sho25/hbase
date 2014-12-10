@@ -341,6 +341,16 @@ name|javax
 operator|.
 name|management
 operator|.
+name|MalformedObjectNameException
+import|;
+end_import
+
+begin_import
+import|import
+name|javax
+operator|.
+name|management
+operator|.
 name|ObjectName
 import|;
 end_import
@@ -1834,6 +1844,22 @@ operator|.
 name|util
 operator|.
 name|HasThread
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|JSONBean
 import|;
 end_import
 
@@ -9873,6 +9899,40 @@ name|getLoadedCoprocessors
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Try and dump metrics if abort -- might give clue as to how fatal came about....
+try|try
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Dump of metrics as JSON on abort: "
+operator|+
+name|JSONBean
+operator|.
+name|dumpRegionServerMetrics
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|MalformedObjectNameException
+decl||
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed dumping metrics"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Do our best to report our abort to the master, but this may not work
 try|try
 block|{

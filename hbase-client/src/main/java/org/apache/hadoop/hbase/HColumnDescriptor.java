@@ -451,7 +451,7 @@ name|EVICT_BLOCKS_ON_CLOSE
 init|=
 literal|"EVICT_BLOCKS_ON_CLOSE"
 decl_stmt|;
-comment|/**    * Key for cache data into L1 if cache is set up with more than one tier.    * To set in the shell, do something like this:    *<code>hbase(main):003:0> create 't', {NAME => 't', CONFIGURATION => {CACHE_DATA_IN_L1 => 'true'}}</code>    */
+comment|/**    * Key for cache data into L1 if cache is set up with more than one tier.    * To set in the shell, do something like this:    *<code>hbase(main):003:0> create 't',    *    {NAME => 't', CONFIGURATION => {CACHE_DATA_IN_L1 => 'true'}}</code>    */
 specifier|public
 specifier|static
 specifier|final

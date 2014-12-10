@@ -217,6 +217,14 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
+name|AuthUtil
+parameter_list|()
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Checks if security is enabled and if so, launches chore for refreshing kerberos ticket.    */
 specifier|public
 specifier|static
