@@ -1665,6 +1665,44 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Called before a listNamespaceDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors an empty list, can be filled with what to return if bypassing    * @throws IOException    */
+name|void
+name|preListNamespaceDescriptors
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|List
+argument_list|<
+name|NamespaceDescriptor
+argument_list|>
+name|descriptors
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after a listNamespaceDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors the list of descriptors about to be returned    * @throws IOException    */
+name|void
+name|postListNamespaceDescriptors
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|List
+argument_list|<
+name|NamespaceDescriptor
+argument_list|>
+name|descriptors
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Called before the table memstore is flushed to disk.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException    */
 name|void
 name|preTableFlush
