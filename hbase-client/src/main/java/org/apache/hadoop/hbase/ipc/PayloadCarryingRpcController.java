@@ -285,6 +285,27 @@ return|return
 name|priority
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|reset
+parameter_list|()
+block|{
+name|super
+operator|.
+name|reset
+argument_list|()
+expr_stmt|;
+name|priority
+operator|=
+literal|0
+expr_stmt|;
+name|cellScanner
+operator|=
+literal|null
+expr_stmt|;
+block|}
 block|}
 end_class
 
