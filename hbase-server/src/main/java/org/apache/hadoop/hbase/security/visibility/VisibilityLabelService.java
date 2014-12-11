@@ -244,6 +244,19 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Retrieve the list of visibility labels defined in the system.    * @param regex  The regular expression to filter which labels are returned.    * @return List of visibility labels    */
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|listLabels
+parameter_list|(
+name|String
+name|regex
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Creates tags corresponding to given visibility expression.    *<br>    * Note: This will be concurrently called from multiple threads and implementation should    * take care of thread safety.    * @param visExpression The Expression for which corresponding Tags to be created.    * @param withSerializationFormat specifies whether a tag, denoting the serialization version    *          of the tags, to be added in the list. When this is true make sure to add the    *          serialization format Tag also. The format tag value should be byte type.    * @param checkAuths denotes whether to check individual labels in visExpression against user's    *          global auth label.    * @return The list of tags corresponds to the visibility expression. These tags will be stored    *         along with the Cells.    */
 name|List
 argument_list|<
