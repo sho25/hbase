@@ -1665,6 +1665,38 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Called before a getNamespaceDescriptor request has been processed.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    * @throws IOException    */
+name|void
+name|preGetNamespaceDescriptor
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|namespace
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after a getNamespaceDescriptor request has been processed.    * @param ctx the environment to interact with the framework and master    * @param ns the NamespaceDescriptor    * @throws IOException    */
+name|void
+name|postGetNamespaceDescriptor
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|NamespaceDescriptor
+name|ns
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Called before a listNamespaceDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors an empty list, can be filled with what to return if bypassing    * @throws IOException    */
 name|void
 name|preListNamespaceDescriptors
