@@ -2494,7 +2494,7 @@ literal|"mobdata"
 argument_list|)
 decl_stmt|;
 name|int
-name|compactionThreshold
+name|numHfiles
 init|=
 name|conf
 operator|.
@@ -2504,6 +2504,8 @@ literal|"hbase.hstore.compactionThreshold"
 argument_list|,
 literal|3
 argument_list|)
+operator|-
+literal|1
 decl_stmt|;
 name|HTableDescriptor
 name|htd
@@ -2607,7 +2609,7 @@ literal|0
 init|;
 name|insertCount
 operator|<
-name|compactionThreshold
+name|numHfiles
 condition|;
 name|insertCount
 operator|++
@@ -2667,7 +2669,7 @@ name|assertCounter
 argument_list|(
 literal|"mobFlushCount"
 argument_list|,
-name|compactionThreshold
+name|numHfiles
 argument_list|,
 name|serverSource
 argument_list|)
@@ -2775,7 +2777,7 @@ name|assertCounter
 argument_list|(
 literal|"mobCompactedFromMobCellsCount"
 argument_list|,
-name|compactionThreshold
+name|numHfiles
 argument_list|,
 name|serverSource
 argument_list|)
@@ -2832,13 +2834,13 @@ control|(
 name|int
 name|insertCount
 init|=
-name|compactionThreshold
+name|numHfiles
 init|;
 name|insertCount
 operator|<
 literal|2
 operator|*
-name|compactionThreshold
+name|numHfiles
 operator|-
 literal|1
 condition|;
@@ -2941,7 +2943,7 @@ literal|"mobCompactedIntoMobCellsCount"
 argument_list|,
 literal|2
 operator|*
-name|compactionThreshold
+name|numHfiles
 operator|-
 literal|1
 argument_list|,
