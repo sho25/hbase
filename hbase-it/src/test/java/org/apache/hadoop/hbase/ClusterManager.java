@@ -31,25 +31,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
+name|hadoop
 operator|.
-name|logging
+name|conf
 operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
+name|Configurable
 import|;
 end_import
 
@@ -69,79 +55,20 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|conf
-operator|.
-name|Configured
-import|;
-end_import
-
 begin_comment
 comment|/**  * ClusterManager is an api to manage servers in a distributed environment. It provides services  * for starting / stopping / killing Hadoop/HBase daemons. Concrete implementations provide actual  * functionality for carrying out deployment-specific tasks.  */
 end_comment
 
-begin_class
+begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-specifier|public
-specifier|abstract
-class|class
+interface|interface
 name|ClusterManager
 extends|extends
-name|Configured
+name|Configurable
 block|{
-specifier|protected
-specifier|static
-specifier|final
-name|Log
-name|LOG
-init|=
-name|LogFactory
-operator|.
-name|getLog
-argument_list|(
-name|ClusterManager
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|SIGKILL
-init|=
-literal|"SIGKILL"
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|SIGSTOP
-init|=
-literal|"SIGSTOP"
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|SIGCONT
-init|=
-literal|"SIGCONT"
-decl_stmt|;
-specifier|public
-name|ClusterManager
-parameter_list|()
-block|{   }
 comment|/**    * Type of the service daemon    */
 specifier|public
 specifier|static
@@ -218,8 +145,6 @@ return|;
 block|}
 block|}
 comment|/**    * Start the service on the given host    */
-specifier|public
-specifier|abstract
 name|void
 name|start
 parameter_list|(
@@ -233,8 +158,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Stop the service on the given host    */
-specifier|public
-specifier|abstract
 name|void
 name|stop
 parameter_list|(
@@ -247,9 +170,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Restart the service on the given host    */
-specifier|public
-specifier|abstract
+comment|/**    * Restarts the service on the given host    */
 name|void
 name|restart
 parameter_list|(
@@ -262,26 +183,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Send the given posix signal to the service    */
-specifier|public
-specifier|abstract
-name|void
-name|signal
-parameter_list|(
-name|ServiceType
-name|service
-parameter_list|,
-name|String
-name|signal
-parameter_list|,
-name|String
-name|hostname
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Kill the service running on given host    */
-specifier|public
+comment|/**    * Kills the service running on the given host    */
 name|void
 name|kill
 parameter_list|(
@@ -293,19 +195,8 @@ name|hostname
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-name|signal
-argument_list|(
-name|service
-argument_list|,
-name|SIGKILL
-argument_list|,
-name|hostname
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Suspend the service running on given host    */
-specifier|public
+function_decl|;
+comment|/**    * Suspends the service running on the given host    */
 name|void
 name|suspend
 parameter_list|(
@@ -317,19 +208,8 @@ name|hostname
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-name|signal
-argument_list|(
-name|service
-argument_list|,
-name|SIGSTOP
-argument_list|,
-name|hostname
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Resume the services running on given hosts    */
-specifier|public
+function_decl|;
+comment|/**    * Resumes the services running on the given host    */
 name|void
 name|resume
 parameter_list|(
@@ -341,20 +221,8 @@ name|hostname
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-name|signal
-argument_list|(
-name|service
-argument_list|,
-name|SIGCONT
-argument_list|,
-name|hostname
-argument_list|)
-expr_stmt|;
-block|}
+function_decl|;
 comment|/**    * Returns whether the service is running on the remote host. This only checks whether the    * service still has a pid.    */
-specifier|public
-specifier|abstract
 name|boolean
 name|isRunning
 parameter_list|(
@@ -369,7 +237,7 @@ name|IOException
 function_decl|;
 comment|/* TODO: further API ideas:    *    * //return services running on host:    * ServiceType[] getRunningServicesOnHost(String hostname);    *    * //return which services can be run on host (for example, to query whether hmaster can run on this host)    * ServiceType[] getRunnableServicesOnHost(String hostname);    *    * //return which hosts can run this service    * String[] getRunnableHostsForService(ServiceType service);    */
 block|}
-end_class
+end_interface
 
 end_unit
 
