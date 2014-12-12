@@ -347,6 +347,20 @@ name|apache
 operator|.
 name|commons
 operator|.
+name|lang
+operator|.
+name|StringUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
 name|logging
 operator|.
 name|Log
@@ -21336,6 +21350,22 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|errors
+operator|.
+name|print
+argument_list|(
+literal|"HBaseFsck command line options: "
+operator|+
+name|StringUtils
+operator|.
+name|join
+argument_list|(
+name|args
+argument_list|,
+literal|" "
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// pre-check current user has FS write permission or not
 try|try
 block|{

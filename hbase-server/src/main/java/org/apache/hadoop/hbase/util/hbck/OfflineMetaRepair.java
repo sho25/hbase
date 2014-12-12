@@ -37,6 +37,20 @@ name|apache
 operator|.
 name|commons
 operator|.
+name|lang
+operator|.
+name|StringUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
 name|logging
 operator|.
 name|Log
@@ -563,6 +577,24 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"OfflineMetaRepair command line options: "
+operator|+
+name|StringUtils
+operator|.
+name|join
+argument_list|(
+name|args
+argument_list|,
+literal|" "
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// Fsck doesn't shutdown and and doesn't provide a way to shutdown its
 comment|// threads cleanly, so we do a System.exit.
 name|boolean
