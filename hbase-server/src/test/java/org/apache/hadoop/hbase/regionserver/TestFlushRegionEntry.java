@@ -235,6 +235,8 @@ name|HRegion
 operator|.
 name|class
 argument_list|)
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|FlushRegionEntry
@@ -251,6 +253,8 @@ name|HRegion
 operator|.
 name|class
 argument_list|)
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|assertEquals

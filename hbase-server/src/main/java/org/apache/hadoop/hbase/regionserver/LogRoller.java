@@ -958,11 +958,14 @@ operator|!=
 literal|null
 condition|)
 block|{
+comment|// force flushing all stores to clean old logs
 name|requester
 operator|.
 name|requestFlush
 argument_list|(
 name|r
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|scheduled

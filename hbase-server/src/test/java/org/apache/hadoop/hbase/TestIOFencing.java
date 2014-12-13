@@ -1497,7 +1497,7 @@ name|lastFlushTime
 init|=
 name|compactingRegion
 operator|.
-name|getLastFlushTime
+name|getEarliestFlushTimeForAllStores
 argument_list|()
 decl_stmt|;
 comment|// Load some rows
@@ -1618,7 +1618,7 @@ while|while
 condition|(
 name|compactingRegion
 operator|.
-name|getLastFlushTime
+name|getEarliestFlushTimeForAllStores
 argument_list|()
 operator|<=
 name|lastFlushTime

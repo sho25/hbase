@@ -7342,7 +7342,7 @@ name|setCompleteSequenceId
 argument_list|(
 name|r
 operator|.
-name|lastFlushSeqId
+name|maxFlushedSeqId
 argument_list|)
 operator|.
 name|setDataLocality
@@ -7860,6 +7860,8 @@ argument_list|(
 name|r
 argument_list|,
 name|randomDelay
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}

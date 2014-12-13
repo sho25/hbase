@@ -909,6 +909,8 @@ operator|.
 name|requestFlush
 argument_list|(
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -916,6 +918,8 @@ operator|.
 name|requestFlush
 argument_list|(
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -923,6 +927,8 @@ operator|.
 name|requestFlush
 argument_list|(
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -938,6 +944,8 @@ operator|.
 name|requestFlush
 argument_list|(
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -1003,6 +1011,8 @@ operator|.
 name|requestFlush
 argument_list|(
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -1010,6 +1020,8 @@ operator|.
 name|requestFlush
 argument_list|(
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -2624,6 +2636,9 @@ name|requestFlush
 parameter_list|(
 name|HRegion
 name|region
+parameter_list|,
+name|boolean
+name|forceFlushAllStores
 parameter_list|)
 block|{
 name|this
@@ -2649,6 +2664,9 @@ name|region
 parameter_list|,
 name|long
 name|delay
+parameter_list|,
+name|boolean
+name|forceFlushAllStores
 parameter_list|)
 block|{      }
 annotation|@

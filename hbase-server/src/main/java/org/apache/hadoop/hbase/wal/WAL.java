@@ -53,6 +53,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|atomic
@@ -377,6 +387,13 @@ specifier|final
 name|byte
 index|[]
 name|encodedRegionName
+parameter_list|,
+name|Set
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|flushedFamilyNames
 parameter_list|)
 function_decl|;
 comment|/**    * Complete the cache flush.    * @param encodedRegionName Encoded region name.    */
@@ -410,6 +427,19 @@ parameter_list|(
 name|byte
 index|[]
 name|encodedRegionName
+parameter_list|)
+function_decl|;
+comment|/**    * Gets the earliest sequence number in the memstore for this particular region and store.    * @param encodedRegionName The region to get the number for.    * @param familyName The family to get the number for.    * @return The number if present, HConstants.NO_SEQNUM if absent.    */
+name|long
+name|getEarliestMemstoreSeqNum
+parameter_list|(
+name|byte
+index|[]
+name|encodedRegionName
+parameter_list|,
+name|byte
+index|[]
+name|familyName
 parameter_list|)
 function_decl|;
 comment|/**    * Human readable identifying information about the state of this WAL.    * Implementors are encouraged to include information appropriate for debugging.    * Consumers are advised not to rely on the details of the returned String; it does    * not have a defined structure.    */

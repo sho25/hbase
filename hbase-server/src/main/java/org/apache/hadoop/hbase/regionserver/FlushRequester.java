@@ -46,15 +46,18 @@ specifier|public
 interface|interface
 name|FlushRequester
 block|{
-comment|/**    * Tell the listener the cache needs to be flushed.    *    * @param region the HRegion requesting the cache flush    */
+comment|/**    * Tell the listener the cache needs to be flushed.    *    * @param region the HRegion requesting the cache flush    * @param forceFlushAllStores whether we want to flush all stores. e.g., when request from log    *          rolling.    */
 name|void
 name|requestFlush
 parameter_list|(
 name|HRegion
 name|region
+parameter_list|,
+name|boolean
+name|forceFlushAllStores
 parameter_list|)
 function_decl|;
-comment|/**    * Tell the listener the cache needs to be flushed after a delay    *    * @param region the HRegion requesting the cache flush    * @param delay after how much time should the flush happen    */
+comment|/**    * Tell the listener the cache needs to be flushed after a delay    *    * @param region the HRegion requesting the cache flush    * @param delay after how much time should the flush happen    * @param forceFlushAllStores whether we want to flush all stores. e.g., when request from log    *          rolling.    */
 name|void
 name|requestDelayedFlush
 parameter_list|(
@@ -63,9 +66,12 @@ name|region
 parameter_list|,
 name|long
 name|delay
+parameter_list|,
+name|boolean
+name|forceFlushAllStores
 parameter_list|)
 function_decl|;
-comment|/**    * Register a FlushRequestListener    *     * @param listener    */
+comment|/**    * Register a FlushRequestListener    *    * @param listener    */
 name|void
 name|registerFlushRequestListener
 parameter_list|(
@@ -74,7 +80,7 @@ name|FlushRequestListener
 name|listener
 parameter_list|)
 function_decl|;
-comment|/**    * Unregister the given FlushRequestListener    *     * @param listener    * @return true when passed listener is unregistered successfully.    */
+comment|/**    * Unregister the given FlushRequestListener    *    * @param listener    * @return true when passed listener is unregistered successfully.    */
 specifier|public
 name|boolean
 name|unregisterFlushRequestListener
@@ -84,7 +90,7 @@ name|FlushRequestListener
 name|listener
 parameter_list|)
 function_decl|;
-comment|/**    * Sets the global memstore limit to a new size.    *     * @param globalMemStoreSize    */
+comment|/**    * Sets the global memstore limit to a new size.    *    * @param globalMemStoreSize    */
 specifier|public
 name|void
 name|setGlobalMemstoreLimit

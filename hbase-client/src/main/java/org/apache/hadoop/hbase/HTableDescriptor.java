@@ -655,6 +655,14 @@ name|MEMSTORE_FLUSHSIZE
 argument_list|)
 argument_list|)
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|FLUSH_POLICY
+init|=
+literal|"FLUSH_POLICY"
+decl_stmt|;
 comment|/**    *<em>INTERNAL</em> Used by rest interface to access this metadata    * attribute which denotes if the table is a -ROOT- region or not    *    * @see #isRootRegion()    */
 specifier|public
 specifier|static
@@ -2536,6 +2544,39 @@ argument_list|)
 expr_stmt|;
 return|return
 name|this
+return|;
+block|}
+comment|/**    * This sets the class associated with the flush policy which determines determines the stores    * need to be flushed when flushing a region. The class used by default is defined in    * {@link org.apache.hadoop.hbase.regionserver.FlushPolicy}    * @param clazz the class name    */
+specifier|public
+name|HTableDescriptor
+name|setFlushPolicyClassName
+parameter_list|(
+name|String
+name|clazz
+parameter_list|)
+block|{
+name|setValue
+argument_list|(
+name|FLUSH_POLICY
+argument_list|,
+name|clazz
+argument_list|)
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**    * This gets the class associated with the flush policy which determines the stores need to be    * flushed when flushing a region. The class used by default is defined in    * {@link org.apache.hadoop.hbase.regionserver.FlushPolicy}    * @return the class name of the flush policy for this table. If this returns null, the default    *         flush policy is used.    */
+specifier|public
+name|String
+name|getFlushPolicyClassName
+parameter_list|()
+block|{
+return|return
+name|getValue
+argument_list|(
+name|FLUSH_POLICY
+argument_list|)
 return|;
 block|}
 comment|/**    * Adds a column family.    * For the updating purpose please use {@link #modifyFamily(HColumnDescriptor)} instead.    * @param family HColumnDescriptor of family to add.    */
