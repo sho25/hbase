@@ -880,7 +880,7 @@ expr_stmt|;
 block|}
 comment|/**    * Runs MapReduce to do the sweeping on the mob files.    * There's a MobReferenceOnlyFilter so that the mappers only get the cells that have mob    * references from 'normal' regions' rows.    * The running of the sweep tool on the same column family are mutually exclusive.    * The HBase major compaction and running of the sweep tool on the same column family    * are mutually exclusive.    * The synchronization is done by the Zookeeper.    * So in the beginning of the running, we need to make sure only this sweep tool is the only one    * that is currently running in this column family, and in this column family there're no major    * compaction in progress.    * @param tn The current table name.    * @param family The descriptor of the current column family.    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    * @throws KeeperException    */
 specifier|public
-name|void
+name|int
 name|sweep
 parameter_list|(
 name|TableName
@@ -1089,7 +1089,9 @@ operator|+
 literal|". The major compaction in HBase may be in-progress. Please re-run the job."
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|3
+return|;
 block|}
 try|try
 block|{
@@ -1123,7 +1125,9 @@ operator|+
 literal|" Please re-run the job."
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|4
+return|;
 block|}
 else|else
 block|{
@@ -1155,7 +1159,9 @@ argument_list|(
 literal|"Another sweep job is running"
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|5
+return|;
 block|}
 else|else
 block|{
@@ -1422,6 +1428,21 @@ name|family
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Job Failed"
+argument_list|)
+expr_stmt|;
+return|return
+literal|6
+return|;
+block|}
 block|}
 finally|finally
 block|{
@@ -1456,6 +1477,9 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+return|return
+literal|0
+return|;
 block|}
 comment|/**    * Prepares a map reduce job.    * @param tn The current table name.    * @param familyName The current family name.    * @param scan The current scan.    * @param conf The current configuration.    * @return A map reduce job.    * @throws IOException    */
 specifier|private
@@ -2658,7 +2682,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Deletes the working directory.    * @param job The current job.    * @param store The current MobFileStore.    * @throws IOException    */
+comment|/**    * Deletes the working directory.    * @param job The current job.    * @param familyName The family to cleanup    * @throws IOException    */
 specifier|private
 name|void
 name|cleanup

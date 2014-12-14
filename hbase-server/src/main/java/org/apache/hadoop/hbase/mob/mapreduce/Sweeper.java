@@ -243,7 +243,7 @@ implements|implements
 name|Tool
 block|{
 comment|/**    * Sweeps the mob files on one column family. It deletes the unused mob files and merges    * the small mob files into bigger ones.    * @param tableName The current table name in string format.    * @param familyName The column family name.    * @throws IOException    * @throws InterruptedException    * @throws ClassNotFoundException    * @throws KeeperException    * @throws ServiceException    */
-name|void
+name|int
 name|sweepFamily
 parameter_list|(
 name|String
@@ -370,6 +370,7 @@ name|fs
 argument_list|)
 decl_stmt|;
 comment|// Run the sweeping
+return|return
 name|job
 operator|.
 name|sweep
@@ -378,7 +379,29 @@ name|tn
 argument_list|,
 name|family
 argument_list|)
+return|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Job failed. "
+operator|+
+name|e
+argument_list|)
 expr_stmt|;
+return|return
+literal|2
+return|;
+comment|// job failed
 block|}
 finally|finally
 block|{
@@ -433,6 +456,9 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
+name|int
+name|ret
+init|=
 name|ToolRunner
 operator|.
 name|run
@@ -444,6 +470,13 @@ name|Sweeper
 argument_list|()
 argument_list|,
 name|args
+argument_list|)
+decl_stmt|;
+name|System
+operator|.
+name|exit
+argument_list|(
+name|ret
 argument_list|)
 expr_stmt|;
 block|}
@@ -534,15 +567,13 @@ index|[
 literal|1
 index|]
 decl_stmt|;
+return|return
 name|sweepFamily
 argument_list|(
 name|table
 argument_list|,
 name|family
 argument_list|)
-expr_stmt|;
-return|return
-literal|0
 return|;
 block|}
 block|}
