@@ -1726,6 +1726,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testHBaseFsck
@@ -2917,21 +2922,23 @@ condition|(
 name|metaRow
 condition|)
 block|{
+try|try
+init|(
 name|Table
 name|meta
 init|=
-operator|new
-name|HTable
+name|conn
+operator|.
+name|getTable
 argument_list|(
-name|conf
-argument_list|,
 name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|,
 name|executorService
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Delete
 name|delete
 init|=
@@ -2948,6 +2955,7 @@ argument_list|(
 name|delete
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 name|LOG
@@ -3366,6 +3374,11 @@ block|}
 comment|/**    * This creates a clean table and confirms that the table is clean.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testHBaseFsckClean
@@ -3478,6 +3491,11 @@ block|}
 comment|/**    * Test thread pooling in the case where there are more regions than threads    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testHbckThreadpooling
@@ -3545,6 +3563,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testHbckFixOrphanTable
@@ -3851,6 +3874,11 @@ block|}
 comment|/**    * This test makes sure that parallel instances of Hbck is disabled.    *    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testParallelHbck
@@ -4056,6 +4084,11 @@ block|}
 comment|/**    * This create and fixes a bad table with regions that have a duplicate    * start key    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testDupeStartKey
@@ -4294,6 +4327,11 @@ block|}
 comment|/*    * This creates a table with region_replica> 1 and verifies hbck runs    * successfully    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testHbckWithRegionReplica
@@ -4352,6 +4390,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testHbckWithFewerReplica
@@ -4510,6 +4553,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testHbckWithExcessReplica
@@ -5164,6 +5212,11 @@ block|}
 comment|/**    * This create and fixes a bad table with regions that have a duplicate    * start key    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testDupeRegion
@@ -5445,6 +5498,11 @@ block|}
 comment|/**    * This creates and fixes a bad table with regions that has startkey == endkey    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testDegenerateRegions
@@ -5686,6 +5744,11 @@ block|}
 comment|/**    * This creates and fixes a bad table where a region is completely contained    * by another region.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testContainedRegionOverlap
@@ -5909,6 +5972,11 @@ block|}
 comment|/**    * This creates and fixes a bad table where an overlap group of    * 3 regions. Set HBaseFsck.maxMerge to 2 to trigger sideline overlapped    * region. Mess around the meta data so that closeRegion/offlineRegion    * throws exceptions.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testSidelineOverlapRegion
@@ -6498,6 +6566,11 @@ block|}
 comment|/**    * This creates and fixes a bad table where a region is completely contained    * by another region, and there is a hole (sort of like a bad split)    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testOverlapAndOrphan
@@ -6760,6 +6833,11 @@ block|}
 comment|/**    * This creates and fixes a bad table where a region overlaps two regions --    * a start key contained in another region and its end key is contained in    * yet another region.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testCoveredStartKey
@@ -6993,6 +7071,11 @@ block|}
 comment|/**    * This creates and fixes a bad table with a missing region -- hole in meta    * and data missing in the fs.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testRegionHole
@@ -7163,6 +7246,11 @@ block|}
 comment|/**    * This creates and fixes a bad table with a missing region -- hole in meta    * and data present but .regioinfino missing (an orphan hdfs region)in the fs.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testHDFSRegioninfoMissing
@@ -7344,6 +7432,11 @@ block|}
 comment|/**    * This creates and fixes a bad table with a region that is missing meta and    * not assigned to a region server.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testNotInMetaOrDeployedHole
@@ -7532,6 +7625,11 @@ block|}
 comment|/**    * This creates fixes a bad table with a hole in meta.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testNotInMetaHole
@@ -7720,6 +7818,11 @@ block|}
 comment|/**    * This creates and fixes a bad table with a region that is in meta but has    * no deployment or data hdfs    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testNotInHdfs
@@ -7881,6 +7984,11 @@ block|}
 comment|/**    * This creates and fixes a bad table with a region that is in meta but has    * no deployment or data hdfs. The table has region_replication set to 2.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testNotInHdfsWithReplicas
@@ -8357,6 +8465,11 @@ block|}
 comment|/**    * This creates entries in hbase:meta with no hdfs data.  This should cleanly    * remove the table.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testNoHdfsTable
@@ -8703,6 +8816,11 @@ block|}
 comment|/**    * when the hbase.version file missing, It is fix the fault.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testNoVersionFile
@@ -8801,6 +8919,11 @@ block|}
 comment|/**    * The region is not deployed when the table is disabled.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testRegionShouldNotBeDeployed
@@ -9119,6 +9242,11 @@ block|}
 comment|/**    * This creates two tables and mess both of them and fix them one by one    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testFixByTable
@@ -9368,6 +9496,11 @@ block|}
 comment|/**    * A split parent in meta, in hdfs, and not deployed    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testLingeringSplitParent
@@ -9837,6 +9970,11 @@ block|}
 comment|/**    * Tests that LINGERING_SPLIT_PARENT is not erroneously reported for    * valid cases where the daughters are there.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testValidLingeringSplitParent
@@ -11007,6 +11145,11 @@ block|}
 comment|/**    * Test -noHdfsChecking option can detect and fix assignments issue.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testFixAssignmentsAndNoHdfsChecking
@@ -11252,6 +11395,11 @@ block|}
 comment|/**    * Test -noHdfsChecking option can detect region is not in meta but deployed.    * However, it can not fix it without checking Hdfs because we need to get    * the region info from Hdfs in this case, then to patch the meta.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testFixMetaNotWorkingWithNoHdfsChecking
@@ -11534,6 +11682,11 @@ block|}
 comment|/**    * Test -fixHdfsHoles doesn't work with -noHdfsChecking option,    * and -noHdfsChecking can't detect orphan Hdfs region.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testFixHdfsHolesNotWorkingWithNoHdfsChecking
@@ -13001,6 +13154,11 @@ block|}
 comment|/**    * Test fixing lingering reference file.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testLingeringReferenceFile
@@ -13165,6 +13323,11 @@ block|}
 comment|/**    * Test mission REGIONINFO_QUALIFIER in hbase:meta    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testMissingRegionInfoQualifier
@@ -13471,6 +13634,11 @@ block|}
 comment|/**    * Test pluggable error reporter. It can be plugged in    * from system property or configuration.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testErrorReporter
@@ -14197,6 +14365,11 @@ comment|// release for clean state
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testMetaOffline
@@ -14610,6 +14783,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testTableWithNoRegions
@@ -14778,6 +14956,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testHbckAfterRegionMerge
@@ -15042,6 +15225,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testRegionBoundariesCheck
@@ -15121,6 +15309,11 @@ argument_list|()
 decl_stmt|;
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testReadOnlyProperty

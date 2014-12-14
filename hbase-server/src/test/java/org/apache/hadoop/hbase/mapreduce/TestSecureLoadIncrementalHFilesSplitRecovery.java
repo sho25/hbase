@@ -150,7 +150,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Reruns TestSecureLoadIncrementalHFilesSplitRecovery  * using LoadIncrementalHFiles in secure mode.  * This suite is unable to verify the security handoff/turnover  * as miniCluster is running as system user thus has root privileges  * and delegation tokens don't seem to work on miniDFS.  *  * Thus SecureBulkload can only be completely verified by running  * integration tests against a secure cluster. This suite is still  * invaluable as it verifies the other mechanisms that need to be  * supported as part of a LoadIncrementalFiles call.  */
+comment|/**  * Reruns TestSecureLoadIncrementalHFilesSplitRecovery  * using LoadIncrementalHFiles in secure mode.  * This suite is unable to verify the security handoff/turnove  * as miniCluster is running as system user thus has root privileges  * and delegation tokens don't seem to work on miniDFS.  *  * Thus SecureBulkload can only be completely verified by running  * integration tests against a secure cluster. This suite is still  * invaluable as it verifies the other mechanisms that need to be  * supported as part of a LoadIncrementalFiles call.  */
 end_comment
 
 begin_class
@@ -236,6 +236,11 @@ block|}
 comment|//Disabling this test as it does not work in secure mode
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 annotation|@
 name|Override
 specifier|public
