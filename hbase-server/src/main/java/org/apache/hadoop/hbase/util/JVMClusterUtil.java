@@ -41,16 +41,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|PrintWriter
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|lang
 operator|.
 name|reflect
@@ -182,20 +172,6 @@ operator|.
 name|regionserver
 operator|.
 name|HRegionServer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|util
-operator|.
-name|ReflectionUtils
 import|;
 end_import
 
@@ -999,17 +975,13 @@ name|maxwait
 operator|+
 literal|"ms seconds"
 decl_stmt|;
-name|ReflectionUtils
+name|Threads
 operator|.
 name|printThreadInfo
-argument_list|(
-operator|new
-name|PrintWriter
 argument_list|(
 name|System
 operator|.
 name|out
-argument_list|)
 argument_list|,
 literal|"Thread dump because: "
 operator|+

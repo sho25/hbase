@@ -53,6 +53,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|PrintStream
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|PrintWriter
 import|;
 end_import
@@ -450,6 +460,22 @@ operator|.
 name|log
 operator|.
 name|LogLevel
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Threads
 import|;
 end_import
 
@@ -2096,7 +2122,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a status server on the given port. Allows you to specify the    * path specifications that this server will be serving so that they will be    * added to the filters properly.      *     * @param name The name of the server    * @param bindAddress The address for this server    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and     *        increment by 1 until it finds a free port.    * @param conf Configuration     * @param pathSpecs Path specifications that this httpserver will be serving.     *        These will be added to any filters.    */
+comment|/**    * Create a status server on the given port. Allows you to specify the    * path specifications that this server will be serving so that they will be    * added to the filters properly.    *    * @param name The name of the server    * @param bindAddress The address for this server    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and    *        increment by 1 until it finds a free port.    * @param conf Configuration    * @param pathSpecs Path specifications that this httpserver will be serving.    *        These will be added to any filters.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2144,7 +2170,7 @@ name|pathSpecs
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/webapps/<name>.    * @param name The name of the server    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and     *        increment by 1 until it finds a free port.    * @param conf Configuration     */
+comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/webapps/<name>.    * @param name The name of the server    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and    *        increment by 1 until it finds a free port.    * @param conf Configuration    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2234,7 +2260,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/webapps/<name>.    * @param name The name of the server    * @param bindAddress The address for this server    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and     *        increment by 1 until it finds a free port.    * @param conf Configuration     * @param adminsAcl {@link AccessControlList} of the admins    * @param connector The jetty {@link Connector} to use    */
+comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/webapps/<name>.    * @param name The name of the server    * @param bindAddress The address for this server    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and    *        increment by 1 until it finds a free port.    * @param conf Configuration    * @param adminsAcl {@link AccessControlList} of the admins    * @param connector The jetty {@link Connector} to use    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2284,7 +2310,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/webapps/<name>.    * @param name The name of the server    * @param bindAddress The address for this server    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and     *        increment by 1 until it finds a free port.    * @param conf Configuration     * @param adminsAcl {@link AccessControlList} of the admins    * @param connector A jetty connection listener    * @param pathSpecs Path specifications that this httpserver will be serving.     *        These will be added to any filters.    */
+comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/webapps/<name>.    * @param name The name of the server    * @param bindAddress The address for this server    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and    *        increment by 1 until it finds a free port.    * @param conf Configuration    * @param adminsAcl {@link AccessControlList} of the admins    * @param connector A jetty connection listener    * @param pathSpecs Path specifications that this httpserver will be serving.    *        These will be added to any filters.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3463,7 +3489,7 @@ name|isFiltered
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add a context     * @param pathSpec The path spec for the context    * @param dir The directory containing the context    * @param isFiltered if true, the servlet is added to the filter path mapping     * @throws IOException    */
+comment|/**    * Add a context    * @param pathSpec The path spec for the context    * @param dir The directory containing the context    * @param isFiltered if true, the servlet is added to the filter path mapping    * @throws IOException    */
 specifier|protected
 name|void
 name|addContext
@@ -3551,7 +3577,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Add a Jersey resource package.    * @param packageName The Java package name containing the Jersey resource.    * @param pathSpec The path spec for the servlet    */
+comment|/**    * Add a Jersey resource package.    * @param packageName The Java package name containing the Jersey resource.    * @param pathSpec The path spec for the servlet    */
 specifier|public
 name|void
 name|addJerseyResourcePackage
@@ -3657,7 +3683,7 @@ name|webAppContext
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add an internal servlet in the server.     * Note: This method is to be used for adding servlets that facilitate    * internal communication and not for user facing functionality. For    * servlets added using this method, filters are not enabled.     *     * @param name The name of the servlet (can be passed as null)    * @param pathSpec The path spec for the servlet    * @param clazz The servlet class    */
+comment|/**    * Add an internal servlet in the server.    * Note: This method is to be used for adding servlets that facilitate    * internal communication and not for user facing functionality. For    * servlets added using this method, filters are not enabled.    *    * @param name The name of the servlet (can be passed as null)    * @param pathSpec The path spec for the servlet    * @param clazz The servlet class    */
 specifier|public
 name|void
 name|addInternalServlet
@@ -3689,7 +3715,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add an internal servlet in the server, specifying whether or not to    * protect with Kerberos authentication.     * Note: This method is to be used for adding servlets that facilitate    * internal communication and not for user facing functionality. For    +   * servlets added using this method, filters (except internal Kerberos    * filters) are not enabled.     *     * @param name The name of the servlet (can be passed as null)    * @param pathSpec The path spec for the servlet    * @param clazz The servlet class    * @param requireAuth Require Kerberos authenticate to access servlet    */
+comment|/**    * Add an internal servlet in the server, specifying whether or not to    * protect with Kerberos authentication.    * Note: This method is to be used for adding servlets that facilitate    * internal communication and not for user facing functionality. For    +   * servlets added using this method, filters (except internal Kerberos    * filters) are not enabled.    *    * @param name The name of the servlet (can be passed as null)    * @param pathSpec The path spec for the servlet    * @param clazz The servlet class    * @param requireAuth Require Kerberos authenticate to access servlet    */
 specifier|public
 name|void
 name|addInternalServlet
@@ -5385,7 +5411,7 @@ return|return
 name|access
 return|;
 block|}
-comment|/**    * Does the user sending the HttpServletRequest has the administrator ACLs? If    * it isn't the case, response will be modified to send an error to the user.    *     * @param servletContext    * @param request    * @param response used to send the error response if user does not have admin access.    * @return true if admin-authorized, false otherwise    * @throws IOException    */
+comment|/**    * Does the user sending the HttpServletRequest has the administrator ACLs? If    * it isn't the case, response will be modified to send an error to the user.    *    * @param servletContext    * @param request    * @param response used to send the error response if user does not have admin access.    * @return true if admin-authorized, false otherwise    * @throws IOException    */
 specifier|public
 specifier|static
 name|boolean
@@ -5511,7 +5537,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Get the admin ACLs from the given ServletContext and check if the given    * user is in the ACL.    *     * @param servletContext the context containing the admin ACL.    * @param remoteUser the remote user to check for.    * @return true if the user is present in the ACL, false if no ACL is set or    *         the user is not present    */
+comment|/**    * Get the admin ACLs from the given ServletContext and check if the given    * user is in the ACL.    *    * @param servletContext the context containing the admin ACL.    * @param remoteUser the remote user to check for.    * @return true if the user is present in the ACL, false if no ACL is set or    *         the user is not present    */
 specifier|public
 specifier|static
 name|boolean
@@ -5627,14 +5653,35 @@ operator|.
 name|getWriter
 argument_list|()
 decl_stmt|;
-name|ReflectionUtils
+name|PrintStream
+name|ps
+init|=
+operator|new
+name|PrintStream
+argument_list|(
+name|response
+operator|.
+name|getOutputStream
+argument_list|()
+argument_list|,
+literal|false
+argument_list|,
+literal|"UTF-8"
+argument_list|)
+decl_stmt|;
+name|Threads
 operator|.
 name|printThreadInfo
 argument_list|(
-name|out
+name|ps
 argument_list|,
 literal|""
 argument_list|)
+expr_stmt|;
+name|ps
+operator|.
+name|flush
+argument_list|()
 expr_stmt|;
 name|out
 operator|.
