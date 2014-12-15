@@ -103,6 +103,15 @@ name|CONFIG
 init|=
 literal|"Configuration"
 decl_stmt|;
+comment|/**    * Denotes classes used as tools (Used from cmd line). Usually, the compatibility is required    * for class name, and arguments.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|TOOLS
+init|=
+literal|"Tools"
+decl_stmt|;
 block|}
 end_class
 

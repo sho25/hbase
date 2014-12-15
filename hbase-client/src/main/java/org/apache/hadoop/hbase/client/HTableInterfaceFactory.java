@@ -74,10 +74,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Defines methods to create new HTableInterface.  *  * @since 0.21.0  */
+comment|/**  * Defines methods to create new HTableInterface.  *  * @since 0.21.0  * @deprecated in favor of {@link ConnectionFactory} and {@link Connection}.  */
 end_comment
 
 begin_interface
+annotation|@
+name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.

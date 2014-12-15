@@ -389,6 +389,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -745,7 +759,12 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|TOOLS
+argument_list|)
 annotation|@
 name|InterfaceStability
 operator|.
@@ -1510,6 +1529,8 @@ literal|true
 return|;
 block|}
 comment|/**    * Runs the command-line pretty-printer, and returns the desired command    * exit code (zero for success, non-zero for failure).    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|run

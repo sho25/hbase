@@ -107,7 +107,7 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
+name|Private
 annotation|@
 name|InterfaceStability
 operator|.
@@ -118,7 +118,7 @@ name|HeapMemoryTuner
 extends|extends
 name|Configurable
 block|{
-comment|/**    * Perform the heap memory tuning operation.    *     * @param context    * @return<code>TunerResult</code> including the heap percentage for memstore and block cache    */
+comment|/**    * Perform the heap memory tuning operation.    *    * @param context    * @return<code>TunerResult</code> including the heap percentage for memstore and block cache    */
 name|TunerResult
 name|tune
 parameter_list|(

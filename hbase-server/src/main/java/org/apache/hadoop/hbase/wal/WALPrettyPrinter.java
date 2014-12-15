@@ -215,6 +215,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|conf
 operator|.
 name|Configuration
@@ -301,6 +317,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Tag
 import|;
 end_import
@@ -374,14 +404,23 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * WALPrettyPrinter prints the contents of a given WAL with a variety of  * options affecting formatting and extent of content.  *   * It targets two usage cases: pretty printing for ease of debugging directly by  * humans, and JSON output for consumption by monitoring and/or maintenance  * scripts.  *   * It can filter by row, region, or sequence id.  *   * It can also toggle output of values.  *   */
+comment|/**  * WALPrettyPrinter prints the contents of a given WAL with a variety of  * options affecting formatting and extent of content.  *  * It targets two usage cases: pretty printing for ease of debugging directly by  * humans, and JSON output for consumption by monitoring and/or maintenance  * scripts.  *  * It can filter by row, region, or sequence id.  *  * It can also toggle output of values.  *  */
 end_comment
 
 begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|TOOLS
+argument_list|)
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 class|class
 name|WALPrettyPrinter
@@ -473,7 +512,7 @@ operator|.
 name|out
 expr_stmt|;
 block|}
-comment|/**    * Fully specified constructor.    *     * @param outputValues    *          when true, enables output of values along with other log    *          information    * @param outputJSON    *          when true, enables output in JSON format rather than a    *          "pretty string"    * @param sequence    *          when nonnegative, serves as a filter; only log entries with this    *          sequence id will be printed    * @param region    *          when not null, serves as a filter; only log entries from this    *          region will be printed    * @param row    *          when not null, serves as a filter; only log entries from this row    *          will be printed    * @param persistentOutput    *          keeps a single list running for multiple files. if enabled, the    *          endPersistentOutput() method must be used!    * @param out    *          Specifies an alternative to stdout for the destination of this     *          PrettyPrinter's output.    */
+comment|/**    * Fully specified constructor.    *    * @param outputValues    *          when true, enables output of values along with other log    *          information    * @param outputJSON    *          when true, enables output in JSON format rather than a    *          "pretty string"    * @param sequence    *          when nonnegative, serves as a filter; only log entries with this    *          sequence id will be printed    * @param region    *          when not null, serves as a filter; only log entries from this    *          region will be printed    * @param row    *          when not null, serves as a filter; only log entries from this row    *          will be printed    * @param persistentOutput    *          keeps a single list running for multiple files. if enabled, the    *          endPersistentOutput() method must be used!    * @param out    *          Specifies an alternative to stdout for the destination of this    *          PrettyPrinter's output.    */
 specifier|public
 name|WALPrettyPrinter
 parameter_list|(
@@ -601,7 +640,7 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
-comment|/**    * sets the region by which output will be filtered    *     * @param sequence    *          when nonnegative, serves as a filter; only log entries with this    *          sequence id will be printed    */
+comment|/**    * sets the region by which output will be filtered    *    * @param sequence    *          when nonnegative, serves as a filter; only log entries with this    *          sequence id will be printed    */
 specifier|public
 name|void
 name|setSequenceFilter
@@ -617,7 +656,7 @@ operator|=
 name|sequence
 expr_stmt|;
 block|}
-comment|/**    * sets the region by which output will be filtered    *     * @param region    *          when not null, serves as a filter; only log entries from this    *          region will be printed    */
+comment|/**    * sets the region by which output will be filtered    *    * @param region    *          when not null, serves as a filter; only log entries from this    *          region will be printed    */
 specifier|public
 name|void
 name|setRegionFilter
@@ -633,7 +672,7 @@ operator|=
 name|region
 expr_stmt|;
 block|}
-comment|/**    * sets the region by which output will be filtered    *     * @param row    *          when not null, serves as a filter; only log entries from this row    *          will be printed    */
+comment|/**    * sets the region by which output will be filtered    *    * @param row    *          when not null, serves as a filter; only log entries from this row    *          will be printed    */
 specifier|public
 name|void
 name|setRowFilter
@@ -708,7 +747,7 @@ literal|"]"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * reads a log file and outputs its contents, one transaction at a time, as    * specified by the currently configured options    *     * @param conf    *          the HBase configuration relevant to this log file    * @param p    *          the path of the log file to be read    * @throws IOException    *           may be unable to access the configured filesystem or requested    *           file.    */
+comment|/**    * reads a log file and outputs its contents, one transaction at a time, as    * specified by the currently configured options    *    * @param conf    *          the HBase configuration relevant to this log file    * @param p    *          the path of the log file to be read    * @throws IOException    *           may be unable to access the configured filesystem or requested    *           file.    */
 specifier|public
 name|void
 name|processFile
@@ -1559,7 +1598,7 @@ name|args
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Pass one or more log file names and formatting options and it will dump out    * a text version of the contents on<code>stdout</code>.    *     * @param args    *          Command line arguments    * @throws IOException    *           Thrown upon file system errors etc.    * @throws ParseException    *           Thrown if command-line parsing fails.    */
+comment|/**    * Pass one or more log file names and formatting options and it will dump out    * a text version of the contents on<code>stdout</code>.    *    * @param args    *          Command line arguments    * @throws IOException    *           Thrown upon file system errors etc.    * @throws ParseException    *           Thrown if command-line parsing fails.    */
 specifier|public
 specifier|static
 name|void

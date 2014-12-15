@@ -81,6 +81,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|wal
 operator|.
 name|WALPrettyPrinter
@@ -88,14 +102,19 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HLogPrettyPrinter prints the contents of a given HLog with a variety of  * options affecting formatting and extent of content.  *   * It targets two usage cases: pretty printing for ease of debugging directly by  * humans, and JSON output for consumption by monitoring and/or maintenance  * scripts.  *   * It can filter by row, region, or sequence id.  *   * It can also toggle output of values.  *   * @deprecated use the "hbase wal" command  */
+comment|/**  * HLogPrettyPrinter prints the contents of a given HLog with a variety of  * options affecting formatting and extent of content.  *  * It targets two usage cases: pretty printing for ease of debugging directly by  * humans, and JSON output for consumption by monitoring and/or maintenance  * scripts.  *  * It can filter by row, region, or sequence id.  *  * It can also toggle output of values.  *  * @deprecated use the "hbase wal" command  */
 end_comment
 
 begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|TOOLS
+argument_list|)
 annotation|@
 name|InterfaceStability
 operator|.
@@ -134,7 +153,7 @@ name|out
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Fully specified constructor.    *     * @param outputValues    *          when true, enables output of values along with other log    *          information    * @param outputJSON    *          when true, enables output in JSON format rather than a    *          "pretty string"    * @param sequence    *          when nonnegative, serves as a filter; only log entries with this    *          sequence id will be printed    * @param region    *          when not null, serves as a filter; only log entries from this    *          region will be printed    * @param row    *          when not null, serves as a filter; only log entries from this row    *          will be printed    * @param persistentOutput    *          keeps a single list running for multiple files. if enabled, the    *          endPersistentOutput() method must be used!    * @param out    *          Specifies an alternative to stdout for the destination of this     *          PrettyPrinter's output.    */
+comment|/**    * Fully specified constructor.    *    * @param outputValues    *          when true, enables output of values along with other log    *          information    * @param outputJSON    *          when true, enables output in JSON format rather than a    *          "pretty string"    * @param sequence    *          when nonnegative, serves as a filter; only log entries with this    *          sequence id will be printed    * @param region    *          when not null, serves as a filter; only log entries from this    *          region will be printed    * @param row    *          when not null, serves as a filter; only log entries from this row    *          will be printed    * @param persistentOutput    *          keeps a single list running for multiple files. if enabled, the    *          endPersistentOutput() method must be used!    * @param out    *          Specifies an alternative to stdout for the destination of this    *          PrettyPrinter's output.    */
 specifier|public
 name|HLogPrettyPrinter
 parameter_list|(

@@ -198,10 +198,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<p>  * This class runs performance benchmarks for {@link MapFile}.  *</p>  */
+comment|/**  *<p>  * This class runs performance benchmarks for {@link MapFile}.  *</p>  * @deprecated HBase does not use MapFiles any more.  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|MapFilePerformanceEvaluation
@@ -391,6 +393,8 @@ operator|new
 name|Runnable
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -440,6 +444,8 @@ operator|new
 name|Runnable
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -489,6 +495,8 @@ operator|new
 name|Runnable
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -538,6 +546,8 @@ operator|new
 name|Runnable
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run

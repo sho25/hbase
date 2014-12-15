@@ -421,6 +421,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HColumnDescriptor
 import|;
 end_import
@@ -1823,7 +1837,12 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|TOOLS
+argument_list|)
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -2876,6 +2895,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * For compatibility, if failed with regionserver credentials, try the master one    */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|login
@@ -2921,6 +2942,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * If configured to put regions on active master,    * wait till a backup master becomes active.    * Otherwise, loop till the server is stopped or aborted.    */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|waitForMasterActive
@@ -3000,6 +3023,8 @@ name|ASYNC
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|String
 name|getProcessName
@@ -3009,6 +3034,8 @@ return|return
 name|MASTER
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|boolean
 name|canCreateBaseZNode
@@ -3018,6 +3045,8 @@ return|return
 literal|true
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|boolean
 name|canUpdateTableDescriptor
@@ -3027,6 +3056,8 @@ return|return
 literal|true
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|RSRpcServices
 name|createRpcServices
@@ -3042,6 +3073,8 @@ name|this
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|configureInfoServer
@@ -3086,6 +3119,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|Class
 argument_list|<
@@ -3103,6 +3138,8 @@ name|class
 return|;
 block|}
 comment|/**    * Emit the HMaster metrics, such as region in transition metrics.    * Surrounding in a try block just to be sure metrics doesn't abort HMaster.    */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|doMetrics
@@ -5103,6 +5140,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|stopServiceThreads
@@ -7188,6 +7227,8 @@ operator|new
 name|Runnable
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run

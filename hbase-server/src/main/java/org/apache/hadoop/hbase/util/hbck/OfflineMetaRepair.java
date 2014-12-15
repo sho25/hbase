@@ -155,6 +155,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|FSUtils
@@ -192,14 +206,19 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This code is used to rebuild meta off line from file system data. If there  * are any problem detected, it will fail suggesting actions for the user to do  * to "fix" problems. If it succeeds, it will backup the previous hbase:meta and  * -ROOT- dirs and write new tables in place.  *   * This is an advanced feature, so is only exposed for use if explicitly  * mentioned.  *   * hbase org.apache.hadoop.hbase.util.hbck.OfflineMetaRepair ...  */
+comment|/**  * This code is used to rebuild meta off line from file system data. If there  * are any problem detected, it will fail suggesting actions for the user to do  * to "fix" problems. If it succeeds, it will backup the previous hbase:meta and  * -ROOT- dirs and write new tables in place.  *  * This is an advanced feature, so is only exposed for use if explicitly  * mentioned.  *  * hbase org.apache.hadoop.hbase.util.hbck.OfflineMetaRepair ...  */
 end_comment
 
 begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|TOOLS
+argument_list|)
 annotation|@
 name|InterfaceStability
 operator|.
@@ -300,7 +319,7 @@ literal|2
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Main program    *     * @param args    * @throws Exception    */
+comment|/**    * Main program    *    * @param args    * @throws Exception    */
 specifier|public
 specifier|static
 name|void

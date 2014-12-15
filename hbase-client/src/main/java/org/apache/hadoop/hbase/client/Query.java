@@ -545,7 +545,7 @@ operator|.
 name|targetReplicaId
 return|;
 block|}
-comment|/*    * Set the isolation level for this query. If the    * isolation level is set to READ_UNCOMMITTED, then    * this query will return data from committed and    * uncommitted transactions. If the isolation level    * is set to READ_COMMITTED, then this query will return    * data from committed transactions only. If a isolation    * level is not explicitly set on a Query, then it    * is assumed to be READ_COMMITTED.    * @param level IsolationLevel for this query    */
+comment|/**    * Set the isolation level for this query. If the    * isolation level is set to READ_UNCOMMITTED, then    * this query will return data from committed and    * uncommitted transactions. If the isolation level    * is set to READ_COMMITTED, then this query will return    * data from committed transactions only. If a isolation    * level is not explicitly set on a Query, then it    * is assumed to be READ_COMMITTED.    * @param level IsolationLevel for this query    */
 specifier|public
 name|Query
 name|setIsolationLevel
@@ -568,7 +568,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/*    * @return The isolation level of this query.    * If no isolation level was set for this query object,    * then it returns READ_COMMITTED.    * @return The IsolationLevel for this query    */
+comment|/**    * @return The isolation level of this query.    * If no isolation level was set for this query object,    * then it returns READ_COMMITTED.    * @return The IsolationLevel for this query    */
 specifier|public
 name|IsolationLevel
 name|getIsolationLevel
