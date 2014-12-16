@@ -2585,10 +2585,7 @@ block|}
 block|}
 name|f
 operator|.
-name|getReader
-argument_list|()
-operator|.
-name|close
+name|closeReader
 argument_list|(
 literal|true
 argument_list|)
