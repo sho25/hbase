@@ -6305,7 +6305,10 @@ literal|"modifyColumn"
 argument_list|,
 name|tableName
 argument_list|,
-literal|null
+name|descriptor
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -6347,7 +6350,7 @@ literal|"deleteColumn"
 argument_list|,
 name|tableName
 argument_list|,
-literal|null
+name|col
 argument_list|,
 literal|null
 argument_list|,

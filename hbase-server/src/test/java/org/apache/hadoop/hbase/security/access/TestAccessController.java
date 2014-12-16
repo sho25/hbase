@@ -1741,6 +1741,12 @@ specifier|static
 name|User
 name|USER_NONE
 decl_stmt|;
+comment|// user with admin rights on the column family
+specifier|private
+specifier|static
+name|User
+name|USER_ADMIN_CF
+decl_stmt|;
 comment|// TODO: convert this test to cover the full matrix in
 comment|// https://hbase.apache.org/book/appendix_acl_matrix.html
 comment|// creating all Scope x Permission combinations
@@ -2134,6 +2140,23 @@ literal|0
 index|]
 argument_list|)
 expr_stmt|;
+name|USER_ADMIN_CF
+operator|=
+name|User
+operator|.
+name|createUserForTesting
+argument_list|(
+name|conf
+argument_list|,
+literal|"col_family_admin"
+argument_list|,
+operator|new
+name|String
+index|[
+literal|0
+index|]
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|AfterClass
@@ -2420,9 +2443,34 @@ operator|.
 name|READ
 argument_list|)
 expr_stmt|;
+name|grantOnTable
+argument_list|(
+name|TEST_UTIL
+argument_list|,
+name|USER_ADMIN_CF
+operator|.
+name|getShortName
+argument_list|()
+argument_list|,
+name|TEST_TABLE
+operator|.
+name|getTableName
+argument_list|()
+argument_list|,
+name|TEST_FAMILY
+argument_list|,
+literal|null
+argument_list|,
+name|Permission
+operator|.
+name|Action
+operator|.
+name|ADMIN
+argument_list|)
+expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|4
+literal|5
 argument_list|,
 name|AccessControlLists
 operator|.
@@ -2444,7 +2492,7 @@ try|try
 block|{
 name|assertEquals
 argument_list|(
-literal|4
+literal|5
 argument_list|,
 name|AccessControlClient
 operator|.
@@ -3079,6 +3127,8 @@ argument_list|,
 name|USER_CREATE
 argument_list|,
 name|USER_OWNER
+argument_list|,
+name|USER_ADMIN_CF
 argument_list|)
 expr_stmt|;
 name|verifyDenied
@@ -3156,6 +3206,8 @@ argument_list|,
 name|USER_CREATE
 argument_list|,
 name|USER_OWNER
+argument_list|,
+name|USER_ADMIN_CF
 argument_list|)
 expr_stmt|;
 name|verifyDenied
@@ -15162,10 +15214,10 @@ argument_list|(
 name|perms
 argument_list|)
 expr_stmt|;
-comment|// USER_ADMIN, USER_CREATE, USER_RW, USER_RO, testUserPerms has row each.
+comment|// USER_ADMIN, USER_CREATE, USER_RW, USER_RO, testUserPerms, USER_ADMIN_CF has row each.
 name|assertEquals
 argument_list|(
-literal|5
+literal|6
 argument_list|,
 name|perms
 operator|.
