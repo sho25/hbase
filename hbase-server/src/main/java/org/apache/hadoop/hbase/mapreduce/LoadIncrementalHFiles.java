@@ -2111,7 +2111,7 @@ name|getInt
 argument_list|(
 literal|"hbase.bulkload.retries.number"
 argument_list|,
-literal|0
+literal|10
 argument_list|)
 decl_stmt|;
 if|if
