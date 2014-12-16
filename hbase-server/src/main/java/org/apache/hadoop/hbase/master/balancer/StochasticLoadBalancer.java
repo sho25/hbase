@@ -1106,6 +1106,40 @@ name|masterServerName
 argument_list|)
 expr_stmt|;
 block|}
+comment|// On clusters with lots of HFileLinks or lots of reference files,
+comment|// instantiating the storefile infos can be quite expensive.
+comment|// Allow turning this feature off if the locality cost is not going to
+comment|// be used in any computations.
+name|RegionLocationFinder
+name|finder
+init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|localityCost
+operator|!=
+literal|null
+operator|&&
+name|this
+operator|.
+name|localityCost
+operator|.
+name|getMultiplier
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|finder
+operator|=
+name|this
+operator|.
+name|regionFinder
+expr_stmt|;
+block|}
 comment|//The clusterState that is given to this method contains the state
 comment|//of all the regions in the table(s) (that's true today)
 comment|// Keep track of servers to iterate through them.
@@ -1119,7 +1153,7 @@ name|clusterState
 argument_list|,
 name|loads
 argument_list|,
-name|regionFinder
+name|finder
 argument_list|,
 name|rackManager
 argument_list|)
