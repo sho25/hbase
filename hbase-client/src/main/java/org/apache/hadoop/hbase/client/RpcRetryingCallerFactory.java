@@ -401,6 +401,9 @@ argument_list|,
 name|clazzName
 argument_list|)
 decl_stmt|;
+name|RpcRetryingCallerFactory
+name|factory
+decl_stmt|;
 if|if
 condition|(
 name|rpcCallerFactoryClazz
@@ -411,7 +414,8 @@ name|clazzName
 argument_list|)
 condition|)
 block|{
-return|return
+name|factory
+operator|=
 operator|new
 name|RpcRetryingCallerFactory
 argument_list|(
@@ -419,11 +423,12 @@ name|configuration
 argument_list|,
 name|interceptor
 argument_list|)
-return|;
+expr_stmt|;
 block|}
-name|RpcRetryingCallerFactory
+else|else
+block|{
 name|factory
-init|=
+operator|=
 name|ReflectionUtils
 operator|.
 name|instantiateWithCustomCtor
@@ -446,7 +451,8 @@ block|{
 name|configuration
 block|}
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 comment|// setting for backwards compat with existing caller factories, rather than in the ctor
 name|factory
 operator|.
