@@ -4768,7 +4768,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Returns the path to the default root dir the minicluster uses. If getNewDirPathIfExists    * is true, a new root directory path is fetched irrespective of whether it has been fetched    * before or not. If false, previous path is used.    * Note: this does not cause the root dir to be created.    * @return Fully qualified path for the default hbase root dir    * @throws IOException    */
+comment|/**    * Returns the path to the default root dir the minicluster uses. If<code>create</code>    * is true, a new root directory path is fetched irrespective of whether it has been fetched    * before or not. If false, previous path is used.    * Note: this does not cause the root dir to be created.    * @return Fully qualified path for the default hbase root dir    * @throws IOException    */
 specifier|public
 name|Path
 name|getDefaultRootDirPath
@@ -4798,7 +4798,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * Same as {{@link HBaseTestingUtility#getDefaultRootDirPath(boolean getNewDirPathIfExists)}    * except that getNewDirPathIfExists flag is false.    * Note: this does not cause the root dir to be created.    * @return Fully qualified path for the default hbase root dir    * @throws IOException    */
+comment|/**    * Same as {{@link HBaseTestingUtility#getDefaultRootDirPath(boolean create)}    * except that<code>create</code> flag is false.    * Note: this does not cause the root dir to be created.    * @return Fully qualified path for the default hbase root dir    * @throws IOException    */
 specifier|public
 name|Path
 name|getDefaultRootDirPath
@@ -4813,13 +4813,13 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates an hbase rootdir in user home directory.  Also creates hbase    * version file.  Normally you won't make use of this method.  Root hbasedir    * is created for you as part of mini cluster startup.  You'd only use this    * method if you were doing manual operation.    * @param getNewDirPathIfExists This flag decides whether to get a new    * root or data directory path or not, if it has been fetched already.    * Note : Directory will be made irrespective of whether path has been fetched or not.    * If directory already exists, it will be overwritten    * @return Fully qualified path to hbase root dir    * @throws IOException    */
+comment|/**    * Creates an hbase rootdir in user home directory.  Also creates hbase    * version file.  Normally you won't make use of this method.  Root hbasedir    * is created for you as part of mini cluster startup.  You'd only use this    * method if you were doing manual operation.    * @param create This flag decides whether to get a new    * root or data directory path or not, if it has been fetched already.    * Note : Directory will be made irrespective of whether path has been fetched or not.    * If directory already exists, it will be overwritten    * @return Fully qualified path to hbase root dir    * @throws IOException    */
 specifier|public
 name|Path
 name|createRootDir
 parameter_list|(
 name|boolean
-name|getNewDirPathIfExists
+name|create
 parameter_list|)
 throws|throws
 name|IOException
@@ -4841,7 +4841,7 @@ name|hbaseRootdir
 init|=
 name|getDefaultRootDirPath
 argument_list|(
-name|getNewDirPathIfExists
+name|create
 argument_list|)
 decl_stmt|;
 name|FSUtils
@@ -4875,7 +4875,7 @@ return|return
 name|hbaseRootdir
 return|;
 block|}
-comment|/**    * Same as {@link HBaseTestingUtility#createRootDir(boolean getNewDirPathIfExists)}    * except that getNewDirPathIfExists flag is false.    * @return Fully qualified path to hbase root dir    * @throws IOException    */
+comment|/**    * Same as {@link HBaseTestingUtility#createRootDir(boolean create)}    * except that<code>create</code> flag is false.    * @return Fully qualified path to hbase root dir    * @throws IOException    */
 specifier|public
 name|Path
 name|createRootDir
@@ -11960,7 +11960,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Get a Connection to the cluster.    * Not thread-safe (This class needs a lot of work to make it thread-safe).    * @return A Connection that can be shared. Don't close. Will be closed on shutdown of cluster.    * @throws IOException     */
+comment|/**    * Get a Connection to the cluster.    * Not thread-safe (This class needs a lot of work to make it thread-safe).    * @return A Connection that can be shared. Don't close. Will be closed on shutdown of cluster.    * @throws IOException    */
 end_comment
 
 begin_function
