@@ -243,7 +243,7 @@ return|;
 block|}
 comment|// mutli-server callables span multiple regions, so they don't have a location,
 comment|// but they are region server callables, so we have to handle them when we process the
-comment|// result, not in here
+comment|// result in AsyncProcess#receiveMultiAction, not in here
 if|if
 condition|(
 name|callable
