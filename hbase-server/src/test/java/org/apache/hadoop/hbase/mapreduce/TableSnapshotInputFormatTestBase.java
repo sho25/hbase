@@ -360,6 +360,8 @@ operator|.
 name|startMiniCluster
 argument_list|(
 name|NUM_REGION_SERVERS
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|rootDir
