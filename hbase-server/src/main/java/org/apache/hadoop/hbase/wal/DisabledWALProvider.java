@@ -356,7 +356,6 @@ name|WALActionsListener
 argument_list|>
 name|listeners
 parameter_list|,
-specifier|final
 name|String
 name|providerId
 parameter_list|)
@@ -377,6 +376,18 @@ argument_list|(
 literal|"WALProvider.init should only be called once."
 argument_list|)
 throw|;
+block|}
+if|if
+condition|(
+literal|null
+operator|==
+name|providerId
+condition|)
+block|{
+name|providerId
+operator|=
+literal|"defaultDisabled"
+expr_stmt|;
 block|}
 name|disabled
 operator|=

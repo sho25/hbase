@@ -1162,7 +1162,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 comment|/**    * file system instance    */
-specifier|private
+specifier|protected
 specifier|final
 name|FileSystem
 name|fs
@@ -1209,7 +1209,7 @@ name|WALCoprocessorHost
 name|coprocessorHost
 decl_stmt|;
 comment|/**    * conf object    */
-specifier|private
+specifier|protected
 specifier|final
 name|Configuration
 name|conf
