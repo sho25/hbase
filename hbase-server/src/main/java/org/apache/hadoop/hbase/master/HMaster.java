@@ -2075,25 +2075,13 @@ argument_list|(
 literal|"Zombie Master exiting. Thread dump to stdout"
 argument_list|)
 expr_stmt|;
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|util
-operator|.
-name|ReflectionUtils
+name|Threads
 operator|.
 name|printThreadInfo
-argument_list|(
-operator|new
-name|PrintWriter
 argument_list|(
 name|System
 operator|.
 name|out
-argument_list|)
 argument_list|,
 literal|"Zombie HMaster"
 argument_list|)
