@@ -3301,7 +3301,7 @@ return|return
 name|pair
 return|;
 block|}
-comment|/**    * Checks whether cell contains any tag with type as VISIBILITY_TAG_TYPE. This    * tag type is reserved and should not be explicitly set by user. There are    * two versions of this method one that accepts pair and other without pair.    * In case of preAppend and preIncrement the additional operations are not    * needed like checking for STRING_VIS_TAG_TYPE and hence the API without pair    * could be used.    *    * @param cell    * @return    * @throws IOException    */
+comment|/**    * Checks whether cell contains any tag with type as VISIBILITY_TAG_TYPE. This    * tag type is reserved and should not be explicitly set by user. There are    * two versions of this method one that accepts pair and other without pair.    * In case of preAppend and preIncrement the additional operations are not    * needed like checking for STRING_VIS_TAG_TYPE and hence the API without pair    * could be used.    *    * @param cell    * @throws IOException    */
 specifier|private
 name|boolean
 name|checkForReservedVisibilityTagPresence
