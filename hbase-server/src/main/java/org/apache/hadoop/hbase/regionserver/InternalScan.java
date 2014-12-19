@@ -19,6 +19,30 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -66,14 +90,20 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Special internal-only scanner, currently used for increment operations to  * allow additional server-side arguments for Scan operations.  *<p>  * Rather than adding new options/parameters to the public Scan API, this new  * class has been created.  *<p>  * Supports adding an option to only read from the MemStore with  * {@link #checkOnlyMemStore()} or to only read from StoreFiles with  * {@link #checkOnlyStoreFiles()}.  */
+comment|/**  * Special scanner, currently used for increment operations to  * allow additional server-side arguments for Scan operations.  *<p>  * Rather than adding new options/parameters to the public Scan API, this new  * class has been created.  *<p>  * Supports adding an option to only read from the MemStore with  * {@link #checkOnlyMemStore()} or to only read from StoreFiles with  * {@link #checkOnlyStoreFiles()}.  */
 end_comment
 
 begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+argument_list|)
+specifier|public
 class|class
 name|InternalScan
 extends|extends
@@ -102,6 +132,22 @@ block|{
 name|super
 argument_list|(
 name|get
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * @param scan - original scan object    * @throws IOException     */
+specifier|public
+name|InternalScan
+parameter_list|(
+name|Scan
+name|scan
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|super
+argument_list|(
+name|scan
 argument_list|)
 expr_stmt|;
 block|}
