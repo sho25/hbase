@@ -59,16 +59,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -3180,7 +3170,7 @@ throw|;
 block|}
 name|byte
 index|[]
-name|regionName
+name|encodedRegionName
 init|=
 name|request
 operator|.
@@ -3199,7 +3189,7 @@ name|serverManager
 operator|.
 name|getLastFlushedSequenceId
 argument_list|(
-name|regionName
+name|encodedRegionName
 argument_list|)
 decl_stmt|;
 return|return

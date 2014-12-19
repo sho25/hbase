@@ -46,13 +46,13 @@ specifier|public
 interface|interface
 name|LastSequenceId
 block|{
-comment|/**    * @param regionName Encoded region name    * @return Last flushed sequence Id for regionName or -1 if it can't be determined    */
+comment|/**    * @param encodedRegionName Encoded region name    * @return Last flushed sequence Id for region or -1 if it can't be determined    */
 name|long
 name|getLastSequenceId
 parameter_list|(
 name|byte
 index|[]
-name|regionName
+name|encodedRegionName
 parameter_list|)
 function_decl|;
 block|}

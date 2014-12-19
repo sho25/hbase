@@ -10976,14 +10976,14 @@ name|getLastSequenceId
 parameter_list|(
 name|byte
 index|[]
-name|region
+name|encodedRegionName
 parameter_list|)
 block|{
-name|Long
+name|long
 name|lastFlushedSequenceId
 init|=
 operator|-
-literal|1l
+literal|1L
 decl_stmt|;
 try|try
 block|{
@@ -10994,7 +10994,7 @@ name|RequestConverter
 operator|.
 name|buildGetLastFlushedSequenceIdRequest
 argument_list|(
-name|region
+name|encodedRegionName
 argument_list|)
 decl_stmt|;
 name|RegionServerStatusService
@@ -11038,7 +11038,7 @@ argument_list|)
 expr_stmt|;
 return|return
 operator|-
-literal|1l
+literal|1L
 return|;
 block|}
 block|}

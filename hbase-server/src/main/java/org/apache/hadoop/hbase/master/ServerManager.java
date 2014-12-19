@@ -726,11 +726,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|public
 class|class
 name|ServerManager
@@ -1234,6 +1229,25 @@ name|entrySet
 argument_list|()
 control|)
 block|{
+name|byte
+index|[]
+name|encodedRegionName
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|HRegionInfo
+operator|.
+name|encodeRegionName
+argument_list|(
+name|entry
+operator|.
+name|getKey
+argument_list|()
+argument_list|)
+argument_list|)
+decl_stmt|;
 name|Long
 name|existingValue
 init|=
@@ -1241,10 +1255,7 @@ name|flushedSequenceIdByRegion
 operator|.
 name|get
 argument_list|(
-name|entry
-operator|.
-name|getKey
-argument_list|()
+name|encodedRegionName
 argument_list|)
 decl_stmt|;
 name|long
@@ -1312,18 +1323,14 @@ literal|" Ignoring."
 argument_list|)
 expr_stmt|;
 continue|continue;
-comment|// Don't let smaller sequence ids override greater
-comment|// sequence ids.
+comment|// Don't let smaller sequence ids override greater sequence ids.
 block|}
 block|}
 name|flushedSequenceIdByRegion
 operator|.
 name|put
 argument_list|(
-name|entry
-operator|.
-name|getKey
-argument_list|()
+name|encodedRegionName
 argument_list|,
 name|l
 argument_list|)
@@ -1881,14 +1888,14 @@ name|getLastFlushedSequenceId
 parameter_list|(
 name|byte
 index|[]
-name|regionName
+name|encodedRegionName
 parameter_list|)
 block|{
 name|long
 name|seqId
 init|=
 operator|-
-literal|1
+literal|1L
 decl_stmt|;
 if|if
 condition|(
@@ -1896,7 +1903,7 @@ name|flushedSequenceIdByRegion
 operator|.
 name|containsKey
 argument_list|(
-name|regionName
+name|encodedRegionName
 argument_list|)
 condition|)
 block|{
@@ -1906,7 +1913,7 @@ name|flushedSequenceIdByRegion
 operator|.
 name|get
 argument_list|(
-name|regionName
+name|encodedRegionName
 argument_list|)
 expr_stmt|;
 block|}
