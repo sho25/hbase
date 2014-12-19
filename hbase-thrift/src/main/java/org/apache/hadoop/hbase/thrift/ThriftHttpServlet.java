@@ -139,6 +139,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|SecurityUtil
@@ -303,7 +319,15 @@ name|Oid
 import|;
 end_import
 
+begin_comment
+comment|/**  * Thrift Http Servlet is used for performing Kerberos authentication if security is enabled and  * also used for setting the user specified in "doAs" parameter.  */
+end_comment
+
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|ThriftHttpServlet
@@ -337,11 +361,13 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|transient
 specifier|final
 name|UserGroupInformation
 name|realUser
 decl_stmt|;
 specifier|private
+specifier|transient
 specifier|final
 name|Configuration
 name|conf
@@ -356,6 +382,8 @@ specifier|final
 name|boolean
 name|doAsEnabled
 decl_stmt|;
+specifier|private
+specifier|transient
 name|ThriftServerRunner
 operator|.
 name|HBaseHandler
@@ -660,6 +688,8 @@ argument_list|)
 throw|;
 block|}
 block|}
+specifier|private
+specifier|static
 class|class
 name|HttpKerberosServerAction
 implements|implements

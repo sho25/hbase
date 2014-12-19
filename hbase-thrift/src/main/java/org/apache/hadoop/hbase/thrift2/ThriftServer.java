@@ -2701,7 +2701,7 @@ literal|"hbase.thrift.info.port"
 argument_list|,
 name|Integer
 operator|.
-name|valueOf
+name|parseInt
 argument_list|(
 name|val
 argument_list|)
