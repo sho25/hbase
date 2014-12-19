@@ -2571,6 +2571,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Verify all table/namespace permissions are erased
 name|assertEquals
 argument_list|(
 literal|0
@@ -2584,6 +2585,29 @@ argument_list|,
 name|TEST_TABLE
 operator|.
 name|getTableName
+argument_list|()
+argument_list|)
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|0
+argument_list|,
+name|AccessControlLists
+operator|.
+name|getNamespacePermissions
+argument_list|(
+name|conf
+argument_list|,
+name|TEST_TABLE
+operator|.
+name|getTableName
+argument_list|()
+operator|.
+name|getNameAsString
 argument_list|()
 argument_list|)
 operator|.
