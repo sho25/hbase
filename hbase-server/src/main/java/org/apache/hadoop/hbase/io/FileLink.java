@@ -1316,7 +1316,7 @@ block|{
 if|if
 condition|(
 name|currentPath
-operator|!=
+operator|==
 literal|null
 condition|)
 block|{
