@@ -987,11 +987,6 @@ name|MetaScanner
 operator|.
 name|metaScan
 argument_list|(
-name|server
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
 name|this
 operator|.
 name|connection

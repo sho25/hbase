@@ -2723,9 +2723,6 @@ name|MetaScanner
 operator|.
 name|allTableRegions
 argument_list|(
-name|getConfiguration
-argument_list|()
-argument_list|,
 name|this
 operator|.
 name|connection

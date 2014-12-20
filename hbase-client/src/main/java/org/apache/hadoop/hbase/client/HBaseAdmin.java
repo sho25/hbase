@@ -3846,8 +3846,6 @@ name|MetaScanner
 operator|.
 name|metaScan
 argument_list|(
-name|conf
-argument_list|,
 name|connection
 argument_list|,
 name|visitor
@@ -10143,8 +10141,6 @@ name|MetaScanner
 operator|.
 name|metaScan
 argument_list|(
-name|conf
-argument_list|,
 name|connection
 argument_list|,
 name|visitor

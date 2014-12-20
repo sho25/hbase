@@ -322,7 +322,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Scans the meta table and calls a visitor on each RowResult and uses a empty    * start row value as table name.    *     *<p>Visible for testing. Use {@link    * #metaScan(Configuration, Connection, MetaScannerVisitor, TableName)} instead.    *    * @param configuration conf    * @param visitor A custom visitor    * @throws IOException e    */
+comment|/**    * Scans the meta table and calls a visitor on each RowResult and uses a empty    * start row value as table name.    *     *<p>Visible for testing. Use {@link    * #metaScan(Connection, MetaScannerVisitor, TableName)} instead.    *    * @param visitor A custom visitor    * @throws IOException e    */
 annotation|@
 name|VisibleForTesting
 comment|// Do not use. Used by tests only and hbck.
@@ -331,8 +331,8 @@ specifier|static
 name|void
 name|metaScan
 parameter_list|(
-name|Configuration
-name|configuration
+name|Connection
+name|connection
 parameter_list|,
 name|MetaScannerVisitor
 name|visitor
@@ -342,7 +342,7 @@ name|IOException
 block|{
 name|metaScan
 argument_list|(
-name|configuration
+name|connection
 argument_list|,
 name|visitor
 argument_list|,
@@ -356,15 +356,12 @@ name|MAX_VALUE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Scans the meta table and calls a visitor on each RowResult. Uses a table    * name to locate meta regions.    *    * @param configuration config    * @param connection connection to use internally (null to use a new instance)    * @param visitor visitor object    * @param userTableName User table name in meta table to start scan at.  Pass    * null if not interested in a particular table.    * @throws IOException e    */
+comment|/**    * Scans the meta table and calls a visitor on each RowResult. Uses a table    * name to locate meta regions.    *    * @param connection connection to use internally (null to use a new instance)    * @param visitor visitor object    * @param userTableName User table name in meta table to start scan at.  Pass    * null if not interested in a particular table.    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
 name|metaScan
 parameter_list|(
-name|Configuration
-name|configuration
-parameter_list|,
 name|Connection
 name|connection
 parameter_list|,
@@ -379,8 +376,6 @@ name|IOException
 block|{
 name|metaScan
 argument_list|(
-name|configuration
-argument_list|,
 name|connection
 argument_list|,
 name|visitor
@@ -399,7 +394,7 @@ name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Scans the meta table and calls a visitor on each RowResult. Uses a table    * name and a row name to locate meta regions. And it only scans at most    *<code>rowLimit</code> of rows.    *     *<p>Visible for testing. Use {@link    * #metaScan(Configuration, Connection, MetaScannerVisitor, TableName)} instead.    *    * @param configuration HBase configuration.    * @param visitor Visitor object.    * @param userTableName User table name in meta table to start scan at.  Pass    * null if not interested in a particular table.    * @param row Name of the row at the user table. The scan will start from    * the region row where the row resides.    * @param rowLimit Max of processed rows. If it is less than 0, it    * will be set to default value<code>Integer.MAX_VALUE</code>.    * @throws IOException e    */
+comment|/**    * Scans the meta table and calls a visitor on each RowResult. Uses a table    * name and a row name to locate meta regions. And it only scans at most    *<code>rowLimit</code> of rows.    *     *<p>Visible for testing. Use {@link    * #metaScan(Connection, MetaScannerVisitor, TableName)} instead.    *    * @param connection to scan on    * @param visitor Visitor object.    * @param userTableName User table name in meta table to start scan at.  Pass    * null if not interested in a particular table.    * @param row Name of the row at the user table. The scan will start from    * the region row where the row resides.    * @param rowLimit Max of processed rows. If it is less than 0, it    * will be set to default value<code>Integer.MAX_VALUE</code>.    * @throws IOException e    */
 annotation|@
 name|VisibleForTesting
 comment|// Do not use. Used by Master but by a method that is used testing.
@@ -408,8 +403,8 @@ specifier|static
 name|void
 name|metaScan
 parameter_list|(
-name|Configuration
-name|configuration
+name|Connection
+name|connection
 parameter_list|,
 name|MetaScannerVisitor
 name|visitor
@@ -429,9 +424,7 @@ name|IOException
 block|{
 name|metaScan
 argument_list|(
-name|configuration
-argument_list|,
-literal|null
+name|connection
 argument_list|,
 name|visitor
 argument_list|,
@@ -447,14 +440,11 @@ name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Scans the meta table and calls a visitor on each RowResult. Uses a table    * name and a row name to locate meta regions. And it only scans at most    *<code>rowLimit</code> of rows.    *    * @param configuration HBase configuration.    * @param connection connection to use internally (null to use a new instance)    * @param visitor Visitor object. Closes the visitor before returning.    * @param tableName User table name in meta table to start scan at.  Pass    * null if not interested in a particular table.    * @param row Name of the row at the user table. The scan will start from    * the region row where the row resides.    * @param rowLimit Max of processed rows. If it is less than 0, it    * will be set to default value<code>Integer.MAX_VALUE</code>.    * @param metaTableName Meta table to scan, root or meta.    * @throws IOException e    */
+comment|/**    * Scans the meta table and calls a visitor on each RowResult. Uses a table    * name and a row name to locate meta regions. And it only scans at most    *<code>rowLimit</code> of rows.    *    * @param connection connection to use internally (null to use a new instance)    * @param visitor Visitor object. Closes the visitor before returning.    * @param tableName User table name in meta table to start scan at.  Pass    * null if not interested in a particular table.    * @param row Name of the row at the user table. The scan will start from    * the region row where the row resides.    * @param rowLimit Max of processed rows. If it is less than 0, it    * will be set to default value<code>Integer.MAX_VALUE</code>.    * @param metaTableName Meta table to scan, root or meta.    * @throws IOException e    */
 specifier|static
 name|void
 name|metaScan
 parameter_list|(
-name|Configuration
-name|configuration
-parameter_list|,
 name|Connection
 name|connection
 parameter_list|,
@@ -482,32 +472,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|boolean
-name|closeConnection
-init|=
-literal|false
-decl_stmt|;
-if|if
-condition|(
-name|connection
-operator|==
-literal|null
-condition|)
-block|{
-name|connection
-operator|=
-name|ConnectionFactory
-operator|.
-name|createConnection
-argument_list|(
-name|configuration
-argument_list|)
-expr_stmt|;
-name|closeConnection
-operator|=
-literal|true
-expr_stmt|;
-block|}
 name|int
 name|rowUpperLimit
 init|=
@@ -732,7 +696,10 @@ decl_stmt|;
 name|int
 name|scannerCaching
 init|=
-name|configuration
+name|connection
+operator|.
+name|getConfiguration
+argument_list|()
 operator|.
 name|getInt
 argument_list|(
@@ -926,23 +893,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
-name|closeConnection
-condition|)
-block|{
-if|if
-condition|(
-name|connection
-operator|!=
-literal|null
-condition|)
-name|connection
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 block|}
 comment|/**    * @return Get closest metatable region row to passed<code>row</code>    * @throws IOException    */
@@ -1038,7 +988,7 @@ name|data
 argument_list|)
 return|;
 block|}
-comment|/**    * Lists all of the regions currently in META.    * @param conf    * @param offlined True if we are to include offlined regions, false and we'll    * leave out offlined regions from returned list.    * @return List of all user-space regions.    * @throws IOException    */
+comment|/**    * Lists all of the regions currently in META.    * @param conf configuration    * @param connection to connect with    * @param offlined True if we are to include offlined regions, false and we'll    * leave out offlined regions from returned list.    * @return List of all user-space regions.    * @throws IOException    */
 annotation|@
 name|VisibleForTesting
 comment|// And for hbck.
@@ -1052,6 +1002,9 @@ name|listAllRegions
 parameter_list|(
 name|Configuration
 name|conf
+parameter_list|,
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|boolean
@@ -1183,7 +1136,7 @@ block|}
 decl_stmt|;
 name|metaScan
 argument_list|(
-name|conf
+name|connection
 argument_list|,
 name|visitor
 argument_list|)
@@ -1192,7 +1145,7 @@ return|return
 name|regions
 return|;
 block|}
-comment|/**    * Lists all of the table regions currently in META.    * @param conf    * @param offlined True if we are to include offlined regions, false and we'll    * leave out offlined regions from returned list.    * @return Map of all user-space regions to servers    * @throws IOException    * @deprecated Use {@link #allTableRegions(Configuration, Connection, TableName)} instead    */
+comment|/**    * Lists all of the table regions currently in META.    * @param conf    * @param offlined True if we are to include offlined regions, false and we'll    * leave out offlined regions from returned list.    * @return Map of all user-space regions to servers    * @throws IOException    * @deprecated Use {@link #allTableRegions(Connection, TableName)} instead    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1224,15 +1177,13 @@ block|{
 return|return
 name|allTableRegions
 argument_list|(
-name|conf
-argument_list|,
 name|connection
 argument_list|,
 name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Lists all of the table regions currently in META.    * @param conf    * @param connection    * @param tableName    * @return Map of all user-space regions to servers    * @throws IOException    */
+comment|/**    * Lists all of the table regions currently in META.    * @param connection    * @param tableName    * @return Map of all user-space regions to servers    * @throws IOException    */
 specifier|public
 specifier|static
 name|NavigableMap
@@ -1243,9 +1194,6 @@ name|ServerName
 argument_list|>
 name|allTableRegions
 parameter_list|(
-name|Configuration
-name|conf
-parameter_list|,
 name|Connection
 name|connection
 parameter_list|,
@@ -1366,8 +1314,6 @@ block|}
 decl_stmt|;
 name|metaScan
 argument_list|(
-name|conf
-argument_list|,
 name|connection
 argument_list|,
 name|visitor
@@ -1470,8 +1416,6 @@ block|}
 decl_stmt|;
 name|metaScan
 argument_list|(
-name|conf
-argument_list|,
 name|connection
 argument_list|,
 name|visitor

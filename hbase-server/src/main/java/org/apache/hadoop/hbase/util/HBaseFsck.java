@@ -3452,6 +3452,8 @@ argument_list|(
 name|getConf
 argument_list|()
 argument_list|,
+name|connection
+argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
@@ -16142,8 +16144,7 @@ name|MetaScanner
 operator|.
 name|metaScan
 argument_list|(
-name|getConf
-argument_list|()
+name|connection
 argument_list|,
 name|visitor
 argument_list|)

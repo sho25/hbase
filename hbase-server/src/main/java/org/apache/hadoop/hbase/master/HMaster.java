@@ -8584,7 +8584,7 @@ name|MetaScanner
 operator|.
 name|metaScan
 argument_list|(
-name|conf
+name|clusterConnection
 argument_list|,
 name|visitor
 argument_list|,

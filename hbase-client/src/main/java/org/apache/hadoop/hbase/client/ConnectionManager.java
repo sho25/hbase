@@ -5582,8 +5582,6 @@ name|MetaScanner
 operator|.
 name|metaScan
 argument_list|(
-name|conf
-argument_list|,
 name|this
 argument_list|,
 name|visitor
@@ -5849,8 +5847,6 @@ name|MetaScanner
 operator|.
 name|metaScan
 argument_list|(
-name|conf
-argument_list|,
 name|this
 argument_list|,
 name|visitor
@@ -6089,8 +6085,6 @@ name|MetaScanner
 operator|.
 name|allTableRegions
 argument_list|(
-name|conf
-argument_list|,
 name|this
 argument_list|,
 name|tableName
