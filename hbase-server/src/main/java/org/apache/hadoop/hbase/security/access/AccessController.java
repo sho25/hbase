@@ -3465,7 +3465,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Checks that the user has the given global or namespace permission.    * @param namespace    * @param perm Action being requested    */
+comment|/**    * Checks that the user has the given global or namespace permission.    * @param namespace    * @param permissions Actions being requested    */
 specifier|public
 name|void
 name|requireNamespacePermission
