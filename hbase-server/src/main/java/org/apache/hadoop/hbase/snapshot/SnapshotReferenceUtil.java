@@ -1321,8 +1321,9 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-operator|new
 name|HFileLink
+operator|.
+name|buildFromHFileLinkPattern
 argument_list|(
 name|conf
 argument_list|,
@@ -1446,8 +1447,9 @@ comment|// check if the linked file exists (in the archive, or in the table dir)
 name|HFileLink
 name|link
 init|=
-operator|new
 name|HFileLink
+operator|.
+name|buildFromHFileLinkPattern
 argument_list|(
 name|conf
 argument_list|,

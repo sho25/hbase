@@ -950,7 +950,7 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**      * Add the specified store file to the stats      * @param region region encoded Name      * @param family family name      * @param hfile store file name      * @return the store file information      */
+comment|/**      * Add the specified store file to the stats      * @param region region encoded Name      * @param family family name      * @param storeFile store file name      * @return the store file information      */
 name|FileInfo
 name|addStoreFile
 parameter_list|(
@@ -976,7 +976,7 @@ name|link
 init|=
 name|HFileLink
 operator|.
-name|create
+name|build
 argument_list|(
 name|conf
 argument_list|,

@@ -2047,8 +2047,9 @@ block|{
 name|HFileLink
 name|link
 init|=
-operator|new
 name|HFileLink
+operator|.
+name|buildFromHFileLinkPattern
 argument_list|(
 name|getConf
 argument_list|()
@@ -2176,7 +2177,7 @@ return|return
 name|p
 return|;
 block|}
-comment|/**    * Removes the prefix of defaultNamespace from the path.    * @param originPath    */
+comment|/**    * Removes the prefix of defaultNamespace from the path.    * @param originalPath    */
 specifier|private
 name|String
 name|removeDefaultNSPath

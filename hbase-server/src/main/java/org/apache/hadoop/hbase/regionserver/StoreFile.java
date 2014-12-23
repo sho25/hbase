@@ -916,13 +916,6 @@ specifier|final
 name|BloomType
 name|cfBloomType
 decl_stmt|;
-comment|// the last modification time stamp
-specifier|private
-name|long
-name|modificationTimeStamp
-init|=
-literal|0L
-decl_stmt|;
 comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a    * substantial amount of ram depending on the underlying files (10-20MB?).    *    * @param fs  The current file system to use.    * @param p  The path of the file.    * @param conf  The current configuration.    * @param cacheConf  The cache configuration and block cache reference.    * @param cfBloomType The bloom type to use for this store file as specified    *          by column family configuration. This may or may not be the same    *          as the Bloom filter type actually present in the HFile, because    *          column family configuration might change. If this is    *          {@link BloomType#NONE}, the existing Bloom filter is ignored.    * @throws IOException When opening the reader fails.    */
 specifier|public
 name|StoreFile
@@ -1065,16 +1058,6 @@ operator|.
 name|NONE
 expr_stmt|;
 block|}
-comment|// cache the modification time stamp of this store file
-name|this
-operator|.
-name|modificationTimeStamp
-operator|=
-name|fileInfo
-operator|.
-name|getModificationTime
-argument_list|()
-expr_stmt|;
 block|}
 comment|/**    * Clone    * @param other The StoreFile to clone from    */
 specifier|public
@@ -1116,14 +1099,6 @@ operator|=
 name|other
 operator|.
 name|cfBloomType
-expr_stmt|;
-name|this
-operator|.
-name|modificationTimeStamp
-operator|=
-name|other
-operator|.
-name|modificationTimeStamp
 expr_stmt|;
 block|}
 comment|/**    * @return the StoreFile object associated to this StoreFile.    *         null if the StoreFile is not a reference.    */
@@ -1248,11 +1223,25 @@ specifier|public
 name|long
 name|getModificationTimeStamp
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 return|return
-name|modificationTimeStamp
+operator|(
+name|fileInfo
+operator|==
+literal|null
+operator|)
+condition|?
+literal|0
+else|:
+name|fileInfo
+operator|.
+name|getModificationTime
+argument_list|()
 return|;
 block|}
+comment|/**    * Only used by the Striped Compaction Policy    * @param key    * @return value associated with the metadata key    */
 specifier|public
 name|byte
 index|[]

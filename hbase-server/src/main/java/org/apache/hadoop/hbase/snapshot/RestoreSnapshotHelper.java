@@ -3247,8 +3247,9 @@ condition|)
 block|{
 name|in
 operator|=
-operator|new
 name|HFileLink
+operator|.
+name|buildFromHFileLinkPattern
 argument_list|(
 name|conf
 argument_list|,
