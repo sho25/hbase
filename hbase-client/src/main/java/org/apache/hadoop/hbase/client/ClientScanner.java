@@ -341,6 +341,20 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_comment
 comment|/**  * Implements the scanner interface for the HBase client.  * If there are multiple regions in a table, this scanner will iterate  * through them all.  */
 end_comment
@@ -1270,6 +1284,19 @@ throw|;
 block|}
 return|return
 literal|true
+return|;
+block|}
+annotation|@
+name|VisibleForTesting
+name|boolean
+name|isAnyRPCcancelled
+parameter_list|()
+block|{
+return|return
+name|callable
+operator|.
+name|isAnyRPCcancelled
+argument_list|()
 return|;
 block|}
 specifier|static

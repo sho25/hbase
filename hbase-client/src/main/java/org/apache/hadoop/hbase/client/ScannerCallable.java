@@ -639,6 +639,10 @@ specifier|protected
 name|RpcControllerFactory
 name|controllerFactory
 decl_stmt|;
+specifier|protected
+name|PayloadCarryingRpcController
+name|controller
+decl_stmt|;
 comment|/**    * @param connection which connection    * @param tableName table callable is on    * @param scan the scan to execute    * @param scanMetrics the ScanMetrics to used, if it is null, ScannerCallable won't collect    *          metrics    * @param rpcControllerFactory factory to use when creating     *        {@link com.google.protobuf.RpcController}    */
 specifier|public
 name|ScannerCallable
@@ -770,6 +774,14 @@ name|controllerFactory
 operator|=
 name|rpcControllerFactory
 expr_stmt|;
+block|}
+name|PayloadCarryingRpcController
+name|getController
+parameter_list|()
+block|{
+return|return
+name|controller
+return|;
 block|}
 comment|/**    * @param reload force reload of server location    * @throws IOException    */
 annotation|@
@@ -1080,14 +1092,13 @@ name|response
 init|=
 literal|null
 decl_stmt|;
-name|PayloadCarryingRpcController
 name|controller
-init|=
+operator|=
 name|controllerFactory
 operator|.
 name|newController
 argument_list|()
-decl_stmt|;
+expr_stmt|;
 name|controller
 operator|.
 name|setPriority
