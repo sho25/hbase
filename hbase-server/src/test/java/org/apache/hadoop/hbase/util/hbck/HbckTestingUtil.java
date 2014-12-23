@@ -413,6 +413,11 @@ operator|.
 name|onlineHbck
 argument_list|()
 expr_stmt|;
+name|fsck
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 return|return
 name|fsck
 return|;
