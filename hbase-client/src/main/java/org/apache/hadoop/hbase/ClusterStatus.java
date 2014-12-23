@@ -680,7 +680,7 @@ operator|.
 name|getValue
 argument_list|()
 operator|.
-name|getTotalNumberOfRequests
+name|getNumberOfRequests
 argument_list|()
 expr_stmt|;
 block|}
