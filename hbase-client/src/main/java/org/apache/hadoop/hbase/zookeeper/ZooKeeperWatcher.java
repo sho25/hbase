@@ -291,6 +291,10 @@ comment|// Identifier for this watcher (for logging only).  It is made of the pr
 comment|// passed on construction and the zookeeper sessionid.
 specifier|private
 name|String
+name|prefix
+decl_stmt|;
+specifier|private
+name|String
 name|identifier
 decl_stmt|;
 comment|// zookeeper quorum
@@ -569,6 +573,12 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|prefix
+operator|=
+name|identifier
+expr_stmt|;
 comment|// Identifier will get the sessionid appended later below down when we
 comment|// handle the syncconnect event.
 name|this
@@ -576,6 +586,8 @@ operator|.
 name|identifier
 operator|=
 name|identifier
+operator|+
+literal|"0x0"
 expr_stmt|;
 name|this
 operator|.
@@ -1455,7 +1467,7 @@ name|identifier
 operator|=
 name|this
 operator|.
-name|identifier
+name|prefix
 operator|+
 literal|"-0x"
 operator|+
