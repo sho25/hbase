@@ -1030,6 +1030,8 @@ argument_list|(
 name|cacheFlushId
 argument_list|,
 literal|false
+argument_list|,
+name|mobCount
 argument_list|)
 expr_stmt|;
 name|status
