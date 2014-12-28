@@ -355,6 +355,24 @@ name|VisibleForTesting
 import|;
 end_import
 
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ReversedClientScanner
+operator|.
+name|createClosestRowBefore
+import|;
+end_import
+
 begin_comment
 comment|/**  * Implements the scanner interface for the HBase client.  * If there are multiple regions in a table, this scanner will iterate  * through them all.  */
 end_comment
@@ -1053,8 +1071,6 @@ argument_list|()
 expr_stmt|;
 name|call
 argument_list|(
-name|scan
-argument_list|,
 name|callable
 argument_list|,
 name|caller
@@ -1231,8 +1247,6 @@ comment|// Open a scanner on the region server starting at the
 comment|// beginning of the region
 name|call
 argument_list|(
-name|scan
-argument_list|,
 name|callable
 argument_list|,
 name|caller
@@ -1304,9 +1318,6 @@ name|Result
 index|[]
 name|call
 parameter_list|(
-name|Scan
-name|scan
-parameter_list|,
 name|ScannerCallableWithReplicas
 name|callable
 parameter_list|,
@@ -1439,7 +1450,7 @@ return|return
 name|sr
 return|;
 block|}
-comment|/**      * Publish the scan metrics. For now, we use scan.setAttribute to pass the metrics back to the      * application or TableInputFormat.Later, we could push it to other systems. We don't use metrics      * framework because it doesn't support multi-instances of the same metrics on the same machine;      * for scan/map reduce scenarios, we will have multiple scans running at the same time.      *      * By default, scan metrics are disabled; if the application wants to collect them, this behavior      * can be turned on by calling calling:      *      * scan.setAttribute(SCAN_ATTRIBUTES_METRICS_ENABLE, Bytes.toBytes(Boolean.TRUE))      */
+comment|/**      * Publish the scan metrics. For now, we use scan.setAttribute to pass the metrics back to the      * application or TableInputFormat.Later, we could push it to other systems. We don't use      * metrics framework because it doesn't support multi-instances of the same metrics on the same      * machine; for scan/map reduce scenarios, we will have multiple scans running at the same time.      *      * By default, scan metrics are disabled; if the application wants to collect them, this      * behavior can be turned on by calling calling:      *      * scan.setAttribute(SCAN_ATTRIBUTES_METRICS_ENABLE, Bytes.toBytes(Boolean.TRUE))      */
 specifier|protected
 name|void
 name|writeScanMetrics
@@ -1559,11 +1570,6 @@ expr_stmt|;
 comment|// This flag is set when we want to skip the result returned.  We do
 comment|// this when we reset scanner because it split under us.
 name|boolean
-name|skipFirst
-init|=
-literal|false
-decl_stmt|;
-name|boolean
 name|retryAfterOutOfOrderException
 init|=
 literal|true
@@ -1572,91 +1578,6 @@ do|do
 block|{
 try|try
 block|{
-if|if
-condition|(
-name|skipFirst
-condition|)
-block|{
-comment|// Skip only the first row (which was the last row of the last
-comment|// already-processed batch).
-name|callable
-operator|.
-name|setCaching
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
-name|values
-operator|=
-name|call
-argument_list|(
-name|scan
-argument_list|,
-name|callable
-argument_list|,
-name|caller
-argument_list|,
-name|scannerTimeout
-argument_list|)
-expr_stmt|;
-comment|// When the replica switch happens, we need to do certain operations
-comment|// again. The scannercallable will openScanner with the right startkey
-comment|// but we need to pick up from there. Bypass the rest of the loop
-comment|// and let the catch-up happen in the beginning of the loop as it
-comment|// happens for the cases where we see exceptions. Since only openScanner
-comment|// would have happened, values would be null
-if|if
-condition|(
-name|values
-operator|==
-literal|null
-operator|&&
-name|callable
-operator|.
-name|switchedToADifferentReplica
-argument_list|()
-condition|)
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|lastResult
-operator|!=
-literal|null
-condition|)
-block|{
-comment|//only skip if there was something read earlier
-name|skipFirst
-operator|=
-literal|true
-expr_stmt|;
-block|}
-name|this
-operator|.
-name|currentRegion
-operator|=
-name|callable
-operator|.
-name|getHRegionInfo
-argument_list|()
-expr_stmt|;
-continue|continue;
-block|}
-name|callable
-operator|.
-name|setCaching
-argument_list|(
-name|this
-operator|.
-name|caching
-argument_list|)
-expr_stmt|;
-name|skipFirst
-operator|=
-literal|false
-expr_stmt|;
-block|}
 comment|// Server returns a null values if scanning is to stop.  Else,
 comment|// returns an empty array if scanning is to go on and we've just
 comment|// exhausted current region.
@@ -1664,8 +1585,6 @@ name|values
 operator|=
 name|call
 argument_list|(
-name|scan
-argument_list|,
 name|callable
 argument_list|,
 name|caller
@@ -1673,40 +1592,6 @@ argument_list|,
 name|scannerTimeout
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|skipFirst
-operator|&&
-name|values
-operator|!=
-literal|null
-operator|&&
-name|values
-operator|.
-name|length
-operator|==
-literal|1
-condition|)
-block|{
-name|skipFirst
-operator|=
-literal|false
-expr_stmt|;
-comment|// Already skipped, unset it before scanning again
-name|values
-operator|=
-name|call
-argument_list|(
-name|scan
-argument_list|,
-name|callable
-argument_list|,
-name|caller
-argument_list|,
-name|scannerTimeout
-argument_list|)
-expr_stmt|;
-block|}
 comment|// When the replica switch happens, we need to do certain operations
 comment|// again. The callable will openScanner with the right startkey
 comment|// but we need to pick up from there. Bypass the rest of the loop
@@ -1725,21 +1610,6 @@ name|switchedToADifferentReplica
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
-name|this
-operator|.
-name|lastResult
-operator|!=
-literal|null
-condition|)
-block|{
-comment|//only skip if there was something read earlier
-name|skipFirst
-operator|=
-literal|true
-expr_stmt|;
-block|}
 name|this
 operator|.
 name|currentRegion
@@ -1894,26 +1764,52 @@ comment|// Reset the startRow to the row we've seen last so that the new
 comment|// scanner starts at the correct row. Otherwise we may see previously
 comment|// returned rows again.
 comment|// (ScannerCallable by now has "relocated" the correct region)
-name|this
+if|if
+condition|(
+name|scan
 operator|.
+name|isReversed
+argument_list|()
+condition|)
+block|{
 name|scan
 operator|.
 name|setStartRow
 argument_list|(
-name|this
-operator|.
+name|createClosestRowBefore
+argument_list|(
 name|lastResult
 operator|.
 name|getRow
 argument_list|()
 argument_list|)
+argument_list|)
 expr_stmt|;
-comment|// Skip first row returned.  We already let it out on previous
-comment|// invocation.
-name|skipFirst
-operator|=
-literal|true
+block|}
+else|else
+block|{
+name|scan
+operator|.
+name|setStartRow
+argument_list|(
+name|Bytes
+operator|.
+name|add
+argument_list|(
+name|lastResult
+operator|.
+name|getRow
+argument_list|()
+argument_list|,
+operator|new
+name|byte
+index|[
+literal|1
+index|]
+argument_list|)
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -2139,8 +2035,6 @@ try|try
 block|{
 name|call
 argument_list|(
-name|scan
-argument_list|,
 name|callable
 argument_list|,
 name|caller

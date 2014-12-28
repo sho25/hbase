@@ -779,6 +779,7 @@ comment|// unlikely.
 block|}
 comment|/**    * Create the closest row before the specified row    * @param row    * @return a new byte array which is the closest front row of the specified one    */
 specifier|protected
+specifier|static
 name|byte
 index|[]
 name|createClosestRowBefore
