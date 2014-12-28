@@ -3455,13 +3455,12 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
-name|getRegionWithName
+name|TEST_UTIL
+operator|.
+name|waitTableAvailable
 argument_list|(
 name|TABLENAME
 argument_list|)
-operator|.
-name|getFirst
-argument_list|()
 expr_stmt|;
 name|Connection
 name|conn
