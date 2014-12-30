@@ -2797,6 +2797,21 @@ literal|0
 argument_list|)
 return|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Preparing to split "
+operator|+
+name|nbFiles
+operator|+
+literal|" storefiles for region "
+operator|+
+name|this
+operator|.
+name|parent
+argument_list|)
+expr_stmt|;
 name|ThreadFactoryBuilder
 name|builder
 init|=
@@ -3115,6 +3130,36 @@ name|e
 argument_list|)
 throw|;
 block|}
+block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Split storefiles for region "
+operator|+
+name|this
+operator|.
+name|parent
+operator|+
+literal|" Daugther A: "
+operator|+
+name|created_a
+operator|+
+literal|" storefiles, Daugther B: "
+operator|+
+name|created_b
+operator|+
+literal|" storefiles."
+argument_list|)
+expr_stmt|;
 block|}
 return|return
 operator|new
