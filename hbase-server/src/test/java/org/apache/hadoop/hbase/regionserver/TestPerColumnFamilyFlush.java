@@ -489,6 +489,22 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Threads
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|Test
@@ -1040,6 +1056,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testSelectiveFlushWhenEnabled
@@ -1775,6 +1796,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testSelectiveFlushWhenNotEnabled
@@ -2208,6 +2234,11 @@ return|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testLogReplay
@@ -2658,6 +2689,11 @@ comment|// last flushed sequence id for a region. This test would ensure that we
 comment|// are doing the book-keeping correctly.
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testLogReplayWithDistributedReplay
@@ -2686,6 +2722,11 @@ block|}
 comment|/**    * When a log roll is about to happen, we do a flush of the regions who will be affected by the    * log roll. These flushes cannot be a selective flushes, otherwise we cannot roll the logs. This    * test ensures that we do a full-flush in that scenario.    * @throws IOException    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testFlushingWhenLogRolling
@@ -2770,6 +2811,22 @@ argument_list|,
 literal|6144
 argument_list|)
 expr_stmt|;
+comment|// Make it 10 as max logs before a flush comes on.
+specifier|final
+name|int
+name|walcount
+init|=
+literal|10
+decl_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.regionserver.maxlogs"
+argument_list|,
+name|walcount
+argument_list|)
+expr_stmt|;
 name|int
 name|maxLogs
 init|=
@@ -2779,7 +2836,7 @@ name|getInt
 argument_list|(
 literal|"hbase.regionserver.maxlogs"
 argument_list|,
-literal|32
+name|walcount
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -2800,6 +2857,10 @@ expr_stmt|;
 name|HTable
 name|table
 init|=
+literal|null
+decl_stmt|;
+name|table
+operator|=
 name|TEST_UTIL
 operator|.
 name|createTable
@@ -2808,7 +2869,34 @@ name|tableName
 argument_list|,
 name|families
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+comment|// Force flush the namespace table so edits to it are not hanging around as oldest
+comment|// edits. Otherwise, below, when we make maximum number of WAL files, then it will be
+comment|// the namespace region that is flushed and not the below 'desiredRegion'.
+try|try
+init|(
+name|Admin
+name|admin
+init|=
+name|TEST_UTIL
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|getAdmin
+argument_list|()
+init|)
+block|{
+name|admin
+operator|.
+name|flush
+argument_list|(
+name|TableName
+operator|.
+name|NAMESPACE_TABLE_NAME
+argument_list|)
+expr_stmt|;
+block|}
 name|HRegion
 name|desiredRegion
 init|=
@@ -2950,11 +3038,30 @@ name|close
 argument_list|()
 expr_stmt|;
 comment|// Wait for some time till the flush caused by log rolling happens.
-name|Thread
+while|while
+condition|(
+operator|(
+call|(
+name|FSHLog
+call|)
+argument_list|(
+name|desiredRegion
+operator|.
+name|getWAL
+argument_list|()
+argument_list|)
+operator|)
+operator|.
+name|getNumLogFiles
+argument_list|()
+operator|>
+name|maxLogs
+condition|)
+name|Threads
 operator|.
 name|sleep
 argument_list|(
-literal|4000
+literal|100
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -3248,6 +3355,11 @@ comment|// Under the same write load, small stores should have less store files 
 comment|// percolumnfamilyflush enabled.
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testCompareStoreFileCount
