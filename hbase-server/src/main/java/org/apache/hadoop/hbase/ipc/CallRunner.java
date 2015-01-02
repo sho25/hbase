@@ -39,9 +39,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|CellScanner
 import|;
 end_import
 
@@ -55,7 +53,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellScanner
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -642,6 +642,20 @@ argument_list|(
 name|e
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|e
+operator|instanceof
+name|Error
+condition|)
+block|{
+throw|throw
+operator|(
+name|Error
+operator|)
+name|e
+throw|;
+block|}
 block|}
 finally|finally
 block|{

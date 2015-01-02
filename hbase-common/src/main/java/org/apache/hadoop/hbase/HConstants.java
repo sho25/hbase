@@ -2284,6 +2284,23 @@ name|DEFAULT_REGION_SERVER_HANDLER_COUNT
 init|=
 literal|30
 decl_stmt|;
+comment|/*    * REGION_SERVER_HANDLER_ABORT_ON_ERROR_PERCENT:    * -1  => Disable aborting    * 0   => Abort if even a single handler has died    * 0.x => Abort only when this percent of handlers have died    * 1   => Abort only all of the handers have died    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGION_SERVER_HANDLER_ABORT_ON_ERROR_PERCENT
+init|=
+literal|"hbase.regionserver.handler.abort.on.error.percent"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|double
+name|DEFAULT_REGION_SERVER_HANDLER_ABORT_ON_ERROR_PERCENT
+init|=
+literal|0.5
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
