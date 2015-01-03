@@ -2814,6 +2814,9 @@ operator|.
 name|regionLocator
 operator|=
 name|table
+operator|.
+name|getRegionLocator
+argument_list|()
 expr_stmt|;
 name|this
 operator|.

@@ -557,6 +557,8 @@ name|i
 operator|++
 control|)
 block|{
+try|try
+init|(
 name|HTable
 name|table
 init|=
@@ -580,7 +582,8 @@ argument_list|)
 argument_list|,
 name|INPUT_FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|TEST_UTIL
 operator|.
 name|createMultiRegions
@@ -608,6 +611,7 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// start MR cluster
 name|TEST_UTIL
@@ -855,6 +859,8 @@ name|last
 init|=
 literal|null
 decl_stmt|;
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|reduce
@@ -953,6 +959,8 @@ name|count
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|cleanup

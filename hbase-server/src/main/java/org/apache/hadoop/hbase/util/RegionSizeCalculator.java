@@ -409,6 +409,9 @@ block|{
 name|init
 argument_list|(
 name|table
+operator|.
+name|getRegionLocator
+argument_list|()
 argument_list|,
 name|admin
 argument_list|)

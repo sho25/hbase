@@ -109,16 +109,6 @@ end_import
 
 begin_import
 import|import
-name|javax
-operator|.
-name|annotation
-operator|.
-name|Nullable
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -784,8 +774,6 @@ name|result
 return|;
 block|}
 comment|/**    * Gets the meta region location, if available.  Does not block.    * @param zkw zookeeper connection to use    * @return server name or null if we failed to get the data.    */
-annotation|@
-name|Nullable
 specifier|public
 name|ServerName
 name|getMetaRegionLocation

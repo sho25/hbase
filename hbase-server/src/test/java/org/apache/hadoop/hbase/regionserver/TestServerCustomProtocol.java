@@ -2519,6 +2519,8 @@ parameter_list|()
 throws|throws
 name|Throwable
 block|{
+try|try
+init|(
 name|HTable
 name|table
 init|=
@@ -2532,6 +2534,15 @@ argument_list|()
 argument_list|,
 name|TEST_TABLE
 argument_list|)
+init|)
+block|{
+name|RegionLocator
+name|locator
+init|=
+name|table
+operator|.
+name|getRegionLocator
+argument_list|()
 decl_stmt|;
 name|Map
 argument_list|<
@@ -2646,7 +2657,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -2686,7 +2697,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -2695,11 +2706,7 @@ argument_list|,
 name|ROW_A
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -2710,6 +2717,8 @@ parameter_list|()
 throws|throws
 name|Throwable
 block|{
+try|try
+init|(
 name|HTable
 name|table
 init|=
@@ -2723,6 +2732,15 @@ argument_list|()
 argument_list|,
 name|TEST_TABLE
 argument_list|)
+init|)
+block|{
+name|RegionLocator
+name|locator
+init|=
+name|table
+operator|.
+name|getRegionLocator
+argument_list|()
 decl_stmt|;
 for|for
 control|(
@@ -2802,7 +2820,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -2864,7 +2882,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -2873,7 +2891,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -2905,7 +2923,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -2914,7 +2932,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -2975,7 +2993,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -2984,7 +3002,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -3045,7 +3063,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -3110,11 +3128,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 specifier|private
 name|Map
@@ -3266,6 +3280,8 @@ parameter_list|()
 throws|throws
 name|Throwable
 block|{
+try|try
+init|(
 name|HTable
 name|table
 init|=
@@ -3279,6 +3295,15 @@ argument_list|()
 argument_list|,
 name|TEST_TABLE
 argument_list|)
+init|)
+block|{
+name|RegionLocator
+name|locator
+init|=
+name|table
+operator|.
+name|getRegionLocator
+argument_list|()
 decl_stmt|;
 name|Map
 argument_list|<
@@ -3300,7 +3325,7 @@ argument_list|)
 decl_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -3311,7 +3336,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -3322,7 +3347,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -3331,11 +3356,7 @@ argument_list|,
 name|ROW_C
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -3346,6 +3367,8 @@ parameter_list|()
 throws|throws
 name|Throwable
 block|{
+try|try
+init|(
 name|HTable
 name|table
 init|=
@@ -3359,6 +3382,15 @@ argument_list|()
 argument_list|,
 name|TEST_TABLE
 argument_list|)
+init|)
+block|{
+name|RegionLocator
+name|locator
+init|=
+name|table
+operator|.
+name|getRegionLocator
+argument_list|()
 decl_stmt|;
 name|Map
 argument_list|<
@@ -3382,7 +3414,7 @@ argument_list|)
 decl_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -3393,7 +3425,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -3404,7 +3436,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -3413,6 +3445,7 @@ argument_list|,
 name|ROW_C
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -3423,6 +3456,8 @@ parameter_list|()
 throws|throws
 name|Throwable
 block|{
+try|try
+init|(
 name|HTable
 name|table
 init|=
@@ -3436,6 +3471,15 @@ argument_list|()
 argument_list|,
 name|TEST_TABLE
 argument_list|)
+init|)
+block|{
+name|RegionLocator
+name|locator
+init|=
+name|table
+operator|.
+name|getRegionLocator
+argument_list|()
 decl_stmt|;
 name|Map
 argument_list|<
@@ -3459,7 +3503,7 @@ argument_list|)
 decl_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -3470,7 +3514,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -3481,7 +3525,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRegionResults
 argument_list|(
-name|table
+name|locator
 argument_list|,
 name|results
 argument_list|,
@@ -3490,6 +3534,7 @@ argument_list|,
 name|ROW_C
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -3500,7 +3545,9 @@ parameter_list|()
 throws|throws
 name|Throwable
 block|{
-name|Table
+try|try
+init|(
+name|HTable
 name|table
 init|=
 operator|new
@@ -3513,7 +3560,8 @@ argument_list|()
 argument_list|,
 name|TEST_TABLE
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Map
 argument_list|<
 name|byte
@@ -3563,6 +3611,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
 specifier|private
 name|void
 name|verifyRegionResults
@@ -3603,7 +3652,7 @@ name|void
 name|verifyRegionResults
 parameter_list|(
 name|RegionLocator
-name|table
+name|regionLocator
 parameter_list|,
 name|Map
 argument_list|<
@@ -3684,7 +3733,7 @@ block|}
 name|HRegionLocation
 name|loc
 init|=
-name|table
+name|regionLocator
 operator|.
 name|getRegionLocation
 argument_list|(

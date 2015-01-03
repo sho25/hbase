@@ -1878,6 +1878,8 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|protected
 name|List
 argument_list|<
@@ -1886,7 +1888,7 @@ argument_list|>
 name|tryAtomicRegionLoad
 parameter_list|(
 specifier|final
-name|HConnection
+name|Connection
 name|conn
 parameter_list|,
 name|TableName
@@ -2400,6 +2402,8 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|bulkLoadPhase
@@ -2409,7 +2413,7 @@ name|Table
 name|htable
 parameter_list|,
 specifier|final
-name|HConnection
+name|Connection
 name|conn
 parameter_list|,
 name|ExecutorService
@@ -2630,6 +2634,8 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|protected
 name|List
 argument_list|<
@@ -2650,7 +2656,7 @@ name|LoadQueueItem
 name|item
 parameter_list|,
 specifier|final
-name|HTable
+name|Table
 name|htable
 parameter_list|,
 specifier|final
@@ -2845,6 +2851,8 @@ name|i
 init|=
 literal|0
 decl_stmt|;
+annotation|@
+name|Override
 specifier|protected
 name|List
 argument_list|<
@@ -2865,7 +2873,7 @@ name|LoadQueueItem
 name|item
 parameter_list|,
 specifier|final
-name|HTable
+name|Table
 name|table
 parameter_list|,
 specifier|final
