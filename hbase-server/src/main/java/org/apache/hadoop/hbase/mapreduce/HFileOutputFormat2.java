@@ -3340,13 +3340,6 @@ argument_list|(
 name|partitionsPath
 argument_list|)
 expr_stmt|;
-name|fs
-operator|.
-name|deleteOnExit
-argument_list|(
-name|partitionsPath
-argument_list|)
-expr_stmt|;
 name|writePartitions
 argument_list|(
 name|job
@@ -3357,6 +3350,13 @@ argument_list|,
 name|partitionsPath
 argument_list|,
 name|splitPoints
+argument_list|)
+expr_stmt|;
+name|fs
+operator|.
+name|deleteOnExit
+argument_list|(
+name|partitionsPath
 argument_list|)
 expr_stmt|;
 comment|// configure job to use it
