@@ -1668,6 +1668,17 @@ argument_list|,
 name|POOL_SIZE
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.hbck.close.timeout"
+argument_list|,
+literal|2
+operator|*
+name|REGION_ONLINE_TIMEOUT
+argument_list|)
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|startMiniCluster
