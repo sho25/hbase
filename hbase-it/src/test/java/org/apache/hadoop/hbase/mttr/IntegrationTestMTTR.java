@@ -2542,11 +2542,6 @@ argument_list|(
 name|p
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 return|return
 literal|true
 return|;

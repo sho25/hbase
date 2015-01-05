@@ -543,11 +543,6 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 name|completed
 index|[
 literal|0
@@ -1033,11 +1028,6 @@ name|put
 argument_list|(
 name|p
 argument_list|)
-expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
 expr_stmt|;
 name|table
 operator|.

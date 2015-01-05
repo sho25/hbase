@@ -1851,11 +1851,6 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 name|HRegionServer
 name|rs
 init|=
@@ -1961,11 +1956,6 @@ name|put
 argument_list|(
 name|put
 argument_list|)
-expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
 expr_stmt|;
 name|admin
 operator|.

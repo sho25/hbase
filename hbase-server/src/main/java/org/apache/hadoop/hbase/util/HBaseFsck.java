@@ -9188,11 +9188,6 @@ argument_list|(
 name|d
 argument_list|)
 expr_stmt|;
-name|meta
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -9330,11 +9325,6 @@ name|mutateRow
 argument_list|(
 name|mutations
 argument_list|)
-expr_stmt|;
-name|meta
-operator|.
-name|flushCommits
-argument_list|()
 expr_stmt|;
 name|LOG
 operator|.

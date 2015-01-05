@@ -860,7 +860,7 @@ if|if
 condition|(
 name|t
 operator|.
-name|getRegionLocations
+name|getAllRegionLocations
 argument_list|()
 operator|.
 name|size
@@ -955,7 +955,9 @@ operator|+
 name|startTime
 argument_list|)
 decl_stmt|;
-name|HTable
+try|try
+init|(
+name|Table
 name|original
 init|=
 name|UTIL
@@ -966,8 +968,7 @@ name|localTableName
 argument_list|,
 name|TEST_FAM
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|UTIL
 operator|.
@@ -1063,6 +1064,8 @@ argument_list|,
 name|cloneTableName
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|Table
 name|clonedTable
 init|=
@@ -1076,8 +1079,7 @@ argument_list|()
 argument_list|,
 name|cloneTableName
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 specifier|final
 name|int
@@ -1155,11 +1157,6 @@ argument_list|(
 name|p
 argument_list|)
 expr_stmt|;
-name|original
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 comment|// Verify that it is not present in the original table
 name|Assert
 operator|.
@@ -1236,11 +1233,6 @@ argument_list|(
 name|p
 argument_list|)
 expr_stmt|;
-name|clonedTable
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 comment|// Verify that the new family is not in the restored table's description
 name|Assert
 operator|.
@@ -1279,22 +1271,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-finally|finally
-block|{
-name|clonedTable
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-finally|finally
-block|{
-name|original
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 comment|/*    * Take a snapshot of a table, do a split, and verify that this only affects one table    * @param online - Whether the table is online or not during the snapshot    */

@@ -2781,11 +2781,6 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 comment|//Try getting the row with an empty row key
 name|Result
 name|res

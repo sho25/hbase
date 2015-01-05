@@ -1449,11 +1449,6 @@ argument_list|(
 name|puts
 argument_list|)
 expr_stmt|;
-name|ht
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|flush

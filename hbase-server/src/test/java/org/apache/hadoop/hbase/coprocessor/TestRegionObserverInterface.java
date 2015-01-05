@@ -1976,6 +1976,8 @@ operator|+
 literal|".testCheckAndPutHooks"
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -1997,8 +1999,7 @@ block|,
 name|C
 block|}
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|Put
 name|p
@@ -2031,11 +2032,6 @@ name|put
 argument_list|(
 name|p
 argument_list|)
-expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
 expr_stmt|;
 name|p
 operator|=
@@ -2153,11 +2149,6 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 annotation|@
@@ -2239,11 +2230,6 @@ name|put
 argument_list|(
 name|p
 argument_list|)
-expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
 expr_stmt|;
 name|Delete
 name|d

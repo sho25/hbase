@@ -751,7 +751,7 @@ condition|)
 block|{
 name|del
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|cf
 argument_list|,
@@ -765,7 +765,7 @@ else|else
 block|{
 name|del
 operator|.
-name|deleteColumns
+name|addColumn
 argument_list|(
 name|cf
 argument_list|,
@@ -789,11 +789,6 @@ name|delete
 argument_list|(
 name|del
 argument_list|)
-expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
 expr_stmt|;
 block|}
 block|}

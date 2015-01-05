@@ -169,6 +169,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -2890,7 +2900,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 name|Put
-name|p
+name|p1
 init|=
 operator|new
 name|Put
@@ -2898,7 +2908,7 @@ argument_list|(
 name|ROW1
 argument_list|)
 decl_stmt|;
-name|p
+name|p1
 operator|.
 name|add
 argument_list|(
@@ -2911,7 +2921,7 @@ argument_list|,
 name|QUAL
 argument_list|)
 expr_stmt|;
-name|p
+name|p1
 operator|.
 name|add
 argument_list|(
@@ -2926,7 +2936,7 @@ argument_list|,
 name|QUAL
 argument_list|)
 expr_stmt|;
-name|p
+name|p1
 operator|.
 name|add
 argument_list|(
@@ -2941,7 +2951,7 @@ argument_list|,
 name|QUAL
 argument_list|)
 expr_stmt|;
-name|p
+name|p1
 operator|.
 name|add
 argument_list|(
@@ -2956,7 +2966,7 @@ argument_list|,
 name|QUAL
 argument_list|)
 expr_stmt|;
-name|p
+name|p1
 operator|.
 name|add
 argument_list|(
@@ -2971,23 +2981,17 @@ argument_list|,
 name|QUAL
 argument_list|)
 expr_stmt|;
-name|exportTable
-operator|.
-name|put
-argument_list|(
-name|p
-argument_list|)
-expr_stmt|;
 comment|// Having another row would actually test the filter.
-name|p
-operator|=
+name|Put
+name|p2
+init|=
 operator|new
 name|Put
 argument_list|(
 name|ROW2
 argument_list|)
-expr_stmt|;
-name|p
+decl_stmt|;
+name|p2
 operator|.
 name|add
 argument_list|(
@@ -3004,14 +3008,15 @@ name|exportTable
 operator|.
 name|put
 argument_list|(
-name|p
-argument_list|)
-expr_stmt|;
-comment|// Flush the commits.
-name|exportTable
+name|Arrays
 operator|.
-name|flushCommits
-argument_list|()
+name|asList
+argument_list|(
+name|p1
+argument_list|,
+name|p2
+argument_list|)
+argument_list|)
 expr_stmt|;
 comment|// Export the simple table
 name|String

@@ -4694,11 +4694,6 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-name|meta
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 comment|// assign the new replica
 name|HBaseFsckRepair
 operator|.
@@ -4782,11 +4777,6 @@ name|delete
 argument_list|(
 name|delete
 argument_list|)
-expr_stmt|;
-name|meta
-operator|.
-name|flushCommits
-argument_list|()
 expr_stmt|;
 name|meta
 operator|.
@@ -9460,11 +9450,6 @@ argument_list|)
 expr_stmt|;
 name|meta
 operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
-name|meta
-operator|.
 name|close
 argument_list|()
 expr_stmt|;
@@ -10222,9 +10207,20 @@ name|getSecond
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|meta
+name|List
+argument_list|<
+name|Delete
+argument_list|>
+name|deletes
+init|=
+operator|new
+name|ArrayList
+argument_list|<>
+argument_list|()
+decl_stmt|;
+name|deletes
 operator|.
-name|delete
+name|add
 argument_list|(
 operator|new
 name|Delete
@@ -10239,9 +10235,9 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|meta
+name|deletes
 operator|.
-name|delete
+name|add
 argument_list|(
 operator|new
 name|Delete
@@ -10258,8 +10254,10 @@ argument_list|)
 expr_stmt|;
 name|meta
 operator|.
-name|flushCommits
-argument_list|()
+name|delete
+argument_list|(
+name|deletes
+argument_list|)
 expr_stmt|;
 comment|// Remove daughters from regionStates
 name|RegionStates
