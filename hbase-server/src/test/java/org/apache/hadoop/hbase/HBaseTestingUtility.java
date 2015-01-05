@@ -13994,6 +13994,17 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+comment|// check from the master state if we are using a mini cluster
+if|if
+condition|(
+operator|!
+name|getHBaseClusterInterface
+argument_list|()
+operator|.
+name|isDistributedCluster
+argument_list|()
+condition|)
+block|{
 comment|// So, all regions are in the meta table but make sure master knows of the assignments before
 comment|// returing -- sometimes this can lag.
 name|HMaster
@@ -14067,6 +14078,7 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 end_function
 
