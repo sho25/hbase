@@ -31,6 +31,22 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface to support the aborting of a given server or client.  *<p>  * This is used primarily for ZooKeeper usage when we could get an unexpected  * and fatal exception, requiring an abort.  *<p>  * Implemented by the Master, RegionServer, and TableServers (client).  */
 end_comment
@@ -39,7 +55,22 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+block|{
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+block|,
+name|HBaseInterfaceAudience
+operator|.
+name|PHOENIX
+block|}
+argument_list|)
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 interface|interface
 name|Abortable
@@ -55,7 +86,7 @@ name|Throwable
 name|e
 parameter_list|)
 function_decl|;
-comment|/**    * Check if the server or client was aborted.     * @return true if the server or client was aborted, false otherwise    */
+comment|/**    * Check if the server or client was aborted.    * @return true if the server or client was aborted, false otherwise    */
 name|boolean
 name|isAborted
 parameter_list|()
