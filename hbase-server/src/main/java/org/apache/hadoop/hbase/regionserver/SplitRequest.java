@@ -326,6 +326,13 @@ name|success
 init|=
 literal|false
 decl_stmt|;
+name|server
+operator|.
+name|metricsRegionServer
+operator|.
+name|incrSplitRequest
+argument_list|()
+expr_stmt|;
 name|long
 name|startTime
 init|=
@@ -737,6 +744,13 @@ condition|(
 name|success
 condition|)
 block|{
+name|server
+operator|.
+name|metricsRegionServer
+operator|.
+name|incrSplitSuccess
+argument_list|()
+expr_stmt|;
 comment|// Log success
 name|LOG
 operator|.

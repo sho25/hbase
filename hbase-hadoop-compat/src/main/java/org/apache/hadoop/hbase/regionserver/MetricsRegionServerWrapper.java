@@ -148,6 +148,11 @@ name|int
 name|getPercentFileLocal
 parameter_list|()
 function_decl|;
+comment|/**    * Get the size of the split queue    */
+name|int
+name|getSplitQueueSize
+parameter_list|()
+function_decl|;
 comment|/**    * Get the size of the compaction queue    */
 name|int
 name|getCompactionQueueSize

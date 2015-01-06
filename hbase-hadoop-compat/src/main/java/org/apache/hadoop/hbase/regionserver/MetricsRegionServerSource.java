@@ -151,6 +151,16 @@ name|long
 name|t
 parameter_list|)
 function_decl|;
+comment|/**    * Increment number of a requested splits    */
+name|void
+name|incrSplitRequest
+parameter_list|()
+function_decl|;
+comment|/**    * Increment number of successful splits    */
+name|void
+name|incrSplitSuccess
+parameter_list|()
+function_decl|;
 comment|/**    * Update the flush time histogram    * @param t time it took, in milliseconds    */
 name|void
 name|updateFlushTime
@@ -339,6 +349,16 @@ name|String
 name|PERCENT_FILES_LOCAL_DESC
 init|=
 literal|"The percent of HFiles that are stored on the local hdfs data node."
+decl_stmt|;
+name|String
+name|SPLIT_QUEUE_LENGTH
+init|=
+literal|"splitQueueLength"
+decl_stmt|;
+name|String
+name|SPLIT_QUEUE_LENGTH_DESC
+init|=
+literal|"Length of the queue for splits."
 decl_stmt|;
 name|String
 name|COMPACTION_QUEUE_LENGTH
@@ -681,6 +701,26 @@ name|String
 name|SPLIT_KEY
 init|=
 literal|"splitTime"
+decl_stmt|;
+name|String
+name|SPLIT_REQUEST_KEY
+init|=
+literal|"splitRequestCount"
+decl_stmt|;
+name|String
+name|SPLIT_REQUEST_DESC
+init|=
+literal|"Number of splits requested"
+decl_stmt|;
+name|String
+name|SPLIT_SUCCESS_KEY
+init|=
+literal|"splitSuccessCounnt"
+decl_stmt|;
+name|String
+name|SPLIT_SUCCESS_DESC
+init|=
+literal|"Number of successfully executed splits"
 decl_stmt|;
 name|String
 name|FLUSH_KEY
