@@ -4346,7 +4346,20 @@ operator|.
 name|getOnlineServers
 argument_list|()
 decl_stmt|;
-comment|// Take care of servers w/o assignments.
+comment|// Take care of servers w/o assignments, and remove servers in draining mode
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|drainingServers
+init|=
+name|this
+operator|.
+name|serverManager
+operator|.
+name|getDrainingServersList
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|Map
@@ -4404,6 +4417,16 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|map
+operator|.
+name|keySet
+argument_list|()
+operator|.
+name|removeAll
+argument_list|(
+name|drainingServers
+argument_list|)
+expr_stmt|;
 block|}
 return|return
 name|result
