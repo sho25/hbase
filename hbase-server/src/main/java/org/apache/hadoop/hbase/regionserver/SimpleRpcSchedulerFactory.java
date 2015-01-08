@@ -255,11 +255,11 @@ name|getInt
 argument_list|(
 name|HConstants
 operator|.
-name|REGION_SERVER_META_HANDLER_COUNT
+name|REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
 argument_list|,
 name|HConstants
 operator|.
-name|DEFAULT_REGION_SERVER_META_HANDLER_COUNT
+name|DEFAULT_REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
 argument_list|)
 argument_list|,
 name|conf

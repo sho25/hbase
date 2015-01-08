@@ -6284,7 +6284,9 @@ name|int
 name|priority
 parameter_list|()
 default|default
-literal|0
+name|HConstants
+operator|.
+name|NORMAL_QOS
 function_decl|;
 block|}
 specifier|public
@@ -6461,7 +6463,7 @@ name|priority
 operator|=
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|ADMIN_QOS
 argument_list|)
 specifier|public
 name|CloseRegionResponse
@@ -6692,7 +6694,7 @@ name|priority
 operator|=
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|ADMIN_QOS
 argument_list|)
 specifier|public
 name|CompactRegionResponse
@@ -7013,7 +7015,7 @@ name|priority
 operator|=
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|ADMIN_QOS
 argument_list|)
 specifier|public
 name|FlushRegionResponse
@@ -7251,7 +7253,7 @@ name|priority
 operator|=
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|ADMIN_QOS
 argument_list|)
 specifier|public
 name|GetOnlineRegionResponse
@@ -7370,7 +7372,7 @@ name|priority
 operator|=
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|ADMIN_QOS
 argument_list|)
 specifier|public
 name|GetRegionInfoResponse
@@ -7497,6 +7499,15 @@ block|}
 comment|/**    * Get some information of the region server.    *    * @param controller the RPC controller    * @param request the request    * @throws ServiceException    */
 annotation|@
 name|Override
+annotation|@
+name|QosPriority
+argument_list|(
+name|priority
+operator|=
+name|HConstants
+operator|.
+name|ADMIN_QOS
+argument_list|)
 specifier|public
 name|GetServerInfoResponse
 name|getServerInfo
@@ -7571,6 +7582,15 @@ return|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|QosPriority
+argument_list|(
+name|priority
+operator|=
+name|HConstants
+operator|.
+name|ADMIN_QOS
+argument_list|)
 specifier|public
 name|GetStoreFileResponse
 name|getStoreFile
@@ -7754,7 +7774,7 @@ name|priority
 operator|=
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|ADMIN_QOS
 argument_list|)
 specifier|public
 name|MergeRegionsResponse
@@ -8021,7 +8041,7 @@ name|priority
 operator|=
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|ADMIN_QOS
 argument_list|)
 specifier|public
 name|OpenRegionResponse
@@ -9667,7 +9687,7 @@ name|priority
 operator|=
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|ADMIN_QOS
 argument_list|)
 specifier|public
 name|SplitRegionResponse
@@ -9871,6 +9891,15 @@ block|}
 comment|/**    * Stop the region server.    *    * @param controller the RPC controller    * @param request the request    * @throws ServiceException    */
 annotation|@
 name|Override
+annotation|@
+name|QosPriority
+argument_list|(
+name|priority
+operator|=
+name|HConstants
+operator|.
+name|ADMIN_QOS
+argument_list|)
 specifier|public
 name|StopServerResponse
 name|stopServer

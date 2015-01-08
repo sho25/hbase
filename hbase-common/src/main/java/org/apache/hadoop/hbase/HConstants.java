@@ -2301,11 +2301,12 @@ name|DEFAULT_REGION_SERVER_HANDLER_ABORT_ON_ERROR_PERCENT
 init|=
 literal|0.5
 decl_stmt|;
+comment|//High priority handlers to deal with admin requests and system table operation requests
 specifier|public
 specifier|static
 specifier|final
 name|String
-name|REGION_SERVER_META_HANDLER_COUNT
+name|REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
 init|=
 literal|"hbase.regionserver.metahandler.count"
 decl_stmt|;
@@ -2313,7 +2314,7 @@ specifier|public
 specifier|static
 specifier|final
 name|int
-name|DEFAULT_REGION_SERVER_META_HANDLER_COUNT
+name|DEFAULT_REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
 init|=
 literal|10
 decl_stmt|;
@@ -2483,7 +2484,7 @@ specifier|final
 name|int
 name|HIGH_QOS
 init|=
-literal|100
+literal|200
 decl_stmt|;
 specifier|public
 specifier|static
@@ -2503,6 +2504,23 @@ init|=
 literal|6
 decl_stmt|;
 comment|// REPLICATION_QOS< REPLAY_QOS< high_QOS
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|ADMIN_QOS
+init|=
+literal|100
+decl_stmt|;
+comment|// QOS_THRESHOLD< ADMIN_QOS< high_QOS
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SYSTEMTABLE_QOS
+init|=
+name|HIGH_QOS
+decl_stmt|;
 comment|/** Directory under /hbase where archived hfiles are stored */
 specifier|public
 specifier|static

@@ -257,6 +257,7 @@ name|this
 operator|.
 name|priority
 operator|=
+operator|(
 name|tn
 operator|!=
 literal|null
@@ -265,10 +266,11 @@ name|tn
 operator|.
 name|isSystemTable
 argument_list|()
+operator|)
 condition|?
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|SYSTEMTABLE_QOS
 else|:
 name|HConstants
 operator|.

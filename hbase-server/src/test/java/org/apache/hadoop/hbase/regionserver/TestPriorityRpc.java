@@ -733,7 +733,7 @@ name|when
 argument_list|(
 name|mockRegionInfo
 operator|.
-name|isMetaTable
+name|isSystemTable
 argument_list|()
 argument_list|)
 operator|.
@@ -759,7 +759,7 @@ name|assertEquals
 argument_list|(
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|SYSTEMTABLE_QOS
 argument_list|,
 name|priority
 operator|.
@@ -997,7 +997,7 @@ name|when
 argument_list|(
 name|mockRegionInfo
 operator|.
-name|isMetaRegion
+name|isSystemTable
 argument_list|()
 argument_list|)
 operator|.
@@ -1155,7 +1155,7 @@ name|when
 argument_list|(
 name|mockRegionInfo
 operator|.
-name|isMetaRegion
+name|isSystemTable
 argument_list|()
 argument_list|)
 operator|.
@@ -1181,7 +1181,7 @@ name|assertEquals
 argument_list|(
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|SYSTEMTABLE_QOS
 argument_list|,
 name|priority
 operator|.
@@ -1200,7 +1200,7 @@ name|when
 argument_list|(
 name|mockRegionInfo
 operator|.
-name|isMetaRegion
+name|isSystemTable
 argument_list|()
 argument_list|)
 operator|.

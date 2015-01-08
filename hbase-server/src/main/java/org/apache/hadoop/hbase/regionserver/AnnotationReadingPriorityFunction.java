@@ -1197,7 +1197,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaTable
+name|isSystemTable
 argument_list|()
 condition|)
 block|{
@@ -1225,7 +1225,7 @@ block|}
 return|return
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|SYSTEMTABLE_QOS
 return|;
 block|}
 block|}
@@ -1318,7 +1318,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaRegion
+name|isSystemTable
 argument_list|()
 condition|)
 block|{
@@ -1349,7 +1349,7 @@ block|}
 return|return
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|SYSTEMTABLE_QOS
 return|;
 block|}
 block|}

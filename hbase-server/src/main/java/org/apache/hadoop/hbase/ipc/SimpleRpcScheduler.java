@@ -774,6 +774,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Create 2 queues to help priorityExecutor be more scalable.
 name|this
 operator|.
 name|priorityExecutor
@@ -789,13 +790,9 @@ literal|"Priority"
 argument_list|,
 name|priorityHandlerCount
 argument_list|,
-literal|1
+literal|2
 argument_list|,
 name|maxQueueLength
-argument_list|,
-name|conf
-argument_list|,
-name|abortable
 argument_list|)
 else|:
 literal|null

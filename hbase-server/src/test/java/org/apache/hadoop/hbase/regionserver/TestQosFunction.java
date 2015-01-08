@@ -291,7 +291,7 @@ literal|"OpenRegion"
 argument_list|,
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|ADMIN_QOS
 argument_list|,
 name|qosFunction
 argument_list|)

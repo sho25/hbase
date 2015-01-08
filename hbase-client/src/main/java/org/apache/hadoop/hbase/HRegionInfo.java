@@ -2889,6 +2889,19 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * @return true if this region is from a system table    */
+specifier|public
+name|boolean
+name|isSystemTable
+parameter_list|()
+block|{
+return|return
+name|tableName
+operator|.
+name|isSystemTable
+argument_list|()
+return|;
+block|}
 comment|/**    * @return True if has been split and has daughters.    */
 specifier|public
 name|boolean
