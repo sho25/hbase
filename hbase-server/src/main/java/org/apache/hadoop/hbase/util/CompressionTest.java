@@ -886,9 +886,10 @@ argument_list|)
 decl_stmt|;
 name|scanner
 operator|.
-name|next
+name|seekTo
 argument_list|()
 expr_stmt|;
+comment|// position to the start of file
 comment|// Scanner does not do Cells yet. Do below for now till fixed.
 name|cc
 operator|=
