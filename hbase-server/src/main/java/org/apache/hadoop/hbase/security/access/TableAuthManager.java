@@ -2572,16 +2572,21 @@ operator|.
 name|ACL_TABLE_NAME
 expr_stmt|;
 comment|// Namespace authorization supercedes table level
+name|String
+name|namespace
+init|=
+name|table
+operator|.
+name|getNamespaceAsString
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|authorize
 argument_list|(
 name|getNamespacePermissions
 argument_list|(
-name|table
-operator|.
-name|getNamespaceAsString
-argument_list|()
+name|namespace
 argument_list|)
 operator|.
 name|getGroup
@@ -2589,9 +2594,7 @@ argument_list|(
 name|groupName
 argument_list|)
 argument_list|,
-name|table
-argument_list|,
-name|family
+name|namespace
 argument_list|,
 name|action
 argument_list|)
