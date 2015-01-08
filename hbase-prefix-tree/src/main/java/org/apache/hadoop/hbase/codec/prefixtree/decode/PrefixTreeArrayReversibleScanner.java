@@ -376,6 +376,11 @@ argument_list|()
 condition|)
 block|{
 comment|// escape clause
+name|currentRowNode
+operator|.
+name|resetFanIndex
+argument_list|()
+expr_stmt|;
 return|return
 literal|true
 return|;
