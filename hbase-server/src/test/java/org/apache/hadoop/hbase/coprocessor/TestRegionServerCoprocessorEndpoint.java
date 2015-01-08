@@ -555,11 +555,10 @@ name|DummyService
 operator|.
 name|class
 argument_list|,
-operator|new
-name|HBaseAdmin
-argument_list|(
-name|CONF
-argument_list|)
+name|TEST_UTIL
+operator|.
+name|getHBaseAdmin
+argument_list|()
 operator|.
 name|coprocessorService
 argument_list|(

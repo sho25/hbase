@@ -1439,11 +1439,13 @@ comment|// Create a store file
 name|Table
 name|table
 init|=
-operator|new
-name|HTable
+name|TEST_UTIL
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|getTable
 argument_list|(
-name|conf
-argument_list|,
 name|htd
 operator|.
 name|getTableName

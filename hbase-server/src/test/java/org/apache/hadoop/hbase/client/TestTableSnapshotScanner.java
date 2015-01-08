@@ -610,17 +610,16 @@ name|getHBaseAdmin
 argument_list|()
 decl_stmt|;
 comment|// put some stuff in the table
-name|HTable
+name|Table
 name|table
 init|=
-operator|new
-name|HTable
-argument_list|(
 name|util
 operator|.
-name|getConfiguration
+name|getConnection
 argument_list|()
-argument_list|,
+operator|.
+name|getTable
+argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;

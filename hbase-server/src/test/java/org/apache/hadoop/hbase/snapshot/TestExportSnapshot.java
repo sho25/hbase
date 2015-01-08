@@ -829,20 +829,6 @@ name|tableName
 argument_list|)
 expr_stmt|;
 comment|// Add some rows
-name|Table
-name|table
-init|=
-operator|new
-name|HTable
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
-name|tableName
-argument_list|)
-decl_stmt|;
 name|SnapshotTestingUtils
 operator|.
 name|loadData

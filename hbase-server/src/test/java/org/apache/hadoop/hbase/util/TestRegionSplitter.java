@@ -2461,15 +2461,6 @@ name|Exception
 block|{
 comment|// Get region boundaries from the cluster and verify their endpoints
 specifier|final
-name|Configuration
-name|conf
-init|=
-name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-decl_stmt|;
-specifier|final
 name|int
 name|numRegions
 init|=
@@ -2484,11 +2475,16 @@ specifier|final
 name|HTable
 name|hTable
 init|=
-operator|new
+operator|(
 name|HTable
+operator|)
+name|UTIL
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|getTable
 argument_list|(
-name|conf
-argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;

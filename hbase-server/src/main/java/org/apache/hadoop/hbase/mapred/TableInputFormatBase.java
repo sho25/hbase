@@ -143,6 +143,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|filter
 operator|.
 name|Filter
@@ -671,7 +687,7 @@ expr_stmt|;
 block|}
 comment|/**    * Allows subclasses to get the {@link HTable}.    */
 specifier|protected
-name|HTable
+name|Table
 name|getHTable
 parameter_list|()
 block|{

@@ -824,7 +824,7 @@ name|flush
 argument_list|(
 name|table
 operator|.
-name|getTableName
+name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2740,14 +2740,13 @@ expr_stmt|;
 name|Table
 name|table
 init|=
-operator|new
-name|HTable
-argument_list|(
 name|TEST_UTIL
 operator|.
-name|getConfiguration
+name|getConnection
 argument_list|()
-argument_list|,
+operator|.
+name|getTable
+argument_list|(
 name|desc
 operator|.
 name|getTableName

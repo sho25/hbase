@@ -864,14 +864,13 @@ literal|"Starting testRSAbortWithUnflushedEdits()"
 argument_list|)
 expr_stmt|;
 comment|// When the hbase:meta table can be opened, the region servers are running
-operator|new
-name|HTable
-argument_list|(
 name|TEST_UTIL
 operator|.
-name|getConfiguration
+name|getConnection
 argument_list|()
-argument_list|,
+operator|.
+name|getTable
+argument_list|(
 name|TableName
 operator|.
 name|META_TABLE_NAME
@@ -929,14 +928,13 @@ expr_stmt|;
 name|Table
 name|table
 init|=
-operator|new
-name|HTable
-argument_list|(
 name|TEST_UTIL
 operator|.
-name|getConfiguration
+name|getConnection
 argument_list|()
-argument_list|,
+operator|.
+name|getTable
+argument_list|(
 name|desc
 operator|.
 name|getTableName

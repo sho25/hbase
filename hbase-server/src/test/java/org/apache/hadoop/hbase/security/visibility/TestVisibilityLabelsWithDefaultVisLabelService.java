@@ -1219,11 +1219,13 @@ expr_stmt|;
 name|Table
 name|ht
 init|=
-operator|new
-name|HTable
+name|TEST_UTIL
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|getTable
 argument_list|(
-name|conf
-argument_list|,
 name|LABELS_TABLE_NAME
 argument_list|)
 decl_stmt|;

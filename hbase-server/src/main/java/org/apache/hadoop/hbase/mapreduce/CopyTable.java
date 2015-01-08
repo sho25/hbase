@@ -227,6 +227,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Connection
 import|;
 end_import
@@ -260,22 +276,6 @@ operator|.
 name|client
 operator|.
 name|Scan
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Table
 import|;
 end_import
 
@@ -952,8 +952,7 @@ argument_list|(
 name|getConf
 argument_list|()
 argument_list|)
-init|;           Table htable = conn.getTable(TableName.valueOf(dstTableName)
-block|)
+init|;           Admin admin = conn.getAdmin()
 block|)
 block|{
 name|HFileOutputFormat2
@@ -962,14 +961,23 @@ name|configureIncrementalLoadMap
 argument_list|(
 name|job
 argument_list|,
-name|htable
+name|admin
+operator|.
+name|getTableDescriptor
+argument_list|(
+operator|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|dstTableName
+argument_list|)
+operator|)
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_class
-
-begin_else
 else|else
 block|{
 name|TableMapReduceUtil
@@ -1013,21 +1021,18 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-end_else
-
-begin_return
 return|return
 name|job
 return|;
-end_return
+block|}
+end_class
 
 begin_comment
-unit|}
 comment|/*    * @param errorMsg Error message.  Can be null.    */
 end_comment
 
 begin_function
-unit|private
+specifier|private
 specifier|static
 name|void
 name|printUsage
@@ -1195,7 +1200,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"              hbase.zookeeer.quorum:hbase.zookeeper.client.port:zookeeper.znode.parent"
+literal|"              hbase.zookeeper.quorum:hbase.zookeeper.client"
+operator|+
+literal|".port:zookeeper.znode.parent"
 argument_list|)
 expr_stmt|;
 name|System

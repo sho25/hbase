@@ -806,8 +806,8 @@ name|IOException
 block|{
 comment|// only a single table is supported when HFiles are generated with HFileOutputFormat
 name|String
-name|tables
 index|[]
+name|tables
 init|=
 name|context
 operator|.

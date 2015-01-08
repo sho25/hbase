@@ -923,11 +923,13 @@ condition|)
 block|{
 try|try
 block|{
-operator|new
-name|HTable
+name|testUtil
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|getTable
 argument_list|(
-name|conf
-argument_list|,
 name|TableName
 operator|.
 name|META_TABLE_NAME

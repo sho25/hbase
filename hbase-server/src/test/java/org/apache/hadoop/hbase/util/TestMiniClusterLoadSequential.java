@@ -967,11 +967,10 @@ expr_stmt|;
 name|Admin
 name|admin
 init|=
-operator|new
-name|HBaseAdmin
-argument_list|(
-name|conf
-argument_list|)
+name|TEST_UTIL
+operator|.
+name|getHBaseAdmin
+argument_list|()
 decl_stmt|;
 while|while
 condition|(

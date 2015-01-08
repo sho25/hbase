@@ -615,11 +615,10 @@ condition|)
 block|{
 name|localTable
 operator|=
-operator|new
-name|HTable
+name|connection
+operator|.
+name|getTable
 argument_list|(
-name|conf
-argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;

@@ -666,14 +666,10 @@ comment|// Need a new Admin, the previous one is on the old master
 name|Admin
 name|admin
 init|=
-operator|new
-name|HBaseAdmin
-argument_list|(
 name|TEST_UTIL
 operator|.
-name|getConfiguration
+name|getHBaseAdmin
 argument_list|()
-argument_list|)
 decl_stmt|;
 name|admin
 operator|.

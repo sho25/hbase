@@ -2439,8 +2439,8 @@ name|BULK_OUTPUT_CONF_KEY
 argument_list|)
 decl_stmt|;
 name|String
-name|columns
 index|[]
+name|columns
 init|=
 name|conf
 operator|.
@@ -3521,8 +3521,8 @@ condition|)
 block|{
 comment|// Make sure columns are specified
 name|String
-name|columns
 index|[]
+name|columns
 init|=
 name|getConf
 argument_list|()

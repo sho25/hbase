@@ -1332,14 +1332,10 @@ expr_stmt|;
 name|Admin
 name|admin
 init|=
-operator|new
-name|HBaseAdmin
-argument_list|(
 name|UTIL
 operator|.
-name|getConfiguration
+name|getHBaseAdmin
 argument_list|()
-argument_list|)
 decl_stmt|;
 name|HTableDescriptor
 name|tableDescriptor

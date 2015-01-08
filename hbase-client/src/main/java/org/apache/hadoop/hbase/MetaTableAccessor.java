@@ -864,9 +864,6 @@ name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|,
-operator|(
-name|ClusterConnection
-operator|)
 name|connection
 argument_list|)
 return|;

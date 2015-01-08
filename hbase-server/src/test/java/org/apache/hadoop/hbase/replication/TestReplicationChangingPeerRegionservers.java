@@ -684,11 +684,13 @@ argument_list|)
 expr_stmt|;
 name|htable1
 operator|=
-operator|new
-name|HTable
+name|utility1
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|getTable
 argument_list|(
-name|conf1
-argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;

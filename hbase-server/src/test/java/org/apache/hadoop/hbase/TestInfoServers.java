@@ -325,14 +325,13 @@ throws|throws
 name|Exception
 block|{
 comment|// give the cluster time to start up
-operator|new
-name|HTable
-argument_list|(
 name|UTIL
 operator|.
-name|getConfiguration
+name|getConnection
 argument_list|()
-argument_list|,
+operator|.
+name|getTable
+argument_list|(
 name|TableName
 operator|.
 name|META_TABLE_NAME
@@ -424,14 +423,13 @@ throws|throws
 name|Exception
 block|{
 comment|// give the cluster time to start up
-operator|new
-name|HTable
-argument_list|(
 name|UTIL
 operator|.
-name|getConfiguration
+name|getConnection
 argument_list|()
-argument_list|,
+operator|.
+name|getTable
+argument_list|(
 name|TableName
 operator|.
 name|META_TABLE_NAME
@@ -551,14 +549,13 @@ argument_list|,
 name|cf
 argument_list|)
 expr_stmt|;
-operator|new
-name|HTable
-argument_list|(
 name|UTIL
 operator|.
-name|getConfiguration
+name|getConnection
 argument_list|()
-argument_list|,
+operator|.
+name|getTable
+argument_list|(
 name|tableName
 argument_list|)
 operator|.

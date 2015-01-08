@@ -461,11 +461,13 @@ block|{
 name|Table
 name|table
 init|=
-operator|new
-name|HTable
+name|TEST_UTIL
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|getTable
 argument_list|(
-name|CONF
-argument_list|,
 name|TEST_TABLE
 argument_list|)
 decl_stmt|;

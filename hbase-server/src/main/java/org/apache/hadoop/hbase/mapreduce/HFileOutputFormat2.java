@@ -2609,8 +2609,8 @@ parameter_list|(
 name|Job
 name|job
 parameter_list|,
-name|Table
-name|table
+name|HTableDescriptor
+name|tableDescriptor
 parameter_list|)
 throws|throws
 name|IOException
@@ -2655,40 +2655,23 @@ name|configureCompression
 argument_list|(
 name|conf
 argument_list|,
-name|table
-operator|.
-name|getTableDescriptor
-argument_list|()
+name|tableDescriptor
 argument_list|)
 expr_stmt|;
 name|configureBloomType
 argument_list|(
-name|table
-operator|.
-name|getTableDescriptor
-argument_list|()
+name|tableDescriptor
 argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
 name|configureBlockSize
 argument_list|(
-name|table
-operator|.
-name|getTableDescriptor
-argument_list|()
+name|tableDescriptor
 argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
-name|HTableDescriptor
-name|tableDescriptor
-init|=
-name|table
-operator|.
-name|getTableDescriptor
-argument_list|()
-decl_stmt|;
 name|configureDataBlockEncoding
 argument_list|(
 name|tableDescriptor
@@ -2716,9 +2699,9 @@ name|info
 argument_list|(
 literal|"Incremental table "
 operator|+
-name|table
+name|tableDescriptor
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 operator|+
 literal|" output configured."
@@ -3382,7 +3365,7 @@ name|partitionsPath
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Serialize column family to compression algorithm map to configuration.    * Invoked while configuring the MR job for incremental load.    *    * @param table to read the properties from    * @param conf to persist serialized values into    * @throws IOException    *           on failure to read column family descriptors    */
+comment|/**    * Serialize column family to compression algorithm map to configuration.    * Invoked while configuring the MR job for incremental load.    *    * @param tableDescriptor to read the properties from    * @param conf to persist serialized values into    * @throws IOException    *           on failure to read column family descriptors    */
 annotation|@
 name|edu
 operator|.
@@ -3815,7 +3798,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Serialize column family to data block encoding map to configuration.    * Invoked while configuring the MR job for incremental load.    *    * @param table to read the properties from    * @param conf to persist serialized values into    * @throws IOException    *           on failure to read column family descriptors    */
+comment|/**    * Serialize column family to data block encoding map to configuration.    * Invoked while configuring the MR job for incremental load.    *    * @param tableDescriptor to read the properties from    * @param conf to persist serialized values into    * @throws IOException    *           on failure to read column family descriptors    */
 annotation|@
 name|VisibleForTesting
 specifier|static

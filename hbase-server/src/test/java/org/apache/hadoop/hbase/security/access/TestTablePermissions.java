@@ -1997,11 +1997,13 @@ decl_stmt|;
 name|Table
 name|table
 init|=
-operator|new
-name|HTable
+name|UTIL
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|getTable
 argument_list|(
-name|conf
-argument_list|,
 name|TEST_TABLE
 argument_list|)
 decl_stmt|;

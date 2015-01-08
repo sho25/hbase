@@ -307,7 +307,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
+name|Connection
 import|;
 end_import
 
@@ -323,23 +323,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HConnectionManager
+name|ConnectionFactory
 import|;
 end_import
 
@@ -544,7 +528,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
-name|HConnection
+name|Connection
 name|connection
 decl_stmt|;
 comment|// TODO: replication should be managed by master. All the classes except ReplicationAdmin should
@@ -600,9 +584,9 @@ name|this
 operator|.
 name|connection
 operator|=
-name|HConnectionManager
+name|ConnectionFactory
 operator|.
-name|getConnection
+name|createConnection
 argument_list|(
 name|conf
 argument_list|)
@@ -1543,7 +1527,7 @@ name|tableCFs
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Append the replicable table-cf config of the specified peer    * @param id a short that identifies the cluster    * @param tableCfs table-cfs config str    * @throws KeeperException    */
+comment|/**    * Append the replicable table-cf config of the specified peer    * @param id a short that identifies the cluster    * @param tableCfs table-cfs config str    * @throws ReplicationException    */
 specifier|public
 name|void
 name|appendPeerTableCFs
@@ -1568,7 +1552,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Append the replicable table-cf config of the specified peer    * @param id a short that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws KeeperException    */
+comment|/**    * Append the replicable table-cf config of the specified peer    * @param id a short that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws ReplicationException    */
 specifier|public
 name|void
 name|appendPeerTableCFs
@@ -2281,16 +2265,10 @@ decl_stmt|;
 name|Admin
 name|admin
 init|=
-operator|new
-name|HBaseAdmin
-argument_list|(
-name|this
-operator|.
 name|connection
 operator|.
-name|getConfiguration
+name|getAdmin
 argument_list|()
-argument_list|)
 decl_stmt|;
 name|HTableDescriptor
 index|[]

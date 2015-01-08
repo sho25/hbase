@@ -860,17 +860,16 @@ name|admin
 argument_list|)
 expr_stmt|;
 comment|// put some stuff in the table
-name|HTable
+name|Table
 name|table
 init|=
-operator|new
-name|HTable
-argument_list|(
 name|UTIL
 operator|.
-name|getConfiguration
+name|getConnection
 argument_list|()
-argument_list|,
+operator|.
+name|getTable
+argument_list|(
 name|TABLE_NAME
 argument_list|)
 decl_stmt|;
@@ -1059,17 +1058,16 @@ name|admin
 argument_list|)
 expr_stmt|;
 comment|// put some stuff in the table
-name|HTable
+name|Table
 name|table
 init|=
-operator|new
-name|HTable
-argument_list|(
 name|UTIL
 operator|.
-name|getConfiguration
+name|getConnection
 argument_list|()
-argument_list|,
+operator|.
+name|getTable
+argument_list|(
 name|TABLE_NAME
 argument_list|)
 decl_stmt|;
