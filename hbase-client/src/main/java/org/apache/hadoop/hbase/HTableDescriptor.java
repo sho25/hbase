@@ -2915,6 +2915,22 @@ name|toString
 argument_list|()
 return|;
 block|}
+comment|/**    * @return map of all table attributes formatted into string.    */
+specifier|public
+name|String
+name|toStringTableAttributes
+parameter_list|()
+block|{
+return|return
+name|getValues
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|toString
+argument_list|()
+return|;
+block|}
 specifier|private
 name|StringBuilder
 name|getValues
