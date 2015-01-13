@@ -162,7 +162,7 @@ name|ServerStatisticTracker
 block|{
 specifier|private
 specifier|final
-name|Map
+name|ConcurrentHashMap
 argument_list|<
 name|ServerName
 argument_list|,
@@ -213,12 +213,6 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// create a stats object and update the stats
-synchronized|synchronized
-init|(
-name|this
-init|)
-block|{
 name|stat
 operator|=
 name|stats
@@ -228,7 +222,8 @@ argument_list|(
 name|server
 argument_list|)
 expr_stmt|;
-comment|// we don't have stats for that server yet, so we need to make some
+comment|// We don't have stats for that server yet, so we need to make an entry.
+comment|// If we race with another thread it's a harmless unnecessary allocation.
 if|if
 condition|(
 name|stat
@@ -242,14 +237,28 @@ operator|new
 name|ServerStatistics
 argument_list|()
 expr_stmt|;
+name|ServerStatistics
+name|old
+init|=
 name|stats
 operator|.
-name|put
+name|putIfAbsent
 argument_list|(
 name|server
 argument_list|,
 name|stat
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|old
+operator|!=
+literal|null
+condition|)
+block|{
+name|stat
+operator|=
+name|old
 expr_stmt|;
 block|}
 block|}
