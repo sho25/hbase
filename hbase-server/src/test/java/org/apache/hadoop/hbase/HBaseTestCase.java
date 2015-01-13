@@ -837,7 +837,7 @@ name|testName
 argument_list|)
 return|;
 block|}
-comment|/**    * You must call close on the returned region and then close on the log file    * it created. Do {@link HRegion#close()} followed by {@link HRegion#getWAL()}    * and on it call close.    * @param desc    * @param startKey    * @param endKey    * @return An {@link HRegion}    * @throws IOException    */
+comment|/**    * You must call close on the returned region and then close on the log file it created. Do    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} to close both the region and the WAL.    * @param desc    * @param startKey    * @param endKey    * @return An {@link HRegion}    * @throws IOException    */
 specifier|public
 name|HRegion
 name|createNewHRegion
@@ -909,9 +909,9 @@ name|endKey
 argument_list|)
 decl_stmt|;
 return|return
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|hri
 argument_list|,
@@ -2889,9 +2889,9 @@ argument_list|)
 decl_stmt|;
 name|meta
 operator|=
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|HRegionInfo
 operator|.
@@ -2919,9 +2919,9 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|meta
 argument_list|)

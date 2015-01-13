@@ -1140,12 +1140,10 @@ literal|null
 argument_list|)
 decl_stmt|;
 comment|// Close the new region to flush to disk. Close log file too.
-name|HRegion
-operator|.
-name|closeHRegion
-argument_list|(
 name|region
-argument_list|)
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 return|return
 name|region

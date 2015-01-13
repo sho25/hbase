@@ -2654,6 +2654,8 @@ argument_list|,
 name|c
 argument_list|,
 name|metaDescriptor
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|setInfoFamilyCachingForMeta
@@ -2663,12 +2665,10 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|HRegion
-operator|.
-name|closeHRegion
-argument_list|(
 name|meta
-argument_list|)
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 catch|catch

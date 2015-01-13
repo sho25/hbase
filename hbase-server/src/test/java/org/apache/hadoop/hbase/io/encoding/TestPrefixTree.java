@@ -611,9 +611,9 @@ argument_list|)
 decl_stmt|;
 name|region
 operator|=
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|info
 argument_list|,
@@ -637,11 +637,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|region
+name|HBaseTestingUtility
 operator|.
-name|close
+name|closeRegionAndWAL
 argument_list|(
-literal|true
+name|region
 argument_list|)
 expr_stmt|;
 name|testUtil

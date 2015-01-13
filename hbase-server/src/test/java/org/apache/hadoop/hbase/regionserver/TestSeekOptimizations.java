@@ -2697,9 +2697,9 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|region
 argument_list|)

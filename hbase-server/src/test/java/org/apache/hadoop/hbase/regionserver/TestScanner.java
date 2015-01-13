@@ -1166,9 +1166,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.
@@ -1522,9 +1522,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.
@@ -1642,9 +1642,9 @@ block|}
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.
@@ -2026,9 +2026,9 @@ block|}
 finally|finally
 block|{
 comment|// clean up
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|r
 argument_list|)
@@ -2730,9 +2730,9 @@ throw|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.
@@ -2859,9 +2859,9 @@ throw|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.
@@ -3230,9 +3230,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.

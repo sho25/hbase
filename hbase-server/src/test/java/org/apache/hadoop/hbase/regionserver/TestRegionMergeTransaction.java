@@ -1707,9 +1707,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|mergedRegion
 argument_list|)
@@ -2086,9 +2086,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|mergedRegion
 argument_list|)
@@ -2880,9 +2880,9 @@ decl_stmt|;
 name|HRegion
 name|a
 init|=
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|hri
 argument_list|,
@@ -2896,9 +2896,9 @@ argument_list|,
 name|htd
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|a
 argument_list|)

@@ -627,9 +627,9 @@ name|this
 operator|.
 name|region
 operator|=
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|info
 argument_list|,
@@ -659,9 +659,9 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.

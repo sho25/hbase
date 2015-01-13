@@ -1131,9 +1131,9 @@ name|this
 operator|.
 name|region
 operator|=
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|info
 argument_list|,
@@ -1662,23 +1662,12 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|WAL
-name|wal
-init|=
+name|HBaseTestingUtility
+operator|.
+name|closeRegionAndWAL
+argument_list|(
 name|region
-operator|.
-name|getWAL
-argument_list|()
-decl_stmt|;
-name|region
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-name|wal
-operator|.
-name|close
-argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@
@@ -5161,7 +5150,7 @@ break|break;
 block|}
 block|}
 block|}
-comment|/**    * Tests the the {@link WhileMatchFilter} works in combination with a    * {@link Filter} that uses the    * {@link Filter#filterKeyValue(org.apache.hadoop.hbase.KeyValue)} method.    *    * See HBASE-2258.    *    * @throws Exception    */
+comment|/**    * Tests the the {@link WhileMatchFilter} works in combination with a    * {@link Filter} that uses the {@link Filter#filterKeyValue(Cell)} method.    *    * See HBASE-2258.    *    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
@@ -13301,9 +13290,9 @@ decl_stmt|;
 name|HRegion
 name|testRegion
 init|=
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|info
 argument_list|,
@@ -18473,6 +18462,7 @@ argument_list|()
 return|;
 block|}
 block|}
+comment|// TODO: intentionally disabled?
 specifier|public
 name|void
 name|testNestedFilterListWithSCVF
@@ -18540,9 +18530,9 @@ decl_stmt|;
 name|HRegion
 name|testRegion
 init|=
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|info
 argument_list|,

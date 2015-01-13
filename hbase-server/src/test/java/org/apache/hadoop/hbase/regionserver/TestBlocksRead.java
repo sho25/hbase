@@ -629,7 +629,7 @@ name|reset
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Callers must afterward call {@link HRegion#closeHRegion(HRegion)}    * @param tableName    * @param callingMethod    * @param conf    * @param family    * @throws IOException    * @return created and initialized region.    */
+comment|/**    * Callers must afterward call {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)}    * @param tableName    * @param callingMethod    * @param conf    * @param family    * @throws IOException    * @return created and initialized region.    */
 specifier|private
 name|HRegion
 name|initHRegion
@@ -757,9 +757,9 @@ decl_stmt|;
 name|HRegion
 name|r
 init|=
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|info
 argument_list|,
@@ -1878,9 +1878,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.
@@ -2541,9 +2541,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.
@@ -2801,9 +2801,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.
@@ -2996,9 +2996,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.

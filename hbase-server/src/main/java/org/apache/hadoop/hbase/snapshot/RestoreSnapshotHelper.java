@@ -2726,8 +2726,6 @@ name|conf
 argument_list|,
 name|rootDir
 argument_list|,
-name|tableDir
-argument_list|,
 name|tableDesc
 argument_list|,
 name|clonedRegionsInfo
@@ -2913,7 +2911,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Create a new {@link HFileLink} to reference the store file.    *<p>The store file in the snapshot can be a simple hfile, an HFileLink or a reference.    *<ul>    *<li>hfile: abc -> table=region-abc    *<li>reference: abc.1234 -> table=region-abc.1234    *<li>hfilelink: table=region-hfile -> table=region-hfile    *</ul>    * @param familyDir destination directory for the store file    * @param regionInfo destination region info for the table    * @param hfileName store file name (can be a Reference, HFileLink or simple HFile)    */
+comment|/**    * Create a new {@link HFileLink} to reference the store file.    *<p>The store file in the snapshot can be a simple hfile, an HFileLink or a reference.    *<ul>    *<li>hfile: abc -> table=region-abc    *<li>reference: abc.1234 -> table=region-abc.1234    *<li>hfilelink: table=region-hfile -> table=region-hfile    *</ul>    * @param familyDir destination directory for the store file    * @param regionInfo destination region info for the table    * @param storeFile store file name (can be a Reference, HFileLink or simple HFile)    */
 specifier|private
 name|void
 name|restoreStoreFile
@@ -3007,7 +3005,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Create a new {@link Reference} as copy of the source one.    *<p><blockquote><pre>    * The source table looks like:    *    1234/abc      (original file)    *    5678/abc.1234 (reference file)    *    * After the clone operation looks like:    *   wxyz/table=1234-abc    *   stuv/table=1234-abc.wxyz    *    * NOTE that the region name in the clone changes (md5 of regioninfo)    * and the reference should reflect that change.    *</pre></blockquote>    * @param familyDir destination directory for the store file    * @param regionInfo destination region info for the table    * @param hfileName reference file name    */
+comment|/**    * Create a new {@link Reference} as copy of the source one.    *<p><blockquote><pre>    * The source table looks like:    *    1234/abc      (original file)    *    5678/abc.1234 (reference file)    *    * After the clone operation looks like:    *   wxyz/table=1234-abc    *   stuv/table=1234-abc.wxyz    *    * NOTE that the region name in the clone changes (md5 of regioninfo)    * and the reference should reflect that change.    *</pre></blockquote>    * @param familyDir destination directory for the store file    * @param regionInfo destination region info for the table    * @param storeFile reference file name    */
 specifier|private
 name|void
 name|restoreReferenceFile

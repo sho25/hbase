@@ -1078,9 +1078,9 @@ index|[
 name|i
 index|]
 operator|=
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|this
 operator|.
@@ -1244,9 +1244,9 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|r
 argument_list|)
@@ -1781,9 +1781,9 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Close the region and delete the log
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|regions
 index|[

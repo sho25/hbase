@@ -757,9 +757,9 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|=
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|info
 argument_list|,
@@ -770,9 +770,9 @@ argument_list|,
 name|htd
 argument_list|)
 expr_stmt|;
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|region
 argument_list|)

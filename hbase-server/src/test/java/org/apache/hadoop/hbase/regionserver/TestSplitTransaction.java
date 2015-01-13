@@ -97,18 +97,6 @@ name|mockito
 operator|.
 name|Mockito
 operator|.
-name|doCallRealMethod
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|mockito
-operator|.
-name|Mockito
-operator|.
 name|doNothing
 import|;
 end_import
@@ -1924,9 +1912,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|openRegion
 argument_list|)
@@ -2492,9 +2480,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|openRegion
 argument_list|)
@@ -2717,9 +2705,9 @@ decl_stmt|;
 name|HRegion
 name|r
 init|=
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|hri
 argument_list|,
@@ -2733,9 +2721,9 @@ argument_list|,
 name|htd
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|r
 argument_list|)

@@ -570,11 +570,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-name|HRegion
-name|region
-init|=
-literal|null
-decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -695,7 +690,7 @@ literal|2
 index|]
 decl_stmt|;
 specifier|private
-name|void
+name|HRegion
 name|initHRegion
 parameter_list|(
 name|String
@@ -763,11 +758,10 @@ argument_list|,
 name|callingMethod
 argument_list|)
 decl_stmt|;
-name|region
-operator|=
-name|HRegion
+return|return
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|info
 argument_list|,
@@ -777,7 +771,7 @@ name|conf
 argument_list|,
 name|htd
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|// A helper function to create puts.
 specifier|private
@@ -1120,13 +1114,16 @@ literal|1024
 argument_list|)
 expr_stmt|;
 comment|// Intialize the HRegion
+name|HRegion
+name|region
+init|=
 name|initHRegion
 argument_list|(
 literal|"testSelectiveFlushWhenEnabled"
 argument_list|,
 name|conf
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// Add 1200 entries for CF1, 100 for CF2 and 50 for CF3
 for|for
 control|(
@@ -1793,6 +1790,13 @@ name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|HBaseTestingUtility
+operator|.
+name|closeRegionAndWAL
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -1847,13 +1851,16 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Intialize the HRegion
+name|HRegion
+name|region
+init|=
 name|initHRegion
 argument_list|(
 literal|"testSelectiveFlushWhenNotEnabled"
 argument_list|,
 name|conf
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// Add 1200 entries for CF1, 100 for CF2 and 50 for CF3
 for|for
 control|(
@@ -2130,6 +2137,13 @@ operator|.
 name|NO_SEQNUM
 argument_list|,
 name|smallestSeqInRegionCurrentMemstore
+argument_list|)
+expr_stmt|;
+name|HBaseTestingUtility
+operator|.
+name|closeRegionAndWAL
+argument_list|(
+name|region
 argument_list|)
 expr_stmt|;
 block|}
@@ -3781,8 +3795,9 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|HRegion
 name|region
-operator|=
+init|=
 name|getRegionWithName
 argument_list|(
 name|TABLENAME
@@ -3790,7 +3805,7 @@ argument_list|)
 operator|.
 name|getFirst
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 name|cf1StoreFileCount1
 operator|=
 name|region

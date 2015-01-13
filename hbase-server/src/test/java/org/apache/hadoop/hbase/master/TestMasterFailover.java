@@ -591,9 +591,9 @@ block|{
 name|HRegion
 name|r
 init|=
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|hri
 argument_list|,
@@ -609,9 +609,9 @@ comment|// log file create will also create a running thread to do syncing.  We 
 comment|// to close out this log else we will have a running thread trying to sync
 comment|// the file system continuously which is ugly when dfs is taken away at the
 comment|// end of the test.
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|r
 argument_list|)

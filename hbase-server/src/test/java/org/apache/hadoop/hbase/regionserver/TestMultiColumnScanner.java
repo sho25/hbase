@@ -1822,9 +1822,9 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|region
 argument_list|)

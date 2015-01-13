@@ -2198,6 +2198,13 @@ operator|==
 name|o2
 argument_list|)
 expr_stmt|;
+name|HBaseTestingUtility
+operator|.
+name|closeRegionAndWAL
+parameter_list|(
+name|region
+parameter_list|)
+constructor_decl|;
 block|}
 end_class
 
@@ -2388,9 +2395,9 @@ block|}
 end_for
 
 begin_expr_stmt
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|region
 argument_list|)
@@ -2624,9 +2631,9 @@ name|i
 operator|++
 control|)
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|regions
 index|[
@@ -2982,9 +2989,9 @@ begin_decl_stmt
 name|HRegion
 name|r
 init|=
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|info
 argument_list|,

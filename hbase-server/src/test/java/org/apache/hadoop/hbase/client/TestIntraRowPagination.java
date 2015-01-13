@@ -389,9 +389,9 @@ block|}
 name|HRegion
 name|region
 init|=
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|info
 argument_list|,
@@ -685,10 +685,12 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|region
+name|HBaseTestingUtility
 operator|.
-name|close
-argument_list|()
+name|closeRegionAndWAL
+argument_list|(
+name|region
+argument_list|)
 expr_stmt|;
 block|}
 block|}

@@ -23,6 +23,20 @@ name|apache
 operator|.
 name|commons
 operator|.
+name|lang
+operator|.
+name|RandomStringUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
 name|logging
 operator|.
 name|Log
@@ -747,6 +761,42 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|MetricsWAL
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|WALActionsListener
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|User
@@ -946,6 +996,22 @@ operator|.
 name|wal
 operator|.
 name|WAL
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALFactory
 import|;
 end_import
 
@@ -1426,7 +1492,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Facility for testing HBase. Replacement for  * old HBaseTestCase and HBaseClusterTestCase functionality.  * Create an instance and keep it around testing HBase.  This class is  * meant to be your one-stop shop for anything you might need testing.  Manages  * one cluster at a time only. Managed cluster can be an in-process  * {@link MiniHBaseCluster}, or a deployed cluster of type {@link DistributedHBaseCluster}.  * Not all methods work with the real cluster.  * Depends on log4j being on classpath and  * hbase-site.xml for logging and test-run configuration.  It does not set  * logging levels nor make changes to configuration parameters.  *<p>To preserve test data directories, pass the system property "hbase.testing.preserve.testdir"  * setting it to true.  */
+comment|/**  * Facility for testing HBase. Replacement for  * old HBaseTestCase and HBaseClusterTestCase functionality.  * Create an instance and keep it around testing HBase.  This class is  * meant to be your one-stop shop for anything you might need testing.  Manages  * one cluster at a time only. Managed cluster can be an in-process  * {@link MiniHBaseCluster}, or a deployed cluster of type {@code DistributedHBaseCluster}.  * Not all methods work with the real cluster.  * Depends on log4j being on classpath and  * hbase-site.xml for logging and test-run configuration.  It does not set  * logging levels nor make changes to configuration parameters.  *<p>To preserve test data directories, pass the system property "hbase.testing.preserve.testdir"  * setting it to true.  */
 end_comment
 
 begin_class
@@ -1972,6 +2038,50 @@ expr_stmt|;
 return|return
 name|htu
 return|;
+block|}
+comment|/**    * Close both the HRegion {@code r} and it's underlying WAL. For use in tests.    */
+specifier|public
+specifier|static
+name|void
+name|closeRegionAndWAL
+parameter_list|(
+specifier|final
+name|HRegion
+name|r
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|r
+operator|==
+literal|null
+condition|)
+return|return;
+name|r
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|r
+operator|.
+name|getWAL
+argument_list|()
+operator|==
+literal|null
+condition|)
+return|return;
+name|r
+operator|.
+name|getWAL
+argument_list|()
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Returns this classes's instance of {@link Configuration}.  Be careful how    * you use the returned Configuration since {@link HConnection} instances    * can be shared.  The Map of HConnections is keyed by the Configuration.  If    * say, a Connection was being used against a cluster that had been shutdown,    * see {@link #shutdownMiniCluster()}, then the Connection will no longer    * be wholesome.  Rather than use the return direct, its usually best to    * make a copy and use that.  Do    *<code>Configuration c = new Configuration(INSTANCE.getConfiguration());</code>    * @return Instance of Configuration.    */
 annotation|@
@@ -7024,7 +7134,6 @@ operator|.
 name|UTF8_CHARSET
 argument_list|)
 decl_stmt|;
-comment|/**    * Create a table of name<code>name</code> with {@link COLUMNS} for    * families.    * @param name Name to give table.    * @param versions How many versions to allow per column.    * @return Column descriptor.    */
 specifier|public
 name|HTableDescriptor
 name|createTableDescriptor
@@ -7123,7 +7232,7 @@ return|return
 name|htd
 return|;
 block|}
-comment|/**    * Create a table of name<code>name</code> with {@link COLUMNS} for    * families.    * @param name Name to give table.    * @return Column descriptor.    */
+comment|/**    * Create a table of name<code>name</code>.    * @param name Name to give table.    * @return Column descriptor.    */
 specifier|public
 name|HTableDescriptor
 name|createTableDescriptor
@@ -7198,7 +7307,7 @@ name|desc
 argument_list|)
 return|;
 block|}
-comment|/**    * Create an HRegion that writes to the local tmp dirs    * @param info    * @param desc    * @return    * @throws IOException    */
+comment|/**    * Create an HRegion that writes to the local tmp dirs. Creates the WAL for you. Be sure to call    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} when you're finished with it.    */
 specifier|public
 name|HRegion
 name|createLocalHRegion
@@ -7213,9 +7322,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|HRegion
-operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|info
 argument_list|,
@@ -7265,7 +7372,7 @@ name|wal
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName    * @param startKey    * @param stopKey    * @param callingMethod    * @param conf    * @param isReadOnly    * @param families    * @throws IOException    * @return A region on which you must call    *         {@link HRegion#closeHRegion(HRegion)} when done.    */
+comment|/**    * @param tableName    * @param startKey    * @param stopKey    * @param callingMethod    * @param conf    * @param isReadOnly    * @param families    * @throws IOException    * @return A region on which you must call              {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} when done.    */
 specifier|public
 name|HRegion
 name|createLocalHRegion
@@ -10312,6 +10419,208 @@ block|}
 end_function
 
 begin_comment
+comment|/**    * Create an unmanaged WAL. Be sure to close it when you're through.    */
+end_comment
+
+begin_function
+specifier|public
+specifier|static
+name|WAL
+name|createWal
+parameter_list|(
+specifier|final
+name|Configuration
+name|conf
+parameter_list|,
+specifier|final
+name|Path
+name|rootDir
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|hri
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// The WAL subsystem will use the default rootDir rather than the passed in rootDir
+comment|// unless I pass along via the conf.
+name|Configuration
+name|confForWAL
+init|=
+operator|new
+name|Configuration
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+name|confForWAL
+operator|.
+name|set
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_DIR
+argument_list|,
+name|rootDir
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return
+operator|(
+operator|new
+name|WALFactory
+argument_list|(
+name|confForWAL
+argument_list|,
+name|Collections
+operator|.
+expr|<
+name|WALActionsListener
+operator|>
+name|singletonList
+argument_list|(
+operator|new
+name|MetricsWAL
+argument_list|()
+argument_list|)
+argument_list|,
+literal|"hregion-"
+operator|+
+name|RandomStringUtils
+operator|.
+name|randomNumeric
+argument_list|(
+literal|8
+argument_list|)
+argument_list|)
+operator|)
+operator|.
+name|getWAL
+argument_list|(
+name|hri
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Create a region with it's own WAL. Be sure to call    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} to clean up all resources.    */
+end_comment
+
+begin_function
+specifier|public
+specifier|static
+name|HRegion
+name|createRegionAndWAL
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|info
+parameter_list|,
+specifier|final
+name|Path
+name|rootDir
+parameter_list|,
+specifier|final
+name|Configuration
+name|conf
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|htd
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createRegionAndWAL
+argument_list|(
+name|info
+argument_list|,
+name|rootDir
+argument_list|,
+name|conf
+argument_list|,
+name|htd
+argument_list|,
+literal|true
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Create a region with it's own WAL. Be sure to call    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} to clean up all resources.    */
+end_comment
+
+begin_function
+specifier|public
+specifier|static
+name|HRegion
+name|createRegionAndWAL
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|info
+parameter_list|,
+specifier|final
+name|Path
+name|rootDir
+parameter_list|,
+specifier|final
+name|Configuration
+name|conf
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|htd
+parameter_list|,
+name|boolean
+name|initialize
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|WAL
+name|wal
+init|=
+name|createWal
+argument_list|(
+name|conf
+argument_list|,
+name|rootDir
+argument_list|,
+name|info
+argument_list|)
+decl_stmt|;
+return|return
+name|HRegion
+operator|.
+name|createHRegion
+argument_list|(
+name|info
+argument_list|,
+name|rootDir
+argument_list|,
+name|conf
+argument_list|,
+name|htd
+argument_list|,
+name|wal
+argument_list|,
+name|initialize
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
 comment|/**    * Returns all rows from the hbase:meta table.    *    * @throws IOException When reading the rows fails.    */
 end_comment
 
@@ -12841,7 +13150,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Waits for a table to be 'enabled'.  Enabled means that table is set as 'enabled' and the    * regions have been all assigned.  Will timeout after default period (30 seconds)    * @see #waitTableAvailable(byte[])    * @param table Table to wait on.    * @param table    * @throws InterruptedException    * @throws IOException    */
+comment|/**    * Waits for a table to be 'enabled'.  Enabled means that table is set as 'enabled' and the    * regions have been all assigned.  Will timeout after default period (30 seconds)    * @param table Table to wait on.    * @param table    * @throws InterruptedException    * @throws IOException    */
 end_comment
 
 begin_function
@@ -12903,7 +13212,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Waits for a table to be 'enabled'.  Enabled means that table is set as 'enabled' and the    * regions have been all assigned.    * @see #waitTableAvailable(byte[])    * @param table Table to wait on.    * @param timeoutMillis Time to wait on it being marked enabled.    * @throws InterruptedException    * @throws IOException    */
+comment|/**    * Waits for a table to be 'enabled'.  Enabled means that table is set as 'enabled' and the    * regions have been all assigned.    * @see #waitTableEnabled(Admin, byte[], long)    * @param table Table to wait on.    * @param timeoutMillis Time to wait on it being marked enabled.    * @throws InterruptedException    * @throws IOException    */
 end_comment
 
 begin_function
@@ -13118,7 +13427,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Waits for a table to be 'disabled'.  Disabled means that table is set as 'disabled'    * @see #waitTableAvailable(byte[])    * @param table Table to wait on.    * @param timeoutMillis Time to wait on it being marked disabled.    * @throws InterruptedException    * @throws IOException    */
+comment|/**    * Waits for a table to be 'disabled'.  Disabled means that table is set as 'disabled'    * @param table Table to wait on.    * @param timeoutMillis Time to wait on it being marked disabled.    * @throws InterruptedException    * @throws IOException    */
 end_comment
 
 begin_function
@@ -16479,12 +16788,8 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|HRegion
-name|region
-init|=
-name|HRegion
-operator|.
-name|createHRegion
+return|return
+name|createRegionAndWAL
 argument_list|(
 name|info
 argument_list|,
@@ -16496,9 +16801,6 @@ argument_list|()
 argument_list|,
 name|htd
 argument_list|)
-decl_stmt|;
-return|return
-name|region
 return|;
 block|}
 end_function

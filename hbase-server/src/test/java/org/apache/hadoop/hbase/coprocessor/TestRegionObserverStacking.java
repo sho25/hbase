@@ -623,9 +623,9 @@ decl_stmt|;
 name|HRegion
 name|r
 init|=
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|createHRegion
+name|createRegionAndWAL
 argument_list|(
 name|info
 argument_list|,
@@ -920,6 +920,13 @@ argument_list|(
 name|idB
 operator|<
 name|idC
+argument_list|)
+expr_stmt|;
+name|HBaseTestingUtility
+operator|.
+name|closeRegionAndWAL
+argument_list|(
+name|region
 argument_list|)
 expr_stmt|;
 block|}
