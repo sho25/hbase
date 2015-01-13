@@ -5752,6 +5752,8 @@ argument_list|(
 name|dirPath
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Connection
 name|connection
 init|=
@@ -5762,10 +5764,10 @@ argument_list|(
 name|getConf
 argument_list|()
 argument_list|)
-decl_stmt|;
+init|;
 name|HTable
 name|table
-init|=
+operator|=
 operator|(
 name|HTable
 operator|)
@@ -5775,7 +5777,9 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-decl_stmt|;
+init|;
+init|)
+block|{
 name|doBulkLoad
 argument_list|(
 name|hfofDir
@@ -5783,6 +5787,7 @@ argument_list|,
 name|table
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|0
 return|;
