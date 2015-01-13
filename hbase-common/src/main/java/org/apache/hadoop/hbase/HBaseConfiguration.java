@@ -372,6 +372,21 @@ operator|new
 name|Configuration
 argument_list|()
 decl_stmt|;
+comment|// In case HBaseConfiguration is loaded from a different classloader than
+comment|// Configuration, conf needs to be set with appropriate class loader to resolve
+comment|// HBase resources.
+name|conf
+operator|.
+name|setClassLoader
+argument_list|(
+name|HBaseConfiguration
+operator|.
+name|class
+operator|.
+name|getClassLoader
+argument_list|()
+argument_list|)
+expr_stmt|;
 return|return
 name|addHbaseResources
 argument_list|(
