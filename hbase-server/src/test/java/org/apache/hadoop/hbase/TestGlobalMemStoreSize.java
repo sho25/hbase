@@ -23,7 +23,19 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -43,7 +55,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
+name|ArrayList
 import|;
 end_import
 
@@ -53,7 +65,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
+name|List
 import|;
 end_import
 
@@ -125,6 +137,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|RegionLocator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -143,7 +171,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|HRegion
 import|;
 end_import
 
@@ -159,7 +187,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|HRegionServer
 import|;
 end_import
 
@@ -440,7 +468,7 @@ name|ht
 init|=
 name|TEST_UTIL
 operator|.
-name|createTable
+name|createMultiRegionTable
 argument_list|(
 name|TableName
 operator|.
@@ -450,24 +478,37 @@ name|table
 argument_list|)
 argument_list|,
 name|family
+argument_list|,
+name|regionNum
 argument_list|)
 decl_stmt|;
 name|int
 name|numRegions
 init|=
-name|TEST_UTIL
-operator|.
-name|createMultiRegions
-argument_list|(
-name|conf
-argument_list|,
-name|ht
-argument_list|,
-name|family
-argument_list|,
-name|regionNum
-argument_list|)
+operator|-
+literal|1
 decl_stmt|;
+try|try
+init|(
+name|RegionLocator
+name|r
+init|=
+name|ht
+operator|.
+name|getRegionLocator
+argument_list|()
+init|)
+block|{
+name|numRegions
+operator|=
+name|r
+operator|.
+name|getStartKeys
+argument_list|()
+operator|.
+name|length
+expr_stmt|;
+block|}
 name|assertEquals
 argument_list|(
 name|regionNum

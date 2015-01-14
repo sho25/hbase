@@ -4281,7 +4281,7 @@ name|t
 init|=
 name|TEST_UTIL
 operator|.
-name|createTable
+name|createMultiRegionTable
 argument_list|(
 name|tableName
 argument_list|,
@@ -4290,17 +4290,6 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 decl_stmt|;
-name|TEST_UTIL
-operator|.
-name|createMultiRegions
-argument_list|(
-name|t
-argument_list|,
-name|HConstants
-operator|.
-name|CATALOG_FAMILY
-argument_list|)
-expr_stmt|;
 name|HRegionLocation
 name|regionLocation
 init|=

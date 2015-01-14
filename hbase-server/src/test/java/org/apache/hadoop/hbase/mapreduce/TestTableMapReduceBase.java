@@ -455,7 +455,7 @@ name|table
 init|=
 name|UTIL
 operator|.
-name|createTable
+name|createMultiRegionTable
 argument_list|(
 name|MULTI_REGION_TABLE_NAME
 argument_list|,
@@ -470,15 +470,6 @@ name|OUTPUT_FAMILY
 block|}
 argument_list|)
 decl_stmt|;
-name|UTIL
-operator|.
-name|createMultiRegions
-argument_list|(
-name|table
-argument_list|,
-name|INPUT_FAMILY
-argument_list|)
-expr_stmt|;
 name|UTIL
 operator|.
 name|loadTable

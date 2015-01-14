@@ -6609,7 +6609,7 @@ name|table
 init|=
 name|UTIL
 operator|.
-name|createTable
+name|createMultiRegionTable
 argument_list|(
 name|TEST_TABLE
 argument_list|,
@@ -6618,15 +6618,6 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|UTIL
-operator|.
-name|createMultiRegions
-argument_list|(
-name|table
-argument_list|,
-name|TEST_FAMILY
-argument_list|)
-expr_stmt|;
 name|UTIL
 operator|.
 name|waitUntilAllRegionsAssigned

@@ -149,7 +149,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|HBaseTestingUtility
 import|;
 end_import
 
@@ -163,7 +163,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseTestingUtility
+name|TableName
 import|;
 end_import
 
@@ -502,18 +502,9 @@ name|table
 operator|=
 name|TEST_UTIL
 operator|.
-name|createTable
+name|createMultiRegionTable
 argument_list|(
 name|TABLE_NAME
-argument_list|,
-name|COLUMN_FAMILY
-argument_list|)
-expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|createMultiRegions
-argument_list|(
-name|table
 argument_list|,
 name|COLUMN_FAMILY
 argument_list|)
