@@ -289,6 +289,17 @@ literal|true
 operator|)
 return|;
 block|}
+comment|/**    * Check if the OS is linux.    *    * @return whether this is linux or not.    */
+specifier|public
+specifier|static
+name|boolean
+name|isLinux
+parameter_list|()
+block|{
+return|return
+name|linux
+return|;
+block|}
 comment|/**    * Check if the finish() method of GZIPOutputStream is broken    *     * @return whether GZIPOutputStream.finish() is broken.    */
 specifier|public
 specifier|static

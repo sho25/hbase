@@ -149,7 +149,7 @@ name|get
 argument_list|(
 name|CUSTOM_RPC_CLIENT_IMPL_CONF_KEY
 argument_list|,
-name|RpcClientImpl
+name|AsyncRpcClient
 operator|.
 name|class
 operator|.

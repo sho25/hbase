@@ -137,7 +137,9 @@ specifier|private
 name|int
 name|priority
 init|=
-literal|0
+name|HConstants
+operator|.
+name|NORMAL_QOS
 decl_stmt|;
 comment|/**    * They are optionally set on construction, cleared after we make the call, and then optionally    * set on response with the result. We use this lowest common denominator access to Cells because    * sometimes the scanner is backed by a List of Cells and other times, it is backed by an    * encoded block that implements CellScanner.    */
 specifier|private

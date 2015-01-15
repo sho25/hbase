@@ -596,8 +596,8 @@ argument_list|)
 throw|;
 block|}
 name|String
-name|names
 index|[]
+name|names
 init|=
 name|SaslUtil
 operator|.

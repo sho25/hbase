@@ -85,6 +85,16 @@ name|Closeable
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface for RpcClient implementations so ConnectionManager can handle it.  */
 end_comment
@@ -218,7 +228,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-comment|/**    * Creates a "channel" that can be used by a blocking protobuf service.  Useful setting up    * protobuf blocking stubs.    *    * @return A blocking rpc channel that goes via this rpc client instance.    */
+comment|/**    * Creates a "channel" that can be used by a blocking protobuf service.  Useful setting up    * protobuf blocking stubs.    *    * @param sn server name describing location of server    * @param user which is to use the connection    * @param rpcTimeout default rpc operation timeout    *    * @return A blocking rpc channel that goes via this rpc client instance.    * @throws IOException when channel could not be created    */
 specifier|public
 name|BlockingRpcChannel
 name|createBlockingRpcChannel
@@ -232,8 +242,10 @@ parameter_list|,
 name|int
 name|rpcTimeout
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Interrupt the connections to the given server. This should be called if the server    * is known as actually dead. This will not prevent current operation to be retried, and,    * depending on their own behavior, they may retry on the same server. This can be a feature,    * for example at startup. In any case, they're likely to get connection refused (if the    * process died) or no route to host: i.e. their next retries should be faster and with a    * safe exception.    */
+comment|/**    * Interrupt the connections to the given server. This should be called if the server    * is known as actually dead. This will not prevent current operation to be retried, and,    * depending on their own behavior, they may retry on the same server. This can be a feature,    * for example at startup. In any case, they're likely to get connection refused (if the    * process died) or no route to host: i.e. their next retries should be faster and with a    * safe exception.    * @param sn server location to cancel connections of    */
 specifier|public
 name|void
 name|cancelConnections
