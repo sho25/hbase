@@ -2404,6 +2404,23 @@ name|ENABLE_WAL_COMPRESSION
 init|=
 literal|"hbase.regionserver.wal.enablecompression"
 decl_stmt|;
+comment|/** Configuration name of WAL storage policy    * Valid values are:    *  NONE: no preference in destination of replicas    *  ONE_SSD: place only one replica in SSD and the remaining in default storage    *  and ALL_SSD: place all replica on SSD    *      * See http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html*/
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|WAL_STORAGE_POLICY
+init|=
+literal|"hbase.wal.storage.policy"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DEFAULT_WAL_STORAGE_POLICY
+init|=
+literal|"NONE"
+decl_stmt|;
 comment|/** Region in Transition metrics threshold time */
 specifier|public
 specifier|static
