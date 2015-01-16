@@ -291,7 +291,6 @@ name|ServerName
 name|sn
 decl_stmt|;
 specifier|private
-specifier|final
 name|int
 name|infoPort
 decl_stmt|;
@@ -308,9 +307,6 @@ name|watcher
 parameter_list|,
 name|ServerName
 name|sn
-parameter_list|,
-name|int
-name|infoPort
 parameter_list|,
 name|Server
 name|master
@@ -336,15 +332,25 @@ name|sn
 expr_stmt|;
 name|this
 operator|.
-name|infoPort
+name|master
 operator|=
-name|infoPort
+name|master
 expr_stmt|;
+block|}
+comment|// will be set after jetty server is started
+specifier|public
+name|void
+name|setInfoPort
+parameter_list|(
+name|int
+name|infoPort
+parameter_list|)
+block|{
 name|this
 operator|.
-name|master
+name|infoPort
 operator|=
-name|master
+name|infoPort
 expr_stmt|;
 block|}
 annotation|@
