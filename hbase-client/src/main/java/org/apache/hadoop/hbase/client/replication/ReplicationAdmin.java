@@ -543,6 +543,12 @@ specifier|final
 name|ReplicationPeers
 name|replicationPeers
 decl_stmt|;
+comment|/**    * A watcher used by replicationPeers and replicationQueuesClient. Keep reference so can dispose    * on {@link #close()}.    */
+specifier|private
+specifier|final
+name|ZooKeeperWatcher
+name|zkw
+decl_stmt|;
 comment|/**    * Constructor that creates a connection to the local ZooKeeper ensemble.    * @param conf Configuration to use    * @throws IOException if an internal replication error occurs    * @throws RuntimeException if replication isn't enabled.    */
 specifier|public
 name|ReplicationAdmin
@@ -591,12 +597,11 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-name|ZooKeeperWatcher
 name|zkw
-init|=
+operator|=
 name|createZooKeeperWatcher
 argument_list|()
-decl_stmt|;
+expr_stmt|;
 try|try
 block|{
 name|this
@@ -672,6 +677,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// This Abortable doesn't 'abort'... it just logs.
 return|return
 operator|new
 name|ZooKeeperWatcher
@@ -681,7 +687,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-literal|"Replication Admin"
+literal|"ReplicationAdmin"
 argument_list|,
 operator|new
 name|Abortable
@@ -709,13 +715,8 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|exit
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
+comment|// We used to call system.exit here but this script can be embedded by other programs that
+comment|// want to do replication stuff... so inappropriate calling System.exit. Just log for now.
 block|}
 annotation|@
 name|Override
@@ -2205,6 +2206,23 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|zkw
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|zkw
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|this
