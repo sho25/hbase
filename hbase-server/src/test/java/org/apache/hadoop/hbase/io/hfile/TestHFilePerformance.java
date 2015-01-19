@@ -885,6 +885,10 @@ name|println
 argument_list|(
 name|ROOT_DIR
 operator|+
+name|Path
+operator|.
+name|SEPARATOR
+operator|+
 name|path
 operator|.
 name|getName
