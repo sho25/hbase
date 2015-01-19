@@ -578,7 +578,15 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-comment|// Nothing to do.
+name|MyPreemptiveFastFailInterceptor
+operator|.
+name|numBraveSouls
+operator|.
+name|set
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
