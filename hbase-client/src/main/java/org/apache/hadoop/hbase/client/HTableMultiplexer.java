@@ -805,7 +805,7 @@ return|return
 name|failedPuts
 return|;
 block|}
-comment|/**    * Deprecated. Use {@link #put(TableName, List) } instead.    */
+comment|/**    * @deprecated Use {@link #put(TableName, List) } instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -965,7 +965,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Deprecated. Use {@link #put(TableName, Put) } instead.    */
+comment|/**    * @deprecated Use {@link #put(TableName, Put) } instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1001,7 +1001,7 @@ name|retry
 argument_list|)
 return|;
 block|}
-comment|/**    * Deprecated. Use {@link #put(TableName, Put)} instead.    */
+comment|/**    * @deprecated Use {@link #put(TableName, Put)} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1665,17 +1665,17 @@ specifier|static
 class|class
 name|PutStatus
 block|{
-specifier|public
+specifier|private
 specifier|final
 name|HRegionInfo
 name|regionInfo
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|final
 name|Put
 name|put
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|final
 name|int
 name|retryCount
@@ -1832,7 +1832,7 @@ name|this
 operator|.
 name|sum
 operator|=
-literal|0l
+literal|0L
 expr_stmt|;
 name|this
 operator|.

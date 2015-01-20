@@ -52,9 +52,14 @@ import|;
 end_import
 
 begin_class
+specifier|final
 class|class
 name|StabilityOptions
 block|{
+specifier|private
+name|StabilityOptions
+parameter_list|()
+block|{}
 specifier|public
 specifier|static
 specifier|final

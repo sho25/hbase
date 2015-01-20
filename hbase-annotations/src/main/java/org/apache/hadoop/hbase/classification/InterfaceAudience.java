@@ -67,6 +67,7 @@ name|InterfaceStability
 operator|.
 name|Evolving
 specifier|public
+specifier|final
 class|class
 name|InterfaceAudience
 block|{

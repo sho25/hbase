@@ -97,9 +97,14 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|IncludePublicAnnotationsStandardDoclet
 block|{
+specifier|private
+name|IncludePublicAnnotationsStandardDoclet
+parameter_list|()
+block|{}
 specifier|public
 specifier|static
 name|LanguageVersion

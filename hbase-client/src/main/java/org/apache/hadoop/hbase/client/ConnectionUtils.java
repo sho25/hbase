@@ -215,9 +215,14 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|ConnectionUtils
 block|{
+specifier|private
+name|ConnectionUtils
+parameter_list|()
+block|{}
 specifier|private
 specifier|static
 specifier|final

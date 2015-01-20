@@ -246,7 +246,7 @@ name|ClusterConnection
 extends|extends
 name|HConnection
 block|{
-comment|/** @return - true if the master server is running    * @deprecated this has been deprecated without a replacement */
+comment|/**    * @return - true if the master server is running    * @deprecated this has been deprecated without a replacement    */
 annotation|@
 name|Override
 annotation|@
@@ -553,7 +553,7 @@ name|ServerName
 name|sn
 parameter_list|)
 function_decl|;
-comment|/**    * This function allows HBaseAdmin and potentially others to get a shared MasterService    * connection.    * @return The shared instance. Never returns null.    * @throws MasterNotRunningException    */
+comment|/**    * This function allows HBaseAdmin and potentially others to get a shared MasterService    * connection.    * @return The shared instance. Never returns null.    * @throws MasterNotRunningException    * @deprecated Since 0.96.0    */
 annotation|@
 name|Override
 annotation|@

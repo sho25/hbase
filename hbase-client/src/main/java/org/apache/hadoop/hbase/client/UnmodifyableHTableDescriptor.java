@@ -351,13 +351,6 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|//  /**
-comment|//   * @see org.apache.hadoop.hbase.HTableDescriptor#addIndex(org.apache.hadoop.hbase.client.tableindexed.IndexSpecification)
-comment|//   */
-comment|//  @Override
-comment|//  public void addIndex(IndexSpecification index) {
-comment|//    throw new UnsupportedOperationException("HTableDescriptor is read-only");
-comment|//  }
 block|}
 end_class
 

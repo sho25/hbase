@@ -93,6 +93,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -108,6 +122,38 @@ operator|.
 name|hbase
 operator|.
 name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -270,7 +316,21 @@ comment|/**  * A wrapper for HTable. Can be used to restrict privilege.  *  * Cu
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+argument_list|)
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
+specifier|final
 class|class
 name|HTableWrapper
 implements|implements
@@ -536,6 +596,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * @deprecated in 0.99 since setting clearBufferOnFail is deprecated. Use    * {@link #setAutoFlushTo(boolean)}} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -656,6 +717,7 @@ name|gets
 argument_list|)
 return|;
 block|}
+comment|/**    * @deprecated Use {@link #existsAll(java.util.List)}  instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1370,7 +1432,7 @@ name|callback
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    * @deprecated If any exception is thrown by one of the actions, there is no way to    * retrieve the partially executed results. Use    * {@link #batchCallback(List, Object[], org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)}    * instead.    */
+comment|/**    * {@inheritDoc}    * @deprecated If any exception is thrown by one of the actions, there is no way to    * retrieve the partially executed results. Use    * {@link #batchCallback(List, Object[], Batch.Callback)} instead.    */
 annotation|@
 name|Deprecated
 annotation|@

@@ -258,7 +258,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Single row result of a {@link Get} or {@link Scan} query.<p>  *  * This class is<b>NOT THREAD SAFE</b>.<p>  *  * Convenience methods are available that return various {@link Map}  * structures and values directly.<p>  *  * To get a complete mapping of all cells in the Result, which can include  * multiple families and multiple versions, use {@link #getMap()}.<p>  *  * To get a mapping of each family to its columns (qualifiers and values),  * including only the latest version of each, use {@link #getNoVersionMap()}.  *  * To get a mapping of qualifiers to latest values for an individual family use  * {@link #getFamilyMap(byte[])}.<p>  *  * To get the latest value for a specific family and qualifier use {@link #getValue(byte[], byte[])}.  *  * A Result is backed by an array of {@link Cell} objects, each representing  * an HBase cell defined by the row, family, qualifier, timestamp, and value.<p>  *  * The underlying {@link Cell} objects can be accessed through the method {@link #listCells()}.  * This will create a List from the internal Cell []. Better is to exploit the fact that  * a new Result instance is a primed {@link CellScanner}; just call {@link #advance()} and  * {@link #current()} to iterate over Cells as you would any {@link CellScanner}.  * Call {@link #cellScanner()} to reset should you need to iterate the same Result over again  * ({@link CellScanner}s are one-shot).  *  * If you need to overwrite a Result with another Result instance -- as in the old 'mapred'  * RecordReader next invocations -- then create an empty Result with the null constructor and  * in then use {@link #copyFrom(Result)}  */
+comment|/**  * Single row result of a {@link Get} or {@link Scan} query.<p>  *  * This class is<b>NOT THREAD SAFE</b>.<p>  *  * Convenience methods are available that return various {@link Map}  * structures and values directly.<p>  *  * To get a complete mapping of all cells in the Result, which can include  * multiple families and multiple versions, use {@link #getMap()}.<p>  *  * To get a mapping of each family to its columns (qualifiers and values),  * including only the latest version of each, use {@link #getNoVersionMap()}.  *  * To get a mapping of qualifiers to latest values for an individual family use  * {@link #getFamilyMap(byte[])}.<p>  *  * To get the latest value for a specific family and qualifier use  * {@link #getValue(byte[], byte[])}.  *  * A Result is backed by an array of {@link Cell} objects, each representing  * an HBase cell defined by the row, family, qualifier, timestamp, and value.<p>  *  * The underlying {@link Cell} objects can be accessed through the method {@link #listCells()}.  * This will create a List from the internal Cell []. Better is to exploit the fact that  * a new Result instance is a primed {@link CellScanner}; just call {@link #advance()} and  * {@link #current()} to iterate over Cells as you would any {@link CellScanner}.  * Call {@link #cellScanner()} to reset should you need to iterate the same Result over again  * ({@link CellScanner}s are one-shot).  *  * If you need to overwrite a Result with another Result instance -- as in the old 'mapred'  * RecordReader next invocations -- then create an empty Result with the null constructor and  * in then use {@link #copyFrom(Result)}  */
 end_comment
 
 begin_class
@@ -387,7 +387,7 @@ operator|.
 name|RegionLoadStats
 name|stats
 decl_stmt|;
-comment|/**    * Creates an empty Result w/ no KeyValue payload; returns null if you call {@link #rawCells()}.    * Use this to represent no results if<code>null</code> won't do or in old 'mapred' as oppposed to 'mapreduce' package    * MapReduce where you need to overwrite a Result    * instance with a {@link #copyFrom(Result)} call.    */
+comment|/**    * Creates an empty Result w/ no KeyValue payload; returns null if you call {@link #rawCells()}.    * Use this to represent no results if {@code null} won't do or in old 'mapred' as opposed    * to 'mapreduce' package MapReduce where you need to overwrite a Result instance with a    * {@link #copyFrom(Result)} call.    */
 specifier|public
 name|Result
 parameter_list|()
@@ -644,6 +644,7 @@ name|this
 operator|.
 name|row
 operator|=
+operator|(
 name|this
 operator|.
 name|cells
@@ -657,6 +658,7 @@ operator|.
 name|length
 operator|==
 literal|0
+operator|)
 condition|?
 literal|null
 else|:
@@ -2013,24 +2015,7 @@ name|familyMap
 operator|=
 operator|new
 name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|NavigableMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|NavigableMap
-argument_list|<
-name|Long
-argument_list|,
-name|byte
-index|[]
-argument_list|>
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -2091,18 +2076,7 @@ name|columnMap
 operator|=
 operator|new
 name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|NavigableMap
-argument_list|<
-name|Long
-argument_list|,
-name|byte
-index|[]
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -2157,12 +2131,7 @@ name|versionMap
 operator|=
 operator|new
 name|TreeMap
-argument_list|<
-name|Long
-argument_list|,
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|Comparator

@@ -1099,6 +1099,8 @@ name|this
 operator|.
 name|cleanupPoolOnClose
 operator|=
+literal|true
+expr_stmt|;
 name|this
 operator|.
 name|cleanupConnectionOnClose
@@ -2537,7 +2539,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// TODO: Odd that this returns a Map of HRI to SN whereas getRegionLocator, singular, returns an HRegionLocation.
+comment|// TODO: Odd that this returns a Map of HRI to SN whereas getRegionLocator, singular,
+comment|// returns an HRegionLocation.
 return|return
 name|MetaScanner
 operator|.
@@ -3910,7 +3913,7 @@ name|callback
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    * @deprecated If any exception is thrown by one of the actions, there is no way to    * retrieve the partially executed results. Use    * {@link #batchCallback(List, Object[], org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)}    * instead.    */
+comment|/**    * {@inheritDoc}    * @deprecated If any exception is thrown by one of the actions, there is no way to    * retrieve the partially executed results. Use    * {@link #batchCallback(List, Object[], Batch.Callback)}    * instead.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -4187,8 +4190,8 @@ block|}
 finally|finally
 block|{
 comment|// mutate list so that it is empty for complete success, or contains only failed records
-comment|// results are returned in the same order as the requests in list
-comment|// walk the list backwards, so we can remove from list without impacting the indexes of earlier members
+comment|// results are returned in the same order as the requests in list walk the list backwards,
+comment|// so we can remove from list without impacting the indexes of earlier members
 for|for
 control|(
 name|int
@@ -6717,7 +6720,7 @@ return|return
 name|results
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/**    * {@inheritDoc}    * @deprecated Use {@link #existsAll(java.util.List)}  instead.    */
 annotation|@
 name|Override
 annotation|@
@@ -7125,7 +7128,7 @@ return|return
 name|autoFlush
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/**    * {@inheritDoc}    * @deprecated in 0.96. When called with setAutoFlush(false), this function also    *  set clearBufferOnFail to true, which is unexpected but kept for historical reasons.    *  Replace it with setAutoFlush(false, false) if this is exactly what you want, or by    *  {@link #setAutoFlushTo(boolean)} for all other cases.    */
 annotation|@
 name|Deprecated
 annotation|@

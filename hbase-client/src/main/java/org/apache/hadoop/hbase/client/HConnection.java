@@ -418,6 +418,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated instead use {@link #isTableEnabled(TableName)}    */
 annotation|@
 name|Deprecated
 name|boolean
@@ -440,6 +441,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated instead use {@link #isTableDisabled(TableName)}    */
 annotation|@
 name|Deprecated
 name|boolean
@@ -473,6 +475,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated instead use {@link #isTableAvailable(TableName)}    */
 annotation|@
 name|Deprecated
 name|boolean
@@ -485,7 +488,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Use this api to check if the table has been created with the specified number of    * splitkeys which was used while creating the given table.    * Note : If this api is used after a table's region gets splitted, the api may return    * false.    * @param tableName    *          tableName    * @param splitKeys    *          splitKeys used while creating table    * @throws IOException    *           if a remote or network exception occurs    * @deprecated internal method, do not use thru HConnection */
+comment|/**    * Use this api to check if the table has been created with the specified number of    * splitkeys which was used while creating the given table.    * Note : If this api is used after a table's region gets splitted, the api may return    * false.    * @param tableName tableName    * @param splitKeys splitKeys used while creating table    * @throws IOException if a remote or network exception occurs    * @deprecated internal method, do not use through HConnection */
 annotation|@
 name|Deprecated
 name|boolean
@@ -502,6 +505,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|boolean
@@ -552,7 +556,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param tableName table name    * @return table metadata    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * @param tableName table name    * @return table metadata    * @throws IOException if a remote or network exception occurs    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
@@ -564,6 +568,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
@@ -576,7 +581,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    * @deprecated internal method, do not use thru HConnection    */
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -595,6 +600,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -614,14 +620,14 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Allows flushing the region cache.    * @deprecated internal method, do not use thru HConnection */
+comment|/**    * Allows flushing the region cache.    * @deprecated internal method, do not use through HConnection */
 annotation|@
 name|Deprecated
 name|void
 name|clearRegionCache
 parameter_list|()
 function_decl|;
-comment|/**    * Allows flushing the region cache of all locations that pertain to    *<code>tableName</code>    * @param tableName Name of the table whose regions we are to remove from    * cache.    * @deprecated internal method, do not use thru HConnection */
+comment|/**    * Allows flushing the region cache of all locations that pertain to    *<code>tableName</code>    * @param tableName Name of the table whose regions we are to remove from    * cache.    * @deprecated internal method, do not use through HConnection */
 annotation|@
 name|Deprecated
 name|void
@@ -632,6 +638,7 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|void
@@ -654,7 +661,7 @@ name|HRegionLocation
 name|location
 parameter_list|)
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    * @deprecated internal method, do not use thru HConnection */
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    * @deprecated internal method, do not use through HConnection */
 annotation|@
 name|Deprecated
 name|HRegionLocation
@@ -672,6 +679,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|HRegionLocation
@@ -690,6 +698,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|void
@@ -709,7 +718,7 @@ name|HRegionLocation
 name|source
 parameter_list|)
 function_decl|;
-comment|/**    * Update the location cache. This is used internally by HBase, in most cases it should not be    *  used by the client application.    * @param tableName the table name    * @param regionName the regionName    * @param rowkey the row    * @param exception the exception if any. Can be null.    * @param source the previous location    * @deprecated internal method, do not use thru HConnection    */
+comment|/**    * Update the location cache. This is used internally by HBase, in most cases it should not be    *  used by the client application.    * @param tableName the table name    * @param regionName the regionName    * @param rowkey the row    * @param exception the exception if any. Can be null.    * @param source the previous location    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|void
@@ -733,6 +742,7 @@ name|ServerName
 name|source
 parameter_list|)
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|void
@@ -783,6 +793,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|List
@@ -824,6 +835,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -927,6 +939,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|HRegionLocation
@@ -976,6 +989,7 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|void
@@ -1048,6 +1062,7 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
+comment|/**    * @deprecated Unsupported API    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1171,6 +1186,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated since 0.96.0    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor

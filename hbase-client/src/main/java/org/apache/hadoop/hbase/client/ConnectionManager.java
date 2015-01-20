@@ -2838,6 +2838,7 @@ name|InterfaceAudience
 operator|.
 name|Private
 comment|// NOTE: DO NOT make this class public. It was made package-private on purpose.
+specifier|final
 class|class
 name|ConnectionManager
 block|{
@@ -3086,7 +3087,7 @@ return|return
 name|ng
 return|;
 block|}
-comment|/**    * Get the connection that goes with the passed<code>conf</code> configuration instance.    * If no current connection exists, method creates a new connection and keys it using    * connection-specific properties from the passed {@link Configuration}; see    * {@link HConnectionKey}.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
+comment|/**    * Get the connection that goes with the passed<code>conf</code> configuration instance.    * If no current connection exists, method creates a new connection and keys it using    * connection-specific properties from the passed {@link Configuration}; see    * {@link HConnectionKey}.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    * @deprecated connection caching is going away.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3377,6 +3378,7 @@ name|user
 argument_list|)
 return|;
 block|}
+comment|/**    * @deprecated instead use one of the {@link ConnectionFactory#createConnection()} methods.    */
 annotation|@
 name|Deprecated
 specifier|static
@@ -3420,6 +3422,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * @deprecated instead use one of the {@link ConnectionFactory#createConnection()} methods.    */
 annotation|@
 name|Deprecated
 specifier|static
@@ -3463,7 +3466,7 @@ name|user
 argument_list|)
 return|;
 block|}
-comment|/**    * Delete connection information for the instance specified by passed configuration.    * If there are no more references to the designated connection connection, this method will    * then close connection to the zookeeper ensemble and let go of all associated resources.    *    * @param conf configuration whose identity is used to find {@link HConnection} instance.    * @deprecated    */
+comment|/**    * Delete connection information for the instance specified by passed configuration.    * If there are no more references to the designated connection connection, this method will    * then close connection to the zookeeper ensemble and let go of all associated resources.    *    * @param conf configuration whose identity is used to find {@link HConnection} instance.    * @deprecated connection caching is going away.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3487,7 +3490,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Cleanup a known stale connection.    * This will then close connection to the zookeeper ensemble and let go of all resources.    *    * @param connection    * @deprecated    */
+comment|/**    * Cleanup a known stale connection.    * This will then close connection to the zookeeper ensemble and let go of all resources.    *    * @param connection    * @deprecated connection caching is going away.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3507,7 +3510,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete information for all connections. Close or not the connection, depending on the    *  staleConnection boolean and the ref count. By default, you should use it with    *  staleConnection to true.    * @deprecated    */
+comment|/**    * Delete information for all connections. Close or not the connection, depending on the    *  staleConnection boolean and the ref count. By default, you should use it with    *  staleConnection to true.    * @deprecated connection caching is going away.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3585,6 +3588,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @deprecated connection caching is going away.    */
 annotation|@
 name|Deprecated
 specifier|private
@@ -3645,6 +3649,7 @@ block|}
 block|}
 block|}
 block|}
+comment|/**    * @deprecated connection caching is going away. ˙   */
 annotation|@
 name|Deprecated
 specifier|private
@@ -5191,7 +5196,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**      * @return true if the master is running, throws an exception otherwise      * @throws MasterNotRunningException - if the master is not running      * @throws ZooKeeperConnectionException      */
+comment|/**      * @return true if the master is running, throws an exception otherwise      * @throws MasterNotRunningException - if the master is not running      * @throws ZooKeeperConnectionException      * @deprecated this has been deprecated without a replacement      */
 annotation|@
 name|Deprecated
 annotation|@
@@ -8680,6 +8685,7 @@ block|}
 comment|/**      * Creates a Chore thread to check the connections to master& zookeeper      *  and close them when they reach their closing time (      *  {@link MasterServiceState#keepAliveUntil} and      *  {@link #keepZooKeeperWatcherAliveUntil}). Keep alive time is      *  managed by the release functions and the variable {@link #keepAlive}      */
 specifier|private
 specifier|static
+specifier|final
 class|class
 name|DelayedClosing
 extends|extends
@@ -10978,6 +10984,7 @@ name|source
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * @deprecated since 0.96 - Use {@link HTableInterface#batch} instead      */
 annotation|@
 name|Override
 annotation|@
@@ -11046,6 +11053,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * @deprecated Unsupported API      */
 annotation|@
 name|Override
 annotation|@
@@ -11180,6 +11188,7 @@ argument_list|()
 throw|;
 block|}
 block|}
+comment|/**      * @deprecated Unsupported API      */
 annotation|@
 name|Override
 annotation|@
@@ -11344,6 +11353,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
+comment|/**      * @deprecated always return false since 0.99      */
 annotation|@
 name|Override
 annotation|@
@@ -11361,6 +11371,7 @@ name|boolean
 name|enable
 parameter_list|)
 block|{     }
+comment|/**      * @deprecated always return false since 0.99      */
 annotation|@
 name|Override
 annotation|@
@@ -11379,6 +11390,7 @@ name|boolean
 name|enable
 parameter_list|)
 block|{     }
+comment|/**      * @deprecated always return false since 0.99      */
 annotation|@
 name|Override
 annotation|@
@@ -11395,6 +11407,7 @@ return|return
 literal|false
 return|;
 block|}
+comment|/**      * @deprecated always return false since 0.99      */
 annotation|@
 name|Override
 annotation|@
@@ -11833,8 +11846,8 @@ name|listTableNames
 argument_list|()
 decl_stmt|;
 name|String
-name|result
 index|[]
+name|result
 init|=
 operator|new
 name|String
@@ -12535,9 +12548,7 @@ name|basePause
 argument_list|,
 name|errorStats
 operator|.
-name|retries
-operator|.
-name|get
+name|getCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -12629,7 +12640,7 @@ specifier|static
 class|class
 name|ServerErrors
 block|{
-specifier|public
+specifier|private
 specifier|final
 name|AtomicInteger
 name|retries
@@ -12640,6 +12651,18 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+specifier|public
+name|int
+name|getCount
+parameter_list|()
+block|{
+return|return
+name|retries
+operator|.
+name|get
+argument_list|()
+return|;
+block|}
 specifier|public
 name|void
 name|addError

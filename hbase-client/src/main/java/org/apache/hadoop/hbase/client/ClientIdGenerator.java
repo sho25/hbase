@@ -124,6 +124,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|final
 class|class
 name|ClientIdGenerator
 block|{
@@ -141,6 +142,10 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
+name|ClientIdGenerator
+parameter_list|()
+block|{}
 comment|/**    * @return a unique ID incorporating IP address, PID, TID and timer. Might be an overkill...    * Note though that new UUID in java by default is just a random number.    */
 specifier|public
 specifier|static

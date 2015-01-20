@@ -276,6 +276,7 @@ comment|/**  * Process the {@link RootDoc} by substituting with (nested) proxy o
 end_comment
 
 begin_class
+specifier|final
 class|class
 name|RootDocProcessor
 block|{
@@ -293,6 +294,10 @@ name|treatUnannotatedClassesAsPrivate
 init|=
 literal|false
 decl_stmt|;
+specifier|private
+name|RootDocProcessor
+parameter_list|()
+block|{}
 specifier|public
 specifier|static
 name|RootDoc
@@ -1619,6 +1624,7 @@ name|proxy
 operator|instanceof
 name|Proxy
 condition|)
+block|{
 return|return
 operator|(
 operator|(
@@ -1634,6 +1640,7 @@ operator|)
 operator|.
 name|target
 return|;
+block|}
 return|return
 name|proxy
 return|;

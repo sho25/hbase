@@ -52,9 +52,14 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|final
 class|class
 name|RegistryFactory
 block|{
+specifier|private
+name|RegistryFactory
+parameter_list|()
+block|{}
 comment|/**    * @return The cluster registry implementation to use.    * @throws IOException    */
 specifier|static
 name|Registry

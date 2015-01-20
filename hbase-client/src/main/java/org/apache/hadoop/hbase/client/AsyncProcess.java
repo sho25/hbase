@@ -597,7 +597,6 @@ operator|new
 name|AsyncRequestFuture
 argument_list|()
 block|{
-specifier|public
 specifier|final
 name|Object
 index|[]
@@ -1428,7 +1427,7 @@ literal|"Neither AsyncProcess nor request have ExecutorService"
 argument_list|)
 throw|;
 block|}
-comment|/**    * See {@link #submit(ExecutorService, TableName, List, boolean, org.apache.hadoop.hbase.client.coprocessor.Batch.Callback, boolean)}.    * Uses default ExecutorService for this AP (must have been created with one).    */
+comment|/**    * See {@link #submit(ExecutorService, TableName, List, boolean, Batch.Callback, boolean)}.    * Uses default ExecutorService for this AP (must have been created with one).    */
 specifier|public
 parameter_list|<
 name|CResult
@@ -2604,7 +2603,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * See {@link #submitAll(ExecutorService, TableName, List, org.apache.hadoop.hbase.client.coprocessor.Batch.Callback, Object[])}.    * Uses default ExecutorService for this AP (must have been created with one).    */
+comment|/**    * See {@link #submitAll(ExecutorService, TableName, List, Batch.Callback, Object[])}.    * Uses default ExecutorService for this AP (must have been created with one).    */
 specifier|public
 parameter_list|<
 name|CResult
@@ -7274,10 +7273,6 @@ expr_stmt|;
 return|return;
 comment|// Simple case, no replica requests.
 block|}
-elseif|else
-if|if
-condition|(
-operator|(
 name|state
 operator|=
 name|trySetResultSimple
@@ -7297,7 +7292,10 @@ literal|null
 argument_list|,
 name|isStale
 argument_list|)
-operator|)
+expr_stmt|;
+if|if
+condition|(
+name|state
 operator|==
 literal|null
 condition|)
@@ -7305,11 +7303,6 @@ block|{
 return|return;
 comment|// Simple case, no replica requests.
 block|}
-assert|assert
-name|state
-operator|!=
-literal|null
-assert|;
 comment|// At this point we know that state is set to replica tracking class.
 comment|// It could be that someone else is also looking at it; however, we know there can
 comment|// only be one state object, and only one thread can set callCount to 0. Other threads
@@ -7426,10 +7419,6 @@ expr_stmt|;
 return|return;
 comment|// Simple case, no replica requests.
 block|}
-elseif|else
-if|if
-condition|(
-operator|(
 name|state
 operator|=
 name|trySetResultSimple
@@ -7446,7 +7435,10 @@ name|server
 argument_list|,
 literal|false
 argument_list|)
-operator|)
+expr_stmt|;
+if|if
+condition|(
+name|state
 operator|==
 literal|null
 condition|)
@@ -7454,11 +7446,6 @@ block|{
 return|return;
 comment|// Simple case, no replica requests.
 block|}
-assert|assert
-name|state
-operator|!=
-literal|null
-assert|;
 name|BatchErrors
 name|target
 init|=
@@ -7746,16 +7733,16 @@ init|(
 name|replicaResultLock
 init|)
 block|{
-if|if
-condition|(
-operator|(
 name|resObj
 operator|=
 name|results
 index|[
 name|index
 index|]
-operator|)
+expr_stmt|;
+if|if
+condition|(
+name|resObj
 operator|==
 literal|null
 condition|)
@@ -9009,7 +8996,7 @@ name|TIMELINE
 operator|)
 return|;
 block|}
-comment|/**    * For manageError. Only used to make logging more clear, we don't actually care why we don't retry.    */
+comment|/**    * For {@link AsyncRequestFutureImpl#manageError(int, Row, Retry, Throwable, ServerName)}. Only    * used to make logging more clear, we don't actually care why we don't retry.    */
 specifier|private
 enum|enum
 name|Retry

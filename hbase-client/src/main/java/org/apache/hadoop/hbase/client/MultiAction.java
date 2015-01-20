@@ -142,7 +142,7 @@ parameter_list|>
 block|{
 comment|// TODO: This class should not be visible outside of the client package.
 comment|// map of regions to lists of puts/gets/deletes for that region.
-specifier|public
+specifier|protected
 name|Map
 argument_list|<
 name|byte
@@ -160,18 +160,7 @@ name|actions
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|List
-argument_list|<
-name|Action
-argument_list|<
-name|R
-argument_list|>
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.

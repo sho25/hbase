@@ -304,6 +304,7 @@ operator|.
 name|Private
 comment|//TODO: merge this to MetaTableAccessor, get rid of it.
 specifier|public
+specifier|final
 class|class
 name|MetaScanner
 block|{
@@ -322,6 +323,10 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
+name|MetaScanner
+parameter_list|()
+block|{}
 comment|/**    * Scans the meta table and calls a visitor on each RowResult and uses a empty    * start row value as table name.    *     *<p>Visible for testing. Use {@link    * #metaScan(Connection, MetaScannerVisitor, TableName)} instead.    *    * @param visitor A custom visitor    * @throws IOException e    */
 annotation|@
 name|VisibleForTesting

@@ -74,7 +74,6 @@ class|class
 name|FailureInfo
 block|{
 comment|// The number of consecutive failures.
-specifier|public
 specifier|final
 name|AtomicLong
 name|numConsecutiveFailures
@@ -85,14 +84,12 @@ argument_list|()
 decl_stmt|;
 comment|// The time when the server started to become unresponsive
 comment|// Once set, this would never be updated.
-specifier|public
 specifier|final
 name|long
 name|timeOfFirstFailureMilliSec
 decl_stmt|;
 comment|// The time when the client last tried to contact the server.
 comment|// This is only updated by one client at a time
-specifier|public
 specifier|volatile
 name|long
 name|timeOfLatestAttemptMilliSec
@@ -100,7 +97,6 @@ decl_stmt|;
 comment|// Used to keep track of concurrent attempts to contact the server.
 comment|// In Fast fail mode, we want just one client thread to try to connect
 comment|// the rest of the client threads will fail fast.
-specifier|public
 specifier|final
 name|AtomicBoolean
 name|exclusivelyRetringInspiteOfFastFail
