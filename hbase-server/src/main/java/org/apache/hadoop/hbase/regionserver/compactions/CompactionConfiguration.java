@@ -108,7 +108,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Compaction configuration for a particular instance of HStore.  * Takes into account both global settings and ones set on the column family/store.  * Control knobs for default compaction algorithm:  *<p/>  * maxCompactSize - upper bound on file size to be included in minor compactions  * minCompactSize - lower bound below which compaction is selected without ratio test  * minFilesToCompact - lower bound on number of files in any minor compaction  * maxFilesToCompact - upper bound on number of files in any minor compaction  * compactionRatio - Ratio used for compaction  *<p/>  * Set parameter as "hbase.hstore.compaction.<attribute>"  */
+comment|/**  * Compaction configuration for a particular instance of HStore.  * Takes into account both global settings and ones set on the column family/store.  * Control knobs for default compaction algorithm:  *<p/>  * maxCompactSize - upper bound on file size to be included in minor compactions  * minCompactSize - lower bound below which compaction is selected without ratio test  * minFilesToCompact - lower bound on number of files in any minor compaction  * maxFilesToCompact - upper bound on number of files in any minor compaction  * compactionRatio - Ratio used for compaction  * minLocalityToForceCompact - Locality threshold for a store file to major compact (HBASE-11195)  *<p/>  * Set parameter as "hbase.hstore.compaction.<attribute>"  */
 end_comment
 
 begin_class
@@ -198,6 +198,14 @@ name|HBASE_HSTORE_OFFPEAK_START_HOUR
 init|=
 literal|"hbase.offpeak.start.hour"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_HSTORE_MIN_LOCALITY_TO_SKIP_MAJOR_COMPACT
+init|=
+literal|"hbase.hstore.min.locality.to.skip.major.compact"
+decl_stmt|;
 name|Configuration
 name|conf
 decl_stmt|;
@@ -249,6 +257,11 @@ specifier|private
 specifier|final
 name|float
 name|majorCompactionJitter
+decl_stmt|;
+specifier|private
+specifier|final
+name|float
+name|minLocalityToForceCompact
 decl_stmt|;
 name|CompactionConfiguration
 parameter_list|(
@@ -408,6 +421,17 @@ argument_list|,
 literal|0.50F
 argument_list|)
 expr_stmt|;
+name|minLocalityToForceCompact
+operator|=
+name|conf
+operator|.
+name|getFloat
+argument_list|(
+name|HBASE_HSTORE_MIN_LOCALITY_TO_SKIP_MAJOR_COMPACT
+argument_list|,
+literal|0f
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -430,7 +454,7 @@ name|format
 argument_list|(
 literal|"size [%d, %d); files [%d, %d); ratio %f; off-peak ratio %f; throttle point %d;"
 operator|+
-literal|" major period %d, major jitter %f"
+literal|" major period %d, major jitter %f, min locality to compact %f"
 argument_list|,
 name|minCompactSize
 argument_list|,
@@ -449,6 +473,8 @@ argument_list|,
 name|majorCompactionPeriod
 argument_list|,
 name|majorCompactionJitter
+argument_list|,
+name|minLocalityToForceCompact
 argument_list|)
 return|;
 block|}
@@ -540,6 +566,16 @@ parameter_list|()
 block|{
 return|return
 name|majorCompactionJitter
+return|;
+block|}
+comment|/**    * @return Block locality ratio, the ratio at which we will include old regions with a single    * store file for major compaction.  Used to improve block locality for regions that    * haven't had writes in a while but are still being read.    */
+specifier|public
+name|float
+name|getMinLocalityToForceCompact
+parameter_list|()
+block|{
+return|return
+name|minLocalityToForceCompact
 return|;
 block|}
 block|}
