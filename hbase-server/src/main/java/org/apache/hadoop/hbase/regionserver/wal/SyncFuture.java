@@ -63,6 +63,8 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
 name|htrace
 operator|.
 name|Span

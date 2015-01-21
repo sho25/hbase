@@ -885,6 +885,8 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
 name|htrace
 operator|.
 name|NullScope
@@ -894,6 +896,8 @@ end_import
 begin_import
 import|import
 name|org
+operator|.
+name|apache
 operator|.
 name|htrace
 operator|.
@@ -905,6 +909,8 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
 name|htrace
 operator|.
 name|Trace
@@ -914,6 +920,8 @@ end_import
 begin_import
 import|import
 name|org
+operator|.
+name|apache
 operator|.
 name|htrace
 operator|.

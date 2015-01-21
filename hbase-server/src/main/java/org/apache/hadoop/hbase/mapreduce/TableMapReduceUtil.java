@@ -2900,6 +2900,8 @@ name|class
 argument_list|,
 name|org
 operator|.
+name|apache
+operator|.
 name|htrace
 operator|.
 name|Trace

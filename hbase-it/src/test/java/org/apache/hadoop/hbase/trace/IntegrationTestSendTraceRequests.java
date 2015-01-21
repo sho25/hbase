@@ -281,6 +281,8 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
 name|htrace
 operator|.
 name|Sampler
@@ -291,6 +293,8 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
 name|htrace
 operator|.
 name|Trace
@@ -300,6 +304,8 @@ end_import
 begin_import
 import|import
 name|org
+operator|.
+name|apache
 operator|.
 name|htrace
 operator|.
