@@ -10292,7 +10292,7 @@ specifier|final
 name|String
 name|noOfTags
 init|=
-literal|"--nooftags="
+literal|"--numoftags="
 decl_stmt|;
 if|if
 condition|(
@@ -10803,6 +10803,26 @@ argument_list|)
 expr_stmt|;
 break|break;
 block|}
+comment|// Not matching any option or command.
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Error: Wrong option or command: "
+operator|+
+name|cmd
+argument_list|)
+expr_stmt|;
+name|args
+operator|.
+name|add
+argument_list|(
+name|cmd
+argument_list|)
+expr_stmt|;
+break|break;
 block|}
 return|return
 name|opts
@@ -11004,7 +11024,7 @@ argument_list|(
 name|argv
 argument_list|)
 decl_stmt|;
-comment|// args remainting, print help and exit
+comment|// args remaining, print help and exit
 if|if
 condition|(
 operator|!
@@ -11021,6 +11041,9 @@ expr_stmt|;
 name|printUsage
 argument_list|()
 expr_stmt|;
+return|return
+name|errCode
+return|;
 block|}
 comment|// must run at least 1 client
 if|if
