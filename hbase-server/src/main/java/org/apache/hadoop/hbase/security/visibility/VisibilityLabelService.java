@@ -145,6 +145,22 @@ name|OperationStatus
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|User
+import|;
+end_import
+
 begin_comment
 comment|/**  * The interface which deals with visibility labels and user auths admin service as well as the cell  * visibility expression storage part and read time evaluation.  */
 end_comment
@@ -227,16 +243,33 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param user    *          Name of the user whose authorization to be retrieved    * @param systemCall    *          Whether a system or user originated call.    * @return Visibility labels authorized for the given user.    */
+comment|/**    * Retrieve the visibility labels for the user.    * @param user    *          Name of the user whose authorization to be retrieved    * @param systemCall    *          Whether a system or user originated call.    * @return Visibility labels authorized for the given user.    */
 name|List
 argument_list|<
 name|String
 argument_list|>
-name|getAuths
+name|getUserAuths
 parameter_list|(
 name|byte
 index|[]
 name|user
+parameter_list|,
+name|boolean
+name|systemCall
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Retrieve the visibility labels for the groups.    * @param groups    *          Name of the groups whose authorization to be retrieved    * @param systemCall    *          Whether a system or user originated call.    * @return Visibility labels authorized for the given group.    */
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|getGroupAuths
+parameter_list|(
+name|String
+index|[]
+name|groups
 parameter_list|,
 name|boolean
 name|systemCall
@@ -290,8 +323,7 @@ comment|/**    * System checks for user auth during admin operations. (ie. Label
 name|boolean
 name|havingSystemAuth
 parameter_list|(
-name|byte
-index|[]
+name|User
 name|user
 parameter_list|)
 throws|throws

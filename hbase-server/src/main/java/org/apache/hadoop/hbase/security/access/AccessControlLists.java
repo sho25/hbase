@@ -3512,6 +3512,22 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * Returns the group entry with the group prefix for a group principal.    */
+specifier|public
+specifier|static
+name|String
+name|toGroupEntry
+parameter_list|(
+name|String
+name|name
+parameter_list|)
+block|{
+return|return
+name|GROUP_PREFIX
+operator|+
+name|name
+return|;
+block|}
 specifier|public
 specifier|static
 name|boolean
