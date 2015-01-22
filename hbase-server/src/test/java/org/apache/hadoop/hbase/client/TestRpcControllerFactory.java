@@ -713,13 +713,6 @@ argument_list|(
 name|name
 argument_list|)
 decl_stmt|;
-name|table
-operator|.
-name|setAutoFlushTo
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 name|byte
 index|[]
 name|row
@@ -763,11 +756,6 @@ argument_list|(
 name|p
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 name|Integer
 name|counter
 init|=
@@ -791,7 +779,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,

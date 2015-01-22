@@ -1339,6 +1339,8 @@ argument_list|)
 expr_stmt|;
 comment|// Make a new Configuration so it makes a new connection that has the
 comment|// above configuration on it; else we use the old one w/ 10 as default.
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -1351,7 +1353,8 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Load some data
 name|util
 operator|.
@@ -1363,11 +1366,6 @@ name|fam
 argument_list|,
 literal|false
 argument_list|)
-expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
 expr_stmt|;
 name|util
 operator|.
@@ -1433,6 +1431,7 @@ literal|"Could not seek"
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// Restart data nodes so that HBase can shut down cleanly.
 name|util

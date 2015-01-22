@@ -281,22 +281,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Put
 import|;
 end_import
@@ -628,13 +612,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|htable1
-operator|.
-name|setAutoFlushTo
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 comment|// Starting and stopping replication can make us miss new logs,
 comment|// rolling like this makes sure the most recent one gets added to the queue
 for|for

@@ -924,6 +924,8 @@ argument_list|()
 decl_stmt|;
 name|table
 operator|.
+name|mutator
+operator|.
 name|ap
 operator|.
 name|submit

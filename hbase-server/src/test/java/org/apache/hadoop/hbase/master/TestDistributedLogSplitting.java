@@ -6431,13 +6431,6 @@ literal|1
 block|}
 expr_stmt|;
 block|}
-name|ht
-operator|.
-name|setAutoFlushTo
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 name|Put
 name|put
 init|=
@@ -11051,7 +11044,7 @@ name|void
 name|prepareData
 parameter_list|(
 specifier|final
-name|HTable
+name|Table
 name|t
 parameter_list|,
 specifier|final
@@ -11067,13 +11060,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|t
-operator|.
-name|setAutoFlushTo
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 name|byte
 index|[]
 name|k
@@ -11085,6 +11071,17 @@ literal|3
 index|]
 decl_stmt|;
 comment|// add puts
+name|List
+argument_list|<
+name|Put
+argument_list|>
+name|puts
+init|=
+operator|new
+name|ArrayList
+argument_list|<>
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|byte
@@ -11171,9 +11168,9 @@ argument_list|,
 name|k
 argument_list|)
 expr_stmt|;
-name|t
+name|puts
 operator|.
-name|put
+name|add
 argument_list|(
 name|put
 argument_list|)
@@ -11183,8 +11180,10 @@ block|}
 block|}
 name|t
 operator|.
-name|flushCommits
-argument_list|()
+name|put
+argument_list|(
+name|puts
+argument_list|)
 expr_stmt|;
 comment|// add deletes
 for|for
@@ -11240,11 +11239,6 @@ name|del
 argument_list|)
 expr_stmt|;
 block|}
-name|t
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 block|}
 specifier|private
 name|void

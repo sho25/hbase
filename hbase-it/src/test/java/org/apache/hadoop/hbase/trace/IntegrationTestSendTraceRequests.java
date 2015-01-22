@@ -131,7 +131,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Get
+name|BufferedMutator
 import|;
 end_import
 
@@ -147,7 +147,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Get
 import|;
 end_import
 
@@ -1425,7 +1425,7 @@ argument_list|(
 literal|25000
 argument_list|)
 decl_stmt|;
-name|Table
+name|BufferedMutator
 name|ht
 init|=
 name|util
@@ -1433,7 +1433,7 @@ operator|.
 name|getConnection
 argument_list|()
 operator|.
-name|getTable
+name|getBufferedMutator
 argument_list|(
 name|this
 operator|.
@@ -1481,13 +1481,6 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|ht
-operator|.
-name|setAutoFlushTo
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|int
@@ -1576,7 +1569,7 @@ expr_stmt|;
 block|}
 name|ht
 operator|.
-name|put
+name|mutate
 argument_list|(
 name|p
 argument_list|)

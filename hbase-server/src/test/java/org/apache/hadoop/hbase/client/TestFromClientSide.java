@@ -4781,7 +4781,9 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"hbase.client.keyvalue.maxsize"
+name|TableConfiguration
+operator|.
+name|MAX_KEYVALUE_SIZE_KEY
 argument_list|)
 decl_stmt|;
 name|Table
@@ -4846,22 +4848,15 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.client.keyvalue.maxsize"
+name|TableConfiguration
+operator|.
+name|MAX_KEYVALUE_SIZE_KEY
 argument_list|,
 literal|2
 operator|*
 literal|1024
 operator|*
 literal|1024
-argument_list|)
-expr_stmt|;
-name|TABLE
-operator|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testMaxKeyValueSize2"
 argument_list|)
 expr_stmt|;
 comment|// Create new table so we pick up the change in Configuration.
@@ -4943,7 +4938,9 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"hbase.client.keyvalue.maxsize"
+name|TableConfiguration
+operator|.
+name|MAX_KEYVALUE_SIZE_KEY
 argument_list|,
 name|oldMaxSize
 argument_list|)
@@ -32670,7 +32667,7 @@ argument_list|)
 decl_stmt|;
 name|table
 operator|.
-name|setAutoFlushTo
+name|setAutoFlush
 argument_list|(
 literal|false
 argument_list|)
@@ -32873,6 +32870,11 @@ argument_list|,
 name|nbRows
 argument_list|)
 expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -32950,13 +32952,6 @@ name|SMALL_FAMILY
 block|}
 argument_list|)
 decl_stmt|;
-name|table
-operator|.
-name|setAutoFlushTo
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 name|table
 operator|.
 name|setWriteBufferSize
@@ -33050,11 +33045,6 @@ name|put
 argument_list|(
 name|rowsUpdate
 argument_list|)
-expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
 expr_stmt|;
 name|Scan
 name|scan
@@ -34180,6 +34170,11 @@ name|isEmpty
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|ha
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * test of that unmanaged HConnections are able to reconnect    * properly (see HBASE-5058)    *    * @throws Exception    */
 annotation|@
@@ -34218,6 +34213,8 @@ operator|.
 name|getConnection
 argument_list|()
 decl_stmt|;
+try|try
+init|(
 name|HBaseAdmin
 name|ha
 init|=
@@ -34226,7 +34223,8 @@ name|HBaseAdmin
 argument_list|(
 name|conn
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|assertTrue
 argument_list|(
 name|ha
@@ -34254,6 +34252,7 @@ name|isEmpty
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// stop the master
 name|MiniHBaseCluster
 name|cluster
@@ -34295,6 +34294,8 @@ argument_list|)
 expr_stmt|;
 comment|// test that the same unmanaged connection works with a new
 comment|// HBaseAdmin and can connect to the new master;
+try|try
+init|(
 name|HBaseAdmin
 name|newAdmin
 init|=
@@ -34303,7 +34304,8 @@ name|HBaseAdmin
 argument_list|(
 name|conn
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|assertTrue
 argument_list|(
 name|newAdmin
@@ -34329,6 +34331,7 @@ operator|+
 literal|1
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -34934,13 +34937,6 @@ argument_list|)
 decl_stmt|;
 comment|// set block size to 64 to making 2 kvs into one block, bypassing the walkForwardInSingleRow
 comment|// in Store.rowAtOrBeforeFromStoreFile
-name|table
-operator|.
-name|setAutoFlushTo
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 name|String
 name|regionName
 init|=
@@ -35679,6 +35675,11 @@ argument_list|,
 name|four
 argument_list|)
 argument_list|)
+expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * For HBASE-2156    * @throws Exception    */

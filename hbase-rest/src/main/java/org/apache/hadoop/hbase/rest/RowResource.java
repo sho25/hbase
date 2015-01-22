@@ -1666,11 +1666,6 @@ argument_list|(
 name|puts
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 name|ResponseBuilder
 name|response
 init|=
@@ -3465,11 +3460,6 @@ name|build
 argument_list|()
 return|;
 block|}
-name|table
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 name|ResponseBuilder
 name|response
 init|=
@@ -4070,11 +4060,6 @@ name|build
 argument_list|()
 return|;
 block|}
-name|table
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 name|ResponseBuilder
 name|response
 init|=

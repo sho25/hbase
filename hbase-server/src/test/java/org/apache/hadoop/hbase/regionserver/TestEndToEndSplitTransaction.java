@@ -930,6 +930,8 @@ argument_list|(
 literal|"fam"
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|HTable
 name|ht
 init|=
@@ -941,7 +943,8 @@ name|tableName
 argument_list|,
 name|familyName
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|TEST_UTIL
 operator|.
 name|loadTable
@@ -953,11 +956,7 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-name|ht
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 name|HRegionServer
 name|server
 init|=

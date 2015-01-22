@@ -459,7 +459,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Puts some data in the table.    *<p>    * If {@link #isAutoFlush isAutoFlush} is false, the update is buffered    * until the internal buffer is full.    * @param put The data to put.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+comment|/**    * Puts some data in the table.    *     * @param put The data to put.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 name|void
 name|put
 parameter_list|(
@@ -469,7 +469,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Puts some data in the table, in batch.    *<p>    * If {@link #isAutoFlush isAutoFlush} is false, the update is buffered    * until the internal buffer is full.    *<p>    * This can be used for group commit, or for submitting user defined    * batches.  The writeBuffer will be periodically inspected while the List    * is processed, so depending on the List size the writeBuffer may flush    * not at all, or more than once.    * @param puts The list of mutations to apply. The batch put is done by    * aggregating the iteration of the Puts over the write buffer    * at the client-side for a single RPC call.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+comment|/**    * Puts some data in the table, in batch.    *<p>    * This can be used for group commit, or for submitting user defined    * batches.  The writeBuffer will be periodically inspected while the List    * is processed, so depending on the List size the writeBuffer may flush    * not at all, or more than once.    * @param puts The list of mutations to apply. The batch put is done by    * aggregating the iteration of the Puts over the write buffer    * at the client-side for a single RPC call.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 name|void
 name|put
 parameter_list|(
@@ -815,26 +815,6 @@ throws|throws
 name|ServiceException
 throws|,
 name|Throwable
-function_decl|;
-comment|/**    * Tells whether or not 'auto-flush' is turned on.    *    * @return {@code true} if 'auto-flush' is enabled (default), meaning    * {@link Put} operations don't get buffered/delayed and are immediately    * executed.    */
-name|boolean
-name|isAutoFlush
-parameter_list|()
-function_decl|;
-comment|/**    * Executes all the buffered {@link Put} operations.    *<p>    * This method gets called once automatically for every {@link Put} or batch    * of {@link Put}s (when<code>put(List<Put>)</code> is used) when    * {@link #isAutoFlush} is {@code true}.    * @throws IOException if a remote or network exception occurs.    */
-name|void
-name|flushCommits
-parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Set the autoFlush behavior, without changing the value of {@code clearBufferOnFail}    */
-name|void
-name|setAutoFlushTo
-parameter_list|(
-name|boolean
-name|autoFlush
-parameter_list|)
 function_decl|;
 comment|/**    * Returns the maximum size in bytes of the write buffer for this HTable.    *<p>    * The default value comes from the configuration parameter    * {@code hbase.client.write.buffer}.    * @return The size of the write buffer in bytes.    */
 name|long

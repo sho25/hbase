@@ -1986,7 +1986,12 @@ argument_list|)
 decl_stmt|;
 name|assertTrue
 argument_list|(
+operator|(
+operator|(
+name|HTable
+operator|)
 name|table
+operator|)
 operator|.
 name|isAutoFlush
 argument_list|()
@@ -2813,13 +2818,6 @@ argument_list|(
 name|table
 argument_list|,
 literal|1002
-argument_list|)
-expr_stmt|;
-name|table
-operator|.
-name|setAutoFlushTo
-argument_list|(
-literal|true
 argument_list|)
 expr_stmt|;
 name|long

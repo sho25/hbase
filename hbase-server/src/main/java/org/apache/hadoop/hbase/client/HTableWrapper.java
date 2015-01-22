@@ -337,12 +337,8 @@ implements|implements
 name|HTableInterface
 block|{
 specifier|private
-name|TableName
-name|tableName
-decl_stmt|;
-specifier|private
 specifier|final
-name|Table
+name|HTableInterface
 name|table
 decl_stmt|;
 specifier|private
@@ -421,12 +417,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|this
-operator|.
-name|tableName
-operator|=
-name|tableName
-expr_stmt|;
 name|this
 operator|.
 name|table
@@ -1301,9 +1291,9 @@ name|getTableName
 parameter_list|()
 block|{
 return|return
-name|tableName
+name|table
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 return|;
 block|}
@@ -1683,7 +1673,7 @@ parameter_list|)
 block|{
 name|table
 operator|.
-name|setAutoFlushTo
+name|setAutoFlush
 argument_list|(
 name|autoFlush
 argument_list|)

@@ -173,6 +173,28 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    *<p>    * Retrieve a {@link BufferedMutator} for performing client-side buffering of writes. The    * {@link BufferedMutator} returned by this method is thread-safe. This BufferedMutator will    * use the Connection's ExecutorService. This object can be used for long lived operations.    *</p>    *<p>    * The caller is responsible for calling {@link BufferedMutator#close()} on    * the returned {@link BufferedMutator} instance.    *</p>    *<p>    * This accessor will use the connection's ExecutorService and will throw an    * exception in the main thread when an asynchronous exception occurs.    *    * @param tableName the name of the table    *    * @return a {@link BufferedMutator} for the supplied tableName.    */
+specifier|public
+name|BufferedMutator
+name|getBufferedMutator
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Retrieve a {@link BufferedMutator} for performing client-side buffering of writes. The    * {@link BufferedMutator} returned by this method is thread-safe. This object can be used for    * long lived table operations. The caller is responsible for calling    * {@link BufferedMutator#close()} on the returned {@link BufferedMutator} instance.    *    * @param params details on how to instantiate the {@code BufferedMutator}.    * @return a {@link BufferedMutator} for the supplied tableName.    */
+specifier|public
+name|BufferedMutator
+name|getBufferedMutator
+parameter_list|(
+name|BufferedMutatorParams
+name|params
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Retrieve a RegionLocator implementation to inspect region information on a table. The returned    * RegionLocator is not thread-safe, so a new instance should be created for each using thread.    *    * This is a lightweight operation.  Pooling or caching of the returned RegionLocator is neither    * required nor desired.    *<br>    * The caller is responsible for calling {@link RegionLocator#close()} on the returned    * RegionLocator instance.    *    * RegionLocator needs to be unmanaged    *    * @param tableName Name of the table who's region is to be examined    * @return A RegionLocator instance    */
 specifier|public
 name|RegionLocator

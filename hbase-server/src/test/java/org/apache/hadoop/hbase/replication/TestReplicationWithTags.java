@@ -1254,13 +1254,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|)
 expr_stmt|;
-name|htable1
-operator|.
-name|setWriteBufferSize
-argument_list|(
-literal|1024
-argument_list|)
-expr_stmt|;
 name|htable2
 operator|=
 name|utility2

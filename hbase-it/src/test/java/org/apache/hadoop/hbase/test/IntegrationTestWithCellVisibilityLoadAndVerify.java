@@ -1427,9 +1427,9 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|table
+name|mutator
 operator|.
-name|put
+name|mutate
 argument_list|(
 name|p
 argument_list|)
@@ -1467,9 +1467,9 @@ block|}
 block|}
 comment|// End of block, flush all of them before we start writing anything
 comment|// pointing to these!
-name|table
+name|mutator
 operator|.
-name|flushCommits
+name|flush
 argument_list|()
 expr_stmt|;
 block|}

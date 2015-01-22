@@ -613,6 +613,8 @@ operator|.
 name|getMaster
 argument_list|()
 decl_stmt|;
+try|try
+init|(
 name|HTable
 name|ht
 init|=
@@ -624,7 +626,8 @@ name|TABLENAME
 argument_list|,
 name|FAMILYNAME
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|assertTrue
 argument_list|(
 name|m
@@ -657,11 +660,7 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-name|ht
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 name|List
 argument_list|<
 name|Pair

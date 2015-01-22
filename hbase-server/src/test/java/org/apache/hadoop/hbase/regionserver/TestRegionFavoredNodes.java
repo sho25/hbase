@@ -527,6 +527,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|createWithFavoredNode

@@ -1165,7 +1165,7 @@ argument_list|()
 decl_stmt|;
 name|hTableInterface
 operator|.
-name|setAutoFlushTo
+name|setAutoFlush
 argument_list|(
 literal|false
 argument_list|)
@@ -1180,7 +1180,7 @@ argument_list|)
 expr_stmt|;
 name|hTableInterface
 operator|.
-name|setAutoFlushTo
+name|setAutoFlush
 argument_list|(
 literal|true
 argument_list|)
@@ -1195,7 +1195,7 @@ argument_list|)
 expr_stmt|;
 name|hTableInterface
 operator|.
-name|setAutoFlushTo
+name|setAutoFlush
 argument_list|(
 name|initialAutoFlush
 argument_list|)

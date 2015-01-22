@@ -169,6 +169,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|BufferedMutator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Connection
 import|;
 end_import
@@ -234,22 +250,6 @@ operator|.
 name|client
 operator|.
 name|Put
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Table
 import|;
 end_import
 
@@ -452,8 +452,8 @@ name|Connection
 name|connection
 decl_stmt|;
 specifier|private
-name|Table
-name|table
+name|BufferedMutator
+name|mutator
 decl_stmt|;
 comment|/**      * @throws IOException       *       */
 specifier|public
@@ -485,11 +485,11 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|table
+name|mutator
 operator|=
 name|connection
 operator|.
-name|getTable
+name|getBufferedMutator
 argument_list|(
 name|TableName
 operator|.
@@ -497,15 +497,6 @@ name|valueOf
 argument_list|(
 name|tableName
 argument_list|)
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|table
-operator|.
-name|setAutoFlushTo
-argument_list|(
-literal|false
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -518,7 +509,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Closes the writer, in this case flush table commits.      *      * @param context  The context.      * @throws IOException When closing the writer fails.      * @see org.apache.hadoop.mapreduce.RecordWriter#close(org.apache.hadoop.mapreduce.TaskAttemptContext)      */
+comment|/**      * Closes the writer, in this case flush table commits.      *      * @param context  The context.      * @throws IOException When closing the writer fails.      * @see RecordWriter#close(TaskAttemptContext)      */
 annotation|@
 name|Override
 specifier|public
@@ -531,7 +522,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|table
+name|mutator
 operator|.
 name|close
 argument_list|()
@@ -542,7 +533,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * Writes a key/value pair into the table.      *      * @param key  The key.      * @param value  The value.      * @throws IOException When writing fails.      * @see org.apache.hadoop.mapreduce.RecordWriter#write(java.lang.Object, java.lang.Object)      */
+comment|/**      * Writes a key/value pair into the table.      *      * @param key  The key.      * @param value  The value.      * @throws IOException When writing fails.      * @see RecordWriter#write(Object, Object)      */
 annotation|@
 name|Override
 specifier|public
@@ -560,46 +551,21 @@ name|IOException
 block|{
 if|if
 condition|(
+operator|!
+operator|(
 name|value
 operator|instanceof
 name|Put
-condition|)
-name|table
-operator|.
-name|put
-argument_list|(
-operator|new
-name|Put
-argument_list|(
-operator|(
-name|Put
 operator|)
-name|value
-argument_list|)
-argument_list|)
-expr_stmt|;
-elseif|else
-if|if
-condition|(
+operator|&&
+operator|!
+operator|(
 name|value
 operator|instanceof
 name|Delete
-condition|)
-name|table
-operator|.
-name|delete
-argument_list|(
-operator|new
-name|Delete
-argument_list|(
-operator|(
-name|Delete
 operator|)
-name|value
-argument_list|)
-argument_list|)
-expr_stmt|;
-else|else
+condition|)
+block|{
 throw|throw
 operator|new
 name|IOException
@@ -608,8 +574,16 @@ literal|"Pass a Delete or a Put"
 argument_list|)
 throw|;
 block|}
+name|mutator
+operator|.
+name|mutate
+argument_list|(
+name|value
+argument_list|)
+expr_stmt|;
 block|}
-comment|/**    * Creates a new record writer.    *    * @param context  The current task context.    * @return The newly created writer instance.    * @throws IOException When creating the writer fails.    * @throws InterruptedException When the jobs is cancelled.    * @see org.apache.hadoop.mapreduce.lib.output.FileOutputFormat#getRecordWriter(org.apache.hadoop.mapreduce.TaskAttemptContext)    */
+block|}
+comment|/**    * Creates a new record writer.    *    * @param context  The current task context.    * @return The newly created writer instance.    * @throws IOException When creating the writer fails.    * @throws InterruptedException When the jobs is cancelled.    */
 annotation|@
 name|Override
 specifier|public
@@ -635,7 +609,7 @@ name|TableRecordWriter
 argument_list|()
 return|;
 block|}
-comment|/**    * Checks if the output target exists.    *    * @param context  The current context.    * @throws IOException When the check fails.    * @throws InterruptedException When the job is aborted.    * @see org.apache.hadoop.mapreduce.OutputFormat#checkOutputSpecs(org.apache.hadoop.mapreduce.JobContext)    */
+comment|/**    * Checks if the output target exists.    *    * @param context  The current context.    * @throws IOException When the check fails.    * @throws InterruptedException When the job is aborted.    * @see OutputFormat#checkOutputSpecs(JobContext)    */
 annotation|@
 name|Override
 specifier|public
@@ -652,7 +626,7 @@ name|InterruptedException
 block|{
 comment|// TODO Check if the table exists?
 block|}
-comment|/**    * Returns the output committer.    *    * @param context  The current context.    * @return The committer.    * @throws IOException When creating the committer fails.    * @throws InterruptedException When the job is aborted.    * @see org.apache.hadoop.mapreduce.OutputFormat#getOutputCommitter(org.apache.hadoop.mapreduce.TaskAttemptContext)    */
+comment|/**    * Returns the output committer.    *    * @param context  The current context.    * @return The committer.    * @throws IOException When creating the committer fails.    * @throws InterruptedException When the job is aborted.    * @see OutputFormat#getOutputCommitter(TaskAttemptContext)    */
 annotation|@
 name|Override
 specifier|public
