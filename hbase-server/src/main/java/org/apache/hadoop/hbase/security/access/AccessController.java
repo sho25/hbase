@@ -11807,7 +11807,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * Verifies user has WRITE privileges on    * the Column Families involved in the bulkLoadHFile    * request. Specific Column Write privileges are presently    * ignored.    */
+comment|/**    * Verifies user has CREATE privileges on    * the Column Families involved in the bulkLoadHFile    * request. Specific Column Write privileges are presently    * ignored.    */
 annotation|@
 name|Override
 specifier|public
@@ -12096,7 +12096,7 @@ literal|"prePrepareBulkLoad"
 argument_list|,
 name|Action
 operator|.
-name|WRITE
+name|CREATE
 argument_list|)
 decl_stmt|;
 name|logResult
@@ -12130,7 +12130,7 @@ operator|.
 name|getTableName
 argument_list|()
 operator|+
-literal|", action=WRITE)"
+literal|", action=CREATE)"
 argument_list|)
 throw|;
 block|}
@@ -12173,7 +12173,7 @@ literal|"preCleanupBulkLoad"
 argument_list|,
 name|Action
 operator|.
-name|WRITE
+name|CREATE
 argument_list|)
 decl_stmt|;
 name|logResult
@@ -12207,7 +12207,7 @@ operator|.
 name|getTableName
 argument_list|()
 operator|+
-literal|", action=WRITE)"
+literal|", action=CREATE)"
 argument_list|)
 throw|;
 block|}
