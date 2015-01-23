@@ -139577,14 +139577,25 @@ operator|.
 name|MessageOrBuilder
 block|{
 comment|// optional int32 memstoreLoad = 1 [default = 0];
-comment|/**      *<code>optional int32 memstoreLoad = 1 [default = 0];</code>      *      *<pre>      * percent load on the memstore. Guaranteed to be positive, between 0 and 100      *</pre>      */
+comment|/**      *<code>optional int32 memstoreLoad = 1 [default = 0];</code>      *      *<pre>      * Percent load on the memstore. Guaranteed to be positive, between 0 and 100.      *</pre>      */
 name|boolean
 name|hasMemstoreLoad
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional int32 memstoreLoad = 1 [default = 0];</code>      *      *<pre>      * percent load on the memstore. Guaranteed to be positive, between 0 and 100      *</pre>      */
+comment|/**      *<code>optional int32 memstoreLoad = 1 [default = 0];</code>      *      *<pre>      * Percent load on the memstore. Guaranteed to be positive, between 0 and 100.      *</pre>      */
 name|int
 name|getMemstoreLoad
+parameter_list|()
+function_decl|;
+comment|// optional int32 heapOccupancy = 2 [default = 0];
+comment|/**      *<code>optional int32 heapOccupancy = 2 [default = 0];</code>      *      *<pre>      * Percent JVM heap occupancy. Guaranteed to be positive, between 0 and 100.      * We can move this to "ServerLoadStats" should we develop them.      *</pre>      */
+name|boolean
+name|hasHeapOccupancy
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional int32 heapOccupancy = 2 [default = 0];</code>      *      *<pre>      * Percent JVM heap occupancy. Guaranteed to be positive, between 0 and 100.      * We can move this to "ServerLoadStats" should we develop them.      *</pre>      */
+name|int
+name|getHeapOccupancy
 parameter_list|()
 function_decl|;
 block|}
@@ -139849,6 +139860,23 @@ operator||=
 literal|0x00000001
 expr_stmt|;
 name|memstoreLoad_
+operator|=
+name|input
+operator|.
+name|readInt32
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|16
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000002
+expr_stmt|;
+name|heapOccupancy_
 operator|=
 name|input
 operator|.
@@ -140145,7 +140173,7 @@ specifier|private
 name|int
 name|memstoreLoad_
 decl_stmt|;
-comment|/**      *<code>optional int32 memstoreLoad = 1 [default = 0];</code>      *      *<pre>      * percent load on the memstore. Guaranteed to be positive, between 0 and 100      *</pre>      */
+comment|/**      *<code>optional int32 memstoreLoad = 1 [default = 0];</code>      *      *<pre>      * Percent load on the memstore. Guaranteed to be positive, between 0 and 100.      *</pre>      */
 specifier|public
 name|boolean
 name|hasMemstoreLoad
@@ -140163,7 +140191,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional int32 memstoreLoad = 1 [default = 0];</code>      *      *<pre>      * percent load on the memstore. Guaranteed to be positive, between 0 and 100      *</pre>      */
+comment|/**      *<code>optional int32 memstoreLoad = 1 [default = 0];</code>      *      *<pre>      * Percent load on the memstore. Guaranteed to be positive, between 0 and 100.      *</pre>      */
 specifier|public
 name|int
 name|getMemstoreLoad
@@ -140173,12 +140201,57 @@ return|return
 name|memstoreLoad_
 return|;
 block|}
+comment|// optional int32 heapOccupancy = 2 [default = 0];
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|HEAPOCCUPANCY_FIELD_NUMBER
+init|=
+literal|2
+decl_stmt|;
+specifier|private
+name|int
+name|heapOccupancy_
+decl_stmt|;
+comment|/**      *<code>optional int32 heapOccupancy = 2 [default = 0];</code>      *      *<pre>      * Percent JVM heap occupancy. Guaranteed to be positive, between 0 and 100.      * We can move this to "ServerLoadStats" should we develop them.      *</pre>      */
+specifier|public
+name|boolean
+name|hasHeapOccupancy
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional int32 heapOccupancy = 2 [default = 0];</code>      *      *<pre>      * Percent JVM heap occupancy. Guaranteed to be positive, between 0 and 100.      * We can move this to "ServerLoadStats" should we develop them.      *</pre>      */
+specifier|public
+name|int
+name|getHeapOccupancy
+parameter_list|()
+block|{
+return|return
+name|heapOccupancy_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
 parameter_list|()
 block|{
 name|memstoreLoad_
+operator|=
+literal|0
+expr_stmt|;
+name|heapOccupancy_
 operator|=
 literal|0
 expr_stmt|;
@@ -140267,6 +140340,29 @@ name|memstoreLoad_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeInt32
+argument_list|(
+literal|2
+argument_list|,
+name|heapOccupancy_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -140335,6 +140431,37 @@ argument_list|(
 literal|1
 argument_list|,
 name|memstoreLoad_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeInt32Size
+argument_list|(
+literal|2
+argument_list|,
+name|heapOccupancy_
 argument_list|)
 expr_stmt|;
 block|}
@@ -140533,6 +140660,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasHeapOccupancy
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasHeapOccupancy
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasHeapOccupancy
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getHeapOccupancy
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getHeapOccupancy
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -140620,6 +140782,34 @@ name|hash
 operator|)
 operator|+
 name|getMemstoreLoad
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasHeapOccupancy
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|HEAPOCCUPANCY_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|getHeapOccupancy
 argument_list|()
 expr_stmt|;
 block|}
@@ -141461,6 +141651,19 @@ operator|~
 literal|0x00000001
 operator|)
 expr_stmt|;
+name|heapOccupancy_
+operator|=
+literal|0
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000002
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -141701,6 +141904,30 @@ name|memstoreLoad_
 operator|=
 name|memstoreLoad_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000002
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|heapOccupancy_
+operator|=
+name|heapOccupancy_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -141848,6 +142075,23 @@ argument_list|(
 name|other
 operator|.
 name|getMemstoreLoad
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasHeapOccupancy
+argument_list|()
+condition|)
+block|{
+name|setHeapOccupancy
+argument_list|(
+name|other
+operator|.
+name|getHeapOccupancy
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -142007,7 +142251,7 @@ specifier|private
 name|int
 name|memstoreLoad_
 decl_stmt|;
-comment|/**        *<code>optional int32 memstoreLoad = 1 [default = 0];</code>        *        *<pre>        * percent load on the memstore. Guaranteed to be positive, between 0 and 100        *</pre>        */
+comment|/**        *<code>optional int32 memstoreLoad = 1 [default = 0];</code>        *        *<pre>        * Percent load on the memstore. Guaranteed to be positive, between 0 and 100.        *</pre>        */
 specifier|public
 name|boolean
 name|hasMemstoreLoad
@@ -142025,7 +142269,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional int32 memstoreLoad = 1 [default = 0];</code>        *        *<pre>        * percent load on the memstore. Guaranteed to be positive, between 0 and 100        *</pre>        */
+comment|/**        *<code>optional int32 memstoreLoad = 1 [default = 0];</code>        *        *<pre>        * Percent load on the memstore. Guaranteed to be positive, between 0 and 100.        *</pre>        */
 specifier|public
 name|int
 name|getMemstoreLoad
@@ -142035,7 +142279,7 @@ return|return
 name|memstoreLoad_
 return|;
 block|}
-comment|/**        *<code>optional int32 memstoreLoad = 1 [default = 0];</code>        *        *<pre>        * percent load on the memstore. Guaranteed to be positive, between 0 and 100        *</pre>        */
+comment|/**        *<code>optional int32 memstoreLoad = 1 [default = 0];</code>        *        *<pre>        * Percent load on the memstore. Guaranteed to be positive, between 0 and 100.        *</pre>        */
 specifier|public
 name|Builder
 name|setMemstoreLoad
@@ -142059,7 +142303,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional int32 memstoreLoad = 1 [default = 0];</code>        *        *<pre>        * percent load on the memstore. Guaranteed to be positive, between 0 and 100        *</pre>        */
+comment|/**        *<code>optional int32 memstoreLoad = 1 [default = 0];</code>        *        *<pre>        * Percent load on the memstore. Guaranteed to be positive, between 0 and 100.        *</pre>        */
 specifier|public
 name|Builder
 name|clearMemstoreLoad
@@ -142075,6 +142319,89 @@ literal|0x00000001
 operator|)
 expr_stmt|;
 name|memstoreLoad_
+operator|=
+literal|0
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional int32 heapOccupancy = 2 [default = 0];
+specifier|private
+name|int
+name|heapOccupancy_
+decl_stmt|;
+comment|/**        *<code>optional int32 heapOccupancy = 2 [default = 0];</code>        *        *<pre>        * Percent JVM heap occupancy. Guaranteed to be positive, between 0 and 100.        * We can move this to "ServerLoadStats" should we develop them.        *</pre>        */
+specifier|public
+name|boolean
+name|hasHeapOccupancy
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional int32 heapOccupancy = 2 [default = 0];</code>        *        *<pre>        * Percent JVM heap occupancy. Guaranteed to be positive, between 0 and 100.        * We can move this to "ServerLoadStats" should we develop them.        *</pre>        */
+specifier|public
+name|int
+name|getHeapOccupancy
+parameter_list|()
+block|{
+return|return
+name|heapOccupancy_
+return|;
+block|}
+comment|/**        *<code>optional int32 heapOccupancy = 2 [default = 0];</code>        *        *<pre>        * Percent JVM heap occupancy. Guaranteed to be positive, between 0 and 100.        * We can move this to "ServerLoadStats" should we develop them.        *</pre>        */
+specifier|public
+name|Builder
+name|setHeapOccupancy
+parameter_list|(
+name|int
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000002
+expr_stmt|;
+name|heapOccupancy_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional int32 heapOccupancy = 2 [default = 0];</code>        *        *<pre>        * Percent JVM heap occupancy. Guaranteed to be positive, between 0 and 100.        * We can move this to "ServerLoadStats" should we develop them.        *</pre>        */
+specifier|public
+name|Builder
+name|clearHeapOccupancy
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000002
+operator|)
+expr_stmt|;
+name|heapOccupancy_
 operator|=
 literal|0
 expr_stmt|;
@@ -172378,59 +172705,59 @@ literal|"rocessorServiceCall\"Y\n\014RegionAction\022 \n\006r"
 operator|+
 literal|"egion\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006atomic\030"
 operator|+
-literal|"\002 \001(\010\022\027\n\006action\030\003 \003(\0132\007.Action\"*\n\017Region"
+literal|"\002 \001(\010\022\027\n\006action\030\003 \003(\0132\007.Action\"D\n\017Region"
 operator|+
-literal|"LoadStats\022\027\n\014memstoreLoad\030\001 \001(\005:\0010\"\266\001\n\021R"
+literal|"LoadStats\022\027\n\014memstoreLoad\030\001 \001(\005:\0010\022\030\n\rhe"
 operator|+
-literal|"esultOrException\022\r\n\005index\030\001 \001(\r\022\027\n\006resul"
+literal|"apOccupancy\030\002 \001(\005:\0010\"\266\001\n\021ResultOrExcepti"
 operator|+
-literal|"t\030\002 \001(\0132\007.Result\022!\n\texception\030\003 \001(\0132\016.Na"
+literal|"on\022\r\n\005index\030\001 \001(\r\022\027\n\006result\030\002 \001(\0132\007.Resu"
 operator|+
-literal|"meBytesPair\0221\n\016service_result\030\004 \001(\0132\031.Co"
+literal|"lt\022!\n\texception\030\003 \001(\0132\016.NameBytesPair\0221\n"
 block|,
-literal|"processorServiceResult\022#\n\tloadStats\030\005 \001("
+literal|"\016service_result\030\004 \001(\0132\031.CoprocessorServi"
 operator|+
-literal|"\0132\020.RegionLoadStats\"f\n\022RegionActionResul"
+literal|"ceResult\022#\n\tloadStats\030\005 \001(\0132\020.RegionLoad"
 operator|+
-literal|"t\022-\n\021resultOrException\030\001 \003(\0132\022.ResultOrE"
+literal|"Stats\"f\n\022RegionActionResult\022-\n\021resultOrE"
 operator|+
-literal|"xception\022!\n\texception\030\002 \001(\0132\016.NameBytesP"
+literal|"xception\030\001 \003(\0132\022.ResultOrException\022!\n\tex"
 operator|+
-literal|"air\"f\n\014MultiRequest\022#\n\014regionAction\030\001 \003("
+literal|"ception\030\002 \001(\0132\016.NameBytesPair\"f\n\014MultiRe"
 operator|+
-literal|"\0132\r.RegionAction\022\022\n\nnonceGroup\030\002 \001(\004\022\035\n\t"
+literal|"quest\022#\n\014regionAction\030\001 \003(\0132\r.RegionActi"
 operator|+
-literal|"condition\030\003 \001(\0132\n.Condition\"S\n\rMultiResp"
+literal|"on\022\022\n\nnonceGroup\030\002 \001(\004\022\035\n\tcondition\030\003 \001("
 operator|+
-literal|"onse\022/\n\022regionActionResult\030\001 \003(\0132\023.Regio"
+literal|"\0132\n.Condition\"S\n\rMultiResponse\022/\n\022region"
 operator|+
-literal|"nActionResult\022\021\n\tprocessed\030\002 \001(\010*\'\n\013Cons"
+literal|"ActionResult\030\001 \003(\0132\023.RegionActionResult\022"
 operator|+
-literal|"istency\022\n\n\006STRONG\020\000\022\014\n\010TIMELINE\020\0012\205\003\n\rCl"
+literal|"\021\n\tprocessed\030\002 \001(\010*\'\n\013Consistency\022\n\n\006STR"
 block|,
-literal|"ientService\022 \n\003Get\022\013.GetRequest\032\014.GetRes"
+literal|"ONG\020\000\022\014\n\010TIMELINE\020\0012\205\003\n\rClientService\022 \n"
 operator|+
-literal|"ponse\022)\n\006Mutate\022\016.MutateRequest\032\017.Mutate"
+literal|"\003Get\022\013.GetRequest\032\014.GetResponse\022)\n\006Mutat"
 operator|+
-literal|"Response\022#\n\004Scan\022\014.ScanRequest\032\r.ScanRes"
+literal|"e\022\016.MutateRequest\032\017.MutateResponse\022#\n\004Sc"
 operator|+
-literal|"ponse\022>\n\rBulkLoadHFile\022\025.BulkLoadHFileRe"
+literal|"an\022\014.ScanRequest\032\r.ScanResponse\022>\n\rBulkL"
 operator|+
-literal|"quest\032\026.BulkLoadHFileResponse\022F\n\013ExecSer"
+literal|"oadHFile\022\025.BulkLoadHFileRequest\032\026.BulkLo"
 operator|+
-literal|"vice\022\032.CoprocessorServiceRequest\032\033.Copro"
+literal|"adHFileResponse\022F\n\013ExecService\022\032.Coproce"
 operator|+
-literal|"cessorServiceResponse\022R\n\027ExecRegionServe"
+literal|"ssorServiceRequest\032\033.CoprocessorServiceR"
 operator|+
-literal|"rService\022\032.CoprocessorServiceRequest\032\033.C"
+literal|"esponse\022R\n\027ExecRegionServerService\022\032.Cop"
 operator|+
-literal|"oprocessorServiceResponse\022&\n\005Multi\022\r.Mul"
+literal|"rocessorServiceRequest\032\033.CoprocessorServ"
 operator|+
-literal|"tiRequest\032\016.MultiResponseBB\n*org.apache."
+literal|"iceResponse\022&\n\005Multi\022\r.MultiRequest\032\016.Mu"
 block|,
-literal|"hadoop.hbase.protobuf.generatedB\014ClientP"
+literal|"ltiResponseBB\n*org.apache.hadoop.hbase.p"
 operator|+
-literal|"rotosH\001\210\001\001\240\001\001"
+literal|"rotobuf.generatedB\014ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -173672,6 +173999,8 @@ name|String
 index|[]
 block|{
 literal|"MemstoreLoad"
+block|,
+literal|"HeapOccupancy"
 block|, }
 argument_list|)
 expr_stmt|;

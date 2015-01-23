@@ -403,6 +403,11 @@ name|Service
 name|service
 parameter_list|)
 function_decl|;
+comment|/**    * @return heap memory manager instance    */
+name|HeapMemoryManager
+name|getHeapMemoryManager
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

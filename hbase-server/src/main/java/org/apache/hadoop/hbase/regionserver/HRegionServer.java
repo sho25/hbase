@@ -15189,6 +15189,17 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|HeapMemoryManager
+name|getHeapMemoryManager
+parameter_list|()
+block|{
+return|return
+name|hMemManager
+return|;
+block|}
 block|}
 end_class
 
