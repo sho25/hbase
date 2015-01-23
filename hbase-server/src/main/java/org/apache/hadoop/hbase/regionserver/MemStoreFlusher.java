@@ -2953,7 +2953,7 @@ interface|interface
 name|FlushQueueEntry
 extends|extends
 name|Delayed
-block|{}
+block|{   }
 comment|/**    * Token to insert into the flush queue that ensures that the flusher does not sleep    */
 specifier|static
 class|class
@@ -3197,7 +3197,10 @@ name|Delayed
 name|other
 parameter_list|)
 block|{
-return|return
+comment|// Delay is compared first. If there is a tie, compare region's hash code
+name|int
+name|ret
+init|=
 name|Long
 operator|.
 name|valueOf
@@ -3220,6 +3223,34 @@ argument_list|)
 argument_list|)
 operator|.
 name|intValue
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|ret
+operator|!=
+literal|0
+condition|)
+block|{
+return|return
+name|ret
+return|;
+block|}
+name|FlushQueueEntry
+name|otherEntry
+init|=
+operator|(
+name|FlushQueueEntry
+operator|)
+name|other
+decl_stmt|;
+return|return
+name|hashCode
+argument_list|()
+operator|-
+name|otherEntry
+operator|.
+name|hashCode
 argument_list|()
 return|;
 block|}
@@ -3253,7 +3284,9 @@ name|int
 name|hashCode
 parameter_list|()
 block|{
-return|return
+name|int
+name|hash
+init|=
 operator|(
 name|int
 operator|)
@@ -3263,6 +3296,14 @@ name|TimeUnit
 operator|.
 name|MILLISECONDS
 argument_list|)
+decl_stmt|;
+return|return
+name|hash
+operator|^
+name|region
+operator|.
+name|hashCode
+argument_list|()
 return|;
 block|}
 annotation|@
