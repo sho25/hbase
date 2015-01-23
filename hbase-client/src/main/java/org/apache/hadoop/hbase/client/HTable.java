@@ -6551,6 +6551,16 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|mutator
+operator|==
+literal|null
+condition|)
+block|{
+comment|// nothing to flush if there's no mutator; don't bother creating one.
+return|return;
+block|}
 name|getBufferedMutator
 argument_list|()
 operator|.
