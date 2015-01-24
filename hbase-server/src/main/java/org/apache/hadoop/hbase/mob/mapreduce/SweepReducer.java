@@ -481,7 +481,9 @@ name|hbase
 operator|.
 name|mob
 operator|.
-name|MobZookeeper
+name|mapreduce
+operator|.
+name|SweepJob
 operator|.
 name|DummyMobAbortable
 import|;
@@ -838,7 +840,7 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-comment|// the MOB_COMPACTION_DELAY is ONE_DAY by default. Its value is only changed when testing.
+comment|// the MOB_SWEEP_JOB_DELAY is ONE_DAY by default. Its value is only changed when testing.
 name|mobCompactionDelay
 operator|=
 name|conf
@@ -847,7 +849,7 @@ name|getLong
 argument_list|(
 name|SweepJob
 operator|.
-name|MOB_COMPACTION_DELAY
+name|MOB_SWEEP_JOB_DELAY
 argument_list|,
 name|SweepJob
 operator|.
@@ -1001,7 +1003,7 @@ name|HConstants
 operator|.
 name|HFILE_BLOCK_CACHE_SIZE_KEY
 argument_list|,
-literal|0.00001f
+literal|0f
 argument_list|)
 expr_stmt|;
 name|this
@@ -1160,6 +1162,21 @@ name|SWEEP_JOB_ID
 argument_list|)
 decl_stmt|;
 name|String
+name|owner
+init|=
+name|context
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|SweepJob
+operator|.
+name|SWEEP_JOB_SERVERNAME
+argument_list|)
+decl_stmt|;
+name|String
 name|sweeperNode
 init|=
 name|context
@@ -1171,7 +1188,7 @@ name|get
 argument_list|(
 name|SweepJob
 operator|.
-name|SWEEPER_NODE
+name|SWEEP_JOB_TABLE_NODE
 argument_list|)
 decl_stmt|;
 name|ZooKeeperWatcher
@@ -1209,7 +1226,7 @@ name|zkw
 argument_list|,
 name|sweeperNode
 argument_list|,
-name|jobId
+name|owner
 argument_list|)
 decl_stmt|;
 name|tracker

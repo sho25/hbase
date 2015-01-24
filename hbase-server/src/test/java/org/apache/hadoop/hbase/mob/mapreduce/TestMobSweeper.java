@@ -1211,7 +1211,7 @@ name|setLong
 argument_list|(
 name|SweepJob
 operator|.
-name|MOB_COMPACTION_DELAY
+name|MOB_SWEEP_JOB_DELAY
 argument_list|,
 literal|24
 operator|*
@@ -1784,7 +1784,7 @@ name|setLong
 argument_list|(
 name|SweepJob
 operator|.
-name|MOB_COMPACTION_DELAY
+name|MOB_SWEEP_JOB_DELAY
 argument_list|,
 literal|0
 argument_list|)
