@@ -1233,8 +1233,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|// We set it not to run or it will trigger server shutdown while sync'ing
-comment|// because all the datanodes are bad
+comment|// Make it fail faster.
 name|util
 operator|.
 name|getConfiguration
@@ -1246,7 +1245,7 @@ name|HConstants
 operator|.
 name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
-literal|3
+literal|1
 argument_list|)
 expr_stmt|;
 name|util
@@ -1320,21 +1319,6 @@ operator|.
 name|createTable
 argument_list|(
 name|desc
-argument_list|)
-expr_stmt|;
-comment|// Make it fail faster.
-name|util
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CLIENT_RETRIES_NUMBER
-argument_list|,
-literal|1
 argument_list|)
 expr_stmt|;
 comment|// Make a new Configuration so it makes a new connection that has the
@@ -1616,6 +1600,8 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|read
