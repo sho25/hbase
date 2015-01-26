@@ -596,6 +596,8 @@ name|request
 operator|.
 name|getRemoteAddr
 argument_list|()
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 block|}
