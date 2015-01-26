@@ -757,6 +757,11 @@ name|getConnection
 argument_list|()
 argument_list|,
 name|regionInfos
+argument_list|,
+name|hTableDescriptor
+operator|.
+name|getRegionReplication
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// 5. Trigger immediate assignment of the regions in round-robin fashion

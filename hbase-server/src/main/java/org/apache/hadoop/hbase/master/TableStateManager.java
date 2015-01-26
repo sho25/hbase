@@ -853,6 +853,14 @@ return|return
 name|tableState
 return|;
 block|}
+name|TableDescriptors
+name|getTableDescriptors
+parameter_list|()
+block|{
+return|return
+name|descriptors
+return|;
+block|}
 comment|/**    * Write descriptor in place, update cache of states.    * Write lock should be hold by caller.    *    * @param descriptor what to write    */
 specifier|private
 name|void

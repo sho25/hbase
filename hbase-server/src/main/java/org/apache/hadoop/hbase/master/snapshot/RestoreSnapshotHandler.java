@@ -928,6 +928,11 @@ argument_list|(
 name|conn
 argument_list|,
 name|hris
+argument_list|,
+name|hTableDescriptor
+operator|.
+name|getRegionReplication
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -947,6 +952,11 @@ argument_list|,
 name|metaChanges
 operator|.
 name|getRegionsToRestore
+argument_list|()
+argument_list|,
+name|hTableDescriptor
+operator|.
+name|getRegionReplication
 argument_list|()
 argument_list|)
 expr_stmt|;

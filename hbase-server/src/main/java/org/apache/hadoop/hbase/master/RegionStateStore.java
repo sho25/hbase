@@ -1367,6 +1367,9 @@ name|b
 parameter_list|,
 name|ServerName
 name|sn
+parameter_list|,
+name|int
+name|regionReplication
 parameter_list|)
 throws|throws
 name|IOException
@@ -1387,6 +1390,8 @@ argument_list|,
 name|b
 argument_list|,
 name|sn
+argument_list|,
+name|regionReplication
 argument_list|)
 expr_stmt|;
 block|}
@@ -1404,6 +1409,9 @@ name|b
 parameter_list|,
 name|ServerName
 name|sn
+parameter_list|,
+name|int
+name|regionReplication
 parameter_list|)
 throws|throws
 name|IOException
@@ -1424,6 +1432,8 @@ argument_list|,
 name|b
 argument_list|,
 name|sn
+argument_list|,
+name|regionReplication
 argument_list|)
 expr_stmt|;
 block|}

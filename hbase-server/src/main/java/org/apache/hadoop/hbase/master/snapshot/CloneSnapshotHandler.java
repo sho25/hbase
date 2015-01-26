@@ -870,6 +870,9 @@ argument_list|<
 name|HRegionInfo
 argument_list|>
 name|regionInfos
+parameter_list|,
+name|int
+name|regionReplication
 parameter_list|)
 throws|throws
 name|IOException
@@ -879,6 +882,8 @@ operator|.
 name|addRegionsToMeta
 argument_list|(
 name|regionInfos
+argument_list|,
+name|regionReplication
 argument_list|)
 expr_stmt|;
 name|metaChanges
