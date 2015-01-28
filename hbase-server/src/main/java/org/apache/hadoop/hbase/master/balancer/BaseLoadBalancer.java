@@ -5427,7 +5427,7 @@ literal|0.2
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Check if a region belongs to some small system table.    * If so, it may be expected to be put on the master regionserver.    */
+comment|/**    * Check if a region belongs to some small system table.    * If so, the primary replica may be expected to be put on the master regionserver.    */
 specifier|public
 name|boolean
 name|shouldBeOnMaster
@@ -5449,6 +5449,15 @@ operator|.
 name|getNameAsString
 argument_list|()
 argument_list|)
+operator|&&
+name|region
+operator|.
+name|getReplicaId
+argument_list|()
+operator|==
+name|HRegionInfo
+operator|.
+name|DEFAULT_REPLICA_ID
 return|;
 block|}
 comment|/**    * Balance the regions that should be on master regionserver.    */

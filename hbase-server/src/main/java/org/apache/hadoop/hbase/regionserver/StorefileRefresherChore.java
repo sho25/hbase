@@ -224,6 +224,15 @@ init|=
 literal|0
 decl_stmt|;
 comment|//disabled by default
+comment|/**    * Whether all storefiles should be refreshed, as opposed to just hbase:meta's    * Meta region doesn't have WAL replication for replicas enabled yet    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGIONSERVER_META_STOREFILE_REFRESH_PERIOD
+init|=
+literal|"hbase.regionserver.meta.storefile.refresh.period"
+decl_stmt|;
 specifier|private
 name|HRegionServer
 name|regionServer
@@ -235,6 +244,12 @@ decl_stmt|;
 specifier|private
 name|int
 name|period
+decl_stmt|;
+specifier|private
+name|boolean
+name|onlyMetaRefresh
+init|=
+literal|true
 decl_stmt|;
 comment|//ts of last time regions store files are refreshed
 specifier|private
@@ -252,6 +267,9 @@ name|StorefileRefresherChore
 parameter_list|(
 name|int
 name|period
+parameter_list|,
+name|boolean
+name|onlyMetaRefresh
 parameter_list|,
 name|HRegionServer
 name|regionServer
@@ -302,6 +320,12 @@ name|TimeToLiveHFileCleaner
 operator|.
 name|DEFAULT_TTL
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|onlyMetaRefresh
+operator|=
+name|onlyMetaRefresh
 expr_stmt|;
 if|if
 condition|(
@@ -370,6 +394,22 @@ block|{
 comment|// skip checking for this region if it can accept writes
 continue|continue;
 block|}
+comment|// don't refresh unless enabled for all files, or it the meta region
+comment|// meta region don't have WAL replication for replicas enabled yet
+if|if
+condition|(
+name|onlyMetaRefresh
+operator|&&
+operator|!
+name|r
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|isMetaTable
+argument_list|()
+condition|)
+continue|continue;
 name|String
 name|encodedName
 init|=

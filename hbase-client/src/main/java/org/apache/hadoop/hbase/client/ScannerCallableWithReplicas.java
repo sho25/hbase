@@ -1541,11 +1541,7 @@ if|if
 condition|(
 name|currentScannerCallable
 operator|.
-name|getHRegionInfo
-argument_list|()
-operator|.
-name|getReplicaId
-argument_list|()
+name|id
 operator|==
 name|id
 condition|)

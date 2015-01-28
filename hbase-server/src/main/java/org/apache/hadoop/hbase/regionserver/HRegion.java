@@ -5765,6 +5765,15 @@ name|DEFAULT_CACHE_FLUSH_INTERVAL
 init|=
 literal|3600000
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|META_CACHE_FLUSH_INTERVAL
+init|=
+literal|300000
+decl_stmt|;
+comment|// 5 minutes
 comment|/** Conf key to force a flush if there are already enough changes for one region in memstore */
 specifier|public
 specifier|static
@@ -8423,9 +8432,38 @@ return|return
 literal|true
 return|;
 block|}
+name|long
+name|modifiedFlushCheckInterval
+init|=
+name|flushCheckInterval
+decl_stmt|;
 if|if
 condition|(
-name|flushCheckInterval
+name|getRegionInfo
+argument_list|()
+operator|.
+name|isMetaRegion
+argument_list|()
+operator|&&
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getReplicaId
+argument_list|()
+operator|==
+name|HRegionInfo
+operator|.
+name|DEFAULT_REPLICA_ID
+condition|)
+block|{
+name|modifiedFlushCheckInterval
+operator|=
+name|META_CACHE_FLUSH_INTERVAL
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|modifiedFlushCheckInterval
 operator|<=
 literal|0
 condition|)
@@ -8452,7 +8490,7 @@ operator|-
 name|getEarliestFlushTimeForAllStores
 argument_list|()
 operator|<
-name|flushCheckInterval
+name|modifiedFlushCheckInterval
 operator|)
 condition|)
 block|{
@@ -8485,7 +8523,7 @@ argument_list|()
 operator|<
 name|now
 operator|-
-name|flushCheckInterval
+name|modifiedFlushCheckInterval
 condition|)
 block|{
 comment|// we have an old enough edit in the memstore, flush

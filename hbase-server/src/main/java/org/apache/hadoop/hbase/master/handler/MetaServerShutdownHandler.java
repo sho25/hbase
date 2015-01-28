@@ -828,7 +828,11 @@ name|getAssignmentManager
 argument_list|()
 operator|.
 name|assignMeta
-argument_list|()
+argument_list|(
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+argument_list|)
 expr_stmt|;
 block|}
 elseif|else

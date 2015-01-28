@@ -951,6 +951,11 @@ operator|.
 name|getServerName
 argument_list|()
 argument_list|,
+name|hri
+operator|.
+name|getReplicaId
+argument_list|()
+argument_list|,
 name|newState
 operator|.
 name|getState

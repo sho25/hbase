@@ -191,6 +191,10 @@ name|HConstants
 operator|.
 name|RPC_CODEC_CONF_KEY
 block|,
+name|HConstants
+operator|.
+name|USE_META_REPLICAS
+block|,
 name|RpcControllerFactory
 operator|.
 name|CUSTOM_CONTROLLER_CONF_KEY

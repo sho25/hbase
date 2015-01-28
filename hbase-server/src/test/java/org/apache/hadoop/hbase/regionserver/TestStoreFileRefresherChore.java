@@ -1140,6 +1140,8 @@ name|super
 argument_list|(
 name|period
 argument_list|,
+literal|false
+argument_list|,
 name|regionServer
 argument_list|,
 name|stoppable
