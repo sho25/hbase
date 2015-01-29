@@ -285,6 +285,10 @@ name|Context
 operator|.
 name|NONE
 decl_stmt|;
+specifier|private
+name|long
+name|fileCreateTime
+decl_stmt|;
 comment|//Empty constructor.  Go with setters
 specifier|public
 name|HFileContext
@@ -378,6 +382,14 @@ name|context
 operator|.
 name|cryptoContext
 expr_stmt|;
+name|this
+operator|.
+name|fileCreateTime
+operator|=
+name|context
+operator|.
+name|fileCreateTime
+expr_stmt|;
 block|}
 specifier|public
 name|HFileContext
@@ -415,6 +427,9 @@ name|Encryption
 operator|.
 name|Context
 name|cryptoContext
+parameter_list|,
+name|long
+name|fileCreateTime
 parameter_list|)
 block|{
 name|this
@@ -484,6 +499,12 @@ operator|.
 name|cryptoContext
 operator|=
 name|cryptoContext
+expr_stmt|;
+name|this
+operator|.
+name|fileCreateTime
+operator|=
+name|fileCreateTime
 expr_stmt|;
 block|}
 comment|/**    * @return true when on-disk blocks from this file are compressed, and/or encrypted;    * false otherwise.    */
@@ -630,6 +651,21 @@ name|includesTags
 expr_stmt|;
 block|}
 specifier|public
+name|void
+name|setFileCreateTime
+parameter_list|(
+name|long
+name|fileCreateTime
+parameter_list|)
+block|{
+name|this
+operator|.
+name|fileCreateTime
+operator|=
+name|fileCreateTime
+expr_stmt|;
+block|}
+specifier|public
 name|boolean
 name|isCompressTags
 parameter_list|()
@@ -678,6 +714,15 @@ parameter_list|()
 block|{
 return|return
 name|blocksize
+return|;
+block|}
+specifier|public
+name|long
+name|getFileCreateTime
+parameter_list|()
+block|{
+return|return
+name|fileCreateTime
 return|;
 block|}
 specifier|public
@@ -770,6 +815,10 @@ operator|*
 name|Bytes
 operator|.
 name|SIZEOF_BOOLEAN
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_LONG
 argument_list|)
 decl_stmt|;
 return|return

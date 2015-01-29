@@ -719,6 +719,27 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+name|fileInfo
+operator|.
+name|append
+argument_list|(
+name|FileInfo
+operator|.
+name|CREATE_TIME_TS
+argument_list|,
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|hFileContext
+operator|.
+name|getFileCreateTime
+argument_list|()
+argument_list|)
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Add to the file info. All added key/value pairs can be obtained using    * {@link HFile.Reader#loadFileInfo()}.    *    * @param k Key    * @param v Value    * @throws IOException in case the key or the value are invalid    */
 annotation|@

@@ -541,6 +541,29 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @param table    * @return the timestamp of the last successful major compaction for the passed table,    * or 0 if no HFile resulting from a major compaction exists    * @throws IOException    */
+specifier|public
+name|long
+name|getLastMajorCompactionTimestamp
+parameter_list|(
+name|TableName
+name|table
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * @param regionName    * @return the timestamp of the last successful major compaction for the passed region    * or 0 if no HFile resulting from a major compaction exists    * @throws IOException    */
+specifier|public
+name|long
+name|getLastMajorCompactionTimestampForRegion
+parameter_list|(
+name|byte
+index|[]
+name|regionName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

@@ -10038,6 +10038,17 @@ name|float
 name|getDataLocality
 parameter_list|()
 function_decl|;
+comment|// optional uint64 last_major_compaction_ts = 17 [default = 0];
+comment|/**      *<code>optional uint64 last_major_compaction_ts = 17 [default = 0];</code>      */
+name|boolean
+name|hasLastMajorCompactionTs
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional uint64 last_major_compaction_ts = 17 [default = 0];</code>      */
+name|long
+name|getLastMajorCompactionTs
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code RegionLoad}    */
 specifier|public
@@ -10643,6 +10654,23 @@ operator|=
 name|input
 operator|.
 name|readFloat
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|136
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00010000
+expr_stmt|;
+name|lastMajorCompactionTs_
+operator|=
+name|input
+operator|.
+name|readUInt64
 argument_list|()
 expr_stmt|;
 break|break;
@@ -11630,6 +11658,47 @@ return|return
 name|dataLocality_
 return|;
 block|}
+comment|// optional uint64 last_major_compaction_ts = 17 [default = 0];
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|LAST_MAJOR_COMPACTION_TS_FIELD_NUMBER
+init|=
+literal|17
+decl_stmt|;
+specifier|private
+name|long
+name|lastMajorCompactionTs_
+decl_stmt|;
+comment|/**      *<code>optional uint64 last_major_compaction_ts = 17 [default = 0];</code>      */
+specifier|public
+name|boolean
+name|hasLastMajorCompactionTs
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00010000
+operator|)
+operator|==
+literal|0x00010000
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional uint64 last_major_compaction_ts = 17 [default = 0];</code>      */
+specifier|public
+name|long
+name|getLastMajorCompactionTs
+parameter_list|()
+block|{
+return|return
+name|lastMajorCompactionTs_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -11715,6 +11784,10 @@ expr_stmt|;
 name|dataLocality_
 operator|=
 literal|0F
+expr_stmt|;
+name|lastMajorCompactionTs_
+operator|=
+literal|0L
 expr_stmt|;
 block|}
 specifier|private
@@ -12176,6 +12249,29 @@ argument_list|(
 literal|16
 argument_list|,
 name|dataLocality_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00010000
+operator|)
+operator|==
+literal|0x00010000
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt64
+argument_list|(
+literal|17
+argument_list|,
+name|lastMajorCompactionTs_
 argument_list|)
 expr_stmt|;
 block|}
@@ -12712,6 +12808,37 @@ argument_list|(
 literal|16
 argument_list|,
 name|dataLocality_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00010000
+operator|)
+operator|==
+literal|0x00010000
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt64Size
+argument_list|(
+literal|17
+argument_list|,
+name|lastMajorCompactionTs_
 argument_list|)
 expr_stmt|;
 block|}
@@ -13446,6 +13573,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasLastMajorCompactionTs
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasLastMajorCompactionTs
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasLastMajorCompactionTs
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getLastMajorCompactionTs
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getLastMajorCompactionTs
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -13975,6 +14137,37 @@ operator|.
 name|floatToIntBits
 argument_list|(
 name|getDataLocality
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasLastMajorCompactionTs
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|LAST_MAJOR_COMPACTION_TS_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getLastMajorCompactionTs
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -15049,6 +15242,19 @@ operator|~
 literal|0x00008000
 operator|)
 expr_stmt|;
+name|lastMajorCompactionTs_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00010000
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -15669,6 +15875,30 @@ name|dataLocality_
 operator|=
 name|dataLocality_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00010000
+operator|)
+operator|==
+literal|0x00010000
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00010000
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|lastMajorCompactionTs_
+operator|=
+name|lastMajorCompactionTs_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -16071,6 +16301,23 @@ argument_list|(
 name|other
 operator|.
 name|getDataLocality
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasLastMajorCompactionTs
+argument_list|()
+condition|)
+block|{
+name|setLastMajorCompactionTs
+argument_list|(
+name|other
+operator|.
+name|getLastMajorCompactionTs
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -18190,6 +18437,89 @@ expr_stmt|;
 name|dataLocality_
 operator|=
 literal|0F
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional uint64 last_major_compaction_ts = 17 [default = 0];
+specifier|private
+name|long
+name|lastMajorCompactionTs_
+decl_stmt|;
+comment|/**        *<code>optional uint64 last_major_compaction_ts = 17 [default = 0];</code>        */
+specifier|public
+name|boolean
+name|hasLastMajorCompactionTs
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00010000
+operator|)
+operator|==
+literal|0x00010000
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional uint64 last_major_compaction_ts = 17 [default = 0];</code>        */
+specifier|public
+name|long
+name|getLastMajorCompactionTs
+parameter_list|()
+block|{
+return|return
+name|lastMajorCompactionTs_
+return|;
+block|}
+comment|/**        *<code>optional uint64 last_major_compaction_ts = 17 [default = 0];</code>        */
+specifier|public
+name|Builder
+name|setLastMajorCompactionTs
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00010000
+expr_stmt|;
+name|lastMajorCompactionTs_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional uint64 last_major_compaction_ts = 17 [default = 0];</code>        */
+specifier|public
+name|Builder
+name|clearLastMajorCompactionTs
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00010000
+operator|)
+expr_stmt|;
+name|lastMajorCompactionTs_
+operator|=
+literal|0L
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -49077,7 +49407,7 @@ literal|"nInTransition\022\036\n\004spec\030\001 \002(\0132\020.RegionSpec"
 operator|+
 literal|"ifier\022\"\n\014region_state\030\002 \002(\0132\014.RegionStat"
 operator|+
-literal|"e\"\347\003\n\nRegionLoad\022*\n\020region_specifier\030\001 \002"
+literal|"e\"\214\004\n\nRegionLoad\022*\n\020region_specifier\030\001 \002"
 operator|+
 literal|"(\0132\020.RegionSpecifier\022\016\n\006stores\030\002 \001(\r\022\022\n\n"
 operator|+
@@ -49101,45 +49431,47 @@ literal|"(\r\022\"\n\032total_static_bloom_size_KB\030\016 \001(\r\022\034"
 operator|+
 literal|"\n\024complete_sequence_id\030\017 \001(\004\022\025\n\rdata_loc"
 operator|+
-literal|"ality\030\020 \001(\002\"\212\002\n\nServerLoad\022\032\n\022number_of_"
+literal|"ality\030\020 \001(\002\022#\n\030last_major_compaction_ts\030"
 operator|+
-literal|"requests\030\001 \001(\r\022 \n\030total_number_of_reques"
+literal|"\021 \001(\004:\0010\"\212\002\n\nServerLoad\022\032\n\022number_of_req"
 operator|+
-literal|"ts\030\002 \001(\r\022\024\n\014used_heap_MB\030\003 \001(\r\022\023\n\013max_he"
+literal|"uests\030\001 \001(\r\022 \n\030total_number_of_requests\030"
 operator|+
-literal|"ap_MB\030\004 \001(\r\022!\n\014region_loads\030\005 \003(\0132\013.Regi"
+literal|"\002 \001(\r\022\024\n\014used_heap_MB\030\003 \001(\r\022\023\n\013max_heap_"
 operator|+
-literal|"onLoad\022\"\n\014coprocessors\030\006 \003(\0132\014.Coprocess"
+literal|"MB\030\004 \001(\r\022!\n\014region_loads\030\005 \003(\0132\013.RegionL"
 operator|+
-literal|"or\022\031\n\021report_start_time\030\007 \001(\004\022\027\n\017report_"
+literal|"oad\022\"\n\014coprocessors\030\006 \003(\0132\014.Coprocessor\022"
 block|,
-literal|"end_time\030\010 \001(\004\022\030\n\020info_server_port\030\t \001(\r"
+literal|"\031\n\021report_start_time\030\007 \001(\004\022\027\n\017report_end"
 operator|+
-literal|"\"O\n\016LiveServerInfo\022\033\n\006server\030\001 \002(\0132\013.Ser"
+literal|"_time\030\010 \001(\004\022\030\n\020info_server_port\030\t \001(\r\"O\n"
 operator|+
-literal|"verName\022 \n\013server_load\030\002 \002(\0132\013.ServerLoa"
+literal|"\016LiveServerInfo\022\033\n\006server\030\001 \002(\0132\013.Server"
 operator|+
-literal|"d\"\340\002\n\rClusterStatus\022/\n\rhbase_version\030\001 \001"
+literal|"Name\022 \n\013server_load\030\002 \002(\0132\013.ServerLoad\"\340"
 operator|+
-literal|"(\0132\030.HBaseVersionFileContent\022%\n\014live_ser"
+literal|"\002\n\rClusterStatus\022/\n\rhbase_version\030\001 \001(\0132"
 operator|+
-literal|"vers\030\002 \003(\0132\017.LiveServerInfo\022!\n\014dead_serv"
+literal|"\030.HBaseVersionFileContent\022%\n\014live_server"
 operator|+
-literal|"ers\030\003 \003(\0132\013.ServerName\0222\n\025regions_in_tra"
+literal|"s\030\002 \003(\0132\017.LiveServerInfo\022!\n\014dead_servers"
 operator|+
-literal|"nsition\030\004 \003(\0132\023.RegionInTransition\022\036\n\ncl"
+literal|"\030\003 \003(\0132\013.ServerName\0222\n\025regions_in_transi"
 operator|+
-literal|"uster_id\030\005 \001(\0132\n.ClusterId\022)\n\023master_cop"
+literal|"tion\030\004 \003(\0132\023.RegionInTransition\022\036\n\nclust"
 operator|+
-literal|"rocessors\030\006 \003(\0132\014.Coprocessor\022\033\n\006master\030"
+literal|"er_id\030\005 \001(\0132\n.ClusterId\022)\n\023master_coproc"
 block|,
-literal|"\007 \001(\0132\013.ServerName\022#\n\016backup_masters\030\010 \003"
+literal|"essors\030\006 \003(\0132\014.Coprocessor\022\033\n\006master\030\007 \001"
 operator|+
-literal|"(\0132\013.ServerName\022\023\n\013balancer_on\030\t \001(\010BF\n*"
+literal|"(\0132\013.ServerName\022#\n\016backup_masters\030\010 \003(\0132"
 operator|+
-literal|"org.apache.hadoop.hbase.protobuf.generat"
+literal|"\013.ServerName\022\023\n\013balancer_on\030\t \001(\010BF\n*org"
 operator|+
-literal|"edB\023ClusterStatusProtosH\001\240\001\001"
+literal|".apache.hadoop.hbase.protobuf.generatedB"
+operator|+
+literal|"\023ClusterStatusProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -49348,6 +49680,8 @@ block|,
 literal|"CompleteSequenceId"
 block|,
 literal|"DataLocality"
+block|,
+literal|"LastMajorCompactionTs"
 block|, }
 argument_list|)
 expr_stmt|;

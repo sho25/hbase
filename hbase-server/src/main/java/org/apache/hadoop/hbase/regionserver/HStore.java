@@ -5286,6 +5286,14 @@ argument_list|(
 name|cryptoContext
 argument_list|)
 operator|.
+name|withCreateTime
+argument_list|(
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+argument_list|)
+operator|.
 name|build
 argument_list|()
 decl_stmt|;

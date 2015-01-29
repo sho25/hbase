@@ -393,6 +393,19 @@ return|return
 literal|0.0f
 return|;
 block|}
+comment|/**    * @return the timestamp of the oldest hfile for any store of this region.    */
+specifier|public
+name|long
+name|getLastMajorCompactionTs
+parameter_list|()
+block|{
+return|return
+name|regionLoadPB
+operator|.
+name|getLastMajorCompactionTs
+argument_list|()
+return|;
+block|}
 comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
@@ -449,6 +462,22 @@ argument_list|,
 name|this
 operator|.
 name|getStoreUncompressedSizeMB
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|sb
+operator|=
+name|Strings
+operator|.
+name|appendKeyValue
+argument_list|(
+name|sb
+argument_list|,
+literal|"lastMajorCompactionTimestamp"
+argument_list|,
+name|this
+operator|.
+name|getLastMajorCompactionTs
 argument_list|()
 argument_list|)
 expr_stmt|;

@@ -1622,6 +1622,29 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Get the timestamp of the last major compaction for the passed table    *    * The timestamp of the oldest HFile resulting from a major compaction of that table,    * or 0 if no such HFile could be found.    *    * @param tableName table to examine    * @return the last major compaction timestamp or 0    * @throws IOException if a remote or network exception occurs    */
+name|long
+name|getLastMajorCompactionTimestamp
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Get the timestamp of the last major compaction for the passed region.    *    * The timestamp of the oldest HFile resulting from a major compaction of that region,    * or 0 if no such HFile could be found.    *    * @param regionName region to examine    * @return the last major compaction timestamp or 0    * @throws IOException if a remote or network exception occurs    */
+name|long
+name|getLastMajorCompactionTimestampForRegion
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Take a snapshot for the given table. If the table is enabled, a FLUSH-type snapshot will be    * taken. If the table is disabled, an offline snapshot is taken. Snapshots are considered unique    * based on<b>the name of the snapshot</b>. Attempts to take a snapshot with the same name (even    * a different type or with different parameters) will fail with a {@link    * org.apache.hadoop.hbase.snapshot.SnapshotCreationException} indicating the duplicate naming.    * Snapshot names follow the same naming constraints as tables in HBase. See {@link    * org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}.    *    * @param snapshotName name of the snapshot to be created    * @param tableName name of the table for which snapshot is created    * @throws IOException if a remote or network exception occurs    * @throws org.apache.hadoop.hbase.snapshot.SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
 name|void
 name|snapshot

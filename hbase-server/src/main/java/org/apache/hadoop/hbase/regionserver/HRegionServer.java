@@ -6999,6 +6999,8 @@ operator|.
 name|Builder
 name|regionSpecifier
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|byte
 index|[]
@@ -7397,6 +7399,16 @@ name|setDataLocality
 argument_list|(
 name|dataLocality
 argument_list|)
+operator|.
+name|setLastMajorCompactionTs
+argument_list|(
+name|r
+operator|.
+name|getOldestHfileTs
+argument_list|(
+literal|true
+argument_list|)
+argument_list|)
 expr_stmt|;
 return|return
 name|regionLoadBldr
@@ -7414,6 +7426,8 @@ specifier|final
 name|String
 name|encodedRegionName
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|HRegion
 name|r
