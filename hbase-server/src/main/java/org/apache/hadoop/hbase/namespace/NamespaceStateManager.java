@@ -353,7 +353,7 @@ name|name
 argument_list|)
 return|;
 block|}
-comment|/**    * Check if adding a region violates namespace quota, if not update namespace cache.    *    * @param TableName    * @param regionName    * @return true, if region can be added to table.    * @throws IOException Signals that an I/O exception has occurred.    */
+comment|/**    * Check if adding a region violates namespace quota, if not update namespace cache.    *    * @param TableName    * @param regionName    * @param incr    * @return true, if region can be added to table.    * @throws IOException Signals that an I/O exception has occurred.    */
 specifier|synchronized
 name|boolean
 name|checkAndUpdateNamespaceRegionCount
@@ -364,6 +364,9 @@ parameter_list|,
 name|byte
 index|[]
 name|regionName
+parameter_list|,
+name|int
+name|incr
 parameter_list|)
 throws|throws
 name|IOException
@@ -403,6 +406,10 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|incr
+operator|>
+literal|0
+operator|&&
 name|currentStatus
 operator|.
 name|getRegionCount
@@ -463,7 +470,7 @@ name|incRegionCountForTable
 argument_list|(
 name|name
 argument_list|,
-literal|1
+name|incr
 argument_list|)
 expr_stmt|;
 block|}

@@ -88,6 +88,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Process region merge event.    *    * @param hri An instance of HRegionInfo    * @throws IOException    */
+name|void
+name|onRegionMerged
+parameter_list|(
+name|HRegionInfo
+name|hri
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 
