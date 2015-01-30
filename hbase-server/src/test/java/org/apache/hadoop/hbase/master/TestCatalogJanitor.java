@@ -253,6 +253,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ChoreService
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CoordinatedStateManager
 import|;
 end_import
@@ -452,22 +466,6 @@ operator|.
 name|client
 operator|.
 name|ClusterConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HConnectionManager
 import|;
 end_import
 
@@ -1601,6 +1599,17 @@ name|String
 name|why
 parameter_list|)
 block|{     }
+annotation|@
+name|Override
+specifier|public
+name|ChoreService
+name|getChoreService
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
 block|}
 comment|/**    * Mock MasterServices for tests below.    */
 class|class
@@ -1704,6 +1713,17 @@ name|Override
 specifier|public
 name|ExecutorService
 name|getExecutorService
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ChoreService
+name|getChoreService
 parameter_list|()
 block|{
 return|return
@@ -3470,8 +3490,10 @@ argument_list|)
 expr_stmt|;
 name|janitor
 operator|.
-name|join
-argument_list|()
+name|cancel
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * CatalogJanitor.scan() should not clean parent regions if their own    * parents are still referencing them. This ensures that grandfather regions    * do not point to deleted parent regions.    */
@@ -3900,8 +3922,10 @@ argument_list|)
 expr_stmt|;
 name|janitor
 operator|.
-name|join
-argument_list|()
+name|cancel
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test that we correctly archive all the storefiles when a region is deleted    * @throws Exception    */
@@ -5010,8 +5034,10 @@ argument_list|)
 expr_stmt|;
 name|janitor
 operator|.
-name|join
-argument_list|()
+name|cancel
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @param description description of the files for logging    * @param storeFiles the status of the files to log    */
@@ -5502,8 +5528,10 @@ argument_list|)
 expr_stmt|;
 name|janitor
 operator|.
-name|join
-argument_list|()
+name|cancel
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 specifier|private

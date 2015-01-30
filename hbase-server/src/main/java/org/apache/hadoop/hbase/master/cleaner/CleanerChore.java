@@ -143,7 +143,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Chore
+name|ScheduledChore
 import|;
 end_import
 
@@ -262,7 +262,7 @@ extends|extends
 name|FileCleanerDelegate
 parameter_list|>
 extends|extends
-name|Chore
+name|ScheduledChore
 block|{
 specifier|private
 specifier|static
@@ -336,9 +336,9 @@ name|super
 argument_list|(
 name|name
 argument_list|,
-name|sleepPeriod
-argument_list|,
 name|s
+argument_list|,
+name|sleepPeriod
 argument_list|)
 expr_stmt|;
 name|this

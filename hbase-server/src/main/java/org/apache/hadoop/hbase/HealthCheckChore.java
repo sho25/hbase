@@ -96,7 +96,7 @@ specifier|public
 class|class
 name|HealthCheckChore
 extends|extends
-name|Chore
+name|ScheduledChore
 block|{
 specifier|private
 specifier|static
@@ -155,9 +155,9 @@ name|super
 argument_list|(
 literal|"HealthChecker"
 argument_list|,
-name|sleepTime
-argument_list|,
 name|stopper
+argument_list|,
+name|sleepTime
 argument_list|)
 expr_stmt|;
 name|LOG

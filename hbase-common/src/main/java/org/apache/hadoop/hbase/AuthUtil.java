@@ -149,22 +149,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Threads
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|net
 operator|.
 name|DNS
@@ -228,8 +212,8 @@ block|}
 comment|/**    * Checks if security is enabled and if so, launches chore for refreshing kerberos ticket.    */
 specifier|public
 specifier|static
-name|void
-name|launchAuthChore
+name|ScheduledChore
+name|getAuthChore
 parameter_list|(
 name|Configuration
 name|conf
@@ -266,7 +250,9 @@ condition|(
 operator|!
 name|securityEnabled
 condition|)
-return|return;
+return|return
+literal|null
+return|;
 name|String
 name|host
 init|=
@@ -416,17 +402,17 @@ operator|*
 literal|1000
 decl_stmt|;
 comment|// 30sec
-name|Chore
+name|ScheduledChore
 name|refreshCredentials
 init|=
 operator|new
-name|Chore
+name|ScheduledChore
 argument_list|(
 literal|"RefreshCredentials"
 argument_list|,
-name|CHECK_TGT_INTERVAL
-argument_list|,
 name|stoppable
+argument_list|,
+name|CHECK_TGT_INTERVAL
 argument_list|)
 block|{
 annotation|@
@@ -461,17 +447,9 @@ block|}
 block|}
 block|}
 decl_stmt|;
-comment|// Start the chore for refreshing credentials
-name|Threads
-operator|.
-name|setDaemonThreadRunning
-argument_list|(
+return|return
 name|refreshCredentials
-operator|.
-name|getThread
-argument_list|()
-argument_list|)
-expr_stmt|;
+return|;
 block|}
 block|}
 end_class

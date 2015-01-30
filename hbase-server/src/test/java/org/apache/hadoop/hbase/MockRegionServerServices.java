@@ -431,9 +431,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|wal
+name|util
 operator|.
-name|WAL
+name|Bytes
 import|;
 end_import
 
@@ -447,9 +447,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|wal
 operator|.
-name|Bytes
+name|WAL
 import|;
 end_import
 
@@ -1185,6 +1185,17 @@ name|Override
 specifier|public
 name|ExecutorService
 name|getExecutorService
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ChoreService
+name|getChoreService
 parameter_list|()
 block|{
 return|return

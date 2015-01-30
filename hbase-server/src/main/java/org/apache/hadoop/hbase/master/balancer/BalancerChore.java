@@ -21,6 +21,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -57,9 +67,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|ScheduledChore
 import|;
 end_import
 
@@ -73,7 +81,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Chore
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -93,16 +103,6 @@ name|HMaster
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Chore that will call HMaster.balance{@link org.apache.hadoop.hbase.master.HMaster#balance()} when  * needed.  */
 end_comment
@@ -116,7 +116,7 @@ specifier|public
 class|class
 name|BalancerChore
 extends|extends
-name|Chore
+name|ScheduledChore
 block|{
 specifier|private
 specifier|static
@@ -155,6 +155,8 @@ operator|+
 literal|"-BalancerChore"
 argument_list|,
 name|master
+argument_list|,
+name|master
 operator|.
 name|getConfiguration
 argument_list|()
@@ -165,8 +167,6 @@ literal|"hbase.balancer.period"
 argument_list|,
 literal|300000
 argument_list|)
-argument_list|,
-name|master
 argument_list|)
 expr_stmt|;
 name|this

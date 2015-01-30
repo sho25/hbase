@@ -140,6 +140,11 @@ name|CoordinatedStateManager
 name|getCoordinatedStateManager
 parameter_list|()
 function_decl|;
+comment|/**    * @return The {@link ChoreService} instance for this server    */
+name|ChoreService
+name|getChoreService
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

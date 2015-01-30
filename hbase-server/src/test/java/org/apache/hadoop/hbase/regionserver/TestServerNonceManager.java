@@ -41,7 +41,43 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
 import|;
 end_import
 
@@ -95,7 +131,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Chore
+name|HBaseConfiguration
 import|;
 end_import
 
@@ -109,7 +145,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseConfiguration
+name|ScheduledChore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Stoppable
 import|;
 end_import
 
@@ -142,20 +192,6 @@ operator|.
 name|testclassification
 operator|.
 name|SmallTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Stoppable
 import|;
 end_import
 
@@ -646,12 +682,12 @@ argument_list|(
 literal|6
 argument_list|)
 decl_stmt|;
-name|Chore
+name|ScheduledChore
 name|cleanup
 init|=
 name|nm
 operator|.
-name|createCleanupChore
+name|createCleanupScheduledChore
 argument_list|(
 name|Mockito
 operator|.
@@ -893,12 +929,12 @@ argument_list|(
 literal|6
 argument_list|)
 decl_stmt|;
-name|Chore
+name|ScheduledChore
 name|cleanup
 init|=
 name|nm
 operator|.
-name|createCleanupChore
+name|createCleanupScheduledChore
 argument_list|(
 name|Mockito
 operator|.

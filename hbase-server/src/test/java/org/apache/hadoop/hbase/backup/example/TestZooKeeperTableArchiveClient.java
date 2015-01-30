@@ -191,6 +191,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ChoreService
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -1352,6 +1366,16 @@ operator|new
 name|StoppableImplementation
 argument_list|()
 decl_stmt|;
+specifier|final
+name|ChoreService
+name|choreService
+init|=
+operator|new
+name|ChoreService
+argument_list|(
+literal|"TEST_SERVER_NAME"
+argument_list|)
+decl_stmt|;
 name|HFileCleaner
 name|cleaner
 init|=
@@ -1595,10 +1619,12 @@ literal|3
 argument_list|)
 decl_stmt|;
 comment|// run the cleaner
-name|cleaner
+name|choreService
 operator|.
-name|start
-argument_list|()
+name|scheduleChore
+argument_list|(
+name|cleaner
+argument_list|)
 expr_stmt|;
 comment|// wait for the cleaner to check all the files
 name|finished
@@ -2414,11 +2440,23 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
+specifier|final
+name|ChoreService
+name|choreService
+init|=
+operator|new
+name|ChoreService
+argument_list|(
+literal|"CLEANER_SERVER_NAME"
+argument_list|)
+decl_stmt|;
 comment|// run the cleaner
-name|cleaner
+name|choreService
 operator|.
-name|start
-argument_list|()
+name|scheduleChore
+argument_list|(
+name|cleaner
+argument_list|)
 expr_stmt|;
 comment|// wait for the cleaner to check all the files
 name|finished

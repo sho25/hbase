@@ -131,7 +131,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Chore
+name|ScheduledChore
 import|;
 end_import
 
@@ -240,22 +240,6 @@ operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Threads
 import|;
 end_import
 
@@ -485,14 +469,14 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-name|Threads
+name|rsServices
 operator|.
-name|setDaemonThreadRunning
+name|getChoreService
+argument_list|()
+operator|.
+name|scheduleChore
 argument_list|(
 name|refreshChore
-operator|.
-name|getThread
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -830,7 +814,7 @@ specifier|private
 class|class
 name|QuotaRefresherChore
 extends|extends
-name|Chore
+name|ScheduledChore
 block|{
 specifier|private
 name|long
@@ -854,9 +838,9 @@ name|super
 argument_list|(
 literal|"QuotaRefresherChore"
 argument_list|,
-name|period
-argument_list|,
 name|stoppable
+argument_list|,
+name|period
 argument_list|)
 expr_stmt|;
 block|}

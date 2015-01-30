@@ -35,11 +35,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|Configuration
 import|;
 end_import
 
@@ -51,9 +49,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -336,10 +336,17 @@ name|INSTANCE
 operator|!=
 literal|null
 condition|)
+block|{
+name|INSTANCE
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
 name|INSTANCE
 operator|=
 literal|null
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Constructor with existing configuration    * @param conf existing configuration    * @param userProvider the login user provider    * @throws IOException    */
 name|RESTServlet
@@ -515,6 +522,23 @@ name|setEffectiveUser
 argument_list|(
 name|effectiveUser
 argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Shutdown any services that need to stop    */
+name|void
+name|shutdown
+parameter_list|()
+block|{
+if|if
+condition|(
+name|connectionCache
+operator|!=
+literal|null
+condition|)
+name|connectionCache
+operator|.
+name|shutdown
+argument_list|()
 expr_stmt|;
 block|}
 name|boolean
