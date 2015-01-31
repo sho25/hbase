@@ -4634,6 +4634,19 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Archiving "
+operator|+
+name|p
+operator|+
+literal|" to "
+operator|+
+name|newPath
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 operator|!

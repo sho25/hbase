@@ -11311,13 +11311,6 @@ name|void
 name|shutdownMiniMapReduceCluster
 parameter_list|()
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Stopping mini mapreduce cluster..."
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|mrCluster
@@ -11325,6 +11318,13 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Stopping mini mapreduce cluster..."
+argument_list|)
+expr_stmt|;
 name|mrCluster
 operator|.
 name|shutdown
@@ -11333,6 +11333,13 @@ expr_stmt|;
 name|mrCluster
 operator|=
 literal|null
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Mini mapreduce cluster stopped"
+argument_list|)
 expr_stmt|;
 block|}
 comment|// Restore configuration to point to local jobtracker
@@ -11343,13 +11350,6 @@ argument_list|(
 literal|"mapreduce.jobtracker.address"
 argument_list|,
 literal|"local"
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Mini mapreduce cluster stopped"
 argument_list|)
 expr_stmt|;
 block|}

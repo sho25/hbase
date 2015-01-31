@@ -455,7 +455,7 @@ specifier|private
 name|boolean
 name|firstTxn
 decl_stmt|;
-comment|// useful for programatic capture of JSON output
+comment|// useful for programmatic capture of JSON output
 specifier|private
 name|PrintStream
 name|out
@@ -1051,6 +1051,7 @@ argument_list|(
 name|row
 argument_list|)
 condition|)
+block|{
 name|actions
 operator|.
 name|add
@@ -1058,6 +1059,7 @@ argument_list|(
 name|op
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -1121,7 +1123,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"Sequence "
+literal|"Sequence="
 operator|+
 name|txn
 operator|.
@@ -1132,7 +1134,7 @@ argument_list|)
 operator|+
 literal|" "
 operator|+
-literal|"from region "
+literal|", region="
 operator|+
 name|txn
 operator|.
@@ -1141,18 +1143,7 @@ argument_list|(
 literal|"region"
 argument_list|)
 operator|+
-literal|" "
-operator|+
-literal|"in table "
-operator|+
-name|txn
-operator|.
-name|get
-argument_list|(
-literal|"table"
-argument_list|)
-operator|+
-literal|" at write timestamp: "
+literal|" at write timestamp="
 operator|+
 operator|new
 name|Date
@@ -1193,14 +1184,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"  Action:"
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"    row: "
+literal|"row="
 operator|+
 name|op
 operator|.
@@ -1208,13 +1192,8 @@ name|get
 argument_list|(
 literal|"row"
 argument_list|)
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"    column: "
+operator|+
+literal|", column="
 operator|+
 name|op
 operator|.
@@ -1231,29 +1210,6 @@ name|get
 argument_list|(
 literal|"qualifier"
 argument_list|)
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"    timestamp: "
-operator|+
-operator|(
-operator|new
-name|Date
-argument_list|(
-operator|(
-name|Long
-operator|)
-name|op
-operator|.
-name|get
-argument_list|(
-literal|"timestamp"
-argument_list|)
-argument_list|)
-operator|)
 argument_list|)
 expr_stmt|;
 if|if
@@ -1598,7 +1554,7 @@ name|args
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Pass one or more log file names and formatting options and it will dump out    * a text version of the contents on<code>stdout</code>.    *    * @param args    *          Command line arguments    * @throws IOException    *           Thrown upon file system errors etc.    * @throws ParseException    *           Thrown if command-line parsing fails.    */
+comment|/**    * Pass one or more log file names and formatting options and it will dump out    * a text version of the contents on<code>stdout</code>.    *    * @param args    *          Command line arguments    * @throws IOException    *           Thrown upon file system errors etc.    */
 specifier|public
 specifier|static
 name|void
@@ -1712,6 +1668,9 @@ name|PosixParser
 argument_list|()
 decl_stmt|;
 name|List
+argument_list|<
+name|?
+argument_list|>
 name|files
 init|=
 literal|null

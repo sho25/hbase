@@ -1058,7 +1058,7 @@ name|filter
 argument_list|)
 return|;
 block|}
-comment|/**    * Get a list of paths that need to be split given a set of server-specific directories and    * optinally  a filter.    *    * See {@link DefaultWALProvider#getServerNameFromWALDirectoryName} for more info on directory    * layout.    *    * Should be package-private, but is needed by    * {@link org.apache.hadoop.hbase.wal.WALSplitter#split(Path, Path, Path, FileSystem,    *     Configuration, WALFactory)} for tests.    */
+comment|/**    * Get a list of paths that need to be split given a set of server-specific directories and    * optionally  a filter.    *    * See {@link DefaultWALProvider#getServerNameFromWALDirectoryName} for more info on directory    * layout.    *    * Should be package-private, but is needed by    * {@link org.apache.hadoop.hbase.wal.WALSplitter#split(Path, Path, Path, FileSystem,    *     Configuration, WALFactory)} for tests.    */
 annotation|@
 name|VisibleForTesting
 specifier|public

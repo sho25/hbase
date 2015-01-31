@@ -1136,13 +1136,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isTraceEnabled
+name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|trace
+name|debug
 argument_list|(
 literal|"Removing: "
 operator|+

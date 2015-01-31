@@ -856,6 +856,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * A mapper that writes out {@link Mutation} to be directly applied to    * a running HBase instance.    */
+specifier|protected
 specifier|static
 class|class
 name|WALMapper
@@ -1002,6 +1003,17 @@ argument_list|()
 argument_list|)
 condition|)
 continue|continue;
+comment|// Allow a subclass filter out this cell.
+if|if
+condition|(
+name|filter
+argument_list|(
+name|context
+argument_list|,
+name|cell
+argument_list|)
+condition|)
+block|{
 comment|// A WALEdit may contain multiple operations (HBASE-3584) and/or
 comment|// multiple rows (HBASE-5229).
 comment|// Aggregate as much as possible into a single Put/Delete
@@ -1129,6 +1141,7 @@ name|cell
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 name|lastCell
 operator|=
 name|cell
@@ -1180,6 +1193,23 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**      * @param cell      * @return Return true if we are to emit this cell.      */
+specifier|protected
+name|boolean
+name|filter
+parameter_list|(
+name|Context
+name|context
+parameter_list|,
+specifier|final
+name|Cell
+name|cell
+parameter_list|)
+block|{
+return|return
+literal|true
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -1225,6 +1255,20 @@ condition|(
 name|tablesToUse
 operator|==
 literal|null
+operator|&&
+name|tableMap
+operator|==
+literal|null
+condition|)
+block|{
+comment|// Then user wants all tables.
+block|}
+elseif|else
+if|if
+condition|(
+name|tablesToUse
+operator|==
+literal|null
 operator|||
 name|tableMap
 operator|==
@@ -1253,6 +1297,13 @@ name|i
 init|=
 literal|0
 decl_stmt|;
+if|if
+condition|(
+name|tablesToUse
+operator|!=
+literal|null
+condition|)
+block|{
 for|for
 control|(
 name|String
@@ -1284,6 +1335,7 @@ index|]
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}

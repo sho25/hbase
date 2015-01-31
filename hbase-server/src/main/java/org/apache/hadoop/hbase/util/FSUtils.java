@@ -5756,7 +5756,7 @@ name|String
 argument_list|>
 name|blacklist
 decl_stmt|;
-comment|/**      * Create a filter on the give filesystem with the specified blacklist      * @param fs filesystem to filter      * @param directoryNameBlackList list of the names of the directories to filter. If      *<tt>null</tt>, all directories are returned      */
+comment|/**      * Create a filter on the givem filesystem with the specified blacklist      * @param fs filesystem to filter      * @param directoryNameBlackList list of the names of the directories to filter. If      *<tt>null</tt>, all directories are returned      */
 annotation|@
 name|SuppressWarnings
 argument_list|(
