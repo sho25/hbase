@@ -844,6 +844,7 @@ specifier|private
 name|String
 name|serverPrincipal
 decl_stmt|;
+specifier|volatile
 name|boolean
 name|shouldCloseConnection
 init|=
@@ -1793,6 +1794,39 @@ argument_list|,
 name|call
 argument_list|)
 expr_stmt|;
+comment|// check again, see https://issues.apache.org/jira/browse/HBASE-12951
+if|if
+condition|(
+name|shouldCloseConnection
+condition|)
+block|{
+name|Promise
+argument_list|<
+name|Message
+argument_list|>
+name|promise
+init|=
+name|channel
+operator|.
+name|eventLoop
+argument_list|()
+operator|.
+name|newPromise
+argument_list|()
+decl_stmt|;
+name|promise
+operator|.
+name|setFailure
+argument_list|(
+operator|new
+name|ConnectException
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return
+name|promise
+return|;
+block|}
 comment|// Add timeout for cleanup if none is present
 if|if
 condition|(
