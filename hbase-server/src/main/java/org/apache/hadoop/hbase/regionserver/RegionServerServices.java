@@ -408,6 +408,11 @@ name|HeapMemoryManager
 name|getHeapMemoryManager
 parameter_list|()
 function_decl|;
+comment|/**    * @return the max compaction pressure of all stores on this regionserver. The value should be    *         greater than or equal to 0.0, and any value greater than 1.0 means we enter the    *         emergency state that some stores have too many store files.    * @see org.apache.hadoop.hbase.regionserver.Store#getCompactionPressure()    */
+name|double
+name|getCompactionPressure
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

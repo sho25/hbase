@@ -223,6 +223,24 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|compactions
+operator|.
+name|CompactionThroughputController
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -607,7 +625,10 @@ argument_list|<
 name|Path
 argument_list|>
 name|compact
-parameter_list|()
+parameter_list|(
+name|CompactionThroughputController
+name|throughputController
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -632,6 +653,8 @@ operator|.
 name|execute
 argument_list|(
 name|compactor
+argument_list|,
+name|throughputController
 argument_list|)
 return|;
 block|}

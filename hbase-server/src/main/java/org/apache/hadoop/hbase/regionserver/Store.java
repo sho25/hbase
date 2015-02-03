@@ -373,6 +373,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|compactions
+operator|.
+name|CompactionThroughputController
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Pair
@@ -631,6 +649,9 @@ name|compact
 parameter_list|(
 name|CompactionContext
 name|compaction
+parameter_list|,
+name|CompactionThroughputController
+name|throughputController
 parameter_list|)
 throws|throws
 name|IOException
@@ -867,6 +888,11 @@ name|refreshStoreFiles
 parameter_list|()
 throws|throws
 name|IOException
+function_decl|;
+comment|/**    * This value can represent the degree of emergency of compaction for this store. It should be    * greater than or equal to 0.0, any value greater than 1.0 means we have too many store files.    *<ul>    *<li>if getStorefilesCount&lt;= getMinFilesToCompact, return 0.0</li>    *<li>return (getStorefilesCount - getMinFilesToCompact) / (blockingFileCount -    * getMinFilesToCompact)</li>    *</ul>    *<p>    * And for striped stores, we should calculate this value by the files in each stripe separately    * and return the maximum value.    *<p>    * It is similar to {@link #getCompactPriority()} except that it is more suitable to use in a    * linear formula.    */
+name|double
+name|getCompactionPressure
+parameter_list|()
 function_decl|;
 block|}
 end_interface

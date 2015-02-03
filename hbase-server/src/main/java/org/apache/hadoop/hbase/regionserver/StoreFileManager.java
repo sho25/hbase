@@ -272,6 +272,11 @@ argument_list|>
 name|filesCompacting
 parameter_list|)
 function_decl|;
+comment|/**    * @return the compaction pressure used for compaction throughput tuning.    * @see Store#getCompactionPressure()    */
+name|double
+name|getCompactionPressure
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

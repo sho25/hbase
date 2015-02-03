@@ -232,7 +232,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Compact passed set of files. Create an instance and then call {@link #compact(CompactionRequest)}  */
+comment|/**  * Compact passed set of files. Create an instance and then call  * {@link #compact(CompactionRequest, CompactionThroughputController)}  */
 end_comment
 
 begin_class
@@ -292,6 +292,9 @@ parameter_list|(
 specifier|final
 name|CompactionRequest
 name|request
+parameter_list|,
+name|CompactionThroughputController
+name|throughputController
 parameter_list|)
 throws|throws
 name|IOException
@@ -616,6 +619,8 @@ argument_list|,
 name|smallestReadPoint
 argument_list|,
 name|cleanSeqId
+argument_list|,
+name|throughputController
 argument_list|)
 decl_stmt|;
 if|if
@@ -806,7 +811,7 @@ return|return
 name|newFiles
 return|;
 block|}
-comment|/**    * Compact a list of files for testing. Creates a fake {@link CompactionRequest} to pass to    * {@link #compact(CompactionRequest)};    * @param filesToCompact the files to compact. These are used as the compactionSelection for    *          the generated {@link CompactionRequest}.    * @param isMajor true to major compact (prune all deletes, max versions, etc)    * @return Product of compaction or an empty list if all cells expired or deleted and nothing \    *         made it through the compaction.    * @throws IOException    */
+comment|/**    * Compact a list of files for testing. Creates a fake {@link CompactionRequest} to pass to    * {@link #compact(CompactionRequest, CompactionThroughputController)};    * @param filesToCompact the files to compact. These are used as the compactionSelection for    *          the generated {@link CompactionRequest}.    * @param isMajor true to major compact (prune all deletes, max versions, etc)    * @return Product of compaction or an empty list if all cells expired or deleted and nothing \    *         made it through the compaction.    * @throws IOException    */
 specifier|public
 name|List
 argument_list|<
@@ -851,6 +856,10 @@ operator|.
 name|compact
 argument_list|(
 name|cr
+argument_list|,
+name|NoLimitCompactionThroughputController
+operator|.
+name|INSTANCE
 argument_list|)
 return|;
 block|}

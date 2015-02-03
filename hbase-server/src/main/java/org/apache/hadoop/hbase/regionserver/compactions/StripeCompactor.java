@@ -377,6 +377,9 @@ parameter_list|,
 name|byte
 index|[]
 name|majorRangeToRow
+parameter_list|,
+name|CompactionThroughputController
+name|throughputController
 parameter_list|)
 throws|throws
 name|IOException
@@ -478,6 +481,8 @@ argument_list|,
 name|majorRangeFromRow
 argument_list|,
 name|majorRangeToRow
+argument_list|,
+name|throughputController
 argument_list|)
 return|;
 block|}
@@ -512,6 +517,9 @@ parameter_list|,
 name|byte
 index|[]
 name|majorRangeToRow
+parameter_list|,
+name|CompactionThroughputController
+name|throughputController
 parameter_list|)
 throws|throws
 name|IOException
@@ -585,6 +593,8 @@ argument_list|,
 name|majorRangeFromRow
 argument_list|,
 name|majorRangeToRow
+argument_list|,
+name|throughputController
 argument_list|)
 return|;
 block|}
@@ -608,6 +618,9 @@ parameter_list|,
 name|byte
 index|[]
 name|majorRangeToRow
+parameter_list|,
+name|CompactionThroughputController
+name|throughputController
 parameter_list|)
 throws|throws
 name|IOException
@@ -917,6 +930,8 @@ argument_list|,
 name|smallestReadPoint
 argument_list|,
 name|cleanSeqId
+argument_list|,
+name|throughputController
 argument_list|)
 expr_stmt|;
 if|if

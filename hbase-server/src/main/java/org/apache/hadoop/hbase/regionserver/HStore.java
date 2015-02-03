@@ -893,6 +893,24 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|compactions
+operator|.
+name|CompactionThroughputController
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|wal
 operator|.
 name|WALUtil
@@ -1052,6 +1070,22 @@ operator|.
 name|util
 operator|.
 name|StringUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+operator|.
+name|TraditionalBinaryPrefix
 import|;
 end_import
 
@@ -4998,14 +5032,18 @@ name|logCacheFlushId
 operator|+
 literal|", filesize="
 operator|+
-name|StringUtils
+name|TraditionalBinaryPrefix
 operator|.
-name|humanReadableInt
+name|long2String
 argument_list|(
 name|r
 operator|.
 name|length
 argument_list|()
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -5711,6 +5749,9 @@ name|compact
 parameter_list|(
 name|CompactionContext
 name|compaction
+parameter_list|,
+name|CompactionThroughputController
+name|throughputController
 parameter_list|)
 throws|throws
 name|IOException
@@ -5829,14 +5870,18 @@ argument_list|()
 operator|+
 literal|", totalSize="
 operator|+
-name|StringUtils
+name|TraditionalBinaryPrefix
 operator|.
-name|humanReadableInt
+name|long2String
 argument_list|(
 name|cr
 operator|.
 name|getSize
 argument_list|()
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -5850,7 +5895,9 @@ init|=
 name|compaction
 operator|.
 name|compact
-argument_list|()
+argument_list|(
+name|throughputController
+argument_list|)
 decl_stmt|;
 comment|// TODO: get rid of this!
 if|if
@@ -6539,9 +6586,9 @@ name|message
 operator|.
 name|append
 argument_list|(
-name|StringUtils
+name|TraditionalBinaryPrefix
 operator|.
-name|humanReadableInt
+name|long2String
 argument_list|(
 name|sf
 operator|.
@@ -6550,6 +6597,10 @@ argument_list|()
 operator|.
 name|length
 argument_list|()
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -6573,9 +6624,15 @@ name|append
 argument_list|(
 name|StringUtils
 operator|.
-name|humanReadableInt
+name|TraditionalBinaryPrefix
+operator|.
+name|long2String
 argument_list|(
 name|storeSize
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 argument_list|)
 operator|.
@@ -6885,7 +6942,11 @@ name|inputStoreFiles
 argument_list|,
 name|Collections
 operator|.
-name|EMPTY_LIST
+expr|<
+name|StoreFile
+operator|>
+name|emptyList
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -8065,11 +8126,15 @@ argument_list|()
 operator|+
 literal|"; total size for store is "
 operator|+
-name|StringUtils
+name|TraditionalBinaryPrefix
 operator|.
-name|humanReadableInt
+name|long2String
 argument_list|(
 name|storeSize
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -9736,7 +9801,6 @@ return|;
 block|}
 annotation|@
 name|Override
-comment|// TODO: why is there this and also getNumberOfStorefiles?! Remove one.
 specifier|public
 name|int
 name|getStorefilesCount
@@ -10944,7 +11008,9 @@ name|majorCompactedCellsSize
 return|;
 block|}
 comment|/**    * Returns the StoreEngine that is backing this concrete implementation of Store.    * @return Returns the {@link StoreEngine} object used internally inside this HStore object.    */
-specifier|protected
+annotation|@
+name|VisibleForTesting
+specifier|public
 name|StoreEngine
 argument_list|<
 name|?
@@ -11055,6 +11121,23 @@ name|manager
 parameter_list|)
 block|{
 comment|// No children to deregister
+block|}
+annotation|@
+name|Override
+specifier|public
+name|double
+name|getCompactionPressure
+parameter_list|()
+block|{
+return|return
+name|storeEngine
+operator|.
+name|getStoreFileManager
+argument_list|()
+operator|.
+name|getCompactionPressure
+argument_list|()
+return|;
 block|}
 block|}
 end_class
