@@ -221,13 +221,13 @@ init|=
 literal|0
 decl_stmt|;
 specifier|private
-name|int
+name|long
 name|readRequestsCount
 init|=
 literal|0
 decl_stmt|;
 specifier|private
-name|int
+name|long
 name|writeRequestsCount
 init|=
 literal|0
@@ -558,7 +558,7 @@ name|storefileIndexSizeMB
 return|;
 block|}
 specifier|public
-name|int
+name|long
 name|getReadRequestsCount
 parameter_list|()
 block|{
@@ -567,7 +567,7 @@ name|readRequestsCount
 return|;
 block|}
 specifier|public
-name|int
+name|long
 name|getWriteRequestsCount
 parameter_list|()
 block|{
