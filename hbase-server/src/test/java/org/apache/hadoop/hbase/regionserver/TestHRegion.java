@@ -1501,8 +1501,6 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|RegionEventDescriptor
-operator|.
 name|StoreDescriptor
 import|;
 end_import

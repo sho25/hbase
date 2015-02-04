@@ -801,6 +801,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Just counts when methods are called    */
+specifier|public
 specifier|static
 class|class
 name|DummyWALActionsListener
