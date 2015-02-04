@@ -347,9 +347,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|wal
+name|regionserver
 operator|.
-name|WALFactory
+name|InternalScanner
+operator|.
+name|NextState
 import|;
 end_import
 
@@ -414,6 +416,22 @@ operator|.
 name|util
 operator|.
 name|FSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALFactory
 import|;
 end_import
 
@@ -2986,11 +3004,16 @@ condition|)
 block|{
 name|hasNext
 operator|=
+name|NextState
+operator|.
+name|hasMoreValues
+argument_list|(
 name|scanner
 operator|.
 name|next
 argument_list|(
 name|kvs
+argument_list|)
 argument_list|)
 expr_stmt|;
 if|if

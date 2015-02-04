@@ -388,6 +388,13 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+comment|/**    * Partial {@link Result}s are {@link Result}s must be combined to form a complete {@link Result}.    * The {@link Result}s had to be returned in fragments (i.e. as partials) because the size of the    * cells in the row exceeded max result size on the server. Typically partial results will be    * combined client side into complete results before being delivered to the caller. However, if    * this flag is set, the caller is indicating that they do not mind seeing partial results (i.e.    * they understand that the results returned from the Scanner may only represent part of a    * particular row). In such a case, any attempt to combine the partials into a complete result on    * the client side will be skipped, and the caller will be able to see the exact results returned    * from the server.    */
+specifier|private
+name|boolean
+name|allowPartialResults
+init|=
+literal|false
+decl_stmt|;
 specifier|private
 name|int
 name|storeLimit
@@ -1947,6 +1954,36 @@ parameter_list|()
 block|{
 return|return
 name|reversed
+return|;
+block|}
+comment|/**    * Setting whether the caller wants to see the partial results that may be returned from the    * server. By default this value is false and the complete results will be assembled client side    * before being delivered to the caller.    * @param allowPartialResults    * @return this    */
+specifier|public
+name|Scan
+name|setAllowPartialResults
+parameter_list|(
+specifier|final
+name|boolean
+name|allowPartialResults
+parameter_list|)
+block|{
+name|this
+operator|.
+name|allowPartialResults
+operator|=
+name|allowPartialResults
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**    * @return true when the constructor of this scan understands that the results they will see may    *         only represent a partial portion of a row. The entire row would be retrieved by    *         subsequent calls to {@link ResultScanner#next()}    */
+specifier|public
+name|boolean
+name|getAllowPartialResults
+parameter_list|()
+block|{
+return|return
+name|allowPartialResults
 return|;
 block|}
 comment|/**    * Set the value indicating whether loading CFs on demand should be allowed (cluster    * default is false). On-demand CF loading doesn't load column families until necessary, e.g.    * if you filter on one column, the other column family data will be loaded only for the rows    * that are included in result, not all rows like in normal case.    * With column-specific filters, like SingleColumnValueFilter w/filterIfMissing == true,    * this can deliver huge perf gains when there's a cf with lots of data; however, it can    * also lead to some inconsistent results, as follows:    * - if someone does a concurrent update to both column families in question you may get a row    *   that never existed, e.g. for { rowKey = 5, { cat_videos => 1 }, { video => "my cat" } }    *   someone puts rowKey 5 with { cat_videos => 0 }, { video => "my dog" }, concurrent scan    *   filtering on "cat_videos == 1" can get { rowKey = 5, { cat_videos => 1 },    *   { video => "my dog" } }.    * - if there's a concurrent split and you have more than 2 column families, some rows may be    *   missing some column families.    */

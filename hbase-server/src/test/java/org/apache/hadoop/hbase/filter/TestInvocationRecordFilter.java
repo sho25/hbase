@@ -225,9 +225,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|wal
+name|regionserver
 operator|.
-name|WAL
+name|InternalScanner
+operator|.
+name|NextState
 import|;
 end_import
 
@@ -276,6 +278,22 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WAL
 import|;
 end_import
 
@@ -1056,11 +1074,16 @@ argument_list|)
 decl_stmt|;
 while|while
 condition|(
+name|NextState
+operator|.
+name|hasMoreValues
+argument_list|(
 name|scanner
 operator|.
 name|next
 argument_list|(
 name|temp
+argument_list|)
 argument_list|)
 condition|)
 block|{

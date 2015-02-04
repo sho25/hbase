@@ -745,6 +745,24 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|InternalScanner
+operator|.
+name|NextState
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|MemStoreSnapshot
 import|;
 end_import
@@ -985,7 +1003,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALKey
+name|WALFactory
 import|;
 end_import
 
@@ -1001,7 +1019,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALFactory
+name|WALKey
 import|;
 end_import
 
@@ -1067,16 +1085,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Test
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Rule
 import|;
 end_import
@@ -1087,9 +1095,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|rules
-operator|.
-name|TestName
+name|Test
 import|;
 end_import
 
@@ -1104,6 +1110,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -5141,11 +5159,16 @@ block|{
 name|boolean
 name|existMore
 init|=
+name|NextState
+operator|.
+name|hasMoreValues
+argument_list|(
 name|scanner
 operator|.
 name|next
 argument_list|(
 name|results
+argument_list|)
 argument_list|)
 decl_stmt|;
 if|if

@@ -377,17 +377,32 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+comment|// negative values indicate no limits
+specifier|final
+name|long
+name|remainingResultSize
+init|=
+operator|-
+literal|1
+decl_stmt|;
+specifier|final
+name|int
+name|batchLimit
+init|=
+operator|-
+literal|1
+decl_stmt|;
 name|scanner
 operator|.
 name|nextRaw
 argument_list|(
 name|values
 argument_list|,
-operator|-
-literal|1
+name|batchLimit
+argument_list|,
+name|remainingResultSize
 argument_list|)
 expr_stmt|;
-comment|// pass -1 as limit so that we see the whole row.
 if|if
 condition|(
 name|values

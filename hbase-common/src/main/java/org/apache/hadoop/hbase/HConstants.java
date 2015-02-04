@@ -1916,7 +1916,9 @@ specifier|final
 name|int
 name|DEFAULT_HBASE_CLIENT_SCANNER_CACHING
 init|=
-literal|100
+name|Integer
+operator|.
+name|MAX_VALUE
 decl_stmt|;
 comment|/**    * Parameter name for number of rows that will be fetched when calling next on    * a scanner if it is not served from memory. Higher caching values will    * enable faster scanners but will eat up more memory and some calls of next    * may take longer and longer times when the cache is empty.    */
 specifier|public

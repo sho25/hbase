@@ -1115,6 +1115,24 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|InternalScanner
+operator|.
+name|NextState
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|MiniBatchOperationInProgress
 import|;
 end_import
@@ -4558,6 +4576,10 @@ expr_stmt|;
 comment|// scan with limit as 1 to hold down memory use on wide rows
 name|more
 operator|=
+name|NextState
+operator|.
+name|hasMoreValues
+argument_list|(
 name|scanner
 operator|.
 name|next
@@ -4565,6 +4587,7 @@ argument_list|(
 name|cells
 argument_list|,
 literal|1
+argument_list|)
 argument_list|)
 expr_stmt|;
 for|for
