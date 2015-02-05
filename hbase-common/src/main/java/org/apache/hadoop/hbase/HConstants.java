@@ -1750,16 +1750,18 @@ name|HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE_KEY
 init|=
 literal|"hbase.client.scanner.max.result.size"
 decl_stmt|;
-comment|/**    * Maximum number of bytes returned when calling a scanner's next method.    * Note that when a single row is larger than this limit the row is still    * returned completely.    *    * The default value is unlimited.    */
+comment|/**    * Maximum number of bytes returned when calling a scanner's next method.    * Note that when a single row is larger than this limit the row is still    * returned completely.    *    * The default value is 2MB.    */
 specifier|public
 specifier|static
 specifier|final
 name|long
 name|DEFAULT_HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE
 init|=
-name|Long
-operator|.
-name|MAX_VALUE
+literal|2
+operator|*
+literal|1024
+operator|*
+literal|1024
 decl_stmt|;
 comment|/**    * Parameter name for client pause value, used mostly as value to wait    * before running a retry of a failed get, region lookup, etc.    */
 specifier|public
