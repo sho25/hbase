@@ -897,6 +897,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|t
+operator|==
+literal|null
+condition|)
+return|return
+literal|null
+return|;
 try|try
 block|{
 return|return
