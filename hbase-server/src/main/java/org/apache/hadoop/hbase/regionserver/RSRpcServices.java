@@ -5695,6 +5695,26 @@ argument_list|,
 name|port
 argument_list|)
 decl_stmt|;
+name|InetSocketAddress
+name|bindAddress
+init|=
+operator|new
+name|InetSocketAddress
+argument_list|(
+name|rs
+operator|.
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hbase.regionserver.ipc.address"
+argument_list|,
+name|hostname
+argument_list|)
+argument_list|,
+name|port
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|initialIsa
@@ -5764,9 +5784,9 @@ argument_list|,
 name|getServices
 argument_list|()
 argument_list|,
-name|initialIsa
+name|bindAddress
 argument_list|,
-comment|// BindAddress is IP we got for this server.
+comment|// use final bindAddress for this server.
 name|rs
 operator|.
 name|conf
@@ -5819,13 +5839,25 @@ operator|.
 name|DEFAULT_HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE
 argument_list|)
 expr_stmt|;
-comment|// Set our address.
+comment|// Set our address, however we need the final port that was given to rpcServer
 name|isa
 operator|=
+operator|new
+name|InetSocketAddress
+argument_list|(
+name|initialIsa
+operator|.
+name|getHostName
+argument_list|()
+argument_list|,
 name|rpcServer
 operator|.
 name|getListenerAddress
 argument_list|()
+operator|.
+name|getPort
+argument_list|()
+argument_list|)
 expr_stmt|;
 name|rpcServer
 operator|.
@@ -5854,12 +5886,6 @@ throws|throws
 name|UnknownHostException
 block|{
 return|return
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"hbase.regionserver.ipc.address"
-argument_list|,
 name|Strings
 operator|.
 name|domainNamePointerToHostName
@@ -5884,7 +5910,6 @@ argument_list|(
 literal|"hbase.regionserver.dns.nameserver"
 argument_list|,
 literal|"default"
-argument_list|)
 argument_list|)
 argument_list|)
 argument_list|)

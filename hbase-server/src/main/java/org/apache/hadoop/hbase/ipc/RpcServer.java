@@ -1697,7 +1697,7 @@ decl_stmt|;
 specifier|protected
 specifier|final
 name|InetSocketAddress
-name|isa
+name|bindAddress
 decl_stmt|;
 specifier|protected
 name|int
@@ -3249,7 +3249,7 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-comment|// Bind the server socket to the local host and port
+comment|// Bind the server socket to the binding addrees (can be different from the default interface)
 name|bind
 argument_list|(
 name|acceptChannel
@@ -3257,7 +3257,7 @@ operator|.
 name|socket
 argument_list|()
 argument_list|,
-name|isa
+name|bindAddress
 argument_list|,
 name|backlogLength
 argument_list|)
@@ -3303,7 +3303,14 @@ argument_list|()
 operator|.
 name|setNameFormat
 argument_list|(
-literal|"RpcServer.reader=%d,port="
+literal|"RpcServer.reader=%d,bindAddress="
+operator|+
+name|bindAddress
+operator|.
+name|getHostName
+argument_list|()
+operator|+
+literal|",port="
 operator|+
 name|port
 argument_list|)
@@ -9651,7 +9658,7 @@ name|service
 return|;
 block|}
 block|}
-comment|/**    * Constructs a server listening on the named port and address.    * @param server hosting instance of {@link Server}. We will do authentications if an    * instance else pass null for no authentication check.    * @param name Used keying this rpc servers' metrics and for naming the Listener thread.    * @param services A list of services.    * @param isa Where to listen    * @throws IOException    */
+comment|/**    * Constructs a server listening on the named port and address.    * @param server hosting instance of {@link Server}. We will do authentications if an    * instance else pass null for no authentication check.    * @param name Used keying this rpc servers' metrics and for naming the Listener thread.    * @param services A list of services.    * @param bindAddres Where to listen    * @throws IOException    */
 specifier|public
 name|RpcServer
 parameter_list|(
@@ -9672,7 +9679,7 @@ name|services
 parameter_list|,
 specifier|final
 name|InetSocketAddress
-name|isa
+name|bindAddress
 parameter_list|,
 name|Configuration
 name|conf
@@ -9697,9 +9704,9 @@ name|services
 expr_stmt|;
 name|this
 operator|.
-name|isa
+name|bindAddress
 operator|=
-name|isa
+name|bindAddress
 expr_stmt|;
 name|this
 operator|.
