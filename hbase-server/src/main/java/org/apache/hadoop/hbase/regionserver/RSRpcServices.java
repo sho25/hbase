@@ -3537,13 +3537,18 @@ argument_list|)
 throw|;
 block|}
 block|}
-return|return
 name|region
 operator|.
 name|mutateRow
 argument_list|(
 name|rm
 argument_list|)
+expr_stmt|;
+return|return
+name|region
+operator|.
+name|getRegionStats
+argument_list|()
 return|;
 block|}
 comment|/**    * Mutate a list of rows atomically.    *    * @param region    * @param actions    * @param cellScanner if non-null, the mutation data -- the Cell content.    * @param row    * @param family    * @param qualifier    * @param compareOp    * @param comparator @throws IOException    */

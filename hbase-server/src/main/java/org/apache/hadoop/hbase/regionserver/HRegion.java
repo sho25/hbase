@@ -23874,9 +23874,7 @@ name|results
 return|;
 block|}
 specifier|public
-name|ClientProtos
-operator|.
-name|RegionLoadStats
+name|void
 name|mutateRow
 parameter_list|(
 name|RowMutations
@@ -23886,7 +23884,6 @@ throws|throws
 name|IOException
 block|{
 comment|// Don't need nonces here - RowMutations only supports puts and deletes
-return|return
 name|mutateRowsWithLocks
 argument_list|(
 name|rm
@@ -23904,13 +23901,11 @@ name|getRow
 argument_list|()
 argument_list|)
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 comment|/**    * Perform atomic mutations within the region w/o nonces.    * See {@link #mutateRowsWithLocks(Collection, Collection, long, long)}    */
 specifier|public
-name|ClientProtos
-operator|.
-name|RegionLoadStats
+name|void
 name|mutateRowsWithLocks
 parameter_list|(
 name|Collection
@@ -23929,7 +23924,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|mutateRowsWithLocks
 argument_list|(
 name|mutations
@@ -23944,13 +23938,11 @@ name|HConstants
 operator|.
 name|NO_NONCE
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 comment|/**    * Perform atomic mutations within the region.    * @param mutations The list of mutations to perform.    *<code>mutations</code> can contain operations for multiple rows.    * Caller has to ensure that all rows are contained in this region.    * @param rowsToLock Rows to lock    * @param nonceGroup Optional nonce group of the operation (client Id)    * @param nonce Optional nonce of the operation (unique random id to ensure "more idempotence")    * If multiple rows are locked care should be taken that    *<code>rowsToLock</code> is sorted in order to avoid deadlocks.    * @throws IOException    */
 specifier|public
-name|ClientProtos
-operator|.
-name|RegionLoadStats
+name|void
 name|mutateRowsWithLocks
 parameter_list|(
 name|Collection
@@ -23998,10 +23990,6 @@ argument_list|,
 name|nonce
 argument_list|)
 expr_stmt|;
-return|return
-name|getRegionStats
-argument_list|()
-return|;
 block|}
 comment|/**    * @return the current load statistics for the the region    */
 specifier|public
