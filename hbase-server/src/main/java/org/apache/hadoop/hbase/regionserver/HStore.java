@@ -2248,6 +2248,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @param family    * @return TTL in seconds of the specified family    */
+specifier|public
 specifier|static
 name|long
 name|determineTTLFromFamily

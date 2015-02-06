@@ -1412,6 +1412,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
 name|StoreScanner
 parameter_list|(
 specifier|final
