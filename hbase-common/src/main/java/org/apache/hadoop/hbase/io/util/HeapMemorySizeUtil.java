@@ -361,8 +361,8 @@ operator|>
 literal|0.8f
 operator|||
 name|limit
-operator|<
-literal|0.05f
+operator|<=
+literal|0.0f
 condition|)
 block|{
 if|if
@@ -378,7 +378,7 @@ literal|"Setting global memstore limit to default of "
 operator|+
 name|DEFAULT_MEMSTORE_SIZE
 operator|+
-literal|" because supplied value outside allowed range of 0.05 -> 0.8"
+literal|" because supplied value outside allowed range of (0 -> 0.8]"
 argument_list|)
 expr_stmt|;
 block|}
