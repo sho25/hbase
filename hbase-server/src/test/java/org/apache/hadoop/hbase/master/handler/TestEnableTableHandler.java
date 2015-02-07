@@ -631,6 +631,13 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|waitUntilNoRegionsInTransition
+argument_list|(
+literal|60000
+argument_list|)
+expr_stmt|;
 comment|// now stop region servers
 name|JVMClusterUtil
 operator|.
