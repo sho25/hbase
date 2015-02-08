@@ -469,8 +469,9 @@ block|{
 name|Integer
 name|id
 init|=
-operator|new
 name|Integer
+operator|.
+name|valueOf
 argument_list|(
 name|keyId
 argument_list|)

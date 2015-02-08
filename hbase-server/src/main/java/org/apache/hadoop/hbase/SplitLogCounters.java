@@ -722,14 +722,9 @@ name|?
 argument_list|>
 name|cl
 init|=
-operator|(
-operator|new
 name|SplitLogCounters
-argument_list|()
-operator|)
 operator|.
-name|getClass
-argument_list|()
+name|class
 decl_stmt|;
 for|for
 control|(

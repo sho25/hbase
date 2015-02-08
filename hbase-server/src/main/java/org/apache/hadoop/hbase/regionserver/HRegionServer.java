@@ -7811,6 +7811,7 @@ operator|)
 expr_stmt|;
 block|}
 block|}
+specifier|static
 class|class
 name|PeriodicMemstoreFlusher
 extends|extends

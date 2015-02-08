@@ -294,6 +294,7 @@ name|taskManager
 expr_stmt|;
 block|}
 specifier|private
+specifier|static
 class|class
 name|RegionFlushTask
 implements|implements

@@ -530,7 +530,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The base class for load balancers. It provides the the functions used to by  * {@link org.apache.hadoop.hbase.master.AssignmentManager} to assign regions   * in the edge cases. It doesn't provide an implementation of the   * actual balancing algorithm.  *  */
+comment|/**  * The base class for load balancers. It provides the the functions used to by  * {@link org.apache.hadoop.hbase.master.AssignmentManager} to assign regions  * in the edge cases. It doesn't provide an implementation of the  * actual balancing algorithm.  *  */
 end_comment
 
 begin_class
@@ -813,13 +813,6 @@ init|=
 literal|0
 decl_stmt|;
 comment|//num moved regions from the initial configuration
-comment|// num of moved regions away from master that should be on the master
-name|int
-name|numMovedMetaRegions
-init|=
-literal|0
-decl_stmt|;
-comment|//num of moved regions that are META
 name|Map
 argument_list|<
 name|ServerName

@@ -503,7 +503,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Create and setup a {@link WALCellCodec} from the     * CompressionContext.    * Cell Codec classname is read from {@link Configuration}.    * Fully prepares the codec for use.    * @param conf {@link Configuration} to read for the user-specified codec. If none is specified,    *          uses a {@link WALCellCodec}.    * @param compression compression the codec should use    * @return a {@link WALCellCodec} ready for use.    * @throws UnsupportedOperationException if the codec cannot be instantiated    */
+comment|/**    * Create and setup a {@link WALCellCodec} from the    * CompressionContext.    * Cell Codec classname is read from {@link Configuration}.    * Fully prepares the codec for use.    * @param conf {@link Configuration} to read for the user-specified codec. If none is specified,    *          uses a {@link WALCellCodec}.    * @param compression compression the codec should use    * @return a {@link WALCellCodec} ready for use.    * @throws UnsupportedOperationException if the codec cannot be instantiated    */
 specifier|public
 specifier|static
 name|WALCellCodec
@@ -1869,6 +1869,7 @@ block|}
 block|}
 block|}
 specifier|public
+specifier|static
 class|class
 name|EnsureKvEncoder
 extends|extends

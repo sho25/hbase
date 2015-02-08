@@ -242,10 +242,6 @@ specifier|private
 name|HRegion
 name|region
 decl_stmt|;
-specifier|private
-name|Scan
-name|scan
-decl_stmt|;
 name|RegionScanner
 name|scanner
 decl_stmt|;
@@ -282,12 +278,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|this
-operator|.
-name|scan
-operator|=
-name|scan
-expr_stmt|;
 comment|// region is immutable, set isolation level
 name|scan
 operator|.
