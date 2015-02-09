@@ -6300,7 +6300,15 @@ name|minTolerableReplication
 operator|+
 literal|" replicas. "
 operator|+
-literal|" Requesting close of wal."
+literal|" Requesting close of wal. current pipeline: "
+operator|+
+name|Arrays
+operator|.
+name|toString
+argument_list|(
+name|getPipeLine
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|logRollNeeded
