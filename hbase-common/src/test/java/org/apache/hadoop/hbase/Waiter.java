@@ -632,11 +632,11 @@ operator|.
 name|format
 argument_list|(
 literal|"Waiting timed out after [{0}] msec"
-operator|+
-name|msg
 argument_list|,
 name|adjustedTimeout
 argument_list|)
+operator|+
+name|msg
 argument_list|)
 expr_stmt|;
 block|}
@@ -659,11 +659,11 @@ operator|.
 name|format
 argument_list|(
 literal|"Waiting timed out after [{0}] msec"
-operator|+
-name|msg
 argument_list|,
 name|adjustedTimeout
 argument_list|)
+operator|+
+name|msg
 argument_list|)
 expr_stmt|;
 block|}
