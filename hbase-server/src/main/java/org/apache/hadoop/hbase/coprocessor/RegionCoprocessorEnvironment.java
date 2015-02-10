@@ -99,6 +99,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|HRegion
@@ -144,6 +158,11 @@ block|{
 comment|/** @return the region associated with this coprocessor */
 name|HRegion
 name|getRegion
+parameter_list|()
+function_decl|;
+comment|/** @return region information for the region this coprocessor is running on */
+name|HRegionInfo
+name|getRegionInfo
 parameter_list|()
 function_decl|;
 comment|/** @return reference to the region server services */
