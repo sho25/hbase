@@ -17,6 +17,16 @@ end_package
 
 begin_import
 import|import
+name|javax
+operator|.
+name|annotation
+operator|.
+name|Nullable
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -59,11 +69,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|Configuration
 import|;
 end_import
 
@@ -75,9 +83,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -180,19 +190,28 @@ specifier|private
 name|HTableDescriptor
 name|hTableDescriptor
 decl_stmt|;
+comment|/**    * Don't use, state was moved to meta, use MetaTableAccessor instead    * @deprecated state was moved to meta    */
+annotation|@
+name|Deprecated
+annotation|@
+name|Nullable
 specifier|private
 name|TableState
 operator|.
 name|State
 name|tableState
 decl_stmt|;
-comment|/**    * Creates TableDescriptor with all fields.    * @param hTableDescriptor HTableDescriptor to use    * @param tableState table state    */
+comment|/**    * Creates TableDescriptor with all fields.    * @param hTableDescriptor HTableDescriptor to use    * @param tableState table state    * @deprecated state was moved to meta    */
+annotation|@
+name|Deprecated
 specifier|public
 name|TableDescriptor
 parameter_list|(
 name|HTableDescriptor
 name|hTableDescriptor
 parameter_list|,
+annotation|@
+name|Nullable
 name|TableState
 operator|.
 name|State
@@ -259,6 +278,11 @@ operator|=
 name|hTableDescriptor
 expr_stmt|;
 block|}
+comment|/**    * @return table state    * @deprecated state was moved to meta    */
+annotation|@
+name|Deprecated
+annotation|@
+name|Nullable
 specifier|public
 name|TableState
 operator|.
@@ -270,10 +294,15 @@ return|return
 name|tableState
 return|;
 block|}
+comment|/**    * @param tableState state to set for table    * @deprecated state was moved to meta    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|setTableState
 parameter_list|(
+annotation|@
+name|Nullable
 name|TableState
 operator|.
 name|State
@@ -288,6 +317,11 @@ name|tableState
 expr_stmt|;
 block|}
 comment|/**    * Convert to PB.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|HBaseProtos
 operator|.
@@ -295,7 +329,13 @@ name|TableDescriptor
 name|convert
 parameter_list|()
 block|{
-return|return
+name|HBaseProtos
+operator|.
+name|TableDescriptor
+operator|.
+name|Builder
+name|builder
+init|=
 name|HBaseProtos
 operator|.
 name|TableDescriptor
@@ -310,6 +350,14 @@ operator|.
 name|convert
 argument_list|()
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|tableState
+operator|!=
+literal|null
+condition|)
+name|builder
 operator|.
 name|setState
 argument_list|(
@@ -318,6 +366,9 @@ operator|.
 name|convert
 argument_list|()
 argument_list|)
+expr_stmt|;
+return|return
+name|builder
 operator|.
 name|build
 argument_list|()
@@ -353,6 +404,11 @@ operator|.
 name|State
 name|state
 init|=
+name|proto
+operator|.
+name|hasState
+argument_list|()
+condition|?
 name|TableState
 operator|.
 name|State
@@ -364,6 +420,8 @@ operator|.
 name|getState
 argument_list|()
 argument_list|)
+else|:
+literal|null
 decl_stmt|;
 return|return
 operator|new
@@ -719,6 +777,54 @@ name|HConstants
 operator|.
 name|DEFAULT_HBASE_META_BLOCK_SIZE
 argument_list|)
+argument_list|)
+operator|.
+name|setScope
+argument_list|(
+name|HConstants
+operator|.
+name|REPLICATION_SCOPE_LOCAL
+argument_list|)
+comment|// Disable blooms for meta.  Needs work.  Seems to mess w/ getClosestOrBefore.
+operator|.
+name|setBloomFilterType
+argument_list|(
+name|BloomType
+operator|.
+name|NONE
+argument_list|)
+comment|// Enable cache of data blocks in L1 if more than one caching tier deployed:
+comment|// e.g. if using CombinedBlockCache (BucketCache).
+operator|.
+name|setCacheDataInL1
+argument_list|(
+literal|true
+argument_list|)
+block|,
+operator|new
+name|HColumnDescriptor
+argument_list|(
+name|HConstants
+operator|.
+name|TABLE_FAMILY
+argument_list|)
+comment|// Ten is arbitrary number.  Keep versions to help debugging.
+operator|.
+name|setMaxVersions
+argument_list|(
+literal|10
+argument_list|)
+operator|.
+name|setInMemory
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|setBlocksize
+argument_list|(
+literal|8
+operator|*
+literal|1024
 argument_list|)
 operator|.
 name|setScope

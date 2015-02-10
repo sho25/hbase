@@ -4266,7 +4266,17 @@ name|TableState
 operator|.
 name|State
 operator|.
-name|DISABLED
+name|ENABLED
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|getHBaseAdmin
+argument_list|()
+operator|.
+name|disableTable
+argument_list|(
+name|table
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
@@ -7401,7 +7411,7 @@ name|metaRows
 init|=
 name|MetaTableAccessor
 operator|.
-name|fullScanOfMeta
+name|fullScanRegions
 argument_list|(
 name|admin
 operator|.

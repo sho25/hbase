@@ -15098,6 +15098,16 @@ name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|waitTableAvailable
+argument_list|(
+name|TEST_TABLE
+operator|.
+name|getTableName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|List
 argument_list|<
 name|UserPermission

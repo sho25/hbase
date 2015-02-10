@@ -5093,6 +5093,54 @@ name|setCacheDataInL1
 argument_list|(
 literal|true
 argument_list|)
+block|,
+operator|new
+name|HColumnDescriptor
+argument_list|(
+name|HConstants
+operator|.
+name|TABLE_FAMILY
+argument_list|)
+comment|// Ten is arbitrary number.  Keep versions to help debugging.
+operator|.
+name|setMaxVersions
+argument_list|(
+literal|10
+argument_list|)
+operator|.
+name|setInMemory
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|setBlocksize
+argument_list|(
+literal|8
+operator|*
+literal|1024
+argument_list|)
+operator|.
+name|setScope
+argument_list|(
+name|HConstants
+operator|.
+name|REPLICATION_SCOPE_LOCAL
+argument_list|)
+comment|// Disable blooms for meta.  Needs work.  Seems to mess w/ getClosestOrBefore.
+operator|.
+name|setBloomFilterType
+argument_list|(
+name|BloomType
+operator|.
+name|NONE
+argument_list|)
+comment|// Enable cache of data blocks in L1 if more than one caching tier deployed:
+comment|// e.g. if using CombinedBlockCache (BucketCache).
+operator|.
+name|setCacheDataInL1
+argument_list|(
+literal|true
+argument_list|)
 block|}
 argument_list|)
 decl_stmt|;

@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|javax
+operator|.
+name|annotation
+operator|.
+name|Nullable
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|util
@@ -251,6 +261,8 @@ throws|throws
 name|HBaseIOException
 function_decl|;
 comment|/**    * Assign regions to the previously hosting region server    * @param regions    * @param servers    * @return List of plans    */
+annotation|@
+name|Nullable
 name|Map
 argument_list|<
 name|ServerName

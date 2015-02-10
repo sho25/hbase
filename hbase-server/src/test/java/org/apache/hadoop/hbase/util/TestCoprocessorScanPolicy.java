@@ -1595,6 +1595,11 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|EnvironmentEdgeManager
+operator|.
+name|reset
+argument_list|()
+expr_stmt|;
 block|}
 specifier|public
 specifier|static

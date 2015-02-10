@@ -850,7 +850,7 @@ decl_stmt|;
 comment|// Scan hbase:meta to pick up user regions
 name|MetaTableAccessor
 operator|.
-name|fullScan
+name|fullScanRegions
 argument_list|(
 name|connection
 argument_list|,

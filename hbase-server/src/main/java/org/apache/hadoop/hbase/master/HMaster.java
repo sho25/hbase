@@ -2998,6 +2998,22 @@ name|getLocalPort
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
+specifier|protected
+name|TableDescriptors
+name|getFsTableDescriptors
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+name|super
+operator|.
+name|getFsTableDescriptors
+argument_list|()
+return|;
+block|}
 comment|/**    * For compatibility, if failed with regionserver credentials, try the master one    */
 annotation|@
 name|Override
@@ -3776,13 +3792,6 @@ name|TableStateManager
 argument_list|(
 name|this
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|tableStateManager
-operator|.
-name|start
-argument_list|()
 expr_stmt|;
 name|status
 operator|.
@@ -4837,13 +4846,24 @@ name|HRegionInfo
 operator|.
 name|DEFAULT_REPLICA_ID
 condition|)
-name|enableMeta
+name|getTableStateManager
+argument_list|()
+operator|.
+name|setTableState
 argument_list|(
 name|TableName
 operator|.
 name|META_TABLE_NAME
+argument_list|,
+name|TableState
+operator|.
+name|State
+operator|.
+name|ENABLED
 argument_list|)
 expr_stmt|;
+comment|// TODO: should we prevent from using state manager before meta was initialized?
+comment|// tableStateManager.start();
 if|if
 condition|(
 operator|(
@@ -4887,6 +4907,22 @@ name|previouslyFailedMetaRSs
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|setEnabledTable
+argument_list|(
+name|TableName
+operator|.
+name|META_TABLE_NAME
+argument_list|)
+expr_stmt|;
+name|tableStateManager
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
 comment|// Make sure a hbase:meta location is set. We need to enable SSH here since
 comment|// if the meta region server is died at this time, we need it to be re-assigned
 comment|// by SSH so that system tables can be assigned.
@@ -5134,44 +5170,6 @@ name|this
 operator|.
 name|getZooKeeper
 argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-specifier|private
-name|void
-name|enableMeta
-parameter_list|(
-name|TableName
-name|metaTableName
-parameter_list|)
-block|{
-if|if
-condition|(
-operator|!
-name|this
-operator|.
-name|tableStateManager
-operator|.
-name|isTableState
-argument_list|(
-name|metaTableName
-argument_list|,
-name|TableState
-operator|.
-name|State
-operator|.
-name|ENABLED
-argument_list|)
-condition|)
-block|{
-name|this
-operator|.
-name|assignmentManager
-operator|.
-name|setEnabledTable
-argument_list|(
-name|metaTableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -6415,7 +6413,8 @@ operator|>
 name|cutoffTime
 condition|)
 block|{
-comment|//TODO: After balance, there should not be a cutoff time (keeping it as a security net for now)
+comment|//TODO: After balance, there should not be a cutoff time (keeping it as
+comment|// a security net for now)
 name|LOG
 operator|.
 name|debug
@@ -11175,6 +11174,17 @@ control|)
 block|{
 if|if
 condition|(
+name|tableStateManager
+operator|.
+name|isTablePresent
+argument_list|(
+name|desc
+operator|.
+name|getTableName
+argument_list|()
+argument_list|)
+operator|&&
+operator|(
 name|includeSysTables
 operator|||
 operator|!
@@ -11185,6 +11195,7 @@ argument_list|()
 operator|.
 name|isSystemTable
 argument_list|()
+operator|)
 condition|)
 block|{
 name|descriptors
@@ -11206,6 +11217,16 @@ name|s
 range|:
 name|tableNameList
 control|)
+block|{
+if|if
+condition|(
+name|tableStateManager
+operator|.
+name|isTablePresent
+argument_list|(
+name|s
+argument_list|)
+condition|)
 block|{
 name|HTableDescriptor
 name|desc
@@ -11231,6 +11252,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}

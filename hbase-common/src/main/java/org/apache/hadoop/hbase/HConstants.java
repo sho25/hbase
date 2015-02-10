@@ -41,16 +41,6 @@ name|java
 operator|.
 name|nio
 operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|nio
-operator|.
 name|charset
 operator|.
 name|Charset
@@ -1348,6 +1338,45 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"mergeB"
+argument_list|)
+decl_stmt|;
+comment|/** The catalog family as a string*/
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|TABLE_FAMILY_STR
+init|=
+literal|"table"
+decl_stmt|;
+comment|/** The catalog family */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|TABLE_FAMILY
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|TABLE_FAMILY_STR
+argument_list|)
+decl_stmt|;
+comment|/** The serialized table state qualifier */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|TABLE_STATE_QUALIFIER
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"state"
 argument_list|)
 decl_stmt|;
 comment|/**    * The meta table version column qualifier.    * We keep current version of the meta table in this column in<code>-ROOT-</code>    * table: i.e. in the 'info:v' column.    */

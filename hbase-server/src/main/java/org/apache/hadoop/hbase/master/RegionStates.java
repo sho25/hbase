@@ -279,20 +279,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Server
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ServerLoad
 import|;
 end_import
@@ -693,7 +679,7 @@ name|serverManager
 decl_stmt|;
 specifier|private
 specifier|final
-name|Server
+name|MasterServices
 name|server
 decl_stmt|;
 comment|// The maximum time to keep a log split info in region states map
@@ -715,7 +701,7 @@ comment|// 2 hours
 name|RegionStates
 parameter_list|(
 specifier|final
-name|Server
+name|MasterServices
 name|master
 parameter_list|,
 specifier|final
@@ -4187,7 +4173,7 @@ block|{
 name|HTableDescriptor
 name|htd
 init|=
-name|tableStateManager
+name|server
 operator|.
 name|getTableDescriptors
 argument_list|()

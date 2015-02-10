@@ -459,20 +459,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Server
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ServerName
 import|;
 end_import
@@ -1041,7 +1027,7 @@ argument_list|)
 decl_stmt|;
 specifier|protected
 specifier|final
-name|Server
+name|MasterServices
 name|server
 decl_stmt|;
 specifier|private
@@ -1126,7 +1112,7 @@ specifier|final
 name|int
 name|maximumAttempts
 decl_stmt|;
-comment|/**    * The sleep time for which the assignment will wait before retrying in case of hbase:meta assignment    * failure due to lack of availability of region plan or bad region plan    */
+comment|/**    * The sleep time for which the assignment will wait before retrying in case of    * hbase:meta assignment failure due to lack of availability of region plan or bad region plan    */
 specifier|private
 specifier|final
 name|long
@@ -1289,7 +1275,7 @@ comment|/**    * Constructs a new assignment manager.    *    * @param server in
 specifier|public
 name|AssignmentManager
 parameter_list|(
-name|Server
+name|MasterServices
 name|server
 parameter_list|,
 name|ServerManager
@@ -7189,7 +7175,7 @@ name|results
 init|=
 name|MetaTableAccessor
 operator|.
-name|fullScanOfMeta
+name|fullScanRegions
 argument_list|(
 name|server
 operator|.

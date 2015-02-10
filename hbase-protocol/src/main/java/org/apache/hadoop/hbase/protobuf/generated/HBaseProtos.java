@@ -18851,13 +18851,25 @@ name|TableSchemaOrBuilder
 name|getSchemaOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .TableState.State state = 2 [default = ENABLED];
-comment|/**      *<code>optional .TableState.State state = 2 [default = ENABLED];</code>      */
+comment|// optional .TableState.State state = 2 [default = ENABLED, deprecated = true];
+comment|/**      *<code>optional .TableState.State state = 2 [default = ENABLED, deprecated = true];</code>      */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 name|boolean
 name|hasState
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableState.State state = 2 [default = ENABLED];</code>      */
+comment|/**      *<code>optional .TableState.State state = 2 [default = ENABLED, deprecated = true];</code>      */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 name|org
 operator|.
 name|apache
@@ -19684,7 +19696,7 @@ return|return
 name|schema_
 return|;
 block|}
-comment|// optional .TableState.State state = 2 [default = ENABLED];
+comment|// optional .TableState.State state = 2 [default = ENABLED, deprecated = true];
 specifier|public
 specifier|static
 specifier|final
@@ -19713,7 +19725,13 @@ operator|.
 name|State
 name|state_
 decl_stmt|;
-comment|/**      *<code>optional .TableState.State state = 2 [default = ENABLED];</code>      */
+comment|/**      *<code>optional .TableState.State state = 2 [default = ENABLED, deprecated = true];</code>      */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 specifier|public
 name|boolean
 name|hasState
@@ -19731,7 +19749,13 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TableState.State state = 2 [default = ENABLED];</code>      */
+comment|/**      *<code>optional .TableState.State state = 2 [default = ENABLED, deprecated = true];</code>      */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 specifier|public
 name|org
 operator|.
@@ -22645,7 +22669,7 @@ return|return
 name|schemaBuilder_
 return|;
 block|}
-comment|// optional .TableState.State state = 2 [default = ENABLED];
+comment|// optional .TableState.State state = 2 [default = ENABLED, deprecated = true];
 specifier|private
 name|org
 operator|.
@@ -22686,7 +22710,13 @@ name|State
 operator|.
 name|ENABLED
 decl_stmt|;
-comment|/**        *<code>optional .TableState.State state = 2 [default = ENABLED];</code>        */
+comment|/**        *<code>optional .TableState.State state = 2 [default = ENABLED, deprecated = true];</code>        */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 specifier|public
 name|boolean
 name|hasState
@@ -22704,7 +22734,13 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TableState.State state = 2 [default = ENABLED];</code>        */
+comment|/**        *<code>optional .TableState.State state = 2 [default = ENABLED, deprecated = true];</code>        */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 specifier|public
 name|org
 operator|.
@@ -22730,7 +22766,13 @@ return|return
 name|state_
 return|;
 block|}
-comment|/**        *<code>optional .TableState.State state = 2 [default = ENABLED];</code>        */
+comment|/**        *<code>optional .TableState.State state = 2 [default = ENABLED, deprecated = true];</code>        */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 specifier|public
 name|Builder
 name|setState
@@ -22783,7 +22825,13 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableState.State state = 2 [default = ENABLED];</code>        */
+comment|/**        *<code>optional .TableState.State state = 2 [default = ENABLED, deprecated = true];</code>        */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 specifier|public
 name|Builder
 name|clearState
@@ -99709,97 +99757,97 @@ literal|"ame\022\021\n\ttimestamp\030\003 \001(\004\"?\n\005State\022\013\n\007E
 operator|+
 literal|"ED\020\000\022\014\n\010DISABLED\020\001\022\r\n\tDISABLING\020\002\022\014\n\010ENA"
 block|,
-literal|"BLING\020\003\"Z\n\017TableDescriptor\022\034\n\006schema\030\001 \002"
+literal|"BLING\020\003\"^\n\017TableDescriptor\022\034\n\006schema\030\001 \002"
 operator|+
-literal|"(\0132\014.TableSchema\022)\n\005state\030\002 \001(\0162\021.TableS"
+literal|"(\0132\014.TableSchema\022-\n\005state\030\002 \001(\0162\021.TableS"
 operator|+
-literal|"tate.State:\007ENABLED\"o\n\022ColumnFamilySchem"
+literal|"tate.State:\007ENABLEDB\002\030\001\"o\n\022ColumnFamilyS"
 operator|+
-literal|"a\022\014\n\004name\030\001 \002(\014\022#\n\nattributes\030\002 \003(\0132\017.By"
+literal|"chema\022\014\n\004name\030\001 \002(\014\022#\n\nattributes\030\002 \003(\0132"
 operator|+
-literal|"tesBytesPair\022&\n\rconfiguration\030\003 \003(\0132\017.Na"
+literal|"\017.BytesBytesPair\022&\n\rconfiguration\030\003 \003(\0132"
 operator|+
-literal|"meStringPair\"\232\001\n\nRegionInfo\022\021\n\tregion_id"
+literal|"\017.NameStringPair\"\232\001\n\nRegionInfo\022\021\n\tregio"
 operator|+
-literal|"\030\001 \002(\004\022\036\n\ntable_name\030\002 \002(\0132\n.TableName\022\021"
+literal|"n_id\030\001 \002(\004\022\036\n\ntable_name\030\002 \002(\0132\n.TableNa"
 operator|+
-literal|"\n\tstart_key\030\003 \001(\014\022\017\n\007end_key\030\004 \001(\014\022\017\n\007of"
+literal|"me\022\021\n\tstart_key\030\003 \001(\014\022\017\n\007end_key\030\004 \001(\014\022\017"
 operator|+
-literal|"fline\030\005 \001(\010\022\r\n\005split\030\006 \001(\010\022\025\n\nreplica_id"
+literal|"\n\007offline\030\005 \001(\010\022\r\n\005split\030\006 \001(\010\022\025\n\nreplic"
 operator|+
-literal|"\030\007 \001(\005:\0010\"1\n\014FavoredNodes\022!\n\014favored_nod"
+literal|"a_id\030\007 \001(\005:\0010\"1\n\014FavoredNodes\022!\n\014favored"
 block|,
-literal|"e\030\001 \003(\0132\013.ServerName\"\225\001\n\017RegionSpecifier"
+literal|"_node\030\001 \003(\0132\013.ServerName\"\225\001\n\017RegionSpeci"
 operator|+
-literal|"\0222\n\004type\030\001 \002(\0162$.RegionSpecifier.RegionS"
+literal|"fier\0222\n\004type\030\001 \002(\0162$.RegionSpecifier.Reg"
 operator|+
-literal|"pecifierType\022\r\n\005value\030\002 \002(\014\"?\n\023RegionSpe"
+literal|"ionSpecifierType\022\r\n\005value\030\002 \002(\014\"?\n\023Regio"
 operator|+
-literal|"cifierType\022\017\n\013REGION_NAME\020\001\022\027\n\023ENCODED_R"
+literal|"nSpecifierType\022\017\n\013REGION_NAME\020\001\022\027\n\023ENCOD"
 operator|+
-literal|"EGION_NAME\020\002\"%\n\tTimeRange\022\014\n\004from\030\001 \001(\004\022"
+literal|"ED_REGION_NAME\020\002\"%\n\tTimeRange\022\014\n\004from\030\001 "
 operator|+
-literal|"\n\n\002to\030\002 \001(\004\"A\n\nServerName\022\021\n\thost_name\030\001"
+literal|"\001(\004\022\n\n\002to\030\002 \001(\004\"A\n\nServerName\022\021\n\thost_na"
 operator|+
-literal|" \002(\t\022\014\n\004port\030\002 \001(\r\022\022\n\nstart_code\030\003 \001(\004\"\033"
+literal|"me\030\001 \002(\t\022\014\n\004port\030\002 \001(\r\022\022\n\nstart_code\030\003 \001"
 operator|+
-literal|"\n\013Coprocessor\022\014\n\004name\030\001 \002(\t\"-\n\016NameStrin"
+literal|"(\004\"\033\n\013Coprocessor\022\014\n\004name\030\001 \002(\t\"-\n\016NameS"
 operator|+
-literal|"gPair\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\",\n\rNa"
+literal|"tringPair\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\","
 operator|+
-literal|"meBytesPair\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \001(\014"
+literal|"\n\rNameBytesPair\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002"
 block|,
-literal|"\"/\n\016BytesBytesPair\022\r\n\005first\030\001 \002(\014\022\016\n\006sec"
+literal|" \001(\014\"/\n\016BytesBytesPair\022\r\n\005first\030\001 \002(\014\022\016\n"
 operator|+
-literal|"ond\030\002 \002(\014\",\n\rNameInt64Pair\022\014\n\004name\030\001 \001(\t"
+literal|"\006second\030\002 \002(\014\",\n\rNameInt64Pair\022\014\n\004name\030\001"
 operator|+
-literal|"\022\r\n\005value\030\002 \001(\003\"\314\001\n\023SnapshotDescription\022"
+literal|" \001(\t\022\r\n\005value\030\002 \001(\003\"\314\001\n\023SnapshotDescript"
 operator|+
-literal|"\014\n\004name\030\001 \002(\t\022\r\n\005table\030\002 \001(\t\022\030\n\rcreation"
+literal|"ion\022\014\n\004name\030\001 \002(\t\022\r\n\005table\030\002 \001(\t\022\030\n\rcrea"
 operator|+
-literal|"_time\030\003 \001(\003:\0010\022.\n\004type\030\004 \001(\0162\031.SnapshotD"
+literal|"tion_time\030\003 \001(\003:\0010\022.\n\004type\030\004 \001(\0162\031.Snaps"
 operator|+
-literal|"escription.Type:\005FLUSH\022\017\n\007version\030\005 \001(\005\022"
+literal|"hotDescription.Type:\005FLUSH\022\017\n\007version\030\005 "
 operator|+
-literal|"\r\n\005owner\030\006 \001(\t\".\n\004Type\022\014\n\010DISABLED\020\000\022\t\n\005"
+literal|"\001(\005\022\r\n\005owner\030\006 \001(\t\".\n\004Type\022\014\n\010DISABLED\020\000"
 operator|+
-literal|"FLUSH\020\001\022\r\n\tSKIPFLUSH\020\002\"}\n\024ProcedureDescr"
+literal|"\022\t\n\005FLUSH\020\001\022\r\n\tSKIPFLUSH\020\002\"}\n\024ProcedureD"
 operator|+
-literal|"iption\022\021\n\tsignature\030\001 \002(\t\022\020\n\010instance\030\002 "
+literal|"escription\022\021\n\tsignature\030\001 \002(\t\022\020\n\010instanc"
 operator|+
-literal|"\001(\t\022\030\n\rcreation_time\030\003 \001(\003:\0010\022&\n\rconfigu"
+literal|"e\030\002 \001(\t\022\030\n\rcreation_time\030\003 \001(\003:\0010\022&\n\rcon"
 block|,
-literal|"ration\030\004 \003(\0132\017.NameStringPair\"\n\n\010EmptyMs"
+literal|"figuration\030\004 \003(\0132\017.NameStringPair\"\n\n\010Emp"
 operator|+
-literal|"g\"\033\n\007LongMsg\022\020\n\010long_msg\030\001 \002(\003\"\037\n\tDouble"
+literal|"tyMsg\"\033\n\007LongMsg\022\020\n\010long_msg\030\001 \002(\003\"\037\n\tDo"
 operator|+
-literal|"Msg\022\022\n\ndouble_msg\030\001 \002(\001\"\'\n\rBigDecimalMsg"
+literal|"ubleMsg\022\022\n\ndouble_msg\030\001 \002(\001\"\'\n\rBigDecima"
 operator|+
-literal|"\022\026\n\016bigdecimal_msg\030\001 \002(\014\"5\n\004UUID\022\026\n\016leas"
+literal|"lMsg\022\026\n\016bigdecimal_msg\030\001 \002(\014\"5\n\004UUID\022\026\n\016"
 operator|+
-literal|"t_sig_bits\030\001 \002(\004\022\025\n\rmost_sig_bits\030\002 \002(\004\""
+literal|"least_sig_bits\030\001 \002(\004\022\025\n\rmost_sig_bits\030\002 "
 operator|+
-literal|"K\n\023NamespaceDescriptor\022\014\n\004name\030\001 \002(\014\022&\n\r"
+literal|"\002(\004\"K\n\023NamespaceDescriptor\022\014\n\004name\030\001 \002(\014"
 operator|+
-literal|"configuration\030\002 \003(\0132\017.NameStringPair\"$\n\020"
+literal|"\022&\n\rconfiguration\030\002 \003(\0132\017.NameStringPair"
 operator|+
-literal|"RegionServerInfo\022\020\n\010infoPort\030\001 \001(\005*r\n\013Co"
+literal|"\"$\n\020RegionServerInfo\022\020\n\010infoPort\030\001 \001(\005*r"
 operator|+
-literal|"mpareType\022\010\n\004LESS\020\000\022\021\n\rLESS_OR_EQUAL\020\001\022\t"
+literal|"\n\013CompareType\022\010\n\004LESS\020\000\022\021\n\rLESS_OR_EQUAL"
 operator|+
-literal|"\n\005EQUAL\020\002\022\r\n\tNOT_EQUAL\020\003\022\024\n\020GREATER_OR_E"
+literal|"\020\001\022\t\n\005EQUAL\020\002\022\r\n\tNOT_EQUAL\020\003\022\024\n\020GREATER_"
 block|,
-literal|"QUAL\020\004\022\013\n\007GREATER\020\005\022\t\n\005NO_OP\020\006*n\n\010TimeUn"
+literal|"OR_EQUAL\020\004\022\013\n\007GREATER\020\005\022\t\n\005NO_OP\020\006*n\n\010Ti"
 operator|+
-literal|"it\022\017\n\013NANOSECONDS\020\001\022\020\n\014MICROSECONDS\020\002\022\020\n"
+literal|"meUnit\022\017\n\013NANOSECONDS\020\001\022\020\n\014MICROSECONDS\020"
 operator|+
-literal|"\014MILLISECONDS\020\003\022\013\n\007SECONDS\020\004\022\013\n\007MINUTES\020"
+literal|"\002\022\020\n\014MILLISECONDS\020\003\022\013\n\007SECONDS\020\004\022\013\n\007MINU"
 operator|+
-literal|"\005\022\t\n\005HOURS\020\006\022\010\n\004DAYS\020\007B>\n*org.apache.had"
+literal|"TES\020\005\022\t\n\005HOURS\020\006\022\010\n\004DAYS\020\007B>\n*org.apache"
 operator|+
-literal|"oop.hbase.protobuf.generatedB\013HBaseProto"
+literal|".hadoop.hbase.protobuf.generatedB\013HBaseP"
 operator|+
-literal|"sH\001\240\001\001"
+literal|"rotosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

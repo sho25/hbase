@@ -1704,6 +1704,11 @@ name|int
 name|port
 decl_stmt|;
 comment|// port we listen on
+specifier|protected
+name|InetSocketAddress
+name|address
+decl_stmt|;
+comment|// inet address we listen on
 specifier|private
 name|int
 name|readThreads
@@ -3273,6 +3278,19 @@ name|getLocalPort
 argument_list|()
 expr_stmt|;
 comment|//Could be an ephemeral port
+name|address
+operator|=
+operator|(
+name|InetSocketAddress
+operator|)
+name|acceptChannel
+operator|.
+name|socket
+argument_list|()
+operator|.
+name|getLocalSocketAddress
+argument_list|()
+expr_stmt|;
 comment|// create a selector;
 name|selector
 operator|=
@@ -4312,16 +4330,7 @@ name|getAddress
 parameter_list|()
 block|{
 return|return
-operator|(
-name|InetSocketAddress
-operator|)
-name|acceptChannel
-operator|.
-name|socket
-argument_list|()
-operator|.
-name|getLocalSocketAddress
-argument_list|()
+name|address
 return|;
 block|}
 name|void

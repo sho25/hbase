@@ -2435,12 +2435,6 @@ name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
-argument_list|,
-name|TableState
-operator|.
-name|State
-operator|.
-name|ENABLING
 argument_list|)
 argument_list|)
 expr_stmt|;
