@@ -806,8 +806,6 @@ operator|.
 name|getOnDiskSizeWithHeader
 argument_list|()
 decl_stmt|;
-comment|// Rather than CellComparator, we should be making use of an Interface here with the
-comment|// implementation class serialized out to the HFile metadata. TODO.
 name|Cell
 name|indexEntry
 init|=
@@ -815,6 +813,10 @@ name|CellComparator
 operator|.
 name|getMidpoint
 argument_list|(
+name|this
+operator|.
+name|comparator
+argument_list|,
 name|lastCellOfPreviousBlock
 argument_list|,
 name|firstCellInBlock
@@ -1218,9 +1220,11 @@ operator|.
 name|isWriting
 argument_list|()
 condition|)
+block|{
 name|newBlock
 argument_list|()
 expr_stmt|;
+block|}
 name|fsBlockWriter
 operator|.
 name|write

@@ -1038,6 +1038,7 @@ name|right
 argument_list|)
 return|;
 block|}
+comment|/**    * Do not use comparing rows from hbase:meta. Meta table Cells have schema (table,startrow,hash)    * so can't be treated as plain byte arrays as this method does.    */
 specifier|public
 specifier|static
 name|int
@@ -1089,6 +1090,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * Do not use comparing rows from hbase:meta. Meta table Cells have schema (table,startrow,hash)    * so can't be treated as plain byte arrays as this method does.    */
 specifier|public
 specifier|static
 name|int
@@ -2073,12 +2075,18 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Try to return a Cell that falls between<code>left</code> and<code>right</code> but that is    * shorter; i.e. takes up less space. This is trick is used building HFile block index.    * Its an optimization. It does not always work.  In this case we'll just return the    *<code>right</code> cell.    * @param left    * @param right    * @return A cell that sorts between<code>left</code> and<code>right</code>.    */
+comment|/**    * Try to return a Cell that falls between<code>left</code> and<code>right</code> but that is    * shorter; i.e. takes up less space. This trick is used building HFile block index.    * Its an optimization. It does not always work.  In this case we'll just return the    *<code>right</code> cell.    * @param comparator Comparator to use.    * @param left    * @param right    * @return A cell that sorts between<code>left</code> and<code>right</code>.    */
 specifier|public
 specifier|static
 name|Cell
 name|getMidpoint
 parameter_list|(
+specifier|final
+name|KeyValue
+operator|.
+name|KVComparator
+name|comparator
+parameter_list|,
 specifier|final
 name|Cell
 name|left
@@ -2110,6 +2118,26 @@ condition|(
 name|left
 operator|==
 literal|null
+condition|)
+block|{
+return|return
+name|right
+return|;
+block|}
+comment|// If Cells from meta table, don't mess around. meta table Cells have schema
+comment|// (table,startrow,hash) so can't be treated as plain byte arrays. Just skip out without
+comment|// trying to do this optimization.
+if|if
+condition|(
+name|comparator
+operator|!=
+literal|null
+operator|&&
+name|comparator
+operator|instanceof
+name|KeyValue
+operator|.
+name|MetaComparator
 condition|)
 block|{
 return|return
