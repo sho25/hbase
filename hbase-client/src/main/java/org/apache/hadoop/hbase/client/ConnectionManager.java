@@ -4656,10 +4656,8 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
-argument_list|(
-literal|"The connection has to be unmanaged."
-argument_list|)
+name|NeedUnmanagedConnectionException
+argument_list|()
 throw|;
 block|}
 return|return
@@ -4851,10 +4849,8 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
-argument_list|(
-literal|"The connection has to be unmanaged."
-argument_list|)
+name|NeedUnmanagedConnectionException
+argument_list|()
 throw|;
 block|}
 return|return

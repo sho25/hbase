@@ -267,7 +267,39 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|ConnectionFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|HTable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|NeedUnmanagedConnectionException
 import|;
 end_import
 
@@ -530,7 +562,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A base for {@link TableInputFormat}s. Receives a {@link Connection}, a {@link TableName},  * an {@link Scan} instance that defines the input columns etc. Subclasses may use  * other TableRecordReader implementations.  *<p>  * An example of a subclass:  *<pre>  *   class ExampleTIF extends TableInputFormatBase implements JobConfigurable {  *  *     private JobConf job;  *  *     public void configure(JobConf job) {  *       this.job = job;  *       Text[] inputColumns = new byte [][] { Bytes.toBytes("cf1:columnA"),  *         Bytes.toBytes("cf2") };  *       // mandatory  *       setInputColumns(inputColumns);  *       RowFilterInterface exampleFilter = new RegExpRowFilter("keyPrefix.*");  *       // optional  *       setRowFilter(exampleFilter);  *     }  *       *     protected void initialize() {  *       Connection connection =  *          ConnectionFactory.createConnection(HBaseConfiguration.create(job));  *       TableName tableName = TableName.valueOf("exampleTable");  *       // mandatory  *       initializeTable(connection, tableName);  *    }  *  *     public void validateInput(JobConf job) throws IOException {  *     }  *  }  *</pre>  */
+comment|/**  * A base for {@link TableInputFormat}s. Receives a {@link Connection}, a {@link TableName},  * an {@link Scan} instance that defines the input columns etc. Subclasses may use  * other TableRecordReader implementations.  *<p>  * An example of a subclass:  *<pre>  *   class ExampleTIF extends TableInputFormatBase implements JobConfigurable {  *  *     private JobConf job;  *  *     {@literal @}Override  *     public void configure(JobConf job) {  *       this.job = job;  *       byte[][] inputColumns = new byte [][] { Bytes.toBytes("columnA"),  *         Bytes.toBytes("columnB") };  *       // optional, by default we'll get everything for the table.  *       Scan scan = new Scan();  *       for (byte[] family : inputColumns) {  *         scan.addFamily(family);  *       }  *       Filter exampleFilter = new RowFilter(CompareOp.EQUAL, new RegexStringComparator("aa.*"));  *       scan.setFilter(exampleFilter);  *       setScan(scan);  *     }  *  *     {@literal @}Override  *     protected void initialize() {  *       if (job == null) {  *         throw new IllegalStateException("must have already gotten the JobConf before " +  *             "initialize is called.");  *       }  *       try {  *         Connection connection =  *            ConnectionFactory.createConnection(HBaseConfiguration.create(job));  *         TableName tableName = TableName.valueOf("exampleTable");  *         // mandatory  *         initializeTable(connection, tableName);  *       } catch (IOException exception) {  *         throw new RuntimeException("Failed to initialize.", exception);  *       }  *     }  *   }  *</pre>  */
 end_comment
 
 begin_class
@@ -2862,20 +2894,22 @@ name|table
 expr_stmt|;
 name|this
 operator|.
-name|regionLocator
-operator|=
-name|table
-operator|.
-name|getRegionLocator
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
 name|connection
 operator|=
 name|table
 operator|.
 name|getConnection
+argument_list|()
+expr_stmt|;
+try|try
+block|{
+name|this
+operator|.
+name|regionLocator
+operator|=
+name|table
+operator|.
+name|getRegionLocator
 argument_list|()
 expr_stmt|;
 name|this
@@ -2890,7 +2924,93 @@ name|getAdmin
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Allows subclasses to initialize the table information.    *    * @param connection  The {@link Connection} to the HBase cluster.    * @param tableName  The {@link TableName} of the table to process.     * @throws IOException     */
+catch|catch
+parameter_list|(
+name|NeedUnmanagedConnectionException
+name|exception
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"You are using an HTable instance that relies on an HBase-managed Connection. "
+operator|+
+literal|"This is usually due to directly creating an HTable, which is deprecated. Instead, you "
+operator|+
+literal|"should create a Connection object and then request a Table instance from it. If you "
+operator|+
+literal|"don't need the Table instance for your own use, you should instead use the "
+operator|+
+literal|"TableInputFormatBase.initalizeTable method directly."
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Creating an additional unmanaged connection because user provided one can't be "
+operator|+
+literal|"used for administrative actions. We'll close it when we close out the table."
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Details about our failure to request an administrative interface."
+argument_list|,
+name|exception
+argument_list|)
+expr_stmt|;
+comment|// Do we need a "copy the settings from this Connection" method? are things like the User
+comment|// properly maintained by just looking again at the Configuration?
+name|this
+operator|.
+name|connection
+operator|=
+name|ConnectionFactory
+operator|.
+name|createConnection
+argument_list|(
+name|this
+operator|.
+name|connection
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|regionLocator
+operator|=
+name|this
+operator|.
+name|connection
+operator|.
+name|getRegionLocator
+argument_list|(
+name|table
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|admin
+operator|=
+name|this
+operator|.
+name|connection
+operator|.
+name|getAdmin
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+comment|/**    * Allows subclasses to initialize the table information.    *    * @param connection  The Connection to the HBase cluster. MUST be unmanaged. We will close.    * @param tableName  The {@link TableName} of the table to process.     * @throws IOException     */
 specifier|protected
 name|void
 name|initializeTable
