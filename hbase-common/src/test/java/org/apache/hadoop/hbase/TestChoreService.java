@@ -266,13 +266,6 @@ name|getClass
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|private
-specifier|final
-name|String
-name|TEST_SERVER_NAME
-init|=
-literal|"testServerName"
-decl_stmt|;
 comment|/**    * A few ScheduledChore samples that are useful for testing with ChoreService    */
 specifier|public
 specifier|static
@@ -988,7 +981,7 @@ name|ChoreService
 operator|.
 name|getInstance
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testInitialChorePrecedence"
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -1122,7 +1115,7 @@ name|ChoreService
 operator|.
 name|getInstance
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testCancelChore"
 argument_list|)
 decl_stmt|;
 name|service
@@ -1371,7 +1364,7 @@ init|=
 operator|new
 name|ChoreService
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testChoreServiceConstruction_custom"
 argument_list|,
 name|corePoolSize
 argument_list|)
@@ -1392,7 +1385,7 @@ init|=
 operator|new
 name|ChoreService
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testChoreServiceConstruction_default"
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -1411,7 +1404,7 @@ init|=
 operator|new
 name|ChoreService
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testChoreServiceConstruction_invalid"
 argument_list|,
 operator|-
 literal|10
@@ -1477,7 +1470,7 @@ name|ChoreService
 operator|.
 name|getInstance
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testFrequencyOfChores"
 argument_list|)
 decl_stmt|;
 name|CountingChore
@@ -1610,7 +1603,7 @@ name|ChoreService
 operator|.
 name|getInstance
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testForceTrigger"
 argument_list|)
 decl_stmt|;
 name|CountingChore
@@ -1777,7 +1770,7 @@ init|=
 operator|new
 name|ChoreService
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testCorePoolIncrease"
 argument_list|,
 name|initialCorePoolSize
 argument_list|)
@@ -1987,7 +1980,7 @@ init|=
 operator|new
 name|ChoreService
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testCorePoolDecrease"
 argument_list|,
 name|initialCorePoolSize
 argument_list|)
@@ -2730,7 +2723,7 @@ init|=
 operator|new
 name|ChoreService
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testNumberOfRunningChores"
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -2962,7 +2955,7 @@ init|=
 operator|new
 name|ChoreService
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testNumberOfChoresMissingStartTime"
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -3191,7 +3184,7 @@ init|=
 operator|new
 name|ChoreService
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testMaximumChoreServiceThreads"
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -3465,7 +3458,7 @@ init|=
 operator|new
 name|ChoreService
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testScheduledChoreReset"
 argument_list|)
 decl_stmt|;
 name|ScheduledChore
@@ -3634,7 +3627,7 @@ init|=
 operator|new
 name|ChoreService
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testChangingChoreServices_1"
 argument_list|)
 decl_stmt|;
 name|ChoreService
@@ -3643,7 +3636,7 @@ init|=
 operator|new
 name|ChoreService
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testChangingChoreServices_2"
 argument_list|)
 decl_stmt|;
 name|ScheduledChore
@@ -3886,7 +3879,7 @@ init|=
 operator|new
 name|ChoreService
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testTriggerNowFailsWhenNotScheduled"
 argument_list|)
 decl_stmt|;
 name|CountingChore
@@ -4041,7 +4034,7 @@ name|ChoreService
 operator|.
 name|getInstance
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testStopperForScheduledChores"
 argument_list|)
 decl_stmt|;
 name|Stoppable
@@ -4410,7 +4403,7 @@ init|=
 operator|new
 name|ChoreService
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testShutdownCancelsScheduledChores"
 argument_list|)
 decl_stmt|;
 name|ScheduledChore
@@ -4564,7 +4557,7 @@ init|=
 operator|new
 name|ChoreService
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testShutdownWorksWhileChoresAreExecuting"
 argument_list|)
 decl_stmt|;
 name|ScheduledChore
@@ -4729,7 +4722,7 @@ init|=
 operator|new
 name|ChoreService
 argument_list|(
-name|TEST_SERVER_NAME
+literal|"testShutdownRejectsNewSchedules"
 argument_list|)
 decl_stmt|;
 name|ScheduledChore

@@ -1110,10 +1110,10 @@ range|:
 name|choresToCancel
 control|)
 block|{
-name|chore
-operator|.
-name|cancel
+name|cancelChore
 argument_list|(
+name|chore
+argument_list|,
 name|mayInterruptIfRunning
 argument_list|)
 expr_stmt|;
