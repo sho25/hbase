@@ -5551,6 +5551,21 @@ literal|"disableTable"
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|waitTableDisabled
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+literal|"disableTable"
+argument_list|)
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// abort RS
 name|LOG
 operator|.
