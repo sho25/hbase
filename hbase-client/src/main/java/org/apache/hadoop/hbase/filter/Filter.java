@@ -118,6 +118,7 @@ class|class
 name|Filter
 block|{
 specifier|protected
+specifier|transient
 name|boolean
 name|reversed
 decl_stmt|;
