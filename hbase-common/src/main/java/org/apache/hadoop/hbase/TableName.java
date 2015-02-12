@@ -589,10 +589,20 @@ literal|"Illegal first character<"
 operator|+
 name|qualifierName
 index|[
-literal|0
+name|start
 index|]
 operator|+
-literal|"> at 0. Namespaces can only start with alphanumeric "
+literal|"> at 0. "
+operator|+
+operator|(
+name|isSnapshot
+condition|?
+literal|"Snapshot"
+else|:
+literal|"User-space table"
+operator|)
+operator|+
+literal|" qualifiers can only start with 'alphanumeric "
 operator|+
 literal|"characters': i.e. [a-zA-Z_0-9]: "
 operator|+
@@ -601,6 +611,10 @@ operator|.
 name|toString
 argument_list|(
 name|qualifierName
+argument_list|,
+name|start
+argument_list|,
+name|end
 argument_list|)
 argument_list|)
 throw|;
@@ -686,7 +700,7 @@ operator|+
 operator|(
 name|isSnapshot
 condition|?
-literal|"snapshot"
+literal|"Snapshot"
 else|:
 literal|"User-space table"
 operator|)
