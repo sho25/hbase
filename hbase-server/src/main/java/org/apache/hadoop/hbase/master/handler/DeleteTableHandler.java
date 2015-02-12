@@ -895,7 +895,11 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-comment|// 5. If entry for this table states, remove it.
+comment|// 5.Clean any remaining rows for this table.
+name|cleanAnyRemainingRows
+argument_list|()
+expr_stmt|;
+comment|// 6. If entry for this table states, remove it.
 name|LOG
 operator|.
 name|debug
@@ -916,10 +920,6 @@ name|setDeletedTable
 argument_list|(
 name|tableName
 argument_list|)
-expr_stmt|;
-comment|// 6.Clean any remaining rows for this table.
-name|cleanAnyRemainingRows
-argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * There may be items for this table still up in hbase:meta in the case where the    * info:regioninfo column was empty because of some write error. Remove ALL rows from hbase:meta    * that have to do with this table. See HBASE-12980.    * @throws IOException    */
