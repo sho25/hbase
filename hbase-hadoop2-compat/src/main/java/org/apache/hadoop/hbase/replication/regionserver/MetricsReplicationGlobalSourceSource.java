@@ -416,6 +416,20 @@ name|void
 name|clear
 parameter_list|()
 block|{   }
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getLastShippedAge
+parameter_list|()
+block|{
+return|return
+name|ageOfLastShippedOpGauge
+operator|.
+name|value
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 

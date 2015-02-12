@@ -177,6 +177,20 @@ name|batchsize
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getLastAppliedOpAge
+parameter_list|()
+block|{
+return|return
+name|ageGauge
+operator|.
+name|value
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 

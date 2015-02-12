@@ -69,6 +69,10 @@ name|long
 name|batchsize
 parameter_list|)
 function_decl|;
+name|long
+name|getLastAppliedOpAge
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

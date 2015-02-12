@@ -4305,6 +4305,18 @@ operator|+
 name|position
 return|;
 block|}
+comment|/**    * Get Replication Source Metrics    * @return sourceMetrics    */
+specifier|public
+name|MetricsSource
+name|getSourceMetrics
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|metrics
+return|;
+block|}
 block|}
 end_class
 

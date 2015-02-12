@@ -153,6 +153,10 @@ init|=
 literal|0
 decl_stmt|;
 specifier|private
+name|String
+name|id
+decl_stmt|;
+specifier|private
 specifier|final
 name|MetricsReplicationSourceSource
 name|singleSourceSource
@@ -170,6 +174,12 @@ name|String
 name|id
 parameter_list|)
 block|{
+name|this
+operator|.
+name|id
+operator|=
+name|id
+expr_stmt|;
 name|singleSourceSource
 operator|=
 name|CompatibilitySingletonFactory
@@ -468,6 +478,51 @@ name|lastQueueSize
 operator|=
 literal|0
 expr_stmt|;
+block|}
+comment|/**    * Get AgeOfLastShippedOp    * @return AgeOfLastShippedOp    */
+specifier|public
+name|Long
+name|getAgeOfLastShippedOp
+parameter_list|()
+block|{
+return|return
+name|singleSourceSource
+operator|.
+name|getLastShippedAge
+argument_list|()
+return|;
+block|}
+comment|/**    * Get the sizeOfLogQueue    * @return sizeOfLogQueue    */
+specifier|public
+name|int
+name|getSizeOfLogQueue
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|lastQueueSize
+return|;
+block|}
+comment|/**    * Get the timeStampsOfLastShippedOp    * @return lastTimestampForAge    */
+specifier|public
+name|long
+name|getTimeStampOfLastShippedOp
+parameter_list|()
+block|{
+return|return
+name|lastTimestamp
+return|;
+block|}
+comment|/**    * Get the slave peer ID    * @return peerID    */
+specifier|public
+name|String
+name|getPeerID
+parameter_list|()
+block|{
+return|return
+name|id
+return|;
 block|}
 block|}
 end_class

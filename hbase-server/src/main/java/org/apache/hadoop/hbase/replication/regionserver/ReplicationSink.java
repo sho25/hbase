@@ -1493,6 +1493,18 @@ operator|.
 name|totalReplicatedEdits
 return|;
 block|}
+comment|/**    * Get replication Sink Metrics    * @return MetricsSink    */
+specifier|public
+name|MetricsSink
+name|getSinkMetrics
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|metrics
+return|;
+block|}
 block|}
 end_class
 
