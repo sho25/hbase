@@ -9348,7 +9348,7 @@ return|return
 name|fakeKey
 return|;
 block|}
-comment|/**      * This is a HFile block index key optimization.      * @param leftKey      * @param rightKey      * @return 0 if equal,<0 if left smaller,>0 if right smaller      * @deprecated Since 0.99.2; Use {@link CellComparator#getMidpoint(Cell, Cell)} instead.      */
+comment|/**      * This is a HFile block index key optimization.      * @param leftKey      * @param rightKey      * @return 0 if equal,<0 if left smaller,>0 if right smaller      * @deprecated Since 0.99.2; Use      *             {@link CellComparator#getMidpoint(KeyValue.KVComparator, Cell, Cell) instead}      */
 annotation|@
 name|Deprecated
 specifier|public
