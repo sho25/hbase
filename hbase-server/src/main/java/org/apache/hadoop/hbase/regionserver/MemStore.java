@@ -124,6 +124,11 @@ name|long
 name|getFlushableSize
 parameter_list|()
 function_decl|;
+comment|/**    * Return the size of the snapshot(s) if any    * @return size of the memstore snapshot    */
+name|long
+name|getSnapshotSize
+parameter_list|()
+function_decl|;
 comment|/**    * Write an update    * @param cell    * @return approximate size of the passed KV and the newly added KV which maybe different from the    *         passed in KV.    */
 name|Pair
 argument_list|<

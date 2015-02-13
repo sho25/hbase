@@ -306,7 +306,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An HBase Key/Value. This is the fundamental HBase Type.    *<p>  * HBase applications and users should use the Cell interface and avoid directly using KeyValue  * and member functions not defined in Cell.  *<p>  * If being used client-side, the primary methods to access individual fields are {@link #getRow()},  * {@link #getFamily()}, {@link #getQualifier()}, {@link #getTimestamp()}, and {@link #getValue()}.  * These methods allocate new byte arrays and return copies. Avoid their use server-side.  *<p>  * Instances of this class are immutable. They do not implement Comparable but Comparators are  * provided. Comparators change with context, whether user table or a catalog table comparison. Its  * critical you use the appropriate comparator. There are Comparators for normal HFiles, Meta's  * Hfiles, and bloom filter keys.  *<p>  * KeyValue wraps a byte array and takes offsets and lengths into passed array at where to start  * interpreting the content as KeyValue. The KeyValue format inside a byte array is:  *<code>&lt;keylength>&lt;valuelength>&lt;key>&lt;value></code> Key is further decomposed as:  *<code>&lt;rowlength>&lt;row>&lt;columnfamilylength>&lt;columnfamily>&lt;columnqualifier>  *&lt;timestamp>&lt;keytype></code>  * The<code>rowlength</code> maximum is<code>Short.MAX_SIZE</code>, column family length maximum  * is<code>Byte.MAX_SIZE</code>, and column qualifier + key length must be<  *<code>Integer.MAX_SIZE</code>. The column does not contain the family/qualifier delimiter,  * {@link #COLUMN_FAMILY_DELIMITER}<br>  * KeyValue can optionally contain Tags. When it contains tags, it is added in the byte array after  * the value part. The format for this part is:<code>&lt;tagslength>&lt;tagsbytes></code>.  *<code>tagslength</code> maximum is<code>Short.MAX_SIZE</code>. The<code>tagsbytes</code>  * contain one or more tags where as each tag is of the form  *<code>&lt;taglength>&lt;tagtype>&lt;tagbytes></code>.<code>tagtype</code> is one byte and  *<code>taglength</code> maximum is<code>Short.MAX_SIZE</code> and it includes 1 byte type length  * and actual tag bytes length.  */
+comment|/**  * An HBase Key/Value. This is the fundamental HBase Type.  *<p>  * HBase applications and users should use the Cell interface and avoid directly using KeyValue  * and member functions not defined in Cell.  *<p>  * If being used client-side, the primary methods to access individual fields are {@link #getRow()},  * {@link #getFamily()}, {@link #getQualifier()}, {@link #getTimestamp()}, and {@link #getValue()}.  * These methods allocate new byte arrays and return copies. Avoid their use server-side.  *<p>  * Instances of this class are immutable. They do not implement Comparable but Comparators are  * provided. Comparators change with context, whether user table or a catalog table comparison. Its  * critical you use the appropriate comparator. There are Comparators for normal HFiles, Meta's  * Hfiles, and bloom filter keys.  *<p>  * KeyValue wraps a byte array and takes offsets and lengths into passed array at where to start  * interpreting the content as KeyValue. The KeyValue format inside a byte array is:  *<code>&lt;keylength>&lt;valuelength>&lt;key>&lt;value></code> Key is further decomposed as:  *<code>&lt;rowlength>&lt;row>&lt;columnfamilylength>&lt;columnfamily>&lt;columnqualifier>  *&lt;timestamp>&lt;keytype></code>  * The<code>rowlength</code> maximum is<code>Short.MAX_SIZE</code>, column family length maximum  * is<code>Byte.MAX_SIZE</code>, and column qualifier + key length must be<  *<code>Integer.MAX_SIZE</code>. The column does not contain the family/qualifier delimiter,  * {@link #COLUMN_FAMILY_DELIMITER}<br>  * KeyValue can optionally contain Tags. When it contains tags, it is added in the byte array after  * the value part. The format for this part is:<code>&lt;tagslength>&lt;tagsbytes></code>.  *<code>tagslength</code> maximum is<code>Short.MAX_SIZE</code>. The<code>tagsbytes</code>  * contain one or more tags where as each tag is of the form  *<code>&lt;taglength>&lt;tagtype>&lt;tagbytes></code>.<code>tagtype</code> is one byte and  *<code>taglength</code> maximum is<code>Short.MAX_SIZE</code> and it includes 1 byte type length  * and actual tag bytes length.  */
 end_comment
 
 begin_class
@@ -969,6 +969,8 @@ return|return
 name|seqId
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setSequenceId
@@ -4925,6 +4927,8 @@ comment|//
 comment|//  String representation
 comment|//
 comment|//---------------------------------------------------------------------------
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -4978,7 +4982,7 @@ operator|+
 name|seqId
 return|;
 block|}
-comment|/**    * @param k Key portion of a KeyValue.    * @return Key as a String, empty string if k is null.     */
+comment|/**    * @param k Key portion of a KeyValue.    * @return Key as a String, empty string if k is null.    */
 specifier|public
 specifier|static
 name|String
@@ -6150,6 +6154,8 @@ return|;
 block|}
 comment|/**    * Returns value in a new byte array.    * Primarily for use client-side. If server-side, use    * {@link #getBuffer()} with appropriate offsets and lengths instead to    * save on allocations.    * @return Value in a new byte array.    */
 annotation|@
+name|Override
+annotation|@
 name|Deprecated
 comment|// use CellUtil.getValueArray()
 specifier|public
@@ -6168,6 +6174,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Primarily for use client-side.  Returns the row of this KeyValue in a new    * byte array.<p>    *    * If server-side, use {@link #getBuffer()} with appropriate offsets and    * lengths instead.    * @return Row in a new byte array.    */
+annotation|@
+name|Override
 annotation|@
 name|Deprecated
 comment|// use CellUtil.getRowArray()
@@ -6292,6 +6300,8 @@ return|;
 block|}
 comment|/**    * Primarily for use client-side.  Returns the family of this KeyValue in a    * new byte array.<p>    *    * If server-side, use {@link #getBuffer()} with appropriate offsets and    * lengths instead.    * @return Returns family. Makes a copy.    */
 annotation|@
+name|Override
+annotation|@
 name|Deprecated
 comment|// use CellUtil.getFamilyArray
 specifier|public
@@ -6310,6 +6320,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Primarily for use client-side.  Returns the column qualifier of this    * KeyValue in a new byte array.<p>    *    * If server-side, use {@link #getBuffer()} with appropriate offsets and    * lengths instead.    * Use {@link #getBuffer()} with appropriate offsets and lengths instead.    * @return Returns qualifier. Makes a copy.    */
+annotation|@
+name|Override
 annotation|@
 name|Deprecated
 comment|// use CellUtil.getQualifierArray
@@ -10649,6 +10661,8 @@ operator|=
 name|c
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compare
@@ -10672,7 +10686,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Avoids redundant comparisons for better performance.    *     * TODO get rid of this wart    */
+comment|/**    * Avoids redundant comparisons for better performance.    *    * TODO get rid of this wart    */
 specifier|public
 interface|interface
 name|SamePrefixComparator
@@ -10718,6 +10732,8 @@ extends|extends
 name|KVComparator
 block|{
 comment|/**      * The HFileV2 file format's trailer contains this class name.  We reinterpret this and      * instantiate the appropriate comparator.      * TODO: With V3 consider removing this.      * @return legacy class name for FileFileTrailer#comparatorClassName      */
+annotation|@
+name|Override
 specifier|public
 name|String
 name|getLegacyKeyComparatorName
@@ -10728,6 +10744,8 @@ literal|"org.apache.hadoop.hbase.util.Bytes$ByteArrayComparator"
 return|;
 block|}
 comment|/**      * @deprecated Since 0.99.2.      */
+annotation|@
+name|Override
 annotation|@
 name|Deprecated
 specifier|public
@@ -10798,6 +10816,8 @@ name|right
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -11008,6 +11028,8 @@ argument_list|()
 operator|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]

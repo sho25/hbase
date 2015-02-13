@@ -683,12 +683,18 @@ name|long
 name|cacheFlushId
 parameter_list|)
 function_decl|;
-comment|/**    * Call to complete a compaction. Its for the case where we find in the WAL a compaction    * that was not finished.  We could find one recovering a WAL after a regionserver crash.    * See HBASE-2331.    * @param compaction    */
+comment|/**    * Call to complete a compaction. Its for the case where we find in the WAL a compaction    * that was not finished.  We could find one recovering a WAL after a regionserver crash.    * See HBASE-2331.    * @param compaction the descriptor for compaction    * @param pickCompactionFiles whether or not pick up the new compaction output files and    * add it to the store    * @param removeFiles whether to remove/archive files from filesystem    */
 name|void
-name|completeCompactionMarker
+name|replayCompactionMarker
 parameter_list|(
 name|CompactionDescriptor
 name|compaction
+parameter_list|,
+name|boolean
+name|pickCompactionFiles
+parameter_list|,
+name|boolean
+name|removeFiles
 parameter_list|)
 throws|throws
 name|IOException
@@ -745,8 +751,18 @@ name|long
 name|getFlushableSize
 parameter_list|()
 function_decl|;
+comment|/**    * Returns the memstore snapshot size    * @return size of the memstore snapshot    */
+name|long
+name|getSnapshotSize
+parameter_list|()
+function_decl|;
 name|HColumnDescriptor
 name|getFamily
+parameter_list|()
+function_decl|;
+comment|/**    * @return The maximum sequence id in all store files.    */
+name|long
+name|getMaxSequenceId
 parameter_list|()
 function_decl|;
 comment|/**    * @return The maximum memstoreTS in all store files.    */
@@ -893,6 +909,19 @@ comment|/**    * This value can represent the degree of emergency of compaction 
 name|double
 name|getCompactionPressure
 parameter_list|()
+function_decl|;
+comment|/**     * Replaces the store files that the store has with the given files. Mainly used by     * secondary region replicas to keep up to date with     * the primary region files.     * @throws IOException     */
+name|void
+name|refreshStoreFiles
+parameter_list|(
+name|Collection
+argument_list|<
+name|String
+argument_list|>
+name|newFiles
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 block|}
 end_interface

@@ -1055,6 +1055,19 @@ name|keySize
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getSnapshotSize
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|snapshotSize
+return|;
+block|}
 comment|/**    * Write an update    * @param cell    * @return approximate size of the passed KV& newly added KV which maybe different than the    *         passed-in KV    */
 annotation|@
 name|Override
@@ -2024,6 +2037,8 @@ break|break;
 block|}
 block|}
 comment|/**    * Only used by tests. TODO: Remove    *    * Given the specs of a column, update it, first by inserting a new record,    * then removing the old one.  Since there is only 1 KeyValue involved, the memstoreTS    * will be set to 0, thus ensuring that they instantly appear to anyone. The underlying    * store will ensure that the insert/delete each are atomic. A scanner/reader will either    * get the new value, or the old value and all readers will eventually only see the new    * value after the old was removed.    *    * @param row    * @param family    * @param qualifier    * @param newValue    * @param now    * @return  Timestamp    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|updateColumnValue
@@ -2279,7 +2294,7 @@ literal|1L
 argument_list|)
 return|;
 block|}
-comment|/**    * Update or insert the specified KeyValues.    *<p>    * For each KeyValue, insert into MemStore.  This will atomically upsert the    * value for that row/family/qualifier.  If a KeyValue did already exist,    * it will then be removed.    *<p>    * Currently the memstoreTS is kept at 0 so as each insert happens, it will    * be immediately visible.  May want to change this so it is atomic across    * all KeyValues.    *<p>    * This is called under row lock, so Get operations will still see updates    * atomically.  Scans will only see each KeyValue update as atomic.    *    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate KVs     * @return change in memstore size    */
+comment|/**    * Update or insert the specified KeyValues.    *<p>    * For each KeyValue, insert into MemStore.  This will atomically upsert the    * value for that row/family/qualifier.  If a KeyValue did already exist,    * it will then be removed.    *<p>    * Currently the memstoreTS is kept at 0 so as each insert happens, it will    * be immediately visible.  May want to change this so it is atomic across    * all KeyValues.    *<p>    * This is called under row lock, so Get operations will still see updates    * atomically.  Scans will only see each KeyValue update as atomic.    *    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @return change in memstore size    */
 annotation|@
 name|Override
 specifier|public

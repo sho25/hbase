@@ -1733,7 +1733,9 @@ throws|throws
 name|IOException
 block|{
 name|finishWriting
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 return|return
 literal|null
