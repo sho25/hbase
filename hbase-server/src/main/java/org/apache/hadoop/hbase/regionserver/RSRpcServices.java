@@ -12741,15 +12741,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|scan
-operator|.
-name|getAttribute
-argument_list|(
-name|Scan
-operator|.
-name|SCAN_ATTRIBUTES_METRICS_ENABLE
-argument_list|)
-expr_stmt|;
 name|region
 operator|.
 name|prepareScanner

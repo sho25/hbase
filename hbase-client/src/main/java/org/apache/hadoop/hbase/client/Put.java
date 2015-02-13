@@ -644,7 +644,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Add the specified column and value to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param value column value    * @return this    */
+comment|/**    * Add the specified column and value to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param value column value    * @return this    * @deprecated Since 1.0.0. Use {@link #addColumn(byte[], byte[], byte[])}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Put
 name|add
@@ -663,7 +665,36 @@ name|value
 parameter_list|)
 block|{
 return|return
-name|add
+name|addColumn
+argument_list|(
+name|family
+argument_list|,
+name|qualifier
+argument_list|,
+name|value
+argument_list|)
+return|;
+block|}
+comment|/**    * Add the specified column and value to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param value column value    * @return this    */
+specifier|public
+name|Put
+name|addColumn
+parameter_list|(
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|byte
+index|[]
+name|qualifier
+parameter_list|,
+name|byte
+index|[]
+name|value
+parameter_list|)
+block|{
+return|return
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -749,10 +780,46 @@ name|tag
 argument_list|)
 return|;
 block|}
-comment|/**    * Add the specified column and value, with the specified timestamp as    * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param ts version timestamp    * @param value column value    * @return this    */
+comment|/**    * Add the specified column and value, with the specified timestamp as    * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param ts version timestamp    * @param value column value    * @return this    * @deprecated Since 1.0.0. Use {@link #addColumn(byte[], byte[], long, byte[])}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Put
 name|add
+parameter_list|(
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|byte
+index|[]
+name|qualifier
+parameter_list|,
+name|long
+name|ts
+parameter_list|,
+name|byte
+index|[]
+name|value
+parameter_list|)
+block|{
+return|return
+name|addColumn
+argument_list|(
+name|family
+argument_list|,
+name|qualifier
+argument_list|,
+name|ts
+argument_list|,
+name|value
+argument_list|)
+return|;
+block|}
+comment|/**    * Add the specified column and value, with the specified timestamp as    * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param ts version timestamp    * @param value column value    * @return this    */
+specifier|public
+name|Put
+name|addColumn
 parameter_list|(
 name|byte
 index|[]
@@ -921,11 +988,6 @@ name|this
 return|;
 block|}
 comment|/**    * This expects that the underlying arrays won't change. It's intended    * for usage internal HBase to and for advanced client applications.    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 name|Put
 name|addImmutable
@@ -1084,10 +1146,44 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Add the specified column and value, with the specified timestamp as    * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param ts version timestamp    * @param value column value    * @return this    */
+comment|/**    * Add the specified column and value, with the specified timestamp as    * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param ts version timestamp    * @param value column value    * @return this    * @deprecated Since 1.0.0. Use {@link Put#addColumn(byte[], ByteBuffer, long, ByteBuffer)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Put
 name|add
+parameter_list|(
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|ByteBuffer
+name|qualifier
+parameter_list|,
+name|long
+name|ts
+parameter_list|,
+name|ByteBuffer
+name|value
+parameter_list|)
+block|{
+return|return
+name|addColumn
+argument_list|(
+name|family
+argument_list|,
+name|qualifier
+argument_list|,
+name|ts
+argument_list|,
+name|value
+argument_list|)
+return|;
+block|}
+comment|/**    * Add the specified column and value, with the specified timestamp as    * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param ts version timestamp    * @param value column value    * @return this    */
+specifier|public
+name|Put
+name|addColumn
 parameter_list|(
 name|byte
 index|[]

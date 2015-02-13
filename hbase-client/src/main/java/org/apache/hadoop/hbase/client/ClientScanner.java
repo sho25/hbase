@@ -1450,7 +1450,7 @@ return|return
 name|sr
 return|;
 block|}
-comment|/**      * Publish the scan metrics. For now, we use scan.setAttribute to pass the metrics back to the      * application or TableInputFormat.Later, we could push it to other systems. We don't use      * metrics framework because it doesn't support multi-instances of the same metrics on the same      * machine; for scan/map reduce scenarios, we will have multiple scans running at the same time.      *      * By default, scan metrics are disabled; if the application wants to collect them, this      * behavior can be turned on by calling calling:      *      * scan.setAttribute(SCAN_ATTRIBUTES_METRICS_ENABLE, Bytes.toBytes(Boolean.TRUE))      */
+comment|/**      * Publish the scan metrics. For now, we use scan.setAttribute to pass the metrics back to the      * application or TableInputFormat.Later, we could push it to other systems. We don't use      * metrics framework because it doesn't support multi-instances of the same metrics on the same      * machine; for scan/map reduce scenarios, we will have multiple scans running at the same time.      *      * By default, scan metrics are disabled; if the application wants to collect them, this      * behavior can be turned on by calling calling {@link Scan#setScanMetricsEnabled(boolean)}      *       *<p>This invocation clears the scan metrics. Metrics are aggregated in the Scan instance.      */
 specifier|protected
 name|void
 name|writeScanMetrics

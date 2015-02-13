@@ -1376,7 +1376,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * Get the latest version of the specified column.    * @param family family name    * @param qualifier column qualifier    * @return value of latest version of column, null if none found    */
+comment|/**    * Get the latest version of the specified column.    * Note: this call clones the value content of the hosting Cell. See    * {@link #getValueAsByteBuffer(byte[], byte[])}, etc., or {@link #listCells()} if you would    * avoid the cloning.    * @param family family name    * @param qualifier column qualifier    * @return value of latest version of column, null if none found    */
 specifier|public
 name|byte
 index|[]
@@ -1488,6 +1488,9 @@ operator|.
 name|getValueLength
 argument_list|()
 argument_list|)
+operator|.
+name|asReadOnlyBuffer
+argument_list|()
 return|;
 block|}
 comment|/**    * Returns the value wrapped in a new<code>ByteBuffer</code>.    *    * @param family family name    * @param foffset family offset    * @param flength family length    * @param qualifier column qualifier    * @param qoffset qualifier offset    * @param qlength qualifier length    *    * @return the latest version of the column, or<code>null</code> if none found    */
@@ -1565,6 +1568,9 @@ operator|.
 name|getValueLength
 argument_list|()
 argument_list|)
+operator|.
+name|asReadOnlyBuffer
+argument_list|()
 return|;
 block|}
 comment|/**    * Loads the latest version of the specified column into the provided<code>ByteBuffer</code>.    *<p>    * Does not clear or flip the buffer.    *    * @param family family name    * @param qualifier column qualifier    * @param dst the buffer where to write the value    *    * @return<code>true</code> if a value was found,<code>false</code> otherwise    *    * @throws BufferOverflowException there is insufficient space remaining in the buffer    */

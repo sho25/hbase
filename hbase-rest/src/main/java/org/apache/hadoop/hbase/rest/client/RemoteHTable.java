@@ -1842,6 +1842,8 @@ name|name
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Configuration
 name|getConfiguration
@@ -1851,6 +1853,8 @@ return|return
 name|conf
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HTableDescriptor
 name|getTableDescriptor
@@ -2023,6 +2027,8 @@ literal|"schema request timed out"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|close
@@ -2036,6 +2042,8 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Result
 name|get
@@ -2160,6 +2168,8 @@ argument_list|()
 return|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Result
 index|[]
@@ -2454,6 +2464,8 @@ literal|"get request timed out"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|exists
@@ -2496,6 +2508,8 @@ operator|)
 return|;
 block|}
 comment|/**    * exists(List) is really a list of get() calls. Just use get().    * @param gets list of Get to test for the existence    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 index|[]
@@ -2636,6 +2650,8 @@ return|return
 name|objectResults
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|put
@@ -2810,6 +2826,8 @@ literal|"put request timed out"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|put
@@ -3153,6 +3171,8 @@ literal|"multiput request timed out"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|delete
@@ -3287,6 +3307,8 @@ literal|"delete request timed out"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|delete
@@ -3918,6 +3940,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|ResultScanner
 name|getScanner
@@ -3936,6 +3960,8 @@ name|scan
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|ResultScanner
 name|getScanner
@@ -3969,6 +3995,8 @@ name|scan
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|ResultScanner
 name|getScanner
@@ -4040,6 +4068,8 @@ literal|"getRowOrBefore not supported"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|checkAndPut
@@ -4265,6 +4295,8 @@ literal|"checkAndPut request timed out"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|checkAndPut
@@ -4302,6 +4334,8 @@ literal|"checkAndPut for non-equal comparison not implemented"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|checkAndDelete
@@ -4533,6 +4567,8 @@ literal|"checkAndDelete request timed out"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|checkAndDelete
@@ -4570,6 +4606,8 @@ literal|"checkAndDelete for non-equal comparison not implemented"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Result
 name|increment
@@ -4588,6 +4626,8 @@ literal|"Increment not supported"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Result
 name|append
@@ -4606,6 +4646,8 @@ literal|"Append not supported"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|incrementColumnValue
@@ -4636,6 +4678,8 @@ literal|"incrementColumnValue not supported"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|incrementColumnValue
