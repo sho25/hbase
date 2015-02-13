@@ -923,8 +923,15 @@ name|Override
 specifier|protected
 name|void
 name|initialize
-parameter_list|()
+parameter_list|(
+name|JobContext
+name|context
+parameter_list|)
+throws|throws
+name|IOException
 block|{
+comment|// Do we have to worry about mis-matches between the Configuration from setConf and the one
+comment|// in this context?
 name|TableName
 name|tableName
 init|=

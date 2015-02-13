@@ -562,7 +562,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A base for {@link TableInputFormat}s. Receives a {@link Connection}, a {@link TableName},  * an {@link Scan} instance that defines the input columns etc. Subclasses may use  * other TableRecordReader implementations.  *<p>  * An example of a subclass:  *<pre>  *   class ExampleTIF extends TableInputFormatBase implements JobConfigurable {  *  *     private JobConf job;  *  *     {@literal @}Override  *     public void configure(JobConf job) {  *       this.job = job;  *       byte[][] inputColumns = new byte [][] { Bytes.toBytes("columnA"),  *         Bytes.toBytes("columnB") };  *       // optional, by default we'll get everything for the table.  *       Scan scan = new Scan();  *       for (byte[] family : inputColumns) {  *         scan.addFamily(family);  *       }  *       Filter exampleFilter = new RowFilter(CompareOp.EQUAL, new RegexStringComparator("aa.*"));  *       scan.setFilter(exampleFilter);  *       setScan(scan);  *     }  *  *     {@literal @}Override  *     protected void initialize() {  *       if (job == null) {  *         throw new IllegalStateException("must have already gotten the JobConf before " +  *             "initialize is called.");  *       }  *       try {  *         Connection connection =  *            ConnectionFactory.createConnection(HBaseConfiguration.create(job));  *         TableName tableName = TableName.valueOf("exampleTable");  *         // mandatory  *         initializeTable(connection, tableName);  *       } catch (IOException exception) {  *         throw new RuntimeException("Failed to initialize.", exception);  *       }  *     }  *   }  *</pre>  */
+comment|/**  * A base for {@link TableInputFormat}s. Receives a {@link Connection}, a {@link TableName},  * an {@link Scan} instance that defines the input columns etc. Subclasses may use  * other TableRecordReader implementations.  *  * Subclasses MUST ensure initializeTable(Connection, TableName) is called for an instance to  * function properly. Each of the entry points to this class used by the MapReduce framework,  * {@link #createRecordReader(InputSplit, TaskAttemptContext)} and {@link #getSplits(JobContext)},  * will call {@link #initialize(JobContext)} as a convenient centralized location to handle  * retrieving the necessary configuration information. If your subclass overrides either of these  * methods, either call the parent version or call initialize yourself.  *  *<p>  * An example of a subclass:  *<pre>  *   class ExampleTIF extends TableInputFormatBase {  *  *     {@literal @}Override  *     protected void initialize(JobContext context) throws IOException {  *       // We are responsible for the lifecycle of this connection until we hand it over in  *       // initializeTable.  *       Connection connection = ConnectionFactory.createConnection(HBaseConfiguration.create(  *              job.getConfiguration()));  *       TableName tableName = TableName.valueOf("exampleTable");  *       // mandatory. once passed here, TableInputFormatBase will handle closing the connection.  *       initializeTable(connection, tableName);  *       byte[][] inputColumns = new byte [][] { Bytes.toBytes("columnA"),  *         Bytes.toBytes("columnB") };  *       // optional, by default we'll get everything for the table.  *       Scan scan = new Scan();  *       for (byte[] family : inputColumns) {  *         scan.addFamily(family);  *       }  *       Filter exampleFilter = new RowFilter(CompareOp.EQUAL, new RegexStringComparator("aa.*"));  *       scan.setFilter(exampleFilter);  *       setScan(scan);  *     }  *   }  *</pre>  */
 end_comment
 
 begin_class
@@ -627,6 +627,30 @@ name|TableInputFormatBase
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|NOT_INITIALIZED
+init|=
+literal|"The input format instance has not been properly "
+operator|+
+literal|"initialized. Ensure you call initializeTable either in your constructor or initialize "
+operator|+
+literal|"method"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|INITIALIZATION_ERROR
+init|=
+literal|"Cannot create a record reader because of a"
+operator|+
+literal|" previous error. Please look at the previous logs lines from"
+operator|+
+literal|" the task's full log for more details."
 decl_stmt|;
 comment|/** Holds the details for the internal scanner.    *    * @see Scan */
 specifier|private
@@ -702,6 +726,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Just in case a subclass is relying on JobConfigurable magic.
 if|if
 condition|(
 name|table
@@ -710,9 +735,14 @@ literal|null
 condition|)
 block|{
 name|initialize
-argument_list|()
+argument_list|(
+name|context
+argument_list|)
 expr_stmt|;
 block|}
+comment|// null check in case our child overrides getTable to not throw.
+try|try
+block|{
 if|if
 condition|(
 name|getTable
@@ -726,11 +756,24 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Cannot create a record reader because of a"
-operator|+
-literal|" previous error. Please look at the previous logs lines from"
-operator|+
-literal|" the task's full log for more details."
+name|INITIALIZATION_ERROR
+argument_list|)
+throw|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|IllegalStateException
+name|exception
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|INITIALIZATION_ERROR
+argument_list|,
+name|exception
 argument_list|)
 throw|;
 block|}
@@ -1000,6 +1043,7 @@ name|closeOnFinish
 init|=
 literal|false
 decl_stmt|;
+comment|// Just in case a subclass is relying on JobConfigurable magic.
 if|if
 condition|(
 name|table
@@ -1008,13 +1052,18 @@ literal|null
 condition|)
 block|{
 name|initialize
-argument_list|()
+argument_list|(
+name|context
+argument_list|)
 expr_stmt|;
 name|closeOnFinish
 operator|=
 literal|true
 expr_stmt|;
 block|}
+comment|// null check in case our child overrides getTable to not throw.
+try|try
+block|{
 if|if
 condition|(
 name|getTable
@@ -1023,12 +1072,29 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// initialize() wasn't implemented, so the table is null.
+comment|// initialize() must not have been implemented in the subclass.
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"No table was provided."
+name|INITIALIZATION_ERROR
+argument_list|)
+throw|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|IllegalStateException
+name|exception
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|INITIALIZATION_ERROR
+argument_list|,
+name|exception
 argument_list|)
 throw|;
 block|}
@@ -1742,6 +1808,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * @deprecated mistakenly made public in 0.98.7. scope will change to package-private    */
+annotation|@
+name|Deprecated
 specifier|public
 name|String
 name|reverseDNS
@@ -1858,7 +1927,7 @@ name|hostName
 return|;
 block|}
 comment|/**    * Calculates the number of MapReduce input splits for the map tasks. The number of    * MapReduce input splits depends on the average region size and the "data skew ratio" user set in    * configuration.    *    * @param list  The list of input splits before balance.    * @param context  The current job context.    * @param average  The average size of all regions .    * @return The list of input splits.    * @throws IOException When creating the list of splits fails.    * @see org.apache.hadoop.mapreduce.InputFormat#getSplits(    *   org.apache.hadoop.mapreduce.JobContext)    */
-specifier|public
+specifier|private
 name|List
 argument_list|<
 name|InputSplit
@@ -2228,6 +2297,10 @@ name|resultList
 return|;
 block|}
 comment|/**    * select a split point in the region. The selection of the split point is based on an uniform    * distribution assumption for the keys in a region.    * Here are some examples:    * startKey: aaabcdefg  endKey: aaafff    split point: aaad    * startKey: 111000  endKey: 1125790    split point: 111b    * startKey: 1110  endKey: 1120    split point: 111_    * startKey: binary key { 13, -19, 126, 127 }, endKey: binary key { 13, -19, 127, 0 },    * split point: binary key { 13, -19, 127, -64 }    * Set this function as "public static", make it easier for test.    *    * @param start Start key of the region    * @param end End key of the region    * @param isText It determines to use text key mode or binary key mode    * @return The split point in the region.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 name|byte
@@ -2772,7 +2845,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    *    *    * Test if the given region is to be included in the InputSplit while splitting    * the regions of a table.    *<p>    * This optimization is effective when there is a specific reasoning to exclude an entire region from the M-R job,    * (and hence, not contributing to the InputSplit), given the start and end keys of the same.<br>    * Useful when we need to remember the last-processed top record and revisit the [last, current) interval for M-R processing,    * continuously. In addition to reducing InputSplits, reduces the load on the region server as well, due to the ordering of the keys.    *<br>    *<br>    * Note: It is possible that<code>endKey.length() == 0</code> , for the last (recent) region.    *<br>    * Override this method, if you want to bulk exclude regions altogether from M-R. By default, no region is excluded( i.e. all regions are included).    *    *    * @param startKey Start key of the region    * @param endKey End key of the region    * @return true, if this region needs to be included as part of the input (default).    *    */
+comment|/**    * Test if the given region is to be included in the InputSplit while splitting    * the regions of a table.    *<p>    * This optimization is effective when there is a specific reasoning to exclude an entire region from the M-R job,    * (and hence, not contributing to the InputSplit), given the start and end keys of the same.<br>    * Useful when we need to remember the last-processed top record and revisit the [last, current) interval for M-R processing,    * continuously. In addition to reducing InputSplits, reduces the load on the region server as well, due to the ordering of the keys.    *<br>    *<br>    * Note: It is possible that<code>endKey.length() == 0</code> , for the last (recent) region.    *<br>    * Override this method, if you want to bulk exclude regions altogether from M-R. By default, no region is excluded( i.e. all regions are included).    *    *    * @param startKey Start key of the region    * @param endKey End key of the region    * @return true, if this region needs to be included as part of the input (default).    *    */
 specifier|protected
 name|boolean
 name|includeRegionInSplit
@@ -2792,7 +2865,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Allows subclasses to get the {@link HTable}.    *    * @deprecated    */
+comment|/**    * Allows subclasses to get the {@link HTable}.    *    * @deprecated use {@link #getTable()}    */
 annotation|@
 name|Deprecated
 specifier|protected
@@ -2823,9 +2896,13 @@ operator|==
 literal|null
 condition|)
 block|{
-name|initialize
-argument_list|()
-expr_stmt|;
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+name|NOT_INITIALIZED
+argument_list|)
+throw|;
 block|}
 return|return
 name|regionLocator
@@ -2844,9 +2921,13 @@ operator|==
 literal|null
 condition|)
 block|{
-name|initialize
-argument_list|()
-expr_stmt|;
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+name|NOT_INITIALIZED
+argument_list|)
+throw|;
 block|}
 return|return
 name|table
@@ -2865,15 +2946,19 @@ operator|==
 literal|null
 condition|)
 block|{
-name|initialize
-argument_list|()
-expr_stmt|;
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+name|NOT_INITIALIZED
+argument_list|)
+throw|;
 block|}
 return|return
 name|admin
 return|;
 block|}
-comment|/**    * Allows subclasses to set the {@link HTable}.    *    * @param table  The table to get the data from.    * @throws IOException     * @deprecated Use {@link #initializeTable(Connection, TableName)} instead.    */
+comment|/**    * Allows subclasses to set the {@link HTable}.    *    * Will attempt to reuse the underlying Connection for our own needs, including    * retreiving an Admin interface to the HBase cluster.    *    * @param table  The table to get the data from.    * @throws IOException     * @deprecated Use {@link #initializeTable(Connection, TableName)} instead.    */
 annotation|@
 name|Deprecated
 specifier|protected
@@ -3024,6 +3109,27 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|table
+operator|!=
+literal|null
+operator|||
+name|connection
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"initializeTable called multiple times. Overwriting connection and table "
+operator|+
+literal|"reference; TableInputFormatBase will not close these old references when done."
+argument_list|)
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|table
@@ -3120,12 +3226,17 @@ operator|=
 name|tableRecordReader
 expr_stmt|;
 block|}
-comment|/**    * This method will be called when any of the following are referenced, but not yet initialized:    * admin, regionLocator, table. Subclasses will have the opportunity to call    * {@link #initializeTable(Connection, TableName)}    */
+comment|/**    * Handle subclass specific set up.    * Each of the entry points used by the MapReduce framework,    * {@link #createRecordReader(InputSplit, TaskAttemptContext)} and {@link #getSplits(JobContext)},    * will call {@link #initialize(JobContext)} as a convenient centralized location to handle    * retrieving the necessary configuration information and calling    * {@link #initializeTable(Connection, TableName)}.    *    * Subclasses should implement their initialize call such that it is safe to call multiple times.    * The current TableInputFormatBase implementation relies on a non-null table reference to decide    * if an initialize call is needed, but this behavior may change in the future. In particular,    * it is critical that initializeTable not be called multiple times since this will leak    * Connection instances.    *    */
 specifier|protected
 name|void
 name|initialize
-parameter_list|()
-block|{       }
+parameter_list|(
+name|JobContext
+name|context
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 comment|/**    * Close the Table and related objects that were initialized via    * {@link #initializeTable(Connection, TableName)}.    *    * @throws IOException    */
 specifier|protected
 name|void
