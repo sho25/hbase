@@ -338,8 +338,15 @@ name|rpcTimeout
 operator|=
 name|controller
 operator|.
+name|hasCallTimeout
+argument_list|()
+condition|?
+name|controller
+operator|.
 name|getCallTimeout
 argument_list|()
+else|:
+literal|0
 expr_stmt|;
 block|}
 comment|/**    * Get the start time    *    * @return start time for the call    */
