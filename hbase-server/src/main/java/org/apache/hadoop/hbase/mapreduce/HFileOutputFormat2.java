@@ -3286,6 +3286,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|Configuration
+name|conf
+init|=
+name|job
+operator|.
+name|getConfiguration
+argument_list|()
+decl_stmt|;
 comment|// create the partitions file
 name|FileSystem
 name|fs
@@ -3294,10 +3302,7 @@ name|FileSystem
 operator|.
 name|get
 argument_list|(
-name|job
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 argument_list|)
 decl_stmt|;
 name|Path
@@ -3306,7 +3311,12 @@ init|=
 operator|new
 name|Path
 argument_list|(
-literal|"/tmp"
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hadoop.tmp.dir"
+argument_list|)
 argument_list|,
 literal|"partitions_"
 operator|+
@@ -3325,10 +3335,7 @@ argument_list|)
 expr_stmt|;
 name|writePartitions
 argument_list|(
-name|job
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 argument_list|,
 name|partitionsPath
 argument_list|,
@@ -3356,10 +3363,7 @@ name|TotalOrderPartitioner
 operator|.
 name|setPartitionFile
 argument_list|(
-name|job
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 argument_list|,
 name|partitionsPath
 argument_list|)
