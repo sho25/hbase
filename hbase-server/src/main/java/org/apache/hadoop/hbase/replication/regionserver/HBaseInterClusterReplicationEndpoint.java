@@ -446,7 +446,7 @@ name|getInt
 argument_list|(
 literal|"replication.source.maxretriesmultiplier"
 argument_list|,
-literal|10
+literal|300
 argument_list|)
 expr_stmt|;
 name|this
@@ -461,8 +461,6 @@ name|getInt
 argument_list|(
 literal|"replication.source.socketTimeoutMultiplier"
 argument_list|,
-name|maxRetriesMultiplier
-operator|*
 name|maxRetriesMultiplier
 argument_list|)
 expr_stmt|;
