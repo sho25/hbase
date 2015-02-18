@@ -713,11 +713,6 @@ name|addRecord
 argument_list|(
 name|metricsName
 argument_list|)
-operator|.
-name|setContext
-argument_list|(
-name|metricsContext
-argument_list|)
 decl_stmt|;
 comment|// rsWrap can be null because this function is called inside of init.
 if|if
