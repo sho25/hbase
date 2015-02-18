@@ -1926,6 +1926,14 @@ name|oldServerName
 operator|!=
 literal|null
 operator|&&
+operator|!
+name|oldServerName
+operator|.
+name|equals
+argument_list|(
+name|serverName
+argument_list|)
+operator|&&
 name|serverHoldings
 operator|.
 name|containsKey
