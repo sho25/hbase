@@ -314,7 +314,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Protect a key by encrypting it with the secret key of the given subject.    * The configuration must be set up correctly for key alias resolution. Keys    * are always wrapped using AES.    * @param conf configuration    * @param subject subject key alias    * @param key the key    * @return the encrypted key bytes    */
+comment|/**    * Protect a key by encrypting it with the secret key of the given subject.    * The configuration must be set up correctly for key alias resolution.    * @param conf configuration    * @param subject subject key alias    * @param key the key    * @return the encrypted key bytes    */
 specifier|public
 specifier|static
 name|byte
@@ -333,7 +333,23 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Wrap the key with AES
+comment|// Wrap the key with the configured encryption algorithm.
+name|String
+name|algorithm
+init|=
+name|conf
+operator|.
+name|get
+argument_list|(
+name|HConstants
+operator|.
+name|CRYPTO_KEY_ALGORITHM_CONF_KEY
+argument_list|,
+name|HConstants
+operator|.
+name|CIPHER_AES
+argument_list|)
+decl_stmt|;
 name|Cipher
 name|cipher
 init|=
@@ -343,7 +359,7 @@ name|getCipher
 argument_list|(
 name|conf
 argument_list|,
-literal|"AES"
+name|algorithm
 argument_list|)
 decl_stmt|;
 if|if
@@ -357,7 +373,11 @@ throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-literal|"Cipher 'AES' not available"
+literal|"Cipher '"
+operator|+
+name|algorithm
+operator|+
+literal|"' not available"
 argument_list|)
 throw|;
 block|}
@@ -533,7 +553,7 @@ name|toByteArray
 argument_list|()
 return|;
 block|}
-comment|/**    * Unwrap a key by decrypting it with the secret key of the given subject.    * The configuration must be set up correctly for key alias resolution. Keys    * are always unwrapped using AES.    * @param conf configuration    * @param subject subject key alias    * @param value the encrypted key bytes    * @return the raw key bytes    * @throws IOException    * @throws KeyException    */
+comment|/**    * Unwrap a key by decrypting it with the secret key of the given subject.    * The configuration must be set up correctly for key alias resolution.    * @param conf configuration    * @param subject subject key alias    * @param value the encrypted key bytes    * @return the raw key bytes    * @throws IOException    * @throws KeyException    */
 specifier|public
 specifier|static
 name|Key
@@ -574,6 +594,22 @@ name|value
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|String
+name|algorithm
+init|=
+name|conf
+operator|.
+name|get
+argument_list|(
+name|HConstants
+operator|.
+name|CRYPTO_KEY_ALGORITHM_CONF_KEY
+argument_list|,
+name|HConstants
+operator|.
+name|CIPHER_AES
+argument_list|)
+decl_stmt|;
 name|Cipher
 name|cipher
 init|=
@@ -583,7 +619,7 @@ name|getCipher
 argument_list|(
 name|conf
 argument_list|,
-literal|"AES"
+name|algorithm
 argument_list|)
 decl_stmt|;
 if|if
@@ -597,7 +633,11 @@ throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-literal|"Algorithm 'AES' not available"
+literal|"Cipher '"
+operator|+
+name|algorithm
+operator|+
+literal|"' not available"
 argument_list|)
 throw|;
 block|}

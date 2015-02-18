@@ -2142,7 +2142,10 @@ name|RuntimeException
 argument_list|(
 literal|"Cipher '"
 operator|+
-name|cipher
+name|key
+operator|.
+name|getAlgorithm
+argument_list|()
 operator|+
 literal|"' is not available"
 argument_list|)
@@ -2219,7 +2222,7 @@ name|RuntimeException
 argument_list|(
 literal|"Cipher '"
 operator|+
-name|cipher
+name|cipherName
 operator|+
 literal|"' is not available"
 argument_list|)

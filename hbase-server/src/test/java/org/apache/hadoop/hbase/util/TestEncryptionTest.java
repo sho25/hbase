@@ -458,6 +458,22 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|String
+name|algorithm
+init|=
+name|conf
+operator|.
+name|get
+argument_list|(
+name|HConstants
+operator|.
+name|CRYPTO_KEY_ALGORITHM_CONF_KEY
+argument_list|,
+name|HConstants
+operator|.
+name|CIPHER_AES
+argument_list|)
+decl_stmt|;
 try|try
 block|{
 name|EncryptionTest
@@ -466,7 +482,7 @@ name|testEncryption
 argument_list|(
 name|conf
 argument_list|,
-literal|"AES"
+name|algorithm
 argument_list|,
 literal|null
 argument_list|)
@@ -480,7 +496,11 @@ parameter_list|)
 block|{
 name|fail
 argument_list|(
-literal|"Test for cipher AES should have succeeded"
+literal|"Test for cipher "
+operator|+
+name|algorithm
+operator|+
+literal|" should have succeeded"
 argument_list|)
 expr_stmt|;
 block|}

@@ -317,14 +317,6 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-specifier|static
-specifier|final
-name|String
-name|DEFAULT_CIPHER
-init|=
-literal|"AES"
-decl_stmt|;
-specifier|private
 name|Encryptor
 name|encryptor
 init|=
@@ -400,7 +392,9 @@ name|HConstants
 operator|.
 name|CRYPTO_WAL_ALGORITHM_CONF_KEY
 argument_list|,
-name|DEFAULT_CIPHER
+name|HConstants
+operator|.
+name|CIPHER_AES
 argument_list|)
 decl_stmt|;
 name|Cipher

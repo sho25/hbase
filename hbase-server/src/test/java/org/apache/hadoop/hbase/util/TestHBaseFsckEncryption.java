@@ -654,6 +654,22 @@ argument_list|(
 name|keyBytes
 argument_list|)
 expr_stmt|;
+name|String
+name|algorithm
+init|=
+name|conf
+operator|.
+name|get
+argument_list|(
+name|HConstants
+operator|.
+name|CRYPTO_KEY_ALGORITHM_CONF_KEY
+argument_list|,
+name|HConstants
+operator|.
+name|CIPHER_AES
+argument_list|)
+decl_stmt|;
 name|cfKey
 operator|=
 operator|new
@@ -661,7 +677,7 @@ name|SecretKeySpec
 argument_list|(
 name|keyBytes
 argument_list|,
-literal|"AES"
+name|algorithm
 argument_list|)
 expr_stmt|;
 comment|// Start the minicluster
@@ -701,7 +717,7 @@ name|hcd
 operator|.
 name|setEncryptionType
 argument_list|(
-literal|"AES"
+name|algorithm
 argument_list|)
 expr_stmt|;
 name|hcd

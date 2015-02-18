@@ -1079,7 +1079,7 @@ comment|// followed by the meta regions, followed by user regions. Since the roo
 comment|// and meta regions always need to be on-line, this ensures that they will
 comment|// be the first to be reassigned if the server(s) they are being served by
 comment|// should go down.
-comment|/**    * The hbase:meta table's name.    *     */
+comment|/**    * The hbase:meta table's name.    *    */
 annotation|@
 name|Deprecated
 comment|// for compat from 0.94 -> 0.96.
@@ -2472,7 +2472,7 @@ name|ENABLE_WAL_COMPRESSION
 init|=
 literal|"hbase.regionserver.wal.enablecompression"
 decl_stmt|;
-comment|/** Configuration name of WAL storage policy    * Valid values are:    *  NONE: no preference in destination of replicas    *  ONE_SSD: place only one replica in SSD and the remaining in default storage    *  and ALL_SSD: place all replica on SSD    *      * See http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html*/
+comment|/** Configuration name of WAL storage policy    * Valid values are:    *  NONE: no preference in destination of replicas    *  ONE_SSD: place only one replica in SSD and the remaining in default storage    *  and ALL_SSD: place all replica on SSD    *    * See http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html*/
 specifier|public
 specifier|static
 specifier|final
@@ -2862,6 +2862,15 @@ name|NO_NONCE
 init|=
 literal|0
 decl_stmt|;
+comment|/** Default cipher for encryption */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CIPHER_AES
+init|=
+literal|"AES"
+decl_stmt|;
 comment|/** Configuration key for the crypto algorithm provider, a class name */
 specifier|public
 specifier|static
@@ -2924,6 +2933,24 @@ name|String
 name|CRYPTO_WAL_KEY_NAME_CONF_KEY
 init|=
 literal|"hbase.crypto.wal.key.name"
+decl_stmt|;
+comment|/** Configuration key for the algorithm used for creating jks key, a string */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CRYPTO_KEY_ALGORITHM_CONF_KEY
+init|=
+literal|"hbase.crypto.key.algorithm"
+decl_stmt|;
+comment|/** Configuration key for the name of the alternate cipher algorithm for the cluster, a string */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CRYPTO_ALTERNATE_KEY_ALGORITHM_CONF_KEY
+init|=
+literal|"hbase.crypto.alternate.key.algorithm"
 decl_stmt|;
 comment|/** Configuration key for enabling WAL encryption, a boolean */
 specifier|public
