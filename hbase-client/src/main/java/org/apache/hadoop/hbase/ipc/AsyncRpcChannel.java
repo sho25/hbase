@@ -1212,6 +1212,12 @@ literal|"ticket/user is null"
 argument_list|)
 throw|;
 block|}
+specifier|final
+name|UserGroupInformation
+name|realTicket
+init|=
+name|ticket
+decl_stmt|;
 name|saslHandler
 operator|=
 name|ticket
@@ -1237,6 +1243,8 @@ block|{
 return|return
 name|getSaslHandler
 argument_list|(
+name|realTicket
+argument_list|,
 name|bootstrap
 argument_list|)
 return|;
@@ -1452,11 +1460,15 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Get SASL handler    *    * @param bootstrap to reconnect to    * @return new SASL handler    * @throws java.io.IOException if handler failed to create    */
+comment|/**    * Get SASL handler    * @param bootstrap to reconnect to    * @return new SASL handler    * @throws java.io.IOException if handler failed to create    */
 specifier|private
 name|SaslClientHandler
 name|getSaslHandler
 parameter_list|(
+specifier|final
+name|UserGroupInformation
+name|realTicket
+parameter_list|,
 specifier|final
 name|Bootstrap
 name|bootstrap
@@ -1468,6 +1480,8 @@ return|return
 operator|new
 name|SaslClientHandler
 argument_list|(
+name|realTicket
+argument_list|,
 name|authMethod
 argument_list|,
 name|token
@@ -1530,10 +1544,7 @@ name|retryCount
 argument_list|,
 name|cause
 argument_list|,
-name|ticket
-operator|.
-name|getUGI
-argument_list|()
+name|realTicket
 argument_list|)
 expr_stmt|;
 comment|// Try to reconnect
