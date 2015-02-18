@@ -259,6 +259,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|LockTimeoutException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|TableLockManager
@@ -695,6 +711,24 @@ name|compactor
 operator|.
 name|compact
 argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|LockTimeoutException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Fail to acquire the lock because of timeout, maybe a major compaction or an"
+operator|+
+literal|" ExpiredMobFileCleanerChore is running"
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
