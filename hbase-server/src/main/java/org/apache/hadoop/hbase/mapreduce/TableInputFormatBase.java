@@ -3111,10 +3111,14 @@ name|IOException
 block|{
 if|if
 condition|(
+name|this
+operator|.
 name|table
 operator|!=
 literal|null
 operator|||
+name|this
+operator|.
 name|connection
 operator|!=
 literal|null
