@@ -385,6 +385,18 @@ name|ReflectionUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|htrace
+operator|.
+name|Trace
+import|;
+end_import
+
 begin_comment
 comment|/**  * The MemStore holds in-memory modifications to the Store.  Modifications  * are {@link Cell}s.  When asked to flush, current memstore is moved  * to snapshot and is cleared.  We continue to serve edits out of new memstore  * and backing snapshot until flusher reports in that the flush succeeded. At  * this point we let the snapshot go.  *<p>  * The MemStore functions should not be called in parallel. Callers should hold  *  write and read locks. This is done in {@link HStore}.  *</p>  *  * TODO: Adjust size of the memstore when we remove items because they have  * been deleted.  * TODO: With new KVSLS, need to make sure we update HeapSize with difference  * in KV size.  */
 end_comment
@@ -2964,6 +2976,32 @@ name|snapshotAllocatorAtCreation
 operator|.
 name|incScannerCount
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|Trace
+operator|.
+name|isTracing
+argument_list|()
+operator|&&
+name|Trace
+operator|.
+name|currentSpan
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+name|Trace
+operator|.
+name|currentSpan
+argument_list|()
+operator|.
+name|addTimelineAnnotation
+argument_list|(
+literal|"Creating MemStoreScanner"
+argument_list|)
 expr_stmt|;
 block|}
 block|}
