@@ -23,6 +23,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -36,6 +38,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -80,17 +84,7 @@ name|byte
 operator|)
 literal|2
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|byte
-name|LOG_REPLAY_TAG_TYPE
-init|=
-operator|(
-name|byte
-operator|)
-literal|3
-decl_stmt|;
+comment|// public static final byte LOG_REPLAY_TAG_TYPE = (byte) 3; // deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -124,6 +118,29 @@ operator|(
 name|byte
 operator|)
 literal|6
+decl_stmt|;
+comment|// String based tag type used in replication
+specifier|public
+specifier|static
+specifier|final
+name|byte
+name|STRING_VIS_TAG_TYPE
+init|=
+operator|(
+name|byte
+operator|)
+literal|7
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|byte
+name|TTL_TAG_TYPE
+init|=
+operator|(
+name|byte
+operator|)
+literal|8
 decl_stmt|;
 block|}
 end_class

@@ -19,21 +19,13 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|nio
-operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -49,6 +41,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceStability
@@ -56,7 +50,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<p>  * Extends {@link ByteRange} with additional methods to support tracking a  * consumers position within the viewport. The API is extended with methods  * {@link #get()} and {@link #put(byte)} for interacting with the backing  * array from the current position forward. This frees the caller from managing  * their own index into the array.  *</p>  *<p>  * Designed to be a slimmed-down, mutable alternative to {@link ByteBuffer}.  *</p>  */
+comment|/**  *<p>  * Extends {@link ByteRange} with additional methods to support tracking a  * consumers position within the viewport. The API is extended with methods  * {@link #get()} and {@link #put(byte)} for interacting with the backing  * array from the current position forward. This frees the caller from managing  * their own index into the array.  *</p>  *<p>  * Designed to be a slimmed-down, mutable alternative to {@link java.nio.ByteBuffer}.  *</p>  */
 end_comment
 
 begin_interface

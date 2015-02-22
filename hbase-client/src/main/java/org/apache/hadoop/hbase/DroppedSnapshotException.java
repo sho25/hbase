@@ -17,11 +17,23 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -37,24 +49,16 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceStability
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
-comment|/**  * Thrown during flush if the possibility snapshot content was not properly  * persisted into store files.  Response should include replay of hlog content.  */
+comment|/**  * Thrown during flush if the possibility snapshot content was not properly  * persisted into store files.  Response should include replay of wal content.  */
 end_comment
 
 begin_class

@@ -23661,12 +23661,12 @@ operator|.
 name|MessageOrBuilder
 block|{
 comment|// required uint64 last_flushed_sequence_id = 1;
-comment|/**      *<code>required uint64 last_flushed_sequence_id = 1;</code>      *      *<pre>      ** the last HLog sequence id flushed from MemStore to HFile for the region       *</pre>      */
+comment|/**      *<code>required uint64 last_flushed_sequence_id = 1;</code>      *      *<pre>      * the last WAL sequence id flushed from MemStore to HFile for the region       *</pre>      */
 name|boolean
 name|hasLastFlushedSequenceId
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required uint64 last_flushed_sequence_id = 1;</code>      *      *<pre>      ** the last HLog sequence id flushed from MemStore to HFile for the region       *</pre>      */
+comment|/**      *<code>required uint64 last_flushed_sequence_id = 1;</code>      *      *<pre>      * the last WAL sequence id flushed from MemStore to HFile for the region       *</pre>      */
 name|long
 name|getLastFlushedSequenceId
 parameter_list|()
@@ -24229,7 +24229,7 @@ specifier|private
 name|long
 name|lastFlushedSequenceId_
 decl_stmt|;
-comment|/**      *<code>required uint64 last_flushed_sequence_id = 1;</code>      *      *<pre>      ** the last HLog sequence id flushed from MemStore to HFile for the region       *</pre>      */
+comment|/**      *<code>required uint64 last_flushed_sequence_id = 1;</code>      *      *<pre>      * the last WAL sequence id flushed from MemStore to HFile for the region       *</pre>      */
 specifier|public
 name|boolean
 name|hasLastFlushedSequenceId
@@ -24247,7 +24247,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required uint64 last_flushed_sequence_id = 1;</code>      *      *<pre>      ** the last HLog sequence id flushed from MemStore to HFile for the region       *</pre>      */
+comment|/**      *<code>required uint64 last_flushed_sequence_id = 1;</code>      *      *<pre>      * the last WAL sequence id flushed from MemStore to HFile for the region       *</pre>      */
 specifier|public
 name|long
 name|getLastFlushedSequenceId
@@ -26120,7 +26120,7 @@ specifier|private
 name|long
 name|lastFlushedSequenceId_
 decl_stmt|;
-comment|/**        *<code>required uint64 last_flushed_sequence_id = 1;</code>        *        *<pre>        ** the last HLog sequence id flushed from MemStore to HFile for the region         *</pre>        */
+comment|/**        *<code>required uint64 last_flushed_sequence_id = 1;</code>        *        *<pre>        * the last WAL sequence id flushed from MemStore to HFile for the region         *</pre>        */
 specifier|public
 name|boolean
 name|hasLastFlushedSequenceId
@@ -26138,7 +26138,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required uint64 last_flushed_sequence_id = 1;</code>        *        *<pre>        ** the last HLog sequence id flushed from MemStore to HFile for the region         *</pre>        */
+comment|/**        *<code>required uint64 last_flushed_sequence_id = 1;</code>        *        *<pre>        * the last WAL sequence id flushed from MemStore to HFile for the region         *</pre>        */
 specifier|public
 name|long
 name|getLastFlushedSequenceId
@@ -26148,7 +26148,7 @@ return|return
 name|lastFlushedSequenceId_
 return|;
 block|}
-comment|/**        *<code>required uint64 last_flushed_sequence_id = 1;</code>        *        *<pre>        ** the last HLog sequence id flushed from MemStore to HFile for the region         *</pre>        */
+comment|/**        *<code>required uint64 last_flushed_sequence_id = 1;</code>        *        *<pre>        * the last WAL sequence id flushed from MemStore to HFile for the region         *</pre>        */
 specifier|public
 name|Builder
 name|setLastFlushedSequenceId
@@ -26172,7 +26172,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required uint64 last_flushed_sequence_id = 1;</code>        *        *<pre>        ** the last HLog sequence id flushed from MemStore to HFile for the region         *</pre>        */
+comment|/**        *<code>required uint64 last_flushed_sequence_id = 1;</code>        *        *<pre>        * the last WAL sequence id flushed from MemStore to HFile for the region         *</pre>        */
 specifier|public
 name|Builder
 name|clearLastFlushedSequenceId

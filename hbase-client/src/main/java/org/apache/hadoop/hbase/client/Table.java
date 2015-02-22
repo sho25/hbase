@@ -19,77 +19,41 @@ end_package
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|io
 operator|.
-name|protobuf
-operator|.
-name|Descriptors
+name|Closeable
 import|;
 end_import
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|io
 operator|.
-name|protobuf
-operator|.
-name|Message
+name|IOException
 import|;
 end_import
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|util
 operator|.
-name|protobuf
-operator|.
-name|Service
+name|List
 import|;
 end_import
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|util
 operator|.
-name|protobuf
-operator|.
-name|ServiceException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
+name|Map
 import|;
 end_import
 
@@ -145,6 +109,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|coprocessor
@@ -187,46 +183,54 @@ end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|io
+name|google
 operator|.
-name|Closeable
+name|protobuf
+operator|.
+name|Descriptors
 import|;
 end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|io
+name|google
 operator|.
-name|IOException
+name|protobuf
+operator|.
+name|Message
 import|;
 end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|util
+name|google
 operator|.
-name|List
+name|protobuf
+operator|.
+name|Service
 import|;
 end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|util
+name|google
 operator|.
-name|Map
+name|protobuf
+operator|.
+name|ServiceException
 import|;
 end_import
 
 begin_comment
-comment|/**  * Used to communicate with a single HBase table.  * Obtain an instance from an {@link HConnection}.  *  * @since 0.99.0  */
+comment|/**  * Used to communicate with a single HBase table.  * Obtain an instance from a {@link Connection} and call {@link #close()} afterwards.  *  *<p>Table can be used to get, put, delete or scan data from a table.  * @see ConnectionFactory  * @see Connection  * @see Admin  * @see RegionLocator  * @since 0.99.0  */
 end_comment
 
 begin_interface
@@ -237,7 +241,7 @@ name|Public
 annotation|@
 name|InterfaceStability
 operator|.
-name|Stable
+name|Evolving
 specifier|public
 interface|interface
 name|Table
@@ -455,7 +459,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Puts some data in the table.    *<p>    * If {@link #isAutoFlush isAutoFlush} is false, the update is buffered    * until the internal buffer is full.    * @param put The data to put.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+comment|/**    * Puts some data in the table.    *     * @param put The data to put.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 name|void
 name|put
 parameter_list|(
@@ -465,7 +469,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Puts some data in the table, in batch.    *<p>    * If {@link #isAutoFlush isAutoFlush} is false, the update is buffered    * until the internal buffer is full.    *<p>    * This can be used for group commit, or for submitting user defined    * batches.  The writeBuffer will be periodically inspected while the List    * is processed, so depending on the List size the writeBuffer may flush    * not at all, or more than once.    * @param puts The list of mutations to apply. The batch put is done by    * aggregating the iteration of the Puts over the write buffer    * at the client-side for a single RPC call.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+comment|/**    * Puts some data in the table, in batch.    *<p>    * This can be used for group commit, or for submitting user defined    * batches.  The writeBuffer will be periodically inspected while the List    * is processed, so depending on the List size the writeBuffer may flush    * not at all, or more than once.    * @param puts The list of mutations to apply. The batch put is done by    * aggregating the iteration of the Puts over the write buffer    * at the client-side for a single RPC call.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 name|void
 name|put
 parameter_list|(
@@ -812,26 +816,6 @@ name|ServiceException
 throws|,
 name|Throwable
 function_decl|;
-comment|/**    * Tells whether or not 'auto-flush' is turned on.    *    * @return {@code true} if 'auto-flush' is enabled (default), meaning    * {@link Put} operations don't get buffered/delayed and are immediately    * executed.    */
-name|boolean
-name|isAutoFlush
-parameter_list|()
-function_decl|;
-comment|/**    * Executes all the buffered {@link Put} operations.    *<p>    * This method gets called once automatically for every {@link Put} or batch    * of {@link Put}s (when<code>put(List<Put>)</code> is used) when    * {@link #isAutoFlush} is {@code true}.    * @throws IOException if a remote or network exception occurs.    */
-name|void
-name|flushCommits
-parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Set the autoFlush behavior, without changing the value of {@code clearBufferOnFail}    */
-name|void
-name|setAutoFlushTo
-parameter_list|(
-name|boolean
-name|autoFlush
-parameter_list|)
-function_decl|;
 comment|/**    * Returns the maximum size in bytes of the write buffer for this HTable.    *<p>    * The default value comes from the configuration parameter    * {@code hbase.client.write.buffer}.    * @return The size of the write buffer in bytes.    */
 name|long
 name|getWriteBufferSize
@@ -926,6 +910,37 @@ throws|throws
 name|ServiceException
 throws|,
 name|Throwable
+function_decl|;
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected value.    * If it does, it performs the row mutations.  If the passed value is null, the check    * is for the lack of column (ie: non-existence)    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp the comparison operator    * @param value the expected value    * @param mutation  mutations to perform if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    */
+name|boolean
+name|checkAndMutate
+parameter_list|(
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|byte
+index|[]
+name|qualifier
+parameter_list|,
+name|CompareFilter
+operator|.
+name|CompareOp
+name|compareOp
+parameter_list|,
+name|byte
+index|[]
+name|value
+parameter_list|,
+name|RowMutations
+name|mutation
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 block|}
 end_interface

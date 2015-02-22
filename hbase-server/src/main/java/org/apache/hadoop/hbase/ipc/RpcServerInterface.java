@@ -45,6 +45,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -58,6 +60,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -322,6 +326,10 @@ parameter_list|(
 name|PolicyProvider
 name|pp
 parameter_list|)
+function_decl|;
+name|RpcScheduler
+name|getScheduler
+parameter_list|()
 function_decl|;
 block|}
 end_interface

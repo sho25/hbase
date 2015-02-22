@@ -35,6 +35,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -48,6 +50,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -219,6 +223,14 @@ name|Query
 extends|extends
 name|OperationWithAttributes
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|ISOLATION_LEVEL
+init|=
+literal|"_isolationlevel_"
+decl_stmt|;
 specifier|protected
 name|Filter
 name|filter
@@ -271,7 +283,7 @@ return|;
 block|}
 comment|/**    * Sets the authorizations to be used by this Query    * @param authorizations    */
 specifier|public
-name|void
+name|Query
 name|setAuthorizations
 parameter_list|(
 name|Authorizations
@@ -297,6 +309,9 @@ name|toByteArray
 argument_list|()
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * @return The authorizations this Query is associated with.    * @throws DeserializationException    */
 specifier|public
@@ -355,7 +370,7 @@ return|;
 block|}
 comment|/**    * @param user User short name    * @param perms Permissions for the user    */
 specifier|public
-name|void
+name|Query
 name|setACL
 parameter_list|(
 name|String
@@ -384,10 +399,13 @@ name|toByteArray
 argument_list|()
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * @param perms A map of permissions for a user or users    */
 specifier|public
-name|void
+name|Query
 name|setACL
 parameter_list|(
 name|Map
@@ -463,6 +481,9 @@ name|toByteArray
 argument_list|()
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Returns the consistency level for this operation    * @return the consistency level    */
 specifier|public
@@ -476,7 +497,7 @@ return|;
 block|}
 comment|/**    * Sets the consistency level for this operation    * @param consistency the consistency level    */
 specifier|public
-name|void
+name|Query
 name|setConsistency
 parameter_list|(
 name|Consistency
@@ -489,10 +510,13 @@ name|consistency
 operator|=
 name|consistency
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Specify region replica id where Query will fetch data from. Use this together with    * {@link #setConsistency(Consistency)} passing {@link Consistency#TIMELINE} to read data from    * a specific replicaId.    *<br><b> Expert:</b>This is an advanced API exposed. Only use it if you know what you are doing    * @param Id    */
 specifier|public
-name|void
+name|Query
 name|setReplicaId
 parameter_list|(
 name|int
@@ -505,6 +529,9 @@ name|targetReplicaId
 operator|=
 name|Id
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Returns region replica id where Query will fetch data from.    * @return region replica id or -1 if not set.    */
 specifier|public
@@ -516,6 +543,61 @@ return|return
 name|this
 operator|.
 name|targetReplicaId
+return|;
+block|}
+comment|/**    * Set the isolation level for this query. If the    * isolation level is set to READ_UNCOMMITTED, then    * this query will return data from committed and    * uncommitted transactions. If the isolation level    * is set to READ_COMMITTED, then this query will return    * data from committed transactions only. If a isolation    * level is not explicitly set on a Query, then it    * is assumed to be READ_COMMITTED.    * @param level IsolationLevel for this query    */
+specifier|public
+name|Query
+name|setIsolationLevel
+parameter_list|(
+name|IsolationLevel
+name|level
+parameter_list|)
+block|{
+name|setAttribute
+argument_list|(
+name|ISOLATION_LEVEL
+argument_list|,
+name|level
+operator|.
+name|toBytes
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**    * @return The isolation level of this query.    * If no isolation level was set for this query object,    * then it returns READ_COMMITTED.    * @return The IsolationLevel for this query    */
+specifier|public
+name|IsolationLevel
+name|getIsolationLevel
+parameter_list|()
+block|{
+name|byte
+index|[]
+name|attr
+init|=
+name|getAttribute
+argument_list|(
+name|ISOLATION_LEVEL
+argument_list|)
+decl_stmt|;
+return|return
+name|attr
+operator|==
+literal|null
+condition|?
+name|IsolationLevel
+operator|.
+name|READ_COMMITTED
+else|:
+name|IsolationLevel
+operator|.
+name|fromBytes
+argument_list|(
+name|attr
+argument_list|)
 return|;
 block|}
 block|}

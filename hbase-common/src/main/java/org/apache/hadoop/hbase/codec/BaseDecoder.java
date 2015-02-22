@@ -83,9 +83,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
+name|hbase
 operator|.
-name|InterfaceAudience
+name|Cell
 import|;
 end_import
 
@@ -99,7 +99,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Cell
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -294,15 +296,24 @@ condition|)
 throw|throw
 name|ioEx
 throw|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|error
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"Partial cell read caused by EOF: "
-operator|+
+literal|"Partial cell read caused by EOF"
+argument_list|,
 name|ioEx
 argument_list|)
 expr_stmt|;
+block|}
 name|EOFException
 name|eofEx
 init|=

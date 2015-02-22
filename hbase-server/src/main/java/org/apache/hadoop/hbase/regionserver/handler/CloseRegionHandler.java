@@ -65,6 +65,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -554,6 +556,10 @@ name|regionInfo
 operator|.
 name|getEncodedNameAsBytes
 argument_list|()
+argument_list|,
+name|Boolean
+operator|.
+name|FALSE
 argument_list|)
 expr_stmt|;
 block|}

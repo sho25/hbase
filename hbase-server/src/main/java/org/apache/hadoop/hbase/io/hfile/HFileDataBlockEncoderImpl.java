@@ -47,6 +47,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -63,7 +65,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
 import|;
 end_import
 
@@ -458,8 +460,8 @@ specifier|public
 name|int
 name|encode
 parameter_list|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|,
 name|HFileBlockEncodingContext
 name|encodingCtx
@@ -480,7 +482,7 @@ argument_list|()
 operator|.
 name|encode
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 name|encodingCtx
 argument_list|,

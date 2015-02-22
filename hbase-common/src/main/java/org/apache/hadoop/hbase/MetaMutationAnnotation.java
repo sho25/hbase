@@ -75,6 +75,22 @@ name|Target
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * The field or the parameter to which this annotation can be applied only when it  * holds mutations for hbase:meta table.  */
 end_comment
@@ -102,6 +118,10 @@ name|RetentionPolicy
 operator|.
 name|CLASS
 argument_list|)
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 annotation_defn|@interface
 name|MetaMutationAnnotation

@@ -23,6 +23,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -64,15 +66,6 @@ comment|/**    * @return instance of Server coordinated state manager runs withi
 name|Server
 name|getServer
 parameter_list|()
-function_decl|;
-comment|/**    * Returns implementation of TableStateManager.    * @throws InterruptedException if operation is interrupted    * @throws CoordinatedStateException if error happens in underlying coordination mechanism    */
-name|TableStateManager
-name|getTableStateManager
-parameter_list|()
-throws|throws
-name|InterruptedException
-throws|,
-name|CoordinatedStateException
 function_decl|;
 block|}
 end_interface

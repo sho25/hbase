@@ -41,16 +41,6 @@ name|java
 operator|.
 name|nio
 operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|nio
-operator|.
 name|charset
 operator|.
 name|Charset
@@ -131,6 +121,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -144,6 +136,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -245,18 +239,22 @@ comment|/**    * The first four bytes of Hadoop RPC connections    */
 specifier|public
 specifier|static
 specifier|final
-name|ByteBuffer
+name|byte
+index|[]
 name|RPC_HEADER
 init|=
-name|ByteBuffer
-operator|.
-name|wrap
-argument_list|(
-literal|"HBas"
-operator|.
-name|getBytes
-argument_list|()
-argument_list|)
+operator|new
+name|byte
+index|[]
+block|{
+literal|'H'
+block|,
+literal|'B'
+block|,
+literal|'a'
+block|,
+literal|'s'
+block|}
 decl_stmt|;
 specifier|public
 specifier|static
@@ -321,6 +319,10 @@ index|]
 decl_stmt|;
 comment|//End HFileBlockConstants.
 comment|/**    * Status codes used for return values of bulk operations.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 enum|enum
 name|OperationStatusCode
@@ -486,7 +488,7 @@ name|MASTER_TYPE_BACKUP
 init|=
 literal|"hbase.master.backup"
 decl_stmt|;
-comment|/** by default every master is a possible primary master unless the conf explicitly overrides it */
+comment|/**    * by default every master is a possible primary master unless the conf explicitly overrides it    */
 specifier|public
 specifier|static
 specifier|final
@@ -562,7 +564,7 @@ name|DEFAULT_ZOOKEPER_CLIENT_PORT
 init|=
 literal|2181
 decl_stmt|;
-comment|/** Parameter name for the wait time for the recoverable zookeeper */
+comment|/**    * Parameter name for the wait time for the recoverable zookeeper    */
 specifier|public
 specifier|static
 specifier|final
@@ -1077,7 +1079,7 @@ comment|// followed by the meta regions, followed by user regions. Since the roo
 comment|// and meta regions always need to be on-line, this ensures that they will
 comment|// be the first to be reassigned if the server(s) they are being served by
 comment|// should go down.
-comment|/** The hbase:meta table's name. */
+comment|/**    * The hbase:meta table's name.    *     */
 annotation|@
 name|Deprecated
 comment|// for compat from 0.94 -> 0.96.
@@ -1336,6 +1338,45 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"mergeB"
+argument_list|)
+decl_stmt|;
+comment|/** The catalog family as a string*/
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|TABLE_FAMILY_STR
+init|=
+literal|"table"
+decl_stmt|;
+comment|/** The catalog family */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|TABLE_FAMILY
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|TABLE_FAMILY_STR
+argument_list|)
+decl_stmt|;
+comment|/** The serialized table state qualifier */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|TABLE_STATE_QUALIFIER
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"state"
 argument_list|)
 decl_stmt|;
 comment|/**    * The meta table version column qualifier.    * We keep current version of the meta table in this column in<code>-ROOT-</code>    * table: i.e. in the 'info:v' column.    */
@@ -1633,6 +1674,7 @@ decl_stmt|;
 comment|/**    * Retrying we multiply hbase.client.pause setting by what we have in this array until we    * run out of array items.  Retries beyond this use the last number in the array.  So, for    * example, if hbase.client.pause is 1 second, and maximum retries count    * hbase.client.retries.number is 10, we will retry at the following intervals:    * 1, 2, 3, 5, 10, 20, 40, 100, 100, 100.    * With 100ms, a back-off of 200 means 20s    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|RETRY_BACKOFF
 index|[]
@@ -1674,6 +1716,10 @@ init|=
 literal|"hbase.hregion.impl"
 decl_stmt|;
 comment|/** modifyTable op for replacing the table descriptor */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 enum|enum
@@ -1727,24 +1773,29 @@ decl_stmt|;
 comment|/**      * Parameter name for maximum number of bytes returned when calling a      * scanner's next method.      */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE_KEY
 init|=
 literal|"hbase.client.scanner.max.result.size"
 decl_stmt|;
-comment|/**    * Maximum number of bytes returned when calling a scanner's next method.    * Note that when a single row is larger than this limit the row is still    * returned completely.    *    * The default value is unlimited.    */
+comment|/**    * Maximum number of bytes returned when calling a scanner's next method.    * Note that when a single row is larger than this limit the row is still    * returned completely.    *    * The default value is 2MB.    */
 specifier|public
 specifier|static
+specifier|final
 name|long
 name|DEFAULT_HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE
 init|=
-name|Long
-operator|.
-name|MAX_VALUE
+literal|2
+operator|*
+literal|1024
+operator|*
+literal|1024
 decl_stmt|;
 comment|/**    * Parameter name for client pause value, used mostly as value to wait    * before running a retry of a failed get, region lookup, etc.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_CLIENT_PAUSE
 init|=
@@ -1753,6 +1804,7 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_CLIENT_PAUSE}.    */
 specifier|public
 specifier|static
+specifier|final
 name|long
 name|DEFAULT_HBASE_CLIENT_PAUSE
 init|=
@@ -1815,6 +1867,7 @@ decl_stmt|;
 comment|/**    * Parameter name for server pause value, used mostly as value to wait before    * running a retry of a failed operation.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_SERVER_PAUSE
 init|=
@@ -1823,6 +1876,7 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_SERVER_PAUSE}.    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_SERVER_PAUSE
 init|=
@@ -1831,6 +1885,7 @@ decl_stmt|;
 comment|/**    * Parameter name for maximum retries, used as maximum for all retryable    * operations such as fetching of the root region from root region server,    * getting a cell's value, starting a row update, etc.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_CLIENT_RETRIES_NUMBER
 init|=
@@ -1839,6 +1894,7 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_CLIENT_RETRIES_NUMBER}.    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
 init|=
@@ -1847,6 +1903,7 @@ decl_stmt|;
 comment|/**    * Parameter name to set the default scanner caching for all clients.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_CLIENT_SCANNER_CACHING
 init|=
@@ -1855,6 +1912,7 @@ decl_stmt|;
 comment|/**    * Default value for {@link #HBASE_CLIENT_SCANNER_CACHING}    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_CLIENT_SCANNER_CACHING
 init|=
@@ -1863,6 +1921,7 @@ decl_stmt|;
 comment|/**    * Parameter name for number of rows that will be fetched when calling next on    * a scanner if it is not served from memory. Higher caching values will    * enable faster scanners but will eat up more memory and some calls of next    * may take longer and longer times when the cache is empty.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_META_SCANNER_CACHING
 init|=
@@ -1871,14 +1930,54 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_META_SCANNER_CACHING}.    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_META_SCANNER_CACHING
 init|=
 literal|100
 decl_stmt|;
+comment|/**    * Parameter name for number of versions, kept by meta table.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_META_VERSIONS
+init|=
+literal|"hbase.meta.versions"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_META_VERSIONS}.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_HBASE_META_VERSIONS
+init|=
+literal|3
+decl_stmt|;
+comment|/**    * Parameter name for number of versions, kept by meta table.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_META_BLOCK_SIZE
+init|=
+literal|"hbase.meta.blocksize"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_META_BLOCK_SIZE}.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_HBASE_META_BLOCK_SIZE
+init|=
+literal|8
+operator|*
+literal|1024
+decl_stmt|;
 comment|/**    * Parameter name for unique identifier for this {@link org.apache.hadoop.conf.Configuration}    * instance. If there are two or more {@link org.apache.hadoop.conf.Configuration} instances that,    * for all intents and purposes, are the same except for their instance ids, then they will not be    * able to share the same org.apache.hadoop.hbase.client.HConnection instance. On the other hand,    * even if the instance ids are the same, it could result in non-shared    * org.apache.hadoop.hbase.client.HConnection instances if some of the other connection parameters    * differ.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_CLIENT_INSTANCE_ID
 init|=
@@ -1887,6 +1986,7 @@ decl_stmt|;
 comment|/**    * The client scanner timeout period in milliseconds.    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 init|=
@@ -1897,6 +1997,7 @@ annotation|@
 name|Deprecated
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
 init|=
@@ -1905,6 +2006,7 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD}.    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 init|=
@@ -1913,6 +2015,7 @@ decl_stmt|;
 comment|/**    * timeout for each RPC    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_RPC_TIMEOUT_KEY
 init|=
@@ -1921,6 +2024,7 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_RPC_TIMEOUT_KEY}    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_RPC_TIMEOUT
 init|=
@@ -1929,6 +2033,7 @@ decl_stmt|;
 comment|/**    * timeout for short operation RPC    */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_RPC_SHORTOPERATION_TIMEOUT_KEY
 init|=
@@ -1937,6 +2042,7 @@ decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_RPC_SHORTOPERATION_TIMEOUT_KEY}    */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|DEFAULT_HBASE_RPC_SHORTOPERATION_TIMEOUT
 init|=
@@ -2029,6 +2135,7 @@ decl_stmt|;
 comment|/** Whether nonces are enabled; default is true. */
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|HBASE_RS_NONCES_ENABLED
 init|=
@@ -2212,11 +2319,29 @@ name|DEFAULT_REGION_SERVER_HANDLER_COUNT
 init|=
 literal|30
 decl_stmt|;
+comment|/*    * REGION_SERVER_HANDLER_ABORT_ON_ERROR_PERCENT:    * -1  => Disable aborting    * 0   => Abort if even a single handler has died    * 0.x => Abort only when this percent of handlers have died    * 1   => Abort only all of the handers have died    */
 specifier|public
 specifier|static
 specifier|final
 name|String
-name|REGION_SERVER_META_HANDLER_COUNT
+name|REGION_SERVER_HANDLER_ABORT_ON_ERROR_PERCENT
+init|=
+literal|"hbase.regionserver.handler.abort.on.error.percent"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|double
+name|DEFAULT_REGION_SERVER_HANDLER_ABORT_ON_ERROR_PERCENT
+init|=
+literal|0.5
+decl_stmt|;
+comment|//High priority handlers to deal with admin requests and system table operation requests
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
 init|=
 literal|"hbase.regionserver.metahandler.count"
 decl_stmt|;
@@ -2224,7 +2349,7 @@ specifier|public
 specifier|static
 specifier|final
 name|int
-name|DEFAULT_REGION_SERVER_META_HANDLER_COUNT
+name|DEFAULT_REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
 init|=
 literal|10
 decl_stmt|;
@@ -2269,6 +2394,39 @@ name|LOG_REPLAY_WAIT_REGION_TIMEOUT
 init|=
 literal|"hbase.master.log.replay.wait.region.timeout"
 decl_stmt|;
+comment|/** Conf key for enabling meta replication */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|USE_META_REPLICAS
+init|=
+literal|"hbase.meta.replicas.use"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_USE_META_REPLICAS
+init|=
+literal|false
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|META_REPLICAS_NUM
+init|=
+literal|"hbase.meta.replica.count"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_META_REPLICA_NUM
+init|=
+literal|1
+decl_stmt|;
 comment|/**    * The name of the configuration parameter that specifies    * the number of bytes in a newly created checksum chunk.    */
 specifier|public
 specifier|static
@@ -2305,7 +2463,7 @@ name|DATA_FILE_UMASK_KEY
 init|=
 literal|"hbase.data.umask"
 decl_stmt|;
-comment|/** Configuration name of HLog Compression */
+comment|/** Configuration name of WAL Compression */
 specifier|public
 specifier|static
 specifier|final
@@ -2313,6 +2471,23 @@ name|String
 name|ENABLE_WAL_COMPRESSION
 init|=
 literal|"hbase.regionserver.wal.enablecompression"
+decl_stmt|;
+comment|/** Configuration name of WAL storage policy    * Valid values are:    *  NONE: no preference in destination of replicas    *  ONE_SSD: place only one replica in SSD and the remaining in default storage    *  and ALL_SSD: place all replica on SSD    *      * See http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html*/
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|WAL_STORAGE_POLICY
+init|=
+literal|"hbase.wal.storage.policy"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DEFAULT_WAL_STORAGE_POLICY
+init|=
+literal|"NONE"
 decl_stmt|;
 comment|/** Region in Transition metrics threshold time */
 specifier|public
@@ -2394,7 +2569,7 @@ specifier|final
 name|int
 name|HIGH_QOS
 init|=
-literal|100
+literal|200
 decl_stmt|;
 specifier|public
 specifier|static
@@ -2414,6 +2589,23 @@ init|=
 literal|6
 decl_stmt|;
 comment|// REPLICATION_QOS< REPLAY_QOS< high_QOS
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|ADMIN_QOS
+init|=
+literal|100
+decl_stmt|;
+comment|// QOS_THRESHOLD< ADMIN_QOS< high_QOS
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SYSTEMTABLE_QOS
+init|=
+name|HIGH_QOS
+decl_stmt|;
 comment|/** Directory under /hbase where archived hfiles are stored */
 specifier|public
 specifier|static
@@ -2489,29 +2681,11 @@ operator|new
 name|String
 index|[]
 block|{
-name|HREGION_LOGDIR_NAME
-block|,
-name|HREGION_OLDLOGDIR_NAME
-block|,
-name|CORRUPT_DIR_NAME
-block|,
-name|SPLIT_LOGDIR_NAME
-block|,
 name|HBCK_SIDELINEDIR_NAME
-block|,
-name|HFILE_ARCHIVE_DIRECTORY
-block|,
-name|SNAPSHOT_DIR_NAME
 block|,
 name|HBASE_TEMP_DIRECTORY
 block|,
-name|OLD_SNAPSHOT_DIR_NAME
-block|,
-name|BASE_NAMESPACE_DIR
-block|,
 name|MIGRATION_NAME
-block|,
-name|LIB_DIR
 block|}
 argument_list|)
 argument_list|)
@@ -2751,7 +2925,7 @@ name|CRYPTO_WAL_KEY_NAME_CONF_KEY
 init|=
 literal|"hbase.crypto.wal.key.name"
 decl_stmt|;
-comment|/** Configuration key for enabling HLog encryption, a boolean */
+comment|/** Configuration key for enabling WAL encryption, a boolean */
 specifier|public
 specifier|static
 specifier|final
@@ -2818,6 +2992,113 @@ name|String
 name|BUCKET_CACHE_SIZE_KEY
 init|=
 literal|"hbase.bucketcache.size"
+decl_stmt|;
+comment|/**    * HConstants for fast fail on the client side follow    */
+comment|/**    * Config for enabling/disabling the fast fail mode.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_FAST_FAIL_MODE_ENABLED
+init|=
+literal|"hbase.client.fast.fail.mode.enabled"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|HBASE_CLIENT_ENABLE_FAST_FAIL_MODE_DEFAULT
+init|=
+literal|false
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_FAST_FAIL_THREASHOLD_MS
+init|=
+literal|"hbase.client.fastfail.threshold"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|HBASE_CLIENT_FAST_FAIL_THREASHOLD_MS_DEFAULT
+init|=
+literal|60000
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_FAST_FAIL_CLEANUP_MS_DURATION_MS
+init|=
+literal|"hbase.client.fast.fail.cleanup.duration"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|HBASE_CLIENT_FAST_FAIL_CLEANUP_DURATION_MS_DEFAULT
+init|=
+literal|600000
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_FAST_FAIL_INTERCEPTOR_IMPL
+init|=
+literal|"hbase.client.fast.fail.interceptor.impl"
+decl_stmt|;
+comment|/** Config key for if the server should send backpressure and if the client should listen to    * that backpressure from the server */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ENABLE_CLIENT_BACKPRESSURE
+init|=
+literal|"hbase.client.backpressure.enabled"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_ENABLE_CLIENT_BACKPRESSURE
+init|=
+literal|false
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HEAP_OCCUPANCY_LOW_WATERMARK_KEY
+init|=
+literal|"hbase.heap.occupancy.low_water_mark"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|float
+name|DEFAULT_HEAP_OCCUPANCY_LOW_WATERMARK
+init|=
+literal|0.95f
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HEAP_OCCUPANCY_HIGH_WATERMARK_KEY
+init|=
+literal|"hbase.heap.occupancy.high_water_mark"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|float
+name|DEFAULT_HEAP_OCCUPANCY_HIGH_WATERMARK
+init|=
+literal|0.98f
 decl_stmt|;
 specifier|private
 name|HConstants

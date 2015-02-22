@@ -49,6 +49,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -183,24 +185,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|handler
-operator|.
-name|HLogSplitterHandler
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google
@@ -214,7 +198,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Coordinated operations for {@link SplitLogWorker} and {@link HLogSplitterHandler} Important  * methods for SplitLogWorker:<BR>  * {@link #isReady()} called from {@link SplitLogWorker#run()} to check whether the coordination is  * ready to supply the tasks<BR>  * {@link #taskLoop()} loop for new tasks until the worker is stopped<BR>  * {@link #isStop()} a flag indicates whether worker should finish<BR>  * {@link #registerListener()} called from {@link SplitLogWorker#run()} and could register listener  * for external changes in coordination (if required)<BR>  * {@link #endTask(SplitLogTask, AtomicLong, SplitTaskDetails)} notify coordination engine that  *<p>  * Important methods for HLogSplitterHandler:<BR>  * splitting task has completed.  */
+comment|/**  * Coordinated operations for {@link SplitLogWorker} and   * {@link org.apache.hadoop.hbase.regionserver.handler.WALSplitterHandler} Important  * methods for SplitLogWorker:<BR>  * {@link #isReady()} called from {@link SplitLogWorker#run()} to check whether the coordination is  * ready to supply the tasks<BR>  * {@link #taskLoop()} loop for new tasks until the worker is stopped<BR>  * {@link #isStop()} a flag indicates whether worker should finish<BR>  * {@link #registerListener()} called from {@link SplitLogWorker#run()} and could register listener  * for external changes in coordination (if required)<BR>  * {@link #endTask(SplitLogTask, AtomicLong, SplitTaskDetails)} notify coordination engine that  *<p>  * Important methods for WALSplitterHandler:<BR>  * splitting task has completed.  */
 end_comment
 
 begin_interface
@@ -307,7 +291,7 @@ name|void
 name|removeListener
 parameter_list|()
 function_decl|;
-comment|/* HLogSplitterHandler part */
+comment|/* WALSplitterHandler part */
 comment|/**    * Notify coordination engine that splitting task has completed.    * @param slt See {@link SplitLogTask}    * @param ctr counter to be updated    * @param splitTaskDetails details about log split task (specific to coordination engine being    *          used).    */
 name|void
 name|endTask

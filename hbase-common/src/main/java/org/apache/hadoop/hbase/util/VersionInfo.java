@@ -19,20 +19,6 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -47,11 +33,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|commons
 operator|.
-name|classification
+name|logging
 operator|.
-name|InterfaceAudience
+name|Log
 import|;
 end_import
 
@@ -61,11 +47,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|commons
 operator|.
-name|classification
+name|logging
 operator|.
-name|InterfaceStability
+name|LogFactory
 import|;
 end_import
 
@@ -89,11 +75,29 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
+name|hadoop
 operator|.
-name|logging
+name|hbase
 operator|.
-name|Log
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -291,12 +295,12 @@ operator|+
 name|getVersion
 argument_list|()
 block|,
-literal|"Subversion "
+literal|"Source code repository "
 operator|+
 name|getUrl
 argument_list|()
 operator|+
-literal|" -r "
+literal|" revision="
 operator|+
 name|getRevision
 argument_list|()
@@ -310,7 +314,32 @@ literal|" on "
 operator|+
 name|getDate
 argument_list|()
+block|,
+literal|"From source with checksum "
+operator|+
+name|getSrcChecksum
+argument_list|()
 block|}
+return|;
+block|}
+comment|/**    * Get the checksum of the source files from which Hadoop was compiled.    * @return a string that uniquely identifies the source    **/
+specifier|public
+specifier|static
+name|String
+name|getSrcChecksum
+parameter_list|()
+block|{
+return|return
+name|version
+operator|!=
+literal|null
+condition|?
+name|version
+operator|.
+name|srcChecksum
+argument_list|()
+else|:
+literal|"Unknown"
 return|;
 block|}
 specifier|public

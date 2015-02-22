@@ -27,9 +27,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
+name|hbase
 operator|.
-name|InterfaceAudience
+name|HConstants
 import|;
 end_import
 
@@ -43,7 +43,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -231,6 +233,12 @@ name|Context
 operator|.
 name|NONE
 decl_stmt|;
+specifier|private
+name|long
+name|fileCreateTime
+init|=
+literal|0
+decl_stmt|;
 specifier|public
 name|HFileContextBuilder
 name|withHBaseCheckSum
@@ -414,6 +422,24 @@ name|this
 return|;
 block|}
 specifier|public
+name|HFileContextBuilder
+name|withCreateTime
+parameter_list|(
+name|long
+name|fileCreateTime
+parameter_list|)
+block|{
+name|this
+operator|.
+name|fileCreateTime
+operator|=
+name|fileCreateTime
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+specifier|public
 name|HFileContext
 name|build
 parameter_list|()
@@ -441,6 +467,8 @@ argument_list|,
 name|encoding
 argument_list|,
 name|cryptoContext
+argument_list|,
+name|fileCreateTime
 argument_list|)
 return|;
 block|}

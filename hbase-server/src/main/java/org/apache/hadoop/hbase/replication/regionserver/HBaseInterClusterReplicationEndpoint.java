@@ -109,6 +109,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -251,11 +253,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -272,22 +274,6 @@ operator|.
 name|replication
 operator|.
 name|HBaseReplicationEndpoint
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|replication
-operator|.
-name|ReplicationEndpoint
 import|;
 end_import
 
@@ -344,7 +330,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A {@link ReplicationEndpoint} implementation for replicating to another HBase cluster.  * For the slave cluster it selects a random number of peers  * using a replication ratio. For example, if replication ration = 0.1  * and slave cluster has 100 region servers, 10 will be selected.  *<p/>  * A stream is considered down when we cannot contact a region server on the  * peer cluster for more than 55 seconds by default.  */
+comment|/**  * A {@link org.apache.hadoop.hbase.replication.ReplicationEndpoint}   * implementation for replicating to another HBase cluster.  * For the slave cluster it selects a random number of peers  * using a replication ratio. For example, if replication ration = 0.1  * and slave cluster has 100 region servers, 10 will be selected.  *<p/>  * A stream is considered down when we cannot contact a region server on the  * peer cluster for more than 55 seconds by default.  */
 end_comment
 
 begin_class
@@ -742,8 +728,6 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -864,8 +848,6 @@ operator|.
 name|toArray
 argument_list|(
 operator|new
-name|HLog
-operator|.
 name|Entry
 index|[
 name|entries

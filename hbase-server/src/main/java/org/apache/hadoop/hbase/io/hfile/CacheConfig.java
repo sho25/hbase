@@ -121,6 +121,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -295,14 +297,14 @@ name|CACHE_BLOOM_BLOCKS_ON_WRITE_KEY
 init|=
 literal|"hfile.block.bloom.cacheonwrite"
 decl_stmt|;
-comment|/**    * TODO: Implement this (jgray)    * Configuration key to cache data blocks in compressed format.    */
+comment|/**    * Configuration key to cache data blocks in compressed and/or encrypted format.    */
 specifier|public
 specifier|static
 specifier|final
 name|String
 name|CACHE_DATA_BLOCKS_COMPRESSED_KEY
 init|=
-literal|"hbase.rs.blockcache.cachedatacompressed"
+literal|"hbase.block.data.cachecompressed"
 decl_stmt|;
 comment|/**    * Configuration key to evict all blocks of a given file from the block cache    * when the file is closed.    */
 specifier|public
@@ -391,6 +393,15 @@ name|PREFETCH_BLOCKS_ON_OPEN_KEY
 init|=
 literal|"hbase.rs.prefetchblocksonopen"
 decl_stmt|;
+comment|/**    * The target block size used by blockcache instances. Defaults to    * {@link HConstants#DEFAULT_BLOCKSIZE}.    * TODO: this config point is completely wrong, as it's used to determine the    * target block size of BlockCache instances. Rename.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|BLOCKCACHE_BLOCKSIZE_KEY
+init|=
+literal|"hbase.offheapcache.minblocksize"
+decl_stmt|;
 comment|// Defaults
 specifier|public
 specifier|static
@@ -444,7 +455,7 @@ specifier|public
 specifier|static
 specifier|final
 name|boolean
-name|DEFAULT_COMPRESSED_CACHE
+name|DEFAULT_CACHE_DATA_COMPRESSED
 init|=
 literal|false
 decl_stmt|;
@@ -495,11 +506,11 @@ specifier|private
 name|boolean
 name|evictOnClose
 decl_stmt|;
-comment|/** Whether data blocks should be stored in compressed form in the cache */
+comment|/** Whether data blocks should be stored in compressed and/or encrypted form in the cache */
 specifier|private
 specifier|final
 name|boolean
-name|cacheCompressed
+name|cacheDataCompressed
 decl_stmt|;
 comment|/** Whether data blocks should be prefetched into the cache */
 specifier|private
@@ -555,7 +566,7 @@ argument_list|)
 operator|||
 name|family
 operator|.
-name|shouldCacheDataOnWrite
+name|isCacheDataOnWrite
 argument_list|()
 argument_list|,
 name|conf
@@ -569,7 +580,7 @@ argument_list|)
 operator|||
 name|family
 operator|.
-name|shouldCacheIndexesOnWrite
+name|isCacheIndexesOnWrite
 argument_list|()
 argument_list|,
 name|conf
@@ -583,7 +594,7 @@ argument_list|)
 operator|||
 name|family
 operator|.
-name|shouldCacheBloomsOnWrite
+name|isCacheBloomsOnWrite
 argument_list|()
 argument_list|,
 name|conf
@@ -597,7 +608,7 @@ argument_list|)
 operator|||
 name|family
 operator|.
-name|shouldEvictBlocksOnClose
+name|isEvictBlocksOnClose
 argument_list|()
 argument_list|,
 name|conf
@@ -606,7 +617,7 @@ name|getBoolean
 argument_list|(
 name|CACHE_DATA_BLOCKS_COMPRESSED_KEY
 argument_list|,
-name|DEFAULT_COMPRESSED_CACHE
+name|DEFAULT_CACHE_DATA_COMPRESSED
 argument_list|)
 argument_list|,
 name|conf
@@ -620,7 +631,7 @@ argument_list|)
 operator|||
 name|family
 operator|.
-name|shouldPrefetchBlocksOnOpen
+name|isPrefetchBlocksOnOpen
 argument_list|()
 argument_list|,
 name|conf
@@ -638,7 +649,7 @@ argument_list|)
 operator|||
 name|family
 operator|.
-name|shouldCacheDataInL1
+name|isCacheDataInL1
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -708,7 +719,7 @@ name|getBoolean
 argument_list|(
 name|CACHE_DATA_BLOCKS_COMPRESSED_KEY
 argument_list|,
-name|DEFAULT_COMPRESSED_CACHE
+name|DEFAULT_CACHE_DATA_COMPRESSED
 argument_list|)
 argument_list|,
 name|conf
@@ -735,7 +746,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a block cache configuration with the specified cache and    * configuration parameters.    * @param blockCache reference to block cache, null if completely disabled    * @param cacheDataOnRead whether DATA blocks should be cached on read (we always cache INDEX    * blocks and BLOOM blocks; this cannot be disabled).    * @param inMemory whether blocks should be flagged as in-memory    * @param cacheDataOnWrite whether data blocks should be cached on write    * @param cacheIndexesOnWrite whether index blocks should be cached on write    * @param cacheBloomsOnWrite whether blooms should be cached on write    * @param evictOnClose whether blocks should be evicted when HFile is closed    * @param cacheCompressed whether to store blocks as compressed in the cache    * @param prefetchOnOpen whether to prefetch blocks upon open    * @param cacheDataInL1 If more than one cache tier deployed, if true, cache this column families    * data blocks up in the L1 tier.    */
+comment|/**    * Create a block cache configuration with the specified cache and    * configuration parameters.    * @param blockCache reference to block cache, null if completely disabled    * @param cacheDataOnRead whether DATA blocks should be cached on read (we always cache INDEX    * blocks and BLOOM blocks; this cannot be disabled).    * @param inMemory whether blocks should be flagged as in-memory    * @param cacheDataOnWrite whether data blocks should be cached on write    * @param cacheIndexesOnWrite whether index blocks should be cached on write    * @param cacheBloomsOnWrite whether blooms should be cached on write    * @param evictOnClose whether blocks should be evicted when HFile is closed    * @param cacheDataCompressed whether to store blocks as compressed in the cache    * @param prefetchOnOpen whether to prefetch blocks upon open    * @param cacheDataInL1 If more than one cache tier deployed, if true, cache this column families    * data blocks up in the L1 tier.    */
 name|CacheConfig
 parameter_list|(
 specifier|final
@@ -768,7 +779,7 @@ name|evictOnClose
 parameter_list|,
 specifier|final
 name|boolean
-name|cacheCompressed
+name|cacheDataCompressed
 parameter_list|,
 specifier|final
 name|boolean
@@ -823,9 +834,9 @@ name|evictOnClose
 expr_stmt|;
 name|this
 operator|.
-name|cacheCompressed
+name|cacheDataCompressed
 operator|=
-name|cacheCompressed
+name|cacheDataCompressed
 expr_stmt|;
 name|this
 operator|.
@@ -887,7 +898,7 @@ name|evictOnClose
 argument_list|,
 name|cacheConf
 operator|.
-name|cacheCompressed
+name|cacheDataCompressed
 argument_list|,
 name|cacheConf
 operator|.
@@ -947,9 +958,7 @@ name|BlockCategory
 name|category
 parameter_list|)
 block|{
-name|boolean
-name|shouldCache
-init|=
+return|return
 name|isBlockCacheEnabled
 argument_list|()
 operator|&&
@@ -986,9 +995,6 @@ name|UNKNOWN
 operator|)
 operator|)
 operator|)
-decl_stmt|;
-return|return
-name|shouldCache
 return|;
 block|}
 comment|/**    * @return true if blocks in this file should be flagged as in-memory    */
@@ -1133,10 +1139,10 @@ operator|=
 name|evictOnClose
 expr_stmt|;
 block|}
-comment|/**    * @return true if blocks should be compressed in the cache, false if not    */
+comment|/**    * @return true if data blocks should be compressed in the cache, false if not    */
 specifier|public
 name|boolean
-name|shouldCacheCompressed
+name|shouldCacheDataCompressed
 parameter_list|()
 block|{
 return|return
@@ -1145,8 +1151,45 @@ argument_list|()
 operator|&&
 name|this
 operator|.
-name|cacheCompressed
+name|cacheDataCompressed
 return|;
+block|}
+comment|/**    * @return true if this {@link BlockCategory} should be compressed in blockcache, false otherwise    */
+specifier|public
+name|boolean
+name|shouldCacheCompressed
+parameter_list|(
+name|BlockCategory
+name|category
+parameter_list|)
+block|{
+if|if
+condition|(
+operator|!
+name|isBlockCacheEnabled
+argument_list|()
+condition|)
+return|return
+literal|false
+return|;
+switch|switch
+condition|(
+name|category
+condition|)
+block|{
+case|case
+name|DATA
+case|:
+return|return
+name|this
+operator|.
+name|cacheDataCompressed
+return|;
+default|default:
+return|return
+literal|false
+return|;
+block|}
 block|}
 comment|/**    * @return true if blocks should be prefetched into the cache on open, false if not    */
 specifier|public
@@ -1212,9 +1255,9 @@ operator|+
 name|shouldEvictOnClose
 argument_list|()
 operator|+
-literal|", cacheCompressed="
+literal|", cacheDataCompressed="
 operator|+
-name|shouldCacheCompressed
+name|shouldCacheDataCompressed
 argument_list|()
 operator|+
 literal|", prefetchOnOpen="
@@ -1345,6 +1388,15 @@ argument_list|,
 name|mu
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|lruCacheSize
+operator|<
+literal|0
+condition|)
+return|return
+literal|null
+return|;
 name|int
 name|blockSize
 init|=
@@ -1352,7 +1404,7 @@ name|c
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.offheapcache.minblocksize"
+name|BLOCKCACHE_BLOCKSIZE_KEY
 argument_list|,
 name|HConstants
 operator|.
@@ -1447,7 +1499,7 @@ name|c
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.offheapcache.minblocksize"
+name|BLOCKCACHE_BLOCKSIZE_KEY
 argument_list|,
 name|HConstants
 operator|.
@@ -1735,6 +1787,14 @@ argument_list|,
 name|mu
 argument_list|)
 decl_stmt|;
+comment|// blockCacheDisabled is set as a side-effect of getL1(), so check it again after the call.
+if|if
+condition|(
+name|blockCacheDisabled
+condition|)
+return|return
+literal|null
+return|;
 name|BucketCache
 name|l2
 init|=

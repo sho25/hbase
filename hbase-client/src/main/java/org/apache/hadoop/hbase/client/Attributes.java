@@ -19,11 +19,23 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -39,19 +51,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
 import|;
 end_import
 
@@ -69,7 +73,7 @@ interface|interface
 name|Attributes
 block|{
 comment|/**    * Sets an attribute.    * In case value = null attribute is removed from the attributes map.    * Attribute names starting with _ indicate system attributes.    * @param name attribute name    * @param value attribute value    */
-name|void
+name|Attributes
 name|setAttribute
 parameter_list|(
 name|String

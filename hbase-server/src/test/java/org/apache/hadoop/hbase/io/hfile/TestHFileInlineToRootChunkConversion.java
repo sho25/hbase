@@ -91,6 +91,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -105,7 +119,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|testclassification
+operator|.
+name|IOTests
 import|;
 end_import
 
@@ -118,6 +134,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|testclassification
 operator|.
 name|SmallTests
 import|;
@@ -171,9 +189,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|IOTests
+operator|.
+name|class
+block|,
 name|SmallTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class
@@ -420,22 +444,6 @@ argument_list|(
 name|keyStr
 argument_list|)
 decl_stmt|;
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"Key: "
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|k
-argument_list|)
-argument_list|)
-expr_stmt|;
 name|keys
 operator|.
 name|add
@@ -460,9 +468,14 @@ name|hfw
 operator|.
 name|append
 argument_list|(
+name|CellUtil
+operator|.
+name|createCell
+argument_list|(
 name|k
 argument_list|,
 name|v
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -490,6 +503,7 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
+comment|// Scanner doesn't do Cells yet.  Fix.
 name|HFileScanner
 name|scanner
 init|=
@@ -524,9 +538,9 @@ name|scanner
 operator|.
 name|seekTo
 argument_list|(
-name|KeyValue
+name|CellUtil
 operator|.
-name|createKeyValueFromKey
+name|createCell
 argument_list|(
 name|keys
 operator|.

@@ -23,6 +23,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -36,6 +38,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -314,7 +318,7 @@ return|return
 name|seqNum
 return|;
 block|}
-comment|/**    * @return String made of hostname and port formatted as per {@link Addressing#createHostAndPortStr(String, int)}    */
+comment|/**    * @return String made of hostname and port formatted as    * per {@link Addressing#createHostAndPortStr(String, int)}    */
 specifier|public
 name|String
 name|getHostnamePort

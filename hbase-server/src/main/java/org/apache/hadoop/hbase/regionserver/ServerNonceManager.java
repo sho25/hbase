@@ -21,16 +21,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|util
-operator|.
-name|Date
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|text
 operator|.
 name|SimpleDateFormat
@@ -43,17 +33,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Comparator
+name|Date
 import|;
 end_import
 
@@ -64,16 +44,6 @@ operator|.
 name|util
 operator|.
 name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|UUID
 import|;
 end_import
 
@@ -141,7 +111,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Chore
+name|HConstants
 import|;
 end_import
 
@@ -155,7 +125,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|ScheduledChore
 import|;
 end_import
 
@@ -183,9 +153,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|classification
 operator|.
-name|Bytes
+name|InterfaceAudience
 import|;
 end_import
 
@@ -202,36 +172,6 @@ operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Pair
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -1195,10 +1135,10 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Creates a chore that is used to clean up old nonces.    * @param stoppable Stoppable for the chore.    * @return Chore; the chore is not started.    */
+comment|/**    * Creates a scheduled chore that is used to clean up old nonces.    * @param stoppable Stoppable for the chore.    * @return ScheduledChore; the scheduled chore is not started.    */
 specifier|public
-name|Chore
-name|createCleanupChore
+name|ScheduledChore
+name|createCleanupScheduledChore
 parameter_list|(
 name|Stoppable
 name|stoppable
@@ -1207,15 +1147,15 @@ block|{
 comment|// By default, it will run every 6 minutes (30 / 5).
 return|return
 operator|new
-name|Chore
+name|ScheduledChore
 argument_list|(
 literal|"nonceCleaner"
+argument_list|,
+name|stoppable
 argument_list|,
 name|deleteNonceGracePeriod
 operator|/
 literal|5
-argument_list|,
-name|stoppable
 argument_list|)
 block|{
 annotation|@

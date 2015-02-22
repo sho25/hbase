@@ -103,6 +103,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -2934,7 +2936,7 @@ name|getRegionsFromMergeQualifier
 argument_list|(
 name|services
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|regionName

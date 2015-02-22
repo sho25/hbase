@@ -17255,12 +17255,12 @@ name|getCellBlockMetaOrBuilder
 parameter_list|()
 function_decl|;
 comment|// optional uint32 priority = 6;
-comment|/**      *<code>optional uint32 priority = 6;</code>      *      *<pre>      * 0 is NORMAL priority.  100 is HIGH.  If no priority, treat it as NORMAL.      * See HConstants.      *</pre>      */
+comment|/**      *<code>optional uint32 priority = 6;</code>      *      *<pre>      * 0 is NORMAL priority.  200 is HIGH.  If no priority, treat it as NORMAL.      * See HConstants.      *</pre>      */
 name|boolean
 name|hasPriority
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional uint32 priority = 6;</code>      *      *<pre>      * 0 is NORMAL priority.  100 is HIGH.  If no priority, treat it as NORMAL.      * See HConstants.      *</pre>      */
+comment|/**      *<code>optional uint32 priority = 6;</code>      *      *<pre>      * 0 is NORMAL priority.  200 is HIGH.  If no priority, treat it as NORMAL.      * See HConstants.      *</pre>      */
 name|int
 name|getPriority
 parameter_list|()
@@ -18557,7 +18557,7 @@ specifier|private
 name|int
 name|priority_
 decl_stmt|;
-comment|/**      *<code>optional uint32 priority = 6;</code>      *      *<pre>      * 0 is NORMAL priority.  100 is HIGH.  If no priority, treat it as NORMAL.      * See HConstants.      *</pre>      */
+comment|/**      *<code>optional uint32 priority = 6;</code>      *      *<pre>      * 0 is NORMAL priority.  200 is HIGH.  If no priority, treat it as NORMAL.      * See HConstants.      *</pre>      */
 specifier|public
 name|boolean
 name|hasPriority
@@ -18575,7 +18575,7 @@ literal|0x00000020
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional uint32 priority = 6;</code>      *      *<pre>      * 0 is NORMAL priority.  100 is HIGH.  If no priority, treat it as NORMAL.      * See HConstants.      *</pre>      */
+comment|/**      *<code>optional uint32 priority = 6;</code>      *      *<pre>      * 0 is NORMAL priority.  200 is HIGH.  If no priority, treat it as NORMAL.      * See HConstants.      *</pre>      */
 specifier|public
 name|int
 name|getPriority
@@ -23337,7 +23337,7 @@ specifier|private
 name|int
 name|priority_
 decl_stmt|;
-comment|/**        *<code>optional uint32 priority = 6;</code>        *        *<pre>        * 0 is NORMAL priority.  100 is HIGH.  If no priority, treat it as NORMAL.        * See HConstants.        *</pre>        */
+comment|/**        *<code>optional uint32 priority = 6;</code>        *        *<pre>        * 0 is NORMAL priority.  200 is HIGH.  If no priority, treat it as NORMAL.        * See HConstants.        *</pre>        */
 specifier|public
 name|boolean
 name|hasPriority
@@ -23355,7 +23355,7 @@ literal|0x00000020
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional uint32 priority = 6;</code>        *        *<pre>        * 0 is NORMAL priority.  100 is HIGH.  If no priority, treat it as NORMAL.        * See HConstants.        *</pre>        */
+comment|/**        *<code>optional uint32 priority = 6;</code>        *        *<pre>        * 0 is NORMAL priority.  200 is HIGH.  If no priority, treat it as NORMAL.        * See HConstants.        *</pre>        */
 specifier|public
 name|int
 name|getPriority
@@ -23365,7 +23365,7 @@ return|return
 name|priority_
 return|;
 block|}
-comment|/**        *<code>optional uint32 priority = 6;</code>        *        *<pre>        * 0 is NORMAL priority.  100 is HIGH.  If no priority, treat it as NORMAL.        * See HConstants.        *</pre>        */
+comment|/**        *<code>optional uint32 priority = 6;</code>        *        *<pre>        * 0 is NORMAL priority.  200 is HIGH.  If no priority, treat it as NORMAL.        * See HConstants.        *</pre>        */
 specifier|public
 name|Builder
 name|setPriority
@@ -23389,7 +23389,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional uint32 priority = 6;</code>        *        *<pre>        * 0 is NORMAL priority.  100 is HIGH.  If no priority, treat it as NORMAL.        * See HConstants.        *</pre>        */
+comment|/**        *<code>optional uint32 priority = 6;</code>        *        *<pre>        * 0 is NORMAL priority.  200 is HIGH.  If no priority, treat it as NORMAL.        * See HConstants.        *</pre>        */
 specifier|public
 name|Builder
 name|clearPriority

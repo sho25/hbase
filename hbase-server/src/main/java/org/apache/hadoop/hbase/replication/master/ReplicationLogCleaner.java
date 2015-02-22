@@ -55,6 +55,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -100,6 +102,20 @@ operator|.
 name|hbase
 operator|.
 name|Abortable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -293,7 +309,12 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|CONFIG
+argument_list|)
 specifier|public
 class|class
 name|ReplicationLogCleaner
@@ -372,9 +393,9 @@ name|Set
 argument_list|<
 name|String
 argument_list|>
-name|hlogs
+name|wals
 init|=
-name|loadHLogsFromQueues
+name|loadWALsFromQueues
 argument_list|()
 decl_stmt|;
 return|return
@@ -402,7 +423,7 @@ name|file
 parameter_list|)
 block|{
 name|String
-name|hlog
+name|wal
 init|=
 name|file
 operator|.
@@ -415,11 +436,11 @@ decl_stmt|;
 name|boolean
 name|logInReplicationQueue
 init|=
-name|hlogs
+name|wals
 operator|.
 name|contains
 argument_list|(
-name|hlog
+name|wal
 argument_list|)
 decl_stmt|;
 if|if
@@ -441,7 +462,7 @@ name|debug
 argument_list|(
 literal|"Found log in ZK, keeping: "
 operator|+
-name|hlog
+name|wal
 argument_list|)
 expr_stmt|;
 block|}
@@ -453,7 +474,7 @@ name|debug
 argument_list|(
 literal|"Didn't find this log in ZK, deleting: "
 operator|+
-name|hlog
+name|wal
 argument_list|)
 expr_stmt|;
 block|}
@@ -467,13 +488,13 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Load all hlogs in all replication queues from ZK    */
+comment|/**    * Load all wals in all replication queues from ZK    */
 specifier|private
 name|Set
 argument_list|<
 name|String
 argument_list|>
-name|loadHLogsFromQueues
+name|loadWALsFromQueues
 parameter_list|()
 block|{
 name|List
@@ -512,7 +533,7 @@ name|Set
 argument_list|<
 name|String
 argument_list|>
-name|hlogs
+name|wals
 init|=
 name|Sets
 operator|.
@@ -562,7 +583,7 @@ name|List
 argument_list|<
 name|String
 argument_list|>
-name|peersHlogs
+name|peersWals
 init|=
 name|replicationQueues
 operator|.
@@ -575,23 +596,23 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|peersHlogs
+name|peersWals
 operator|!=
 literal|null
 condition|)
 block|{
-name|hlogs
+name|wals
 operator|.
 name|addAll
 argument_list|(
-name|peersHlogs
+name|peersWals
 argument_list|)
 expr_stmt|;
 block|}
 block|}
 block|}
 return|return
-name|hlogs
+name|wals
 return|;
 block|}
 annotation|@
@@ -626,7 +647,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Not configured - allowing all hlogs to be deleted"
+literal|"Not configured - allowing all wals to be deleted"
 argument_list|)
 expr_stmt|;
 return|return;

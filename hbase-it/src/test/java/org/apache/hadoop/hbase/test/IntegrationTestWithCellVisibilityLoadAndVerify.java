@@ -193,7 +193,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|IntegrationTests
+name|client
+operator|.
+name|Admin
 import|;
 end_import
 
@@ -444,6 +446,22 @@ operator|.
 name|visibility
 operator|.
 name|VisibilityController
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|IntegrationTests
 import|;
 end_import
 
@@ -1409,9 +1427,9 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|table
+name|mutator
 operator|.
-name|put
+name|mutate
 argument_list|(
 name|p
 argument_list|)
@@ -1449,9 +1467,9 @@ block|}
 block|}
 comment|// End of block, flush all of them before we start writing anything
 comment|// pointing to these!
-name|table
+name|mutator
 operator|.
-name|flushCommits
+name|flush
 argument_list|()
 expr_stmt|;
 block|}
@@ -2907,7 +2925,7 @@ name|TEST_FAMILY
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 operator|new

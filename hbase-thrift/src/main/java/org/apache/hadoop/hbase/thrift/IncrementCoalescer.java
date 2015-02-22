@@ -223,7 +223,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Table
 import|;
 end_import
 
@@ -1425,7 +1425,7 @@ continue|continue;
 block|}
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 name|handler

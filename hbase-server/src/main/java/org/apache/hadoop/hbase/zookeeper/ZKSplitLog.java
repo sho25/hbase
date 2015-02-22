@@ -113,6 +113,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -187,22 +189,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|SplitLogManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|protobuf
 operator|.
 name|generated
@@ -219,22 +205,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|SplitLogWorker
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|zookeeper
 operator|.
 name|KeeperException
@@ -242,7 +212,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Common methods and attributes used by {@link SplitLogManager} and {@link SplitLogWorker}  * running distributed splitting of WAL logs.  */
+comment|/**  * Common methods and attributes used by {@link org.apache.hadoop.hbase.master.SplitLogManager}   * and {@link org.apache.hadoop.hbase.regionserver.SplitLogWorker}  * running distributed splitting of WAL logs.  */
 end_comment
 
 begin_class
@@ -799,7 +769,7 @@ name|lastRecordedFlushedSequenceId
 operator|=
 name|ZKUtil
 operator|.
-name|parseHLogPositionFrom
+name|parseWALPositionFrom
 argument_list|(
 name|bytes
 argument_list|)

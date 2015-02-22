@@ -143,6 +143,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -275,7 +277,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|Connection
 import|;
 end_import
 
@@ -364,8 +366,8 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 decl_stmt|;
 comment|/** the table name to region map */
 specifier|private
@@ -439,13 +441,13 @@ decl_stmt|;
 specifier|public
 name|SnapshotOfRegionAssignmentFromMeta
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|)
 block|{
 name|this
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 operator|new
 name|HashSet
@@ -461,8 +463,8 @@ block|}
 specifier|public
 name|SnapshotOfRegionAssignmentFromMeta
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 name|Set
 argument_list|<
@@ -476,9 +478,9 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|hConnection
+name|connection
 operator|=
-name|hConnection
+name|connection
 expr_stmt|;
 name|tableToRegionMap
 operator|=
@@ -848,9 +850,9 @@ decl_stmt|;
 comment|// Scan hbase:meta to pick up user regions
 name|MetaTableAccessor
 operator|.
-name|fullScan
+name|fullScanRegions
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|v
 argument_list|)

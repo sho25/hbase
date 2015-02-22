@@ -65,6 +65,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -137,11 +139,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|cleaner
-operator|.
-name|BaseHFileCleanerDelegate
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -159,7 +157,7 @@ name|master
 operator|.
 name|cleaner
 operator|.
-name|TimeToLiveHFileCleaner
+name|BaseHFileCleanerDelegate
 import|;
 end_import
 
@@ -192,14 +190,19 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * {@link BaseHFileCleanerDelegate} that only cleans HFiles that don't belong to a table that is  * currently being archived.  *<p>  * This only works properly if the {@link TimeToLiveHFileCleaner} is also enabled (it always should  * be), since it may take a little time for the ZK notification to propagate, in which case we may  * accidentally delete some files.  */
+comment|/**  * {@link BaseHFileCleanerDelegate} that only cleans HFiles that don't belong to a table that is  * currently being archived.  *<p>  * This only works properly if the   * {@link org.apache.hadoop.hbase.master.cleaner.TimeToLiveHFileCleaner}  *  is also enabled (it always should be), since it may take a little time  *  for the ZK notification to propagate, in which case we may accidentally  *  delete some files.  */
 end_comment
 
 begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|CONFIG
+argument_list|)
 specifier|public
 class|class
 name|LongTermArchivingHFileCleaner

@@ -33,6 +33,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -75,9 +85,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
+name|hbase
 operator|.
-name|InterfaceAudience
+name|HConstants
 import|;
 end_import
 
@@ -91,7 +101,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -130,7 +142,7 @@ parameter_list|>
 block|{
 comment|// TODO: This class should not be visible outside of the client package.
 comment|// map of regions to lists of puts/gets/deletes for that region.
-specifier|public
+specifier|protected
 name|Map
 argument_list|<
 name|byte
@@ -148,18 +160,7 @@ name|actions
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|List
-argument_list|<
-name|Action
-argument_list|<
-name|R
-argument_list|>
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -235,6 +236,38 @@ argument_list|>
 name|a
 parameter_list|)
 block|{
+name|add
+argument_list|(
+name|regionName
+argument_list|,
+name|Arrays
+operator|.
+name|asList
+argument_list|(
+name|a
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Add an Action to this container based on it's regionName. If the regionName    * is wrong, the initial execution will fail, but will be automatically    * retried after looking up the correct region.    *    * @param regionName    * @param actionList list of actions to add for the region    */
+specifier|public
+name|void
+name|add
+parameter_list|(
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+name|List
+argument_list|<
+name|Action
+argument_list|<
+name|R
+argument_list|>
+argument_list|>
+name|actionList
+parameter_list|)
+block|{
 name|List
 argument_list|<
 name|Action
@@ -268,7 +301,12 @@ argument_list|<
 name|R
 argument_list|>
 argument_list|>
+argument_list|(
+name|actionList
+operator|.
+name|size
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|actions
 operator|.
@@ -282,9 +320,9 @@ expr_stmt|;
 block|}
 name|rsActions
 operator|.
-name|add
+name|addAll
 argument_list|(
-name|a
+name|actionList
 argument_list|)
 expr_stmt|;
 block|}

@@ -79,6 +79,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
 name|IntegrationTests
 import|;
 end_import
@@ -262,14 +264,7 @@ operator|.
 name|OPT_MULTIGET
 argument_list|)
 argument_list|,
-name|Integer
-operator|.
-name|toString
-argument_list|(
-name|MultiThreadedReader
-operator|.
-name|DEFAULT_BATCH_SIZE
-argument_list|)
+literal|"100"
 argument_list|)
 argument_list|)
 expr_stmt|;

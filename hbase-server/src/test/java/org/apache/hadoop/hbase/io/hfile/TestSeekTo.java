@@ -137,7 +137,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|SmallTests
+name|Tag
 import|;
 end_import
 
@@ -151,7 +151,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Tag
+name|testclassification
+operator|.
+name|IOTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|SmallTests
 import|;
 end_import
 
@@ -177,6 +195,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -193,9 +221,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|IOTests
+operator|.
+name|class
+block|,
 name|SmallTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class
@@ -509,8 +543,6 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 literal|"basic.hfile"
@@ -703,6 +735,8 @@ return|return
 name|ncTFile
 return|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSeekBefore
@@ -1099,6 +1133,8 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSeekBeforeWithReSeekTo
@@ -1945,6 +1981,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSeekTo
@@ -2094,11 +2132,10 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Across a block boundary now.
-comment|// h goes to the next block
+comment|// 'h' does not exist so we will get a '1' back for not found.
 name|assertEquals
 argument_list|(
-operator|-
-literal|2
+literal|0
 argument_list|,
 name|scanner
 operator|.
@@ -2106,7 +2143,7 @@ name|seekTo
 argument_list|(
 name|toKV
 argument_list|(
-literal|"h"
+literal|"i"
 argument_list|,
 name|tagUsage
 argument_list|)
@@ -2162,6 +2199,8 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testBlockContainingKey
@@ -2258,21 +2297,6 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|int
-name|klen
-init|=
-name|toKV
-argument_list|(
-literal|"a"
-argument_list|,
-name|tagUsage
-argument_list|)
-operator|.
-name|getKey
-argument_list|()
-operator|.
-name|length
-decl_stmt|;
 comment|// falls before the start of the file.
 name|assertEquals
 argument_list|(

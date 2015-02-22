@@ -19,13 +19,53 @@ end_package
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|io
 operator|.
-name|protobuf
+name|Closeable
+import|;
+end_import
+
+begin_import
+import|import
+name|java
 operator|.
-name|ServiceException
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|regex
+operator|.
+name|Pattern
 import|;
 end_import
 
@@ -81,20 +121,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HColumnDescriptor
 import|;
 end_import
@@ -124,20 +150,6 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|MasterNotRunningException
 import|;
 end_import
 
@@ -221,7 +233,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|UnknownRegionException
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -235,7 +249,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ZooKeeperConnectionException
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -306,6 +322,54 @@ operator|.
 name|generated
 operator|.
 name|MasterProtos
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|quotas
+operator|.
+name|QuotaFilter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|quotas
+operator|.
+name|QuotaRetriever
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|quotas
+operator|.
+name|QuotaSettings
 import|;
 end_import
 
@@ -407,63 +471,19 @@ name|Pair
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|Closeable
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|regex
-operator|.
-name|Pattern
-import|;
-end_import
-
 begin_comment
-comment|/**  * The administrative API for HBase. Obtain an instance from an {@link HConnection}.  *  * @since 0.99.0  */
+comment|/**  * The administrative API for HBase. Obtain an instance from an {@link Connection#getAdmin()} and  * call {@link #close()} afterwards.  *<p>Admin can be used to create, drop, list, enable and disable tables, add and drop table  * column families and other administrative operations.  *  * @see ConnectionFactory  * @see Connection  * @see Table  * @since 0.99.0  */
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 interface|interface
 name|Admin
@@ -494,19 +514,10 @@ name|boolean
 name|isAborted
 parameter_list|()
 function_decl|;
-comment|/**    * @return HConnection used by this object.    */
-name|HConnection
+comment|/**    * @return Connection used by this object.    */
+name|Connection
 name|getConnection
 parameter_list|()
-function_decl|;
-comment|/**    * @return - true if the master server is running. Throws an exception otherwise.    * @throws ZooKeeperConnectionException    * @throws MasterNotRunningException    */
-name|boolean
-name|isMasterRunning
-parameter_list|()
-throws|throws
-name|MasterNotRunningException
-throws|,
-name|ZooKeeperConnectionException
 function_decl|;
 comment|/**    * @param tableName Table to check.    * @return True if table exists already.    * @throws IOException    */
 name|boolean
@@ -519,7 +530,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables.  In other words, scan the hbase:meta table. If we wanted this to    * be really fast, we could implement a special catalog table that just contains table names and    * their descriptors. Right now, it only exists as part of the hbase:meta table's region info.    *    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all the userspace tables.    *    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    */
 name|HTableDescriptor
 index|[]
 name|listTables
@@ -549,6 +560,34 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * List all the tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    */
+name|HTableDescriptor
+index|[]
+name|listTables
+parameter_list|(
+name|Pattern
+name|pattern
+parameter_list|,
+name|boolean
+name|includeSysTables
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * List all the tables matching the given pattern.    *    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern, boolean)    */
+name|HTableDescriptor
+index|[]
+name|listTables
+parameter_list|(
+name|String
+name|regex
+parameter_list|,
+name|boolean
+name|includeSysTables
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * List all of the names of userspace tables.    *    * @return TableName[] table names    * @throws IOException if a remote or network exception occurs    */
 name|TableName
 index|[]
@@ -557,7 +596,61 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Method for getting the tableDescriptor    *    * @param tableName as a byte []    * @return the tableDescriptor    * @throws org.apache.hadoop.hbase.TableNotFoundException    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all of the names of userspace tables.    * @param pattern The regular expression to match against    * @return TableName[] table names    * @throws IOException if a remote or network exception occurs    */
+name|TableName
+index|[]
+name|listTableNames
+parameter_list|(
+name|Pattern
+name|pattern
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * List all of the names of userspace tables.    * @param regex The regular expression to match against    * @return TableName[] table names    * @throws IOException if a remote or network exception occurs    */
+name|TableName
+index|[]
+name|listTableNames
+parameter_list|(
+name|String
+name|regex
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * List all of the names of userspace tables.    * @param pattern The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return TableName[] table names    * @throws IOException if a remote or network exception occurs    */
+name|TableName
+index|[]
+name|listTableNames
+parameter_list|(
+specifier|final
+name|Pattern
+name|pattern
+parameter_list|,
+specifier|final
+name|boolean
+name|includeSysTables
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * List all of the names of userspace tables.    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return TableName[] table names    * @throws IOException if a remote or network exception occurs    */
+name|TableName
+index|[]
+name|listTableNames
+parameter_list|(
+specifier|final
+name|String
+name|regex
+parameter_list|,
+specifier|final
+name|boolean
+name|includeSysTables
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Method for getting the tableDescriptor    *    * @param tableName as a {@link TableName}    * @return the tableDescriptor    * @throws org.apache.hadoop.hbase.TableNotFoundException    * @throws IOException if a remote or network exception occurs    */
 name|HTableDescriptor
 name|getTableDescriptor
 parameter_list|(
@@ -970,7 +1063,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Flush a table. Synchronous operation.    *    * @param tableName table to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Flush a table. Synchronous operation.    *    * @param tableName table to flush    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|flush
 parameter_list|(
@@ -980,10 +1073,8 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 function_decl|;
-comment|/**    * Flush an individual region. Synchronous operation.    *    * @param regionName region to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Flush an individual region. Synchronous operation.    *    * @param regionName region to flush    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|flushRegion
 parameter_list|(
@@ -994,10 +1085,8 @@ name|regionName
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 function_decl|;
-comment|/**    * Compact a table. Asynchronous operation.    *    * @param tableName table to compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Compact a table. Asynchronous operation.    *    * @param tableName table to compact    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|compact
 parameter_list|(
@@ -1007,10 +1096,8 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 function_decl|;
-comment|/**    * Compact an individual region. Asynchronous operation.    *    * @param regionName region to compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Compact an individual region. Asynchronous operation.    *    * @param regionName region to compact    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|compactRegion
 parameter_list|(
@@ -1021,10 +1108,8 @@ name|regionName
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 function_decl|;
-comment|/**    * Compact a column family within a table. Asynchronous operation.    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Compact a column family within a table. Asynchronous operation.    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|compact
 parameter_list|(
@@ -1039,10 +1124,8 @@ name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 function_decl|;
-comment|/**    * Compact a column family within a region. Asynchronous operation.    *    * @param regionName region to compact    * @param columnFamily column family within a region    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Compact a column family within a region. Asynchronous operation.    *    * @param regionName region to compact    * @param columnFamily column family within a region    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|compactRegion
 parameter_list|(
@@ -1058,10 +1141,8 @@ name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 function_decl|;
-comment|/**    * Major compact a table. Asynchronous operation.    *    * @param tableName table to major compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Major compact a table. Asynchronous operation.    *    * @param tableName table to major compact    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|majorCompact
 parameter_list|(
@@ -1070,10 +1151,8 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 function_decl|;
-comment|/**    * Major compact a table or an individual region. Asynchronous operation.    *    * @param regionName region to major compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Major compact a table or an individual region. Asynchronous operation.    *    * @param regionName region to major compact    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|majorCompactRegion
 parameter_list|(
@@ -1084,10 +1163,8 @@ name|regionName
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 function_decl|;
-comment|/**    * Major compact a column family within a table. Asynchronous operation.    *    * @param tableName table to major compact    * @param columnFamily column family within a table    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Major compact a column family within a table. Asynchronous operation.    *    * @param tableName table to major compact    * @param columnFamily column family within a table    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|majorCompact
 parameter_list|(
@@ -1101,10 +1178,8 @@ name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 function_decl|;
-comment|/**    * Major compact a column family within region. Asynchronous operation.    *    * @param regionName egion to major compact    * @param columnFamily column family within a region    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Major compact a column family within region. Asynchronous operation.    *    * @param regionName egion to major compact    * @param columnFamily column family within a region    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|majorCompactRegion
 parameter_list|(
@@ -1120,10 +1195,25 @@ name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
+function_decl|;
+comment|/**    * Compact all regions on the region server    * @param sn the region server name    * @param major if it's major compaction    * @throws IOException    * @throws InterruptedException    */
+specifier|public
+name|void
+name|compactRegionServer
+parameter_list|(
+specifier|final
+name|ServerName
+name|sn
+parameter_list|,
+name|boolean
+name|major
+parameter_list|)
+throws|throws
+name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Move the region<code>r</code> to<code>dest</code>.    *    * @param encodedRegionName The encoded region name; i.e. the hash that makes up the region name    * suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    * then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param destServerName The servername of the destination regionserver.  If passed the empty byte    * array we'll assign to a random server.  A server name is made of host, port and startcode.    * Here is an example:<code> host187.example.com,60020,1289493121758</code>    * @throws UnknownRegionException Thrown if we can't find a region named    *<code>encodedRegionName</code>    * @throws ZooKeeperConnectionException    * @throws MasterNotRunningException    */
+comment|/**    * Move the region<code>r</code> to<code>dest</code>.    *    * @param encodedRegionName The encoded region name; i.e. the hash that makes up the region name    * suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    * then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param destServerName The servername of the destination regionserver.  If passed the empty byte    * array we'll assign to a random server.  A server name is made of host, port and startcode.    * Here is an example:<code> host187.example.com,60020,1289493121758</code>    * @throws UnknownRegionException Thrown if we can't find a region named    *<code>encodedRegionName</code>    */
 name|void
 name|move
 parameter_list|(
@@ -1138,13 +1228,9 @@ index|[]
 name|destServerName
 parameter_list|)
 throws|throws
-name|HBaseIOException
-throws|,
-name|MasterNotRunningException
-throws|,
-name|ZooKeeperConnectionException
+name|IOException
 function_decl|;
-comment|/**    * @param regionName Region name to assign.    * @throws MasterNotRunningException    * @throws ZooKeeperConnectionException    * @throws IOException    */
+comment|/**    * @param regionName Region name to assign.    */
 name|void
 name|assign
 parameter_list|(
@@ -1154,13 +1240,9 @@ index|[]
 name|regionName
 parameter_list|)
 throws|throws
-name|MasterNotRunningException
-throws|,
-name|ZooKeeperConnectionException
-throws|,
 name|IOException
 function_decl|;
-comment|/**    * Unassign a region from current hosting regionserver.  Region will then be assigned to a    * regionserver chosen at random.  Region could be reassigned back to the same server.  Use {@link    * #move(byte[], byte[])} if you want to control the region movement.    *    * @param regionName Region to unassign. Will clear any existing RegionPlan if one found.    * @param force If true, force unassign (Will remove region from regions-in-transition too if    * present. If results in double assignment use hbck -fix to resolve. To be used by experts).    * @throws MasterNotRunningException    * @throws ZooKeeperConnectionException    * @throws IOException    */
+comment|/**    * Unassign a region from current hosting regionserver.  Region will then be assigned to a    * regionserver chosen at random.  Region could be reassigned back to the same server.  Use {@link    * #move(byte[], byte[])} if you want to control the region movement.    *    * @param regionName Region to unassign. Will clear any existing RegionPlan if one found.    * @param force If true, force unassign (Will remove region from regions-in-transition too if    * present. If results in double assignment use hbck -fix to resolve. To be used by experts).    */
 name|void
 name|unassign
 parameter_list|(
@@ -1174,10 +1256,6 @@ name|boolean
 name|force
 parameter_list|)
 throws|throws
-name|MasterNotRunningException
-throws|,
-name|ZooKeeperConnectionException
-throws|,
 name|IOException
 function_decl|;
 comment|/**    * Offline specified region from master's in-memory state. It will not attempt to reassign the    * region as in unassign. This API can be used when a region not served by any region server and    * still online as per Master's in memory state. If this API is incorrectly used on active region    * then master will loose track of that region. This is a special method that should be used by    * experts or hbck.    *    * @param regionName Region to offline.    * @throws IOException    */
@@ -1192,7 +1270,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Turn the load balancer on or off.    *    * @param on If true, enable balancer. If false, disable balancer.    * @param synchronous If true, it waits until current balance() call, if outstanding, to return.    * @return Previous balancer value    */
+comment|/**    * Turn the load balancer on or off.    *    * @param synchronous If true, it waits until current balance() call, if outstanding, to return.    * @return Previous balancer value    */
 name|boolean
 name|setBalancerRunning
 parameter_list|(
@@ -1205,22 +1283,16 @@ name|boolean
 name|synchronous
 parameter_list|)
 throws|throws
-name|MasterNotRunningException
-throws|,
-name|ZooKeeperConnectionException
+name|IOException
 function_decl|;
 comment|/**    * Invoke the balancer.  Will run the balancer and if regions to move, it will go ahead and do the    * reassignments.  Can NOT run for various reasons.  Check logs.    *    * @return True if balancer ran, false otherwise.    */
 name|boolean
 name|balancer
 parameter_list|()
 throws|throws
-name|MasterNotRunningException
-throws|,
-name|ZooKeeperConnectionException
-throws|,
-name|ServiceException
+name|IOException
 function_decl|;
-comment|/**    * Enable/Disable the catalog janitor    *    * @param enable if true enables the catalog janitor    * @return the previous state    * @throws ServiceException    * @throws MasterNotRunningException    */
+comment|/**    * Enable/Disable the catalog janitor    *    * @param enable if true enables the catalog janitor    * @return the previous state    */
 name|boolean
 name|enableCatalogJanitor
 parameter_list|(
@@ -1228,27 +1300,21 @@ name|boolean
 name|enable
 parameter_list|)
 throws|throws
-name|ServiceException
-throws|,
-name|MasterNotRunningException
+name|IOException
 function_decl|;
-comment|/**    * Ask for a scan of the catalog table    *    * @return the number of entries cleaned    * @throws ServiceException    * @throws MasterNotRunningException    */
+comment|/**    * Ask for a scan of the catalog table    *    * @return the number of entries cleaned    */
 name|int
 name|runCatalogScan
 parameter_list|()
 throws|throws
-name|ServiceException
-throws|,
-name|MasterNotRunningException
+name|IOException
 function_decl|;
-comment|/**    * Query on the catalog janitor state (Enabled/Disabled?)    *    * @throws ServiceException    * @throws org.apache.hadoop.hbase.MasterNotRunningException    */
+comment|/**    * Query on the catalog janitor state (Enabled/Disabled?)    *    */
 name|boolean
 name|isCatalogJanitorEnabled
 parameter_list|()
 throws|throws
-name|ServiceException
-throws|,
-name|MasterNotRunningException
+name|IOException
 function_decl|;
 comment|/**    * Merge two regions. Asynchronous operation.    *    * @param encodedNameOfRegionA encoded name of region a    * @param encodedNameOfRegionB encoded name of region b    * @param forcible true if do a compulsory merge, otherwise we will only merge two adjacent    * regions    * @throws IOException    */
 name|void
@@ -1271,7 +1337,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Split a table. Asynchronous operation.    *    * @param tableName table to split    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Split a table. Asynchronous operation.    *    * @param tableName table to split    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|split
 parameter_list|(
@@ -1281,10 +1347,8 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 function_decl|;
-comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|splitRegion
 parameter_list|(
@@ -1295,10 +1359,8 @@ name|regionName
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 function_decl|;
-comment|/**    * Split a table. Asynchronous operation.    *    * @param tableName table to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException interrupt exception occurred    */
+comment|/**    * Split a table. Asynchronous operation.    *    * @param tableName table to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|split
 parameter_list|(
@@ -1313,10 +1375,8 @@ name|splitPoint
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 function_decl|;
-comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException interrupt exception occurred    */
+comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|splitRegion
 parameter_list|(
@@ -1332,8 +1392,6 @@ name|splitPoint
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 function_decl|;
 comment|/**    * Modify an existing table, more IRB friendly version. Asynchronous operation.  This means that    * it may be a while before your schema change is updated across all of the table.    *    * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException if a remote or network exception occurs    */
 name|void
@@ -1513,13 +1571,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    * @param serverName The servername of the regionserver. A server name is made of host, port and    * startcode. This is mandatory. Here is an example:    *<code> host187.example.com,60020,1289493121758</code>    * @return If lots of logs, flush the returned regions so next time through we can clean logs.    * Returns null if nothing to flush.  Names are actual region names as returned by {@link    * HRegionInfo#getEncodedName()}    * @throws IOException if a remote or network exception occurs    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    */
-name|byte
-index|[]
-index|[]
-name|rollHLogWriter
+comment|/**    * Roll the log writer. I.e. for filesystem based write ahead logs, start writing to a new file.    *    * Note that the actual rolling of the log writer is asynchronous and may not be complete when    * this method returns. As a side effect of this call, the named region server may schedule    * store flushes at the request of the wal.    *    * @param serverName The servername of the regionserver.    * @throws IOException if a remote or network exception occurs    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    */
+name|void
+name|rollWALWriter
 parameter_list|(
-name|String
+name|ServerName
 name|serverName
 parameter_list|)
 throws|throws
@@ -1532,8 +1588,10 @@ name|String
 index|[]
 name|getMasterCoprocessors
 parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Get the current compaction state of a table. It could be in a major compaction, a minor    * compaction, both, or none.    *    * @param tableName table to examine    * @return the current compaction state    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Get the current compaction state of a table. It could be in a major compaction, a minor    * compaction, both, or none.    *    * @param tableName table to examine    * @return the current compaction state    * @throws IOException if a remote or network exception occurs    */
 name|AdminProtos
 operator|.
 name|GetRegionInfoResponse
@@ -1547,10 +1605,8 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 function_decl|;
-comment|/**    * Get the current compaction state of region. It could be in a major compaction, a minor    * compaction, both, or none.    *    * @param regionName region to examine    * @return the current compaction state    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Get the current compaction state of region. It could be in a major compaction, a minor    * compaction, both, or none.    *    * @param regionName region to examine    * @return the current compaction state    * @throws IOException if a remote or network exception occurs    */
 name|AdminProtos
 operator|.
 name|GetRegionInfoResponse
@@ -1565,8 +1621,29 @@ name|regionName
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
+function_decl|;
+comment|/**    * Get the timestamp of the last major compaction for the passed table    *    * The timestamp of the oldest HFile resulting from a major compaction of that table,    * or 0 if no such HFile could be found.    *    * @param tableName table to examine    * @return the last major compaction timestamp or 0    * @throws IOException if a remote or network exception occurs    */
+name|long
+name|getLastMajorCompactionTimestamp
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Get the timestamp of the last major compaction for the passed region.    *    * The timestamp of the oldest HFile resulting from a major compaction of that region,    * or 0 if no such HFile could be found.    *    * @param regionName region to examine    * @return the last major compaction timestamp or 0    * @throws IOException if a remote or network exception occurs    */
+name|long
+name|getLastMajorCompactionTimestampForRegion
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Take a snapshot for the given table. If the table is enabled, a FLUSH-type snapshot will be    * taken. If the table is disabled, an offline snapshot is taken. Snapshots are considered unique    * based on<b>the name of the snapshot</b>. Attempts to take a snapshot with the same name (even    * a different type or with different parameters) will fail with a {@link    * org.apache.hadoop.hbase.snapshot.SnapshotCreationException} indicating the duplicate naming.    * Snapshot names follow the same naming constraints as tables in HBase. See {@link    * org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}.    *    * @param snapshotName name of the snapshot to be created    * @param tableName name of the table for which snapshot is created    * @throws IOException if a remote or network exception occurs    * @throws org.apache.hadoop.hbase.snapshot.SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
 name|void
@@ -1762,8 +1839,6 @@ throws|,
 name|TableExistsException
 throws|,
 name|RestoreSnapshotException
-throws|,
-name|InterruptedException
 function_decl|;
 comment|/**    * Create a new table by cloning the snapshot content.    *    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
 name|void
@@ -1783,8 +1858,6 @@ throws|,
 name|TableExistsException
 throws|,
 name|RestoreSnapshotException
-throws|,
-name|InterruptedException
 function_decl|;
 comment|/**    * Execute a distributed procedure on a cluster.    *    * @param signature A distributed procedure is uniquely identified by its signature (default the    * root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    * @throws IOException    */
 name|void
@@ -1937,10 +2010,65 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Apply the new quota settings.    *    * @param quota the quota settings    * @throws IOException if a remote or network exception occurs    */
+name|void
+name|setQuota
+parameter_list|(
+specifier|final
+name|QuotaSettings
+name|quota
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Return a QuotaRetriever to list the quotas based on the filter.    *    * @param filter the quota settings filter    * @return the quota retriever    * @throws IOException if a remote or network exception occurs    */
+name|QuotaRetriever
+name|getQuotaRetriever
+parameter_list|(
+specifier|final
+name|QuotaFilter
+name|filter
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance connected to the active    * master.<p> The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access    * a published coprocessor {@link com.google.protobuf.Service} using standard protobuf service    * invocations:</p><div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myAdmin.coprocessorService();    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *    * @return A MasterCoprocessorRpcChannel instance    */
 name|CoprocessorRpcChannel
 name|coprocessorService
 parameter_list|()
+function_decl|;
+comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance    * connected to the passed region server.    *    *<p>    * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published    * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:    *</p>    *    *<div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myAdmin.coprocessorService(serverName);    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *    * @param sn the server name to which the endpoint call is made    * @return A RegionServerCoprocessorRpcChannel instance    */
+name|CoprocessorRpcChannel
+name|coprocessorService
+parameter_list|(
+name|ServerName
+name|sn
+parameter_list|)
+function_decl|;
+comment|/**    * Update the configuration and trigger an online config change    * on the regionserver    * @param server : The server whose config needs to be updated.    * @throws IOException    */
+name|void
+name|updateConfiguration
+parameter_list|(
+name|ServerName
+name|server
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Update the configuration and trigger an online config change    * on all the regionservers    * @throws IOException    */
+name|void
+name|updateConfiguration
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Get the info port of the current master if one is available.    * @return master info port    * @throws IOException    */
+specifier|public
+name|int
+name|getMasterInfoPort
+parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
 block|}
 end_interface

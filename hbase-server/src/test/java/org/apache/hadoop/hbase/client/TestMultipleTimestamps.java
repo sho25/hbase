@@ -121,6 +121,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
+name|ClientTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|LargeTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -199,9 +231,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
 name|LargeTests
 operator|.
 name|class
+block|,
+name|ClientTests
+operator|.
+name|class
+block|}
 argument_list|)
 specifier|public
 class|class
@@ -333,7 +371,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -645,7 +683,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -923,7 +961,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -1356,7 +1394,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -1874,7 +1912,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -2077,7 +2115,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -2215,7 +2253,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -2351,7 +2389,7 @@ name|FAMILY
 block|}
 decl_stmt|;
 comment|// create table; set versions to max...
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -2594,7 +2632,7 @@ name|Cell
 index|[]
 name|getNVersions
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -2707,7 +2745,7 @@ specifier|private
 name|ResultScanner
 name|scan
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -2885,7 +2923,7 @@ specifier|private
 name|void
 name|put
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -3011,7 +3049,7 @@ specifier|private
 name|void
 name|putNVersions
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -3126,7 +3164,7 @@ specifier|private
 name|void
 name|deleteOneVersion
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -3204,7 +3242,7 @@ specifier|private
 name|void
 name|deleteAllVersionsBefore
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -3281,7 +3319,7 @@ specifier|private
 name|void
 name|deleteColumn
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte
@@ -3353,7 +3391,7 @@ specifier|private
 name|void
 name|deleteFamily
 parameter_list|(
-name|HTable
+name|Table
 name|ht
 parameter_list|,
 name|byte

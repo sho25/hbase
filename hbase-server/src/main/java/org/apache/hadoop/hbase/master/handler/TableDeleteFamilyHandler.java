@@ -47,6 +47,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -283,6 +285,9 @@ name|HTableDescriptor
 name|htd
 init|=
 name|getTableDescriptor
+argument_list|()
+operator|.
+name|getHTableDescriptor
 argument_list|()
 decl_stmt|;
 name|this

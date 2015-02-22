@@ -23,16 +23,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|Closeable
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 import|;
 end_import
@@ -67,51 +57,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Abortable
 import|;
 end_import
 
@@ -196,6 +144,38 @@ operator|.
 name|hbase
 operator|.
 name|ZooKeeperConnectionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -278,7 +258,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A cluster connection.  Knows how to find the master, locate regions out on the cluster,  * keeps a cache of locations and then knows how to re-calibrate after they move.  You need one  * of these to talk to your HBase cluster. {@link HConnectionManager} manages instances of this  * class.  See it for how to get one of these.  *  *<p>This is NOT a connection to a particular server but to ALL servers in the cluster.  Individual  * connections are managed at a lower level.  *  *<p>HConnections are used by {@link HTable} mostly but also by  * {@link HBaseAdmin}, and {@link org.apache.hadoop.hbase.zookeeper.MetaTableLocator}.  * HConnection instances can be shared.  Sharing  * is usually what you want because rather than each HConnection instance  * having to do its own discovery of regions out on the cluster, instead, all  * clients get to share the one cache of locations.  {@link HConnectionManager} does the  * sharing for you if you go by it getting connections.  Sharing makes cleanup of  * HConnections awkward.  See {@link HConnectionManager} for cleanup discussion.  *  * @see HConnectionManager  */
+comment|/**  * A cluster connection.  Knows how to find the master, locate regions out on the cluster,  * keeps a cache of locations and then knows how to re-calibrate after they move.  You need one  * of these to talk to your HBase cluster. {@link HConnectionManager} manages instances of this  * class.  See it for how to get one of these.  *  *<p>This is NOT a connection to a particular server but to ALL servers in the cluster.  Individual  * connections are managed at a lower level.  *  *<p>HConnections are used by {@link HTable} mostly but also by  * {@link HBaseAdmin}, and {@link org.apache.hadoop.hbase.zookeeper.MetaTableLocator}.  * HConnection instances can be shared.  Sharing  * is usually what you want because rather than each HConnection instance  * having to do its own discovery of regions out on the cluster, instead, all  * clients get to share the one cache of locations.  {@link HConnectionManager} does the  * sharing for you if you go by it getting connections.  Sharing makes cleanup of  * HConnections awkward.  See {@link HConnectionManager} for cleanup discussion.  *  * @see HConnectionManager  * @deprecated in favor of {@link Connection} and {@link ConnectionFactory}  */
 end_comment
 
 begin_interface
@@ -290,13 +270,13 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Stable
+annotation|@
+name|Deprecated
 specifier|public
 interface|interface
 name|HConnection
 extends|extends
-name|Abortable
-extends|,
-name|Closeable
+name|Connection
 block|{
 comment|/**    * Key for configuration in Configuration whose value is the class we implement making a    * new HConnection instance.    */
 specifier|public
@@ -308,6 +288,8 @@ init|=
 literal|"hbase.client.connection.impl"
 decl_stmt|;
 comment|/**    * @return Configuration instance being used by this HConnection instance.    */
+annotation|@
+name|Override
 name|Configuration
 name|getConfiguration
 parameter_list|()
@@ -336,6 +318,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Retrieve an HTableInterface implementation for access to a table.    * The returned HTableInterface is not thread safe, a new instance should    * be created for each using thread.    * This is a lightweight operation, pooling or caching of the returned HTableInterface    * is neither required nor desired.    * Note that the HConnection needs to be unmanaged    * (created with {@link HConnectionManager#createConnection(Configuration)}).    * @param tableName    * @return an HTable to use for interactions with this table    */
+annotation|@
+name|Override
 specifier|public
 name|HTableInterface
 name|getTable
@@ -376,6 +360,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Retrieve an HTableInterface implementation for access to a table.    * The returned HTableInterface is not thread safe, a new instance should    * be created for each using thread.    * This is a lightweight operation, pooling or caching of the returned HTableInterface    * is neither required nor desired.    * Note that the HConnection needs to be unmanaged    * (created with {@link HConnectionManager#createConnection(Configuration)}).    * @param tableName    * @param pool The thread pool to use for batch operations, null to use a default pool.    * @return an HTable to use for interactions with this table    */
+annotation|@
+name|Override
 specifier|public
 name|HTableInterface
 name|getTable
@@ -390,6 +376,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Retrieve a RegionLocator implementation to inspect region information on a table. The returned    * RegionLocator is not thread-safe, so a new instance should be created for each using thread.    *    * This is a lightweight operation.  Pooling or caching of the returned RegionLocator is neither    * required nor desired.    *    * RegionLocator needs to be unmanaged    * (created with {@link HConnectionManager#createConnection(Configuration)}).    *    * @param tableName Name of the table who's region is to be examined    * @return A RegionLocator instance    */
+annotation|@
+name|Override
 specifier|public
 name|RegionLocator
 name|getRegionLocator
@@ -401,6 +389,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Retrieve an Admin implementation to administer an HBase cluster.    * The returned Admin is not guaranteed to be thread-safe.  A new instance should be created for    * each using thread.  This is a lightweight operation.  Pooling or caching of the returned    * Admin is not recommended.  Note that HConnection needs to be unmanaged    *    * @return an Admin instance for cluster administration    */
+annotation|@
+name|Override
 name|Admin
 name|getAdmin
 parameter_list|()
@@ -428,6 +418,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated instead use {@link #isTableEnabled(TableName)}    */
 annotation|@
 name|Deprecated
 name|boolean
@@ -450,6 +441,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated instead use {@link #isTableDisabled(TableName)}    */
 annotation|@
 name|Deprecated
 name|boolean
@@ -457,6 +449,17 @@ name|isTableDisabled
 parameter_list|(
 name|byte
 index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Retrieve TableState, represent current table state.    * @param tableName table state for    * @return state of the table    */
+specifier|public
+name|TableState
+name|getTableState
+parameter_list|(
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -472,6 +475,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated instead use {@link #isTableAvailable(TableName)}    */
 annotation|@
 name|Deprecated
 name|boolean
@@ -484,7 +488,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Use this api to check if the table has been created with the specified number of    * splitkeys which was used while creating the given table.    * Note : If this api is used after a table's region gets splitted, the api may return    * false.    * @param tableName    *          tableName    * @param splitKeys    *          splitKeys used while creating table    * @throws IOException    *           if a remote or network exception occurs    * @deprecated internal method, do not use thru HConnection */
+comment|/**    * Use this api to check if the table has been created with the specified number of    * splitkeys which was used while creating the given table.    * Note : If this api is used after a table's region gets splitted, the api may return    * false.    * @param tableName tableName    * @param splitKeys splitKeys used while creating table    * @throws IOException if a remote or network exception occurs    * @deprecated internal method, do not use through HConnection */
 annotation|@
 name|Deprecated
 name|boolean
@@ -501,6 +505,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|boolean
@@ -518,7 +523,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables.  In other words, scan the hbase:meta table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the hbase:meta table's region info.    *    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all the userspace tables.  In other words, scan the hbase:meta table.    *    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link Admin#listTables()} instead.    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|listTables
@@ -529,6 +536,7 @@ function_decl|;
 comment|// This is a bit ugly - We call this getTableNames in 0.94 and the
 comment|// successor function, returning TableName, listTableNames in later versions
 comment|// because Java polymorphism doesn't consider return value types
+comment|/**    * @deprecated Use {@link Admin#listTableNames()} instead.    */
 annotation|@
 name|Deprecated
 name|String
@@ -538,6 +546,9 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated Use {@link Admin#listTables()} instead.    */
+annotation|@
+name|Deprecated
 name|TableName
 index|[]
 name|listTableNames
@@ -545,7 +556,9 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param tableName table name    * @return table metadata    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * @param tableName table name    * @return table metadata    * @throws IOException if a remote or network exception occurs    * @deprecated internal method, do not use through HConnection    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 name|getHTableDescriptor
 parameter_list|(
@@ -555,6 +568,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
@@ -567,7 +581,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    * @deprecated internal method, do not use thru HConnection    */
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -586,6 +600,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -605,14 +620,14 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Allows flushing the region cache.    * @deprecated internal method, do not use thru HConnection */
+comment|/**    * Allows flushing the region cache.    * @deprecated internal method, do not use through HConnection */
 annotation|@
 name|Deprecated
 name|void
 name|clearRegionCache
 parameter_list|()
 function_decl|;
-comment|/**    * Allows flushing the region cache of all locations that pertain to    *<code>tableName</code>    * @param tableName Name of the table whose regions we are to remove from    * cache.    * @deprecated internal method, do not use thru HConnection */
+comment|/**    * Allows flushing the region cache of all locations that pertain to    *<code>tableName</code>    * @param tableName Name of the table whose regions we are to remove from    * cache.    * @deprecated internal method, do not use through HConnection */
 annotation|@
 name|Deprecated
 name|void
@@ -623,6 +638,7 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|void
@@ -645,7 +661,7 @@ name|HRegionLocation
 name|location
 parameter_list|)
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    * @deprecated internal method, do not use thru HConnection */
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    * @deprecated internal method, do not use through HConnection */
 annotation|@
 name|Deprecated
 name|HRegionLocation
@@ -663,6 +679,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|HRegionLocation
@@ -681,6 +698,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|void
@@ -700,7 +718,7 @@ name|HRegionLocation
 name|source
 parameter_list|)
 function_decl|;
-comment|/**    * Update the location cache. This is used internally by HBase, in most cases it should not be    *  used by the client application.    * @param tableName the table name    * @param regionName the regionName    * @param rowkey the row    * @param exception the exception if any. Can be null.    * @param source the previous location    * @deprecated internal method, do not use thru HConnection    */
+comment|/**    * Update the location cache. This is used internally by HBase, in most cases it should not be    *  used by the client application.    * @param tableName the table name    * @param regionName the regionName    * @param rowkey the row    * @param exception the exception if any. Can be null.    * @param source the previous location    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|void
@@ -724,6 +742,7 @@ name|ServerName
 name|source
 parameter_list|)
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|void
@@ -774,6 +793,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|List
@@ -815,6 +835,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -918,6 +939,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|HRegionLocation
@@ -967,6 +989,7 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
+comment|/**    * @deprecated internal method, do not use through HConnection    */
 annotation|@
 name|Deprecated
 name|void
@@ -1039,6 +1062,7 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
+comment|/**    * @deprecated Unsupported API    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1146,7 +1170,9 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param tableNames List of table names    * @return HTD[] table metadata    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * @param tableNames List of table names    * @return HTD[] table metadata    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link Admin#getTableDescriptor(TableName)} instead.    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|getHTableDescriptorsByTableName
@@ -1160,6 +1186,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @deprecated since 0.96.0    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
@@ -1176,6 +1203,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @return true if this connection is closed    */
+annotation|@
+name|Override
 name|boolean
 name|isClosed
 parameter_list|()

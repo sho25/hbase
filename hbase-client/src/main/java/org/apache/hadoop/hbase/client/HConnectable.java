@@ -35,9 +35,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
+name|conf
 operator|.
-name|InterfaceAudience
+name|Configuration
 import|;
 end_import
 
@@ -49,9 +49,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -72,7 +74,7 @@ parameter_list|<
 name|T
 parameter_list|>
 block|{
-specifier|public
+specifier|protected
 name|Configuration
 name|conf
 decl_stmt|;

@@ -45,9 +45,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
+name|conf
 operator|.
-name|InterfaceAudience
+name|Configuration
 import|;
 end_import
 
@@ -145,6 +145,40 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|backoff
+operator|.
+name|ClientBackoffPolicy
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -212,9 +246,11 @@ name|ClusterConnection
 extends|extends
 name|HConnection
 block|{
-comment|/** @return - true if the master server is running */
+comment|/**    * @return - true if the master server is running    * @deprecated this has been deprecated without a replacement    */
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 name|boolean
 name|isMasterRunning
 parameter_list|()
@@ -306,8 +342,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @param replicaId the replicaId of the region    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    */
-name|HRegionLocation
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @param replicaId the replicaId of the region    * @return RegionLocations that describe where to find the region in    * question    * @throws IOException if a remote or network exception occurs    */
+name|RegionLocations
 name|relocateRegion
 parameter_list|(
 specifier|final
@@ -517,7 +553,7 @@ name|ServerName
 name|sn
 parameter_list|)
 function_decl|;
-comment|/**    * This function allows HBaseAdmin and potentially others to get a shared MasterService    * connection.    * @return The shared instance. Never returns null.    * @throws MasterNotRunningException    */
+comment|/**    * This function allows HBaseAdmin and potentially others to get a shared MasterService    * connection.    * @return The shared instance. Never returns null.    * @throws MasterNotRunningException    * @deprecated Since 0.96.0    */
 annotation|@
 name|Override
 annotation|@
@@ -551,6 +587,29 @@ function_decl|;
 comment|/**    * @return Default AsyncProcess associated with this connection.    */
 name|AsyncProcess
 name|getAsyncProcess
+parameter_list|()
+function_decl|;
+comment|/**    * Returns a new RpcRetryingCallerFactory from the given {@link Configuration}.    * This RpcRetryingCallerFactory lets the users create {@link RpcRetryingCaller}s which can be    * intercepted with the configured {@link RetryingCallerInterceptor}    * @param conf    * @return RpcRetryingCallerFactory    */
+name|RpcRetryingCallerFactory
+name|getNewRpcRetryingCallerFactory
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+function_decl|;
+comment|/**    *     * @return true if this is a managed connection.    */
+name|boolean
+name|isManaged
+parameter_list|()
+function_decl|;
+comment|/**    * @return the current statistics tracker associated with this connection    */
+name|ServerStatisticTracker
+name|getStatisticsTracker
+parameter_list|()
+function_decl|;
+comment|/**    * @return the configured client backoff policy    */
+name|ClientBackoffPolicy
+name|getBackoffPolicy
 parameter_list|()
 function_decl|;
 block|}

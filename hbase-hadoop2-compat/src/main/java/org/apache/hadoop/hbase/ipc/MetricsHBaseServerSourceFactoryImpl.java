@@ -35,6 +35,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -147,7 +149,7 @@ operator|=
 operator|new
 name|MetricsHBaseServerSourceImpl
 argument_list|(
-name|METRICS_NAME
+name|context
 argument_list|,
 name|METRICS_DESCRIPTION
 argument_list|,

@@ -201,7 +201,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTableInterface
+name|Table
 import|;
 end_import
 
@@ -416,7 +416,7 @@ specifier|protected
 name|String
 name|getRegionDebugInfoSafe
 parameter_list|(
-name|HTableInterface
+name|Table
 name|table
 parameter_list|,
 name|byte

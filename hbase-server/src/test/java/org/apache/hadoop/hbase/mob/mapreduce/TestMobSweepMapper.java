@@ -145,7 +145,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|SmallTests
+name|TableName
 import|;
 end_import
 
@@ -159,7 +159,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|testclassification
+operator|.
+name|SmallTests
 import|;
 end_import
 
@@ -605,7 +607,7 @@ name|when
 argument_list|(
 name|columns
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 argument_list|)
 operator|.

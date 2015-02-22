@@ -95,6 +95,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -433,7 +435,7 @@ if|if
 condition|(
 name|this
 operator|.
-name|shouldSplitHlog
+name|shouldSplitWal
 condition|)
 block|{
 name|LOG
@@ -601,7 +603,7 @@ if|if
 condition|(
 name|this
 operator|.
-name|shouldSplitHlog
+name|shouldSplitWal
 operator|&&
 name|distributedLogReplay
 condition|)
@@ -804,7 +806,7 @@ name|verifyMetaRegionLocation
 argument_list|(
 name|server
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|this
@@ -826,7 +828,11 @@ name|getAssignmentManager
 argument_list|()
 operator|.
 name|assignMeta
-argument_list|()
+argument_list|(
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+argument_list|)
 expr_stmt|;
 block|}
 elseif|else

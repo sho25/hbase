@@ -97,20 +97,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
-operator|.
-name|ByteStringer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -155,7 +141,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|CellUtil
 import|;
 end_import
 
@@ -169,7 +155,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|HConstants
 import|;
 end_import
 
@@ -289,11 +275,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -307,11 +293,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogKey
+name|WALKey
 import|;
 end_import
 
@@ -330,6 +314,22 @@ operator|.
 name|wal
 operator|.
 name|WALEdit
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ByteStringer
 import|;
 end_import
 
@@ -370,7 +370,7 @@ specifier|public
 class|class
 name|ReplicationProtbufUtil
 block|{
-comment|/**    * A helper to replicate a list of HLog entries using admin protocol.    *    * @param admin    * @param entries    * @throws java.io.IOException    */
+comment|/**    * A helper to replicate a list of WAL entries using admin protocol.    *    * @param admin    * @param entries    * @throws java.io.IOException    */
 specifier|public
 specifier|static
 name|void
@@ -383,8 +383,6 @@ name|BlockingInterface
 name|admin
 parameter_list|,
 specifier|final
-name|HLog
-operator|.
 name|Entry
 index|[]
 name|entries
@@ -452,7 +450,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Create a new ReplicateWALEntryRequest from a list of HLog entries    *    * @param entries the HLog entries to be replicated    * @return a pair of ReplicateWALEntryRequest and a CellScanner over all the WALEdit values    * found.    */
+comment|/**    * Create a new ReplicateWALEntryRequest from a list of WAL entries    *    * @param entries the WAL entries to be replicated    * @return a pair of ReplicateWALEntryRequest and a CellScanner over all the WALEdit values    * found.    */
 specifier|public
 specifier|static
 name|Pair
@@ -466,8 +464,6 @@ argument_list|>
 name|buildReplicateWALEntryRequest
 parameter_list|(
 specifier|final
-name|HLog
-operator|.
 name|Entry
 index|[]
 name|entries
@@ -482,7 +478,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a new ReplicateWALEntryRequest from a list of HLog entries    *    * @param entries the HLog entries to be replicated    * @param encodedRegionName alternative region name to use if not null    * @return a pair of ReplicateWALEntryRequest and a CellScanner over all the WALEdit values    * found.    */
+comment|/**    * Create a new ReplicateWALEntryRequest from a list of WAL entries    *    * @param entries the WAL entries to be replicated    * @param encodedRegionName alternative region name to use if not null    * @return a pair of ReplicateWALEntryRequest and a CellScanner over all the WALEdit values    * found.    */
 specifier|public
 specifier|static
 name|Pair
@@ -496,8 +492,6 @@ argument_list|>
 name|buildReplicateWALEntryRequest
 parameter_list|(
 specifier|final
-name|HLog
-operator|.
 name|Entry
 index|[]
 name|entries
@@ -507,7 +501,7 @@ index|[]
 name|encodedRegionName
 parameter_list|)
 block|{
-comment|// Accumulate all the KVs seen in here.
+comment|// Accumulate all the Cells seen in here.
 name|List
 argument_list|<
 name|List
@@ -517,7 +511,7 @@ extends|extends
 name|Cell
 argument_list|>
 argument_list|>
-name|allkvs
+name|allCells
 init|=
 operator|new
 name|ArrayList
@@ -598,8 +592,6 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HLog
-operator|.
 name|Entry
 name|entry
 range|:
@@ -611,7 +603,7 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-comment|// TODO: this duplicates a lot in HLogKey#getBuilder
+comment|// TODO: this duplicates a lot in WALKey#getBuilder
 name|WALProtos
 operator|.
 name|WALKey
@@ -624,7 +616,7 @@ operator|.
 name|getKeyBuilder
 argument_list|()
 decl_stmt|;
-name|HLogKey
+name|WALKey
 name|key
 init|=
 name|entry
@@ -910,46 +902,48 @@ block|}
 block|}
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
-name|kvs
+name|cells
 init|=
 name|edit
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 decl_stmt|;
 comment|// Add up the size.  It is used later serializing out the kvs.
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 range|:
-name|kvs
+name|cells
 control|)
 block|{
 name|size
 operator|+=
-name|kv
+name|CellUtil
 operator|.
-name|getLength
-argument_list|()
+name|estimatedSerializedSizeOf
+argument_list|(
+name|cell
+argument_list|)
 expr_stmt|;
 block|}
-comment|// Collect up the kvs
-name|allkvs
+comment|// Collect up the cells
+name|allCells
 operator|.
 name|add
 argument_list|(
-name|kvs
+name|cells
 argument_list|)
 expr_stmt|;
-comment|// Write out how many kvs associated with this entry.
+comment|// Write out how many cells associated with this entry.
 name|entryBuilder
 operator|.
 name|setAssociatedCellCount
 argument_list|(
-name|kvs
+name|cells
 operator|.
 name|size
 argument_list|()
@@ -984,7 +978,7 @@ argument_list|()
 argument_list|,
 name|getCellScanner
 argument_list|(
-name|allkvs
+name|allCells
 argument_list|,
 name|size
 argument_list|)

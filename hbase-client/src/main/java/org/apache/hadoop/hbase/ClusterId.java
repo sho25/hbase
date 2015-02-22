@@ -17,13 +17,11 @@ end_package
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|util
 operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
+name|UUID
 import|;
 end_import
 
@@ -34,6 +32,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -109,11 +109,13 @@ end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|util
+name|google
 operator|.
-name|UUID
+name|protobuf
+operator|.
+name|InvalidProtocolBufferException
 import|;
 end_import
 

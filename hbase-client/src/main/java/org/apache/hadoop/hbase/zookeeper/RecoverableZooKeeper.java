@@ -125,6 +125,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -349,6 +351,8 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
 name|htrace
 operator|.
 name|Trace
@@ -358,6 +362,8 @@ end_import
 begin_import
 import|import
 name|org
+operator|.
+name|apache
 operator|.
 name|htrace
 operator|.
@@ -394,7 +400,6 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|// the actual ZooKeeper client instance
-specifier|volatile
 specifier|private
 name|ZooKeeper
 name|zk
@@ -516,6 +521,27 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"DE_MIGHT_IGNORE"
+argument_list|,
+name|justification
+operator|=
+literal|"None. Its always been this way."
+argument_list|)
 specifier|public
 name|RecoverableZooKeeper
 parameter_list|(
@@ -652,6 +678,7 @@ expr_stmt|;
 block|}
 comment|/**    * Try to create a Zookeeper connection. Turns any exception encountered into a    * KeeperException.OperationTimeoutException so it can retried.    * @return The created Zookeeper connection object    * @throws KeeperException    */
 specifier|protected
+specifier|synchronized
 name|ZooKeeper
 name|checkZk
 parameter_list|()
@@ -713,6 +740,7 @@ name|zk
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|void
 name|reconnectAfterExpiration
 parameter_list|()
@@ -3199,6 +3227,7 @@ name|newData
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|long
 name|getSessionId
 parameter_list|()
@@ -3208,7 +3237,8 @@ name|zk
 operator|==
 literal|null
 condition|?
-literal|null
+operator|-
+literal|1
 else|:
 name|zk
 operator|.
@@ -3217,6 +3247,7 @@ argument_list|()
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|void
 name|close
 parameter_list|()
@@ -3236,6 +3267,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|public
+specifier|synchronized
 name|States
 name|getState
 parameter_list|()
@@ -3254,6 +3286,7 @@ argument_list|()
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|ZooKeeper
 name|getZooKeeper
 parameter_list|()
@@ -3263,6 +3296,7 @@ name|zk
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|byte
 index|[]
 name|getSessionPasswd

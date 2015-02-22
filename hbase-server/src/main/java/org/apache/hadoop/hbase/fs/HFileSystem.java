@@ -267,11 +267,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogUtil
+name|DefaultWALProvider
 import|;
 end_import
 
@@ -410,7 +408,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An encapsulation for the FileSystem object that hbase uses to access  * data. This class allows the flexibility of using    * separate filesystem objects for reading and writing hfiles and hlogs.  * In future, if we want to make hlogs be in a different filesystem,  * this is the place to make it happen.  */
+comment|/**  * An encapsulation for the FileSystem object that hbase uses to access  * data. This class allows the flexibility of using    * separate filesystem objects for reading and writing hfiles and wals.  * In future, if we want to make wals be in a different filesystem,  * this is the place to make it happen.  */
 end_comment
 
 begin_class
@@ -1437,7 +1435,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|/**    * We're putting at lowest priority the hlog files blocks that are on the same datanode    * as the original regionserver which created these files. This because we fear that the    * datanode is actually dead, so if we use it it will timeout.    */
+comment|/**    * We're putting at lowest priority the wal files blocks that are on the same datanode    * as the original regionserver which created these files. This because we fear that the    * datanode is actually dead, so if we use it it will timeout.    */
 specifier|static
 class|class
 name|ReorderWALBlocks
@@ -1463,9 +1461,9 @@ block|{
 name|ServerName
 name|sn
 init|=
-name|HLogUtil
+name|DefaultWALProvider
 operator|.
-name|getServerNameFromHLogDirectoryName
+name|getServerNameFromWALDirectoryName
 argument_list|(
 name|conf
 argument_list|,
@@ -1479,10 +1477,10 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// It's not an HLOG
+comment|// It's not an WAL
 return|return;
 block|}
-comment|// Ok, so it's an HLog
+comment|// Ok, so it's an WAL
 name|String
 name|hostName
 init|=
@@ -1505,7 +1503,7 @@ name|trace
 argument_list|(
 name|src
 operator|+
-literal|" is an HLog file, so reordering blocks, last hostname will be:"
+literal|" is an WAL file, so reordering blocks, last hostname will be:"
 operator|+
 name|hostName
 argument_list|)

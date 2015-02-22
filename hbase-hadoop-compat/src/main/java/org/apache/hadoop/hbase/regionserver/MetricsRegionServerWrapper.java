@@ -61,16 +61,16 @@ name|long
 name|getNumStores
 parameter_list|()
 function_decl|;
-comment|/**    * Get the number of HLog files of this region server.    */
+comment|/**    * Get the number of WAL files of this region server.    */
 specifier|public
 name|long
-name|getNumHLogFiles
+name|getNumWALFiles
 parameter_list|()
 function_decl|;
-comment|/**    * Get the size of HLog files of this region server.    */
+comment|/**    * Get the size of WAL files of this region server.    */
 specifier|public
 name|long
-name|getHLogFileSize
+name|getWALFileSize
 parameter_list|()
 function_decl|;
 comment|/**    * Get the number of store files hosted on this region server.    */
@@ -146,6 +146,11 @@ function_decl|;
 comment|/**    * Get the percent of HFiles' that are local.    */
 name|int
 name|getPercentFileLocal
+parameter_list|()
+function_decl|;
+comment|/**    * Get the size of the split queue    */
+name|int
+name|getSplitQueueSize
 parameter_list|()
 function_decl|;
 comment|/**    * Get the size of the compaction queue    */
@@ -246,7 +251,7 @@ name|long
 name|getMajorCompactedCellsSize
 parameter_list|()
 function_decl|;
-comment|/**    * Gets the number of cells move to mob during compaction.    */
+comment|/**<<<<<<< HEAD    * Gets the number of cells move to mob during compaction.    */
 name|long
 name|getMobCompactedIntoMobCellsCount
 parameter_list|()
@@ -314,6 +319,24 @@ function_decl|;
 comment|/**    * Gets the hit percent to the mob file cache.    */
 name|int
 name|getMobFileCacheHitPercent
+parameter_list|()
+function_decl|;
+comment|/**    * @return Count of hedged read operations    */
+specifier|public
+name|long
+name|getHedgedReadOps
+parameter_list|()
+function_decl|;
+comment|/**    * @return Count of times a hedged read beat out the primary read.    */
+specifier|public
+name|long
+name|getHedgedReadWins
+parameter_list|()
+function_decl|;
+comment|/**    * @return Count of requests blocked because the memstore size is larger than blockingMemStoreSize    */
+specifier|public
+name|long
+name|getBlockedRequestsCount
 parameter_list|()
 function_decl|;
 block|}

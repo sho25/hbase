@@ -91,6 +91,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -104,6 +106,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -136,22 +140,6 @@ operator|.
 name|fs
 operator|.
 name|FileSystem
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HConnectionManager
 import|;
 end_import
 
@@ -1141,6 +1129,9 @@ name|startRegionServer
 parameter_list|(
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -1270,6 +1261,9 @@ name|startMaster
 parameter_list|(
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -2102,13 +2096,6 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
-name|HConnectionManager
-operator|.
-name|deleteAllConnections
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -2638,6 +2625,10 @@ specifier|public
 name|ServerName
 name|getServerHoldingRegion
 parameter_list|(
+specifier|final
+name|TableName
+name|tn
+parameter_list|,
 name|byte
 index|[]
 name|regionName

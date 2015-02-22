@@ -63,22 +63,6 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|HMaster
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
 name|MasterServices
 import|;
 end_import
@@ -112,7 +96,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Provides the globally barriered procedure framework and environment for  * master oriented operations. {@link HMaster} interacts with the loaded  * procedure manager through this class.  */
+comment|/**  * Provides the globally barriered procedure framework and environment for  * master oriented operations. {@link org.apache.hadoop.hbase.master.HMaster}   * interacts with the loaded procedure manager through this class.  */
 end_comment
 
 begin_class

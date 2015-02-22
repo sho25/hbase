@@ -151,6 +151,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -439,18 +441,18 @@ specifier|private
 name|Configuration
 name|conf
 decl_stmt|;
-comment|// MemStore.  Use a KeyValueSkipListSet rather than SkipListSet because of the
+comment|// MemStore.  Use a CellSkipListSet rather than SkipListSet because of the
 comment|// better semantics.  The Map will overwrite if passed a key it already had
-comment|// whereas the Set will not add new KV if key is same though value might be
+comment|// whereas the Set will not add new Cell if key is same though value might be
 comment|// different.  Value is not important -- just make sure always same
 comment|// reference passed.
 specifier|volatile
-name|KeyValueSkipListSet
-name|kvset
+name|CellSkipListSet
+name|cellSet
 decl_stmt|;
 comment|// Snapshot of memstore.  Made for flusher.
 specifier|volatile
-name|KeyValueSkipListSet
+name|CellSkipListSet
 name|snapshot
 decl_stmt|;
 specifier|final
@@ -543,10 +545,10 @@ name|c
 expr_stmt|;
 name|this
 operator|.
-name|kvset
+name|cellSet
 operator|=
 operator|new
-name|KeyValueSkipListSet
+name|CellSkipListSet
 argument_list|(
 name|c
 argument_list|)
@@ -556,7 +558,7 @@ operator|.
 name|snapshot
 operator|=
 operator|new
-name|KeyValueSkipListSet
+name|CellSkipListSet
 argument_list|(
 name|c
 argument_list|)
@@ -662,26 +664,26 @@ parameter_list|()
 block|{
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 range|:
 name|this
 operator|.
-name|kvset
+name|cellSet
 control|)
 block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 block|}
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 range|:
 name|this
 operator|.
@@ -692,7 +694,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 block|}
@@ -751,7 +753,7 @@ condition|(
 operator|!
 name|this
 operator|.
-name|kvset
+name|cellSet
 operator|.
 name|isEmpty
 argument_list|()
@@ -763,14 +765,14 @@ name|snapshot
 operator|=
 name|this
 operator|.
-name|kvset
+name|cellSet
 expr_stmt|;
 name|this
 operator|.
-name|kvset
+name|cellSet
 operator|=
 operator|new
-name|KeyValueSkipListSet
+name|CellSkipListSet
 argument_list|(
 name|this
 operator|.
@@ -966,7 +968,7 @@ operator|.
 name|snapshot
 operator|=
 operator|new
-name|KeyValueSkipListSet
+name|CellSkipListSet
 argument_list|(
 name|this
 operator|.
@@ -1069,17 +1071,12 @@ name|Cell
 name|cell
 parameter_list|)
 block|{
-name|KeyValue
+name|Cell
 name|toAdd
 init|=
 name|maybeCloneWithAllocator
 argument_list|(
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
 name|cell
-argument_list|)
 argument_list|)
 decl_stmt|;
 return|return
@@ -1113,9 +1110,9 @@ return|;
 block|}
 specifier|private
 name|boolean
-name|addToKVSet
+name|addToCellSet
 parameter_list|(
-name|KeyValue
+name|Cell
 name|e
 parameter_list|)
 block|{
@@ -1124,7 +1121,7 @@ name|b
 init|=
 name|this
 operator|.
-name|kvset
+name|cellSet
 operator|.
 name|add
 argument_list|(
@@ -1140,9 +1137,9 @@ return|;
 block|}
 specifier|private
 name|boolean
-name|removeFromKVSet
+name|removeFromCellSet
 parameter_list|(
-name|KeyValue
+name|Cell
 name|e
 parameter_list|)
 block|{
@@ -1151,7 +1148,7 @@ name|b
 init|=
 name|this
 operator|.
-name|kvset
+name|cellSet
 operator|.
 name|remove
 argument_list|(
@@ -1187,13 +1184,13 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Internal version of add() that doesn't clone KVs with the    * allocator, and doesn't take the lock.    *    * Callers should ensure they already have the read lock taken    */
+comment|/**    * Internal version of add() that doesn't clone Cells with the    * allocator, and doesn't take the lock.    *    * Callers should ensure they already have the read lock taken    */
 specifier|private
 name|long
 name|internalAdd
 parameter_list|(
 specifier|final
-name|KeyValue
+name|Cell
 name|toAdd
 parameter_list|)
 block|{
@@ -1204,7 +1201,7 @@ name|heapSizeChange
 argument_list|(
 name|toAdd
 argument_list|,
-name|addToKVSet
+name|addToCellSet
 argument_list|(
 name|toAdd
 argument_list|)
@@ -1231,11 +1228,11 @@ name|s
 return|;
 block|}
 specifier|private
-name|KeyValue
+name|Cell
 name|maybeCloneWithAllocator
 parameter_list|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|)
 block|{
 if|if
@@ -1246,16 +1243,18 @@ literal|null
 condition|)
 block|{
 return|return
-name|kv
+name|cell
 return|;
 block|}
 name|int
 name|len
 init|=
-name|kv
+name|KeyValueUtil
 operator|.
-name|getLength
-argument_list|()
+name|length
+argument_list|(
+name|cell
+argument_list|)
 decl_stmt|;
 name|ByteRange
 name|alloc
@@ -1277,7 +1276,7 @@ block|{
 comment|// The allocation was too large, allocator decided
 comment|// not to do anything with it.
 return|return
-name|kv
+name|cell
 return|;
 block|}
 assert|assert
@@ -1288,23 +1287,21 @@ argument_list|()
 operator|!=
 literal|null
 assert|;
+name|KeyValueUtil
+operator|.
+name|appendToByteArray
+argument_list|(
+name|cell
+argument_list|,
 name|alloc
 operator|.
-name|put
-argument_list|(
-literal|0
-argument_list|,
-name|kv
-operator|.
-name|getBuffer
+name|getBytes
 argument_list|()
 argument_list|,
-name|kv
+name|alloc
 operator|.
 name|getOffset
 argument_list|()
-argument_list|,
-name|len
 argument_list|)
 expr_stmt|;
 name|KeyValue
@@ -1330,9 +1327,9 @@ name|newKv
 operator|.
 name|setSequenceId
 argument_list|(
-name|kv
+name|cell
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1340,7 +1337,7 @@ return|return
 name|newKv
 return|;
 block|}
-comment|/**    * Remove n key from the memstore. Only kvs that have the same key and the    * same memstoreTS are removed.  It is ok to not update timeRangeTracker    * in this call. It is possible that we can optimize this method by using    * tailMap/iterator, but since this method is called rarely (only for    * error recovery), we can leave those optimization for the future.    * @param cell    */
+comment|/**    * Remove n key from the memstore. Only cells that have the same key and the    * same memstoreTS are removed.  It is ok to not update timeRangeTracker    * in this call. It is possible that we can optimize this method by using    * tailMap/iterator, but since this method is called rarely (only for    * error recovery), we can leave those optimization for the future.    * @param cell    */
 annotation|@
 name|Override
 specifier|public
@@ -1356,17 +1353,7 @@ comment|// this.size, because that tracks the size of only the memstore and
 comment|// not the snapshot. The flush of this snapshot to disk has not
 comment|// yet started because Store.flush() waits for all rwcc transactions to
 comment|// commit before starting the flush to disk.
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|cell
-argument_list|)
-decl_stmt|;
-name|KeyValue
+name|Cell
 name|found
 init|=
 name|this
@@ -1375,7 +1362,7 @@ name|snapshot
 operator|.
 name|get
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 decl_stmt|;
 if|if
@@ -1386,12 +1373,12 @@ literal|null
 operator|&&
 name|found
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 operator|==
-name|kv
+name|cell
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 condition|)
 block|{
@@ -1401,7 +1388,7 @@ name|snapshot
 operator|.
 name|remove
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 name|long
@@ -1409,7 +1396,7 @@ name|sz
 init|=
 name|heapSizeChange
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 literal|true
 argument_list|)
@@ -1426,11 +1413,11 @@ name|found
 operator|=
 name|this
 operator|.
-name|kvset
+name|cellSet
 operator|.
 name|get
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 if|if
@@ -1441,18 +1428,18 @@ literal|null
 operator|&&
 name|found
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 operator|==
-name|kv
+name|cell
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 condition|)
 block|{
-name|removeFromKVSet
+name|removeFromCellSet
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 name|long
@@ -1460,7 +1447,7 @@ name|s
 init|=
 name|heapSizeChange
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 literal|true
 argument_list|)
@@ -1493,17 +1480,12 @@ name|s
 init|=
 literal|0
 decl_stmt|;
-name|KeyValue
+name|Cell
 name|toAdd
 init|=
 name|maybeCloneWithAllocator
 argument_list|(
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
 name|deleteCell
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|s
@@ -1512,7 +1494,7 @@ name|heapSizeChange
 argument_list|(
 name|toAdd
 argument_list|,
-name|addToKVSet
+name|addToCellSet
 argument_list|(
 name|toAdd
 argument_list|)
@@ -1538,13 +1520,13 @@ return|return
 name|s
 return|;
 block|}
-comment|/**    * @param kv Find the row that comes after this one.  If null, we return the    * first.    * @return Next row or null if none found.    */
-name|KeyValue
+comment|/**    * @param cell Find the row that comes after this one.  If null, we return the    * first.    * @return Next row or null if none found.    */
+name|Cell
 name|getNextRow
 parameter_list|(
 specifier|final
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|)
 block|{
 return|return
@@ -1552,16 +1534,16 @@ name|getLowest
 argument_list|(
 name|getNextRow
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 name|this
 operator|.
-name|kvset
+name|cellSet
 argument_list|)
 argument_list|,
 name|getNextRow
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 name|this
 operator|.
@@ -1572,15 +1554,15 @@ return|;
 block|}
 comment|/*    * @param a    * @param b    * @return Return lowest of a or b or null if both a and b are null    */
 specifier|private
-name|KeyValue
+name|Cell
 name|getLowest
 parameter_list|(
 specifier|final
-name|KeyValue
+name|Cell
 name|a
 parameter_list|,
 specifier|final
-name|KeyValue
+name|Cell
 name|b
 parameter_list|)
 block|{
@@ -1625,29 +1607,29 @@ return|;
 block|}
 comment|/*    * @param key Find row that follows this one.  If null, return first.    * @param map Set to look in for a row beyond<code>row</code>.    * @return Next row or null if none found.  If one found, will be a new    * KeyValue -- can be destroyed by subsequent calls to this method.    */
 specifier|private
-name|KeyValue
+name|Cell
 name|getNextRow
 parameter_list|(
 specifier|final
-name|KeyValue
+name|Cell
 name|key
 parameter_list|,
 specifier|final
 name|NavigableSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|set
 parameter_list|)
 block|{
-name|KeyValue
+name|Cell
 name|result
 init|=
 literal|null
 decl_stmt|;
 name|SortedSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|tail
 init|=
@@ -1667,8 +1649,8 @@ decl_stmt|;
 comment|// Iterate until we fall into the next row; i.e. move off current row
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 range|:
 name|tail
 control|)
@@ -1679,7 +1661,7 @@ name|comparator
 operator|.
 name|compareRows
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 name|key
 argument_list|)
@@ -1691,7 +1673,7 @@ comment|// Note: Not suppressing deletes or expired cells.  Needs to be handled
 comment|// by higher up functions.
 name|result
 operator|=
-name|kv
+name|cell
 expr_stmt|;
 break|break;
 block|}
@@ -1713,7 +1695,7 @@ parameter_list|)
 block|{
 name|getRowKeyAtOrBefore
 argument_list|(
-name|kvset
+name|cellSet
 argument_list|,
 name|state
 argument_list|)
@@ -1734,7 +1716,7 @@ parameter_list|(
 specifier|final
 name|NavigableSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|set
 parameter_list|,
@@ -1787,12 +1769,12 @@ parameter_list|(
 specifier|final
 name|SortedSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|set
 parameter_list|,
 specifier|final
-name|KeyValue
+name|Cell
 name|firstOnRow
 parameter_list|,
 specifier|final
@@ -1807,7 +1789,7 @@ literal|false
 decl_stmt|;
 name|SortedSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|tail
 init|=
@@ -1832,7 +1814,7 @@ for|for
 control|(
 name|Iterator
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|i
 init|=
@@ -1848,7 +1830,7 @@ argument_list|()
 condition|;
 control|)
 block|{
-name|KeyValue
+name|Cell
 name|kv
 init|=
 name|i
@@ -1915,7 +1897,7 @@ name|getRowKeyBefore
 parameter_list|(
 name|NavigableSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|set
 parameter_list|,
@@ -1924,7 +1906,7 @@ name|GetClosestRowBeforeTracker
 name|state
 parameter_list|)
 block|{
-name|KeyValue
+name|Cell
 name|firstOnRow
 init|=
 name|state
@@ -1974,7 +1956,7 @@ name|isTargetTable
 argument_list|(
 name|p
 operator|.
-name|kv
+name|cell
 argument_list|)
 condition|)
 break|break;
@@ -1988,7 +1970,7 @@ name|isBetterCandidate
 argument_list|(
 name|p
 operator|.
-name|kv
+name|cell
 argument_list|)
 condition|)
 break|break;
@@ -2000,21 +1982,21 @@ name|KeyValue
 argument_list|(
 name|p
 operator|.
-name|kv
+name|cell
 operator|.
 name|getRowArray
 argument_list|()
 argument_list|,
 name|p
 operator|.
-name|kv
+name|cell
 operator|.
 name|getRowOffset
 argument_list|()
 argument_list|,
 name|p
 operator|.
-name|kv
+name|cell
 operator|.
 name|getRowLength
 argument_list|()
@@ -2065,8 +2047,8 @@ name|long
 name|now
 parameter_list|)
 block|{
-name|KeyValue
-name|firstKv
+name|Cell
+name|firstCell
 init|=
 name|KeyValueUtil
 operator|.
@@ -2079,10 +2061,10 @@ argument_list|,
 name|qualifier
 argument_list|)
 decl_stmt|;
-comment|// Is there a KeyValue in 'snapshot' with the same TS? If so, upgrade the timestamp a bit.
+comment|// Is there a Cell in 'snapshot' with the same TS? If so, upgrade the timestamp a bit.
 name|SortedSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|snSs
 init|=
@@ -2090,7 +2072,7 @@ name|snapshot
 operator|.
 name|tailSet
 argument_list|(
-name|firstKv
+name|firstCell
 argument_list|)
 decl_stmt|;
 if|if
@@ -2102,39 +2084,39 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|KeyValue
-name|snKv
+name|Cell
+name|snc
 init|=
 name|snSs
 operator|.
 name|first
 argument_list|()
 decl_stmt|;
-comment|// is there a matching KV in the snapshot?
+comment|// is there a matching Cell in the snapshot?
 if|if
 condition|(
 name|CellUtil
 operator|.
 name|matchingRow
 argument_list|(
-name|snKv
+name|snc
 argument_list|,
-name|firstKv
+name|firstCell
 argument_list|)
 operator|&&
 name|CellUtil
 operator|.
 name|matchingQualifier
 argument_list|(
-name|snKv
+name|snc
 argument_list|,
-name|firstKv
+name|firstCell
 argument_list|)
 condition|)
 block|{
 if|if
 condition|(
-name|snKv
+name|snc
 operator|.
 name|getTimestamp
 argument_list|()
@@ -2152,25 +2134,25 @@ block|}
 block|}
 comment|// logic here: the new ts MUST be at least 'now'. But it could be larger if necessary.
 comment|// But the timestamp should also be max(now, mostRecentTsInMemstore)
-comment|// so we cant add the new KV w/o knowing what's there already, but we also
-comment|// want to take this chance to delete some kvs. So two loops (sad)
+comment|// so we cant add the new Cell w/o knowing what's there already, but we also
+comment|// want to take this chance to delete some cells. So two loops (sad)
 name|SortedSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|ss
 init|=
-name|kvset
+name|cellSet
 operator|.
 name|tailSet
 argument_list|(
-name|firstKv
+name|firstCell
 argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 range|:
 name|ss
 control|)
@@ -2183,7 +2165,7 @@ name|CellUtil
 operator|.
 name|matchingColumn
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 name|family
 argument_list|,
@@ -2195,19 +2177,19 @@ name|CellUtil
 operator|.
 name|matchingRow
 argument_list|(
-name|kv
+name|cell
 argument_list|,
-name|firstKv
+name|firstCell
 argument_list|)
 condition|)
 block|{
 break|break;
 comment|// rows dont match, bail.
 block|}
-comment|// if the qualifier matches and it's a put, just RM it out of the kvset.
+comment|// if the qualifier matches and it's a put, just RM it out of the cellSet.
 if|if
 condition|(
-name|kv
+name|cell
 operator|.
 name|getTypeByte
 argument_list|()
@@ -2221,7 +2203,7 @@ operator|.
 name|getCode
 argument_list|()
 operator|&&
-name|kv
+name|cell
 operator|.
 name|getTimestamp
 argument_list|()
@@ -2232,22 +2214,22 @@ name|CellUtil
 operator|.
 name|matchingQualifier
 argument_list|(
-name|firstKv
+name|firstCell
 argument_list|,
-name|kv
+name|cell
 argument_list|)
 condition|)
 block|{
 name|now
 operator|=
-name|kv
+name|cell
 operator|.
 name|getTimestamp
 argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|// create or update (upsert) a new KeyValue with
+comment|// create or update (upsert) a new Cell with
 comment|// 'now' and a 0 memstoreTS == immediately visible
 name|List
 argument_list|<
@@ -2353,80 +2335,70 @@ name|long
 name|readpoint
 parameter_list|)
 block|{
-comment|// Add the KeyValue to the MemStore
+comment|// Add the Cell to the MemStore
 comment|// Use the internalAdd method here since we (a) already have a lock
 comment|// and (b) cannot safely use the MSLAB here without potentially
 comment|// hitting OOME - see TestMemStore.testUpsertMSLAB for a
 comment|// test that triggers the pathological case if we don't avoid MSLAB
 comment|// here.
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|cell
-argument_list|)
-decl_stmt|;
 name|long
 name|addedSize
 init|=
 name|internalAdd
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 decl_stmt|;
-comment|// Get the KeyValues for the row/family/qualifier regardless of timestamp.
+comment|// Get the Cells for the row/family/qualifier regardless of timestamp.
 comment|// For this case we want to clean up any other puts
-name|KeyValue
-name|firstKv
+name|Cell
+name|firstCell
 init|=
 name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
-name|kv
+name|cell
 operator|.
 name|getRowArray
 argument_list|()
 argument_list|,
-name|kv
+name|cell
 operator|.
 name|getRowOffset
 argument_list|()
 argument_list|,
-name|kv
+name|cell
 operator|.
 name|getRowLength
 argument_list|()
 argument_list|,
-name|kv
+name|cell
 operator|.
 name|getFamilyArray
 argument_list|()
 argument_list|,
-name|kv
+name|cell
 operator|.
 name|getFamilyOffset
 argument_list|()
 argument_list|,
-name|kv
+name|cell
 operator|.
 name|getFamilyLength
 argument_list|()
 argument_list|,
-name|kv
+name|cell
 operator|.
 name|getQualifierArray
 argument_list|()
 argument_list|,
-name|kv
+name|cell
 operator|.
 name|getQualifierOffset
 argument_list|()
 argument_list|,
-name|kv
+name|cell
 operator|.
 name|getQualifierLength
 argument_list|()
@@ -2434,20 +2406,20 @@ argument_list|)
 decl_stmt|;
 name|SortedSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|ss
 init|=
-name|kvset
+name|cellSet
 operator|.
 name|tailSet
 argument_list|(
-name|firstKv
+name|firstCell
 argument_list|)
 decl_stmt|;
 name|Iterator
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|it
 init|=
@@ -2470,7 +2442,7 @@ name|hasNext
 argument_list|()
 condition|)
 block|{
-name|KeyValue
+name|Cell
 name|cur
 init|=
 name|it
@@ -2480,7 +2452,7 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|kv
+name|cell
 operator|==
 name|cur
 condition|)
@@ -2495,7 +2467,7 @@ name|CellUtil
 operator|.
 name|matchingRow
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 name|cur
 argument_list|)
@@ -2504,7 +2476,7 @@ name|CellUtil
 operator|.
 name|matchingQualifier
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 name|cur
 argument_list|)
@@ -2529,7 +2501,7 @@ argument_list|()
 operator|&&
 name|cur
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 operator|<=
 name|readpoint
@@ -2596,20 +2568,20 @@ return|return
 name|addedSize
 return|;
 block|}
-comment|/*    * Immutable data structure to hold member found in set and the set it was    * found in.  Include set because it is carrying context.    */
+comment|/*    * Immutable data structure to hold member found in set and the set it was    * found in. Include set because it is carrying context.    */
 specifier|private
 specifier|static
 class|class
 name|Member
 block|{
 specifier|final
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 decl_stmt|;
 specifier|final
 name|NavigableSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|set
 decl_stmt|;
@@ -2618,18 +2590,18 @@ parameter_list|(
 specifier|final
 name|NavigableSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|s
 parameter_list|,
 specifier|final
-name|KeyValue
+name|Cell
 name|kv
 parameter_list|)
 block|{
 name|this
 operator|.
-name|kv
+name|cell
 operator|=
 name|kv
 expr_stmt|;
@@ -2648,7 +2620,7 @@ name|memberOfPreviousRow
 parameter_list|(
 name|NavigableSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|set
 parameter_list|,
@@ -2657,13 +2629,13 @@ name|GetClosestRowBeforeTracker
 name|state
 parameter_list|,
 specifier|final
-name|KeyValue
+name|Cell
 name|firstOnRow
 parameter_list|)
 block|{
 name|NavigableSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|head
 init|=
@@ -2690,7 +2662,7 @@ for|for
 control|(
 name|Iterator
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|i
 init|=
@@ -2706,7 +2678,7 @@ argument_list|()
 condition|;
 control|)
 block|{
-name|KeyValue
+name|Cell
 name|found
 init|=
 name|i
@@ -2837,28 +2809,28 @@ name|MemStoreScanner
 extends|extends
 name|NonLazyKeyValueScanner
 block|{
-comment|// Next row information for either kvset or snapshot
+comment|// Next row information for either cellSet or snapshot
 specifier|private
-name|KeyValue
-name|kvsetNextRow
+name|Cell
+name|cellSetNextRow
 init|=
 literal|null
 decl_stmt|;
 specifier|private
-name|KeyValue
+name|Cell
 name|snapshotNextRow
 init|=
 literal|null
 decl_stmt|;
-comment|// last iterated KVs for kvset and snapshot (to restore iterator state after reseek)
+comment|// last iterated Cells for cellSet and snapshot (to restore iterator state after reseek)
 specifier|private
-name|KeyValue
-name|kvsetItRow
+name|Cell
+name|cellSetItRow
 init|=
 literal|null
 decl_stmt|;
 specifier|private
-name|KeyValue
+name|Cell
 name|snapshotItRow
 init|=
 literal|null
@@ -2867,29 +2839,29 @@ comment|// iterator based scanning.
 specifier|private
 name|Iterator
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
-name|kvsetIt
+name|cellSetIt
 decl_stmt|;
 specifier|private
 name|Iterator
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|snapshotIt
 decl_stmt|;
-comment|// The kvset and snapshot at the time of creating this scanner
+comment|// The cellSet and snapshot at the time of creating this scanner
 specifier|private
-name|KeyValueSkipListSet
-name|kvsetAtCreation
+name|CellSkipListSet
+name|cellSetAtCreation
 decl_stmt|;
 specifier|private
-name|KeyValueSkipListSet
+name|CellSkipListSet
 name|snapshotAtCreation
 decl_stmt|;
-comment|// the pre-calculated KeyValue to be returned by peek() or next()
+comment|// the pre-calculated Cell to be returned by peek() or next()
 specifier|private
-name|KeyValue
+name|Cell
 name|theNext
 decl_stmt|;
 comment|// The allocator and snapshot allocator at the time of creating this scanner
@@ -2901,11 +2873,11 @@ specifier|volatile
 name|MemStoreLAB
 name|snapshotAllocatorAtCreation
 decl_stmt|;
-comment|// A flag represents whether could stop skipping KeyValues for MVCC
+comment|// A flag represents whether could stop skipping Cells for MVCC
 comment|// if have encountered the next row. Only used for reversed scan
 specifier|private
 name|boolean
-name|stopSkippingKVsIfNextRow
+name|stopSkippingCellsIfNextRow
 init|=
 literal|false
 decl_stmt|;
@@ -2929,9 +2901,9 @@ name|readPoint
 operator|=
 name|readPoint
 expr_stmt|;
-name|kvsetAtCreation
+name|cellSetAtCreation
 operator|=
-name|kvset
+name|cellSet
 expr_stmt|;
 name|snapshotAtCreation
 operator|=
@@ -2980,23 +2952,24 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**      * Lock on 'this' must be held by caller.      * @param it      * @return Next Cell      */
 specifier|private
-name|KeyValue
+name|Cell
 name|getNext
 parameter_list|(
 name|Iterator
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|it
 parameter_list|)
 block|{
-name|KeyValue
-name|startKV
+name|Cell
+name|startCell
 init|=
 name|theNext
 decl_stmt|;
-name|KeyValue
+name|Cell
 name|v
 init|=
 literal|null
@@ -3022,7 +2995,7 @@ if|if
 condition|(
 name|v
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 operator|<=
 name|this
@@ -3036,9 +3009,9 @@ return|;
 block|}
 if|if
 condition|(
-name|stopSkippingKVsIfNextRow
+name|stopSkippingCellsIfNextRow
 operator|&&
-name|startKV
+name|startCell
 operator|!=
 literal|null
 operator|&&
@@ -3048,7 +3021,7 @@ name|compareRows
 argument_list|(
 name|v
 argument_list|,
-name|startKV
+name|startCell
 argument_list|)
 operator|>
 literal|0
@@ -3072,7 +3045,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|// in all cases, remember the last KV iterated to
+comment|// in all cases, remember the last Cell iterated to
 if|if
 condition|(
 name|it
@@ -3087,7 +3060,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|kvsetItRow
+name|cellSetItRow
 operator|=
 name|v
 expr_stmt|;
@@ -3121,25 +3094,15 @@ return|return
 literal|false
 return|;
 block|}
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|key
-argument_list|)
-decl_stmt|;
 comment|// kvset and snapshot will never be null.
 comment|// if tailSet can't find anything, SortedSet is empty (not null).
-name|kvsetIt
+name|cellSetIt
 operator|=
-name|kvsetAtCreation
+name|cellSetAtCreation
 operator|.
 name|tailSet
 argument_list|(
-name|kv
+name|key
 argument_list|)
 operator|.
 name|iterator
@@ -3151,13 +3114,13 @@ name|snapshotAtCreation
 operator|.
 name|tailSet
 argument_list|(
-name|kv
+name|key
 argument_list|)
 operator|.
 name|iterator
 argument_list|()
 expr_stmt|;
-name|kvsetItRow
+name|cellSetItRow
 operator|=
 literal|null
 expr_stmt|;
@@ -3168,7 +3131,7 @@ expr_stmt|;
 return|return
 name|seekInSubLists
 argument_list|(
-name|kv
+name|key
 argument_list|)
 return|;
 block|}
@@ -3178,15 +3141,15 @@ specifier|synchronized
 name|boolean
 name|seekInSubLists
 parameter_list|(
-name|KeyValue
+name|Cell
 name|key
 parameter_list|)
 block|{
-name|kvsetNextRow
+name|cellSetNextRow
 operator|=
 name|getNext
 argument_list|(
-name|kvsetIt
+name|cellSetIt
 argument_list|)
 expr_stmt|;
 name|snapshotNextRow
@@ -3201,7 +3164,7 @@ name|theNext
 operator|=
 name|getLowest
 argument_list|(
-name|kvsetNextRow
+name|cellSetNextRow
 argument_list|,
 name|snapshotNextRow
 argument_list|)
@@ -3228,27 +3191,17 @@ name|key
 parameter_list|)
 block|{
 comment|/*       See HBASE-4195& HBASE-3855& HBASE-6591 for the background on this implementation.       This code is executed concurrently with flush and puts, without locks.       Two points must be known when working on this code:       1) It's not possible to use the 'kvTail' and 'snapshot'        variables, as they are modified during a flush.       2) The ideal implementation for performance would use the sub skip list        implicitly pointed by the iterators 'kvsetIt' and        'snapshotIt'. Unfortunately the Java API does not offer a method to        get it. So we remember the last keys we iterated to and restore        the reseeked set to at least that point.        */
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|key
-argument_list|)
-decl_stmt|;
-name|kvsetIt
+name|cellSetIt
 operator|=
-name|kvsetAtCreation
+name|cellSetAtCreation
 operator|.
 name|tailSet
 argument_list|(
 name|getHighest
 argument_list|(
-name|kv
+name|key
 argument_list|,
-name|kvsetItRow
+name|cellSetItRow
 argument_list|)
 argument_list|)
 operator|.
@@ -3263,7 +3216,7 @@ name|tailSet
 argument_list|(
 name|getHighest
 argument_list|(
-name|kv
+name|key
 argument_list|,
 name|snapshotItRow
 argument_list|)
@@ -3275,7 +3228,7 @@ expr_stmt|;
 return|return
 name|seekInSubLists
 argument_list|(
-name|kv
+name|key
 argument_list|)
 return|;
 block|}
@@ -3283,7 +3236,7 @@ annotation|@
 name|Override
 specifier|public
 specifier|synchronized
-name|KeyValue
+name|Cell
 name|peek
 parameter_list|()
 block|{
@@ -3296,7 +3249,7 @@ annotation|@
 name|Override
 specifier|public
 specifier|synchronized
-name|KeyValue
+name|Cell
 name|next
 parameter_list|()
 block|{
@@ -3312,7 +3265,7 @@ literal|null
 return|;
 block|}
 specifier|final
-name|KeyValue
+name|Cell
 name|ret
 init|=
 name|theNext
@@ -3322,14 +3275,14 @@ if|if
 condition|(
 name|theNext
 operator|==
-name|kvsetNextRow
+name|cellSetNextRow
 condition|)
 block|{
-name|kvsetNextRow
+name|cellSetNextRow
 operator|=
 name|getNext
 argument_list|(
-name|kvsetIt
+name|cellSetIt
 argument_list|)
 expr_stmt|;
 block|}
@@ -3348,7 +3301,7 @@ name|theNext
 operator|=
 name|getLowest
 argument_list|(
-name|kvsetNextRow
+name|cellSetNextRow
 argument_list|,
 name|snapshotNextRow
 argument_list|)
@@ -3362,13 +3315,13 @@ return|;
 block|}
 comment|/*      * Returns the lower of the two key values, or null if they are both null.      * This uses comparator.compare() to compare the KeyValue using the memstore      * comparator.      */
 specifier|private
-name|KeyValue
+name|Cell
 name|getLowest
 parameter_list|(
-name|KeyValue
+name|Cell
 name|first
 parameter_list|,
-name|KeyValue
+name|Cell
 name|second
 parameter_list|)
 block|{
@@ -3434,15 +3387,15 @@ name|second
 operator|)
 return|;
 block|}
-comment|/*      * Returns the higher of the two key values, or null if they are both null.      * This uses comparator.compare() to compare the KeyValue using the memstore      * comparator.      */
+comment|/*      * Returns the higher of the two cells, or null if they are both null.      * This uses comparator.compare() to compare the Cell using the memstore      * comparator.      */
 specifier|private
-name|KeyValue
+name|Cell
 name|getHighest
 parameter_list|(
-name|KeyValue
+name|Cell
 name|first
 parameter_list|,
-name|KeyValue
+name|Cell
 name|second
 parameter_list|)
 block|{
@@ -3516,7 +3469,7 @@ parameter_list|()
 block|{
 name|this
 operator|.
-name|kvsetNextRow
+name|cellSetNextRow
 operator|=
 literal|null
 expr_stmt|;
@@ -3528,7 +3481,7 @@ literal|null
 expr_stmt|;
 name|this
 operator|.
-name|kvsetIt
+name|cellSetIt
 operator|=
 literal|null
 expr_stmt|;
@@ -3582,7 +3535,7 @@ expr_stmt|;
 block|}
 name|this
 operator|.
-name|kvsetItRow
+name|cellSetItRow
 operator|=
 literal|null
 expr_stmt|;
@@ -3696,7 +3649,7 @@ name|Cell
 name|key
 parameter_list|)
 block|{
-name|KeyValue
+name|Cell
 name|firstKeyOnRow
 init|=
 name|KeyValueUtil
@@ -3721,35 +3674,35 @@ argument_list|)
 decl_stmt|;
 name|SortedSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
-name|kvHead
+name|cellHead
 init|=
-name|kvsetAtCreation
+name|cellSetAtCreation
 operator|.
 name|headSet
 argument_list|(
 name|firstKeyOnRow
 argument_list|)
 decl_stmt|;
-name|KeyValue
-name|kvsetBeforeRow
+name|Cell
+name|cellSetBeforeRow
 init|=
-name|kvHead
+name|cellHead
 operator|.
 name|isEmpty
 argument_list|()
 condition|?
 literal|null
 else|:
-name|kvHead
+name|cellHead
 operator|.
 name|last
 argument_list|()
 decl_stmt|;
 name|SortedSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|snapshotHead
 init|=
@@ -3760,7 +3713,7 @@ argument_list|(
 name|firstKeyOnRow
 argument_list|)
 decl_stmt|;
-name|KeyValue
+name|Cell
 name|snapshotBeforeRow
 init|=
 name|snapshotHead
@@ -3775,19 +3728,19 @@ operator|.
 name|last
 argument_list|()
 decl_stmt|;
-name|KeyValue
-name|lastKVBeforeRow
+name|Cell
+name|lastCellBeforeRow
 init|=
 name|getHighest
 argument_list|(
-name|kvsetBeforeRow
+name|cellSetBeforeRow
 argument_list|,
 name|snapshotBeforeRow
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|lastKVBeforeRow
+name|lastCellBeforeRow
 operator|==
 literal|null
 condition|)
@@ -3800,24 +3753,24 @@ return|return
 literal|false
 return|;
 block|}
-name|KeyValue
+name|Cell
 name|firstKeyOnPreviousRow
 init|=
 name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
-name|lastKVBeforeRow
+name|lastCellBeforeRow
 operator|.
 name|getRowArray
 argument_list|()
 argument_list|,
-name|lastKVBeforeRow
+name|lastCellBeforeRow
 operator|.
 name|getRowOffset
 argument_list|()
 argument_list|,
-name|lastKVBeforeRow
+name|lastCellBeforeRow
 operator|.
 name|getRowLength
 argument_list|()
@@ -3825,7 +3778,7 @@ argument_list|)
 decl_stmt|;
 name|this
 operator|.
-name|stopSkippingKVsIfNextRow
+name|stopSkippingCellsIfNextRow
 operator|=
 literal|true
 expr_stmt|;
@@ -3836,7 +3789,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|stopSkippingKVsIfNextRow
+name|stopSkippingCellsIfNextRow
 operator|=
 literal|false
 expr_stmt|;
@@ -3863,7 +3816,7 @@ block|{
 return|return
 name|seekToPreviousRow
 argument_list|(
-name|lastKVBeforeRow
+name|lastCellBeforeRow
 argument_list|)
 return|;
 block|}
@@ -3879,22 +3832,22 @@ name|boolean
 name|seekToLastRow
 parameter_list|()
 block|{
-name|KeyValue
+name|Cell
 name|first
 init|=
-name|kvsetAtCreation
+name|cellSetAtCreation
 operator|.
 name|isEmpty
 argument_list|()
 condition|?
 literal|null
 else|:
-name|kvsetAtCreation
+name|cellSetAtCreation
 operator|.
 name|last
 argument_list|()
 decl_stmt|;
-name|KeyValue
+name|Cell
 name|second
 init|=
 name|snapshotAtCreation
@@ -3909,8 +3862,8 @@ operator|.
 name|last
 argument_list|()
 decl_stmt|;
-name|KeyValue
-name|higherKv
+name|Cell
+name|higherCell
 init|=
 name|getHighest
 argument_list|(
@@ -3921,7 +3874,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|higherKv
+name|higherCell
 operator|==
 literal|null
 condition|)
@@ -3930,24 +3883,24 @@ return|return
 literal|false
 return|;
 block|}
-name|KeyValue
-name|firstKvOnLastRow
+name|Cell
+name|firstCellOnLastRow
 init|=
 name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
-name|higherKv
+name|higherCell
 operator|.
 name|getRowArray
 argument_list|()
 argument_list|,
-name|higherKv
+name|higherCell
 operator|.
 name|getRowOffset
 argument_list|()
 argument_list|,
-name|higherKv
+name|higherCell
 operator|.
 name|getRowLength
 argument_list|()
@@ -3957,7 +3910,7 @@ if|if
 condition|(
 name|seek
 argument_list|(
-name|firstKvOnLastRow
+name|firstCellOnLastRow
 argument_list|)
 condition|)
 block|{
@@ -3970,7 +3923,7 @@ block|{
 return|return
 name|seekToPreviousRow
 argument_list|(
-name|higherKv
+name|higherCell
 argument_list|)
 return|;
 block|}
@@ -4036,7 +3989,7 @@ literal|2
 operator|*
 name|ClassSize
 operator|.
-name|KEYVALUE_SKIPLIST_SET
+name|CELL_SKIPLIST_SET
 operator|)
 operator|+
 operator|(
@@ -4048,14 +4001,14 @@ name|CONCURRENT_SKIPLISTMAP
 operator|)
 argument_list|)
 decl_stmt|;
-comment|/*    * Calculate how the MemStore size has changed.  Includes overhead of the    * backing Map.    * @param kv    * @param notpresent True if the kv was NOT present in the set.    * @return Size    */
+comment|/*    * Calculate how the MemStore size has changed.  Includes overhead of the    * backing Map.    * @param cell    * @param notpresent True if the cell was NOT present in the set.    * @return Size    */
 specifier|static
 name|long
 name|heapSizeChange
 parameter_list|(
 specifier|final
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|,
 specifier|final
 name|boolean
@@ -4073,10 +4026,12 @@ name|ClassSize
 operator|.
 name|CONCURRENT_SKIPLISTMAP_ENTRY
 operator|+
-name|kv
+name|CellUtil
 operator|.
-name|heapSize
-argument_list|()
+name|estimatedHeapSizeOf
+argument_list|(
+name|cell
+argument_list|)
 argument_list|)
 else|:
 literal|0

@@ -119,6 +119,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -136,6 +138,20 @@ operator|.
 name|conf
 operator|.
 name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Cell
 import|;
 end_import
 
@@ -192,20 +208,6 @@ operator|.
 name|hbase
 operator|.
 name|HRegionLocation
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
 import|;
 end_import
 
@@ -422,6 +424,24 @@ operator|.
 name|util
 operator|.
 name|Pair
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WAL
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -612,8 +632,6 @@ name|Pair
 argument_list|<
 name|HRegionLocation
 argument_list|,
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 argument_list|>
@@ -648,8 +666,6 @@ name|HRegionInfo
 argument_list|,
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 argument_list|>
@@ -662,8 +678,6 @@ name|HRegionInfo
 argument_list|,
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 argument_list|>
@@ -674,8 +688,6 @@ name|loc
 init|=
 literal|null
 decl_stmt|;
-name|HLog
-operator|.
 name|Entry
 name|entry
 init|=
@@ -683,8 +695,6 @@ literal|null
 decl_stmt|;
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|regionEntries
@@ -764,8 +774,6 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 argument_list|()
@@ -810,8 +818,6 @@ name|HRegionInfo
 argument_list|,
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 argument_list|>
@@ -833,8 +839,6 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|allActions
@@ -1008,8 +1012,6 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -1027,6 +1029,8 @@ operator|.
 name|instantiate
 argument_list|(
 name|conf
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|ReplayServerCallable
@@ -1129,8 +1133,6 @@ decl_stmt|;
 specifier|private
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -1156,8 +1158,6 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -1244,8 +1244,6 @@ name|regionInfo
 parameter_list|,
 name|List
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -1263,15 +1261,11 @@ name|isEmpty
 argument_list|()
 condition|)
 return|return;
-name|HLog
-operator|.
 name|Entry
 index|[]
 name|entriesArray
 init|=
 operator|new
-name|HLog
-operator|.
 name|Entry
 index|[
 name|entries
@@ -1394,8 +1388,6 @@ literal|false
 decl_stmt|;
 for|for
 control|(
-name|HLog
-operator|.
 name|Entry
 name|entry
 range|:
@@ -1414,24 +1406,24 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
-name|kvs
+name|cells
 init|=
 name|edit
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 range|:
-name|kvs
+name|cells
 control|)
 block|{
-comment|// filtering HLog meta entries
+comment|// filtering WAL meta entries
 name|setLocation
 argument_list|(
 name|conn
@@ -1440,7 +1432,7 @@ name|locateRegion
 argument_list|(
 name|tableName
 argument_list|,
-name|kv
+name|cell
 operator|.
 name|getRow
 argument_list|()

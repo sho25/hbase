@@ -53,6 +53,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -70,20 +72,6 @@ operator|.
 name|hbase
 operator|.
 name|Abortable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ClusterStatus
 import|;
 end_import
 
@@ -134,7 +122,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tracker on cluster settings up in zookeeper.  * This is not related to {@link ClusterStatus}.  That class is a data structure  * that holds snapshot of current view on cluster.  This class is about tracking  * cluster attributes up in zookeeper.  *  */
+comment|/**  * Tracker on cluster settings up in zookeeper.  * This is not related to {@link org.apache.hadoop.hbase.ClusterStatus}. That class   * is a data structure that holds snapshot of current view on cluster. This class   * is about tracking cluster attributes up in zookeeper.  *  */
 end_comment
 
 begin_class

@@ -21,21 +21,13 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|beans
-operator|.
-name|EventHandler
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -58,7 +50,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementors tote an HRegionInfo instance.  * This is a marker interface that can be put on {@link EventHandler}s that  * have an {@link HRegionInfo}.  */
+comment|/**  * Implementors tote an HRegionInfo instance.  * This is a marker interface that can be put on {@link java.beans.EventHandler}s that  * have an {@link HRegionInfo}.  */
 end_comment
 
 begin_interface

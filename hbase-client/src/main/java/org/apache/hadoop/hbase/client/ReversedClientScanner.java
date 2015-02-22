@@ -85,20 +85,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
@@ -130,6 +116,22 @@ operator|.
 name|hbase
 operator|.
 name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -777,6 +779,7 @@ comment|// unlikely.
 block|}
 comment|/**    * Create the closest row before the specified row    * @param row    * @return a new byte array which is the closest front row of the specified one    */
 specifier|protected
+specifier|static
 name|byte
 index|[]
 name|createClosestRowBefore

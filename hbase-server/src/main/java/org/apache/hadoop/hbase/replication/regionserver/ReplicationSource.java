@@ -163,6 +163,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -235,6 +237,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellUtil
 import|;
 end_import
@@ -277,20 +293,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|Stoppable
 import|;
 end_import
@@ -305,11 +307,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|DefaultWALProvider
 import|;
 end_import
 
@@ -323,11 +323,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|wal
+operator|.
+name|WAL
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
 operator|.
 name|wal
 operator|.
-name|HLogKey
+name|WALKey
 import|;
 end_import
 
@@ -489,6 +503,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|FSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Threads
 import|;
 end_import
@@ -625,9 +655,9 @@ specifier|private
 name|int
 name|replicationQueueNbCapacity
 decl_stmt|;
-comment|// Our reader for the current log
+comment|// Our reader for the current log. open/close handled by repLogReader
 specifier|private
-name|HLog
+name|WAL
 operator|.
 name|Reader
 name|reader
@@ -713,7 +743,7 @@ name|metrics
 decl_stmt|;
 comment|// Handle on the log reader helper
 specifier|private
-name|ReplicationHLogReaderManager
+name|ReplicationWALReaderManager
 name|repLogReader
 decl_stmt|;
 comment|//WARN threshold for the number of queued logs, defaults to 2
@@ -848,6 +878,22 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
+name|sleepForRetries
+operator|=
+name|this
+operator|.
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"replication.source.sleepforretries"
+argument_list|,
+literal|1000
+argument_list|)
+expr_stmt|;
+comment|// 1 second
+name|this
+operator|.
 name|maxRetriesMultiplier
 operator|=
 name|this
@@ -858,9 +904,10 @@ name|getInt
 argument_list|(
 literal|"replication.source.maxretriesmultiplier"
 argument_list|,
-literal|10
+literal|300
 argument_list|)
 expr_stmt|;
+comment|// 5 minutes @ 1 sec per
 name|this
 operator|.
 name|queue
@@ -936,21 +983,6 @@ name|manager
 expr_stmt|;
 name|this
 operator|.
-name|sleepForRetries
-operator|=
-name|this
-operator|.
-name|conf
-operator|.
-name|getLong
-argument_list|(
-literal|"replication.source.sleepforretries"
-argument_list|,
-literal|1000
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
 name|fs
 operator|=
 name|fs
@@ -966,7 +998,7 @@ operator|.
 name|repLogReader
 operator|=
 operator|new
-name|ReplicationHLogReaderManager
+name|ReplicationWALReaderManager
 argument_list|(
 name|this
 operator|.
@@ -1751,7 +1783,7 @@ literal|0
 expr_stmt|;
 name|List
 argument_list|<
-name|HLog
+name|WAL
 operator|.
 name|Entry
 argument_list|>
@@ -1760,7 +1792,7 @@ init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|HLog
+name|WAL
 operator|.
 name|Entry
 argument_list|>
@@ -2101,7 +2133,7 @@ name|currentWALisBeingWrittenTo
 parameter_list|,
 name|List
 argument_list|<
-name|HLog
+name|WAL
 operator|.
 name|Entry
 argument_list|>
@@ -2161,7 +2193,7 @@ operator|.
 name|getPosition
 argument_list|()
 decl_stmt|;
-name|HLog
+name|WAL
 operator|.
 name|Entry
 name|entry
@@ -2228,7 +2260,7 @@ name|edit
 init|=
 literal|null
 decl_stmt|;
-name|HLogKey
+name|WALKey
 name|logKey
 init|=
 literal|null
@@ -2619,6 +2651,19 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+specifier|final
+name|Path
+name|rootDir
+init|=
+name|FSUtils
+operator|.
+name|getRootDir
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
+decl_stmt|;
 for|for
 control|(
 name|String
@@ -2627,21 +2672,21 @@ range|:
 name|deadRegionServers
 control|)
 block|{
+specifier|final
 name|Path
 name|deadRsDirectory
 init|=
 operator|new
 name|Path
 argument_list|(
-name|manager
-operator|.
-name|getLogDir
-argument_list|()
-operator|.
-name|getParent
-argument_list|()
+name|rootDir
 argument_list|,
+name|DefaultWALProvider
+operator|.
+name|getWALDirectoryName
+argument_list|(
 name|curDeadServerName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|Path
@@ -2670,7 +2715,7 @@ name|deadRsDirectory
 operator|.
 name|suffix
 argument_list|(
-name|HLog
+name|DefaultWALProvider
 operator|.
 name|SPLITTING_EXT
 argument_list|)
@@ -2737,6 +2782,7 @@ name|possibleLogLocation
 argument_list|)
 expr_stmt|;
 comment|// Breaking here will make us sleep since reader is null
+comment|// TODO why don't we need to set currentPath and call openReader here?
 return|return
 literal|true
 return|;
@@ -2754,6 +2800,8 @@ operator|.
 name|DummyServer
 condition|)
 block|{
+comment|// N.B. the ReplicationSyncUp tool sets the manager.getLogDir to the root of the wal
+comment|//      area rather than to the wal area for a particular region server.
 name|FileStatus
 index|[]
 name|rss
@@ -2845,16 +2893,14 @@ name|info
 argument_list|(
 literal|"Log "
 operator|+
-name|this
-operator|.
 name|currentPath
-operator|+
-literal|" exists under "
-operator|+
-name|manager
 operator|.
-name|getLogDir
+name|getName
 argument_list|()
+operator|+
+literal|" found at "
+operator|+
+name|currentPath
 argument_list|)
 expr_stmt|;
 comment|// Open the log at the new location
@@ -3007,7 +3053,7 @@ condition|)
 block|{
 comment|// Workaround for race condition in HDFS-4380
 comment|// which throws a NPE if we open a file before any data node has the most recent block
-comment|// Just sleep and retry. Will require re-reading compressed HLogs for compressionContext.
+comment|// Just sleep and retry. Will require re-reading compressed WALs for compressionContext.
 name|LOG
 operator|.
 name|warn
@@ -3158,7 +3204,7 @@ operator|<
 name|maxRetriesMultiplier
 return|;
 block|}
-comment|/**    * Count the number of different row keys in the given edit because of    * mini-batching. We assume that there's at least one KV in the WALEdit.    * @param edit edit to count row keys from    * @return number of different row keys    */
+comment|/**    * Count the number of different row keys in the given edit because of    * mini-batching. We assume that there's at least one Cell in the WALEdit.    * @param edit edit to count row keys from    * @return number of different row keys    */
 specifier|private
 name|int
 name|countDistinctRowKeys
@@ -3169,13 +3215,13 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
-name|kvs
+name|cells
 init|=
 name|edit
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 decl_stmt|;
 name|int
@@ -3183,10 +3229,10 @@ name|distinctRowKeys
 init|=
 literal|1
 decl_stmt|;
-name|KeyValue
-name|lastKV
+name|Cell
+name|lastCell
 init|=
-name|kvs
+name|cells
 operator|.
 name|get
 argument_list|(
@@ -3218,14 +3264,14 @@ name|CellUtil
 operator|.
 name|matchingRow
 argument_list|(
-name|kvs
+name|cells
 operator|.
 name|get
 argument_list|(
 name|i
 argument_list|)
 argument_list|,
-name|lastKV
+name|lastCell
 argument_list|)
 condition|)
 block|{
@@ -3248,7 +3294,7 @@ name|currentWALisBeingWrittenTo
 parameter_list|,
 name|List
 argument_list|<
-name|HLog
+name|WAL
 operator|.
 name|Entry
 argument_list|>
@@ -3649,6 +3695,27 @@ argument_list|)
 return|;
 block|}
 comment|/**    * If the queue isn't empty, switch to the next one    * Else if this is a recovered queue, it means we're done!    * Else we'll just continue to try reading the log file    * @return true if we're done with the current file, false if we should    * continue trying to read from it    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"DE_MIGHT_IGNORE"
+argument_list|,
+name|justification
+operator|=
+literal|"Yeah, this is how it works"
+argument_list|)
 specifier|protected
 name|boolean
 name|processEndOfFile

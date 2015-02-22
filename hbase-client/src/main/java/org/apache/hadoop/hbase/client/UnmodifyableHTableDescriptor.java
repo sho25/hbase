@@ -25,34 +25,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|HColumnDescriptor
@@ -70,6 +42,38 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -189,10 +193,28 @@ comment|/**    * Does NOT add a column family. This object is immutable    * @pa
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HTableDescriptor
 name|addFamily
 parameter_list|(
 specifier|final
+name|HColumnDescriptor
+name|family
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"HTableDescriptor is read-only"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|HTableDescriptor
+name|modifyFamily
+parameter_list|(
 name|HColumnDescriptor
 name|family
 parameter_list|)
@@ -230,7 +252,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setReadOnly(boole
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HTableDescriptor
 name|setReadOnly
 parameter_list|(
 name|boolean
@@ -249,7 +271,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setValue(byte[], 
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HTableDescriptor
 name|setValue
 parameter_list|(
 name|byte
@@ -273,7 +295,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setValue(java.lan
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HTableDescriptor
 name|setValue
 parameter_list|(
 name|String
@@ -295,7 +317,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setMaxFileSize(lo
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HTableDescriptor
 name|setMaxFileSize
 parameter_list|(
 name|long
@@ -314,7 +336,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setMemStoreFlushS
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HTableDescriptor
 name|setMemStoreFlushSize
 parameter_list|(
 name|long
@@ -329,13 +351,6 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|//  /**
-comment|//   * @see org.apache.hadoop.hbase.HTableDescriptor#addIndex(org.apache.hadoop.hbase.client.tableindexed.IndexSpecification)
-comment|//   */
-comment|//  @Override
-comment|//  public void addIndex(IndexSpecification index) {
-comment|//    throw new UnsupportedOperationException("HTableDescriptor is read-only");
-comment|//  }
 block|}
 end_class
 

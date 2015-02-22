@@ -337,7 +337,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|testclassification
+operator|.
+name|RegionServerTests
 import|;
 end_import
 
@@ -350,6 +352,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|testclassification
 operator|.
 name|SmallTests
 import|;
@@ -597,9 +601,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|RegionServerTests
+operator|.
+name|class
+block|,
 name|SmallTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class
@@ -1156,9 +1166,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.
@@ -1512,9 +1522,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.
@@ -1632,9 +1642,9 @@ block|}
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.
@@ -2016,9 +2026,9 @@ block|}
 finally|finally
 block|{
 comment|// clean up
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|r
 argument_list|)
@@ -2720,9 +2730,9 @@ throw|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.
@@ -2849,9 +2859,9 @@ throw|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.
@@ -3220,9 +3230,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|HRegion
+name|HBaseTestingUtility
 operator|.
-name|closeHRegion
+name|closeRegionAndWAL
 argument_list|(
 name|this
 operator|.

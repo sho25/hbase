@@ -73,6 +73,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -949,6 +951,11 @@ operator|.
 name|getServerName
 argument_list|()
 argument_list|,
+name|hri
+operator|.
+name|getReplicaId
+argument_list|()
+argument_list|,
 name|newState
 operator|.
 name|getState
@@ -1365,6 +1372,9 @@ name|b
 parameter_list|,
 name|ServerName
 name|sn
+parameter_list|,
+name|int
+name|regionReplication
 parameter_list|)
 throws|throws
 name|IOException
@@ -1375,7 +1385,7 @@ name|splitRegion
 argument_list|(
 name|server
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|p
@@ -1385,6 +1395,8 @@ argument_list|,
 name|b
 argument_list|,
 name|sn
+argument_list|,
+name|regionReplication
 argument_list|)
 expr_stmt|;
 block|}
@@ -1402,6 +1414,9 @@ name|b
 parameter_list|,
 name|ServerName
 name|sn
+parameter_list|,
+name|int
+name|regionReplication
 parameter_list|)
 throws|throws
 name|IOException
@@ -1412,7 +1427,7 @@ name|mergeRegions
 argument_list|(
 name|server
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|p
@@ -1422,6 +1437,8 @@ argument_list|,
 name|b
 argument_list|,
 name|sn
+argument_list|,
+name|regionReplication
 argument_list|)
 expr_stmt|;
 block|}

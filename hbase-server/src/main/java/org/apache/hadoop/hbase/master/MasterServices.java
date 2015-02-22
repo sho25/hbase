@@ -45,6 +45,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -195,6 +197,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|quotas
+operator|.
+name|MasterQuotaManager
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -245,9 +263,19 @@ name|TableLockManager
 name|getTableLockManager
 parameter_list|()
 function_decl|;
+comment|/**    * @return Master's instance of {@link TableStateManager}    */
+name|TableStateManager
+name|getTableStateManager
+parameter_list|()
+function_decl|;
 comment|/**    * @return Master's instance of {@link MasterCoprocessorHost}    */
 name|MasterCoprocessorHost
 name|getMasterCoprocessorHost
+parameter_list|()
+function_decl|;
+comment|/**    * @return Master's instance of {@link MasterQuotaManager}    */
+name|MasterQuotaManager
+name|getMasterQuotaManager
 parameter_list|()
 function_decl|;
 comment|/**    * Check table is modifiable; i.e. exists and is offline.    * @param tableName Name of table to check.    * @throws TableNotDisabledException    * @throws TableNotFoundException    * @throws IOException    */
@@ -509,6 +537,29 @@ name|listTableNamesByNamespace
 parameter_list|(
 name|String
 name|name
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * @param table    * @return the timestamp of the last successful major compaction for the passed table,    * or 0 if no HFile resulting from a major compaction exists    * @throws IOException    */
+specifier|public
+name|long
+name|getLastMajorCompactionTimestamp
+parameter_list|(
+name|TableName
+name|table
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * @param regionName    * @return the timestamp of the last successful major compaction for the passed region    * or 0 if no HFile resulting from a major compaction exists    * @throws IOException    */
+specifier|public
+name|long
+name|getLastMajorCompactionTimestampForRegion
+parameter_list|(
+name|byte
+index|[]
+name|regionName
 parameter_list|)
 throws|throws
 name|IOException

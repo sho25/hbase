@@ -147,9 +147,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|zookeeper
+name|testclassification
 operator|.
-name|ZKUtil
+name|MediumTests
 import|;
 end_import
 
@@ -163,9 +163,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|zookeeper
+name|testclassification
 operator|.
-name|ZooKeeperWatcher
+name|MiscTests
 import|;
 end_import
 
@@ -267,9 +267,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|MiscTests
+operator|.
+name|class
+block|,
 name|MediumTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class

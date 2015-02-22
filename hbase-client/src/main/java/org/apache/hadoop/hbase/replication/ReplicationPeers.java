@@ -55,9 +55,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
+name|conf
 operator|.
-name|InterfaceAudience
+name|Configuration
 import|;
 end_import
 
@@ -69,9 +69,25 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -202,7 +218,7 @@ comment|/**    * Get the table and column-family-list map of the peer.    * @par
 specifier|public
 name|Map
 argument_list|<
-name|String
+name|TableName
 argument_list|,
 name|List
 argument_list|<

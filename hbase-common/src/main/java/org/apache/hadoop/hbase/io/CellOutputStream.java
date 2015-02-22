@@ -35,34 +35,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|Cell
@@ -79,12 +51,30 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellScanner
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
 begin_comment
-comment|/**  * Accepts a stream of Cells. This can be used to build a block of cells during compactions  * and flushes, or to build a byte[] to send to the client. This could be backed by a  * List<KeyValue>, but more efficient implementations will append results to a  * byte[] to eliminate overhead, and possibly encode the cells further.  *<p>To read Cells, use {@link CellScanner}  * @see CellScanner  */
+comment|/**  * Accepts a stream of Cells. This can be used to build a block of cells during compactions  * and flushes, or to build a byte[] to send to the client. This could be backed by a  * List<KeyValue>, but more efficient implementations will append results to a  * byte[] to eliminate overhead, and possibly encode the cells further.  *<p>To read Cells, use {@link org.apache.hadoop.hbase.CellScanner}  * @see org.apache.hadoop.hbase.CellScanner  */
 end_comment
 
 begin_interface

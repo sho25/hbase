@@ -23,7 +23,43 @@ name|lang
 operator|.
 name|annotation
 operator|.
-name|*
+name|ElementType
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|annotation
+operator|.
+name|Retention
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|annotation
+operator|.
+name|RetentionPolicy
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|annotation
+operator|.
+name|Target
 import|;
 end_import
 
@@ -34,6 +70,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -91,6 +129,11 @@ function_decl|;
 comment|/**    * Get the subversion revision.    * @return the revision number as a string (eg. "451451")    */
 name|String
 name|revision
+parameter_list|()
+function_decl|;
+comment|/**    * Get a checksum of the source files from which HBase was compiled.    * @return a string that uniquely identifies the source    **/
+name|String
+name|srcChecksum
 parameter_list|()
 function_decl|;
 block|}

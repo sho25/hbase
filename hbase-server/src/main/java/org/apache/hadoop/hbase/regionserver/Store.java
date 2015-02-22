@@ -65,6 +65,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -78,6 +80,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -196,6 +200,22 @@ operator|.
 name|client
 operator|.
 name|Scan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|conf
+operator|.
+name|PropagatingConfigurationObserver
 import|;
 end_import
 
@@ -353,6 +373,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|compactions
+operator|.
+name|CompactionThroughputController
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Pair
@@ -379,6 +417,8 @@ extends|extends
 name|HeapSize
 extends|,
 name|StoreConfigInformation
+extends|,
+name|PropagatingConfigurationObserver
 block|{
 comment|/* The default priority for user-specified compaction requests.    * The user gets top priority unless we have blocking compactions. (Pri<= 0)    */
 name|int
@@ -521,8 +561,8 @@ name|Cell
 name|cell
 parameter_list|)
 function_decl|;
-comment|/**    * Find the key that matches<i>row</i> exactly, or the one that immediately precedes it. WARNING:    * Only use this method on a table where writes occur with strictly increasing timestamps. This    * method assumes this pattern of writes in order to make it reasonably performant. Also our    * search is dependent on the axiom that deletes are for cells that are in the container that    * follows whether a memstore snapshot or a storefile, not for the current container: i.e. we'll    * see deletes before we come across cells we are to delete. Presumption is that the    * memstore#kvset is processed before memstore#snapshot and so on.    * @param row The row key of the targeted row.    * @return Found keyvalue or null if none found.    * @throws IOException    */
-name|KeyValue
+comment|/**    * Find the key that matches<i>row</i> exactly, or the one that immediately precedes it. WARNING:    * Only use this method on a table where writes occur with strictly increasing timestamps. This    * method assumes this pattern of writes in order to make it reasonably performant. Also our    * search is dependent on the axiom that deletes are for cells that are in the container that    * follows whether a memstore snapshot or a storefile, not for the current container: i.e. we'll    * see deletes before we come across cells we are to delete. Presumption is that the    * memstore#kvset is processed before memstore#snapshot and so on.    * @param row The row key of the targeted row.    * @return Found Cell or null if none found.    * @throws IOException    */
+name|Cell
 name|getRowKeyAtOrBefore
 parameter_list|(
 specifier|final
@@ -609,6 +649,9 @@ name|compact
 parameter_list|(
 name|CompactionContext
 name|compaction
+parameter_list|,
+name|CompactionThroughputController
+name|throughputController
 parameter_list|)
 throws|throws
 name|IOException
@@ -845,6 +888,11 @@ name|refreshStoreFiles
 parameter_list|()
 throws|throws
 name|IOException
+function_decl|;
+comment|/**    * This value can represent the degree of emergency of compaction for this store. It should be    * greater than or equal to 0.0, any value greater than 1.0 means we have too many store files.    *<ul>    *<li>if getStorefilesCount&lt;= getMinFilesToCompact, return 0.0</li>    *<li>return (getStorefilesCount - getMinFilesToCompact) / (blockingFileCount -    * getMinFilesToCompact)</li>    *</ul>    *<p>    * And for striped stores, we should calculate this value by the files in each stripe separately    * and return the maximum value.    *<p>    * It is similar to {@link #getCompactPriority()} except that it is more suitable to use in a    * linear formula.    */
+name|double
+name|getCompactionPressure
+parameter_list|()
 function_decl|;
 block|}
 end_interface

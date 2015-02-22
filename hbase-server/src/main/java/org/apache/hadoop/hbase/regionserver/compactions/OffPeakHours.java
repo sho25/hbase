@@ -55,6 +55,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -153,7 +155,9 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.offpeak.start.hour"
+name|CompactionConfiguration
+operator|.
+name|HBASE_HSTORE_OFFPEAK_START_HOUR
 argument_list|,
 operator|-
 literal|1
@@ -166,7 +170,9 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.offpeak.end.hour"
+name|CompactionConfiguration
+operator|.
+name|HBASE_HSTORE_OFFPEAK_END_HOUR
 argument_list|,
 operator|-
 literal|1

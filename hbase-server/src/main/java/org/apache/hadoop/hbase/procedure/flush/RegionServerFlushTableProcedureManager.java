@@ -179,6 +179,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -210,6 +212,20 @@ operator|.
 name|hbase
 operator|.
 name|DaemonThreadFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -439,7 +455,12 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|CONFIG
+argument_list|)
 specifier|public
 class|class
 name|RegionServerFlushTableProcedureManager

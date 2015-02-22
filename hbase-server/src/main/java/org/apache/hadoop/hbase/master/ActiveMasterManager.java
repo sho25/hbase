@@ -77,6 +77,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -289,6 +291,10 @@ name|ServerName
 name|sn
 decl_stmt|;
 specifier|private
+name|int
+name|infoPort
+decl_stmt|;
+specifier|private
 specifier|final
 name|Server
 name|master
@@ -329,6 +335,22 @@ operator|.
 name|master
 operator|=
 name|master
+expr_stmt|;
+block|}
+comment|// will be set after jetty server is started
+specifier|public
+name|void
+name|setInfoPort
+parameter_list|(
+name|int
+name|infoPort
+parameter_list|)
+block|{
+name|this
+operator|.
+name|infoPort
+operator|=
+name|infoPort
 expr_stmt|;
 block|}
 annotation|@
@@ -595,6 +617,8 @@ argument_list|,
 name|this
 operator|.
 name|sn
+argument_list|,
+name|infoPort
 argument_list|)
 condition|)
 block|{

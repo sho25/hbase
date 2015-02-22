@@ -247,7 +247,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|SmallTests
+name|client
+operator|.
+name|Delete
 import|;
 end_import
 
@@ -263,7 +265,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Delete
+name|Mutation
 import|;
 end_import
 
@@ -349,6 +351,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|CellSkipListSet
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|DefaultMemStore
 import|;
 end_import
@@ -397,7 +415,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|KeyValueSkipListSet
+name|TimeRangeTracker
 import|;
 end_import
 
@@ -411,9 +429,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|testclassification
 operator|.
-name|TimeRangeTracker
+name|IOTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|SmallTests
 import|;
 end_import
 
@@ -487,9 +521,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|IOTests
+operator|.
+name|class
+block|,
 name|SmallTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class
@@ -511,7 +551,7 @@ argument_list|)
 decl_stmt|;
 comment|// List of classes implementing HeapSize
 comment|// BatchOperation, BatchUpdate, BlockIndex, Entry, Entry<K,V>, HStoreKey
-comment|// KeyValue, LruBlockCache, LruHashMap<K,V>, Put, HLogKey
+comment|// KeyValue, LruBlockCache, LruHashMap<K,V>, Put, WALKey
 annotation|@
 name|BeforeClass
 specifier|public
@@ -1377,10 +1417,10 @@ name|actual
 argument_list|)
 expr_stmt|;
 block|}
-comment|// KeyValueSkipListSet
+comment|// CellSkipListSet
 name|cl
 operator|=
-name|KeyValueSkipListSet
+name|CellSkipListSet
 operator|.
 name|class
 expr_stmt|;
@@ -1399,7 +1439,7 @@ name|actual
 operator|=
 name|ClassSize
 operator|.
-name|KEYVALUE_SKIPLIST_SET
+name|CELL_SKIPLIST_SET
 expr_stmt|;
 if|if
 condition|(
@@ -1738,7 +1778,7 @@ name|ClassSize
 operator|.
 name|estimateBase
 argument_list|(
-name|KeyValueSkipListSet
+name|CellSkipListSet
 operator|.
 name|class
 argument_list|,
@@ -1811,7 +1851,7 @@ name|ClassSize
 operator|.
 name|estimateBase
 argument_list|(
-name|KeyValueSkipListSet
+name|CellSkipListSet
 operator|.
 name|class
 argument_list|,
@@ -1822,7 +1862,7 @@ name|ClassSize
 operator|.
 name|estimateBase
 argument_list|(
-name|KeyValueSkipListSet
+name|CellSkipListSet
 operator|.
 name|class
 argument_list|,
@@ -2118,11 +2158,7 @@ name|class
 expr_stmt|;
 name|actual
 operator|=
-operator|new
-name|Put
-argument_list|(
-name|row
-argument_list|)
+name|Mutation
 operator|.
 name|MUTATION_OVERHEAD
 operator|+
@@ -2190,11 +2226,7 @@ name|class
 expr_stmt|;
 name|actual
 operator|=
-operator|new
-name|Delete
-argument_list|(
-name|row
-argument_list|)
+name|Mutation
 operator|.
 name|MUTATION_OVERHEAD
 operator|+

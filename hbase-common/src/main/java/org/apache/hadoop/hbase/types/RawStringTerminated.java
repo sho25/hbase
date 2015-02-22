@@ -25,6 +25,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -39,25 +41,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
 import|;
 end_import
 
@@ -78,7 +66,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An {@code DataType} that encodes variable-length values encoded using  * {@link Bytes#toBytes(String)}. Includes a termination marker following the  * raw {@code byte[]} value. Intended to make it easier to transition  * away from direct use of {@link Bytes}.  * @see Bytes#toBytes(String)  * @see Bytes#toString(byte[], int, int)  * @see RawString  * @see OrderedString  */
+comment|/**  * An {@code DataType} that encodes variable-length values encoded using  * {@link org.apache.hadoop.hbase.util.Bytes#toBytes(String)}.   * Includes a termination marker following the  * raw {@code byte[]} value. Intended to make it easier to transition  * away from direct use of {@link org.apache.hadoop.hbase.util.Bytes}.  * @see org.apache.hadoop.hbase.util.Bytes#toBytes(String)  * @see org.apache.hadoop.hbase.util.Bytes#toString(byte[], int, int)  * @see RawString  * @see OrderedString  */
 end_comment
 
 begin_class

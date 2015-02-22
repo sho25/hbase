@@ -67,20 +67,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|Cell
@@ -98,6 +84,8 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+operator|.
+name|KVComparator
 import|;
 end_import
 
@@ -111,9 +99,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|classification
 operator|.
-name|KVComparator
+name|InterfaceAudience
 import|;
 end_import
 
@@ -161,12 +149,12 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Encodes a KeyValue.    * @param kv    * @param encodingCtx    * @param out    * @return unencoded kv size written    * @throws IOException    */
+comment|/**    * Encodes a KeyValue.    * @param cell    * @param encodingCtx    * @param out    * @return unencoded kv size written    * @throws IOException    */
 name|int
 name|encode
 parameter_list|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|,
 name|HFileBlockEncodingContext
 name|encodingCtx

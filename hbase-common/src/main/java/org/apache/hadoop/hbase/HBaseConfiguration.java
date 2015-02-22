@@ -97,6 +97,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -111,23 +127,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|conf
-operator|.
-name|Configuration
 import|;
 end_import
 
@@ -199,7 +203,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Instantinating HBaseConfiguration() is deprecated. Please use    * HBaseConfiguration#create() to construct a plain Configuration    */
+comment|/**    * Instantinating HBaseConfiguration() is deprecated. Please use    * HBaseConfiguration#create() to construct a plain Configuration    * @deprecated Please use create() instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -225,7 +229,7 @@ literal|" HBaseConfiguration#create() to construct a plain Configuration"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Instantiating HBaseConfiguration() is deprecated. Please use    * HBaseConfiguration#create(conf) to construct a plain Configuration    */
+comment|/**    * Instantiating HBaseConfiguration() is deprecated. Please use    * HBaseConfiguration#create(conf) to construct a plain Configuration    * @deprecated Please user create(conf) instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -368,6 +372,21 @@ operator|new
 name|Configuration
 argument_list|()
 decl_stmt|;
+comment|// In case HBaseConfiguration is loaded from a different classloader than
+comment|// Configuration, conf needs to be set with appropriate class loader to resolve
+comment|// HBase resources.
+name|conf
+operator|.
+name|setClassLoader
+argument_list|(
+name|HBaseConfiguration
+operator|.
+name|class
+operator|.
+name|getClassLoader
+argument_list|()
+argument_list|)
+expr_stmt|;
 return|return
 name|addHbaseResources
 argument_list|(
@@ -589,7 +608,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Get the password from the Configuration instance using the    * getPassword method if it exists. If not, then fall back to the    * general get method for configuration elements.    * @param conf configuration instance for accessing the passwords    * @param alias the name of the password element    * @param defPass the default password    * @return String password or default password    * @throws IOException    */
+comment|/**    * Get the password from the Configuration instance using the    * getPassword method if it exists. If not, then fall back to the    * general get method for configuration elements.    *    * @param conf    configuration instance for accessing the passwords    * @param alias   the name of the password element    * @param defPass the default password    * @return String password or default password    * @throws IOException    */
 specifier|public
 specifier|static
 name|String
@@ -815,7 +834,7 @@ return|return
 name|passwd
 return|;
 block|}
-comment|/** For debugging.  Dump configurations to system output as xml format.    * Master and RS configurations can also be dumped using    * http services. e.g. "curl http://master:16010/dump"    */
+comment|/**    * For debugging.  Dump configurations to system output as xml format.    * Master and RS configurations can also be dumped using    * http services. e.g. "curl http://master:16010/dump"    */
 specifier|public
 specifier|static
 name|void

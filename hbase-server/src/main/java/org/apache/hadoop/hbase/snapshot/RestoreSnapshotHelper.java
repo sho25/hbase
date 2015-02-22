@@ -185,6 +185,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -345,7 +347,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|Connection
 import|;
 end_import
 
@@ -1662,8 +1664,8 @@ specifier|public
 name|void
 name|updateMetaParentRegions
 parameter_list|(
-name|HConnection
-name|hConnection
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|List
@@ -1718,6 +1720,7 @@ name|parentRegions
 init|=
 operator|new
 name|LinkedList
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1849,7 +1852,7 @@ name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|regionInfo
 argument_list|,
@@ -3404,8 +3407,6 @@ name|conf
 argument_list|,
 name|rootDir
 argument_list|,
-name|tableDir
-argument_list|,
 name|tableDesc
 argument_list|,
 name|clonedRegionsInfo
@@ -3749,7 +3750,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Create a new {@link HFileLink} to reference the store file.    *<p>The store file in the snapshot can be a simple hfile, an HFileLink or a reference.    *<ul>    *<li>hfile: abc -> table=region-abc    *<li>reference: abc.1234 -> table=region-abc.1234    *<li>hfilelink: table=region-hfile -> table=region-hfile    *</ul>    * @param familyDir destination directory for the store file    * @param regionInfo destination region info for the table    * @param hfileName store file name (can be a Reference, HFileLink or simple HFile)    */
+comment|/**    * Create a new {@link HFileLink} to reference the store file.    *<p>The store file in the snapshot can be a simple hfile, an HFileLink or a reference.    *<ul>    *<li>hfile: abc -> table=region-abc    *<li>reference: abc.1234 -> table=region-abc.1234    *<li>hfilelink: table=region-hfile -> table=region-hfile    *</ul>    * @param familyDir destination directory for the store file    * @param regionInfo destination region info for the table    * @param storeFile store file name (can be a Reference, HFileLink or simple HFile)    */
 specifier|private
 name|void
 name|restoreStoreFile
@@ -3843,7 +3844,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Create a new {@link Reference} as copy of the source one.    *<p><blockquote><pre>    * The source table looks like:    *    1234/abc      (original file)    *    5678/abc.1234 (reference file)    *    * After the clone operation looks like:    *   wxyz/table=1234-abc    *   stuv/table=1234-abc.wxyz    *    * NOTE that the region name in the clone changes (md5 of regioninfo)    * and the reference should reflect that change.    *</pre></blockquote>    * @param familyDir destination directory for the store file    * @param regionInfo destination region info for the table    * @param hfileName reference file name    */
+comment|/**    * Create a new {@link Reference} as copy of the source one.    *<p><blockquote><pre>    * The source table looks like:    *    1234/abc      (original file)    *    5678/abc.1234 (reference file)    *    * After the clone operation looks like:    *   wxyz/table=1234-abc    *   stuv/table=1234-abc.wxyz    *    * NOTE that the region name in the clone changes (md5 of regioninfo)    * and the reference should reflect that change.    *</pre></blockquote>    * @param familyDir destination directory for the store file    * @param regionInfo destination region info for the table    * @param storeFile reference file name    */
 specifier|private
 name|void
 name|restoreReferenceFile
@@ -4083,8 +4084,9 @@ condition|)
 block|{
 name|in
 operator|=
-operator|new
 name|HFileLink
+operator|.
+name|buildFromHFileLinkPattern
 argument_list|(
 name|conf
 argument_list|,
@@ -4499,9 +4501,9 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|,
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|>
 name|e
 range|:

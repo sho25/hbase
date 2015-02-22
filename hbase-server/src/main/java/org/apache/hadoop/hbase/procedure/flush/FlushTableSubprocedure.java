@@ -77,23 +77,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
 import|;
 end_import
 
@@ -306,6 +294,7 @@ name|taskManager
 expr_stmt|;
 block|}
 specifier|private
+specifier|static
 class|class
 name|RegionFlushTask
 implements|implements

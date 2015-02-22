@@ -143,6 +143,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeepDeletedCells
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -171,7 +185,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
 name|MediumTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|RegionServerTests
 import|;
 end_import
 
@@ -261,9 +293,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|RegionServerTests
+operator|.
+name|class
+block|,
 name|MediumTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class
@@ -310,7 +348,9 @@ name|Long
 operator|.
 name|MAX_VALUE
 argument_list|,
-literal|false
+name|KeepDeletedCells
+operator|.
+name|FALSE
 argument_list|,
 literal|0
 argument_list|,
@@ -3972,7 +4012,9 @@ literal|1
 argument_list|,
 literal|500
 argument_list|,
-literal|false
+name|KeepDeletedCells
+operator|.
+name|FALSE
 argument_list|,
 literal|0
 argument_list|,
@@ -4452,7 +4494,9 @@ literal|1
 argument_list|,
 literal|500
 argument_list|,
-literal|false
+name|KeepDeletedCells
+operator|.
+name|FALSE
 argument_list|,
 literal|0
 argument_list|,
@@ -5062,7 +5106,9 @@ argument_list|,
 literal|500
 comment|/* ttl */
 argument_list|,
-literal|false
+name|KeepDeletedCells
+operator|.
+name|FALSE
 comment|/* keepDeletedCells */
 argument_list|,
 literal|200

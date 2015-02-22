@@ -67,6 +67,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -98,22 +100,6 @@ operator|.
 name|hbase
 operator|.
 name|ServerName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|MasterFileSystem
 import|;
 end_import
 
@@ -206,7 +192,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Coordination for SplitLogManager. It creates and works with tasks for split log operations<BR>  * Manager prepares task by calling {@link #prepareTask} and submit it by  * {@link #submitTask(String)}. After that it periodically check the number of remaining tasks by  * {@link #remainingTasksInCoordination()} and waits until it become zero.  *<P>  * Methods required for task life circle:<BR>  * {@link #markRegionsRecovering(ServerName, Set)} mark regions for log replaying. Used by  * {@link MasterFileSystem}<BR>  * {@link #removeRecoveringRegions(Set, Boolean)} make regions cleanup that previous were marked as  * recovering. Called after all tasks processed<BR>  * {@link #removeStaleRecoveringRegions(Set)} remove stale recovering. called by  * {@link MasterFileSystem} after Active Master is initialized<BR>  * {@link #getLastRecoveryTime()} required for garbage collector and should indicate when the last  * recovery has been made<BR>  * {@link #checkTaskStillAvailable(String)} Check that task is still there<BR>  * {@link #checkTasks()} check for unassigned tasks and resubmit them  */
+comment|/**  * Coordination for SplitLogManager. It creates and works with tasks for split log operations<BR>  * Manager prepares task by calling {@link #prepareTask} and submit it by  * {@link #submitTask(String)}. After that it periodically check the number of remaining tasks by  * {@link #remainingTasksInCoordination()} and waits until it become zero.  *<P>  * Methods required for task life circle:<BR>  * {@link #markRegionsRecovering(ServerName, Set)} mark regions for log replaying. Used by  * {@link org.apache.hadoop.hbase.master.MasterFileSystem}<BR>  * {@link #removeRecoveringRegions(Set, Boolean)} make regions cleanup that previous were marked as  * recovering. Called after all tasks processed<BR>  * {@link #removeStaleRecoveringRegions(Set)} remove stale recovering. called by  * {@link org.apache.hadoop.hbase.master.MasterFileSystem} after Active Master is initialized<BR>  * {@link #getLastRecoveryTime()} required for garbage collector and should indicate when the last  * recovery has been made<BR>  * {@link #checkTaskStillAvailable(String)} Check that task is still there<BR>  * {@link #checkTasks()} check for unassigned tasks and resubmit them  */
 end_comment
 
 begin_interface

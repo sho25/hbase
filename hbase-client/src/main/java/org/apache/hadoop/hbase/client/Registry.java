@@ -51,15 +51,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
 begin_comment
-comment|/**  * Cluster registry.  * Implemenations hold cluster information such as this cluster's id, location of hbase:meta, etc.  */
+comment|/**  * Cluster registry.  * Implementations hold cluster information such as this cluster's id, location of hbase:meta, etc.  * Internal use only.  */
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 interface|interface
 name|Registry
 block|{
@@ -67,7 +73,7 @@ comment|/**    * @param connection    */
 name|void
 name|init
 parameter_list|(
-name|HConnection
+name|Connection
 name|connection
 parameter_list|)
 function_decl|;
@@ -82,19 +88,6 @@ comment|/**    * @return Cluster id.    */
 name|String
 name|getClusterId
 parameter_list|()
-function_decl|;
-comment|/**    * @param enabled Return true if table is enabled    * @throws IOException    */
-name|boolean
-name|isTableOnlineState
-parameter_list|(
-name|TableName
-name|tableName
-parameter_list|,
-name|boolean
-name|enabled
-parameter_list|)
-throws|throws
-name|IOException
 function_decl|;
 comment|/**    * @return Count of 'running' regionservers    * @throws IOException    */
 name|int

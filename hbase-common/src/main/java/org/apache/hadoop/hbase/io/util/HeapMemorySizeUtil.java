@@ -79,20 +79,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
@@ -110,6 +96,22 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -359,8 +361,8 @@ operator|>
 literal|0.8f
 operator|||
 name|limit
-operator|<
-literal|0.05f
+operator|<=
+literal|0.0f
 condition|)
 block|{
 if|if
@@ -376,7 +378,7 @@ literal|"Setting global memstore limit to default of "
 operator|+
 name|DEFAULT_MEMSTORE_SIZE
 operator|+
-literal|" because supplied value outside allowed range of 0.05 -> 0.8"
+literal|" because supplied value outside allowed range of (0 -> 0.8]"
 argument_list|)
 expr_stmt|;
 block|}

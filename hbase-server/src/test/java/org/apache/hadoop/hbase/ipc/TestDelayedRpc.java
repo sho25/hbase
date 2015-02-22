@@ -185,7 +185,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
 name|MediumTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|RPCTests
 import|;
 end_import
 
@@ -427,9 +445,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|RPCTests
+operator|.
+name|class
+block|,
 name|MediumTests
 operator|.
 name|class
+block|}
 argument_list|)
 comment|// Fails sometimes with small tests
 specifier|public
@@ -624,8 +648,9 @@ expr_stmt|;
 name|RpcClient
 name|rpcClient
 init|=
-operator|new
-name|RpcClient
+name|RpcClientFactory
+operator|.
+name|createClient
 argument_list|(
 name|conf
 argument_list|,
@@ -849,7 +874,7 @@ finally|finally
 block|{
 name|rpcClient
 operator|.
-name|stop
+name|close
 argument_list|()
 expr_stmt|;
 block|}
@@ -1082,8 +1107,9 @@ expr_stmt|;
 name|RpcClient
 name|rpcClient
 init|=
-operator|new
-name|RpcClient
+name|RpcClientFactory
+operator|.
+name|createClient
 argument_list|(
 name|conf
 argument_list|,
@@ -1306,7 +1332,7 @@ finally|finally
 block|{
 name|rpcClient
 operator|.
-name|stop
+name|close
 argument_list|()
 expr_stmt|;
 block|}
@@ -1738,8 +1764,9 @@ expr_stmt|;
 name|RpcClient
 name|rpcClient
 init|=
-operator|new
-name|RpcClient
+name|RpcClientFactory
+operator|.
+name|createClient
 argument_list|(
 name|conf
 argument_list|,
@@ -1943,7 +1970,7 @@ finally|finally
 block|{
 name|rpcClient
 operator|.
-name|stop
+name|close
 argument_list|()
 expr_stmt|;
 block|}

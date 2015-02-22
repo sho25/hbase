@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**   * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -305,20 +305,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
@@ -391,7 +377,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Chore
+name|ChoreService
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CoordinatedStateManager
 import|;
 end_import
 
@@ -406,6 +406,20 @@ operator|.
 name|hbase
 operator|.
 name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ScheduledChore
 import|;
 end_import
 
@@ -462,6 +476,22 @@ operator|.
 name|hbase
 operator|.
 name|Stoppable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -579,40 +609,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|SplitLogWorker
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
-name|HLogUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
@@ -661,9 +657,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|wal
 operator|.
-name|Threads
+name|DefaultWALProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALFactory
 import|;
 end_import
 
@@ -682,7 +694,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Distributes the task of log splitting to the available region servers.  * Coordination happens via coordination engine. For every log file that has to be split a  * task is created. SplitLogWorkers race to grab a task.  *  *<p>SplitLogManager monitors the tasks that it creates using the  * timeoutMonitor thread. If a task's progress is slow then  * {@link SplitLogManagerCoordination#checkTasks} will take away the  * task from the owner {@link SplitLogWorker} and the task will be up for grabs again. When the  * task is done then it is deleted by SplitLogManager.  *  *<p>Clients call {@link #splitLogDistributed(Path)} to split a region server's  * log files. The caller thread waits in this method until all the log files  * have been split.  *  *<p>All the coordination calls made by this class are asynchronous. This is mainly  * to help reduce response time seen by the callers.  *  *<p>There is race in this design between the SplitLogManager and the  * SplitLogWorker. SplitLogManager might re-queue a task that has in reality  * already been completed by a SplitLogWorker. We rely on the idempotency of  * the log splitting task for correctness.  *  *<p>It is also assumed that every log splitting task is unique and once  * completed (either with success or with error) it will be not be submitted  * again. If a task is resubmitted then there is a risk that old "delete task"  * can delete the re-submission.  */
+comment|/**  * Distributes the task of log splitting to the available region servers.  * Coordination happens via coordination engine. For every log file that has to be split a  * task is created. SplitLogWorkers race to grab a task.  *  *<p>SplitLogManager monitors the tasks that it creates using the  * timeoutMonitor thread. If a task's progress is slow then  * {@link SplitLogManagerCoordination#checkTasks} will take away the  * task from the owner {@link org.apache.hadoop.hbase.regionserver.SplitLogWorker}   * and the task will be up for grabs again. When the task is done then it is   * deleted by SplitLogManager.  *  *<p>Clients call {@link #splitLogDistributed(Path)} to split a region server's  * log files. The caller thread waits in this method until all the log files  * have been split.  *  *<p>All the coordination calls made by this class are asynchronous. This is mainly  * to help reduce response time seen by the callers.  *  *<p>There is race in this design between the SplitLogManager and the  * SplitLogWorker. SplitLogManager might re-queue a task that has in reality  * already been completed by a SplitLogWorker. We rely on the idempotency of  * the log splitting task for correctness.  *  *<p>It is also assumed that every log splitting task is unique and once  * completed (either with success or with error) it will be not be submitted  * again. If a task is resubmitted then there is a risk that old "delete task"  * can delete the re-submission.  */
 end_comment
 
 begin_class
@@ -719,12 +731,14 @@ name|Stoppable
 name|stopper
 decl_stmt|;
 specifier|private
-name|FileSystem
-name|fs
-decl_stmt|;
-specifier|private
+specifier|final
 name|Configuration
 name|conf
+decl_stmt|;
+specifier|private
+specifier|final
+name|ChoreService
+name|choreService
 decl_stmt|;
 specifier|public
 specifier|static
@@ -888,6 +902,21 @@ name|stopper
 operator|=
 name|stopper
 expr_stmt|;
+name|this
+operator|.
+name|choreService
+operator|=
+operator|new
+name|ChoreService
+argument_list|(
+name|serverName
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|"_splitLogManager_"
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|server
@@ -993,18 +1022,11 @@ argument_list|,
 name|stopper
 argument_list|)
 expr_stmt|;
-name|Threads
+name|choreService
 operator|.
-name|setDaemonThreadRunning
+name|scheduleChore
 argument_list|(
 name|timeoutMonitor
-operator|.
-name|getThread
-argument_list|()
-argument_list|,
-name|serverName
-operator|+
-literal|".splitLogManagerTimeoutMonitor"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1019,6 +1041,44 @@ name|Path
 argument_list|>
 name|logDirs
 parameter_list|,
+name|PathFilter
+name|filter
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|getFileList
+argument_list|(
+name|conf
+argument_list|,
+name|logDirs
+argument_list|,
+name|filter
+argument_list|)
+return|;
+block|}
+comment|/**    * Get a list of paths that need to be split given a set of server-specific directories and    * optionally  a filter.    *    * See {@link DefaultWALProvider#getServerNameFromWALDirectoryName} for more info on directory    * layout.    *    * Should be package-private, but is needed by    * {@link org.apache.hadoop.hbase.wal.WALSplitter#split(Path, Path, Path, FileSystem,    *     Configuration, WALFactory)} for tests.    */
+annotation|@
+name|VisibleForTesting
+specifier|public
+specifier|static
+name|FileStatus
+index|[]
+name|getFileList
+parameter_list|(
+specifier|final
+name|Configuration
+name|conf
+parameter_list|,
+specifier|final
+name|List
+argument_list|<
+name|Path
+argument_list|>
+name|logDirs
+parameter_list|,
+specifier|final
 name|PathFilter
 name|filter
 parameter_list|)
@@ -1041,22 +1101,22 @@ decl_stmt|;
 for|for
 control|(
 name|Path
-name|hLogDir
+name|logDir
 range|:
 name|logDirs
 control|)
 block|{
-name|this
-operator|.
+specifier|final
+name|FileSystem
 name|fs
-operator|=
-name|hLogDir
+init|=
+name|logDir
 operator|.
 name|getFileSystem
 argument_list|(
 name|conf
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -1064,7 +1124,7 @@ name|fs
 operator|.
 name|exists
 argument_list|(
-name|hLogDir
+name|logDir
 argument_list|)
 condition|)
 block|{
@@ -1072,7 +1132,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-name|hLogDir
+name|logDir
 operator|+
 literal|" doesn't exist. Nothing to do!"
 argument_list|)
@@ -1089,7 +1149,7 @@ name|listStatus
 argument_list|(
 name|fs
 argument_list|,
-name|hLogDir
+name|logDir
 argument_list|,
 name|filter
 argument_list|)
@@ -1111,7 +1171,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-name|hLogDir
+name|logDir
 operator|+
 literal|" is empty dir, no logs to split"
 argument_list|)
@@ -1119,18 +1179,13 @@ expr_stmt|;
 block|}
 else|else
 block|{
-for|for
-control|(
-name|FileStatus
-name|status
-range|:
-name|logfiles
-control|)
-name|fileStatus
+name|Collections
 operator|.
-name|add
+name|addAll
 argument_list|(
-name|status
+name|fileStatus
+argument_list|,
+name|logfiles
 argument_list|)
 expr_stmt|;
 block|}
@@ -1157,7 +1212,7 @@ name|a
 argument_list|)
 return|;
 block|}
-comment|/**    * @param logDir one region sever hlog dir path in .logs    * @throws IOException if there was an error while splitting any log file    * @return cumulative size of the logfiles split    * @throws IOException    */
+comment|/**    * @param logDir one region sever wal dir path in .logs    * @throws IOException if there was an error while splitting any log file    * @return cumulative size of the logfiles split    * @throws IOException    */
 specifier|public
 name|long
 name|splitLogDistributed
@@ -1249,9 +1304,9 @@ block|{
 name|ServerName
 name|serverName
 init|=
-name|HLogUtil
+name|DefaultWALProvider
 operator|.
-name|getServerNameFromHLogDirectoryName
+name|getServerNameFromWALDirectoryName
 argument_list|(
 name|logDir
 argument_list|)
@@ -1339,6 +1394,10 @@ argument_list|(
 literal|"Doing distributed log split in "
 operator|+
 name|logDirs
+operator|+
+literal|" for serverName="
+operator|+
+name|serverNames
 argument_list|)
 decl_stmt|;
 name|FileStatus
@@ -1386,6 +1445,10 @@ operator|+
 literal|" logs in "
 operator|+
 name|logDirs
+operator|+
+literal|" for "
+operator|+
+name|serverNames
 argument_list|)
 expr_stmt|;
 name|long
@@ -1601,6 +1664,17 @@ argument_list|(
 literal|"Cleaning up log directory..."
 argument_list|)
 expr_stmt|;
+specifier|final
+name|FileSystem
+name|fs
+init|=
+name|logDir
+operator|.
+name|getFileSystem
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
 try|try
 block|{
 if|if
@@ -2729,6 +2803,19 @@ parameter_list|()
 block|{
 if|if
 condition|(
+name|choreService
+operator|!=
+literal|null
+condition|)
+block|{
+name|choreService
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
 name|timeoutMonitor
 operator|!=
 literal|null
@@ -2736,8 +2823,10 @@ condition|)
 block|{
 name|timeoutMonitor
 operator|.
-name|interrupt
-argument_list|()
+name|cancel
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -2957,12 +3046,17 @@ name|boolean
 name|isLogReplaying
 parameter_list|()
 block|{
-if|if
-condition|(
+name|CoordinatedStateManager
+name|m
+init|=
 name|server
 operator|.
 name|getCoordinatedStateManager
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|m
 operator|==
 literal|null
 condition|)
@@ -2974,10 +3068,7 @@ operator|(
 operator|(
 name|BaseCoordinatedStateManager
 operator|)
-name|server
-operator|.
-name|getCoordinatedStateManager
-argument_list|()
+name|m
 operator|)
 operator|.
 name|getSplitLogManagerCoordination
@@ -3314,7 +3405,7 @@ specifier|private
 class|class
 name|TimeoutMonitor
 extends|extends
-name|Chore
+name|ScheduledChore
 block|{
 specifier|private
 name|long
@@ -3337,9 +3428,9 @@ name|super
 argument_list|(
 literal|"SplitLogManager Timeout Monitor"
 argument_list|,
-name|period
-argument_list|,
 name|stopper
+argument_list|,
+name|period
 argument_list|)
 expr_stmt|;
 block|}

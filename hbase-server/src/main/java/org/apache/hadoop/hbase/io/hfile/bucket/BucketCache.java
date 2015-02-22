@@ -331,6 +331,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -547,24 +549,6 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|CombinedBlockCache
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
 name|HFileBlock
 import|;
 end_import
@@ -692,7 +676,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * BucketCache uses {@link BucketAllocator} to allocate/free blocks, and uses  * {@link BucketCache#ramCache} and {@link BucketCache#backingMap} in order to  * determine if a given element is in the cache. The bucket cache can use on-heap or  * off-heap memory {@link ByteBufferIOEngine} or in a file {@link FileIOEngine} to  * store/read the block data.  *  *<p>Eviction is via a similar algorithm as used in  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache}  *  *<p>BucketCache can be used as mainly a block cache (see  * {@link CombinedBlockCache}), combined with LruBlockCache to decrease CMS GC and  * heap fragmentation.  *  *<p>It also can be used as a secondary cache (e.g. using a file on ssd/fusionio to store  * blocks) to enlarge cache space via  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache#setVictimCache}  */
+comment|/**  * BucketCache uses {@link BucketAllocator} to allocate/free blocks, and uses  * {@link BucketCache#ramCache} and {@link BucketCache#backingMap} in order to  * determine if a given element is in the cache. The bucket cache can use on-heap or  * off-heap memory {@link ByteBufferIOEngine} or in a file {@link FileIOEngine} to  * store/read the block data.  *  *<p>Eviction is via a similar algorithm as used in  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache}  *  *<p>BucketCache can be used as mainly a block cache (see  * {@link org.apache.hadoop.hbase.io.hfile.CombinedBlockCache}), combined with   * LruBlockCache to decrease CMS GC and heap fragmentation.  *  *<p>It also can be used as a secondary cache (e.g. using a file on ssd/fusionio to store  * blocks) to enlarge cache space via  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache#setVictimCache}  */
 end_comment
 
 begin_class
@@ -1532,15 +1516,10 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-name|writerThreads
-index|[
-name|i
-index|]
-operator|.
-name|start
+block|}
+name|startWriterThreads
 argument_list|()
 expr_stmt|;
-block|}
 comment|// Run the statistics thread periodically to print the cache statistics log
 comment|// TODO: Add means of turning this off.  Bit obnoxious running thread just to make a log
 comment|// every five minutes.
@@ -1608,8 +1587,37 @@ operator|+
 name|this
 operator|.
 name|bucketAllocator
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+comment|/**    * Called by the constructor to start the writer threads. Used by tests that need to override    * starting the threads.    */
+annotation|@
+name|VisibleForTesting
+specifier|protected
+name|void
+name|startWriterThreads
+parameter_list|()
+block|{
+for|for
+control|(
+name|WriterThread
+name|thread
+range|:
+name|writerThreads
+control|)
+block|{
+name|thread
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|VisibleForTesting
@@ -6248,15 +6256,18 @@ operator|instanceof
 name|HFileBlock
 condition|)
 block|{
-name|ByteBuffer
-name|sliceBuf
+name|HFileBlock
+name|block
 init|=
-operator|(
 operator|(
 name|HFileBlock
 operator|)
 name|data
-operator|)
+decl_stmt|;
+name|ByteBuffer
+name|sliceBuf
+init|=
+name|block
 operator|.
 name|getBufferReadOnlyWithHeader
 argument_list|()
@@ -6277,6 +6288,22 @@ operator|+
 name|HFileBlock
 operator|.
 name|EXTRA_SERIALIZATION_SPACE
+operator|||
+name|len
+operator|==
+name|sliceBuf
+operator|.
+name|limit
+argument_list|()
+operator|+
+name|block
+operator|.
+name|headerSize
+argument_list|()
+operator|+
+name|HFileBlock
+operator|.
+name|EXTRA_SERIALIZATION_SPACE
 assert|;
 name|ByteBuffer
 name|extraInfoBuffer
@@ -6290,12 +6317,7 @@ operator|.
 name|EXTRA_SERIALIZATION_SPACE
 argument_list|)
 decl_stmt|;
-operator|(
-operator|(
-name|HFileBlock
-operator|)
-name|data
-operator|)
+name|block
 operator|.
 name|serializeExtraInfo
 argument_list|(

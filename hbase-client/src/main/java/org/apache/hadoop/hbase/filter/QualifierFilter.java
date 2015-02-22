@@ -45,34 +45,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|Cell
@@ -89,9 +61,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|classification
 operator|.
-name|Get
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -158,7 +146,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This filter is used to filter based on the column qualifier. It takes an  * operator (equal, greater, not equal, etc) and a byte [] comparator for the  * column qualifier portion of a key.  *<p>  * This filter can be wrapped with {@link WhileMatchFilter} and {@link SkipFilter}  * to add more control.  *<p>  * Multiple filters can be combined using {@link FilterList}.  *<p>  * If an already known column qualifier is looked for, use {@link Get#addColumn}  * directly rather than a filter.  */
+comment|/**  * This filter is used to filter based on the column qualifier. It takes an  * operator (equal, greater, not equal, etc) and a byte [] comparator for the  * column qualifier portion of a key.  *<p>  * This filter can be wrapped with {@link WhileMatchFilter} and {@link SkipFilter}  * to add more control.  *<p>  * Multiple filters can be combined using {@link FilterList}.  *<p>  * If an already known column qualifier is looked for,   * use {@link org.apache.hadoop.hbase.client.Get#addColumn}  * directly rather than a filter.  */
 end_comment
 
 begin_class

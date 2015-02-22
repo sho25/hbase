@@ -141,6 +141,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -339,6 +341,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -356,6 +372,22 @@ operator|.
 name|backup
 operator|.
 name|HFileArchiver
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableState
 import|;
 end_import
 
@@ -439,11 +471,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|DefaultWALProvider
 import|;
 end_import
 
@@ -457,11 +487,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogUtil
+name|WALSplitter
 import|;
 end_import
 
@@ -671,7 +699,7 @@ name|p
 parameter_list|)
 block|{
 return|return
-name|HLogUtil
+name|DefaultWALProvider
 operator|.
 name|isMetaFile
 argument_list|(
@@ -702,7 +730,7 @@ parameter_list|)
 block|{
 return|return
 operator|!
-name|HLogUtil
+name|DefaultWALProvider
 operator|.
 name|isMetaFile
 argument_list|(
@@ -1086,7 +1114,7 @@ name|getBoolean
 argument_list|(
 literal|"hbase.hlog.split.skip.errors"
 argument_list|,
-name|HLog
+name|WALSplitter
 operator|.
 name|SPLIT_SKIP_ERRORS_DEFAULT
 argument_list|)
@@ -1228,62 +1256,83 @@ range|:
 name|logFolders
 control|)
 block|{
-name|String
-name|sn
+name|FileStatus
+index|[]
+name|curLogFiles
 init|=
+name|FSUtils
+operator|.
+name|listStatus
+argument_list|(
+name|this
+operator|.
+name|fs
+argument_list|,
 name|status
 operator|.
 name|getPath
 argument_list|()
-operator|.
-name|getName
-argument_list|()
+argument_list|,
+literal|null
+argument_list|)
 decl_stmt|;
-comment|// truncate splitting suffix if present (for ServerName parsing)
 if|if
 condition|(
-name|sn
+name|curLogFiles
+operator|==
+literal|null
+operator|||
+name|curLogFiles
 operator|.
-name|endsWith
-argument_list|(
-name|HLog
-operator|.
-name|SPLITTING_EXT
-argument_list|)
+name|length
+operator|==
+literal|0
 condition|)
 block|{
-name|sn
-operator|=
-name|sn
-operator|.
-name|substring
-argument_list|(
-literal|0
-argument_list|,
-name|sn
-operator|.
-name|length
-argument_list|()
-operator|-
-name|HLog
-operator|.
-name|SPLITTING_EXT
-operator|.
-name|length
-argument_list|()
-argument_list|)
-expr_stmt|;
+comment|// Empty log folder. No recovery needed
+continue|continue;
 block|}
+specifier|final
 name|ServerName
 name|serverName
 init|=
-name|ServerName
+name|DefaultWALProvider
 operator|.
-name|parseServerName
+name|getServerNameFromWALDirectoryName
 argument_list|(
-name|sn
+name|status
+operator|.
+name|getPath
+argument_list|()
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+literal|null
+operator|==
+name|serverName
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Log folder "
+operator|+
+name|status
+operator|.
+name|getPath
+argument_list|()
+operator|+
+literal|" doesn't look like its name includes a "
+operator|+
+literal|"region server name; leaving in place. If you see later errors about missing "
+operator|+
+literal|"write ahead logs they may be saved in this location."
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
 if|if
 condition|(
 operator|!
@@ -1491,7 +1540,7 @@ name|serverNames
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Specialized method to handle the splitting for meta HLog    * @param serverName    * @throws IOException    */
+comment|/**    * Specialized method to handle the splitting for meta WAL    * @param serverName    * @throws IOException    */
 specifier|public
 name|void
 name|splitMetaLog
@@ -1529,7 +1578,7 @@ name|serverNames
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Specialized method to handle the splitting for meta HLog    * @param serverNames    * @throws IOException    */
+comment|/**    * Specialized method to handle the splitting for meta WAL    * @param serverNames    * @throws IOException    */
 specifier|public
 name|void
 name|splitMetaLog
@@ -1552,6 +1601,29 @@ name|META_FILTER
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"UL_UNRELEASED_LOCK"
+argument_list|,
+name|justification
+operator|=
+literal|"We only release this lock when we set it. Updates to code that uses it should verify use "
+operator|+
+literal|"of the guard boolean."
+argument_list|)
 specifier|private
 name|List
 argument_list|<
@@ -1631,9 +1703,9 @@ name|this
 operator|.
 name|rootdir
 argument_list|,
-name|HLogUtil
+name|DefaultWALProvider
 operator|.
-name|getHLogDirectoryName
+name|getWALDirectoryName
 argument_list|(
 name|serverName
 operator|.
@@ -1649,12 +1721,12 @@ name|logDir
 operator|.
 name|suffix
 argument_list|(
-name|HLog
+name|DefaultWALProvider
 operator|.
 name|SPLITTING_EXT
 argument_list|)
 decl_stmt|;
-comment|// Rename the directory so a rogue RS doesn't create more HLogs
+comment|// Rename the directory so a rogue RS doesn't create more WALs
 if|if
 condition|(
 name|fs
@@ -1860,7 +1932,7 @@ name|failedServers
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * This method is the base split method that splits HLog files matching a filter. Callers should    * pass the appropriate filter for meta and non-meta HLogs.    * @param serverNames    * @param filter    * @throws IOException    */
+comment|/**    * This method is the base split method that splits WAL files matching a filter. Callers should    * pass the appropriate filter for meta and non-meta WALs.    * @param serverNames logs belonging to these servers will be split; this will rename the log    *                    directory out from under a soft-failed server    * @param filter    * @throws IOException    */
 specifier|public
 name|void
 name|splitLog
@@ -2332,19 +2404,38 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Create tableinfo-s for hbase:meta if not already there.
+comment|// assume, created table descriptor is for enabling table
+comment|// meta table is a system table, so descriptors are predefined,
+comment|// we should get them from registry.
+name|FSTableDescriptors
+name|fsd
+init|=
 operator|new
 name|FSTableDescriptors
 argument_list|(
+name|c
+argument_list|,
 name|fs
 argument_list|,
 name|rd
 argument_list|)
+decl_stmt|;
+name|fsd
 operator|.
 name|createTableDescriptor
 argument_list|(
-name|HTableDescriptor
+operator|new
+name|TableDescriptor
+argument_list|(
+name|fsd
 operator|.
-name|META_TABLEDESC
+name|get
+argument_list|(
+name|TableName
+operator|.
+name|META_TABLE_NAME
+argument_list|)
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -2520,8 +2611,26 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
 decl_stmt|;
+name|HTableDescriptor
+name|metaDescriptor
+init|=
+operator|new
+name|FSTableDescriptors
+argument_list|(
+name|c
+argument_list|)
+operator|.
+name|get
+argument_list|(
+name|TableName
+operator|.
+name|META_TABLE_NAME
+argument_list|)
+decl_stmt|;
 name|setInfoFamilyCachingForMeta
 argument_list|(
+name|metaDescriptor
+argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
@@ -2538,22 +2647,22 @@ name|rd
 argument_list|,
 name|c
 argument_list|,
-name|HTableDescriptor
-operator|.
-name|META_TABLEDESC
+name|metaDescriptor
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|setInfoFamilyCachingForMeta
 argument_list|(
+name|metaDescriptor
+argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|HRegion
-operator|.
-name|closeHRegion
-argument_list|(
 name|meta
-argument_list|)
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 catch|catch
@@ -2600,6 +2709,9 @@ specifier|static
 name|void
 name|setInfoFamilyCachingForMeta
 parameter_list|(
+name|HTableDescriptor
+name|metaDescriptor
+parameter_list|,
 specifier|final
 name|boolean
 name|b
@@ -2610,9 +2722,7 @@ control|(
 name|HColumnDescriptor
 name|hcd
 range|:
-name|HTableDescriptor
-operator|.
-name|META_TABLEDESC
+name|metaDescriptor
 operator|.
 name|getColumnFamilies
 argument_list|()
@@ -3117,7 +3227,7 @@ throw|;
 block|}
 name|htd
 operator|.
-name|addFamily
+name|modifyFamily
 argument_list|(
 name|hcd
 argument_list|)

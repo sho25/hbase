@@ -65,6 +65,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -124,34 +126,6 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValueUtil
 import|;
 end_import
 
@@ -567,21 +541,11 @@ block|{
 comment|// If we know that this KV is going to be included always, then let us
 comment|// set its memstoreTS to 0. This will help us save space when writing to
 comment|// disk.
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|c
-argument_list|)
-decl_stmt|;
 name|sink
 operator|.
 name|append
 argument_list|(
-name|kv
+name|c
 argument_list|)
 expr_stmt|;
 block|}

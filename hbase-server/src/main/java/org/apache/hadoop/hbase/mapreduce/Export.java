@@ -63,6 +63,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -76,6 +78,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -450,6 +454,14 @@ name|EXPORT_BATCHING
 init|=
 literal|"hbase.export.scanner.batch"
 decl_stmt|;
+specifier|private
+specifier|final
+specifier|static
+name|String
+name|JOB_NAME_CONF_KEY
+init|=
+literal|"mapreduce.job.name"
+decl_stmt|;
 comment|/**    * Sets up the actual job.    *    * @param conf  The current configuration.    * @param args  The command line parameters.    * @return The newly created job.    * @throws IOException When setting up the job fails.    */
 specifier|public
 specifier|static
@@ -495,11 +507,18 @@ name|getInstance
 argument_list|(
 name|conf
 argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+name|JOB_NAME_CONF_KEY
+argument_list|,
 name|NAME
 operator|+
 literal|"_"
 operator|+
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|job
@@ -1218,6 +1237,19 @@ operator|.
 name|SCAN_ROW_STOP
 operator|+
 literal|"=<ROWSTOP>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -D "
+operator|+
+name|JOB_NAME_CONF_KEY
+operator|+
+literal|"=jobName - use the specified mapreduce job name for the export"
 argument_list|)
 expr_stmt|;
 name|System

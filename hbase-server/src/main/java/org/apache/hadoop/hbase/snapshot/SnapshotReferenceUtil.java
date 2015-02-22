@@ -161,6 +161,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -333,11 +335,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogUtil
+name|DefaultWALProvider
 import|;
 end_import
 
@@ -494,9 +494,9 @@ name|Path
 argument_list|(
 name|snapshotDir
 argument_list|,
-name|HLogUtil
+name|DefaultWALProvider
 operator|.
-name|getHLogDirectoryName
+name|getWALDirectoryName
 argument_list|(
 name|serverName
 argument_list|)
@@ -1369,8 +1369,9 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-operator|new
 name|HFileLink
+operator|.
+name|buildFromHFileLinkPattern
 argument_list|(
 name|conf
 argument_list|,
@@ -1509,8 +1510,9 @@ block|{
 comment|// for mob region
 name|link
 operator|=
-operator|new
 name|HFileLink
+operator|.
+name|buildFromHFileLinkPattern
 argument_list|(
 name|MobUtils
 operator|.
@@ -1535,8 +1537,9 @@ block|{
 comment|// not mob region
 name|link
 operator|=
-operator|new
 name|HFileLink
+operator|.
+name|buildFromHFileLinkPattern
 argument_list|(
 name|conf
 argument_list|,
@@ -1839,14 +1842,14 @@ return|return
 name|names
 return|;
 block|}
-comment|/**    * Returns the log file names available in the snapshot.    *    * @param fs {@link FileSystem}    * @param snapshotDir {@link Path} to the Snapshot directory    * @throws IOException if an error occurred while scanning the directory    * @return the names of hlogs in the specified snaphot    */
+comment|/**    * Returns the log file names available in the snapshot.    *    * @param fs {@link FileSystem}    * @param snapshotDir {@link Path} to the Snapshot directory    * @throws IOException if an error occurred while scanning the directory    * @return the names of wals in the specified snaphot    */
 specifier|public
 specifier|static
 name|Set
 argument_list|<
 name|String
 argument_list|>
-name|getHLogNames
+name|getWALNames
 parameter_list|(
 specifier|final
 name|FileSystem

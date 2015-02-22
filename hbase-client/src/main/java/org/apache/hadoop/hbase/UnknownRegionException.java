@@ -23,6 +23,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -37,9 +39,27 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceStability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|DoNotRetryRegionException
 import|;
 end_import
 
@@ -60,7 +80,7 @@ specifier|public
 class|class
 name|UnknownRegionException
 extends|extends
-name|RegionException
+name|DoNotRetryRegionException
 block|{
 specifier|private
 specifier|static

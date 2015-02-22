@@ -387,6 +387,24 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
+name|CompactionThroughputController
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|compactions
+operator|.
 name|DefaultCompactor
 import|;
 end_import
@@ -670,6 +688,7 @@ argument_list|)
 return|;
 block|}
 block|}
+comment|// TODO refactor to take advantage of the throughput controller.
 comment|/**    * Performs compaction on a column family with the mob flag enabled.    * This is for when the mob threshold size has changed or if the mob    * column family mode has been toggled via an alter table statement.    * Compacts the files by the following rules.    * 1. If the cell has a mob reference tag, the cell's value is the path of the mob file.    *<ol>    *<li>    * If the value size of a cell is larger than the threshold, this cell is regarded as a mob,    * directly copy the (with mob tag) cell into the new store file.    *</li>    *<li>    * Otherwise, retrieve the mob cell from the mob file, and writes a copy of the cell into    * the new store file.    *</li>    *</ol>    * 2. If the cell doesn't have a reference tag.    *<ol>    *<li>    * If the value size of a cell is larger than the threshold, this cell is regarded as a mob,    * write this cell to a mob file, and write the path of this mob file to the store file.    *</li>    *<li>    * Otherwise, directly write this cell into the store file.    *</li>    *</ol>    * In the mob compaction, the {@link MobCompactionStoreScanner} is used as a scanner    * which could output the normal cells and delete markers together when required.    * After the major compaction on the normal hfiles, we have a guarantee that we have purged all    * deleted or old version mob refs, and the delete markers are written to a del file with the    * suffix _del. Because of this, it is safe to use the del file in the mob compaction.    * The mob compaction doesn't take place in the normal hfiles, it occurs directly in the    * mob files. When the small mob files are merged into bigger ones, the del file is added into    * the scanner to filter the deleted cells.    * @param fd File details    * @param scanner Where to read from.    * @param writer Where to write to.    * @param smallestReadPoint Smallest read point.    * @param cleanSeqId When true, remove seqId(used to be mvcc) value which is<= smallestReadPoint    * @param major Is a major compaction.    * @return Whether compaction ended; false if it was interrupted for any reason.    */
 annotation|@
 name|Override
@@ -691,6 +710,9 @@ name|smallestReadPoint
 parameter_list|,
 name|boolean
 name|cleanSeqId
+parameter_list|,
+name|CompactionThroughputController
+name|throughputController
 parameter_list|,
 name|boolean
 name|major
@@ -976,26 +998,28 @@ range|:
 name|cells
 control|)
 block|{
-comment|// TODO remove the KeyValueUtil.ensureKeyValue before merging back to trunk.
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
+if|if
+condition|(
+name|cleanSeqId
+operator|&&
+name|c
 operator|.
-name|ensureKeyValue
+name|getSequenceId
+argument_list|()
+operator|<=
+name|smallestReadPoint
+condition|)
+block|{
+name|CellUtil
+operator|.
+name|setSequenceId
 argument_list|(
 name|c
-argument_list|)
-decl_stmt|;
-name|resetSeqId
-argument_list|(
-name|smallestReadPoint
 argument_list|,
-name|cleanSeqId
-argument_list|,
-name|kv
+literal|0
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|compactionScanner
@@ -1015,7 +1039,7 @@ name|delFileWriter
 operator|.
 name|append
 argument_list|(
-name|kv
+name|c
 argument_list|)
 expr_stmt|;
 name|deleteMarkersCount
@@ -1029,7 +1053,7 @@ name|mobFileWriter
 operator|==
 literal|null
 operator|||
-name|kv
+name|c
 operator|.
 name|getTypeByte
 argument_list|()
@@ -1050,7 +1074,7 @@ name|writer
 operator|.
 name|append
 argument_list|(
-name|kv
+name|c
 argument_list|)
 expr_stmt|;
 block|}
@@ -1061,7 +1085,7 @@ name|MobUtils
 operator|.
 name|isMobReferenceCell
 argument_list|(
-name|kv
+name|c
 argument_list|)
 condition|)
 block|{
@@ -1071,7 +1095,7 @@ name|MobUtils
 operator|.
 name|hasValidMobRefCellValue
 argument_list|(
-name|kv
+name|c
 argument_list|)
 condition|)
 block|{
@@ -1082,7 +1106,7 @@ name|MobUtils
 operator|.
 name|getMobValueLength
 argument_list|(
-name|kv
+name|c
 argument_list|)
 decl_stmt|;
 if|if
@@ -1098,7 +1122,7 @@ name|writer
 operator|.
 name|append
 argument_list|(
-name|kv
+name|c
 argument_list|)
 expr_stmt|;
 block|}
@@ -1107,20 +1131,20 @@ block|{
 comment|// If the value is not larger than the threshold, it's not regarded a mob. Retrieve
 comment|// the mob cell from the mob file, and write it back to the store file.
 name|Cell
-name|cell
+name|mobCell
 init|=
 name|mobStore
 operator|.
 name|resolve
 argument_list|(
-name|kv
+name|c
 argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|cell
+name|mobCell
 operator|.
 name|getValueLength
 argument_list|()
@@ -1129,21 +1153,14 @@ literal|0
 condition|)
 block|{
 comment|// put the mob data back to the store file
-name|KeyValue
-name|mobKv
-init|=
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|cell
-argument_list|)
-decl_stmt|;
-name|mobKv
+comment|// KeyValue mobKv = KeyValueUtil.ensureKeyValue(cell);
+name|CellUtil
 operator|.
 name|setSequenceId
 argument_list|(
-name|kv
+name|mobCell
+argument_list|,
+name|c
 operator|.
 name|getSequenceId
 argument_list|()
@@ -1153,7 +1170,7 @@ name|writer
 operator|.
 name|append
 argument_list|(
-name|mobKv
+name|mobCell
 argument_list|)
 expr_stmt|;
 name|mobCompactedFromMobCellsCount
@@ -1161,7 +1178,7 @@ operator|++
 expr_stmt|;
 name|mobCompactedFromMobCellsSize
 operator|+=
-name|cell
+name|mobCell
 operator|.
 name|getValueLength
 argument_list|()
@@ -1176,7 +1193,7 @@ name|writer
 operator|.
 name|append
 argument_list|(
-name|kv
+name|c
 argument_list|)
 expr_stmt|;
 block|}
@@ -1190,7 +1207,7 @@ name|warn
 argument_list|(
 literal|"The value format of the KeyValue "
 operator|+
-name|kv
+name|c
 operator|+
 literal|" is wrong, its length is less than "
 operator|+
@@ -1203,7 +1220,7 @@ name|writer
 operator|.
 name|append
 argument_list|(
-name|kv
+name|c
 argument_list|)
 expr_stmt|;
 block|}
@@ -1211,7 +1228,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|kv
+name|c
 operator|.
 name|getValueLength
 argument_list|()
@@ -1225,7 +1242,7 @@ name|writer
 operator|.
 name|append
 argument_list|(
-name|kv
+name|c
 argument_list|)
 expr_stmt|;
 block|}
@@ -1241,7 +1258,7 @@ name|mobFileWriter
 operator|.
 name|append
 argument_list|(
-name|kv
+name|c
 argument_list|)
 expr_stmt|;
 name|KeyValue
@@ -1251,7 +1268,7 @@ name|MobUtils
 operator|.
 name|createMobRefKeyValue
 argument_list|(
-name|kv
+name|c
 argument_list|,
 name|fileName
 argument_list|,
@@ -1271,7 +1288,7 @@ operator|++
 expr_stmt|;
 name|mobCompactedIntoMobCellsSize
 operator|+=
-name|kv
+name|c
 operator|.
 name|getValueLength
 argument_list|()
@@ -1292,10 +1309,12 @@ condition|)
 block|{
 name|bytesWritten
 operator|+=
-name|kv
+name|KeyValueUtil
 operator|.
-name|getLength
-argument_list|()
+name|length
+argument_list|(
+name|c
+argument_list|)
 expr_stmt|;
 if|if
 condition|(

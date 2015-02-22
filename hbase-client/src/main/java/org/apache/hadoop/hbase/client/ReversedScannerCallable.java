@@ -65,34 +65,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|DoNotRetryIOException
@@ -165,6 +137,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|metrics
@@ -205,18 +193,6 @@ name|Bytes
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|RpcController
-import|;
-end_import
-
 begin_comment
 comment|/**  * A reversed ScannerCallable which supports backward scanning.  */
 end_comment
@@ -225,11 +201,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
+name|Private
 specifier|public
 class|class
 name|ReversedScannerCallable
@@ -243,7 +215,7 @@ name|byte
 index|[]
 name|locateStartRow
 decl_stmt|;
-comment|/**    * @param connection    * @param tableName    * @param scan    * @param scanMetrics    * @param locateStartRow The start row for locating regions    * @param rpcFactory to create an {@link RpcController} to talk to the regionserver    */
+comment|/**    * @param connection    * @param tableName    * @param scan    * @param scanMetrics    * @param locateStartRow The start row for locating regions    * @param rpcFactory to create an {@link com.google.protobuf.RpcController}     * to talk to the regionserver    */
 specifier|public
 name|ReversedScannerCallable
 parameter_list|(
@@ -287,7 +259,7 @@ operator|=
 name|locateStartRow
 expr_stmt|;
 block|}
-comment|/**    * @param connection    * @param tableName    * @param scan    * @param scanMetrics    * @param locateStartRow The start row for locating regions    * @param rpcFactory to create an {@link RpcController} to talk to the regionserver    * @param replicaId the replica id    */
+comment|/**    * @param connection    * @param tableName    * @param scan    * @param scanMetrics    * @param locateStartRow The start row for locating regions    * @param rpcFactory to create an {@link com.google.protobuf.RpcController}     *        to talk to the regionserver    * @param replicaId the replica id    */
 specifier|public
 name|ReversedScannerCallable
 parameter_list|(
@@ -336,7 +308,7 @@ operator|=
 name|locateStartRow
 expr_stmt|;
 block|}
-comment|/**    * @deprecated use    *             {@link #ReversedScannerCallable(ClusterConnection, TableName, Scan, ScanMetrics, byte[], RpcControllerFactory )}    */
+comment|/**    * @deprecated use    *  {@link #ReversedScannerCallable(ClusterConnection, TableName, Scan,     *     ScanMetrics, byte[], RpcControllerFactory )}    */
 annotation|@
 name|Deprecated
 specifier|public

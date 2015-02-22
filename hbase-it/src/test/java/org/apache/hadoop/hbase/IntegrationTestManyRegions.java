@@ -103,9 +103,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|testclassification
 operator|.
-name|HBaseAdmin
+name|IntegrationTests
 import|;
 end_import
 

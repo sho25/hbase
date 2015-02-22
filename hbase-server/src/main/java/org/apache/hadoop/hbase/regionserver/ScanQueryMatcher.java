@@ -45,6 +45,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -90,6 +92,20 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeepDeletedCells
 import|;
 end_import
 
@@ -301,7 +317,7 @@ decl_stmt|;
 comment|/** whether to return deleted rows */
 specifier|private
 specifier|final
-name|boolean
+name|KeepDeletedCells
 name|keepDeletedCells
 decl_stmt|;
 comment|/** whether time range queries can see rows "behind" a delete */
@@ -347,6 +363,22 @@ specifier|private
 specifier|final
 name|long
 name|earliestPutTs
+decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|ttl
+decl_stmt|;
+comment|/** The oldest timestamp we are interested in, based on TTL */
+specifier|private
+specifier|final
+name|long
+name|oldestUnexpiredTS
+decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|now
 decl_stmt|;
 comment|/** readPoint over which the KVs are unconditionally included */
 specifier|protected
@@ -438,6 +470,9 @@ parameter_list|,
 name|long
 name|oldestUnexpiredTS
 parameter_list|,
+name|long
+name|now
+parameter_list|,
 name|RegionCoprocessorHost
 name|regionCoprocessorHost
 parameter_list|)
@@ -520,6 +555,18 @@ name|earliestPutTs
 expr_stmt|;
 name|this
 operator|.
+name|oldestUnexpiredTS
+operator|=
+name|oldestUnexpiredTS
+expr_stmt|;
+name|this
+operator|.
+name|now
+operator|=
+name|now
+expr_stmt|;
+name|this
+operator|.
 name|maxReadPointToTrackVersions
 operator|=
 name|readPointToUse
@@ -532,6 +579,12 @@ name|scanInfo
 operator|.
 name|getTimeToPurgeDeletes
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|ttl
+operator|=
+name|oldestUnexpiredTS
 expr_stmt|;
 comment|/* how to deal with deletes */
 name|this
@@ -549,22 +602,27 @@ name|this
 operator|.
 name|keepDeletedCells
 operator|=
-operator|(
-name|scanInfo
-operator|.
-name|getKeepDeletedCells
-argument_list|()
-operator|&&
-operator|!
-name|isUserScan
-operator|)
-operator|||
 name|scan
 operator|.
 name|isRaw
 argument_list|()
+condition|?
+name|KeepDeletedCells
+operator|.
+name|TRUE
+else|:
+name|isUserScan
+condition|?
+name|KeepDeletedCells
+operator|.
+name|FALSE
+else|:
+name|scanInfo
+operator|.
+name|getKeepDeletedCells
+argument_list|()
 expr_stmt|;
-comment|// retain deletes: if minor compaction or raw scan
+comment|// retain deletes: if minor compaction or raw scanisDone
 name|this
 operator|.
 name|retainDeletesInOutput
@@ -589,6 +647,10 @@ name|scanInfo
 operator|.
 name|getKeepDeletedCells
 argument_list|()
+operator|!=
+name|KeepDeletedCells
+operator|.
+name|FALSE
 operator|&&
 name|isUserScan
 expr_stmt|;
@@ -768,7 +830,7 @@ return|return
 name|tracker
 return|;
 block|}
-comment|/**    * Construct a QueryMatcher for a scan that drop deletes from a limited range of rows.    * @param scan    * @param scanInfo The store's immutable scan info    * @param columns    * @param earliestPutTs Earliest put seen in any of the store files.    * @param oldestUnexpiredTS the oldest timestamp we are interested in,    *  based on TTL    * @param dropDeletesFromRow The inclusive left bound of the range; can be EMPTY_START_ROW.    * @param dropDeletesToRow The exclusive right bound of the range; can be EMPTY_END_ROW.    * @param regionCoprocessorHost     * @throws IOException     */
+comment|/**    * Construct a QueryMatcher for a scan that drop deletes from a limited range of rows.    * @param scan    * @param scanInfo The store's immutable scan info    * @param columns    * @param earliestPutTs Earliest put seen in any of the store files.    * @param oldestUnexpiredTS the oldest timestamp we are interested in, based on TTL    * @param now the current server time    * @param dropDeletesFromRow The inclusive left bound of the range; can be EMPTY_START_ROW.    * @param dropDeletesToRow The exclusive right bound of the range; can be EMPTY_END_ROW.    * @param regionCoprocessorHost     * @throws IOException     */
 specifier|public
 name|ScanQueryMatcher
 parameter_list|(
@@ -793,6 +855,9 @@ name|earliestPutTs
 parameter_list|,
 name|long
 name|oldestUnexpiredTS
+parameter_list|,
+name|long
+name|now
 parameter_list|,
 name|byte
 index|[]
@@ -825,6 +890,8 @@ argument_list|,
 name|earliestPutTs
 argument_list|,
 name|oldestUnexpiredTS
+argument_list|,
+name|now
 argument_list|,
 name|regionCoprocessorHost
 argument_list|)
@@ -877,6 +944,9 @@ name|columns
 parameter_list|,
 name|long
 name|oldestUnexpiredTS
+parameter_list|,
+name|long
+name|now
 parameter_list|)
 throws|throws
 name|IOException
@@ -903,6 +973,8 @@ operator|.
 name|LATEST_TIMESTAMP
 argument_list|,
 name|oldestUnexpiredTS
+argument_list|,
+name|now
 argument_list|,
 literal|null
 argument_list|)
@@ -1136,6 +1208,31 @@ name|qualifierLength
 argument_list|)
 return|;
 block|}
+comment|// check if the cell is expired by cell TTL
+if|if
+condition|(
+name|HStore
+operator|.
+name|isCellTTLExpired
+argument_list|(
+name|cell
+argument_list|,
+name|this
+operator|.
+name|oldestUnexpiredTS
+argument_list|,
+name|this
+operator|.
+name|now
+argument_list|)
+condition|)
+block|{
+return|return
+name|MatchCode
+operator|.
+name|SKIP
+return|;
+block|}
 comment|/*      * The delete logic is pretty complicated now.      * This is corroborated by the following:      * 1. The store might be instructed to keep deleted rows around.      * 2. A scan can optionally see past a delete marker now.      * 3. If deleted rows are kept, we have to find out when we can      *    remove the delete markers.      * 4. Family delete markers are always first (regardless of their TS)      * 5. Delete markers should not be counted as version      * 6. Delete markers affect puts of the *same* TS      * 7. Delete marker need to be version counted together with puts      *    they affect      */
 name|byte
 name|typeByte
@@ -1165,8 +1262,23 @@ condition|)
 block|{
 if|if
 condition|(
-operator|!
 name|keepDeletedCells
+operator|==
+name|KeepDeletedCells
+operator|.
+name|FALSE
+operator|||
+operator|(
+name|keepDeletedCells
+operator|==
+name|KeepDeletedCells
+operator|.
+name|TTL
+operator|&&
+name|timestamp
+operator|<
+name|ttl
+operator|)
 condition|)
 block|{
 comment|// first ignore delete markers if the scanner can do so, and the
@@ -1275,6 +1387,22 @@ elseif|else
 if|if
 condition|(
 name|keepDeletedCells
+operator|==
+name|KeepDeletedCells
+operator|.
+name|TRUE
+operator|||
+operator|(
+name|keepDeletedCells
+operator|==
+name|KeepDeletedCells
+operator|.
+name|TTL
+operator|&&
+name|timestamp
+operator|>=
+name|ttl
+operator|)
 condition|)
 block|{
 if|if

@@ -25,23 +25,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|CoordinatedStateException
 import|;
 end_import
 
@@ -70,20 +58,6 @@ operator|.
 name|hbase
 operator|.
 name|Server
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TableStateManager
 import|;
 end_import
 
@@ -138,18 +112,6 @@ return|return
 literal|null
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
-specifier|abstract
-name|TableStateManager
-name|getTableStateManager
-parameter_list|()
-throws|throws
-name|InterruptedException
-throws|,
-name|CoordinatedStateException
-function_decl|;
 comment|/**    * Method to retrieve coordination for split log worker    */
 specifier|public
 specifier|abstract

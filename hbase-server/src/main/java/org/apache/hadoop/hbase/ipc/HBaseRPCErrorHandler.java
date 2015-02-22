@@ -25,6 +25,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -44,7 +46,7 @@ specifier|public
 interface|interface
 name|HBaseRPCErrorHandler
 block|{
-comment|/** 	 * Take actions on the event of an OutOfMemoryError. 	 * @param e the throwable 	 * @return if the server should be shut down 	 */
+comment|/**    * Take actions on the event of an OutOfMemoryError.    * @param e the throwable    * @return if the server should be shut down    */
 name|boolean
 name|checkOOME
 parameter_list|(

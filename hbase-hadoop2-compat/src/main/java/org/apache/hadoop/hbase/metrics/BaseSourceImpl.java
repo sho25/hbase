@@ -25,6 +25,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -217,10 +219,6 @@ name|inited
 init|=
 literal|false
 decl_stmt|;
-specifier|private
-name|JvmMetrics
-name|jvmMetricsSource
-decl_stmt|;
 specifier|synchronized
 name|void
 name|init
@@ -245,8 +243,6 @@ argument_list|(
 name|HBASE_METRICS_SYSTEM_NAME
 argument_list|)
 expr_stmt|;
-name|jvmMetricsSource
-operator|=
 name|JvmMetrics
 operator|.
 name|initSingleton

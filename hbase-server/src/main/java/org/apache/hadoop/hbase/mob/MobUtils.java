@@ -1227,8 +1227,9 @@ block|{
 name|HFileLink
 name|hfileLink
 init|=
-operator|new
 name|HFileLink
+operator|.
+name|buildFromHFileLinkPattern
 argument_list|(
 name|conf
 argument_list|,

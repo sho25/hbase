@@ -85,6 +85,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|conf
 operator|.
 name|Configuration
@@ -486,6 +502,10 @@ comment|//to figure out whether it is a meta region or not.
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 class|class
 name|AnnotationReadingPriorityFunction
 implements|implements
@@ -1177,7 +1197,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaTable
+name|isSystemTable
 argument_list|()
 condition|)
 block|{
@@ -1205,7 +1225,7 @@ block|}
 return|return
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|SYSTEMTABLE_QOS
 return|;
 block|}
 block|}
@@ -1298,7 +1318,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaRegion
+name|isSystemTable
 argument_list|()
 condition|)
 block|{
@@ -1329,7 +1349,7 @@ block|}
 return|return
 name|HConstants
 operator|.
-name|HIGH_QOS
+name|SYSTEMTABLE_QOS
 return|;
 block|}
 block|}

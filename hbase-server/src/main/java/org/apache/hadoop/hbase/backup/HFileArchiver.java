@@ -1151,17 +1151,17 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isTraceEnabled
+name|isDebugEnabled
 argument_list|()
 condition|)
 name|LOG
 operator|.
-name|trace
+name|debug
 argument_list|(
 literal|"Archiving compacted store files."
 argument_list|)
 expr_stmt|;
-comment|// wrap the storefile into a File
+comment|// Wrap the storefile into a File
 name|StoreToFile
 name|getStorePath
 init|=

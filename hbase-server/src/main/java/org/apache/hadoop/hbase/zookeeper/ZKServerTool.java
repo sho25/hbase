@@ -47,23 +47,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
 import|;
 end_import
 
@@ -95,6 +83,20 @@ name|HBaseConfiguration
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Tool for reading ZooKeeper servers from HBase XML configuration and producing  * a line-by-line list for use by bash scripts.  */
 end_comment
@@ -103,11 +105,12 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
 operator|.
-name|Evolving
+name|TOOLS
+argument_list|)
 specifier|public
 class|class
 name|ZKServerTool

@@ -105,16 +105,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Collections
 import|;
 end_import
@@ -178,6 +168,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -351,6 +343,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|ByteBufferUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Bytes
 import|;
 end_import
@@ -368,22 +376,6 @@ operator|.
 name|util
 operator|.
 name|ClassSize
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|CompoundBloomFilterWriter
 import|;
 end_import
 
@@ -416,7 +408,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Provides functionality to write ({@link BlockIndexWriter}) and read  * ({@link BlockIndexReader}) single-level and multi-level block indexes.  *  * Examples of how to use the block index writer can be found in  * {@link CompoundBloomFilterWriter} and {@link HFileWriterV2}. Examples of how  * to use the reader can be found in {@link HFileReaderV2} and  * TestHFileBlockIndex.  */
+comment|/**  * Provides functionality to write ({@link BlockIndexWriter}) and read  * ({@link BlockIndexReader}) single-level and multi-level block indexes.  *  * Examples of how to use the block index writer can be found in  * {@link org.apache.hadoop.hbase.util.CompoundBloomFilterWriter} and  *  {@link HFileWriterV2}. Examples of how to use the reader can be  *  found in {@link HFileReaderV2} and TestHFileBlockIndex.  */
 end_comment
 
 begin_class
@@ -1339,11 +1331,6 @@ decl_stmt|;
 name|int
 name|keyOffset
 init|=
-name|b
-operator|.
-name|arrayOffset
-argument_list|()
-operator|+
 name|Bytes
 operator|.
 name|SIZEOF_INT
@@ -1360,19 +1347,14 @@ name|SECONDARY_INDEX_ENTRY_OVERHEAD
 decl_stmt|;
 name|targetMidKey
 operator|=
-name|Arrays
+name|ByteBufferUtils
 operator|.
-name|copyOfRange
+name|toBytes
 argument_list|(
 name|b
-operator|.
-name|array
-argument_list|()
 argument_list|,
 name|keyOffset
 argument_list|,
-name|keyOffset
-operator|+
 name|keyLen
 argument_list|)
 expr_stmt|;
@@ -1775,36 +1757,16 @@ name|targetKeyRelOffset
 operator|-
 name|SECONDARY_INDEX_ENTRY_OVERHEAD
 decl_stmt|;
-name|int
-name|from
-init|=
-name|nonRootIndex
-operator|.
-name|arrayOffset
-argument_list|()
-operator|+
-name|targetKeyOffset
-decl_stmt|;
-name|int
-name|to
-init|=
-name|from
-operator|+
-name|targetKeyLength
-decl_stmt|;
 return|return
-name|Arrays
+name|ByteBufferUtils
 operator|.
-name|copyOfRange
+name|toBytes
 argument_list|(
 name|nonRootIndex
-operator|.
-name|array
-argument_list|()
 argument_list|,
-name|from
+name|targetKeyOffset
 argument_list|,
-name|to
+name|targetKeyLength
 argument_list|)
 return|;
 block|}
@@ -1955,6 +1917,8 @@ name|SECONDARY_INDEX_ENTRY_OVERHEAD
 decl_stmt|;
 comment|// we have to compare in this order, because the comparator order
 comment|// has special logic when the 'left side' is a special key.
+comment|// TODO make KeyOnlyKeyValue to be Buffer backed and avoid array() call. This has to be
+comment|// done after HBASE-12224& HBASE-12282
 name|nonRootIndexKV
 operator|.
 name|setKey
@@ -2680,7 +2644,7 @@ operator|new
 name|BlockIndexChunk
 argument_list|()
 decl_stmt|;
-comment|/**      * The number of block index levels. This is one if there is only root      * level (even empty), two if there a leaf level and root level, and is      * higher if there are intermediate levels. This is only final after      * {@link #writeIndexBlocks(FSDataOutputStream)} has been called. The      * initial value accounts for the root level, and will be increased to two      * as soon as we find out there is a leaf-level in      * {@link #blockWritten(long, int)}.      */
+comment|/**      * The number of block index levels. This is one if there is only root      * level (even empty), two if there a leaf level and root level, and is      * higher if there are intermediate levels. This is only final after      * {@link #writeIndexBlocks(FSDataOutputStream)} has been called. The      * initial value accounts for the root level, and will be increased to two      * as soon as we find out there is a leaf-level in      * {@link #blockWritten(long, int, int)}.      */
 specifier|private
 name|int
 name|numLevels
@@ -2725,10 +2689,10 @@ specifier|private
 name|boolean
 name|singleLevelOnly
 decl_stmt|;
-comment|/** Block cache, or null if cache-on-write is disabled */
+comment|/** CacheConfig, or null if cache-on-write is disabled */
 specifier|private
-name|BlockCache
-name|blockCache
+name|CacheConfig
+name|cacheConf
 decl_stmt|;
 comment|/** Name to use for computing cache keys */
 specifier|private
@@ -2754,7 +2718,7 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
-comment|/**      * Creates a multi-level block index writer.      *      * @param blockWriter the block writer to use to write index blocks      * @param blockCache if this is not null, index blocks will be cached      *    on write into this block cache.      */
+comment|/**      * Creates a multi-level block index writer.      *      * @param blockWriter the block writer to use to write index blocks      * @param cacheConf used to determine when and how a block should be cached-on-write.      */
 specifier|public
 name|BlockIndexWriter
 parameter_list|(
@@ -2763,8 +2727,8 @@ operator|.
 name|Writer
 name|blockWriter
 parameter_list|,
-name|BlockCache
-name|blockCache
+name|CacheConfig
+name|cacheConf
 parameter_list|,
 name|String
 name|nameForCaching
@@ -2773,7 +2737,7 @@ block|{
 if|if
 condition|(
 operator|(
-name|blockCache
+name|cacheConf
 operator|==
 literal|null
 operator|)
@@ -2803,9 +2767,9 @@ name|blockWriter
 expr_stmt|;
 name|this
 operator|.
-name|blockCache
+name|cacheConf
 operator|=
-name|blockCache
+name|cacheConf
 expr_stmt|;
 name|this
 operator|.
@@ -3350,7 +3314,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|blockCache
+name|cacheConf
 operator|!=
 literal|null
 condition|)
@@ -3361,9 +3325,14 @@ init|=
 name|blockWriter
 operator|.
 name|getBlockForCaching
-argument_list|()
+argument_list|(
+name|cacheConf
+argument_list|)
 decl_stmt|;
-name|blockCache
+name|cacheConf
+operator|.
+name|getBlockCache
+argument_list|()
 operator|.
 name|cacheBlock
 argument_list|(
@@ -3829,9 +3798,14 @@ name|getCacheOnWrite
 parameter_list|()
 block|{
 return|return
-name|blockCache
+name|cacheConf
 operator|!=
 literal|null
+operator|&&
+name|cacheConf
+operator|.
+name|shouldCacheIndexesOnWrite
+argument_list|()
 return|;
 block|}
 comment|/**      * The total uncompressed size of the root index block, intermediate-level      * index blocks, and leaf-level index blocks.      *      * @return the total uncompressed size of all index blocks      */

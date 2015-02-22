@@ -73,7 +73,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|SmallTests
+name|testclassification
+operator|.
+name|IOTests
 import|;
 end_import
 
@@ -87,13 +89,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|testclassification
 operator|.
-name|hfile
-operator|.
-name|bucket
-operator|.
-name|FileIOEngine
+name|SmallTests
 import|;
 end_import
 
@@ -129,9 +127,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|IOTests
+operator|.
+name|class
+block|,
 name|SmallTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class

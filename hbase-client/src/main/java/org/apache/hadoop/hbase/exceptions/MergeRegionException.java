@@ -25,6 +25,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -38,6 +40,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -55,7 +59,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|RegionException
+name|client
+operator|.
+name|DoNotRetryRegionException
 import|;
 end_import
 
@@ -76,7 +82,7 @@ specifier|public
 class|class
 name|MergeRegionException
 extends|extends
-name|RegionException
+name|DoNotRetryRegionException
 block|{
 specifier|private
 specifier|static

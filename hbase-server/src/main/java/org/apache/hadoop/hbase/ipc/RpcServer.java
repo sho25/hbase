@@ -299,6 +299,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Collections
 import|;
 end_import
@@ -535,6 +545,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -548,6 +560,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -1375,6 +1389,8 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
 name|htrace
 operator|.
 name|TraceInfo
@@ -1486,7 +1502,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An RPC server that hosts protobuf described Services.  *  * An RpcServer instance has a Listener that hosts the socket.  Listener has fixed number  * of Readers in an ExecutorPool, 10 by default.  The Listener does an accept and then  * round robin a Reader is chosen to do the read.  The reader is registered on Selector.  Read does  * total read off the channel and the parse from which it makes a Call.  The call is wrapped in a  * CallRunner and passed to the scheduler to be run.  Reader goes back to see if more to be done  * and loops till done.  *  *<p>Scheduler can be variously implemented but default simple scheduler has handlers to which it  * has given the queues into which calls (i.e. CallRunner instances) are inserted.  Handlers run  * taking from the queue.  They run the CallRunner#run method on each item gotten from queue  * and keep taking while the server is up.  *  * CallRunner#run executes the call.  When done, asks the included Call to put itself on new  * queue for {@link Responder} to pull from and return result to client.  *  * @see RpcClient  */
+comment|/**  * An RPC server that hosts protobuf described Services.  *  * An RpcServer instance has a Listener that hosts the socket.  Listener has fixed number  * of Readers in an ExecutorPool, 10 by default.  The Listener does an accept and then  * round robin a Reader is chosen to do the read.  The reader is registered on Selector.  Read does  * total read off the channel and the parse from which it makes a Call.  The call is wrapped in a  * CallRunner and passed to the scheduler to be run.  Reader goes back to see if more to be done  * and loops till done.  *  *<p>Scheduler can be variously implemented but default simple scheduler has handlers to which it  * has given the queues into which calls (i.e. CallRunner instances) are inserted.  Handlers run  * taking from the queue.  They run the CallRunner#run method on each item gotten from queue  * and keep taking while the server is up.  *  * CallRunner#run executes the call.  When done, asks the included Call to put itself on new  * queue for Responder to pull from and return result to client.  *  * @see RpcClientImpl  */
 end_comment
 
 begin_class
@@ -1681,13 +1697,18 @@ decl_stmt|;
 specifier|protected
 specifier|final
 name|InetSocketAddress
-name|isa
+name|bindAddress
 decl_stmt|;
 specifier|protected
 name|int
 name|port
 decl_stmt|;
 comment|// port we listen on
+specifier|protected
+name|InetSocketAddress
+name|address
+decl_stmt|;
+comment|// inet address we listen on
 specifier|private
 name|int
 name|readThreads
@@ -3114,6 +3135,17 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+specifier|public
+name|UserGroupInformation
+name|getRemoteUser
+parameter_list|()
+block|{
+return|return
+name|connection
+operator|.
+name|user
+return|;
+block|}
 block|}
 comment|/** Listens on the socket. Creates jobs for the handler threads*/
 specifier|private
@@ -3222,7 +3254,7 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-comment|// Bind the server socket to the local host and port
+comment|// Bind the server socket to the binding addrees (can be different from the default interface)
 name|bind
 argument_list|(
 name|acceptChannel
@@ -3230,7 +3262,7 @@ operator|.
 name|socket
 argument_list|()
 argument_list|,
-name|isa
+name|bindAddress
 argument_list|,
 name|backlogLength
 argument_list|)
@@ -3246,6 +3278,19 @@ name|getLocalPort
 argument_list|()
 expr_stmt|;
 comment|//Could be an ephemeral port
+name|address
+operator|=
+operator|(
+name|InetSocketAddress
+operator|)
+name|acceptChannel
+operator|.
+name|socket
+argument_list|()
+operator|.
+name|getLocalSocketAddress
+argument_list|()
+expr_stmt|;
 comment|// create a selector;
 name|selector
 operator|=
@@ -3276,7 +3321,14 @@ argument_list|()
 operator|.
 name|setNameFormat
 argument_list|(
-literal|"RpcServer.reader=%d,port="
+literal|"RpcServer.reader=%d,bindAddress="
+operator|+
+name|bindAddress
+operator|.
+name|getHostName
+argument_list|()
+operator|+
+literal|",port="
 operator|+
 name|port
 argument_list|)
@@ -3403,6 +3455,8 @@ name|open
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -3951,7 +4005,24 @@ parameter_list|(
 name|IOException
 name|ignored
 parameter_list|)
-block|{             }
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"ignored"
+argument_list|,
+name|ignored
+argument_list|)
+expr_stmt|;
+block|}
 name|key
 operator|=
 literal|null
@@ -4115,7 +4186,24 @@ parameter_list|(
 name|IOException
 name|ignored
 parameter_list|)
-block|{ }
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"ignored"
+argument_list|,
+name|ignored
+argument_list|)
+expr_stmt|;
+block|}
 name|selector
 operator|=
 literal|null
@@ -4242,16 +4330,7 @@ name|getAddress
 parameter_list|()
 block|{
 return|return
-operator|(
-name|InetSocketAddress
-operator|)
-name|acceptChannel
-operator|.
-name|socket
-argument_list|()
-operator|.
-name|getLocalSocketAddress
-argument_list|()
+name|address
 return|;
 block|}
 name|void
@@ -4820,7 +4899,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**      * Take the list of the connections that want to write, and register them      *  in the selector.      */
+comment|/**      * Take the list of the connections that want to write, and register them      * in the selector.      */
 specifier|private
 name|void
 name|registerWrites
@@ -4870,6 +4949,8 @@ argument_list|(
 name|writeSelector
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 if|if
 condition|(
 name|sk
@@ -4902,6 +4983,22 @@ name|e
 parameter_list|)
 block|{
 comment|// ignore: the client went away.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"ignored"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 else|else
@@ -4913,6 +5010,31 @@ argument_list|(
 name|SelectionKey
 operator|.
 name|OP_WRITE
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|CancelledKeyException
+name|e
+parameter_list|)
+block|{
+comment|// ignore: the client went away.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"ignored"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -5562,7 +5684,7 @@ return|;
 comment|// Socket can't take more, we will have to come back.
 block|}
 block|}
-comment|/**      * Process all the responses for this connection      *      * @return true if all the calls were processed or that someone else is doing it. false if there      * is still some work to do. In this case, we expect the caller to delay us.      * @throws IOException      */
+comment|/**      * Process all the responses for this connection      *      * @return true if all the calls were processed or that someone else is doing it.      * false if there * is still some work to do. In this case, we expect the caller to      * delay us.      * @throws IOException      */
 specifier|private
 name|boolean
 name|processAllResponses
@@ -6430,12 +6552,12 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Have read input token of size "
 operator|+
@@ -7202,13 +7324,18 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|HConstants
-operator|.
-name|RPC_HEADER
+name|Arrays
 operator|.
 name|equals
 argument_list|(
+name|HConstants
+operator|.
+name|RPC_HEADER
+argument_list|,
 name|dataLengthBuffer
+operator|.
+name|array
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -7224,9 +7351,6 @@ argument_list|(
 name|HConstants
 operator|.
 name|RPC_HEADER
-operator|.
-name|array
-argument_list|()
 argument_list|)
 operator|+
 literal|" but received HEADER="
@@ -8737,7 +8861,12 @@ operator|new
 name|CallQueueTooBigException
 argument_list|()
 argument_list|,
-literal|"Call queue is full, is hbase.ipc.server.max.callqueue.size too small?"
+literal|"Call queue is full on "
+operator|+
+name|getListenerAddress
+argument_list|()
+operator|+
+literal|", is hbase.ipc.server.max.callqueue.size too small?"
 argument_list|)
 expr_stmt|;
 name|responder
@@ -8929,7 +9058,10 @@ block|{
 name|String
 name|msg
 init|=
-literal|"Unable to read call parameter from client "
+name|getListenerAddress
+argument_list|()
+operator|+
+literal|" is unable to read call parameter from client "
 operator|+
 name|getHostAddress
 argument_list|()
@@ -9535,7 +9667,7 @@ name|service
 return|;
 block|}
 block|}
-comment|/**    * Constructs a server listening on the named port and address.    * @param server hosting instance of {@link Server}. We will do authentications if an    * instance else pass null for no authentication check.    * @param name Used keying this rpc servers' metrics and for naming the Listener thread.    * @param services A list of services.    * @param isa Where to listen    * @throws IOException    */
+comment|/**    * Constructs a server listening on the named port and address.    * @param server hosting instance of {@link Server}. We will do authentications if an    * instance else pass null for no authentication check.    * @param name Used keying this rpc servers' metrics and for naming the Listener thread.    * @param services A list of services.    * @param bindAddress Where to listen    * @param conf    * @param scheduler    */
 specifier|public
 name|RpcServer
 parameter_list|(
@@ -9556,7 +9688,7 @@ name|services
 parameter_list|,
 specifier|final
 name|InetSocketAddress
-name|isa
+name|bindAddress
 parameter_list|,
 name|Configuration
 name|conf
@@ -9581,9 +9713,9 @@ name|services
 expr_stmt|;
 name|this
 operator|.
-name|isa
+name|bindAddress
 operator|=
-name|isa
+name|bindAddress
 expr_stmt|;
 name|this
 operator|.
@@ -10260,6 +10392,8 @@ name|secretManager
 expr_stmt|;
 block|}
 comment|/**    * This is a server side method, which is invoked over RPC. On success    * the return response has protobuf response payload. On failure, the    * exception name and the stack trace are returned in the protobuf response.    */
+annotation|@
+name|Override
 specifier|public
 name|Pair
 argument_list|<
@@ -11069,6 +11203,8 @@ name|errorHandler
 return|;
 block|}
 comment|/**    * Returns the metrics instance for reporting RPC call statistics    */
+annotation|@
+name|Override
 specifier|public
 name|MetricsHBaseServer
 name|getMetrics
@@ -11720,6 +11856,8 @@ name|e
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|RpcScheduler
 name|getScheduler

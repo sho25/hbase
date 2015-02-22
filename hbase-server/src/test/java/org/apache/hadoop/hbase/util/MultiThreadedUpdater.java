@@ -395,6 +395,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|exceptions
 operator|.
 name|OperationConflictException
@@ -813,7 +829,7 @@ name|Thread
 block|{
 specifier|protected
 specifier|final
-name|HTableInterface
+name|Table
 name|table
 decl_stmt|;
 specifier|public
@@ -1831,7 +1847,7 @@ specifier|public
 name|void
 name|mutate
 parameter_list|(
-name|HTableInterface
+name|Table
 name|table
 parameter_list|,
 name|Mutation
@@ -1863,7 +1879,7 @@ specifier|public
 name|void
 name|mutate
 parameter_list|(
-name|HTableInterface
+name|Table
 name|table
 parameter_list|,
 name|Mutation
@@ -2210,7 +2226,7 @@ specifier|public
 name|void
 name|mutate
 parameter_list|(
-name|HTableInterface
+name|Table
 name|table
 parameter_list|,
 name|Mutation
@@ -2242,7 +2258,7 @@ specifier|public
 name|void
 name|mutate
 parameter_list|(
-name|HTableInterface
+name|Table
 name|table
 parameter_list|,
 name|Mutation

@@ -43,22 +43,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|ByteStringer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|commons
 operator|.
 name|logging
@@ -78,34 +62,6 @@ operator|.
 name|logging
 operator|.
 name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
 import|;
 end_import
 
@@ -147,9 +103,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|classification
 operator|.
-name|Scan
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -271,6 +243,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|ByteStringer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Bytes
 import|;
 end_import
@@ -302,7 +290,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This filter is used to filter cells based on value. It takes a {@link CompareFilter.CompareOp}  * operator (equal, greater, not equal, etc), and either a byte [] value or  * a ByteArrayComparable.  *<p>  * If we have a byte [] value then we just do a lexicographic compare. For  * example, if passed value is 'b' and cell has 'a' and the compare operator  * is LESS, then we will filter out this cell (return true).  If this is not  * sufficient (eg you want to deserialize a long and then compare it to a fixed  * long value), then you can pass in your own comparator instead.  *<p>  * You must also specify a family and qualifier.  Only the value of this column  * will be tested. When using this filter on a {@link Scan} with specified  * inputs, the column to be tested should also be added as input (otherwise  * the filter will regard the column as missing).  *<p>  * To prevent the entire row from being emitted if the column is not found  * on a row, use {@link #setFilterIfMissing}.  * Otherwise, if the column is found, the entire row will be emitted only if  * the value passes.  If the value fails, the row will be filtered out.  *<p>  * In order to test values of previous versions (timestamps), set  * {@link #setLatestVersionOnly} to false. The default is true, meaning that  * only the latest version's value is tested and all previous versions are ignored.  *<p>  * To filter based on the value of all scanned columns, use {@link ValueFilter}.  */
+comment|/**  * This filter is used to filter cells based on value. It takes a {@link CompareFilter.CompareOp}  * operator (equal, greater, not equal, etc), and either a byte [] value or  * a ByteArrayComparable.  *<p>  * If we have a byte [] value then we just do a lexicographic compare. For  * example, if passed value is 'b' and cell has 'a' and the compare operator  * is LESS, then we will filter out this cell (return true).  If this is not  * sufficient (eg you want to deserialize a long and then compare it to a fixed  * long value), then you can pass in your own comparator instead.  *<p>  * You must also specify a family and qualifier.  Only the value of this column  * will be tested. When using this filter on a   * {@link org.apache.hadoop.hbase.CellScanner} with specified  * inputs, the column to be tested should also be added as input (otherwise  * the filter will regard the column as missing).  *<p>  * To prevent the entire row from being emitted if the column is not found  * on a row, use {@link #setFilterIfMissing}.  * Otherwise, if the column is found, the entire row will be emitted only if  * the value passes.  If the value fails, the row will be filtered out.  *<p>  * In order to test values of previous versions (timestamps), set  * {@link #setLatestVersionOnly} to false. The default is true, meaning that  * only the latest version's value is tested and all previous versions are ignored.  *<p>  * To filter based on the value of all scanned columns, use {@link ValueFilter}.  */
 end_comment
 
 begin_class

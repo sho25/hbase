@@ -458,15 +458,12 @@ comment|// else create a store file link. The link file does not exists on files
 name|HFileLink
 name|link
 init|=
-operator|new
 name|HFileLink
+operator|.
+name|build
 argument_list|(
 name|conf
 argument_list|,
-name|HFileLink
-operator|.
-name|createPath
-argument_list|(
 name|regionInfoForFs
 operator|.
 name|getTable
@@ -486,7 +483,6 @@ argument_list|()
 operator|.
 name|getName
 argument_list|()
-argument_list|)
 argument_list|)
 decl_stmt|;
 return|return

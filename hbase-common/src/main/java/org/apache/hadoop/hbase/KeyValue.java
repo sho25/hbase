@@ -189,6 +189,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -208,6 +210,24 @@ operator|.
 name|io
 operator|.
 name|HeapSize
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|util
+operator|.
+name|StreamUtils
 import|;
 end_import
 
@@ -305,6 +325,8 @@ implements|,
 name|Cloneable
 implements|,
 name|SettableSequenceId
+implements|,
+name|SettableTimestamp
 block|{
 specifier|private
 specifier|static
@@ -2782,6 +2804,15 @@ name|getTagsLength
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|seqId
+operator|=
+name|c
+operator|.
+name|getSequenceId
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Create an empty byte[] representing a KeyValue    * All lengths are preset and can be filled in later.    * @param rlength    * @param flength    * @param qlength    * @param timestamp    * @param type    * @param vlength    * @return The newly created byte array.    */
 specifier|private
@@ -4983,7 +5014,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * Produces a string map for this key/value pair. Useful for programmatic use    * and manipulation of the data stored in an HLogKey, for example, printing    * as JSON. Values are left out due to their tendency to be large. If needed,    * they can be added manually.    *    * @return the Map<String,?> containing data from this key    */
+comment|/**    * Produces a string map for this key/value pair. Useful for programmatic use    * and manipulation of the data stored in an WALKey, for example, printing    * as JSON. Values are left out due to their tendency to be large. If needed,    * they can be added manually.    *    * @return the Map<String,?> containing data from this key    */
 specifier|public
 name|Map
 argument_list|<
@@ -5992,6 +6023,81 @@ block|}
 return|return
 literal|false
 return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|setTimestamp
+parameter_list|(
+name|long
+name|ts
+parameter_list|)
+block|{
+name|Bytes
+operator|.
+name|putBytes
+argument_list|(
+name|this
+operator|.
+name|bytes
+argument_list|,
+name|this
+operator|.
+name|getTimestampOffset
+argument_list|()
+argument_list|,
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|ts
+argument_list|)
+argument_list|,
+literal|0
+argument_list|,
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|setTimestamp
+parameter_list|(
+name|byte
+index|[]
+name|ts
+parameter_list|,
+name|int
+name|tsOffset
+parameter_list|)
+block|{
+name|Bytes
+operator|.
+name|putBytes
+argument_list|(
+name|this
+operator|.
+name|bytes
+argument_list|,
+name|this
+operator|.
+name|getTimestampOffset
+argument_list|()
+argument_list|,
+name|ts
+argument_list|,
+name|tsOffset
+argument_list|,
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+argument_list|)
+expr_stmt|;
 block|}
 comment|//---------------------------------------------------------------------------
 comment|//
@@ -7730,7 +7836,7 @@ block|{
 return|return
 name|CellComparator
 operator|.
-name|compareStatic
+name|compare
 argument_list|(
 name|left
 argument_list|,
@@ -7761,7 +7867,7 @@ name|compare
 init|=
 name|CellComparator
 operator|.
-name|compareStatic
+name|compare
 argument_list|(
 name|left
 argument_list|,
@@ -9242,7 +9348,9 @@ return|return
 name|fakeKey
 return|;
 block|}
-comment|/**      * This is a HFile block index key optimization.      * @param leftKey      * @param rightKey      * @return 0 if equal,<0 if left smaller,>0 if right smaller      */
+comment|/**      * This is a HFile block index key optimization.      * @param leftKey      * @param rightKey      * @return 0 if equal,<0 if left smaller,>0 if right smaller      * @deprecated Since 0.99.2; Use {@link CellComparator#getMidpoint(Cell, Cell)} instead.      */
+annotation|@
+name|Deprecated
 specifier|public
 name|byte
 index|[]
@@ -9755,6 +9863,11 @@ parameter_list|()
 throws|throws
 name|CloneNotSupportedException
 block|{
+name|super
+operator|.
+name|clone
+argument_list|()
+expr_stmt|;
 return|return
 operator|new
 name|KVComparator
@@ -10354,7 +10467,7 @@ operator|.
 name|SIZEOF_INT
 return|;
 block|}
-comment|/**    * Write out a KeyValue in the manner in which we used to when KeyValue was a Writable but do    * not require a {@link DataOutput}, just take plain {@link OutputStream}    * Named<code>oswrite</code> so does not clash with {@link #write(KeyValue, DataOutput)}    * @param kv    * @param out    * @return Length written on stream    * @throws IOException    * @see #create(DataInput) for the inverse function    * @see #write(KeyValue, DataOutput)    */
+comment|/**    * Write out a KeyValue in the manner in which we used to when KeyValue was a Writable but do    * not require a {@link DataOutput}, just take plain {@link OutputStream}    * Named<code>oswrite</code> so does not clash with {@link #write(KeyValue, DataOutput)}    * @param kv    * @param out    * @return Length written on stream    * @throws IOException    * @see #create(DataInput) for the inverse function    * @see #write(KeyValue, DataOutput)    * @deprecated use {@link #oswrite(KeyValue, OutputStream, boolean)} instead    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -10419,7 +10532,7 @@ operator|.
 name|SIZEOF_INT
 return|;
 block|}
-comment|/**    * Write out a KeyValue in the manner in which we used to when KeyValue was a Writable but do    * not require a {@link DataOutput}, just take plain {@link OutputStream}    * Named<code>oswrite</code> so does not clash with {@link #write(KeyValue, DataOutput)}    * @param kv    * @param out    * @param withTags    * @return Length written on stream    * @throws IOException    * @see #create(DataInput) for the inverse function    * @see #write(KeyValue, DataOutput)    */
+comment|/**    * Write out a KeyValue in the manner in which we used to when KeyValue was a Writable but do    * not require a {@link DataOutput}, just take plain {@link OutputStream}    * Named<code>oswrite</code> so does not clash with {@link #write(KeyValue, DataOutput)}    * @param kv    * @param out    * @param withTags    * @return Length written on stream    * @throws IOException    * @see #create(DataInput) for the inverse function    * @see #write(KeyValue, DataOutput)    * @see KeyValueUtil#oswrite(Cell, OutputStream, boolean)    */
 specifier|public
 specifier|static
 name|long
@@ -10440,6 +10553,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// In KeyValueUtil#oswrite we do a Cell serialization as KeyValue. Any changes doing here, pls
+comment|// check KeyValueUtil#oswrite also and do necessary changes.
 name|int
 name|length
 init|=
@@ -10470,16 +10585,13 @@ name|KEYVALUE_INFRASTRUCTURE_SIZE
 expr_stmt|;
 block|}
 comment|// This does same as DataOuput#writeInt (big-endian, etc.)
+name|StreamUtils
+operator|.
+name|writeInt
+argument_list|(
 name|out
-operator|.
-name|write
-argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
+argument_list|,
 name|length
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|out
@@ -10615,6 +10727,9 @@ return|return
 literal|"org.apache.hadoop.hbase.util.Bytes$ByteArrayComparator"
 return|;
 block|}
+comment|/**      * @deprecated Since 0.99.2.      */
+annotation|@
+name|Deprecated
 specifier|public
 name|int
 name|compareFlatKey

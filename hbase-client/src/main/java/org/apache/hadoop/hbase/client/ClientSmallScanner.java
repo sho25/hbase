@@ -85,20 +85,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
@@ -129,7 +115,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|CellUtil
 import|;
 end_import
 
@@ -143,7 +129,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueUtil
+name|HConstants
 import|;
 end_import
 
@@ -171,11 +157,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|classification
 operator|.
-name|metrics
-operator|.
-name|ScanMetrics
+name|InterfaceAudience
 import|;
 end_import
 
@@ -189,9 +173,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|client
 operator|.
-name|PayloadCarryingRpcController
+name|metrics
+operator|.
+name|ScanMetrics
 import|;
 end_import
 
@@ -936,14 +922,13 @@ name|response
 init|=
 literal|null
 decl_stmt|;
-name|PayloadCarryingRpcController
 name|controller
-init|=
+operator|=
 name|controllerFactory
 operator|.
 name|newController
 argument_list|()
-decl_stmt|;
+expr_stmt|;
 try|try
 block|{
 name|controller
@@ -1259,10 +1244,11 @@ argument_list|(
 name|rs
 argument_list|)
 expr_stmt|;
+comment|// We don't make Iterator here
 for|for
 control|(
 name|Cell
-name|kv
+name|cell
 range|:
 name|rs
 operator|.
@@ -1272,15 +1258,12 @@ control|)
 block|{
 name|remainingResultSize
 operator|-=
-name|KeyValueUtil
+name|CellUtil
 operator|.
-name|ensureKeyValue
+name|estimatedHeapSizeOf
 argument_list|(
-name|kv
+name|cell
 argument_list|)
-operator|.
-name|heapSize
-argument_list|()
 expr_stmt|;
 block|}
 name|countdown

@@ -33,7 +33,9 @@ name|java
 operator|.
 name|lang
 operator|.
-name|ClassNotFoundException
+name|reflect
+operator|.
+name|Constructor
 import|;
 end_import
 
@@ -51,13 +53,17 @@ end_import
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|lang
+name|apache
 operator|.
-name|reflect
+name|hadoop
 operator|.
-name|Constructor
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -66,6 +72,10 @@ comment|/**  * Utility class that is used to generate a Checksum object.  * The 
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|ChecksumFactory

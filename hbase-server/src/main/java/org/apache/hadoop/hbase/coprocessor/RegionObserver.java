@@ -55,6 +55,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -68,6 +70,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -156,20 +160,6 @@ operator|.
 name|hbase
 operator|.
 name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
 import|;
 end_import
 
@@ -511,22 +501,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|OperationStatus
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|RegionScanner
 import|;
 end_import
@@ -591,22 +565,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFileScanner
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|compactions
 operator|.
 name|CompactionRequest
@@ -628,6 +586,22 @@ operator|.
 name|wal
 operator|.
 name|HLogKey
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALKey
 import|;
 end_import
 
@@ -697,6 +671,9 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
+comment|// TODO as method signatures need to break, update to
+comment|// ObserverContext<? extends RegionCoprocessorEnvironment>
+comment|// so we can use additional environment state that isn't exposed to coprocessors.
 specifier|public
 interface|interface
 name|RegionObserver
@@ -777,6 +754,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Called before the memstore is flushed to disk.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    * @deprecated use {@link #preFlush(ObserverContext, Store, InternalScanner)} instead    */
+annotation|@
+name|Deprecated
 name|void
 name|preFlush
 parameter_list|(
@@ -813,6 +792,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Called after the memstore is flushed to disk.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    * @deprecated use {@link #preFlush(ObserverContext, Store, InternalScanner)} instead.    */
+annotation|@
+name|Deprecated
 name|void
 name|postFlush
 parameter_list|(
@@ -955,7 +936,7 @@ argument_list|>
 name|selected
 parameter_list|)
 function_decl|;
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile}. To override or modify the compaction process, implementing classes have two    * options:    *<ul>    *<li>Wrap the provided {@link InternalScanner} with a custom implementation that is returned    * from this method. The custom scanner can then inspect {@link KeyValue}s from the wrapped    * scanner, applying its own policy to what gets written.</li>    *<li>Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} and provide a    * custom implementation for writing of new {@link StoreFile}s.<strong>Note: any implementations    * bypassing core compaction using this approach must write out new store files themselves or the    * existing data will no longer be available after compaction.</strong></li>    *</ul>    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanner the scanner over existing data used in the store file rewriting    * @param scanType type of Scan    * @param request the requested compaction    * @return the scanner to use during compaction. Should not be {@code null} unless the    *         implementation is writing new store files on its own.    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile}. To override or modify the compaction process, implementing classes have two    * options:    *<ul>    *<li>Wrap the provided {@link InternalScanner} with a custom implementation that is returned    * from this method. The custom scanner can then inspect    *  {@link org.apache.hadoop.hbase.KeyValue}s from the wrapped scanner, applying its own    *   policy to what gets written.</li>    *<li>Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} and provide a    * custom implementation for writing of new {@link StoreFile}s.<strong>Note: any implementations    * bypassing core compaction using this approach must write out new store files themselves or the    * existing data will no longer be available after compaction.</strong></li>    *</ul>    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanner the scanner over existing data used in the store file rewriting    * @param scanType type of Scan    * @param request the requested compaction    * @return the scanner to use during compaction. Should not be {@code null} unless the    *         implementation is writing new store files on its own.    * @throws IOException if an error occurred on the coprocessor    */
 name|InternalScanner
 name|preCompact
 parameter_list|(
@@ -984,7 +965,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile}. To override or modify the compaction process, implementing classes have two    * options:    *<ul>    *<li>Wrap the provided {@link InternalScanner} with a custom implementation that is returned    * from this method. The custom scanner can then inspect {@link KeyValue}s from the wrapped    * scanner, applying its own policy to what gets written.</li>    *<li>Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} and provide a    * custom implementation for writing of new {@link StoreFile}s.<strong>Note: any implementations    * bypassing core compaction using this approach must write out new store files themselves or the    * existing data will no longer be available after compaction.</strong></li>    *</ul>    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanner the scanner over existing data used in the store file rewriting    * @param scanType type of Scan    * @return the scanner to use during compaction. Should not be {@code null} unless the    *         implementation is writing new store files on its own.    * @throws IOException if an error occurred on the coprocessor    * @deprecated use    *             {@link #preCompact(ObserverContext, Store, InternalScanner,    *             ScanType, CompactionRequest)} instead    */
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile}. To override or modify the compaction process, implementing classes have two    * options:    *<ul>    *<li>Wrap the provided {@link InternalScanner} with a custom implementation that is returned    * from this method. The custom scanner can then inspect    *  {@link org.apache.hadoop.hbase.KeyValue}s from the wrapped scanner, applying its own    *   policy to what gets written.</li>    *<li>Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} and provide a    * custom implementation for writing of new {@link StoreFile}s.<strong>Note: any implementations    * bypassing core compaction using this approach must write out new store files themselves or the    * existing data will no longer be available after compaction.</strong></li>    *</ul>    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanner the scanner over existing data used in the store file rewriting    * @param scanType type of Scan    * @return the scanner to use during compaction. Should not be {@code null} unless the    *         implementation is writing new store files on its own.    * @throws IOException if an error occurred on the coprocessor    * @deprecated use    *             {@link #preCompact(ObserverContext, Store, InternalScanner,    *             ScanType, CompactionRequest)} instead    */
 annotation|@
 name|Deprecated
 name|InternalScanner
@@ -1012,7 +993,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link StoreFileScanner}s to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param request the requested compaction    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *         be used.    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param request the requested compaction    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *         be used.    * @throws IOException if an error occurred on the coprocessor    */
 name|InternalScanner
 name|preCompactScannerOpen
 parameter_list|(
@@ -1053,7 +1034,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link StoreFileScanner}s to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *         be used.    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use    *             {@link #preCompactScannerOpen(ObserverContext, Store, List, ScanType, long,    *             InternalScanner, CompactionRequest)} instead.    */
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *         be used.    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use    *             {@link #preCompactScannerOpen(ObserverContext, Store, List, ScanType, long,    *             InternalScanner, CompactionRequest)} instead.    */
 annotation|@
 name|Deprecated
 name|InternalScanner
@@ -1141,6 +1122,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use preSplit(    *    final ObserverContext<RegionCoprocessorEnvironment> c, byte[] splitRow)    */
+annotation|@
+name|Deprecated
 name|void
 name|preSplit
 parameter_list|(
@@ -1173,6 +1156,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Called after the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @param l the left daughter region    * @param r the right daughter region    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use postCompleteSplit() instead    */
+annotation|@
+name|Deprecated
 name|void
 name|postSplit
 parameter_list|(
@@ -1387,33 +1372,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * WARNING: please override preGetOp instead of this method.  This is to maintain some    * compatibility and to ease the transition from 0.94 -> 0.96.    */
-annotation|@
-name|Deprecated
-name|void
-name|preGet
-parameter_list|(
-specifier|final
-name|ObserverContext
-argument_list|<
-name|RegionCoprocessorEnvironment
-argument_list|>
-name|c
-parameter_list|,
-specifier|final
-name|Get
-name|get
-parameter_list|,
-specifier|final
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-name|result
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * Called after the client performs a Get    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param get the Get request    * @param result the result to return to the client, modify as necessary    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|postGetOp
@@ -1433,33 +1391,6 @@ specifier|final
 name|List
 argument_list|<
 name|Cell
-argument_list|>
-name|result
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * WARNING: please override postGetOp instead of this method.  This is to maintain some    * compatibility and to ease the transition from 0.94 -> 0.96.    */
-annotation|@
-name|Deprecated
-name|void
-name|postGet
-parameter_list|(
-specifier|final
-name|ObserverContext
-argument_list|<
-name|RegionCoprocessorEnvironment
-argument_list|>
-name|c
-parameter_list|,
-specifier|final
-name|Get
-name|get
-parameter_list|,
-specifier|final
-name|List
-argument_list|<
-name|KeyValue
 argument_list|>
 name|result
 parameter_list|)
@@ -2428,7 +2359,34 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    *    * @param ctx    * @param info    * @param logKey    * @param logEdit    * @throws IOException    */
+comment|/**    * Called before a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    */
+name|void
+name|preWALRestore
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|?
+extends|extends
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|HRegionInfo
+name|info
+parameter_list|,
+name|WALKey
+name|logKey
+parameter_list|,
+name|WALEdit
+name|logEdit
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called before a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    *    * This method is left in place to maintain binary compatibility with older    * {@link RegionObserver}s. If an implementation directly overrides    * {@link #preWALRestore(ObserverContext, HRegionInfo, WALKey, WALEdit)} then this version    * won't be called at all, barring problems with the Security Manager. To work correctly    * in the presence of a strict Security Manager, or in the case of an implementation that    * relies on a parent class to implement preWALRestore, you should implement this method    * as a call to the non-deprecated version.    *    * Users of this method will see all edits that can be treated as HLogKey. If there are    * edits that can't be treated as HLogKey they won't be offered to coprocessors that rely    * on this method. If a coprocessor gets skipped because of this mechanism, a log message    * at ERROR will be generated per coprocessor on the logger for {@link CoprocessorHost} once per    * classloader.    *    * @deprecated use {@link #preWALRestore(ObserverContext, HRegionInfo, WALKey, WALEdit)}    */
+annotation|@
+name|Deprecated
 name|void
 name|preWALRestore
 parameter_list|(
@@ -2451,7 +2409,34 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    *    * @param ctx    * @param info    * @param logKey    * @param logEdit    * @throws IOException    */
+comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    */
+name|void
+name|postWALRestore
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|?
+extends|extends
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|HRegionInfo
+name|info
+parameter_list|,
+name|WALKey
+name|logKey
+parameter_list|,
+name|WALEdit
+name|logEdit
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    *    * This method is left in place to maintain binary compatibility with older    * {@link RegionObserver}s. If an implementation directly overrides    * {@link #postWALRestore(ObserverContext, HRegionInfo, WALKey, WALEdit)} then this version    * won't be called at all, barring problems with the Security Manager. To work correctly    * in the presence of a strict Security Manager, or in the case of an implementation that    * relies on a parent class to implement preWALRestore, you should implement this method    * as a call to the non-deprecated version.    *    * Users of this method will see all edits that can be treated as HLogKey. If there are    * edits that can't be treated as HLogKey they won't be offered to coprocessors that rely    * on this method. If a coprocessor gets skipped because of this mechanism, a log message    * at ERROR will be generated per coprocessor on the logger for {@link CoprocessorHost} once per    * classloader.    *    * @deprecated use {@link #postWALRestore(ObserverContext, HRegionInfo, WALKey, WALEdit)}    */
+annotation|@
+name|Deprecated
 name|void
 name|postWALRestore
 parameter_list|(

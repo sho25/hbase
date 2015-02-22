@@ -63,6 +63,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -76,6 +78,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -139,6 +143,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|filter
 operator|.
 name|Filter
@@ -158,22 +178,6 @@ operator|.
 name|io
 operator|.
 name|ImmutableBytesWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|HRegion
 import|;
 end_import
 
@@ -252,8 +256,6 @@ comment|/**  * A Base for {@link TableInputFormat}s. Receives a {@link HTable}, 
 end_comment
 
 begin_class
-annotation|@
-name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -415,7 +417,7 @@ return|return
 name|trr
 return|;
 block|}
-comment|/**    * Calculates the splits that will serve as input for the map tasks.    *<ul>    * Splits are created in number equal to the smallest between numSplits and    * the number of {@link HRegion}s in the table. If the number of splits is    * smaller than the number of {@link HRegion}s then splits are spanned across    * multiple {@link HRegion}s and are grouped the most evenly possible. In the    * case splits are uneven the bigger splits are placed first in the    * {@link InputSplit} array.    *    * @param job the map task {@link JobConf}    * @param numSplits a hint to calculate the number of splits (mapred.map.tasks).    *    * @return the input splits    *    * @see org.apache.hadoop.mapred.InputFormat#getSplits(org.apache.hadoop.mapred.JobConf, int)    */
+comment|/**    * Calculates the splits that will serve as input for the map tasks.    *<ul>    * Splits are created in number equal to the smallest between numSplits and    * the number of {@link org.apache.hadoop.hbase.regionserver.HRegion}s in the table.     * If the number of splits is smaller than the number of     * {@link org.apache.hadoop.hbase.regionserver.HRegion}s then splits are spanned across    * multiple {@link org.apache.hadoop.hbase.regionserver.HRegion}s     * and are grouped the most evenly possible. In the    * case splits are uneven the bigger splits are placed first in the    * {@link InputSplit} array.    *    * @param job the map task {@link JobConf}    * @param numSplits a hint to calculate the number of splits (mapred.map.tasks).    *    * @return the input splits    *    * @see org.apache.hadoop.mapred.InputFormat#getSplits(org.apache.hadoop.mapred.JobConf, int)    */
 specifier|public
 name|InputSplit
 index|[]
@@ -685,7 +687,7 @@ expr_stmt|;
 block|}
 comment|/**    * Allows subclasses to get the {@link HTable}.    */
 specifier|protected
-name|HTable
+name|Table
 name|getHTable
 parameter_list|()
 block|{

@@ -87,6 +87,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -868,6 +870,9 @@ argument_list|<
 name|HRegionInfo
 argument_list|>
 name|regionInfos
+parameter_list|,
+name|int
+name|regionReplication
 parameter_list|)
 throws|throws
 name|IOException
@@ -877,6 +882,8 @@ operator|.
 name|addRegionsToMeta
 argument_list|(
 name|regionInfos
+argument_list|,
+name|regionReplication
 argument_list|)
 expr_stmt|;
 name|metaChanges
@@ -887,7 +894,7 @@ name|this
 operator|.
 name|server
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|regionInfos

@@ -65,6 +65,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -112,24 +114,6 @@ operator|.
 name|client
 operator|.
 name|HConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|cleaner
-operator|.
-name|HFileCleaner
 import|;
 end_import
 

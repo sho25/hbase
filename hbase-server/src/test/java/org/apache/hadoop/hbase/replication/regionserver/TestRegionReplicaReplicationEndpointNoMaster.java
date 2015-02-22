@@ -233,20 +233,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MediumTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|RegionLocations
 import|;
 end_import
@@ -293,7 +279,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnectionManager
+name|ConnectionFactory
 import|;
 end_import
 
@@ -487,11 +473,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -505,11 +491,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLogKey
+name|WALKey
 import|;
 end_import
 
@@ -582,6 +566,38 @@ operator|.
 name|RegionReplicaReplicationEndpoint
 operator|.
 name|RegionReplicaReplayCallable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|MediumTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|ReplicationTests
 import|;
 end_import
 
@@ -697,9 +713,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|ReplicationTests
+operator|.
+name|class
+block|,
 name|MediumTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class
@@ -1076,8 +1098,6 @@ block|{   }
 specifier|static
 name|ConcurrentLinkedQueue
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -1085,8 +1105,6 @@ init|=
 operator|new
 name|ConcurrentLinkedQueue
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 argument_list|()
@@ -1116,6 +1134,8 @@ name|postWALWrite
 parameter_list|(
 name|ObserverContext
 argument_list|<
+name|?
+extends|extends
 name|WALCoprocessorEnvironment
 argument_list|>
 name|ctx
@@ -1123,7 +1143,7 @@ parameter_list|,
 name|HRegionInfo
 name|info
 parameter_list|,
-name|HLogKey
+name|WALKey
 name|logKey
 parameter_list|,
 name|WALEdit
@@ -1158,8 +1178,6 @@ operator|.
 name|add
 argument_list|(
 operator|new
-name|HLog
-operator|.
 name|Entry
 argument_list|(
 name|logKey
@@ -1196,7 +1214,7 @@ init|=
 operator|(
 name|ClusterConnection
 operator|)
-name|HConnectionManager
+name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
@@ -1303,8 +1321,6 @@ name|connection
 parameter_list|,
 name|Queue
 argument_list|<
-name|HLog
-operator|.
 name|Entry
 argument_list|>
 name|entries
@@ -1314,8 +1330,6 @@ name|IOException
 throws|,
 name|RuntimeException
 block|{
-name|HLog
-operator|.
 name|Entry
 name|entry
 decl_stmt|;
@@ -1342,7 +1356,7 @@ operator|.
 name|getEdit
 argument_list|()
 operator|.
-name|getKeyValues
+name|getCells
 argument_list|()
 operator|.
 name|get
@@ -1479,7 +1493,7 @@ init|=
 operator|(
 name|ClusterConnection
 operator|)
-name|HConnectionManager
+name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
@@ -1669,7 +1683,7 @@ init|=
 operator|(
 name|ClusterConnection
 operator|)
-name|HConnectionManager
+name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(

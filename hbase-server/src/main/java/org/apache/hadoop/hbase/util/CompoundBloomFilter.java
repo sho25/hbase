@@ -55,6 +55,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -490,15 +492,7 @@ argument_list|,
 name|keyLength
 argument_list|,
 name|bloomBuf
-operator|.
-name|array
-argument_list|()
 argument_list|,
-name|bloomBuf
-operator|.
-name|arrayOffset
-argument_list|()
-operator|+
 name|bloomBlock
 operator|.
 name|headerSize

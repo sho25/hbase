@@ -323,6 +323,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
 name|LargeTests
 import|;
 end_import

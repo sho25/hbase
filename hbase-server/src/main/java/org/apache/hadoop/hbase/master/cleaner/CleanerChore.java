@@ -143,7 +143,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Chore
+name|ScheduledChore
 import|;
 end_import
 
@@ -262,7 +262,7 @@ extends|extends
 name|FileCleanerDelegate
 parameter_list|>
 extends|extends
-name|Chore
+name|ScheduledChore
 block|{
 specifier|private
 specifier|static
@@ -336,9 +336,9 @@ name|super
 argument_list|(
 name|name
 argument_list|,
-name|sleepPeriod
-argument_list|,
 name|s
+argument_list|,
+name|sleepPeriod
 argument_list|)
 expr_stmt|;
 name|this
@@ -991,7 +991,8 @@ argument_list|()
 operator|||
 name|this
 operator|.
-name|stopper
+name|getStopper
+argument_list|()
 operator|.
 name|isStopped
 argument_list|()
@@ -1135,13 +1136,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isTraceEnabled
+name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|trace
+name|debug
 argument_list|(
 literal|"Removing: "
 operator|+

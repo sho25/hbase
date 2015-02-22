@@ -94,17 +94,17 @@ decl_stmt|;
 name|String
 name|META_SPLIT_SIZE_DESC
 init|=
-literal|"Size of hbase:meta HLog files being split"
+literal|"Size of hbase:meta WAL files being split"
 decl_stmt|;
 name|String
 name|SPLIT_TIME_DESC
 init|=
-literal|"Time it takes to finish HLog.splitLog()"
+literal|"Time it takes to finish WAL.splitLog()"
 decl_stmt|;
 name|String
 name|SPLIT_SIZE_DESC
 init|=
-literal|"Size of HLog files being split"
+literal|"Size of WAL files being split"
 decl_stmt|;
 name|void
 name|updateMetaWALSplitTime

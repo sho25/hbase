@@ -113,6 +113,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -2348,6 +2350,9 @@ name|execute
 parameter_list|(
 name|StripeCompactor
 name|compactor
+parameter_list|,
+name|CompactionThroughputController
+name|throughputController
 parameter_list|)
 throws|throws
 name|IOException
@@ -2519,6 +2524,9 @@ name|execute
 parameter_list|(
 name|StripeCompactor
 name|compactor
+parameter_list|,
+name|CompactionThroughputController
+name|throughputController
 parameter_list|)
 throws|throws
 name|IOException
@@ -2543,6 +2551,8 @@ argument_list|,
 name|this
 operator|.
 name|majorRangeToRow
+argument_list|,
+name|throughputController
 argument_list|)
 return|;
 block|}
@@ -2749,6 +2759,9 @@ name|execute
 parameter_list|(
 name|StripeCompactor
 name|compactor
+parameter_list|,
+name|CompactionThroughputController
+name|throughputController
 parameter_list|)
 throws|throws
 name|IOException
@@ -2785,6 +2798,8 @@ argument_list|,
 name|this
 operator|.
 name|majorRangeToRow
+argument_list|,
+name|throughputController
 argument_list|)
 return|;
 block|}

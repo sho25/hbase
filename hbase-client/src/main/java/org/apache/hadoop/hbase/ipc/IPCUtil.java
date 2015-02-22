@@ -127,6 +127,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|conf
 operator|.
 name|Configurable
@@ -378,6 +394,11 @@ comment|/**  * Utility to help ipc'ing.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+specifier|public
 class|class
 name|IPCUtil
 block|{
@@ -412,6 +433,7 @@ specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
+specifier|public
 name|IPCUtil
 parameter_list|(
 specifier|final
@@ -473,12 +495,13 @@ extends|extends
 name|HBaseIOException
 block|{}
 empty_stmt|;
-comment|/**    * Puts CellScanner Cells into a cell block using passed in<code>codec</code> and/or    *<code>compressor</code>.    * @param codec    * @param compressor    * @Param cellScanner    * @return Null or byte buffer filled with a cellblock filled with passed-in Cells encoded using    * passed in<code>codec</code> and/or<code>compressor</code>; the returned buffer has been    * flipped and is ready for reading.  Use limit to find total size.    * @throws IOException    */
+comment|/**    * Puts CellScanner Cells into a cell block using passed in<code>codec</code> and/or    *<code>compressor</code>.    * @param codec    * @param compressor    * @param cellScanner    * @return Null or byte buffer filled with a cellblock filled with passed-in Cells encoded using    * passed in<code>codec</code> and/or<code>compressor</code>; the returned buffer has been    * flipped and is ready for reading.  Use limit to find total size.    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
 literal|"resource"
 argument_list|)
+specifier|public
 name|ByteBuffer
 name|buildCellBlock
 parameter_list|(
@@ -781,6 +804,7 @@ argument_list|()
 return|;
 block|}
 comment|/**    * @param codec    * @param cellBlock    * @return CellScanner to work against the content of<code>cellBlock</code>    * @throws IOException    */
+specifier|public
 name|CellScanner
 name|createCellScanner
 parameter_list|(
@@ -818,6 +842,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @param codec    * @param cellBlock    * @param offset    * @param length    * @return CellScanner to work against the content of<code>cellBlock</code>    * @throws IOException    */
+specifier|public
 name|CellScanner
 name|createCellScanner
 parameter_list|(
@@ -1034,6 +1059,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @param m Message to serialize delimited; i.e. w/ a vint of its size preceeding its    * serialization.    * @return The passed in Message serialized with delimiter.  Return null if<code>m</code> is null    * @throws IOException    */
+specifier|public
 specifier|static
 name|ByteBuffer
 name|getDelimitedMessageAsByteBuffer
@@ -1123,6 +1149,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Write out header, param, and cell block if there is one.    * @param dos    * @param header    * @param param    * @param cellBlock    * @return Total number of bytes written.    * @throws IOException    */
+specifier|public
 specifier|static
 name|int
 name|write
@@ -1284,6 +1311,7 @@ name|totalSize
 return|;
 block|}
 comment|/**    * Read in chunks of 8K (HBASE-7239)    * @param in    * @param dest    * @param offset    * @param len    * @throws IOException    */
+specifier|public
 specifier|static
 name|void
 name|readChunked
@@ -1344,7 +1372,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param header    * @param body    * @return Size on the wire when the two messages are written with writeDelimitedTo    */
+comment|/**    * @return Size on the wire when the two messages are written with writeDelimitedTo    */
+specifier|public
 specifier|static
 name|int
 name|getTotalSizeWhenWrittenDelimited

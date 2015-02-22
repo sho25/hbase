@@ -117,6 +117,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -947,13 +949,6 @@ name|reader
 operator|.
 name|isBulkLoaded
 argument_list|()
-operator|&&
-name|cur
-operator|.
-name|getSequenceId
-argument_list|()
-operator|<=
-literal|0
 condition|)
 block|{
 name|CellUtil

@@ -57,7 +57,7 @@ name|class
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Record a single instance of a split    * @param time time that the split took    * @param size length of original HLogs that were split    */
+comment|/**    * Record a single instance of a split    * @param time time that the split took    * @param size length of original WALs that were split    */
 specifier|public
 specifier|synchronized
 name|void
@@ -85,7 +85,7 @@ name|size
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Record a single instance of a split    * @param time time that the split took    * @param size length of original HLogs that were split    */
+comment|/**    * Record a single instance of a split    * @param time time that the split took    * @param size length of original WALs that were split    */
 specifier|public
 specifier|synchronized
 name|void

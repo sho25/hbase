@@ -35,6 +35,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -48,6 +50,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -67,7 +71,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Result
 import|;
 end_import
 
@@ -83,7 +87,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Result
+name|Table
 import|;
 end_import
 
@@ -138,8 +142,6 @@ comment|/**  * Iterate over an HBase table data, return (Text, RowResult) pairs 
 end_comment
 
 begin_class
-annotation|@
-name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -212,12 +214,12 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param htable the {@link HTable} to scan.    */
+comment|/**    * @param htable the {@link org.apache.hadoop.hbase.HTableDescriptor} to scan.    */
 specifier|public
 name|void
 name|setHTable
 parameter_list|(
-name|HTable
+name|Table
 name|htable
 parameter_list|)
 block|{

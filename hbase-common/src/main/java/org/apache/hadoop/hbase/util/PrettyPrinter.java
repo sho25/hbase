@@ -25,23 +25,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
+name|hbase
 operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
+name|HConstants
 import|;
 end_import
 
@@ -55,7 +41,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -63,11 +51,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
+name|Private
 specifier|public
 class|class
 name|PrettyPrinter
@@ -209,6 +193,27 @@ name|toString
 argument_list|()
 return|;
 block|}
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"ICAST_INTEGER_MULTIPLY_CAST_TO_LONG"
+argument_list|,
+name|justification
+operator|=
+literal|"Will not overflow"
+argument_list|)
 specifier|private
 specifier|static
 name|String

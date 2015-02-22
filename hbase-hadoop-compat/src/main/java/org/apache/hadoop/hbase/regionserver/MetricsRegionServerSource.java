@@ -143,6 +143,32 @@ name|void
 name|incrSlowAppend
 parameter_list|()
 function_decl|;
+comment|/**    * Update the split transaction time histogram    * @param t time it took, in milliseconds    */
+name|void
+name|updateSplitTime
+parameter_list|(
+name|long
+name|t
+parameter_list|)
+function_decl|;
+comment|/**    * Increment number of a requested splits    */
+name|void
+name|incrSplitRequest
+parameter_list|()
+function_decl|;
+comment|/**    * Increment number of successful splits    */
+name|void
+name|incrSplitSuccess
+parameter_list|()
+function_decl|;
+comment|/**    * Update the flush time histogram    * @param t time it took, in milliseconds    */
+name|void
+name|updateFlushTime
+parameter_list|(
+name|long
+name|t
+parameter_list|)
+function_decl|;
 comment|// Strings used for exporting to metrics system.
 name|String
 name|REGION_COUNT
@@ -165,24 +191,24 @@ init|=
 literal|"Number of Stores"
 decl_stmt|;
 name|String
-name|HLOGFILE_COUNT
+name|WALFILE_COUNT
 init|=
 literal|"hlogFileCount"
 decl_stmt|;
 name|String
-name|HLOGFILE_COUNT_DESC
+name|WALFILE_COUNT_DESC
 init|=
-literal|"Number of HLog Files"
+literal|"Number of WAL Files"
 decl_stmt|;
 name|String
-name|HLOGFILE_SIZE
+name|WALFILE_SIZE
 init|=
 literal|"hlogFileSize"
 decl_stmt|;
 name|String
-name|HLOGFILE_SIZE_DESC
+name|WALFILE_SIZE_DESC
 init|=
-literal|"Size of all HLog Files"
+literal|"Size of all WAL Files"
 decl_stmt|;
 name|String
 name|STOREFILE_COUNT
@@ -323,6 +349,16 @@ name|String
 name|PERCENT_FILES_LOCAL_DESC
 init|=
 literal|"The percent of HFiles that are stored on the local hdfs data node."
+decl_stmt|;
+name|String
+name|SPLIT_QUEUE_LENGTH
+init|=
+literal|"splitQueueLength"
+decl_stmt|;
+name|String
+name|SPLIT_QUEUE_LENGTH_DESC
+init|=
+literal|"Length of the queue for splits."
 decl_stmt|;
 name|String
 name|COMPACTION_QUEUE_LENGTH
@@ -768,6 +804,68 @@ name|String
 name|MOB_FILE_CACHE_COUNT_DESC
 init|=
 literal|"The count of cached mob files"
+decl_stmt|;
+name|String
+name|HEDGED_READS
+init|=
+literal|"hedgedReads"
+decl_stmt|;
+name|String
+name|HEDGED_READS_DESC
+init|=
+literal|"The number of times we started a hedged read"
+decl_stmt|;
+name|String
+name|HEDGED_READ_WINS
+init|=
+literal|"hedgedReadWins"
+decl_stmt|;
+name|String
+name|HEDGED_READ_WINS_DESC
+init|=
+literal|"The number of times we started a hedged read and a hedged read won"
+decl_stmt|;
+name|String
+name|BLOCKED_REQUESTS_COUNT
+init|=
+literal|"blockedRequestCount"
+decl_stmt|;
+name|String
+name|BLOCKED_REQUESTS_COUNT_DESC
+init|=
+literal|"The number of blocked requests because of memstore size is "
+operator|+
+literal|"larger than blockingMemStoreSize"
+decl_stmt|;
+name|String
+name|SPLIT_KEY
+init|=
+literal|"splitTime"
+decl_stmt|;
+name|String
+name|SPLIT_REQUEST_KEY
+init|=
+literal|"splitRequestCount"
+decl_stmt|;
+name|String
+name|SPLIT_REQUEST_DESC
+init|=
+literal|"Number of splits requested"
+decl_stmt|;
+name|String
+name|SPLIT_SUCCESS_KEY
+init|=
+literal|"splitSuccessCounnt"
+decl_stmt|;
+name|String
+name|SPLIT_SUCCESS_DESC
+init|=
+literal|"Number of successfully executed splits"
+decl_stmt|;
+name|String
+name|FLUSH_KEY
+init|=
+literal|"flushTime"
 decl_stmt|;
 block|}
 end_interface

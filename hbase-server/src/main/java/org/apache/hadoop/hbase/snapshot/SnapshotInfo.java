@@ -193,6 +193,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -206,6 +208,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -335,20 +339,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|io
 operator|.
 name|HFileLink
@@ -367,7 +357,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|HLogLink
+name|WALLink
 import|;
 end_import
 
@@ -428,7 +418,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tool for dumping snapshot information.  *<ol>  *<li> Table Descriptor  *<li> Snapshot creation time, type, format version, ...  *<li> List of hfiles and hlogs  *<li> Stats about hfiles and logs sizes, percentage of shared with the source table, ...  *</ol>  */
+comment|/**  * Tool for dumping snapshot information.  *<ol>  *<li> Table Descriptor  *<li> Snapshot creation time, type, format version, ...  *<li> List of hfiles and wals  *<li> Stats about hfiles and logs sizes, percentage of shared with the source table, ...  *</ol>  */
 end_comment
 
 begin_class
@@ -1056,7 +1046,7 @@ name|link
 init|=
 name|HFileLink
 operator|.
-name|create
+name|build
 argument_list|(
 name|conf
 argument_list|,
@@ -1274,11 +1264,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HLogLink
+name|WALLink
 name|logLink
 init|=
 operator|new
-name|HLogLink
+name|WALLink
 argument_list|(
 name|conf
 argument_list|,

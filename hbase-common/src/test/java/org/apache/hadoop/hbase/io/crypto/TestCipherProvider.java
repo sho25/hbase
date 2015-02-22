@@ -27,7 +27,31 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -133,7 +157,13 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|SmallTests
+name|io
+operator|.
+name|crypto
+operator|.
+name|aes
+operator|.
+name|AES
 import|;
 end_import
 
@@ -147,13 +177,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|testclassification
 operator|.
-name|crypto
+name|MiscTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|aes
+name|apache
 operator|.
-name|AES
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|SmallTests
 import|;
 end_import
 
@@ -185,9 +227,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|MiscTests
+operator|.
+name|class
+block|,
 name|SmallTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class

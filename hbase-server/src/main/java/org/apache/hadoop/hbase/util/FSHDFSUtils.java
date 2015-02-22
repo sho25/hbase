@@ -159,6 +159,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -172,6 +174,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -1255,7 +1259,7 @@ throw|throw
 operator|new
 name|FileNotFoundException
 argument_list|(
-literal|"The given HLog wasn't found at "
+literal|"The given WAL wasn't found at "
 operator|+
 name|p
 argument_list|)

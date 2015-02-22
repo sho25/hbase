@@ -55,6 +55,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -99,6 +101,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
@@ -106,14 +122,19 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Log cleaner that uses the timestamp of the hlog to determine if it should  * be deleted. By default they are allowed to live for 10 minutes.  */
+comment|/**  * Log cleaner that uses the timestamp of the wal to determine if it should  * be deleted. By default they are allowed to live for 10 minutes.  */
 end_comment
 
 begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|CONFIG
+argument_list|)
 specifier|public
 class|class
 name|TimeToLiveLogCleaner

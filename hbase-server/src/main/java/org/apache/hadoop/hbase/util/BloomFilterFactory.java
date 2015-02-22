@@ -73,6 +73,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -159,24 +161,8 @@ name|BloomType
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|StoreFile
-import|;
-end_import
-
 begin_comment
-comment|/**  * Handles Bloom filter initialization based on configuration and serialized  * metadata in the reader and writer of {@link StoreFile}.  */
+comment|/**  * Handles Bloom filter initialization based on configuration and serialized  * metadata in the reader and writer of {@link org.apache.hadoop.hbase.regionserver.StoreFile}.  */
 end_comment
 
 begin_class

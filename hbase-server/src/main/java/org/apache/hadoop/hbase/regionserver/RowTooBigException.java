@@ -27,20 +27,59 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|RegionException
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
 begin_comment
-comment|/**  * Gets or Scans throw this exception if running without in-row scan flag  * set and row size appears to exceed max configured size (configurable via  * hbase.table.max.rowsize).  */
+comment|/**  * Gets or Scans throw this exception if running without in-row scan flag  * set and row size appears to exceed max configured size (configurable via  * hbase.table.max.rowsize).  *  * @deprecated use {@link org.apache.hadoop.hbase.client.RowTooBigException} instead.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|Deprecated
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"NM_SAME_SIMPLE_NAME_AS_SUPERCLASS"
+argument_list|,
+name|justification
+operator|=
+literal|"Temporary glue. To be removed"
+argument_list|)
 specifier|public
 class|class
 name|RowTooBigException
 extends|extends
-name|RegionException
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RowTooBigException
 block|{
 specifier|public
 name|RowTooBigException

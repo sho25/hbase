@@ -75,6 +75,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -467,8 +469,9 @@ block|{
 name|Integer
 name|id
 init|=
-operator|new
 name|Integer
+operator|.
+name|valueOf
 argument_list|(
 name|keyId
 argument_list|)

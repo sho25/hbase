@@ -85,6 +85,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -98,6 +100,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -116,22 +120,6 @@ operator|.
 name|conf
 operator|.
 name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HTable
 import|;
 end_import
 
@@ -196,6 +184,22 @@ operator|.
 name|client
 operator|.
 name|ScannerCallable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -388,7 +392,7 @@ init|=
 literal|null
 decl_stmt|;
 specifier|private
-name|HTable
+name|Table
 name|htable
 init|=
 literal|null
@@ -647,12 +651,12 @@ return|return
 name|m
 return|;
 block|}
-comment|/**    * Sets the HBase table.    *    * @param htable  The {@link HTable} to scan.    */
+comment|/**    * Sets the HBase table.    *    * @param htable  The {@link org.apache.hadoop.hbase.HTableDescriptor} to scan.    */
 specifier|public
 name|void
 name|setHTable
 parameter_list|(
-name|HTable
+name|Table
 name|htable
 parameter_list|)
 block|{

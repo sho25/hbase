@@ -189,7 +189,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Chore
+name|ScheduledChore
 import|;
 end_import
 
@@ -396,7 +396,7 @@ specifier|public
 class|class
 name|MobFileCompactionChore
 extends|extends
-name|Chore
+name|ScheduledChore
 block|{
 specifier|private
 specifier|static
@@ -442,6 +442,8 @@ operator|+
 literal|"-MobFileCompactChore"
 argument_list|,
 name|master
+argument_list|,
+name|master
 operator|.
 name|getConfiguration
 argument_list|()
@@ -456,8 +458,6 @@ name|MobConstants
 operator|.
 name|DEFAULT_MOB_FILE_COMPACTION_CHORE_PERIOD
 argument_list|)
-argument_list|,
-name|master
 argument_list|)
 expr_stmt|;
 name|this

@@ -55,9 +55,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
+name|hbase
 operator|.
-name|InterfaceAudience
+name|Cell
 import|;
 end_import
 
@@ -71,7 +71,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Cell
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -103,15 +103,36 @@ name|KeyValueUtil
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Codec that does KeyValue version 1 serialization.  *   *<p>Encodes by casting Cell to KeyValue and writing out the backing array with a length prefix.  * This is how KVs were serialized in Puts, Deletes and Results pre-0.96.  Its what would  * happen if you called the Writable#write KeyValue implementation.  This encoder will fail  * if the passed Cell is not an old-school pre-0.96 KeyValue.  Does not copy bytes writing.  * It just writes them direct to the passed stream.  *  *<p>If you wrote two KeyValues to this encoder, it would look like this in the stream:  *<pre>  * length-of-KeyValue1 // A java int with the length of KeyValue1 backing array  * KeyValue1 backing array filled with a KeyValue serialized in its particular format  * length-of-KeyValue2  * KeyValue2 backing array  *</pre>  */
+comment|/**  * Codec that does KeyValue version 1 serialization.  *   *<p>Encodes Cell as serialized in KeyValue with total length prefix.  * This is how KVs were serialized in Puts, Deletes and Results pre-0.96.  Its what would  * happen if you called the Writable#write KeyValue implementation.  This encoder will fail  * if the passed Cell is not an old-school pre-0.96 KeyValue.  Does not copy bytes writing.  * It just writes them direct to the passed stream.  *  *<p>If you wrote two KeyValues to this encoder, it would look like this in the stream:  *<pre>  * length-of-KeyValue1 // A java int with the length of KeyValue1 backing array  * KeyValue1 backing array filled with a KeyValue serialized in its particular format  * length-of-KeyValue2  * KeyValue2 backing array  *</pre>  */
 end_comment
 
 begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|CONFIG
+argument_list|)
 specifier|public
 class|class
 name|KeyValueCodec
@@ -154,25 +175,13 @@ block|{
 name|checkFlushed
 argument_list|()
 expr_stmt|;
-comment|// This is crass and will not work when KV changes. Also if passed a non-kv Cell, it will
-comment|// make expensive copy.
 comment|// Do not write tags over RPC
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|oswrite
 argument_list|(
-operator|(
-name|KeyValue
-operator|)
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
 name|cell
-argument_list|)
 argument_list|,
-name|this
-operator|.
 name|out
 argument_list|,
 literal|false

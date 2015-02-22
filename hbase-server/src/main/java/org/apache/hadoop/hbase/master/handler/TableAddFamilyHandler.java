@@ -47,9 +47,25 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableDescriptor
 import|;
 end_import
 
@@ -92,20 +108,6 @@ operator|.
 name|hbase
 operator|.
 name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
 import|;
 end_import
 
@@ -272,7 +274,7 @@ operator|.
 name|prepareWithTableLock
 argument_list|()
 expr_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|getTableDescriptor
@@ -281,6 +283,9 @@ decl_stmt|;
 if|if
 condition|(
 name|htd
+operator|.
+name|getHTableDescriptor
+argument_list|()
 operator|.
 name|hasFamily
 argument_list|(

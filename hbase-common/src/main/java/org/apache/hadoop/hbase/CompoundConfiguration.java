@@ -119,20 +119,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
@@ -149,9 +135,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|classification
 operator|.
-name|ImmutableBytesWritable
+name|InterfaceAudience
 import|;
 end_import
 
@@ -246,7 +232,8 @@ name|size
 parameter_list|()
 function_decl|;
 block|}
-specifier|protected
+specifier|private
+specifier|final
 name|List
 argument_list|<
 name|ImmutableConfigMap
@@ -266,6 +253,8 @@ name|ImmutableConfWrapper
 implements|implements
 name|ImmutableConfigMap
 block|{
+specifier|private
+specifier|final
 name|Configuration
 name|c
 decl_stmt|;
@@ -492,17 +481,17 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Add ImmutableBytesWritable map to config list. This map is generally    * created by HTableDescriptor or HColumnDescriptor, but can be abstractly    * used. The added configuration overrides the previous ones if there are    * name collisions.    *    * @param map    *          ImmutableBytesWritable map    * @return this, for builder pattern    */
+comment|/**    * Add Bytes map to config list. This map is generally    * created by HTableDescriptor or HColumnDescriptor, but can be abstractly    * used. The added configuration overrides the previous ones if there are    * name collisions.    *    * @param map    *          Bytes map    * @return this, for builder pattern    */
 specifier|public
 name|CompoundConfiguration
-name|addWritableMap
+name|addBytesMap
 parameter_list|(
 specifier|final
 name|Map
 argument_list|<
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|,
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|>
 name|map
 parameter_list|)
@@ -523,11 +512,13 @@ operator|new
 name|ImmutableConfigMap
 argument_list|()
 block|{
+specifier|private
+specifier|final
 name|Map
 argument_list|<
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|,
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|>
 name|m
 init|=
@@ -573,9 +564,9 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|,
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|>
 name|entry
 range|:
@@ -656,11 +647,11 @@ name|String
 name|key
 parameter_list|)
 block|{
-name|ImmutableBytesWritable
+name|Bytes
 name|ibw
 init|=
 operator|new
-name|ImmutableBytesWritable
+name|Bytes
 argument_list|(
 name|Bytes
 operator|.
@@ -683,7 +674,7 @@ condition|)
 return|return
 literal|null
 return|;
-name|ImmutableBytesWritable
+name|Bytes
 name|value
 init|=
 name|m
@@ -823,6 +814,8 @@ operator|new
 name|ImmutableConfigMap
 argument_list|()
 block|{
+specifier|private
+specifier|final
 name|Map
 argument_list|<
 name|String

@@ -47,6 +47,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -172,7 +174,10 @@ argument_list|<
 name|Path
 argument_list|>
 name|compact
-parameter_list|()
+parameter_list|(
+name|CompactionThroughputController
+name|throughputController
+parameter_list|)
 throws|throws
 name|IOException
 function_decl|;

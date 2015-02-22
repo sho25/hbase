@@ -21,6 +21,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -55,9 +65,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
+name|hbase
 operator|.
-name|InterfaceAudience
+name|ScheduledChore
 import|;
 end_import
 
@@ -71,7 +81,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Chore
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -107,16 +119,6 @@ name|LoadBalancer
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|InterruptedIOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Chore that will feed the balancer the cluster status.  */
 end_comment
@@ -130,7 +132,7 @@ specifier|public
 class|class
 name|ClusterStatusChore
 extends|extends
-name|Chore
+name|ScheduledChore
 block|{
 specifier|private
 specifier|static
@@ -177,6 +179,8 @@ operator|+
 literal|"-ClusterStatusChore"
 argument_list|,
 name|master
+argument_list|,
+name|master
 operator|.
 name|getConfiguration
 argument_list|()
@@ -187,8 +191,6 @@ literal|"hbase.balancer.statusPeriod"
 argument_list|,
 literal|60000
 argument_list|)
-argument_list|,
-name|master
 argument_list|)
 expr_stmt|;
 name|this

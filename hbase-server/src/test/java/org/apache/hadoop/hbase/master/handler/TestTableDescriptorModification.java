@@ -129,7 +129,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|LargeTests
+name|TableDescriptor
 import|;
 end_import
 
@@ -173,9 +173,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|master
 operator|.
-name|HBaseAdmin
+name|MasterFileSystem
 import|;
 end_import
 
@@ -189,9 +189,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
+name|testclassification
 operator|.
-name|MasterFileSystem
+name|LargeTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|MasterTests
 import|;
 end_import
 
@@ -327,9 +343,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|MasterTests
+operator|.
+name|class
+block|,
 name|LargeTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class
@@ -845,8 +867,9 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
-name|htd
-operator|=
+name|TableDescriptor
+name|td
+init|=
 name|FSTableDescriptors
 operator|.
 name|getTableDescriptorFromFs
@@ -858,10 +881,13 @@ argument_list|()
 argument_list|,
 name|tableDir
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|verifyTableDescriptor
 argument_list|(
-name|htd
+name|td
+operator|.
+name|getHTableDescriptor
+argument_list|()
 argument_list|,
 name|tableName
 argument_list|,

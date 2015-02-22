@@ -65,6 +65,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -78,6 +80,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -332,7 +336,7 @@ if|if
 condition|(
 name|userProvider
 operator|.
-name|isHBaseSecurityEnabled
+name|isHadoopSecurityEnabled
 argument_list|()
 condition|)
 block|{

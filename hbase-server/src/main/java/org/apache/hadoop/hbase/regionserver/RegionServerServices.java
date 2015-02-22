@@ -43,23 +43,19 @@ name|java
 operator|.
 name|util
 operator|.
-name|concurrent
-operator|.
-name|ConcurrentMap
+name|Set
 import|;
 end_import
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|util
 operator|.
-name|hadoop
+name|concurrent
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|ConcurrentMap
 import|;
 end_import
 
@@ -88,6 +84,36 @@ operator|.
 name|hbase
 operator|.
 name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -171,11 +197,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|quotas
+operator|.
+name|RegionServerQuotaManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
 operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
 import|;
 end_import
 
@@ -188,6 +228,18 @@ operator|.
 name|zookeeper
 operator|.
 name|KeeperException
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Service
 import|;
 end_import
 
@@ -213,8 +265,8 @@ name|boolean
 name|isStopping
 parameter_list|()
 function_decl|;
-comment|/** @return the HLog for a particular region. Pass null for getting the    * default (common) WAL */
-name|HLog
+comment|/** @return the WAL for a particular region. Pass null for getting the    * default (common) WAL */
+name|WAL
 name|getWAL
 parameter_list|(
 name|HRegionInfo
@@ -241,6 +293,11 @@ function_decl|;
 comment|/**    * @return RegionServer's instance of {@link TableLockManager}    */
 name|TableLockManager
 name|getTableLockManager
+parameter_list|()
+function_decl|;
+comment|/**    * @return RegionServer's instance of {@link RegionServerQuotaManager}    */
+name|RegionServerQuotaManager
+name|getRegionServerQuotaManager
 parameter_list|()
 function_decl|;
 comment|/**    * Tasks to perform after region open to complete deploy of region on    * regionserver    *    * @param r Region to open.    * @throws KeeperException    * @throws IOException    */
@@ -328,6 +385,32 @@ comment|/**    * Only required for "old" log replay; if it's removed, remove thi
 specifier|public
 name|ServerNonceManager
 name|getNonceManager
+parameter_list|()
+function_decl|;
+comment|/**    * @return all the online tables in this RS    */
+name|Set
+argument_list|<
+name|TableName
+argument_list|>
+name|getOnlineTables
+parameter_list|()
+function_decl|;
+comment|/**    * Registers a new protocol buffer {@link Service} subclass as a coprocessor endpoint to be    * available for handling    * @param service the {@code Service} subclass instance to expose as a coprocessor endpoint    * @return {@code true} if the registration was successful, {@code false}    */
+name|boolean
+name|registerService
+parameter_list|(
+name|Service
+name|service
+parameter_list|)
+function_decl|;
+comment|/**    * @return heap memory manager instance    */
+name|HeapMemoryManager
+name|getHeapMemoryManager
+parameter_list|()
+function_decl|;
+comment|/**    * @return the max compaction pressure of all stores on this regionserver. The value should be    *         greater than or equal to 0.0, and any value greater than 1.0 means we enter the    *         emergency state that some stores have too many store files.    * @see org.apache.hadoop.hbase.regionserver.Store#getCompactionPressure()    */
+name|double
+name|getCompactionPressure
 parameter_list|()
 function_decl|;
 block|}

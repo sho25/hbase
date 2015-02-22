@@ -77,6 +77,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -211,6 +213,11 @@ name|clearJmxCache
 parameter_list|()
 block|{
 comment|//If there are more then 100 ms before the executor will run then everything should be merged.
+synchronized|synchronized
+init|(
+name|lock
+init|)
+block|{
 if|if
 condition|(
 name|fut
@@ -237,11 +244,6 @@ literal|100
 operator|)
 condition|)
 return|return;
-synchronized|synchronized
-init|(
-name|lock
-init|)
-block|{
 name|fut
 operator|=
 name|executor

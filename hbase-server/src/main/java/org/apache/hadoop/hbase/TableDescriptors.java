@@ -43,23 +43,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
 import|;
 end_import
 
@@ -79,6 +67,17 @@ block|{
 comment|/**    * @param tableName    * @return HTableDescriptor for tablename    * @throws IOException    */
 name|HTableDescriptor
 name|get
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * @param tableName    * @return TableDescriptor for tablename    * @throws IOException    */
+name|TableDescriptor
+name|getDescriptor
 parameter_list|(
 specifier|final
 name|TableName
@@ -114,12 +113,35 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Get Map of all TableDescriptors. Populates the descriptor cache as a    * side effect.    * @return Map of all descriptors.    * @throws IOException    */
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|TableDescriptor
+argument_list|>
+name|getAllDescriptors
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Add or update descriptor    * @param htd Descriptor to set into TableDescriptors    * @throws IOException    */
 name|void
 name|add
 parameter_list|(
 specifier|final
 name|HTableDescriptor
+name|htd
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Add or update descriptor    * @param htd Descriptor to set into TableDescriptors    * @throws IOException    */
+name|void
+name|add
+parameter_list|(
+specifier|final
+name|TableDescriptor
 name|htd
 parameter_list|)
 throws|throws
@@ -133,6 +155,20 @@ specifier|final
 name|TableName
 name|tablename
 parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Enables the tabledescriptor cache    */
+name|void
+name|setCacheOn
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Disables the tabledescriptor cache    */
+name|void
+name|setCacheOff
+parameter_list|()
 throws|throws
 name|IOException
 function_decl|;

@@ -45,9 +45,27 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -75,7 +93,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -89,9 +107,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|Scan
+name|HRegionInfo
 import|;
 end_import
 
@@ -103,7 +119,16 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+argument_list|)
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 interface|interface
 name|RegionScanner
@@ -133,7 +158,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @return The preferred max buffersize. See {@link Scan#setMaxResultSize(long)}    */
+comment|/**    * @return The preferred max buffersize. See     * {@link org.apache.hadoop.hbase.client.Scan#setMaxResultSize(long)}    */
 name|long
 name|getMaxResultSize
 parameter_list|()

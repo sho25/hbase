@@ -45,6 +45,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -76,6 +78,20 @@ operator|.
 name|conf
 operator|.
 name|Configured
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -143,7 +159,12 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|CONFIG
+argument_list|)
 specifier|public
 specifier|abstract
 class|class
@@ -480,6 +501,16 @@ name|e
 argument_list|)
 throw|;
 block|}
+block|}
+comment|/**    * In {@link HRegionFileSystem#splitStoreFile(org.apache.hadoop.hbase.HRegionInfo, String,    * StoreFile, byte[], boolean, RegionSplitPolicy)} we are not creating the split reference    * if split row not lies in the StoreFile range. But in some use cases we may need to create    * the split reference even when the split row not lies in the range. This method can be used    * to decide, whether to skip the the StoreFile range check or not.    * @return whether to skip the StoreFile range check or not    */
+specifier|protected
+name|boolean
+name|skipStoreFileRangeCheck
+parameter_list|()
+block|{
+return|return
+literal|false
+return|;
 block|}
 block|}
 end_class

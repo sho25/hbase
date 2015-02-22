@@ -41,7 +41,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
 name|LargeTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|ReplicationTests
 import|;
 end_import
 
@@ -70,16 +88,22 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Run the same test as TestReplicationKillMasterRS but with HLog compression enabled  * Do not add other tests in this class.  */
+comment|/**  * Run the same test as TestReplicationKillMasterRS but with WAL compression enabled  * Do not add other tests in this class.  */
 end_comment
 
 begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|ReplicationTests
+operator|.
+name|class
+block|,
 name|LargeTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class

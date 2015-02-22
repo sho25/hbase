@@ -63,6 +63,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -76,6 +78,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -110,20 +114,6 @@ operator|.
 name|io
 operator|.
 name|Writable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|mapreduce
-operator|.
-name|OutputFormat
 import|;
 end_import
 
@@ -173,7 +163,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Writes each given record, consisting of the row key and the given values,    * to the configured {@link OutputFormat}. It is emitting the row key and each    * {@link org.apache.hadoop.hbase.client.Put Put} or    * {@link org.apache.hadoop.hbase.client.Delete Delete} as separate pairs.    *    * @param key  The current row key.    * @param values  The {@link org.apache.hadoop.hbase.client.Put Put} or    *   {@link org.apache.hadoop.hbase.client.Delete Delete} list for the given    *   row.    * @param context  The context of the reduce.    * @throws IOException When writing the record fails.    * @throws InterruptedException When the job gets interrupted.    */
+comment|/**    * Writes each given record, consisting of the row key and the given values,    * to the configured {@link org.apache.hadoop.mapreduce.OutputFormat}.     * It is emitting the row key and each {@link org.apache.hadoop.hbase.client.Put Put}     * or {@link org.apache.hadoop.hbase.client.Delete Delete} as separate pairs.    *    * @param key  The current row key.    * @param values  The {@link org.apache.hadoop.hbase.client.Put Put} or    *   {@link org.apache.hadoop.hbase.client.Delete Delete} list for the given    *   row.    * @param context  The context of the reduce.    * @throws IOException When writing the record fails.    * @throws InterruptedException When the job gets interrupted.    */
 annotation|@
 name|Override
 specifier|public

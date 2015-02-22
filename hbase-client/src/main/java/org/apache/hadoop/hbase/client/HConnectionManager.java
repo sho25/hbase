@@ -61,34 +61,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
@@ -105,7 +77,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ZooKeeperConnectionException
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -126,15 +116,10 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A non-instantiable class that manages creation of {@link HConnection}s.  *<p>The simplest way to use this class is by using {@link #createConnection(Configuration)}.  * This creates a new {@link HConnection} to the cluster that is managed by the caller.  * From this {@link HConnection} {@link HTableInterface} implementations are retrieved  * with {@link HConnection#getTable(byte[])}. Example:  *<pre>  * {@code  * HConnection connection = HConnectionManager.createConnection(config);  * HTableInterface table = connection.getTable("table1");  * try {  *   // Use the table as needed, for a single operation and a single thread  * } finally {  *   table.close();  *   connection.close();  * }  * }</pre>  *<p>This class has a static Map of {@link HConnection} instances keyed by  * {@link HConnectionKey}; A {@link HConnectionKey} is identified by a set of  * {@link Configuration} properties. Invocations of {@link #getConnection(Configuration)}  * that pass the same {@link Configuration} instance will return the same  * {@link  HConnection} instance ONLY WHEN the set of properties are the same  * (i.e. if you change properties in your {@link Configuration} instance, such as RPC timeout,  * the codec used, HBase will create a new {@link HConnection} instance. For more details on  * how this is done see {@link HConnectionKey}).  *<p>Sharing {@link HConnection} instances is usually what you want; all clients  * of the {@link HConnection} instances share the HConnections' cache of Region  * locations rather than each having to discover for itself the location of meta, etc.  * But sharing connections makes clean up of {@link HConnection} instances a little awkward.  * Currently, clients cleanup by calling {@link #deleteConnection(Configuration)}. This will  * shutdown the zookeeper connection the HConnection was using and clean up all  * HConnection resources as well as stopping proxies to servers out on the  * cluster. Not running the cleanup will not end the world; it'll  * just stall the closeup some and spew some zookeeper connection failed  * messages into the log.  Running the cleanup on a {@link HConnection} that is  * subsequently used by another will cause breakage so be careful running  * cleanup.  *<p>To create a {@link HConnection} that is not shared by others, you can  * set property "hbase.client.instance.id" to a unique value for your {@link Configuration}  * instance, like the following:  *<pre>  * {@code  * conf.set("hbase.client.instance.id", "12345");  * HConnection connection = HConnectionManager.getConnection(conf);  * // Use the connection to your hearts' delight and then when done...  * conf.set("hbase.client.instance.id", "12345");  * HConnectionManager.deleteConnection(conf, true);  * }  *</pre>  *<p>Cleanup used to be done inside in a shutdown hook.  On startup we'd  * register a shutdown hook that called {@link #deleteAllConnections()}  * on its way out but the order in which shutdown hooks run is not defined so  * were problematic for clients of HConnection that wanted to register their  * own shutdown hooks so we removed ours though this shifts the onus for  * cleanup to the client.  */
+comment|/**  * A non-instantiable class that manages creation of {@link HConnection}s.  *<p>The simplest way to use this class is by using {@link #createConnection(Configuration)}.  * This creates a new {@link HConnection} to the cluster that is managed by the caller.  * From this {@link HConnection} {@link HTableInterface} implementations are retrieved  * with {@link HConnection#getTable(byte[])}. Example:  *<pre>  * HConnection connection = HConnectionManager.createConnection(config);  * HTableInterface table = connection.getTable(TableName.valueOf("table1"));  * try {  *   // Use the table as needed, for a single operation and a single thread  * } finally {  *   table.close();  *   connection.close();  * }  *</pre>  *<p>This class has a static Map of {@link HConnection} instances keyed by  * {@link HConnectionKey}; A {@link HConnectionKey} is identified by a set of  * {@link Configuration} properties. Invocations of {@link #getConnection(Configuration)}  * that pass the same {@link Configuration} instance will return the same  * {@link  HConnection} instance ONLY WHEN the set of properties are the same  * (i.e. if you change properties in your {@link Configuration} instance, such as RPC timeout,  * the codec used, HBase will create a new {@link HConnection} instance. For more details on  * how this is done see {@link HConnectionKey}).  *<p>Sharing {@link HConnection} instances is usually what you want; all clients  * of the {@link HConnection} instances share the HConnections' cache of Region  * locations rather than each having to discover for itself the location of meta, etc.  * But sharing connections makes clean up of {@link HConnection} instances a little awkward.  * Currently, clients cleanup by calling {@link #deleteConnection(Configuration)}. This will  * shutdown the zookeeper connection the HConnection was using and clean up all  * HConnection resources as well as stopping proxies to servers out on the  * cluster. Not running the cleanup will not end the world; it'll  * just stall the closeup some and spew some zookeeper connection failed  * messages into the log.  Running the cleanup on a {@link HConnection} that is  * subsequently used by another will cause breakage so be careful running  * cleanup.  *<p>To create a {@link HConnection} that is not shared by others, you can  * set property "hbase.client.instance.id" to a unique value for your {@link Configuration}  * instance, like the following:  *<pre>  * {@code  * conf.set("hbase.client.instance.id", "12345");  * HConnection connection = HConnectionManager.getConnection(conf);  * // Use the connection to your hearts' delight and then when done...  * conf.set("hbase.client.instance.id", "12345");  * HConnectionManager.deleteConnection(conf, true);  * }  *</pre>  *<p>Cleanup used to be done inside in a shutdown hook.  On startup we'd  * register a shutdown hook that called {@link #deleteAllConnections()}  * on its way out but the order in which shutdown hooks run is not defined so  * were problematic for clients of HConnection that wanted to register their  * own shutdown hooks so we removed ours though this shifts the onus for  * cleanup to the client.  * @deprecated Please use ConnectionFactory instead  */
 end_comment
 
 begin_class
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"serial"
-argument_list|)
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -143,10 +128,16 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
+annotation|@
+name|Deprecated
 specifier|public
+specifier|final
 class|class
 name|HConnectionManager
+extends|extends
+name|ConnectionFactory
 block|{
+comment|/** @deprecated connection caching is going away */
 annotation|@
 name|Deprecated
 specifier|public
@@ -159,6 +150,7 @@ name|ConnectionManager
 operator|.
 name|RETRIES_BY_SERVER_KEY
 decl_stmt|;
+comment|/** @deprecated connection caching is going away */
 annotation|@
 name|Deprecated
 specifier|public
@@ -180,7 +172,9 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Get the connection that goes with the passed<code>conf</code> configuration instance.    * If no current connection exists, method creates a new connection and keys it using    * connection-specific properties from the passed {@link Configuration}; see    * {@link HConnectionKey}.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
+comment|/**    * Get the connection that goes with the passed<code>conf</code> configuration instance.    * If no current connection exists, method creates a new connection and keys it using    * connection-specific properties from the passed {@link Configuration}; see    * {@link HConnectionKey}.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @deprecated connection caching is going away    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|HConnection
@@ -202,7 +196,9 @@ name|conf
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a new HConnection instance using the passed<code>conf</code> instance.    *<p>Note: This bypasses the usual HConnection life cycle management done by    * {@link #getConnection(Configuration)}. The caller is responsible for    * calling {@link HConnection#close()} on the returned connection instance.    *    * This is the recommended way to create HConnections.    * {@code    * HConnection connection = HConnectionManager.createConnection(conf);    * HTableInterface table = connection.getTable("mytable");    * table.get(...);    * ...    * table.close();    * connection.close();    * }    *    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
+comment|/**    * Create a new HConnection instance using the passed<code>conf</code> instance.    *<p>Note: This bypasses the usual HConnection life cycle management done by    * {@link #getConnection(Configuration)}. The caller is responsible for    * calling {@link HConnection#close()} on the returned connection instance.    *    * This is the recommended way to create HConnections.    *<pre>    * HConnection connection = HConnectionManager.createConnection(conf);    * HTableInterface table = connection.getTable("mytable");    * try {    *   table.get(...);    *   ...    * } finally {    *   table.close();    *   connection.close();    * }    *</pre>    *    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @deprecated in favor of {@link Connection} and {@link ConnectionFactory}    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|HConnection
@@ -223,7 +219,9 @@ name|conf
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a new HConnection instance using the passed<code>conf</code> instance.    *<p>Note: This bypasses the usual HConnection life cycle management done by    * {@link #getConnection(Configuration)}. The caller is responsible for    * calling {@link HConnection#close()} on the returned connection instance.    * This is the recommended way to create HConnections.    * {@code    * ExecutorService pool = ...;    * HConnection connection = HConnectionManager.createConnection(conf, pool);    * HTableInterface table = connection.getTable("mytable");    * table.get(...);    * ...    * table.close();    * connection.close();    * }    * @param conf configuration    * @param pool the thread pool to use for batch operation in HTables used via this HConnection    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
+comment|/**    * Create a new HConnection instance using the passed<code>conf</code> instance.    *<p>Note: This bypasses the usual HConnection life cycle management done by    * {@link #getConnection(Configuration)}. The caller is responsible for    * calling {@link HConnection#close()} on the returned connection instance.    * This is the recommended way to create HConnections.    *<pre>    * ExecutorService pool = ...;    * HConnection connection = HConnectionManager.createConnection(conf, pool);    * HTableInterface table = connection.getTable("mytable");    * table.get(...);    * ...    * table.close();    * connection.close();    *</pre>    * @param conf configuration    * @param pool the thread pool to use for batch operation in HTables used via this HConnection    * @return HConnection object for<code>conf</code>    * @deprecated in favor of {@link Connection} and {@link ConnectionFactory}    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|HConnection
@@ -249,7 +247,9 @@ name|pool
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a new HConnection instance using the passed<code>conf</code> instance.    *<p>Note: This bypasses the usual HConnection life cycle management done by    * {@link #getConnection(Configuration)}. The caller is responsible for    * calling {@link HConnection#close()} on the returned connection instance.    * This is the recommended way to create HConnections.    * {@code    * ExecutorService pool = ...;    * HConnection connection = HConnectionManager.createConnection(conf, pool);    * HTableInterface table = connection.getTable("mytable");    * table.get(...);    * ...    * table.close();    * connection.close();    * }    * @param conf configuration    * @param user the user the connection is for    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
+comment|/**    * Create a new HConnection instance using the passed<code>conf</code> instance.    *<p>Note: This bypasses the usual HConnection life cycle management done by    * {@link #getConnection(Configuration)}. The caller is responsible for    * calling {@link HConnection#close()} on the returned connection instance.    * This is the recommended way to create HConnections.    *<pre>    * ExecutorService pool = ...;    * HConnection connection = HConnectionManager.createConnection(conf, pool);    * HTableInterface table = connection.getTable("mytable");    * table.get(...);    * ...    * table.close();    * connection.close();    *</pre>    * @param conf configuration    * @param user the user the connection is for    * @return HConnection object for<code>conf</code>    * @deprecated in favor of {@link Connection} and {@link ConnectionFactory}    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|HConnection
@@ -275,7 +275,9 @@ name|user
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a new HConnection instance using the passed<code>conf</code> instance.    *<p>Note: This bypasses the usual HConnection life cycle management done by    * {@link #getConnection(Configuration)}. The caller is responsible for    * calling {@link HConnection#close()} on the returned connection instance.    * This is the recommended way to create HConnections.    * {@code    * ExecutorService pool = ...;    * HConnection connection = HConnectionManager.createConnection(conf, pool);    * HTableInterface table = connection.getTable("mytable");    * table.get(...);    * ...    * table.close();    * connection.close();    * }    * @param conf configuration    * @param pool the thread pool to use for batch operation in HTables used via this HConnection    * @param user the user the connection is for    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
+comment|/**    * Create a new HConnection instance using the passed<code>conf</code> instance.    *<p>Note: This bypasses the usual HConnection life cycle management done by    * {@link #getConnection(Configuration)}. The caller is responsible for    * calling {@link HConnection#close()} on the returned connection instance.    * This is the recommended way to create HConnections.    *<pre>    * ExecutorService pool = ...;    * HConnection connection = HConnectionManager.createConnection(conf, pool);    * HTableInterface table = connection.getTable("mytable");    * table.get(...);    * ...    * table.close();    * connection.close();    *</pre>    * @param conf configuration    * @param pool the thread pool to use for batch operation in HTables used via this HConnection    * @param user the user the connection is for    * @return HConnection object for<code>conf</code>    * @deprecated in favor of {@link Connection} and {@link ConnectionFactory}    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|HConnection
@@ -306,6 +308,7 @@ name|user
 argument_list|)
 return|;
 block|}
+comment|/**    * @deprecated in favor of {@link Connection} and {@link ConnectionFactory}    */
 annotation|@
 name|Deprecated
 specifier|static
@@ -334,6 +337,7 @@ name|managed
 argument_list|)
 return|;
 block|}
+comment|/**    * @deprecated in favor of {@link Connection} and {@link ConnectionFactory}    */
 annotation|@
 name|Deprecated
 specifier|static
@@ -374,7 +378,7 @@ name|user
 argument_list|)
 return|;
 block|}
-comment|/**    * Delete connection information for the instance specified by passed configuration.    * If there are no more references to the designated connection connection, this method will    * then close connection to the zookeeper ensemble and let go of all associated resources.    *    * @param conf configuration whose identity is used to find {@link HConnection} instance.    * @deprecated    */
+comment|/**    * Delete connection information for the instance specified by passed configuration.    * If there are no more references to the designated connection connection, this method will    * then close connection to the zookeeper ensemble and let go of all associated resources.    *    * @param conf configuration whose identity is used to find {@link HConnection} instance.    * @deprecated connection caching is going away.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -394,7 +398,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Cleanup a known stale connection.    * This will then close connection to the zookeeper ensemble and let go of all resources.    *    * @param connection    * @deprecated    */
+comment|/**    * Cleanup a known stale connection.    * This will then close connection to the zookeeper ensemble and let go of all resources.    *    * @param connection    * @deprecated connection caching is going away.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -414,7 +418,7 @@ name|connection
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete information for all connections. Close or not the connection, depending on the    *  staleConnection boolean and the ref count. By default, you should use it with    *  staleConnection to true.    * @deprecated    */
+comment|/**    * Delete information for all connections. Close or not the connection, depending on the    *  staleConnection boolean and the ref count. By default, you should use it with    *  staleConnection to true.    * @deprecated connection caching is going away.    */
 annotation|@
 name|Deprecated
 specifier|public

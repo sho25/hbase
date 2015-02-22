@@ -650,8 +650,12 @@ name|toArray
 argument_list|(
 operator|new
 name|ServerName
-index|[]
-block|{}
+index|[
+name|serverNames
+operator|.
+name|size
+argument_list|()
+index|]
 argument_list|)
 return|;
 block|}

@@ -258,7 +258,8 @@ block|,
 literal|3
 block|,
 literal|4
-comment|/*, 6*/
+block|,
+literal|6
 block|}
 decl_stmt|;
 for|for
@@ -297,6 +298,25 @@ name|getEncodingById
 argument_list|(
 name|id
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Set encoding of column family "
+operator|+
+name|descriptor
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|" to: "
+operator|+
+name|descriptor
+operator|.
+name|getDataBlockEncoding
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

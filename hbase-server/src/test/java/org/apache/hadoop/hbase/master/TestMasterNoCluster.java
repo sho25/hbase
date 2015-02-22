@@ -251,20 +251,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MediumTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MetaMockingUtil
 import|;
 end_import
@@ -351,7 +337,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|ClusterConnection
 import|;
 end_import
 
@@ -436,6 +422,38 @@ operator|.
 name|RegionServerStatusProtos
 operator|.
 name|RegionServerReportRequest
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|MasterTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|MediumTests
 import|;
 end_import
 
@@ -631,9 +649,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|MasterTests
+operator|.
+name|class
+block|,
 name|MediumTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class
@@ -1339,8 +1363,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HConnection
-name|getShortCircuitConnection
+name|ClusterConnection
+name|getConnection
 parameter_list|()
 block|{
 comment|// Insert a mock for the connection, use TESTUTIL.getConfiguration rather than
@@ -1662,8 +1686,11 @@ argument_list|<
 name|ServerName
 argument_list|>
 name|previouslyFailedMeatRSs
+parameter_list|,
+name|int
+name|replicaId
 parameter_list|)
-block|{       }
+block|{ }
 annotation|@
 name|Override
 name|void
@@ -1751,8 +1778,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HConnection
-name|getShortCircuitConnection
+name|ClusterConnection
+name|getConnection
 parameter_list|()
 block|{
 comment|// Insert a mock for the connection, use TESTUTIL.getConfiguration rather than

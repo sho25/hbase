@@ -147,6 +147,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -290,6 +292,20 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableDescriptor
 import|;
 end_import
 
@@ -2131,6 +2147,9 @@ name|fs
 argument_list|,
 name|workingDir
 argument_list|)
+operator|.
+name|getHTableDescriptor
+argument_list|()
 expr_stmt|;
 name|ThreadPoolExecutor
 name|tpool
@@ -2532,6 +2551,8 @@ comment|// write a copy of descriptor to the snapshot directory
 operator|new
 name|FSTableDescriptors
 argument_list|(
+name|conf
+argument_list|,
 name|fs
 argument_list|,
 name|rootDir
@@ -2541,7 +2562,11 @@ name|createTableDescriptorForTableDirectory
 argument_list|(
 name|workingDir
 argument_list|,
+operator|new
+name|TableDescriptor
+argument_list|(
 name|htd
+argument_list|)
 argument_list|,
 literal|false
 argument_list|)

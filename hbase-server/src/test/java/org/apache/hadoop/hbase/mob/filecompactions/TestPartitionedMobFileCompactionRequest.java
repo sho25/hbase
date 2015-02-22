@@ -57,6 +57,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
 name|SmallTests
 import|;
 end_import

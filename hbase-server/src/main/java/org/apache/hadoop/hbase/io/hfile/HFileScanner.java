@@ -47,6 +47,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -64,20 +66,6 @@ operator|.
 name|hbase
 operator|.
 name|Cell
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
 import|;
 end_import
 
@@ -129,7 +117,7 @@ name|int
 name|seekTo
 parameter_list|(
 name|Cell
-name|kv
+name|c
 parameter_list|)
 throws|throws
 name|IOException
@@ -169,7 +157,7 @@ name|int
 name|reseekTo
 parameter_list|(
 name|Cell
-name|kv
+name|c
 parameter_list|)
 throws|throws
 name|IOException
@@ -238,7 +226,7 @@ name|ByteBuffer
 name|getValue
 parameter_list|()
 function_decl|;
-comment|/**    * @return Instance of {@link KeyValue}.    */
+comment|/**    * @return Instance of {@link org.apache.hadoop.hbase.KeyValue}.    */
 name|Cell
 name|getKeyValue
 parameter_list|()

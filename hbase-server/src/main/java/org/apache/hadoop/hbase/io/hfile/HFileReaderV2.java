@@ -105,6 +105,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -163,6 +165,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -194,20 +210,6 @@ operator|.
 name|KeyValue
 operator|.
 name|KVComparator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValueUtil
 import|;
 end_import
 
@@ -383,6 +385,8 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
 name|htrace
 operator|.
 name|Trace
@@ -392,6 +396,8 @@ end_import
 begin_import
 import|import
 name|org
+operator|.
+name|apache
 operator|.
 name|htrace
 operator|.
@@ -658,13 +664,13 @@ argument_list|)
 expr_stmt|;
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 name|fsBlockReaderV2
 init|=
 operator|new
 name|HFileBlock
 operator|.
-name|FSReaderV2
+name|FSReaderImpl
 argument_list|(
 name|fsdis
 argument_list|,
@@ -809,6 +815,39 @@ argument_list|)
 operator|.
 name|getByteStream
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|byte
+index|[]
+name|creationTimeBytes
+init|=
+name|fileInfo
+operator|.
+name|get
+argument_list|(
+name|FileInfo
+operator|.
+name|CREATE_TIME_TS
+argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|hfileContext
+operator|.
+name|setFileCreateTime
+argument_list|(
+name|creationTimeBytes
+operator|==
+literal|null
+condition|?
+literal|0
+else|:
+name|Bytes
+operator|.
+name|toLong
+argument_list|(
+name|creationTimeBytes
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|lastKey
@@ -1257,6 +1296,7 @@ name|isCompaction
 argument_list|)
 return|;
 block|}
+comment|/**    * Retrieve block from cache. Validates the retrieved block's type vs {@code expectedBlockType}    * and its encoding vs. {@code expectedDataBlockEncoding}. Unpacks the block as necessary.    */
 specifier|private
 name|HFileBlock
 name|getCachedBlock
@@ -1328,6 +1368,34 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|cacheConf
+operator|.
+name|shouldCacheCompressed
+argument_list|(
+name|cachedBlock
+operator|.
+name|getBlockType
+argument_list|()
+operator|.
+name|getCategory
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|cachedBlock
+operator|=
+name|cachedBlock
+operator|.
+name|unpack
+argument_list|(
+name|hfileContext
+argument_list|,
+name|fsBlockReader
+argument_list|)
+expr_stmt|;
+block|}
 name|validateBlockType
 argument_list|(
 name|cachedBlock
@@ -1627,6 +1695,14 @@ operator|!=
 literal|null
 condition|)
 block|{
+assert|assert
+name|cachedBlock
+operator|.
+name|isUnpacked
+argument_list|()
+operator|:
+literal|"Packed block leak."
+assert|;
 comment|// Return a distinct 'shallow copy' of the block,
 comment|// so pos does not get messed by the scanner
 return|return
@@ -1653,6 +1729,13 @@ operator|-
 literal|1
 argument_list|,
 literal|true
+argument_list|)
+operator|.
+name|unpack
+argument_list|(
+name|hfileContext
+argument_list|,
+name|fsBlockReader
 argument_list|)
 decl_stmt|;
 comment|// Cache the block
@@ -1694,7 +1777,6 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * Read in a file block of the given {@link BlockType} and    * {@link DataBlockEncoding}.    * @param dataBlockOffset offset to read.    * @param onDiskBlockSize size of the block    * @param cacheBlock    * @param pread Use positional read instead of seek+read (positional is    *          better doing random reads whereas seek+read is better scanning).    * @param isCompaction is this block being read as part of a compaction    * @param expectedBlockType the block type we are expecting to read with this    *          read operation, or null to read whatever block type is available    *          and avoid checking (that might reduce caching efficiency of    *          encoded data blocks)    * @param expectedDataBlockEncoding the data block encoding the caller is    *          expecting data blocks to be in, or null to not perform this    *          check and return the block irrespective of the encoding. This    *          check only applies to data blocks and can be set to null when    *          the caller is expecting to read a non-data block and has set    *          expectedBlockType accordingly.    * @return Block wrapped in a ByteBuffer.    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -1776,8 +1858,7 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
-comment|// For any given block from any given file, synchronize reads for said
-comment|// block.
+comment|// For any given block from any given file, synchronize reads for said block.
 comment|// Without a cache, this synchronizing is needless overhead, but really
 comment|// the other choice is to duplicate work (which the cache would prevent you
 comment|// from doing).
@@ -1874,13 +1955,14 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|validateBlockType
-argument_list|(
+assert|assert
 name|cachedBlock
-argument_list|,
-name|expectedBlockType
-argument_list|)
-expr_stmt|;
+operator|.
+name|isUnpacked
+argument_list|()
+operator|:
+literal|"Packed block leak."
+assert|;
 if|if
 condition|(
 name|cachedBlock
@@ -1949,6 +2031,7 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|// Cache-hit. Return!
 return|return
 name|cachedBlock
 return|;
@@ -2012,6 +2095,31 @@ argument_list|,
 name|expectedBlockType
 argument_list|)
 expr_stmt|;
+name|HFileBlock
+name|unpacked
+init|=
+name|hfileBlock
+operator|.
+name|unpack
+argument_list|(
+name|hfileContext
+argument_list|,
+name|fsBlockReader
+argument_list|)
+decl_stmt|;
+name|BlockType
+operator|.
+name|BlockCategory
+name|category
+init|=
+name|hfileBlock
+operator|.
+name|getBlockType
+argument_list|()
+operator|.
+name|getCategory
+argument_list|()
+decl_stmt|;
 comment|// Cache the block if necessary
 if|if
 condition|(
@@ -2021,13 +2129,7 @@ name|cacheConf
 operator|.
 name|shouldCacheBlockOnRead
 argument_list|(
-name|hfileBlock
-operator|.
-name|getBlockType
-argument_list|()
-operator|.
-name|getCategory
-argument_list|()
+name|category
 argument_list|)
 condition|)
 block|{
@@ -2040,7 +2142,16 @@ name|cacheBlock
 argument_list|(
 name|cacheKey
 argument_list|,
+name|cacheConf
+operator|.
+name|shouldCacheCompressed
+argument_list|(
+name|category
+argument_list|)
+condition|?
 name|hfileBlock
+else|:
+name|unpacked
 argument_list|,
 name|cacheConf
 operator|.
@@ -2078,7 +2189,7 @@ argument_list|()
 expr_stmt|;
 block|}
 return|return
-name|hfileBlock
+name|unpacked
 return|;
 block|}
 block|}
@@ -4315,16 +4426,6 @@ operator|<
 literal|0
 condition|)
 block|{
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|key
-argument_list|)
-decl_stmt|;
 throw|throw
 operator|new
 name|IllegalStateException
@@ -4333,24 +4434,11 @@ literal|"blockSeek with seekBefore "
 operator|+
 literal|"at the first key of the block: key="
 operator|+
-name|Bytes
+name|CellUtil
 operator|.
-name|toStringBinary
+name|getCellKeyAsString
 argument_list|(
-name|kv
-operator|.
-name|getKey
-argument_list|()
-argument_list|,
-name|kv
-operator|.
-name|getKeyOffset
-argument_list|()
-argument_list|,
-name|kv
-operator|.
-name|getKeyLength
-argument_list|()
+name|key
 argument_list|)
 operator|+
 literal|", blockOffset="

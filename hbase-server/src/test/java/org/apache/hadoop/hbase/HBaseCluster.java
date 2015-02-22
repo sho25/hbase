@@ -71,6 +71,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -288,7 +290,7 @@ return|return
 name|initialClusterStatus
 return|;
 block|}
-comment|/**    * Returns an {@link MasterAdminService.BlockingInterface} to the active master    */
+comment|/**    * Returns an {@link MasterService.BlockingInterface} to the active master    */
 specifier|public
 specifier|abstract
 name|MasterService
@@ -335,6 +337,9 @@ name|startRegionServer
 parameter_list|(
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -370,6 +375,9 @@ name|waitForRegionServerToStart
 parameter_list|(
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|,
 name|long
 name|timeout
@@ -422,6 +430,13 @@ name|equals
 argument_list|(
 name|hostname
 argument_list|)
+operator|&&
+name|server
+operator|.
+name|getPort
+argument_list|()
+operator|==
+name|port
 condition|)
 block|{
 return|return;
@@ -439,7 +454,11 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"did timeout waiting for region server to start:"
+literal|"did timeout "
+operator|+
+name|timeout
+operator|+
+literal|"ms waiting for region server to start: "
 operator|+
 name|hostname
 argument_list|)
@@ -468,6 +487,9 @@ name|startMaster
 parameter_list|(
 name|String
 name|hostname
+parameter_list|,
+name|int
+name|port
 parameter_list|)
 throws|throws
 name|IOException
@@ -600,6 +622,10 @@ block|{
 return|return
 name|getServerHoldingRegion
 argument_list|(
+name|TableName
+operator|.
+name|META_TABLE_NAME
+argument_list|,
 name|HRegionInfo
 operator|.
 name|FIRST_META_REGIONINFO
@@ -609,12 +635,16 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the ServerName of region server serving the specified region    * @param regionName Name of the region in bytes    * @return ServerName that hosts the region or null    */
+comment|/**    * Get the ServerName of region server serving the specified region    * @param regionName Name of the region in bytes    * @param tn Table name that has the region.    * @return ServerName that hosts the region or null    */
 specifier|public
 specifier|abstract
 name|ServerName
 name|getServerHoldingRegion
 parameter_list|(
+specifier|final
+name|TableName
+name|tn
+parameter_list|,
 name|byte
 index|[]
 name|regionName

@@ -235,6 +235,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
 name|IntegrationTests
 import|;
 end_import
@@ -443,6 +445,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|HBaseAdmin
 import|;
 end_import
@@ -540,6 +558,22 @@ operator|.
 name|client
 operator|.
 name|Scan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -659,6 +693,8 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
 name|htrace
 operator|.
 name|Span
@@ -668,6 +704,8 @@ end_import
 begin_import
 import|import
 name|org
+operator|.
+name|apache
 operator|.
 name|htrace
 operator|.
@@ -679,6 +717,8 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
 name|htrace
 operator|.
 name|TraceScope
@@ -688,6 +728,8 @@ end_import
 begin_import
 import|import
 name|org
+operator|.
+name|apache
 operator|.
 name|htrace
 operator|.
@@ -756,7 +798,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Integration test that should benchmark how fast HBase can recover from failures. This test starts  * different threads:  *<ol>  *<li>  * Load Test Tool.<br/>  * This runs so that all RegionServers will have some load and HLogs will be full.  *</li>  *<li>  * Scan thread.<br/>  * This thread runs a very short scan over and over again recording how log it takes to respond.  * The longest response is assumed to be the time it took to recover.  *</li>  *<li>  * Put thread.<br/>  * This thread just like the scan thread except it does a very small put.  *</li>  *<li>  * Admin thread.<br/>  * This thread will continually go to the master to try and get the cluster status.  Just like the  * put and scan threads, the time to respond is recorded.  *</li>  *<li>  * Chaos Monkey thread.<br/>  * This thread runs a ChaosMonkey.Action.  *</li>  *</ol>  *<p/>  * The ChaosMonkey actions currently run are:  *<ul>  *<li>Restart the RegionServer holding meta.</li>  *<li>Restart the RegionServer holding the table the scan and put threads are targeting.</li>  *<li>Move the Regions of the table used by the scan and put threads.</li>  *<li>Restart the master.</li>  *</ul>  *<p/>  * At the end of the test a log line is output on the INFO level containing the timing data that was  * collected.  */
+comment|/**  * Integration test that should benchmark how fast HBase can recover from failures. This test starts  * different threads:  *<ol>  *<li>  * Load Test Tool.<br/>  * This runs so that all RegionServers will have some load and WALs will be full.  *</li>  *<li>  * Scan thread.<br/>  * This thread runs a very short scan over and over again recording how log it takes to respond.  * The longest response is assumed to be the time it took to recover.  *</li>  *<li>  * Put thread.<br/>  * This thread just like the scan thread except it does a very small put.  *</li>  *<li>  * Admin thread.<br/>  * This thread will continually go to the master to try and get the cluster status.  Just like the  * put and scan threads, the time to respond is recorded.  *</li>  *<li>  * Chaos Monkey thread.<br/>  * This thread runs a ChaosMonkey.Action.  *</li>  *</ol>  *<p/>  * The ChaosMonkey actions currently run are:  *<ul>  *<li>Restart the RegionServer holding meta.</li>  *<li>Restart the RegionServer holding the table the scan and put threads are targeting.</li>  *<li>Move the Regions of the table used by the scan and put threads.</li>  *<li>Restart the master.</li>  *</ul>  *<p/>  * At the end of the test a log line is output on the INFO level containing the timing data that was  * collected.  */
 end_comment
 
 begin_class
@@ -868,7 +910,7 @@ specifier|static
 name|Action
 name|restartMasterAction
 decl_stmt|;
-comment|/**    * The load test tool used to create load and make sure that HLogs aren't empty.    */
+comment|/**    * The load test tool used to create load and make sure that WALs aren't empty.    */
 specifier|private
 specifier|static
 name|LoadTestTool
@@ -966,6 +1008,26 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// allow a little more time for RS restart actions because RS start depends on having a master
+comment|// to report to and the master is also being monkeyed.
+name|util
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setLong
+argument_list|(
+name|Action
+operator|.
+name|START_RS_TIMEOUT_KEY
+argument_list|,
+literal|3
+operator|*
+literal|60
+operator|*
+literal|1000
+argument_list|)
+expr_stmt|;
 comment|// Set up the action that will restart a region server holding a region from our table
 comment|// because this table should only have one region we should be good.
 name|restartRSAction
@@ -975,10 +1037,15 @@ name|RestartRsHoldingTableAction
 argument_list|(
 name|sleepTime
 argument_list|,
-name|tableName
+name|util
 operator|.
-name|getNameAsString
+name|getConnection
 argument_list|()
+operator|.
+name|getRegionLocator
+argument_list|(
+name|tableName
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Set up the action that will kill the region holding meta.
@@ -1399,6 +1466,21 @@ literal|10
 else|:
 literal|3
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting "
+operator|+
+name|testName
+operator|+
+literal|" with "
+operator|+
+name|maxIters
+operator|+
+literal|" iterations."
+argument_list|)
+expr_stmt|;
 comment|// Array to keep track of times.
 name|ArrayList
 argument_list|<
@@ -1453,6 +1535,8 @@ operator|.
 name|nanoTime
 argument_list|()
 decl_stmt|;
+try|try
+block|{
 comment|// We're going to try this multiple times
 for|for
 control|(
@@ -1617,6 +1701,53 @@ argument_list|(
 literal|5000l
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|long
+name|runtimeMs
+init|=
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+operator|.
+name|convert
+argument_list|(
+name|System
+operator|.
+name|nanoTime
+argument_list|()
+operator|-
+name|start
+argument_list|,
+name|TimeUnit
+operator|.
+name|NANOSECONDS
+argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|testName
+operator|+
+literal|" failed after "
+operator|+
+name|runtimeMs
+operator|+
+literal|"ms."
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
+throw|;
 block|}
 name|long
 name|runtimeMs
@@ -2327,7 +2458,7 @@ name|TimingCallable
 block|{
 specifier|private
 specifier|final
-name|HTable
+name|Table
 name|table
 decl_stmt|;
 specifier|public
@@ -2351,14 +2482,13 @@ name|this
 operator|.
 name|table
 operator|=
-operator|new
-name|HTable
-argument_list|(
 name|util
 operator|.
-name|getConfiguration
+name|getConnection
 argument_list|()
-argument_list|,
+operator|.
+name|getTable
+argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
@@ -2424,11 +2554,6 @@ argument_list|(
 name|p
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 return|return
 literal|true
 return|;
@@ -2454,7 +2579,7 @@ name|TimingCallable
 block|{
 specifier|private
 specifier|final
-name|HTable
+name|Table
 name|table
 decl_stmt|;
 specifier|public
@@ -2478,14 +2603,13 @@ name|this
 operator|.
 name|table
 operator|=
-operator|new
-name|HTable
-argument_list|(
 name|util
 operator|.
-name|getConfiguration
+name|getConnection
 argument_list|()
-argument_list|,
+operator|.
+name|getTable
+argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
@@ -2636,7 +2760,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 literal|null
@@ -2645,14 +2769,10 @@ try|try
 block|{
 name|admin
 operator|=
-operator|new
-name|HBaseAdmin
-argument_list|(
 name|util
 operator|.
-name|getConfiguration
+name|getHBaseAdmin
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|ClusterStatus
 name|status

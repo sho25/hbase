@@ -133,20 +133,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|HConstants
@@ -220,6 +206,22 @@ operator|.
 name|hbase
 operator|.
 name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -319,7 +321,7 @@ name|ServerName
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**    * Search the cache for a location that fits our table and row key.    * Return null if no suitable region is located.    *    * @param tableName    * @param row    * @return Null or region location found in cache.    */
+comment|/**    * Search the cache for a location that fits our table and row key.    * Return null if no suitable region is located.    *    *    * @param tableName    * @param row    * @return Null or region location found in cache.    */
 specifier|public
 name|RegionLocations
 name|getCachedLocation

@@ -255,20 +255,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
@@ -300,6 +286,22 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -426,12 +428,16 @@ operator|.
 name|util
 operator|.
 name|StringUtils
+operator|.
+name|TraditionalBinaryPrefix
 import|;
 end_import
 
 begin_import
 import|import
 name|org
+operator|.
+name|apache
 operator|.
 name|htrace
 operator|.
@@ -442,6 +448,8 @@ end_import
 begin_import
 import|import
 name|org
+operator|.
+name|apache
 operator|.
 name|htrace
 operator|.
@@ -759,33 +767,45 @@ name|info
 argument_list|(
 literal|"globalMemStoreLimit="
 operator|+
-name|StringUtils
+name|TraditionalBinaryPrefix
 operator|.
-name|humanReadableInt
+name|long2String
 argument_list|(
 name|this
 operator|.
 name|globalMemStoreLimit
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 operator|+
 literal|", globalMemStoreLimitLowMark="
 operator|+
-name|StringUtils
+name|TraditionalBinaryPrefix
 operator|.
-name|humanReadableInt
+name|long2String
 argument_list|(
 name|this
 operator|.
 name|globalMemStoreLimitLowMark
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 operator|+
 literal|", maxHeap="
 operator|+
-name|StringUtils
+name|TraditionalBinaryPrefix
 operator|.
-name|humanReadableInt
+name|long2String
 argument_list|(
 name|max
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -944,9 +964,9 @@ literal|" has too many "
 operator|+
 literal|"store files, but is "
 operator|+
-name|StringUtils
+name|TraditionalBinaryPrefix
 operator|.
-name|humanReadableInt
+name|long2String
 argument_list|(
 name|bestAnyRegion
 operator|.
@@ -954,13 +974,17 @@ name|memstoreSize
 operator|.
 name|get
 argument_list|()
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 operator|+
 literal|" vs best flushable region's "
 operator|+
-name|StringUtils
+name|TraditionalBinaryPrefix
 operator|.
-name|humanReadableInt
+name|long2String
 argument_list|(
 name|bestFlushableRegion
 operator|.
@@ -968,6 +992,10 @@ name|memstoreSize
 operator|.
 name|get
 argument_list|()
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 operator|+
 literal|". Choosing the bigger."
@@ -1031,6 +1059,8 @@ operator|=
 name|flushRegion
 argument_list|(
 name|regionToFlush
+argument_list|,
+literal|true
 argument_list|,
 literal|true
 argument_list|)
@@ -1151,11 +1181,15 @@ name|debug
 argument_list|(
 literal|"Flush thread woke up because memory above low water="
 operator|+
-name|StringUtils
+name|TraditionalBinaryPrefix
 operator|.
-name|humanReadableInt
+name|long2String
 argument_list|(
 name|globalMemStoreLimitLowMark
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1446,6 +1480,9 @@ name|requestFlush
 parameter_list|(
 name|HRegion
 name|r
+parameter_list|,
+name|boolean
+name|forceFlushAllStores
 parameter_list|)
 block|{
 synchronized|synchronized
@@ -1473,6 +1510,8 @@ operator|new
 name|FlushRegionEntry
 argument_list|(
 name|r
+argument_list|,
+name|forceFlushAllStores
 argument_list|)
 decl_stmt|;
 name|this
@@ -1507,6 +1546,9 @@ name|r
 parameter_list|,
 name|long
 name|delay
+parameter_list|,
+name|boolean
+name|forceFlushAllStores
 parameter_list|)
 block|{
 synchronized|synchronized
@@ -1533,6 +1575,8 @@ operator|new
 name|FlushRegionEntry
 argument_list|(
 name|r
+argument_list|,
+name|forceFlushAllStores
 argument_list|)
 decl_stmt|;
 name|fqe
@@ -1768,7 +1812,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/*    * A flushRegion that checks store file count.  If too many, puts the flush    * on delay queue to retry later.    * @param fqe    * @return true if the region was successfully flushed, false otherwise. If    * false, there will be accompanying log messages explaining why the log was    * not flushed.    */
+comment|/**    * A flushRegion that checks store file count.  If too many, puts the flush    * on delay queue to retry later.    * @param fqe    * @return true if the region was successfully flushed, false otherwise. If    * false, there will be accompanying log messages explaining why the log was    * not flushed.    */
 specifier|private
 name|boolean
 name|flushRegion
@@ -1993,10 +2037,15 @@ argument_list|(
 name|region
 argument_list|,
 literal|false
+argument_list|,
+name|fqe
+operator|.
+name|isForceFlushAllStores
+argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/*    * Flush a region.    * @param region Region to flush.    * @param emergencyFlush Set if we are being force flushed. If true the region    * needs to be removed from the flush queue. If false, when we were called    * from the main flusher run loop and we got the entry to flush by calling    * poll on the flush queue (which removed it).    *    * @return true if the region was successfully flushed, false otherwise. If    * false, there will be accompanying log messages explaining why the log was    * not flushed.    */
+comment|/**    * Flush a region.    * @param region Region to flush.    * @param emergencyFlush Set if we are being force flushed. If true the region    * needs to be removed from the flush queue. If false, when we were called    * from the main flusher run loop and we got the entry to flush by calling    * poll on the flush queue (which removed it).    * @param forceFlushAllStores whether we want to flush all store.    * @return true if the region was successfully flushed, false otherwise. If    * false, there will be accompanying log messages explaining why the log was    * not flushed.    */
 specifier|private
 name|boolean
 name|flushRegion
@@ -2008,8 +2057,16 @@ parameter_list|,
 specifier|final
 name|boolean
 name|emergencyFlush
+parameter_list|,
+name|boolean
+name|forceFlushAllStores
 parameter_list|)
 block|{
+name|long
+name|startTime
+init|=
+literal|0
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|this
@@ -2029,6 +2086,21 @@ argument_list|(
 name|region
 argument_list|)
 decl_stmt|;
+comment|// Use the start time of the FlushRegionEntry if available
+if|if
+condition|(
+name|fqe
+operator|!=
+literal|null
+condition|)
+block|{
+name|startTime
+operator|=
+name|fqe
+operator|.
+name|createTime
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|fqe
@@ -2049,6 +2121,24 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|startTime
+operator|==
+literal|0
+condition|)
+block|{
+comment|// Avoid getting the system time unless we don't have a FlushRegionEntry;
+comment|// shame we can't capture the time also spent in the above synchronized
+comment|// block
+name|startTime
+operator|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+expr_stmt|;
+block|}
 name|lock
 operator|.
 name|readLock
@@ -2066,13 +2156,22 @@ argument_list|,
 name|emergencyFlush
 argument_list|)
 expr_stmt|;
-name|boolean
-name|shouldCompact
+name|HRegion
+operator|.
+name|FlushResult
+name|flushResult
 init|=
 name|region
 operator|.
 name|flushcache
-argument_list|()
+argument_list|(
+name|forceFlushAllStores
+argument_list|)
+decl_stmt|;
+name|boolean
+name|shouldCompact
+init|=
+name|flushResult
 operator|.
 name|isCompactionNeeded
 argument_list|()
@@ -2129,6 +2228,34 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|flushResult
+operator|.
+name|isFlushSucceeded
+argument_list|()
+condition|)
+block|{
+name|long
+name|endTime
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+decl_stmt|;
+name|server
+operator|.
+name|metricsRegionServer
+operator|.
+name|updateFlushTime
+argument_list|(
+name|endTime
+operator|-
+name|startTime
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -2137,7 +2264,7 @@ name|ex
 parameter_list|)
 block|{
 comment|// Cache flush can fail in a few places. If it fails in a critical
-comment|// section, we get a DroppedSnapshotException and a replay of hlog
+comment|// section, we get a DroppedSnapshotException and a replay of wal
 comment|// is required. Currently the only way to do this is a restart of
 comment|// the server. Abort because hdfs is probably bad (HBASE-644 is a case
 comment|// where hdfs was bad but passed the hdfs check).
@@ -2145,7 +2272,7 @@ name|server
 operator|.
 name|abort
 argument_list|(
-literal|"Replay of HLog required. Forcing server shutdown"
+literal|"Replay of WAL required. Forcing server shutdown"
 argument_list|,
 name|ex
 argument_list|)
@@ -2463,9 +2590,9 @@ argument_list|()
 operator|+
 literal|": the global memstore size "
 operator|+
-name|StringUtils
+name|TraditionalBinaryPrefix
 operator|.
-name|humanReadableInt
+name|long2String
 argument_list|(
 name|server
 operator|.
@@ -2474,15 +2601,23 @@ argument_list|()
 operator|.
 name|getGlobalMemstoreSize
 argument_list|()
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 operator|+
 literal|" is>= than blocking "
 operator|+
-name|StringUtils
+name|TraditionalBinaryPrefix
 operator|.
-name|humanReadableInt
+name|long2String
 argument_list|(
 name|globalMemStoreLimit
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 operator|+
 literal|" size"
@@ -2818,7 +2953,7 @@ interface|interface
 name|FlushQueueEntry
 extends|extends
 name|Delayed
-block|{}
+block|{   }
 comment|/**    * Token to insert into the flush queue that ensures that the flusher does not sleep    */
 specifier|static
 class|class
@@ -2901,11 +3036,18 @@ name|requeueCount
 init|=
 literal|0
 decl_stmt|;
+specifier|private
+name|boolean
+name|forceFlushAllStores
+decl_stmt|;
 name|FlushRegionEntry
 parameter_list|(
 specifier|final
 name|HRegion
 name|r
+parameter_list|,
+name|boolean
+name|forceFlushAllStores
 parameter_list|)
 block|{
 name|this
@@ -2930,6 +3072,12 @@ operator|=
 name|this
 operator|.
 name|createTime
+expr_stmt|;
+name|this
+operator|.
+name|forceFlushAllStores
+operator|=
+name|forceFlushAllStores
 expr_stmt|;
 block|}
 comment|/**      * @param maximumWait      * @return True if we have been delayed><code>maximumWait</code> milliseconds.      */
@@ -2967,6 +3115,16 @@ return|return
 name|this
 operator|.
 name|requeueCount
+return|;
+block|}
+comment|/**      * @return whether we need to flush all stores.      */
+specifier|public
+name|boolean
+name|isForceFlushAllStores
+parameter_list|()
+block|{
+return|return
+name|forceFlushAllStores
 return|;
 block|}
 comment|/**      * @param when When to expire, when to come up out of the queue.      * Specify in milliseconds.  This method adds EnvironmentEdgeManager.currentTime()      * to whatever you pass.      * @return This.      */
@@ -3039,7 +3197,10 @@ name|Delayed
 name|other
 parameter_list|)
 block|{
-return|return
+comment|// Delay is compared first. If there is a tie, compare region's hash code
+name|int
+name|ret
+init|=
 name|Long
 operator|.
 name|valueOf
@@ -3062,6 +3223,34 @@ argument_list|)
 argument_list|)
 operator|.
 name|intValue
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|ret
+operator|!=
+literal|0
+condition|)
+block|{
+return|return
+name|ret
+return|;
+block|}
+name|FlushQueueEntry
+name|otherEntry
+init|=
+operator|(
+name|FlushQueueEntry
+operator|)
+name|other
+decl_stmt|;
+return|return
+name|hashCode
+argument_list|()
+operator|-
+name|otherEntry
+operator|.
+name|hashCode
 argument_list|()
 return|;
 block|}
@@ -3095,7 +3284,9 @@ name|int
 name|hashCode
 parameter_list|()
 block|{
-return|return
+name|int
+name|hash
+init|=
 operator|(
 name|int
 operator|)
@@ -3105,6 +3296,14 @@ name|TimeUnit
 operator|.
 name|MILLISECONDS
 argument_list|)
+decl_stmt|;
+return|return
+name|hash
+operator|^
+name|region
+operator|.
+name|hashCode
+argument_list|()
 return|;
 block|}
 annotation|@

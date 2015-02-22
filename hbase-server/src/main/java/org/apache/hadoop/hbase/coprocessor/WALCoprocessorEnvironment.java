@@ -25,6 +25,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -38,6 +40,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -83,11 +87,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
-name|HLog
+name|WAL
 import|;
 end_import
 
@@ -111,8 +113,8 @@ name|WALCoprocessorEnvironment
 extends|extends
 name|CoprocessorEnvironment
 block|{
-comment|/** @return reference to the region server services */
-name|HLog
+comment|/** @return reference to the region server's WAL */
+name|WAL
 name|getWAL
 parameter_list|()
 function_decl|;

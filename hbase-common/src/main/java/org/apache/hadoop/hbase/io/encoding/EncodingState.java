@@ -27,9 +27,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
+name|hbase
 operator|.
-name|InterfaceAudience
+name|Cell
 import|;
 end_import
 
@@ -43,7 +43,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -60,10 +62,10 @@ specifier|public
 class|class
 name|EncodingState
 block|{
-comment|/**    * The previous KeyValue the encoder encoded.    */
+comment|/**    * The previous Cell the encoder encoded.    */
 specifier|protected
-name|KeyValue
-name|prevKv
+name|Cell
+name|prevCell
 init|=
 literal|null
 decl_stmt|;

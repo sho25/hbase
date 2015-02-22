@@ -127,6 +127,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
+name|MiscTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
 name|SmallTests
 import|;
 end_import
@@ -159,9 +177,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|MiscTests
+operator|.
+name|class
+block|,
 name|SmallTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class
@@ -663,7 +687,7 @@ operator|==
 literal|3
 argument_list|)
 expr_stmt|;
-comment|// If split more than once, this should fail
+comment|// If split more than once, use additional byte to split
 name|parts
 operator|=
 name|Bytes
@@ -679,11 +703,24 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-literal|"Returned split but should have failed"
+literal|"Split with an additional byte"
 argument_list|,
 name|parts
-operator|==
+operator|!=
 literal|null
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+name|parts
+operator|.
+name|length
+argument_list|,
+name|low
+operator|.
+name|length
+operator|+
+literal|1
 argument_list|)
 expr_stmt|;
 comment|// Split 0 times should throw IAE

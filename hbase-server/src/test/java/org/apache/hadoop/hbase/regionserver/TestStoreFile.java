@@ -285,6 +285,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
+name|RegionServerTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
 name|SmallTests
 import|;
 end_import
@@ -567,6 +585,36 @@ name|org
 operator|.
 name|junit
 operator|.
+name|After
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Before
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -635,9 +683,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|RegionServerTests
+operator|.
+name|class
+block|,
 name|SmallTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class
@@ -723,7 +777,7 @@ init|=
 literal|"cf"
 decl_stmt|;
 annotation|@
-name|Override
+name|Before
 specifier|public
 name|void
 name|setUp
@@ -738,7 +792,7 @@ argument_list|()
 expr_stmt|;
 block|}
 annotation|@
-name|Override
+name|After
 specifier|public
 name|void
 name|tearDown
@@ -753,6 +807,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Write a file and then assert that we can read from top and bottom halves    * using two HalfMapFiles.    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testBasicHalfMapFile
@@ -789,8 +845,6 @@ argument_list|,
 operator|new
 name|Path
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 name|hri
@@ -1075,6 +1129,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Test that our mechanism of writing store files in one region to reference    * store files in other regions works.    * @throws IOException    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testReference
@@ -1111,8 +1167,6 @@ argument_list|,
 operator|new
 name|Path
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 name|hri
@@ -1436,6 +1490,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testHFileLink
@@ -1476,8 +1532,6 @@ name|setRootDir
 argument_list|(
 name|testConf
 argument_list|,
-name|this
-operator|.
 name|testDir
 argument_list|)
 expr_stmt|;
@@ -1496,8 +1550,6 @@ name|FSUtils
 operator|.
 name|getTableDir
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 name|hri
@@ -1749,6 +1801,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * This test creates an hfile and then the dir structures and files to verify that references    * to hfilelinks (created by snapshot clones) can be properly interpreted.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testReferenceToHFileLink
@@ -1774,8 +1828,6 @@ name|setRootDir
 argument_list|(
 name|testConf
 argument_list|,
-name|this
-operator|.
 name|testDir
 argument_list|)
 expr_stmt|;
@@ -1809,8 +1861,6 @@ name|FSUtils
 operator|.
 name|getTableDir
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 name|hri
@@ -1925,8 +1975,6 @@ name|FSUtils
 operator|.
 name|getTableDir
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 name|hri
@@ -2088,8 +2136,6 @@ name|logFileSystemState
 argument_list|(
 name|fs
 argument_list|,
-name|this
-operator|.
 name|testDir
 argument_list|,
 name|LOG
@@ -3754,6 +3800,8 @@ name|BLOCKSIZE_SMALL
 init|=
 literal|8192
 decl_stmt|;
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testBloomFilter
@@ -3887,6 +3935,8 @@ name|fs
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeleteFamilyBloomFilter
@@ -4300,6 +4350,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test for HBASE-8012    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testReseek
@@ -4442,6 +4494,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testBloomTypes
@@ -5151,6 +5205,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSeqIdComparator
@@ -5680,6 +5736,8 @@ name|kvList
 return|;
 block|}
 comment|/**    * Test to ensure correctness when using StoreFile with multiple timestamps    * @throws IOException    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMultipleTimestamps
@@ -5748,8 +5806,6 @@ argument_list|(
 operator|new
 name|Path
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 literal|"7e0102"
@@ -6066,6 +6122,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testCacheOnWriteEvictOnClose
@@ -6090,8 +6148,6 @@ argument_list|(
 operator|new
 name|Path
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 literal|"7e0102"
@@ -7052,6 +7108,8 @@ argument_list|,
 name|splitKey
 argument_list|,
 name|isTopRef
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 if|if
@@ -7322,6 +7380,8 @@ name|writer
 return|;
 block|}
 comment|/**    * Check if data block encoding information is saved correctly in HFile's    * file info.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDataBlockEncodingMetaData
@@ -7339,8 +7399,6 @@ argument_list|(
 operator|new
 name|Path
 argument_list|(
-name|this
-operator|.
 name|testDir
 argument_list|,
 literal|"7e0102"

@@ -133,6 +133,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -234,20 +236,6 @@ operator|.
 name|fs
 operator|.
 name|Path
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
-name|PathFilter
 import|;
 end_import
 
@@ -1146,29 +1134,12 @@ name|familyName
 argument_list|)
 argument_list|,
 operator|new
-name|PathFilter
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|accept
-parameter_list|(
-name|Path
-name|path
-parameter_list|)
-block|{
-return|return
-name|StoreFileInfo
+name|FSUtils
 operator|.
-name|isReference
+name|ReferenceFileFilter
 argument_list|(
-name|path
+name|fs
 argument_list|)
-return|;
-block|}
-block|}
 argument_list|)
 decl_stmt|;
 return|return
@@ -2217,7 +2188,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Commit a daughter region, moving it from the split temporary directory    * to the proper location in the filesystem.    * @param regionInfo daughter {@link HRegionInfo}    * @throws IOException    */
+comment|/**    * Commit a daughter region, moving it from the split temporary directory    * to the proper location in the filesystem.    *    * @param regionInfo                 daughter {@link org.apache.hadoop.hbase.HRegionInfo}    * @throws IOException    */
 name|Path
 name|commitDaughterRegion
 parameter_list|(
@@ -2404,7 +2375,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Write out a split reference. Package local so it doesnt leak out of    * regionserver.    * @param hri {@link HRegionInfo} of the destination    * @param familyName Column Family Name    * @param f File to split.    * @param splitRow Split Row    * @param top True if we are referring to the top half of the hfile.    * @return Path to created reference.    * @throws IOException    */
+comment|/**    * Write out a split reference. Package local so it doesnt leak out of    * regionserver.    * @param hri {@link HRegionInfo} of the destination    * @param familyName Column Family Name    * @param f File to split.    * @param splitRow Split Row    * @param top True if we are referring to the top half of the hfile.    * @param splitPolicy    * @return Path to created reference.    * @throws IOException    */
 name|Path
 name|splitStoreFile
 parameter_list|(
@@ -2428,9 +2399,25 @@ parameter_list|,
 specifier|final
 name|boolean
 name|top
+parameter_list|,
+name|RegionSplitPolicy
+name|splitPolicy
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+if|if
+condition|(
+name|splitPolicy
+operator|==
+literal|null
+operator|||
+operator|!
+name|splitPolicy
+operator|.
+name|skipStoreFileRangeCheck
+argument_list|()
+condition|)
 block|{
 comment|// Check whether the split row lies in the range of the store file
 comment|// If it is outside the range, return directly.
@@ -2595,12 +2582,10 @@ literal|null
 return|;
 block|}
 block|}
+block|}
 name|f
 operator|.
-name|getReader
-argument_list|()
-operator|.
-name|close
+name|closeReader
 argument_list|(
 literal|true
 argument_list|)

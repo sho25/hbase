@@ -183,6 +183,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -196,6 +198,8 @@ operator|.
 name|apache
 operator|.
 name|hadoop
+operator|.
+name|hbase
 operator|.
 name|classification
 operator|.
@@ -214,20 +218,6 @@ operator|.
 name|conf
 operator|.
 name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
-name|FileUtil
 import|;
 end_import
 
@@ -800,6 +790,7 @@ argument_list|(
 name|server
 argument_list|)
 expr_stmt|;
+comment|// Runs a 'stat' against the servers.
 if|if
 condition|(
 operator|!
@@ -869,9 +860,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Started MiniZK Cluster and connect 1 ZK server "
+literal|"Started MiniZooKeeperCluster and ran successful 'stat' "
 operator|+
-literal|"on client port: "
+literal|"on client port="
 operator|+
 name|clientPort
 argument_list|)

@@ -97,6 +97,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -199,7 +201,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|Connection
 import|;
 end_import
 
@@ -696,12 +698,12 @@ operator|.
 name|getMasterFileSystem
 argument_list|()
 decl_stmt|;
-name|HConnection
+name|Connection
 name|conn
 init|=
 name|masterServices
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 decl_stmt|;
 name|FileSystem
@@ -926,6 +928,11 @@ argument_list|(
 name|conn
 argument_list|,
 name|hris
+argument_list|,
+name|hTableDescriptor
+operator|.
+name|getRegionReplication
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -946,6 +953,11 @@ name|metaChanges
 operator|.
 name|getRegionsToRestore
 argument_list|()
+argument_list|,
+name|hTableDescriptor
+operator|.
+name|getRegionReplication
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -957,7 +969,7 @@ name|this
 operator|.
 name|server
 operator|.
-name|getShortCircuitConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|hris

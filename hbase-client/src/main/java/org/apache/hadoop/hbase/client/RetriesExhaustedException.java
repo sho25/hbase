@@ -19,34 +19,6 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -77,13 +49,33 @@ end_import
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|util
+name|apache
 operator|.
-name|concurrent
+name|hadoop
 operator|.
-name|Callable
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -149,6 +141,10 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Datastructure that allows adding more info around Throwable incident.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 class|class
@@ -268,6 +264,10 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Create a new RetriesExhaustedException from the list of prior failures.    * @param numTries    * @param exceptions List of exceptions that failed before giving up    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|RetriesExhaustedException
 parameter_list|(

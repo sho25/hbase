@@ -37,9 +37,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
+name|hbase
 operator|.
-name|InterfaceAudience
+name|CellScanner
 import|;
 end_import
 
@@ -53,7 +53,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellScanner
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -171,6 +173,8 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
 name|htrace
 operator|.
 name|Trace
@@ -180,6 +184,8 @@ end_import
 begin_import
 import|import
 name|org
+operator|.
+name|apache
 operator|.
 name|htrace
 operator|.
@@ -228,7 +234,7 @@ specifier|private
 name|UserProvider
 name|userProvider
 decl_stmt|;
-comment|/**    * On construction, adds the size of this call to the running count of outstanding call sizes.    * Presumption is that we are put on a queue while we wait on an executor to run us.  During this    * time we occupy heap.    * @param call The call to run.    * @param rpcServer    */
+comment|/**    * On construction, adds the size of this call to the running count of outstanding call sizes.    * Presumption is that we are put on a queue while we wait on an executor to run us.  During this    * time we occupy heap.    */
 comment|// The constructor is shutdown so only RpcServer in this class can make one of these.
 name|CallRunner
 parameter_list|(
@@ -505,7 +511,14 @@ throw|throw
 operator|new
 name|ServerNotRunningYetException
 argument_list|(
-literal|"Server is not running yet"
+literal|"Server "
+operator|+
+name|rpcServer
+operator|.
+name|getListenerAddress
+argument_list|()
+operator|+
+literal|" is not running yet"
 argument_list|)
 throw|;
 block|}
@@ -640,6 +653,20 @@ argument_list|(
 name|e
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|e
+operator|instanceof
+name|Error
+condition|)
+block|{
+throw|throw
+operator|(
+name|Error
+operator|)
+name|e
+throw|;
+block|}
 block|}
 finally|finally
 block|{
@@ -839,7 +866,14 @@ argument_list|()
 operator|+
 literal|": caught a ClosedChannelException, "
 operator|+
-literal|"this means that the server was processing a "
+literal|"this means that the server "
+operator|+
+name|rpcServer
+operator|.
+name|getListenerAddress
+argument_list|()
+operator|+
+literal|" was processing a "
 operator|+
 literal|"request but the client went away. The error message was: "
 operator|+

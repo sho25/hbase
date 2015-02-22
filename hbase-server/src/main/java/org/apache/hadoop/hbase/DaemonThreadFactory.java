@@ -52,6 +52,7 @@ name|DaemonThreadFactory
 implements|implements
 name|ThreadFactory
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|AtomicInteger
@@ -63,10 +64,12 @@ argument_list|(
 literal|1
 argument_list|)
 decl_stmt|;
+specifier|private
 specifier|final
 name|ThreadGroup
 name|group
 decl_stmt|;
+specifier|private
 specifier|final
 name|AtomicInteger
 name|threadNumber
@@ -77,6 +80,7 @@ argument_list|(
 literal|1
 argument_list|)
 decl_stmt|;
+specifier|private
 specifier|final
 name|String
 name|namePrefix
