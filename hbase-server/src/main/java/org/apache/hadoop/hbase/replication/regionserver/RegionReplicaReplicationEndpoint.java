@@ -1386,7 +1386,7 @@ operator|.
 name|getClass
 argument_list|()
 operator|.
-name|toString
+name|getSimpleName
 argument_list|()
 operator|+
 literal|"-rpc-shared-"
@@ -1977,6 +1977,24 @@ operator|+
 literal|" is cached as a disabled or dropped table"
 argument_list|)
 expr_stmt|;
+for|for
+control|(
+name|Entry
+name|entry
+range|:
+name|entries
+control|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Skipping : "
+operator|+
+name|entry
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 name|sink
 operator|.
@@ -2088,6 +2106,24 @@ operator|+
 literal|" is dropped. Adding table to cache."
 argument_list|)
 expr_stmt|;
+for|for
+control|(
+name|Entry
+name|entry
+range|:
+name|entries
+control|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Skipping : "
+operator|+
+name|entry
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 name|disabledAndDroppedTables
 operator|.
@@ -2181,7 +2217,7 @@ literal|" entries in table "
 operator|+
 name|tableName
 operator|+
-literal|" because located region region "
+literal|" because located region "
 operator|+
 name|primaryLocation
 operator|.
@@ -2203,6 +2239,24 @@ operator|+
 literal|" from WALEdit"
 argument_list|)
 expr_stmt|;
+for|for
+control|(
+name|Entry
+name|entry
+range|:
+name|entries
+control|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Skipping : "
+operator|+
+name|entry
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 name|sink
 operator|.
@@ -2496,6 +2550,24 @@ argument_list|,
 name|cause
 argument_list|)
 expr_stmt|;
+for|for
+control|(
+name|Entry
+name|entry
+range|:
+name|entries
+control|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Skipping : "
+operator|+
+name|entry
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 name|disabledAndDroppedTables
 operator|.
@@ -2884,7 +2956,7 @@ literal|" entries in table "
 operator|+
 name|tableName
 operator|+
-literal|" because located region region "
+literal|" because located region "
 operator|+
 name|location
 operator|.
@@ -2906,6 +2978,24 @@ operator|+
 literal|" from WALEdit"
 argument_list|)
 expr_stmt|;
+for|for
+control|(
+name|Entry
+name|entry
+range|:
+name|entries
+control|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Skipping : "
+operator|+
+name|entry
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 return|return
 literal|null
