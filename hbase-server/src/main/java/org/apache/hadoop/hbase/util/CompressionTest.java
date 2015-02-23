@@ -195,6 +195,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|DoNotRetryIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -571,7 +585,7 @@ block|{
 comment|// failed.
 throw|throw
 operator|new
-name|IOException
+name|DoNotRetryIOException
 argument_list|(
 literal|"Compression algorithm '"
 operator|+
@@ -635,7 +649,7 @@ expr_stmt|;
 comment|// failure
 throw|throw
 operator|new
-name|IOException
+name|DoNotRetryIOException
 argument_list|(
 name|t
 argument_list|)

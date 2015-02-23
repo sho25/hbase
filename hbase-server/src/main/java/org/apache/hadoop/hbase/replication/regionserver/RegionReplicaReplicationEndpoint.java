@@ -854,7 +854,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A {@link org.apache.hadoop.hbase.replication.ReplicationEndpoint} endpoint   * which receives the WAL edits from the WAL, and sends the edits to replicas   * of regions.  */
+comment|/**  * A {@link org.apache.hadoop.hbase.replication.ReplicationEndpoint} endpoint  * which receives the WAL edits from the WAL, and sends the edits to replicas  * of regions.  */
 end_comment
 
 begin_class
@@ -1480,6 +1480,24 @@ name|flush
 argument_list|()
 expr_stmt|;
 comment|// make sure everything is flushed
+name|ctx
+operator|.
+name|getMetrics
+argument_list|()
+operator|.
+name|incrLogEditsFiltered
+argument_list|(
+name|outputSink
+operator|.
+name|getSkippedEditsCounter
+argument_list|()
+operator|.
+name|getAndSet
+argument_list|(
+literal|0
+argument_list|)
+argument_list|)
+expr_stmt|;
 return|return
 literal|true
 return|;
@@ -1963,22 +1981,67 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Skipping "
+operator|+
+name|entries
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" entries because table "
+operator|+
+name|tableName
+operator|+
+literal|" is cached as a disabled or dropped table"
+argument_list|)
+expr_stmt|;
+block|}
 name|sink
 operator|.
 name|getSkippedEditsCounter
 argument_list|()
 operator|.
-name|incrementAndGet
+name|addAndGet
+argument_list|(
+name|entries
+operator|.
+name|size
 argument_list|()
+argument_list|)
 expr_stmt|;
 return|return;
 block|}
-comment|// get the replicas of the primary region
+comment|// If the table is disabled or dropped, we should not replay the entries, and we can skip
+comment|// replaying them. However, we might not know whether the table is disabled until we
+comment|// invalidate the cache and check from meta
 name|RegionLocations
 name|locations
 init|=
 literal|null
 decl_stmt|;
+name|boolean
+name|useCache
+init|=
+literal|true
+decl_stmt|;
+while|while
+condition|(
+literal|true
+condition|)
+block|{
+comment|// get the replicas of the primary region
 try|try
 block|{
 name|locations
@@ -1991,7 +2054,7 @@ name|tableName
 argument_list|,
 name|row
 argument_list|,
-literal|true
+name|useCache
 argument_list|,
 literal|0
 argument_list|)
@@ -2029,6 +2092,33 @@ name|TableNotFoundException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Skipping "
+operator|+
+name|entries
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" entries because table "
+operator|+
+name|tableName
+operator|+
+literal|" is dropped. Adding table to cache."
+argument_list|)
+expr_stmt|;
+block|}
 name|disabledAndDroppedTables
 operator|.
 name|put
@@ -2056,6 +2146,110 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 return|return;
+block|}
+comment|// check whether we should still replay this entry. If the regions are changed, or the
+comment|// entry is not coming from the primary region, filter it out.
+name|HRegionLocation
+name|primaryLocation
+init|=
+name|locations
+operator|.
+name|getDefaultRegionLocation
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|Bytes
+operator|.
+name|equals
+argument_list|(
+name|primaryLocation
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+argument_list|,
+name|encodedRegionName
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|useCache
+condition|)
+block|{
+name|useCache
+operator|=
+literal|false
+expr_stmt|;
+continue|continue;
+comment|// this will retry location lookup
+block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Skipping "
+operator|+
+name|entries
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" entries in table "
+operator|+
+name|tableName
+operator|+
+literal|" because located region region "
+operator|+
+name|primaryLocation
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" is different than the original region "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|encodedRegionName
+argument_list|)
+operator|+
+literal|" from WALEdit"
+argument_list|)
+expr_stmt|;
+block|}
+name|sink
+operator|.
+name|getSkippedEditsCounter
+argument_list|()
+operator|.
+name|addAndGet
+argument_list|(
+name|entries
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+break|break;
 block|}
 if|if
 condition|(
@@ -2087,53 +2281,14 @@ name|ReplicateWALEntryResponse
 argument_list|>
 argument_list|>
 argument_list|(
-literal|2
-argument_list|)
-decl_stmt|;
-comment|// check whether we should still replay this entry. If the regions are changed, or the
-comment|// entry is not coming form the primary region, filter it out.
-name|HRegionLocation
-name|primaryLocation
-init|=
 name|locations
-operator|.
-name|getDefaultRegionLocation
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-operator|!
-name|Bytes
-operator|.
-name|equals
-argument_list|(
-name|primaryLocation
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getEncodedNameAsBytes
-argument_list|()
-argument_list|,
-name|encodedRegionName
-argument_list|)
-condition|)
-block|{
-name|sink
-operator|.
-name|getSkippedEditsCounter
-argument_list|()
-operator|.
-name|addAndGet
-argument_list|(
-name|entries
 operator|.
 name|size
 argument_list|()
+operator|-
+literal|1
 argument_list|)
-expr_stmt|;
-return|return;
-block|}
+decl_stmt|;
 comment|// All passed entries should belong to one region because it is coming from the EntryBuffers
 comment|// split per region. But the regions might split and merge (unlike log recovery case).
 for|for
@@ -2343,6 +2498,35 @@ name|tableName
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Skipping "
+operator|+
+name|entries
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" entries in table "
+operator|+
+name|tableName
+operator|+
+literal|" because received exception for dropped or disabled table"
+argument_list|,
+name|cause
+argument_list|)
+expr_stmt|;
+block|}
 name|disabledAndDroppedTables
 operator|.
 name|put
@@ -2707,6 +2891,52 @@ name|skip
 operator|=
 literal|true
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Skipping "
+operator|+
+name|entries
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" entries in table "
+operator|+
+name|tableName
+operator|+
+literal|" because located region region "
+operator|+
+name|location
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" is different than the original region "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|initialEncodedRegionName
+argument_list|)
+operator|+
+literal|" from WALEdit"
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|null
 return|;
@@ -2766,8 +2996,13 @@ condition|)
 block|{
 name|skippedEntries
 operator|.
-name|incrementAndGet
+name|addAndGet
+argument_list|(
+name|entries
+operator|.
+name|size
 argument_list|()
+argument_list|)
 expr_stmt|;
 return|return
 name|ReplicateWALEntryResponse

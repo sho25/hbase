@@ -342,7 +342,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Add on the number of log edits filtered    *    * @param delta the number filtered.    */
-specifier|private
+specifier|public
 name|void
 name|incrLogEditsFiltered
 parameter_list|(

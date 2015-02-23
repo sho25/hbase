@@ -3439,6 +3439,14 @@ argument_list|(
 name|currentSize
 argument_list|)
 expr_stmt|;
+name|long
+name|startTimeNs
+init|=
+name|System
+operator|.
+name|nanoTime
+argument_list|()
+decl_stmt|;
 comment|// send the edits to the endpoint. Will block until the edits are shipped and acknowledged
 name|boolean
 name|replicated
@@ -3449,6 +3457,14 @@ name|replicate
 argument_list|(
 name|replicateContext
 argument_list|)
+decl_stmt|;
+name|long
+name|endTimeNs
+init|=
+name|System
+operator|.
+name|nanoTime
+argument_list|()
 decl_stmt|;
 if|if
 condition|(
@@ -3616,7 +3632,19 @@ name|this
 operator|.
 name|totalReplicatedOperations
 operator|+
-literal|" operations"
+literal|" operations in "
+operator|+
+operator|(
+operator|(
+name|endTimeNs
+operator|-
+name|startTimeNs
+operator|)
+operator|/
+literal|1000000
+operator|)
+operator|+
+literal|" ms"
 argument_list|)
 expr_stmt|;
 block|}

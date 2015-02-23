@@ -18,6 +18,22 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+operator|.
+name|humanReadableInt
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -1051,7 +1067,32 @@ literal|"Flush of region "
 operator|+
 name|regionToFlush
 operator|+
-literal|" due to global heap pressure"
+literal|" due to global heap pressure. "
+operator|+
+literal|"Total Memstore size="
+operator|+
+name|humanReadableInt
+argument_list|(
+name|server
+operator|.
+name|getRegionServerAccounting
+argument_list|()
+operator|.
+name|getGlobalMemstoreSize
+argument_list|()
+argument_list|)
+operator|+
+literal|", Region memstore size="
+operator|+
+name|humanReadableInt
+argument_list|(
+name|regionToFlush
+operator|.
+name|memstoreSize
+operator|.
+name|get
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|flushedOne
@@ -1474,6 +1515,8 @@ operator|>=
 name|globalMemStoreLimitLowMark
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|requestFlush
@@ -1537,6 +1580,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|requestDelayedFlush
@@ -2864,6 +2909,8 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Register a MemstoreFlushListener    * @param listener    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|registerFlushRequestListener
@@ -2884,6 +2931,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Unregister the listener from MemstoreFlushListeners    * @param listener    * @return true when passed listener is unregistered successfully.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|unregisterFlushRequestListener
@@ -2905,6 +2954,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Sets the global memstore limit to a new size.    * @param globalMemStoreSize    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setGlobalMemstoreLimit
