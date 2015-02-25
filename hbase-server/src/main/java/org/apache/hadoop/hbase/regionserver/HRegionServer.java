@@ -4289,7 +4289,7 @@ name|movedRegionsCleaner
 operator|=
 name|MovedRegionsCleaner
 operator|.
-name|createAndStart
+name|create
 argument_list|(
 name|this
 argument_list|)
@@ -8637,6 +8637,21 @@ argument_list|(
 name|storefileRefresher
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|movedRegionsCleaner
+operator|!=
+literal|null
+condition|)
+name|choreService
+operator|.
+name|scheduleChore
+argument_list|(
+name|movedRegionsCleaner
+argument_list|)
+expr_stmt|;
 comment|// Leases is not a Thread. Internally it runs a daemon thread. If it gets
 comment|// an unhandled exception, it will just exit.
 name|this
@@ -10370,6 +10385,21 @@ operator|!=
 literal|null
 condition|)
 name|storefileRefresher
+operator|.
+name|cancel
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|movedRegionsCleaner
+operator|!=
+literal|null
+condition|)
+name|movedRegionsCleaner
 operator|.
 name|cancel
 argument_list|(
@@ -14304,8 +14334,19 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/*    * Use this to allow tests to override and schedule more frequently.    */
+specifier|protected
+name|int
+name|movedRegionCleanerPeriod
+parameter_list|()
+block|{
+return|return
+name|TIMEOUT_REGION_MOVED
+return|;
+block|}
 comment|/**    * Creates a Chore thread to clean the moved region cache.    */
 specifier|protected
+specifier|final
 specifier|static
 class|class
 name|MovedRegionsCleaner
@@ -14339,7 +14380,10 @@ name|regionServer
 argument_list|,
 name|stoppable
 argument_list|,
-name|TIMEOUT_REGION_MOVED
+name|regionServer
+operator|.
+name|movedRegionCleanerPeriod
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -14357,7 +14401,7 @@ expr_stmt|;
 block|}
 specifier|static
 name|MovedRegionsCleaner
-name|createAndStart
+name|create
 parameter_list|(
 name|HRegionServer
 name|rs
