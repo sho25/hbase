@@ -1125,7 +1125,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Runs MapReduce to do the sweeping on the mob files.    * There's a MobReferenceOnlyFilter so that the mappers only get the cells that have mob    * references from 'normal' regions' rows.    * The running of the sweep tool on the same column family are mutually exclusive.    * The HBase major compaction and running of the sweep tool on the same column family    * are mutually exclusive.    * The synchronization is done by the Zookeeper.    * So in the beginning of the running, we need to make sure only this sweep tool is the only one    * that is currently running in this column family, and in this column family there're no major    * compaction in progress.    * @param tn The current table name.    * @param family The descriptor of the current column family.    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    * @throws KeeperException    */
+comment|/**    * Runs MapReduce to do the sweeping on the mob files.    * There's a MobReferenceOnlyFilter so that the mappers only get the cells that have mob    * references from 'normal' regions' rows.    * The running of the sweep tool on the same column family are mutually exclusive.    * The HBase major compaction and running of the sweep tool on the same column family    * are mutually exclusive.    * The synchronization is done by the Zookeeper.    * So in the beginning of the running, we need to make sure only this sweep tool is the only one    * that is currently running in this column family, and in this column family there're no major    * compaction in progress.    * @param tn The current table name.    * @param family The descriptor of the current column family.    * @return 0 upon success, 3 if bailing out because another compaction is currently happening,    *   or 4 the mr job was unsuccessful    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    * @throws KeeperException    */
 specifier|public
 name|int
 name|sweep
@@ -1643,7 +1643,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Job Failed"
+literal|"Job was not successful"
 argument_list|)
 expr_stmt|;
 return|return

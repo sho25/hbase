@@ -242,7 +242,7 @@ name|Configured
 implements|implements
 name|Tool
 block|{
-comment|/**    * Sweeps the mob files on one column family. It deletes the unused mob files and merges    * the small mob files into bigger ones.    * @param tableName The current table name in string format.    * @param familyName The column family name.    * @throws IOException    * @throws InterruptedException    * @throws ClassNotFoundException    * @throws KeeperException    * @throws ServiceException    */
+comment|/**    * Sweeps the mob files on one column family. It deletes the unused mob files and merges    * the small mob files into bigger ones.    * @param tableName The current table name in string format.    * @param familyName The column family name.    * @return 0 if success, 2 if job aborted with an exception, 3 if unable to start due to    *   other compaction,4 if mr job was unsuccessful    * @throws IOException    * @throws InterruptedException    * @throws ClassNotFoundException    * @throws KeeperException    * @throws ServiceException    */
 name|int
 name|sweepFamily
 parameter_list|(
@@ -393,7 +393,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Job failed. "
+literal|"Job aborted due to exception "
 operator|+
 name|e
 argument_list|)
@@ -524,6 +524,7 @@ literal|" familyName       The column family name"
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Main method for the tool.    * @return 0 if success, 1 for bad args. 2 if job aborted with an exception,    *   3 if unable to start due to other compaction, 4 if mr job was unsuccessful    */
 specifier|public
 name|int
 name|run
