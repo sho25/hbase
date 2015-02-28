@@ -722,7 +722,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * This method should only be called from HRegion. It is assumed that the ranges of values in the    * HFile fit within the stores assigned region. (assertBulkLoadHFileOk checks this)    *    * @param srcPathStr    * @param sequenceId sequence Id associated with the HFile    */
-name|void
+name|Path
 name|bulkLoadHFile
 parameter_list|(
 name|String
@@ -919,6 +919,15 @@ argument_list|<
 name|String
 argument_list|>
 name|newFiles
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+name|void
+name|bulkLoadHFile
+parameter_list|(
+name|StoreFileInfo
+name|fileInfo
 parameter_list|)
 throws|throws
 name|IOException

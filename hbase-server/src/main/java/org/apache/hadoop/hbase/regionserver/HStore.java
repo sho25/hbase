@@ -4279,7 +4279,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|Path
 name|bulkLoadHFile
 parameter_list|(
 name|String
@@ -4315,6 +4315,26 @@ argument_list|,
 name|seqNum
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Loaded HFile "
+operator|+
+name|srcPath
+operator|+
+literal|" into store '"
+operator|+
+name|getColumnFamilyName
+argument_list|()
+operator|+
+literal|"' as "
+operator|+
+name|dstPath
+operator|+
+literal|" - updating store file list."
+argument_list|)
+expr_stmt|;
 name|StoreFile
 name|sf
 init|=
@@ -4323,6 +4343,70 @@ argument_list|(
 name|dstPath
 argument_list|)
 decl_stmt|;
+name|bulkLoadHFile
+argument_list|(
+name|sf
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Successfully loaded store file "
+operator|+
+name|srcPath
+operator|+
+literal|" into store "
+operator|+
+name|this
+operator|+
+literal|" (new location: "
+operator|+
+name|dstPath
+operator|+
+literal|")"
+argument_list|)
+expr_stmt|;
+return|return
+name|dstPath
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|bulkLoadHFile
+parameter_list|(
+name|StoreFileInfo
+name|fileInfo
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|StoreFile
+name|sf
+init|=
+name|createStoreFileAndReader
+argument_list|(
+name|fileInfo
+argument_list|)
+decl_stmt|;
+name|bulkLoadHFile
+argument_list|(
+name|sf
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|bulkLoadHFile
+parameter_list|(
+name|StoreFile
+name|sf
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 name|StoreFile
 operator|.
 name|Reader
@@ -4350,26 +4434,6 @@ name|r
 operator|.
 name|getTotalUncompressedBytes
 argument_list|()
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Loaded HFile "
-operator|+
-name|srcPath
-operator|+
-literal|" into store '"
-operator|+
-name|getColumnFamilyName
-argument_list|()
-operator|+
-literal|"' as "
-operator|+
-name|dstPath
-operator|+
-literal|" - updating store file list."
-argument_list|)
 expr_stmt|;
 comment|// Append the new storefile into the list
 name|this
@@ -4427,19 +4491,17 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Successfully loaded store file "
+literal|"Loaded HFile "
 operator|+
-name|srcPath
+name|sf
+operator|.
+name|getFileInfo
+argument_list|()
 operator|+
-literal|" into store "
+literal|" into store '"
 operator|+
-name|this
-operator|+
-literal|" (new location: "
-operator|+
-name|dstPath
-operator|+
-literal|")"
+name|getColumnFamilyName
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
