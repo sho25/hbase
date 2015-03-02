@@ -107,6 +107,22 @@ name|Admin
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
 begin_comment
 comment|/**  * Action that removes a column family.  */
 end_comment
@@ -286,12 +302,10 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Performing action: Removing "
-operator|+
+name|byte
+index|[]
+name|colDescName
+init|=
 name|columnDescriptors
 index|[
 name|index
@@ -299,6 +313,19 @@ index|]
 operator|.
 name|getName
 argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Performing action: Removing "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|colDescName
+argument_list|)
 operator|+
 literal|" from "
 operator|+
@@ -312,13 +339,7 @@ name|tableDescriptor
 operator|.
 name|removeFamily
 argument_list|(
-name|columnDescriptors
-index|[
-name|index
-index|]
-operator|.
-name|getName
-argument_list|()
+name|colDescName
 argument_list|)
 expr_stmt|;
 name|admin
