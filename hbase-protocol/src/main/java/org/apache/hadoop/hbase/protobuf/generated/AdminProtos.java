@@ -45657,6 +45657,17 @@ name|long
 name|getIfOlderThanTs
 parameter_list|()
 function_decl|;
+comment|// optional bool write_flush_wal_marker = 3;
+comment|/**      *<code>optional bool write_flush_wal_marker = 3;</code>      *      *<pre>      * whether to write a marker to WAL even if not flushed      *</pre>      */
+name|boolean
+name|hasWriteFlushWalMarker
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool write_flush_wal_marker = 3;</code>      *      *<pre>      * whether to write a marker to WAL even if not flushed      *</pre>      */
+name|boolean
+name|getWriteFlushWalMarker
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code FlushRegionRequest}    *    *<pre>    **    * Flushes the MemStore of the specified region.    *&lt;p&gt;    * This method is synchronous.    *</pre>    */
 specifier|public
@@ -46024,6 +46035,23 @@ operator|=
 name|input
 operator|.
 name|readUInt64
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|24
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|writeFlushWalMarker_
+operator|=
+name|input
+operator|.
+name|readBool
 argument_list|()
 expr_stmt|;
 break|break;
@@ -46437,6 +46465,47 @@ return|return
 name|ifOlderThanTs_
 return|;
 block|}
+comment|// optional bool write_flush_wal_marker = 3;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|WRITE_FLUSH_WAL_MARKER_FIELD_NUMBER
+init|=
+literal|3
+decl_stmt|;
+specifier|private
+name|boolean
+name|writeFlushWalMarker_
+decl_stmt|;
+comment|/**      *<code>optional bool write_flush_wal_marker = 3;</code>      *      *<pre>      * whether to write a marker to WAL even if not flushed      *</pre>      */
+specifier|public
+name|boolean
+name|hasWriteFlushWalMarker
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool write_flush_wal_marker = 3;</code>      *      *<pre>      * whether to write a marker to WAL even if not flushed      *</pre>      */
+specifier|public
+name|boolean
+name|getWriteFlushWalMarker
+parameter_list|()
+block|{
+return|return
+name|writeFlushWalMarker_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -46466,6 +46535,10 @@ expr_stmt|;
 name|ifOlderThanTs_
 operator|=
 literal|0L
+expr_stmt|;
+name|writeFlushWalMarker_
+operator|=
+literal|false
 expr_stmt|;
 block|}
 specifier|private
@@ -46608,6 +46681,29 @@ name|ifOlderThanTs_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|3
+argument_list|,
+name|writeFlushWalMarker_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -46707,6 +46803,37 @@ argument_list|(
 literal|2
 argument_list|,
 name|ifOlderThanTs_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|3
+argument_list|,
+name|writeFlushWalMarker_
 argument_list|)
 expr_stmt|;
 block|}
@@ -46941,6 +47068,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasWriteFlushWalMarker
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasWriteFlushWalMarker
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasWriteFlushWalMarker
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getWriteFlushWalMarker
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getWriteFlushWalMarker
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -47061,6 +47223,37 @@ operator|+
 name|hashLong
 argument_list|(
 name|getIfOlderThanTs
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasWriteFlushWalMarker
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|WRITE_FLUSH_WAL_MARKER_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getWriteFlushWalMarker
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -47953,6 +48146,19 @@ operator|~
 literal|0x00000002
 operator|)
 expr_stmt|;
+name|writeFlushWalMarker_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -48237,6 +48443,30 @@ name|ifOlderThanTs_
 operator|=
 name|ifOlderThanTs_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|writeFlushWalMarker_
+operator|=
+name|writeFlushWalMarker_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -48401,6 +48631,23 @@ argument_list|(
 name|other
 operator|.
 name|getIfOlderThanTs
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasWriteFlushWalMarker
+argument_list|()
+condition|)
+block|{
+name|setWriteFlushWalMarker
+argument_list|(
+name|other
+operator|.
+name|getWriteFlushWalMarker
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -49366,6 +49613,89 @@ return|return
 name|this
 return|;
 block|}
+comment|// optional bool write_flush_wal_marker = 3;
+specifier|private
+name|boolean
+name|writeFlushWalMarker_
+decl_stmt|;
+comment|/**        *<code>optional bool write_flush_wal_marker = 3;</code>        *        *<pre>        * whether to write a marker to WAL even if not flushed        *</pre>        */
+specifier|public
+name|boolean
+name|hasWriteFlushWalMarker
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool write_flush_wal_marker = 3;</code>        *        *<pre>        * whether to write a marker to WAL even if not flushed        *</pre>        */
+specifier|public
+name|boolean
+name|getWriteFlushWalMarker
+parameter_list|()
+block|{
+return|return
+name|writeFlushWalMarker_
+return|;
+block|}
+comment|/**        *<code>optional bool write_flush_wal_marker = 3;</code>        *        *<pre>        * whether to write a marker to WAL even if not flushed        *</pre>        */
+specifier|public
+name|Builder
+name|setWriteFlushWalMarker
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|writeFlushWalMarker_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool write_flush_wal_marker = 3;</code>        *        *<pre>        * whether to write a marker to WAL even if not flushed        *</pre>        */
+specifier|public
+name|Builder
+name|clearWriteFlushWalMarker
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
+name|writeFlushWalMarker_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
 comment|// @@protoc_insertion_point(builder_scope:FlushRegionRequest)
 block|}
 static|static
@@ -49418,6 +49748,17 @@ function_decl|;
 comment|/**      *<code>optional bool flushed = 2;</code>      */
 name|boolean
 name|getFlushed
+parameter_list|()
+function_decl|;
+comment|// optional bool wrote_flush_wal_marker = 3;
+comment|/**      *<code>optional bool wrote_flush_wal_marker = 3;</code>      */
+name|boolean
+name|hasWroteFlushWalMarker
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool wrote_flush_wal_marker = 3;</code>      */
+name|boolean
+name|getWroteFlushWalMarker
 parameter_list|()
 function_decl|;
 block|}
@@ -49699,6 +50040,23 @@ operator||=
 literal|0x00000002
 expr_stmt|;
 name|flushed_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|24
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|wroteFlushWalMarker_
 operator|=
 name|input
 operator|.
@@ -50064,6 +50422,47 @@ return|return
 name|flushed_
 return|;
 block|}
+comment|// optional bool wrote_flush_wal_marker = 3;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|WROTE_FLUSH_WAL_MARKER_FIELD_NUMBER
+init|=
+literal|3
+decl_stmt|;
+specifier|private
+name|boolean
+name|wroteFlushWalMarker_
+decl_stmt|;
+comment|/**      *<code>optional bool wrote_flush_wal_marker = 3;</code>      */
+specifier|public
+name|boolean
+name|hasWroteFlushWalMarker
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool wrote_flush_wal_marker = 3;</code>      */
+specifier|public
+name|boolean
+name|getWroteFlushWalMarker
+parameter_list|()
+block|{
+return|return
+name|wroteFlushWalMarker_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -50074,6 +50473,10 @@ operator|=
 literal|0L
 expr_stmt|;
 name|flushed_
+operator|=
+literal|false
+expr_stmt|;
+name|wroteFlushWalMarker_
 operator|=
 literal|false
 expr_stmt|;
@@ -50200,6 +50603,29 @@ name|flushed_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|3
+argument_list|,
+name|wroteFlushWalMarker_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -50299,6 +50725,37 @@ argument_list|(
 literal|2
 argument_list|,
 name|flushed_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|3
+argument_list|,
+name|wroteFlushWalMarker_
 argument_list|)
 expr_stmt|;
 block|}
@@ -50532,6 +50989,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasWroteFlushWalMarker
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasWroteFlushWalMarker
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasWroteFlushWalMarker
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getWroteFlushWalMarker
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getWroteFlushWalMarker
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -50652,6 +51144,37 @@ operator|+
 name|hashBoolean
 argument_list|(
 name|getFlushed
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasWroteFlushWalMarker
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|WROTE_FLUSH_WAL_MARKER_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getWroteFlushWalMarker
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -51507,6 +52030,19 @@ operator|~
 literal|0x00000002
 operator|)
 expr_stmt|;
+name|wroteFlushWalMarker_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -51771,6 +52307,30 @@ name|flushed_
 operator|=
 name|flushed_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|wroteFlushWalMarker_
+operator|=
+name|wroteFlushWalMarker_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -51935,6 +52495,23 @@ argument_list|(
 name|other
 operator|.
 name|getFlushed
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasWroteFlushWalMarker
+argument_list|()
+condition|)
+block|{
+name|setWroteFlushWalMarker
+argument_list|(
+name|other
+operator|.
+name|getWroteFlushWalMarker
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -52256,6 +52833,89 @@ literal|0x00000002
 operator|)
 expr_stmt|;
 name|flushed_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional bool wrote_flush_wal_marker = 3;
+specifier|private
+name|boolean
+name|wroteFlushWalMarker_
+decl_stmt|;
+comment|/**        *<code>optional bool wrote_flush_wal_marker = 3;</code>        */
+specifier|public
+name|boolean
+name|hasWroteFlushWalMarker
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool wrote_flush_wal_marker = 3;</code>        */
+specifier|public
+name|boolean
+name|getWroteFlushWalMarker
+parameter_list|()
+block|{
+return|return
+name|wroteFlushWalMarker_
+return|;
+block|}
+comment|/**        *<code>optional bool wrote_flush_wal_marker = 3;</code>        */
+specifier|public
+name|Builder
+name|setWroteFlushWalMarker
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|wroteFlushWalMarker_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool wrote_flush_wal_marker = 3;</code>        */
+specifier|public
+name|Builder
+name|clearWroteFlushWalMarker
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
+name|wroteFlushWalMarker_
 operator|=
 literal|false
 expr_stmt|;
@@ -132670,125 +133330,127 @@ literal|" \001(\0132\013.ServerName\022\027\n\017serverStartCode\030\005 \001"
 operator|+
 literal|"(\004\"%\n\023CloseRegionResponse\022\016\n\006closed\030\001 \002("
 block|,
-literal|"\010\"P\n\022FlushRegionRequest\022 \n\006region\030\001 \002(\0132"
+literal|"\010\"p\n\022FlushRegionRequest\022 \n\006region\030\001 \002(\0132"
 operator|+
 literal|"\020.RegionSpecifier\022\030\n\020if_older_than_ts\030\002 "
 operator|+
-literal|"\001(\004\"?\n\023FlushRegionResponse\022\027\n\017last_flush"
+literal|"\001(\004\022\036\n\026write_flush_wal_marker\030\003 \001(\010\"_\n\023F"
 operator|+
-literal|"_time\030\001 \002(\004\022\017\n\007flushed\030\002 \001(\010\"K\n\022SplitReg"
+literal|"lushRegionResponse\022\027\n\017last_flush_time\030\001 "
 operator|+
-literal|"ionRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpeci"
+literal|"\002(\004\022\017\n\007flushed\030\002 \001(\010\022\036\n\026wrote_flush_wal_"
 operator|+
-literal|"fier\022\023\n\013split_point\030\002 \001(\014\"\025\n\023SplitRegion"
+literal|"marker\030\003 \001(\010\"K\n\022SplitRegionRequest\022 \n\006re"
 operator|+
-literal|"Response\"W\n\024CompactRegionRequest\022 \n\006regi"
+literal|"gion\030\001 \002(\0132\020.RegionSpecifier\022\023\n\013split_po"
 operator|+
-literal|"on\030\001 \002(\0132\020.RegionSpecifier\022\r\n\005major\030\002 \001("
+literal|"int\030\002 \001(\014\"\025\n\023SplitRegionResponse\"W\n\024Comp"
 operator|+
-literal|"\010\022\016\n\006family\030\003 \001(\014\"\027\n\025CompactRegionRespon"
+literal|"actRegionRequest\022 \n\006region\030\001 \002(\0132\020.Regio"
 operator|+
-literal|"se\"\262\001\n\031UpdateFavoredNodesRequest\022@\n\013upda"
+literal|"nSpecifier\022\r\n\005major\030\002 \001(\010\022\016\n\006family\030\003 \001("
 block|,
-literal|"te_info\030\001 \003(\0132+.UpdateFavoredNodesReques"
+literal|"\014\"\027\n\025CompactRegionResponse\"\262\001\n\031UpdateFav"
 operator|+
-literal|"t.RegionUpdateInfo\032S\n\020RegionUpdateInfo\022\033"
+literal|"oredNodesRequest\022@\n\013update_info\030\001 \003(\0132+."
 operator|+
-literal|"\n\006region\030\001 \002(\0132\013.RegionInfo\022\"\n\rfavored_n"
+literal|"UpdateFavoredNodesRequest.RegionUpdateIn"
 operator|+
-literal|"odes\030\002 \003(\0132\013.ServerName\".\n\032UpdateFavored"
+literal|"fo\032S\n\020RegionUpdateInfo\022\033\n\006region\030\001 \002(\0132\013"
 operator|+
-literal|"NodesResponse\022\020\n\010response\030\001 \001(\r\"v\n\023Merge"
+literal|".RegionInfo\022\"\n\rfavored_nodes\030\002 \003(\0132\013.Ser"
 operator|+
-literal|"RegionsRequest\022\"\n\010region_a\030\001 \002(\0132\020.Regio"
+literal|"verName\".\n\032UpdateFavoredNodesResponse\022\020\n"
 operator|+
-literal|"nSpecifier\022\"\n\010region_b\030\002 \002(\0132\020.RegionSpe"
+literal|"\010response\030\001 \001(\r\"v\n\023MergeRegionsRequest\022\""
 operator|+
-literal|"cifier\022\027\n\010forcible\030\003 \001(\010:\005false\"\026\n\024Merge"
+literal|"\n\010region_a\030\001 \002(\0132\020.RegionSpecifier\022\"\n\010re"
 operator|+
-literal|"RegionsResponse\"X\n\010WALEntry\022\024\n\003key\030\001 \002(\013"
+literal|"gion_b\030\002 \002(\0132\020.RegionSpecifier\022\027\n\010forcib"
 operator|+
-literal|"2\007.WALKey\022\027\n\017key_value_bytes\030\002 \003(\014\022\035\n\025as"
+literal|"le\030\003 \001(\010:\005false\"\026\n\024MergeRegionsResponse\""
 block|,
-literal|"sociated_cell_count\030\003 \001(\005\"4\n\030ReplicateWA"
+literal|"X\n\010WALEntry\022\024\n\003key\030\001 \002(\0132\007.WALKey\022\027\n\017key"
 operator|+
-literal|"LEntryRequest\022\030\n\005entry\030\001 \003(\0132\t.WALEntry\""
+literal|"_value_bytes\030\002 \003(\014\022\035\n\025associated_cell_co"
 operator|+
-literal|"\033\n\031ReplicateWALEntryResponse\"\026\n\024RollWALW"
+literal|"unt\030\003 \001(\005\"4\n\030ReplicateWALEntryRequest\022\030\n"
 operator|+
-literal|"riterRequest\"0\n\025RollWALWriterResponse\022\027\n"
+literal|"\005entry\030\001 \003(\0132\t.WALEntry\"\033\n\031ReplicateWALE"
 operator|+
-literal|"\017region_to_flush\030\001 \003(\014\"#\n\021StopServerRequ"
+literal|"ntryResponse\"\026\n\024RollWALWriterRequest\"0\n\025"
 operator|+
-literal|"est\022\016\n\006reason\030\001 \002(\t\"\024\n\022StopServerRespons"
+literal|"RollWALWriterResponse\022\027\n\017region_to_flush"
 operator|+
-literal|"e\"\026\n\024GetServerInfoRequest\"B\n\nServerInfo\022"
+literal|"\030\001 \003(\014\"#\n\021StopServerRequest\022\016\n\006reason\030\001 "
 operator|+
-literal|" \n\013server_name\030\001 \002(\0132\013.ServerName\022\022\n\nweb"
+literal|"\002(\t\"\024\n\022StopServerResponse\"\026\n\024GetServerIn"
 operator|+
-literal|"ui_port\030\002 \001(\r\"9\n\025GetServerInfoResponse\022 "
+literal|"foRequest\"B\n\nServerInfo\022 \n\013server_name\030\001"
 operator|+
-literal|"\n\013server_info\030\001 \002(\0132\013.ServerInfo\"\034\n\032Upda"
+literal|" \002(\0132\013.ServerName\022\022\n\nwebui_port\030\002 \001(\r\"9\n"
 block|,
-literal|"teConfigurationRequest\"\035\n\033UpdateConfigur"
+literal|"\025GetServerInfoResponse\022 \n\013server_info\030\001 "
 operator|+
-literal|"ationResponse2\230\010\n\014AdminService\022>\n\rGetReg"
+literal|"\002(\0132\013.ServerInfo\"\034\n\032UpdateConfigurationR"
 operator|+
-literal|"ionInfo\022\025.GetRegionInfoRequest\032\026.GetRegi"
+literal|"equest\"\035\n\033UpdateConfigurationResponse2\230\010"
 operator|+
-literal|"onInfoResponse\022;\n\014GetStoreFile\022\024.GetStor"
+literal|"\n\014AdminService\022>\n\rGetRegionInfo\022\025.GetReg"
 operator|+
-literal|"eFileRequest\032\025.GetStoreFileResponse\022D\n\017G"
+literal|"ionInfoRequest\032\026.GetRegionInfoResponse\022;"
 operator|+
-literal|"etOnlineRegion\022\027.GetOnlineRegionRequest\032"
+literal|"\n\014GetStoreFile\022\024.GetStoreFileRequest\032\025.G"
 operator|+
-literal|"\030.GetOnlineRegionResponse\0225\n\nOpenRegion\022"
+literal|"etStoreFileResponse\022D\n\017GetOnlineRegion\022\027"
 operator|+
-literal|"\022.OpenRegionRequest\032\023.OpenRegionResponse"
+literal|".GetOnlineRegionRequest\032\030.GetOnlineRegio"
 operator|+
-literal|"\0228\n\013CloseRegion\022\023.CloseRegionRequest\032\024.C"
+literal|"nResponse\0225\n\nOpenRegion\022\022.OpenRegionRequ"
 operator|+
-literal|"loseRegionResponse\0228\n\013FlushRegion\022\023.Flus"
+literal|"est\032\023.OpenRegionResponse\0228\n\013CloseRegion\022"
 block|,
-literal|"hRegionRequest\032\024.FlushRegionResponse\0228\n\013"
+literal|"\023.CloseRegionRequest\032\024.CloseRegionRespon"
 operator|+
-literal|"SplitRegion\022\023.SplitRegionRequest\032\024.Split"
+literal|"se\0228\n\013FlushRegion\022\023.FlushRegionRequest\032\024"
 operator|+
-literal|"RegionResponse\022>\n\rCompactRegion\022\025.Compac"
+literal|".FlushRegionResponse\0228\n\013SplitRegion\022\023.Sp"
 operator|+
-literal|"tRegionRequest\032\026.CompactRegionResponse\022;"
+literal|"litRegionRequest\032\024.SplitRegionResponse\022>"
 operator|+
-literal|"\n\014MergeRegions\022\024.MergeRegionsRequest\032\025.M"
+literal|"\n\rCompactRegion\022\025.CompactRegionRequest\032\026"
 operator|+
-literal|"ergeRegionsResponse\022J\n\021ReplicateWALEntry"
+literal|".CompactRegionResponse\022;\n\014MergeRegions\022\024"
 operator|+
-literal|"\022\031.ReplicateWALEntryRequest\032\032.ReplicateW"
+literal|".MergeRegionsRequest\032\025.MergeRegionsRespo"
 operator|+
-literal|"ALEntryResponse\022?\n\006Replay\022\031.ReplicateWAL"
+literal|"nse\022J\n\021ReplicateWALEntry\022\031.ReplicateWALE"
 operator|+
-literal|"EntryRequest\032\032.ReplicateWALEntryResponse"
+literal|"ntryRequest\032\032.ReplicateWALEntryResponse\022"
 operator|+
-literal|"\022>\n\rRollWALWriter\022\025.RollWALWriterRequest"
+literal|"?\n\006Replay\022\031.ReplicateWALEntryRequest\032\032.R"
 block|,
-literal|"\032\026.RollWALWriterResponse\022>\n\rGetServerInf"
+literal|"eplicateWALEntryResponse\022>\n\rRollWALWrite"
 operator|+
-literal|"o\022\025.GetServerInfoRequest\032\026.GetServerInfo"
+literal|"r\022\025.RollWALWriterRequest\032\026.RollWALWriter"
 operator|+
-literal|"Response\0225\n\nStopServer\022\022.StopServerReque"
+literal|"Response\022>\n\rGetServerInfo\022\025.GetServerInf"
 operator|+
-literal|"st\032\023.StopServerResponse\022M\n\022UpdateFavored"
+literal|"oRequest\032\026.GetServerInfoResponse\0225\n\nStop"
 operator|+
-literal|"Nodes\022\032.UpdateFavoredNodesRequest\032\033.Upda"
+literal|"Server\022\022.StopServerRequest\032\023.StopServerR"
 operator|+
-literal|"teFavoredNodesResponse\022P\n\023UpdateConfigur"
+literal|"esponse\022M\n\022UpdateFavoredNodes\022\032.UpdateFa"
 operator|+
-literal|"ation\022\033.UpdateConfigurationRequest\032\034.Upd"
+literal|"voredNodesRequest\032\033.UpdateFavoredNodesRe"
 operator|+
-literal|"ateConfigurationResponseBA\n*org.apache.h"
+literal|"sponse\022P\n\023UpdateConfiguration\022\033.UpdateCo"
 operator|+
-literal|"adoop.hbase.protobuf.generatedB\013AdminPro"
+literal|"nfigurationRequest\032\034.UpdateConfiguration"
 operator|+
-literal|"tosH\001\210\001\001\240\001\001"
+literal|"ResponseBA\n*org.apache.hadoop.hbase.prot"
+block|,
+literal|"obuf.generatedB\013AdminProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -133344,6 +134006,8 @@ block|{
 literal|"Region"
 block|,
 literal|"IfOlderThanTs"
+block|,
+literal|"WriteFlushWalMarker"
 block|, }
 argument_list|)
 expr_stmt|;
@@ -133386,6 +134050,8 @@ block|{
 literal|"LastFlushTime"
 block|,
 literal|"Flushed"
+block|,
+literal|"WroteFlushWalMarker"
 block|, }
 argument_list|)
 expr_stmt|;

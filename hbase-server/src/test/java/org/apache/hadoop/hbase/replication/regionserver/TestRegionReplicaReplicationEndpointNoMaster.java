@@ -865,6 +865,17 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+name|ServerRegionReplicaUtil
+operator|.
+name|REGION_REPLICA_WAIT_FOR_PRIMARY_FLUSH_CONF_KEY
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 comment|// install WALObserver coprocessor for tests
 name|String
 name|walCoprocs

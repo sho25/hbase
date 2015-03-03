@@ -49,7 +49,7 @@ block|{
 comment|// Messages originating from RS (NOTE: there is NO direct communication from
 comment|// RS to Master). These are a result of RS updates into ZK.
 comment|// RS_ZK_REGION_CLOSING    (1),   // It is replaced by M_ZK_REGION_CLOSING(HBASE-4739)
-comment|/**    * RS_ZK_REGION_CLOSED<br>    *     * RS has finished closing a region.    */
+comment|/**    * RS_ZK_REGION_CLOSED<br>    *    * RS has finished closing a region.    */
 name|RS_ZK_REGION_CLOSED
 argument_list|(
 literal|2
@@ -59,7 +59,7 @@ operator|.
 name|MASTER_CLOSE_REGION
 argument_list|)
 block|,
-comment|/**    * RS_ZK_REGION_OPENING<br>    *     * RS is in process of opening a region.    */
+comment|/**    * RS_ZK_REGION_OPENING<br>    *    * RS is in process of opening a region.    */
 name|RS_ZK_REGION_OPENING
 argument_list|(
 literal|3
@@ -67,7 +67,7 @@ argument_list|,
 literal|null
 argument_list|)
 block|,
-comment|/**    * RS_ZK_REGION_OPENED<br>    *     * RS has finished opening a region.    */
+comment|/**    * RS_ZK_REGION_OPENED<br>    *    * RS has finished opening a region.    */
 name|RS_ZK_REGION_OPENED
 argument_list|(
 literal|4
@@ -95,7 +95,7 @@ operator|.
 name|MASTER_SERVER_OPERATIONS
 argument_list|)
 block|,
-comment|/**    * RS_ZK_REGION_FAILED_OPEN<br>    *     * RS failed to open a region.    */
+comment|/**    * RS_ZK_REGION_FAILED_OPEN<br>    *    * RS failed to open a region.    */
 name|RS_ZK_REGION_FAILED_OPEN
 argument_list|(
 literal|7
@@ -341,7 +341,7 @@ operator|.
 name|MASTER_META_SERVER_OPERATIONS
 argument_list|)
 block|,
-comment|/**    * Master controlled events to be executed on the master.<br>    *     * M_MASTER_RECOVERY<br>    * Master is processing recovery of regions found in ZK RIT    */
+comment|/**    * Master controlled events to be executed on the master.<br>    *    * M_MASTER_RECOVERY<br>    * Master is processing recovery of regions found in ZK RIT    */
 name|M_MASTER_RECOVERY
 argument_list|(
 literal|73
@@ -351,7 +351,7 @@ operator|.
 name|MASTER_SERVER_OPERATIONS
 argument_list|)
 block|,
-comment|/**    * Master controlled events to be executed on the master.<br>    *     * M_LOG_REPLAY<br>    * Master is processing log replay of failed region server    */
+comment|/**    * Master controlled events to be executed on the master.<br>    *    * M_LOG_REPLAY<br>    * Master is processing log replay of failed region server    */
 name|M_LOG_REPLAY
 argument_list|(
 literal|74
@@ -361,7 +361,7 @@ operator|.
 name|M_LOG_REPLAY_OPS
 argument_list|)
 block|,
-comment|/**    * RS controlled events to be executed on the RS.<br>    *     * RS_PARALLEL_SEEK    */
+comment|/**    * RS controlled events to be executed on the RS.<br>    *    * RS_PARALLEL_SEEK    */
 name|RS_PARALLEL_SEEK
 argument_list|(
 literal|80
@@ -371,7 +371,7 @@ operator|.
 name|RS_PARALLEL_SEEK
 argument_list|)
 block|,
-comment|/**    * RS wal recovery work items(either creating recover.edits or directly replay wals)    * to be executed on the RS.<br>    *     * RS_LOG_REPLAY    */
+comment|/**    * RS wal recovery work items(either creating recover.edits or directly replay wals)    * to be executed on the RS.<br>    *    * RS_LOG_REPLAY    */
 name|RS_LOG_REPLAY
 argument_list|(
 literal|81
@@ -379,6 +379,16 @@ argument_list|,
 name|ExecutorType
 operator|.
 name|RS_LOG_REPLAY_OPS
+argument_list|)
+block|,
+comment|/**    * RS flush triggering from secondary region replicas to primary region replica.<br>    *    * RS_REGION_REPLICA_FLUSH    */
+name|RS_REGION_REPLICA_FLUSH
+argument_list|(
+literal|82
+argument_list|,
+name|ExecutorType
+operator|.
+name|RS_REGION_REPLICA_FLUSH_OPS
 argument_list|)
 block|;
 specifier|private

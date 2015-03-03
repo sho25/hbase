@@ -823,9 +823,7 @@ expr_stmt|;
 name|region
 operator|.
 name|flushcache
-argument_list|(
-literal|true
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|String
 index|[]
@@ -1650,9 +1648,7 @@ expr_stmt|;
 name|region
 operator|.
 name|flushcache
-argument_list|(
-literal|true
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|Scan
 name|scan

@@ -518,17 +518,6 @@ literal|20
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Override
-specifier|protected
-name|void
-name|startMonkey
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-comment|// TODO: disabled for now
-block|}
 comment|/**    * This extends MultiThreadedWriter to add a configurable delay to the keys written by the writer    * threads to become available to the MultiThradedReader threads. We add this delay because of    * the async nature of the wal replication to region replicas.    */
 specifier|public
 specifier|static

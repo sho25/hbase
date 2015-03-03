@@ -26610,6 +26610,14 @@ literal|2
 argument_list|,
 literal|2
 argument_list|)
+block|,
+comment|/**        *<code>CANNOT_FLUSH = 3;</code>        *        *<pre>        * marker for indicating that a flush has been requested but cannot complete        *</pre>        */
+name|CANNOT_FLUSH
+argument_list|(
+literal|3
+argument_list|,
+literal|3
+argument_list|)
 block|,       ;
 comment|/**        *<code>START_FLUSH = 0;</code>        */
 specifier|public
@@ -26637,6 +26645,15 @@ name|int
 name|ABORT_FLUSH_VALUE
 init|=
 literal|2
+decl_stmt|;
+comment|/**        *<code>CANNOT_FLUSH = 3;</code>        *        *<pre>        * marker for indicating that a flush has been requested but cannot complete        *</pre>        */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|CANNOT_FLUSH_VALUE
+init|=
+literal|3
 decl_stmt|;
 specifier|public
 specifier|final
@@ -26679,6 +26696,12 @@ literal|2
 case|:
 return|return
 name|ABORT_FLUSH
+return|;
+case|case
+literal|3
+case|:
+return|return
+name|CANNOT_FLUSH
 return|;
 default|default:
 return|return
@@ -58357,7 +58380,7 @@ literal|"paction_input\030\004 \003(\t\022\031\n\021compaction_output"
 operator|+
 literal|"\030\005 \003(\t\022\026\n\016store_home_dir\030\006 \002(\t\022\023\n\013region"
 operator|+
-literal|"_name\030\007 \001(\014\"\200\003\n\017FlushDescriptor\022,\n\006actio"
+literal|"_name\030\007 \001(\014\"\222\003\n\017FlushDescriptor\022,\n\006actio"
 operator|+
 literal|"n\030\001 \002(\0162\034.FlushDescriptor.FlushAction\022\022\n"
 block|,
@@ -58373,43 +58396,45 @@ literal|"\032Y\n\024StoreFlushDescriptor\022\023\n\013family_name\030"
 operator|+
 literal|"\001 \002(\014\022\026\n\016store_home_dir\030\002 \002(\t\022\024\n\014flush_o"
 operator|+
-literal|"utput\030\003 \003(\t\"A\n\013FlushAction\022\017\n\013START_FLUS"
+literal|"utput\030\003 \003(\t\"S\n\013FlushAction\022\017\n\013START_FLUS"
 operator|+
-literal|"H\020\000\022\020\n\014COMMIT_FLUSH\020\001\022\017\n\013ABORT_FLUSH\020\002\"R"
+literal|"H\020\000\022\020\n\014COMMIT_FLUSH\020\001\022\017\n\013ABORT_FLUSH\020\002\022\020"
 operator|+
-literal|"\n\017StoreDescriptor\022\023\n\013family_name\030\001 \002(\014\022\026"
+literal|"\n\014CANNOT_FLUSH\020\003\"R\n\017StoreDescriptor\022\023\n\013f"
 operator|+
-literal|"\n\016store_home_dir\030\002 \002(\t\022\022\n\nstore_file\030\003 \003"
+literal|"amily_name\030\001 \002(\014\022\026\n\016store_home_dir\030\002 \002(\t"
 block|,
-literal|"(\t\"\215\001\n\022BulkLoadDescriptor\022\036\n\ntable_name\030"
+literal|"\022\022\n\nstore_file\030\003 \003(\t\"\215\001\n\022BulkLoadDescrip"
 operator|+
-literal|"\001 \002(\0132\n.TableName\022\033\n\023encoded_region_name"
+literal|"tor\022\036\n\ntable_name\030\001 \002(\0132\n.TableName\022\033\n\023e"
 operator|+
-literal|"\030\002 \002(\014\022 \n\006stores\030\003 \003(\0132\020.StoreDescriptor"
+literal|"ncoded_region_name\030\002 \002(\014\022 \n\006stores\030\003 \003(\013"
 operator|+
-literal|"\022\030\n\020bulkload_seq_num\030\004 \002(\003\"\237\002\n\025RegionEve"
+literal|"2\020.StoreDescriptor\022\030\n\020bulkload_seq_num\030\004"
 operator|+
-literal|"ntDescriptor\0224\n\nevent_type\030\001 \002(\0162 .Regio"
+literal|" \002(\003\"\237\002\n\025RegionEventDescriptor\0224\n\nevent_"
 operator|+
-literal|"nEventDescriptor.EventType\022\022\n\ntable_name"
+literal|"type\030\001 \002(\0162 .RegionEventDescriptor.Event"
 operator|+
-literal|"\030\002 \002(\014\022\033\n\023encoded_region_name\030\003 \002(\014\022\033\n\023l"
+literal|"Type\022\022\n\ntable_name\030\002 \002(\014\022\033\n\023encoded_regi"
 operator|+
-literal|"og_sequence_number\030\004 \001(\004\022 \n\006stores\030\005 \003(\013"
+literal|"on_name\030\003 \002(\014\022\033\n\023log_sequence_number\030\004 \001"
 operator|+
-literal|"2\020.StoreDescriptor\022\033\n\006server\030\006 \001(\0132\013.Ser"
+literal|"(\004\022 \n\006stores\030\005 \003(\0132\020.StoreDescriptor\022\033\n\006"
 operator|+
-literal|"verName\022\023\n\013region_name\030\007 \001(\014\".\n\tEventTyp"
+literal|"server\030\006 \001(\0132\013.ServerName\022\023\n\013region_name"
 block|,
-literal|"e\022\017\n\013REGION_OPEN\020\000\022\020\n\014REGION_CLOSE\020\001\"\014\n\n"
+literal|"\030\007 \001(\014\".\n\tEventType\022\017\n\013REGION_OPEN\020\000\022\020\n\014"
 operator|+
-literal|"WALTrailer*F\n\tScopeType\022\033\n\027REPLICATION_S"
+literal|"REGION_CLOSE\020\001\"\014\n\nWALTrailer*F\n\tScopeTyp"
 operator|+
-literal|"COPE_LOCAL\020\000\022\034\n\030REPLICATION_SCOPE_GLOBAL"
+literal|"e\022\033\n\027REPLICATION_SCOPE_LOCAL\020\000\022\034\n\030REPLIC"
 operator|+
-literal|"\020\001B?\n*org.apache.hadoop.hbase.protobuf.g"
+literal|"ATION_SCOPE_GLOBAL\020\001B?\n*org.apache.hadoo"
 operator|+
-literal|"eneratedB\tWALProtosH\001\210\001\000\240\001\001"
+literal|"p.hbase.protobuf.generatedB\tWALProtosH\001\210"
+operator|+
+literal|"\001\000\240\001\001"
 block|}
 decl_stmt|;
 name|com

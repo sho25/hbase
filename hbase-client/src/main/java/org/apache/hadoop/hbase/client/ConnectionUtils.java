@@ -410,6 +410,7 @@ name|Log
 name|log
 parameter_list|)
 block|{
+comment|// TODO: Fix this. Not all connections from server side should have 10 times the retries.
 name|int
 name|hcRetries
 init|=

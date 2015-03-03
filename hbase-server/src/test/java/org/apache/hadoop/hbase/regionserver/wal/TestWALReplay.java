@@ -5661,6 +5661,7 @@ specifier|final
 name|long
 name|myseqid
 parameter_list|,
+specifier|final
 name|Collection
 argument_list|<
 name|Store
@@ -5669,6 +5670,9 @@ name|storesToFlush
 parameter_list|,
 name|MonitoredTask
 name|status
+parameter_list|,
+name|boolean
+name|writeFlushWalMarker
 parameter_list|)
 throws|throws
 name|IOException
@@ -5701,6 +5705,8 @@ name|MonitoredTask
 operator|.
 name|class
 argument_list|)
+argument_list|,
+name|writeFlushWalMarker
 argument_list|)
 decl_stmt|;
 name|flushcount

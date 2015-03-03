@@ -122,6 +122,11 @@ name|RS_LOG_REPLAY_OPS
 argument_list|(
 literal|27
 argument_list|)
+block|,
+name|RS_REGION_REPLICA_FLUSH_OPS
+argument_list|(
+literal|28
+argument_list|)
 block|;
 name|ExecutorType
 parameter_list|(

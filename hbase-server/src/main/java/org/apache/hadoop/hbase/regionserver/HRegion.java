@@ -3132,6 +3132,10 @@ specifier|final
 name|long
 name|flushSequenceId
 decl_stmt|;
+specifier|final
+name|boolean
+name|wroteFlushWalMarker
+decl_stmt|;
 comment|/**      * Convenience constructor to use when the flush is successful, the failure message is set to      * null.      * @param result Expecting FLUSHED_NO_COMPACTION_NEEDED or FLUSHED_COMPACTION_NEEDED.      * @param flushSequenceId Generated sequence id that comes right after the edits in the      *                        memstores.      */
 name|FlushResult
 parameter_list|(
@@ -3149,6 +3153,8 @@ argument_list|,
 name|flushSequenceId
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 assert|assert
@@ -3173,6 +3179,9 @@ name|result
 parameter_list|,
 name|String
 name|failureReason
+parameter_list|,
+name|boolean
+name|wroteFlushMarker
 parameter_list|)
 block|{
 name|this
@@ -3183,6 +3192,8 @@ operator|-
 literal|1
 argument_list|,
 name|failureReason
+argument_list|,
+name|wroteFlushMarker
 argument_list|)
 expr_stmt|;
 assert|assert
@@ -3210,6 +3221,9 @@ name|flushSequenceId
 parameter_list|,
 name|String
 name|failureReason
+parameter_list|,
+name|boolean
+name|wroteFlushMarker
 parameter_list|)
 block|{
 name|this
@@ -3229,6 +3243,12 @@ operator|.
 name|failureReason
 operator|=
 name|failureReason
+expr_stmt|;
+name|this
+operator|.
+name|wroteFlushWalMarker
+operator|=
+name|wroteFlushMarker
 expr_stmt|;
 block|}
 comment|/**      * Convenience method, the equivalent of checking if result is      * FLUSHED_NO_COMPACTION_NEEDED or FLUSHED_NO_COMPACTION_NEEDED.      * @return true if the memstores were flushed, else false.      */
@@ -8606,6 +8626,8 @@ return|return
 name|flushcache
 argument_list|(
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 return|;
 block|}
@@ -8616,6 +8638,29 @@ name|flushcache
 parameter_list|(
 name|boolean
 name|forceFlushAllStores
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|flushcache
+argument_list|(
+name|forceFlushAllStores
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Flush the cache.    *    * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    * @param forceFlushAllStores whether we want to flush all stores    * @param writeFlushRequestWalMarker whether to write the flush request marker to WAL    * @return whether the flush is success and whether the region needs compacting    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of wal is required    * because a Snapshot was not properly persisted.    */
+specifier|public
+name|FlushResult
+name|flushcache
+parameter_list|(
+name|boolean
+name|forceFlushAllStores
+parameter_list|,
+name|boolean
+name|writeFlushRequestWalMarker
 parameter_list|)
 throws|throws
 name|IOException
@@ -8658,6 +8703,8 @@ operator|.
 name|CANNOT_FLUSH
 argument_list|,
 name|msg
+argument_list|,
+literal|false
 argument_list|)
 return|;
 block|}
@@ -8738,6 +8785,8 @@ operator|.
 name|CANNOT_FLUSH
 argument_list|,
 name|msg
+argument_list|,
+literal|false
 argument_list|)
 return|;
 block|}
@@ -8879,6 +8928,8 @@ operator|.
 name|CANNOT_FLUSH
 argument_list|,
 name|msg
+argument_list|,
+literal|false
 argument_list|)
 return|;
 block|}
@@ -8911,6 +8962,8 @@ argument_list|(
 name|specificStoresToFlush
 argument_list|,
 name|status
+argument_list|,
+name|writeFlushRequestWalMarker
 argument_list|)
 decl_stmt|;
 if|if
@@ -9323,6 +9376,8 @@ name|values
 argument_list|()
 argument_list|,
 name|status
+argument_list|,
+literal|false
 argument_list|)
 return|;
 block|}
@@ -9340,6 +9395,9 @@ name|storesToFlush
 parameter_list|,
 name|MonitoredTask
 name|status
+parameter_list|,
+name|boolean
+name|writeFlushWalMarker
 parameter_list|)
 throws|throws
 name|IOException
@@ -9358,6 +9416,8 @@ argument_list|,
 name|storesToFlush
 argument_list|,
 name|status
+argument_list|,
+name|writeFlushWalMarker
 argument_list|)
 return|;
 block|}
@@ -9383,6 +9443,9 @@ name|storesToFlush
 parameter_list|,
 name|MonitoredTask
 name|status
+parameter_list|,
+name|boolean
+name|writeFlushWalMarker
 parameter_list|)
 throws|throws
 name|IOException
@@ -9400,7 +9463,7 @@ name|storesToFlush
 argument_list|,
 name|status
 argument_list|,
-literal|false
+name|writeFlushWalMarker
 argument_list|)
 decl_stmt|;
 if|if
@@ -9458,7 +9521,7 @@ name|MonitoredTask
 name|status
 parameter_list|,
 name|boolean
-name|isReplay
+name|writeFlushWalMarker
 parameter_list|)
 throws|throws
 name|IOException
@@ -9586,6 +9649,13 @@ argument_list|,
 name|flushSeqId
 argument_list|,
 literal|"Nothing to flush"
+argument_list|,
+name|writeFlushRequestMarkerToWAL
+argument_list|(
+name|wal
+argument_list|,
+name|writeFlushWalMarker
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|w
@@ -9632,6 +9702,8 @@ operator|.
 name|CANNOT_FLUSH_MEMSTORE_EMPTY
 argument_list|,
 literal|"Nothing to flush"
+argument_list|,
+literal|false
 argument_list|)
 argument_list|,
 name|myseqid
@@ -10022,6 +10094,8 @@ operator|.
 name|CANNOT_FLUSH
 argument_list|,
 name|msg
+argument_list|,
+literal|false
 argument_list|)
 argument_list|,
 name|myseqid
@@ -10454,6 +10528,118 @@ name|totalFlushableSizeOfFlushableStores
 argument_list|)
 return|;
 block|}
+comment|/**    * Writes a marker to WAL indicating a flush is requested but cannot be complete due to various    * reasons. Ignores exceptions from WAL. Returns whether the write succeeded.    * @param wal    * @return    */
+specifier|private
+name|boolean
+name|writeFlushRequestMarkerToWAL
+parameter_list|(
+name|WAL
+name|wal
+parameter_list|,
+name|boolean
+name|writeFlushWalMarker
+parameter_list|)
+block|{
+if|if
+condition|(
+name|writeFlushWalMarker
+operator|&&
+name|wal
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|writestate
+operator|.
+name|readOnly
+condition|)
+block|{
+name|FlushDescriptor
+name|desc
+init|=
+name|ProtobufUtil
+operator|.
+name|toFlushDescriptor
+argument_list|(
+name|FlushAction
+operator|.
+name|CANNOT_FLUSH
+argument_list|,
+name|getRegionInfo
+argument_list|()
+argument_list|,
+operator|-
+literal|1
+argument_list|,
+operator|new
+name|TreeMap
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|List
+argument_list|<
+name|Path
+argument_list|>
+argument_list|>
+argument_list|()
+argument_list|)
+decl_stmt|;
+try|try
+block|{
+name|WALUtil
+operator|.
+name|writeFlushMarker
+argument_list|(
+name|wal
+argument_list|,
+name|this
+operator|.
+name|htableDescriptor
+argument_list|,
+name|getRegionInfo
+argument_list|()
+argument_list|,
+name|desc
+argument_list|,
+name|sequenceId
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+return|return
+literal|true
+return|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
+literal|"Received exception while trying to write the flush request to wal"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+return|return
+literal|false
+return|;
+block|}
 specifier|protected
 name|FlushResult
 name|internalFlushCacheAndCommit
@@ -10800,6 +10986,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Received unexpected exception trying to write ABORT_FLUSH marker to WAL:"
 operator|+
 name|StringUtils
@@ -16664,7 +16858,13 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"The region's reads are disabled. Cannot serve the request"
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|": The region's reads are disabled. Cannot serve the request"
 argument_list|)
 throw|;
 block|}
@@ -17932,6 +18132,8 @@ name|values
 argument_list|()
 argument_list|,
 name|status
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -18480,6 +18682,14 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Found decreasing SeqId. PreId="
 operator|+
 name|currentEditSeqId
@@ -18781,6 +18991,8 @@ name|values
 argument_list|()
 argument_list|,
 name|status
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -19060,6 +19272,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Skipping replaying compaction event :"
 operator|+
 name|TextFormat
@@ -19077,6 +19297,37 @@ name|lastReplayedOpenRegionSeqId
 argument_list|)
 expr_stmt|;
 return|return;
+block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
+literal|"Replaying compaction marker "
+operator|+
+name|TextFormat
+operator|.
+name|shortDebugString
+argument_list|(
+name|compaction
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 name|startRegionOperation
 argument_list|(
@@ -19114,6 +19365,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Found Compaction WAL edit for deleted family:"
 operator|+
 name|Bytes
@@ -19160,6 +19419,9 @@ name|replayWALFlushMarker
 parameter_list|(
 name|FlushDescriptor
 name|flush
+parameter_list|,
+name|long
+name|replaySeqId
 parameter_list|)
 throws|throws
 name|IOException
@@ -19207,6 +19469,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Replaying flush marker "
 operator|+
 name|TextFormat
@@ -19268,11 +19538,30 @@ name|flush
 argument_list|)
 expr_stmt|;
 break|break;
+case|case
+name|CANNOT_FLUSH
+case|:
+name|replayWALFlushCannotFlushMarker
+argument_list|(
+name|flush
+argument_list|,
+name|replaySeqId
+argument_list|)
+expr_stmt|;
+break|break;
 default|default:
 name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Received a flush event with unknown action, ignoring. "
 operator|+
 name|TextFormat
@@ -19370,8 +19659,16 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Received a flush start marker from primary, but the family is not found. Ignoring"
 operator|+
 literal|" StoreFlushDescriptor:"
@@ -19432,6 +19729,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Skipping replaying flush event :"
 operator|+
 name|TextFormat
@@ -19501,7 +19806,7 @@ name|storesToFlush
 argument_list|,
 name|status
 argument_list|,
-literal|true
+literal|false
 argument_list|)
 decl_stmt|;
 if|if
@@ -19567,6 +19872,67 @@ block|}
 block|}
 else|else
 block|{
+comment|// special case empty memstore. We will still save the flush result in this case, since
+comment|// our memstore ie empty, but the primary is still flushing
+if|if
+condition|(
+name|prepareResult
+operator|.
+name|result
+operator|.
+name|result
+operator|==
+name|FlushResult
+operator|.
+name|Result
+operator|.
+name|CANNOT_FLUSH_MEMSTORE_EMPTY
+condition|)
+block|{
+name|this
+operator|.
+name|writestate
+operator|.
+name|flushing
+operator|=
+literal|true
+expr_stmt|;
+name|this
+operator|.
+name|prepareFlushResult
+operator|=
+name|prepareResult
+expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
+literal|" Prepared empty flush with seqId:"
+operator|+
+name|flush
+operator|.
+name|getFlushSequenceNumber
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 name|status
 operator|.
 name|abort
@@ -19606,6 +19972,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Received a flush prepare marker with the same seqId: "
 operator|+
 operator|+
@@ -19646,6 +20020,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Received a flush prepare marker with a smaller seqId: "
 operator|+
 operator|+
@@ -19672,6 +20054,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Received a flush prepare marker with a larger seqId: "
 operator|+
 operator|+
@@ -19772,6 +20162,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Skipping replaying flush event :"
 operator|+
 name|TextFormat
@@ -19903,6 +20301,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Received a flush commit marker with smaller seqId: "
 operator|+
 name|flush
@@ -19944,6 +20350,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Received a flush commit marker with larger seqId: "
 operator|+
 name|flush
@@ -20007,6 +20421,18 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
+comment|// If we were waiting for observing a flush or region opening event for not showing
+comment|// partial data after a secondary region crash, we can allow reads now. We can only make
+comment|// sure that we are not showing partial data (for example skipping some previous edits)
+comment|// until we observe a full flush start and flush commit. So if we were not able to find
+comment|// a previous flush we will not enable reads now.
+name|this
+operator|.
+name|setReadsEnabled
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 block|}
 else|else
 block|{
@@ -20177,6 +20603,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Received a flush commit marker from primary, but the family is not found."
 operator|+
 literal|"Ignoring StoreFlushDescriptor:"
@@ -20213,6 +20647,12 @@ decl_stmt|;
 if|if
 condition|(
 name|prepareFlushResult
+operator|==
+literal|null
+operator|||
+name|prepareFlushResult
+operator|.
+name|storeFlushCtxs
 operator|==
 literal|null
 condition|)
@@ -20261,6 +20701,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Unexpected: flush commit marker received from store "
 operator|+
 name|Bytes
@@ -20351,6 +20799,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Dropping memstore contents as well since replayed flush seqId: "
 operator|+
 name|seqId
@@ -20405,6 +20861,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Not dropping memstore contents since replayed flush seqId: "
 operator|+
 name|seqId
@@ -20486,6 +20950,79 @@ block|{
 comment|// nothing to do for now. A flush abort will cause a RS abort which means that the region
 comment|// will be opened somewhere else later. We will see the region open event soon, and replaying
 comment|// that will drop the snapshot
+block|}
+specifier|private
+name|void
+name|replayWALFlushCannotFlushMarker
+parameter_list|(
+name|FlushDescriptor
+name|flush
+parameter_list|,
+name|long
+name|replaySeqId
+parameter_list|)
+block|{
+synchronized|synchronized
+init|(
+name|writestate
+init|)
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|lastReplayedOpenRegionSeqId
+operator|>
+name|replaySeqId
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
+literal|"Skipping replaying flush event :"
+operator|+
+name|TextFormat
+operator|.
+name|shortDebugString
+argument_list|(
+name|flush
+argument_list|)
+operator|+
+literal|" because its sequence id "
+operator|+
+name|replaySeqId
+operator|+
+literal|" is smaller than this regions "
+operator|+
+literal|"lastReplayedOpenRegionSeqId of "
+operator|+
+name|lastReplayedOpenRegionSeqId
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+comment|// If we were waiting for observing a flush or region opening event for not showing partial
+comment|// data after a secondary region crash, we can allow reads now. This event means that the
+comment|// primary was not able to flush because memstore is empty when we requested flush. By the
+comment|// time we observe this, we are guaranteed to have up to date seqId with our previous
+comment|// assignment.
+name|this
+operator|.
+name|setReadsEnabled
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|VisibleForTesting
@@ -20577,6 +21114,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Unknown region event received, ignoring :"
 operator|+
 name|TextFormat
@@ -20601,6 +21146,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Replaying region open event marker "
 operator|+
 name|TextFormat
@@ -20629,7 +21182,7 @@ condition|(
 name|this
 operator|.
 name|lastReplayedOpenRegionSeqId
-operator|<
+operator|<=
 name|regionEvent
 operator|.
 name|getLogSequenceNumber
@@ -20652,6 +21205,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Skipping replaying region event :"
 operator|+
 name|TextFormat
@@ -20715,6 +21276,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
 literal|"Received a region open marker from primary, but the family is not found. "
 operator|+
 literal|"Ignoring. StoreDescriptor:"
@@ -20800,6 +21369,16 @@ block|{
 name|StoreFlushContext
 name|ctx
 init|=
+name|this
+operator|.
+name|prepareFlushResult
+operator|.
+name|storeFlushCtxs
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
 name|this
 operator|.
 name|prepareFlushResult
@@ -20982,6 +21561,15 @@ argument_list|(
 name|this
 operator|.
 name|maxFlushedSeqId
+argument_list|)
+expr_stmt|;
+comment|// If we were waiting for observing a flush or region opening event for not showing partial
+comment|// data after a secondary region crash, we can allow reads now.
+name|this
+operator|.
+name|setReadsEnabled
+argument_list|(
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// C. Finally notify anyone waiting on memstore to clear:
@@ -22405,9 +22993,7 @@ init|=
 name|this
 operator|.
 name|flushcache
-argument_list|(
-literal|true
-argument_list|)
+argument_list|()
 decl_stmt|;
 if|if
 condition|(
@@ -26577,16 +27163,12 @@ comment|// Make sure each region's cache is empty
 name|a
 operator|.
 name|flushcache
-argument_list|(
-literal|true
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|b
 operator|.
 name|flushcache
-argument_list|(
-literal|true
-argument_list|)
+argument_list|()
 expr_stmt|;
 comment|// Compact each region so we only have one store file per family
 name|a
