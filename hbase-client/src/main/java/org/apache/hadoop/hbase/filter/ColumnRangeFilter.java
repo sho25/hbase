@@ -462,7 +462,7 @@ block|{
 return|return
 name|ReturnCode
 operator|.
-name|NEXT_COL
+name|SKIP
 return|;
 block|}
 if|if

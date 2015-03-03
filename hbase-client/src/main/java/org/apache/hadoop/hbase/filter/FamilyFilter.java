@@ -239,7 +239,7 @@ block|{
 return|return
 name|ReturnCode
 operator|.
-name|NEXT_ROW
+name|SKIP
 return|;
 block|}
 block|}
