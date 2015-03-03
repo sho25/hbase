@@ -245,6 +245,18 @@ argument_list|,
 literal|3
 argument_list|)
 decl_stmt|;
+name|boolean
+name|useMob
+init|=
+name|c
+operator|.
+name|getBoolean
+argument_list|(
+literal|"useMob"
+argument_list|,
+literal|false
+argument_list|)
+decl_stmt|;
 name|tag
 operator|.
 name|runTestAtomicity
@@ -260,6 +272,8 @@ argument_list|,
 name|numUniqueRows
 argument_list|,
 literal|true
+argument_list|,
+name|useMob
 argument_list|)
 expr_stmt|;
 return|return
