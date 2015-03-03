@@ -395,6 +395,26 @@ literal|"RESCAN"
 argument_list|)
 return|;
 block|}
+comment|/**    * @param name the last part in path    * @return whether the node name represents a rescan node    */
+specifier|public
+specifier|static
+name|boolean
+name|isRescanNode
+parameter_list|(
+name|String
+name|name
+parameter_list|)
+block|{
+return|return
+name|name
+operator|.
+name|startsWith
+argument_list|(
+literal|"RESCAN"
+argument_list|)
+return|;
+block|}
+comment|/**    * @param zkw    * @param path the absolute path, starts with '/'    * @return whether the path represents a rescan node    */
 specifier|public
 specifier|static
 name|boolean
