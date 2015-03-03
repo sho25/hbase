@@ -7788,6 +7788,15 @@ name|getEarliestFlushTimeForAllStores
 parameter_list|()
 block|{
 return|return
+name|lastStoreFlushTimeMap
+operator|.
+name|isEmpty
+argument_list|()
+condition|?
+name|Long
+operator|.
+name|MAX_VALUE
+else|:
 name|Collections
 operator|.
 name|min
