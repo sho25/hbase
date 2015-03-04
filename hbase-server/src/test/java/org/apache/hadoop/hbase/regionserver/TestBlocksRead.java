@@ -1895,7 +1895,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test # of blocks read (targetted at some of the cases Lazy Seek optimizes).    *    * @throws Exception    */
+comment|/**    * Test # of blocks read (targeted at some of the cases Lazy Seek optimizes).    *    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
@@ -2393,7 +2393,7 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-comment|// Baseline expected blocks read: 8. [HBASE-4532]
+comment|// Baseline expected blocks read: 6. [HBASE-4532]
 name|kvs
 operator|=
 name|getData
@@ -2413,7 +2413,11 @@ argument_list|,
 literal|"col3"
 argument_list|)
 argument_list|,
-literal|5
+literal|6
+argument_list|,
+literal|7
+argument_list|,
+literal|7
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2464,7 +2468,7 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-comment|// Expected blocks read: 5. [HBASE-4585]
+comment|// Expected blocks read: 8. [HBASE-4585, HBASE-13109]
 name|kvs
 operator|=
 name|getData
@@ -2484,7 +2488,11 @@ argument_list|,
 literal|"col3"
 argument_list|)
 argument_list|,
-literal|5
+literal|8
+argument_list|,
+literal|9
+argument_list|,
+literal|9
 argument_list|)
 expr_stmt|;
 name|assertEquals

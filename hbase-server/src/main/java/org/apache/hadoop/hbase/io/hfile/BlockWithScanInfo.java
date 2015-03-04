@@ -19,6 +19,20 @@ name|hfile
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Cell
+import|;
+end_import
+
 begin_comment
 comment|/**  * BlockWithScanInfo is wrapper class for HFileBlock with other attributes. These attributes are  * supposed to be much cheaper to be maintained in each caller thread than in HFileBlock itself.  */
 end_comment
@@ -36,8 +50,7 @@ decl_stmt|;
 comment|/**    * The first key in the next block following this one in the HFile.    * If this key is unknown, this is reference-equal with HConstants.NO_NEXT_INDEXED_KEY    */
 specifier|private
 specifier|final
-name|byte
-index|[]
+name|Cell
 name|nextIndexedKey
 decl_stmt|;
 specifier|public
@@ -46,8 +59,7 @@ parameter_list|(
 name|HFileBlock
 name|hFileBlock
 parameter_list|,
-name|byte
-index|[]
+name|Cell
 name|nextIndexedKey
 parameter_list|)
 block|{
@@ -74,8 +86,7 @@ name|hFileBlock
 return|;
 block|}
 specifier|public
-name|byte
-index|[]
+name|Cell
 name|getNextIndexedKey
 parameter_list|()
 block|{

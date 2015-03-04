@@ -140,13 +140,6 @@ specifier|final
 name|int
 name|minVersions
 decl_stmt|;
-comment|// hint for the tracker about how many KVs we will attempt to search via next()
-comment|// before we schedule a (re)seek operation
-specifier|private
-specifier|final
-name|int
-name|lookAhead
-decl_stmt|;
 comment|/**   * Contains the list of columns that the ExplicitColumnTracker is tracking.   * Each ColumnCount instance also tracks how many versions of the requested   * column have been returned.   */
 specifier|private
 specifier|final
@@ -171,10 +164,6 @@ specifier|private
 name|long
 name|oldestStamp
 decl_stmt|;
-specifier|private
-name|int
-name|skipCount
-decl_stmt|;
 comment|/**    * Default constructor.    * @param columns columns specified user in query    * @param minVersions minimum number of versions to keep    * @param maxVersions maximum versions to return per column    * @param oldestUnexpiredTS the oldest timestamp we are interested in,    *  based on TTL     * @param lookAhead number of KeyValues to look ahead via next before    *  (re)seeking    */
 specifier|public
 name|ExplicitColumnTracker
@@ -194,9 +183,6 @@ name|maxVersions
 parameter_list|,
 name|long
 name|oldestUnexpiredTS
-parameter_list|,
-name|int
-name|lookAhead
 parameter_list|)
 block|{
 name|this
@@ -210,12 +196,6 @@ operator|.
 name|minVersions
 operator|=
 name|minVersions
-expr_stmt|;
-name|this
-operator|.
-name|lookAhead
-operator|=
-name|lookAhead
 expr_stmt|;
 name|this
 operator|.
@@ -427,21 +407,6 @@ block|{
 comment|// The current KV is smaller than the column the ExplicitColumnTracker
 comment|// is interested in, so seek to that column of interest.
 return|return
-name|this
-operator|.
-name|skipCount
-operator|++
-operator|<
-name|this
-operator|.
-name|lookAhead
-condition|?
-name|ScanQueryMatcher
-operator|.
-name|MatchCode
-operator|.
-name|SKIP
-else|:
 name|ScanQueryMatcher
 operator|.
 name|MatchCode
@@ -465,12 +430,6 @@ operator|++
 name|this
 operator|.
 name|index
-expr_stmt|;
-name|this
-operator|.
-name|skipCount
-operator|=
-literal|0
 expr_stmt|;
 if|if
 condition|(
@@ -612,12 +571,6 @@ name|this
 operator|.
 name|index
 expr_stmt|;
-name|this
-operator|.
-name|skipCount
-operator|=
-literal|0
-expr_stmt|;
 name|resetTS
 argument_list|()
 expr_stmt|;
@@ -687,12 +640,6 @@ block|{
 name|this
 operator|.
 name|index
-operator|=
-literal|0
-expr_stmt|;
-name|this
-operator|.
-name|skipCount
 operator|=
 literal|0
 expr_stmt|;
@@ -852,12 +799,6 @@ operator|++
 name|this
 operator|.
 name|index
-expr_stmt|;
-name|this
-operator|.
-name|skipCount
-operator|=
-literal|0
 expr_stmt|;
 if|if
 condition|(

@@ -786,8 +786,7 @@ literal|null
 return|;
 block|}
 comment|// the next indexed key
-name|byte
-index|[]
+name|Cell
 name|nextIndexedKey
 init|=
 literal|null
@@ -822,12 +821,18 @@ condition|)
 block|{
 name|nextIndexedKey
 operator|=
+operator|new
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+argument_list|(
 name|blockKeys
 index|[
 name|rootLevelIndex
 operator|+
 literal|1
 index|]
+argument_list|)
 expr_stmt|;
 block|}
 else|else
@@ -1138,7 +1143,13 @@ condition|)
 block|{
 name|nextIndexedKey
 operator|=
+operator|new
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+argument_list|(
 name|tmpNextIndexedKey
+argument_list|)
 expr_stmt|;
 block|}
 block|}

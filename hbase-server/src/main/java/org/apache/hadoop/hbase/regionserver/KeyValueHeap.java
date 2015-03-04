@@ -1261,6 +1261,27 @@ return|return
 name|current
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|Cell
+name|getNextIndexedKey
+parameter_list|()
+block|{
+comment|// here we return the next index key from the top scanner
+return|return
+name|current
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+name|current
+operator|.
+name|getNextIndexedKey
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 

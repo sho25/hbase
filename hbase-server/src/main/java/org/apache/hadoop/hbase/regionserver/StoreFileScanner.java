@@ -2056,6 +2056,20 @@ return|return
 literal|true
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|Cell
+name|getNextIndexedKey
+parameter_list|()
+block|{
+return|return
+name|hfs
+operator|.
+name|getNextIndexedKey
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 

@@ -2510,16 +2510,12 @@ comment|/**    * The byte array represents for NO_NEXT_INDEXED_KEY;    * The act
 specifier|public
 specifier|static
 specifier|final
-name|byte
-index|[]
+name|Cell
 name|NO_NEXT_INDEXED_KEY
 init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"NO_NEXT_INDEXED_KEY"
-argument_list|)
+operator|new
+name|KeyValue
+argument_list|()
 decl_stmt|;
 comment|/** delimiter used between portions of a region name */
 specifier|public

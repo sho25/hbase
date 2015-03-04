@@ -2496,10 +2496,20 @@ specifier|protected
 name|HFileBlock
 name|block
 decl_stmt|;
+annotation|@
+name|Override
+specifier|public
+name|Cell
+name|getNextIndexedKey
+parameter_list|()
+block|{
+return|return
+name|nextIndexedKey
+return|;
+block|}
 comment|/**      * The next indexed key is to keep track of the indexed key of the next data block.      * If the nextIndexedKey is HConstants.NO_NEXT_INDEXED_KEY, it means that the      * current data block is the last data block.      *      * If the nextIndexedKey is null, it means the nextIndexedKey has not been loaded yet.      */
 specifier|protected
-name|byte
-index|[]
+name|Cell
 name|nextIndexedKey
 decl_stmt|;
 specifier|public
@@ -2549,8 +2559,7 @@ parameter_list|(
 name|HFileBlock
 name|seekToBlock
 parameter_list|,
-name|byte
-index|[]
+name|Cell
 name|nextIndexedKey
 parameter_list|,
 name|boolean
@@ -2735,19 +2744,7 @@ name|compareOnlyKeyPortion
 argument_list|(
 name|key
 argument_list|,
-operator|new
-name|KeyValue
-operator|.
-name|KeyOnlyKeyValue
-argument_list|(
 name|nextIndexedKey
-argument_list|,
-literal|0
-argument_list|,
-name|nextIndexedKey
-operator|.
-name|length
-argument_list|)
 argument_list|)
 operator|<
 literal|0
@@ -3071,15 +3068,20 @@ expr_stmt|;
 comment|// TODO shortcut: seek forward in this block to the last key of the
 comment|// block.
 block|}
-name|byte
-index|[]
+name|Cell
 name|firstKeyInCurrentBlock
 init|=
+operator|new
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+argument_list|(
 name|Bytes
 operator|.
 name|getBytes
 argument_list|(
 name|firstKey
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|loadBlockAndSeekToKey
@@ -3873,8 +3875,7 @@ parameter_list|(
 name|HFileBlock
 name|seekToBlock
 parameter_list|,
-name|byte
-index|[]
+name|Cell
 name|nextIndexedKey
 parameter_list|,
 name|boolean
@@ -5511,8 +5512,7 @@ parameter_list|(
 name|HFileBlock
 name|seekToBlock
 parameter_list|,
-name|byte
-index|[]
+name|Cell
 name|nextIndexedKey
 parameter_list|,
 name|boolean
