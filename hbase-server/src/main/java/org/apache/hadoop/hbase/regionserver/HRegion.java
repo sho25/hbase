@@ -9366,7 +9366,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Flushing all stores.    *    * @see #internalFlushcache(Collection, MonitoredTask)    */
+comment|/**    * Flushing all stores.    *    * @see #internalFlushcache(Collection, MonitoredTask, boolean)    */
 specifier|private
 name|FlushResult
 name|internalFlushcache
@@ -9391,7 +9391,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Flushing given stores.    *    * @see #internalFlushcache(WAL, long, Collection, MonitoredTask)    */
+comment|/**    * Flushing given stores.    *    * @see #internalFlushcache(WAL, long, Collection, MonitoredTask, boolean)    */
 specifier|private
 name|FlushResult
 name|internalFlushcache
@@ -10538,7 +10538,7 @@ name|totalFlushableSizeOfFlushableStores
 argument_list|)
 return|;
 block|}
-comment|/**    * Writes a marker to WAL indicating a flush is requested but cannot be complete due to various    * reasons. Ignores exceptions from WAL. Returns whether the write succeeded.    * @param wal    * @return    */
+comment|/**    * Writes a marker to WAL indicating a flush is requested but cannot be complete due to various    * reasons. Ignores exceptions from WAL. Returns whether the write succeeded.    * @param wal    * @return whether WAL write was successful    */
 specifier|private
 name|boolean
 name|writeFlushRequestMarkerToWAL
