@@ -316,6 +316,16 @@ operator|new
 name|ExpiredMobFileCleaner
 argument_list|()
 expr_stmt|;
+name|cleaner
+operator|.
+name|setConf
+argument_list|(
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
