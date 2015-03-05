@@ -520,48 +520,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
-name|buildCellBlock
-argument_list|(
-name|codec
-argument_list|,
-name|compressor
-argument_list|,
-name|cellScanner
-argument_list|,
-literal|null
-argument_list|)
-return|;
-block|}
-comment|/**    * Puts CellScanner Cells into a cell block using passed in<code>codec</code> and/or    *<code>compressor</code>.    * @param codec    * @param compressor    * @param cellScanner    * @return Null or byte buffer filled with a cellblock filled with passed-in Cells encoded using    * passed in<code>codec</code> and/or<code>compressor</code>; the returned buffer has been    * flipped and is ready for reading.  Use limit to find total size.    * @param bb Use this bb. Can be null if no reuse going on.    * @throws IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"resource"
-argument_list|)
-specifier|public
-name|ByteBuffer
-name|buildCellBlock
-parameter_list|(
-specifier|final
-name|Codec
-name|codec
-parameter_list|,
-specifier|final
-name|CompressionCodec
-name|compressor
-parameter_list|,
-specifier|final
-name|CellScanner
-name|cellScanner
-parameter_list|,
-specifier|final
-name|ByteBuffer
-name|bb
-parameter_list|)
-throws|throws
-name|IOException
-block|{
 if|if
 condition|(
 name|cellScanner
@@ -589,37 +547,6 @@ name|this
 operator|.
 name|cellBlockBuildingInitialBufferSize
 decl_stmt|;
-name|ByteBufferOutputStream
-name|baos
-init|=
-literal|null
-decl_stmt|;
-if|if
-condition|(
-name|bb
-operator|!=
-literal|null
-condition|)
-block|{
-name|bufferSize
-operator|=
-name|bb
-operator|.
-name|capacity
-argument_list|()
-expr_stmt|;
-name|baos
-operator|=
-operator|new
-name|ByteBufferOutputStream
-argument_list|(
-name|bb
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-comment|// Then we need to make our own to return.
 if|if
 condition|(
 name|cellScanner
@@ -679,15 +606,21 @@ name|longSize
 argument_list|)
 expr_stmt|;
 block|}
+comment|// TODO: Else, get estimate on size of buffer rather than have the buffer resize.
+comment|// See TestIPCUtil main for experiment where we spin through the Cells getting estimate of
+comment|// total size before creating the buffer.  It costs somw small percentage.  If we are usually
+comment|// within the estimated buffer size, then the cost is not worth it.  If we are often well
+comment|// outside the guesstimated buffer size, the processing can be done in half the time if we
+comment|// go w/ the estimated size rather than let the buffer resize.
+name|ByteBufferOutputStream
 name|baos
-operator|=
+init|=
 operator|new
 name|ByteBufferOutputStream
 argument_list|(
 name|bufferSize
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 name|OutputStream
 name|os
 init|=
