@@ -693,7 +693,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -724,7 +724,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -755,7 +755,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -786,7 +786,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -817,7 +817,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -1176,25 +1176,22 @@ name|i
 operator|++
 control|)
 block|{
-comment|// assertEquals(i< 2, scanner.next(cells));
+name|assertEquals
+argument_list|(
+name|i
+operator|<
+literal|2
+argument_list|,
+name|NextState
+operator|.
+name|hasMoreValues
+argument_list|(
 name|scanner
 operator|.
 name|next
 argument_list|(
 name|cells
 argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-name|Result
-operator|.
-name|create
-argument_list|(
-name|cells
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1542,7 +1539,7 @@ operator|)
 argument_list|)
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -1573,7 +1570,7 @@ literal|"obj299"
 argument_list|)
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -1603,7 +1600,7 @@ literal|"obj29"
 argument_list|)
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -1633,7 +1630,7 @@ literal|"obj2"
 argument_list|)
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -1663,7 +1660,7 @@ literal|"obj3"
 argument_list|)
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
