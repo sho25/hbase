@@ -989,6 +989,9 @@ argument_list|<
 name|FileStatus
 argument_list|>
 name|files
+parameter_list|,
+name|boolean
+name|isForceAllFiles
 parameter_list|)
 throws|throws
 name|IOException
@@ -1005,10 +1008,26 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"No candidate mob files"
+argument_list|)
+expr_stmt|;
 return|return
 literal|null
 return|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"isForceAllFiles: "
+operator|+
+name|isForceAllFiles
+argument_list|)
+expr_stmt|;
 comment|// find the files to compact.
 name|PartitionedMobFileCompactionRequest
 name|request
@@ -1016,6 +1035,8 @@ init|=
 name|select
 argument_list|(
 name|files
+argument_list|,
+name|isForceAllFiles
 argument_list|)
 decl_stmt|;
 comment|// compact the files.
@@ -1026,7 +1047,7 @@ name|request
 argument_list|)
 return|;
 block|}
-comment|/**    * Selects the compacted mob/del files.    * Iterates the candidates to find out all the del files and small mob files.    * @param candidates All the candidates.    * @return A compaction request.    * @throws IOException    */
+comment|/**    * Selects the compacted mob/del files.    * Iterates the candidates to find out all the del files and small mob files.    * @param candidates All the candidates.    * @param isForceAllFiles Whether add all mob files into the compaction.    * @return A compaction request.    * @throws IOException    */
 specifier|protected
 name|PartitionedMobFileCompactionRequest
 name|select
@@ -1036,6 +1057,9 @@ argument_list|<
 name|FileStatus
 argument_list|>
 name|candidates
+parameter_list|,
+name|boolean
+name|isForceAllFiles
 parameter_list|)
 throws|throws
 name|IOException
@@ -1181,6 +1205,8 @@ block|}
 elseif|else
 if|if
 condition|(
+name|isForceAllFiles
+operator|||
 name|linkedFile
 operator|.
 name|getLen
@@ -1189,7 +1215,8 @@ operator|<
 name|mergeableSize
 condition|)
 block|{
-comment|// add the small files to the merge pool
+comment|// add all files if isForceAllFiles is true,
+comment|// otherwise add the small files to the merge pool
 name|MobFileName
 name|fileName
 init|=
@@ -1324,6 +1351,35 @@ name|ALL_FILES
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"The compaction type is "
+operator|+
+name|request
+operator|.
+name|getCompactionType
+argument_list|()
+operator|+
+literal|", the request has "
+operator|+
+name|allDelFiles
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" del files, "
+operator|+
+name|selectedFileCount
+operator|+
+literal|" selected files, and "
+operator|+
+name|irrelevantFileCount
+operator|+
+literal|" irrelevant files"
+argument_list|)
+expr_stmt|;
 return|return
 name|request
 return|;
@@ -1438,6 +1494,20 @@ name|sf
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"After merging, there are "
+operator|+
+name|newDelFiles
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" del files"
+argument_list|)
+expr_stmt|;
 comment|// compact the mob files by partitions.
 name|List
 argument_list|<
@@ -1452,6 +1522,20 @@ argument_list|,
 name|newDelFiles
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"After compaction, there are "
+operator|+
+name|paths
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" mob files"
+argument_list|)
+expr_stmt|;
 comment|// archive the del files if all the mob files are selected.
 if|if
 condition|(
@@ -1470,6 +1554,15 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"After a mob file compaction with all files selected, archiving the del files "
+operator|+
+name|newDelFiles
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|MobUtils
@@ -1560,6 +1653,13 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"No partitions of mob files"
+argument_list|)
+expr_stmt|;
 return|return
 name|Collections
 operator|.
@@ -1668,6 +1768,18 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Compacting mob files for partition "
+operator|+
+name|partition
+operator|.
+name|getPartitionId
+argument_list|()
+argument_list|)
+expr_stmt|;
 return|return
 name|compactMobFilePartition
 argument_list|(
@@ -2069,6 +2181,25 @@ operator|+=
 name|batch
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Compaction is finished. The number of mob files is changed from "
+operator|+
+name|files
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|newFiles
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
 return|return
 name|newFiles
 return|;

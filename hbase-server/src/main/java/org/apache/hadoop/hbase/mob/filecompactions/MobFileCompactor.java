@@ -329,6 +329,27 @@ block|{
 return|return
 name|compact
 argument_list|(
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Compacts the mob files by compaction type for the current column family.    * @param isForceAllFiles Whether add all mob files into the compaction.    * @return The paths of new mob files generated in the compaction.    * @throws IOException    */
+specifier|public
+name|List
+argument_list|<
+name|Path
+argument_list|>
+name|compact
+parameter_list|(
+name|boolean
+name|isForceAllFiles
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|compact
+argument_list|(
 name|Arrays
 operator|.
 name|asList
@@ -340,10 +361,12 @@ argument_list|(
 name|mobFamilyDir
 argument_list|)
 argument_list|)
+argument_list|,
+name|isForceAllFiles
 argument_list|)
 return|;
 block|}
-comment|/**    * Compacts the candidate mob files.    * @param files The candidate mob files.    * @return The paths of new mob files generated in the compaction.    * @throws IOException    */
+comment|/**    * Compacts the candidate mob files.    * @param files The candidate mob files.    * @param isForceAllFiles Whether add all mob files into the compaction.    * @return The paths of new mob files generated in the compaction.    * @throws IOException    */
 specifier|public
 specifier|abstract
 name|List
@@ -357,6 +380,9 @@ argument_list|<
 name|FileStatus
 argument_list|>
 name|files
+parameter_list|,
+name|boolean
+name|isForceAllFiles
 parameter_list|)
 throws|throws
 name|IOException
