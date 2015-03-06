@@ -2006,6 +2006,17 @@ name|Object
 name|obj
 parameter_list|)
 block|{
+if|if
+condition|(
+name|obj
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 comment|// Assumes that the ordering of locations between objects are the same. This is true for the
 comment|// current subclasses already (HFileLink, WALLink). Otherwise, we may have to sort the locations
 comment|// or keep them presorted
