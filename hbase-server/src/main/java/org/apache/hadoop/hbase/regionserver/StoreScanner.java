@@ -81,6 +81,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|locks
+operator|.
+name|ReentrantLock
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -558,20 +572,18 @@ name|scanUsePread
 init|=
 literal|false
 decl_stmt|;
+specifier|protected
+name|ReentrantLock
+name|lock
+init|=
+operator|new
+name|ReentrantLock
+argument_list|()
+decl_stmt|;
 specifier|private
 specifier|final
 name|long
 name|readPt
-decl_stmt|;
-comment|// lock to use for updateReaders
-comment|// creator needs to ensure that:
-comment|// 1. *all* calls to public methods (except updateReaders and close) are locked with this lock
-comment|//    (this can be done by passing the RegionScannerImpl object down)
-comment|// OR
-comment|// 2. updateReader is *never* called (such as in flushes or compactions)
-specifier|private
-name|Object
-name|readerLock
 decl_stmt|;
 comment|// used by the injection framework to test race between StoreScanner construction and compaction
 enum|enum
@@ -2007,6 +2019,13 @@ name|Cell
 name|peek
 parameter_list|()
 block|{
+name|lock
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
 if|if
 condition|(
 name|this
@@ -2031,6 +2050,15 @@ name|peek
 argument_list|()
 return|;
 block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -2053,6 +2081,13 @@ specifier|public
 name|void
 name|close
 parameter_list|()
+block|{
+name|lock
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
 block|{
 if|if
 condition|(
@@ -2115,6 +2150,15 @@ literal|null
 expr_stmt|;
 comment|// If both are null, we are closed.
 block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -2126,6 +2170,13 @@ name|key
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+name|lock
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
 block|{
 comment|// reset matcher state, in case that underlying store changed
 name|checkReseek
@@ -2141,6 +2192,15 @@ argument_list|(
 name|key
 argument_list|)
 return|;
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Get the next row of values from this Store.    * @param outResult    * @param limit    * @return true if there are more rows, false if scanner is done    */
 annotation|@
@@ -2195,6 +2255,13 @@ name|remainingResultSize
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+name|lock
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
 block|{
 if|if
 condition|(
@@ -2924,6 +2991,15 @@ name|totalHeapSize
 argument_list|)
 return|;
 block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/*    * See if we should actually SEEK or rather just SKIP to the next Cell.    * (see HBASE-13109)    */
 specifier|private
 name|ScanQueryMatcher
@@ -3092,10 +3168,12 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-synchronized|synchronized
-init|(
-name|readerLock
-init|)
+name|lock
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
 block|{
 if|if
 condition|(
@@ -3146,6 +3224,14 @@ literal|null
 expr_stmt|;
 comment|// the re-seeks could be slow (access HDFS) free up memory ASAP
 comment|// Let the next() call handle re-creating and seeking
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 comment|/**    * @return true if top of heap has changed (and KeyValueHeap has to try the    *         next KV)    * @throws IOException    */
@@ -3529,6 +3615,13 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|lock
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
 comment|//Heap will not be null, if this is called from next() which.
 comment|//If called from RegionScanner.reseek(...) make sure the scanner
 comment|//stack is reset if needed.
@@ -3563,6 +3656,15 @@ argument_list|(
 name|kv
 argument_list|)
 return|;
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override
@@ -3861,23 +3963,6 @@ operator|.
 name|getNextIndexedKey
 argument_list|()
 return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setReaderLock
-parameter_list|(
-name|Object
-name|obj
-parameter_list|)
-block|{
-name|this
-operator|.
-name|readerLock
-operator|=
-name|obj
-expr_stmt|;
 block|}
 block|}
 end_class
