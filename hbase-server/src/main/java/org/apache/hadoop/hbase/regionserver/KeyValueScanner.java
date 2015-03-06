@@ -227,6 +227,15 @@ name|Cell
 name|getNextIndexedKey
 parameter_list|()
 function_decl|;
+comment|/**    * Set the object to lock when the scanner's readers (if any) are updated (this is here so that the    * coprocessors creating {@link StoreScanner}'s do not have to change)    * @param obj lock object to use    */
+specifier|public
+name|void
+name|setReaderLock
+parameter_list|(
+name|Object
+name|obj
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 

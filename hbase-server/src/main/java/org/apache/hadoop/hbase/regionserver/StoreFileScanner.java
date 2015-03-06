@@ -2070,6 +2070,18 @@ name|getNextIndexedKey
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|setReaderLock
+parameter_list|(
+name|Object
+name|obj
+parameter_list|)
+block|{
+comment|/* NO OP */
+block|}
 block|}
 end_class
 

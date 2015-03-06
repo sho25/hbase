@@ -24242,6 +24242,14 @@ operator|.
 name|readPt
 argument_list|)
 decl_stmt|;
+comment|// pass the RegionScanner object to lock out concurrent changes to set of readers
+name|scanner
+operator|.
+name|setReaderLock
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|this
