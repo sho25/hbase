@@ -2537,7 +2537,7 @@ block|{
 if|if
 condition|(
 name|versionsVisible
-operator|>
+operator|>=
 literal|1
 condition|)
 block|{

@@ -5921,6 +5921,19 @@ operator|>
 name|oldSize
 operator|)
 assert|;
+comment|//The kv1 should be removed.
+assert|assert
+operator|(
+name|memstore
+operator|.
+name|cellSet
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|2
+operator|)
+assert|;
 name|KeyValue
 name|kv4
 init|=
@@ -5983,6 +5996,19 @@ name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|//The kv2 should be removed.
+assert|assert
+operator|(
+name|memstore
+operator|.
+name|cellSet
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|2
+operator|)
+assert|;
 comment|//this.memstore = null;
 block|}
 comment|////////////////////////////////////
