@@ -400,16 +400,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-name|Properties
-name|properties
-init|=
-name|ZKConfig
-operator|.
-name|makeZKProps
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
 name|ZooKeeperWatcher
 name|zkw
 init|=
@@ -432,7 +422,7 @@ name|ZKConfig
 operator|.
 name|getZKQuorumServersString
 argument_list|(
-name|properties
+name|conf
 argument_list|)
 decl_stmt|;
 name|RecoverableZooKeeper
