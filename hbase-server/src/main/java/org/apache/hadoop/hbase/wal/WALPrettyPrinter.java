@@ -1624,7 +1624,7 @@ literal|"region"
 argument_list|,
 literal|true
 argument_list|,
-literal|"Region to filter by. Pass region name; e.g. 'hbase:meta,,1'"
+literal|"Region to filter by. Pass encoded region name; e.g. '9192caead6a5a20acb4454ffbc79fa14'"
 argument_list|)
 expr_stmt|;
 name|options

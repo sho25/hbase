@@ -397,6 +397,24 @@ name|regionserver
 operator|.
 name|handler
 operator|.
+name|FinishRegionRecoveringHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|handler
+operator|.
 name|WALSplitterHandler
 import|;
 end_import
@@ -2451,40 +2469,22 @@ operator|-
 literal|1
 condition|)
 block|{
-name|HRegion
-name|r
-init|=
-name|recoveringRegions
+name|server
 operator|.
-name|remove
+name|getExecutorService
+argument_list|()
+operator|.
+name|submit
 argument_list|(
+operator|new
+name|FinishRegionRecoveringHandler
+argument_list|(
+name|server
+argument_list|,
 name|region
+argument_list|,
+name|nodePath
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|r
-operator|!=
-literal|null
-condition|)
-block|{
-name|r
-operator|.
-name|setRecovering
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Mark recovering region:"
-operator|+
-name|region
-operator|+
-literal|" up."
 argument_list|)
 expr_stmt|;
 block|}
@@ -2950,7 +2950,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/*    * Next part is related to WALSplitterHandler    */
-comment|/**    * endTask() can fail and the only way to recover out of it is for the     * {@link org.apache.hadoop.hbase.master.SplitLogManager} to timeout the task node.    * @param slt    * @param ctr    */
+comment|/**    * endTask() can fail and the only way to recover out of it is for the    * {@link org.apache.hadoop.hbase.master.SplitLogManager} to timeout the task node.    * @param slt    * @param ctr    */
 annotation|@
 name|Override
 specifier|public

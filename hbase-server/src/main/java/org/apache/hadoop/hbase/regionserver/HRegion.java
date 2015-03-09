@@ -2533,6 +2533,14 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
+specifier|protected
+specifier|volatile
+name|long
+name|lastReplayedCompactionSeqId
+init|=
+operator|-
+literal|1L
+decl_stmt|;
 comment|/**    * Operation enum is used in {@link HRegion#startRegionOperation} to provide operation context for    * startRegionOperation to possibly invoke different checks before any region operations. Not all    * operations have to be defined here. It's only needed when a special check is need in    * startRegionOperation    */
 specifier|public
 enum|enum
@@ -6086,6 +6094,173 @@ name|this
 operator|.
 name|isRecovering
 decl_stmt|;
+comment|// before we flip the recovering switch (enabling reads) we should write the region open
+comment|// event to WAL if needed
+if|if
+condition|(
+name|wal
+operator|!=
+literal|null
+operator|&&
+name|getRegionServerServices
+argument_list|()
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|writestate
+operator|.
+name|readOnly
+operator|&&
+name|wasRecovering
+operator|&&
+operator|!
+name|newState
+condition|)
+block|{
+comment|// force a flush only if region replication is set up for this region. Otherwise no need.
+name|boolean
+name|forceFlush
+init|=
+name|getTableDesc
+argument_list|()
+operator|.
+name|getRegionReplication
+argument_list|()
+operator|>
+literal|1
+decl_stmt|;
+comment|// force a flush first
+name|MonitoredTask
+name|status
+init|=
+name|TaskMonitor
+operator|.
+name|get
+argument_list|()
+operator|.
+name|createStatus
+argument_list|(
+literal|"Flushing region "
+operator|+
+name|this
+operator|+
+literal|" because recovery is finished"
+argument_list|)
+decl_stmt|;
+try|try
+block|{
+if|if
+condition|(
+name|forceFlush
+condition|)
+block|{
+name|internalFlushcache
+argument_list|(
+name|status
+argument_list|)
+expr_stmt|;
+block|}
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Writing region open event marker to WAL because recovery is finished"
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+name|long
+name|seqId
+init|=
+name|openSeqNum
+decl_stmt|;
+comment|// obtain a new seqId because we possibly have writes and flushes on top of openSeqNum
+if|if
+condition|(
+name|wal
+operator|!=
+literal|null
+condition|)
+block|{
+name|seqId
+operator|=
+name|getNextSequenceId
+argument_list|(
+name|wal
+argument_list|)
+expr_stmt|;
+block|}
+name|writeRegionOpenMarker
+argument_list|(
+name|wal
+argument_list|,
+name|seqId
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|// We cannot rethrow this exception since we are being called from the zk thread. The
+comment|// region has already opened. In this case we log the error, but continue
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : was not able to write region opening "
+operator|+
+literal|"event to WAL, continueing"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+comment|// Distributed log replay semantics does not necessarily require a flush, since the replayed
+comment|// data is already written again in the WAL. So failed flush should be fine.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : was not able to flush "
+operator|+
+literal|"event to WAL, continueing"
+argument_list|,
+name|ioe
+argument_list|)
+expr_stmt|;
+block|}
+finally|finally
+block|{
+name|status
+operator|.
+name|cleanup
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 name|this
 operator|.
 name|isRecovering
@@ -11266,7 +11441,9 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Method to safely get the next sequence number.    * @return Next sequence number unassociated with any actual edit.    * @throws IOException    */
-specifier|private
+annotation|@
+name|VisibleForTesting
+specifier|protected
 name|long
 name|getNextSequenceId
 parameter_list|(
@@ -19289,6 +19466,11 @@ argument_list|,
 name|compaction
 argument_list|)
 expr_stmt|;
+synchronized|synchronized
+init|(
+name|writestate
+init|)
+block|{
 if|if
 condition|(
 name|replaySeqId
@@ -19317,14 +19499,66 @@ argument_list|(
 name|compaction
 argument_list|)
 operator|+
-literal|" because its sequence id is smaller than this regions lastReplayedOpenRegionSeqId "
+literal|" because its sequence id "
 operator|+
-literal|" of "
+name|replaySeqId
+operator|+
+literal|" is smaller than this regions "
+operator|+
+literal|"lastReplayedOpenRegionSeqId of "
 operator|+
 name|lastReplayedOpenRegionSeqId
 argument_list|)
 expr_stmt|;
 return|return;
+block|}
+if|if
+condition|(
+name|replaySeqId
+operator|<
+name|lastReplayedCompactionSeqId
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
+literal|"Skipping replaying compaction event :"
+operator|+
+name|TextFormat
+operator|.
+name|shortDebugString
+argument_list|(
+name|compaction
+argument_list|)
+operator|+
+literal|" because its sequence id "
+operator|+
+name|replaySeqId
+operator|+
+literal|" is smaller than this regions "
+operator|+
+literal|"lastReplayedCompactionSeqId of "
+operator|+
+name|lastReplayedCompactionSeqId
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+else|else
+block|{
+name|lastReplayedCompactionSeqId
+operator|=
+name|replaySeqId
+expr_stmt|;
 block|}
 if|if
 condition|(
@@ -19354,6 +19588,14 @@ name|shortDebugString
 argument_list|(
 name|compaction
 argument_list|)
+operator|+
+literal|" with seqId="
+operator|+
+name|replaySeqId
+operator|+
+literal|" and lastReplayedOpenRegionSeqId="
+operator|+
+name|lastReplayedOpenRegionSeqId
 argument_list|)
 expr_stmt|;
 block|}
@@ -19430,6 +19672,9 @@ argument_list|,
 name|removeFiles
 argument_list|)
 expr_stmt|;
+name|logRegionFiles
+argument_list|()
+expr_stmt|;
 block|}
 finally|finally
 block|{
@@ -19440,6 +19685,7 @@ operator|.
 name|REPLAY_EVENT
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 name|void
@@ -19602,6 +19848,9 @@ argument_list|)
 expr_stmt|;
 break|break;
 block|}
+name|logRegionFiles
+argument_list|()
+expr_stmt|;
 block|}
 finally|finally
 block|{
@@ -21548,6 +21797,9 @@ expr_stmt|;
 comment|// FindBugs NN_NAKED_NOTIFY
 block|}
 block|}
+name|logRegionFiles
+argument_list|()
+expr_stmt|;
 block|}
 finally|finally
 block|{
@@ -22388,6 +22640,73 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+specifier|private
+name|void
+name|logRegionFiles
+parameter_list|()
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : Store files for region: "
+argument_list|)
+expr_stmt|;
+for|for
+control|(
+name|Store
+name|s
+range|:
+name|stores
+operator|.
+name|values
+argument_list|()
+control|)
+block|{
+for|for
+control|(
+name|StoreFile
+name|sf
+range|:
+name|s
+operator|.
+name|getStorefiles
+argument_list|()
+control|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
+name|sf
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+block|}
 comment|/** Checks whether the given regionName is either equal to our region, or that    * the regionName is the primary region to our corresponding range for the secondary replica.    */
 specifier|private
 name|void
@@ -22854,6 +23173,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|logRegionFiles
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 return|return
@@ -27894,8 +28216,14 @@ operator|!
 name|writestate
 operator|.
 name|readOnly
+operator|&&
+operator|!
+name|isRecovering
 condition|)
 block|{
+comment|// Only write the region open event marker to WAL if (1) we are not read-only
+comment|// (2) dist log replay is off or we are not recovering. In case region is
+comment|// recovering, the open event will be written at setRecovering(false)
 name|writeRegionOpenMarker
 argument_list|(
 name|wal
@@ -33708,7 +34036,7 @@ operator|.
 name|SIZEOF_INT
 operator|+
 operator|(
-literal|12
+literal|13
 operator|*
 name|Bytes
 operator|.

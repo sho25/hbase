@@ -762,11 +762,14 @@ index|[]
 index|[]
 block|{
 block|{
+literal|true
+block|}
+block|,
+block|{
 literal|false
 block|}
 block|}
 decl_stmt|;
-comment|// TODO: enable dist log replay testing after HBASE-13121
 return|return
 name|Arrays
 operator|.
