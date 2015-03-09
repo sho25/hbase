@@ -481,6 +481,26 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+if|if
+condition|(
+name|regionLocator
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|isSystemTable
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Region size calculation disabled for system tables."
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|LOG
 operator|.
 name|info

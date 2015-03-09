@@ -26,42 +26,6 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|fail
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -1578,6 +1542,42 @@ operator|.
 name|ZooKeeper
 operator|.
 name|States
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
 import|;
 end_import
 
@@ -13566,16 +13566,13 @@ block|}
 decl_stmt|;
 name|MetaTableAccessor
 operator|.
-name|fullScan
+name|scanMeta
 argument_list|(
 name|connection
 argument_list|,
-name|visitor
+literal|null
 argument_list|,
-name|table
-operator|.
-name|getName
-argument_list|()
+literal|null
 argument_list|,
 name|MetaTableAccessor
 operator|.
@@ -13583,7 +13580,11 @@ name|QueryType
 operator|.
 name|TABLE
 argument_list|,
-literal|true
+name|Integer
+operator|.
+name|MAX_VALUE
+argument_list|,
+name|visitor
 argument_list|)
 expr_stmt|;
 return|return

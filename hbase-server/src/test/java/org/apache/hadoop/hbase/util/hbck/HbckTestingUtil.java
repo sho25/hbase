@@ -305,6 +305,8 @@ argument_list|,
 name|exec
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|fsck
 operator|.
 name|connect
@@ -413,11 +415,15 @@ operator|.
 name|onlineHbck
 argument_list|()
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|fsck
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 return|return
 name|fsck
 return|;

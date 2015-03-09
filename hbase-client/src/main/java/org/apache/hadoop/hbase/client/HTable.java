@@ -331,6 +331,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|MetaTableAccessor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ServerName
 import|;
 end_import
@@ -2503,6 +2517,11 @@ return|;
 block|}
 comment|/**    * Gets all the regions and their address for this table.    *<p>    * This is mainly useful for the MapReduce integration.    * @return A map of HRegionInfo with it's server address    * @throws IOException if a remote or network exception occurs    * @deprecated This is no longer a public API.  Use {@link #getAllRegionLocations()} instead.    */
 annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
+annotation|@
 name|Deprecated
 specifier|public
 name|NavigableMap
@@ -2519,7 +2538,7 @@ block|{
 comment|// TODO: Odd that this returns a Map of HRI to SN whereas getRegionLocator, singular,
 comment|// returns an HRegionLocation.
 return|return
-name|MetaScanner
+name|MetaTableAccessor
 operator|.
 name|allTableRegions
 argument_list|(
