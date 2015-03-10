@@ -2030,6 +2030,11 @@ init|=
 name|getResultsToAddToCache
 argument_list|(
 name|values
+argument_list|,
+name|callable
+operator|.
+name|isHeartbeatMessage
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -2089,6 +2094,45 @@ name|rs
 expr_stmt|;
 block|}
 block|}
+comment|// Caller of this method just wants a Result. If we see a heartbeat message, it means
+comment|// processing of the scan is taking a long time server side. Rather than continue to
+comment|// loop until a limit (e.g. size or caching) is reached, break out early to avoid causing
+comment|// unnecesary delays to the caller
+if|if
+condition|(
+name|callable
+operator|.
+name|isHeartbeatMessage
+argument_list|()
+operator|&&
+name|cache
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Heartbeat message received and cache contains Results."
+operator|+
+literal|" Breaking out of scan loop"
+argument_list|)
+expr_stmt|;
+block|}
+break|break;
+block|}
 comment|// We expect that the server won't have more results for us when we exhaust
 comment|// the size (bytes or count) of the results returned. If the server *does* inform us that
 comment|// there are more results, we want to avoid possiblyNextScanner(...). Only when we actually
@@ -2133,16 +2177,14 @@ comment|// row.
 block|}
 do|while
 condition|(
+name|doneWithRegion
+argument_list|(
 name|remainingResultSize
-operator|>
-literal|0
-operator|&&
+argument_list|,
 name|countdown
-operator|>
-literal|0
-operator|&&
-operator|!
+argument_list|,
 name|serverHasMoreResults
+argument_list|)
 operator|&&
 operator|(
 operator|!
@@ -2163,7 +2205,35 @@ operator|)
 condition|)
 do|;
 block|}
-comment|/**    * This method ensures all of our book keeping regarding partial results is kept up to date. This    * method should be called once we know that the results we received back from the RPC request do    * not contain errors. We return a list of results that should be added to the cache. In general,    * this list will contain all NON-partial results from the input array (unless the client has    * specified that they are okay with receiving partial results)    * @return the list of results that should be added to the cache.    * @throws IOException    */
+comment|/**    * @param remainingResultSize    * @param remainingRows    * @param regionHasMoreResults    * @return true when the current region has been exhausted. When the current region has been    *         exhausted, the region must be changed before scanning can continue    */
+specifier|private
+name|boolean
+name|doneWithRegion
+parameter_list|(
+name|long
+name|remainingResultSize
+parameter_list|,
+name|int
+name|remainingRows
+parameter_list|,
+name|boolean
+name|regionHasMoreResults
+parameter_list|)
+block|{
+return|return
+name|remainingResultSize
+operator|>
+literal|0
+operator|&&
+name|remainingRows
+operator|>
+literal|0
+operator|&&
+operator|!
+name|regionHasMoreResults
+return|;
+block|}
+comment|/**    * This method ensures all of our book keeping regarding partial results is kept up to date. This    * method should be called once we know that the results we received back from the RPC request do    * not contain errors. We return a list of results that should be added to the cache. In general,    * this list will contain all NON-partial results from the input array (unless the client has    * specified that they are okay with receiving partial results)    * @param resultsFromServer The array of {@link Result}s returned from the server    * @param heartbeatMessage Flag indicating whether or not the response received from the server    *          represented a complete response, or a heartbeat message that was sent to keep the    *          client-server connection alive    * @return the list of results that should be added to the cache.    * @throws IOException    */
 specifier|protected
 name|List
 argument_list|<
@@ -2174,6 +2244,9 @@ parameter_list|(
 name|Result
 index|[]
 name|resultsFromServer
+parameter_list|,
+name|boolean
+name|heartbeatMessage
 parameter_list|)
 throws|throws
 name|IOException
@@ -2264,8 +2337,9 @@ return|return
 name|resultsToAddToCache
 return|;
 block|}
-comment|// If no results were returned it indicates that we have the all the partial results necessary
-comment|// to construct the complete result.
+comment|// If no results were returned it indicates that either we have the all the partial results
+comment|// necessary to construct the complete result or the server had to send a heartbeat message
+comment|// to the client to keep the client-server connection alive
 if|if
 condition|(
 name|resultsFromServer
@@ -2279,6 +2353,9 @@ operator|==
 literal|0
 condition|)
 block|{
+comment|// If this response was an empty heartbeat message, then we have not exhausted the region
+comment|// and thus there may be more partials server side that still need to be added to the partial
+comment|// list before we form the complete Result
 if|if
 condition|(
 operator|!
@@ -2286,6 +2363,9 @@ name|partialResults
 operator|.
 name|isEmpty
 argument_list|()
+operator|&&
+operator|!
+name|heartbeatMessage
 condition|)
 block|{
 name|resultsToAddToCache

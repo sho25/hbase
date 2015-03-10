@@ -1244,12 +1244,22 @@ name|count
 operator|++
 expr_stmt|;
 block|}
-name|assertTrue
-argument_list|(
+name|r2
+operator|=
 name|scanner2
 operator|.
 name|next
 argument_list|()
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"r2: "
+operator|+
+name|r2
+operator|+
+literal|" Should be null"
+argument_list|,
+name|r2
 operator|==
 literal|null
 argument_list|)

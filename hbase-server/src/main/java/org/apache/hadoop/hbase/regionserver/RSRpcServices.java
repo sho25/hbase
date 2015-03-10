@@ -2717,6 +2717,24 @@ name|REGION_SERVER_RPC_SCHEDULER_FACTORY_CLASS
 init|=
 literal|"hbase.region.server.rpc.scheduler.factory.class"
 decl_stmt|;
+comment|/**    * Minimum allowable time limit delta (in milliseconds) that can be enforced during scans. This    * configuration exists to prevent the scenario where a time limit is specified to be so    * restrictive that the time limit is reached immediately (before any cells are scanned).    */
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|REGION_SERVER_RPC_MINIMUM_SCAN_TIME_LIMIT_DELTA
+init|=
+literal|"hbase.region.server.rpc.minimum.scan.time.limit.delta"
+decl_stmt|;
+comment|/**    * Default value of {@link RSRpcServices#REGION_SERVER_RPC_MINIMUM_SCAN_TIME_LIMIT_DELTA}    */
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_REGION_SERVER_RPC_MINIMUM_SCAN_TIME_LIMIT_DELTA
+init|=
+literal|10
+decl_stmt|;
 comment|// Request counter. (Includes requests that are not serviced by regions.)
 specifier|final
 name|Counter
@@ -2786,6 +2804,18 @@ specifier|private
 specifier|final
 name|int
 name|scannerLeaseTimeoutPeriod
+decl_stmt|;
+comment|/**    * The RPC timeout period (milliseconds)    */
+specifier|private
+specifier|final
+name|int
+name|rpcTimeout
+decl_stmt|;
+comment|/**    * The minimum allowable delta to use for the scan limit    */
+specifier|private
+specifier|final
+name|long
+name|minimumScanTimeLimitDelta
 decl_stmt|;
 comment|/**    * Holder class which holds the RegionScanner and nextCallSeq together.    */
 specifier|private
@@ -6135,6 +6165,36 @@ argument_list|,
 name|HConstants
 operator|.
 name|DEFAULT_HBASE_SERVER_SCANNER_MAX_RESULT_SIZE
+argument_list|)
+expr_stmt|;
+name|rpcTimeout
+operator|=
+name|rs
+operator|.
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_RPC_TIMEOUT_KEY
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_RPC_TIMEOUT
+argument_list|)
+expr_stmt|;
+name|minimumScanTimeLimitDelta
+operator|=
+name|rs
+operator|.
+name|conf
+operator|.
+name|getLong
+argument_list|(
+name|REGION_SERVER_RPC_MINIMUM_SCAN_TIME_LIMIT_DELTA
+argument_list|,
+name|DEFAULT_REGION_SERVER_RPC_MINIMUM_SCAN_TIME_LIMIT_DELTA
 argument_list|)
 expr_stmt|;
 comment|// Set our address, however we need the final port that was given to rpcServer
@@ -13803,6 +13863,19 @@ operator|.
 name|getClientHandlesPartials
 argument_list|()
 decl_stmt|;
+name|boolean
+name|clientHandlesHeartbeats
+init|=
+name|request
+operator|.
+name|hasClientHandlesHeartbeats
+argument_list|()
+operator|&&
+name|request
+operator|.
+name|getClientHandlesHeartbeats
+argument_list|()
+decl_stmt|;
 comment|// On the server side we must ensure that the correct ordering of partial results is
 comment|// returned to the client to allow them to properly reconstruct the partial results.
 comment|// If the coprocessor host is adding to the result list, we cannot guarantee the
@@ -13830,11 +13903,130 @@ name|moreRows
 init|=
 literal|false
 decl_stmt|;
+comment|// Heartbeat messages occur when the processing of the ScanRequest is exceeds a
+comment|// certain time threshold on the server. When the time threshold is exceeded, the
+comment|// server stops the scan and sends back whatever Results it has accumulated within
+comment|// that time period (may be empty). Since heartbeat messages have the potential to
+comment|// create partial Results (in the event that the timeout occurs in the middle of a
+comment|// row), we must only generate heartbeat messages when the client can handle both
+comment|// heartbeats AND partials
+name|boolean
+name|allowHeartbeatMessages
+init|=
+name|clientHandlesHeartbeats
+operator|&&
+name|allowPartialResults
+decl_stmt|;
+comment|// Default value of timeLimit is negative to indicate no timeLimit should be
+comment|// enforced.
+name|long
+name|timeLimit
+init|=
+operator|-
+literal|1
+decl_stmt|;
+comment|// Set the time limit to be half of the more restrictive timeout value (one of the
+comment|// timeout values must be positive). In the event that both values are positive, the
+comment|// more restrictive of the two is used to calculate the limit.
+if|if
+condition|(
+name|allowHeartbeatMessages
+operator|&&
+operator|(
+name|scannerLeaseTimeoutPeriod
+operator|>
+literal|0
+operator|||
+name|rpcTimeout
+operator|>
+literal|0
+operator|)
+condition|)
+block|{
+name|long
+name|timeLimitDelta
+decl_stmt|;
+if|if
+condition|(
+name|scannerLeaseTimeoutPeriod
+operator|>
+literal|0
+operator|&&
+name|rpcTimeout
+operator|>
+literal|0
+condition|)
+block|{
+name|timeLimitDelta
+operator|=
+name|Math
+operator|.
+name|min
+argument_list|(
+name|scannerLeaseTimeoutPeriod
+argument_list|,
+name|rpcTimeout
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|timeLimitDelta
+operator|=
+name|scannerLeaseTimeoutPeriod
+operator|>
+literal|0
+condition|?
+name|scannerLeaseTimeoutPeriod
+else|:
+name|rpcTimeout
+expr_stmt|;
+block|}
+comment|// Use half of whichever timeout value was more restrictive... But don't allow
+comment|// the time limit to be less than the allowable minimum (could cause an
+comment|// immediatate timeout before scanning any data).
+name|timeLimitDelta
+operator|=
+name|Math
+operator|.
+name|max
+argument_list|(
+name|timeLimitDelta
+operator|/
+literal|2
+argument_list|,
+name|minimumScanTimeLimitDelta
+argument_list|)
+expr_stmt|;
+name|timeLimit
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|+
+name|timeLimitDelta
+expr_stmt|;
+block|}
 specifier|final
 name|LimitScope
 name|sizeScope
 init|=
 name|allowPartialResults
+condition|?
+name|LimitScope
+operator|.
+name|BETWEEN_CELLS
+else|:
+name|LimitScope
+operator|.
+name|BETWEEN_ROWS
+decl_stmt|;
+specifier|final
+name|LimitScope
+name|timeScope
+init|=
+name|allowHeartbeatMessages
 condition|?
 name|LimitScope
 operator|.
@@ -13877,6 +14069,15 @@ name|getBatch
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|contextBuilder
+operator|.
+name|setTimeLimit
+argument_list|(
+name|timeScope
+argument_list|,
+name|timeLimit
+argument_list|)
+expr_stmt|;
 name|ScannerContext
 name|scannerContext
 init|=
@@ -13885,6 +14086,11 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
+name|boolean
+name|limitReached
+init|=
+literal|false
+decl_stmt|;
 while|while
 condition|(
 name|i
@@ -13892,28 +14098,6 @@ operator|<
 name|rows
 condition|)
 block|{
-comment|// Stop collecting results if we have exceeded maxResultSize
-if|if
-condition|(
-name|scannerContext
-operator|.
-name|checkSizeLimit
-argument_list|(
-name|LimitScope
-operator|.
-name|BETWEEN_ROWS
-argument_list|)
-condition|)
-block|{
-name|builder
-operator|.
-name|setMoreResultsInRegion
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-break|break;
-block|}
 comment|// Reset the batch progress to 0 before every call to RegionScanner#nextRaw. The
 comment|// batch limit is a limit on the number of cells per Result. Thus, if progress is
 comment|// being tracked (i.e. scannerContext.keepProgress() is true) then we need to
@@ -13996,12 +14180,97 @@ name|i
 operator|++
 expr_stmt|;
 block|}
+name|boolean
+name|sizeLimitReached
+init|=
+name|scannerContext
+operator|.
+name|checkSizeLimit
+argument_list|(
+name|LimitScope
+operator|.
+name|BETWEEN_ROWS
+argument_list|)
+decl_stmt|;
+name|boolean
+name|timeLimitReached
+init|=
+name|scannerContext
+operator|.
+name|checkTimeLimit
+argument_list|(
+name|LimitScope
+operator|.
+name|BETWEEN_ROWS
+argument_list|)
+decl_stmt|;
+name|boolean
+name|rowLimitReached
+init|=
+name|i
+operator|>=
+name|rows
+decl_stmt|;
+name|limitReached
+operator|=
+name|sizeLimitReached
+operator|||
+name|timeLimitReached
+operator|||
+name|rowLimitReached
+expr_stmt|;
 if|if
 condition|(
+name|limitReached
+operator|||
 operator|!
 name|moreRows
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Done scanning. limitReached: "
+operator|+
+name|limitReached
+operator|+
+literal|" moreRows: "
+operator|+
+name|moreRows
+operator|+
+literal|" scannerContext: "
+operator|+
+name|scannerContext
+argument_list|)
+expr_stmt|;
+block|}
+comment|// We only want to mark a ScanResponse as a heartbeat message in the event that
+comment|// there are more values to be read server side. If there aren't more values,
+comment|// marking it as a heartbeat is wasteful because the client will need to issue
+comment|// another ScanRequest only to realize that they already have all the values
+if|if
+condition|(
+name|moreRows
+condition|)
+block|{
+comment|// Heartbeat messages occur when the time limit has been reached.
+name|builder
+operator|.
+name|setHeartbeatMessage
+argument_list|(
+name|timeLimitReached
+argument_list|)
+expr_stmt|;
+block|}
 break|break;
 block|}
 name|values
@@ -14012,18 +14281,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|scannerContext
-operator|.
-name|checkSizeLimit
-argument_list|(
-name|LimitScope
-operator|.
-name|BETWEEN_ROWS
-argument_list|)
-operator|||
-name|i
-operator|>=
-name|rows
+name|limitReached
 operator|||
 name|moreRows
 condition|)

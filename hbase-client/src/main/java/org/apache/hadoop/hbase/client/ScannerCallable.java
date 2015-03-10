@@ -597,6 +597,13 @@ specifier|protected
 name|boolean
 name|serverHasMoreResults
 decl_stmt|;
+comment|/**    * Saves whether or not the most recent response from the server was a heartbeat message.    * Heartbeat messages are identified by the flag {@link ScanResponse#getHeartbeatMessage()}    */
+specifier|protected
+name|boolean
+name|heartbeatMessage
+init|=
+literal|false
+decl_stmt|;
 static|static
 block|{
 try|try
@@ -1068,6 +1075,12 @@ name|request
 init|=
 literal|null
 decl_stmt|;
+comment|// Reset the heartbeat flag prior to each RPC in case an exception is thrown by the server
+name|setHeartbeatMessage
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|incRPCcallsMetrics
@@ -1149,6 +1162,19 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
+name|setHeartbeatMessage
+argument_list|(
+name|response
+operator|.
+name|hasHeartbeatMessage
+argument_list|()
+operator|&&
+name|response
+operator|.
+name|getHeartbeatMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Results are returned via controller
 name|CellScanner
 name|cellScanner
@@ -1515,6 +1541,31 @@ block|}
 return|return
 literal|null
 return|;
+block|}
+comment|/**    * @return true when the most recent RPC response indicated that the response was a heartbeat    *         message. Heartbeat messages are sent back from the server when the processing of the    *         scan request exceeds a certain time threshold. Heartbeats allow the server to avoid    *         timeouts during long running scan operations.    */
+specifier|protected
+name|boolean
+name|isHeartbeatMessage
+parameter_list|()
+block|{
+return|return
+name|heartbeatMessage
+return|;
+block|}
+specifier|protected
+name|void
+name|setHeartbeatMessage
+parameter_list|(
+name|boolean
+name|heartbeatMessage
+parameter_list|)
+block|{
+name|this
+operator|.
+name|heartbeatMessage
+operator|=
+name|heartbeatMessage
+expr_stmt|;
 block|}
 specifier|private
 name|void
