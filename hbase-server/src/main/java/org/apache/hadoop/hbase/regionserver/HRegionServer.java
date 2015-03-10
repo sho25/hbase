@@ -15681,6 +15681,18 @@ return|return
 name|configurationManager
 return|;
 block|}
+comment|/**    * @return Return table descriptors implementation.    */
+specifier|public
+name|TableDescriptors
+name|getTableDescriptors
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|tableDescriptors
+return|;
+block|}
 comment|/**    * Reload the configuration from disk.    */
 specifier|public
 name|void
