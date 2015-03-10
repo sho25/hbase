@@ -696,10 +696,12 @@ name|getAdmin
 argument_list|()
 init|)
 block|{
-name|admin
-operator|.
 name|createTable
 argument_list|(
+name|TEST_UTIL
+argument_list|,
+name|admin
+argument_list|,
 name|desc
 argument_list|)
 expr_stmt|;
@@ -716,7 +718,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|waitTableEnabled
+name|waitTableAvailable
 argument_list|(
 name|TEST_TABLE
 operator|.
