@@ -1142,6 +1142,36 @@ argument_list|(
 name|zkClientPort
 argument_list|)
 expr_stmt|;
+comment|// set the ZK tick time if specified
+name|int
+name|zkTickTime
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|ZOOKEEPER_TICK_TIME
+argument_list|,
+literal|0
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|zkTickTime
+operator|>
+literal|0
+condition|)
+block|{
+name|zooKeeperCluster
+operator|.
+name|setTickTime
+argument_list|(
+name|zkTickTime
+argument_list|)
+expr_stmt|;
+block|}
 comment|// login the zookeeper server principal (if using security)
 name|ZKUtil
 operator|.

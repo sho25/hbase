@@ -621,6 +621,17 @@ name|ZK_CFG_PROPERTY_PREFIX
 operator|+
 literal|"dataDir"
 decl_stmt|;
+comment|/** Parameter name for the ZK tick time */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ZOOKEEPER_TICK_TIME
+init|=
+name|ZK_CFG_PROPERTY_PREFIX
+operator|+
+literal|"tickTime"
+decl_stmt|;
 comment|/** Default limit on concurrent client-side zookeeper connections */
 specifier|public
 specifier|static
