@@ -33,8 +33,28 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
+operator|.
+name|RegionStoreSequenceIds
+import|;
+end_import
+
 begin_comment
-comment|/**  * Last flushed sequence Ids for the regions on region server  */
+comment|/**  * Last flushed sequence Ids for the regions and their stores on region server  */
 end_comment
 
 begin_interface
@@ -46,8 +66,8 @@ specifier|public
 interface|interface
 name|LastSequenceId
 block|{
-comment|/**    * @param encodedRegionName Encoded region name    * @return Last flushed sequence Id for region or -1 if it can't be determined    */
-name|long
+comment|/**    * @param encodedRegionName Encoded region name    * @return Last flushed sequence Id for region and its stores. Id will be -1 if it can't be    *         determined    */
+name|RegionStoreSequenceIds
 name|getLastSequenceId
 parameter_list|(
 name|byte

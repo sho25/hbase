@@ -614,7 +614,7 @@ specifier|final
 name|byte
 index|[]
 index|[]
-name|families
+name|FAMILIES
 init|=
 block|{
 name|Bytes
@@ -660,7 +660,7 @@ name|byte
 index|[]
 name|FAMILY1
 init|=
-name|families
+name|FAMILIES
 index|[
 literal|0
 index|]
@@ -672,7 +672,7 @@ name|byte
 index|[]
 name|FAMILY2
 init|=
-name|families
+name|FAMILIES
 index|[
 literal|1
 index|]
@@ -684,7 +684,7 @@ name|byte
 index|[]
 name|FAMILY3
 init|=
-name|families
+name|FAMILIES
 index|[
 literal|2
 index|]
@@ -717,7 +717,7 @@ name|byte
 index|[]
 name|family
 range|:
-name|families
+name|FAMILIES
 control|)
 block|{
 name|htd
@@ -843,9 +843,9 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
-name|families
+name|FAMILIES
 index|[
 name|familyNum
 operator|-
@@ -933,7 +933,7 @@ name|byte
 index|[]
 name|family
 init|=
-name|families
+name|FAMILIES
 index|[
 name|familyNum
 operator|-
@@ -2246,7 +2246,7 @@ return|return
 literal|null
 return|;
 block|}
-specifier|public
+specifier|private
 name|void
 name|doTestLogReplay
 parameter_list|()
@@ -2345,7 +2345,7 @@ name|createTable
 argument_list|(
 name|TABLENAME
 argument_list|,
-name|families
+name|FAMILIES
 argument_list|)
 decl_stmt|;
 name|HTableDescriptor
@@ -2362,7 +2362,7 @@ name|byte
 index|[]
 name|family
 range|:
-name|families
+name|FAMILIES
 control|)
 block|{
 if|if
@@ -2907,7 +2907,7 @@ name|createTable
 argument_list|(
 name|tableName
 argument_list|,
-name|families
+name|FAMILIES
 argument_list|)
 expr_stmt|;
 comment|// Force flush the namespace table so edits to it are not hanging around as oldest
@@ -3329,7 +3329,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY1
 argument_list|,
@@ -3340,7 +3340,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY2
 argument_list|,
@@ -3351,7 +3351,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY3
 argument_list|,
@@ -4332,7 +4332,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY1
 argument_list|,
@@ -4343,7 +4343,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY2
 argument_list|,
@@ -4354,7 +4354,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY3
 argument_list|,

@@ -17,6 +17,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -62,6 +72,26 @@ operator|.
 name|generated
 operator|.
 name|ClusterStatusProtos
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
+operator|.
+name|StoreSequenceId
 import|;
 end_import
 
@@ -352,6 +382,22 @@ return|return
 name|regionLoadPB
 operator|.
 name|getCompleteSequenceId
+argument_list|()
+return|;
+block|}
+comment|/**    * @return completed sequence id per store.    */
+specifier|public
+name|List
+argument_list|<
+name|StoreSequenceId
+argument_list|>
+name|getStoreCompleteSequenceId
+parameter_list|()
+block|{
+return|return
+name|regionLoadPB
+operator|.
+name|getStoreCompleteSequenceIdList
 argument_list|()
 return|;
 block|}

@@ -3614,6 +3614,9 @@ operator|.
 name|getBytes
 argument_list|()
 argument_list|)
+operator|.
+name|getLastFlushedSequenceId
+argument_list|()
 decl_stmt|;
 comment|/*            * znode layout: .../region_id[last known flushed sequence id]/failed server[last known            * flushed sequence id for the server]            */
 name|byte
