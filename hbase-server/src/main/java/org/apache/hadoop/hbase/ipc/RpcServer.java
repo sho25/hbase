@@ -2572,11 +2572,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Get a bb from the reservoir and pass it to buildCellBlock. What comes back will be the
-comment|// passed in reservoir bb or a resized one that we should instead add back to the reservoir
-comment|// when done. Keep reference so can add it back to the reservoir when finished. This is
-comment|// hacky and the hack is not contained but benefits are high when we can avoid a big buffer
-comment|// allocation on each rpc.
+comment|// Pass reservoir to buildCellBlock. Keep reference to returne so can add it back to the
+comment|// reservoir when finished. This is hacky and the hack is not contained but benefits are
+comment|// high when we can avoid a big buffer allocation on each rpc.
 name|this
 operator|.
 name|cellBlock
@@ -2600,9 +2598,6 @@ argument_list|,
 name|cells
 argument_list|,
 name|reservoir
-operator|.
-name|getBuffer
-argument_list|()
 argument_list|)
 expr_stmt|;
 if|if

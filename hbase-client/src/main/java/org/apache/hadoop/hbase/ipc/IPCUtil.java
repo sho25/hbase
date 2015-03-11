@@ -219,6 +219,22 @@ name|hbase
 operator|.
 name|io
 operator|.
+name|BoundedByteBufferPool
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
 name|ByteBufferOutputStream
 import|;
 end_import
@@ -533,7 +549,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Puts CellScanner Cells into a cell block using passed in<code>codec</code> and/or    *<code>compressor</code>.    * @param codec    * @param compressor    * @param cellScanner    * @param bb ByteBuffer to use. Can be null. You'd pass in a ByteBuffer if you want to practice    * recycling. If the passed in ByteBuffer is too small, it is discarded and a new one allotted    * so you will get back the passed-in ByteBuffer or a new, right-sized one. SIDE EFFECT!!!!!    * @return Null or byte buffer filled with a cellblock filled with passed-in Cells encoded using    * passed in<code>codec</code> and/or<code>compressor</code>; the returned buffer has been    * flipped and is ready for reading.  Use limit to find total size.    * @throws IOException    */
+comment|/**    * Puts CellScanner Cells into a cell block using passed in<code>codec</code> and/or    *<code>compressor</code>.    * @param codec    * @param compressor    * @param cellScanner    * @param pool Pool of ByteBuffers to make use of. Can be null and then we'll allocate    * our own ByteBuffer.    * @return Null or byte buffer filled with a cellblock filled with passed-in Cells encoded using    * passed in<code>codec</code> and/or<code>compressor</code>; the returned buffer has been    * flipped and is ready for reading.  Use limit to find total size. If<code>pool</code> was not    * null, then this returned ByteBuffer came from there and should be returned to the pool when    * done.    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -556,8 +572,8 @@ name|CellScanner
 name|cellScanner
 parameter_list|,
 specifier|final
-name|ByteBuffer
-name|bb
+name|BoundedByteBufferPool
+name|pool
 parameter_list|)
 throws|throws
 name|IOException
@@ -596,11 +612,19 @@ literal|null
 decl_stmt|;
 if|if
 condition|(
-name|bb
+name|pool
 operator|!=
 literal|null
 condition|)
 block|{
+name|ByteBuffer
+name|bb
+init|=
+name|pool
+operator|.
+name|getBuffer
+argument_list|()
+decl_stmt|;
 name|bufferSize
 operator|=
 name|bb
