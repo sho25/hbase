@@ -283,23 +283,6 @@ name|REGION_REPLICA_REPLICATION_PEER
 init|=
 literal|"region_replica_replication"
 decl_stmt|;
-comment|/**    * Whether or not the secondary region will wait for observing a flush / region open event    * from the primary region via async wal replication before enabling read requests. Since replayed    * edits from async wal replication from primary is not persisted in WAL, the memstore of the    * secondary region might be non-empty at the time of close or crash. For ensuring seqId's not    * "going back in time" in the secondary region replica, this should be enabled. However, in some    * cases the above semantics might be ok for some application classes.    * See HBASE-11580 for more context.    */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|REGION_REPLICA_WAIT_FOR_PRIMARY_FLUSH_CONF_KEY
-init|=
-literal|"hbase.region.replica.wait.for.primary.flush"
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|boolean
-name|DEFAULT_REGION_REPLICA_WAIT_FOR_PRIMARY_FLUSH
-init|=
-literal|true
-decl_stmt|;
 comment|/**    * Enables or disables refreshing store files of secondary region replicas when the memory is    * above the global memstore lower limit. Refreshing the store files means that we will do a file    * list of the primary regions store files, and pick up new files. Also depending on the store    * files, we can drop some memstore contents which will free up memory.    */
 specifier|public
 specifier|static

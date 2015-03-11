@@ -96,6 +96,23 @@ specifier|public
 class|class
 name|RegionReplicaUtil
 block|{
+comment|/**    * Whether or not the secondary region will wait for observing a flush / region open event    * from the primary region via async wal replication before enabling read requests. Since replayed    * edits from async wal replication from primary is not persisted in WAL, the memstore of the    * secondary region might be non-empty at the time of close or crash. For ensuring seqId's not    * "going back in time" in the secondary region replica, this should be enabled. However, in some    * cases the above semantics might be ok for some application classes.    * See HBASE-11580 for more context.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGION_REPLICA_WAIT_FOR_PRIMARY_FLUSH_CONF_KEY
+init|=
+literal|"hbase.region.replica.wait.for.primary.flush"
+decl_stmt|;
+specifier|protected
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_REGION_REPLICA_WAIT_FOR_PRIMARY_FLUSH
+init|=
+literal|true
+decl_stmt|;
 comment|/**    * The default replicaId for the region    */
 specifier|static
 specifier|final

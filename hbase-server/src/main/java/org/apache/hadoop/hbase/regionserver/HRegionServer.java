@@ -10231,8 +10231,9 @@ name|ServerRegionReplicaUtil
 operator|.
 name|isRegionReplicaReplicationEnabled
 argument_list|(
-name|getConfiguration
-argument_list|()
+name|region
+operator|.
+name|conf
 argument_list|)
 operator|||
 operator|!
@@ -10240,8 +10241,9 @@ name|ServerRegionReplicaUtil
 operator|.
 name|isRegionReplicaWaitForPrimaryFlushEnabled
 argument_list|(
-name|getConfiguration
-argument_list|()
+name|region
+operator|.
+name|conf
 argument_list|)
 condition|)
 block|{

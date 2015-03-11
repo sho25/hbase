@@ -247,6 +247,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|RegionReplicaUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|exceptions
 operator|.
 name|DeserializationException
@@ -4132,6 +4148,22 @@ condition|?
 name|TRUE
 else|:
 name|FALSE
+argument_list|)
+expr_stmt|;
+comment|// If the memstore replication is setup, we do not have to wait for observing a flush event
+comment|// from primary before starting to serve reads, because gaps from replication is not applicable
+name|setConfiguration
+argument_list|(
+name|RegionReplicaUtil
+operator|.
+name|REGION_REPLICA_WAIT_FOR_PRIMARY_FLUSH_CONF_KEY
+argument_list|,
+name|Boolean
+operator|.
+name|toString
+argument_list|(
+name|memstoreReplication
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
