@@ -5857,7 +5857,7 @@ operator|-
 literal|1
 condition|)
 block|{
-comment|// No time period set so create one
+comment|// if cutoff time isn't set, defaulting it to period time
 name|int
 name|balancerPeriod
 init|=
@@ -5871,17 +5871,6 @@ argument_list|,
 literal|300000
 argument_list|)
 decl_stmt|;
-name|balancerCutoffTime
-operator|=
-name|balancerPeriod
-expr_stmt|;
-comment|// If nonsense period, set it to balancerPeriod
-if|if
-condition|(
-name|balancerCutoffTime
-operator|<=
-literal|0
-condition|)
 name|balancerCutoffTime
 operator|=
 name|balancerPeriod
