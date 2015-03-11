@@ -323,22 +323,31 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"[tableName=%s, lockOwner=%s, threadId=%s, "
+literal|"[tableName=%s:%s, lockOwner=%s, threadId=%s, "
 operator|+
 literal|"purpose=%s, isShared=%s, createTime=%s]"
 argument_list|,
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|data
 operator|.
 name|getTableName
 argument_list|()
 operator|.
-name|toByteArray
+name|getNamespace
 argument_list|()
-argument_list|)
+operator|.
+name|toStringUtf8
+argument_list|()
+argument_list|,
+name|data
+operator|.
+name|getTableName
+argument_list|()
+operator|.
+name|getQualifier
+argument_list|()
+operator|.
+name|toStringUtf8
+argument_list|()
 argument_list|,
 name|ProtobufUtil
 operator|.
