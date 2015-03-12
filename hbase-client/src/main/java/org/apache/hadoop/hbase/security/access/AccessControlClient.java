@@ -69,20 +69,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
-operator|.
-name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|HConstants
@@ -220,22 +206,6 @@ operator|.
 name|client
 operator|.
 name|Connection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|ConnectionFactory
 import|;
 end_import
 
@@ -416,14 +386,14 @@ return|return
 name|protocol
 return|;
 block|}
-comment|/**    * Grants permission on the specified table for the specified user    * @param conf    * @param tableName    * @param userName    * @param family    * @param qual    * @param actions    * @throws Throwable    */
+comment|/**    * Grants permission on the specified table for the specified user    * @param connection The Connection instance to use    * @param tableName    * @param userName    * @param family    * @param qual    * @param actions    * @throws Throwable    */
 specifier|public
 specifier|static
 name|void
 name|grant
 parameter_list|(
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|TableName
@@ -453,21 +423,6 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-comment|// TODO: Make it so caller passes in a Connection rather than have us do this expensive
-comment|// setup each time.  This class only used in test and shell at moment though.
-try|try
-init|(
-name|Connection
-name|connection
-init|=
-name|ConnectionFactory
-operator|.
-name|createConnection
-argument_list|(
-name|conf
-argument_list|)
-init|)
-block|{
 try|try
 init|(
 name|Table
@@ -503,15 +458,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-comment|/**    * Grants permission on the specified namespace for the specified user.    * @param conf    * @param namespace    * @param userName    * @param actions    * @throws Throwable    */
+comment|/**    * Grants permission on the specified namespace for the specified user.    * @param connection The Connection instance to use    * @param namespace    * @param userName    * @param actions    * @throws Throwable    */
 specifier|public
 specifier|static
 name|void
 name|grant
 parameter_list|(
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -530,21 +484,6 @@ name|actions
 parameter_list|)
 throws|throws
 name|Throwable
-block|{
-comment|// TODO: Make it so caller passes in a Connection rather than have us do this expensive
-comment|// setup each time.  This class only used in test and shell at moment though.
-try|try
-init|(
-name|Connection
-name|connection
-init|=
-name|ConnectionFactory
-operator|.
-name|createConnection
-argument_list|(
-name|conf
-argument_list|)
-init|)
 block|{
 try|try
 init|(
@@ -577,15 +516,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-comment|/**    * Grant global permissions for the specified user.    */
+comment|/**    * @param connection The Connection instance to use    * Grant global permissions for the specified user.    */
 specifier|public
 specifier|static
 name|void
 name|grant
 parameter_list|(
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -600,21 +538,6 @@ name|actions
 parameter_list|)
 throws|throws
 name|Throwable
-block|{
-comment|// TODO: Make it so caller passes in a Connection rather than have us do this expensive
-comment|// setup each time.  This class only used in test and shell at moment though.
-try|try
-init|(
-name|Connection
-name|connection
-init|=
-name|ConnectionFactory
-operator|.
-name|createConnection
-argument_list|(
-name|conf
-argument_list|)
-init|)
 block|{
 try|try
 init|(
@@ -643,7 +566,6 @@ argument_list|,
 name|actions
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 specifier|public
@@ -651,8 +573,8 @@ specifier|static
 name|boolean
 name|isAccessControllerRunning
 parameter_list|(
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|)
 throws|throws
 name|MasterNotRunningException
@@ -660,21 +582,6 @@ throws|,
 name|ZooKeeperConnectionException
 throws|,
 name|IOException
-block|{
-comment|// TODO: Make it so caller passes in a Connection rather than have us do this expensive
-comment|// setup each time.  This class only used in test and shell at moment though.
-try|try
-init|(
-name|Connection
-name|connection
-init|=
-name|ConnectionFactory
-operator|.
-name|createConnection
-argument_list|(
-name|conf
-argument_list|)
-init|)
 block|{
 try|try
 init|(
@@ -697,15 +604,14 @@ argument_list|)
 return|;
 block|}
 block|}
-block|}
-comment|/**    * Revokes the permission on the table    * @param conf    * @param tableName    * @param username    * @param family    * @param qualifier    * @param actions    * @throws Throwable    */
+comment|/**    * Revokes the permission on the table    * @param connection The Connection instance to use    * @param tableName    * @param username    * @param family    * @param qualifier    * @param actions    * @throws Throwable    */
 specifier|public
 specifier|static
 name|void
 name|revoke
 parameter_list|(
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|TableName
@@ -735,21 +641,6 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-comment|// TODO: Make it so caller passes in a Connection rather than have us do this expensive
-comment|// setup each time.  This class only used in test and shell at moment though.
-try|try
-init|(
-name|Connection
-name|connection
-init|=
-name|ConnectionFactory
-operator|.
-name|createConnection
-argument_list|(
-name|conf
-argument_list|)
-init|)
-block|{
 try|try
 init|(
 name|Table
@@ -785,15 +676,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-comment|/**    * Revokes the permission on the table for the specified user.    * @param conf    * @param namespace    * @param userName    * @param actions    * @throws Throwable    */
+comment|/**    * Revokes the permission on the table for the specified user.    * @param connection The Connection instance to use    * @param namespace    * @param userName    * @param actions    * @throws Throwable    */
 specifier|public
 specifier|static
 name|void
 name|revoke
 parameter_list|(
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -812,21 +702,6 @@ name|actions
 parameter_list|)
 throws|throws
 name|Throwable
-block|{
-comment|// TODO: Make it so caller passes in a Connection rather than have us do this expensive
-comment|// setup each time.  This class only used in test and shell at moment though.
-try|try
-init|(
-name|Connection
-name|connection
-init|=
-name|ConnectionFactory
-operator|.
-name|createConnection
-argument_list|(
-name|conf
-argument_list|)
-init|)
 block|{
 try|try
 init|(
@@ -859,15 +734,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-comment|/**    * Revoke global permissions for the specified user.    */
+comment|/**    * Revoke global permissions for the specified user.    * @param connection The Connection instance to use    */
 specifier|public
 specifier|static
 name|void
 name|revoke
 parameter_list|(
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -882,21 +756,6 @@ name|actions
 parameter_list|)
 throws|throws
 name|Throwable
-block|{
-comment|// TODO: Make it so caller passes in a Connection rather than have us do this expensive
-comment|// setup each time.  This class only used in test and shell at moment though.
-try|try
-init|(
-name|Connection
-name|connection
-init|=
-name|ConnectionFactory
-operator|.
-name|createConnection
-argument_list|(
-name|conf
-argument_list|)
-init|)
 block|{
 try|try
 init|(
@@ -927,8 +786,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-comment|/**    * List all the userPermissions matching the given pattern.    * @param conf    * @param tableRegex The regular expression string to match against    * @return - returns an array of UserPermissions    * @throws Throwable    */
+comment|/**    * List all the userPermissions matching the given pattern.    * @param connection The Connection instance to use    * @param tableRegex The regular expression string to match against    * @return - returns an array of UserPermissions    * @throws Throwable    */
 specifier|public
 specifier|static
 name|List
@@ -937,8 +795,8 @@ name|UserPermission
 argument_list|>
 name|getUserPermissions
 parameter_list|(
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 name|String
 name|tableRegex
@@ -959,21 +817,6 @@ name|UserPermission
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// TODO: Make it so caller passes in a Connection rather than have us do this expensive
-comment|// setup each time.  This class only used in test and shell at moment though.
-try|try
-init|(
-name|Connection
-name|connection
-init|=
-name|ConnectionFactory
-operator|.
-name|createConnection
-argument_list|(
-name|conf
-argument_list|)
-init|)
-block|{
 try|try
 init|(
 name|Table
@@ -1133,7 +976,6 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 block|}

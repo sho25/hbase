@@ -2673,8 +2673,8 @@ name|HBaseTestingUtility
 name|util
 parameter_list|,
 specifier|final
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -2722,7 +2722,7 @@ name|AccessControlClient
 operator|.
 name|grant
 argument_list|(
-name|conf
+name|connection
 argument_list|,
 name|namespace
 argument_list|,
@@ -2769,8 +2769,8 @@ name|HBaseTestingUtility
 name|util
 parameter_list|,
 specifier|final
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -2818,7 +2818,7 @@ name|AccessControlClient
 operator|.
 name|revoke
 argument_list|(
-name|conf
+name|connection
 argument_list|,
 name|namespace
 argument_list|,
@@ -3147,8 +3147,8 @@ name|HBaseTestingUtility
 name|util
 parameter_list|,
 specifier|final
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -3206,7 +3206,7 @@ name|AccessControlClient
 operator|.
 name|grant
 argument_list|(
-name|conf
+name|connection
 argument_list|,
 name|table
 argument_list|,
@@ -3257,8 +3257,8 @@ name|HBaseTestingUtility
 name|util
 parameter_list|,
 specifier|final
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -3302,7 +3302,7 @@ name|AccessControlClient
 operator|.
 name|grant
 argument_list|(
-name|conf
+name|connection
 argument_list|,
 name|user
 argument_list|,
@@ -3495,8 +3495,8 @@ name|HBaseTestingUtility
 name|util
 parameter_list|,
 specifier|final
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -3554,7 +3554,7 @@ name|AccessControlClient
 operator|.
 name|revoke
 argument_list|(
-name|conf
+name|connection
 argument_list|,
 name|table
 argument_list|,
@@ -3605,8 +3605,8 @@ name|HBaseTestingUtility
 name|util
 parameter_list|,
 specifier|final
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -3650,7 +3650,7 @@ name|AccessControlClient
 operator|.
 name|revoke
 argument_list|(
-name|conf
+name|connection
 argument_list|,
 name|user
 argument_list|,
