@@ -832,11 +832,12 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Initialize namespace state cache by scanning meta table.    */
+specifier|private
 name|void
 name|initialize
 parameter_list|()
-block|{
-try|try
+throws|throws
+name|IOException
 block|{
 name|List
 argument_list|<
@@ -955,27 +956,6 @@ name|initialized
 operator|=
 literal|true
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Error while update namespace state."
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-name|initialized
-operator|=
-literal|false
-expr_stmt|;
-block|}
 block|}
 name|boolean
 name|isInitialized

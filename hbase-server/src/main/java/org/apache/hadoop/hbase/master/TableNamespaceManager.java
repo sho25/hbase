@@ -694,9 +694,7 @@ expr_stmt|;
 block|}
 try|try
 block|{
-comment|// Wait for the namespace table to be assigned.
-comment|// If timed out, we will move ahead without initializing it.
-comment|// So that it should be initialized later on lazily.
+comment|// Wait for the namespace table to be initialized.
 name|long
 name|startTime
 init|=
@@ -720,13 +718,8 @@ decl_stmt|;
 while|while
 condition|(
 operator|!
-operator|(
-name|isTableAssigned
+name|isTableAvailableAndInitialized
 argument_list|()
-operator|&&
-name|isTableEnabled
-argument_list|()
-operator|)
 condition|)
 block|{
 if|if
@@ -790,10 +783,6 @@ name|e
 argument_list|)
 throw|;
 block|}
-comment|// initialize namespace table
-name|isTableAvailableAndInitialized
-argument_list|()
-expr_stmt|;
 block|}
 specifier|private
 specifier|synchronized

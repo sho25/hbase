@@ -2249,7 +2249,9 @@ comment|// monitor for distributed procedures
 name|MasterProcedureManagerHost
 name|mpmHost
 decl_stmt|;
+comment|// it is assigned after 'initialized' guard set to true, so should be volatile
 specifier|private
+specifier|volatile
 name|MasterQuotaManager
 name|quotaManager
 decl_stmt|;
@@ -4893,14 +4895,15 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|MasterQuotaManager
 name|quotaManager
-operator|=
+init|=
 operator|new
 name|MasterQuotaManager
 argument_list|(
 name|this
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|this
 operator|.
 name|assignmentManager
@@ -4917,6 +4920,12 @@ name|quotaManager
 operator|.
 name|start
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|quotaManager
+operator|=
+name|quotaManager
 expr_stmt|;
 block|}
 name|boolean
