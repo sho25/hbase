@@ -6759,6 +6759,21 @@ block|{
 return|return;
 block|}
 block|}
+comment|// warmup the region on the destination before initiating the move. this call
+comment|// is synchronous and takes some time. doing it before the source region gets
+comment|// closed
+name|serverManager
+operator|.
+name|sendRegionWarmup
+argument_list|(
+name|rp
+operator|.
+name|getDestination
+argument_list|()
+argument_list|,
+name|hri
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
