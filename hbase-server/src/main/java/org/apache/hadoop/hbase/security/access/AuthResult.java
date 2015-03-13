@@ -921,6 +921,11 @@ literal|"GLOBAL"
 else|:
 name|table
 argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|", "
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -930,11 +935,6 @@ literal|null
 condition|)
 block|{
 name|sb
-operator|.
-name|append
-argument_list|(
-literal|", "
-argument_list|)
 operator|.
 name|append
 argument_list|(
