@@ -5076,7 +5076,7 @@ argument_list|(
 name|toString
 argument_list|()
 operator|+
-literal|"-shared-"
+name|nameHint
 argument_list|)
 argument_list|)
 decl_stmt|;
