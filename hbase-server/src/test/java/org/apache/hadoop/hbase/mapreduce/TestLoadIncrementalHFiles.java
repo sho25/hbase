@@ -1998,7 +1998,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Write a random data file in a dir with a valid family name but not part of the table families    * we should we able to bulkload without getting the unmatched family exception. HBASE-13037    */
+comment|/**    * Write a random data file and a non-file in a dir with a valid family name    * but not part of the table families. we should we able to bulkload without    * getting the unmatched family exception. HBASE-13037/HBASE-13227    */
 annotation|@
 name|Test
 argument_list|(
@@ -2118,6 +2118,19 @@ operator|.
 name|mkdirs
 argument_list|(
 name|nonFamilyDir
+argument_list|)
+expr_stmt|;
+name|fs
+operator|.
+name|mkdirs
+argument_list|(
+operator|new
+name|Path
+argument_list|(
+name|nonFamilyDir
+argument_list|,
+literal|"non-file"
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|createRandomDataFile
