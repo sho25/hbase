@@ -79,7 +79,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTableInterface
+name|Table
 import|;
 end_import
 
@@ -127,7 +127,7 @@ name|getConfiguration
 parameter_list|()
 function_decl|;
 comment|/**    * @return an interface for accessing the given table    * @throws IOException    */
-name|HTableInterface
+name|Table
 name|getTable
 parameter_list|(
 name|TableName
@@ -137,7 +137,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @return an interface for accessing the given table using the passed executor to run batch    *         operations    * @throws IOException    */
-name|HTableInterface
+name|Table
 name|getTable
 parameter_list|(
 name|TableName

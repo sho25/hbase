@@ -355,7 +355,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTableInterface
+name|HTableWrapper
 import|;
 end_import
 
@@ -371,7 +371,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTableWrapper
+name|Table
 import|;
 end_import
 
@@ -1833,7 +1833,7 @@ comment|/** Accounting for tables opened by the coprocessor */
 specifier|protected
 name|List
 argument_list|<
-name|HTableInterface
+name|Table
 argument_list|>
 name|openTables
 init|=
@@ -1844,7 +1844,7 @@ argument_list|(
 operator|new
 name|ArrayList
 argument_list|<
-name|HTableInterface
+name|Table
 argument_list|>
 argument_list|()
 argument_list|)
@@ -2181,7 +2181,7 @@ block|}
 comment|// clean up any table references
 for|for
 control|(
-name|HTableInterface
+name|Table
 name|table
 range|:
 name|openTables
@@ -2312,7 +2312,7 @@ comment|/**      * Open a table from within the Coprocessor environment      * @
 annotation|@
 name|Override
 specifier|public
-name|HTableInterface
+name|Table
 name|getTable
 parameter_list|(
 name|TableName
@@ -2342,7 +2342,7 @@ comment|/**      * Open a table from within the Coprocessor environment      * @
 annotation|@
 name|Override
 specifier|public
-name|HTableInterface
+name|Table
 name|getTable
 parameter_list|(
 name|TableName

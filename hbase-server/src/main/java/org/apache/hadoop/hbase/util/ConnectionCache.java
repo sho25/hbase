@@ -195,7 +195,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTableInterface
+name|Table
 import|;
 end_import
 
@@ -737,7 +737,7 @@ return|;
 block|}
 comment|/**    * Caller closes the table afterwards.    */
 specifier|public
-name|HTableInterface
+name|Table
 name|getTable
 parameter_list|(
 name|String

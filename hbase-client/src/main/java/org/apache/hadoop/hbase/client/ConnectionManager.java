@@ -3184,11 +3184,11 @@ operator|=
 operator|(
 name|HConnectionImplementation
 operator|)
+name|ConnectionFactory
+operator|.
 name|createConnection
 argument_list|(
 name|conf
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|CONNECTION_INSTANCES
@@ -3224,11 +3224,11 @@ operator|=
 operator|(
 name|HConnectionImplementation
 operator|)
+name|ConnectionFactory
+operator|.
 name|createConnection
 argument_list|(
 name|conf
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|CONNECTION_INSTANCES

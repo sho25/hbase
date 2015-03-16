@@ -6020,19 +6020,6 @@ name|close
 argument_list|()
 expr_stmt|;
 comment|// still a reference left
-name|assertFalse
-argument_list|(
-name|c3
-operator|.
-name|isClosed
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|c3
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|assertTrue
 argument_list|(
 name|c3
@@ -6041,7 +6028,6 @@ name|isClosed
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// c3 was removed from the cache
 name|Connection
 name|c5
 init|=

@@ -371,7 +371,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Mutation
 import|;
 end_import
 
@@ -387,7 +387,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Mutation
+name|NeedUnmanagedConnectionException
 import|;
 end_import
 
@@ -1256,17 +1256,11 @@ name|isManaged
 argument_list|()
 condition|)
 block|{
-return|return
+throw|throw
 operator|new
-name|HTable
-argument_list|(
-name|TableName
-operator|.
-name|META_TABLE_NAME
-argument_list|,
-name|connection
-argument_list|)
-return|;
+name|NeedUnmanagedConnectionException
+argument_list|()
+throw|;
 block|}
 block|}
 return|return
