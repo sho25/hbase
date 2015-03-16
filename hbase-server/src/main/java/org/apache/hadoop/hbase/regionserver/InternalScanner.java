@@ -440,6 +440,23 @@ operator|>=
 literal|0
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"State: "
+operator|+
+name|state
+operator|+
+literal|" resultSize: "
+operator|+
+name|resultSize
+return|;
+block|}
 comment|/**      * Helper method to centralize all checks as to whether or not the state is valid.      * @param state      * @return true when the state is valid      */
 specifier|public
 specifier|static

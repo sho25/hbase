@@ -484,6 +484,14 @@ name|Result
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|/**      * The row for which we are accumulating partial Results (i.e. the row of the Results stored      * inside partialResults). Changes to partialResultsRow and partialResults are kept in sync      * via the methods {@link #addToPartialResults(Result)} and {@link #clearPartialResults()}      */
+specifier|protected
+name|byte
+index|[]
+name|partialResultsRow
+init|=
+literal|null
+decl_stmt|;
 specifier|protected
 specifier|final
 name|int
@@ -1676,9 +1684,7 @@ parameter_list|)
 block|{
 comment|// An exception was thrown which makes any partial results that we were collecting
 comment|// invalid. The scanner will need to be reset to the beginning of a row.
-name|partialResults
-operator|.
-name|clear
+name|clearPartialResults
 argument_list|()
 expr_stmt|;
 comment|// DNRIOEs are thrown to make us break out of retries. Some types of DNRIOEs want us
@@ -2231,9 +2237,7 @@ name|partialResults
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|partialResults
-operator|.
-name|clear
+name|clearPartialResults
 argument_list|()
 expr_stmt|;
 block|}
@@ -2346,39 +2350,23 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// There are four possibilities cases that can occur while handling partial results
+comment|// There are three possibilities cases that can occur while handling partial results
 comment|//
 comment|// 1. (partial != null&& partialResults.isEmpty())
 comment|// This is the first partial result that we have received. It should be added to
 comment|// the list of partialResults and await the next RPC request at which point another
 comment|// portion of the complete result will be received
 comment|//
-comment|// 2. (partial != null&& !partialResults.isEmpty())
-comment|// a. values.length == 1
-comment|// Since partialResults contains some elements, it means that we are expecting to receive
-comment|// the remainder of the complete result within this RPC response. The fact that a partial result
-comment|// was returned and it's the ONLY result returned indicates that we are still receiving
-comment|// fragments of the complete result. The Result can be completely formed only when we have
-comment|// received all of the fragments and thus in this case we simply add the partial result to
-comment|// our list.
+comment|// 2. !partialResults.isEmpty()
+comment|// Since our partialResults list is not empty it means that we have been accumulating partial
+comment|// Results for a particular row. We cannot form the complete/whole Result for that row until
+comment|// all partials for the row have been received. Thus we loop through all of the Results
+comment|// returned from the server and determine whether or not all partial Results for the row have
+comment|// been received. We know that we have received all of the partial Results for the row when:
+comment|// i) We notice a row change in the Results
+comment|// ii) We see a Result for the partial row that is NOT marked as a partial Result
 comment|//
-comment|// b. values.length> 1
-comment|// More than one result has been returned from the server. The fact that we are accumulating
-comment|// partials in partialList and we just received more than one result back from the server
-comment|// indicates that the FIRST result we received from the server must be the final fragment that
-comment|// can be used to complete our result. What this means is that the partial that we received is
-comment|// a partial result for a different row, and at this point we should combine the existing
-comment|// partials into a complete result, clear the partialList, and begin accumulating partials for
-comment|// a new row
-comment|//
-comment|// 3. (partial == null&& !partialResults.isEmpty())
-comment|// No partial was received but we are accumulating partials in our list. That means the final
-comment|// fragment of the complete result will be the first Result in values[]. We use it to create the
-comment|// complete Result, clear the list, and add it to the list of Results that must be added to the
-comment|// cache. All other Results in values[] are added after the complete result to maintain proper
-comment|// ordering
-comment|//
-comment|// 4. (partial == null&& partialResults.isEmpty())
+comment|// 3. (partial == null&& partialResults.isEmpty())
 comment|// Business as usual. We are not accumulating partial results and there wasn't a partial result
 comment|// in the RPC response. This means that all of the results we received from the server are
 comment|// complete and can be added directly to the cache
@@ -2394,9 +2382,7 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|partialResults
-operator|.
-name|add
+name|addToPartialResults
 argument_list|(
 name|partial
 argument_list|)
@@ -2421,10 +2407,6 @@ block|}
 elseif|else
 if|if
 condition|(
-name|partial
-operator|!=
-literal|null
-operator|&&
 operator|!
 name|partialResults
 operator|.
@@ -2432,30 +2414,64 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
 name|resultsFromServer
 operator|.
 name|length
-operator|>
-literal|1
-condition|)
+condition|;
+name|i
+operator|++
+control|)
 block|{
 name|Result
-name|finalResult
+name|result
 init|=
 name|resultsFromServer
 index|[
-literal|0
+name|i
 index|]
 decl_stmt|;
-name|partialResults
+comment|// This result is from the same row as the partial Results. Add it to the list of partials
+comment|// and check if it was the last partial Result for that row
+if|if
+condition|(
+name|Bytes
 operator|.
-name|add
+name|equals
 argument_list|(
-name|finalResult
+name|partialResultsRow
+argument_list|,
+name|result
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|addToPartialResults
+argument_list|(
+name|result
 argument_list|)
 expr_stmt|;
+comment|// If the result is not a partial, it is a signal to us that it is the last Result we
+comment|// need to form the complete Result client-side
+if|if
+condition|(
+operator|!
+name|result
+operator|.
+name|isPartial
+argument_list|()
+condition|)
+block|{
 name|resultsToAddToCache
 operator|.
 name|add
@@ -2468,44 +2484,18 @@ name|partialResults
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|partialResults
-operator|.
-name|clear
+name|clearPartialResults
 argument_list|()
 expr_stmt|;
-comment|// Exclude first result, it was used to form our complete result
-comment|// Exclude last result, it's a partial result
-name|addResultsToList
-argument_list|(
-name|resultsToAddToCache
-argument_list|,
-name|resultsFromServer
-argument_list|,
-literal|1
-argument_list|,
-name|resultsFromServer
-operator|.
-name|length
-operator|-
-literal|1
-argument_list|)
-expr_stmt|;
 block|}
-name|partialResults
-operator|.
-name|add
-argument_list|(
-name|partial
-argument_list|)
-expr_stmt|;
 block|}
-elseif|else
+else|else
+block|{
+comment|// The row of this result differs from the row of the partial results we have received so
+comment|// far. If our list of partials isn't empty, this is a signal to form the complete Result
+comment|// since the row has now changed
 if|if
 condition|(
-name|partial
-operator|==
-literal|null
-operator|&&
 operator|!
 name|partialResults
 operator|.
@@ -2513,21 +2503,6 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|Result
-name|finalResult
-init|=
-name|resultsFromServer
-index|[
-literal|0
-index|]
-decl_stmt|;
-name|partialResults
-operator|.
-name|add
-argument_list|(
-name|finalResult
-argument_list|)
-expr_stmt|;
 name|resultsToAddToCache
 operator|.
 name|add
@@ -2540,25 +2515,39 @@ name|partialResults
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|partialResults
-operator|.
-name|clear
+name|clearPartialResults
 argument_list|()
 expr_stmt|;
-comment|// Exclude the first result, it was used to form our complete result
-name|addResultsToList
-argument_list|(
-name|resultsToAddToCache
-argument_list|,
-name|resultsFromServer
-argument_list|,
-literal|1
-argument_list|,
-name|resultsFromServer
+block|}
+comment|// It's possible that in one response from the server we receive the final partial for
+comment|// one row and receive a partial for a different row. Thus, make sure that all Results
+comment|// are added to the proper list
+if|if
+condition|(
+name|result
 operator|.
-name|length
+name|isPartial
+argument_list|()
+condition|)
+block|{
+name|addToPartialResults
+argument_list|(
+name|result
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|resultsToAddToCache
+operator|.
+name|add
+argument_list|(
+name|result
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
 block|}
 else|else
 block|{
@@ -2580,6 +2569,99 @@ block|}
 return|return
 name|resultsToAddToCache
 return|;
+block|}
+comment|/**    * A convenience method for adding a Result to our list of partials. This method ensure that only    * Results that belong to the same row as the other partials can be added to the list.    * @param result The result that we want to add to our list of partial Results    * @throws IOException    */
+specifier|private
+name|void
+name|addToPartialResults
+parameter_list|(
+specifier|final
+name|Result
+name|result
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+specifier|final
+name|byte
+index|[]
+name|row
+init|=
+name|result
+operator|.
+name|getRow
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|partialResultsRow
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|Bytes
+operator|.
+name|equals
+argument_list|(
+name|row
+argument_list|,
+name|partialResultsRow
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Partial result row does not match. All partial results must come "
+operator|+
+literal|"from the same row. partialResultsRow: "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|partialResultsRow
+argument_list|)
+operator|+
+literal|"row: "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|row
+argument_list|)
+argument_list|)
+throw|;
+block|}
+name|partialResultsRow
+operator|=
+name|row
+expr_stmt|;
+name|partialResults
+operator|.
+name|add
+argument_list|(
+name|result
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Convenience method for clearing the list of partials and resetting the partialResultsRow.    */
+specifier|private
+name|void
+name|clearPartialResults
+parameter_list|()
+block|{
+name|partialResults
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|partialResultsRow
+operator|=
+literal|null
+expr_stmt|;
 block|}
 comment|/**    * Helper method for adding results between the indices [start, end) to the outputList    * @param outputList the list that results will be added to    * @param inputArray the array that results are taken from    * @param start beginning index (inclusive)    * @param end ending index (exclusive)    */
 specifier|private

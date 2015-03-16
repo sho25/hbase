@@ -25565,42 +25565,40 @@ name|tmpList
 argument_list|)
 expr_stmt|;
 block|}
-comment|// State should never be null, this is a precautionary measure
+comment|// Invalid states should never be returned. Receiving an invalid state means that we have
+comment|// no clue how to proceed. Throw an exception.
 if|if
 condition|(
+operator|!
+name|NextState
+operator|.
+name|isValidState
+argument_list|(
 name|state
-operator|==
-literal|null
+argument_list|)
 condition|)
 block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Invalid state returned from nextInternal. state:"
+operator|+
+name|state
+argument_list|)
+throw|;
+block|}
+comment|// If the size limit was reached it means a partial Result is being returned. Returning a
+comment|// partial Result means that we should not reset the filters; filters should only be reset in
+comment|// between rows
 if|if
 condition|(
-name|LOG
+operator|!
+name|state
 operator|.
-name|isTraceEnabled
+name|sizeLimitReached
 argument_list|()
 condition|)
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"State was null. Defaulting to no more values state"
-argument_list|)
-expr_stmt|;
-name|state
-operator|=
-name|NextState
-operator|.
-name|makeState
-argument_list|(
-name|NextState
-operator|.
-name|State
-operator|.
-name|NO_MORE_VALUES
-argument_list|)
-expr_stmt|;
-block|}
 name|resetFilters
 argument_list|()
 expr_stmt|;
