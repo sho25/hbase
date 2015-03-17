@@ -1548,9 +1548,7 @@ name|realTicket
 argument_list|)
 expr_stmt|;
 comment|// Try to reconnect
-name|AsyncRpcClient
-operator|.
-name|WHEEL_TIMER
+name|client
 operator|.
 name|newTimeout
 argument_list|(
@@ -1661,9 +1659,7 @@ operator|.
 name|maxRetries
 condition|)
 block|{
-name|AsyncRpcClient
-operator|.
-name|WHEEL_TIMER
+name|client
 operator|.
 name|newTimeout
 argument_list|(
@@ -1901,9 +1897,7 @@ condition|)
 block|{
 name|cleanupTimer
 operator|=
-name|AsyncRpcClient
-operator|.
-name|WHEEL_TIMER
+name|client
 operator|.
 name|newTimeout
 argument_list|(
@@ -3246,9 +3240,7 @@ condition|)
 block|{
 name|cleanupTimer
 operator|=
-name|AsyncRpcClient
-operator|.
-name|WHEEL_TIMER
+name|client
 operator|.
 name|newTimeout
 argument_list|(
