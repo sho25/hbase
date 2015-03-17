@@ -26657,7 +26657,7 @@ block|{
 name|int
 name|testCount
 init|=
-literal|100
+literal|50
 decl_stmt|;
 name|int
 name|numRows
@@ -26982,6 +26982,15 @@ name|i
 operator|++
 control|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"testWritesWhileGetting verify turn "
+operator|+
+name|i
+argument_list|)
+expr_stmt|;
 name|boolean
 name|previousEmpty
 init|=
