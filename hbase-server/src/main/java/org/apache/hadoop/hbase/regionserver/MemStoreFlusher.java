@@ -2165,7 +2165,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * A flushRegion that checks store file count.  If too many, puts the flush    * on delay queue to retry later.    * @param fqe    * @return true if the region was successfully flushed, false otherwise. If    * false, there will be accompanying log messages explaining why the log was    * not flushed.    */
+comment|/**    * A flushRegion that checks store file count.  If too many, puts the flush    * on delay queue to retry later.    * @param fqe    * @return true if the region was successfully flushed, false otherwise. If    * false, there will be accompanying log messages explaining why the region was    * not flushed.    */
 specifier|private
 name|boolean
 name|flushRegion
@@ -2398,7 +2398,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Flush a region.    * @param region Region to flush.    * @param emergencyFlush Set if we are being force flushed. If true the region    * needs to be removed from the flush queue. If false, when we were called    * from the main flusher run loop and we got the entry to flush by calling    * poll on the flush queue (which removed it).    * @param forceFlushAllStores whether we want to flush all store.    * @return true if the region was successfully flushed, false otherwise. If    * false, there will be accompanying log messages explaining why the log was    * not flushed.    */
+comment|/**    * Flush a region.    * @param region Region to flush.    * @param emergencyFlush Set if we are being force flushed. If true the region    * needs to be removed from the flush queue. If false, when we were called    * from the main flusher run loop and we got the entry to flush by calling    * poll on the flush queue (which removed it).    * @param forceFlushAllStores whether we want to flush all store.    * @return true if the region was successfully flushed, false otherwise. If    * false, there will be accompanying log messages explaining why the region was    * not flushed.    */
 specifier|private
 name|boolean
 name|flushRegion
