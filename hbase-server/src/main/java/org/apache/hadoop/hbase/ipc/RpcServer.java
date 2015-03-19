@@ -8366,6 +8366,66 @@ expr_stmt|;
 block|}
 block|}
 block|}
+if|if
+condition|(
+name|connectionHeader
+operator|.
+name|hasVersionInfo
+argument_list|()
+condition|)
+block|{
+name|AUDITLOG
+operator|.
+name|info
+argument_list|(
+literal|"Connection from "
+operator|+
+name|this
+operator|.
+name|hostAddress
+operator|+
+literal|" port: "
+operator|+
+name|this
+operator|.
+name|remotePort
+operator|+
+literal|" with version info: "
+operator|+
+name|TextFormat
+operator|.
+name|shortDebugString
+argument_list|(
+name|connectionHeader
+operator|.
+name|getVersionInfo
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|AUDITLOG
+operator|.
+name|info
+argument_list|(
+literal|"Connection from "
+operator|+
+name|this
+operator|.
+name|hostAddress
+operator|+
+literal|" port: "
+operator|+
+name|this
+operator|.
+name|remotePort
+operator|+
+literal|" with unknown version info"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**      * Set up cell block codecs      * @throws FatalConnectionException      */
 specifier|private
