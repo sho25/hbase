@@ -849,13 +849,15 @@ argument_list|)
 decl_stmt|;
 comment|// This should be set to how long it'll take for us to timeout against primary datanode if it
 comment|// is dead.  We set it to 61 seconds, 1 second than the default READ_TIMEOUT in HDFS, the
-comment|// default value for DFS_CLIENT_SOCKET_TIMEOUT_KEY.
+comment|// default value for DFS_CLIENT_SOCKET_TIMEOUT_KEY. If recovery is still failing after this
+comment|// timeout, then further recovery will take liner backoff with this base, to avoid endless
+comment|// preemptions when this value is not properly configured.
 name|long
-name|subsequentPause
+name|subsequentPauseBase
 init|=
 name|conf
 operator|.
-name|getInt
+name|getLong
 argument_list|(
 literal|"hbase.lease.recovery.dfs.timeout"
 argument_list|,
@@ -954,8 +956,8 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// Cycle here until subsequentPause elapses.  While spinning, check isFileClosed if
-comment|// available (should be in hadoop 2.0.5... not in hadoop 1 though.
+comment|// Cycle here until (subsequentPause * nbAttempt) elapses.  While spinning, check
+comment|// isFileClosed if available (should be in hadoop 2.0.5... not in hadoop 1 though.
 name|long
 name|localStartWaiting
 init|=
@@ -975,7 +977,9 @@ operator|-
 name|localStartWaiting
 operator|)
 operator|<
-name|subsequentPause
+name|subsequentPauseBase
+operator|*
+name|nbAttempt
 condition|)
 block|{
 name|Thread
