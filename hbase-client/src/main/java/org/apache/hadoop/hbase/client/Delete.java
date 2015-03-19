@@ -266,14 +266,14 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a Delete operation for the specified row and timestamp.<p>    *    * If no further operations are done, this will delete all columns in all    * families of the specified row with a timestamp less than or equal to the    * specified timestamp.<p>    *    * This timestamp is ONLY used for a delete row operation.  If specifying    * families or columns, you must specify each timestamp individually.    * @param rowArray We make a local copy of this passed in row.    * @param rowOffset    * @param rowLength    */
+comment|/**    * Create a Delete operation for the specified row and timestamp.<p>    *    * If no further operations are done, this will delete all columns in all    * families of the specified row with a timestamp less than or equal to the    * specified timestamp.<p>    *    * This timestamp is ONLY used for a delete row operation.  If specifying    * families or columns, you must specify each timestamp individually.    * @param row We make a local copy of this passed in row.    * @param rowOffset    * @param rowLength    */
 specifier|public
 name|Delete
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|rowArray
+name|row
 parameter_list|,
 specifier|final
 name|int
@@ -286,7 +286,7 @@ parameter_list|)
 block|{
 name|this
 argument_list|(
-name|rowArray
+name|row
 argument_list|,
 name|rowOffset
 argument_list|,
@@ -298,14 +298,14 @@ name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a Delete operation for the specified row and timestamp.<p>    *    * If no further operations are done, this will delete all columns in all    * families of the specified row with a timestamp less than or equal to the    * specified timestamp.<p>    *    * This timestamp is ONLY used for a delete row operation.  If specifying    * families or columns, you must specify each timestamp individually.    * @param rowArray We make a local copy of this passed in row.    * @param rowOffset    * @param rowLength    * @param ts maximum version timestamp (only for delete row)    */
+comment|/**    * Create a Delete operation for the specified row and timestamp.<p>    *    * If no further operations are done, this will delete all columns in all    * families of the specified row with a timestamp less than or equal to the    * specified timestamp.<p>    *    * This timestamp is ONLY used for a delete row operation.  If specifying    * families or columns, you must specify each timestamp individually.    * @param row We make a local copy of this passed in row.    * @param rowOffset    * @param rowLength    * @param timestamp maximum version timestamp (only for delete row)    */
 specifier|public
 name|Delete
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|rowArray
+name|row
 parameter_list|,
 specifier|final
 name|int
@@ -316,12 +316,12 @@ name|int
 name|rowLength
 parameter_list|,
 name|long
-name|ts
+name|timestamp
 parameter_list|)
 block|{
 name|checkRow
 argument_list|(
-name|rowArray
+name|row
 argument_list|,
 name|rowOffset
 argument_list|,
@@ -336,7 +336,7 @@ name|Bytes
 operator|.
 name|copy
 argument_list|(
-name|rowArray
+name|row
 argument_list|,
 name|rowOffset
 argument_list|,
@@ -345,7 +345,7 @@ argument_list|)
 expr_stmt|;
 name|setTimestamp
 argument_list|(
-name|ts
+name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
