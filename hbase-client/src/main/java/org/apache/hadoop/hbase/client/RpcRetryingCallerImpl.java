@@ -266,15 +266,6 @@ specifier|private
 name|long
 name|globalStartTime
 decl_stmt|;
-comment|/**    * Start and end times for a single call.    */
-specifier|private
-specifier|final
-specifier|static
-name|int
-name|MIN_RPC_TIMEOUT
-init|=
-literal|2000
-decl_stmt|;
 comment|/** How many retries are allowed before we start to log */
 specifier|private
 specifier|final
@@ -446,7 +437,7 @@ if|if
 condition|(
 name|remainingTime
 operator|<
-name|MIN_RPC_TIMEOUT
+literal|1
 condition|)
 block|{
 comment|// If there is no time left, we're trying anyway. It's too late.
@@ -454,7 +445,7 @@ comment|// 0 means no timeout, and it's not the intent here. So we secure both c
 comment|// resetting to the minimum.
 name|remainingTime
 operator|=
-name|MIN_RPC_TIMEOUT
+literal|1
 expr_stmt|;
 block|}
 return|return
@@ -1124,7 +1115,7 @@ name|t
 operator|=
 name|cause
 expr_stmt|;
-comment|// t could be a RemoteException so go aaround again.
+comment|// t could be a RemoteException so go around again.
 name|translateException
 argument_list|(
 name|t
