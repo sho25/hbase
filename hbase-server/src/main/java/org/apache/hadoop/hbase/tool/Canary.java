@@ -1047,12 +1047,6 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-return|return
-literal|null
-return|;
-block|}
-finally|finally
-block|{
 if|if
 condition|(
 name|table
@@ -1071,10 +1065,13 @@ block|}
 catch|catch
 parameter_list|(
 name|IOException
-name|e
+name|ioe
 parameter_list|)
 block|{           }
 block|}
+return|return
+literal|null
+return|;
 block|}
 name|byte
 index|[]
@@ -1334,28 +1331,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|table
-operator|!=
-literal|null
-condition|)
-block|{
-try|try
-block|{
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{             }
-block|}
 name|scan
 operator|=
 literal|null
@@ -1370,6 +1345,20 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+try|try
+block|{
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{       }
 return|return
 literal|null
 return|;
