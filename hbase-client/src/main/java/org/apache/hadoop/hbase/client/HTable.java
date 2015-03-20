@@ -1613,7 +1613,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|execute
 argument_list|(

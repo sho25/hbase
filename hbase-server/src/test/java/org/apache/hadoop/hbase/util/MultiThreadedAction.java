@@ -309,7 +309,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|ConnectionFactory
 import|;
 end_import
 
@@ -325,7 +325,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnectionManager
+name|HConnection
 import|;
 end_import
 
@@ -972,7 +972,10 @@ name|this
 operator|.
 name|connection
 operator|=
-name|HConnectionManager
+operator|(
+name|HConnection
+operator|)
+name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
