@@ -312,7 +312,14 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Error resolving host name"
+literal|"Error resolving host name: "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 throw|throw
@@ -329,7 +336,14 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Error while trying to perform the initial login"
+literal|"Error while trying to perform the initial login: "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 throw|throw
@@ -438,9 +452,16 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|info
+name|error
 argument_list|(
-literal|"Got exception while trying to refresh credentials "
+literal|"Got exception while trying to refresh credentials: "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}
