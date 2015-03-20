@@ -394,7 +394,9 @@ name|EMPTY_RESULT
 init|=
 operator|new
 name|Result
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
@@ -418,13 +420,35 @@ operator|.
 name|RegionLoadStats
 name|stats
 decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|readonly
+decl_stmt|;
 comment|/**    * Creates an empty Result w/ no KeyValue payload; returns null if you call {@link #rawCells()}.    * Use this to represent no results if {@code null} won't do or in old 'mapred' as opposed    * to 'mapreduce' package MapReduce where you need to overwrite a Result instance with a    * {@link #copyFrom(Result)} call.    */
 specifier|public
 name|Result
 parameter_list|()
 block|{
-name|super
-argument_list|()
+name|this
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Allows to construct special purpose immutable Result objects,    * such as EMPTY_RESULT.    * @param readonly whether this Result instance is readonly    */
+specifier|private
+name|Result
+parameter_list|(
+name|boolean
+name|readonly
+parameter_list|)
+block|{
+name|this
+operator|.
+name|readonly
+operator|=
+name|readonly
 expr_stmt|;
 block|}
 comment|/**    * Instantiate a Result with the specified List of KeyValues.    *<br><strong>Note:</strong> You must ensure that the keyvalues are already sorted.    * @param cells List of cells    */
@@ -720,6 +744,12 @@ operator|.
 name|partial
 operator|=
 name|partial
+expr_stmt|;
+name|this
+operator|.
+name|readonly
+operator|=
+literal|false
 expr_stmt|;
 block|}
 comment|/**    * Method for retrieving the row key that corresponds to    * the row from which this Result was created.    * @return row    */
@@ -3295,7 +3325,7 @@ return|return
 name|size
 return|;
 block|}
-comment|/**    * Copy another Result into this one. Needed for the old Mapred framework    * @param other    */
+comment|/**    * Copy another Result into this one. Needed for the old Mapred framework    * @throws UnsupportedOperationException if invoked on instance of EMPTY_RESULT    * (which is supposed to be immutable).    * @param other    */
 specifier|public
 name|void
 name|copyFrom
@@ -3304,6 +3334,9 @@ name|Result
 name|other
 parameter_list|)
 block|{
+name|checkReadonly
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|row
@@ -3420,6 +3453,9 @@ name|Boolean
 name|exists
 parameter_list|)
 block|{
+name|checkReadonly
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|exists
@@ -3447,7 +3483,7 @@ return|return
 name|partial
 return|;
 block|}
-comment|/**    * Add load information about the region to the information about the result    * @param loadStats statistics about the current region from which this was returned    */
+comment|/**    * Add load information about the region to the information about the result    * @param loadStats statistics about the current region from which this was returned    * @throws UnsupportedOperationException if invoked on instance of EMPTY_RESULT    * (which is supposed to be immutable).    */
 specifier|public
 name|void
 name|addResults
@@ -3458,6 +3494,9 @@ name|RegionLoadStats
 name|loadStats
 parameter_list|)
 block|{
+name|checkReadonly
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|stats
@@ -3476,6 +3515,28 @@ block|{
 return|return
 name|stats
 return|;
+block|}
+comment|/**    * All methods modifying state of Result object must call this method    * to ensure that special purpose immutable Results can't be accidentally modified.    */
+specifier|private
+name|void
+name|checkReadonly
+parameter_list|()
+block|{
+if|if
+condition|(
+name|readonly
+operator|==
+literal|true
+condition|)
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"Attempting to modify readonly EMPTY_RESULT!"
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 end_class
