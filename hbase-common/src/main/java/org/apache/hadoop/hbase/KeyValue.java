@@ -11385,6 +11385,86 @@ name|sum
 argument_list|)
 return|;
 block|}
+comment|/**    * This is a hack that should be removed once we don't care about matching    * up client- and server-side estimations of cell size. It needed to be    * backwards compatible with estimations done by older clients. We need to    * pretend that tags never exist and KeyValues aren't serialized with tag    * length included. See HBASE-13262 and HBASE-13303    */
+annotation|@
+name|Deprecated
+specifier|public
+name|long
+name|heapSizeWithoutTags
+parameter_list|()
+block|{
+name|int
+name|sum
+init|=
+literal|0
+decl_stmt|;
+name|sum
+operator|+=
+name|ClassSize
+operator|.
+name|OBJECT
+expr_stmt|;
+comment|// the KeyValue object itself
+name|sum
+operator|+=
+name|ClassSize
+operator|.
+name|REFERENCE
+expr_stmt|;
+comment|// pointer to "bytes"
+name|sum
+operator|+=
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|ClassSize
+operator|.
+name|ARRAY
+argument_list|)
+expr_stmt|;
+comment|// "bytes"
+name|sum
+operator|+=
+name|KeyValue
+operator|.
+name|KEYVALUE_INFRASTRUCTURE_SIZE
+expr_stmt|;
+name|sum
+operator|+=
+name|getKeyLength
+argument_list|()
+expr_stmt|;
+name|sum
+operator|+=
+name|getValueLength
+argument_list|()
+expr_stmt|;
+name|sum
+operator|+=
+literal|2
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_INT
+expr_stmt|;
+comment|// offset, length
+name|sum
+operator|+=
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+expr_stmt|;
+comment|// memstoreTS
+return|return
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|sum
+argument_list|)
+return|;
+block|}
 comment|/**    * A simple form of KeyValue that creates a keyvalue with only the key part of the byte[]    * Mainly used in places where we need to compare two cells.  Avoids copying of bytes    * In places like block index keys, we need to compare the key byte[] with a cell.    * Hence create a Keyvalue(aka Cell) that would help in comparing as two cells    */
 specifier|public
 specifier|static

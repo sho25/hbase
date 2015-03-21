@@ -13136,7 +13136,7 @@ name|currentScanResultSize
 operator|+=
 name|CellUtil
 operator|.
-name|estimatedHeapSizeOf
+name|estimatedHeapSizeOfWithoutTags
 argument_list|(
 name|cell
 argument_list|)
@@ -13408,7 +13408,7 @@ name|currentScanResultSize
 operator|+=
 name|CellUtil
 operator|.
-name|estimatedHeapSizeOf
+name|estimatedHeapSizeOfWithoutTags
 argument_list|(
 name|cell
 argument_list|)
