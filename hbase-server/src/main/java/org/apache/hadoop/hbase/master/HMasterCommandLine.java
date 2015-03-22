@@ -623,7 +623,7 @@ literal|"hbase.regions.server.count.min"
 argument_list|,
 name|Integer
 operator|.
-name|valueOf
+name|parseInt
 argument_list|(
 name|val
 argument_list|)
@@ -669,7 +669,7 @@ literal|"hbase.regions.server.count.min"
 argument_list|,
 name|Integer
 operator|.
-name|valueOf
+name|parseInt
 argument_list|(
 name|val
 argument_list|)
@@ -740,7 +740,7 @@ literal|"hbase.regionservers"
 argument_list|,
 name|Integer
 operator|.
-name|valueOf
+name|parseInt
 argument_list|(
 name|val
 argument_list|)
@@ -786,7 +786,7 @@ literal|"hbase.masters"
 argument_list|,
 name|Integer
 operator|.
-name|valueOf
+name|parseInt
 argument_list|(
 name|val
 argument_list|)

@@ -73,6 +73,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -637,9 +651,15 @@ name|ZKPermissionWatcher
 name|zkperms
 decl_stmt|;
 specifier|private
-specifier|volatile
-name|long
+specifier|final
+name|AtomicLong
 name|mtime
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|0L
+argument_list|)
 decl_stmt|;
 specifier|private
 name|TableAuthManager
@@ -1221,7 +1241,9 @@ operator|=
 name|newCache
 expr_stmt|;
 name|mtime
-operator|++
+operator|.
+name|incrementAndGet
+argument_list|()
 expr_stmt|;
 block|}
 catch|catch
@@ -1353,7 +1375,9 @@ name|newTablePerms
 argument_list|)
 expr_stmt|;
 name|mtime
-operator|++
+operator|.
+name|incrementAndGet
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Updates the internal permissions cache for a single table, splitting    * the permissions listed into separate caches for users and groups to optimize    * group lookups.    *    * @param namespace    * @param tablePerms    */
@@ -1467,7 +1491,9 @@ name|newTablePerms
 argument_list|)
 expr_stmt|;
 name|mtime
-operator|++
+operator|.
+name|incrementAndGet
+argument_list|()
 expr_stmt|;
 block|}
 specifier|private
@@ -3760,6 +3786,9 @@ parameter_list|()
 block|{
 return|return
 name|mtime
+operator|.
+name|get
+argument_list|()
 return|;
 block|}
 specifier|static

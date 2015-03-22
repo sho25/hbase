@@ -20778,6 +20778,7 @@ block|}
 empty_stmt|;
 comment|/**    * Display the full report from fsck. This displays all live and dead region    * servers, and all known regions.    */
 specifier|public
+specifier|static
 name|void
 name|setDisplayFullReport
 parameter_list|()
@@ -20788,6 +20789,7 @@ literal|true
 expr_stmt|;
 block|}
 comment|/**    * Set summary mode.    * Print only summary of the tables and status (OK or INCONSISTENT)    */
+specifier|static
 name|void
 name|setSummary
 parameter_list|()

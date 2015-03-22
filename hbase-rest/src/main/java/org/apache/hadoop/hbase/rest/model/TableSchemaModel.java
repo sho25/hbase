@@ -1057,7 +1057,7 @@ literal|null
 condition|?
 name|Boolean
 operator|.
-name|valueOf
+name|parseBoolean
 argument_list|(
 name|o
 operator|.
@@ -1091,7 +1091,7 @@ literal|null
 condition|?
 name|Boolean
 operator|.
-name|valueOf
+name|parseBoolean
 argument_list|(
 name|o
 operator|.
@@ -1125,7 +1125,7 @@ literal|null
 condition|?
 name|Boolean
 operator|.
-name|valueOf
+name|parseBoolean
 argument_list|(
 name|o
 operator|.
@@ -1424,7 +1424,7 @@ name|setTtl
 argument_list|(
 name|Integer
 operator|.
-name|valueOf
+name|parseInt
 argument_list|(
 name|familyAttrs
 operator|.
@@ -1455,7 +1455,7 @@ name|setMaxVersions
 argument_list|(
 name|Integer
 operator|.
-name|valueOf
+name|parseInt
 argument_list|(
 name|familyAttrs
 operator|.
@@ -1520,7 +1520,7 @@ name|setReadOnly
 argument_list|(
 name|Boolean
 operator|.
-name|valueOf
+name|parseBoolean
 argument_list|(
 name|attrs
 operator|.

@@ -6485,7 +6485,7 @@ operator|.
 name|connect
 argument_list|()
 expr_stmt|;
-name|fsck
+name|HBaseFsck
 operator|.
 name|setDisplayFullReport
 argument_list|()
@@ -10403,7 +10403,7 @@ operator|.
 name|connect
 argument_list|()
 expr_stmt|;
-name|hbck
+name|HBaseFsck
 operator|.
 name|setDisplayFullReport
 argument_list|()
@@ -11835,7 +11835,7 @@ operator|.
 name|connect
 argument_list|()
 expr_stmt|;
-name|fsck
+name|HBaseFsck
 operator|.
 name|setDisplayFullReport
 argument_list|()
@@ -11899,7 +11899,7 @@ operator|.
 name|connect
 argument_list|()
 expr_stmt|;
-name|fsck
+name|HBaseFsck
 operator|.
 name|setDisplayFullReport
 argument_list|()
@@ -12099,7 +12099,7 @@ operator|.
 name|connect
 argument_list|()
 expr_stmt|;
-name|fsck
+name|HBaseFsck
 operator|.
 name|setDisplayFullReport
 argument_list|()
@@ -12163,7 +12163,7 @@ operator|.
 name|connect
 argument_list|()
 expr_stmt|;
-name|fsck
+name|HBaseFsck
 operator|.
 name|setDisplayFullReport
 argument_list|()
@@ -12492,7 +12492,7 @@ operator|.
 name|connect
 argument_list|()
 expr_stmt|;
-name|fsck
+name|HBaseFsck
 operator|.
 name|setDisplayFullReport
 argument_list|()
@@ -12552,7 +12552,7 @@ operator|.
 name|connect
 argument_list|()
 expr_stmt|;
-name|fsck
+name|HBaseFsck
 operator|.
 name|setDisplayFullReport
 argument_list|()
