@@ -2217,6 +2217,8 @@ argument_list|(
 name|mockEnv
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|String
 name|dstFile
 init|=
@@ -2301,6 +2303,15 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|EnvironmentEdgeManager
+operator|.
+name|reset
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Ugly test that ensures we can get at the hedged read counters in dfsclient.    * Does a bit of preading with hedged reads enabled using code taken from hdfs TestPread.    * @throws Exception    */
 annotation|@
