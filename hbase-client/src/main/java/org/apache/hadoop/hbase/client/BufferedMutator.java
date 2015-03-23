@@ -183,6 +183,14 @@ name|getWriteBufferSize
 parameter_list|()
 function_decl|;
 comment|/**    * Listens for asynchronous exceptions on a {@link BufferedMutator}.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 interface|interface
 name|ExceptionListener
 block|{
