@@ -3066,7 +3066,7 @@ name|cell
 argument_list|)
 return|;
 block|}
-comment|/**    * This is a hack that should be removed once we don't care about matching    * up client- and server-side estimations of cell size. It needed to be    * backwards compatible with estimations done by older clients. We need to    * pretend that tags never exist and cells aren't serialized with tag    * length included. See HBASE-13262 and HBASE-13303    */
+comment|/**    * This is a hack that should be removed once we don't care about matching    * up client- and server-side estimations of cell size. It needed to be    * backwards compatible with estimations done by older clients. We need to    * pretend that tags never exist and cells aren't serialized with tag    * length included. See HBASE-13262 and HBASE-13303    * @deprecated See above comment    */
 annotation|@
 name|Deprecated
 specifier|public

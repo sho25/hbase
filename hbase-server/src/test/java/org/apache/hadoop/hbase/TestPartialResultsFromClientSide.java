@@ -2148,6 +2148,11 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
+name|int
+name|repCount
+init|=
+literal|0
+decl_stmt|;
 while|while
 condition|(
 operator|(
@@ -2200,6 +2205,10 @@ operator|+
 literal|" cellsPerPartialResult:"
 operator|+
 name|cellsPerPartialResult
+operator|+
+literal|" rep:"
+operator|+
+name|repCount
 decl_stmt|;
 name|assertTrue
 argument_list|(
@@ -2238,6 +2247,9 @@ name|batch
 argument_list|)
 expr_stmt|;
 block|}
+name|repCount
+operator|++
+expr_stmt|;
 block|}
 name|scanner
 operator|.
@@ -2416,6 +2428,10 @@ expr_stmt|;
 block|}
 do|while
 condition|(
+name|partialResult
+operator|!=
+literal|null
+operator|&&
 name|partialResult
 operator|.
 name|isPartial
@@ -3464,7 +3480,7 @@ literal|"Results r1:"
 operator|+
 name|r1
 operator|+
-literal|" r2:"
+literal|" \nr2:"
 operator|+
 name|r2
 operator|+
