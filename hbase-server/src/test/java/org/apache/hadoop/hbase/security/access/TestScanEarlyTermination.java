@@ -213,22 +213,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Put
 import|;
 end_import
@@ -1602,7 +1586,7 @@ name|USER_OTHER
 argument_list|)
 expr_stmt|;
 comment|// A scan of FAMILY2 will throw an AccessDeniedException
-name|verifyDeniedWithException
+name|verifyDenied
 argument_list|(
 operator|new
 name|AccessTestAction

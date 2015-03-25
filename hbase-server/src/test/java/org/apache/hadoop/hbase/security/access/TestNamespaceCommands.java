@@ -237,22 +237,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Result
 import|;
 end_import
@@ -1578,7 +1562,7 @@ argument_list|,
 name|USER_GLOBAL_ADMIN
 argument_list|)
 expr_stmt|;
-name|verifyDeniedWithException
+name|verifyDenied
 argument_list|(
 name|modifyNamespace
 argument_list|,
@@ -1706,7 +1690,7 @@ name|USER_GLOBAL_ADMIN
 argument_list|)
 expr_stmt|;
 comment|// all others should be denied
-name|verifyDeniedWithException
+name|verifyDenied
 argument_list|(
 name|createNamespace
 argument_list|,
@@ -1743,7 +1727,7 @@ argument_list|,
 name|USER_GLOBAL_ADMIN
 argument_list|)
 expr_stmt|;
-name|verifyDeniedWithException
+name|verifyDenied
 argument_list|(
 name|deleteNamespace
 argument_list|,
@@ -1830,7 +1814,7 @@ argument_list|,
 name|USER_NS_ADMIN
 argument_list|)
 expr_stmt|;
-name|verifyDeniedWithException
+name|verifyDenied
 argument_list|(
 name|getNamespaceAction
 argument_list|,
@@ -2526,7 +2510,7 @@ argument_list|,
 name|USER_GLOBAL_ADMIN
 argument_list|)
 expr_stmt|;
-name|verifyDeniedWithException
+name|verifyDenied
 argument_list|(
 name|grantAction
 argument_list|,
@@ -2562,7 +2546,7 @@ argument_list|,
 name|USER_GLOBAL_ADMIN
 argument_list|)
 expr_stmt|;
-name|verifyDeniedWithException
+name|verifyDenied
 argument_list|(
 name|revokeAction
 argument_list|,
@@ -2600,7 +2584,7 @@ argument_list|,
 name|USER_NS_ADMIN
 argument_list|)
 expr_stmt|;
-name|verifyDeniedWithException
+name|verifyDenied
 argument_list|(
 name|getPermissionsAction
 argument_list|,
@@ -2712,7 +2696,7 @@ argument_list|,
 name|USER_NS_CREATE
 argument_list|)
 expr_stmt|;
-name|verifyDeniedWithException
+name|verifyDenied
 argument_list|(
 name|createTable
 argument_list|,
