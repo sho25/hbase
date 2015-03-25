@@ -816,12 +816,16 @@ name|ServiceException
 throws|,
 name|Throwable
 function_decl|;
-comment|/**    * Returns the maximum size in bytes of the write buffer for this HTable.    *<p>    * The default value comes from the configuration parameter    * {@code hbase.client.write.buffer}.    * @return The size of the write buffer in bytes.    */
+comment|/**    * Returns the maximum size in bytes of the write buffer for this HTable.    *<p>    * The default value comes from the configuration parameter    * {@code hbase.client.write.buffer}.    * @return The size of the write buffer in bytes.     * @deprecated as of 1.0.1 (should not have been in 1.0.0). Replaced by {@link BufferedMutator#getWriteBufferSize()}    */
+annotation|@
+name|Deprecated
 name|long
 name|getWriteBufferSize
 parameter_list|()
 function_decl|;
-comment|/**    * Sets the size of the buffer in bytes.    *<p>    * If the new size is less than the current amount of data in the    * write buffer, the buffer gets flushed.    * @param writeBufferSize The new write buffer size, in bytes.    * @throws IOException if a remote or network exception occurs.    */
+comment|/**    * Sets the size of the buffer in bytes.    *<p>    * If the new size is less than the current amount of data in the    * write buffer, the buffer gets flushed.    * @param writeBufferSize The new write buffer size, in bytes.    * @throws IOException if a remote or network exception occurs.    * @deprecated as of 1.0.1 (should not have been in 1.0.0). Replaced by {@link BufferedMutator} and    * {@link BufferedMutatorParams#writeBufferSize(long)}    */
+annotation|@
+name|Deprecated
 name|void
 name|setWriteBufferSize
 parameter_list|(
