@@ -206,9 +206,7 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|// Needs an instance of hci to function.  Set after construct this instance.
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 name|hci
 decl_stmt|;
 annotation|@
@@ -227,9 +225,7 @@ operator|!
 operator|(
 name|connection
 operator|instanceof
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 operator|)
 condition|)
 block|{
@@ -237,7 +233,7 @@ throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-literal|"This registry depends on HConnectionImplementation"
+literal|"This registry depends on ConnectionImplementation"
 argument_list|)
 throw|;
 block|}
@@ -246,9 +242,7 @@ operator|.
 name|hci
 operator|=
 operator|(
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 operator|)
 name|connection
 expr_stmt|;

@@ -353,9 +353,7 @@ name|HConnection
 operator|.
 name|HBASE_CLIENT_CONNECTION_IMPL
 argument_list|,
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 operator|.
 name|class
 operator|.

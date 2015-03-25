@@ -1125,7 +1125,7 @@ operator|.
 name|create
 argument_list|()
 expr_stmt|;
-comment|// Run my HConnection overrides.  Use my little HConnectionImplementation below which
+comment|// Run my HConnection overrides.  Use my little ConnectionImplementation below which
 comment|// allows me insert mocks and also use my Registry below rather than the default zk based
 comment|// one so tests run faster and don't have zk dependency.
 name|this
@@ -1828,9 +1828,7 @@ specifier|static
 class|class
 name|ScanOpenNextThenExceptionThenRecoverConnection
 extends|extends
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 block|{
 specifier|final
 name|ClientService
@@ -2005,9 +2003,7 @@ specifier|static
 class|class
 name|RegionServerStoppedOnScannerOpenConnection
 extends|extends
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 block|{
 specifier|final
 name|ClientService
@@ -2185,9 +2181,7 @@ specifier|static
 class|class
 name|RpcTimeoutConnection
 extends|extends
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 block|{
 specifier|final
 name|ClientService
@@ -2318,9 +2312,7 @@ specifier|static
 class|class
 name|ManyServersManyRegionsConnection
 extends|extends
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 block|{
 comment|// All access should be synchronized
 specifier|final

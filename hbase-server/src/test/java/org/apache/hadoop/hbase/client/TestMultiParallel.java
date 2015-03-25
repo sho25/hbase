@@ -3721,7 +3721,7 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|ConnectionManager
+name|ConnectionImplementation
 operator|.
 name|injectNonceGeneratorForTesting
 argument_list|(

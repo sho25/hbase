@@ -381,7 +381,7 @@ name|cnm
 parameter_list|)
 block|{
 return|return
-name|ConnectionManager
+name|ConnectionImplementation
 operator|.
 name|injectNonceGeneratorForTesting
 argument_list|(
@@ -611,9 +611,7 @@ specifier|static
 class|class
 name|MasterlessConnection
 extends|extends
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 block|{
 name|MasterlessConnection
 parameter_list|(

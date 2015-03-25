@@ -2372,9 +2372,7 @@ specifier|static
 class|class
 name|MyConnectionImpl
 extends|extends
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 block|{
 specifier|final
 name|AtomicInteger

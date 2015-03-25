@@ -635,7 +635,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|// Copied from HConnectionImplementation.getBatchPool()
+comment|// Copied from ConnectionImplementation.getBatchPool()
 comment|// We should get rid of this when HConnection.processBatchCallback is un-deprecated and provides
 comment|// an API to manage a batch pool
 specifier|private
@@ -646,7 +646,7 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
-comment|// Use the same config for keep alive as in HConnectionImplementation.getBatchPool();
+comment|// Use the same config for keep alive as in ConnectionImplementation.getBatchPool();
 name|int
 name|maxThreads
 init|=

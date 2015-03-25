@@ -11478,9 +11478,7 @@ name|zkw
 operator|=
 operator|(
 operator|(
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 operator|)
 name|connection
 operator|)
@@ -15971,15 +15969,11 @@ throws|throws
 name|IOException
 block|{
 comment|// TODO: Fix!  Reaching into internal implementation!!!!
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 name|connection
 init|=
 operator|(
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 operator|)
 name|this
 operator|.
