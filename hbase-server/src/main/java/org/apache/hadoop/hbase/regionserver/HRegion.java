@@ -26120,7 +26120,7 @@ name|size
 operator|+=
 name|CellUtil
 operator|.
-name|estimatedHeapSizeOf
+name|estimatedHeapSizeOfWithoutTags
 argument_list|(
 name|c
 argument_list|)
