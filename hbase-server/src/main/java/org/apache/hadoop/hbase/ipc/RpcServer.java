@@ -10685,6 +10685,14 @@ argument_list|,
 name|param
 argument_list|)
 decl_stmt|;
+name|long
+name|endTime
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 name|int
 name|processingTime
 init|=
@@ -10692,10 +10700,7 @@ call|(
 name|int
 call|)
 argument_list|(
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
+name|endTime
 operator|-
 name|startTime
 argument_list|)
@@ -10708,6 +10713,18 @@ name|int
 call|)
 argument_list|(
 name|startTime
+operator|-
+name|receiveTime
+argument_list|)
+decl_stmt|;
+name|int
+name|totalTime
+init|=
+call|(
+name|int
+call|)
+argument_list|(
+name|endTime
 operator|-
 name|receiveTime
 argument_list|)
@@ -10748,6 +10765,10 @@ operator|+
 literal|" processingTime: "
 operator|+
 name|processingTime
+operator|+
+literal|" totalTime: "
+operator|+
+name|totalTime
 argument_list|)
 expr_stmt|;
 block|}
@@ -10763,6 +10784,13 @@ operator|.
 name|processedCall
 argument_list|(
 name|processingTime
+argument_list|)
+expr_stmt|;
+name|metrics
+operator|.
+name|totalCall
+argument_list|(
+name|totalTime
 argument_list|)
 expr_stmt|;
 name|long
