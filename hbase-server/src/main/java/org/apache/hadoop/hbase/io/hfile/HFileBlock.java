@@ -564,7 +564,6 @@ name|Bytes
 operator|.
 name|SIZEOF_INT
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|CacheableDeserializer
@@ -686,7 +685,7 @@ operator|)
 literal|1
 decl_stmt|;
 name|HFileBlock
-name|ourBuffer
+name|hFileBlock
 init|=
 operator|new
 name|HFileBlock
@@ -696,7 +695,7 @@ argument_list|,
 name|usesChecksum
 argument_list|)
 decl_stmt|;
-name|ourBuffer
+name|hFileBlock
 operator|.
 name|offset
 operator|=
@@ -705,7 +704,7 @@ operator|.
 name|getLong
 argument_list|()
 expr_stmt|;
-name|ourBuffer
+name|hFileBlock
 operator|.
 name|nextBlockOnDiskSizeWithHeader
 operator|=
@@ -716,26 +715,26 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|ourBuffer
+name|hFileBlock
 operator|.
 name|hasNextBlockHeader
 argument_list|()
 condition|)
 block|{
-name|ourBuffer
+name|hFileBlock
 operator|.
 name|buf
 operator|.
 name|limit
 argument_list|(
-name|ourBuffer
+name|hFileBlock
 operator|.
 name|buf
 operator|.
 name|limit
 argument_list|()
 operator|-
-name|ourBuffer
+name|hFileBlock
 operator|.
 name|headerSize
 argument_list|()
@@ -743,7 +742,7 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|ourBuffer
+name|hFileBlock
 return|;
 block|}
 annotation|@
@@ -2893,8 +2892,8 @@ name|InputStream
 name|in
 parameter_list|,
 name|byte
-name|buf
 index|[]
+name|buf
 parameter_list|,
 name|int
 name|bufOffset
@@ -3089,7 +3088,7 @@ name|byte
 index|[]
 name|onDiskChecksum
 decl_stmt|;
-comment|/**      * Valid in the READY state. Contains the header and the uncompressed (but      * potentially encoded, if this is a data block) bytes, so the length is      * {@link #uncompressedSizeWithoutHeader} + {@link org.apache.hadoop.hbase.HConstants#HFILEBLOCK_HEADER_SIZE}.      * Does not store checksums.      */
+comment|/**      * Valid in the READY state. Contains the header and the uncompressed (but      * potentially encoded, if this is a data block) bytes, so the length is      * {@link #uncompressedSizeWithoutHeader} +      * {@link org.apache.hadoop.hbase.HConstants#HFILEBLOCK_HEADER_SIZE}.      * Does not store checksums.      */
 specifier|private
 name|byte
 index|[]
@@ -7037,7 +7036,6 @@ operator|.
 name|getInt
 argument_list|()
 decl_stmt|;
-empty_stmt|;
 name|int
 name|uncompressedBlockSizeNoHeader
 init|=
@@ -7046,7 +7044,6 @@ operator|.
 name|getInt
 argument_list|()
 decl_stmt|;
-empty_stmt|;
 name|long
 name|prevBlockOffset
 init|=

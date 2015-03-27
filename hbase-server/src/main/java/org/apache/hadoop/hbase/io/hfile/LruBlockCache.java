@@ -709,9 +709,8 @@ name|boolean
 name|forceInMemory
 decl_stmt|;
 comment|/** Where to send victims (blocks evicted/missing from the cache) */
-comment|// TODO: Fix it so this is not explicit reference to a particular BlockCache implementation.
 specifier|private
-name|BucketCache
+name|BlockCache
 name|victimHandler
 init|=
 literal|null
@@ -1716,14 +1715,22 @@ argument_list|(
 name|caching
 argument_list|)
 expr_stmt|;
+comment|// If there is another block cache then try and read there.
+comment|// However if this is a retry ( second time in double checked locking )
+comment|// And it's already a miss then the l2 will also be a miss.
 if|if
 condition|(
 name|victimHandler
 operator|!=
 literal|null
+operator|&&
+operator|!
+name|repeat
 condition|)
 block|{
-return|return
+name|Cacheable
+name|result
+init|=
 name|victimHandler
 operator|.
 name|getBlock
@@ -1736,6 +1743,33 @@ name|repeat
 argument_list|,
 name|updateCacheMetrics
 argument_list|)
+decl_stmt|;
+comment|// Promote this to L1.
+if|if
+condition|(
+name|result
+operator|!=
+literal|null
+operator|&&
+name|caching
+condition|)
+block|{
+name|cacheBlock
+argument_list|(
+name|cacheKey
+argument_list|,
+name|result
+argument_list|,
+comment|/* inMemory = */
+literal|false
+argument_list|,
+comment|/* cacheData = */
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|result
 return|;
 block|}
 return|return
@@ -1981,6 +2015,13 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|victimHandler
+operator|instanceof
+name|BucketCache
+condition|)
+block|{
 name|boolean
 name|wait
 init|=
@@ -2002,7 +2043,12 @@ name|BlockPriority
 operator|.
 name|MEMORY
 decl_stmt|;
+operator|(
+operator|(
+name|BucketCache
+operator|)
 name|victimHandler
+operator|)
 operator|.
 name|cacheBlockWithWait
 argument_list|(
@@ -2021,6 +2067,25 @@ argument_list|,
 name|wait
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|victimHandler
+operator|.
+name|cacheBlock
+argument_list|(
+name|block
+operator|.
+name|getCacheKey
+argument_list|()
+argument_list|,
+name|block
+operator|.
+name|getBuffer
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 return|return
 name|block
@@ -3358,7 +3423,25 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{}
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Interrupted eviction thread "
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 name|LruBlockCache
 name|cache
@@ -4712,7 +4795,7 @@ specifier|public
 name|void
 name|setVictimCache
 parameter_list|(
-name|BucketCache
+name|BlockCache
 name|handler
 parameter_list|)
 block|{
@@ -4741,7 +4824,7 @@ return|return
 name|map
 return|;
 block|}
-name|BucketCache
+name|BlockCache
 name|getVictimHandler
 parameter_list|()
 block|{

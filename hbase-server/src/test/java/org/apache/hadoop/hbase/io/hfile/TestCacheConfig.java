@@ -1522,7 +1522,7 @@ name|getMaxSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|BucketCache
+name|BlockCache
 name|bc
 init|=
 name|lbc
@@ -1535,7 +1535,12 @@ name|assertEquals
 argument_list|(
 name|bcExpectedSize
 argument_list|,
+operator|(
+operator|(
+name|BucketCache
+operator|)
 name|bc
+operator|)
 operator|.
 name|getMaxSize
 argument_list|()
