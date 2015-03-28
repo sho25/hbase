@@ -99,20 +99,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|DoNotRetryIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -204,6 +190,22 @@ operator|.
 name|master
 operator|.
 name|TableNamespaceManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|quotas
+operator|.
+name|QuotaExceededException
 import|;
 end_import
 
@@ -579,7 +581,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|DoNotRetryIOException
+name|QuotaExceededException
 argument_list|(
 literal|"The table "
 operator|+
@@ -590,7 +592,14 @@ argument_list|()
 operator|+
 literal|"cannot be created as it would exceed maximum number of tables allowed "
 operator|+
-literal|" in the namespace."
+literal|" in the namespace.  The total number of tables permitted is "
+operator|+
+name|TableNamespaceManager
+operator|.
+name|getMaxTables
+argument_list|(
+name|nspdesc
+argument_list|)
 argument_list|)
 throw|;
 block|}
@@ -615,7 +624,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|DoNotRetryIOException
+name|QuotaExceededException
 argument_list|(
 literal|"The table "
 operator|+
