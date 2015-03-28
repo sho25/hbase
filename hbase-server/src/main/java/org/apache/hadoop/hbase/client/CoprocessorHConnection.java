@@ -191,12 +191,10 @@ name|NonceGenerator
 name|NO_NONCE_GEN
 init|=
 operator|new
-name|ConnectionManager
-operator|.
 name|NoNonceGenerator
 argument_list|()
 decl_stmt|;
-comment|/**    * Create an unmanaged {@link HConnection} based on the environment in which we are running the    * coprocessor. The {@link HConnection} must be externally cleaned up (we bypass the usual HTable    * cleanup mechanisms since we own everything).    * @param env environment hosting the {@link HConnection}    * @return an unmanaged {@link HConnection}.    * @throws IOException if we cannot create the connection    */
+comment|/**    * Create an {@link HConnection} based on the environment in which we are running the    * coprocessor. The {@link HConnection} must be externally cleaned up (we bypass the usual HTable    * cleanup mechanisms since we own everything).    * @param env environment hosting the {@link HConnection}    * @return instance of {@link HConnection}.    * @throws IOException if we cannot create the connection    */
 specifier|public
 specifier|static
 name|ClusterConnection
@@ -252,9 +250,12 @@ return|;
 block|}
 block|}
 return|return
-name|ConnectionManager
+operator|(
+name|ClusterConnection
+operator|)
+name|ConnectionFactory
 operator|.
-name|createConnectionInternal
+name|createConnection
 argument_list|(
 name|env
 operator|.
@@ -331,8 +332,6 @@ block|{
 name|super
 argument_list|(
 name|conf
-argument_list|,
-literal|false
 argument_list|,
 literal|null
 argument_list|,

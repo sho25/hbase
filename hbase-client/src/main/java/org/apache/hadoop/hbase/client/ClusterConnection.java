@@ -597,11 +597,6 @@ name|Configuration
 name|conf
 parameter_list|)
 function_decl|;
-comment|/**    *     * @return true if this is a managed connection.    */
-name|boolean
-name|isManaged
-parameter_list|()
-function_decl|;
 comment|/**    * @return the current statistics tracker associated with this connection    */
 name|ServerStatisticTracker
 name|getStatisticsTracker

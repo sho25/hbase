@@ -618,9 +618,6 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|boolean
-name|managed
-parameter_list|,
 name|ExecutorService
 name|pool
 parameter_list|,
@@ -633,8 +630,6 @@ block|{
 name|super
 argument_list|(
 name|conf
-argument_list|,
-name|managed
 argument_list|,
 name|pool
 argument_list|,

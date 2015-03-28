@@ -33631,10 +33631,10 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 expr_stmt|;
-name|HConnection
+name|Connection
 name|conn
 init|=
-name|ConnectionManager
+name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(

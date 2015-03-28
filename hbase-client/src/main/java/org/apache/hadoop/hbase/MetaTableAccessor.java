@@ -275,22 +275,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Connection
 import|;
 end_import
@@ -372,22 +356,6 @@ operator|.
 name|client
 operator|.
 name|Mutation
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|NeedUnmanagedConnectionException
 import|;
 end_import
 
@@ -1240,41 +1208,6 @@ argument_list|(
 literal|"No connection"
 argument_list|)
 throw|;
-block|}
-comment|// If the passed in 'connection' is 'managed' -- i.e. every second test uses
-comment|// a Table or an HBaseAdmin with managed connections -- then doing
-comment|// connection.getTable will throw an exception saying you are NOT to use
-comment|// managed connections getting tables.  Leaving this as it is for now. Will
-comment|// revisit when inclined to change all tests.  User code probaby makes use of
-comment|// managed connections too so don't change it till post hbase 1.0.
-comment|//
-comment|// There should still be a way to use this method with an unmanaged connection.
-if|if
-condition|(
-name|connection
-operator|instanceof
-name|ClusterConnection
-condition|)
-block|{
-if|if
-condition|(
-operator|(
-operator|(
-name|ClusterConnection
-operator|)
-name|connection
-operator|)
-operator|.
-name|isManaged
-argument_list|()
-condition|)
-block|{
-throw|throw
-operator|new
-name|NeedUnmanagedConnectionException
-argument_list|()
-throw|;
-block|}
 block|}
 return|return
 name|connection

@@ -2369,13 +2369,11 @@ name|ZooKeeperConnectionException
 throws|,
 name|IOException
 block|{
-comment|// Will not leak connections, as the new implementation of the constructor
-comment|// does not throw exceptions anymore.
 name|this
 argument_list|(
-name|ConnectionManager
+name|ConnectionFactory
 operator|.
-name|getConnectionInternal
+name|createConnection
 argument_list|(
 operator|new
 name|Configuration

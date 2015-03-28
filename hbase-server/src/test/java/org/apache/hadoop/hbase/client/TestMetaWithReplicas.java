@@ -2925,18 +2925,26 @@ name|Exception
 block|{
 comment|// checks that the when the server holding meta replica is shut down, the meta replica
 comment|// can be recovered
-name|RegionLocations
-name|rl
+name|ClusterConnection
+name|conn
 init|=
-name|ConnectionManager
+operator|(
+name|ClusterConnection
+operator|)
+name|ConnectionFactory
 operator|.
-name|getConnectionInternal
+name|createConnection
 argument_list|(
 name|TEST_UTIL
 operator|.
 name|getConfiguration
 argument_list|()
 argument_list|)
+decl_stmt|;
+name|RegionLocations
+name|rl
+init|=
+name|conn
 operator|.
 name|locateRegion
 argument_list|(
@@ -3015,15 +3023,7 @@ expr_stmt|;
 comment|//wait for the detection/recovery
 name|rl
 operator|=
-name|ConnectionManager
-operator|.
-name|getConnectionInternal
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
+name|conn
 operator|.
 name|locateRegion
 argument_list|(
@@ -3085,6 +3085,11 @@ name|i
 operator|!=
 literal|3
 argument_list|)
+expr_stmt|;
+name|conn
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@

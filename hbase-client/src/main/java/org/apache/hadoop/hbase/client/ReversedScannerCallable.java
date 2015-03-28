@@ -562,8 +562,6 @@ literal|true
 expr_stmt|;
 block|}
 comment|// check how often we retry.
-comment|// ConnectionManager will call instantiateServer with reload==true
-comment|// if and only if for retries.
 if|if
 condition|(
 name|reload

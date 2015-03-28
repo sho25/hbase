@@ -5303,7 +5303,7 @@ name|configuration
 operator|.
 name|setBoolean
 argument_list|(
-name|ConnectionManager
+name|ConnectionImplementation
 operator|.
 name|RETRIES_BY_SERVER_KEY
 argument_list|,

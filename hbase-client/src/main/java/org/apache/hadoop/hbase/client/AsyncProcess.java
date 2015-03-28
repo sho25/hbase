@@ -3853,7 +3853,7 @@ name|errors
 decl_stmt|;
 specifier|private
 specifier|final
-name|ConnectionManager
+name|ConnectionImplementation
 operator|.
 name|ServerErrorTracker
 name|errorsByServer
@@ -9117,7 +9117,7 @@ block|}
 block|}
 comment|/**    * Creates the server error tracker to use inside process.    * Currently, to preserve the main assumption about current retries, and to work well with    * the retry-limit-based calculation, the calculation is local per Process object.    * We may benefit from connection-wide tracking of server errors.    * @return ServerErrorTracker to use, null if there is no ServerErrorTracker on this connection    */
 specifier|protected
-name|ConnectionManager
+name|ConnectionImplementation
 operator|.
 name|ServerErrorTracker
 name|createServerErrorTracker
@@ -9125,7 +9125,7 @@ parameter_list|()
 block|{
 return|return
 operator|new
-name|ConnectionManager
+name|ConnectionImplementation
 operator|.
 name|ServerErrorTracker
 argument_list|(
