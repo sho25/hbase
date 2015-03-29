@@ -1363,7 +1363,6 @@ name|isAnyRPCcancelled
 argument_list|()
 return|;
 block|}
-specifier|static
 name|Result
 index|[]
 name|call
@@ -1588,6 +1587,63 @@ operator|==
 literal|0
 condition|)
 block|{
+name|loadCache
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|cache
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+return|return
+name|cache
+operator|.
+name|poll
+argument_list|()
+return|;
+block|}
+comment|// if we exhausted this scanner before calling close, write out the scan metrics
+name|writeScanMetrics
+argument_list|()
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|int
+name|getCacheSize
+parameter_list|()
+block|{
+return|return
+name|cache
+operator|!=
+literal|null
+condition|?
+name|cache
+operator|.
+name|size
+argument_list|()
+else|:
+literal|0
+return|;
+block|}
+comment|/**    * Contact the servers to load more {@link Result}s in the cache.    */
+specifier|protected
+name|void
+name|loadCache
+parameter_list|()
+throws|throws
+name|IOException
+block|{
 name|Result
 index|[]
 name|values
@@ -1623,6 +1679,13 @@ name|boolean
 name|retryAfterOutOfOrderException
 init|=
 literal|true
+decl_stmt|;
+comment|// We don't expect that the server will have more results for us if
+comment|// it doesn't tell us otherwise. We rely on the size or count of results
+name|boolean
+name|serverHasMoreResults
+init|=
+literal|false
 decl_stmt|;
 do|do
 block|{
@@ -2021,6 +2084,43 @@ name|rs
 expr_stmt|;
 block|}
 block|}
+comment|// We expect that the server won't have more results for us when we exhaust
+comment|// the size (bytes or count) of the results returned. If the server *does* inform us that
+comment|// there are more results, we want to avoid possiblyNextScanner(...). Only when we actually
+comment|// get results is the moreResults context valid.
+if|if
+condition|(
+literal|null
+operator|!=
+name|values
+operator|&&
+name|values
+operator|.
+name|length
+operator|>
+literal|0
+operator|&&
+name|callable
+operator|.
+name|hasMoreResultsContext
+argument_list|()
+condition|)
+block|{
+comment|// Only adhere to more server results when we don't have any partialResults
+comment|// as it keeps the outer loop logic the same.
+name|serverHasMoreResults
+operator|=
+name|callable
+operator|.
+name|getServerHasMoreResults
+argument_list|()
+operator|&
+name|partialResults
+operator|.
+name|isEmpty
+argument_list|()
+expr_stmt|;
+block|}
 comment|// Values == null means server-side filter has determined we must STOP
 comment|// !partialResults.isEmpty() means that we are still accumulating partial Results for a
 comment|// row. We should not change scanners before we receive all the partial Results for that
@@ -2035,6 +2135,9 @@ operator|&&
 name|countdown
 operator|>
 literal|0
+operator|&&
+operator|!
+name|serverHasMoreResults
 operator|&&
 operator|(
 operator|!
@@ -2054,51 +2157,6 @@ argument_list|)
 operator|)
 condition|)
 do|;
-block|}
-if|if
-condition|(
-name|cache
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
-condition|)
-block|{
-return|return
-name|cache
-operator|.
-name|poll
-argument_list|()
-return|;
-block|}
-comment|// if we exhausted this scanner before calling close, write out the scan metrics
-name|writeScanMetrics
-argument_list|()
-expr_stmt|;
-return|return
-literal|null
-return|;
-block|}
-annotation|@
-name|VisibleForTesting
-specifier|public
-name|int
-name|getCacheSize
-parameter_list|()
-block|{
-return|return
-name|cache
-operator|!=
-literal|null
-condition|?
-name|cache
-operator|.
-name|size
-argument_list|()
-else|:
-literal|0
-return|;
 block|}
 comment|/**    * This method ensures all of our book keeping regarding partial results is kept up to date. This    * method should be called once we know that the results we received back from the RPC request do    * not contain errors. We return a list of results that should be added to the cache. In general,    * this list will contain all NON-partial results from the input array (unless the client has    * specified that they are okay with receiving partial results)    * @return the list of results that should be added to the cache.    * @throws IOException    */
 specifier|protected

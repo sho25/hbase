@@ -92184,6 +92184,17 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
+comment|// optional bool more_results_in_region = 8;
+comment|/**      *<code>optional bool more_results_in_region = 8;</code>      *      *<pre>      * A server may choose to limit the number of results returned to the client for      * reasons such as the size in bytes or quantity of results accumulated. This field      * will true when more results exist in the current region.      *</pre>      */
+name|boolean
+name|hasMoreResultsInRegion
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool more_results_in_region = 8;</code>      *      *<pre>      * A server may choose to limit the number of results returned to the client for      * reasons such as the size in bytes or quantity of results accumulated. This field      * will true when more results exist in the current region.      *</pre>      */
+name|boolean
+name|getMoreResultsInRegion
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code ScanResponse}    *    *<pre>    **    * The scan response. If there are no more results, more_results will    * be false.  If it is not specified, it means there are more.    *</pre>    */
 specifier|public
@@ -92878,6 +92889,23 @@ name|popLimit
 argument_list|(
 name|limit
 argument_list|)
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|64
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000010
+expr_stmt|;
+name|moreResultsInRegion_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -93728,6 +93756,47 @@ name|index
 argument_list|)
 return|;
 block|}
+comment|// optional bool more_results_in_region = 8;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MORE_RESULTS_IN_REGION_FIELD_NUMBER
+init|=
+literal|8
+decl_stmt|;
+specifier|private
+name|boolean
+name|moreResultsInRegion_
+decl_stmt|;
+comment|/**      *<code>optional bool more_results_in_region = 8;</code>      *      *<pre>      * A server may choose to limit the number of results returned to the client for      * reasons such as the size in bytes or quantity of results accumulated. This field      * will true when more results exist in the current region.      *</pre>      */
+specifier|public
+name|boolean
+name|hasMoreResultsInRegion
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool more_results_in_region = 8;</code>      *      *<pre>      * A server may choose to limit the number of results returned to the client for      * reasons such as the size in bytes or quantity of results accumulated. This field      * will true when more results exist in the current region.      *</pre>      */
+specifier|public
+name|boolean
+name|getMoreResultsInRegion
+parameter_list|()
+block|{
+return|return
+name|moreResultsInRegion_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -93781,6 +93850,10 @@ name|Collections
 operator|.
 name|emptyList
 argument_list|()
+expr_stmt|;
+name|moreResultsInRegion_
+operator|=
+literal|false
 expr_stmt|;
 block|}
 specifier|private
@@ -94032,6 +94105,29 @@ name|get
 argument_list|(
 name|i
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|8
+argument_list|,
+name|moreResultsInRegion_
 argument_list|)
 expr_stmt|;
 block|}
@@ -94329,6 +94425,37 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|8
+argument_list|,
+name|moreResultsInRegion_
+argument_list|)
 expr_stmt|;
 block|}
 name|size
@@ -94676,6 +94803,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasMoreResultsInRegion
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasMoreResultsInRegion
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasMoreResultsInRegion
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getMoreResultsInRegion
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getMoreResultsInRegion
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -94956,6 +95118,37 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasMoreResultsInRegion
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|MORE_RESULTS_IN_REGION_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getMoreResultsInRegion
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -95915,6 +96108,19 @@ operator|~
 literal|0x00000040
 operator|)
 expr_stmt|;
+name|moreResultsInRegion_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000080
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -96373,6 +96579,30 @@ name|partialFlagPerResult_
 operator|=
 name|partialFlagPerResult_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000010
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|moreResultsInRegion_
+operator|=
+name|moreResultsInRegion_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -96820,6 +97050,23 @@ expr_stmt|;
 block|}
 name|onChanged
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasMoreResultsInRegion
+argument_list|()
+condition|)
+block|{
+name|setMoreResultsInRegion
+argument_list|(
+name|other
+operator|.
+name|getMoreResultsInRegion
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|this
@@ -99151,6 +99398,89 @@ operator|&
 operator|~
 literal|0x00000040
 operator|)
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional bool more_results_in_region = 8;
+specifier|private
+name|boolean
+name|moreResultsInRegion_
+decl_stmt|;
+comment|/**        *<code>optional bool more_results_in_region = 8;</code>        *        *<pre>        * A server may choose to limit the number of results returned to the client for        * reasons such as the size in bytes or quantity of results accumulated. This field        * will true when more results exist in the current region.        *</pre>        */
+specifier|public
+name|boolean
+name|hasMoreResultsInRegion
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool more_results_in_region = 8;</code>        *        *<pre>        * A server may choose to limit the number of results returned to the client for        * reasons such as the size in bytes or quantity of results accumulated. This field        * will true when more results exist in the current region.        *</pre>        */
+specifier|public
+name|boolean
+name|getMoreResultsInRegion
+parameter_list|()
+block|{
+return|return
+name|moreResultsInRegion_
+return|;
+block|}
+comment|/**        *<code>optional bool more_results_in_region = 8;</code>        *        *<pre>        * A server may choose to limit the number of results returned to the client for        * reasons such as the size in bytes or quantity of results accumulated. This field        * will true when more results exist in the current region.        *</pre>        */
+specifier|public
+name|Builder
+name|setMoreResultsInRegion
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000080
+expr_stmt|;
+name|moreResultsInRegion_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool more_results_in_region = 8;</code>        *        *<pre>        * A server may choose to limit the number of results returned to the client for        * reasons such as the size in bytes or quantity of results accumulated. This field        * will true when more results exist in the current region.        *</pre>        */
+specifier|public
+name|Builder
+name|clearMoreResultsInRegion
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000080
+operator|)
+expr_stmt|;
+name|moreResultsInRegion_
+operator|=
+literal|false
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -174101,7 +174431,7 @@ literal|"er_id\030\003 \001(\004\022\026\n\016number_of_rows\030\004 \001(\r\022
 operator|+
 literal|"lose_scanner\030\005 \001(\010\022\025\n\rnext_call_seq\030\006 \001("
 operator|+
-literal|"\004\022\037\n\027client_handles_partials\030\007 \001(\010\"\251\001\n\014S"
+literal|"\004\022\037\n\027client_handles_partials\030\007 \001(\010\"\311\001\n\014S"
 operator|+
 literal|"canResponse\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n"
 operator|+
@@ -174111,99 +174441,101 @@ literal|"\013\n\003ttl\030\004 \001(\r\022\030\n\007results\030\005 \003(\0132\0
 operator|+
 literal|"\n\005stale\030\006 \001(\010\022\037\n\027partial_flag_per_result"
 operator|+
-literal|"\030\007 \003(\010\"\263\001\n\024BulkLoadHFileRequest\022 \n\006regio"
+literal|"\030\007 \003(\010\022\036\n\026more_results_in_region\030\010 \001(\010\"\263"
 operator|+
-literal|"n\030\001 \002(\0132\020.RegionSpecifier\0225\n\013family_path"
+literal|"\001\n\024BulkLoadHFileRequest\022 \n\006region\030\001 \002(\0132"
 block|,
-literal|"\030\002 \003(\0132 .BulkLoadHFileRequest.FamilyPath"
+literal|"\020.RegionSpecifier\0225\n\013family_path\030\002 \003(\0132 "
 operator|+
-literal|"\022\026\n\016assign_seq_num\030\003 \001(\010\032*\n\nFamilyPath\022\016"
+literal|".BulkLoadHFileRequest.FamilyPath\022\026\n\016assi"
 operator|+
-literal|"\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoad"
+literal|"gn_seq_num\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006family"
 operator|+
-literal|"HFileResponse\022\016\n\006loaded\030\001 \002(\010\"a\n\026Coproce"
+literal|"\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileRes"
 operator|+
-literal|"ssorServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service_"
+literal|"ponse\022\016\n\006loaded\030\001 \002(\010\"a\n\026CoprocessorServ"
 operator|+
-literal|"name\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007reque"
+literal|"iceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service_name\030\002 \002"
 operator|+
-literal|"st\030\004 \002(\014\"9\n\030CoprocessorServiceResult\022\035\n\005"
+literal|"(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007request\030\004 \002(\014"
 operator|+
-literal|"value\030\001 \001(\0132\016.NameBytesPair\"d\n\031Coprocess"
+literal|"\"9\n\030CoprocessorServiceResult\022\035\n\005value\030\001 "
 operator|+
-literal|"orServiceRequest\022 \n\006region\030\001 \002(\0132\020.Regio"
+literal|"\001(\0132\016.NameBytesPair\"d\n\031CoprocessorServic"
 operator|+
-literal|"nSpecifier\022%\n\004call\030\002 \002(\0132\027.CoprocessorSe"
+literal|"eRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifi"
 block|,
-literal|"rviceCall\"]\n\032CoprocessorServiceResponse\022"
+literal|"er\022%\n\004call\030\002 \002(\0132\027.CoprocessorServiceCal"
 operator|+
-literal|" \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\035\n\005val"
+literal|"l\"]\n\032CoprocessorServiceResponse\022 \n\006regio"
 operator|+
-literal|"ue\030\002 \002(\0132\016.NameBytesPair\"{\n\006Action\022\r\n\005in"
+literal|"n\030\001 \002(\0132\020.RegionSpecifier\022\035\n\005value\030\002 \002(\013"
 operator|+
-literal|"dex\030\001 \001(\r\022 \n\010mutation\030\002 \001(\0132\016.MutationPr"
+literal|"2\016.NameBytesPair\"{\n\006Action\022\r\n\005index\030\001 \001("
 operator|+
-literal|"oto\022\021\n\003get\030\003 \001(\0132\004.Get\022-\n\014service_call\030\004"
+literal|"\r\022 \n\010mutation\030\002 \001(\0132\016.MutationProto\022\021\n\003g"
 operator|+
-literal|" \001(\0132\027.CoprocessorServiceCall\"Y\n\014RegionA"
+literal|"et\030\003 \001(\0132\004.Get\022-\n\014service_call\030\004 \001(\0132\027.C"
 operator|+
-literal|"ction\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022"
+literal|"oprocessorServiceCall\"Y\n\014RegionAction\022 \n"
 operator|+
-literal|"\016\n\006atomic\030\002 \001(\010\022\027\n\006action\030\003 \003(\0132\007.Action"
+literal|"\006region\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006atomi"
 operator|+
-literal|"\"D\n\017RegionLoadStats\022\027\n\014memstoreLoad\030\001 \001("
+literal|"c\030\002 \001(\010\022\027\n\006action\030\003 \003(\0132\007.Action\"D\n\017Regi"
 operator|+
-literal|"\005:\0010\022\030\n\rheapOccupancy\030\002 \001(\005:\0010\"\266\001\n\021Resul"
+literal|"onLoadStats\022\027\n\014memstoreLoad\030\001 \001(\005:\0010\022\030\n\r"
 block|,
-literal|"tOrException\022\r\n\005index\030\001 \001(\r\022\027\n\006result\030\002 "
+literal|"heapOccupancy\030\002 \001(\005:\0010\"\266\001\n\021ResultOrExcep"
 operator|+
-literal|"\001(\0132\007.Result\022!\n\texception\030\003 \001(\0132\016.NameBy"
+literal|"tion\022\r\n\005index\030\001 \001(\r\022\027\n\006result\030\002 \001(\0132\007.Re"
 operator|+
-literal|"tesPair\0221\n\016service_result\030\004 \001(\0132\031.Coproc"
+literal|"sult\022!\n\texception\030\003 \001(\0132\016.NameBytesPair\022"
 operator|+
-literal|"essorServiceResult\022#\n\tloadStats\030\005 \001(\0132\020."
+literal|"1\n\016service_result\030\004 \001(\0132\031.CoprocessorSer"
 operator|+
-literal|"RegionLoadStats\"f\n\022RegionActionResult\022-\n"
+literal|"viceResult\022#\n\tloadStats\030\005 \001(\0132\020.RegionLo"
 operator|+
-literal|"\021resultOrException\030\001 \003(\0132\022.ResultOrExcep"
+literal|"adStats\"f\n\022RegionActionResult\022-\n\021resultO"
 operator|+
-literal|"tion\022!\n\texception\030\002 \001(\0132\016.NameBytesPair\""
+literal|"rException\030\001 \003(\0132\022.ResultOrException\022!\n\t"
 operator|+
-literal|"f\n\014MultiRequest\022#\n\014regionAction\030\001 \003(\0132\r."
+literal|"exception\030\002 \001(\0132\016.NameBytesPair\"f\n\014Multi"
 operator|+
-literal|"RegionAction\022\022\n\nnonceGroup\030\002 \001(\004\022\035\n\tcond"
+literal|"Request\022#\n\014regionAction\030\001 \003(\0132\r.RegionAc"
 operator|+
-literal|"ition\030\003 \001(\0132\n.Condition\"S\n\rMultiResponse"
+literal|"tion\022\022\n\nnonceGroup\030\002 \001(\004\022\035\n\tcondition\030\003 "
 block|,
-literal|"\022/\n\022regionActionResult\030\001 \003(\0132\023.RegionAct"
+literal|"\001(\0132\n.Condition\"S\n\rMultiResponse\022/\n\022regi"
 operator|+
-literal|"ionResult\022\021\n\tprocessed\030\002 \001(\010*\'\n\013Consiste"
+literal|"onActionResult\030\001 \003(\0132\023.RegionActionResul"
 operator|+
-literal|"ncy\022\n\n\006STRONG\020\000\022\014\n\010TIMELINE\020\0012\205\003\n\rClient"
+literal|"t\022\021\n\tprocessed\030\002 \001(\010*\'\n\013Consistency\022\n\n\006S"
 operator|+
-literal|"Service\022 \n\003Get\022\013.GetRequest\032\014.GetRespons"
+literal|"TRONG\020\000\022\014\n\010TIMELINE\020\0012\205\003\n\rClientService\022"
 operator|+
-literal|"e\022)\n\006Mutate\022\016.MutateRequest\032\017.MutateResp"
+literal|" \n\003Get\022\013.GetRequest\032\014.GetResponse\022)\n\006Mut"
 operator|+
-literal|"onse\022#\n\004Scan\022\014.ScanRequest\032\r.ScanRespons"
+literal|"ate\022\016.MutateRequest\032\017.MutateResponse\022#\n\004"
 operator|+
-literal|"e\022>\n\rBulkLoadHFile\022\025.BulkLoadHFileReques"
+literal|"Scan\022\014.ScanRequest\032\r.ScanResponse\022>\n\rBul"
 operator|+
-literal|"t\032\026.BulkLoadHFileResponse\022F\n\013ExecService"
+literal|"kLoadHFile\022\025.BulkLoadHFileRequest\032\026.Bulk"
 operator|+
-literal|"\022\032.CoprocessorServiceRequest\032\033.Coprocess"
+literal|"LoadHFileResponse\022F\n\013ExecService\022\032.Copro"
 operator|+
-literal|"orServiceResponse\022R\n\027ExecRegionServerSer"
+literal|"cessorServiceRequest\032\033.CoprocessorServic"
 block|,
-literal|"vice\022\032.CoprocessorServiceRequest\032\033.Copro"
+literal|"eResponse\022R\n\027ExecRegionServerService\022\032.C"
 operator|+
-literal|"cessorServiceResponse\022&\n\005Multi\022\r.MultiRe"
+literal|"oprocessorServiceRequest\032\033.CoprocessorSe"
 operator|+
-literal|"quest\032\016.MultiResponseBB\n*org.apache.hado"
+literal|"rviceResponse\022&\n\005Multi\022\r.MultiRequest\032\016."
 operator|+
-literal|"op.hbase.protobuf.generatedB\014ClientProto"
+literal|"MultiResponseBB\n*org.apache.hadoop.hbase"
 operator|+
-literal|"sH\001\210\001\001\240\001\001"
+literal|".protobuf.generatedB\014ClientProtosH\001\210\001\001\240\001"
+operator|+
+literal|"\001"
 block|}
 decl_stmt|;
 name|com
@@ -175026,6 +175358,8 @@ block|,
 literal|"Stale"
 block|,
 literal|"PartialFlagPerResult"
+block|,
+literal|"MoreResultsInRegion"
 block|, }
 argument_list|)
 expr_stmt|;

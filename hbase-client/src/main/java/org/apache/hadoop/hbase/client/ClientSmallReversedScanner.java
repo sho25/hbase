@@ -645,6 +645,7 @@ comment|// returns an empty array if scanning is to go on and we've just
 comment|// exhausted current region.
 comment|// callWithoutRetries is at this layer. Within the ScannerCallableWithReplicas,
 comment|// we do a callWithRetries
+comment|// TODO use context from server
 name|values
 operator|=
 name|this

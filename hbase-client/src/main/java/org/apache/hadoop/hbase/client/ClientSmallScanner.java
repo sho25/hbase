@@ -958,7 +958,10 @@ argument_list|,
 name|request
 argument_list|)
 expr_stmt|;
-return|return
+name|Result
+index|[]
+name|results
+init|=
 name|ResponseConverter
 operator|.
 name|getResults
@@ -970,6 +973,39 @@ argument_list|()
 argument_list|,
 name|response
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|response
+operator|.
+name|hasMoreResultsInRegion
+argument_list|()
+condition|)
+block|{
+name|setHasMoreResultsContext
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|setServerHasMoreResults
+argument_list|(
+name|response
+operator|.
+name|getMoreResultsInRegion
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|setHasMoreResultsContext
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|results
 return|;
 block|}
 catch|catch
@@ -1114,6 +1150,7 @@ comment|// returns an empty array if scanning is to go on and we've just
 comment|// exhausted current region.
 comment|// callWithoutRetries is at this layer. Within the ScannerCallableWithReplicas,
 comment|// we do a callWithRetries
+comment|// TODO Use the server's response about more results
 name|values
 operator|=
 name|this

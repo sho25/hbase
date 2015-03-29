@@ -13534,6 +13534,11 @@ operator|&&
 operator|!
 name|isSmallScan
 decl_stmt|;
+name|NextState
+name|state
+init|=
+literal|null
+decl_stmt|;
 while|while
 condition|(
 name|i
@@ -13549,6 +13554,13 @@ operator|>=
 name|maxResultSize
 condition|)
 block|{
+name|builder
+operator|.
+name|setMoreResultsInRegion
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 break|break;
 block|}
 comment|// A negative remainingResultSize communicates that there is no limit on the size
@@ -13567,9 +13579,8 @@ operator|-
 literal|1
 decl_stmt|;
 comment|// Collect values to be returned here
-name|NextState
 name|state
-init|=
+operator|=
 name|scanner
 operator|.
 name|nextRaw
@@ -13583,7 +13594,7 @@ argument_list|()
 argument_list|,
 name|remainingResultSize
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 comment|// Invalid states should never be returned. If one is seen, throw exception
 comment|// to stop the scan -- We have no way of telling how we should proceed
 if|if
@@ -13725,6 +13736,50 @@ name|values
 operator|.
 name|clear
 argument_list|()
+expr_stmt|;
+block|}
+comment|// currentScanResultSize>= maxResultSize should be functionally equivalent to
+comment|// state.sizeLimitReached()
+if|if
+condition|(
+literal|null
+operator|!=
+name|state
+operator|&&
+operator|(
+name|currentScanResultSize
+operator|>=
+name|maxResultSize
+operator|||
+name|i
+operator|>=
+name|rows
+operator|||
+name|state
+operator|.
+name|hasMoreValues
+argument_list|()
+operator|)
+condition|)
+block|{
+comment|// We stopped prematurely
+name|builder
+operator|.
+name|setMoreResultsInRegion
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// We didn't get a single batch
+name|builder
+operator|.
+name|setMoreResultsInRegion
+argument_list|(
+literal|false
+argument_list|)
 expr_stmt|;
 block|}
 block|}
