@@ -1778,18 +1778,6 @@ operator|.
 name|connection
 return|;
 block|}
-comment|/**    * Gets the number of rows that a scanner will fetch at once.    *<p>    * The default value comes from {@code hbase.client.scanner.caching}.    * @deprecated Use {@link Scan#setCaching(int)} and {@link Scan#getCaching()}    */
-annotation|@
-name|Deprecated
-specifier|public
-name|int
-name|getScannerCaching
-parameter_list|()
-block|{
-return|return
-name|scannerCaching
-return|;
-block|}
 comment|/**    * Kept in 0.96 for backward compatibility    * @deprecated  since 0.96. This is an internal buffer that should not be read nor write.    */
 annotation|@
 name|Deprecated
@@ -1813,24 +1801,6 @@ operator|.
 name|getWriteBuffer
 argument_list|()
 return|;
-block|}
-comment|/**    * Sets the number of rows that a scanner will fetch at once.    *<p>    * This will override the value specified by    * {@code hbase.client.scanner.caching}.    * Increasing this value will reduce the amount of work needed each time    * {@code next()} is called on a scanner, at the expense of memory use    * (since more rows will need to be maintained in memory by the scanners).    * @param scannerCaching the number of rows a scanner will fetch at once.    * @deprecated Use {@link Scan#setCaching(int)}    */
-annotation|@
-name|Deprecated
-specifier|public
-name|void
-name|setScannerCaching
-parameter_list|(
-name|int
-name|scannerCaching
-parameter_list|)
-block|{
-name|this
-operator|.
-name|scannerCaching
-operator|=
-name|scannerCaching
-expr_stmt|;
 block|}
 comment|/**    * {@inheritDoc}    */
 annotation|@
@@ -2742,8 +2712,7 @@ name|scan
 operator|.
 name|setCaching
 argument_list|(
-name|getScannerCaching
-argument_list|()
+name|scannerCaching
 argument_list|)
 expr_stmt|;
 block|}
