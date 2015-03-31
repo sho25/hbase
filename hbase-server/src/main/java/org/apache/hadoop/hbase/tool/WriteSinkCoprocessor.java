@@ -243,6 +243,9 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 expr_stmt|;

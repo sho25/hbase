@@ -1241,7 +1241,7 @@ control|)
 block|{
 for|for
 control|(
-name|HRegion
+name|Region
 name|r
 range|:
 name|rs
@@ -1586,7 +1586,7 @@ control|)
 block|{
 for|for
 control|(
-name|HRegion
+name|Region
 name|r
 range|:
 name|rs
@@ -1935,7 +1935,7 @@ control|)
 block|{
 for|for
 control|(
-name|HRegion
+name|Region
 name|r
 range|:
 name|rs

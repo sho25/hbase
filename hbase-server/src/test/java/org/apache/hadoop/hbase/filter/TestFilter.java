@@ -409,6 +409,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|Region
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|RegionScanner
 import|;
 end_import
@@ -583,7 +599,7 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|HRegion
+name|Region
 name|region
 decl_stmt|;
 specifier|private
@@ -1302,8 +1318,10 @@ name|this
 operator|.
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// Insert second half (reverse families)
 for|for
@@ -1831,8 +1849,10 @@ name|this
 operator|.
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// Insert second half (reverse families)
 for|for
@@ -13330,7 +13350,7 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|testRegion
 init|=
 name|HBaseTestingUtility
@@ -13432,8 +13452,10 @@ expr_stmt|;
 block|}
 name|testRegion
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// rows starting with "b"
 name|PrefixFilter
@@ -13631,12 +13653,22 @@ expr_stmt|;
 name|WAL
 name|wal
 init|=
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|testRegion
+operator|)
 operator|.
 name|getWAL
 argument_list|()
 decl_stmt|;
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|testRegion
+operator|)
 operator|.
 name|close
 argument_list|()
@@ -16689,8 +16721,10 @@ name|this
 operator|.
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// Set of KVs (page: 1; pageSize: 1) - the first set of 1 column per row
 name|KeyValue
@@ -18595,7 +18629,7 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|testRegion
 init|=
 name|HBaseTestingUtility
@@ -18688,8 +18722,10 @@ expr_stmt|;
 block|}
 name|testRegion
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// 1. got rows> "row4"
 name|Filter
@@ -19487,12 +19523,22 @@ expr_stmt|;
 name|WAL
 name|wal
 init|=
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|testRegion
+operator|)
 operator|.
 name|getWAL
 argument_list|()
 decl_stmt|;
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|testRegion
+operator|)
 operator|.
 name|close
 argument_list|()

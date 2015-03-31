@@ -369,7 +369,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|HRegionServer
 import|;
 end_import
 
@@ -385,7 +385,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|Region
 import|;
 end_import
 
@@ -1466,12 +1466,12 @@ name|Exception
 block|{
 comment|// find the regions
 specifier|final
-name|HRegion
+name|Region
 index|[]
 name|regions
 init|=
 operator|new
-name|HRegion
+name|Region
 index|[
 name|regionReplication
 index|]
@@ -1506,7 +1506,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|onlineRegions
 init|=
@@ -1519,7 +1519,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|onlineRegions
@@ -1542,7 +1542,7 @@ block|}
 block|}
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|regions
@@ -1570,7 +1570,7 @@ operator|++
 control|)
 block|{
 specifier|final
-name|HRegion
+name|Region
 name|region
 init|=
 name|regions
@@ -1650,16 +1650,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Verification from secondary region is not complete yet. Got:"
-operator|+
+literal|"Verification from secondary region is not complete yet"
+argument_list|,
 name|ex
-operator|+
-literal|" "
-operator|+
-name|ex
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// still wait

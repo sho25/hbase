@@ -985,7 +985,7 @@ operator|.
 name|getRegionName
 argument_list|()
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|server
@@ -1014,7 +1014,7 @@ expr_stmt|;
 comment|// 1. phase I
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 init|=
@@ -2678,9 +2678,6 @@ argument_list|)
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 operator|>
 literal|0
 condition|)
@@ -2773,9 +2770,6 @@ name|regionName
 argument_list|)
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{

@@ -691,7 +691,7 @@ specifier|public
 name|SplitTransaction
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 specifier|final
@@ -704,6 +704,9 @@ name|this
 operator|.
 name|parent
 operator|=
+operator|(
+name|HRegion
+operator|)
 name|r
 expr_stmt|;
 name|this
@@ -989,7 +992,7 @@ comment|/**    * Prepare the regions and region files.    * @param server Hostin
 comment|/* package */
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|createDaughters
 parameter_list|(
@@ -1177,7 +1180,7 @@ argument_list|)
 expr_stmt|;
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|daughterRegions
 init|=
@@ -1243,6 +1246,9 @@ operator|+
 name|this
 operator|.
 name|parent
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -1378,7 +1384,7 @@ block|}
 specifier|public
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|stepsBeforePONR
 parameter_list|(
@@ -1429,6 +1435,9 @@ argument_list|(
 literal|"Failed to get ok from master to split "
 operator|+
 name|parent
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -1683,7 +1692,7 @@ name|hri_a
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HRegion
+name|Region
 name|a
 init|=
 name|this
@@ -1764,7 +1773,7 @@ name|hri_b
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HRegion
+name|Region
 name|b
 init|=
 name|this
@@ -1811,7 +1820,7 @@ return|return
 operator|new
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 argument_list|(
 name|a
@@ -1877,10 +1886,10 @@ specifier|final
 name|RegionServerServices
 name|services
 parameter_list|,
-name|HRegion
+name|Region
 name|a
 parameter_list|,
-name|HRegion
+name|Region
 name|b
 parameter_list|)
 throws|throws
@@ -1963,6 +1972,9 @@ name|DaughterOpener
 argument_list|(
 name|server
 argument_list|,
+operator|(
+name|HRegion
+operator|)
 name|a
 argument_list|)
 decl_stmt|;
@@ -1974,6 +1986,9 @@ name|DaughterOpener
 argument_list|(
 name|server
 argument_list|,
+operator|(
+name|HRegion
+operator|)
 name|b
 argument_list|)
 decl_stmt|;
@@ -2191,7 +2206,7 @@ comment|/**    * Run the transaction.    * @param server Hosting server instance
 specifier|public
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|execute
 parameter_list|(
@@ -2208,7 +2223,7 @@ name|IOException
 block|{
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 init|=
@@ -2256,7 +2271,7 @@ block|}
 specifier|public
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|stepsAfterPONR
 parameter_list|(
@@ -2270,7 +2285,7 @@ name|services
 parameter_list|,
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 parameter_list|)
@@ -3549,6 +3564,9 @@ operator|+
 name|this
 operator|.
 name|parent
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()

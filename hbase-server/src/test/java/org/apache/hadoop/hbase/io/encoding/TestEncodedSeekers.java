@@ -309,7 +309,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -851,7 +851,7 @@ argument_list|(
 name|compressTags
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|testUtil
@@ -878,8 +878,10 @@ expr_stmt|;
 comment|//verify correctness again after compacting
 name|region
 operator|.
-name|compactStores
-argument_list|()
+name|compact
+argument_list|(
+literal|false
+argument_list|)
 expr_stmt|;
 name|doGets
 argument_list|(
@@ -960,7 +962,7 @@ specifier|private
 name|void
 name|doPuts
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|)
 throws|throws
@@ -1206,8 +1208,10 @@ condition|)
 block|{
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -1216,7 +1220,7 @@ specifier|private
 name|void
 name|doGets
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|)
 throws|throws

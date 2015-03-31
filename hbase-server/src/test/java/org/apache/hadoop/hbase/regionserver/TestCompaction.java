@@ -1480,8 +1480,10 @@ expr_stmt|;
 block|}
 name|r
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// Multiple versions allowed for an entry, so the delete isn't enough
 comment|// Lower TTL and expire to ensure that all our entries have been wiped
@@ -1575,7 +1577,7 @@ argument_list|)
 expr_stmt|;
 name|r
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -2226,9 +2228,6 @@ range|:
 name|r
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{

@@ -173,7 +173,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -599,7 +599,7 @@ name|OperationQuota
 name|checkQuota
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 specifier|final
@@ -680,7 +680,7 @@ name|OperationQuota
 name|checkQuota
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 specifier|final
@@ -763,7 +763,7 @@ name|OperationQuota
 name|checkQuota
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 specifier|final

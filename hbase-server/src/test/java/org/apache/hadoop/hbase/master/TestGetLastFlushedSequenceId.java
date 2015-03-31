@@ -207,7 +207,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|HRegionServer
 import|;
 end_import
 
@@ -223,7 +223,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|Region
 import|;
 end_import
 
@@ -541,7 +541,7 @@ operator|.
 name|getRegionServerThreads
 argument_list|()
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 literal|null
@@ -582,7 +582,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|r
 range|:
 name|hrs

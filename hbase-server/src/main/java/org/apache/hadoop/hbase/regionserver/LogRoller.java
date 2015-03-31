@@ -930,7 +930,7 @@ name|scheduled
 init|=
 literal|false
 decl_stmt|;
-name|HRegion
+name|Region
 name|r
 init|=
 name|this

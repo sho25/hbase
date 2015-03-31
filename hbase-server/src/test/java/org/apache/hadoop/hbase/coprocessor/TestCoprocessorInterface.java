@@ -475,6 +475,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|Region
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|RegionCoprocessorHost
 import|;
 end_import
@@ -1378,10 +1394,10 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|e
 parameter_list|,
-name|HRegion
+name|Region
 name|l
 parameter_list|,
-name|HRegion
+name|Region
 name|r
 parameter_list|)
 block|{
@@ -1677,7 +1693,7 @@ init|=
 name|initSplit
 argument_list|()
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|initHRegion
@@ -1728,20 +1744,29 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 name|region
 operator|.
-name|compactStores
-parameter_list|()
-constructor_decl|;
+name|compact
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 name|byte
 index|[]
 name|splitRow
 init|=
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|region
+operator|)
 operator|.
 name|checkSplit
 argument_list|()
@@ -1751,7 +1776,7 @@ parameter_list|(
 name|splitRow
 parameter_list|)
 constructor_decl|;
-name|HRegion
+name|Region
 index|[]
 name|regions
 init|=
@@ -2040,6 +2065,9 @@ name|regions
 index|[
 name|i
 index|]
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getStartKey
 argument_list|()
@@ -2332,7 +2360,7 @@ init|=
 name|initSplit
 argument_list|()
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|initHRegion
@@ -2390,8 +2418,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 end_for
@@ -2399,8 +2429,10 @@ end_for
 begin_expr_stmt
 name|region
 operator|.
-name|compactStores
-argument_list|()
+name|compact
+argument_list|(
+literal|false
+argument_list|)
 expr_stmt|;
 end_expr_stmt
 
@@ -2409,7 +2441,12 @@ name|byte
 index|[]
 name|splitRow
 init|=
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|region
+operator|)
 operator|.
 name|checkSplit
 argument_list|()
@@ -2425,7 +2462,7 @@ expr_stmt|;
 end_expr_stmt
 
 begin_decl_stmt
-name|HRegion
+name|Region
 index|[]
 name|regions
 init|=
@@ -2813,11 +2850,11 @@ block|}
 end_for
 
 begin_expr_stmt
-unit|}    HRegion
+unit|}    Region
 name|reopenRegion
 argument_list|(
 name|final
-name|HRegion
+name|Region
 name|closedRegion
 argument_list|,
 name|Class
@@ -2831,7 +2868,7 @@ throws|throws
 name|IOException
 block|{
 comment|//HRegionInfo info = new HRegionInfo(tableName, null, null, false);
-name|HRegion
+name|Region
 name|r
 operator|=
 name|HRegion
@@ -2889,7 +2926,12 @@ decl_stmt|;
 end_decl_stmt
 
 begin_expr_stmt
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|r
+operator|)
 operator|.
 name|setCoprocessorHost
 argument_list|(
@@ -2973,7 +3015,7 @@ return|;
 end_return
 
 begin_expr_stmt
-unit|}    HRegion
+unit|}    Region
 name|initHRegion
 argument_list|(
 name|TableName
@@ -3068,7 +3110,7 @@ decl_stmt|;
 end_decl_stmt
 
 begin_decl_stmt
-name|HRegion
+name|Region
 name|r
 init|=
 name|HBaseTestingUtility
@@ -3107,7 +3149,12 @@ decl_stmt|;
 end_decl_stmt
 
 begin_expr_stmt
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|r
+operator|)
 operator|.
 name|setCoprocessorHost
 argument_list|(
@@ -3307,12 +3354,12 @@ end_expr_stmt
 
 begin_function
 specifier|private
-name|HRegion
+name|Region
 index|[]
 name|split
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 specifier|final
@@ -3323,12 +3370,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HRegion
+name|Region
 index|[]
 name|regions
 init|=
 operator|new
-name|HRegion
+name|Region
 index|[
 literal|2
 index|]
@@ -3397,7 +3444,7 @@ argument_list|)
 expr_stmt|;
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|daughters
 init|=
@@ -3412,7 +3459,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|each_daughter
 range|:
 name|daughters
@@ -3444,6 +3491,9 @@ literal|"Split transaction of "
 operator|+
 name|r
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
@@ -3474,6 +3524,9 @@ argument_list|(
 literal|"Failed rollback of failed split of "
 operator|+
 name|r
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()

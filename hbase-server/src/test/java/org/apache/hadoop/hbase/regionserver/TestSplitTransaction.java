@@ -1722,7 +1722,7 @@ argument_list|)
 expr_stmt|;
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|daughters
 init|=
@@ -1800,9 +1800,10 @@ name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|this
-operator|.
 name|parent
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getStartKey
 argument_list|()
@@ -1810,6 +1811,9 @@ argument_list|,
 name|daughters
 operator|.
 name|getFirst
+argument_list|()
+operator|.
+name|getRegionInfo
 argument_list|()
 operator|.
 name|getStartKey
@@ -1830,6 +1834,9 @@ operator|.
 name|getFirst
 argument_list|()
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getEndKey
 argument_list|()
 argument_list|)
@@ -1844,6 +1851,9 @@ argument_list|(
 name|daughters
 operator|.
 name|getSecond
+argument_list|()
+operator|.
+name|getRegionInfo
 argument_list|()
 operator|.
 name|getStartKey
@@ -1859,9 +1869,10 @@ name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|this
-operator|.
 name|parent
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getEndKey
 argument_list|()
@@ -1869,6 +1880,9 @@ argument_list|,
 name|daughters
 operator|.
 name|getSecond
+argument_list|()
+operator|.
+name|getRegionInfo
 argument_list|()
 operator|.
 name|getEndKey
@@ -1884,7 +1898,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|openRegion
 range|:
 name|daughters
@@ -2431,7 +2445,7 @@ argument_list|)
 expr_stmt|;
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|daughters
 init|=
@@ -2452,7 +2466,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|openRegion
 range|:
 name|daughters
@@ -2564,7 +2578,7 @@ name|int
 name|countRows
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|)
 throws|throws

@@ -227,7 +227,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -308,7 +308,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class demonstrates how to implement atomic read-modify-writes  * using {@link HRegion#processRowsWithLocks} and Coprocessor endpoints.  */
+comment|/**  * This class demonstrates how to implement atomic read-modify-writes  * using {@link Region#processRowsWithLocks} and Coprocessor endpoints.  */
 end_comment
 
 begin_class
@@ -349,7 +349,7 @@ specifier|private
 name|RegionCoprocessorEnvironment
 name|env
 decl_stmt|;
-comment|/**    * Pass a processor to HRegion to process multiple rows atomically.    *     * The RowProcessor implementations should be the inner classes of your    * RowProcessorEndpoint. This way the RowProcessor can be class-loaded with    * the Coprocessor endpoint together.    *    * See {@code TestRowProcessorEndpoint} for example.    *    * The request contains information for constructing processor     * (see {@link #constructRowProcessorFromRequest}. The processor object defines    * the read-modify-write procedure.    */
+comment|/**    * Pass a processor to region to process multiple rows atomically.    *     * The RowProcessor implementations should be the inner classes of your    * RowProcessorEndpoint. This way the RowProcessor can be class-loaded with    * the Coprocessor endpoint together.    *    * See {@code TestRowProcessorEndpoint} for example.    *    * The request contains information for constructing processor     * (see {@link #constructRowProcessorFromRequest}. The processor object defines    * the read-modify-write procedure.    */
 annotation|@
 name|Override
 specifier|public
@@ -389,7 +389,7 @@ argument_list|(
 name|request
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|env

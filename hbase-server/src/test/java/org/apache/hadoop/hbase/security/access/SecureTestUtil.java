@@ -529,7 +529,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -2022,7 +2022,7 @@ control|)
 block|{
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|t
@@ -2271,6 +2271,9 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 argument_list|)
@@ -2320,6 +2323,9 @@ name|getKey
 argument_list|()
 operator|.
 name|getRegion
+argument_list|()
+operator|.
+name|getRegionInfo
 argument_list|()
 operator|.
 name|getRegionNameAsString

@@ -329,7 +329,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -2367,7 +2367,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 name|recoveringRegions
 init|=

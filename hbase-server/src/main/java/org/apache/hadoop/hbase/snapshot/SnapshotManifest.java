@@ -958,9 +958,6 @@ name|region
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 comment|// 2.1. build the snapshot reference for the store

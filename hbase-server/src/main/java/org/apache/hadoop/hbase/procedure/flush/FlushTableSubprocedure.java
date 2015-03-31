@@ -181,7 +181,25 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|Region
+operator|.
+name|Operation
 import|;
 end_import
 
@@ -224,7 +242,7 @@ specifier|private
 specifier|final
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 decl_stmt|;
@@ -250,7 +268,7 @@ name|timeout
 parameter_list|,
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 parameter_list|,
@@ -303,12 +321,12 @@ argument_list|<
 name|Void
 argument_list|>
 block|{
-name|HRegion
+name|Region
 name|region
 decl_stmt|;
 name|RegionFlushTask
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|)
 block|{
@@ -360,8 +378,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 finally|finally
@@ -433,7 +453,7 @@ block|}
 comment|// Add all hfiles already existing in region.
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|regions

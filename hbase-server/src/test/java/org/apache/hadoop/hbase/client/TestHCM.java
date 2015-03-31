@@ -615,7 +615,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|HRegionServer
 import|;
 end_import
 
@@ -631,7 +631,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|Region
 import|;
 end_import
 
@@ -6225,7 +6225,7 @@ decl_stmt|;
 comment|//find another row in the cur server that is less than ROW_X
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 init|=
@@ -6244,7 +6244,7 @@ literal|null
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|regions

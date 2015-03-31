@@ -675,7 +675,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -901,8 +901,10 @@ expr_stmt|;
 comment|// flush
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// yep, T2 still there, T1 gone
 name|r
@@ -928,14 +930,14 @@ expr_stmt|;
 comment|// major compact
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -1112,19 +1114,21 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
-expr_stmt|;
-name|region
-operator|.
-name|compactStores
+name|flush
 argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|region
+operator|.
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -1211,7 +1215,7 @@ operator|.
 name|FALSE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -1353,12 +1357,14 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -1461,7 +1467,7 @@ operator|.
 name|FALSE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -1660,13 +1666,17 @@ expr_stmt|;
 comment|// flushing and minor compaction keep delete markers
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
-argument_list|()
+name|compact
+argument_list|(
+literal|false
+argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
@@ -1680,7 +1690,7 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -1739,7 +1749,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -1855,7 +1865,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -2569,7 +2579,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -2718,8 +2728,10 @@ expr_stmt|;
 comment|// neither flush nor minor compaction removes any marker
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
@@ -2733,7 +2745,7 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|false
 argument_list|)
@@ -2751,7 +2763,7 @@ expr_stmt|;
 comment|// major compaction removes all, since there are no puts they affect
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -2809,7 +2821,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -3020,8 +3032,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
@@ -3035,7 +3049,7 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|false
 argument_list|)
@@ -3083,13 +3097,15 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// no markers are collected, since there is an affected put
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -3108,7 +3124,7 @@ comment|// the last collections collected the earlier put
 comment|// so after this collection all markers
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -3166,7 +3182,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -3377,8 +3393,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
@@ -3392,7 +3410,7 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|false
 argument_list|)
@@ -3440,13 +3458,15 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// no markers are collected, since there is an affected put
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -3465,7 +3485,7 @@ comment|// all markers remain, since we have the older row
 comment|// and we haven't pushed the inlined markers past MAX_VERSIONS
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -3515,7 +3535,7 @@ comment|// this pushed out the column and version marker
 comment|// but the family markers remains. THIS IS A PROBLEM!
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -3534,7 +3554,7 @@ comment|// no amount of compacting is getting this of this one
 comment|// KEEP_DELETED_CELLS=>TTL is an option to avoid this.
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -3592,7 +3612,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -4316,7 +4336,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -4495,19 +4515,21 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
-expr_stmt|;
-name|region
-operator|.
-name|compactStores
+name|flush
 argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|region
+operator|.
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -4619,8 +4641,10 @@ expr_stmt|;
 comment|// flush cache only sees what is in the memstore
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// Here we have the three markers again, because the flush above
 comment|// removed the 2nd put before the file is written.
@@ -4639,7 +4663,7 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -4687,8 +4711,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// one trailing delete marker remains (but only one)
 comment|// because delete markers do not increase the version count
@@ -4704,14 +4730,14 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -4767,7 +4793,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -5119,7 +5145,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -5379,8 +5405,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// no delete marker removes by the flush
 name|assertEquals
@@ -5445,8 +5473,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
@@ -5512,12 +5542,14 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -5537,7 +5569,7 @@ comment|// the last compactStores updated the earliestPutTs,
 comment|// so after the next compaction the last family delete marker is also gone
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -5593,7 +5625,7 @@ operator|.
 name|TTL
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -5746,8 +5778,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// no delete marker removes by the flush
 name|assertEquals
@@ -5778,7 +5812,7 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -5806,7 +5840,7 @@ specifier|private
 name|void
 name|checkGet
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 name|byte
@@ -5890,7 +5924,7 @@ specifier|private
 name|int
 name|countDeleteMarkers
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|)
 throws|throws
@@ -5918,9 +5952,6 @@ argument_list|(
 name|region
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 operator|.
 name|iterator

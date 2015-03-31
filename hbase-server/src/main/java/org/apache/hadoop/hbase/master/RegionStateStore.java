@@ -283,7 +283,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -416,7 +416,7 @@ literal|'_'
 decl_stmt|;
 specifier|private
 specifier|volatile
-name|HRegion
+name|Region
 name|metaRegion
 decl_stmt|;
 specifier|private

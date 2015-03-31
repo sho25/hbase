@@ -115,7 +115,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -156,7 +156,7 @@ extends|extends
 name|CoprocessorEnvironment
 block|{
 comment|/** @return the region associated with this coprocessor */
-name|HRegion
+name|Region
 name|getRegion
 parameter_list|()
 function_decl|;

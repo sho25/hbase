@@ -692,7 +692,7 @@ block|}
 decl_stmt|;
 comment|// Instance variables
 specifier|private
-name|HRegion
+name|Region
 name|region
 decl_stmt|;
 specifier|private
@@ -2700,8 +2700,10 @@ block|}
 block|}
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@

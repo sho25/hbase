@@ -499,7 +499,7 @@ operator|.
 name|FALSE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -660,12 +660,14 @@ expr_stmt|;
 comment|// now flush/compact
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -756,7 +758,7 @@ operator|.
 name|FALSE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -847,12 +849,14 @@ expr_stmt|;
 comment|// now flush/compact
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -1076,7 +1080,7 @@ operator|.
 name|FALSE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -1290,12 +1294,14 @@ expr_stmt|;
 comment|// now flush/compact
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -1419,7 +1425,7 @@ operator|.
 name|FALSE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -1541,12 +1547,14 @@ expr_stmt|;
 comment|// now flush/compact
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -1839,7 +1847,7 @@ operator|.
 name|FALSE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -2162,8 +2170,10 @@ expr_stmt|;
 comment|// now flush
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// with HBASE-4241 a flush will eliminate the expired rows
 name|g
@@ -2205,7 +2215,7 @@ expr_stmt|;
 comment|// major compaction
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -2350,7 +2360,7 @@ operator|.
 name|FALSE
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|hbu
@@ -2692,12 +2702,14 @@ expr_stmt|;
 comment|// now flush/compact
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)

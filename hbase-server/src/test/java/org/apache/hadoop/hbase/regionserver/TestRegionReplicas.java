@@ -1066,6 +1066,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// flush so that region replica can read
+name|Region
+name|region
+init|=
 name|getRS
 argument_list|()
 operator|.
@@ -1076,9 +1079,13 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
+decl_stmt|;
+name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|openRegion
 argument_list|(
@@ -1091,9 +1098,8 @@ name|hriSecondary
 argument_list|)
 expr_stmt|;
 comment|// first try directly against region
-name|HRegion
 name|region
-init|=
+operator|=
 name|getRS
 argument_list|()
 operator|.
@@ -1104,7 +1110,7 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|assertGet
 argument_list|(
 name|region
@@ -1199,6 +1205,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// flush so that region replica can read
+name|Region
+name|region
+init|=
 name|getRS
 argument_list|()
 operator|.
@@ -1209,9 +1218,13 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
+decl_stmt|;
+name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|openRegion
 argument_list|(
@@ -1325,7 +1338,7 @@ specifier|private
 name|void
 name|assertGet
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 name|int
@@ -1660,6 +1673,9 @@ argument_list|(
 literal|"Flushing primary region"
 argument_list|)
 expr_stmt|;
+name|Region
+name|region
+init|=
 name|getRS
 argument_list|()
 operator|.
@@ -1670,9 +1686,13 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
+decl_stmt|;
+name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// ensure that chore is run
 name|LOG
@@ -1704,7 +1724,7 @@ argument_list|(
 literal|"Checking results from secondary region replica"
 argument_list|)
 expr_stmt|;
-name|HRegion
+name|Region
 name|secondaryRegion
 init|=
 name|getRS
@@ -1776,6 +1796,8 @@ argument_list|,
 literal|1100
 argument_list|)
 expr_stmt|;
+name|region
+operator|=
 name|getRS
 argument_list|()
 operator|.
@@ -1786,9 +1808,13 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|HTU
 operator|.
@@ -1803,6 +1829,8 @@ argument_list|,
 literal|2100
 argument_list|)
 expr_stmt|;
+name|region
+operator|=
 name|getRS
 argument_list|()
 operator|.
@@ -1813,9 +1841,13 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// ensure that chore is run
 name|Threads
@@ -2809,6 +2841,9 @@ operator|*
 literal|1000
 argument_list|)
 expr_stmt|;
+name|Region
+name|region
+init|=
 name|getRS
 argument_list|()
 operator|.
@@ -2819,12 +2854,16 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
+decl_stmt|;
+name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
-name|HRegion
+name|Region
 name|primaryRegion
 init|=
 name|getRS
@@ -2856,7 +2895,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Refresh store files on the secondary
-name|HRegion
+name|Region
 name|secondaryRegion
 init|=
 name|getRS
@@ -2909,7 +2948,7 @@ argument_list|)
 expr_stmt|;
 name|primaryRegion
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)

@@ -141,6 +141,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HColumnDescriptor
 import|;
 end_import
@@ -405,7 +419,12 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+argument_list|)
 annotation|@
 name|InterfaceStability
 operator|.
@@ -447,7 +466,7 @@ argument_list|>
 name|getStorefiles
 parameter_list|()
 function_decl|;
-comment|/**    * Close all the readers We don't need to worry about subsequent requests because the HRegion    * holds a write lock that will prevent any more reads or writes.    * @return the {@link StoreFile StoreFiles} that were previously being used.    * @throws IOException on failure    */
+comment|/**    * Close all the readers We don't need to worry about subsequent requests because the Region    * holds a write lock that will prevent any more reads or writes.    * @return the {@link StoreFile StoreFiles} that were previously being used.    * @throws IOException on failure    */
 name|Collection
 argument_list|<
 name|StoreFile
@@ -721,7 +740,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This method should only be called from HRegion. It is assumed that the ranges of values in the    * HFile fit within the stores assigned region. (assertBulkLoadHFileOk checks this)    *    * @param srcPathStr    * @param sequenceId sequence Id associated with the HFile    */
+comment|/**    * This method should only be called from Region. It is assumed that the ranges of values in the    * HFile fit within the stores assigned region. (assertBulkLoadHFileOk checks this)    *    * @param srcPathStr    * @param sequenceId sequence Id associated with the HFile    */
 name|Path
 name|bulkLoadHFile
 parameter_list|(

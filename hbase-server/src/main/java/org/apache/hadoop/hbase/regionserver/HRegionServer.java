@@ -2616,7 +2616,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 name|onlineRegions
 init|=
@@ -2625,7 +2625,7 @@ name|ConcurrentHashMap
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -2658,7 +2658,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 name|recoveringRegions
 init|=
@@ -2671,7 +2671,7 @@ name|HashMap
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 argument_list|()
 argument_list|)
@@ -5723,7 +5723,7 @@ name|Entry
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 name|e
 range|:
@@ -5780,7 +5780,7 @@ name|Entry
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 name|e
 range|:
@@ -5981,8 +5981,6 @@ comment|// history.
 name|MetricsRegionServerWrapper
 name|regionServerWrapper
 init|=
-name|this
-operator|.
 name|metricsRegionServer
 operator|.
 name|getRegionServerWrapper
@@ -5990,7 +5988,7 @@ argument_list|()
 decl_stmt|;
 name|Collection
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 init|=
@@ -6152,7 +6150,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|regions
@@ -6343,7 +6341,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|r
 range|:
 name|this
@@ -6528,7 +6526,7 @@ name|Entry
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 name|e
 range|:
@@ -7277,7 +7275,7 @@ name|RegionLoad
 name|createRegionLoad
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 name|RegionLoad
@@ -7298,6 +7296,9 @@ index|[]
 name|name
 init|=
 name|r
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
@@ -7331,9 +7332,7 @@ call|)
 argument_list|(
 name|r
 operator|.
-name|memstoreSize
-operator|.
-name|get
+name|getMemstoreSize
 argument_list|()
 operator|/
 literal|1024
@@ -7371,18 +7370,20 @@ name|currentCompactedKVs
 init|=
 literal|0
 decl_stmt|;
-synchronized|synchronized
-init|(
+name|List
+argument_list|<
+name|Store
+argument_list|>
+name|storeList
+init|=
 name|r
 operator|.
-name|stores
-init|)
-block|{
+name|getStores
+argument_list|()
+decl_stmt|;
 name|stores
 operator|+=
-name|r
-operator|.
-name|stores
+name|storeList
 operator|.
 name|size
 argument_list|()
@@ -7392,12 +7393,7 @@ control|(
 name|Store
 name|store
 range|:
-name|r
-operator|.
-name|stores
-operator|.
-name|values
-argument_list|()
+name|storeList
 control|)
 block|{
 name|storefiles
@@ -7526,7 +7522,6 @@ literal|1024
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 name|float
 name|dataLocality
 init|=
@@ -7594,12 +7589,7 @@ name|name
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|r
-operator|.
-name|setCompleteSequenceId
-argument_list|(
 name|regionLoadBldr
-argument_list|)
 operator|.
 name|setRegionSpecifier
 argument_list|(
@@ -7658,9 +7648,7 @@ name|setReadRequestsCount
 argument_list|(
 name|r
 operator|.
-name|readRequestsCount
-operator|.
-name|get
+name|getReadRequestsCount
 argument_list|()
 argument_list|)
 operator|.
@@ -7668,9 +7656,7 @@ name|setWriteRequestsCount
 argument_list|(
 name|r
 operator|.
-name|writeRequestsCount
-operator|.
-name|get
+name|getWriteRequestsCount
 argument_list|()
 argument_list|)
 operator|.
@@ -7699,6 +7685,18 @@ literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
+operator|(
+operator|(
+name|HRegion
+operator|)
+name|r
+operator|)
+operator|.
+name|setCompleteSequenceId
+argument_list|(
+name|regionLoadBldr
+argument_list|)
+expr_stmt|;
 return|return
 name|regionLoadBldr
 operator|.
@@ -7718,22 +7716,16 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HRegion
+name|Region
 name|r
 init|=
-literal|null
-decl_stmt|;
-name|r
-operator|=
-name|this
-operator|.
 name|onlineRegions
 operator|.
 name|get
 argument_list|(
 name|encodedRegionName
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 return|return
 name|r
 operator|!=
@@ -7862,7 +7854,7 @@ parameter_list|()
 block|{
 for|for
 control|(
-name|HRegion
+name|Region
 name|r
 range|:
 name|this
@@ -7890,9 +7882,6 @@ range|:
 name|r
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -7965,7 +7954,12 @@ name|DEFAULT_PRIORITY
 operator|||
 name|majorCompactPriority
 operator|>
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|r
+operator|)
 operator|.
 name|getCompactPriority
 argument_list|()
@@ -8128,7 +8122,7 @@ parameter_list|()
 block|{
 for|for
 control|(
-name|HRegion
+name|Region
 name|r
 range|:
 name|this
@@ -8150,7 +8144,12 @@ condition|)
 continue|continue;
 if|if
 condition|(
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|r
+operator|)
 operator|.
 name|shouldFlush
 argument_list|()
@@ -8193,6 +8192,9 @@ operator|+
 literal|" requesting flush for region "
 operator|+
 name|r
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -9654,7 +9656,7 @@ name|void
 name|postOpenDeployTasks
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|)
 throws|throws
@@ -9662,6 +9664,17 @@ name|KeeperException
 throws|,
 name|IOException
 block|{
+name|Preconditions
+operator|.
+name|checkArgument
+argument_list|(
+name|r
+operator|instanceof
+name|HRegion
+argument_list|,
+literal|"r must be an HRegion"
+argument_list|)
+expr_stmt|;
 name|rpcServices
 operator|.
 name|checkOpen
@@ -9674,6 +9687,9 @@ argument_list|(
 literal|"Post open deploy tasks for "
 operator|+
 name|r
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -9688,9 +9704,6 @@ range|:
 name|r
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -9748,6 +9761,9 @@ literal|"No sequence number found when opening "
 operator|+
 name|r
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 argument_list|)
@@ -9790,6 +9806,9 @@ literal|"Failed to report opened region to master: "
 operator|+
 name|r
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 argument_list|)
@@ -9797,6 +9816,9 @@ throw|;
 block|}
 name|triggerFlushInPrimaryRegion
 argument_list|(
+operator|(
+name|HRegion
+operator|)
 name|r
 argument_list|)
 expr_stmt|;
@@ -9807,6 +9829,9 @@ argument_list|(
 literal|"Finished post open deploy task for "
 operator|+
 name|r
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -11610,7 +11635,7 @@ name|boolean
 name|abort
 parameter_list|)
 block|{
-name|HRegion
+name|Region
 name|meta
 init|=
 literal|null
@@ -11635,7 +11660,7 @@ name|Entry
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 name|e
 range|:
@@ -11740,7 +11765,7 @@ name|Entry
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 name|e
 range|:
@@ -11752,7 +11777,7 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|HRegion
+name|Region
 name|r
 init|=
 name|e
@@ -11849,7 +11874,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 name|getRecoveringRegions
 parameter_list|()
@@ -11917,14 +11942,14 @@ comment|/**    * For tests, web ui and metrics.    * This method will only work 
 specifier|public
 name|Collection
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|getOnlineRegionsLocalContext
 parameter_list|()
 block|{
 name|Collection
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 init|=
@@ -11950,7 +11975,7 @@ specifier|public
 name|void
 name|addToOnlineRegions
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|)
 block|{
@@ -11984,7 +12009,7 @@ name|SortedMap
 argument_list|<
 name|Long
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 name|getCopyOfOnlineRegionsSortedBySize
 parameter_list|()
@@ -11994,7 +12019,7 @@ name|SortedMap
 argument_list|<
 name|Long
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 name|sortedRegions
 init|=
@@ -12003,7 +12028,7 @@ name|TreeMap
 argument_list|<
 name|Long
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 argument_list|(
 operator|new
@@ -12044,7 +12069,7 @@ decl_stmt|;
 comment|// Copy over all regions. Regions are sorted by size with biggest first.
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|this
@@ -12061,9 +12086,7 @@ name|put
 argument_list|(
 name|region
 operator|.
-name|memstoreSize
-operator|.
-name|get
+name|getMemstoreSize
 argument_list|()
 argument_list|,
 name|region
@@ -12122,7 +12145,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|r
 range|:
 name|onlineRegions
@@ -12798,7 +12821,7 @@ name|Override
 specifier|public
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|getOnlineRegions
 parameter_list|(
@@ -12808,14 +12831,14 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|tableRegions
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -12828,7 +12851,7 @@ init|)
 block|{
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|this
@@ -12907,7 +12930,7 @@ init|)
 block|{
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|this
@@ -13003,7 +13026,7 @@ expr_stmt|;
 block|}
 name|Collection
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 init|=
@@ -13012,7 +13035,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|regions
@@ -13188,7 +13211,7 @@ throws|throws
 name|NotServingRegionException
 block|{
 comment|//Check for permissions to close.
-name|HRegion
+name|Region
 name|actualRegion
 init|=
 name|this
@@ -13515,7 +13538,7 @@ return|;
 block|}
 comment|/**    * @param regionName    * @return HRegion for the passed binary<code>regionName</code> or null if    *         named region is not member of the online regions.    */
 specifier|public
-name|HRegion
+name|Region
 name|getOnlineRegion
 parameter_list|(
 specifier|final
@@ -13569,7 +13592,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HRegion
+name|Region
 name|getFromOnlineRegions
 parameter_list|(
 specifier|final
@@ -13595,14 +13618,14 @@ name|boolean
 name|removeFromOnlineRegions
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 name|ServerName
 name|destination
 parameter_list|)
 block|{
-name|HRegion
+name|Region
 name|toReturn
 init|=
 name|this
@@ -13758,7 +13781,7 @@ return|;
 block|}
 comment|/**    * Protected utility method for safely obtaining an HRegion handle.    *    * @param regionName    *          Name of online {@link HRegion} to return    * @return {@link HRegion} for<code>regionName</code>    * @throws NotServingRegionException    */
 specifier|protected
-name|HRegion
+name|Region
 name|getRegion
 parameter_list|(
 specifier|final
@@ -13789,7 +13812,7 @@ argument_list|)
 return|;
 block|}
 specifier|public
-name|HRegion
+name|Region
 name|getRegionByEncodedName
 parameter_list|(
 name|String
@@ -13808,7 +13831,7 @@ argument_list|)
 return|;
 block|}
 specifier|protected
-name|HRegion
+name|Region
 name|getRegionByEncodedName
 parameter_list|(
 name|byte
@@ -13821,7 +13844,7 @@ parameter_list|)
 throws|throws
 name|NotServingRegionException
 block|{
-name|HRegion
+name|Region
 name|region
 init|=
 name|this
@@ -14906,7 +14929,7 @@ specifier|private
 name|void
 name|updateRecoveringRegionLastFlushedSequenceId
 parameter_list|(
-name|HRegion
+name|Region
 name|r
 parameter_list|)
 throws|throws
@@ -14927,7 +14950,7 @@ comment|// return immdiately for non-recovering regions
 return|return;
 block|}
 name|HRegionInfo
-name|region
+name|regionInfo
 init|=
 name|r
 operator|.
@@ -14947,7 +14970,7 @@ name|this
 operator|.
 name|getLastFailedRSFromZK
 argument_list|(
-name|region
+name|regionInfo
 operator|.
 name|getEncodedName
 argument_list|()
@@ -14964,7 +14987,7 @@ name|maxSeqIdInStores
 init|=
 name|r
 operator|.
-name|getMaxStoreSeqIdForLogReplay
+name|getMaxStoreSeqId
 argument_list|()
 decl_stmt|;
 name|long
@@ -15023,7 +15046,7 @@ name|zooKeeper
 operator|.
 name|recoveringRegionsZNode
 argument_list|,
-name|region
+name|regionInfo
 operator|.
 name|getEncodedName
 argument_list|()
@@ -15148,7 +15171,7 @@ name|debug
 argument_list|(
 literal|"Update last flushed sequence id of region "
 operator|+
-name|region
+name|regionInfo
 operator|.
 name|getEncodedName
 argument_list|()
@@ -15167,7 +15190,7 @@ name|warn
 argument_list|(
 literal|"Can't find failed region server for recovering region "
 operator|+
-name|region
+name|regionInfo
 operator|.
 name|getEncodedName
 argument_list|()
@@ -15187,7 +15210,7 @@ name|debug
 argument_list|(
 literal|"Region "
 operator|+
-name|region
+name|regionInfo
 operator|.
 name|getEncodedName
 argument_list|()
@@ -15747,7 +15770,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|onlineRegions
@@ -15764,9 +15787,6 @@ range|:
 name|region
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{

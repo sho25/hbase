@@ -531,6 +531,22 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WAL
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|Test
@@ -1145,8 +1161,8 @@ operator|*
 literal|1024
 argument_list|)
 expr_stmt|;
-comment|// Intialize the HRegion
-name|HRegion
+comment|// Intialize the region
+name|Region
 name|region
 init|=
 name|initHRegion
@@ -1232,9 +1248,6 @@ name|region
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 decl_stmt|;
 comment|// Find the smallest LSNs for edits wrt to each CF.
 name|long
@@ -1311,10 +1324,10 @@ comment|// Get the overall smallest LSN in the region's memstores.
 name|long
 name|smallestSeqInRegionCurrentMemstore
 init|=
-name|region
-operator|.
 name|getWAL
-argument_list|()
+argument_list|(
+name|region
+argument_list|)
 operator|.
 name|getEarliestMemstoreSeqNum
 argument_list|(
@@ -1394,7 +1407,7 @@ expr_stmt|;
 comment|// Flush!
 name|region
 operator|.
-name|flushcache
+name|flush
 argument_list|(
 literal|false
 argument_list|)
@@ -1453,16 +1466,13 @@ name|region
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 expr_stmt|;
 name|smallestSeqInRegionCurrentMemstore
 operator|=
-name|region
-operator|.
 name|getWAL
-argument_list|()
+argument_list|(
+name|region
+argument_list|)
 operator|.
 name|getEarliestMemstoreSeqNum
 argument_list|(
@@ -1595,7 +1605,7 @@ expr_stmt|;
 comment|// Flush again
 name|region
 operator|.
-name|flushcache
+name|flush
 argument_list|(
 literal|false
 argument_list|)
@@ -1643,16 +1653,13 @@ name|region
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 expr_stmt|;
 name|smallestSeqInRegionCurrentMemstore
 operator|=
-name|region
-operator|.
 name|getWAL
-argument_list|()
+argument_list|(
+name|region
+argument_list|)
 operator|.
 name|getEarliestMemstoreSeqNum
 argument_list|(
@@ -1716,7 +1723,7 @@ comment|// In that case, we should flush all the CFs.
 comment|// Clearing the existing memstores.
 name|region
 operator|.
-name|flushcache
+name|flush
 argument_list|(
 literal|true
 argument_list|)
@@ -1802,7 +1809,7 @@ expr_stmt|;
 block|}
 name|region
 operator|.
-name|flushcache
+name|flush
 argument_list|(
 literal|false
 argument_list|)
@@ -1816,9 +1823,6 @@ argument_list|,
 name|region
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1969,9 +1973,6 @@ name|region
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 decl_stmt|;
 comment|// Find the sizes of the memstores of each CF.
 name|long
@@ -2057,7 +2058,7 @@ expr_stmt|;
 comment|// Flush!
 name|region
 operator|.
-name|flushcache
+name|flush
 argument_list|(
 literal|false
 argument_list|)
@@ -2103,9 +2104,6 @@ operator|=
 name|region
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 expr_stmt|;
 name|long
@@ -2184,7 +2182,7 @@ specifier|private
 specifier|static
 name|Pair
 argument_list|<
-name|HRegion
+name|Region
 argument_list|,
 name|HRegionServer
 argument_list|>
@@ -2251,7 +2249,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|hrs
@@ -2497,7 +2495,7 @@ argument_list|)
 expr_stmt|;
 name|Pair
 argument_list|<
-name|HRegion
+name|Region
 argument_list|,
 name|HRegionServer
 argument_list|>
@@ -2508,7 +2506,7 @@ argument_list|(
 name|TABLENAME
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|desiredRegion
 init|=
 name|desiredRegionAndServer
@@ -2528,7 +2526,7 @@ expr_stmt|;
 comment|// Flush the region selectively.
 name|desiredRegion
 operator|.
-name|flushcache
+name|flush
 argument_list|(
 literal|false
 argument_list|)
@@ -2548,9 +2546,6 @@ operator|=
 name|desiredRegion
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 expr_stmt|;
 comment|// Find the sizes of the memstores of each CF.
@@ -2792,10 +2787,30 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
+name|WAL
+name|getWAL
+parameter_list|(
+name|Region
+name|region
+parameter_list|)
+block|{
+return|return
+operator|(
+operator|(
+name|HRegion
+operator|)
+name|region
+operator|)
+operator|.
+name|getWAL
+argument_list|()
+return|;
+block|}
+specifier|private
 name|int
 name|getNumRolledLogFiles
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|)
 block|{
@@ -2804,10 +2819,10 @@ operator|(
 operator|(
 name|FSHLog
 operator|)
-name|region
-operator|.
 name|getWAL
-argument_list|()
+argument_list|(
+name|region
+argument_list|)
 operator|)
 operator|.
 name|getNumRolledLogFiles
@@ -2998,7 +3013,7 @@ expr_stmt|;
 block|}
 name|Pair
 argument_list|<
-name|HRegion
+name|Region
 argument_list|,
 name|HRegionServer
 argument_list|>
@@ -3010,7 +3025,7 @@ name|tableName
 argument_list|)
 decl_stmt|;
 specifier|final
-name|HRegion
+name|Region
 name|desiredRegion
 init|=
 name|desiredRegionAndServer
@@ -3130,10 +3145,10 @@ argument_list|)
 decl_stmt|;
 name|assertNull
 argument_list|(
-name|desiredRegion
-operator|.
 name|getWAL
-argument_list|()
+argument_list|(
+name|desiredRegion
+argument_list|)
 operator|.
 name|rollWriter
 argument_list|()
@@ -3276,9 +3291,6 @@ name|desiredRegion
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 operator|==
 literal|0
 return|;
@@ -3298,9 +3310,6 @@ init|=
 name|desiredRegion
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 decl_stmt|;
 if|if
@@ -3385,10 +3394,10 @@ expr_stmt|;
 comment|// let WAL cleanOldLogs
 name|assertNull
 argument_list|(
-name|desiredRegion
-operator|.
 name|getWAL
-argument_list|()
+argument_list|(
+name|desiredRegion
+argument_list|)
 operator|.
 name|rollWriter
 argument_list|(
@@ -3431,7 +3440,7 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|HRegion
+name|Region
 name|region
 init|=
 name|getRegionWithName
@@ -3599,9 +3608,6 @@ condition|(
 name|region
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 operator|>
 name|memstoreFlushSize
@@ -3891,7 +3897,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|getRegionWithName
@@ -4047,7 +4053,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|getRegionWithName

@@ -629,7 +629,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 specifier|private
-name|HRegion
+name|Region
 name|region
 decl_stmt|;
 specifier|private
@@ -1521,8 +1521,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 block|}

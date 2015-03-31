@@ -218,9 +218,6 @@ name|region
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 comment|// If any of the stores are unable to split (eg they contain reference files)

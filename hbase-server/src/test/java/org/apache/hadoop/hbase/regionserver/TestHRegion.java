@@ -1559,9 +1559,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|InternalScanner
 operator|.
-name|RowLock
+name|NextState
 import|;
 end_import
 
@@ -1577,9 +1577,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|InternalScanner
+name|Region
 operator|.
-name|NextState
+name|RowLock
 import|;
 end_import
 
@@ -2641,9 +2641,6 @@ name|region
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|HBaseTestingUtility
@@ -3220,9 +3217,6 @@ name|region
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 decl_stmt|;
 name|Assert
 operator|.
@@ -3281,9 +3275,6 @@ name|region
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 decl_stmt|;
 comment|// Fail a flush which means the current memstore will hang out as memstore 'snapshot'.
 try|try
@@ -3297,8 +3288,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|Assert
 operator|.
@@ -3336,9 +3329,6 @@ argument_list|,
 name|region
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3418,9 +3408,6 @@ name|region
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Do a successful flush.  It will clear the snapshot only.  Thats how flushes work.
@@ -3428,8 +3415,10 @@ comment|// If already a snapshot, we clear it else we move the memstore to be sn
 comment|// it
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// Make sure our memory accounting is right.
 name|Assert
@@ -3443,9 +3432,6 @@ argument_list|,
 name|region
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3668,9 +3654,6 @@ init|=
 name|region
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 decl_stmt|;
 name|Assert
@@ -3953,8 +3936,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|Scan
 name|scan
@@ -4004,8 +3989,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// open the second scanner
 name|RegionScanner
@@ -4048,7 +4035,7 @@ expr_stmt|;
 comment|// make a major compaction
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -4274,8 +4261,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|Scan
 name|scan
@@ -4318,7 +4307,7 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -4701,9 +4690,6 @@ range|:
 name|region
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -5181,9 +5167,6 @@ name|region
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|maxSeqIdInStores
@@ -5569,9 +5552,6 @@ name|region
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|maxSeqIdInStores
@@ -5733,20 +5713,17 @@ operator|.
 name|getEncodedNameAsBytes
 argument_list|()
 decl_stmt|;
-name|assertEquals
-argument_list|(
-literal|0
-argument_list|,
+name|byte
+index|[]
+index|[]
+name|columns
+init|=
 name|region
 operator|.
-name|getStoreFileList
-argument_list|(
-name|region
-operator|.
-name|getStores
+name|getTableDesc
 argument_list|()
 operator|.
-name|keySet
+name|getFamiliesKeys
 argument_list|()
 operator|.
 name|toArray
@@ -5758,6 +5735,16 @@ literal|0
 index|]
 index|[]
 argument_list|)
+decl_stmt|;
+name|assertEquals
+argument_list|(
+literal|0
+argument_list|,
+name|region
+operator|.
+name|getStoreFileList
+argument_list|(
+name|columns
 argument_list|)
 operator|.
 name|size
@@ -6076,9 +6063,6 @@ name|region
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|maxSeqIdInStores
@@ -6131,23 +6115,7 @@ name|region
 operator|.
 name|getStoreFileList
 argument_list|(
-name|region
-operator|.
-name|getStores
-argument_list|()
-operator|.
-name|keySet
-argument_list|()
-operator|.
-name|toArray
-argument_list|(
-operator|new
-name|byte
-index|[
-literal|0
-index|]
-index|[]
-argument_list|)
+name|columns
 argument_list|)
 operator|.
 name|size
@@ -6351,8 +6319,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 comment|// this will create a region with 3 files
@@ -7136,8 +7106,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 comment|// this will create a region with 3 files from flush
@@ -8215,8 +8187,10 @@ try|try
 block|{
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
@@ -8257,8 +8231,10 @@ try|try
 block|{
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
@@ -8351,8 +8327,10 @@ try|try
 block|{
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
@@ -17841,8 +17819,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|region
 operator|.
@@ -18129,7 +18109,7 @@ name|IOException
 block|{
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|result
 init|=
@@ -18196,6 +18176,9 @@ literal|"Running rollback of failed split of "
 operator|+
 name|parent
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
@@ -18224,6 +18207,9 @@ literal|"Successful rollback of failed split of "
 operator|+
 name|parent
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 argument_list|)
@@ -18246,6 +18232,9 @@ argument_list|(
 literal|"Failed rollback of failed split of "
 operator|+
 name|parent
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -18270,11 +18259,17 @@ operator|new
 name|HRegion
 index|[]
 block|{
+operator|(
+name|HRegion
+operator|)
 name|result
 operator|.
 name|getFirst
 argument_list|()
 block|,
+operator|(
+name|HRegion
+operator|)
 name|result
 operator|.
 name|getSecond
@@ -20383,8 +20378,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// Expected
 name|List
@@ -20904,8 +20901,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|put
 operator|=
@@ -20938,8 +20937,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|put
 operator|=
@@ -20972,8 +20973,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|put
 operator|=
@@ -21986,8 +21989,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// Expected
 name|List
@@ -22853,8 +22858,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|put
 operator|=
@@ -22887,8 +22894,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|put
 operator|=
@@ -22921,8 +22930,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|put
 operator|=
@@ -24148,8 +24159,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|region
 operator|.
@@ -24373,8 +24386,10 @@ index|[
 name|i
 index|]
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 name|byte
@@ -24527,6 +24542,9 @@ name|rs
 index|[
 name|j
 index|]
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
@@ -24771,8 +24789,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|HRegion
 index|[]
@@ -25014,8 +25034,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|HRegion
 index|[]
@@ -25537,7 +25559,7 @@ block|{
 comment|// System.out.println("iteration = " + i);
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -25780,8 +25802,10 @@ try|try
 block|{
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -26091,7 +26115,7 @@ condition|)
 block|{
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -26225,8 +26249,10 @@ argument_list|()
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|putThread
 operator|.
@@ -26895,8 +26921,10 @@ if|if
 condition|(
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 operator|.
 name|isCompactionNeeded
 argument_list|()
@@ -26917,7 +26945,7 @@ condition|)
 block|{
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|false
 argument_list|)
@@ -27237,8 +27265,10 @@ argument_list|()
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -27504,8 +27534,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|Delete
 name|delete
@@ -27957,8 +27989,10 @@ block|}
 block|}
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 comment|// before compaction
@@ -28039,7 +28073,7 @@ expr_stmt|;
 block|}
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -28325,8 +28359,10 @@ expr_stmt|;
 comment|// Flush
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// Get rows
 name|Get
@@ -28609,8 +28645,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|Delete
 name|del
@@ -28630,8 +28668,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// Get remaining rows (should have none)
 name|Get
@@ -28905,8 +28945,10 @@ argument_list|)
 decl_stmt|;
 name|firstRegion
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|HDFSBlocksDistribution
 name|blocksDistribution1
@@ -29874,8 +29916,10 @@ try|try
 block|{
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -30378,8 +30422,10 @@ try|try
 block|{
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -30897,8 +30943,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|get
 operator|=
@@ -31091,8 +31139,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|get
 operator|=
@@ -32492,8 +32542,10 @@ expr_stmt|;
 comment|// flush region
 name|primaryRegion
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// open secondary region
 name|secondaryRegion
@@ -32779,8 +32831,10 @@ expr_stmt|;
 comment|// flush region
 name|primaryRegion
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// open secondary region
 name|secondaryRegion
@@ -33145,8 +33199,10 @@ expr_stmt|;
 comment|// flush region
 name|primaryRegion
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// open secondary region
 name|secondaryRegion
@@ -33989,8 +34045,10 @@ name|fr
 init|=
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 decl_stmt|;
 name|assertFalse
 argument_list|(
@@ -34053,8 +34111,10 @@ name|fr
 operator|=
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
@@ -34118,8 +34178,10 @@ name|fr
 operator|=
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
@@ -36601,8 +36663,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|Scan
 name|scan
@@ -37367,8 +37431,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|Scan
 name|scan
@@ -38348,8 +38414,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// hfiles(cf1/cf3) : "row1" (1 kvs) / "row2" (1 kv) / "row4" (2 kv)
 name|put
@@ -38427,8 +38495,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// hfiles(cf1/cf3) : "row2"(2 kv) / "row3"(1 kvs) / "row4" (1 kv)
 name|put
@@ -38506,8 +38576,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// memstore(cf1/cf2/cf3) : "row0" (1 kvs) / "row3" ( 1 kv) / "row5" (max)
 comment|// ( 2 kv)
@@ -39342,8 +39414,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// storefile2
 name|put
@@ -39370,8 +39444,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// storefile3
 name|put
@@ -39398,8 +39474,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// memstore
 name|put
@@ -39827,8 +39905,10 @@ name|numRows
 decl_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|HRegion
 index|[]
@@ -40782,8 +40862,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|HBaseTestingUtility
 operator|.
@@ -41442,8 +41524,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|HBaseTestingUtility
 operator|.
@@ -41502,7 +41586,7 @@ name|HashMap
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 name|recoveringRegions
 init|=
@@ -43159,8 +43243,10 @@ expr_stmt|;
 comment|// Flush so we are sure store scanning gets this right
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// A query at time T+0 should return all cells
 name|Result

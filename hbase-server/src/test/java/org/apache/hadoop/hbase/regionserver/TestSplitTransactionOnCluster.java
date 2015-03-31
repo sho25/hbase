@@ -1756,6 +1756,9 @@ name|split
 argument_list|(
 name|region
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|,
@@ -2055,6 +2058,9 @@ operator|.
 name|getServerWith
 argument_list|(
 name|region
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
@@ -4285,6 +4291,9 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
@@ -4723,6 +4732,9 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
@@ -4807,6 +4819,9 @@ operator|.
 name|getServerWith
 argument_list|(
 name|region
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
@@ -5436,6 +5451,9 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
@@ -5967,6 +5985,9 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
@@ -6341,6 +6362,9 @@ name|get
 argument_list|(
 literal|0
 argument_list|)
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
@@ -6742,6 +6766,9 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
@@ -6766,6 +6793,9 @@ name|get
 argument_list|(
 literal|0
 argument_list|)
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
@@ -7075,6 +7105,9 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
@@ -7128,7 +7161,7 @@ name|Override
 specifier|public
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|stepsBeforePONR
 parameter_list|(
@@ -7365,8 +7398,10 @@ expr_stmt|;
 block|}
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|Store
 name|store
@@ -8850,7 +8885,7 @@ decl_stmt|;
 specifier|private
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|daughterRegions
 init|=
@@ -8902,7 +8937,7 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|onlineRegions
 init|=
@@ -8918,7 +8953,7 @@ literal|"testSplitHooksBeforeAndAfterPONR_2"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|onlineRegions
@@ -8930,7 +8965,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|r
 range|:
 name|onlineRegions
@@ -8999,7 +9034,12 @@ argument_list|()
 expr_stmt|;
 return|return;
 block|}
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|region
+operator|)
 operator|.
 name|forceSplit
 argument_list|(

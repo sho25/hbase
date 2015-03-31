@@ -519,6 +519,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|Region
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|testclassification
 operator|.
 name|MediumTests
@@ -3120,8 +3136,10 @@ expr_stmt|;
 block|}
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// FlushResult.flushSequenceId is not visible here so go get the current sequence id.
 name|long

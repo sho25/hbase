@@ -612,7 +612,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|HRegion
+name|Region
 name|r
 init|=
 name|createNewHRegion
@@ -640,8 +640,10 @@ argument_list|)
 expr_stmt|;
 name|r
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|CacheStats
 name|stats

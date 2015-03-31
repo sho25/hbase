@@ -101,7 +101,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -1054,7 +1054,7 @@ literal|true
 decl_stmt|;
 name|Map
 argument_list|<
-name|HRegion
+name|Region
 argument_list|,
 name|Set
 argument_list|<
@@ -1066,7 +1066,7 @@ init|=
 operator|new
 name|HashMap
 argument_list|<
-name|HRegion
+name|Region
 argument_list|,
 name|Set
 argument_list|<
@@ -1085,7 +1085,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|hbase
@@ -1102,6 +1102,9 @@ block|{
 if|if
 condition|(
 name|region
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -1384,7 +1387,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|HRegion
+name|Region
 argument_list|,
 name|Set
 argument_list|<
@@ -1561,7 +1564,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|hbase
@@ -1578,6 +1581,9 @@ block|{
 if|if
 condition|(
 name|region
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -1723,7 +1729,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|hbase
@@ -1740,6 +1746,9 @@ block|{
 if|if
 condition|(
 name|region
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -2156,7 +2165,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|hbase
@@ -2173,6 +2182,9 @@ block|{
 if|if
 condition|(
 name|region
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -2735,7 +2747,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|hbase
@@ -2752,6 +2764,9 @@ block|{
 if|if
 condition|(
 name|region
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()

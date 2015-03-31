@@ -513,7 +513,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|HRegionServer
 import|;
 end_import
 
@@ -529,7 +529,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|Region
 import|;
 end_import
 
@@ -1416,7 +1416,7 @@ argument_list|()
 expr_stmt|;
 name|Collection
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regs
 init|=
@@ -1439,7 +1439,7 @@ literal|false
 expr_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|r
 range|:
 name|regs
@@ -2700,7 +2700,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|rs
@@ -2915,6 +2915,9 @@ operator|+
 literal|" for region "
 operator|+
 name|region
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()

@@ -714,7 +714,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// For each region, choose some datanodes as the favored nodes then assign
-comment|// them as favored nodes through the HRegion.
+comment|// them as favored nodes through the region.
 for|for
 control|(
 name|int
@@ -745,7 +745,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 init|=
@@ -758,7 +758,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|regions
@@ -1008,7 +1008,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 init|=
@@ -1021,7 +1021,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|regions

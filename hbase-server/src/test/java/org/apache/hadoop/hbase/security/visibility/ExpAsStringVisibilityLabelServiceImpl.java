@@ -455,7 +455,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|OperationStatus
 import|;
 end_import
 
@@ -471,7 +471,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|OperationStatus
+name|Region
 import|;
 end_import
 
@@ -714,7 +714,7 @@ name|Configuration
 name|conf
 decl_stmt|;
 specifier|private
-name|HRegion
+name|Region
 name|labelsRegion
 decl_stmt|;
 specifier|private

@@ -776,6 +776,9 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
@@ -1132,6 +1135,9 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
@@ -1486,6 +1492,9 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
@@ -1811,6 +1820,9 @@ operator|+
 name|env
 operator|.
 name|getRegion
+argument_list|()
+operator|.
+name|getRegionInfo
 argument_list|()
 operator|.
 name|getRegionNameAsString

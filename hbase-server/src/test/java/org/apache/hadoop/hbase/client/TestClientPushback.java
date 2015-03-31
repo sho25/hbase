@@ -245,6 +245,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|Region
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|testclassification
 operator|.
 name|MediumTests
@@ -637,7 +653,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|rs
@@ -713,7 +729,12 @@ name|int
 call|)
 argument_list|(
 operator|(
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|region
+operator|)
 operator|.
 name|addAndGetGlobalMemstoreSize
 argument_list|(
@@ -790,6 +811,9 @@ name|regionName
 init|=
 name|region
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 decl_stmt|;
@@ -859,6 +883,9 @@ argument_list|(
 literal|"Backoff calculated for "
 operator|+
 name|region
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()

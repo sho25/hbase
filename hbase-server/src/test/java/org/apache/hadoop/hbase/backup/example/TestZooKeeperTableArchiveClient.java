@@ -347,7 +347,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -1146,7 +1146,7 @@ argument_list|(
 name|TEST_FAM
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|UTIL
@@ -1427,7 +1427,7 @@ argument_list|(
 name|TEST_FAM
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|UTIL
@@ -1455,7 +1455,7 @@ argument_list|(
 name|TEST_FAM
 argument_list|)
 expr_stmt|;
-name|HRegion
+name|Region
 name|otherRegion
 init|=
 name|UTIL
@@ -2288,7 +2288,7 @@ specifier|private
 name|void
 name|loadFlushAndCompact
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 name|byte
@@ -2352,7 +2352,7 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -2363,7 +2363,7 @@ specifier|private
 name|void
 name|createHFileInRegion
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 name|byte
@@ -2419,8 +2419,10 @@ expr_stmt|;
 comment|// flush the region to make a store file
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @param cleaner    */

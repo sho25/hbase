@@ -717,7 +717,7 @@ name|regionserver
 operator|.
 name|HRegion
 operator|.
-name|FlushResult
+name|FlushResultImpl
 import|;
 end_import
 
@@ -1737,13 +1737,18 @@ name|families
 argument_list|)
 expr_stmt|;
 comment|// flush region
-name|FlushResult
+name|FlushResultImpl
 name|flush
 init|=
+operator|(
+name|FlushResultImpl
+operator|)
 name|secondaryRegion
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
@@ -1751,7 +1756,7 @@ name|flush
 operator|.
 name|result
 argument_list|,
-name|FlushResult
+name|FlushResultImpl
 operator|.
 name|Result
 operator|.
@@ -1880,8 +1885,10 @@ argument_list|)
 expr_stmt|;
 name|primaryRegion
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// now replay the edits and the flush marker
 name|reader
@@ -2412,9 +2419,6 @@ name|secondaryRegion
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 decl_stmt|;
 name|long
 name|storeFlushableSize
@@ -2561,9 +2565,6 @@ name|secondaryRegion
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|assertEquals
@@ -2599,9 +2600,6 @@ init|=
 name|secondaryRegion
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -2695,9 +2693,6 @@ range|:
 name|secondaryRegion
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -2811,9 +2806,6 @@ range|:
 name|primaryRegion
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -2988,9 +2980,6 @@ init|=
 name|secondaryRegion
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 decl_stmt|;
 name|long
@@ -3214,9 +3203,6 @@ name|secondaryRegion
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 operator|>
 literal|0
 argument_list|)
@@ -3305,9 +3291,6 @@ name|secondaryRegion
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 operator|>
 literal|0
 argument_list|)
@@ -3395,9 +3378,6 @@ argument_list|(
 name|secondaryRegion
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 operator|>
 literal|0
@@ -3719,9 +3699,6 @@ name|secondaryRegion
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|assertEquals
@@ -3741,9 +3718,6 @@ init|=
 name|secondaryRegion
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 decl_stmt|;
 comment|// Test case 1: replay the a flush commit marker smaller than what we have prepared
@@ -3802,9 +3776,6 @@ name|secondaryRegion
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|assertEquals
@@ -3856,9 +3827,6 @@ init|=
 name|secondaryRegion
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 decl_stmt|;
 name|assertEquals
@@ -4173,9 +4141,6 @@ name|secondaryRegion
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|assertEquals
@@ -4195,9 +4160,6 @@ init|=
 name|secondaryRegion
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 decl_stmt|;
 comment|// Test case 1: replay the a flush commit marker larger than what we have prepared
@@ -4256,9 +4218,6 @@ name|secondaryRegion
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|assertEquals
@@ -4310,9 +4269,6 @@ init|=
 name|secondaryRegion
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -4616,9 +4572,6 @@ name|secondaryRegion
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|assertEquals
@@ -4638,9 +4591,6 @@ init|=
 name|secondaryRegion
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 decl_stmt|;
 comment|// Test case 1: replay a flush commit marker without start flush marker
@@ -4671,9 +4621,6 @@ range|:
 name|secondaryRegion
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -4722,9 +4669,6 @@ range|:
 name|secondaryRegion
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -4794,9 +4738,6 @@ init|=
 name|secondaryRegion
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 decl_stmt|;
 if|if
@@ -5117,9 +5058,6 @@ name|secondaryRegion
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|assertEquals
@@ -5139,9 +5077,6 @@ init|=
 name|secondaryRegion
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -5190,9 +5125,6 @@ range|:
 name|secondaryRegion
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -5244,9 +5176,6 @@ init|=
 name|secondaryRegion
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -5546,9 +5475,6 @@ name|secondaryRegion
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|assertEquals
@@ -5604,9 +5530,6 @@ name|secondaryRegion
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|assertEquals
@@ -5657,9 +5580,6 @@ init|=
 name|secondaryRegion
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -6070,8 +5990,10 @@ argument_list|)
 expr_stmt|;
 name|primaryRegion
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// now replay the flush marker
 name|reader
@@ -6628,6 +6550,9 @@ name|copyFrom
 argument_list|(
 name|primaryRegion
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
@@ -6873,10 +6798,18 @@ throws|throws
 name|IOException
 block|{
 comment|// primary region is empty at this point. Request a flush with writeFlushRequestWalMarker=false
-name|FlushResult
+name|FlushResultImpl
 name|result
 init|=
+call|(
+name|FlushResultImpl
+call|)
+argument_list|(
+operator|(
+name|HRegion
+operator|)
 name|primaryRegion
+argument_list|)
 operator|.
 name|flushcache
 argument_list|(
@@ -6896,7 +6829,7 @@ name|result
 operator|.
 name|result
 argument_list|,
-name|FlushResult
+name|FlushResultImpl
 operator|.
 name|Result
 operator|.
@@ -6913,7 +6846,15 @@ expr_stmt|;
 comment|// request flush again, but this time with writeFlushRequestWalMarker = true
 name|result
 operator|=
+call|(
+name|FlushResultImpl
+call|)
+argument_list|(
+operator|(
+name|HRegion
+operator|)
 name|primaryRegion
+argument_list|)
 operator|.
 name|flushcache
 argument_list|(
@@ -6933,7 +6874,7 @@ name|result
 operator|.
 name|result
 argument_list|,
-name|FlushResult
+name|FlushResultImpl
 operator|.
 name|Result
 operator|.
@@ -7219,8 +7160,10 @@ argument_list|)
 expr_stmt|;
 name|primaryRegion
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|reader
 operator|=
@@ -7358,8 +7301,10 @@ argument_list|)
 expr_stmt|;
 name|primaryRegion
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|reader
 operator|=
@@ -7880,9 +7825,6 @@ name|secondaryRegion
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 operator|==
 literal|0
 argument_list|)
@@ -7978,9 +7920,6 @@ name|secondaryRegion
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 operator|>
 literal|0
 argument_list|)
@@ -7995,9 +7934,6 @@ argument_list|(
 name|secondaryRegion
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|get
 argument_list|()
 operator|==
 literal|0
@@ -8419,6 +8355,8 @@ argument_list|(
 name|familyPaths
 argument_list|,
 literal|false
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// now replay the edits and the bulk load marker
@@ -8563,9 +8501,6 @@ range|:
 name|secondaryRegion
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -8866,8 +8801,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 name|LOG

@@ -599,7 +599,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|HRegionServer
 import|;
 end_import
 
@@ -615,7 +615,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|Region
 import|;
 end_import
 
@@ -2578,7 +2578,7 @@ control|)
 block|{
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|onlineRegions
 init|=
@@ -2762,7 +2762,7 @@ condition|)
 block|{
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|onlineRegions
 init|=
@@ -3109,7 +3109,7 @@ name|e
 parameter_list|)
 block|{       }
 block|}
-name|HRegion
+name|Region
 name|labelsTableRegion
 init|=
 name|regionServer

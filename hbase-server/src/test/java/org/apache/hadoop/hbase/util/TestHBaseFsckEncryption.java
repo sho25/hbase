@@ -215,22 +215,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Put
 import|;
 end_import
@@ -355,7 +339,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -1132,7 +1116,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|TEST_UTIL
@@ -1159,9 +1143,6 @@ range|:
 name|region
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{

@@ -257,7 +257,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|InternalScanner
+operator|.
+name|NextState
 import|;
 end_import
 
@@ -273,9 +275,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|InternalScanner
-operator|.
-name|NextState
+name|Region
 import|;
 end_import
 
@@ -545,7 +545,7 @@ name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
 specifier|private
-name|HRegion
+name|Region
 name|region
 decl_stmt|;
 annotation|@
@@ -840,8 +840,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|String
 index|[]
@@ -1677,8 +1679,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|Scan
 name|scan

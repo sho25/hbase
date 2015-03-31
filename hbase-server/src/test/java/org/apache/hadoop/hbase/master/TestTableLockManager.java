@@ -2326,6 +2326,9 @@ name|regionName
 init|=
 name|region
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 decl_stmt|;

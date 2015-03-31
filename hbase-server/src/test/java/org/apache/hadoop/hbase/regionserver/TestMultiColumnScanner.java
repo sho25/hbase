@@ -917,7 +917,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HRegion
+name|Region
 name|region
 init|=
 name|TEST_UTIL
@@ -1420,8 +1420,10 @@ block|}
 block|}
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 name|Collections

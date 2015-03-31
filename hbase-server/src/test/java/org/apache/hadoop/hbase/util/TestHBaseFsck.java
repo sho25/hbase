@@ -7981,6 +7981,9 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
@@ -8005,6 +8008,9 @@ name|get
 argument_list|(
 literal|0
 argument_list|)
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()

@@ -451,7 +451,7 @@ name|getConfiguration
 argument_list|()
 decl_stmt|;
 specifier|private
-name|HRegion
+name|Region
 name|r
 init|=
 literal|null
@@ -635,14 +635,22 @@ block|{
 name|WAL
 name|wal
 init|=
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|r
+operator|)
 operator|.
 name|getWAL
 argument_list|()
 decl_stmt|;
-name|this
-operator|.
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|r
+operator|)
 operator|.
 name|close
 argument_list|()
@@ -1022,8 +1030,10 @@ argument_list|)
 expr_stmt|;
 name|r
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 name|Result
@@ -1182,8 +1192,10 @@ argument_list|)
 expr_stmt|;
 name|r
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// should not change anything.
 comment|// Let us check again
@@ -1263,13 +1275,9 @@ comment|// do a compaction
 name|Store
 name|store2
 init|=
-name|this
-operator|.
 name|r
 operator|.
-name|stores
-operator|.
-name|get
+name|getStore
 argument_list|(
 name|fam2
 argument_list|)

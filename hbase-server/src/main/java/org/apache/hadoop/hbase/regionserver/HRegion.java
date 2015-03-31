@@ -1847,6 +1847,24 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
+name|CompactionThroughputControllerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|compactions
+operator|.
 name|NoLimitCompactionThroughputController
 import|;
 end_import
@@ -2481,10 +2499,6 @@ name|TextFormat
 import|;
 end_import
 
-begin_comment
-comment|/**  * HRegion stores data for a certain region of a table.  It stores all columns  * for each row. A given table consists of one or more HRegions.  *  *<p>We maintain multiple HStores for a single HRegion.  *  *<p>An Store is a set of rows with some column data; together,  * they make up all the data for the rows.  *  *<p>Each HRegion has a 'startKey' and 'endKey'.  *<p>The first is inclusive, the second is exclusive (except for  * the final region)  The endKey of region 0 is the same as  * startKey for region 1 (if it exists).  The startKey for the  * first region is null. The endKey for the final region is null.  *  *<p>Locking at the HRegion level serves only one purpose: preventing the  * region from being closed (and consequently split) while other operations  * are ongoing. Each row level operation obtains both a row lock and a region  * read lock for the duration of the operation. While a scanner is being  * constructed, getScanner holds a read lock. If the scanner is successfully  * constructed, it holds a read lock until it is closed. A close takes out a  * write lock and consequently will block for ongoing operations and will block  * new operations from starting while the close is in progress.  *  *<p>An HRegion is defined by its table and its key extent.  *  *<p>It consists of at least one Store.  The number of Stores should be  * configurable, so that data which is accessed together is stored in the same  * Store.  Right now, we approximate that by building a single Store for  * each column family.  (This config info will be communicated via the  * tabledesc.)  *  *<p>The HTableDescriptor contains metainfo about the HRegion's table.  * regionName is a unique identifier for this HRegion. (startKey, endKey]  * defines the keyspace for this HRegion.  */
-end_comment
-
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -2497,8 +2511,9 @@ implements|implements
 name|HeapSize
 implements|,
 name|PropagatingConfigurationObserver
+implements|,
+name|Region
 block|{
-comment|// , Writable{
 specifier|public
 specifier|static
 specifier|final
@@ -2604,37 +2619,6 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
-comment|/**    * Operation enum is used in {@link HRegion#startRegionOperation} to provide operation context for    * startRegionOperation to possibly invoke different checks before any region operations. Not all    * operations have to be defined here. It's only needed when a special check is need in    * startRegionOperation    */
-specifier|public
-enum|enum
-name|Operation
-block|{
-name|ANY
-block|,
-name|GET
-block|,
-name|PUT
-block|,
-name|DELETE
-block|,
-name|SCAN
-block|,
-name|APPEND
-block|,
-name|INCREMENT
-block|,
-name|SPLIT_REGION
-block|,
-name|MERGE_REGION
-block|,
-name|BATCH_MUTATE
-block|,
-name|REPLAY_BATCH_MUTATE
-block|,
-name|COMPACT_REGION
-block|,
-name|REPLAY_EVENT
-block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Members
 comment|//////////////////////////////////////////////////////////////////////////////
@@ -2774,21 +2758,6 @@ operator|new
 name|Counter
 argument_list|()
 decl_stmt|;
-comment|/**    * @return the number of blocked requests count.    */
-specifier|public
-name|long
-name|getBlockedRequestsCount
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|blockedRequestsCount
-operator|.
-name|get
-argument_list|()
-return|;
-block|}
 comment|// Compaction counters
 specifier|final
 name|AtomicLong
@@ -3203,22 +3172,10 @@ comment|/**    * Objects from this class are created when flushing to describe a
 specifier|public
 specifier|static
 class|class
+name|FlushResultImpl
+implements|implements
 name|FlushResult
 block|{
-enum|enum
-name|Result
-block|{
-name|FLUSHED_NO_COMPACTION_NEEDED
-block|,
-name|FLUSHED_COMPACTION_NEEDED
-block|,
-comment|// Special case where a flush didn't run because there's nothing in the memstores. Used when
-comment|// bulk loading to know when we can still load even if a flush didn't happen.
-name|CANNOT_FLUSH_MEMSTORE_EMPTY
-block|,
-name|CANNOT_FLUSH
-comment|// Be careful adding more to this enum, look at the below methods to make sure
-block|}
 specifier|final
 name|Result
 name|result
@@ -3236,7 +3193,7 @@ name|boolean
 name|wroteFlushWalMarker
 decl_stmt|;
 comment|/**      * Convenience constructor to use when the flush is successful, the failure message is set to      * null.      * @param result Expecting FLUSHED_NO_COMPACTION_NEEDED or FLUSHED_COMPACTION_NEEDED.      * @param flushSequenceId Generated sequence id that comes right after the edits in the      *                        memstores.      */
-name|FlushResult
+name|FlushResultImpl
 parameter_list|(
 name|Result
 name|result
@@ -3271,7 +3228,7 @@ name|FLUSHED_COMPACTION_NEEDED
 assert|;
 block|}
 comment|/**      * Convenience constructor to use when we cannot flush.      * @param result Expecting CANNOT_FLUSH_MEMSTORE_EMPTY or CANNOT_FLUSH.      * @param failureReason Reason why we couldn't flush.      */
-name|FlushResult
+name|FlushResultImpl
 parameter_list|(
 name|Result
 name|result
@@ -3310,7 +3267,7 @@ name|CANNOT_FLUSH
 assert|;
 block|}
 comment|/**      * Constructor with all the parameters.      * @param result Any of the Result.      * @param flushSequenceId Generated sequence id if the memstores were flushed else -1.      * @param failureReason Reason why we couldn't flush, or null.      */
-name|FlushResult
+name|FlushResultImpl
 parameter_list|(
 name|Result
 name|result
@@ -3438,6 +3395,17 @@ argument_list|)
 operator|.
 name|toString
 argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|Result
+name|getResult
+parameter_list|()
+block|{
+return|return
+name|result
 return|;
 block|}
 block|}
@@ -3664,6 +3632,17 @@ name|totalFlushableSize
 operator|=
 name|totalFlushableSize
 expr_stmt|;
+block|}
+specifier|public
+name|FlushResult
+name|getResult
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|result
+return|;
 block|}
 block|}
 specifier|final
@@ -4278,7 +4257,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 name|recoveringRegions
 init|=
@@ -4575,7 +4554,8 @@ name|abort
 argument_list|(
 literal|"Exception during region "
 operator|+
-name|this
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -5119,10 +5099,10 @@ name|put
 argument_list|(
 name|store
 operator|.
-name|getColumnFamilyName
+name|getFamily
 argument_list|()
 operator|.
-name|getBytes
+name|getName
 argument_list|()
 argument_list|,
 name|store
@@ -5448,32 +5428,13 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|byte
-index|[]
-argument_list|,
 name|Store
-argument_list|>
-name|entry
+name|store
 range|:
 name|getStores
 argument_list|()
-operator|.
-name|entrySet
-argument_list|()
 control|)
 block|{
-name|Store
-name|store
-init|=
-name|entry
-operator|.
-name|getValue
-argument_list|()
-decl_stmt|;
 name|ArrayList
 argument_list|<
 name|Path
@@ -5513,9 +5474,12 @@ name|storeFiles
 operator|.
 name|put
 argument_list|(
-name|entry
+name|store
 operator|.
-name|getKey
+name|getFamily
+argument_list|()
+operator|.
+name|getName
 argument_list|()
 argument_list|,
 name|storeFileNames
@@ -5609,32 +5573,13 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|byte
-index|[]
-argument_list|,
 name|Store
-argument_list|>
-name|entry
+name|store
 range|:
 name|getStores
 argument_list|()
-operator|.
-name|entrySet
-argument_list|()
 control|)
 block|{
-name|Store
-name|store
-init|=
-name|entry
-operator|.
-name|getValue
-argument_list|()
-decl_stmt|;
 name|ArrayList
 argument_list|<
 name|Path
@@ -5674,9 +5619,12 @@ name|storeFiles
 operator|.
 name|put
 argument_list|(
-name|entry
+name|store
 operator|.
-name|getKey
+name|getFamily
+argument_list|()
+operator|.
+name|getName
 argument_list|()
 argument_list|,
 name|storeFileNames
@@ -5818,7 +5766,8 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * This function will return the HDFS blocks distribution based on the data    * captured when HFile is created    * @return The HDFS blocks distribution for the region.    */
+annotation|@
+name|Override
 specifier|public
 name|HDFSBlocksDistribution
 name|getHDFSBlocksDistribution
@@ -6054,15 +6003,6 @@ return|return
 name|hdfsBlocksDistribution
 return|;
 block|}
-specifier|public
-name|AtomicLong
-name|getMemstoreSize
-parameter_list|()
-block|{
-return|return
-name|memstoreSize
-return|;
-block|}
 comment|/**    * Increase the size of mem store in this region and the size of global mem    * store    * @return the size of memstore in this region    */
 specifier|public
 name|long
@@ -6100,7 +6040,8 @@ name|memStoreSize
 argument_list|)
 return|;
 block|}
-comment|/** @return a HRegionInfo object for this region */
+annotation|@
+name|Override
 specifier|public
 name|HRegionInfo
 name|getRegionInfo
@@ -6126,34 +6067,156 @@ operator|.
 name|rsServices
 return|;
 block|}
-comment|/** @return readRequestsCount for this region */
+annotation|@
+name|Override
+specifier|public
 name|long
 name|getReadRequestsCount
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
 name|readRequestsCount
 operator|.
 name|get
 argument_list|()
 return|;
 block|}
-comment|/** @return writeRequestsCount for this region */
+annotation|@
+name|Override
+specifier|public
+name|void
+name|updateReadRequestsCount
+parameter_list|(
+name|long
+name|i
+parameter_list|)
+block|{
+name|readRequestsCount
+operator|.
+name|add
+argument_list|(
+name|i
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|long
 name|getWriteRequestsCount
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
 name|writeRequestsCount
 operator|.
 name|get
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|updateWriteRequestsCount
+parameter_list|(
+name|long
+name|i
+parameter_list|)
+block|{
+name|writeRequestsCount
+operator|.
+name|add
+argument_list|(
+name|i
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getMemstoreSize
+parameter_list|()
+block|{
+return|return
+name|memstoreSize
+operator|.
+name|get
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getNumMutationsWithoutWAL
+parameter_list|()
+block|{
+return|return
+name|numMutationsWithoutWAL
+operator|.
+name|get
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getDataInMemoryWithoutWAL
+parameter_list|()
+block|{
+return|return
+name|dataInMemoryWithoutWAL
+operator|.
+name|get
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getBlockedRequestsCount
+parameter_list|()
+block|{
+return|return
+name|blockedRequestsCount
+operator|.
+name|get
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getCheckAndMutateChecksPassed
+parameter_list|()
+block|{
+return|return
+name|checkAndMutateChecksPassed
+operator|.
+name|get
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getCheckAndMutateChecksFailed
+parameter_list|()
+block|{
+return|return
+name|checkAndMutateChecksFailed
+operator|.
+name|get
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
 specifier|public
 name|MetricsRegion
 name|getMetrics
@@ -6163,7 +6226,8 @@ return|return
 name|metricsRegion
 return|;
 block|}
-comment|/** @return true if region is closed */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isClosed
@@ -6178,7 +6242,8 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * @return True if closing process has started.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isClosing
@@ -6190,6 +6255,22 @@ operator|.
 name|closing
 operator|.
 name|get
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isReadOnly
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|writestate
+operator|.
+name|isReadOnly
 argument_list|()
 return|;
 block|}
@@ -6398,7 +6479,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @return True if current region is in recovering    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isRecovering
@@ -6410,7 +6492,8 @@ operator|.
 name|isRecovering
 return|;
 block|}
-comment|/** @return true if region is available (not closed and not closing) */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isAvailable
@@ -6460,7 +6543,8 @@ name|debug
 argument_list|(
 literal|"Region "
 operator|+
-name|this
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -6484,7 +6568,8 @@ name|debug
 argument_list|(
 literal|"Region "
 operator|+
-name|this
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -6530,7 +6615,19 @@ return|return
 name|mvcc
 return|;
 block|}
-comment|/*     * Returns readpoint considering given IsolationLevel     */
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getMaxFlushedSeqId
+parameter_list|()
+block|{
+return|return
+name|maxFlushedSeqId
+return|;
+block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getReadpoint
@@ -6562,6 +6659,8 @@ name|memstoreReadPoint
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isLoadingCfsOnDemandDefault
@@ -6882,7 +6981,8 @@ name|info
 argument_list|(
 literal|"Running close preflush of "
 operator|+
-name|this
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -6995,8 +7095,7 @@ while|while
 condition|(
 name|this
 operator|.
-name|getMemstoreSize
-argument_list|()
+name|memstoreSize
 operator|.
 name|get
 argument_list|()
@@ -7044,6 +7143,9 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
@@ -7152,7 +7254,8 @@ name|getStoreOpenAndCloseThreadPool
 argument_list|(
 literal|"StoreCloserThread-"
 operator|+
-name|this
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -7622,7 +7725,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Wait for all current flushes and compactions of the region to complete.    *<p>    * Exposed for TESTING.    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|waitForFlushesAndCompactions
@@ -7962,90 +8066,8 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// HRegion accessors
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/** @return start key for region */
-specifier|public
-name|byte
-index|[]
-name|getStartKey
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getStartKey
-argument_list|()
-return|;
-block|}
-comment|/** @return end key for region */
-specifier|public
-name|byte
-index|[]
-name|getEndKey
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getEndKey
-argument_list|()
-return|;
-block|}
-comment|/** @return region id */
-specifier|public
-name|long
-name|getRegionId
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionId
-argument_list|()
-return|;
-block|}
-comment|/** @return region name */
-specifier|public
-name|byte
-index|[]
-name|getRegionName
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionName
-argument_list|()
-return|;
-block|}
-comment|/** @return region name as string for logging */
-specifier|public
-name|String
-name|getRegionNameAsString
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionNameAsString
-argument_list|()
-return|;
-block|}
-comment|/** @return HTableDescriptor for this region */
+annotation|@
+name|Override
 specifier|public
 name|HTableDescriptor
 name|getTableDesc
@@ -8117,9 +8139,8 @@ operator|.
 name|fs
 return|;
 block|}
-comment|/**    * @return Returns the earliest time a store in the region was flushed. All    *         other stores in the region would have been flushed either at, or    *         after this time.    */
 annotation|@
-name|VisibleForTesting
+name|Override
 specifier|public
 name|long
 name|getEarliestFlushTimeForAllStores
@@ -8146,7 +8167,8 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * This can be used to determine the last time all files of this region were major compacted.    * @param majorCompactioOnly Only consider HFile that are the result of major compaction    * @return the timestamp of the oldest HFile for all stores of this region    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getOldestHfileTs
@@ -8170,9 +8192,6 @@ name|Store
 name|store
 range|:
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -8458,32 +8477,36 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{   }
+annotation|@
+name|Override
+specifier|public
 name|void
 name|triggerMajorCompaction
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 for|for
 control|(
 name|Store
-name|h
+name|s
 range|:
-name|stores
-operator|.
-name|values
+name|getStores
 argument_list|()
 control|)
 block|{
-name|h
+name|s
 operator|.
 name|triggerMajorCompaction
 argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This is a helper function that compact all the stores synchronously    * It is used by utilities and testing    *    * @param majorCompaction True to force a major compaction regardless of thresholds    * @throws IOException e    */
+annotation|@
+name|Override
 specifier|public
 name|void
-name|compactStores
+name|compact
 parameter_list|(
 specifier|final
 name|boolean
@@ -8497,15 +8520,83 @@ condition|(
 name|majorCompaction
 condition|)
 block|{
-name|this
-operator|.
 name|triggerMajorCompaction
 argument_list|()
 expr_stmt|;
 block|}
-name|compactStores
+for|for
+control|(
+name|Store
+name|s
+range|:
+name|getStores
 argument_list|()
+control|)
+block|{
+name|CompactionContext
+name|compaction
+init|=
+name|s
+operator|.
+name|requestCompaction
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|compaction
+operator|!=
+literal|null
+condition|)
+block|{
+name|CompactionThroughputController
+name|controller
+init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|rsServices
+operator|!=
+literal|null
+condition|)
+block|{
+name|controller
+operator|=
+name|CompactionThroughputControllerFactory
+operator|.
+name|create
+argument_list|(
+name|rsServices
+argument_list|,
+name|conf
+argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|controller
+operator|==
+literal|null
+condition|)
+block|{
+name|controller
+operator|=
+name|NoLimitCompactionThroughputController
+operator|.
+name|INSTANCE
+expr_stmt|;
+block|}
+name|compact
+argument_list|(
+name|compaction
+argument_list|,
+name|s
+argument_list|,
+name|controller
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 comment|/**    * This is a helper function that compact all the stores synchronously    * It is used by utilities and testing    *    * @throws IOException e    */
 specifier|public
@@ -8521,9 +8612,6 @@ name|Store
 name|s
 range|:
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -9045,30 +9133,14 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Flush all stores.    *<p>    * See {@link #flushcache(boolean)}.    *    * @return whether the flush is success and whether the region needs compacting    * @throws IOException    */
+annotation|@
+name|Override
 specifier|public
 name|FlushResult
-name|flushcache
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-return|return
-name|flushcache
-argument_list|(
-literal|true
-argument_list|,
-literal|false
-argument_list|)
-return|;
-block|}
-comment|/**    * Flush the cache.    *    * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    * @param forceFlushAllStores whether we want to flush all stores    * @return whether the flush is success and whether the region needs compacting    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of wal is required    * because a Snapshot was not properly persisted.    */
-specifier|public
-name|FlushResult
-name|flushcache
+name|flush
 parameter_list|(
 name|boolean
-name|forceFlushAllStores
+name|force
 parameter_list|)
 throws|throws
 name|IOException
@@ -9076,7 +9148,7 @@ block|{
 return|return
 name|flushcache
 argument_list|(
-name|forceFlushAllStores
+name|force
 argument_list|,
 literal|false
 argument_list|)
@@ -9125,7 +9197,7 @@ argument_list|)
 expr_stmt|;
 return|return
 operator|new
-name|FlushResult
+name|FlushResultImpl
 argument_list|(
 name|FlushResult
 operator|.
@@ -9207,7 +9279,7 @@ argument_list|)
 expr_stmt|;
 return|return
 operator|new
-name|FlushResult
+name|FlushResultImpl
 argument_list|(
 name|FlushResult
 operator|.
@@ -9350,7 +9422,7 @@ argument_list|)
 expr_stmt|;
 return|return
 operator|new
-name|FlushResult
+name|FlushResultImpl
 argument_list|(
 name|FlushResult
 operator|.
@@ -9756,12 +9828,7 @@ control|(
 name|Store
 name|s
 range|:
-name|this
-operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -10069,7 +10136,7 @@ name|FlushResult
 name|flushResult
 init|=
 operator|new
-name|FlushResult
+name|FlushResultImpl
 argument_list|(
 name|FlushResult
 operator|.
@@ -10124,7 +10191,7 @@ operator|new
 name|PrepareFlushResult
 argument_list|(
 operator|new
-name|FlushResult
+name|FlushResultImpl
 argument_list|(
 name|FlushResult
 operator|.
@@ -10516,7 +10583,7 @@ operator|new
 name|PrepareFlushResult
 argument_list|(
 operator|new
-name|FlushResult
+name|FlushResultImpl
 argument_list|(
 name|FlushResult
 operator|.
@@ -11463,6 +11530,9 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
@@ -11655,7 +11725,7 @@ argument_list|)
 expr_stmt|;
 return|return
 operator|new
-name|FlushResult
+name|FlushResultImpl
 argument_list|(
 name|compactionRequested
 condition|?
@@ -11711,30 +11781,8 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// get() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Return all the data for the row that matches<i>row</i> exactly,    * or the one that immediately preceeds it, at or immediately before    *<i>ts</i>.    *    * @param row row key    * @return map of values    * @throws IOException    */
-name|Result
-name|getClosestRowBefore
-parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|row
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|getClosestRowBefore
-argument_list|(
-name|row
-argument_list|,
-name|HConstants
-operator|.
-name|CATALOG_FAMILY
-argument_list|)
-return|;
-block|}
-comment|/**    * Return all the data for the row that matches<i>row</i> exactly,    * or the one that immediately precedes it, at or immediately before    *<i>ts</i>.    *    * @param row row key    * @param family column family to find on    * @return map of values    * @throws IOException read exceptions    */
+annotation|@
+name|Override
 specifier|public
 name|Result
 name|getClosestRowBefore
@@ -11904,7 +11952,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Return an iterator that scans over the HRegion, returning the indicated    * columns and rows specified by the {@link Scan}.    *<p>    * This Iterator must be closed by the caller.    *    * @param scan configured {@link Scan}    * @return RegionScanner    * @throws IOException read exceptions    */
+annotation|@
+name|Override
 specifier|public
 name|RegionScanner
 name|getScanner
@@ -11924,13 +11973,32 @@ literal|null
 argument_list|)
 return|;
 block|}
-name|void
-name|prepareScanner
+specifier|protected
+name|RegionScanner
+name|getScanner
 parameter_list|(
 name|Scan
 name|scan
+parameter_list|,
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|additionalScanners
 parameter_list|)
+throws|throws
+name|IOException
 block|{
+name|startRegionOperation
+argument_list|(
+name|Operation
+operator|.
+name|SCAN
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+comment|// Verify families are all valid
 if|if
 condition|(
 operator|!
@@ -11964,45 +12032,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-specifier|protected
-name|RegionScanner
-name|getScanner
-parameter_list|(
-name|Scan
-name|scan
-parameter_list|,
-name|List
-argument_list|<
-name|KeyValueScanner
-argument_list|>
-name|additionalScanners
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|startRegionOperation
-argument_list|(
-name|Operation
-operator|.
-name|SCAN
-argument_list|)
-expr_stmt|;
-try|try
-block|{
-comment|// Verify families are all valid
-name|prepareScanner
-argument_list|(
-name|scan
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|scan
-operator|.
-name|hasFamilies
-argument_list|()
-condition|)
+else|else
 block|{
 for|for
 control|(
@@ -12115,7 +12145,9 @@ name|this
 argument_list|)
 return|;
 block|}
-comment|/*    * @param delete The passed delete is modified by this method. WARNING!    */
+annotation|@
+name|Override
+specifier|public
 name|void
 name|prepareDelete
 parameter_list|(
@@ -12206,10 +12238,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|// set() methods for client use.
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * @param delete delete object    * @throws IOException read exceptions    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|delete
@@ -12324,7 +12354,9 @@ name|delete
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Setup correct timestamps in the KVs in Delete object.    * Caller should have the row and region locks.    * @param mutation    * @param familyMap    * @param byteNow    * @throws IOException    */
+annotation|@
+name|Override
+specifier|public
 name|void
 name|prepareDeleteTimestamps
 parameter_list|(
@@ -12750,7 +12782,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @throws IOException    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|put
@@ -13218,7 +13251,8 @@ name|replaySeqId
 return|;
 block|}
 block|}
-comment|/**    * Perform a batch of mutations.    * It supports only Put and Delete mutations and will ignore other types passed.    * @param mutations the list of mutations    * @return an array of OperationStatus which internally contains the    *         OperationStatusCode and the exceptionMessage if any.    * @throws IOException    */
+annotation|@
+name|Override
 specifier|public
 name|OperationStatus
 index|[]
@@ -13283,7 +13317,8 @@ name|NO_NONCE
 argument_list|)
 return|;
 block|}
-comment|/**    * Replay a batch of mutations.    * @param mutations mutations to replay.    * @param replaySeqId SeqId for current mutations    * @return an array of OperationStatus which internally contains the    *         OperationStatusCode and the exceptionMessage if any.    * @throws IOException    */
+annotation|@
+name|Override
 specifier|public
 name|OperationStatus
 index|[]
@@ -15724,7 +15759,8 @@ comment|//TODO, Think that gets/puts and deletes should be refactored a bit so t
 comment|//the getting of the lock happens before, so that you would just pass it into
 comment|//the methods. So in the case of checkAndMutate you could just do lockRow,
 comment|//get, put, unlockRow or something
-comment|/**    *    * @throws IOException    * @return true if the new put was executed, false otherwise    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|checkAndMutate
@@ -16242,7 +16278,8 @@ comment|//TODO, Think that gets/puts and deletes should be refactored a bit so t
 comment|//the getting of the lock happens before, so that you would just pass it into
 comment|//the methods. So in the case of checkAndMutate you could just do lockRow,
 comment|//get, put, unlockRow or something
-comment|/**    *    * @throws IOException    * @return true if the new put was executed, false otherwise    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|checkAndRowMutate
@@ -16617,14 +16654,6 @@ index|[]
 block|{
 name|mutation
 block|}
-argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
-argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
 argument_list|)
 decl_stmt|;
 if|if
@@ -16756,7 +16785,9 @@ name|this
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Replaces any KV timestamps set to {@link HConstants#LATEST_TIMESTAMP} with the    * provided current timestamp.    * @throws IOException    */
+annotation|@
+name|Override
+specifier|public
 name|void
 name|updateCellTimestamps
 parameter_list|(
@@ -17260,10 +17291,6 @@ name|IOException
 block|{
 if|if
 condition|(
-name|this
-operator|.
-name|writestate
-operator|.
 name|isReadOnly
 argument_list|()
 condition|)
@@ -17694,7 +17721,9 @@ name|kvsRolledback
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Check the collection of families for validity.    * @throws NoSuchColumnFamilyException if a family does not exist.    */
+annotation|@
+name|Override
+specifier|public
 name|void
 name|checkFamilies
 parameter_list|(
@@ -17847,6 +17876,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
 name|void
 name|checkTimestamps
 parameter_list|(
@@ -18545,7 +18577,8 @@ name|rsAccounting
 operator|.
 name|clearRegionReplayEditsSize
 argument_list|(
-name|this
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
@@ -20390,9 +20423,11 @@ if|if
 condition|(
 name|prepareResult
 operator|.
-name|result
+name|getResult
+argument_list|()
 operator|.
-name|result
+name|getResult
+argument_list|()
 operator|==
 name|FlushResult
 operator|.
@@ -22556,7 +22591,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Checks the underlying store files, and opens the files that  have not    * been opened, and removes the store file readers for store files no longer    * available. Mainly used by secondary region replicas to keep up to date with    * the primary region files or open new flushed files and drop their memstore snapshots in case    * of memory pressure.    * @throws IOException    */
+annotation|@
+name|Override
+specifier|public
 name|boolean
 name|refreshStoreFiles
 parameter_list|()
@@ -22634,9 +22671,6 @@ name|Store
 name|store
 range|:
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -22811,9 +22845,6 @@ name|Store
 name|s
 range|:
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -23079,7 +23110,8 @@ name|rsAccounting
 operator|.
 name|addAndGetRegionReplayEditsSize
 argument_list|(
-name|this
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
@@ -23188,7 +23220,8 @@ name|conf
 argument_list|)
 return|;
 block|}
-comment|/**    * Return HStore instance.    * Use with caution.  Exposed for use of fixup utilities.    * @param column Name of column family hosted by this region.    * @return Store that goes with the family on passed<code>column</code>.    * TODO: Make this lookup faster.    */
+annotation|@
+name|Override
 specifier|public
 name|Store
 name|getStore
@@ -23287,24 +23320,50 @@ return|return
 literal|null
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
-name|Map
+name|List
 argument_list|<
-name|byte
-index|[]
-argument_list|,
 name|Store
 argument_list|>
 name|getStores
 parameter_list|()
 block|{
-return|return
-name|this
-operator|.
+name|List
+argument_list|<
+name|Store
+argument_list|>
+name|list
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|Store
+argument_list|>
+argument_list|(
 name|stores
+operator|.
+name|size
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|list
+operator|.
+name|addAll
+argument_list|(
+name|stores
+operator|.
+name|values
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return
+name|list
 return|;
 block|}
-comment|/**    * Return list of storeFiles for the set of CFs.    * Uses closeLock to prevent the race condition where a region closes    * in between the for loop - closing the stores one by one, some stores    * will return 0 files.    * @return List of storeFiles.    */
+annotation|@
+name|Override
 specifier|public
 name|List
 argument_list|<
@@ -23465,6 +23524,9 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getStartKey
 argument_list|()
 argument_list|)
@@ -23475,6 +23537,9 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getEndKey
 argument_list|()
 argument_list|)
@@ -23493,7 +23558,8 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Tries to acquire a lock on the given row.    * @param waitForLock if true, will block until the lock is available.    *        Otherwise, just tries to obtain the lock and returns    *        false if unavailable.    * @return the row lock if acquired,    *   null if waitForLock was false and the lock was not acquired    * @throws IOException if waitForLock was true and the lock could not be acquired after waiting    */
+annotation|@
+name|Override
 specifier|public
 name|RowLock
 name|getRowLock
@@ -23792,7 +23858,8 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * If the given list of row locks is not null, releases all locks.    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|releaseRowLocks
@@ -23838,7 +23905,7 @@ specifier|static
 name|boolean
 name|hasMultipleColumnFamilies
 parameter_list|(
-name|List
+name|Collection
 argument_list|<
 name|Pair
 argument_list|<
@@ -23922,46 +23989,13 @@ return|return
 name|multipleFamilies
 return|;
 block|}
-comment|/**    * Bulk load a/many HFiles into this region    *    * @param familyPaths A list which maps column families to the location of the HFile to load    *                    into that column family region.    * @param assignSeqId Force a flush, get it's sequenceId to preserve the guarantee that all the    *                    edits lower than the highest sequential ID from all the HFiles are flushed    *                    on disk.    * @return true if successful, false if failed recoverably    * @throws IOException if failed unrecoverably.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|bulkLoadHFiles
 parameter_list|(
-name|List
-argument_list|<
-name|Pair
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|String
-argument_list|>
-argument_list|>
-name|familyPaths
-parameter_list|,
-name|boolean
-name|assignSeqId
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|bulkLoadHFiles
-argument_list|(
-name|familyPaths
-argument_list|,
-name|assignSeqId
-argument_list|,
-literal|null
-argument_list|)
-return|;
-block|}
-comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths      List of Pair<byte[] column family, String hfilePath>    * @param bulkLoadListener Internal hooks enabling massaging/preparation of a    *                         file about to be bulk loaded    * @param assignSeqId      Force a flush, get it's sequenceId to preserve the guarantee that    *                         all the edits lower than the highest sequential ID from all the    *                         HFiles are flushed on disk.    * @return true if successful, false if failed recoverably    * @throws IOException if failed unrecoverably.    */
-specifier|public
-name|boolean
-name|bulkLoadHFiles
-parameter_list|(
-name|List
+name|Collection
 argument_list|<
 name|Pair
 argument_list|<
@@ -24338,10 +24372,12 @@ block|{
 name|FlushResult
 name|fs
 init|=
-name|this
-operator|.
 name|flushcache
-argument_list|()
+argument_list|(
+literal|true
+argument_list|,
+literal|false
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -24353,7 +24389,12 @@ condition|)
 block|{
 name|seqId
 operator|=
+operator|(
+operator|(
+name|FlushResultImpl
+operator|)
 name|fs
+operator|)
 operator|.
 name|flushSequenceId
 expr_stmt|;
@@ -24363,7 +24404,8 @@ if|if
 condition|(
 name|fs
 operator|.
-name|result
+name|getResult
+argument_list|()
 operator|==
 name|FlushResult
 operator|.
@@ -24374,7 +24416,12 @@ condition|)
 block|{
 name|seqId
 operator|=
+operator|(
+operator|(
+name|FlushResultImpl
+operator|)
 name|fs
+operator|)
 operator|.
 name|flushSequenceId
 expr_stmt|;
@@ -24389,7 +24436,12 @@ literal|"Could not bulk load with an assigned sequential ID because the "
 operator|+
 literal|"flush didn't run. Reason for not flushing: "
 operator|+
+operator|(
+operator|(
+name|FlushResultImpl
+operator|)
 name|fs
+operator|)
 operator|.
 name|failureReason
 argument_list|)
@@ -24766,7 +24818,8 @@ name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|this
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
@@ -24777,6 +24830,9 @@ name|HRegion
 operator|)
 name|o
 operator|)
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
@@ -24795,7 +24851,8 @@ name|Bytes
 operator|.
 name|hashCode
 argument_list|(
-name|this
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
@@ -24810,7 +24867,8 @@ name|toString
 parameter_list|()
 block|{
 return|return
-name|this
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -26260,6 +26318,9 @@ name|CallerDisconnectedException
 argument_list|(
 literal|"Aborting on region "
 operator|+
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
@@ -28393,6 +28454,34 @@ name|reporter
 argument_list|)
 return|;
 block|}
+specifier|public
+specifier|static
+name|Region
+name|openHRegion
+parameter_list|(
+specifier|final
+name|Region
+name|other
+parameter_list|,
+specifier|final
+name|CancelableProgressable
+name|reporter
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|openHRegion
+argument_list|(
+operator|(
+name|HRegion
+operator|)
+name|other
+argument_list|,
+name|reporter
+argument_list|)
+return|;
+block|}
 comment|/**    * Open HRegion.    * Calls initialize and sets sequenceId.    * @return Returns<code>this</code>    * @throws IOException    */
 specifier|protected
 name|HRegion
@@ -28964,6 +29053,9 @@ name|row
 init|=
 name|r
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 decl_stmt|;
@@ -29243,6 +29335,9 @@ if|if
 condition|(
 name|srcA
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getStartKey
 argument_list|()
 operator|==
@@ -29252,6 +29347,9 @@ block|{
 if|if
 condition|(
 name|srcB
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getStartKey
 argument_list|()
@@ -29275,6 +29373,9 @@ condition|(
 operator|(
 name|srcB
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getStartKey
 argument_list|()
 operator|==
@@ -29288,10 +29389,16 @@ name|compareTo
 argument_list|(
 name|srcA
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getStartKey
 argument_list|()
 argument_list|,
 name|srcB
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getStartKey
 argument_list|()
@@ -29320,10 +29427,16 @@ name|compareTo
 argument_list|(
 name|a
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getEndKey
 argument_list|()
 argument_list|,
 name|b
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getStartKey
 argument_list|()
@@ -29412,18 +29525,22 @@ decl_stmt|;
 comment|// Make sure each region's cache is empty
 name|a
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|b
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// Compact each region so we only have one store file per family
 name|a
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -29458,7 +29575,7 @@ expr_stmt|;
 block|}
 name|b
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -29633,7 +29750,7 @@ throw|;
 block|}
 name|dstRegion
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -29741,10 +29858,8 @@ return|return
 name|dstRegion
 return|;
 block|}
-comment|//
-comment|// HBASE-880
-comment|//
-comment|/**    * @param get get object    * @return result    * @throws IOException read exceptions    */
+annotation|@
+name|Override
 specifier|public
 name|Result
 name|get
@@ -29870,7 +29985,8 @@ name|stale
 argument_list|)
 return|;
 block|}
-comment|/*    * Do a get based on the get parameter.    * @param withCoprocessor invoke coprocessor or not. We don't want to    * always invoke cp for this private method.    */
+annotation|@
+name|Override
 specifier|public
 name|List
 argument_list|<
@@ -30250,7 +30366,41 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Performs atomic multiple reads and writes on a given row.    *    * @param processor The object defines the reads and writes to a row.    * @param nonceGroup Optional nonce group of the operation (client Id)    * @param nonce Optional nonce of the operation (unique random id to ensure "more idempotence")    */
+annotation|@
+name|Override
+specifier|public
+name|void
+name|processRowsWithLocks
+parameter_list|(
+name|RowProcessor
+argument_list|<
+name|?
+argument_list|,
+name|?
+argument_list|>
+name|processor
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|processRowsWithLocks
+argument_list|(
+name|processor
+argument_list|,
+name|rowProcessorTimeout
+argument_list|,
+name|HConstants
+operator|.
+name|NO_NONCE
+argument_list|,
+name|HConstants
+operator|.
+name|NO_NONCE
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|processRowsWithLocks
@@ -30284,7 +30434,8 @@ name|nonce
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Performs atomic multiple reads and writes on a given row.    *    * @param processor The object defines the reads and writes to a row.    * @param timeout The timeout of the processor.process() execution    *                Use a negative number to switch off the time bound    * @param nonceGroup Optional nonce group of the operation (client Id)    * @param nonce Optional nonce of the operation (unique random id to ensure "more idempotence")    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|processRowsWithLocks
@@ -31421,7 +31572,8 @@ block|}
 comment|// TODO: There's a lot of boiler plate code identical to increment.
 comment|// We should refactor append and increment as local get-mutate-put
 comment|// transactions, so all stores only go through one code path for puts.
-comment|/**    * Perform one or more append operations on a row.    *    * @return new keyvalues after increment    * @throws IOException    */
+annotation|@
+name|Override
 specifier|public
 name|Result
 name|append
@@ -32960,7 +33112,8 @@ block|}
 comment|// TODO: There's a lot of boiler plate code identical to append.
 comment|// We should refactor append and increment as local get-mutate-put
 comment|// transactions, so all stores only go through one code path for puts.
-comment|/**    * Perform one or more increment operations on a row.    * @return new keyvalues after increment    * @throws IOException    */
+annotation|@
+name|Override
 specifier|public
 name|Result
 name|increment
@@ -34650,7 +34803,8 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Registers a new protocol buffer {@link Service} subclass as a coprocessor endpoint to    * be available for handling    * {@link HRegion#execService(com.google.protobuf.RpcController,    *    org.apache.hadoop.hbase.protobuf.generated.ClientProtos.CoprocessorServiceCall)}} calls.    *    *<p>    * Only a single instance may be registered per region for a given {@link Service} subclass (the    * instances are keyed on {@link com.google.protobuf.Descriptors.ServiceDescriptor#getFullName()}.    * After the first registration, subsequent calls with the same service name will fail with    * a return value of {@code false}.    *</p>    * @param instance the {@code Service} subclass instance to expose as a coprocessor endpoint    * @return {@code true} if the registration was successful, {@code false}    * otherwise    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|registerService
@@ -34733,6 +34887,9 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
@@ -34750,7 +34907,8 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Executes a single protocol buffer coprocessor endpoint {@link Service} method using    * the registered protocol handlers.  {@link Service} implementations must be registered via the    * {@link HRegion#registerService(com.google.protobuf.Service)}    * method before they are available.    *    * @param controller an {@code RpcController} implementation to pass to the invoked service    * @param call a {@code CoprocessorServiceCall} instance identifying the service, method,    *     and parameters for the method invocation    * @return a protocol buffer {@code Message} instance containing the method's result    * @throws IOException if no registered service handler is found or an error    *     occurs during the invocation    * @see org.apache.hadoop.hbase.regionserver.HRegion#registerService(com.google.protobuf.Service)    */
+annotation|@
+name|Override
 specifier|public
 name|Message
 name|execService
@@ -34807,6 +34965,9 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
@@ -34875,6 +35036,9 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
@@ -35153,7 +35317,7 @@ condition|)
 block|{
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -35553,7 +35717,8 @@ operator|=
 name|coprocessorHost
 expr_stmt|;
 block|}
-comment|/**    * This method needs to be called before any public call that reads or    * modifies data. It has to be called just before a try.    * #closeRegionOperation needs to be called in the try's finally block    * Acquires a read lock and checks if the region is closing or closed.    * @throws IOException    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|startRegionOperation
@@ -35569,8 +35734,9 @@ name|ANY
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param op The operation is about to be taken on the region    * @throws IOException    */
-specifier|protected
+annotation|@
+name|Override
+specifier|public
 name|void
 name|startRegionOperation
 parameter_list|(
@@ -35657,7 +35823,8 @@ throw|throw
 operator|new
 name|RegionInRecoveryException
 argument_list|(
-name|this
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -35709,6 +35876,9 @@ throw|throw
 operator|new
 name|NotServingRegionException
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
@@ -35746,6 +35916,9 @@ throw|throw
 operator|new
 name|NotServingRegionException
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
@@ -35794,7 +35967,8 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Closes the lock. This needs to be called in the finally block corresponding    * to the try block of #startRegionOperation    * @throws IOException    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|closeRegionOperation
@@ -35874,6 +36048,9 @@ throw|throw
 operator|new
 name|NotServingRegionException
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
@@ -35937,6 +36114,9 @@ throw|throw
 operator|new
 name|NotServingRegionException
 argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
@@ -36694,7 +36874,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Gets the latest sequence number that was read from storage when this region was opened.    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getOpenSeqNum
@@ -36706,7 +36887,8 @@ operator|.
 name|openSeqNum
 return|;
 block|}
-comment|/**    * Gets max sequence ids of stores that was read from storage when this region was opened. WAL    * Edits with smaller or equal sequence number will be skipped from replay.    */
+annotation|@
+name|Override
 specifier|public
 name|Map
 argument_list|<
@@ -36715,7 +36897,7 @@ index|[]
 argument_list|,
 name|Long
 argument_list|>
-name|getMaxStoreSeqIdForLogReplay
+name|getMaxStoreSeqId
 parameter_list|()
 block|{
 return|return
@@ -36725,7 +36907,7 @@ name|maxSeqIdInStores
 return|;
 block|}
 annotation|@
-name|VisibleForTesting
+name|Override
 specifier|public
 name|long
 name|getOldestSeqIdOfStore
@@ -36750,7 +36932,8 @@ name|familyName
 argument_list|)
 return|;
 block|}
-comment|/**    * @return if a given region is in compaction now.    */
+annotation|@
+name|Override
 specifier|public
 name|CompactionState
 name|getCompactionState
@@ -36912,54 +37095,6 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Listener class to enable callers of    * bulkLoadHFile() to perform any necessary    * pre/post processing of a given bulkload call    */
-specifier|public
-interface|interface
-name|BulkLoadListener
-block|{
-comment|/**      * Called before an HFile is actually loaded      * @param family family being loaded to      * @param srcPath path of HFile      * @return final path to be used for actual loading      * @throws IOException      */
-name|String
-name|prepareBulkLoad
-parameter_list|(
-name|byte
-index|[]
-name|family
-parameter_list|,
-name|String
-name|srcPath
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**      * Called after a successful HFile load      * @param family family being loaded to      * @param srcPath path of HFile      * @throws IOException      */
-name|void
-name|doneBulkLoad
-parameter_list|(
-name|byte
-index|[]
-name|family
-parameter_list|,
-name|String
-name|srcPath
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**      * Called after a failed HFile load      * @param family family being loaded to      * @param srcPath path of HFile      * @throws IOException      */
-name|void
-name|failedBulkLoad
-parameter_list|(
-name|byte
-index|[]
-name|family
-parameter_list|,
-name|String
-name|srcPath
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-block|}
 annotation|@
 name|VisibleForTesting
 class|class
@@ -37034,12 +37169,22 @@ block|{
 name|lockCount
 operator|++
 expr_stmt|;
-return|return
+name|RowLockImpl
+name|rl
+init|=
 operator|new
-name|RowLock
+name|RowLockImpl
+argument_list|()
+decl_stmt|;
+name|rl
+operator|.
+name|setContext
 argument_list|(
 name|this
 argument_list|)
+expr_stmt|;
+return|return
+name|rl
 return|;
 block|}
 annotation|@
@@ -37159,15 +37304,14 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Row lock held by a given thread.    * One thread may acquire multiple locks on the same row simultaneously.    * The locks must be released by calling release() from the same thread.    */
 specifier|public
 specifier|static
 class|class
+name|RowLockImpl
+implements|implements
 name|RowLock
 block|{
-annotation|@
-name|VisibleForTesting
-specifier|final
+specifier|private
 name|RowLockContext
 name|context
 decl_stmt|;
@@ -37179,7 +37323,20 @@ literal|false
 decl_stmt|;
 annotation|@
 name|VisibleForTesting
-name|RowLock
+specifier|public
+name|RowLockContext
+name|getContext
+parameter_list|()
+block|{
+return|return
+name|context
+return|;
+block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|void
+name|setContext
 parameter_list|(
 name|RowLockContext
 name|context
@@ -37192,7 +37349,8 @@ operator|=
 name|context
 expr_stmt|;
 block|}
-comment|/**      * Release the given lock.  If there are no remaining locks held by the current thread      * then unlock the row and allow other threads to acquire the lock.      * @throws IllegalArgumentException if called by a different thread than the lock owning thread      */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|release
@@ -37209,11 +37367,11 @@ operator|.
 name|releaseLock
 argument_list|()
 expr_stmt|;
+block|}
 name|released
 operator|=
 literal|true
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|/**    * Append a faked WALEdit in order to get a long sequence number and wal syncer will just ignore    * the WALEdit append later.    * @param wal    * @param cells list of Cells inserted into memstore. Those Cells are passed in order to    *        be updated with right mvcc values(their wal sequence number)    * @return Return the key used appending with no sync and no append.    * @throws IOException    */
@@ -37300,32 +37458,6 @@ expr_stmt|;
 return|return
 name|key
 return|;
-block|}
-comment|/**    * Explicitly sync wal    * @throws IOException    */
-specifier|public
-name|void
-name|syncWal
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|wal
-operator|!=
-literal|null
-condition|)
-block|{
-name|this
-operator|.
-name|wal
-operator|.
-name|sync
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 comment|/**    * {@inheritDoc}    */
 annotation|@

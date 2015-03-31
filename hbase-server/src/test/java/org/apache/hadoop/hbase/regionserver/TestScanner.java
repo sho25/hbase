@@ -812,7 +812,7 @@ operator|.
 name|MAX_VALUE
 decl_stmt|;
 specifier|private
-name|HRegion
+name|Region
 name|r
 decl_stmt|;
 specifier|private
@@ -1777,7 +1777,12 @@ name|getRegionInfo
 argument_list|()
 expr_stmt|;
 comment|// Close and re-open
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|r
+operator|)
 operator|.
 name|close
 argument_list|()
@@ -1904,7 +1909,12 @@ name|getRegionInfo
 argument_list|()
 expr_stmt|;
 comment|// Close and reopen
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|r
+operator|)
 operator|.
 name|close
 argument_list|()
@@ -2022,7 +2032,12 @@ name|getRegionInfo
 argument_list|()
 expr_stmt|;
 comment|// Close and reopen
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|r
+operator|)
 operator|.
 name|close
 argument_list|()
@@ -3045,8 +3060,10 @@ argument_list|)
 expr_stmt|;
 name|r
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|HBaseTestCase
 operator|.
@@ -3100,8 +3117,10 @@ argument_list|)
 expr_stmt|;
 name|r
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|InternalScanner
 name|s
@@ -3118,7 +3137,7 @@ decl_stmt|;
 comment|// run a major compact, column1 of firstRow will be cleaned.
 name|r
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)

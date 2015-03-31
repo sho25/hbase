@@ -1111,12 +1111,18 @@ literal|"Merging regions "
 operator|+
 name|currentRegion
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|" and "
 operator|+
 name|nextRegion
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -1138,10 +1144,16 @@ name|updateMeta
 argument_list|(
 name|currentRegion
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|,
 name|nextRegion
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
@@ -1163,6 +1175,9 @@ name|toStringBinary
 argument_list|(
 name|currentRegion
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
@@ -1174,6 +1189,9 @@ operator|.
 name|toStringBinary
 argument_list|(
 name|nextRegion
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
@@ -1866,6 +1884,9 @@ operator|.
 name|toStringBinary
 argument_list|(
 name|newRegion
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()

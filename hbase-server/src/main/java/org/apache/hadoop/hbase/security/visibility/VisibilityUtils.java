@@ -463,7 +463,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -1922,7 +1922,7 @@ specifier|static
 name|Filter
 name|createVisibilityLabelFilter
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 name|Authorizations

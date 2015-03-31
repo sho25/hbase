@@ -560,7 +560,7 @@ literal|false
 argument_list|)
 decl_stmt|;
 comment|// Set this so that the archiver writes to the temp dir as well.
-name|HRegion
+name|Region
 name|region
 init|=
 name|TEST_UTIL
@@ -948,8 +948,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 if|if
@@ -971,7 +973,7 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|false
 argument_list|)
@@ -996,7 +998,7 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -1335,7 +1337,7 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|TEST_UTIL
@@ -1705,8 +1707,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 if|if
@@ -1728,7 +1732,7 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|false
 argument_list|)
@@ -1753,7 +1757,7 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)

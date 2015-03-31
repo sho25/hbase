@@ -2394,7 +2394,7 @@ name|FAMILYNAME2
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|TEST_UTIL
@@ -4392,7 +4392,7 @@ specifier|static
 name|void
 name|loadDataToRegion
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 name|byte
@@ -4498,8 +4498,10 @@ condition|)
 block|{
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 block|}

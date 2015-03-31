@@ -1787,7 +1787,7 @@ parameter_list|(
 name|FlushType
 name|type
 parameter_list|,
-name|HRegion
+name|Region
 name|region
 parameter_list|)
 block|{
