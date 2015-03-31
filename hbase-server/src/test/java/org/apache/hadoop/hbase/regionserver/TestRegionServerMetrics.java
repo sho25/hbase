@@ -559,6 +559,17 @@ argument_list|,
 name|serverSource
 argument_list|)
 expr_stmt|;
+name|metricsHelper
+operator|.
+name|assertGauge
+argument_list|(
+literal|"percentFilesLocalSecondaryRegions"
+argument_list|,
+literal|0
+argument_list|,
+name|serverSource
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Test

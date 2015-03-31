@@ -351,6 +351,16 @@ init|=
 literal|"The percent of HFiles that are stored on the local hdfs data node."
 decl_stmt|;
 name|String
+name|PERCENT_FILES_LOCAL_SECONDARY_REGIONS
+init|=
+literal|"percentFilesLocalSecondaryRegions"
+decl_stmt|;
+name|String
+name|PERCENT_FILES_LOCAL_SECONDARY_REGIONS_DESC
+init|=
+literal|"The percent of HFiles used by secondary regions that are stored on the local hdfs data node."
+decl_stmt|;
+name|String
 name|SPLIT_QUEUE_LENGTH
 init|=
 literal|"splitQueueLength"

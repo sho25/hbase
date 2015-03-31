@@ -479,6 +479,17 @@ name|HELPER
 operator|.
 name|assertGauge
 argument_list|(
+literal|"percentFilesLocalSecondaryRegions"
+argument_list|,
+literal|99
+argument_list|,
+name|serverSource
+argument_list|)
+expr_stmt|;
+name|HELPER
+operator|.
+name|assertGauge
+argument_list|(
 literal|"compactionQueueLength"
 argument_list|,
 literal|411
