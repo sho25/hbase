@@ -333,11 +333,11 @@ operator|.
 name|currentTime
 argument_list|()
 decl_stmt|;
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|mt
 init|=
 operator|new
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 argument_list|(
 name|region_a
 argument_list|,

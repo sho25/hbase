@@ -516,7 +516,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test the {@link RegionMergeTransaction} class against two HRegions (as  * opposed to running cluster).  */
+comment|/**  * Test the {@link RegionMergeTransactionImpl} class against two HRegions (as  * opposed to running cluster).  */
 end_comment
 
 begin_class
@@ -972,17 +972,17 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|prepareOnGoodRegions
 parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|mt
 init|=
 operator|new
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 argument_list|(
 name|region_a
 argument_list|,
@@ -991,7 +991,7 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|spyMT
 init|=
 name|Mockito
@@ -1071,11 +1071,11 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|mt
 init|=
 operator|new
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1111,11 +1111,11 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|mt
 init|=
 operator|new
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1151,11 +1151,11 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|mt
 init|=
 operator|new
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 argument_list|(
 name|region_a
 argument_list|,
@@ -1164,7 +1164,7 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|spyMT
 init|=
 name|Mockito
@@ -1322,11 +1322,11 @@ argument_list|,
 name|storeMock
 argument_list|)
 expr_stmt|;
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|mt
 init|=
 operator|new
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1368,11 +1368,11 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|mt
 init|=
 operator|new
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1406,11 +1406,11 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|mt
 init|=
 operator|new
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 argument_list|(
 name|region_a
 argument_list|,
@@ -1419,7 +1419,7 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|spyMT
 init|=
 name|Mockito
@@ -1563,7 +1563,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Start transaction.
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|mt
 init|=
 name|prepareOnGoodRegions
@@ -1614,6 +1614,9 @@ decl_stmt|;
 name|HRegion
 name|mergedRegion
 init|=
+operator|(
+name|HRegion
+operator|)
 name|mt
 operator|.
 name|execute
@@ -1874,7 +1877,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Start transaction.
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|mt
 init|=
 name|prepareOnGoodRegions
@@ -2099,6 +2102,9 @@ expr_stmt|;
 name|HRegion
 name|mergedRegion
 init|=
+operator|(
+name|HRegion
+operator|)
 name|mt
 operator|.
 name|execute
@@ -2255,7 +2261,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Start transaction.
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|mt
 init|=
 name|prepareOnGoodRegions
@@ -2515,7 +2521,7 @@ decl_stmt|;
 name|HRegionInfo
 name|m
 init|=
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 operator|.
 name|getMergedRegionInfo
 argument_list|(
@@ -2583,7 +2589,7 @@ argument_list|)
 expr_stmt|;
 name|m
 operator|=
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 operator|.
 name|getMergedRegionInfo
 argument_list|(
@@ -2651,7 +2657,7 @@ argument_list|)
 expr_stmt|;
 name|m
 operator|=
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 operator|.
 name|getMergedRegionInfo
 argument_list|(
@@ -2719,7 +2725,7 @@ argument_list|)
 expr_stmt|;
 name|m
 operator|=
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 operator|.
 name|getMergedRegionInfo
 argument_list|(
@@ -2787,7 +2793,7 @@ argument_list|)
 expr_stmt|;
 name|m
 operator|=
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 operator|.
 name|getMergedRegionInfo
 argument_list|(

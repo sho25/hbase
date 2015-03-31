@@ -1292,7 +1292,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Like TestSplitTransaction in that we're testing {@link SplitTransaction}  * only the below tests are against a running cluster where TestSplitTransaction  * is tests against a bare {@link HRegion}.  */
+comment|/**  * Like TestSplitTransaction in that we're testing {@link SplitTransactionImpl}  * only the below tests are against a running cluster where TestSplitTransaction  * is tests against a bare {@link HRegion}.  */
 end_comment
 
 begin_class
@@ -2197,11 +2197,11 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// 3, Split
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|region
 argument_list|,
@@ -3360,14 +3360,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|Configuration
-name|conf
-init|=
-name|TESTING_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-decl_stmt|;
 name|TableName
 name|userTableName
 init|=
@@ -4380,11 +4372,11 @@ operator|!=
 literal|null
 argument_list|)
 expr_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|region
 argument_list|,
@@ -4845,11 +4837,11 @@ operator|!=
 literal|null
 argument_list|)
 expr_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|region
 argument_list|,
@@ -5610,7 +5602,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 comment|// Now split.
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
@@ -6065,11 +6057,11 @@ literal|null
 argument_list|)
 expr_stmt|;
 comment|// Now split.
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|region
 argument_list|,
@@ -6801,11 +6793,11 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|regions
 operator|.
@@ -7140,7 +7132,7 @@ operator|!=
 literal|null
 argument_list|)
 expr_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
@@ -7544,7 +7536,7 @@ specifier|static
 class|class
 name|MockedSplitTransaction
 extends|extends
-name|SplitTransaction
+name|SplitTransactionImpl
 block|{
 specifier|private
 name|HRegion
@@ -8877,7 +8869,7 @@ extends|extends
 name|BaseRegionObserver
 block|{
 specifier|private
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 literal|null
@@ -8994,8 +8986,11 @@ block|}
 name|st
 operator|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
+operator|(
+name|HRegion
+operator|)
 name|region
 argument_list|,
 name|splitKey

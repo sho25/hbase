@@ -29608,11 +29608,11 @@ name|LOG
 argument_list|)
 expr_stmt|;
 block|}
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|rmt
 init|=
 operator|new
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 argument_list|(
 name|a
 argument_list|,
@@ -29707,6 +29707,9 @@ try|try
 block|{
 name|dstRegion
 operator|=
+operator|(
+name|HRegion
+operator|)
 name|rmt
 operator|.
 name|execute

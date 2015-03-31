@@ -995,12 +995,15 @@ argument_list|(
 name|regionName
 argument_list|)
 decl_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|split
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
+operator|(
+name|HRegion
+operator|)
 name|region
 argument_list|,
 name|splitRow

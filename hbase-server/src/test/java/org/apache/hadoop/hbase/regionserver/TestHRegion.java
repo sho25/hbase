@@ -18115,11 +18115,11 @@ name|result
 init|=
 literal|null
 decl_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|parent
 argument_list|,

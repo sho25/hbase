@@ -620,7 +620,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test the {@link SplitTransaction} class against an HRegion (as opposed to  * running cluster).  */
+comment|/**  * Test the {@link SplitTransactionImpl} class against an HRegion (as opposed to  * running cluster).  */
 end_comment
 
 begin_class
@@ -1075,13 +1075,13 @@ name|parentRowCount
 argument_list|)
 expr_stmt|;
 comment|// Start transaction.
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 name|prepareGOOD_SPLIT_ROW
 argument_list|()
 decl_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|spiedUponSt
 init|=
 name|spy
@@ -1307,9 +1307,11 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|SplitTransaction
+name|SplitTransactionImpl
 name|prepareGOOD_SPLIT_ROW
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 return|return
 name|prepareGOOD_SPLIT_ROW
@@ -1321,19 +1323,21 @@ argument_list|)
 return|;
 block|}
 specifier|private
-name|SplitTransaction
+name|SplitTransactionImpl
 name|prepareGOOD_SPLIT_ROW
 parameter_list|(
 specifier|final
 name|HRegion
 name|parentRegion
 parameter_list|)
+throws|throws
+name|IOException
 block|{
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|parentRegion
 argument_list|,
@@ -1441,11 +1445,11 @@ argument_list|,
 name|storeMock
 argument_list|)
 expr_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1476,11 +1480,11 @@ throws|throws
 name|IOException
 block|{
 comment|// Pass start row as split key.
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1500,7 +1504,7 @@ expr_stmt|;
 name|st
 operator|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1522,7 +1526,7 @@ expr_stmt|;
 name|st
 operator|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1551,7 +1555,7 @@ expr_stmt|;
 name|st
 operator|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1585,11 +1589,11 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1685,7 +1689,7 @@ name|clearCache
 argument_list|()
 expr_stmt|;
 comment|// Start transaction.
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 name|prepareGOOD_SPLIT_ROW
@@ -2025,7 +2029,7 @@ operator|.
 name|parent
 argument_list|)
 decl_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 name|prepareGOOD_SPLIT_ROW
@@ -2033,7 +2037,7 @@ argument_list|(
 name|spiedRegion
 argument_list|)
 decl_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|spiedUponSt
 init|=
 name|spy
@@ -2208,7 +2212,7 @@ operator|.
 name|parent
 argument_list|)
 decl_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 name|prepareGOOD_SPLIT_ROW
@@ -2216,7 +2220,7 @@ argument_list|(
 name|spiedRegion
 argument_list|)
 decl_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|spiedUponSt
 init|=
 name|spy
