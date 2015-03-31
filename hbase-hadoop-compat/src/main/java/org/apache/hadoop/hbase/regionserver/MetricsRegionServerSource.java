@@ -118,6 +118,14 @@ name|long
 name|t
 parameter_list|)
 function_decl|;
+comment|/**    * Update the scan size.    *    * @param scanSize size of the scan    */
+name|void
+name|updateScannerNext
+parameter_list|(
+name|long
+name|scanSize
+parameter_list|)
+function_decl|;
 comment|/**    * Increment the number of slow Puts that have happened.    */
 name|void
 name|incrSlowPut
