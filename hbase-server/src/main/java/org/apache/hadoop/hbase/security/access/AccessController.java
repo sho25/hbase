@@ -7791,13 +7791,25 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|authManager
+operator|.
+name|getZKPermissionWatcher
+argument_list|()
+operator|.
+name|deleteNamespaceACLNode
+argument_list|(
+name|namespace
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
 name|namespace
 operator|+
-literal|"entry deleted in "
+literal|" entry deleted in "
 operator|+
 name|AccessControlLists
 operator|.
