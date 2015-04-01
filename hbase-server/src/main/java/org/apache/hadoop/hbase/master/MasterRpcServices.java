@@ -3431,6 +3431,8 @@ name|getServerStartCode
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// if regionserver passed hostname to use,
+comment|// then use it instead of doing a reverse DNS lookup
 name|ServerName
 name|rs
 init|=
@@ -3440,22 +3442,9 @@ name|serverManager
 operator|.
 name|regionServerStartup
 argument_list|(
+name|request
+argument_list|,
 name|ia
-argument_list|,
-name|request
-operator|.
-name|getPort
-argument_list|()
-argument_list|,
-name|request
-operator|.
-name|getServerStartCode
-argument_list|()
-argument_list|,
-name|request
-operator|.
-name|getServerCurrentTime
-argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Send back some config info

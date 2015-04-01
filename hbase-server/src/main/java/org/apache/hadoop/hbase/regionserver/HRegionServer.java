@@ -2959,6 +2959,21 @@ specifier|protected
 name|ServerName
 name|serverName
 decl_stmt|;
+comment|/*    * hostname specified by hostname config    */
+specifier|protected
+name|String
+name|useThisHostnameInstead
+decl_stmt|;
+comment|// key to the config parameter of server hostname
+comment|// the specification of server hostname is optional. The hostname should be resolvable from
+comment|// both master and region server
+specifier|final
+specifier|static
+name|String
+name|HOSTNAME_KEY
+init|=
+literal|"hbase.regionserver.hostname"
+decl_stmt|;
 comment|/**    * This servers startcode.    */
 specifier|protected
 specifier|final
@@ -3288,9 +3303,23 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 expr_stmt|;
+name|useThisHostnameInstead
+operator|=
+name|conf
+operator|.
+name|get
+argument_list|(
+name|HOSTNAME_KEY
+argument_list|)
+expr_stmt|;
 name|String
 name|hostName
 init|=
+name|shouldUseThisHostnameInstead
+argument_list|()
+condition|?
+name|useThisHostnameInstead
+else|:
 name|rpcServices
 operator|.
 name|isa
@@ -3677,6 +3706,24 @@ argument_list|()
 argument_list|,
 literal|false
 argument_list|)
+return|;
+block|}
+comment|/*    * Returns true if configured hostname should be used    */
+specifier|protected
+name|boolean
+name|shouldUseThisHostnameInstead
+parameter_list|()
+block|{
+return|return
+name|useThisHostnameInstead
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|useThisHostnameInstead
+operator|.
+name|isEmpty
+argument_list|()
 return|;
 block|}
 specifier|protected
@@ -6867,6 +6914,52 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|shouldUseThisHostnameInstead
+argument_list|()
+operator|&&
+operator|!
+name|hostnameFromMasterPOV
+operator|.
+name|equals
+argument_list|(
+name|useThisHostnameInstead
+argument_list|)
+condition|)
+block|{
+name|String
+name|msg
+init|=
+literal|"Master passed us a different hostname to use; was="
+operator|+
+name|this
+operator|.
+name|useThisHostnameInstead
+operator|+
+literal|", but now="
+operator|+
+name|hostnameFromMasterPOV
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|msg
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+operator|!
+name|shouldUseThisHostnameInstead
+argument_list|()
+operator|&&
 operator|!
 name|hostnameFromMasterPOV
 operator|.
@@ -6881,10 +6974,9 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
+name|String
+name|msg
+init|=
 literal|"Master passed us a different hostname to use; was="
 operator|+
 name|rpcServices
@@ -6897,6 +6989,12 @@ operator|+
 literal|", but now="
 operator|+
 name|hostnameFromMasterPOV
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
 block|}
@@ -11346,6 +11444,20 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|shouldUseThisHostnameInstead
+argument_list|()
+condition|)
+block|{
+name|request
+operator|.
+name|setUseThisHostnameInstead
+argument_list|(
+name|useThisHostnameInstead
+argument_list|)
+expr_stmt|;
+block|}
 name|request
 operator|.
 name|setPort
