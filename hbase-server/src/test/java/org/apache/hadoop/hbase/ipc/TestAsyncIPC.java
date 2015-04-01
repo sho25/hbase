@@ -1036,10 +1036,7 @@ name|getCodec
 parameter_list|()
 block|{
 return|return
-name|super
-operator|.
-name|getCodec
-argument_list|()
+literal|null
 return|;
 block|}
 block|}
