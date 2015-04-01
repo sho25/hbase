@@ -5302,7 +5302,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.master.executor.serverops.threads"
+literal|"hbase.master.executor.meta.serverops.threads"
 argument_list|,
 literal|5
 argument_list|)
