@@ -10918,8 +10918,10 @@ return|return
 name|replicationSinkHandler
 return|;
 block|}
-comment|/**    * Get the current master from ZooKeeper and open the RPC connection to it.    *    * Method will block until a master is available. You can break from this    * block by requesting the server stop.    *    * @return master + port, or null if server has been stopped    */
-specifier|private
+comment|/**    * Get the current master from ZooKeeper and open the RPC connection to it.    * To get a fresh connection, the current rssStub must be null.    * Method will block until a master is available. You can break from this    * block by requesting the server stop.    *    * @return master + port, or null if server has been stopped    */
+annotation|@
+name|VisibleForTesting
+specifier|protected
 specifier|synchronized
 name|ServerName
 name|createRegionServerStatusStub
@@ -11447,6 +11449,10 @@ literal|"error telling master we are up"
 argument_list|,
 name|se
 argument_list|)
+expr_stmt|;
+name|rssStub
+operator|=
+literal|null
 expr_stmt|;
 block|}
 block|}
