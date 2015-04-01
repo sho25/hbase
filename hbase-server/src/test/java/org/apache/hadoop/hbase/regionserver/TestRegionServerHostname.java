@@ -407,7 +407,7 @@ decl_stmt|;
 name|String
 name|invalidHostname
 init|=
-literal|"hostAddr"
+literal|"hostAddr.invalid"
 decl_stmt|;
 name|TEST_UTIL
 operator|.
