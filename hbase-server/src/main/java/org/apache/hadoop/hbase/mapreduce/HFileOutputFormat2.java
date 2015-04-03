@@ -477,7 +477,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|AbstractHFileWriter
+name|HFileWriterImpl
 import|;
 end_import
 
@@ -1006,7 +1006,7 @@ specifier|final
 name|Algorithm
 name|defaultCompression
 init|=
-name|AbstractHFileWriter
+name|HFileWriterImpl
 operator|.
 name|compressionByName
 argument_list|(
@@ -2786,7 +2786,7 @@ block|{
 name|Algorithm
 name|algorithm
 init|=
-name|AbstractHFileWriter
+name|HFileWriterImpl
 operator|.
 name|compressionByName
 argument_list|(

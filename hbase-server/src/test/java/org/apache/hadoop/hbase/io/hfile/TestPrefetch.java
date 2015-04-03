@@ -320,17 +320,6 @@ argument_list|()
 expr_stmt|;
 name|conf
 operator|.
-name|setInt
-argument_list|(
-name|HFile
-operator|.
-name|FORMAT_VERSION_KEY
-argument_list|,
-literal|3
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
 name|setBoolean
 argument_list|(
 name|CacheConfig
@@ -401,12 +390,11 @@ throws|throws
 name|Exception
 block|{
 comment|// Open the file
-name|HFileReaderV2
+name|HFile
+operator|.
+name|Reader
 name|reader
 init|=
-operator|(
-name|HFileReaderV2
-operator|)
 name|HFile
 operator|.
 name|createReader
@@ -423,12 +411,7 @@ decl_stmt|;
 while|while
 condition|(
 operator|!
-operator|(
-operator|(
-name|HFileReaderV3
-operator|)
 name|reader
-operator|)
 operator|.
 name|prefetchComplete
 argument_list|()

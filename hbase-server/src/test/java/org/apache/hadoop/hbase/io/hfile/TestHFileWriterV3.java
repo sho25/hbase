@@ -514,7 +514,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Testing writing a version 3 {@link HFile}. This is a low-level test written  * during the development of {@link HFileWriterV3}.  */
+comment|/**  * Testing writing a version 3 {@link HFile}.  */
 end_comment
 
 begin_class
@@ -824,16 +824,13 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|HFileWriterV3
+name|HFile
+operator|.
+name|Writer
 name|writer
 init|=
-operator|(
-name|HFileWriterV3
-operator|)
 operator|new
-name|HFileWriterV3
-operator|.
-name|WriterFactoryV3
+name|HFileWriterFactory
 argument_list|(
 name|conf
 argument_list|,
@@ -1380,7 +1377,7 @@ name|fileInfo
 operator|.
 name|get
 argument_list|(
-name|HFileWriterV3
+name|HFileWriterImpl
 operator|.
 name|KEY_VALUE_VERSION
 argument_list|)

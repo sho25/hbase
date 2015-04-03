@@ -550,7 +550,7 @@ name|FixedFileTrailer
 argument_list|(
 name|version
 argument_list|,
-name|HFileReaderV2
+name|HFileReaderImpl
 operator|.
 name|PBUF_TRAILER_MINOR_VERSION
 argument_list|)
@@ -736,7 +736,7 @@ name|FixedFileTrailer
 argument_list|(
 name|version
 argument_list|,
-name|HFileReaderV2
+name|HFileReaderImpl
 operator|.
 name|PBUF_TRAILER_MINOR_VERSION
 argument_list|)
@@ -996,7 +996,7 @@ name|FixedFileTrailer
 argument_list|(
 name|version
 argument_list|,
-name|HFileReaderV2
+name|HFileReaderImpl
 operator|.
 name|MINOR_VERSION_NO_CHECKSUM
 argument_list|)
@@ -1181,7 +1181,7 @@ name|FixedFileTrailer
 argument_list|(
 name|version
 argument_list|,
-name|HFileReaderV2
+name|HFileReaderImpl
 operator|.
 name|MINOR_VERSION_NO_CHECKSUM
 argument_list|)
