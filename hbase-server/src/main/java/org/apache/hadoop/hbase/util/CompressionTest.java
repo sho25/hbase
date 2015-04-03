@@ -259,7 +259,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|HFileWriterImpl
+name|AbstractHFileWriter
 import|;
 end_import
 
@@ -753,7 +753,7 @@ argument_list|()
 operator|.
 name|withCompression
 argument_list|(
-name|HFileWriterImpl
+name|AbstractHFileWriter
 operator|.
 name|compressionByName
 argument_list|(

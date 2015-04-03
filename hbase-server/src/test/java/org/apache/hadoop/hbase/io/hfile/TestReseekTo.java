@@ -218,7 +218,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test {@link HFileScanner#reseekTo(org.apache.hadoop.hbase.Cell)}  */
+comment|/**  * Test {@link HFileScanner#reseekTo(byte[])}  */
 end_comment
 
 begin_class

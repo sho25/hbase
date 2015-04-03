@@ -3750,11 +3750,12 @@ expr_stmt|;
 block|}
 block|}
 comment|// Manually compute the mid-key and validate it.
-name|HFile
-operator|.
-name|Reader
+name|HFileReaderV2
 name|reader2
 init|=
+operator|(
+name|HFileReaderV2
+operator|)
 name|reader
 decl_stmt|;
 name|HFileBlock
