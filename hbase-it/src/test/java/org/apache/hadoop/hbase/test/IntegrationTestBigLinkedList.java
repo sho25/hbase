@@ -71,6 +71,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|security
+operator|.
+name|SecureRandom
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -1906,10 +1916,11 @@ argument_list|,
 literal|25000000
 argument_list|)
 expr_stmt|;
+comment|// Use SecureRandom to avoid issue described in HBASE-13382.
 name|rand
 operator|=
 operator|new
-name|Random
+name|SecureRandom
 argument_list|()
 expr_stmt|;
 block|}
@@ -8572,7 +8583,7 @@ name|Random
 name|rand
 init|=
 operator|new
-name|Random
+name|SecureRandom
 argument_list|()
 decl_stmt|;
 name|boolean
