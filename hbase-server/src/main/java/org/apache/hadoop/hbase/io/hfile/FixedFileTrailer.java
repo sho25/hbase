@@ -829,7 +829,7 @@ literal|2
 operator|&&
 name|minorVersion
 operator|>=
-name|HFileReaderV2
+name|HFileReaderImpl
 operator|.
 name|PBUF_TRAILER_MINOR_VERSION
 operator|)
@@ -2474,9 +2474,11 @@ index|[]
 name|getEncryptionKey
 parameter_list|()
 block|{
+comment|// This is a v3 feature but if reading a v2 file the encryptionKey will just be null which
+comment|// if fine for this feature.
 name|expectAtLeastMajorVersion
 argument_list|(
-literal|3
+literal|2
 argument_list|)
 expr_stmt|;
 return|return

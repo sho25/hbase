@@ -242,8 +242,6 @@ operator|.
 name|hfile
 operator|.
 name|HFile
-operator|.
-name|FileInfo
 import|;
 end_import
 
@@ -261,7 +259,9 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|HFileWriterV2
+name|HFile
+operator|.
+name|FileInfo
 import|;
 end_import
 
@@ -901,7 +901,9 @@ name|fileInfo
 operator|.
 name|get
 argument_list|(
-name|HFileWriterV2
+name|HFile
+operator|.
+name|Writer
 operator|.
 name|MAX_MEMSTORE_TS_KEY
 argument_list|)

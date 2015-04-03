@@ -1287,7 +1287,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Replace any cell timestamps set to HConstants#LATEST_TIMESTAMP with the    * provided current timestamp.    * @param values    * @param now    */
+comment|/**    * Replace any cell timestamps set to {@link org.apache.hadoop.hbase.HConstants#LATEST_TIMESTAMP}    * provided current timestamp.    * @param values    * @param now    */
 name|void
 name|updateCellTimestamps
 parameter_list|(

@@ -377,7 +377,7 @@ name|MAX_COMPARATOR_NAME_LENGTH
 init|=
 literal|128
 decl_stmt|;
-comment|/**    * The number of used fields by version. Indexed by version minus two.     * Min version that we support is V2    */
+comment|/**    * The number of used fields by version. Indexed by version minus two.    * Min version that we support is V2    */
 specifier|private
 specifier|static
 specifier|final
@@ -550,7 +550,7 @@ name|FixedFileTrailer
 argument_list|(
 name|version
 argument_list|,
-name|HFileReaderV2
+name|HFileReaderImpl
 operator|.
 name|PBUF_TRAILER_MINOR_VERSION
 argument_list|)
@@ -736,7 +736,7 @@ name|FixedFileTrailer
 argument_list|(
 name|version
 argument_list|,
-name|HFileReaderV2
+name|HFileReaderImpl
 operator|.
 name|PBUF_TRAILER_MINOR_VERSION
 argument_list|)
@@ -996,7 +996,7 @@ name|FixedFileTrailer
 argument_list|(
 name|version
 argument_list|,
-name|HFileReaderV2
+name|HFileReaderImpl
 operator|.
 name|MINOR_VERSION_NO_CHECKSUM
 argument_list|)
@@ -1181,7 +1181,7 @@ name|FixedFileTrailer
 argument_list|(
 name|version
 argument_list|,
-name|HFileReaderV2
+name|HFileReaderImpl
 operator|.
 name|MINOR_VERSION_NO_CHECKSUM
 argument_list|)

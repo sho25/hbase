@@ -485,7 +485,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|HFileReaderV2
+name|HFileReaderImpl
 import|;
 end_import
 
@@ -3350,7 +3350,7 @@ operator|.
 name|getHFileMinorVersion
 argument_list|()
 operator|>=
-name|HFileReaderV2
+name|HFileReaderImpl
 operator|.
 name|MINOR_VERSION_WITH_CHECKSUM
 operator|)
