@@ -817,7 +817,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RequestContext
+name|RpcServer
 import|;
 end_import
 
@@ -3946,18 +3946,11 @@ parameter_list|)
 throws|throws
 name|AccessDeniedException
 block|{
-if|if
-condition|(
-name|RequestContext
-operator|.
-name|isInRequestContext
-argument_list|()
-condition|)
-block|{
+comment|// This is duplicated code!
 name|String
 name|requestUName
 init|=
-name|RequestContext
+name|RpcServer
 operator|.
 name|getRequestUserName
 argument_list|()
@@ -3998,7 +3991,6 @@ operator|+
 literal|"' is not the scanner owner!"
 argument_list|)
 throw|;
-block|}
 block|}
 block|}
 annotation|@
@@ -5400,34 +5392,15 @@ name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
-name|RequestContext
-name|ctx
-init|=
-name|RequestContext
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
+comment|// This is more duplicated code!
 name|InetAddress
 name|remoteAddr
 init|=
-literal|null
-decl_stmt|;
-if|if
-condition|(
-name|ctx
-operator|!=
-literal|null
-condition|)
-block|{
-name|remoteAddr
-operator|=
-name|ctx
+name|RpcServer
 operator|.
 name|getRemoteAddress
 argument_list|()
-expr_stmt|;
-block|}
+decl_stmt|;
 name|List
 argument_list|<
 name|String

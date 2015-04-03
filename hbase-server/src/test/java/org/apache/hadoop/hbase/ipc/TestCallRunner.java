@@ -192,10 +192,6 @@ argument_list|(
 name|mockRpcServer
 argument_list|,
 name|mockCall
-argument_list|,
-operator|new
-name|UserProvider
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|cr

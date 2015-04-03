@@ -351,7 +351,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RequestContext
+name|RpcServer
 import|;
 end_import
 
@@ -2025,18 +2025,16 @@ block|{
 name|User
 name|user
 init|=
-name|RequestContext
+name|RpcServer
 operator|.
 name|getRequestUser
 argument_list|()
 decl_stmt|;
 if|if
 condition|(
-operator|!
-name|RequestContext
-operator|.
-name|isInRequestContext
-argument_list|()
+name|user
+operator|==
+literal|null
 condition|)
 block|{
 name|user

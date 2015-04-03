@@ -357,7 +357,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RequestContext
+name|RpcServer
 import|;
 end_import
 
@@ -809,25 +809,23 @@ block|}
 comment|// If we are creating the table in service to an RPC request, record the
 comment|// active user for later, so proper permissions will be applied to the
 comment|// new table by the AccessController if it is active
-if|if
-condition|(
-name|RequestContext
-operator|.
-name|isInRequestContext
-argument_list|()
-condition|)
-block|{
 name|this
 operator|.
 name|activeUser
 operator|=
-name|RequestContext
+name|RpcServer
 operator|.
 name|getRequestUser
 argument_list|()
 expr_stmt|;
-block|}
-else|else
+if|if
+condition|(
+name|this
+operator|.
+name|activeUser
+operator|==
+literal|null
+condition|)
 block|{
 name|this
 operator|.

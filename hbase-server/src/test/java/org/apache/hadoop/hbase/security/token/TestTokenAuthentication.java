@@ -463,22 +463,6 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RequestContext
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
 name|RpcClient
 import|;
 end_import
@@ -1879,7 +1863,7 @@ name|debug
 argument_list|(
 literal|"Authentication token request from "
 operator|+
-name|RequestContext
+name|RpcServer
 operator|.
 name|getRequestUserName
 argument_list|()
@@ -1973,7 +1957,7 @@ name|debug
 argument_list|(
 literal|"whoAmI() request from "
 operator|+
-name|RequestContext
+name|RpcServer
 operator|.
 name|getRequestUserName
 argument_list|()

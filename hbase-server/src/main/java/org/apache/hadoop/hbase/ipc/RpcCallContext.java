@@ -17,6 +17,32 @@ name|ipc
 package|;
 end_package
 
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
+name|InetAddress
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|User
+import|;
+end_import
+
 begin_interface
 specifier|public
 interface|interface
@@ -32,6 +58,21 @@ function_decl|;
 comment|/**    * If the client connected and specified a codec to use, then we will use this codec making    * cellblocks to return.  If the client did not specify a codec, we assume it does not support    * cellblocks and will return all content protobuf'd (though it makes our serving slower).    * We need to ask this question per call because a server could be hosting both clients that    * support cellblocks while fielding requests from clients that do not.    * @return True if the client supports cellblocks, else return all content in pb    */
 name|boolean
 name|isClientCellBlockSupport
+parameter_list|()
+function_decl|;
+comment|/**    * Returns the user credentials associated with the current RPC request or    *<code>null</code> if no credentials were provided.    * @return A User    */
+name|User
+name|getRequestUser
+parameter_list|()
+function_decl|;
+comment|/**    * @return Current request's user name or null if none ongoing.    */
+name|String
+name|getRequestUserName
+parameter_list|()
+function_decl|;
+comment|/**    * @return Address of remote client if a request is ongoing, else null    */
+name|InetAddress
+name|getRemoteAddress
 parameter_list|()
 function_decl|;
 block|}

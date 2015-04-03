@@ -881,7 +881,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RequestContext
+name|RpcServer
 import|;
 end_import
 
@@ -2710,34 +2710,14 @@ name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
-name|RequestContext
-name|ctx
-init|=
-name|RequestContext
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
 name|InetAddress
 name|remoteAddr
 init|=
-literal|null
-decl_stmt|;
-if|if
-condition|(
-name|ctx
-operator|!=
-literal|null
-condition|)
-block|{
-name|remoteAddr
-operator|=
-name|ctx
+name|RpcServer
 operator|.
 name|getRemoteAddress
 argument_list|()
-expr_stmt|;
-block|}
+decl_stmt|;
 name|AUDITLOG
 operator|.
 name|trace
@@ -2823,18 +2803,16 @@ block|{
 name|User
 name|user
 init|=
-name|RequestContext
+name|RpcServer
 operator|.
 name|getRequestUser
 argument_list|()
 decl_stmt|;
 if|if
 condition|(
-operator|!
-name|RequestContext
-operator|.
-name|isInRequestContext
-argument_list|()
+name|user
+operator|==
+literal|null
 condition|)
 block|{
 comment|// for non-rpc handling, fallback to system user
@@ -12221,18 +12199,10 @@ parameter_list|)
 throws|throws
 name|AccessDeniedException
 block|{
-if|if
-condition|(
-name|RequestContext
-operator|.
-name|isInRequestContext
-argument_list|()
-condition|)
-block|{
 name|String
 name|requestUserName
 init|=
-name|RequestContext
+name|RpcServer
 operator|.
 name|getRequestUserName
 argument_list|()
@@ -12273,7 +12243,6 @@ operator|+
 literal|"' is not the scanner owner!"
 argument_list|)
 throw|;
-block|}
 block|}
 block|}
 comment|/**    * Verifies user has CREATE privileges on    * the Column Families involved in the bulkLoadHFile    * request. Specific Column Write privileges are presently    * ignored.    */
