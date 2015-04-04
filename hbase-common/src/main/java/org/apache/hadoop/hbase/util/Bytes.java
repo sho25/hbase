@@ -5310,7 +5310,9 @@ name|i
 operator|)
 return|;
 block|}
-comment|/**    * Reads a zero-compressed encoded long from input stream and returns it.    * @param buffer Binary array    * @param offset Offset into array at which vint begins.    * @throws java.io.IOException e    * @return deserialized long from stream.    */
+comment|/**    * Reads a zero-compressed encoded long from input buffer and returns it.    * @param buffer Binary array    * @param offset Offset into array at which vint begins.    * @throws java.io.IOException e    * @return deserialized long from buffer.    * @deprecated Use {@link #readAsVLong()} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|long
@@ -5327,6 +5329,31 @@ name|offset
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+return|return
+name|readAsVLong
+argument_list|(
+name|buffer
+argument_list|,
+name|offset
+argument_list|)
+return|;
+block|}
+comment|/**    * Reads a zero-compressed encoded long from input buffer and returns it.    * @param buffer Binary array    * @param offset Offset into array at which vint begins.    * @return deserialized long from buffer.    */
+specifier|public
+specifier|static
+name|long
+name|readAsVLong
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|buffer
+parameter_list|,
+specifier|final
+name|int
+name|offset
+parameter_list|)
 block|{
 name|byte
 name|firstByte
