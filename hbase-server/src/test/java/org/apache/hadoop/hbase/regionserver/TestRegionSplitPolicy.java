@@ -706,22 +706,21 @@ name|shouldSplit
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Quadruple (2 squared) the store size and make sure its just over; verify it'll split
+comment|// make sure its just over; verify it'll split
 name|Mockito
 operator|.
 name|doReturn
 argument_list|(
-operator|(
-name|flushSize
+call|(
+name|long
+call|)
+argument_list|(
+name|maxSplitSize
 operator|*
-literal|2
-operator|*
-literal|2
-operator|*
-literal|2
-operator|)
+literal|1.025
 operator|+
 literal|1
+argument_list|)
 argument_list|)
 operator|.
 name|when
@@ -741,7 +740,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Finally assert that even if loads of regions, we'll split at max size
-name|assertEquals
+name|assertWithinJitter
 argument_list|(
 name|maxSplitSize
 argument_list|,
@@ -754,7 +753,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Assert same is true if count of regions is zero.
-name|assertEquals
+name|assertWithinJitter
 argument_list|(
 name|maxSplitSize
 argument_list|,
@@ -764,6 +763,50 @@ name|getSizeToCheck
 argument_list|(
 literal|0
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|assertWithinJitter
+parameter_list|(
+name|long
+name|maxSplitSize
+parameter_list|,
+name|long
+name|sizeToCheck
+parameter_list|)
+block|{
+name|assertTrue
+argument_list|(
+literal|"Size greater than lower bound of jitter"
+argument_list|,
+call|(
+name|long
+call|)
+argument_list|(
+name|maxSplitSize
+operator|*
+literal|0.75
+argument_list|)
+operator|<=
+name|sizeToCheck
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"Size less than upper bound of jitter"
+argument_list|,
+call|(
+name|long
+call|)
+argument_list|(
+name|maxSplitSize
+operator|*
+literal|1.25
+argument_list|)
+operator|>=
+name|sizeToCheck
 argument_list|)
 expr_stmt|;
 block|}
@@ -804,7 +847,7 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
-name|assertEquals
+name|assertWithinJitter
 argument_list|(
 literal|1234L
 argument_list|,
@@ -836,7 +879,7 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertWithinJitter
 argument_list|(
 literal|9999L
 argument_list|,
