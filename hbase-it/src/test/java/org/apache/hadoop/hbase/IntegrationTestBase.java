@@ -319,11 +319,10 @@ literal|"monkey properties."
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Override
+comment|/**    * This allows tests that subclass children of this base class such as    * {@link org.apache.hadoop.hbase.test.IntegrationTestReplication} to    * include the base options without having to also include the options from the test.    *    * @param cmd the command line    */
 specifier|protected
 name|void
-name|processOptions
+name|processBaseOptions
 parameter_list|(
 name|CommandLine
 name|cmd
@@ -444,6 +443,22 @@ expr_stmt|;
 block|}
 block|}
 block|}
+block|}
+annotation|@
+name|Override
+specifier|protected
+name|void
+name|processOptions
+parameter_list|(
+name|CommandLine
+name|cmd
+parameter_list|)
+block|{
+name|processBaseOptions
+argument_list|(
+name|cmd
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
