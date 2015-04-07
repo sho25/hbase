@@ -2771,6 +2771,10 @@ comment|// write tags if we have to
 if|if
 condition|(
 name|withTags
+operator|&&
+name|tlen
+operator|>
+literal|0
 condition|)
 block|{
 comment|// 2 bytes tags length followed by tags bytes
