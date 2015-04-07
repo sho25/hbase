@@ -733,7 +733,7 @@ decl_stmt|;
 name|String
 name|SPLIT_SUCCESS_KEY
 init|=
-literal|"splitSuccessCounnt"
+literal|"splitSuccessCount"
 decl_stmt|;
 name|String
 name|SPLIT_SUCCESS_DESC
