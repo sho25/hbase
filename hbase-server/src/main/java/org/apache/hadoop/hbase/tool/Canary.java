@@ -1179,6 +1179,13 @@ argument_list|()
 expr_stmt|;
 name|scan
 operator|.
+name|setRaw
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|scan
+operator|.
 name|setCaching
 argument_list|(
 literal|1
