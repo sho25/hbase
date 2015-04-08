@@ -3741,8 +3741,22 @@ name|shouldCheckHdfs
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Loading region directories from HDFS"
+argument_list|)
+expr_stmt|;
 name|loadHdfsRegionDirs
 argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Loading region information from HDFS"
+argument_list|)
 expr_stmt|;
 name|loadHdfsRegionInfos
 argument_list|()
@@ -3751,6 +3765,13 @@ block|}
 comment|// fix the orphan tables
 name|fixOrphanTables
 argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Checking and fixing region consistency"
+argument_list|)
 expr_stmt|;
 comment|// Check and fix consistency
 name|checkAndFixConsistency
@@ -5378,6 +5399,13 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Computing mapping of all store files"
+argument_list|)
+expr_stmt|;
 name|Map
 argument_list|<
 name|String
@@ -5393,8 +5421,24 @@ argument_list|(
 name|fs
 argument_list|,
 name|hbaseRoot
+argument_list|,
+name|errors
 argument_list|)
 decl_stmt|;
+name|errors
+operator|.
+name|print
+argument_list|(
+literal|""
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Validating mapping using HDFS state"
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|Path
@@ -6363,6 +6407,13 @@ block|}
 name|loadTableInfosForTablesWithNoRegion
 argument_list|()
 expr_stmt|;
+name|errors
+operator|.
+name|print
+argument_list|(
+literal|""
+argument_list|)
+expr_stmt|;
 return|return
 name|tablesInfo
 return|;
@@ -7330,6 +7381,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|logParallelMerge
+argument_list|()
+expr_stmt|;
 for|for
 control|(
 name|TableInfo
@@ -7621,6 +7675,48 @@ return|return
 literal|true
 return|;
 block|}
+comment|/**    * Log an appropriate message about whether or not overlapping merges are computed in parallel.    */
+specifier|private
+name|void
+name|logParallelMerge
+parameter_list|()
+block|{
+if|if
+condition|(
+name|getConf
+argument_list|()
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbasefsck.overlap.merge.parallel"
+argument_list|,
+literal|true
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Handling overlap merges in parallel. set hbasefsck.overlap.merge.parallel to"
+operator|+
+literal|" false to run serially."
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Handling overlap merges serially.  set hbasefsck.overlap.merge.parallel to"
+operator|+
+literal|" true to run in parallel."
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 specifier|private
 name|SortedMap
 argument_list|<
@@ -7645,6 +7741,9 @@ name|info
 argument_list|(
 literal|"Checking HBase region split map from HDFS data..."
 argument_list|)
+expr_stmt|;
+name|logParallelMerge
+argument_list|()
 expr_stmt|;
 for|for
 control|(
@@ -8822,6 +8921,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|errors
+operator|.
+name|print
+argument_list|(
+literal|""
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Record the location of the hbase:meta region as found in ZooKeeper.    */
 specifier|private
@@ -12931,6 +13037,9 @@ block|}
 name|loadTableInfosForTablesWithNoRegion
 argument_list|()
 expr_stmt|;
+name|logParallelMerge
+argument_list|()
+expr_stmt|;
 for|for
 control|(
 name|TableInfo
@@ -15951,15 +16060,6 @@ literal|true
 argument_list|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Handling overlap merges in parallel. set hbasefsck.overlap.merge.parallel to"
-operator|+
-literal|" false to run serially."
-argument_list|)
-expr_stmt|;
 name|boolean
 name|ok
 init|=
@@ -15983,15 +16083,6 @@ block|}
 block|}
 else|else
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Handling overlap merges serially.  set hbasefsck.overlap.merge.parallel to"
-operator|+
-literal|" true to run in parallel."
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|Collection
@@ -19703,6 +19794,15 @@ specifier|private
 name|int
 name|showProgress
 decl_stmt|;
+comment|// How frequently calls to progress() will create output
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|progressThreshold
+init|=
+literal|100
+decl_stmt|;
 name|Set
 argument_list|<
 name|TableInfo
@@ -20198,7 +20298,7 @@ condition|(
 name|showProgress
 operator|++
 operator|==
-literal|10
+name|progressThreshold
 condition|)
 block|{
 if|if
@@ -20663,6 +20763,11 @@ range|:
 name|regionDirs
 control|)
 block|{
+name|errors
+operator|.
+name|progress
+argument_list|()
+expr_stmt|;
 name|String
 name|encodedName
 init|=
@@ -20840,6 +20945,11 @@ range|:
 name|subDirs
 control|)
 block|{
+name|errors
+operator|.
+name|progress
+argument_list|()
+expr_stmt|;
 name|String
 name|sdName
 init|=
@@ -21006,6 +21116,11 @@ condition|)
 block|{
 try|try
 block|{
+name|errors
+operator|.
+name|progress
+argument_list|()
+expr_stmt|;
 name|hbck
 operator|.
 name|loadHdfsRegioninfo
