@@ -717,7 +717,7 @@ call|)
 argument_list|(
 name|maxSplitSize
 operator|*
-literal|1.025
+literal|1.25
 operator|+
 literal|1
 argument_list|)
