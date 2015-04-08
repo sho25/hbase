@@ -732,7 +732,6 @@ name|DEFERRED_LOG_FLUSH
 init|=
 literal|"DEFERRED_LOG_FLUSH"
 decl_stmt|;
-comment|/**    * @deprecated    */
 annotation|@
 name|Deprecated
 specifier|private
@@ -1313,7 +1312,7 @@ name|name
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct a table descriptor specifying a byte array table name    * @param name Table name.    * @see<a href="HADOOP-1581">HADOOP-1581 HBASE: Un-openable tablename bug</a>    * @deprecated    */
+comment|/**    * Construct a table descriptor specifying a byte array table name    * @param name Table name.    * @see<a href="HADOOP-1581">HADOOP-1581 HBASE: Un-openable tablename bug</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1336,7 +1335,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct a table descriptor specifying a String table name    * @param name Table name.    * @see<a href="HADOOP-1581">HADOOP-1581 HBASE: Un-openable tablename bug</a>    * @deprecated    */
+comment|/**    * Construct a table descriptor specifying a String table name    * @param name Table name.    * @see<a href="HADOOP-1581">HADOOP-1581 HBASE: Un-openable tablename bug</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2402,7 +2401,7 @@ name|SPLIT_POLICY
 argument_list|)
 return|;
 block|}
-comment|/**    * Set the name of the table.    *    * @param name name of table    * @deprecated    */
+comment|/**    * Set the name of the table.    *    * @param name name of table    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2428,7 +2427,6 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * @deprecated    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5070,7 +5068,7 @@ name|match
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Returns the {@link Path} object representing the table directory under    * path rootdir    *    * Deprecated use FSUtils.getTableDir() instead.    *    * @param rootdir qualified path of HBase root directory    * @param tableName name of table    * @return {@link Path} for table    * @deprecated    */
+comment|/**    * Returns the {@link Path} object representing the table directory under    * path rootdir    *    * Deprecated use FSUtils.getTableDir() instead.    *    * @param rootdir qualified path of HBase root directory    * @param tableName name of table    * @return {@link Path} for table    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5133,7 +5131,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/** Table descriptor for<code>hbase:meta</code> catalog table    * Deprecated, use TableDescriptors#get(TableName.META_TABLE) or    * Admin#getTableDescriptor(TableName.META_TABLE) instead.    * @deprecated    */
+comment|/** Table descriptor for<code>hbase:meta</code> catalog table    * Deprecated, use TableDescriptors#get(TableName.META_TABLE) or    * Admin#getTableDescriptor(TableName.META_TABLE) instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5381,7 +5379,6 @@ argument_list|)
 block|}
 argument_list|)
 decl_stmt|;
-comment|/**    * @deprecated    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5408,7 +5405,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * used by admin.rb:alter(table_name,*args) to update owner.    * @deprecated    */
+comment|// used by admin.rb:alter(table_name,*args) to update owner.
 annotation|@
 name|Deprecated
 specifier|public
@@ -5446,7 +5443,6 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * @deprecated    */
 annotation|@
 name|Deprecated
 specifier|public

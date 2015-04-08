@@ -309,7 +309,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|ScanType
+name|InternalScanner
+operator|.
+name|NextState
 import|;
 end_import
 
@@ -325,7 +327,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|ScannerContext
+name|ScanType
 import|;
 end_import
 
@@ -1382,22 +1384,6 @@ decl_stmt|;
 name|boolean
 name|hasMore
 decl_stmt|;
-name|ScannerContext
-name|scannerContext
-init|=
-name|ScannerContext
-operator|.
-name|newBuilder
-argument_list|()
-operator|.
-name|setBatchLimit
-argument_list|(
-name|compactionKVMax
-argument_list|)
-operator|.
-name|build
-argument_list|()
-decl_stmt|;
 name|throughputController
 operator|.
 name|start
@@ -1411,13 +1397,18 @@ do|do
 block|{
 name|hasMore
 operator|=
+name|NextState
+operator|.
+name|hasMoreValues
+argument_list|(
 name|scanner
 operator|.
 name|next
 argument_list|(
 name|cells
 argument_list|,
-name|scannerContext
+name|compactionKVMax
+argument_list|)
 argument_list|)
 expr_stmt|;
 if|if

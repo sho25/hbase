@@ -1723,11 +1723,6 @@ name|switchedToADifferentReplica
 argument_list|()
 condition|)
 block|{
-comment|// Any accumulated partial results are no longer valid since the callable will
-comment|// openScanner with the correct startkey and we must pick up from there
-name|clearPartialResults
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|currentRegion
