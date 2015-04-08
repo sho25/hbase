@@ -552,6 +552,13 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|// cell codec classname
+specifier|private
+name|String
+name|codecClsName
+init|=
+literal|null
+decl_stmt|;
 enum|enum
 name|WALHdrResult
 block|{
@@ -766,7 +773,7 @@ argument_list|)
 return|;
 block|}
 comment|/*    * Returns names of the accepted writer classes    */
-specifier|protected
+specifier|public
 name|List
 argument_list|<
 name|String
@@ -776,6 +783,16 @@ parameter_list|()
 block|{
 return|return
 name|writerClsNames
+return|;
+block|}
+comment|/*    * Returns the cell codec classname    */
+specifier|public
+name|String
+name|getCodecClsName
+parameter_list|()
+block|{
+return|return
+name|codecClsName
 return|;
 block|}
 specifier|protected
@@ -1134,6 +1151,13 @@ name|trailerPresent
 argument_list|)
 expr_stmt|;
 block|}
+name|codecClsName
+operator|=
+name|hdrCtxt
+operator|.
+name|getCellCodecClsName
+argument_list|()
+expr_stmt|;
 return|return
 name|hdrCtxt
 operator|.

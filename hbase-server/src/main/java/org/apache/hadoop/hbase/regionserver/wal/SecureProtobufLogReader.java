@@ -358,7 +358,7 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
-specifier|protected
+specifier|public
 name|List
 argument_list|<
 name|String
