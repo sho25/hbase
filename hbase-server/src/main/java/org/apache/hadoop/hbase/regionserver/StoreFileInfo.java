@@ -1692,7 +1692,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param path Path to check.    * @return True if the file name has format of a del file.    */
+comment|/**    * @param fileName Sting version of path to validate.    * @return True if the file name has format of a del file.    */
 specifier|public
 specifier|static
 name|boolean
