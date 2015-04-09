@@ -3019,6 +3019,16 @@ operator|==
 literal|false
 condition|)
 block|{
+if|if
+condition|(
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|familyDir
+argument_list|)
+condition|)
+block|{
 throw|throw
 operator|new
 name|IOException
@@ -3049,6 +3059,7 @@ operator|+
 literal|")"
 argument_list|)
 throw|;
+block|}
 block|}
 block|}
 specifier|public
