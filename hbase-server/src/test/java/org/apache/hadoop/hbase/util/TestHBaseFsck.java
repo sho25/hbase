@@ -1830,7 +1830,7 @@ name|HConstants
 operator|.
 name|HBASE_RPC_TIMEOUT_KEY
 argument_list|,
-literal|2
+literal|8
 operator|*
 name|REGION_ONLINE_TIMEOUT
 argument_list|)

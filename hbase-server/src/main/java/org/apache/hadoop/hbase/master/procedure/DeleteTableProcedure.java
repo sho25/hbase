@@ -905,6 +905,10 @@ operator|.
 name|DELETE_TABLE_UPDATE_DESC_CACHE
 argument_list|)
 expr_stmt|;
+name|regions
+operator|=
+literal|null
+expr_stmt|;
 break|break;
 case|case
 name|DELETE_TABLE_UPDATE_DESC_CACHE

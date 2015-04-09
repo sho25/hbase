@@ -337,7 +337,7 @@ throws|,
 name|TableNotDisabledException
 function_decl|;
 comment|/**    * Create a table using the given table definition.    * @param desc The table definition    * @param splitKeys Starting row keys for the initial table regions.  If null    *     a single region is created.    */
-name|void
+name|long
 name|createTable
 parameter_list|(
 name|HTableDescriptor
@@ -352,7 +352,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Delete a table    * @param tableName The table name    * @throws IOException    */
-name|void
+name|long
 name|deleteTable
 parameter_list|(
 specifier|final

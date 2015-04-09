@@ -1713,7 +1713,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|createTable
 parameter_list|(
 name|HTableDescriptor
@@ -1728,6 +1728,10 @@ throws|throws
 name|IOException
 block|{
 comment|// no-op
+return|return
+operator|-
+literal|1
+return|;
 block|}
 annotation|@
 name|Override
@@ -2264,7 +2268,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|deleteTable
 parameter_list|(
 name|TableName
@@ -2272,7 +2276,12 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
-block|{ }
+block|{
+return|return
+operator|-
+literal|1
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public

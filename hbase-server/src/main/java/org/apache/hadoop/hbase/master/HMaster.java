@@ -7143,7 +7143,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|createTable
 parameter_list|(
 name|HTableDescriptor
@@ -7308,9 +7308,9 @@ name|newRegions
 argument_list|)
 expr_stmt|;
 block|}
-comment|// TODO: change the interface to return the procId,
-comment|//       and add it to the response protobuf.
-comment|//return procId;
+return|return
+name|procId
+return|;
 block|}
 comment|/**    * Checks whether the table conforms to some sane limits, and configured    * values (compression, etc) work. Throws an exception if something is wrong.    * @throws IOException    */
 specifier|private
@@ -8314,7 +8314,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|deleteTable
 parameter_list|(
 specifier|final
@@ -8406,9 +8406,9 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|// TODO: change the interface to return the procId,
-comment|//       and add it to the response protobuf.
-comment|//return procId;
+return|return
+name|procId
+return|;
 block|}
 annotation|@
 name|Override
