@@ -29,6 +29,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -48,20 +62,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TableName
 import|;
 end_import
 
@@ -90,10 +90,14 @@ name|CREATE
 block|,
 name|DELETE
 block|,
+name|DISABLE
+block|,
 name|EDIT
 block|,
+name|ENABLE
+block|,
 name|READ
-block|}
+block|,   }
 empty_stmt|;
 comment|/**    * @return the name of the table the procedure is operating on    */
 name|TableName

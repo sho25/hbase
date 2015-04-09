@@ -937,43 +937,7 @@ name|master
 operator|.
 name|handler
 operator|.
-name|DisableTableHandler
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|handler
-operator|.
 name|DispatchMergingRegionHandler
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|handler
-operator|.
-name|EnableTableHandler
 import|;
 end_import
 
@@ -1064,6 +1028,42 @@ operator|.
 name|procedure
 operator|.
 name|DeleteTableProcedure
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|procedure
+operator|.
+name|DisableTableProcedure
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|procedure
+operator|.
+name|EnableTableProcedure
 import|;
 end_import
 
@@ -8888,29 +8888,49 @@ operator|+
 name|tableName
 argument_list|)
 expr_stmt|;
+comment|// Execute the operation asynchronously - client will check the progress of the operation
+specifier|final
+name|ProcedurePrepareLatch
+name|prepareLatch
+init|=
+name|ProcedurePrepareLatch
+operator|.
+name|createLatch
+argument_list|()
+decl_stmt|;
+name|long
+name|procId
+init|=
 name|this
 operator|.
-name|service
+name|procedureExecutor
 operator|.
-name|submit
+name|submitProcedure
 argument_list|(
 operator|new
-name|EnableTableHandler
+name|EnableTableProcedure
 argument_list|(
-name|this
+name|procedureExecutor
+operator|.
+name|getEnvironment
+argument_list|()
 argument_list|,
 name|tableName
 argument_list|,
-name|assignmentManager
-argument_list|,
-name|tableLockManager
-argument_list|,
 literal|false
+argument_list|,
+name|prepareLatch
 argument_list|)
+argument_list|)
+decl_stmt|;
+comment|// Before returning to client, we want to make sure that the table is prepared to be
+comment|// enabled (the table is locked and the table state is set).
+comment|//
+comment|// Note: if the procedure throws exception, we will catch it and rethrow.
+name|prepareLatch
 operator|.
-name|prepare
+name|await
 argument_list|()
-argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -8927,6 +8947,8 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+comment|// TODO: return procId as part of client-side change
+comment|// return procId;
 block|}
 annotation|@
 name|Override
@@ -8971,29 +8993,50 @@ operator|+
 name|tableName
 argument_list|)
 expr_stmt|;
+comment|// Execute the operation asynchronously - client will check the progress of the operation
+specifier|final
+name|ProcedurePrepareLatch
+name|prepareLatch
+init|=
+name|ProcedurePrepareLatch
+operator|.
+name|createLatch
+argument_list|()
+decl_stmt|;
+comment|// Execute the operation asynchronously - client will check the progress of the operation
+name|long
+name|procId
+init|=
 name|this
 operator|.
-name|service
+name|procedureExecutor
 operator|.
-name|submit
+name|submitProcedure
 argument_list|(
 operator|new
-name|DisableTableHandler
+name|DisableTableProcedure
 argument_list|(
-name|this
+name|procedureExecutor
+operator|.
+name|getEnvironment
+argument_list|()
 argument_list|,
 name|tableName
 argument_list|,
-name|assignmentManager
-argument_list|,
-name|tableLockManager
-argument_list|,
 literal|false
+argument_list|,
+name|prepareLatch
 argument_list|)
+argument_list|)
+decl_stmt|;
+comment|// Before returning to client, we want to make sure that the table is prepared to be
+comment|// enabled (the table is locked and the table state is set).
+comment|//
+comment|// Note: if the procedure throws exception, we will catch it and rethrow.
+name|prepareLatch
 operator|.
-name|prepare
+name|await
 argument_list|()
-argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -9010,6 +9053,8 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+comment|// TODO: return procId as part of client-side change
+comment|// return procId;
 block|}
 comment|/**    * Return the region and current deployment for the region containing    * the given row. If the region cannot be found, returns null. If it    * is found, but not currently deployed, the second element of the pair    * may be null.    */
 annotation|@
