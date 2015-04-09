@@ -393,7 +393,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Enable an existing table    * @param tableName The table name    * @throws IOException    */
-name|void
+name|long
 name|enableTable
 parameter_list|(
 specifier|final
@@ -404,7 +404,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Disable an existing table    * @param tableName The table name    * @throws IOException    */
-name|void
+name|long
 name|disableTable
 parameter_list|(
 specifier|final

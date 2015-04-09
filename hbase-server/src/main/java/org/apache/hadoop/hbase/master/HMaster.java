@@ -8848,7 +8848,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|enableTable
 parameter_list|(
 specifier|final
@@ -8947,13 +8947,14 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|// TODO: return procId as part of client-side change
-comment|// return procId;
+return|return
+name|procId
+return|;
 block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|disableTable
 parameter_list|(
 specifier|final
@@ -9053,8 +9054,9 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|// TODO: return procId as part of client-side change
-comment|// return procId;
+return|return
+name|procId
+return|;
 block|}
 comment|/**    * Return the region and current deployment for the region containing    * the given row. If the region cannot be found, returns null. If it    * is found, but not currently deployed, the second element of the pair    * may be null.    */
 annotation|@
