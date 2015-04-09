@@ -1478,7 +1478,7 @@ decl_stmt|;
 comment|// Flag denoting whether AcessController is available or not.
 specifier|private
 name|boolean
-name|acOn
+name|accessControllerAvailable
 init|=
 literal|false
 decl_stmt|;
@@ -1536,6 +1536,10 @@ decl_stmt|;
 specifier|private
 name|VisibilityLabelService
 name|visibilityLabelService
+decl_stmt|;
+comment|/** if we are active, usually true, only not true if "hbase.security.authorization"     has been set to false in site configuration */
+name|boolean
+name|authorizationEnabled
 decl_stmt|;
 comment|// Add to this list if there are any reserved tag types
 specifier|private
@@ -1604,6 +1608,33 @@ operator|.
 name|getConfiguration
 argument_list|()
 expr_stmt|;
+name|authorizationEnabled
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|User
+operator|.
+name|HBASE_SECURITY_AUTHORIZATION_CONF_KEY
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"The VisibilityController has been loaded with authorization checks disabled."
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|HFile
@@ -1895,6 +1926,14 @@ name|IOException
 block|{
 if|if
 condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return;
+block|}
+if|if
+condition|(
 name|LABELS_TABLE_NAME
 operator|.
 name|equals
@@ -1937,6 +1976,14 @@ name|IOException
 block|{
 if|if
 condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return;
+block|}
+if|if
+condition|(
 name|LABELS_TABLE_NAME
 operator|.
 name|equals
@@ -1977,6 +2024,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return;
+block|}
 if|if
 condition|(
 name|LABELS_TABLE_NAME
@@ -2022,6 +2077,14 @@ name|IOException
 block|{
 if|if
 condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return;
+block|}
+if|if
+condition|(
 name|LABELS_TABLE_NAME
 operator|.
 name|equals
@@ -2059,6 +2122,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return;
+block|}
 if|if
 condition|(
 name|LABELS_TABLE_NAME
@@ -2125,7 +2196,7 @@ literal|true
 expr_stmt|;
 name|this
 operator|.
-name|acOn
+name|accessControllerAvailable
 operator|=
 name|CoprocessorHost
 operator|.
@@ -2491,6 +2562,12 @@ name|getFirst
 argument_list|()
 condition|)
 block|{
+comment|// Don't disallow reserved tags if authorization is disabled
+if|if
+condition|(
+name|authorizationEnabled
+condition|)
+block|{
 name|miniBatchOp
 operator|.
 name|setOperationStatus
@@ -2510,6 +2587,7 @@ name|sanityFailure
 operator|=
 literal|true
 expr_stmt|;
+block|}
 break|break;
 block|}
 else|else
@@ -2613,8 +2691,8 @@ comment|// Don't check user auths for labels with Mutations when the user is sup
 name|boolean
 name|authCheck
 init|=
-name|this
-operator|.
+name|authorizationEnabled
+operator|&&
 name|checkAuths
 operator|&&
 operator|!
@@ -2896,6 +2974,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Nothing to do if we are not filtering by visibility
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return;
+block|}
 name|CellVisibility
 name|cellVisibility
 init|=
@@ -3565,6 +3652,17 @@ literal|"VisibilityController not yet initialized!"
 argument_list|)
 throw|;
 block|}
+comment|// Nothing to do if authorization is not enabled
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return
+name|s
+return|;
+block|}
 name|Region
 name|region
 init|=
@@ -3728,6 +3826,17 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Nothing to do if we are not filtering by visibility
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return
+name|delTracker
+return|;
+block|}
 name|Region
 name|region
 init|=
@@ -3967,6 +4076,8 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|authorizationEnabled
+operator|&&
 name|owner
 operator|!=
 literal|null
@@ -4027,9 +4138,18 @@ throw|throw
 operator|new
 name|VisibilityControllerNotReadyException
 argument_list|(
-literal|"VisibilityController not yet initialized!"
+literal|"VisibilityController not yet initialized"
 argument_list|)
 throw|;
+block|}
+comment|// Nothing useful to do if authorization is not enabled
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return;
 block|}
 name|Region
 name|region
@@ -4281,6 +4401,17 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// If authorization is not enabled, we don't care about reserved tags
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 for|for
 control|(
 name|CellScanner
@@ -4341,6 +4472,17 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// If authorization is not enabled, we don't care about reserved tags
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 for|for
 control|(
 name|CellScanner
@@ -4466,8 +4608,8 @@ comment|// Don't check user auths for labels with Mutations when the user is sup
 name|boolean
 name|authCheck
 init|=
-name|this
-operator|.
+name|authorizationEnabled
+operator|&&
 name|checkAuths
 operator|&&
 operator|!
@@ -4709,9 +4851,15 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+if|if
+condition|(
+name|authorizationEnabled
+condition|)
+block|{
 name|checkCallingUserAuth
 argument_list|()
 expr_stmt|;
+block|}
 name|RegionActionResult
 name|successResult
 init|=
@@ -5139,9 +5287,15 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+if|if
+condition|(
+name|authorizationEnabled
+condition|)
+block|{
 name|checkCallingUserAuth
 argument_list|()
 expr_stmt|;
+block|}
 for|for
 control|(
 name|ByteString
@@ -5657,9 +5811,9 @@ comment|// We do ACL check here as we create scanner directly on region. It will
 comment|// AccessController CP methods.
 if|if
 condition|(
-name|this
-operator|.
-name|acOn
+name|authorizationEnabled
+operator|&&
+name|accessControllerAvailable
 operator|&&
 operator|!
 name|isSystemOrSuperUser
@@ -5987,9 +6141,9 @@ block|{
 comment|// When AC is ON, do AC based user auth check
 if|if
 condition|(
-name|this
-operator|.
-name|acOn
+name|authorizationEnabled
+operator|&&
+name|accessControllerAvailable
 operator|&&
 operator|!
 name|isSystemOrSuperUser
@@ -6027,11 +6181,17 @@ literal|" is not authorized to perform this action."
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
+name|authorizationEnabled
+condition|)
+block|{
 name|checkCallingUserAuth
 argument_list|()
 expr_stmt|;
-comment|// When AC is not in place the calling user should have SYSTEM_LABEL
-comment|// auth to do this action.
+comment|// When AC is not in place the calling user should have
+comment|// SYSTEM_LABEL auth to do this action.
+block|}
 for|for
 control|(
 name|ByteString
@@ -6321,9 +6481,9 @@ comment|// We do ACL check here as we create scanner directly on region. It will
 comment|// AccessController CP methods.
 if|if
 condition|(
-name|this
-operator|.
-name|acOn
+name|authorizationEnabled
+operator|&&
+name|accessControllerAvailable
 operator|&&
 operator|!
 name|isSystemOrSuperUser
@@ -6500,9 +6660,16 @@ block|{
 if|if
 condition|(
 operator|!
-name|this
-operator|.
-name|acOn
+name|authorizationEnabled
+condition|)
+block|{
+comment|// Redundant, but just in case
+return|return;
+block|}
+if|if
+condition|(
+operator|!
+name|accessControllerAvailable
 condition|)
 block|{
 name|User

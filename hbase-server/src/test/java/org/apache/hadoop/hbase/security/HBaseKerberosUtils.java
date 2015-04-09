@@ -288,7 +288,9 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"hbase.security.authentication"
+name|User
+operator|.
+name|HBASE_SECURITY_CONF_KEY
 argument_list|,
 literal|"kerberos"
 argument_list|)
@@ -297,7 +299,9 @@ name|conf
 operator|.
 name|setBoolean
 argument_list|(
-literal|"hbase.security.authorization"
+name|User
+operator|.
+name|HBASE_SECURITY_AUTHORIZATION_CONF_KEY
 argument_list|,
 literal|true
 argument_list|)
@@ -353,7 +357,9 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"hbase.security.authentication"
+name|User
+operator|.
+name|HBASE_SECURITY_CONF_KEY
 argument_list|,
 literal|"kerberos"
 argument_list|)
@@ -362,7 +368,9 @@ name|conf
 operator|.
 name|setBoolean
 argument_list|(
-literal|"hbase.security.authorization"
+name|User
+operator|.
+name|HBASE_SECURITY_AUTHORIZATION_CONF_KEY
 argument_list|,
 literal|true
 argument_list|)
