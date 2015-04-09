@@ -3483,7 +3483,9 @@ return|return
 name|partial
 return|;
 block|}
-comment|/**    * Add load information about the region to the information about the result    * @param loadStats statistics about the current region from which this was returned    * @throws UnsupportedOperationException if invoked on instance of EMPTY_RESULT    * (which is supposed to be immutable).    */
+comment|/**    * Add load information about the region to the information about the result    * @param loadStats statistics about the current region from which this was returned    * @deprecated use {@link #setStatistics(ClientProtos.RegionLoadStats)} instead    * @throws UnsupportedOperationException if invoked on instance of EMPTY_RESULT    * (which is supposed to be immutable).    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|addResults
@@ -3497,6 +3499,24 @@ block|{
 name|checkReadonly
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|stats
+operator|=
+name|loadStats
+expr_stmt|;
+block|}
+comment|/**    * Set load information about the region to the information about the result    * @param loadStats statistics about the current region from which this was returned    */
+specifier|public
+name|void
+name|setStatistics
+parameter_list|(
+name|ClientProtos
+operator|.
+name|RegionLoadStats
+name|loadStats
+parameter_list|)
+block|{
 name|this
 operator|.
 name|stats
