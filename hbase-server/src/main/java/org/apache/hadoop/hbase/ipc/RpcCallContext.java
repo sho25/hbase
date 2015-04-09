@@ -43,6 +43,26 @@ name|User
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|RPCProtos
+operator|.
+name|VersionInfo
+import|;
+end_import
+
 begin_interface
 specifier|public
 interface|interface
@@ -73,6 +93,11 @@ function_decl|;
 comment|/**    * @return Address of remote client if a request is ongoing, else null    */
 name|InetAddress
 name|getRemoteAddress
+parameter_list|()
+function_decl|;
+comment|/**    * @return the client version info, or null if the information is not present    */
+name|VersionInfo
+name|getClientVersionInfo
 parameter_list|()
 function_decl|;
 block|}

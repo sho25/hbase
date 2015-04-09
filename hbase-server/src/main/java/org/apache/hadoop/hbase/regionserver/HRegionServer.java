@@ -5318,6 +5318,9 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+name|sendShutdownInterrupt
+argument_list|()
+expr_stmt|;
 comment|// Stop the quota manager
 if|if
 condition|(
@@ -10735,6 +10738,12 @@ literal|"Simulated kill"
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Called on stop/abort before closing the cluster connection and meta locator.    */
+specifier|protected
+name|void
+name|sendShutdownInterrupt
+parameter_list|()
+block|{   }
 comment|/**    * Wait on all threads to finish. Presumption is that all closes and stops    * have already been called.    */
 specifier|protected
 name|void

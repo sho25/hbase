@@ -1194,7 +1194,19 @@ condition|(
 name|connection
 operator|==
 literal|null
-operator|||
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|(
+literal|"No connection"
+argument_list|)
+throw|;
+block|}
+elseif|else
+if|if
+condition|(
 name|connection
 operator|.
 name|isClosed
@@ -1203,9 +1215,9 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|NullPointerException
+name|IOException
 argument_list|(
-literal|"No connection"
+literal|"connection is closed"
 argument_list|)
 throw|;
 block|}
