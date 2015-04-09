@@ -6069,11 +6069,11 @@ name|getLong
 argument_list|(
 name|HConstants
 operator|.
-name|HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE_KEY
+name|HBASE_SERVER_SCANNER_MAX_RESULT_SIZE_KEY
 argument_list|,
 name|HConstants
 operator|.
-name|DEFAULT_HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE
+name|DEFAULT_HBASE_SERVER_SCANNER_MAX_RESULT_SIZE
 argument_list|)
 expr_stmt|;
 comment|// Set our address, however we need the final port that was given to rpcServer

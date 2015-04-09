@@ -1781,7 +1781,7 @@ argument_list|,
 literal|0L
 argument_list|)
 decl_stmt|;
-comment|/**      * Parameter name for maximum number of bytes returned when calling a      * scanner's next method.      */
+comment|/**    * Parameter name for maximum number of bytes returned when calling a scanner's next method.    * Controlled by the client.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1789,6 +1789,15 @@ name|String
 name|HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE_KEY
 init|=
 literal|"hbase.client.scanner.max.result.size"
+decl_stmt|;
+comment|/**    * Parameter name for maximum number of bytes returned when calling a scanner's next method.    * Controlled by the server.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_SERVER_SCANNER_MAX_RESULT_SIZE_KEY
+init|=
+literal|"hbase.server.scanner.max.result.size"
 decl_stmt|;
 comment|/**    * Maximum number of bytes returned when calling a scanner's next method.    * Note that when a single row is larger than this limit the row is still    * returned completely.    *    * The default value is 2MB.    */
 specifier|public
@@ -1798,6 +1807,19 @@ name|long
 name|DEFAULT_HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE
 init|=
 literal|2
+operator|*
+literal|1024
+operator|*
+literal|1024
+decl_stmt|;
+comment|/**    * Maximum number of bytes returned when calling a scanner's next method.    * Note that when a single row is larger than this limit the row is still    * returned completely.    * Safety setting to protect the region server.    *    * The default value is 100MB. (a client would rarely request larger chunks on purpose)    */
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_HBASE_SERVER_SCANNER_MAX_RESULT_SIZE
+init|=
+literal|100
 operator|*
 literal|1024
 operator|*
