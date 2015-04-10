@@ -9090,7 +9090,22 @@ throw|throw
 operator|new
 name|AccessDeniedException
 argument_list|(
-literal|"Insufficient permissions (table="
+literal|"Insufficient permissions for user '"
+operator|+
+operator|(
+name|user
+operator|!=
+literal|null
+condition|?
+name|user
+operator|.
+name|getShortName
+argument_list|()
+else|:
+literal|"null"
+operator|)
+operator|+
+literal|"' (table="
 operator|+
 name|table
 operator|+
