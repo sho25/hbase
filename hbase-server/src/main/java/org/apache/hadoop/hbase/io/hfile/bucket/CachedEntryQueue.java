@@ -187,9 +187,11 @@ name|initialSize
 operator|==
 literal|0
 condition|)
+block|{
 name|initialSize
 operator|++
 expr_stmt|;
+block|}
 name|queue
 operator|=
 name|MinMaxPriorityQueue
@@ -232,13 +234,17 @@ name|entry2
 parameter_list|)
 block|{
 return|return
+name|BucketEntry
+operator|.
+name|COMPARATOR
+operator|.
+name|compare
+argument_list|(
 name|entry1
 operator|.
 name|getValue
 argument_list|()
-operator|.
-name|compareTo
-argument_list|(
+argument_list|,
 name|entry2
 operator|.
 name|getValue
@@ -268,7 +274,7 @@ operator|=
 name|maxSize
 expr_stmt|;
 block|}
-comment|/**    * Attempt to add the specified entry to this queue.    *     *<p>    * If the queue is smaller than the max size, or if the specified element is    * ordered after the smallest element in the queue, the element will be added    * to the queue. Otherwise, there is no side effect of this call.    * @param entry a bucket entry with key to try to add to the queue    */
+comment|/**    * Attempt to add the specified entry to this queue.    *<p>    * If the queue is smaller than the max size, or if the specified element is    * ordered after the smallest element in the queue, the element will be added    * to the queue. Otherwise, there is no side effect of this call.    * @param entry a bucket entry with key to try to add to the queue    */
 specifier|public
 name|void
 name|add
@@ -324,13 +330,17 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+name|BucketEntry
+operator|.
+name|COMPARATOR
+operator|.
+name|compare
+argument_list|(
 name|entry
 operator|.
 name|getValue
 argument_list|()
-operator|.
-name|compareTo
-argument_list|(
+argument_list|,
 name|head
 argument_list|)
 operator|>
