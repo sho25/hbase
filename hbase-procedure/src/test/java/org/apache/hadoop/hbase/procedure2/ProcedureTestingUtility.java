@@ -386,17 +386,17 @@ operator|.
 name|stop
 argument_list|()
 expr_stmt|;
+name|procExecutor
+operator|.
+name|join
+argument_list|()
+expr_stmt|;
 name|procStore
 operator|.
 name|stop
 argument_list|(
 literal|false
 argument_list|)
-expr_stmt|;
-name|procExecutor
-operator|.
-name|join
-argument_list|()
 expr_stmt|;
 comment|// nothing running...
 if|if
