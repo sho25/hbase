@@ -827,6 +827,11 @@ name|JVM
 operator|.
 name|isLinux
 argument_list|()
+operator|&&
+name|JVM
+operator|.
+name|isAmd64
+argument_list|()
 condition|)
 block|{
 if|if
