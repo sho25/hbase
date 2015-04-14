@@ -386,6 +386,13 @@ parameter_list|)
 block|{
 if|if
 condition|(
+name|allTime
+condition|)
+return|return
+literal|0
+return|;
+if|if
+condition|(
 name|timestamp
 operator|<
 name|minStamp
