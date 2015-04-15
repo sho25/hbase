@@ -1906,6 +1906,9 @@ name|slot
 parameter_list|)
 block|{
 assert|assert
+name|isRunning
+argument_list|()
+operator|&&
 operator|!
 name|logs
 operator|.
@@ -3309,13 +3312,18 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|error
+name|warn
 argument_list|(
 literal|"Unable to read tracker for "
 operator|+
 name|log
-argument_list|,
+operator|+
+literal|" - "
+operator|+
 name|e
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// try the next one...

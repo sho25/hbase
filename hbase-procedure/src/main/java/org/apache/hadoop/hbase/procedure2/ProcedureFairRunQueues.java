@@ -335,6 +335,10 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+name|currentQuantum
+operator|=
+literal|0
+expr_stmt|;
 name|current
 operator|=
 literal|null
