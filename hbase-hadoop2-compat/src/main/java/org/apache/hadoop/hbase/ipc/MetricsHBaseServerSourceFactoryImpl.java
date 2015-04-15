@@ -55,7 +55,6 @@ extends|extends
 name|MetricsHBaseServerSourceFactory
 block|{
 specifier|private
-specifier|static
 enum|enum
 name|SourceStorage
 block|{
@@ -111,7 +110,7 @@ name|String
 name|serverName
 parameter_list|,
 name|MetricsHBaseServerWrapper
-name|wrapper
+name|wrap
 parameter_list|)
 block|{
 name|String
@@ -162,7 +161,7 @@ name|context
 operator|+
 name|METRICS_JMX_CONTEXT_SUFFIX
 argument_list|,
-name|wrapper
+name|wrap
 argument_list|)
 expr_stmt|;
 comment|//Store back in storage

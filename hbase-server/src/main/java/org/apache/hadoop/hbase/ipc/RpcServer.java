@@ -1599,6 +1599,16 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|static
+specifier|final
+name|CallQueueTooBigException
+name|CALL_QUEUE_TOO_BIG_EXCEPTION
+init|=
+operator|new
+name|CallQueueTooBigException
+argument_list|()
+decl_stmt|;
+specifier|private
 specifier|final
 name|boolean
 name|authorize
@@ -7545,7 +7555,9 @@ parameter_list|(
 name|SaslException
 name|ignored
 parameter_list|)
-block|{         }
+block|{
+comment|// Ignored. This is being disposed of anyway.
+block|}
 block|}
 block|}
 specifier|private
@@ -9160,15 +9172,20 @@ operator|new
 name|ByteArrayOutputStream
 argument_list|()
 decl_stmt|;
+name|metrics
+operator|.
+name|exception
+argument_list|(
+name|CALL_QUEUE_TOO_BIG_EXCEPTION
+argument_list|)
+expr_stmt|;
 name|setupResponse
 argument_list|(
 name|responseBuffer
 argument_list|,
 name|callTooBig
 argument_list|,
-operator|new
-name|CallQueueTooBigException
-argument_list|()
+name|CALL_QUEUE_TOO_BIG_EXCEPTION
 argument_list|,
 literal|"Call queue is full on "
 operator|+
@@ -9381,6 +9398,13 @@ name|warn
 argument_list|(
 name|msg
 argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+name|metrics
+operator|.
+name|exception
+argument_list|(
 name|t
 argument_list|)
 expr_stmt|;
@@ -11107,6 +11131,14 @@ name|e
 operator|.
 name|getCause
 argument_list|()
+expr_stmt|;
+comment|// increment the number of requests that were exceptions.
+name|metrics
+operator|.
+name|exception
+argument_list|(
+name|e
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
