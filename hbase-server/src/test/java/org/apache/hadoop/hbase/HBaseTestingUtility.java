@@ -10017,6 +10017,53 @@ block|}
 end_function
 
 begin_comment
+comment|/**    * Return the number of rows in the given table.    */
+end_comment
+
+begin_function
+specifier|public
+name|int
+name|countRows
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|Table
+name|table
+init|=
+name|getConnection
+argument_list|()
+operator|.
+name|getTable
+argument_list|(
+name|tableName
+argument_list|)
+decl_stmt|;
+try|try
+block|{
+return|return
+name|countRows
+argument_list|(
+name|table
+argument_list|)
+return|;
+block|}
+finally|finally
+block|{
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+end_function
+
+begin_comment
 comment|/**    * Return an md5 digest of the entire contents of a table.    */
 end_comment
 
