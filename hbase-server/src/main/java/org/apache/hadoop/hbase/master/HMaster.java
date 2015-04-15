@@ -7361,6 +7361,11 @@ name|CONF_KEY
 init|=
 literal|"hbase.table.sanity.checks"
 decl_stmt|;
+name|boolean
+name|logWarn
+init|=
+literal|false
+decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -7374,7 +7379,10 @@ literal|true
 argument_list|)
 condition|)
 block|{
-return|return;
+name|logWarn
+operator|=
+literal|true
+expr_stmt|;
 block|}
 name|String
 name|tableVal
@@ -7401,7 +7409,10 @@ name|tableVal
 argument_list|)
 condition|)
 block|{
-return|return;
+name|logWarn
+operator|=
+literal|true
+expr_stmt|;
 block|}
 comment|// check max file size
 name|long
@@ -7457,10 +7468,9 @@ name|maxFileSizeLowerLimit
 argument_list|)
 condition|)
 block|{
-throw|throw
-operator|new
-name|DoNotRetryIOException
-argument_list|(
+name|String
+name|message
+init|=
 literal|"MAX_FILESIZE for table descriptor or "
 operator|+
 literal|"\"hbase.hregion.max.filesize\" ("
@@ -7469,15 +7479,19 @@ name|maxFileSize
 operator|+
 literal|") is too small, which might cause over splitting into unmanageable "
 operator|+
-literal|"number of regions. Set "
-operator|+
+literal|"number of regions."
+decl_stmt|;
+name|warnOrThrowExceptionForFailure
+argument_list|(
+name|logWarn
+argument_list|,
 name|CONF_KEY
-operator|+
-literal|" to false at conf or table descriptor "
-operator|+
-literal|"if you want to bypass sanity checks"
+argument_list|,
+name|message
+argument_list|,
+literal|null
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 comment|// check flush size
 name|long
@@ -7531,10 +7545,9 @@ name|flushSizeLowerLimit
 argument_list|)
 condition|)
 block|{
-throw|throw
-operator|new
-name|DoNotRetryIOException
-argument_list|(
+name|String
+name|message
+init|=
 literal|"MEMSTORE_FLUSHSIZE for table descriptor or "
 operator|+
 literal|"\"hbase.hregion.memstore.flush.size\" ("
@@ -7543,15 +7556,19 @@ name|flushSize
 operator|+
 literal|") is too small, which might cause"
 operator|+
-literal|" very frequent flushing. Set "
-operator|+
+literal|" very frequent flushing."
+decl_stmt|;
+name|warnOrThrowExceptionForFailure
+argument_list|(
+name|logWarn
+argument_list|,
 name|CONF_KEY
-operator|+
-literal|" to false at conf or table descriptor "
-operator|+
-literal|"if you want to bypass sanity checks"
+argument_list|,
+name|message
+argument_list|,
+literal|null
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 comment|// check that coprocessors and other specified plugin classes can be loaded
 try|try
@@ -7570,13 +7587,20 @@ name|Exception
 name|ex
 parameter_list|)
 block|{
-throw|throw
-operator|new
-name|DoNotRetryIOException
+name|warnOrThrowExceptionForFailure
 argument_list|(
+name|logWarn
+argument_list|,
+name|CONF_KEY
+argument_list|,
 name|ex
+operator|.
+name|getMessage
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 comment|// check compression can be loaded
 try|try
@@ -7593,10 +7617,12 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-throw|throw
-operator|new
-name|DoNotRetryIOException
+name|warnOrThrowExceptionForFailure
 argument_list|(
+name|logWarn
+argument_list|,
+name|CONF_KEY
+argument_list|,
 name|e
 operator|.
 name|getMessage
@@ -7604,7 +7630,7 @@ argument_list|()
 argument_list|,
 name|e
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 comment|// check encryption can be loaded
 try|try
@@ -7623,10 +7649,12 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-throw|throw
-operator|new
-name|DoNotRetryIOException
+name|warnOrThrowExceptionForFailure
 argument_list|(
+name|logWarn
+argument_list|,
+name|CONF_KEY
+argument_list|,
 name|e
 operator|.
 name|getMessage
@@ -7634,7 +7662,7 @@ argument_list|()
 argument_list|,
 name|e
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 comment|// check that we have at least 1 CF
 if|if
@@ -7649,19 +7677,22 @@ operator|==
 literal|0
 condition|)
 block|{
-throw|throw
-operator|new
-name|DoNotRetryIOException
+name|String
+name|message
+init|=
+literal|"Table should have at least one column family."
+decl_stmt|;
+name|warnOrThrowExceptionForFailure
 argument_list|(
-literal|"Table should have at least one column family "
-operator|+
-literal|"Set "
-operator|+
+name|logWarn
+argument_list|,
 name|CONF_KEY
-operator|+
-literal|" at conf or table descriptor if you want to bypass sanity checks"
+argument_list|,
+name|message
+argument_list|,
+literal|null
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 for|for
 control|(
@@ -7684,10 +7715,9 @@ operator|<=
 literal|0
 condition|)
 block|{
-throw|throw
-operator|new
-name|DoNotRetryIOException
-argument_list|(
+name|String
+name|message
+init|=
 literal|"TTL for column family "
 operator|+
 name|hcd
@@ -7695,15 +7725,19 @@ operator|.
 name|getNameAsString
 argument_list|()
 operator|+
-literal|"  must be positive. Set "
-operator|+
+literal|" must be positive."
+decl_stmt|;
+name|warnOrThrowExceptionForFailure
+argument_list|(
+name|logWarn
+argument_list|,
 name|CONF_KEY
-operator|+
-literal|" to false at conf or table descriptor "
-operator|+
-literal|"if you want to bypass sanity checks"
+argument_list|,
+name|message
+argument_list|,
+literal|null
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 comment|// check blockSize
 if|if
@@ -7727,10 +7761,9 @@ operator|*
 literal|1024
 condition|)
 block|{
-throw|throw
-operator|new
-name|DoNotRetryIOException
-argument_list|(
+name|String
+name|message
+init|=
 literal|"Block size for column family "
 operator|+
 name|hcd
@@ -7738,15 +7771,19 @@ operator|.
 name|getNameAsString
 argument_list|()
 operator|+
-literal|"  must be between 1K and 16MB Set "
-operator|+
+literal|"  must be between 1K and 16MB."
+decl_stmt|;
+name|warnOrThrowExceptionForFailure
+argument_list|(
+name|logWarn
+argument_list|,
 name|CONF_KEY
-operator|+
-literal|" to false at conf or table descriptor "
-operator|+
-literal|"if you want to bypass sanity checks"
+argument_list|,
+name|message
+argument_list|,
+literal|null
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 comment|// check versions
 if|if
@@ -7759,10 +7796,9 @@ operator|<
 literal|0
 condition|)
 block|{
-throw|throw
-operator|new
-name|DoNotRetryIOException
-argument_list|(
+name|String
+name|message
+init|=
 literal|"Min versions for column family "
 operator|+
 name|hcd
@@ -7770,15 +7806,19 @@ operator|.
 name|getNameAsString
 argument_list|()
 operator|+
-literal|"  must be positive. Set "
-operator|+
+literal|"  must be positive."
+decl_stmt|;
+name|warnOrThrowExceptionForFailure
+argument_list|(
+name|logWarn
+argument_list|,
 name|CONF_KEY
-operator|+
-literal|" to false at conf or table descriptor "
-operator|+
-literal|"if you want to bypass sanity checks"
+argument_list|,
+name|message
+argument_list|,
+literal|null
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 comment|// max versions already being checked
 comment|// check replication scope
@@ -7792,10 +7832,9 @@ operator|<
 literal|0
 condition|)
 block|{
-throw|throw
-operator|new
-name|DoNotRetryIOException
-argument_list|(
+name|String
+name|message
+init|=
 literal|"Replication scope for column family "
 operator|+
 name|hcd
@@ -7803,18 +7842,73 @@ operator|.
 name|getNameAsString
 argument_list|()
 operator|+
-literal|"  must be positive. Set "
-operator|+
+literal|"  must be positive."
+decl_stmt|;
+name|warnOrThrowExceptionForFailure
+argument_list|(
+name|logWarn
+argument_list|,
 name|CONF_KEY
-operator|+
-literal|" to false at conf "
-operator|+
-literal|"or table descriptor if you want to bypass sanity checks"
+argument_list|,
+name|message
+argument_list|,
+literal|null
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 comment|// TODO: should we check coprocessors and encryption ?
 block|}
+block|}
+comment|// HBASE-13350 - Helper method to log warning on sanity check failures if checks disabled.
+specifier|private
+specifier|static
+name|void
+name|warnOrThrowExceptionForFailure
+parameter_list|(
+name|boolean
+name|logWarn
+parameter_list|,
+name|String
+name|confKey
+parameter_list|,
+name|String
+name|message
+parameter_list|,
+name|Exception
+name|cause
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+operator|!
+name|logWarn
+condition|)
+block|{
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+name|message
+operator|+
+literal|" Set "
+operator|+
+name|confKey
+operator|+
+literal|" to false at conf or table descriptor if you want to bypass sanity checks"
+argument_list|,
+name|cause
+argument_list|)
+throw|;
+block|}
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|message
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 name|void
