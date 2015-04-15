@@ -877,6 +877,18 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|BlockingQueue
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|ConcurrentHashMap
 import|;
 end_import
@@ -2162,6 +2174,8 @@ literal|256
 argument_list|)
 argument_list|,
 literal|"-shared-"
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -2191,6 +2205,12 @@ name|coreThreads
 parameter_list|,
 name|String
 name|nameHint
+parameter_list|,
+name|BlockingQueue
+argument_list|<
+name|Runnable
+argument_list|>
+name|passedWorkQueue
 parameter_list|)
 block|{
 comment|// shared HTable thread executor not yet initialized
@@ -2246,12 +2266,23 @@ argument_list|,
 literal|60
 argument_list|)
 decl_stmt|;
-name|LinkedBlockingQueue
+name|BlockingQueue
 argument_list|<
 name|Runnable
 argument_list|>
 name|workQueue
 init|=
+name|passedWorkQueue
+decl_stmt|;
+if|if
+condition|(
+name|workQueue
+operator|==
+literal|null
+condition|)
+block|{
+name|workQueue
+operator|=
 operator|new
 name|LinkedBlockingQueue
 argument_list|<
@@ -2273,7 +2304,8 @@ operator|.
 name|DEFAULT_HBASE_CLIENT_MAX_TOTAL_TASKS
 argument_list|)
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 name|ThreadPoolExecutor
 name|tpe
 init|=
@@ -2342,10 +2374,10 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|//The meta lookup can happen on replicas of the meta (if the appropriate configs
-comment|//are enabled).In a replicated-meta setup, the number '3' is assumed as the max
-comment|//number of replicas by default (unless it is configured to be of a higher value).
-comment|//In a non-replicated-meta setup, only one thread would be active.
+comment|//Some of the threads would be used for meta replicas
+comment|//To start with, threads.max.core threads can hit the meta (including replicas).
+comment|//After that, requests will get queued up in the passed queue, and only after
+comment|//the queue is full, a new thread will be started
 name|this
 operator|.
 name|metaLookupPool
@@ -2358,7 +2390,7 @@ name|getInt
 argument_list|(
 literal|"hbase.hconnection.meta.lookup.threads.max"
 argument_list|,
-literal|3
+literal|128
 argument_list|)
 argument_list|,
 name|conf
@@ -2367,10 +2399,17 @@ name|getInt
 argument_list|(
 literal|"hbase.hconnection.meta.lookup.threads.max.core"
 argument_list|,
-literal|3
+literal|10
 argument_list|)
 argument_list|,
 literal|"-metaLookup-shared-"
+argument_list|,
+operator|new
+name|LinkedBlockingQueue
+argument_list|<
+name|Runnable
+argument_list|>
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
