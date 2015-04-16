@@ -1487,9 +1487,13 @@ expr_stmt|;
 block|}
 if|if
 condition|(
+name|hasAllFiles
+operator|&&
+operator|(
 name|canDropDeletesWithoutL0
 operator|||
 name|includeL0
+operator|)
 condition|)
 block|{
 name|req
