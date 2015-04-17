@@ -3284,7 +3284,7 @@ literal|0x00000000ffffffffL
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns all files belonging to the given region directory. Could return an    * empty list.    *    * @param fs  The file system reference.    * @param regionDir  The region directory to scan.    * @return The list of files found.    * @throws IOException When scanning the files fails.    */
+comment|/**    * Returns all HFiles belonging to the given region directory. Could return an    * empty list.    *    * @param fs  The file system reference.    * @param regionDir  The region directory to scan.    * @return The list of files found.    * @throws IOException When scanning the files fails.    */
 specifier|static
 name|List
 argument_list|<
@@ -3305,7 +3305,7 @@ name|List
 argument_list|<
 name|Path
 argument_list|>
-name|res
+name|regionHFiles
 init|=
 operator|new
 name|ArrayList
@@ -3375,9 +3375,45 @@ name|file
 operator|.
 name|isDirectory
 argument_list|()
+operator|&&
+operator|(
+operator|!
+name|file
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+operator|.
+name|contains
+argument_list|(
+name|HConstants
+operator|.
+name|HREGION_OLDLOGDIR_NAME
+argument_list|)
+operator|)
+operator|&&
+operator|(
+operator|!
+name|file
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+operator|.
+name|contains
+argument_list|(
+name|HConstants
+operator|.
+name|RECOVERED_EDITS_DIR
+argument_list|)
+operator|)
 condition|)
 block|{
-name|res
+name|regionHFiles
 operator|.
 name|add
 argument_list|(
@@ -3391,7 +3427,7 @@ block|}
 block|}
 block|}
 return|return
-name|res
+name|regionHFiles
 return|;
 block|}
 comment|/**    * Checks the given {@link HFile} format version, and throws an exception if    * invalid. Note that if the version number comes from an input file and has    * not been verified, the caller needs to re-throw an {@link IOException} to    * indicate that this is not a software error, but corrupted input.    *    * @param version an HFile version    * @throws IllegalArgumentException if the version is invalid    */
