@@ -3006,7 +3006,7 @@ comment|// when a region is in recovering state, it can only accept writes not r
 specifier|private
 specifier|volatile
 name|boolean
-name|isRecovering
+name|recovering
 init|=
 literal|false
 decl_stmt|;
@@ -4323,7 +4323,7 @@ condition|)
 block|{
 name|this
 operator|.
-name|isRecovering
+name|recovering
 operator|=
 literal|true
 expr_stmt|;
@@ -4858,7 +4858,7 @@ argument_list|,
 operator|(
 name|this
 operator|.
-name|isRecovering
+name|recovering
 condition|?
 operator|(
 name|this
@@ -6320,7 +6320,7 @@ name|wasRecovering
 init|=
 name|this
 operator|.
-name|isRecovering
+name|recovering
 decl_stmt|;
 comment|// before we flip the recovering switch (enabling reads) we should write the region open
 comment|// event to WAL if needed
@@ -6491,7 +6491,7 @@ block|}
 block|}
 name|this
 operator|.
-name|isRecovering
+name|recovering
 operator|=
 name|newState
 expr_stmt|;
@@ -6500,7 +6500,7 @@ condition|(
 name|wasRecovering
 operator|&&
 operator|!
-name|isRecovering
+name|recovering
 condition|)
 block|{
 comment|// Call only when wal replay is over.
@@ -6521,7 +6521,7 @@ block|{
 return|return
 name|this
 operator|.
-name|isRecovering
+name|recovering
 return|;
 block|}
 annotation|@
@@ -28285,7 +28285,7 @@ operator|.
 name|readOnly
 operator|&&
 operator|!
-name|isRecovering
+name|recovering
 condition|)
 block|{
 comment|// Only write the region open event marker to WAL if (1) we are not read-only

@@ -445,6 +445,11 @@ end_comment
 
 begin_class
 annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"restriction"
+argument_list|)
+annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
@@ -649,6 +654,15 @@ operator|/
 name|Byte
 operator|.
 name|SIZE
+decl_stmt|;
+comment|/**    * Mask to apply to a long to reveal the lower int only. Use like this:    * int i = (int)(0xFFFFFFFF00000000L ^ some_long_value);    */
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|MASK_FOR_LOWER_INT_IN_LONG
+init|=
+literal|0xFFFFFFFF00000000L
 decl_stmt|;
 comment|/**    * Estimate of size cost to pay beyond payload in jvm for instance of byte [].    * Estimate based on study of jhat and jprofiler numbers.    */
 comment|// JHat says BU is 56 bytes.

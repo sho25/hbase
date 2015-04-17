@@ -13696,6 +13696,9 @@ operator|=
 name|maxQuotaResultSize
 expr_stmt|;
 block|}
+comment|// This is cells inside a row. Default size is 10 so if many versions or many cfs,
+comment|// then we'll resize. Resizings show in profiler. Set it higher than 10. For now
+comment|// arbitrary 32. TODO: keep record of general size of results being returned.
 name|List
 argument_list|<
 name|Cell
@@ -13707,7 +13710,9 @@ name|ArrayList
 argument_list|<
 name|Cell
 argument_list|>
-argument_list|()
+argument_list|(
+literal|32
+argument_list|)
 decl_stmt|;
 name|region
 operator|.
