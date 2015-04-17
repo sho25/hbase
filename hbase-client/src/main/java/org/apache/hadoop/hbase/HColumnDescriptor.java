@@ -540,6 +540,7 @@ name|MIN_VERSIONS
 init|=
 literal|"MIN_VERSIONS"
 decl_stmt|;
+comment|/**    * Retain all cells across flushes and compactions even if they fall behind    * a delete tombstone. To see all retained cells, do a 'raw' scan; see    * Scan#setRaw or pass RAW => true attribute in the shell.    */
 specifier|public
 specifier|static
 specifier|final
