@@ -1223,6 +1223,10 @@ name|offset
 operator|=
 name|delta
 expr_stmt|;
+name|start
+operator|=
+name|newStart
+expr_stmt|;
 block|}
 else|else
 block|{
@@ -2215,7 +2219,13 @@ argument_list|(
 name|procId
 argument_list|)
 operator|:
-literal|"expected procId in the node"
+literal|"expected procId="
+operator|+
+name|procId
+operator|+
+literal|" in the node="
+operator|+
+name|node
 assert|;
 name|node
 operator|.
