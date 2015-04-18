@@ -418,7 +418,7 @@ name|set
 argument_list|(
 name|HRegionServer
 operator|.
-name|HOSTNAME_KEY
+name|RS_HOSTNAME_KEY
 argument_list|,
 name|invalidHostname
 argument_list|)
@@ -621,7 +621,7 @@ name|set
 argument_list|(
 name|HRegionServer
 operator|.
-name|HOSTNAME_KEY
+name|RS_HOSTNAME_KEY
 argument_list|,
 name|hostName
 argument_list|)
