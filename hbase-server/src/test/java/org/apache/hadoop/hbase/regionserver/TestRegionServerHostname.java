@@ -621,6 +621,20 @@ name|set
 argument_list|(
 name|HRegionServer
 operator|.
+name|MASTER_HOSTNAME_KEY
+argument_list|,
+name|hostName
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|set
+argument_list|(
+name|HRegionServer
+operator|.
 name|RS_HOSTNAME_KEY
 argument_list|,
 name|hostName
@@ -685,6 +699,14 @@ control|)
 block|{
 name|assertTrue
 argument_list|(
+literal|"From zookeeper: "
+operator|+
+name|server
+operator|+
+literal|" hostname: "
+operator|+
+name|hostName
+argument_list|,
 name|server
 operator|.
 name|startsWith
