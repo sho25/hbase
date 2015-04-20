@@ -11998,6 +11998,21 @@ name|get
 argument_list|()
 return|;
 block|}
+specifier|public
+specifier|static
+name|boolean
+name|isInRpcCallContext
+parameter_list|()
+block|{
+return|return
+name|CurCall
+operator|.
+name|get
+argument_list|()
+operator|!=
+literal|null
+return|;
+block|}
 comment|/**    * Returns the user credentials associated with the current RPC request or    *<code>null</code> if no credentials were provided.    * @return A User    */
 specifier|public
 specifier|static
