@@ -2044,6 +2044,8 @@ literal|"'"
 argument_list|)
 throw|;
 block|}
+comment|// Now that it exists, set the storage policy for the entire directory of wal files related to
+comment|// this FSHLog instance
 name|FSUtils
 operator|.
 name|setStoragePolicy

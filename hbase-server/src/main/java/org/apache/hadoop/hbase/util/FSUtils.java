@@ -313,6 +313,18 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|HadoopIllegalArgumentException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|conf
 operator|.
 name|Configuration
@@ -928,7 +940,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/*    * Sets storage policy for given path according to config setting    * @param fs    * @param conf    * @param path the Path whose storage policy is to be set    * @param policyKey    * @param defaultPolicy    */
+comment|/**    * Sets storage policy for given path according to config setting.    * If the passed path is a directory, we'll set the storage policy for all files    * created in the future in said directory. Note that this change in storage    * policy takes place at the HDFS level; it will persist beyond this RS's lifecycle.    * If we're running on a version of HDFS that doesn't support the given storage policy    * (or storage policies at all), then we'll issue a log message and continue.    *    * See http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html    *    * @param fs We only do anything if an instance of DistributedFileSystem    * @param conf used to look up storage policy with given key; not modified.    * @param path the Path whose storage policy is to be set    * @param policyKey e.g. HConstants.WAL_STORAGE_POLICY    * @param defaultPolicy usually should be the policy NONE to delegate to HDFS    */
 specifier|public
 specifier|static
 name|void
@@ -972,14 +984,38 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-operator|!
 name|storagePolicy
 operator|.
 name|equals
 argument_list|(
 name|defaultPolicy
 argument_list|)
-operator|&&
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"default policy of "
+operator|+
+name|defaultPolicy
+operator|+
+literal|" requested, exiting early."
+argument_list|)
+expr_stmt|;
+block|}
+return|return;
+block|}
+if|if
+condition|(
 name|fs
 operator|instanceof
 name|DistributedFileSystem
@@ -993,6 +1029,7 @@ name|DistributedFileSystem
 operator|)
 name|fs
 decl_stmt|;
+comment|// Once our minimum supported Hadoop version is 2.6.0 we can remove reflection.
 name|Class
 argument_list|<
 name|?
@@ -1058,7 +1095,7 @@ name|info
 argument_list|(
 literal|"FileSystem doesn't support"
 operator|+
-literal|" setStoragePolicy; --HDFS-7228 not available"
+literal|" setStoragePolicy; --HDFS-6584 not available"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1074,7 +1111,7 @@ name|info
 argument_list|(
 literal|"Doesn't have access to setStoragePolicy on "
 operator|+
-literal|"FileSystems --HDFS-7228 not available"
+literal|"FileSystems --HDFS-6584 not available"
 argument_list|,
 name|e
 argument_list|)
@@ -1125,6 +1162,95 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+comment|// check for lack of HDFS-7228
+name|boolean
+name|probablyBadPolicy
+init|=
+literal|false
+decl_stmt|;
+if|if
+condition|(
+name|e
+operator|instanceof
+name|InvocationTargetException
+condition|)
+block|{
+specifier|final
+name|Throwable
+name|exception
+init|=
+name|e
+operator|.
+name|getCause
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|exception
+operator|instanceof
+name|RemoteException
+operator|&&
+name|HadoopIllegalArgumentException
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+operator|(
+operator|(
+name|RemoteException
+operator|)
+name|exception
+operator|)
+operator|.
+name|getClassName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Given storage policy, '"
+operator|+
+name|storagePolicy
+operator|+
+literal|"', was rejected and probably "
+operator|+
+literal|"isn't a valid policy for the version of Hadoop you're running. I.e. if you're "
+operator|+
+literal|"trying to use SSD related policies then you're likely missing HDFS-7228. For "
+operator|+
+literal|"more information see the 'ArchivalStorage' docs for your Hadoop release."
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"More information about the invalid storage policy."
+argument_list|,
+name|exception
+argument_list|)
+expr_stmt|;
+name|probablyBadPolicy
+operator|=
+literal|true
+expr_stmt|;
+block|}
+block|}
+if|if
+condition|(
+operator|!
+name|probablyBadPolicy
+condition|)
+block|{
+comment|// This swallows FNFE, should we be throwing it? seems more likely to indicate dev
+comment|// misuse than a runtime problem with HDFS.
 name|LOG
 operator|.
 name|warn
@@ -1142,6 +1268,19 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"FileSystem isn't an instance of DistributedFileSystem; presuming it doesn't "
+operator|+
+literal|"support setStoragePolicy."
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class
