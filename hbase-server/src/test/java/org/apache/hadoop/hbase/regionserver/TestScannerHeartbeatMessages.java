@@ -823,7 +823,7 @@ specifier|static
 name|int
 name|CLIENT_TIMEOUT
 init|=
-literal|500
+literal|2000
 decl_stmt|;
 comment|// The server limits itself to running for half of the CLIENT_TIMEOUT value.
 specifier|private
@@ -852,9 +852,9 @@ specifier|static
 name|int
 name|DEFAULT_CF_SLEEP_TIME
 init|=
-name|SERVER_TIME_LIMIT
+name|DEFAULT_ROW_SLEEP_TIME
 operator|/
-literal|2
+name|NUM_FAMILIES
 decl_stmt|;
 annotation|@
 name|BeforeClass
@@ -1244,6 +1244,13 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|TEST_UTIL
+operator|.
+name|deleteTable
+argument_list|(
+name|TABLE_NAME
+argument_list|)
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|shutdownMiniCluster
