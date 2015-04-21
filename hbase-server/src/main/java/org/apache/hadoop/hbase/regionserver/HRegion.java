@@ -19976,6 +19976,39 @@ name|logRegionFiles
 argument_list|()
 expr_stmt|;
 block|}
+catch|catch
+parameter_list|(
+name|FileNotFoundException
+name|ex
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
+literal|"At least one of the store files in compaction: "
+operator|+
+name|TextFormat
+operator|.
+name|shortDebugString
+argument_list|(
+name|compaction
+argument_list|)
+operator|+
+literal|" doesn't exist any more. Skip loading the file(s)"
+argument_list|,
+name|ex
+argument_list|)
+expr_stmt|;
+block|}
 finally|finally
 block|{
 name|closeRegionOperation
@@ -21095,18 +21128,39 @@ name|getFlushSequenceNumber
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// C. Finally notify anyone waiting on memstore to clear:
-comment|// e.g. checkResources().
-synchronized|synchronized
-init|(
-name|this
-init|)
-block|{
-name|notifyAll
-argument_list|()
-expr_stmt|;
-comment|// FindBugs NN_NAKED_NOTIFY
 block|}
+catch|catch
+parameter_list|(
+name|FileNotFoundException
+name|ex
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
+literal|"At least one of the store files in flush: "
+operator|+
+name|TextFormat
+operator|.
+name|shortDebugString
+argument_list|(
+name|flush
+argument_list|)
+operator|+
+literal|" doesn't exist any more. Skip loading the file(s)"
+argument_list|,
+name|ex
+argument_list|)
+expr_stmt|;
 block|}
 finally|finally
 block|{
@@ -21121,6 +21175,18 @@ name|notifyAll
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+comment|// C. Finally notify anyone waiting on memstore to clear:
+comment|// e.g. checkResources().
+synchronized|synchronized
+init|(
+name|this
+init|)
+block|{
+name|notifyAll
+argument_list|()
+expr_stmt|;
+comment|// FindBugs NN_NAKED_NOTIFY
 block|}
 block|}
 comment|/**    * Replays the given flush descriptor by opening the flush files in stores and dropping the    * memstore snapshots if requested.    * @param flush    * @param prepareFlushResult    * @param dropMemstoreSnapshot    * @throws IOException    */
@@ -21911,6 +21977,8 @@ operator|.
 name|getStoreFileList
 argument_list|()
 decl_stmt|;
+try|try
+block|{
 name|store
 operator|.
 name|refreshStoreFiles
@@ -21919,6 +21987,36 @@ name|storeFiles
 argument_list|)
 expr_stmt|;
 comment|// replace the files with the new ones
+block|}
+catch|catch
+parameter_list|(
+name|FileNotFoundException
+name|ex
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" : "
+operator|+
+literal|"At least one of the store files: "
+operator|+
+name|storeFiles
+operator|+
+literal|" doesn't exist any more. Skip loading the file(s)"
+argument_list|,
+name|ex
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 if|if
 condition|(
 name|store
