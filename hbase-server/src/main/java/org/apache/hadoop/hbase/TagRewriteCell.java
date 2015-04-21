@@ -125,6 +125,11 @@ name|cell
 operator|instanceof
 name|SettableTimestamp
 assert|;
+assert|assert
+name|tags
+operator|!=
+literal|null
+assert|;
 name|this
 operator|.
 name|cell
@@ -423,6 +428,20 @@ name|int
 name|getTagsLength
 parameter_list|()
 block|{
+if|if
+condition|(
+literal|null
+operator|==
+name|this
+operator|.
+name|tags
+condition|)
+block|{
+comment|// Nulled out tags array optimization in constructor
+return|return
+literal|0
+return|;
+block|}
 return|return
 name|this
 operator|.
