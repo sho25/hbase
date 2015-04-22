@@ -1113,6 +1113,9 @@ name|closed
 operator|=
 literal|true
 expr_stmt|;
+return|return
+literal|true
+return|;
 block|}
 return|return
 literal|false
