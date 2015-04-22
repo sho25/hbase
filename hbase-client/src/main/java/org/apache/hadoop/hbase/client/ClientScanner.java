@@ -968,6 +968,17 @@ return|return
 name|lastNext
 return|;
 block|}
+annotation|@
+name|VisibleForTesting
+specifier|protected
+name|long
+name|getMaxResultSize
+parameter_list|()
+block|{
+return|return
+name|maxScannerResultSize
+return|;
+block|}
 comment|// returns true if the passed region endKey
 specifier|protected
 name|boolean
