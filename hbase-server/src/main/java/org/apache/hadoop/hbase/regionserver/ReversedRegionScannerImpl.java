@@ -178,10 +178,7 @@ name|ReversedKeyValueHeap
 argument_list|(
 name|scanners
 argument_list|,
-name|region
-operator|.
-name|getComparator
-argument_list|()
+name|comparator
 argument_list|)
 expr_stmt|;
 if|if
@@ -202,10 +199,7 @@ name|ReversedKeyValueHeap
 argument_list|(
 name|joinedScanners
 argument_list|,
-name|region
-operator|.
-name|getComparator
-argument_list|()
+name|comparator
 argument_list|)
 expr_stmt|;
 block|}
@@ -239,10 +233,7 @@ name|stopRow
 operator|!=
 literal|null
 operator|&&
-name|region
-operator|.
-name|getComparator
-argument_list|()
+name|comparator
 operator|.
 name|compareRows
 argument_list|(

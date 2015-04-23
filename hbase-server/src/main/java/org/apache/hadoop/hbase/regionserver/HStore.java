@@ -1619,9 +1619,9 @@ name|this
 operator|.
 name|comparator
 operator|=
-name|info
+name|region
 operator|.
-name|getComparator
+name|getCellCompartor
 argument_list|()
 expr_stmt|;
 comment|// used by ScanQueryMatcher

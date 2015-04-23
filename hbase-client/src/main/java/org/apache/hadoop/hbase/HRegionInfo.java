@@ -3459,7 +3459,9 @@ return|return
 literal|1
 return|;
 block|}
-comment|/**    * @return Comparator to use comparing {@link KeyValue}s.    */
+comment|/**    * @return Comparator to use comparing {@link KeyValue}s.    * @deprecated This method should not have been here.  Use Region#getCellComparator()    */
+annotation|@
+name|Deprecated
 specifier|public
 name|KVComparator
 name|getComparator
