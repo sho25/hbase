@@ -960,6 +960,13 @@ argument_list|(
 name|numChunks
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|comparator
+operator|!=
+literal|null
+condition|)
+block|{
 name|Bytes
 operator|.
 name|writeByteArray
@@ -980,6 +987,20 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+comment|// Internally writes a 0 vint if the byte[] is null
+name|Bytes
+operator|.
+name|writeByteArray
+argument_list|(
+name|out
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Write a single-level index without compression or block header.
 name|bloomBlockIndexWriter
 operator|.

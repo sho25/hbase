@@ -103,11 +103,6 @@ name|int
 name|qualLen
 parameter_list|)
 function_decl|;
-comment|/**    * @return Bloom key comparator    */
-name|KVComparator
-name|getComparator
-parameter_list|()
-function_decl|;
 block|}
 end_interface
 

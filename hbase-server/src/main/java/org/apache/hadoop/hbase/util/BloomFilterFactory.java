@@ -640,9 +640,7 @@ name|KeyValue
 operator|.
 name|COMPARATOR
 else|:
-name|KeyValue
-operator|.
-name|RAW_COMPARATOR
+literal|null
 argument_list|)
 decl_stmt|;
 name|writer
@@ -756,9 +754,7 @@ operator|.
 name|shouldCacheBloomsOnWrite
 argument_list|()
 argument_list|,
-name|KeyValue
-operator|.
-name|RAW_COMPARATOR
+literal|null
 argument_list|)
 decl_stmt|;
 name|writer

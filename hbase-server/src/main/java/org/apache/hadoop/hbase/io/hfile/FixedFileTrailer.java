@@ -303,6 +303,7 @@ name|long
 name|lastDataBlockOffset
 decl_stmt|;
 comment|/** Raw key comparator class name in version 3 */
+comment|// We could write the actual class name from 2.0 onwards and handle BC
 specifier|private
 name|String
 name|comparatorClassName
@@ -311,7 +312,10 @@ name|KeyValue
 operator|.
 name|COMPARATOR
 operator|.
-name|getLegacyKeyComparatorName
+name|getClass
+argument_list|()
+operator|.
+name|getName
 argument_list|()
 decl_stmt|;
 comment|/** The encryption key */
@@ -2092,6 +2096,14 @@ block|{
 comment|// Is the comparator instantiable?
 try|try
 block|{
+comment|// If null, it should be the Bytes.BYTES_RAWCOMPARATOR
+if|if
+condition|(
+name|klass
+operator|!=
+literal|null
+condition|)
+block|{
 name|KVComparator
 name|comp
 init|=
@@ -2100,87 +2112,8 @@ operator|.
 name|newInstance
 argument_list|()
 decl_stmt|;
-comment|// HFile V2 legacy comparator class names.
-if|if
-condition|(
-name|KeyValue
-operator|.
-name|COMPARATOR
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|klass
-argument_list|)
-condition|)
-block|{
-name|comparatorClassName
-operator|=
-name|KeyValue
-operator|.
-name|COMPARATOR
-operator|.
-name|getLegacyKeyComparatorName
-argument_list|()
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|KeyValue
-operator|.
-name|META_COMPARATOR
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|klass
-argument_list|)
-condition|)
-block|{
-name|comparatorClassName
-operator|=
-name|KeyValue
-operator|.
-name|META_COMPARATOR
-operator|.
-name|getLegacyKeyComparatorName
-argument_list|()
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|KeyValue
-operator|.
-name|RAW_COMPARATOR
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|klass
-argument_list|)
-condition|)
-block|{
-name|comparatorClassName
-operator|=
-name|KeyValue
-operator|.
-name|RAW_COMPARATOR
-operator|.
-name|getLegacyKeyComparatorName
-argument_list|()
-expr_stmt|;
-block|}
-else|else
-block|{
-comment|// if the name wasn't one of the legacy names, maybe its a legit new kind of comparator.
+comment|// if the name wasn't one of the legacy names, maybe its a legit new
+comment|// kind of comparator.
 name|comparatorClassName
 operator|=
 name|klass
@@ -2311,8 +2244,17 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+return|return
+literal|null
+return|;
+block|}
+comment|// if the name wasn't one of the legacy names, maybe its a legit new kind of comparator.
+if|if
+condition|(
 name|comparatorClassName
-operator|=
+operator|.
+name|equals
+argument_list|(
 name|KeyValue
 operator|.
 name|RAW_COMPARATOR
@@ -2322,9 +2264,16 @@ argument_list|()
 operator|.
 name|getName
 argument_list|()
-expr_stmt|;
+argument_list|)
+condition|)
+block|{
+comment|// Return null for Bytes.BYTES_RAWCOMPARATOR
+return|return
+literal|null
+return|;
 block|}
-comment|// if the name wasn't one of the legacy names, maybe its a legit new kind of comparator.
+else|else
+block|{
 return|return
 operator|(
 name|Class
@@ -2341,6 +2290,7 @@ argument_list|(
 name|comparatorClassName
 argument_list|)
 return|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -2370,14 +2320,30 @@ name|IOException
 block|{
 try|try
 block|{
-return|return
+name|Class
+argument_list|<
+name|?
+extends|extends
+name|KVComparator
+argument_list|>
+name|comparatorClass
+init|=
 name|getComparatorClass
 argument_list|(
 name|comparatorClassName
 argument_list|)
+decl_stmt|;
+return|return
+name|comparatorClass
+operator|!=
+literal|null
+condition|?
+name|comparatorClass
 operator|.
 name|newInstance
 argument_list|()
+else|:
+literal|null
 return|;
 block|}
 catch|catch

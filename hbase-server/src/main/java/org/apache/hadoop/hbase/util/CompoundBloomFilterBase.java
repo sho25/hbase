@@ -250,17 +250,6 @@ name|getKey
 argument_list|()
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
-name|KVComparator
-name|getComparator
-parameter_list|()
-block|{
-return|return
-name|comparator
-return|;
-block|}
 block|}
 end_class
 
