@@ -33,22 +33,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
-operator|.
-name|KVComparator
-import|;
-end_import
-
 begin_comment
 comment|/**  * Common methods Bloom filter methods required at read and write time.  */
 end_comment
