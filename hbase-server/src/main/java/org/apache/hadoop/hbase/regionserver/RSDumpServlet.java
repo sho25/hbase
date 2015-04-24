@@ -552,6 +552,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|hrs
+operator|.
+name|compactSplitThread
+operator|!=
+literal|null
+condition|)
+block|{
 comment|// 1. Print out Compaction/Split Queue
 name|out
 operator|.
@@ -579,6 +588,16 @@ name|dumpQueue
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|hrs
+operator|.
+name|cacheFlusher
+operator|!=
+literal|null
+condition|)
+block|{
 comment|// 2. Print out flush Queue
 name|out
 operator|.
@@ -606,6 +625,7 @@ name|dumpQueue
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 end_class
