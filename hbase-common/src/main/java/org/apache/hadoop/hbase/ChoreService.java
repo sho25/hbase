@@ -51,16 +51,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Map
 operator|.
 name|Entry
@@ -981,17 +971,11 @@ name|void
 name|shutdown
 parameter_list|()
 block|{
-name|List
-argument_list|<
-name|Runnable
-argument_list|>
-name|ongoing
-init|=
 name|scheduler
 operator|.
 name|shutdownNow
 argument_list|()
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -1010,7 +994,10 @@ name|coreThreadPoolPrefix
 operator|+
 literal|" had "
 operator|+
-name|ongoing
+name|scheduledChores
+operator|.
+name|keySet
+argument_list|()
 operator|+
 literal|" on shutdown"
 argument_list|)
