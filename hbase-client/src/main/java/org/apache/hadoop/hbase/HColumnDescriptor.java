@@ -1196,7 +1196,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * Construct a column descriptor specifying only the family name    * The other attributes are defaulted.    *    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    */
+comment|/**    * Construct a column descriptor specifying only the family name    * The other attributes are defaulted.    *    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -1216,7 +1216,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct a column descriptor specifying only the family name    * The other attributes are defaulted.    *    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    */
+comment|/**    * Construct a column descriptor specifying only the family name    * The other attributes are defaulted.    *    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -1365,7 +1365,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated use {@link #HColumnDescriptor(String)} and setters    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated use {@link #HColumnDescriptor(String)} and setters    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1423,7 +1423,7 @@ name|DEFAULT_REPLICATION_SCOPE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize Block size to use when writing out storefiles.  Use    * smaller block sizes for faster random-access at expense of larger indices    * (more memory consumption).  Default is usually 64k.    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    * @param scope The scope tag for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated use {@link #HColumnDescriptor(String)} and setters    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize Block size to use when writing out storefiles.  Use    * smaller block sizes for faster random-access at expense of larger indices    * (more memory consumption).  Default is usually 64k.    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    * @param scope The scope tag for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated use {@link #HColumnDescriptor(String)} and setters    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1497,7 +1497,7 @@ name|scope
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param minVersions Minimum number of versions to keep    * @param maxVersions Maximum number of versions to keep    * @param keepDeletedCells Whether to retain deleted cells until they expire    *        up to maxVersions versions.    * @param compression Compression type    * @param encodeOnDisk whether to use the specified data block encoding    *        on disk. If false, the encoding will be used in cache only.    * @param dataBlockEncoding data block encoding    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize Block size to use when writing out storefiles.  Use    * smaller blocksizes for faster random-access at expense of larger indices    * (more memory consumption).  Default is usually 64k.    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    * @param scope The scope tag for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated use {@link #HColumnDescriptor(String)} and setters    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    * @param minVersions Minimum number of versions to keep    * @param maxVersions Maximum number of versions to keep    * @param keepDeletedCells Whether to retain deleted cells until they expire    *        up to maxVersions versions.    * @param compression Compression type    * @param encodeOnDisk whether to use the specified data block encoding    *        on disk. If false, the encoding will be used in cache only.    * @param dataBlockEncoding data block encoding    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize Block size to use when writing out storefiles.  Use    * smaller blocksizes for faster random-access at expense of larger indices    * (more memory consumption).  Default is usually 64k.    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    * @param scope The scope tag for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated use {@link #HColumnDescriptor(String)} and setters    */
 annotation|@
 name|Deprecated
 specifier|public
