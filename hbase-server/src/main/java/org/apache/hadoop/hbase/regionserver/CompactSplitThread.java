@@ -2159,11 +2159,16 @@ comment|// message logged inside
 block|}
 comment|// We assume that most compactions are small. So, put system compactions into small
 comment|// pool; we will do selection there, and move to large pool if necessary.
-name|long
-name|size
+name|ThreadPoolExecutor
+name|pool
 init|=
+operator|(
 name|selectNow
-condition|?
+operator|&&
+name|s
+operator|.
+name|throttleCompaction
+argument_list|(
 name|compaction
 operator|.
 name|getRequest
@@ -2171,21 +2176,6 @@ argument_list|()
 operator|.
 name|getSize
 argument_list|()
-else|:
-literal|0
-decl_stmt|;
-name|ThreadPoolExecutor
-name|pool
-init|=
-operator|(
-operator|!
-name|selectNow
-operator|&&
-name|s
-operator|.
-name|throttleCompaction
-argument_list|(
-name|size
 argument_list|)
 operator|)
 condition|?
