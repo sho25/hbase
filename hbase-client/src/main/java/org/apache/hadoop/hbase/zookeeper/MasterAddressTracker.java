@@ -261,7 +261,12 @@ parameter_list|()
 block|{
 try|try
 block|{
-return|return
+specifier|final
+name|ZooKeeperProtos
+operator|.
+name|Master
+name|master
+init|=
 name|parse
 argument_list|(
 name|this
@@ -271,6 +276,20 @@ argument_list|(
 literal|false
 argument_list|)
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|master
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|0
+return|;
+block|}
+return|return
+name|master
 operator|.
 name|getInfoPort
 argument_list|()
@@ -296,7 +315,7 @@ literal|0
 return|;
 block|}
 block|}
-comment|/**    * Get the info port of the backup master if it is available.    * Return 0 if no current master or zookeeper is unavailable    * @param sn server name of backup master    * @return info port or 0 if timed out or exceptions    */
+comment|/**    * Get the info port of the backup master if it is available.    * Return 0 if no backup master or zookeeper is unavailable    * @param sn server name of backup master    * @return info port or 0 if timed out or exceptions    */
 specifier|public
 name|int
 name|getBackupMasterInfoPort
@@ -338,11 +357,30 @@ argument_list|,
 name|backupZNode
 argument_list|)
 decl_stmt|;
-return|return
+specifier|final
+name|ZooKeeperProtos
+operator|.
+name|Master
+name|backup
+init|=
 name|parse
 argument_list|(
 name|data
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|backup
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|0
+return|;
+block|}
+return|return
+name|backup
 operator|.
 name|getInfoPort
 argument_list|()
@@ -466,6 +504,7 @@ name|InterruptedIOException
 argument_list|()
 throw|;
 block|}
+comment|// TODO javadoc claims we return null in this case. :/
 if|if
 condition|(
 name|data
@@ -519,7 +558,7 @@ name|ke
 throw|;
 block|}
 block|}
-comment|/**    * Get master info port.    * Use this instead of {@link #getMasterInfoPort()} if you do not have an    * instance of this tracker in your context.    * @param zkw ZooKeeperWatcher to use    * @return master info port in the the master address znode or null if no    * znode present.    * @throws KeeperException    * @throws IOException    */
+comment|/**    * Get master info port.    * Use this instead of {@link #getMasterInfoPort()} if you do not have an    * instance of this tracker in your context.    * @param zkw ZooKeeperWatcher to use    * @return master info port in the the master address znode or null if no    * znode present.    * // TODO can't return null for 'int' return type. non-static verison returns 0    * @throws KeeperException    * @throws IOException    */
 specifier|public
 specifier|static
 name|int
@@ -567,6 +606,7 @@ name|InterruptedIOException
 argument_list|()
 throw|;
 block|}
+comment|// TODO javadoc claims we return null in this case. :/
 if|if
 condition|(
 name|data
@@ -621,7 +661,7 @@ name|ke
 throw|;
 block|}
 block|}
-comment|/**    * Set master address into the<code>master</code> znode or into the backup    * subdirectory of backup masters; switch off the passed in<code>znode</code>    * path.    * @param zkw The ZooKeeperWatcher to use.    * @param znode Where to create the znode; could be at the top level or it    * could be under backup masters    * @param master ServerName of the current master    * @return true if node created, false if not; a watch is set in both cases    * @throws KeeperException    */
+comment|/**    * Set master address into the<code>master</code> znode or into the backup    * subdirectory of backup masters; switch off the passed in<code>znode</code>    * path.    * @param zkw The ZooKeeperWatcher to use.    * @param znode Where to create the znode; could be at the top level or it    * could be under backup masters    * @param master ServerName of the current master must not be null.    * @return true if node created, false if not; a watch is set in both cases    * @throws KeeperException    */
 specifier|public
 specifier|static
 name|boolean
@@ -680,7 +720,7 @@ operator|!=
 literal|null
 return|;
 block|}
-comment|/**    * @param sn    * @return Content of the master znode as a serialized pb with the pb    * magic as prefix.    */
+comment|/**    * @param sn must not be null    * @return Content of the master znode as a serialized pb with the pb    * magic as prefix.    */
 specifier|static
 name|byte
 index|[]
@@ -793,7 +833,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param data zookeeper data    * @return pb object of master    * @throws DeserializationException    */
+comment|/**    * @param data zookeeper data. may be null    * @return pb object of master, null if no active master    * @throws DeserializationException    */
 specifier|public
 specifier|static
 name|ZooKeeperProtos
@@ -808,6 +848,17 @@ parameter_list|)
 throws|throws
 name|DeserializationException
 block|{
+if|if
+condition|(
+name|data
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 name|int
 name|prefixLen
 init|=
@@ -854,7 +905,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * delete the master znode if its content is same as the parameter    */
+comment|/**    * delete the master znode if its content is same as the parameter    * @param zkw must not be null    * @param content must not be null    */
 specifier|public
 specifier|static
 name|boolean
