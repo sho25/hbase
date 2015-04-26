@@ -1180,7 +1180,7 @@ name|cachedMaxVersions
 init|=
 name|UNINITIALIZED
 decl_stmt|;
-comment|/**    * Default constructor. Must be present for Writable.    * @deprecated Used by Writables and Writables are going away.    */
+comment|/**    * Default constructor.    * @deprecated As of release 0.96    *             (<a href="https://issues.apache.org/jira/browse/HBASE-5453">HBASE-5453</a>).    *             This will be made private in HBase 2.0.0.    *             Used by Writables and Writables are going away.    */
 annotation|@
 name|Deprecated
 comment|// Make this private rather than remove after deprecation period elapses.  Its needed by pb
@@ -1365,7 +1365,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated use {@link #HColumnDescriptor(String)} and setters    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated As of release 0.96    *             (<a href="https://issues.apache.org/jira/browse/HBASE-">HBASE-</a>).    *             This will be removed in HBase 2.0.0.    *             Use {@link #HColumnDescriptor(String)} and setters.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1423,7 +1423,7 @@ name|DEFAULT_REPLICATION_SCOPE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize Block size to use when writing out storefiles.  Use    * smaller block sizes for faster random-access at expense of larger indices    * (more memory consumption).  Default is usually 64k.    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    * @param scope The scope tag for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated use {@link #HColumnDescriptor(String)} and setters    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize Block size to use when writing out storefiles.  Use    * smaller block sizes for faster random-access at expense of larger indices    * (more memory consumption).  Default is usually 64k.    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    * @param scope The scope tag for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated As of release 0.96    *             (<a href="https://issues.apache.org/jira/browse/HBASE-">HBASE-</a>).    *             This will be removed in HBase 2.0.0.    *             Use {@link #HColumnDescriptor(String)} and setters.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1497,7 +1497,7 @@ name|scope
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    * @param minVersions Minimum number of versions to keep    * @param maxVersions Maximum number of versions to keep    * @param keepDeletedCells Whether to retain deleted cells until they expire    *        up to maxVersions versions.    * @param compression Compression type    * @param encodeOnDisk whether to use the specified data block encoding    *        on disk. If false, the encoding will be used in cache only.    * @param dataBlockEncoding data block encoding    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize Block size to use when writing out storefiles.  Use    * smaller blocksizes for faster random-access at expense of larger indices    * (more memory consumption).  Default is usually 64k.    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    * @param scope The scope tag for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated use {@link #HColumnDescriptor(String)} and setters    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    * @param minVersions Minimum number of versions to keep    * @param maxVersions Maximum number of versions to keep    * @param keepDeletedCells Whether to retain deleted cells until they expire    *        up to maxVersions versions.    * @param compression Compression type    * @param encodeOnDisk whether to use the specified data block encoding    *        on disk. If false, the encoding will be used in cache only.    * @param dataBlockEncoding data block encoding    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize Block size to use when writing out storefiles.  Use    * smaller blocksizes for faster random-access at expense of larger indices    * (more memory consumption).  Default is usually 64k.    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    * @param scope The scope tag for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated As of release 0.96    *             (<a href="https://issues.apache.org/jira/browse/HBASE-">HBASE-</a>).    *             This will be removed in HBase 2.0.0.    *             Use {@link #HColumnDescriptor(String)} and setters.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2466,7 +2466,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @return data block encoding algorithm used on disk    * @deprecated See getDataBlockEncoding()    */
+comment|/**    * @return data block encoding algorithm used on disk    * @deprecated As of release 0.98    *             (<a href="https://issues.apache.org/jira/browse/HBASE-9870">HBASE-9870</a>).    *             This will be removed in HBase 2.0.0. See {@link #getDataBlockEncoding()}}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2479,7 +2479,7 @@ name|getDataBlockEncoding
 argument_list|()
 return|;
 block|}
-comment|/**    * This method does nothing now. Flag ENCODE_ON_DISK is not used    * any more. Data blocks have the same encoding in cache as on disk.    * @return this (for chained invocation)    * @deprecated This does nothing now.    */
+comment|/**    * This method does nothing now. Flag ENCODE_ON_DISK is not used    * any more. Data blocks have the same encoding in cache as on disk.    * @return this (for chained invocation)    * @deprecated As of release 0.98    *             (<a href="https://issues.apache.org/jira/browse/HBASE-9870">HBASE-9870</a>).    *             This will be removed in HBase 2.0.0. This method does nothing now.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2600,7 +2600,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return Whether KV tags should be compressed along with DataBlockEncoding. When no    *         DataBlockEncoding is been used, this is having no effect.    * @deprecated Use {@link #isCompressTags()} instead    */
+comment|/**    * @return Whether KV tags should be compressed along with DataBlockEncoding. When no    *         DataBlockEncoding is been used, this is having no effect.    * @deprecated As of release 1.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-10870">HBASE-10870</a>).    *             This will be removed in HBase 2.0.0. Use {@link #isCompressTags()} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2819,7 +2819,7 @@ return|return
 name|DEFAULT_KEEP_DELETED
 return|;
 block|}
-comment|/**    * @param keepDeletedCells True if deleted rows should not be collected    * immediately.    * @return this (for chained invocation)    * @deprecated use {@link #setKeepDeletedCells(KeepDeletedCells)}    */
+comment|/**    * @param keepDeletedCells True if deleted rows should not be collected    * immediately.    * @return this (for chained invocation)    * @deprecated As of release 1.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-12363">HBASE-12363</a>).    *             This will be removed in HBase 2.0.0.    *             Use {@link #setKeepDeletedCells(KeepDeletedCells)}.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3161,7 +3161,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return true if we should cache data blocks on write    * @deprecated Use {@link #isCacheDataOnWrite()} instead    */
+comment|/**    * @return true if we should cache data blocks on write    * @deprecated As of release 1.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-10870">HBASE-10870</a>).    *             This will be removed in HBase 2.0.0. Use {@link #isCacheDataOnWrite()}} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3216,7 +3216,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return true if we should cache data blocks in the L1 cache (if block cache deploy    * has more than one tier; e.g. we are using CombinedBlockCache).    * @deprecated Use {@link #isCacheDataInL1()} instead    */
+comment|/**    * @return true if we should cache data blocks in the L1 cache (if block cache deploy    * has more than one tier; e.g. we are using CombinedBlockCache).    * @deprecated As of release 1.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-10870">HBASE-10870</a>).    *             This will be removed in HBase 2.0.0. Use {@link #isCacheDataInL1()}} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3312,7 +3312,7 @@ return|return
 name|defaultSetting
 return|;
 block|}
-comment|/**    * @return true if we should cache index blocks on write    * @deprecated Use {@link #isCacheIndexesOnWrite()} instead    */
+comment|/**    * @return true if we should cache index blocks on write    * @deprecated As of release 1.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-10870">HBASE-10870</a>).    *             This will be removed in HBase 2.0.0.    *             Use {@link #isCacheIndexesOnWrite()} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3367,7 +3367,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return true if we should cache bloomfilter blocks on write    * @deprecated Use {@link #isCacheBloomsOnWrite()} instead    */
+comment|/**    * @return true if we should cache bloomfilter blocks on write    * @deprecated As of release 1.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-10870">HBASE-10870</a>).    *             This will be removed in HBase 2.0.0.    *             Use {@link #isCacheBloomsOnWrite()}} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3422,7 +3422,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return true if we should evict cached blocks from the blockcache on    * close    * @deprecated {@link #isEvictBlocksOnClose()} instead    */
+comment|/**    * @return true if we should evict cached blocks from the blockcache on    * close    * @deprecated As of release 1.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-10870">HBASE-10870</a>).    *             This will be removed in HBase 2.0.0.    *             Use {@link #isEvictBlocksOnClose()}} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3477,7 +3477,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return true if we should prefetch blocks into the blockcache on open    * @deprecated Use {@link #isPrefetchBlocksOnOpen()} instead    */
+comment|/**    * @return true if we should prefetch blocks into the blockcache on open    * @deprecated As of release 1.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-10870">HBASE-10870</a>).    *             This will be removed in HBase 2.0.0.    *             Use {@link #isPrefetchBlocksOnOpen()}}} instead.    */
 annotation|@
 name|Deprecated
 specifier|public

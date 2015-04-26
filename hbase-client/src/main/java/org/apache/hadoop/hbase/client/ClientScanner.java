@@ -861,7 +861,7 @@ operator|.
 name|connection
 return|;
 block|}
-comment|/**      * @return Table name      * @deprecated Since 0.96.0; use {@link #getTable()}      */
+comment|/**      * @return Table name      * @deprecated As of release 0.96      *             (<a href="https://issues.apache.org/jira/browse/HBASE-9508">HBASE-9508</a>).      *             This will be removed in HBase 2.0.0. Use {@link #getTable()}.      */
 annotation|@
 name|Deprecated
 specifier|protected

@@ -4608,7 +4608,7 @@ name|SYNC_WAL
 argument_list|)
 return|;
 block|}
-comment|/**    * @deprecated Use {@link #incrementColumnValue(byte[], byte[], byte[], long, Durability)}    */
+comment|/**    * @deprecated As of release 0.96    *             (<a href="https://issues.apache.org/jira/browse/HBASE-9508">HBASE-9508</a>).    *             This will be removed in HBase 2.0.0.    *             Use {@link #incrementColumnValue(byte[], byte[], byte[], long, Durability)}.    */
 annotation|@
 name|Deprecated
 annotation|@

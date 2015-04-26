@@ -451,7 +451,7 @@ literal|""
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Since 0.96.0; use {@link TableSplit#TableSplit(TableName, byte[], byte[], String)}    */
+comment|/**    * @deprecated As of release 0.96    *             (<a href="https://issues.apache.org/jira/browse/HBASE-9508">HBASE-9508</a>).    *             This will be removed in HBase 2.0.0.    *             Use {@link TableSplit#TableSplit(TableName, byte[], byte[], String)}.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -631,7 +631,7 @@ operator|=
 name|length
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Since 0.96.0; use {@link TableSplit#TableSplit(TableName, byte[], byte[], String)}    */
+comment|/**    * @deprecated As of release 0.96    *             (<a href="https://issues.apache.org/jira/browse/HBASE-9508">HBASE-9508</a>).    *             This will be removed in HBase 2.0.0.    *             Use {@link TableSplit#TableSplit(TableName, byte[], byte[], String)}.    */
 annotation|@
 name|Deprecated
 specifier|public

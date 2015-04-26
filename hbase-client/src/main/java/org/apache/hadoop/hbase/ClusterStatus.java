@@ -404,7 +404,7 @@ specifier|private
 name|Boolean
 name|balancerOn
 decl_stmt|;
-comment|/**    * Constructor, for Writable    * @deprecated Used by Writables and Writables are going away.    */
+comment|/**    * Constructor, for Writable    * @deprecated As of release 0.96    *             (<a href="https://issues.apache.org/jira/browse/HBASE-6038">HBASE-6038</a>).    *             This will be removed in HBase 2.0.0.    *             Used by Writables and Writables are going away.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -960,7 +960,7 @@ block|}
 comment|//
 comment|// Getters
 comment|//
-comment|/**    * Returns detailed region server information: A list of    * {@link ServerName}.    * @return region server information    * @deprecated Use {@link #getServers()}    */
+comment|/**    * Returns detailed region server information: A list of    * {@link ServerName}.    * @return region server information    * @deprecated As of release 0.92    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1502">HBASE-1502</a>).    *             This will be removed in HBase 2.0.0.    *             Use {@link #getServers()}.    */
 annotation|@
 name|Deprecated
 specifier|public

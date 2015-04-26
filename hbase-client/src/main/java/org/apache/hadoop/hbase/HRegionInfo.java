@@ -983,7 +983,7 @@ name|setHashCode
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** Default constructor - creates empty object    * @deprecated Used by Writables and Writables are going away.    */
+comment|/** Default constructor - creates empty object    * @deprecated As of release 0.96    *             (<a href="https://issues.apache.org/jira/browse/HBASE-5453">HBASE-5453</a>).    *             This will be removed in HBase 2.0.0.    *             Used by Writables and Writables are going away.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1969,7 +1969,7 @@ return|return
 name|b
 return|;
 block|}
-comment|/**    * Gets the table name from the specified region name.    * @param regionName    * @return Table name.    * @deprecated Since 0.96.0; use #getTable(byte[])    */
+comment|/**    * Gets the table name from the specified region name.    * @param regionName    * @return Table name.    * @deprecated As of release 0.96    *             (<a href="https://issues.apache.org/jira/browse/HBASE-9508">HBASE-9508</a>).    *             This will be removed in HBase 2.0.0. Use {@link #getTable(byte[])}.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2704,7 +2704,7 @@ return|return
 name|endKey
 return|;
 block|}
-comment|/**    * Get current table name of the region    * @return byte array of table name    * @deprecated Since 0.96.0; use #getTable()    */
+comment|/**    * Get current table name of the region    * @return byte array of table name    * @deprecated As of release 0.96    *             (<a href="https://issues.apache.org/jira/browse/HBASE-9508">HBASE-9508</a>).    *             This will be removed in HBase 2.0.0. Use {@link #getTable()}.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5073,6 +5073,7 @@ name|pblen
 argument_list|)
 expr_stmt|;
 block|}
+comment|//assumption: if Writable serialization, it should be longer than pblen.
 name|int
 name|read
 init|=
@@ -5083,7 +5084,6 @@ argument_list|(
 name|pbuf
 argument_list|)
 decl_stmt|;
-comment|//assumption: it should be longer than pblen.
 if|if
 condition|(
 name|read
