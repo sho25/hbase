@@ -51,16 +51,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|net
-operator|.
-name|SocketTimeoutException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -451,20 +441,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|RegionException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|RegionLocations
 import|;
 end_import
@@ -522,20 +498,6 @@ operator|.
 name|hbase
 operator|.
 name|TableNotDisabledException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TableNotEnabledException
 import|;
 end_import
 
@@ -3842,7 +3804,7 @@ name|Void
 argument_list|>
 name|future
 init|=
-name|createTableAsyncV2
+name|createTableAsync
 argument_list|(
 name|desc
 argument_list|,
@@ -3935,42 +3897,15 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * Creates a new table but does not block and wait for it to come online.    * Asynchronous operation.  To check if the table exists, use    * {@link #isTableAvailable} -- it is not safe to create an HTable    * instance to this table before it is available.    * Note : Avoid passing empty split key.    * @param desc table descriptor for table    *    * @throws IllegalArgumentException Bad table name, if the split keys    * are repeated and if the split key has empty byte array.    * @throws MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException    */
+comment|/**    * Creates a new table but does not block and wait for it to come online.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IllegalArgumentException Bad table name, if the split keys    *    are repeated and if the split key has empty byte array.    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
 annotation|@
 name|Override
 specifier|public
-name|void
-name|createTableAsync
-parameter_list|(
-specifier|final
-name|HTableDescriptor
-name|desc
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-index|[]
-name|splitKeys
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|createTableAsyncV2
-argument_list|(
-name|desc
-argument_list|,
-name|splitKeys
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Creates a new table but does not block and wait for it to come online.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IllegalArgumentException Bad table name, if the split keys    *    are repeated and if the split key has empty byte array.    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
-comment|// TODO: This should be called Async but it will break binary compatibility
-specifier|private
 name|Future
 argument_list|<
 name|Void
 argument_list|>
-name|createTableAsyncV2
+name|createTableAsync
 parameter_list|(
 specifier|final
 name|HTableDescriptor
@@ -4877,7 +4812,7 @@ name|Void
 argument_list|>
 name|future
 init|=
-name|deleteTableAsyncV2
+name|deleteTableAsync
 argument_list|(
 name|tableName
 argument_list|)
@@ -4965,14 +4900,15 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * Deletes the table but does not block and wait for it be completely removed.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param desc table descriptor for table    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async delete. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
-comment|// TODO: This should be called Async but it will break binary compatibility
-specifier|private
+comment|/**    * Deletes the table but does not block and wait for it be completely removed.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async delete. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+annotation|@
+name|Override
+specifier|public
 name|Future
 argument_list|<
 name|Void
 argument_list|>
-name|deleteTableAsyncV2
+name|deleteTableAsync
 parameter_list|(
 specifier|final
 name|TableName
@@ -5478,7 +5414,7 @@ name|Void
 argument_list|>
 name|future
 init|=
-name|enableTableAsyncV2
+name|enableTableAsync
 argument_list|(
 name|tableName
 argument_list|)
@@ -5797,26 +5733,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Brings a table on-line (enables it).  Method returns immediately though    * enable of table may take some time to complete, especially if the table    * is large (All regions are opened as part of enabling process).  Check    * {@link #isTableEnabled(byte[])} to learn when table is fully online.  If    * table is taking too long to online, check server logs.    * @param tableName    * @throws IOException    * @since 0.90.0    */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|enableTableAsync
-parameter_list|(
-specifier|final
-name|TableName
-name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|enableTableAsyncV2
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
-block|}
 specifier|public
 name|void
 name|enableTableAsync
@@ -5863,13 +5779,14 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Enable the table but does not block and wait for it be completely enabled.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async enable. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
-comment|// TODO: This should be called Async but it will break binary compatibility
-specifier|private
+annotation|@
+name|Override
+specifier|public
 name|Future
 argument_list|<
 name|Void
 argument_list|>
-name|enableTableAsyncV2
+name|enableTableAsync
 parameter_list|(
 specifier|final
 name|TableName
@@ -6330,26 +6247,6 @@ index|]
 argument_list|)
 return|;
 block|}
-comment|/**    * Starts the disable of a table.  If it is being served, the master    * will tell the servers to stop serving it.  This method returns immediately.    * The disable of a table can take some time if the table is large (all    * regions are closed as part of table disable operation).    * Call {@link #isTableDisabled(byte[])} to check for when disable completes.    * If table is taking too long to online, check server logs.    * @param tableName name of table    * @throws IOException if a remote or network exception occurs    * @see #isTableDisabled(byte[])    * @see #isTableEnabled(byte[])    * @since 0.90.0    */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|disableTableAsync
-parameter_list|(
-specifier|final
-name|TableName
-name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|disableTableAsyncV2
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
-block|}
 specifier|public
 name|void
 name|disableTableAsync
@@ -6415,7 +6312,7 @@ name|Void
 argument_list|>
 name|future
 init|=
-name|disableTableAsyncV2
+name|disableTableAsync
 argument_list|(
 name|tableName
 argument_list|)
@@ -6549,13 +6446,14 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Disable the table but does not block and wait for it be completely disabled.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async disable. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
-comment|// TODO: This should be called Async but it will break binary compatibility
-specifier|private
+annotation|@
+name|Override
+specifier|public
 name|Future
 argument_list|<
 name|Void
 argument_list|>
-name|disableTableAsyncV2
+name|disableTableAsync
 parameter_list|(
 specifier|final
 name|TableName
