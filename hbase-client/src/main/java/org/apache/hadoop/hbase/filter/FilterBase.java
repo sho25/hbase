@@ -94,7 +94,7 @@ name|FilterBase
 extends|extends
 name|Filter
 block|{
-comment|/**    * Filters that are purely stateless and do nothing in their reset() methods can inherit    * this null/empty implementation.    *    * @inheritDoc    */
+comment|/**    * Filters that are purely stateless and do nothing in their reset() methods can inherit    * this null/empty implementation.    *    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -104,7 +104,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{   }
-comment|/**    * Filters that do not filter by row key can inherit this implementation that    * never filters anything. (ie: returns false).    *    * @inheritDoc    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Instead use {@link #filterRowKey(Cell)}    */
+comment|/**    * Filters that do not filter by row key can inherit this implementation that    * never filters anything. (ie: returns false).    *    * {@inheritDoc}    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Instead use {@link #filterRowKey(Cell)}    */
 annotation|@
 name|Override
 annotation|@
@@ -164,7 +164,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Filters that never filter all remaining can inherit this implementation that    * never stops the filter early.    *    * @inheritDoc    */
+comment|/**    * Filters that never filter all remaining can inherit this implementation that    * never stops the filter early.    *    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -178,7 +178,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * By default no transformation takes place    *    * @inheritDoc    */
+comment|/**    * By default no transformation takes place    *    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -195,7 +195,7 @@ return|return
 name|v
 return|;
 block|}
-comment|/**    * Filters that never filter by modifying the returned List of Cells can    * inherit this implementation that does nothing.    *    * @inheritDoc    */
+comment|/**    * Filters that never filter by modifying the returned List of Cells can    * inherit this implementation that does nothing.    *    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -211,7 +211,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
-comment|/**    * Fitlers that never filter by modifying the returned List of Cells can    * inherit this implementation that does nothing.    *    * @inheritDoc    */
+comment|/**    * Fitlers that never filter by modifying the returned List of Cells can    * inherit this implementation that does nothing.    *    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -223,7 +223,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Filters that never filter by rows based on previously gathered state from    * {@link #filterKeyValue(Cell)} can inherit this implementation that    * never filters a row.    *    * @inheritDoc    */
+comment|/**    * Filters that never filter by rows based on previously gathered state from    * {@link #filterKeyValue(Cell)} can inherit this implementation that    * never filters a row.    *    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -237,7 +237,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Filters that are not sure which key must be next seeked to, can inherit    * this implementation that, by default, returns a null Cell.    *    * @inheritDoc    */
+comment|/**    * Filters that are not sure which key must be next seeked to, can inherit    * this implementation that, by default, returns a null Cell.    *    * {@inheritDoc}    */
 specifier|public
 name|Cell
 name|getNextCellHint
@@ -252,7 +252,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * By default, we require all scan's column families to be present. Our    * subclasses may be more precise.    *    * @inheritDoc    */
+comment|/**    * By default, we require all scan's column families to be present. Our    * subclasses may be more precise.    *    * {@inheritDoc}    */
 specifier|public
 name|boolean
 name|isFamilyEssential

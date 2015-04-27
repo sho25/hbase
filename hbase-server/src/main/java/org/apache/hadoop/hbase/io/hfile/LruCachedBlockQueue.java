@@ -66,7 +66,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A memory-bound queue that will grow until an element brings  * total size>= maxSize.  From then on, only entries that are sorted larger  * than the smallest current entry will be inserted/replaced.  *  *<p>Use this when you want to find the largest elements (according to their  * ordering, not their heap size) that consume as close to the specified  * maxSize as possible.  Default behavior is to grow just above rather than  * just below specified max.  *  *<p>Object used in this queue must implement {@link HeapSize} as well as  * {@link Comparable}.  */
+comment|/**  * A memory-bound queue that will grow until an element brings  * total size&gt;= maxSize.  From then on, only entries that are sorted larger  * than the smallest current entry will be inserted/replaced.  *  *<p>Use this when you want to find the largest elements (according to their  * ordering, not their heap size) that consume as close to the specified  * maxSize as possible.  Default behavior is to grow just above rather than  * just below specified max.  *  *<p>Object used in this queue must implement {@link HeapSize} as well as  * {@link Comparable}.  */
 end_comment
 
 begin_class

@@ -76,7 +76,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Represents an interval of version timestamps.  *<p>  * Evaluated according to minStamp<= timestamp< maxStamp  * or [minStamp,maxStamp) in interval notation.  *<p>  * Only used internally; should not be accessed directly by clients.  */
+comment|/**  * Represents an interval of version timestamps.  *<p>  * Evaluated according to minStamp&lt;= timestamp&lt; maxStamp  * or [minStamp,maxStamp) in interval notation.  *<p>  * Only used internally; should not be accessed directly by clients.  */
 end_comment
 
 begin_class

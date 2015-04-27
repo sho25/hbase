@@ -138,7 +138,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Data structure used in the first stage of PrefixTree encoding:  *<li>accepts a sorted stream of ByteRanges  *<li>splits them into a set of tokens, each held by a {@link TokenizerNode}  *<li>connects the TokenizerNodes via standard java references  *<li>keeps a pool of TokenizerNodes and a reusable byte[] for holding all token content  *<p><br>  * Mainly used for turning Cell rowKeys into a trie, but also used for family and qualifier  * encoding.  */
+comment|/**  * Data structure used in the first stage of PrefixTree encoding:  *<ul>  *<li>accepts a sorted stream of ByteRanges  *<li>splits them into a set of tokens, each held by a {@link TokenizerNode}  *<li>connects the TokenizerNodes via standard java references  *<li>keeps a pool of TokenizerNodes and a reusable byte[] for holding all token content  *</ul>  *<p><br>  * Mainly used for turning Cell rowKeys into a trie, but also used for family and qualifier  * encoding.  */
 end_comment
 
 begin_class

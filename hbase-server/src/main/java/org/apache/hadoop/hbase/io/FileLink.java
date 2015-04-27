@@ -259,7 +259,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/** Define the Back-reference directory name prefix: .links-<hfile>/ */
+comment|/** Define the Back-reference directory name prefix: .links-&lt;hfile&gt;/ */
 specifier|public
 specifier|static
 specifier|final

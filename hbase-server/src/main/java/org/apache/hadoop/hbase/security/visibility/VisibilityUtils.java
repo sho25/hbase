@@ -990,7 +990,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Reads back from the zookeeper. The data read here is of the form written by    * writeToZooKeeper(Map<byte[], Integer> entries).    *     * @param data    * @return Labels and their ordinal details    * @throws DeserializationException    */
+comment|/**    * Reads back from the zookeeper. The data read here is of the form written by    * writeToZooKeeper(Map&lt;byte[], Integer&gt; entries).    *     * @param data    * @return Labels and their ordinal details    * @throws DeserializationException    */
 specifier|public
 specifier|static
 name|List

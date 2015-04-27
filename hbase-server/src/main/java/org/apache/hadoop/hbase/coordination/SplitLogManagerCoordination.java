@@ -381,7 +381,7 @@ name|void
 name|checkTasks
 parameter_list|()
 function_decl|;
-comment|/**    * It removes recovering regions from Coordination    * @param serverNames servers which are just recovered    * @param isMetaRecovery whether current recovery is for the meta region on    *<code>serverNames<code>    */
+comment|/**    * It removes recovering regions from Coordination    * @param serverNames servers which are just recovered    * @param isMetaRecovery whether current recovery is for the meta region on    *<code>serverNames</code>    */
 name|void
 name|removeRecoveringRegions
 parameter_list|(

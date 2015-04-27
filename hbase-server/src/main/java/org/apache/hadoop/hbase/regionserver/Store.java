@@ -551,7 +551,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Adds a value to the memstore    * @param cell    * @return memstore size delta& newly added KV which maybe different than the passed in KV    */
+comment|/**    * Adds a value to the memstore    * @param cell    * @return memstore size delta&amp; newly added KV which maybe different than the passed in KV    */
 name|Pair
 argument_list|<
 name|Long
@@ -569,7 +569,7 @@ name|long
 name|timeOfOldestEdit
 parameter_list|()
 function_decl|;
-comment|/**    * Removes a Cell from the memstore. The Cell is removed only if its key& memstoreTS match the    * key& memstoreTS value of the cell parameter.    * @param cell    */
+comment|/**    * Removes a Cell from the memstore. The Cell is removed only if its key    *&amp; memstoreTS match the key&amp; memstoreTS value of the cell    * parameter.    * @param cell    */
 name|void
 name|rollback
 parameter_list|(

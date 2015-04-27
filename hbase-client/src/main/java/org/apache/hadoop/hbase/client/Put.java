@@ -1476,7 +1476,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * A convenience method to determine if this object's familyMap contains    * a value assigned to the given family& qualifier.    * Both given arguments must match the KeyValue object to return true.    *    * @param family column family    * @param qualifier column qualifier    * @return returns true if the given family and qualifier already has an    * existing KeyValue object in the family map.    */
+comment|/**    * A convenience method to determine if this object's familyMap contains    * a value assigned to the given family&amp; qualifier.    * Both given arguments must match the KeyValue object to return true.    *    * @param family column family    * @param qualifier column qualifier    * @return returns true if the given family and qualifier already has an    * existing KeyValue object in the family map.    */
 specifier|public
 name|boolean
 name|has

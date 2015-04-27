@@ -52,7 +52,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Wraps together the mutations which are applied as a batch to the region and their operation  * status and WALEdits.   * @see org.apache.hadoop.hbase.coprocessor.RegionObserver#preBatchMutate(  * ObserverContext, MiniBatchOperationInProgress)  * @see org.apache.hadoop.hbase.coprocessor.RegionObserver#postBatchMutate(  * ObserverContext, MiniBatchOperationInProgress)  * @param<T> Pair<Mutation, Integer> pair of Mutations and associated rowlock ids .  */
+comment|/**  * Wraps together the mutations which are applied as a batch to the region and their operation  * status and WALEdits.   * @see org.apache.hadoop.hbase.coprocessor.RegionObserver#preBatchMutate(  * ObserverContext, MiniBatchOperationInProgress)  * @see org.apache.hadoop.hbase.coprocessor.RegionObserver#postBatchMutate(  * ObserverContext, MiniBatchOperationInProgress)  * @param T Pair&lt;Mutation, Integer&gt; pair of Mutations and associated rowlock ids .  */
 end_comment
 
 begin_class

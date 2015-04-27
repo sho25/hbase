@@ -4373,7 +4373,7 @@ return|return
 name|columns
 return|;
 block|}
-comment|/**      * Creates and returns a Table instance from a given table name.      *      * @param tableName      *          name of table      * @return Table object      * @throws IOException      * @throws IOError      */
+comment|/**      * Creates and returns a Table instance from a given table name.      *      * @param tableName      *          name of table      * @return Table object      * @throws IOException      */
 specifier|public
 name|Table
 name|getTable
@@ -4530,7 +4530,7 @@ name|id
 argument_list|)
 return|;
 block|}
-comment|/**      * Removes the scanner associated with the specified ID from the internal      * id->scanner hash-map.      *      * @param id      * @return a Scanner, or null if ID was invalid.      */
+comment|/**      * Removes the scanner associated with the specified ID from the internal      * id-&gt;scanner hash-map.      *      * @param id      * @return a Scanner, or null if ID was invalid.      */
 specifier|protected
 specifier|synchronized
 name|ResultScannerWrapper

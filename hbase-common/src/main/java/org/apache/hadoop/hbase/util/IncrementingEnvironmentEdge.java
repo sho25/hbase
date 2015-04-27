@@ -81,7 +81,7 @@ operator|=
 name|initialAmount
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    *<p/>    * This method increments a known value for the current time each time this    * method is called. The first value is 1.    */
+comment|/**    * {@inheritDoc}    *<p>    * This method increments a known value for the current time each time this    * method is called. The first value is 1.    *</p>    */
 annotation|@
 name|Override
 specifier|public

@@ -115,7 +115,7 @@ name|metadata
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Visits the locks (both held and attempted) of this type with the given    * {@link MetadataHandler}.    * @throws InterruptedException If there is an unrecoverable error    */
+comment|/**    * Visits the locks (both held and attempted) of this type with the given    * {@link MetadataHandler}.    * @throws IOException If there is an unrecoverable error    */
 name|void
 name|visitLocks
 parameter_list|(

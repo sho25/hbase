@@ -60,7 +60,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class holds the address and the user ticket, etc. The client connections  * to servers are uniquely identified by<remoteAddress, ticket, serviceName>  */
+comment|/**  * This class holds the address and the user ticket, etc. The client connections  * to servers are uniquely identified by&lt;remoteAddress, ticket, serviceName&gt;  */
 end_comment
 
 begin_class

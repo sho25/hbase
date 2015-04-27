@@ -80,7 +80,7 @@ literal|1
 decl_stmt|;
 comment|// Note to maintainers: Do not make these final, as the intention is to
 comment|// reuse objects of this class
-comment|/**    * The array containing the bytes in this range. It will be>= length.    */
+comment|/**    * The array containing the bytes in this range. It will be&gt;= length.    */
 specifier|protected
 name|byte
 index|[]
@@ -91,7 +91,7 @@ specifier|protected
 name|int
 name|offset
 decl_stmt|;
-comment|/**    * The number of bytes in the range. Offset + length must be<= bytes.length    */
+comment|/**    * The number of bytes in the range. Offset + length must be&lt;= bytes.length    */
 specifier|protected
 name|int
 name|length

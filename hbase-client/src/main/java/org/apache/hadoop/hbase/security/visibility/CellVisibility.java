@@ -68,7 +68,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This contains a visibility expression which can be associated with a cell. When it is set with a  * Mutation, all the cells in that mutation will get associated with this expression. A visibility  * expression can contain visibility labels combined with logical operators AND(&), OR(|) and NOT(!)  */
+comment|/**  * This contains a visibility expression which can be associated with a cell. When it is set with a  * Mutation, all the cells in that mutation will get associated with this expression. A visibility  * expression can contain visibility labels combined with logical  * operators AND(&amp;), OR(|) and NOT(!)  */
 end_comment
 
 begin_class
@@ -127,7 +127,7 @@ operator|.
 name|expression
 return|;
 block|}
-comment|/**    * Helps in quoting authentication Strings. Use this if unicode characters to    * be used in expression or special characters like '(', ')',    * '"','\','&','|','!'    */
+comment|/**    * Helps in quoting authentication Strings. Use this if unicode characters to    * be used in expression or special characters like '(', ')',    * '"','\','&amp;','|','!'    */
 specifier|public
 specifier|static
 name|String
@@ -149,7 +149,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Helps in quoting authentication Strings. Use this if unicode characters to    * be used in expression or special characters like '(', ')',    * '"','\','&','|','!'    */
+comment|/**    * Helps in quoting authentication Strings. Use this if unicode characters to    * be used in expression or special characters like '(', ')',    * '"','\','&amp;','|','!'    */
 specifier|public
 specifier|static
 name|String

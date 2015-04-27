@@ -5988,7 +5988,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Get the number of regions of the table that have been updated by the alter.    *    * @return Pair indicating the number of regions updated Pair.getFirst is the    *         regions that are yet to be updated Pair.getSecond is the total number    *         of regions of the table    * @throws IOException    */
+comment|/**    * Get the number of regions of the table that have been updated by the alter.    *    * @return Pair indicating the number of regions updated Pair.getFirst is the    *         regions that are yet to be updated Pair.getSecond is the total number    *         of regions of the table    * @throws ServiceException    */
 annotation|@
 name|Override
 specifier|public

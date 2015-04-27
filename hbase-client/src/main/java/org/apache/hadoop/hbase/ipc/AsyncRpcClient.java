@@ -2195,7 +2195,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Creates a "channel" that can be used by a protobuf service.  Useful setting up    * protobuf stubs.    *    * @param sn server name describing location of server    * @param user which is to use the connection    * @param rpcTimeout default rpc operation timeout    *    * @return A rpc channel that goes via this rpc client instance.    * @throws IOException when channel could not be created    */
+comment|/**    * Creates a "channel" that can be used by a protobuf service.  Useful setting up    * protobuf stubs.    *    * @param sn server name describing location of server    * @param user which is to use the connection    * @param rpcTimeout default rpc operation timeout    *    * @return A rpc channel that goes via this rpc client instance.    */
 specifier|public
 name|RpcChannel
 name|createRpcChannel

@@ -132,7 +132,7 @@ name|HOSTNAME_PORT_SEPARATOR
 init|=
 literal|":"
 decl_stmt|;
-comment|/**    * @param hostAndPort Formatted as<code>&lt;hostname> ':'&lt;port></code>    * @return An InetSocketInstance    */
+comment|/**    * @param hostAndPort Formatted as<code>&lt;hostname&gt; ':'&lt;port&gt;</code>    * @return An InetSocketInstance    */
 specifier|public
 specifier|static
 name|InetSocketAddress
@@ -159,7 +159,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @param hostname Server hostname    * @param port Server port    * @return Returns a concatenation of<code>hostname</code> and    *<code>port</code> in following    * form:<code>&lt;hostname> ':'&lt;port></code>.  For example, if hostname    * is<code>example.org</code> and port is 1234, this method will return    *<code>example.org:1234</code>    */
+comment|/**    * @param hostname Server hostname    * @param port Server port    * @return Returns a concatenation of<code>hostname</code> and    *<code>port</code> in following    * form:<code>&lt;hostname&gt; ':'&lt;port&gt;</code>.  For example, if hostname    * is<code>example.org</code> and port is 1234, this method will return    *<code>example.org:1234</code>    */
 specifier|public
 specifier|static
 name|String
@@ -182,7 +182,7 @@ operator|+
 name|port
 return|;
 block|}
-comment|/**    * @param hostAndPort Formatted as<code>&lt;hostname> ':'&lt;port></code>    * @return The hostname portion of<code>hostAndPort</code>    */
+comment|/**    * @param hostAndPort Formatted as<code>&lt;hostname&gt; ':'&lt;port&gt;</code>    * @return The hostname portion of<code>hostAndPort</code>    */
 specifier|public
 specifier|static
 name|String
@@ -231,7 +231,7 @@ name|colonIndex
 argument_list|)
 return|;
 block|}
-comment|/**    * @param hostAndPort Formatted as<code>&lt;hostname> ':'&lt;port></code>    * @return The port portion of<code>hostAndPort</code>    */
+comment|/**    * @param hostAndPort Formatted as<code>&lt;hostname&gt; ':'&lt;port&gt;</code>    * @return The port portion of<code>hostAndPort</code>    */
 specifier|public
 specifier|static
 name|int

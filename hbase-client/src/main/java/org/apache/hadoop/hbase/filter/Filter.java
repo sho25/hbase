@@ -297,7 +297,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param pbBytes A pb serialized {@link Filter} instance    * @return An instance of {@link Filter} made from<code>bytes</code>    * @throws DeserializationException    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    * @see #toByteArray    */
+comment|/**    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param pbBytes A pb serialized {@link Filter} instance    * @return An instance of {@link Filter} made from<code>bytes</code>    * @throws DeserializationException    * @see #toByteArray    */
 specifier|public
 specifier|static
 name|Filter

@@ -1573,7 +1573,7 @@ literal|'='
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the full path of the HFile referenced by the back reference    *    * @param rootDir root hbase directory    * @param linkRefPath Link Back Reference path    * @return full path of the referenced hfile    * @throws IOException on unexpected error.    */
+comment|/**    * Get the full path of the HFile referenced by the back reference    *    * @param rootDir root hbase directory    * @param linkRefPath Link Back Reference path    * @return full path of the referenced hfile    */
 specifier|public
 specifier|static
 name|Path

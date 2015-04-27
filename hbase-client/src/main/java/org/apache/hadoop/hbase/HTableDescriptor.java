@@ -803,7 +803,7 @@ name|REGION_REPLICATION
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|/**    *<em>INTERNAL</em> flag to indicate whether or not the memstore should be replicated    * for read-replicas (CONSISTENCY => TIMELINE).    */
+comment|/**    *<em>INTERNAL</em> flag to indicate whether or not the memstore should be replicated    * for read-replicas (CONSISTENCY =&gt; TIMELINE).    */
 specifier|public
 specifier|static
 specifier|final

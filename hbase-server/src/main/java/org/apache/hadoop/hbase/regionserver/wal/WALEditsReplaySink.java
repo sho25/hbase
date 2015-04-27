@@ -458,7 +458,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is responsible for replaying the edits coming from a failed region server.  *<p/>  * This class uses the native HBase client in order to replay WAL entries.  *<p/>  */
+comment|/**  * This class is responsible for replaying the edits coming from a failed region server.  *<p>  * This class uses the native HBase client in order to replay WAL entries.  *</p>  */
 end_comment
 
 begin_class

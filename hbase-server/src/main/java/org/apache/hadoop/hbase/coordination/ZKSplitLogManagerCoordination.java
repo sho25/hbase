@@ -1719,7 +1719,7 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * It removes recovering regions under /hbase/recovering-regions/[encoded region name] so that the    * region server hosting the region can allow reads to the recovered region    * @param recoveredServerNameSet servers which are just recovered    * @param isMetaRecovery whether current recovery is for the meta region on    *<code>serverNames<code>    */
+comment|/**    * It removes recovering regions under /hbase/recovering-regions/[encoded region name] so that the    * region server hosting the region can allow reads to the recovered region    * @param recoveredServerNameSet servers which are just recovered    * @param isMetaRecovery whether current recovery is for the meta region on    *<code>serverNames</code>    */
 annotation|@
 name|Override
 specifier|public
@@ -3915,7 +3915,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * ZooKeeper implementation of    * {@link org.apache.hadoop.hbase.coordination.    * SplitLogManagerCoordination#removeStaleRecoveringRegions(Set)}    */
+comment|/**    * ZooKeeper implementation of    * {@link SplitLogManagerCoordination#removeStaleRecoveringRegions(Set)}    */
 annotation|@
 name|Override
 specifier|public

@@ -1197,7 +1197,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair<byte[] column family, String hfilePath>    * @param bulkLoadListener Internal hooks enabling massaging/preparation of a    * file about to be bulk loaded    * @param assignSeqId    * @return true if successful, false if failed recoverably    * @throws IOException if failed unrecoverably.    */
+comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair&lt;byte[] column family, String hfilePath&gt;    * @param bulkLoadListener Internal hooks enabling massaging/preparation of a    * file about to be bulk loaded    * @param assignSeqId    * @return true if successful, false if failed recoverably    * @throws IOException if failed unrecoverably.    */
 name|boolean
 name|bulkLoadHFiles
 parameter_list|(
@@ -1381,7 +1381,7 @@ name|isCompactionNeeded
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Flush the cache.    *    *<p>When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    * @param force whether we want to force a flush of all stores    * @return FlushResult indicating whether the flush was successful or not and if    * the region needs compacting    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when abort is required    * because a snapshot was not properly persisted.    */
+comment|/**    * Flush the cache.    *    *<p>When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    * @param force whether we want to force a flush of all stores    * @return FlushResult indicating whether the flush was successful or not and if    * the region needs compacting    *    * @throws IOException general io exceptions    * because a snapshot was not properly persisted.    */
 name|FlushResult
 name|flush
 parameter_list|(

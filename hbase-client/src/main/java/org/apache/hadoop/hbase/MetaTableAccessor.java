@@ -951,7 +951,7 @@ block|}
 end_class
 
 begin_comment
-comment|/** The delimiter for meta columns for replicaIds> 0 */
+comment|/** The delimiter for meta columns for replicaIds&gt; 0 */
 end_comment
 
 begin_decl_stmt
@@ -5202,7 +5202,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Fetch table states from META table    * @param conn connection to use    * @return map {tableName -> state}    * @throws IOException    */
+comment|/**    * Fetch table states from META table    * @param conn connection to use    * @return map {tableName -&gt; state}    * @throws IOException    */
 end_comment
 
 begin_function

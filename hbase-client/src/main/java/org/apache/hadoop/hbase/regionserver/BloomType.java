@@ -68,7 +68,7 @@ block|,
 comment|/**    * Bloom enabled with Table row as Key    */
 name|ROW
 block|,
-comment|/**    * Bloom enabled with Table row& column (family+qualifier) as Key    */
+comment|/**    * Bloom enabled with Table row&amp; column (family+qualifier) as Key    */
 name|ROWCOL
 block|}
 end_enum

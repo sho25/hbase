@@ -137,7 +137,7 @@ return|return
 name|scanMetrics
 return|;
 block|}
-comment|/**    * Get<param>nbRows</param> rows.    * How many RPCs are made is determined by the {@link Scan#setCaching(int)}    * setting (or hbase.client.scanner.caching in hbase-site.xml).    * @param nbRows number of rows to return    * @return Between zero and<param>nbRows</param> RowResults.  Scan is done    * if returned array is of zero-length (We never return null).    * @throws IOException    */
+comment|/**    * Get nbRows rows.    * How many RPCs are made is determined by the {@link Scan#setCaching(int)}    * setting (or hbase.client.scanner.caching in hbase-site.xml).    * @param nbRows number of rows to return    * @return Between zero and nbRows rowResults.  Scan is done    * if returned array is of zero-length (We never return null).    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public

@@ -228,7 +228,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A pool of {@link HeapMemStoreLAB$Chunk} instances.  *   * MemStoreChunkPool caches a number of retired chunks for reusing, it could  * decrease allocating bytes when writing, thereby optimizing the garbage  * collection on JVM.  *   * The pool instance is globally unique and could be obtained through  * {@link MemStoreChunkPool#getPool(Configuration)}  *   * {@link MemStoreChunkPool#getChunk()} is called when MemStoreLAB allocating  * bytes, and {@link MemStoreChunkPool#putbackChunks(BlockingQueue)} is called  * when MemStore clearing snapshot for flush  */
+comment|/**  * A pool of {@link HeapMemStoreLAB.Chunk} instances.  *   * MemStoreChunkPool caches a number of retired chunks for reusing, it could  * decrease allocating bytes when writing, thereby optimizing the garbage  * collection on JVM.  *   * The pool instance is globally unique and could be obtained through  * {@link MemStoreChunkPool#getPool(Configuration)}  *   * {@link MemStoreChunkPool#getChunk()} is called when MemStoreLAB allocating  * bytes, and {@link MemStoreChunkPool#putbackChunks(BlockingQueue)} is called  * when MemStore clearing snapshot for flush  */
 end_comment
 
 begin_class

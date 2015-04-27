@@ -508,7 +508,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is responsible to manage all the replication  * sources. There are two classes of sources:  *<li> Normal sources are persistent and one per peer cluster</li>  *<li> Old sources are recovered from a failed region server and our  * only goal is to finish replicating the WAL queue it had up in ZK</li>  *  * When a region server dies, this class uses a watcher to get notified and it  * tries to grab a lock in order to transfer all the queues in a local  * old source.  *  * This class implements the ReplicationListener interface so that it can track changes in  * replication state.  */
+comment|/**  * This class is responsible to manage all the replication  * sources. There are two classes of sources:  *<ul>  *<li> Normal sources are persistent and one per peer cluster</li>  *<li> Old sources are recovered from a failed region server and our  * only goal is to finish replicating the WAL queue it had up in ZK</li>  *</ul>  *  * When a region server dies, this class uses a watcher to get notified and it  * tries to grab a lock in order to transfer all the queues in a local  * old source.  *  * This class implements the ReplicationListener interface so that it can track changes in  * replication state.  */
 end_comment
 
 begin_class

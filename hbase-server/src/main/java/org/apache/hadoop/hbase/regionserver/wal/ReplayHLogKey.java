@@ -189,7 +189,7 @@ name|nonce
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Returns the original sequence id    * @return long the new assigned sequence number    * @throws InterruptedException    */
+comment|/**    * Returns the original sequence id    * @return long the new assigned sequence number    */
 annotation|@
 name|Override
 specifier|public

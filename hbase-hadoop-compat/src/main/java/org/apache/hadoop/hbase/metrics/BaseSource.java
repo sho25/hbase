@@ -120,7 +120,7 @@ name|String
 name|getMetricsDescription
 parameter_list|()
 function_decl|;
-comment|/**    * Get the name of the context in JMX that this source will be exposed through.    * This is in ObjectName format. With the default context being Hadoop -> HBase    */
+comment|/**    * Get the name of the context in JMX that this source will be exposed through.    * This is in ObjectName format. With the default context being Hadoop -&gt; HBase    */
 name|String
 name|getMetricsJmxContext
 parameter_list|()

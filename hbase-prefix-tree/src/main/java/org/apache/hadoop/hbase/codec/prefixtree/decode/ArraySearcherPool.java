@@ -70,7 +70,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Pools PrefixTreeArraySearcher objects. Each Searcher can consist of hundreds or thousands of  * objects and 1 is needed for each HFile during a Get operation. With tens of thousands of  * Gets/second, reusing these searchers may save a lot of young gen collections.  *<p/>  * Alternative implementation would be a ByteBufferSearcherPool (not implemented yet).  */
+comment|/**  *<p>  * Pools PrefixTreeArraySearcher objects. Each Searcher can consist of hundreds or thousands of  * objects and 1 is needed for each HFile during a Get operation. With tens of thousands of  * Gets/second, reusing these searchers may save a lot of young gen collections.  *</p>  * Alternative implementation would be a ByteBufferSearcherPool (not implemented yet).  */
 end_comment
 
 begin_class

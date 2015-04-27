@@ -44,7 +44,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Callable<T> that will be retried.  If {@link #call(int)} invocation throws exceptions,  * we will call {@link #throwable(Throwable, boolean)} with whatever the exception was.  * @param<T>  */
+comment|/**  * A Callable&lt;T&gt; that will be retried.  If {@link #call(int)} invocation throws exceptions,  * we will call {@link #throwable(Throwable, boolean)} with whatever the exception was.  * @param<T>  */
 end_comment
 
 begin_interface
@@ -70,7 +70,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called when {@link #call(int)} throws an exception and we are going to retry; take action to    * make it so we succeed on next call (clear caches, do relookup of locations, etc.).    * @param t    * @param retrying True if we are in retrying mode (we are not in retrying mode when max    * retries == 1; we ARE in retrying mode if retries> 1 even when we are the last attempt)    */
+comment|/**    * Called when {@link #call(int)} throws an exception and we are going to retry; take action to    * make it so we succeed on next call (clear caches, do relookup of locations, etc.).    * @param t    * @param retrying True if we are in retrying mode (we are not in retrying mode when max    * retries == 1; we ARE in retrying mode if retries&gt; 1 even when we are the last attempt)    */
 name|void
 name|throwable
 parameter_list|(

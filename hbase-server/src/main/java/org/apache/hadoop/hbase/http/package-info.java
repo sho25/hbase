@@ -4,7 +4,7 @@ comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or m
 end_comment
 
 begin_comment
-comment|/**  *</ul>  *<p>  * Copied from hadoop source code.<br/>  * See https://issues.apache.org/jira/browse/HADOOP-10232 to know why.  *</p>  */
+comment|/**  *<p>  * Copied from hadoop source code.<br>  * See https://issues.apache.org/jira/browse/HADOOP-10232 to know why.  *</p>  */
 end_comment
 
 begin_annotation

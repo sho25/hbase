@@ -331,7 +331,7 @@ specifier|final
 name|int
 name|hashCode
 decl_stmt|;
-comment|/**    * Check passed byte array, "tableName", is legal user-space table name.    * @return Returns passed<code>tableName</code> param    * @throws IllegalArgumentException if passed a tableName is null or    * is made of other than 'word' characters or underscores: i.e.    *<code>[a-zA-Z_0-9.-:]</code>. The ':' is used to delimit the namespace    * from the table name and can be used for nothing else.    *    * Namespace names can only contain 'word' characters    *<code>[a-zA-Z_0-9]</code> or '_'    *    * Qualifier names can only contain 'word' characters    *<code>[a-zA-Z_0-9]</code> or '_', '.' or '-'.    * The name may not start with '.' or '-'.    *    * Valid fully qualified table names:    * foo:bar, namespace=>foo, table=>bar    * org:foo.bar, namespace=org, table=>foo.bar    */
+comment|/**    * Check passed byte array, "tableName", is legal user-space table name.    * @return Returns passed<code>tableName</code> param    * @throws IllegalArgumentException if passed a tableName is null or    * is made of other than 'word' characters or underscores: i.e.    *<code>[a-zA-Z_0-9.-:]</code>. The ':' is used to delimit the namespace    * from the table name and can be used for nothing else.    *    * Namespace names can only contain 'word' characters    *<code>[a-zA-Z_0-9]</code> or '_'    *    * Qualifier names can only contain 'word' characters    *<code>[a-zA-Z_0-9]</code> or '_', '.' or '-'.    * The name may not start with '.' or '-'.    *    * Valid fully qualified table names:    * foo:bar, namespace=&gt;foo, table=&gt;bar    * org:foo.bar, namespace=org, table=&gt;foo.bar    */
 specifier|public
 specifier|static
 name|byte

@@ -100,7 +100,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A SequentialProcedure describes one step in a procedure chain.  *   -> Step 1 -> Step 2 -> Step 3  *  * The main difference from a base Procedure is that the execute() of a  * SequentialProcedure will be called only once, there will be no second  * execute() call once the child are finished. which means once the child  * of a SequentialProcedure are completed the SequentialProcedure is completed too.  */
+comment|/**  * A SequentialProcedure describes one step in a procedure chain.  *   -&gt; Step 1 -&gt; Step 2 -&gt; Step 3  *  * The main difference from a base Procedure is that the execute() of a  * SequentialProcedure will be called only once, there will be no second  * execute() call once the child are finished. which means once the child  * of a SequentialProcedure are completed the SequentialProcedure is completed too.  */
 end_comment
 
 begin_class

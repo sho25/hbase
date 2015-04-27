@@ -93,7 +93,7 @@ specifier|final
 name|long
 name|expected
 decl_stmt|;
-comment|/**    * Exception indicating that an operation attempt has timed out    * @param start time the operation started (ms since epoch)    * @param end time the timeout was triggered (ms since epoch)    * @param expected expected amount of time for the operation to complete (ms) (ideally, expected<= end-start)    */
+comment|/**    * Exception indicating that an operation attempt has timed out    * @param start time the operation started (ms since epoch)    * @param end time the timeout was triggered (ms since epoch)    * @param expected expected amount of time for the operation to complete (ms)    *                 (ideally, expected&lt;= end-start)    */
 specifier|public
 name|TimeoutException
 parameter_list|(

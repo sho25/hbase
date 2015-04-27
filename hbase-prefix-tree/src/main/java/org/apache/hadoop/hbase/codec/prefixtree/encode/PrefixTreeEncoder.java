@@ -432,7 +432,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is the primary class for converting a CellOutputStream into an encoded byte[]. As Cells are  * added they are completely copied into the various encoding structures. This is important because  * usually the cells being fed in during compactions will be transient.<br/>  *<br/>  * Usage:<br/>  * 1) constructor<br/>  * 4) append cells in sorted order: write(Cell cell)<br/>  * 5) flush()<br/>  */
+comment|/**  * This is the primary class for converting a CellOutputStream into an encoded byte[]. As Cells are  * added they are completely copied into the various encoding structures. This is important because  * usually the cells being fed in during compactions will be transient.<br>  *<br>  * Usage:<br>  * 1) constructor<br>  * 4) append cells in sorted order: write(Cell cell)<br>  * 5) flush()<br>  */
 end_comment
 
 begin_class
@@ -1683,7 +1683,7 @@ operator|+=
 name|numMetaBytes
 expr_stmt|;
 block|}
-comment|/**    * The following "compile" methods do any intermediate work necessary to transform the cell    * fragments collected during the writing phase into structures that are ready to write to the    * outputStream.    *<p/>    * The family and qualifier treatment is almost identical, as is timestamp and mvccVersion.    */
+comment|/**    *<p>    * The following "compile" methods do any intermediate work necessary to transform the cell    * fragments collected during the writing phase into structures that are ready to write to the    * outputStream.    *</p>    * The family and qualifier treatment is almost identical, as is timestamp and mvccVersion.    */
 specifier|protected
 name|void
 name|compileTypes

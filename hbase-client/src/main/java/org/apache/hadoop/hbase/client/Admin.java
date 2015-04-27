@@ -675,7 +675,7 @@ name|TableNotFoundException
 throws|,
 name|IOException
 function_decl|;
-comment|/**    * Creates a new table. Synchronous operation.    *    * @param desc table descriptor for table    * @throws IllegalArgumentException if the table name is reserved    * @throws MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Creates a new table. Synchronous operation.    *    * @param desc table descriptor for table    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|createTable
 parameter_list|(
@@ -685,7 +685,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Creates a new table with the specified number of regions.  The start key specified will become    * the end key of the first region of the table, and the end key specified will become the start    * key of the last region of the table (the first region has a null start key and the last region    * has a null end key). BigInteger math will be used to divide the key range specified into enough    * segments to make the required number of total regions. Synchronous operation.    *    * @param desc table descriptor for table    * @param startKey beginning of key range    * @param endKey end of key range    * @param numRegions the total number of regions to create    * @throws IllegalArgumentException if the table name is reserved    * @throws MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    */
+comment|/**    * Creates a new table with the specified number of regions.  The start key specified will become    * the end key of the first region of the table, and the end key specified will become the start    * key of the last region of the table (the first region has a null start key and the last region    * has a null end key). BigInteger math will be used to divide the key range specified into enough    * segments to make the required number of total regions. Synchronous operation.    *    * @param desc table descriptor for table    * @param startKey beginning of key range    * @param endKey end of key range    * @param numRegions the total number of regions to create    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    */
 name|void
 name|createTable
 parameter_list|(
@@ -706,7 +706,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Creates a new table with an initial set of empty regions defined by the specified split keys.    * The total number of regions created will be the number of split keys plus one. Synchronous    * operation. Note : Avoid passing empty split key.    *    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    * @throws IllegalArgumentException if the table name is reserved, if the split keys are repeated    * and if the split key has empty byte array.    * @throws MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    */
+comment|/**    * Creates a new table with an initial set of empty regions defined by the specified split keys.    * The total number of regions created will be the number of split keys plus one. Synchronous    * operation. Note : Avoid passing empty split key.    *    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    * @throws IllegalArgumentException if the table name is reserved, if the split keys are repeated    * and if the split key has empty byte array.    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    */
 name|void
 name|createTable
 parameter_list|(
@@ -722,7 +722,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Creates a new table but does not block and wait for it to come online.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IllegalArgumentException Bad table name, if the split keys    *    are repeated and if the split key has empty byte array.    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+comment|/**    * Creates a new table but does not block and wait for it to come online.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    * Throws IllegalArgumentException Bad table name, if the split keys    *    are repeated and if the split key has empty byte array.    *    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
 name|Future
 argument_list|<
 name|Void
@@ -1317,7 +1317,7 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Move the region<code>r</code> to<code>dest</code>.    *    * @param encodedRegionName The encoded region name; i.e. the hash that makes up the region name    * suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    * then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param destServerName The servername of the destination regionserver.  If passed the empty byte    * array we'll assign to a random server.  A server name is made of host, port and startcode.    * Here is an example:<code> host187.example.com,60020,1289493121758</code>    * @throws UnknownRegionException Thrown if we can't find a region named    *<code>encodedRegionName</code>    */
+comment|/**    * Move the region<code>r</code> to<code>dest</code>.    *    * @param encodedRegionName The encoded region name; i.e. the hash that makes up the region name    * suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    * then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param destServerName The servername of the destination regionserver.  If passed the empty byte    * array we'll assign to a random server.  A server name is made of host, port and startcode.    * Here is an example:<code> host187.example.com,60020,1289493121758</code>    * @throws IOException if we can't find a region named    *<code>encodedRegionName</code>    */
 name|void
 name|move
 parameter_list|(

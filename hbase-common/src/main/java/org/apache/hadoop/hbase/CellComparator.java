@@ -357,7 +357,7 @@ name|rrowlength
 argument_list|)
 return|;
 block|}
-comment|/**    * Compare cells.    * @param a    * @param b    * @param ignoreSequenceid True if we are to compare the key portion only and ignore    * the sequenceid. Set to false to compare key and consider sequenceid.    * @return 0 if equal, -1 if a< b, and +1 if a> b.    */
+comment|/**    * Compare cells.    * @param a    * @param b    * @param ignoreSequenceid True if we are to compare the key portion only and ignore    * the sequenceid. Set to false to compare key and consider sequenceid.    * @return 0 if equal, -1 if a&lt; b, and +1 if a&gt; b.    */
 specifier|private
 specifier|final
 name|int

@@ -194,7 +194,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of {@link Filter} that represents an ordered List of Filters  * which will be evaluated with a specified boolean operator {@link Operator#MUST_PASS_ALL}  * (<code>AND</code>) or {@link Operator#MUST_PASS_ONE} (<code>OR</code>).  * Since you can use Filter Lists as children of Filter Lists, you can create a  * hierarchy of filters to be evaluated.  *  *<br/>  * {@link Operator#MUST_PASS_ALL} evaluates lazily: evaluation stops as soon as one filter does  * not include the KeyValue.  *  *<br/>  * {@link Operator#MUST_PASS_ONE} evaluates non-lazily: all filters are always evaluated.  *  *<br/>  * Defaults to {@link Operator#MUST_PASS_ALL}.  */
+comment|/**  * Implementation of {@link Filter} that represents an ordered List of Filters  * which will be evaluated with a specified boolean operator {@link Operator#MUST_PASS_ALL}  * (<code>AND</code>) or {@link Operator#MUST_PASS_ONE} (<code>OR</code>).  * Since you can use Filter Lists as children of Filter Lists, you can create a  * hierarchy of filters to be evaluated.  *  *<br>  * {@link Operator#MUST_PASS_ALL} evaluates lazily: evaluation stops as soon as one filter does  * not include the KeyValue.  *  *<br>  * {@link Operator#MUST_PASS_ONE} evaluates non-lazily: all filters are always evaluated.  *  *<br>  * Defaults to {@link Operator#MUST_PASS_ALL}.  */
 end_comment
 
 begin_class
@@ -1266,7 +1266,7 @@ return|return
 name|rc
 return|;
 block|}
-comment|/**    * Filters that never filter by modifying the returned List of Cells can    * inherit this implementation that does nothing.    *    * @inheritDoc    */
+comment|/**    * Filters that never filter by modifying the returned List of Cells can    * inherit this implementation that does nothing.    *    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public

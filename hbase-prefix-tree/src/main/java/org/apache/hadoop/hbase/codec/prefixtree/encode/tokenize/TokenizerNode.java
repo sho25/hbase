@@ -170,7 +170,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Individual node in a Trie structure.  Each node is one of 3 types:  *<li>Branch: an internal trie node that may have a token and must have multiple children, but does  * not represent an actual input byte[], hence its numOccurrences is 0  *<li>Leaf: a node with no children and where numOccurrences is>= 1.  It's token represents the  * last bytes in the input byte[]s.  *<li>Nub: a combination of a branch and leaf.  Its token represents the last bytes of input  * byte[]s and has numOccurrences>= 1, but it also has child nodes which represent input byte[]s  * that add bytes to this nodes input byte[].  *<br/><br/>  * Example inputs (numInputs=7):  * 0: AAA  * 1: AAA  * 2: AAB  * 3: AAB  * 4: AAB  * 5: AABQQ  * 6: AABQQ  *<br/><br/>  * Resulting TokenizerNodes:  * AA<- branch, numOccurrences=0, tokenStartOffset=0, token.length=2  * A<- leaf, numOccurrences=2, tokenStartOffset=2, token.length=1  * B<- nub, numOccurrences=3, tokenStartOffset=2, token.length=1  * QQ<- leaf, numOccurrences=2, tokenStartOffset=3, token.length=2  *<br/><br/>  * numInputs == 7 == sum(numOccurrences) == 0 + 2 + 3 + 2  */
+comment|/**  * Individual node in a Trie structure.  Each node is one of 3 types:  *<li>Branch: an internal trie node that may have a token and must have multiple children, but does  * not represent an actual input byte[], hence its numOccurrences is 0  *<li>Leaf: a node with no children and where numOccurrences is&gt;= 1.  It's token represents the  * last bytes in the input byte[]s.  *<li>Nub: a combination of a branch and leaf.  Its token represents the last bytes of input  * byte[]s and has numOccurrences&gt;= 1, but it also has child nodes which represent input byte[]s  * that add bytes to this nodes input byte[].  *<br><br>  * Example inputs (numInputs=7):  * 0: AAA  * 1: AAA  * 2: AAB  * 3: AAB  * 4: AAB  * 5: AABQQ  * 6: AABQQ  *<br><br>  * Resulting TokenizerNodes:  * AA&lt;- branch, numOccurrences=0, tokenStartOffset=0, token.length=2  * A&lt;- leaf, numOccurrences=2, tokenStartOffset=2, token.length=1  * B&lt;- nub, numOccurrences=3, tokenStartOffset=2, token.length=1  * QQ&lt;- leaf, numOccurrences=2, tokenStartOffset=3, token.length=2  *<br><br>  * numInputs == 7 == sum(numOccurrences) == 0 + 2 + 3 + 2  */
 end_comment
 
 begin_class
@@ -637,7 +637,7 @@ name|node
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Called when we need to convert a leaf node into a branch with 2 leaves. Comments inside the    * method assume we have token BAA starting at tokenStartOffset=0 and are adding BOO. The output    * will be 3 nodes:<br/>    *<li>1: B<- branch    *<li>2: AA<- leaf    *<li>3: OO<- leaf    *    * @param numTokenBytesToRetain => 1 (the B)    * @param bytes => BOO    */
+comment|/**    * Called when we need to convert a leaf node into a branch with 2 leaves. Comments inside the    * method assume we have token BAA starting at tokenStartOffset=0 and are adding BOO. The output    * will be 3 nodes:<br>    *<ul>    *<li>1: B&lt;- branch    *<li>2: AA&lt;- leaf    *<li>3: OO&lt;- leaf    *</ul>    *    * @param numTokenBytesToRetain =&gt; 1 (the B)    * @param bytes =&gt; BOO    */
 specifier|protected
 name|void
 name|split

@@ -1936,7 +1936,7 @@ return|return
 name|numEvicted
 return|;
 block|}
-comment|/**    * Evict the block, and it will be cached by the victim handler if exists&&    * block may be read again later    * @param block    * @param evictedByEvictionProcess true if the given block is evicted by    *          EvictionThread    * @return the heap size of evicted block    */
+comment|/**    * Evict the block, and it will be cached by the victim handler if exists&amp;&amp;    * block may be read again later    * @param block    * @param evictedByEvictionProcess true if the given block is evicted by    *          EvictionThread    * @return the heap size of evicted block    */
 specifier|protected
 name|long
 name|evictBlock

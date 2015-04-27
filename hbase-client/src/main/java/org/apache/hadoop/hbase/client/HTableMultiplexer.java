@@ -680,7 +680,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * The put request will be buffered by its corresponding buffer queue. Return false if the queue    * is already full.    * @param tableName    * @param put    * @return true if the request can be accepted by its corresponding buffer queue.    * @throws IOException    */
+comment|/**    * The put request will be buffered by its corresponding buffer queue. Return false if the queue    * is already full.    * @param tableName    * @param put    * @return true if the request can be accepted by its corresponding buffer queue.    */
 specifier|public
 name|boolean
 name|put
@@ -706,7 +706,7 @@ name|retryNum
 argument_list|)
 return|;
 block|}
-comment|/**    * The puts request will be buffered by their corresponding buffer queue.    * Return the list of puts which could not be queued.    * @param tableName    * @param puts    * @return the list of puts which could not be queued    * @throws IOException    */
+comment|/**    * The puts request will be buffered by their corresponding buffer queue.    * Return the list of puts which could not be queued.    * @param tableName    * @param puts    * @return the list of puts which could not be queued    */
 specifier|public
 name|List
 argument_list|<
@@ -841,7 +841,7 @@ name|puts
 argument_list|)
 return|;
 block|}
-comment|/**    * The put request will be buffered by its corresponding buffer queue. And the put request will be    * retried before dropping the request.    * Return false if the queue is already full.    * @return true if the request can be accepted by its corresponding buffer queue.    * @throws IOException    */
+comment|/**    * The put request will be buffered by its corresponding buffer queue. And the put request will be    * retried before dropping the request.    * Return false if the queue is already full.    * @return true if the request can be accepted by its corresponding buffer queue.    */
 specifier|public
 name|boolean
 name|put

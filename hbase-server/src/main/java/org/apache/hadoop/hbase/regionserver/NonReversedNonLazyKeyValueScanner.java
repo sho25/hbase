@@ -72,7 +72,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A "non-reversed& non-lazy" scanner which does not support backward scanning  * and always does a real seek operation. Most scanners are inherited from this  * class.  */
+comment|/**  * A "non-reversed&amp; non-lazy" scanner which does not support backward scanning  * and always does a real seek operation. Most scanners are inherited from this  * class.  */
 end_comment
 
 begin_class

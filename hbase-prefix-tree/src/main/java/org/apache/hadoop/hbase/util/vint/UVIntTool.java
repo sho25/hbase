@@ -129,7 +129,7 @@ block|,
 literal|7
 block|}
 decl_stmt|;
-comment|/********************* int -> bytes **************************/
+comment|/********************* int -&gt; bytes **************************/
 specifier|public
 specifier|static
 name|int
@@ -349,7 +349,7 @@ return|return
 name|numBytes
 return|;
 block|}
-comment|/******************** bytes -> int **************************/
+comment|/******************** bytes -&gt; int **************************/
 specifier|public
 specifier|static
 name|int

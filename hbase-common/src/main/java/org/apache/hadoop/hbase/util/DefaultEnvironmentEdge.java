@@ -48,7 +48,7 @@ name|DefaultEnvironmentEdge
 implements|implements
 name|EnvironmentEdge
 block|{
-comment|/**    * {@inheritDoc}    *<p/>    * This implementation returns {@link System#currentTimeMillis()}    */
+comment|/**    * {@inheritDoc}    *<p>    * This implementation returns {@link System#currentTimeMillis()}    *</p>    */
 annotation|@
 name|Override
 specifier|public

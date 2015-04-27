@@ -1304,7 +1304,7 @@ name|debug
 argument_list|)
 return|;
 block|}
-comment|/**    * Aligns a number to 8.    * @param num number to align to 8    * @return smallest number>= input that is a multiple of 8    */
+comment|/**    * Aligns a number to 8.    * @param num number to align to 8    * @return smallest number&gt;= input that is a multiple of 8    */
 specifier|public
 specifier|static
 name|int
@@ -1329,7 +1329,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Aligns a number to 8.    * @param num number to align to 8    * @return smallest number>= input that is a multiple of 8    */
+comment|/**    * Aligns a number to 8.    * @param num number to align to 8    * @return smallest number&gt;= input that is a multiple of 8    */
 specifier|public
 specifier|static
 name|long

@@ -48,7 +48,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The unit of storage in HBase consisting of the following fields:<br/>  *<pre>  * 1) row  * 2) column family  * 3) column qualifier  * 4) timestamp  * 5) type  * 6) MVCC version  * 7) value  *</pre>  *<p/>  * Uniqueness is determined by the combination of row, column family, column qualifier,  * timestamp, and type.  *<p/>  * The natural comparator will perform a bitwise comparison on row, column family, and column  * qualifier. Less intuitively, it will then treat the greater timestamp as the lesser value with  * the goal of sorting newer cells first.  *<p/>  * This interface should not include methods that allocate new byte[]'s such as those used in client  * or debugging code. These users should use the methods found in the {@link CellUtil} class.  * Currently for to minimize the impact of existing applications moving between 0.94 and 0.96, we  * include the costly helper methods marked as deprecated.     *<p/>  * Cell implements Comparable<Cell> which is only meaningful when comparing to other keys in the  * same table. It uses CellComparator which does not work on the -ROOT- and hbase:meta tables.  *<p/>  * In the future, we may consider adding a boolean isOnHeap() method and a getValueBuffer() method  * that can be used to pass a value directly from an off-heap ByteBuffer to the network without  * copying into an on-heap byte[].  *<p/>  * Historic note: the original Cell implementation (KeyValue) requires that all fields be encoded as  * consecutive bytes in the same byte[], whereas this interface allows fields to reside in separate  * byte[]'s.  *<p/>  */
+comment|/**  * The unit of storage in HBase consisting of the following fields:  *<br>  *<pre>  * 1) row  * 2) column family  * 3) column qualifier  * 4) timestamp  * 5) type  * 6) MVCC version  * 7) value  *</pre>  *<p>  * Uniqueness is determined by the combination of row, column family, column qualifier,  * timestamp, and type.  *</p>  *<p>  * The natural comparator will perform a bitwise comparison on row, column family, and column  * qualifier. Less intuitively, it will then treat the greater timestamp as the lesser value with  * the goal of sorting newer cells first.  *</p>  *<p>  * This interface should not include methods that allocate new byte[]'s such as those used in client  * or debugging code. These users should use the methods found in the {@link CellUtil} class.  * Currently for to minimize the impact of existing applications moving between 0.94 and 0.96, we  * include the costly helper methods marked as deprecated.     *</p>  *<p>  * Cell implements Comparable&lt;Cell&gt; which is only meaningful when  * comparing to other keys in the  * same table. It uses CellComparator which does not work on the -ROOT- and hbase:meta tables.  *</p>  *<p>  * In the future, we may consider adding a boolean isOnHeap() method and a getValueBuffer() method  * that can be used to pass a value directly from an off-heap ByteBuffer to the network without  * copying into an on-heap byte[].  *</p>  *<p>  * Historic note: the original Cell implementation (KeyValue) requires that all fields be encoded as  * consecutive bytes in the same byte[], whereas this interface allows fields to reside in separate  * byte[]'s.  *</p>  */
 end_comment
 
 begin_interface
@@ -76,7 +76,7 @@ name|int
 name|getRowOffset
 parameter_list|()
 function_decl|;
-comment|/**    * @return Number of row bytes. Must be< rowArray.length - offset.    */
+comment|/**    * @return Number of row bytes. Must be&lt; rowArray.length - offset.    */
 name|short
 name|getRowLength
 parameter_list|()
@@ -93,7 +93,7 @@ name|int
 name|getFamilyOffset
 parameter_list|()
 function_decl|;
-comment|/**    * @return Number of family bytes.  Must be< familyArray.length - offset.    */
+comment|/**    * @return Number of family bytes.  Must be&lt; familyArray.length - offset.    */
 name|byte
 name|getFamilyLength
 parameter_list|()
@@ -110,7 +110,7 @@ name|int
 name|getQualifierOffset
 parameter_list|()
 function_decl|;
-comment|/**    * @return Number of qualifier bytes.  Must be< qualifierArray.length - offset.    */
+comment|/**    * @return Number of qualifier bytes.  Must be&lt; qualifierArray.length - offset.    */
 name|int
 name|getQualifierLength
 parameter_list|()
@@ -128,14 +128,14 @@ name|getTypeByte
 parameter_list|()
 function_decl|;
 comment|//6) MvccVersion
-comment|/**    * @deprecated as of 1.0, use {@link Cell#getSequenceId()}    *     * Internal use only. A region-specific sequence ID given to each operation. It always exists for    * cells in the memstore but is not retained forever. It may survive several flushes, but    * generally becomes irrelevant after the cell's row is no longer involved in any operations that    * require strict consistency.    * @return mvccVersion (always>= 0 if exists), or 0 if it no longer exists    */
+comment|/**    * @deprecated as of 1.0, use {@link Cell#getSequenceId()}    *     * Internal use only. A region-specific sequence ID given to each operation. It always exists for    * cells in the memstore but is not retained forever. It may survive several flushes, but    * generally becomes irrelevant after the cell's row is no longer involved in any operations that    * require strict consistency.    * @return mvccVersion (always&gt;= 0 if exists), or 0 if it no longer exists    */
 annotation|@
 name|Deprecated
 name|long
 name|getMvccVersion
 parameter_list|()
 function_decl|;
-comment|/**    * A region-specific unique monotonically increasing sequence ID given to each Cell. It always    * exists for cells in the memstore but is not retained forever. It will be kept for    * {@link HConstants#KEEP_SEQID_PERIOD} days, but generally becomes irrelevant after the cell's    * row is no longer involved in any operations that require strict consistency.    * @return seqId (always> 0 if exists), or 0 if it no longer exists    */
+comment|/**    * A region-specific unique monotonically increasing sequence ID given to each Cell. It always    * exists for cells in the memstore but is not retained forever. It will be kept for    * {@link HConstants#KEEP_SEQID_PERIOD} days, but generally becomes irrelevant after the cell's    * row is no longer involved in any operations that require strict consistency.    * @return seqId (always&gt; 0 if exists), or 0 if it no longer exists    */
 name|long
 name|getSequenceId
 parameter_list|()
@@ -152,7 +152,7 @@ name|int
 name|getValueOffset
 parameter_list|()
 function_decl|;
-comment|/**    * @return Number of value bytes.  Must be< valueArray.length - offset.    */
+comment|/**    * @return Number of value bytes.  Must be&lt; valueArray.length - offset.    */
 name|int
 name|getValueLength
 parameter_list|()
@@ -173,7 +173,7 @@ name|int
 name|getTagsLength
 parameter_list|()
 function_decl|;
-comment|/**    * WARNING do not use, expensive.  This gets an arraycopy of the cell's value.    *    * Added to ease transition from  0.94 -> 0.96.    *     * @deprecated as of 0.96, use {@link CellUtil#cloneValue(Cell)}    */
+comment|/**    * WARNING do not use, expensive.  This gets an arraycopy of the cell's value.    *    * Added to ease transition from  0.94 -&gt; 0.96.    *     * @deprecated as of 0.96, use {@link CellUtil#cloneValue(Cell)}    */
 annotation|@
 name|Deprecated
 name|byte
@@ -181,7 +181,7 @@ index|[]
 name|getValue
 parameter_list|()
 function_decl|;
-comment|/**    * WARNING do not use, expensive.  This gets an arraycopy of the cell's family.     *    * Added to ease transition from  0.94 -> 0.96.    *     * @deprecated as of 0.96, use {@link CellUtil#cloneFamily(Cell)}    */
+comment|/**    * WARNING do not use, expensive.  This gets an arraycopy of the cell's family.     *    * Added to ease transition from  0.94 -&gt; 0.96.    *     * @deprecated as of 0.96, use {@link CellUtil#cloneFamily(Cell)}    */
 annotation|@
 name|Deprecated
 name|byte
@@ -189,7 +189,7 @@ index|[]
 name|getFamily
 parameter_list|()
 function_decl|;
-comment|/**    * WARNING do not use, expensive.  This gets an arraycopy of the cell's qualifier.    *    * Added to ease transition from  0.94 -> 0.96.    *     * @deprecated as of 0.96, use {@link CellUtil#cloneQualifier(Cell)}    */
+comment|/**    * WARNING do not use, expensive.  This gets an arraycopy of the cell's qualifier.    *    * Added to ease transition from  0.94 -&gt; 0.96.    *     * @deprecated as of 0.96, use {@link CellUtil#cloneQualifier(Cell)}    */
 annotation|@
 name|Deprecated
 name|byte
@@ -197,7 +197,7 @@ index|[]
 name|getQualifier
 parameter_list|()
 function_decl|;
-comment|/**    * WARNING do not use, expensive.  this gets an arraycopy of the cell's row.    *    * Added to ease transition from  0.94 -> 0.96.    *     * @deprecated as of 0.96, use {@link CellUtil#getRowByte(Cell, int)}    */
+comment|/**    * WARNING do not use, expensive.  this gets an arraycopy of the cell's row.    *    * Added to ease transition from  0.94 -&gt; 0.96.    *     * @deprecated as of 0.96, use {@link CellUtil#getRowByte(Cell, int)}    */
 annotation|@
 name|Deprecated
 name|byte

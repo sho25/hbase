@@ -440,7 +440,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is created via reflection in DataBlockEncoding enum. Update the enum if class name or  * package changes.  *<p/>  * PrefixTreeDataBlockEncoder implementation of DataBlockEncoder. This is the primary entry point  * for PrefixTree encoding and decoding. Encoding is delegated to instances of  * {@link PrefixTreeEncoder}, and decoding is delegated to instances of  * {@link org.apache.hadoop.hbase.codec.prefixtree.scanner.CellSearcher}. Encoder and decoder instances are  * created and recycled by static PtEncoderFactory and PtDecoderFactory.  */
+comment|/**  *<p>  * This class is created via reflection in DataBlockEncoding enum. Update the enum if class name or  * package changes.  *</p>  * PrefixTreeDataBlockEncoder implementation of DataBlockEncoder. This is the primary entry point  * for PrefixTree encoding and decoding. Encoding is delegated to instances of  * {@link PrefixTreeEncoder}, and decoding is delegated to instances of  * {@link org.apache.hadoop.hbase.codec.prefixtree.scanner.CellSearcher}. Encoder and decoder instances are  * created and recycled by static PtEncoderFactory and PtDecoderFactory.  */
 end_comment
 
 begin_class

@@ -690,7 +690,7 @@ return|return
 name|addresses
 return|;
 block|}
-comment|/**    * Get a list of all the addresses of all the region servers    * for this peer cluster    * @return list of addresses    * @throws KeeperException    */
+comment|/**    * Get a list of all the addresses of all the region servers    * for this peer cluster    * @return list of addresses    */
 comment|// Synchronize peer cluster connection attempts to avoid races and rate
 comment|// limit connections when multiple replication sources try to connect to
 comment|// the peer cluster. If the peer cluster is down we can get out of control

@@ -32,7 +32,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementer can return a CellScanner over its Cell content.  * Class name is ugly but mimicing java.util.Iterable only we are about the dumber  * CellScanner rather than say Iterator<Cell>.  See CellScanner class comment for why we go  * dumber than java.util.Iterator.  */
+comment|/**  * Implementer can return a CellScanner over its Cell content.  * Class name is ugly but mimicing java.util.Iterable only we are about the dumber  * CellScanner rather than say Iterator&lt;Cell&gt;.  See CellScanner class comment for why we go  * dumber than java.util.Iterator.  */
 end_comment
 
 begin_interface

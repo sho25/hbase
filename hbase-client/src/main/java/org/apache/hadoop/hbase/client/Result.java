@@ -823,7 +823,7 @@ operator|.
 name|row
 return|;
 block|}
-comment|/**    * Return the array of Cells backing this Result instance.    *    * The array is sorted from smallest -> largest using the    * {@link CellComparator#COMPARATOR}.    *    * The array only contains what your Get or Scan specifies and no more.    * For example if you request column "A" 1 version you will have at most 1    * Cell in the array. If you request column "A" with 2 version you will    * have at most 2 Cells, with the first one being the newer timestamp and    * the second being the older timestamp (this is the sort order defined by    * {@link CellComparator#COMPARATOR}).  If columns don't exist, they won't be    * present in the result. Therefore if you ask for 1 version all columns,    * it is safe to iterate over this array and expect to see 1 Cell for    * each column and no more.    *    * This API is faster than using getFamilyMap() and getMap()    *    * @return array of Cells; can be null if nothing in the result    */
+comment|/**    * Return the array of Cells backing this Result instance.    *    * The array is sorted from smallest -&gt; largest using the    * {@link CellComparator#COMPARATOR}.    *    * The array only contains what your Get or Scan specifies and no more.    * For example if you request column "A" 1 version you will have at most 1    * Cell in the array. If you request column "A" with 2 version you will    * have at most 2 Cells, with the first one being the newer timestamp and    * the second being the older timestamp (this is the sort order defined by    * {@link CellComparator#COMPARATOR}).  If columns don't exist, they won't be    * present in the result. Therefore if you ask for 1 version all columns,    * it is safe to iterate over this array and expect to see 1 Cell for    * each column and no more.    *    * This API is faster than using getFamilyMap() and getMap()    *    * @return array of Cells; can be null if nothing in the result    */
 specifier|public
 name|Cell
 index|[]
@@ -2108,7 +2108,7 @@ operator|!=
 literal|null
 return|;
 block|}
-comment|/**    * Map of families to all versions of its qualifiers and values.    *<p>    * Returns a three level Map of the form:    *<code>Map&amp;family,Map&lt;qualifier,Map&lt;timestamp,value>>></code>    *<p>    * Note: All other map returning methods make use of this map internally.    * @return map from families to qualifiers to versions    */
+comment|/**    * Map of families to all versions of its qualifiers and values.    *<p>    * Returns a three level Map of the form:    *<code>Map&amp;family,Map&lt;qualifier,Map&lt;timestamp,value&gt;&gt;&gt;</code>    *<p>    * Note: All other map returning methods make use of this map internally.    * @return map from families to qualifiers to versions    */
 specifier|public
 name|NavigableMap
 argument_list|<
@@ -2358,7 +2358,7 @@ operator|.
 name|familyMap
 return|;
 block|}
-comment|/**    * Map of families to their most recent qualifiers and values.    *<p>    * Returns a two level Map of the form:<code>Map&amp;family,Map&lt;qualifier,value>></code>    *<p>    * The most recent version of each qualifier will be used.    * @return map from families to qualifiers and value    */
+comment|/**    * Map of families to their most recent qualifiers and values.    *<p>    * Returns a two level Map of the form:<code>Map&amp;family,Map&lt;qualifier,value&gt;&gt;</code>    *<p>    * The most recent version of each qualifier will be used.    * @return map from families to qualifiers and value    */
 specifier|public
 name|NavigableMap
 argument_list|<
@@ -2571,7 +2571,7 @@ return|return
 name|returnMap
 return|;
 block|}
-comment|/**    * Map of qualifiers to values.    *<p>    * Returns a Map of the form:<code>Map&lt;qualifier,value></code>    * @param family column family to get    * @return map of qualifiers to values    */
+comment|/**    * Map of qualifiers to values.    *<p>    * Returns a Map of the form:<code>Map&lt;qualifier,value&gt;</code>    * @param family column family to get    * @return map of qualifiers to values    */
 specifier|public
 name|NavigableMap
 argument_list|<

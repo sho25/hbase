@@ -8718,7 +8718,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Open asynchronously a region or a set of regions on the region server.    *    * The opening is coordinated by ZooKeeper, and this method requires the znode to be created    *  before being called. As a consequence, this method should be called only from the master.    *<p>    * Different manages states for the region are:<ul>    *<li>region not opened: the region opening will start asynchronously.</li>    *<li>a close is already in progress: this is considered as an error.</li>    *<li>an open is already in progress: this new open request will be ignored. This is important    *  because the Master can do multiple requests if it crashes.</li>    *<li>the region is already opened:  this new open request will be ignored./li>    *</ul>    *</p>    *<p>    * Bulk assign: If there are more than 1 region to open, it will be considered as a bulk assign.    * For a single region opening, errors are sent through a ServiceException. For bulk assign,    * errors are put in the response as FAILED_OPENING.    *</p>    * @param controller the RPC controller    * @param request the request    * @throws ServiceException    */
+comment|/**    * Open asynchronously a region or a set of regions on the region server.    *    * The opening is coordinated by ZooKeeper, and this method requires the znode to be created    *  before being called. As a consequence, this method should be called only from the master.    *<p>    * Different manages states for the region are:    *</p><ul>    *<li>region not opened: the region opening will start asynchronously.</li>    *<li>a close is already in progress: this is considered as an error.</li>    *<li>an open is already in progress: this new open request will be ignored. This is important    *  because the Master can do multiple requests if it crashes.</li>    *<li>the region is already opened:  this new open request will be ignored.</li>    *</ul>    *<p>    * Bulk assign: If there are more than 1 region to open, it will be considered as a bulk assign.    * For a single region opening, errors are sent through a ServiceException. For bulk assign,    * errors are put in the response as FAILED_OPENING.    *</p>    * @param controller the RPC controller    * @param request the request    * @throws ServiceException    */
 annotation|@
 name|Override
 annotation|@
@@ -11053,7 +11053,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Atomically bulk load several HFiles into an open region    * @return true if successful, false is failed but recoverably (no action)    * @throws IOException if failed unrecoverably    */
+comment|/**    * Atomically bulk load several HFiles into an open region    * @return true if successful, false is failed but recoverably (no action)    * @throws ServiceException if failed unrecoverably    */
 annotation|@
 name|Override
 specifier|public

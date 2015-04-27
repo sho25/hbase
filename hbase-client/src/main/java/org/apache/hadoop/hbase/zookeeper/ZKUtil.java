@@ -4829,7 +4829,7 @@ literal|1
 return|;
 block|}
 block|}
-comment|/**    * Async creates the specified node with the specified data.    *    *<p>Throws an exception if the node already exists.    *    *<p>The node created is persistent and open access.    *    * @param zkw zk reference    * @param znode path of node to create    * @param data data of node to create    * @param cb    * @param ctx    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NodeExistsException if node already exists    */
+comment|/**    * Async creates the specified node with the specified data.    *    *<p>Throws an exception if the node already exists.    *    *<p>The node created is persistent and open access.    *    * @param zkw zk reference    * @param znode path of node to create    * @param data data of node to create    * @param cb    * @param ctx    */
 specifier|public
 specifier|static
 name|void
@@ -8539,7 +8539,7 @@ return|return
 name|ke
 return|;
 block|}
-comment|/**    * Recursively print the current state of ZK (non-transactional)    * @param root name of the root directory in zk to print    * @throws KeeperException    */
+comment|/**    * Recursively print the current state of ZK (non-transactional)    * @param root name of the root directory in zk to print    */
 specifier|public
 specifier|static
 name|void

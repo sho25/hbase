@@ -70,7 +70,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Defines how value for specific column is interpreted and provides utility  * methods like compare, add, multiply etc for them. Takes column family, column  * qualifier and return the cell value. Its concrete implementation should  * handle null case gracefully.   * Refer to {@link org.apache.hadoop.hbase.client.coprocessor.LongColumnInterpreter}   * for an example.  *<p>  * Takes two generic parameters and three Message parameters.   * The cell value type of the interpreter is<T>.  * During some computations like sum, average, the return type can be different  * than the cell value data type, for eg, sum of int cell values might overflow  * in case of a int result, we should use Long for its result. Therefore, this  * class mandates to use a different (promoted) data type for result of these  * computations<S>. All computations are performed on the promoted data type  *<S>. There is a conversion method  * {@link ColumnInterpreter#castToReturnType(Object)} which takes a<T> type and  * returns a<S> type.  * The AggregateImplementation uses PB messages to initialize the  * user's ColumnInterpreter implementation, and for sending the responses  * back to AggregationClient.  * @param<T> Cell value data type  * @param<S> Promoted data type  * @param<P> PB message that is used to transport initializer specific bytes  * @param<Q> PB message that is used to transport Cell (<T>) instance  * @param<R> PB message that is used to transport Promoted (<S>) instance  */
+comment|/**  * Defines how value for specific column is interpreted and provides utility  * methods like compare, add, multiply etc for them. Takes column family, column  * qualifier and return the cell value. Its concrete implementation should  * handle null case gracefully.   * Refer to {@link org.apache.hadoop.hbase.client.coprocessor.LongColumnInterpreter}   * for an example.  *<p>  * Takes two generic parameters and three Message parameters.   * The cell value type of the interpreter is&lt;T&gt;.  * During some computations like sum, average, the return type can be different  * than the cell value data type, for eg, sum of int cell values might overflow  * in case of a int result, we should use Long for its result. Therefore, this  * class mandates to use a different (promoted) data type for result of these  * computations&lt;S&gt;. All computations are performed on the promoted data type  *&lt;S&gt;. There is a conversion method  * {@link ColumnInterpreter#castToReturnType(Object)} which takes a&lt;T&gt; type and  * returns a&lt;S&gt; type.  * The AggregateIm&gt;lementation uses PB messages to initialize the  * user's ColumnInterpreter implementation, and for sending the responses  * back to AggregationClient.  * @param T Cell value data type  * @param S Promoted data type  * @param P PB message that is used to transport initializer specific bytes  * @param Q PB message that is used to transport Cell (&lt;T&gt;) instance  * @param R PB message that is used to transport Promoted (&lt;S&gt;) instance  */
 end_comment
 
 begin_class
@@ -179,7 +179,7 @@ name|T
 name|o
 parameter_list|)
 function_decl|;
-comment|/**    * This takes care if either of arguments are null. returns 0 if they are    * equal or both are null;    *<ul>    *<li>>0 if l1> l2 or l1 is not null and l2 is null.    *<li>< 0 if l1< l2 or l1 is null and l2 is not null.    */
+comment|/**    * This takes care if either of arguments are null. returns 0 if they are    * equal or both are null;    *<ul>    *<li>&gt; 0 if l1&gt; l2 or l1 is not null and l2 is null.</li>    *<li>&lt; 0 if l1&lt; l2 or l1 is null and l2 is not null.</li>    *</ul>    */
 specifier|public
 specifier|abstract
 name|int
@@ -194,7 +194,7 @@ name|T
 name|l2
 parameter_list|)
 function_decl|;
-comment|/**    * used for computing average of<S> data values. Not providing the divide    * method that takes two<S> values as it is not needed as of now.    * @param o    * @param l    * @return Average    */
+comment|/**    * used for computing average of&lt;S&gt; data values. Not providing the divide    * method that takes two&lt;S&gt; values as it is not needed as of now.    * @param o    * @param l    * @return Average    */
 specifier|public
 specifier|abstract
 name|double

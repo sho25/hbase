@@ -1253,7 +1253,7 @@ operator|.
 name|origLogSeqNum
 return|;
 block|}
-comment|/**    * Wait for sequence number is assigned& return the assigned value    * @return long the new assigned sequence number    * @throws InterruptedException    */
+comment|/**    * Wait for sequence number is assigned&amp; return the assigned value    * @return long the new assigned sequence number    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public

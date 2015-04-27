@@ -405,7 +405,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/** The delimiter for meta columns for replicaIds> 0 */
+comment|/** The delimiter for meta columns for replicaIds&gt; 0 */
 specifier|protected
 specifier|static
 specifier|final

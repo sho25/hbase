@@ -199,7 +199,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Sleep for period adjusted by passed<code>startTime<code>    * @param startTime Time some task started previous to now.  Time to sleep    * will be docked current time minus passed<code>startTime<code>.    */
+comment|/**    * Sleep for period adjusted by passed<code>startTime</code>    * @param startTime Time some task started previous to now.  Time to sleep    * will be docked current time minus passed<code>startTime</code>.    */
 specifier|public
 name|void
 name|sleep

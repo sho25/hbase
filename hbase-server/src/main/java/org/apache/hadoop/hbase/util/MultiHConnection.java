@@ -542,7 +542,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Randomly pick a connection and process the batch of actions for a given table    * @param actions the actions    * @param tableName table name    * @param results the results array    * @param callback     * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Randomly pick a connection and process the batch of actions for a given table    * @param actions the actions    * @param tableName table name    * @param results the results array    * @param callback     * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(

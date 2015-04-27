@@ -500,7 +500,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This client class is for invoking the aggregate functions deployed on the  * Region Server side via the AggregateService. This class will implement the  * supporting functionality for summing/processing the individual results  * obtained from the AggregateService for each region.  *<p>  * This will serve as the client side handler for invoking the aggregate  * functions.  *<ul>  * For all aggregate functions,  *<li>start row< end row is an essential condition (if they are not  * {@link HConstants#EMPTY_BYTE_ARRAY})  *<li>Column family can't be null. In case where multiple families are  * provided, an IOException will be thrown. An optional column qualifier can  * also be defined.  *<li>For methods to find maximum, minimum, sum, rowcount, it returns the  * parameter type. For average and std, it returns a double value. For row  * count, it returns a long value.  *<p>Call {@link #close()} when done.  */
+comment|/**  * This client class is for invoking the aggregate functions deployed on the  * Region Server side via the AggregateService. This class will implement the  * supporting functionality for summing/processing the individual results  * obtained from the AggregateService for each region.  *<p>  * This will serve as the client side handler for invoking the aggregate  * functions.  * For all aggregate functions,  *<ul>  *<li>start row&lt; end row is an essential condition (if they are not  * {@link HConstants#EMPTY_BYTE_ARRAY})  *<li>Column family can't be null. In case where multiple families are  * provided, an IOException will be thrown. An optional column qualifier can  * also be defined.</li>  *<li>For methods to find maximum, minimum, sum, rowcount, it returns the  * parameter type. For average and std, it returns a double value. For row  * count, it returns a long value.</li>  *</ul>  *<p>Call {@link #close()} when done.  */
 end_comment
 
 begin_class
@@ -608,7 +608,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * It gives the maximum value of a column for a given column family for the    * given range. In case qualifier is null, a max of all values for the given    * family is returned.    * @param tableName    * @param ci    * @param scan    * @return max val<R>    * @throws Throwable    *           The caller is supposed to handle the exception as they are thrown    *& propagated to it.    */
+comment|/**    * It gives the maximum value of a column for a given column family for the    * given range. In case qualifier is null, a max of all values for the given    * family is returned.    * @param tableName    * @param ci    * @param scan    * @return max val&lt;R&gt;    * @throws Throwable    *           The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -681,7 +681,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * It gives the maximum value of a column for a given column family for the    * given range. In case qualifier is null, a max of all values for the given    * family is returned.    * @param table    * @param ci    * @param scan    * @return max val<R>    * @throws Throwable    *           The caller is supposed to handle the exception as they are thrown    *& propagated to it.    */
+comment|/**    * It gives the maximum value of a column for a given column family for the    * given range. In case qualifier is null, a max of all values for the given    * family is returned.    * @param table    * @param ci    * @param scan    * @return max val&lt;&gt;    * @throws Throwable    *           The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -1106,7 +1106,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * It gives the minimum value of a column for a given column family for the    * given range. In case qualifier is null, a min of all values for the given    * family is returned.    * @param tableName    * @param ci    * @param scan    * @return min val<R>    * @throws Throwable    */
+comment|/**    * It gives the minimum value of a column for a given column family for the    * given range. In case qualifier is null, a min of all values for the given    * family is returned.    * @param tableName    * @param ci    * @param scan    * @return min val&lt;R&gt;    * @throws Throwable    */
 specifier|public
 parameter_list|<
 name|R
@@ -1179,7 +1179,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * It gives the minimum value of a column for a given column family for the    * given range. In case qualifier is null, a min of all values for the given    * family is returned.    * @param table    * @param ci    * @param scan    * @return min val<R>    * @throws Throwable    */
+comment|/**    * It gives the minimum value of a column for a given column family for the    * given range. In case qualifier is null, a min of all values for the given    * family is returned.    * @param table    * @param ci    * @param scan    * @return min val&lt;R&gt;    * @throws Throwable    */
 specifier|public
 parameter_list|<
 name|R
@@ -1491,7 +1491,7 @@ name|getMinimum
 argument_list|()
 return|;
 block|}
-comment|/**    * It gives the row count, by summing up the individual results obtained from    * regions. In case the qualifier is null, FirstKeyValueFilter is used to    * optimised the operation. In case qualifier is provided, I can't use the    * filter as it may set the flag to skip to next row, but the value read is    * not of the given filter: in this case, this particular row will not be    * counted ==> an error.    * @param tableName    * @param ci    * @param scan    * @return<R, S>    * @throws Throwable    */
+comment|/**    * It gives the row count, by summing up the individual results obtained from    * regions. In case the qualifier is null, FirstKeyValueFilter is used to    * optimised the operation. In case qualifier is provided, I can't use the    * filter as it may set the flag to skip to next row, but the value read is    * not of the given filter: in this case, this particular row will not be    * counted ==&gt; an error.    * @param tableName    * @param ci    * @param scan    * @return&lt;R, S&gt;    * @throws Throwable    */
 specifier|public
 parameter_list|<
 name|R
@@ -1564,7 +1564,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * It gives the row count, by summing up the individual results obtained from    * regions. In case the qualifier is null, FirstKeyValueFilter is used to    * optimised the operation. In case qualifier is provided, I can't use the    * filter as it may set the flag to skip to next row, but the value read is    * not of the given filter: in this case, this particular row will not be    * counted ==> an error.    * @param table    * @param ci    * @param scan    * @return<R, S>    * @throws Throwable    */
+comment|/**    * It gives the row count, by summing up the individual results obtained from    * regions. In case the qualifier is null, FirstKeyValueFilter is used to    * optimised the operation. In case qualifier is provided, I can't use the    * filter as it may set the flag to skip to next row, but the value read is    * not of the given filter: in this case, this particular row will not be    * counted ==&gt; an error.    * @param table    * @param ci    * @param scan    * @return&lt;R, S&gt;    * @throws Throwable    */
 specifier|public
 parameter_list|<
 name|R
@@ -1843,7 +1843,7 @@ name|getRowNumCount
 argument_list|()
 return|;
 block|}
-comment|/**    * It sums up the value returned from various regions. In case qualifier is    * null, summation of all the column qualifiers in the given family is done.    * @param tableName    * @param ci    * @param scan    * @return sum<S>    * @throws Throwable    */
+comment|/**    * It sums up the value returned from various regions. In case qualifier is    * null, summation of all the column qualifiers in the given family is done.    * @param tableName    * @param ci    * @param scan    * @return sum&lt;S&gt;    * @throws Throwable    */
 specifier|public
 parameter_list|<
 name|R
@@ -1916,7 +1916,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * It sums up the value returned from various regions. In case qualifier is    * null, summation of all the column qualifiers in the given family is done.    * @param table    * @param ci    * @param scan    * @return sum<S>    * @throws Throwable    */
+comment|/**    * It sums up the value returned from various regions. In case qualifier is    * null, summation of all the column qualifiers in the given family is done.    * @param table    * @param ci    * @param scan    * @return sum&lt;S&gt;    * @throws Throwable    */
 specifier|public
 parameter_list|<
 name|R
@@ -2687,7 +2687,7 @@ name|getAvgArgs
 argument_list|()
 return|;
 block|}
-comment|/**    * This is the client side interface/handle for calling the average method for    * a given cf-cq combination. It was necessary to add one more call stack as    * its return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the average and returs the double value.    * @param tableName    * @param ci    * @param scan    * @return<R, S>    * @throws Throwable    */
+comment|/**    * This is the client side interface/handle for calling the average method for    * a given cf-cq combination. It was necessary to add one more call stack as    * its return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the average and returs the double value.    * @param tableName    * @param ci    * @param scan    * @return&lt;R, S&gt;    * @throws Throwable    */
 specifier|public
 parameter_list|<
 name|R
@@ -2768,7 +2768,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * This is the client side interface/handle for calling the average method for    * a given cf-cq combination. It was necessary to add one more call stack as    * its return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the average and returs the double value.    * @param table    * @param ci    * @param scan    * @return<R, S>    * @throws Throwable    */
+comment|/**    * This is the client side interface/handle for calling the average method for    * a given cf-cq combination. It was necessary to add one more call stack as    * its return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the average and returs the double value.    * @param table    * @param ci    * @param scan    * @return&lt;R, S&gt;    * @throws Throwable    */
 specifier|public
 parameter_list|<
 name|R
@@ -3409,7 +3409,7 @@ name|getStdParams
 argument_list|()
 return|;
 block|}
-comment|/**    * This is the client side interface/handle for calling the std method for a    * given cf-cq combination. It was necessary to add one more call stack as its    * return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the std and returns the double value.    * @param tableName    * @param ci    * @param scan    * @return<R, S>    * @throws Throwable    */
+comment|/**    * This is the client side interface/handle for calling the std method for a    * given cf-cq combination. It was necessary to add one more call stack as its    * return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the std and returns the double value.    * @param tableName    * @param ci    * @param scan    * @return&lt;R, S&gt;    * @throws Throwable    */
 specifier|public
 parameter_list|<
 name|R
@@ -3480,7 +3480,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * This is the client side interface/handle for calling the std method for a    * given cf-cq combination. It was necessary to add one more call stack as its    * return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the std and returns the double value.    * @param table    * @param ci    * @param scan    * @return<R, S>    * @throws Throwable    */
+comment|/**    * This is the client side interface/handle for calling the std method for a    * given cf-cq combination. It was necessary to add one more call stack as its    * return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the std and returns the double value.    * @param table    * @param ci    * @param scan    * @return&lt;R, S&gt;    * @throws Throwable    */
 specifier|public
 parameter_list|<
 name|R

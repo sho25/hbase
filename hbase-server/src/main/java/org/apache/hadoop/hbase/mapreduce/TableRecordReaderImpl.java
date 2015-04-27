@@ -689,7 +689,7 @@ operator|=
 name|scan
 expr_stmt|;
 block|}
-comment|/**    * Build the scanner. Not done in constructor to allow for extension.    *    * @throws IOException, InterruptedException    */
+comment|/**    * Build the scanner. Not done in constructor to allow for extension.    *    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 name|void
 name|initialize

@@ -170,7 +170,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The LruHashMap is a memory-aware HashMap with a configurable maximum  * memory footprint.  *<p>  * It maintains an ordered list of all entries in the map ordered by  * access time.  When space needs to be freed becase the maximum has been  * reached, or the application has asked to free memory, entries will be  * evicted according to an LRU (least-recently-used) algorithm.  That is,  * those entries which have not been accessed the longest will be evicted  * first.  *<p>  * Both the Key and Value Objects used for this class must extend  *<code>HeapSize</code> in order to track heap usage.  *<p>  * This class contains internal synchronization and is thread-safe.  */
+comment|/**  * The LruHashMap is a memory-aware HashMap with a configurable maximum  * memory footprint.  *<p>  * It maintains an ordered list of all entries in the/ map ordered by  * access time.  When space needs to be freed becase the maximum has been  * reached, or the application has asked to free memory, entries will be  * evicted according to an LRU (least-recently-used) algorithm.  That is,  * those entries which have not been accessed the longest will be evicted  * first.  *<p>  * Both the Key and Value Objects used for this class must extend  *<code>HeapSize</code> in order to track heap usage.  *<p>  * This class contains internal synchronization and is thread-safe.  */
 end_comment
 
 begin_class
@@ -360,7 +360,7 @@ name|missCount
 init|=
 literal|0
 decl_stmt|;
-comment|/**    * Constructs a new, empty map with the specified initial capacity,    * load factor, and maximum memory usage.    *    * @param initialCapacity the initial capacity    * @param loadFactor the load factor    * @param maxMemUsage the maximum total memory usage    * @throws IllegalArgumentException if the initial capacity is less than one    * @throws IllegalArgumentException if the initial capacity is greater than    * the maximum capacity    * @throws IllegalArgumentException if the load factor is<= 0    * @throws IllegalArgumentException if the max memory usage is too small    * to support the base overhead    */
+comment|/**    * Constructs a new, empty map with the specified initial capacity,    * load factor, and maximum memory usage.    *    * @param initialCapacity the initial capacity    * @param loadFactor the load factor    * @param maxMemUsage the maximum total memory usage    * @throws IllegalArgumentException if the initial capacity is less than one    * @throws IllegalArgumentException if the initial capacity is greater than    * the maximum capacity    * @throws IllegalArgumentException if the load factor is&lt;= 0    * @throws IllegalArgumentException if the max memory usage is too small    * to support the base overhead    */
 specifier|public
 name|LruHashMap
 parameter_list|(
@@ -503,7 +503,7 @@ name|init
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Constructs a new, empty map with the specified initial capacity and    * load factor, and default maximum memory usage.    *    * @param initialCapacity the initial capacity    * @param loadFactor the load factor    * @throws IllegalArgumentException if the initial capacity is less than one    * @throws IllegalArgumentException if the initial capacity is greater than    * the maximum capacity    * @throws IllegalArgumentException if the load factor is<= 0    */
+comment|/**    * Constructs a new, empty map with the specified initial capacity and    * load factor, and default maximum memory usage.    *    * @param initialCapacity the initial capacity    * @param loadFactor the load factor    * @throws IllegalArgumentException if the initial capacity is less than one    * @throws IllegalArgumentException if the initial capacity is greater than    * the maximum capacity    * @throws IllegalArgumentException if the load factor is&lt;= 0    */
 specifier|public
 name|LruHashMap
 parameter_list|(

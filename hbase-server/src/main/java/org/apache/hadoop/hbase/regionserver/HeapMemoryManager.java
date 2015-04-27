@@ -1131,7 +1131,7 @@ operator|.
 name|tunerOn
 return|;
 block|}
-comment|/**    * @return heap occupancy percentage, 0<= n<= 1    */
+comment|/**    * @return heap occupancy percentage, 0&lt;= n&lt;= 1    */
 specifier|public
 name|float
 name|getHeapOccupancyPercent

@@ -141,7 +141,7 @@ block|,
 literal|127
 block|}
 decl_stmt|;
-comment|/********************* long -> bytes **************************/
+comment|/********************* long -&gt; bytes **************************/
 specifier|public
 specifier|static
 name|int
@@ -362,7 +362,7 @@ return|return
 name|numBytes
 return|;
 block|}
-comment|/******************** bytes -> long **************************/
+comment|/******************** bytes -&gt; long **************************/
 specifier|public
 specifier|static
 name|long

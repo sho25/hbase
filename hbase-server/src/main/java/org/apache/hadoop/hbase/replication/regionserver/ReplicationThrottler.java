@@ -52,7 +52,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Per-peer per-node throttling controller for replication: enabled if  * bandwidth> 0, a cycle = 100ms, by throttling we guarantee data pushed  * to peer within each cycle won't exceed 'bandwidth' bytes  */
+comment|/**  * Per-peer per-node throttling controller for replication: enabled if  * bandwidth&gt; 0, a cycle = 100ms, by throttling we guarantee data pushed  * to peer within each cycle won't exceed 'bandwidth' bytes  */
 end_comment
 
 begin_class

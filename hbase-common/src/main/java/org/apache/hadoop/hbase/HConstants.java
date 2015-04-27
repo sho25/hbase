@@ -3013,7 +3013,7 @@ name|BUCKET_CACHE_IOENGINE_KEY
 init|=
 literal|"hbase.bucketcache.ioengine"
 decl_stmt|;
-comment|/**    * When using bucket cache, this is a float that EITHER represents a percentage of total heap    * memory size to give to the cache (if< 1.0) OR, it is the capacity in megabytes of the cache.    */
+comment|/**    * When using bucket cache, this is a float that EITHER represents a percentage of total heap    * memory size to give to the cache (if&lt; 1.0) OR, it is the capacity in    * megabytes of the cache.    */
 specifier|public
 specifier|static
 specifier|final

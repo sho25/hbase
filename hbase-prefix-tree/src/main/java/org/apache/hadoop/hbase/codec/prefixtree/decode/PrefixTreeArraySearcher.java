@@ -138,7 +138,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Searcher extends the capabilities of the Scanner + ReversibleScanner to add the ability to  * position itself on a requested Cell without scanning through cells before it. The PrefixTree is  * set up to be a Trie of rows, so finding a particular row is extremely cheap.  *<p/>  * Once it finds the row, it does a binary search through the cells inside the row, which is not as  * fast as the trie search, but faster than iterating through every cell like existing block  * formats  * do. For this reason, this implementation is targeted towards schemas where rows are narrow  * enough  * to have several or many per block, and where you are generally looking for the entire row or  * the  * first cell. It will still be fast for wide rows or point queries, but could be improved upon.  */
+comment|/**  *<p>  * Searcher extends the capabilities of the Scanner + ReversibleScanner to add the ability to  * position itself on a requested Cell without scanning through cells before it. The PrefixTree is  * set up to be a Trie of rows, so finding a particular row is extremely cheap.  *</p>  * Once it finds the row, it does a binary search through the cells inside the row, which is not as  * fast as the trie search, but faster than iterating through every cell like existing block  * formats  * do. For this reason, this implementation is targeted towards schemas where rows are narrow  * enough  * to have several or many per block, and where you are generally looking for the entire row or  * the  * first cell. It will still be fast for wide rows or point queries, but could be improved upon.  */
 end_comment
 
 begin_class
@@ -1122,7 +1122,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/****************** complete seek when token mismatch ******************/
-comment|/**    * @param searcherIsAfterInputKey<0: input key is before the searcher's position<br/>    *>0: input key is after the searcher's position    */
+comment|/**    * @param searcherIsAfterInputKey&lt;0: input key is before the searcher's position<br/>    *&gt;0: input key is after the searcher's position    */
 specifier|protected
 name|CellScannerPosition
 name|fixRowTokenMissReverse
@@ -1217,7 +1217,7 @@ return|;
 block|}
 block|}
 block|}
-comment|/**    * @param searcherIsAfterInputKey<0: input key is before the searcher's position<br/>    *>0: input key is after the searcher's position    */
+comment|/**    * @param searcherIsAfterInputKey&lt;0: input key is before the searcher's position<br>    *&gt;0: input key is after the searcher's position    */
 specifier|protected
 name|CellScannerPosition
 name|fixRowTokenMissForward

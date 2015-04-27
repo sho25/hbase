@@ -5338,7 +5338,7 @@ name|i
 operator|)
 return|;
 block|}
-comment|/**    * Reads a zero-compressed encoded long from input buffer and returns it.    * @param buffer Binary array    * @param offset Offset into array at which vint begins.    * @throws java.io.IOException e    * @return deserialized long from buffer.    * @deprecated Use {@link #readAsVLong(byte[], int)} instead.    */
+comment|/**    * Reads a zero-compressed encoded long from input buffer and returns it.    * @param buffer Binary array    * @param offset Offset into array at which vint begins.    * @throws java.io.IOException e    * @return deserialized long from buffer.    * @deprecated Use {@link #readAsVLong(byte[],int)} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5479,7 +5479,7 @@ name|i
 operator|)
 return|;
 block|}
-comment|/**    * @param left left operand    * @param right right operand    * @return 0 if equal,< 0 if left is less than right, etc.    */
+comment|/**    * @param left left operand    * @param right right operand    * @return 0 if equal,&lt; 0 if left is less than right, etc.    */
 specifier|public
 specifier|static
 name|int
@@ -5521,7 +5521,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * Lexicographically compare two arrays.    *    * @param buffer1 left operand    * @param buffer2 right operand    * @param offset1 Where to start comparing in the left buffer    * @param offset2 Where to start comparing in the right buffer    * @param length1 How much to compare from the left buffer    * @param length2 How much to compare from the right buffer    * @return 0 if equal,< 0 if left is less than right, etc.    */
+comment|/**    * Lexicographically compare two arrays.    *    * @param buffer1 left operand    * @param buffer2 right operand    * @param offset1 Where to start comparing in the left buffer    * @param offset2 Where to start comparing in the right buffer    * @param length1 How much to compare from the left buffer    * @param length2 How much to compare from the right buffer    * @return 0 if equal,&lt; 0 if left is less than right, etc.    */
 specifier|public
 specifier|static
 name|int
@@ -8937,7 +8937,7 @@ literal|1
 operator|)
 return|;
 block|}
-comment|/**    * Bytewise binary increment/deincrement of long contained in byte array    * on given amount.    *    * @param value - array of bytes containing long (length<= SIZEOF_LONG)    * @param amount value will be incremented on (deincremented if negative)    * @return array of bytes containing incremented long (length == SIZEOF_LONG)    */
+comment|/**    * Bytewise binary increment/deincrement of long contained in byte array    * on given amount.    *    * @param value - array of bytes containing long (length&lt;= SIZEOF_LONG)    * @param amount value will be incremented on (deincremented if negative)    * @return array of bytes containing incremented long (length == SIZEOF_LONG)    */
 specifier|public
 specifier|static
 name|byte

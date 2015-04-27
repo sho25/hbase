@@ -71,7 +71,7 @@ name|void
 name|resetToBeforeFirstEntry
 parameter_list|()
 function_decl|;
-comment|/**    * Do everything within this scanner's power to find the key. Look forward and backwards.    *<p/>    * Abort as soon as we know it can't be found, possibly leaving the Searcher in an invalid state.    *<p/>    * @param key position the CellScanner exactly on this key    * @return true if the cell existed and getCurrentCell() holds a valid cell    */
+comment|/**    *<p>    * Do everything within this scanner's power to find the key. Look forward and backwards.    *</p>    *<p>    * Abort as soon as we know it can't be found, possibly leaving the Searcher in an invalid state.    *</p>    * @param key position the CellScanner exactly on this key    * @return true if the cell existed and getCurrentCell() holds a valid cell    */
 name|boolean
 name|positionAt
 parameter_list|(
@@ -79,7 +79,7 @@ name|Cell
 name|key
 parameter_list|)
 function_decl|;
-comment|/**    * Same as positionAt(..), but go to the extra effort of finding the previous key if there's no    * exact match.    *<p/>    * @param key position the CellScanner on this key or the closest cell before    * @return AT if exact match<br/>    *         BEFORE if on last cell before key<br/>    *         BEFORE_FIRST if key was before the first cell in this scanner's scope    */
+comment|/**    *<p>    * Same as positionAt(..), but go to the extra effort of finding the previous key if there's no    * exact match.    *</p>    * @param key position the CellScanner on this key or the closest cell before    * @return AT if exact match<br/>    *         BEFORE if on last cell before key<br/>    *         BEFORE_FIRST if key was before the first cell in this scanner's scope    */
 name|CellScannerPosition
 name|positionAtOrBefore
 parameter_list|(
@@ -87,7 +87,7 @@ name|Cell
 name|key
 parameter_list|)
 function_decl|;
-comment|/**    * Same as positionAt(..), but go to the extra effort of finding the next key if there's no exact    * match.    *<p/>    * @param key position the CellScanner on this key or the closest cell after    * @return AT if exact match<br/>    *         AFTER if on first cell after key<br/>    *         AFTER_LAST if key was after the last cell in this scanner's scope    */
+comment|/**    *<p>    * Same as positionAt(..), but go to the extra effort of finding the next key if there's no exact    * match.    *</p>    * @param key position the CellScanner on this key or the closest cell after    * @return AT if exact match<br/>    *         AFTER if on first cell after key<br/>    *         AFTER_LAST if key was after the last cell in this scanner's scope    */
 name|CellScannerPosition
 name|positionAtOrAfter
 parameter_list|(
@@ -95,7 +95,7 @@ name|Cell
 name|key
 parameter_list|)
 function_decl|;
-comment|/**    * Note: Added for backwards compatibility with    * {@link org.apache.hadoop.hbase.regionserver.KeyValueScanner#reseek}    *<p/>    * Look for the key, but only look after the current position. Probably not needed for an    * efficient tree implementation, but is important for implementations without random access such    * as unencoded KeyValue blocks.    *<p/>    * @param key position the CellScanner exactly on this key    * @return true if getCurrent() holds a valid cell    */
+comment|/**    *<p>    * Note: Added for backwards compatibility with    * {@link org.apache.hadoop.hbase.regionserver.KeyValueScanner#reseek}    *</p><p>    * Look for the key, but only look after the current position. Probably not needed for an    * efficient tree implementation, but is important for implementations without random access such    * as unencoded KeyValue blocks.    *</p>    * @param key position the CellScanner exactly on this key    * @return true if getCurrent() holds a valid cell    */
 name|boolean
 name|seekForwardTo
 parameter_list|(
@@ -103,7 +103,7 @@ name|Cell
 name|key
 parameter_list|)
 function_decl|;
-comment|/**    * Same as seekForwardTo(..), but go to the extra effort of finding the next key if there's no    * exact match.    *<p/>    * @param key    * @return AT if exact match<br/>    *         AFTER if on first cell after key<br/>    *         AFTER_LAST if key was after the last cell in this scanner's scope    */
+comment|/**    *<p>    * Same as seekForwardTo(..), but go to the extra effort of finding the next key if there's no    * exact match.    *</p>    * @param key    * @return AT if exact match<br>    *         AFTER if on first cell after key<br>    *         AFTER_LAST if key was after the last cell in this scanner's scope    */
 name|CellScannerPosition
 name|seekForwardToOrBefore
 parameter_list|(
@@ -111,7 +111,7 @@ name|Cell
 name|key
 parameter_list|)
 function_decl|;
-comment|/**    * Same as seekForwardTo(..), but go to the extra effort of finding the next key if there's no    * exact match.    *<p/>    * @param key    * @return AT if exact match<br/>    *         AFTER if on first cell after key<br/>    *         AFTER_LAST if key was after the last cell in this scanner's scope    */
+comment|/**    *<p>    * Same as seekForwardTo(..), but go to the extra effort of finding the next key if there's no    * exact match.    *</p>    * @param key    * @return AT if exact match<br>    *         AFTER if on first cell after key<br>    *         AFTER_LAST if key was after the last cell in this scanner's scope    */
 name|CellScannerPosition
 name|seekForwardToOrAfter
 parameter_list|(
@@ -119,7 +119,7 @@ name|Cell
 name|key
 parameter_list|)
 function_decl|;
-comment|/**    * Note: This may not be appropriate to have in the interface.  Need to investigate.    *<p/>    * Position the scanner in an invalid state after the last cell: CellScannerPosition.AFTER_LAST.    * This is used by tests and for handling certain edge cases.    */
+comment|/**    *<p>    * Note: This may not be appropriate to have in the interface.  Need to investigate.    *</p>    * Position the scanner in an invalid state after the last cell: CellScannerPosition.AFTER_LAST.    * This is used by tests and for handling certain edge cases.    */
 name|void
 name|positionAfterLastCell
 parameter_list|()

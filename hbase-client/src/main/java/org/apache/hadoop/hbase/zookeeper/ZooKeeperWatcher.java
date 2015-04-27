@@ -2501,7 +2501,7 @@ argument_list|()
 expr_stmt|;
 comment|// no-op
 block|}
-comment|/**    * Close the connection to ZooKeeper.    *    * @throws InterruptedException    */
+comment|/**    * Close the connection to ZooKeeper.    *    */
 annotation|@
 name|Override
 specifier|public

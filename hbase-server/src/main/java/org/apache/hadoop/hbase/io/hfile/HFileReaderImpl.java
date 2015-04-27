@@ -4460,7 +4460,7 @@ name|seekBefore
 argument_list|)
 return|;
 block|}
-comment|/**      * @param v      * @return True if v< 0 or v> current block buffer limit.      */
+comment|/**      * @param v      * @return True if v&lt; 0 or v&gt; current block buffer limit.      */
 specifier|protected
 specifier|final
 name|boolean

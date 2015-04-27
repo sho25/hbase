@@ -198,7 +198,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Instance of an HBase ServerName.  * A server name is used uniquely identifying a server instance in a cluster and is made  * of the combination of hostname, port, and startcode.  The startcode distingushes restarted  * servers on same hostname and port (startcode is usually timestamp of server startup). The  * {@link #toString()} format of ServerName is safe to use in the  filesystem and as znode name  * up in ZooKeeper.  Its format is:  *<code>&lt;hostname> '{@link #SERVERNAME_SEPARATOR}'&lt;port> '{@link #SERVERNAME_SEPARATOR}'&lt;startcode></code>.  * For example, if hostname is<code>www.example.org</code>, port is<code>1234</code>,  * and the startcode for the regionserver is<code>1212121212</code>, then  * the {@link #toString()} would be<code>www.example.org,1234,1212121212</code>.  *   *<p>You can obtain a versioned serialized form of this class by calling  * {@link #getVersionedBytes()}.  To deserialize, call {@link #parseVersionedServerName(byte[])}  *   *<p>Immutable.  */
+comment|/**  * Instance of an HBase ServerName.  * A server name is used uniquely identifying a server instance in a cluster and is made  * of the combination of hostname, port, and startcode.  The startcode distingushes restarted  * servers on same hostname and port (startcode is usually timestamp of server startup). The  * {@link #toString()} format of ServerName is safe to use in the  filesystem and as znode name  * up in ZooKeeper.  Its format is:  *<code>&lt;hostname&gt; '{@link #SERVERNAME_SEPARATOR}'&lt;port&gt;  * '{@link #SERVERNAME_SEPARATOR}'&lt;startcode&gt;</code>.  * For example, if hostname is<code>www.example.org</code>, port is<code>1234</code>,  * and the startcode for the regionserver is<code>1212121212</code>, then  * the {@link #toString()} would be<code>www.example.org,1234,1212121212</code>.  *   *<p>You can obtain a versioned serialized form of this class by calling  * {@link #getVersionedBytes()}.  To deserialize, call {@link #parseVersionedServerName(byte[])}  *   *<p>Immutable.  */
 end_comment
 
 begin_class
@@ -858,7 +858,7 @@ return|return
 name|startcode
 return|;
 block|}
-comment|/**    * For internal use only.    * @param hostName    * @param port    * @param startcode    * @return Server name made of the concatenation of hostname, port and    * startcode formatted as<code>&lt;hostname> ','&lt;port> ','&lt;startcode></code>    */
+comment|/**    * For internal use only.    * @param hostName    * @param port    * @param startcode    * @return Server name made of the concatenation of hostname, port and    * startcode formatted as<code>&lt;hostname&gt; ','&lt;port&gt; ','&lt;startcode&gt;</code>    */
 specifier|static
 name|String
 name|getServerName
@@ -936,7 +936,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * @param hostAndPort String in form of&lt;hostname> ':'&lt;port>    * @param startcode    * @return Server name made of the concatenation of hostname, port and    * startcode formatted as<code>&lt;hostname> ','&lt;port> ','&lt;startcode></code>    */
+comment|/**    * @param hostAndPort String in form of&lt;hostname&gt; ':'&lt;port&gt;    * @param startcode    * @return Server name made of the concatenation of hostname, port and    * startcode formatted as<code>&lt;hostname&gt; ','&lt;port&gt; ','&lt;startcode&gt;</code>    */
 specifier|public
 specifier|static
 name|String
@@ -1394,7 +1394,7 @@ name|NON_STARTCODE
 argument_list|)
 return|;
 block|}
-comment|/**    * @param str Either an instance of {@link ServerName#toString()} or a    * "'<hostname>' ':' '<port>'".    * @return A ServerName instance.    */
+comment|/**    * @param str Either an instance of {@link ServerName#toString()} or a    * "'&lt;hostname&gt;' ':' '&lt;port&gt;'".    * @return A ServerName instance.    */
 specifier|public
 specifier|static
 name|ServerName

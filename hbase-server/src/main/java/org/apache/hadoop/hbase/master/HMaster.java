@@ -10571,7 +10571,7 @@ operator|=
 name|b
 expr_stmt|;
 block|}
-comment|/**    * Report whether this master has started initialization and is about to do meta region assignment    * @return true if master is in initialization& about to assign hbase:meta regions    */
+comment|/**    * Report whether this master has started initialization and is about to do meta region assignment    * @return true if master is in initialization&amp; about to assign hbase:meta regions    */
 specifier|public
 name|boolean
 name|isInitializationStartsMetaRegionAssignment

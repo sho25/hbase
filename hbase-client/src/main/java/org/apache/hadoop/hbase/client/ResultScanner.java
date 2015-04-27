@@ -100,7 +100,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param nbRows number of rows to return    * @return Between zero and<param>nbRows</param> Results    * @throws IOException e    */
+comment|/**    * @param nbRows number of rows to return    * @return Between zero and nbRows results    * @throws IOException e    */
 name|Result
 index|[]
 name|next

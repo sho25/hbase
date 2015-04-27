@@ -392,7 +392,7 @@ return|return
 name|foundABigStore
 return|;
 block|}
-comment|/**    * @return Region max size or<code>count of regions squared * flushsize, which ever is    * smaller; guard against there being zero regions on this server.    */
+comment|/**    * @return Region max size or<code>count of regions squared * flushsize</code>,    * which ever is smaller; guard against there being zero regions on this server.    */
 specifier|protected
 name|long
 name|getSizeToCheck

@@ -607,7 +607,7 @@ return|return
 name|user
 return|;
 block|}
-comment|/**    * Executes the given action as the login user    * @param action    * @return the result of the action    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Executes the given action as the login user    * @param action    * @return the result of the action    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(

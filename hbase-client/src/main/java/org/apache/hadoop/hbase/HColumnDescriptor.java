@@ -451,7 +451,7 @@ name|EVICT_BLOCKS_ON_CLOSE
 init|=
 literal|"EVICT_BLOCKS_ON_CLOSE"
 decl_stmt|;
-comment|/**    * Key for cache data into L1 if cache is set up with more than one tier.    * To set in the shell, do something like this:    *<code>hbase(main):003:0> create 't',    *    {NAME => 't', CONFIGURATION => {CACHE_DATA_IN_L1 => 'true'}}</code>    */
+comment|/**    * Key for cache data into L1 if cache is set up with more than one tier.    * To set in the shell, do something like this:    *<code>hbase(main):003:0&gt; create 't',    *    {NAME =&gt; 't', CONFIGURATION =&gt; {CACHE_DATA_IN_L1 =&gt; 'true'}}</code>    */
 specifier|public
 specifier|static
 specifier|final
@@ -540,7 +540,7 @@ name|MIN_VERSIONS
 init|=
 literal|"MIN_VERSIONS"
 decl_stmt|;
-comment|/**    * Retain all cells across flushes and compactions even if they fall behind    * a delete tombstone. To see all retained cells, do a 'raw' scan; see    * Scan#setRaw or pass RAW => true attribute in the shell.    */
+comment|/**    * Retain all cells across flushes and compactions even if they fall behind    * a delete tombstone. To see all retained cells, do a 'raw' scan; see    * Scan#setRaw or pass RAW =&gt; true attribute in the shell.    */
 specifier|public
 specifier|static
 specifier|final

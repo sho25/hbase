@@ -48,7 +48,7 @@ literal|"Should never be here."
 argument_list|)
 throw|;
 block|}
-comment|/**    * Wraps a byte array in a {@link ByteString} without copying it.    */
+comment|/**    * Wraps a byte array in a {@link ByteString} without copying it.    * @param array array to be wrapped    * @return wrapped array    */
 specifier|public
 specifier|static
 name|ByteString
@@ -68,7 +68,7 @@ name|array
 argument_list|)
 return|;
 block|}
-comment|/**    * Wraps a subset of a byte array in a {@link ByteString} without copying it.    */
+comment|/**    * Wraps a subset of a byte array in a {@link ByteString} without copying it.    * @param array array to be wrapped    * @param offset from    * @param length length    * @return wrapped array    */
 specifier|public
 specifier|static
 name|ByteString

@@ -236,7 +236,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Client scanner for small reversed scan. Generally, only one RPC is called to fetch the  * scan results, unless the results cross multiple regions or the row count of  * results exceed the caching.  *<p/>  * For small scan, it will get better performance than {@link ReversedClientScanner}  */
+comment|/**  *<p>  * Client scanner for small reversed scan. Generally, only one RPC is called to fetch the  * scan results, unless the results cross multiple regions or the row count of  * results exceed the caching.  *</p>  * For small scan, it will get better performance than {@link ReversedClientScanner}  */
 end_comment
 
 begin_class

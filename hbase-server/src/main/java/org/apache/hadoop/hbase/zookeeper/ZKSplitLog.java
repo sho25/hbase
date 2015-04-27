@@ -702,7 +702,7 @@ name|isCorrupt
 return|;
 block|}
 comment|/*    * Following methods come from SplitLogManager    */
-comment|/**    * check if /hbase/recovering-regions/<current region encoded name> exists. Returns true if exists    * and set watcher as well.    * @param zkw    * @param regionEncodedName region encode name    * @return true when /hbase/recovering-regions/<current region encoded name> exists    * @throws KeeperException    */
+comment|/**    * check if /hbase/recovering-regions/&lt;current region encoded name&gt;    * exists. Returns true if exists and set watcher as well.    * @param zkw    * @param regionEncodedName region encode name    * @return true when /hbase/recovering-regions/&lt;current region encoded name&gt; exists    * @throws KeeperException    */
 specifier|public
 specifier|static
 name|boolean
@@ -917,7 +917,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This function is used in distributedLogReplay to fetch last flushed sequence id from ZK    * @param zkw    * @param serverName    * @param encodedRegionName    * @return the last flushed sequence ids recorded in ZK of the region for<code>serverName<code>    * @throws IOException    */
+comment|/**    * This function is used in distributedLogReplay to fetch last flushed sequence id from ZK    * @param zkw    * @param serverName    * @param encodedRegionName    * @return the last flushed sequence ids recorded in ZK of the region for<code>serverName</code>    * @throws IOException    */
 specifier|public
 specifier|static
 name|RegionStoreSequenceIds

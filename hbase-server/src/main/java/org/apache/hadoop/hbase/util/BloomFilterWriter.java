@@ -62,7 +62,7 @@ name|BloomFilterWriter
 extends|extends
 name|BloomFilterBase
 block|{
-comment|/** Compact the Bloom filter before writing metadata& data to disk. */
+comment|/** Compact the Bloom filter before writing metadata&amp; data to disk. */
 name|void
 name|compactBloom
 parameter_list|()

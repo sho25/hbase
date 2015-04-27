@@ -795,7 +795,7 @@ name|os
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * The following methods write data for each cell in the row, mostly consisting of indexes or    * offsets into the timestamp/column data structures that are written in the middle of the block.    * We use {@link UFIntTool} to encode these indexes/offsets to allow random access during a binary    * search of a particular column/timestamp combination.    *<p/>    * Branch nodes will not have any data in these sections.    */
+comment|/**    * The following methods write data for each cell in the row, mostly consisting of indexes or    * offsets into the timestamp/column data structures that are written in the middle of the block.    * We use {@link UFIntTool} to encode these indexes/offsets to allow random access during a binary    * search of a particular column/timestamp combination.    *<p>    * Branch nodes will not have any data in these sections.    *</p>    */
 specifier|protected
 name|void
 name|writeFamilyNodeOffsets

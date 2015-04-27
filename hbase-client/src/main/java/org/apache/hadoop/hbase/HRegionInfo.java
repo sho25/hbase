@@ -396,7 +396,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Information about a region. A region is a range of keys in the whole keyspace of a table, an  * identifier (a timestamp) for differentiating between subset ranges (after region split)  * and a replicaId for differentiating the instance for the same range and some status information  * about the region.  *  * The region has a unique name which consists of the following fields:  *<li> tableName   : The name of the table</li>  *<li> startKey    : The startKey for the region.</li>  *<li> regionId    : A timestamp when the region is created.</li>  *<li> replicaId   : An id starting from 0 to differentiate replicas of the same region range  * but hosted in separated servers. The same region range can be hosted in multiple locations.</li>  *<li> encodedName : An MD5 encoded string for the region name.</li>  *  *<br> Other than the fields in the region name, region info contains:  *<li> endKey      : the endKey for the region (exclusive)</li>  *<li> split       : Whether the region is split</li>  *<li> offline     : Whether the region is offline</li>  *  * In 0.98 or before, a list of table's regions would fully cover the total keyspace, and at any  * point in time, a row key always belongs to a single region, which is hosted in a single server.  * In 0.99+, a region can have multiple instances (called replicas), and thus a range (or row) can  * correspond to multiple HRegionInfo's. These HRI's share the same fields however except the  * replicaId field. If the replicaId is not set, it defaults to 0, which is compatible with the  * previous behavior of a range corresponding to 1 region.  */
+comment|/**  * Information about a region. A region is a range of keys in the whole keyspace of a table, an  * identifier (a timestamp) for differentiating between subset ranges (after region split)  * and a replicaId for differentiating the instance for the same range and some status information  * about the region.  *  * The region has a unique name which consists of the following fields:  *<ul>  *<li> tableName   : The name of the table</li>  *<li> startKey    : The startKey for the region.</li>  *<li> regionId    : A timestamp when the region is created.</li>  *<li> replicaId   : An id starting from 0 to differentiate replicas of the same region range  * but hosted in separated servers. The same region range can be hosted in multiple locations.</li>  *<li> encodedName : An MD5 encoded string for the region name.</li>  *</ul>  *  *<br> Other than the fields in the region name, region info contains:  *<ul>  *<li> endKey      : the endKey for the region (exclusive)</li>  *<li> split       : Whether the region is split</li>  *<li> offline     : Whether the region is offline</li>  *</ul>  *  * In 0.98 or before, a list of table's regions would fully cover the total keyspace, and at any  * point in time, a row key always belongs to a single region, which is hosted in a single server.  * In 0.99+, a region can have multiple instances (called replicas), and thus a range (or row) can  * correspond to multiple HRegionInfo's. These HRI's share the same fields however except the  * replicaId field. If the replicaId is not set, it defaults to 0, which is compatible with the  * previous behavior of a range corresponding to 1 region.  */
 end_comment
 
 begin_class
@@ -2712,7 +2712,7 @@ operator|.
 name|tableName
 return|;
 block|}
-comment|/**    * Returns true if the given inclusive range of rows is fully contained    * by this region. For example, if the region is foo,a,g and this is    * passed ["b","c"] or ["a","c"] it will return true, but if this is passed    * ["b","z"] it will return false.    * @throws IllegalArgumentException if the range passed is invalid (ie end< start)    */
+comment|/**    * Returns true if the given inclusive range of rows is fully contained    * by this region. For example, if the region is foo,a,g and this is    * passed ["b","c"] or ["a","c"] it will return true, but if this is passed    * ["b","z"] it will return false.    * @throws IllegalArgumentException if the range passed is invalid (ie. end&lt; start)    */
 specifier|public
 name|boolean
 name|containsRange
@@ -4505,7 +4505,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * Extract a HRegionInfo and ServerName from catalog table {@link Result}.    * @param r Result to pull from    * @return A pair of the {@link HRegionInfo} and the {@link ServerName}    * (or null for server address if no address set in hbase:meta).    * @throws IOException    * @deprecated use MetaTableAccessor methods for interacting with meta layouts    */
+comment|/**    * Extract a HRegionInfo and ServerName from catalog table {@link Result}.    * @param r Result to pull from    * @return A pair of the {@link HRegionInfo} and the {@link ServerName}    * (or null for server address if no address set in hbase:meta).    * @deprecated use MetaTableAccessor methods for interacting with meta layouts    */
 annotation|@
 name|Deprecated
 specifier|public

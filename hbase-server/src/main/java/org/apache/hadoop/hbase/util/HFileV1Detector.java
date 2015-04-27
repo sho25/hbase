@@ -490,7 +490,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tool to detect presence of any HFileV1 in the given directory. It prints all such regions which  * have such files.  *<p>  * To print the help section of the tool:  *<ul>  *<li>./bin/hbase org.apache.hadoop.hbase.util.HFileV1Detector --h or,  *<li>java -cp `hbase classpath` org.apache.hadoop.hbase.util.HFileV1Detector --h  *</ul>  * It also supports -h, --help, -help options.  *</p>  */
+comment|/**  * Tool to detect presence of any HFileV1 in the given directory. It prints all such regions which  * have such files.  *<p>  * To print the help section of the tool:  *</p>  *<ul>  *<li>./bin/hbase org.apache.hadoop.hbase.util.HFileV1Detector --h or,</li>  *<li>java -cp `hbase classpath` org.apache.hadoop.hbase.util.HFileV1Detector --h</li>  *</ul>  *<p>  * It also supports -h, --help, -help options.  *</p>  */
 end_comment
 
 begin_class

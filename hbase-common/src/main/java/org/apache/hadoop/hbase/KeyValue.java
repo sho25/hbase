@@ -322,7 +322,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An HBase Key/Value. This is the fundamental HBase Type.  *<p>  * HBase applications and users should use the Cell interface and avoid directly using KeyValue  * and member functions not defined in Cell.  *<p>  * If being used client-side, the primary methods to access individual fields are {@link #getRow()},  * {@link #getFamily()}, {@link #getQualifier()}, {@link #getTimestamp()}, and {@link #getValue()}.  * These methods allocate new byte arrays and return copies. Avoid their use server-side.  *<p>  * Instances of this class are immutable. They do not implement Comparable but Comparators are  * provided. Comparators change with context, whether user table or a catalog table comparison. Its  * critical you use the appropriate comparator. There are Comparators for normal HFiles, Meta's  * Hfiles, and bloom filter keys.  *<p>  * KeyValue wraps a byte array and takes offsets and lengths into passed array at where to start  * interpreting the content as KeyValue. The KeyValue format inside a byte array is:  *<code>&lt;keylength>&lt;valuelength>&lt;key>&lt;value></code> Key is further decomposed as:  *<code>&lt;rowlength>&lt;row>&lt;columnfamilylength>&lt;columnfamily>&lt;columnqualifier>  *&lt;timestamp>&lt;keytype></code>  * The<code>rowlength</code> maximum is<code>Short.MAX_SIZE</code>, column family length maximum  * is<code>Byte.MAX_SIZE</code>, and column qualifier + key length must be<  *<code>Integer.MAX_SIZE</code>. The column does not contain the family/qualifier delimiter,  * {@link #COLUMN_FAMILY_DELIMITER}<br>  * KeyValue can optionally contain Tags. When it contains tags, it is added in the byte array after  * the value part. The format for this part is:<code>&lt;tagslength>&lt;tagsbytes></code>.  *<code>tagslength</code> maximum is<code>Short.MAX_SIZE</code>. The<code>tagsbytes</code>  * contain one or more tags where as each tag is of the form  *<code>&lt;taglength>&lt;tagtype>&lt;tagbytes></code>.<code>tagtype</code> is one byte and  *<code>taglength</code> maximum is<code>Short.MAX_SIZE</code> and it includes 1 byte type length  * and actual tag bytes length.  */
+comment|/**  * An HBase Key/Value. This is the fundamental HBase Type.  *<p>  * HBase applications and users should use the Cell interface and avoid directly using KeyValue  * and member functions not defined in Cell.  *<p>  * If being used client-side, the primary methods to access individual fields are {@link #getRow()},  * {@link #getFamily()}, {@link #getQualifier()}, {@link #getTimestamp()}, and {@link #getValue()}.  * These methods allocate new byte arrays and return copies. Avoid their use server-side.  *<p>  * Instances of this class are immutable. They do not implement Comparable but Comparators are  * provided. Comparators change with context, whether user table or a catalog table comparison. Its  * critical you use the appropriate comparator. There are Comparators for normal HFiles, Meta's  * Hfiles, and bloom filter keys.  *<p>  * KeyValue wraps a byte array and takes offsets and lengths into passed array at where to start  * interpreting the content as KeyValue. The KeyValue format inside a byte array is:  *<code>&lt;keylength&gt;&lt;valuelength&gt;&lt;key&gt;&lt;value&gt;</code>  * Key is further decomposed as:  *<code>&lt;rowlength&gt;&lt;row&gt;&lt;columnfamilylength&gt;  *&lt;columnfamily&gt;&lt;columnqualifier&gt;  *&lt;timestamp&gt;&lt;keytype&gt;</code>  * The<code>rowlength</code> maximum is<code>Short.MAX_SIZE</code>, column family length maximum  * is<code>Byte.MAX_SIZE</code>, and column qualifier + key length must be&lt;  *<code>Integer.MAX_SIZE</code>. The column does not contain the family/qualifier delimiter,  * {@link #COLUMN_FAMILY_DELIMITER}<br>  * KeyValue can optionally contain Tags. When it contains tags, it is added in the byte array after  * the value part. The format for this part is:<code>&lt;tagslength&gt;&lt;tagsbytes&gt;</code>.  *<code>tagslength</code> maximum is<code>Short.MAX_SIZE</code>. The<code>tagsbytes</code>  * contain one or more tags where as each tag is of the form  *<code>&lt;taglength&gt;&lt;tagtype&gt;&lt;tagbytes&gt;</code>.  *<code>tagtype</code> is one byte and  *<code>taglength</code> maximum is<code>Short.MAX_SIZE</code> and it includes 1 byte type length  * and actual tag bytes length.  */
 end_comment
 
 begin_class
@@ -5113,7 +5113,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * Produces a string map for this key/value pair. Useful for programmatic use    * and manipulation of the data stored in an WALKey, for example, printing    * as JSON. Values are left out due to their tendency to be large. If needed,    * they can be added manually.    *    * @return the Map<String,?> containing data from this key    */
+comment|/**    * Produces a string map for this key/value pair. Useful for programmatic use    * and manipulation of the data stored in an WALKey, for example, printing    * as JSON. Values are left out due to their tendency to be large. If needed,    * they can be added manually.    *    * @return the Map&lt;String,?&gt; containing data from this key    */
 specifier|public
 name|Map
 argument_list|<
@@ -7743,7 +7743,7 @@ name|rlen
 argument_list|)
 return|;
 block|}
-comment|/**      * Compares the only the user specified portion of a Key.  This is overridden by MetaComparator.      * @param left      * @param right      * @return 0 if equal,<0 if left smaller,>0 if right smaller      */
+comment|/**      * Compares the only the user specified portion of a Key.  This is overridden by MetaComparator.      * @param left      * @param right      * @return 0 if equal,&lt;0 if left smaller,&gt;0 if right smaller      */
 specifier|protected
 name|int
 name|compareRowKey
@@ -7770,7 +7770,7 @@ name|right
 argument_list|)
 return|;
 block|}
-comment|/**      * Compares left to right assuming that left,loffset,llength and right,roffset,rlength are      * full KVs laid out in a flat byte[]s.      * @param left      * @param loffset      * @param llength      * @param right      * @param roffset      * @param rlength      * @return  0 if equal,<0 if left smaller,>0 if right smaller      */
+comment|/**      * Compares left to right assuming that left,loffset,llength and right,roffset,rlength are      * full KVs laid out in a flat byte[]s.      * @param left      * @param loffset      * @param llength      * @param right      * @param roffset      * @param rlength      * @return  0 if equal,&lt;0 if left smaller,&gt;0 if right smaller      */
 specifier|public
 name|int
 name|compareFlatKey
@@ -8309,7 +8309,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**      * Get the b[],o,l for left and right rowkey portions and compare.      * @param left      * @param loffset      * @param llength      * @param right      * @param roffset      * @param rlength      * @return 0 if equal,<0 if left smaller,>0 if right smaller      */
+comment|/**      * Get the b[],o,l for left and right rowkey portions and compare.      * @param left      * @param loffset      * @param llength      * @param right      * @param roffset      * @param rlength      * @return 0 if equal,&lt;0 if left smaller,&gt;0 if right smaller      */
 specifier|public
 name|int
 name|compareRows
@@ -8523,7 +8523,7 @@ return|return
 literal|0
 return|;
 block|}
-comment|/**      * Overridden      * @param commonPrefix      * @param left      * @param loffset      * @param llength      * @param right      * @param roffset      * @param rlength      * @return 0 if equal,<0 if left smaller,>0 if right smaller      */
+comment|/**      * Overridden      * @param commonPrefix      * @param left      * @param loffset      * @param llength      * @param right      * @param roffset      * @param rlength      * @return 0 if equal,&lt;0 if left smaller,&gt;0 if right smaller      */
 annotation|@
 name|Override
 comment|// SamePrefixComparator
@@ -9704,7 +9704,7 @@ return|return
 name|fakeKey
 return|;
 block|}
-comment|/**      * This is a HFile block index key optimization.      * @param leftKey      * @param rightKey      * @return 0 if equal,<0 if left smaller,>0 if right smaller      * @deprecated Since 0.99.2;      */
+comment|/**      * This is a HFile block index key optimization.      * @param leftKey      * @param rightKey      * @return 0 if equal,&lt;0 if left smaller,&gt;0 if right smaller      * @deprecated Since 0.99.2;      */
 annotation|@
 name|Deprecated
 specifier|public

@@ -102,7 +102,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * WALLink describes a link to a WAL.  *  * An wal can be in /hbase/.logs/<server>/<wal>  * or it can be in /hbase/.oldlogs/<wal>  *  * The link checks first in the original path,  * if it is not present it fallbacks to the archived path.  */
+comment|/**  * WALLink describes a link to a WAL.  *  * An wal can be in /hbase/.logs/&lt;server&gt;/&lt;wal&gt;  * or it can be in /hbase/.oldlogs/&lt;wal&gt;  *  * The link checks first in the original path,  * if it is not present it fallbacks to the archived path.  */
 end_comment
 
 begin_class

@@ -570,7 +570,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Class that handles the source of a replication stream.  * Currently does not handle more than 1 slave  * For each slave cluster it selects a random number of peers  * using a replication ratio. For example, if replication ration = 0.1  * and slave cluster has 100 region servers, 10 will be selected.  *<p/>  * A stream is considered down when we cannot contact a region server on the  * peer cluster for more than 55 seconds by default.  *<p/>  *  */
+comment|/**  * Class that handles the source of a replication stream.  * Currently does not handle more than 1 slave  * For each slave cluster it selects a random number of peers  * using a replication ratio. For example, if replication ration = 0.1  * and slave cluster has 100 region servers, 10 will be selected.  *<p>  * A stream is considered down when we cannot contact a region server on the  * peer cluster for more than 55 seconds by default.  *</p>  *  */
 end_comment
 
 begin_class

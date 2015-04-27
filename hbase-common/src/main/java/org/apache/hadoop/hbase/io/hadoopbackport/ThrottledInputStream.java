@@ -190,7 +190,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** @inheritDoc */
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -227,7 +227,7 @@ return|return
 name|data
 return|;
 block|}
-comment|/** @inheritDoc */
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -271,7 +271,7 @@ return|return
 name|readLen
 return|;
 block|}
-comment|/** @inheritDoc */
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -512,7 +512,7 @@ return|return
 name|totalSleepTime
 return|;
 block|}
-comment|/** @inheritDoc */
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

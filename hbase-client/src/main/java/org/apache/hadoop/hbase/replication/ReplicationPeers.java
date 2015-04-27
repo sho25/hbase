@@ -256,7 +256,7 @@ name|String
 name|peerId
 parameter_list|)
 function_decl|;
-comment|/**    * Get the replication status for the specified remote slave cluster, which doesn't    * have to be connected. The state is read directly from the backing store.    * @param peerId a short that identifies the cluster    * @return true if replication is enabled, false otherwise.    * @throws IOException Throws if there's an error contacting the store    */
+comment|/**    * Get the replication status for the specified remote slave cluster, which doesn't    * have to be connected. The state is read directly from the backing store.    * @param peerId a short that identifies the cluster    * @return true if replication is enabled, false otherwise.    * @throws ReplicationException thrown if there's an error contacting the store    */
 name|boolean
 name|getStatusOfPeerFromBackingStore
 parameter_list|(
