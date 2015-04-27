@@ -8522,7 +8522,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|truncateTable
 parameter_list|(
 name|TableName
@@ -8611,6 +8611,9 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|procId
+return|;
 block|}
 annotation|@
 name|Override

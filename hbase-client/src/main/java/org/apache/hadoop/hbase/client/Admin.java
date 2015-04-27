@@ -804,6 +804,24 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Truncate the table but does not block and wait for it be completely enabled. You can use    * Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param tableName name of table to delete    * @param preserveSplits true if the splits should be preserved    * @throws IOException if a remote or network exception occurs    * @return the result of the async truncate. You can use Future.get(long, TimeUnit) to wait on the    *         operation to complete.    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|truncateTableAsync
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|boolean
+name|preserveSplits
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Enable a table.  May timeout.  Use {@link #enableTableAsync(org.apache.hadoop.hbase.TableName)}    * and {@link #isTableEnabled(org.apache.hadoop.hbase.TableName)} instead. The table has to be in    * disabled state for it to be enabled.    *    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs There could be couple types of    * IOException TableNotFoundException means the table doesn't exist. TableNotDisabledException    * means the table isn't in disabled state.    * @see #isTableEnabled(org.apache.hadoop.hbase.TableName)    * @see #disableTable(org.apache.hadoop.hbase.TableName)    * @see #enableTableAsync(org.apache.hadoop.hbase.TableName)    */
 name|void
 name|enableTable

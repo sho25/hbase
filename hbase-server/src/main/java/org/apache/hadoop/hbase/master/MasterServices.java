@@ -364,7 +364,7 @@ name|IOException
 function_decl|;
 comment|/**    * Truncate a table    * @param tableName The table name    * @param preserveSplits True if the splits should be preserved    * @throws IOException    */
 specifier|public
-name|void
+name|long
 name|truncateTable
 parameter_list|(
 specifier|final

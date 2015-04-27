@@ -511,22 +511,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|TableState
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|coordination
 operator|.
 name|BaseCoordinatedStateManager
@@ -2285,7 +2269,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|truncateTable
 parameter_list|(
 name|TableName
@@ -2296,7 +2280,12 @@ name|preserveSplits
 parameter_list|)
 throws|throws
 name|IOException
-block|{ }
+block|{
+return|return
+operator|-
+literal|1
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
