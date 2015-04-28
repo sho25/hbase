@@ -573,6 +573,7 @@ specifier|public
 class|class
 name|TestIOFencing
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

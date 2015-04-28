@@ -699,6 +699,7 @@ name|TestStoreFile
 extends|extends
 name|HBaseTestCase
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

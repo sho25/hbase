@@ -306,6 +306,7 @@ literal|"hbase.chaosmonkey.action.startrstimeout"
 decl_stmt|;
 specifier|protected
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=

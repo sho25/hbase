@@ -1534,8 +1534,9 @@ name|POOL_SIZE
 init|=
 literal|7
 decl_stmt|;
-specifier|final
+specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=

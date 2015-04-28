@@ -234,7 +234,7 @@ specifier|public
 class|class
 name|Threads
 block|{
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Log

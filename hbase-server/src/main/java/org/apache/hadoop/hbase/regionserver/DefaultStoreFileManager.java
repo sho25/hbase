@@ -253,6 +253,7 @@ name|DefaultStoreFileManager
 implements|implements
 name|StoreFileManager
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

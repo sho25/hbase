@@ -286,6 +286,9 @@ specifier|public
 class|class
 name|CodecPerformance
 block|{
+comment|/** @deprecated LOG variable would be made private. */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final

@@ -224,7 +224,7 @@ name|BloomFilterWriter
 implements|,
 name|InlineBlockWriter
 block|{
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Log

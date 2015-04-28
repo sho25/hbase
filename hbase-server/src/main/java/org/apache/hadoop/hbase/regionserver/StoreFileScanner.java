@@ -265,6 +265,7 @@ name|StoreFileScanner
 implements|implements
 name|KeyValueScanner
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

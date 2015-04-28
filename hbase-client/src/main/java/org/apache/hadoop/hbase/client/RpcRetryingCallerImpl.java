@@ -246,6 +246,7 @@ argument_list|<
 name|T
 argument_list|>
 block|{
+comment|// LOG is being used in TestMultiRowRangeFilter, hence leaving it public
 specifier|public
 specifier|static
 specifier|final

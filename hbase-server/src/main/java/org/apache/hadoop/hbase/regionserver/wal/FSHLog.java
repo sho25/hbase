@@ -1093,6 +1093,7 @@ comment|// The RingBufferEventHandler class hosts the ring buffer consuming code
 comment|// do the actual FS sync are implementations of SyncRunner.  SafePointZigZagLatch is a
 comment|// synchronization class used to halt the consumer at a safe point --  just after all outstanding
 comment|// syncs and appends have completed -- so the log roller can swap the WAL out under it.
+specifier|private
 specifier|static
 specifier|final
 name|Log

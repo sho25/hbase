@@ -117,7 +117,7 @@ specifier|abstract
 class|class
 name|MultithreadedTestUtil
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log

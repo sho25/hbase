@@ -189,7 +189,7 @@ name|SimpleRpcScheduler
 extends|extends
 name|RpcScheduler
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log

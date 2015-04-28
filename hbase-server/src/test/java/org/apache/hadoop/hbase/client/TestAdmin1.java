@@ -683,6 +683,8 @@ specifier|public
 class|class
 name|TestAdmin1
 block|{
+specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -691,8 +693,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|getClass
-argument_list|()
+name|TestAdmin1
+operator|.
+name|class
 argument_list|)
 decl_stmt|;
 specifier|private

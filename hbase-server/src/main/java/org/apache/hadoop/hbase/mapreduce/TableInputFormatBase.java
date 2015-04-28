@@ -583,6 +583,8 @@ name|TABLE_ROW_TEXTKEY
 init|=
 literal|"hbase.table.row.textkey"
 decl_stmt|;
+specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG

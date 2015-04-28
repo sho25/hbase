@@ -271,6 +271,7 @@ specifier|public
 class|class
 name|TestSizeFailures
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

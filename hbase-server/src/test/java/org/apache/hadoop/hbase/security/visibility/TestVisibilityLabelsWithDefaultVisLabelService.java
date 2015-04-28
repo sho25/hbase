@@ -527,6 +527,8 @@ name|TestVisibilityLabelsWithDefaultVisLabelService
 extends|extends
 name|TestVisibilityLabels
 block|{
+specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -535,8 +537,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|getClass
-argument_list|()
+name|TestVisibilityLabelsWithDefaultVisLabelService
+operator|.
+name|class
 argument_list|)
 decl_stmt|;
 annotation|@

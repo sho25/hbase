@@ -438,7 +438,7 @@ specifier|public
 class|class
 name|HBaseFsckRepair
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log

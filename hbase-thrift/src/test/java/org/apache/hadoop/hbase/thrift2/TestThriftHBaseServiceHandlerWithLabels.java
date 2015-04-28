@@ -783,7 +783,7 @@ specifier|public
 class|class
 name|TestThriftHBaseServiceHandlerWithLabels
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log

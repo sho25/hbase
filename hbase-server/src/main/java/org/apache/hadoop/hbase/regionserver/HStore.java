@@ -1228,6 +1228,7 @@ name|DEFAULT_BLOCKING_STOREFILE_COUNT
 init|=
 literal|7
 decl_stmt|;
+specifier|private
 specifier|static
 specifier|final
 name|Log

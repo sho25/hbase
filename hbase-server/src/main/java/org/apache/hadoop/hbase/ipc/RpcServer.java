@@ -1583,6 +1583,7 @@ name|RpcServer
 implements|implements
 name|RpcServerInterface
 block|{
+comment|// LOG is being used in CallRunner and the log level is being changed in tests
 specifier|public
 specifier|static
 specifier|final

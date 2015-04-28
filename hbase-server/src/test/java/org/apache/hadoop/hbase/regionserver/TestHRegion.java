@@ -2186,6 +2186,7 @@ name|TestHRegion
 block|{
 comment|// Do not spin up clusters in here. If you need to spin up a cluster, do it
 comment|// over in TestHRegionOnCluster.
+specifier|private
 specifier|static
 specifier|final
 name|Log

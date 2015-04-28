@@ -431,6 +431,7 @@ block|{
 comment|// This class is referenced indirectly by User out in common; instances are created by reflection
 specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=

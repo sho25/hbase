@@ -183,6 +183,7 @@ implements|implements
 name|ChoreServicer
 block|{
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -191,10 +192,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|this
+name|ChoreService
 operator|.
-name|getClass
-argument_list|()
+name|class
 argument_list|)
 decl_stmt|;
 comment|/**    * The minimum number of threads in the core pool of the underlying ScheduledThreadPoolExecutor    */

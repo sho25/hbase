@@ -266,6 +266,8 @@ name|StoreFile
 operator|.
 name|Reader
 block|{
+specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG

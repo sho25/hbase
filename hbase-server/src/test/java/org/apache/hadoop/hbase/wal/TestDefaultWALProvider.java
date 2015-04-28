@@ -505,7 +505,7 @@ specifier|public
 class|class
 name|TestDefaultWALProvider
 block|{
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Log

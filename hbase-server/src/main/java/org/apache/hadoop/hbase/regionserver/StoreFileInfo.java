@@ -286,7 +286,7 @@ specifier|public
 class|class
 name|StoreFileInfo
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log

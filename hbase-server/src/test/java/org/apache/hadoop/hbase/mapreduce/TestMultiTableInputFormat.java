@@ -447,6 +447,7 @@ specifier|public
 class|class
 name|TestMultiTableInputFormat
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

@@ -391,6 +391,7 @@ specifier|public
 class|class
 name|CompressionTest
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

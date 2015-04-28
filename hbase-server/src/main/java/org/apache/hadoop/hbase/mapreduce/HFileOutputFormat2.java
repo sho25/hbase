@@ -807,7 +807,9 @@ argument_list|,
 name|Cell
 argument_list|>
 block|{
+specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=

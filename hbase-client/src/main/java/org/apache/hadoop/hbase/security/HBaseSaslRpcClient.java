@@ -376,7 +376,7 @@ specifier|public
 class|class
 name|HBaseSaslRpcClient
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log

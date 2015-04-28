@@ -309,6 +309,8 @@ specifier|public
 class|class
 name|TestCloneSnapshotFromClient
 block|{
+specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -317,8 +319,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|getClass
-argument_list|()
+name|TestCloneSnapshotFromClient
+operator|.
+name|class
 argument_list|)
 decl_stmt|;
 specifier|private

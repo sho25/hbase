@@ -2494,7 +2494,7 @@ name|RegionServerServices
 implements|,
 name|LastSequenceId
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log

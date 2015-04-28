@@ -473,7 +473,7 @@ specifier|public
 class|class
 name|TestNamespace
 block|{
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Log

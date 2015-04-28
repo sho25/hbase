@@ -200,6 +200,7 @@ argument_list|,
 name|V
 argument_list|>
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

@@ -282,6 +282,7 @@ argument_list|,
 name|StripeStoreFileManager
 argument_list|>
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

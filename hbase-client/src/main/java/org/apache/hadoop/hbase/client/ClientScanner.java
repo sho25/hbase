@@ -401,6 +401,7 @@ extends|extends
 name|AbstractClientScanner
 block|{
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -409,10 +410,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|this
+name|ClientScanner
 operator|.
-name|getClass
-argument_list|()
+name|class
 argument_list|)
 decl_stmt|;
 comment|// A byte array in which all elements are the max byte, and it is used to

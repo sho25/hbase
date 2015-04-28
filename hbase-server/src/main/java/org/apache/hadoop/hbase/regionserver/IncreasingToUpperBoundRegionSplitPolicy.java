@@ -152,6 +152,7 @@ name|IncreasingToUpperBoundRegionSplitPolicy
 extends|extends
 name|ConstantSizeRegionSplitPolicy
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

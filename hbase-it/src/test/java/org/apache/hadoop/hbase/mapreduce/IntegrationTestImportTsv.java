@@ -528,7 +528,7 @@ operator|.
 name|getSimpleName
 argument_list|()
 decl_stmt|;
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Log

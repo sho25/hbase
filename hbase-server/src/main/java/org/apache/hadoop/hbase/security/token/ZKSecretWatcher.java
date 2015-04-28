@@ -206,6 +206,7 @@ literal|"keys"
 decl_stmt|;
 specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=

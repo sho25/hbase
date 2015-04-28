@@ -90,6 +90,7 @@ specifier|public
 class|class
 name|MetricsWALEditsReplay
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

@@ -897,6 +897,7 @@ specifier|public
 class|class
 name|TestRowProcessorEndpoint
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

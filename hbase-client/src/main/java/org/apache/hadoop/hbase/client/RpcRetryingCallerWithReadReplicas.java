@@ -382,6 +382,7 @@ specifier|public
 class|class
 name|RpcRetryingCallerWithReadReplicas
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

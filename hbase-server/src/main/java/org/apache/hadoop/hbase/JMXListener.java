@@ -250,7 +250,7 @@ name|JMXListener
 implements|implements
 name|Coprocessor
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log

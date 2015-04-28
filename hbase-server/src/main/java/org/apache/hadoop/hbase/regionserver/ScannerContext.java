@@ -124,6 +124,7 @@ class|class
 name|ScannerContext
 block|{
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -132,10 +133,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|this
+name|ScannerContext
 operator|.
-name|getClass
-argument_list|()
+name|class
 argument_list|)
 decl_stmt|;
 comment|/**    * Two sets of the same fields. One for the limits, another for the progress towards those limits    */

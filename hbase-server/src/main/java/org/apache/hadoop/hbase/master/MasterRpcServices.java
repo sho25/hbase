@@ -2853,7 +2853,7 @@ name|RegionServerStatusService
 operator|.
 name|BlockingInterface
 block|{
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Log

@@ -136,7 +136,7 @@ specifier|public
 class|class
 name|FavoredNodesPlan
 block|{
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Log

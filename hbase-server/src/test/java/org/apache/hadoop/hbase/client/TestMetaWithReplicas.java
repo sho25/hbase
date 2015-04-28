@@ -577,6 +577,7 @@ specifier|public
 class|class
 name|TestMetaWithReplicas
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

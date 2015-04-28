@@ -222,6 +222,7 @@ name|T
 argument_list|>
 block|{
 comment|// Public because used outside of this package over in ipc.
+specifier|private
 specifier|static
 specifier|final
 name|Log

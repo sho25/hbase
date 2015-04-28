@@ -704,6 +704,7 @@ name|BlockCache
 implements|,
 name|HeapSize
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

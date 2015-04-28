@@ -182,6 +182,7 @@ specifier|public
 class|class
 name|HBaseRESTTestingUtility
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

@@ -255,6 +255,7 @@ name|TestUser
 block|{
 specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=

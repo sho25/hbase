@@ -147,6 +147,8 @@ implements|implements
 name|Filter
 block|{
 specifier|private
+specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=
@@ -154,8 +156,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|getClass
-argument_list|()
+name|DummyFilter
+operator|.
+name|class
 argument_list|)
 decl_stmt|;
 annotation|@

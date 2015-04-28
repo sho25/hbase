@@ -353,6 +353,7 @@ name|DEFAULT_NUM_READ_THREADS
 init|=
 literal|20
 decl_stmt|;
+comment|// Log is being used in IntegrationTestIngestWithEncryption, hence it is protected
 specifier|protected
 specifier|static
 specifier|final

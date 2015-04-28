@@ -245,6 +245,9 @@ argument_list|<
 name|TableSplit
 argument_list|>
 block|{
+comment|/** @deprecated LOG variable would be made private. */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final

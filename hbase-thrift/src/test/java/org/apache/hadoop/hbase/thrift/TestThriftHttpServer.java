@@ -313,7 +313,7 @@ specifier|public
 class|class
 name|TestThriftHttpServer
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log

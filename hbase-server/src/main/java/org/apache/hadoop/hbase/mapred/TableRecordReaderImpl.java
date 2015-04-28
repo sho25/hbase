@@ -294,6 +294,7 @@ specifier|public
 class|class
 name|TableRecordReaderImpl
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

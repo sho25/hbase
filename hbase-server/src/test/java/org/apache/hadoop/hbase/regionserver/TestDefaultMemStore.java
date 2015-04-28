@@ -564,6 +564,7 @@ extends|extends
 name|TestCase
 block|{
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -572,10 +573,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|this
+name|TestDefaultMemStore
 operator|.
-name|getClass
-argument_list|()
+name|class
 argument_list|)
 decl_stmt|;
 specifier|private

@@ -1012,6 +1012,7 @@ name|RETRIES_BY_SERVER_KEY
 init|=
 literal|"hbase.client.retries.by.server"
 decl_stmt|;
+specifier|private
 specifier|static
 specifier|final
 name|Log

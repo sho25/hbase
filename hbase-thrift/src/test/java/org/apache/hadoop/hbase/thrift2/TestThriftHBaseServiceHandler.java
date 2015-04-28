@@ -957,7 +957,7 @@ specifier|public
 class|class
 name|TestThriftHBaseServiceHandler
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log

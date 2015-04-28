@@ -424,6 +424,7 @@ class|class
 name|HMerge
 block|{
 comment|// TODO: Where is this class used?  How does it relate to Merge in same package?
+specifier|private
 specifier|static
 specifier|final
 name|Log

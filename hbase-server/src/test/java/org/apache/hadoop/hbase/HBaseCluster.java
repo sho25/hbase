@@ -201,6 +201,7 @@ name|Closeable
 implements|,
 name|Configurable
 block|{
+comment|// Log is being used in DistributedHBaseCluster class, hence keeping it as package scope
 specifier|static
 specifier|final
 name|Log

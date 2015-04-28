@@ -103,6 +103,8 @@ name|ZooKeeperNodeTracker
 extends|extends
 name|ZooKeeperListener
 block|{
+comment|// LOG is being used in subclasses, hence keeping it protected
+specifier|protected
 specifier|static
 specifier|final
 name|Log

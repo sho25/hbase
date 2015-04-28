@@ -337,7 +337,7 @@ specifier|public
 class|class
 name|TestWALActionsListener
 block|{
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Log

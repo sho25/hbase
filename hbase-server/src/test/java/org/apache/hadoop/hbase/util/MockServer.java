@@ -212,6 +212,7 @@ name|MockServer
 implements|implements
 name|Server
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

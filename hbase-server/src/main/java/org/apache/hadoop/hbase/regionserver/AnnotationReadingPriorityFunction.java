@@ -511,7 +511,7 @@ name|AnnotationReadingPriorityFunction
 implements|implements
 name|PriorityFunction
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log

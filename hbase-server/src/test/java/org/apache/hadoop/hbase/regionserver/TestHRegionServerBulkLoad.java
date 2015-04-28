@@ -843,8 +843,9 @@ specifier|public
 class|class
 name|TestHRegionServerBulkLoad
 block|{
-specifier|final
+specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=

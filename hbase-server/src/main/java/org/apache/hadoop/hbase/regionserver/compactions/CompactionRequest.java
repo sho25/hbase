@@ -276,6 +276,7 @@ argument_list|<
 name|CompactionRequest
 argument_list|>
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

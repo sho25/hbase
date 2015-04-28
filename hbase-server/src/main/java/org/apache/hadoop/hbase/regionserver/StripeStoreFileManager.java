@@ -346,6 +346,7 @@ name|StripeCompactionPolicy
 operator|.
 name|StripeInformationProvider
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

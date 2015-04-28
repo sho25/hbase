@@ -929,6 +929,7 @@ specifier|public
 class|class
 name|TestRegionObserverInterface
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

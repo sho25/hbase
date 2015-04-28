@@ -339,8 +339,9 @@ specifier|public
 class|class
 name|TestStatusResource
 block|{
-specifier|public
+specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=

@@ -1542,6 +1542,7 @@ specifier|public
 class|class
 name|WALSplitter
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

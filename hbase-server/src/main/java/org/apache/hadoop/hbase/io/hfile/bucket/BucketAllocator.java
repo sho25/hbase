@@ -258,6 +258,7 @@ specifier|final
 class|class
 name|BucketAllocator
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

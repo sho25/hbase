@@ -443,6 +443,7 @@ specifier|public
 class|class
 name|TestParallelPut
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

@@ -619,7 +619,7 @@ name|TestImportTsv
 implements|implements
 name|Configurable
 block|{
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Log

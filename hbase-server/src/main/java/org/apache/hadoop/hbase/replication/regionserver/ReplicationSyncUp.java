@@ -306,6 +306,7 @@ name|Configured
 implements|implements
 name|Tool
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

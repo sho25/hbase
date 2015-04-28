@@ -633,6 +633,7 @@ specifier|public
 class|class
 name|StoreFile
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -4227,6 +4228,7 @@ specifier|static
 class|class
 name|Reader
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

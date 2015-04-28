@@ -215,6 +215,7 @@ specifier|public
 class|class
 name|TestProcedureManager
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

@@ -128,6 +128,7 @@ specifier|final
 class|class
 name|ClientIdGenerator
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

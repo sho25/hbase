@@ -514,6 +514,7 @@ name|LOG_SCANNER_ACTIVITY
 init|=
 literal|"hbase.client.log.scanner.activity"
 decl_stmt|;
+comment|// Keeping LOG public as it is being used in TestScannerHeartbeatMessages
 specifier|public
 specifier|static
 specifier|final

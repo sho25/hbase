@@ -694,6 +694,7 @@ specifier|public
 class|class
 name|HFile
 block|{
+comment|// LOG is being used in HFileBlock and CheckSumUtil
 specifier|static
 specifier|final
 name|Log

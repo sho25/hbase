@@ -280,6 +280,7 @@ name|LogRoller
 extends|extends
 name|HasThread
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

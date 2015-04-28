@@ -314,6 +314,7 @@ specifier|public
 class|class
 name|LocalHBaseCluster
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

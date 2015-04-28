@@ -771,7 +771,7 @@ specifier|public
 class|class
 name|TestWALFactory
 block|{
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Log

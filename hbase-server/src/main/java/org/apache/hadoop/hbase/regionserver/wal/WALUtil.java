@@ -288,6 +288,7 @@ specifier|public
 class|class
 name|WALUtil
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

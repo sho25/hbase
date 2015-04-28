@@ -211,8 +211,9 @@ extends|extends
 name|KeyRange
 parameter_list|>
 block|{
-specifier|final
+specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=
