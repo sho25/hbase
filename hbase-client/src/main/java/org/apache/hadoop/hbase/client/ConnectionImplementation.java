@@ -2397,7 +2397,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.hconnection.meta.lookup.threads.max.core"
+literal|"hbase.hconnection.meta.lookup.threads.core"
 argument_list|,
 literal|10
 argument_list|)
