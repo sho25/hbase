@@ -2423,7 +2423,9 @@ operator|!
 name|splitPolicy
 operator|.
 name|skipStoreFileRangeCheck
-argument_list|()
+argument_list|(
+name|familyName
+argument_list|)
 condition|)
 block|{
 comment|// Check whether the split row lies in the range of the store file
