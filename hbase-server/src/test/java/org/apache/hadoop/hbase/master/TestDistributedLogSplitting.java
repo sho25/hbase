@@ -1638,6 +1638,17 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
+argument_list|,
+literal|40
+argument_list|)
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|shutdownMiniHBaseCluster

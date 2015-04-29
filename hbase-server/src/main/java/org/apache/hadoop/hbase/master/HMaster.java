@@ -2757,6 +2757,20 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Some unit tests don't need a cluster, so no zookeeper at all
+if|if
+condition|(
+operator|!
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.testing.nocluster"
+argument_list|,
+literal|false
+argument_list|)
+condition|)
+block|{
 name|activeMasterManager
 operator|=
 operator|new
@@ -2782,6 +2796,14 @@ argument_list|(
 name|infoPort
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|activeMasterManager
+operator|=
+literal|null
+expr_stmt|;
+block|}
 block|}
 comment|// return the actual infoPort, -1 means disable info server.
 specifier|private

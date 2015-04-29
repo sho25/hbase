@@ -2386,7 +2386,7 @@ specifier|final
 name|int
 name|DEFAULT_REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
 init|=
-literal|10
+literal|20
 decl_stmt|;
 specifier|public
 specifier|static
@@ -2578,6 +2578,7 @@ init|=
 literal|false
 decl_stmt|;
 comment|/**    * QOS attributes: these attributes are used to demarcate RPC call processing    * by different set of handlers. For example, HIGH_QOS tagged methods are    * handled by high priority handlers.    */
+comment|// normal_QOS< QOS_threshold< replication_QOS< replay_QOS< admin_QOS< high_QOS
 specifier|public
 specifier|static
 specifier|final
@@ -2610,7 +2611,6 @@ name|REPLICATION_QOS
 init|=
 literal|5
 decl_stmt|;
-comment|// normal_QOS< replication_QOS< high_QOS
 specifier|public
 specifier|static
 specifier|final
@@ -2619,7 +2619,6 @@ name|REPLAY_QOS
 init|=
 literal|6
 decl_stmt|;
-comment|// REPLICATION_QOS< REPLAY_QOS< high_QOS
 specifier|public
 specifier|static
 specifier|final
@@ -2628,7 +2627,6 @@ name|ADMIN_QOS
 init|=
 literal|100
 decl_stmt|;
-comment|// QOS_THRESHOLD< ADMIN_QOS< high_QOS
 specifier|public
 specifier|static
 specifier|final

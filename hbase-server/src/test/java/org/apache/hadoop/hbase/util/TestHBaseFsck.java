@@ -1780,7 +1780,7 @@ name|setInt
 argument_list|(
 literal|"hbase.regionserver.metahandler.count"
 argument_list|,
-literal|2
+literal|30
 argument_list|)
 expr_stmt|;
 name|conf

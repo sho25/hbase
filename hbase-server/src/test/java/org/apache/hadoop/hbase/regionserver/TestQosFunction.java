@@ -270,6 +270,10 @@ operator|new
 name|AnnotationReadingPriorityFunction
 argument_list|(
 name|rpcServices
+argument_list|,
+name|RSRpcServices
+operator|.
+name|class
 argument_list|)
 decl_stmt|;
 comment|// Set method name in pb style with the method name capitalized.
