@@ -2428,6 +2428,8 @@ condition|)
 block|{
 comment|// Check whether the split row lies in the range of the store file
 comment|// If it is outside the range, return directly.
+try|try
+block|{
 if|if
 condition|(
 name|top
@@ -2463,9 +2465,11 @@ name|lastKey
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 if|if
 condition|(
 name|f
@@ -2542,9 +2546,11 @@ name|firstKey
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 if|if
 condition|(
 name|f
@@ -2590,6 +2596,8 @@ return|;
 block|}
 block|}
 block|}
+finally|finally
+block|{
 name|f
 operator|.
 name|closeReader
@@ -2597,6 +2605,8 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+block|}
+block|}
 name|Path
 name|splitDir
 init|=
