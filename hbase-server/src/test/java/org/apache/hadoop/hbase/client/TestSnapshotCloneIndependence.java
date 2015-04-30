@@ -1852,7 +1852,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|addColumn
+name|addColumnFamily
 argument_list|(
 name|localTableName
 argument_list|,

@@ -680,7 +680,7 @@ expr_stmt|;
 comment|// Modify the table removing one family and verify the descriptor
 name|admin
 operator|.
-name|addColumn
+name|addColumnFamily
 argument_list|(
 name|TABLE_NAME
 argument_list|,
@@ -777,7 +777,7 @@ expr_stmt|;
 comment|// Modify the table removing one family and verify the descriptor
 name|admin
 operator|.
-name|addColumn
+name|addColumnFamily
 argument_list|(
 name|TABLE_NAME
 argument_list|,
@@ -802,7 +802,7 @@ block|{
 comment|// Add same column family again - expect failure
 name|admin
 operator|.
-name|addColumn
+name|addColumnFamily
 argument_list|(
 name|TABLE_NAME
 argument_list|,
@@ -933,7 +933,7 @@ expr_stmt|;
 comment|// Modify colymn family
 name|admin
 operator|.
-name|modifyColumn
+name|modifyColumnFamily
 argument_list|(
 name|TABLE_NAME
 argument_list|,
@@ -1080,7 +1080,7 @@ try|try
 block|{
 name|admin
 operator|.
-name|modifyColumn
+name|modifyColumnFamily
 argument_list|(
 name|TABLE_NAME
 argument_list|,
@@ -1193,7 +1193,7 @@ expr_stmt|;
 comment|// Modify the table removing one family and verify the descriptor
 name|admin
 operator|.
-name|deleteColumn
+name|deleteColumnFamily
 argument_list|(
 name|TABLE_NAME
 argument_list|,
@@ -1297,7 +1297,7 @@ expr_stmt|;
 comment|// Modify the table removing one family and verify the descriptor
 name|admin
 operator|.
-name|deleteColumn
+name|deleteColumnFamily
 argument_list|(
 name|TABLE_NAME
 argument_list|,
@@ -1316,7 +1316,7 @@ block|{
 comment|// Delete again - expect failure
 name|admin
 operator|.
-name|deleteColumn
+name|deleteColumnFamily
 argument_list|(
 name|TABLE_NAME
 argument_list|,

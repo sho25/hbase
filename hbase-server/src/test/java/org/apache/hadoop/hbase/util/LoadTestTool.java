@@ -1749,7 +1749,7 @@ condition|)
 block|{
 name|admin
 operator|.
-name|addColumn
+name|addColumnFamily
 argument_list|(
 name|tableName
 argument_list|,
@@ -1761,7 +1761,7 @@ else|else
 block|{
 name|admin
 operator|.
-name|modifyColumn
+name|modifyColumnFamily
 argument_list|(
 name|tableName
 argument_list|,

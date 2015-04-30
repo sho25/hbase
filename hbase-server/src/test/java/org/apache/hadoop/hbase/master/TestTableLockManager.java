@@ -987,7 +987,7 @@ argument_list|()
 decl_stmt|;
 name|admin
 operator|.
-name|addColumn
+name|addColumnFamily
 argument_list|(
 name|TABLE_NAME
 argument_list|,

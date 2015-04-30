@@ -1046,7 +1046,7 @@ name|this
 operator|.
 name|admin
 operator|.
-name|addColumn
+name|addColumnFamily
 argument_list|(
 name|nonexistentTable
 argument_list|,
@@ -1116,7 +1116,7 @@ name|this
 operator|.
 name|admin
 operator|.
-name|deleteColumn
+name|deleteColumnFamily
 argument_list|(
 name|nonexistentTable
 argument_list|,
@@ -1220,7 +1220,7 @@ name|this
 operator|.
 name|admin
 operator|.
-name|modifyColumn
+name|modifyColumnFamily
 argument_list|(
 name|nonexistentTable
 argument_list|,
@@ -1366,7 +1366,7 @@ name|this
 operator|.
 name|admin
 operator|.
-name|deleteColumn
+name|deleteColumnFamily
 argument_list|(
 name|htd
 operator|.
@@ -1418,7 +1418,7 @@ name|this
 operator|.
 name|admin
 operator|.
-name|modifyColumn
+name|modifyColumnFamily
 argument_list|(
 name|htd
 operator|.
@@ -3615,7 +3615,7 @@ name|this
 operator|.
 name|admin
 operator|.
-name|modifyColumn
+name|modifyColumnFamily
 argument_list|(
 name|tableName
 argument_list|,
@@ -3717,7 +3717,7 @@ name|this
 operator|.
 name|admin
 operator|.
-name|addColumn
+name|addColumnFamily
 argument_list|(
 name|tableName
 argument_list|,
@@ -3792,7 +3792,7 @@ name|this
 operator|.
 name|admin
 operator|.
-name|deleteColumn
+name|deleteColumnFamily
 argument_list|(
 name|tableName
 argument_list|,
@@ -9659,7 +9659,7 @@ name|this
 operator|.
 name|admin
 operator|.
-name|addColumn
+name|addColumnFamily
 argument_list|(
 name|tableName
 argument_list|,
@@ -9685,7 +9685,7 @@ name|this
 operator|.
 name|admin
 operator|.
-name|deleteColumn
+name|deleteColumnFamily
 argument_list|(
 name|tableName
 argument_list|,
