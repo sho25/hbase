@@ -582,6 +582,8 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+comment|// When all MVCC readpoints are 0, don't write them.
+comment|// See HBASE-8166, HBASE-12600, and HBASE-13389.
 name|writer
 operator|=
 name|store
@@ -598,7 +600,11 @@ name|compactionCompression
 argument_list|,
 literal|true
 argument_list|,
-literal|true
+name|fd
+operator|.
+name|maxMVCCReadpoint
+operator|>
+literal|0
 argument_list|,
 name|fd
 operator|.
