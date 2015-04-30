@@ -888,7 +888,7 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 operator|.
-name|modifyColumn
+name|modifyColumnFamily
 argument_list|(
 name|htd
 operator|.

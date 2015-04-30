@@ -1294,7 +1294,7 @@ expr_stmt|;
 block|}
 name|admin
 operator|.
-name|modifyColumn
+name|modifyColumnFamily
 argument_list|(
 name|tableName
 argument_list|,
