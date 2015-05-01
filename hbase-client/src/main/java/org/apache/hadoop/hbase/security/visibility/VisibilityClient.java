@@ -470,14 +470,14 @@ specifier|public
 class|class
 name|VisibilityClient
 block|{
-comment|/**    * Utility method for adding label to the system.    *     * @param conf    * @param label    * @return VisibilityLabelsResponse    * @throws Throwable    */
+comment|/**    * Utility method for adding label to the system.    *    * @param connection    * @param label    * @return VisibilityLabelsResponse    * @throws Throwable    */
 specifier|public
 specifier|static
 name|VisibilityLabelsResponse
 name|addLabel
 parameter_list|(
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -489,7 +489,7 @@ block|{
 return|return
 name|addLabels
 argument_list|(
-name|conf
+name|connection
 argument_list|,
 operator|new
 name|String
@@ -500,14 +500,14 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Utility method for adding labels to the system.    *     * @param conf    * @param labels    * @return VisibilityLabelsResponse    * @throws Throwable    */
+comment|/**    * Utility method for adding labels to the system.    *    * @param connection    * @param labels    * @return VisibilityLabelsResponse    * @throws Throwable    */
 specifier|public
 specifier|static
 name|VisibilityLabelsResponse
 name|addLabels
 parameter_list|(
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -516,21 +516,6 @@ name|labels
 parameter_list|)
 throws|throws
 name|Throwable
-block|{
-comment|// TODO: Make it so caller passes in a Connection rather than have us do this expensive
-comment|// setup each time.  This class only used in test and shell at moment though.
-try|try
-init|(
-name|Connection
-name|connection
-init|=
-name|ConnectionFactory
-operator|.
-name|createConnection
-argument_list|(
-name|conf
-argument_list|)
-init|)
 block|{
 try|try
 init|(
@@ -750,15 +735,14 @@ comment|// There will be exactly one region for labels
 comment|// table and so one entry in result Map.
 block|}
 block|}
-block|}
-comment|/**    * Sets given labels globally authorized for the user.    * @param conf    * @param auths    * @param user    * @return VisibilityLabelsResponse    * @throws Throwable    */
+comment|/**    * Sets given labels globally authorized for the user.    * @param connection    * @param auths    * @param user    * @return VisibilityLabelsResponse    * @throws Throwable    */
 specifier|public
 specifier|static
 name|VisibilityLabelsResponse
 name|setAuths
 parameter_list|(
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -775,7 +759,7 @@ block|{
 return|return
 name|setOrClearAuths
 argument_list|(
-name|conf
+name|connection
 argument_list|,
 name|auths
 argument_list|,
@@ -785,14 +769,14 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * @param conf    * @param user    * @return labels, the given user is globally authorized for.    * @throws Throwable    */
+comment|/**    * @param connection the Connection instance to use.    * @param user    * @return labels, the given user is globally authorized for.    * @throws Throwable    */
 specifier|public
 specifier|static
 name|GetAuthsResponse
 name|getAuths
 parameter_list|(
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -800,21 +784,6 @@ name|user
 parameter_list|)
 throws|throws
 name|Throwable
-block|{
-comment|// TODO: Make it so caller passes in a Connection rather than have us do this expensive
-comment|// setup each time.  This class only used in test and shell at moment though.
-try|try
-init|(
-name|Connection
-name|connection
-init|=
-name|ConnectionFactory
-operator|.
-name|createConnection
-argument_list|(
-name|conf
-argument_list|)
-init|)
 block|{
 try|try
 init|(
@@ -994,15 +963,14 @@ comment|// There will be exactly one region for labels
 comment|// table and so one entry in result Map.
 block|}
 block|}
-block|}
-comment|/**    * Retrieve the list of visibility labels defined in the system.    * @param conf    * @param regex  The regular expression to filter which labels are returned.    * @return labels The list of visibility labels defined in the system.    * @throws Throwable    */
+comment|/**    * Retrieve the list of visibility labels defined in the system.    * @param connection The Connection instance to use.    * @param regex  The regular expression to filter which labels are returned.    * @return labels The list of visibility labels defined in the system.    * @throws Throwable    */
 specifier|public
 specifier|static
 name|ListLabelsResponse
 name|listLabels
 parameter_list|(
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -1011,11 +979,6 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|Connection
-name|connection
-init|=
-literal|null
-decl_stmt|;
 name|Table
 name|table
 init|=
@@ -1023,15 +986,6 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|connection
-operator|=
-name|ConnectionFactory
-operator|.
-name|createConnection
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 name|table
 operator|=
 name|connection
@@ -1247,14 +1201,14 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Removes given labels from user's globally authorized list of labels.    * @param conf    * @param auths    * @param user    * @return VisibilityLabelsResponse    * @throws Throwable    */
+comment|/**    * Removes given labels from user's globally authorized list of labels.    * @param connection    * @param auths    * @param user    * @return VisibilityLabelsResponse    * @throws Throwable    */
 specifier|public
 specifier|static
 name|VisibilityLabelsResponse
 name|clearAuths
 parameter_list|(
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -1271,7 +1225,7 @@ block|{
 return|return
 name|setOrClearAuths
 argument_list|(
-name|conf
+name|connection
 argument_list|,
 name|auths
 argument_list|,
@@ -1286,8 +1240,8 @@ specifier|static
 name|VisibilityLabelsResponse
 name|setOrClearAuths
 parameter_list|(
-name|Configuration
-name|conf
+name|Connection
+name|connection
 parameter_list|,
 specifier|final
 name|String
@@ -1308,21 +1262,6 @@ throws|,
 name|ServiceException
 throws|,
 name|Throwable
-block|{
-comment|// TODO: Make it so caller passes in a Connection rather than have us do this expensive
-comment|// setup each time.  This class only used in test and shell at moment though.
-try|try
-init|(
-name|Connection
-name|connection
-init|=
-name|ConnectionFactory
-operator|.
-name|createConnection
-argument_list|(
-name|conf
-argument_list|)
-init|)
 block|{
 try|try
 init|(
@@ -1560,7 +1499,6 @@ argument_list|()
 return|;
 comment|// There will be exactly one region for labels
 comment|// table and so one entry in result Map.
-block|}
 block|}
 block|}
 block|}

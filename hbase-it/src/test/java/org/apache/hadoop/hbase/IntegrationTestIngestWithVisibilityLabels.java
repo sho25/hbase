@@ -827,7 +827,7 @@ name|addLabels
 argument_list|(
 name|util
 operator|.
-name|getConfiguration
+name|getConnection
 argument_list|()
 argument_list|,
 name|LABELS
@@ -839,7 +839,7 @@ name|setAuths
 argument_list|(
 name|util
 operator|.
-name|getConfiguration
+name|getConnection
 argument_list|()
 argument_list|,
 name|LABELS
