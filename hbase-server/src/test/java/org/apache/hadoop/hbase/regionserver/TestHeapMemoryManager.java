@@ -2720,7 +2720,7 @@ specifier|public
 name|void
 name|requestFlush
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 name|boolean
@@ -2745,7 +2745,7 @@ specifier|public
 name|void
 name|requestDelayedFlush
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 name|long

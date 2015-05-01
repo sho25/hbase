@@ -306,7 +306,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An HBase Key/Value. This is the fundamental HBase Type.    *<p>  * HBase applications and users should use the Cell interface and avoid directly using KeyValue  * and member functions not defined in Cell.  *<p>  * If being used client-side, the primary methods to access individual fields are {@link #getRow()},  * {@link #getFamily()}, {@link #getQualifier()}, {@link #getTimestamp()}, and {@link #getValue()}.  * These methods allocate new byte arrays and return copies. Avoid their use server-side.  *<p>  * Instances of this class are immutable. They do not implement Comparable but Comparators are  * provided. Comparators change with context, whether user table or a catalog table comparison. Its  * critical you use the appropriate comparator. There are Comparators for normal HFiles, Meta's  * Hfiles, and bloom filter keys.  *<p>  * KeyValue wraps a byte array and takes offsets and lengths into passed array at where to start  * interpreting the content as KeyValue. The KeyValue format inside a byte array is:  *<code>&lt;keylength>&lt;valuelength>&lt;key>&lt;value></code> Key is further decomposed as:  *<code>&lt;rowlength>&lt;row>&lt;columnfamilylength>&lt;columnfamily>&lt;columnqualifier>  *&lt;timestamp>&lt;keytype></code>  * The<code>rowlength</code> maximum is<code>Short.MAX_SIZE</code>, column family length maximum  * is<code>Byte.MAX_SIZE</code>, and column qualifier + key length must be<  *<code>Integer.MAX_SIZE</code>. The column does not contain the family/qualifier delimiter,  * {@link #COLUMN_FAMILY_DELIMITER}<br>  * KeyValue can optionally contain Tags. When it contains tags, it is added in the byte array after  * the value part. The format for this part is:<code>&lt;tagslength>&lt;tagsbytes></code>.  *<code>tagslength</code> maximum is<code>Short.MAX_SIZE</code>. The<code>tagsbytes</code>  * contain one or more tags where as each tag is of the form  *<code>&lt;taglength>&lt;tagtype>&lt;tagbytes></code>.<code>tagtype</code> is one byte and  *<code>taglength</code> maximum is<code>Short.MAX_SIZE</code> and it includes 1 byte type length  * and actual tag bytes length.  */
+comment|/**  * An HBase Key/Value. This is the fundamental HBase Type.  *<p>  * HBase applications and users should use the Cell interface and avoid directly using KeyValue  * and member functions not defined in Cell.  *<p>  * If being used client-side, the primary methods to access individual fields are {@link #getRow()},  * {@link #getFamily()}, {@link #getQualifier()}, {@link #getTimestamp()}, and {@link #getValue()}.  * These methods allocate new byte arrays and return copies. Avoid their use server-side.  *<p>  * Instances of this class are immutable. They do not implement Comparable but Comparators are  * provided. Comparators change with context, whether user table or a catalog table comparison. Its  * critical you use the appropriate comparator. There are Comparators for normal HFiles, Meta's  * Hfiles, and bloom filter keys.  *<p>  * KeyValue wraps a byte array and takes offsets and lengths into passed array at where to start  * interpreting the content as KeyValue. The KeyValue format inside a byte array is:  *<code>&lt;keylength>&lt;valuelength>&lt;key>&lt;value></code> Key is further decomposed as:  *<code>&lt;rowlength>&lt;row>&lt;columnfamilylength>&lt;columnfamily>&lt;columnqualifier>  *&lt;timestamp>&lt;keytype></code>  * The<code>rowlength</code> maximum is<code>Short.MAX_SIZE</code>, column family length maximum  * is<code>Byte.MAX_SIZE</code>, and column qualifier + key length must be<  *<code>Integer.MAX_SIZE</code>. The column does not contain the family/qualifier delimiter,  * {@link #COLUMN_FAMILY_DELIMITER}<br>  * KeyValue can optionally contain Tags. When it contains tags, it is added in the byte array after  * the value part. The format for this part is:<code>&lt;tagslength>&lt;tagsbytes></code>.  *<code>tagslength</code> maximum is<code>Short.MAX_SIZE</code>. The<code>tagsbytes</code>  * contain one or more tags where as each tag is of the form  *<code>&lt;taglength>&lt;tagtype>&lt;tagbytes></code>.<code>tagtype</code> is one byte and  *<code>taglength</code> maximum is<code>Short.MAX_SIZE</code> and it includes 1 byte type length  * and actual tag bytes length.  */
 end_comment
 
 begin_class
@@ -889,7 +889,7 @@ argument_list|)
 decl_stmt|;
 comment|////
 comment|// KeyValue core instance fields.
-specifier|private
+specifier|protected
 name|byte
 index|[]
 name|bytes
@@ -897,14 +897,14 @@ init|=
 literal|null
 decl_stmt|;
 comment|// an immutable byte array that contains the KV
-specifier|private
+specifier|protected
 name|int
 name|offset
 init|=
 literal|0
 decl_stmt|;
 comment|// offset into bytes buffer KV starts at
-specifier|private
+specifier|protected
 name|int
 name|length
 init|=
@@ -969,6 +969,8 @@ return|return
 name|seqId
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setSequenceId
@@ -4730,6 +4732,7 @@ name|other
 argument_list|)
 return|;
 block|}
+comment|/**    * In line with {@link #equals(Object)}, only uses the key portion, not the value.    */
 annotation|@
 name|Override
 specifier|public
@@ -4737,67 +4740,13 @@ name|int
 name|hashCode
 parameter_list|()
 block|{
-name|byte
-index|[]
-name|b
-init|=
-name|getBuffer
-argument_list|()
-decl_stmt|;
-name|int
-name|start
-init|=
-name|getOffset
-argument_list|()
-decl_stmt|,
-name|end
-init|=
-name|getOffset
-argument_list|()
-operator|+
-name|getLength
-argument_list|()
-decl_stmt|;
-name|int
-name|h
-init|=
-name|b
-index|[
-name|start
-operator|++
-index|]
-decl_stmt|;
-for|for
-control|(
-name|int
-name|i
-init|=
-name|start
-init|;
-name|i
-operator|<
-name|end
-condition|;
-name|i
-operator|++
-control|)
-block|{
-name|h
-operator|=
-operator|(
-name|h
-operator|*
-literal|13
-operator|)
-operator|^
-name|b
-index|[
-name|i
-index|]
-expr_stmt|;
-block|}
 return|return
-name|h
+name|CellComparator
+operator|.
+name|hashCodeIgnoreMvcc
+argument_list|(
+name|this
+argument_list|)
 return|;
 block|}
 comment|//---------------------------------------------------------------------------
@@ -4925,6 +4874,8 @@ comment|//
 comment|//  String representation
 comment|//
 comment|//---------------------------------------------------------------------------
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -4978,7 +4929,7 @@ operator|+
 name|seqId
 return|;
 block|}
-comment|/**    * @param k Key portion of a KeyValue.    * @return Key as a String, empty string if k is null.     */
+comment|/**    * @param k Key portion of a KeyValue.    * @return Key as a String, empty string if k is null.    */
 specifier|public
 specifier|static
 name|String
@@ -6150,6 +6101,8 @@ return|;
 block|}
 comment|/**    * Returns value in a new byte array.    * Primarily for use client-side. If server-side, use    * {@link #getBuffer()} with appropriate offsets and lengths instead to    * save on allocations.    * @return Value in a new byte array.    */
 annotation|@
+name|Override
+annotation|@
 name|Deprecated
 comment|// use CellUtil.getValueArray()
 specifier|public
@@ -6168,6 +6121,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Primarily for use client-side.  Returns the row of this KeyValue in a new    * byte array.<p>    *    * If server-side, use {@link #getBuffer()} with appropriate offsets and    * lengths instead.    * @return Row in a new byte array.    */
+annotation|@
+name|Override
 annotation|@
 name|Deprecated
 comment|// use CellUtil.getRowArray()
@@ -6292,6 +6247,8 @@ return|;
 block|}
 comment|/**    * Primarily for use client-side.  Returns the family of this KeyValue in a    * new byte array.<p>    *    * If server-side, use {@link #getBuffer()} with appropriate offsets and    * lengths instead.    * @return Returns family. Makes a copy.    */
 annotation|@
+name|Override
+annotation|@
 name|Deprecated
 comment|// use CellUtil.getFamilyArray
 specifier|public
@@ -6310,6 +6267,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Primarily for use client-side.  Returns the column qualifier of this    * KeyValue in a new byte array.<p>    *    * If server-side, use {@link #getBuffer()} with appropriate offsets and    * lengths instead.    * Use {@link #getBuffer()} with appropriate offsets and lengths instead.    * @return Returns qualifier. Makes a copy.    */
+annotation|@
+name|Override
 annotation|@
 name|Deprecated
 comment|// use CellUtil.getQualifierArray
@@ -7820,6 +7779,268 @@ name|right
 operator|.
 name|length
 argument_list|)
+return|;
+block|}
+comment|// compare a key against row/fam/qual/ts/type
+specifier|public
+name|int
+name|compareKey
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|,
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|int
+name|roff
+parameter_list|,
+name|int
+name|rlen
+parameter_list|,
+name|byte
+index|[]
+name|fam
+parameter_list|,
+name|int
+name|foff
+parameter_list|,
+name|int
+name|flen
+parameter_list|,
+name|byte
+index|[]
+name|col
+parameter_list|,
+name|int
+name|coff
+parameter_list|,
+name|int
+name|clen
+parameter_list|,
+name|long
+name|ts
+parameter_list|,
+name|byte
+name|type
+parameter_list|)
+block|{
+name|int
+name|compare
+init|=
+name|compareRows
+argument_list|(
+name|cell
+operator|.
+name|getRowArray
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getRowOffset
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getRowLength
+argument_list|()
+argument_list|,
+name|row
+argument_list|,
+name|roff
+argument_list|,
+name|rlen
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|compare
+operator|!=
+literal|0
+condition|)
+block|{
+return|return
+name|compare
+return|;
+block|}
+comment|// If the column is not specified, the "minimum" key type appears the
+comment|// latest in the sorted order, regardless of the timestamp. This is used
+comment|// for specifying the last key/value in a given row, because there is no
+comment|// "lexicographically last column" (it would be infinitely long). The
+comment|// "maximum" key type does not need this behavior.
+if|if
+condition|(
+name|cell
+operator|.
+name|getFamilyLength
+argument_list|()
+operator|+
+name|cell
+operator|.
+name|getQualifierLength
+argument_list|()
+operator|==
+literal|0
+operator|&&
+name|cell
+operator|.
+name|getTypeByte
+argument_list|()
+operator|==
+name|Type
+operator|.
+name|Minimum
+operator|.
+name|getCode
+argument_list|()
+condition|)
+block|{
+comment|// left is "bigger", i.e. it appears later in the sorted order
+return|return
+literal|1
+return|;
+block|}
+if|if
+condition|(
+name|flen
+operator|+
+name|clen
+operator|==
+literal|0
+operator|&&
+name|type
+operator|==
+name|Type
+operator|.
+name|Minimum
+operator|.
+name|getCode
+argument_list|()
+condition|)
+block|{
+return|return
+operator|-
+literal|1
+return|;
+block|}
+name|compare
+operator|=
+name|compareFamilies
+argument_list|(
+name|cell
+operator|.
+name|getFamilyArray
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getFamilyOffset
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getFamilyLength
+argument_list|()
+argument_list|,
+name|fam
+argument_list|,
+name|foff
+argument_list|,
+name|flen
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|compare
+operator|!=
+literal|0
+condition|)
+block|{
+return|return
+name|compare
+return|;
+block|}
+name|compare
+operator|=
+name|compareColumns
+argument_list|(
+name|cell
+operator|.
+name|getQualifierArray
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getQualifierOffset
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getQualifierLength
+argument_list|()
+argument_list|,
+name|col
+argument_list|,
+name|coff
+argument_list|,
+name|clen
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|compare
+operator|!=
+literal|0
+condition|)
+block|{
+return|return
+name|compare
+return|;
+block|}
+comment|// Next compare timestamps.
+name|compare
+operator|=
+name|compareTimestamps
+argument_list|(
+name|cell
+operator|.
+name|getTimestamp
+argument_list|()
+argument_list|,
+name|ts
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|compare
+operator|!=
+literal|0
+condition|)
+block|{
+return|return
+name|compare
+return|;
+block|}
+comment|// Compare types. Let the delete types sort ahead of puts; i.e. types
+comment|// of higher numbers sort before those of lesser numbers. Maximum (255)
+comment|// appears ahead of everything, and minimum (0) appears after
+comment|// everything.
+return|return
+operator|(
+literal|0xff
+operator|&
+name|type
+operator|)
+operator|-
+operator|(
+literal|0xff
+operator|&
+name|cell
+operator|.
+name|getTypeByte
+argument_list|()
+operator|)
 return|;
 block|}
 specifier|public
@@ -9348,7 +9569,7 @@ return|return
 name|fakeKey
 return|;
 block|}
-comment|/**      * This is a HFile block index key optimization.      * @param leftKey      * @param rightKey      * @return 0 if equal,<0 if left smaller,>0 if right smaller      * @deprecated Since 0.99.2; Use {@link CellComparator#getMidpoint(Cell, Cell)} instead.      */
+comment|/**      * This is a HFile block index key optimization.      * @param leftKey      * @param rightKey      * @return 0 if equal,<0 if left smaller,>0 if right smaller      * @deprecated Since 0.99.2; Use      *             {@link CellComparator#getMidpoint(KeyValue.KVComparator, Cell, Cell) instead}      */
 annotation|@
 name|Deprecated
 specifier|public
@@ -10649,6 +10870,8 @@ operator|=
 name|c
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compare
@@ -10672,7 +10895,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Avoids redundant comparisons for better performance.    *     * TODO get rid of this wart    */
+comment|/**    * Avoids redundant comparisons for better performance.    *    * TODO get rid of this wart    */
 specifier|public
 interface|interface
 name|SamePrefixComparator
@@ -10718,6 +10941,8 @@ extends|extends
 name|KVComparator
 block|{
 comment|/**      * The HFileV2 file format's trailer contains this class name.  We reinterpret this and      * instantiate the appropriate comparator.      * TODO: With V3 consider removing this.      * @return legacy class name for FileFileTrailer#comparatorClassName      */
+annotation|@
+name|Override
 specifier|public
 name|String
 name|getLegacyKeyComparatorName
@@ -10728,6 +10953,8 @@ literal|"org.apache.hadoop.hbase.util.Bytes$ByteArrayComparator"
 return|;
 block|}
 comment|/**      * @deprecated Since 0.99.2.      */
+annotation|@
+name|Override
 annotation|@
 name|Deprecated
 specifier|public
@@ -10798,6 +11025,8 @@ name|right
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -11008,6 +11237,8 @@ argument_list|()
 operator|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -11101,6 +11332,86 @@ name|sum
 argument_list|)
 return|;
 block|}
+comment|/**    * This is a hack that should be removed once we don't care about matching    * up client- and server-side estimations of cell size. It needed to be    * backwards compatible with estimations done by older clients. We need to    * pretend that tags never exist and KeyValues aren't serialized with tag    * length included. See HBASE-13262 and HBASE-13303    */
+annotation|@
+name|Deprecated
+specifier|public
+name|long
+name|heapSizeWithoutTags
+parameter_list|()
+block|{
+name|int
+name|sum
+init|=
+literal|0
+decl_stmt|;
+name|sum
+operator|+=
+name|ClassSize
+operator|.
+name|OBJECT
+expr_stmt|;
+comment|// the KeyValue object itself
+name|sum
+operator|+=
+name|ClassSize
+operator|.
+name|REFERENCE
+expr_stmt|;
+comment|// pointer to "bytes"
+name|sum
+operator|+=
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|ClassSize
+operator|.
+name|ARRAY
+argument_list|)
+expr_stmt|;
+comment|// "bytes"
+name|sum
+operator|+=
+name|KeyValue
+operator|.
+name|KEYVALUE_INFRASTRUCTURE_SIZE
+expr_stmt|;
+name|sum
+operator|+=
+name|getKeyLength
+argument_list|()
+expr_stmt|;
+name|sum
+operator|+=
+name|getValueLength
+argument_list|()
+expr_stmt|;
+name|sum
+operator|+=
+literal|2
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_INT
+expr_stmt|;
+comment|// offset, length
+name|sum
+operator|+=
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+expr_stmt|;
+comment|// memstoreTS
+return|return
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|sum
+argument_list|)
+return|;
+block|}
 comment|/**    * A simple form of KeyValue that creates a keyvalue with only the key part of the byte[]    * Mainly used in places where we need to compare two cells.  Avoids copying of bytes    * In places like block index keys, we need to compare the key byte[] with a cell.    * Hence create a Keyvalue(aka Cell) that would help in comparing as two cells    */
 specifier|public
 specifier|static
@@ -11109,27 +11420,30 @@ name|KeyOnlyKeyValue
 extends|extends
 name|KeyValue
 block|{
-specifier|private
-name|int
-name|length
-init|=
-literal|0
-decl_stmt|;
-specifier|private
-name|int
-name|offset
-init|=
-literal|0
-decl_stmt|;
-specifier|private
-name|byte
-index|[]
-name|b
-decl_stmt|;
 specifier|public
 name|KeyOnlyKeyValue
 parameter_list|()
 block|{      }
+specifier|public
+name|KeyOnlyKeyValue
+parameter_list|(
+name|byte
+index|[]
+name|b
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|b
+argument_list|,
+literal|0
+argument_list|,
+name|b
+operator|.
+name|length
+argument_list|)
+expr_stmt|;
+block|}
 specifier|public
 name|KeyOnlyKeyValue
 parameter_list|(
@@ -11146,7 +11460,7 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|b
+name|bytes
 operator|=
 name|b
 expr_stmt|;
@@ -11194,7 +11508,7 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|b
+name|bytes
 operator|=
 name|key
 expr_stmt|;
@@ -11241,7 +11555,7 @@ name|arraycopy
 argument_list|(
 name|this
 operator|.
-name|b
+name|bytes
 argument_list|,
 name|getKeyOffset
 argument_list|()
@@ -11266,7 +11580,7 @@ name|getRowArray
 parameter_list|()
 block|{
 return|return
-name|b
+name|bytes
 return|;
 block|}
 annotation|@
@@ -11294,7 +11608,7 @@ name|getFamilyArray
 parameter_list|()
 block|{
 return|return
-name|b
+name|bytes
 return|;
 block|}
 annotation|@
@@ -11307,7 +11621,7 @@ block|{
 return|return
 name|this
 operator|.
-name|b
+name|bytes
 index|[
 name|getFamilyOffset
 argument_list|()
@@ -11349,7 +11663,7 @@ name|getQualifierArray
 parameter_list|()
 block|{
 return|return
-name|b
+name|bytes
 return|;
 block|}
 annotation|@
@@ -11410,7 +11724,7 @@ name|toShort
 argument_list|(
 name|this
 operator|.
-name|b
+name|bytes
 argument_list|,
 name|getKeyOffset
 argument_list|()
@@ -11427,7 +11741,7 @@ block|{
 return|return
 name|this
 operator|.
-name|b
+name|bytes
 index|[
 name|this
 operator|.
@@ -11488,7 +11802,7 @@ name|toLong
 argument_list|(
 name|this
 operator|.
-name|b
+name|bytes
 argument_list|,
 name|tsOffset
 argument_list|)
@@ -11604,13 +11918,13 @@ if|if
 condition|(
 name|this
 operator|.
-name|b
+name|bytes
 operator|==
 literal|null
 operator|||
 name|this
 operator|.
-name|b
+name|bytes
 operator|.
 name|length
 operator|==
@@ -11626,7 +11940,7 @@ name|keyToString
 argument_list|(
 name|this
 operator|.
-name|b
+name|bytes
 argument_list|,
 name|this
 operator|.

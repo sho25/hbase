@@ -451,9 +451,9 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|handler
+name|procedure
 operator|.
-name|CreateTableHandler
+name|CreateTableProcedure
 import|;
 end_import
 
@@ -694,9 +694,7 @@ expr_stmt|;
 block|}
 try|try
 block|{
-comment|// Wait for the namespace table to be assigned.
-comment|// If timed out, we will move ahead without initializing it.
-comment|// So that it should be initialized later on lazily.
+comment|// Wait for the namespace table to be initialized.
 name|long
 name|startTime
 init|=
@@ -720,13 +718,8 @@ decl_stmt|;
 while|while
 condition|(
 operator|!
-operator|(
-name|isTableAssigned
+name|isTableAvailableAndInitialized
 argument_list|()
-operator|&&
-name|isTableEnabled
-argument_list|()
-operator|)
 condition|)
 block|{
 if|if
@@ -790,10 +783,6 @@ name|e
 argument_list|)
 throw|;
 block|}
-comment|// initialize namespace table
-name|isTableAvailableAndInitialized
-argument_list|()
-expr_stmt|;
 block|}
 specifier|private
 specifier|synchronized
@@ -1602,8 +1591,8 @@ throws|throws
 name|IOException
 block|{
 name|HRegionInfo
-name|newRegions
 index|[]
+name|newRegions
 init|=
 operator|new
 name|HRegionInfo
@@ -1625,41 +1614,31 @@ literal|null
 argument_list|)
 block|}
 decl_stmt|;
-comment|//we need to create the table this way to bypass
-comment|//checkInitialized
+comment|// we need to create the table this way to bypass checkInitialized
 name|masterServices
 operator|.
-name|getExecutorService
+name|getMasterProcedureExecutor
 argument_list|()
 operator|.
-name|submit
+name|submitProcedure
 argument_list|(
 operator|new
-name|CreateTableHandler
+name|CreateTableProcedure
 argument_list|(
 name|masterServices
-argument_list|,
-name|masterServices
 operator|.
-name|getMasterFileSystem
+name|getMasterProcedureExecutor
+argument_list|()
+operator|.
+name|getEnvironment
 argument_list|()
 argument_list|,
 name|HTableDescriptor
 operator|.
 name|NAMESPACE_TABLEDESC
 argument_list|,
-name|masterServices
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
 name|newRegions
-argument_list|,
-name|masterServices
 argument_list|)
-operator|.
-name|prepare
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

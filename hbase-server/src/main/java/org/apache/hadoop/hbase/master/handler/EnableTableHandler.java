@@ -672,15 +672,6 @@ name|tableName
 argument_list|)
 condition|)
 block|{
-comment|// retainAssignment is true only during recovery.  In normal case it is false
-if|if
-condition|(
-operator|!
-name|this
-operator|.
-name|skipTableStateCheck
-condition|)
-block|{
 throw|throw
 operator|new
 name|TableNotFoundException
@@ -688,19 +679,6 @@ argument_list|(
 name|tableName
 argument_list|)
 throw|;
-block|}
-name|this
-operator|.
-name|assignmentManager
-operator|.
-name|getTableStateManager
-argument_list|()
-operator|.
-name|setDeletedTable
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
 block|}
 comment|// There could be multiple client requests trying to disable or enable
 comment|// the table at the same time. Ensure only the first request is honored

@@ -362,6 +362,20 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
 operator|.
 name|OperationStatusCode
 import|;
@@ -537,7 +551,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|OperationStatus
 import|;
 end_import
 
@@ -553,7 +567,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|OperationStatus
+name|Region
 import|;
 end_import
 
@@ -732,7 +746,7 @@ name|Configuration
 name|conf
 decl_stmt|;
 specifier|private
-name|HRegion
+name|Region
 name|labelsRegion
 decl_stmt|;
 specifier|private
@@ -1575,7 +1589,7 @@ specifier|protected
 name|void
 name|addSystemLabel
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 name|Map
@@ -2352,6 +2366,14 @@ name|size
 argument_list|()
 index|]
 argument_list|)
+argument_list|,
+name|HConstants
+operator|.
+name|NO_NONCE
+argument_list|,
+name|HConstants
+operator|.
+name|NO_NONCE
 argument_list|)
 decl_stmt|;
 name|int

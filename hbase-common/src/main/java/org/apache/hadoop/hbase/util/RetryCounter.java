@@ -577,9 +577,17 @@ argument_list|,
 name|attempts
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Sleeping "
 operator|+
@@ -592,6 +600,7 @@ operator|+
 literal|"..."
 argument_list|)
 expr_stmt|;
+block|}
 name|retryConfig
 operator|.
 name|getTimeUnit

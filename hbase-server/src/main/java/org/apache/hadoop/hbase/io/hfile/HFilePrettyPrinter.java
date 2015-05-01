@@ -1864,9 +1864,6 @@ name|this
 operator|.
 name|row
 argument_list|)
-operator|.
-name|getKey
-argument_list|()
 argument_list|)
 operator|!=
 operator|-

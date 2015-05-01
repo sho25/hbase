@@ -1677,9 +1677,17 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|warn
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"call write error for call #"
 operator|+
@@ -1697,6 +1705,7 @@ name|getMessage
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|cts
 operator|.
 name|call
@@ -2228,6 +2237,16 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|builder
+operator|.
+name|setVersionInfo
+argument_list|(
+name|ProtobufUtil
+operator|.
+name|getVersionInfo
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|header
@@ -5625,6 +5644,8 @@ block|}
 block|}
 block|}
 comment|/** Make a call, passing<code>param</code>, to the IPC server running at    *<code>address</code> which is servicing the<code>protocol</code> protocol,    * with the<code>ticket</code> credentials, returning the value.    * Throws exceptions if there are network problems or if the remote code    * threw an exception.    * @param ticket Be careful which ticket you pass. A new user will mean a new Connection.    *          {@link UserProvider#getCurrent()} makes a new instance of User each time so will be a    *          new Connection each time.    * @return A pair with the Message response and the Cell data (if any).    * @throws InterruptedException    * @throws IOException    */
+annotation|@
+name|Override
 specifier|protected
 name|Pair
 argument_list|<

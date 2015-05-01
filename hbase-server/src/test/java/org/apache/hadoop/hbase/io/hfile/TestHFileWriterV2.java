@@ -450,7 +450,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Testing writing a version 2 {@link HFile}. This is a low-level test written  * during the development of {@link HFileWriterV2}.  */
+comment|/**  * Testing writing a version 2 {@link HFile}. This is a low-level test written  * during the development of {@link HFileWriterImpl}.  */
 end_comment
 
 begin_class
@@ -673,16 +673,13 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|HFileWriterV2
+name|HFile
+operator|.
+name|Writer
 name|writer
 init|=
-operator|(
-name|HFileWriterV2
-operator|)
 operator|new
-name|HFileWriterV2
-operator|.
-name|WriterFactoryV2
+name|HFileWriterFactory
 argument_list|(
 name|conf
 argument_list|,
@@ -882,16 +879,6 @@ argument_list|,
 name|fileSize
 argument_list|)
 decl_stmt|;
-name|assertEquals
-argument_list|(
-literal|2
-argument_list|,
-name|trailer
-operator|.
-name|getMajorVersion
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|assertEquals
 argument_list|(
 name|entryCount
@@ -1114,7 +1101,7 @@ name|fileInfo
 operator|.
 name|get
 argument_list|(
-name|HFileWriterV2
+name|HFileWriterImpl
 operator|.
 name|KEY_VALUE_VERSION
 argument_list|)

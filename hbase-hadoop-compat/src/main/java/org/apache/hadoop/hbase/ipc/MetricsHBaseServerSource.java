@@ -121,6 +121,16 @@ init|=
 literal|"Processing call time."
 decl_stmt|;
 name|String
+name|TOTAL_CALL_TIME_NAME
+init|=
+literal|"totalCallTime"
+decl_stmt|;
+name|String
+name|TOTAL_CALL_TIME_DESC
+init|=
+literal|"Total call time, including both queued and processing time."
+decl_stmt|;
+name|String
 name|QUEUE_SIZE_NAME
 init|=
 literal|"queueSize"
@@ -222,6 +232,13 @@ name|processedCall
 parameter_list|(
 name|int
 name|processingTime
+parameter_list|)
+function_decl|;
+name|void
+name|queuedAndProcessedCall
+parameter_list|(
+name|int
+name|totalTime
 parameter_list|)
 function_decl|;
 block|}

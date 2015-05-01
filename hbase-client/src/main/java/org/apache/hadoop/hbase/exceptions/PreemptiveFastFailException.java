@@ -74,7 +74,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Thrown when the client believes that we are trying to communicate to has  * been repeatedly unresponsive for a while.  *  * On receiving such an exception. The HConnectionManager will skip all  * retries and fast fail the operation.  */
+comment|/**  * Thrown when the client believes that we are trying to communicate to has  * been repeatedly unresponsive for a while.  *  * On receiving such an exception. The ConnectionManager will skip all  * retries and fast fail the operation.  */
 end_comment
 
 begin_class

@@ -57,9 +57,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|Cell
 import|;
 end_import
 
@@ -73,7 +71,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Cell
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -105,7 +105,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Grab the next row's worth of values with a limit on the number of values    * to return.    * @param result return output array    * @param limit limit on row count to get    * @return true if more rows exist after this one, false if scanner is done    * @throws IOException e    */
+comment|/**    * Grab the next row's worth of values.    * @param result return output array    * @param scannerContext    * @return true if more rows exist after this one, false if scanner is done    * @throws IOException e    */
 name|boolean
 name|next
 parameter_list|(
@@ -115,8 +115,8 @@ name|Cell
 argument_list|>
 name|result
 parameter_list|,
-name|int
-name|limit
+name|ScannerContext
+name|scannerContext
 parameter_list|)
 throws|throws
 name|IOException

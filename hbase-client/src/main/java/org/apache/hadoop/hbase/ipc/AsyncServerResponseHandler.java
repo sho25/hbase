@@ -19,18 +19,6 @@ end_package
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Message
-import|;
-end_import
-
-begin_import
-import|import
 name|io
 operator|.
 name|netty
@@ -74,6 +62,16 @@ operator|.
 name|channel
 operator|.
 name|ChannelInboundHandlerAdapter
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
 import|;
 end_import
 
@@ -185,11 +183,13 @@ end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|io
+name|google
 operator|.
-name|IOException
+name|protobuf
+operator|.
+name|Message
 import|;
 end_import
 
@@ -278,15 +278,6 @@ argument_list|(
 name|inBuffer
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|channel
-operator|.
-name|shouldCloseConnection
-condition|)
-block|{
-return|return;
-block|}
 name|int
 name|totalSize
 init|=
@@ -325,9 +316,7 @@ name|call
 init|=
 name|channel
 operator|.
-name|calls
-operator|.
-name|get
+name|removePendingCall
 argument_list|(
 name|id
 argument_list|)
@@ -427,12 +416,10 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|channel
-operator|.
-name|failCall
-argument_list|(
 name|call
-argument_list|,
+operator|.
+name|setFailed
+argument_list|(
 name|re
 argument_list|)
 expr_stmt|;
@@ -553,15 +540,6 @@ name|cellBlockScanner
 argument_list|)
 expr_stmt|;
 block|}
-name|channel
-operator|.
-name|calls
-operator|.
-name|remove
-argument_list|(
-name|id
-argument_list|)
-expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -584,13 +562,6 @@ name|inBuffer
 operator|.
 name|release
 argument_list|()
-expr_stmt|;
-name|channel
-operator|.
-name|cleanupCalls
-argument_list|(
-literal|false
-argument_list|)
 expr_stmt|;
 block|}
 block|}

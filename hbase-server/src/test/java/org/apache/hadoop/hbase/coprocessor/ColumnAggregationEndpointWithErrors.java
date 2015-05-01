@@ -267,7 +267,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|InternalScanner
 import|;
 end_import
 
@@ -283,7 +283,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|InternalScanner
+name|Region
 import|;
 end_import
 
@@ -538,7 +538,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|HRegion
+name|Region
 name|region
 init|=
 name|this
@@ -556,6 +556,9 @@ operator|.
 name|equals
 argument_list|(
 name|region
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getEndKey
 argument_list|()

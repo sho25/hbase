@@ -439,7 +439,7 @@ name|id
 operator|=
 name|Long
 operator|.
-name|valueOf
+name|parseLong
 argument_list|(
 name|split
 index|[

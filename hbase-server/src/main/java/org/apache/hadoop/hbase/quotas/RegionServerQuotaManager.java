@@ -139,7 +139,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RequestContext
+name|RpcServer
 import|;
 end_import
 
@@ -173,7 +173,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -599,7 +599,7 @@ name|OperationQuota
 name|checkQuota
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 specifier|final
@@ -680,7 +680,7 @@ name|OperationQuota
 name|checkQuota
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 specifier|final
@@ -763,7 +763,7 @@ name|OperationQuota
 name|checkQuota
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 specifier|final
@@ -783,23 +783,27 @@ name|IOException
 throws|,
 name|ThrottlingException
 block|{
+name|User
+name|user
+init|=
+name|RpcServer
+operator|.
+name|getRequestUser
+argument_list|()
+decl_stmt|;
 name|UserGroupInformation
 name|ugi
 decl_stmt|;
 if|if
 condition|(
-name|RequestContext
-operator|.
-name|isInRequestContext
-argument_list|()
+name|user
+operator|!=
+literal|null
 condition|)
 block|{
 name|ugi
 operator|=
-name|RequestContext
-operator|.
-name|getRequestUser
-argument_list|()
+name|user
 operator|.
 name|getUGI
 argument_list|()

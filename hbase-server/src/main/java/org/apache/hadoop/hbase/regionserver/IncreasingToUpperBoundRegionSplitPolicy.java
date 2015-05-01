@@ -322,9 +322,6 @@ name|region
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 comment|// If any of the stores is unable to split (eg they contain reference files)
@@ -484,7 +481,7 @@ try|try
 block|{
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|hri
 init|=

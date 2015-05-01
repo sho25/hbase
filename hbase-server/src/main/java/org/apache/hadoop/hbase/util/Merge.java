@@ -1037,6 +1037,9 @@ name|toStringBinary
 argument_list|(
 name|meta
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
@@ -1070,6 +1073,9 @@ operator|.
 name|toStringBinary
 argument_list|(
 name|meta
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()

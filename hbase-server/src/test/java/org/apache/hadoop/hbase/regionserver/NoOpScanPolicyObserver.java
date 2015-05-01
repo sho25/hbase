@@ -419,7 +419,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HRegion
+name|Region
 name|r
 init|=
 name|c

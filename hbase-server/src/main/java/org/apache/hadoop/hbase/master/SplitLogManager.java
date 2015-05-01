@@ -978,15 +978,15 @@ argument_list|)
 decl_stmt|;
 name|coordination
 operator|.
-name|init
-argument_list|()
-expr_stmt|;
-name|coordination
-operator|.
 name|setDetails
 argument_list|(
 name|details
 argument_list|)
+expr_stmt|;
+name|coordination
+operator|.
+name|init
+argument_list|()
 expr_stmt|;
 comment|// Determine recovery mode
 block|}

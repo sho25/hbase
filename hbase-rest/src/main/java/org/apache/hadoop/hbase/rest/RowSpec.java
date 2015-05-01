@@ -972,7 +972,7 @@ name|time0
 operator|=
 name|Long
 operator|.
-name|valueOf
+name|parseLong
 argument_list|(
 name|URLDecoder
 operator|.
@@ -1062,7 +1062,7 @@ name|time1
 operator|=
 name|Long
 operator|.
-name|valueOf
+name|parseLong
 argument_list|(
 name|URLDecoder
 operator|.
@@ -1422,7 +1422,7 @@ name|maxVersions
 operator|=
 name|Integer
 operator|.
-name|valueOf
+name|parseInt
 argument_list|(
 name|sb
 operator|.
@@ -1490,7 +1490,7 @@ name|maxValues
 operator|=
 name|Integer
 operator|.
-name|valueOf
+name|parseInt
 argument_list|(
 name|sb
 operator|.

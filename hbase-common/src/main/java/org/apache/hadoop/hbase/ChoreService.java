@@ -391,6 +391,13 @@ literal|false
 return|;
 try|try
 block|{
+name|chore
+operator|.
+name|setChoreServicer
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
 name|ScheduledFuture
 argument_list|<
 name|?
@@ -419,13 +426,6 @@ name|getTimeUnit
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|chore
-operator|.
-name|setChoreServicer
-argument_list|(
-name|this
-argument_list|)
-expr_stmt|;
 name|scheduledChores
 operator|.
 name|put
@@ -540,7 +540,7 @@ name|cancelChore
 argument_list|(
 name|chore
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 expr_stmt|;
 block|}

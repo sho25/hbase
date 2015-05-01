@@ -408,8 +408,9 @@ comment|// Check that this region is being served here
 name|HRegion
 name|region
 init|=
-name|this
-operator|.
+operator|(
+name|HRegion
+operator|)
 name|rsServices
 operator|.
 name|getFromOnlineRegions
@@ -533,6 +534,9 @@ argument_list|(
 literal|"Closed "
 operator|+
 name|region
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()

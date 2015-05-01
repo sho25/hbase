@@ -148,6 +148,11 @@ name|int
 name|getPercentFileLocal
 parameter_list|()
 function_decl|;
+comment|/**    * Get the percent of HFiles' that are local for secondary region replicas.    */
+name|int
+name|getPercentFileLocalSecondaryRegions
+parameter_list|()
+function_decl|;
 comment|/**    * Get the size of the split queue    */
 name|int
 name|getSplitQueueSize
@@ -251,7 +256,7 @@ name|long
 name|getMajorCompactedCellsSize
 parameter_list|()
 function_decl|;
-comment|/**<<<<<<< HEAD    * Gets the number of cells move to mob during compaction.    */
+comment|/**    * Gets the number of cells move to mob during compaction.    */
 name|long
 name|getMobCompactedIntoMobCellsCount
 parameter_list|()

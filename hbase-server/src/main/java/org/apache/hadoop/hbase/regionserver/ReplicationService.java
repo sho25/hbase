@@ -65,6 +65,24 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|regionserver
+operator|.
+name|ReplicationLoad
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|FileSystem
@@ -86,7 +104,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Gateway to Cluster Replication.    * Used by {@link org.apache.hadoop.hbase.regionserver.HRegionServer}.  * One such application is a cross-datacenter  * replication service that can keep two hbase clusters in sync.  */
+comment|/**  * Gateway to Cluster Replication.  * Used by {@link org.apache.hadoop.hbase.regionserver.HRegionServer}.  * One such application is a cross-datacenter  * replication service that can keep two hbase clusters in sync.  */
 end_comment
 
 begin_interface
@@ -127,6 +145,12 @@ function_decl|;
 comment|/**    * Stops replication service.    */
 name|void
 name|stopReplicationService
+parameter_list|()
+function_decl|;
+comment|/**    * Refresh and Get ReplicationLoad    */
+specifier|public
+name|ReplicationLoad
+name|refreshAndGetReplicationLoad
 parameter_list|()
 function_decl|;
 block|}

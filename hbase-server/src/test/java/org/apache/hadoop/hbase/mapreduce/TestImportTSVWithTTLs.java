@@ -329,7 +329,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -1032,7 +1032,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HRegion
+name|Region
 name|region
 init|=
 name|e

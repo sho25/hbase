@@ -121,7 +121,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|HFileReaderV3
+name|HFileReaderImpl
 import|;
 end_import
 
@@ -139,7 +139,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|HFileWriterV3
+name|HFileWriterImpl
 import|;
 end_import
 
@@ -336,7 +336,7 @@ name|Logger
 operator|.
 name|getLogger
 argument_list|(
-name|HFileReaderV3
+name|HFileReaderImpl
 operator|.
 name|class
 argument_list|)
@@ -352,7 +352,7 @@ name|Logger
 operator|.
 name|getLogger
 argument_list|(
-name|HFileWriterV3
+name|HFileWriterImpl
 operator|.
 name|class
 argument_list|)

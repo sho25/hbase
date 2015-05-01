@@ -171,7 +171,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|HRegionServer
 import|;
 end_import
 
@@ -187,7 +187,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|Region
 import|;
 end_import
 
@@ -563,9 +563,6 @@ argument_list|)
 operator|.
 name|getMemstoreSize
 argument_list|()
-operator|.
-name|get
-argument_list|()
 expr_stmt|;
 block|}
 name|assertEquals
@@ -635,7 +632,7 @@ argument_list|()
 argument_list|)
 control|)
 block|{
-name|HRegion
+name|Region
 name|r
 init|=
 name|server
@@ -747,7 +744,7 @@ argument_list|()
 argument_list|)
 control|)
 block|{
-name|HRegion
+name|Region
 name|r
 init|=
 name|server
@@ -766,9 +763,6 @@ init|=
 name|r
 operator|.
 name|getMemstoreSize
-argument_list|()
-operator|.
-name|longValue
 argument_list|()
 decl_stmt|;
 if|if
@@ -806,8 +800,10 @@ argument_list|)
 expr_stmt|;
 name|r
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -859,7 +855,7 @@ name|void
 name|flush
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 specifier|final
@@ -891,8 +887,10 @@ literal|", "
 operator|+
 name|r
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 operator|+
 literal|", size="
 operator|+

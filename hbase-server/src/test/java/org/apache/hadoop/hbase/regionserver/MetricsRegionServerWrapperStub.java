@@ -270,6 +270,17 @@ annotation|@
 name|Override
 specifier|public
 name|int
+name|getPercentFileLocalSecondaryRegions
+parameter_list|()
+block|{
+return|return
+literal|99
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|int
 name|getCompactionQueueSize
 parameter_list|()
 block|{

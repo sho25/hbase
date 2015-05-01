@@ -308,7 +308,7 @@ throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-literal|"hbase-default.xml file seems to be for and old version of HBase ("
+literal|"hbase-default.xml file seems to be for an older version of HBase ("
 operator|+
 name|defaultsVersion
 operator|+

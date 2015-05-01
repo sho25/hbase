@@ -222,8 +222,8 @@ name|Cell
 argument_list|>
 name|outResult
 parameter_list|,
-name|int
-name|limit
+name|ScannerContext
+name|ctx
 parameter_list|)
 throws|throws
 name|IOException
@@ -237,7 +237,7 @@ name|next
 argument_list|(
 name|outResult
 argument_list|,
-name|limit
+name|ctx
 argument_list|)
 decl_stmt|;
 if|if

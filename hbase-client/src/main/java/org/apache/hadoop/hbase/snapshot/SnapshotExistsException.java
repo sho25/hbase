@@ -93,6 +93,19 @@ name|SnapshotExistsException
 extends|extends
 name|HBaseSnapshotException
 block|{
+specifier|public
+name|SnapshotExistsException
+parameter_list|(
+name|String
+name|msg
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Failure due to the snapshot already existing    * @param msg full description of the failure    * @param desc snapshot that was attempted    */
 specifier|public
 name|SnapshotExistsException

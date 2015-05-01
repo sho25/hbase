@@ -59,25 +59,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
+name|hadoop
 operator|.
-name|logging
+name|hbase
 operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|classification
 operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
+name|InterfaceAudience
 import|;
 end_import
 
@@ -93,7 +81,7 @@ name|hbase
 operator|.
 name|classification
 operator|.
-name|InterfaceAudience
+name|InterfaceStability
 import|;
 end_import
 
@@ -112,33 +100,22 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Provides client-side metrics related to scan operations  * The data can be passed to mapreduce framework or other systems.  * We use atomic longs so that one thread can increment,  * while another atomically resets to zero after the values are reported  * to hadoop's counters.  *  * Some of these metrics are general for any client operation such as put  * However, there is no need for this. So they are defined under scan operation  * for now.  */
+comment|/**  * Provides client-side metrics related to scan operations.  * The data can be passed to mapreduce framework or other systems.  * We use atomic longs so that one thread can increment,  * while another atomically resets to zero after the values are reported  * to hadoop's counters.  *  * Some of these metrics are general for any client operation such as put  * However, there is no need for this. So they are defined under scan operation  * for now.  */
 end_comment
 
 begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 class|class
 name|ScanMetrics
 block|{
-specifier|private
-specifier|static
-specifier|final
-name|Log
-name|LOG
-init|=
-name|LogFactory
-operator|.
-name|getLog
-argument_list|(
-name|ScanMetrics
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
 comment|/**    * Hash to hold the String -> Atomic Long mappings.    */
 specifier|private
 specifier|final

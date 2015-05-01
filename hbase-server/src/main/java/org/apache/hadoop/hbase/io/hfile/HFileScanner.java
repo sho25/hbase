@@ -70,7 +70,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A scanner allows you to position yourself within a HFile and  * scan through it.  It allows you to reposition yourself as well.  *  *<p>A scanner doesn't always have a key/value that it is pointing to  * when it is first created and before  * {@link #seekTo()}/{@link #seekTo(byte[])} are called.  * In this case, {@link #getKey()}/{@link #getValue()} returns null.  At most  * other times, a key and value will be available.  The general pattern is that  * you position the Scanner using the seekTo variants and then getKey and  * getValue.  */
+comment|/**  * A scanner allows you to position yourself within a HFile and  * scan through it.  It allows you to reposition yourself as well.  *  *<p>A scanner doesn't always have a key/value that it is pointing to  * when it is first created and before  * {@link #seekTo()}/{@link #seekTo(Cell)} are called.  * In this case, {@link #getKey()}/{@link #getValue()} returns null.  At most  * other times, a key and value will be available.  The general pattern is that  * you position the Scanner using the seekTo variants and then getKey and  * getValue.  */
 end_comment
 
 begin_interface
@@ -82,122 +82,32 @@ specifier|public
 interface|interface
 name|HFileScanner
 block|{
-comment|/**    * SeekTo or just before the passed<code>key</code>.  Examine the return    * code to figure whether we found the key or not.    * Consider the key stream of all the keys in the file,    *<code>k[0] .. k[n]</code>, where there are n keys in the file.    * @param key Key to find.    * @return -1, if key< k[0], no position;    * 0, such that k[i] = key and scanner is left in position i; and    * 1, such that k[i]< key, and scanner is left in position i.    * The scanner will position itself between k[i] and k[i+1] where    * k[i]< key<= k[i+1].    * If there is no key k[i+1] greater than or equal to the input key, then the    * scanner will position itself at the end of the file and next() will return    * false when it is called.    * @throws IOException    */
-annotation|@
-name|Deprecated
-name|int
-name|seekTo
-parameter_list|(
-name|byte
-index|[]
-name|key
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-annotation|@
-name|Deprecated
-name|int
-name|seekTo
-parameter_list|(
-name|byte
-index|[]
-name|key
-parameter_list|,
-name|int
-name|offset
-parameter_list|,
-name|int
-name|length
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
+comment|/**    * SeekTo or just before the passed<code>cell</code>.  Examine the return    * code to figure whether we found the cell or not.    * Consider the cell stream of all the cells in the file,    *<code>c[0] .. c[n]</code>, where there are n cells in the file.    * @param cell    * @return -1, if cell< c[0], no position;    * 0, such that c[i] = cell and scanner is left in position i; and    * 1, such that c[i]< cell, and scanner is left in position i.    * The scanner will position itself between c[i] and c[i+1] where    * c[i]< cell<= c[i+1].    * If there is no cell c[i+1] greater than or equal to the input cell, then the    * scanner will position itself at the end of the file and next() will return    * false when it is called.    * @throws IOException    */
 name|int
 name|seekTo
 parameter_list|(
 name|Cell
-name|c
+name|cell
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Reseek to or just before the passed<code>key</code>. Similar to seekTo    * except that this can be called even if the scanner is not at the beginning    * of a file.    * This can be used to seek only to keys which come after the current position    * of the scanner.    * Consider the key stream of all the keys in the file,    *<code>k[0] .. k[n]</code>, where there are n keys in the file after    * current position of HFileScanner.    * The scanner will position itself between k[i] and k[i+1] where    * k[i]< key<= k[i+1].    * If there is no key k[i+1] greater than or equal to the input key, then the    * scanner will position itself at the end of the file and next() will return    * false when it is called.    * @param key Key to find (should be non-null)    * @return -1, if key< k[0], no position;    * 0, such that k[i] = key and scanner is left in position i; and    * 1, such that k[i]< key, and scanner is left in position i.    * @throws IOException    */
-annotation|@
-name|Deprecated
-name|int
-name|reseekTo
-parameter_list|(
-name|byte
-index|[]
-name|key
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-annotation|@
-name|Deprecated
-name|int
-name|reseekTo
-parameter_list|(
-name|byte
-index|[]
-name|key
-parameter_list|,
-name|int
-name|offset
-parameter_list|,
-name|int
-name|length
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
+comment|/**    * Reseek to or just before the passed<code>cell</code>. Similar to seekTo    * except that this can be called even if the scanner is not at the beginning    * of a file.    * This can be used to seek only to cells which come after the current position    * of the scanner.    * Consider the cell stream of all the cells in the file,    *<code>c[0] .. c[n]</code>, where there are n cellc in the file after    * current position of HFileScanner.    * The scanner will position itself between c[i] and c[i+1] where    * c[i]< cell<= c[i+1].    * If there is no cell c[i+1] greater than or equal to the input cell, then the    * scanner will position itself at the end of the file and next() will return    * false when it is called.    * @param cell Cell to find (should be non-null)    * @return -1, if cell< c[0], no position;    * 0, such that c[i] = cell and scanner is left in position i; and    * 1, such that c[i]< cell, and scanner is left in position i.    * @throws IOException    */
 name|int
 name|reseekTo
 parameter_list|(
 name|Cell
-name|c
+name|cell
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Consider the key stream of all the keys in the file,    *<code>k[0] .. k[n]</code>, where there are n keys in the file.    * @param key Key to find    * @return false if key<= k[0] or true with scanner in position 'i' such    * that: k[i]< key.  Furthermore: there may be a k[i+1], such that    * k[i]< key<= k[i+1] but there may also NOT be a k[i+1], and next() will    * return false (EOF).    * @throws IOException    */
-annotation|@
-name|Deprecated
-name|boolean
-name|seekBefore
-parameter_list|(
-name|byte
-index|[]
-name|key
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-annotation|@
-name|Deprecated
-name|boolean
-name|seekBefore
-parameter_list|(
-name|byte
-index|[]
-name|key
-parameter_list|,
-name|int
-name|offset
-parameter_list|,
-name|int
-name|length
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
+comment|/**    * Consider the cell stream of all the cells in the file,    *<code>c[0] .. c[n]</code>, where there are n cells in the file.    * @param cell Cell to find    * @return false if cell<= c[0] or true with scanner in position 'i' such    * that: c[i]< cell.  Furthermore: there may be a c[i+1], such that    * c[i]< cell<= c[i+1] but there may also NOT be a c[i+1], and next() will    * return false (EOF).    * @throws IOException    */
 name|boolean
 name|seekBefore
 parameter_list|(
 name|Cell
-name|kv
+name|cell
 parameter_list|)
 throws|throws
 name|IOException
@@ -216,12 +126,12 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Gets a buffer view to the current key. You must call    * {@link #seekTo(byte[])} before this method.    * @return byte buffer for the key. The limit is set to the key size, and the    * position is 0, the start of the buffer view.    */
+comment|/**    * Gets a buffer view to the current key. You must call    * {@link #seekTo(Cell)} before this method.    * @return byte buffer for the key. The limit is set to the key size, and the    * position is 0, the start of the buffer view.    */
 name|ByteBuffer
 name|getKey
 parameter_list|()
 function_decl|;
-comment|/**    * Gets a buffer view to the current value.  You must call    * {@link #seekTo(byte[])} before this method.    *    * @return byte buffer for the value. The limit is set to the value size, and    * the position is 0, the start of the buffer view.    */
+comment|/**    * Gets a buffer view to the current value.  You must call    * {@link #seekTo(Cell)} before this method.    *    * @return byte buffer for the value. The limit is set to the value size, and    * the position is 0, the start of the buffer view.    */
 name|ByteBuffer
 name|getValue
 parameter_list|()
@@ -231,12 +141,12 @@ name|Cell
 name|getKeyValue
 parameter_list|()
 function_decl|;
-comment|/**    * Convenience method to get a copy of the key as a string - interpreting the    * bytes as UTF8. You must call {@link #seekTo(byte[])} before this method.    * @return key as a string    */
+comment|/**    * Convenience method to get a copy of the key as a string - interpreting the    * bytes as UTF8. You must call {@link #seekTo(Cell)} before this method.    * @return key as a string    */
 name|String
 name|getKeyString
 parameter_list|()
 function_decl|;
-comment|/**    * Convenience method to get a copy of the value as a string - interpreting    * the bytes as UTF8. You must call {@link #seekTo(byte[])} before this method.    * @return value as a string    */
+comment|/**    * Convenience method to get a copy of the value as a string - interpreting    * the bytes as UTF8. You must call {@link #seekTo(Cell)} before this method.    * @return value as a string    */
 name|String
 name|getValueString
 parameter_list|()
@@ -248,9 +158,14 @@ name|Reader
 name|getReader
 parameter_list|()
 function_decl|;
-comment|/**    * @return True is scanner has had one of the seek calls invoked; i.e.    * {@link #seekBefore(byte[])} or {@link #seekTo()} or {@link #seekTo(byte[])}.    * Otherwise returns false.    */
+comment|/**    * @return True is scanner has had one of the seek calls invoked; i.e.    * {@link #seekBefore(Cell)} or {@link #seekTo()} or {@link #seekTo(Cell)}.    * Otherwise returns false.    */
 name|boolean
 name|isSeeked
+parameter_list|()
+function_decl|;
+comment|/**    * @return the next key in the index (the key to seek to the next block)    */
+name|Cell
+name|getNextIndexedKey
 parameter_list|()
 function_decl|;
 block|}

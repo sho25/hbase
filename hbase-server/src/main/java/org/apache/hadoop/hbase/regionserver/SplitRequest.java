@@ -213,7 +213,7 @@ name|tableLock
 decl_stmt|;
 name|SplitRequest
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 name|byte
@@ -235,6 +235,9 @@ name|this
 operator|.
 name|parent
 operator|=
+operator|(
+name|HRegion
+operator|)
 name|region
 expr_stmt|;
 name|this
@@ -341,11 +344,11 @@ operator|.
 name|currentTime
 argument_list|()
 decl_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|parent
 argument_list|,
@@ -376,6 +379,9 @@ argument_list|,
 literal|"SPLIT_REGION:"
 operator|+
 name|parent
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -465,6 +471,9 @@ literal|"Skip rollback/cleanup of failed split of "
 operator|+
 name|parent
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
@@ -497,6 +506,9 @@ argument_list|(
 literal|"Running rollback/cleanup of failed split of "
 operator|+
 name|parent
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -535,6 +547,9 @@ literal|"Successful rollback of failed split of "
 operator|+
 name|parent
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 argument_list|)
@@ -565,6 +580,9 @@ init|=
 literal|"Failed rollback of failed split of "
 operator|+
 name|parent
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -760,6 +778,9 @@ literal|"Region split, hbase:meta updated, and report to master. Parent="
 operator|+
 name|parent
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
@@ -871,6 +892,9 @@ operator|+
 literal|"on "
 operator|+
 name|parent
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()

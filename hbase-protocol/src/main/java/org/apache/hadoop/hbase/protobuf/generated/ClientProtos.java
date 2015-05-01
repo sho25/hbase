@@ -21958,6 +21958,17 @@ name|boolean
 name|getStale
 parameter_list|()
 function_decl|;
+comment|// optional bool partial = 5 [default = false];
+comment|/**      *<code>optional bool partial = 5 [default = false];</code>      *      *<pre>      * Whether or not the entire result could be returned. Results will be split when      * the RPC chunk size limit is reached. Partial results contain only a subset of the      * cells for a row and must be combined with a result containing the remaining cells      * to form a complete result      *</pre>      */
+name|boolean
+name|hasPartial
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool partial = 5 [default = false];</code>      *      *<pre>      * Whether or not the entire result could be returned. Results will be split when      * the RPC chunk size limit is reached. Partial results contain only a subset of the      * cells for a row and must be combined with a result containing the remaining cells      * to form a complete result      *</pre>      */
+name|boolean
+name|getPartial
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code Result}    */
 specifier|public
@@ -22336,6 +22347,23 @@ operator||=
 literal|0x00000004
 expr_stmt|;
 name|stale_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|40
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000008
+expr_stmt|;
+name|partial_
 operator|=
 name|input
 operator|.
@@ -22944,6 +22972,47 @@ return|return
 name|stale_
 return|;
 block|}
+comment|// optional bool partial = 5 [default = false];
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|PARTIAL_FIELD_NUMBER
+init|=
+literal|5
+decl_stmt|;
+specifier|private
+name|boolean
+name|partial_
+decl_stmt|;
+comment|/**      *<code>optional bool partial = 5 [default = false];</code>      *      *<pre>      * Whether or not the entire result could be returned. Results will be split when      * the RPC chunk size limit is reached. Partial results contain only a subset of the      * cells for a row and must be combined with a result containing the remaining cells      * to form a complete result      *</pre>      */
+specifier|public
+name|boolean
+name|hasPartial
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool partial = 5 [default = false];</code>      *      *<pre>      * Whether or not the entire result could be returned. Results will be split when      * the RPC chunk size limit is reached. Partial results contain only a subset of the      * cells for a row and must be combined with a result containing the remaining cells      * to form a complete result      *</pre>      */
+specifier|public
+name|boolean
+name|getPartial
+parameter_list|()
+block|{
+return|return
+name|partial_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -22969,6 +23038,10 @@ operator|=
 literal|false
 expr_stmt|;
 name|stale_
+operator|=
+literal|false
+expr_stmt|;
+name|partial_
 operator|=
 literal|false
 expr_stmt|;
@@ -23133,6 +23206,29 @@ argument_list|(
 literal|4
 argument_list|,
 name|stale_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|5
+argument_list|,
+name|partial_
 argument_list|)
 expr_stmt|;
 block|}
@@ -23307,6 +23403,37 @@ argument_list|(
 literal|4
 argument_list|,
 name|stale_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|5
+argument_list|,
+name|partial_
 argument_list|)
 expr_stmt|;
 block|}
@@ -23590,6 +23717,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasPartial
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasPartial
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasPartial
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getPartial
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getPartial
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -23771,6 +23933,37 @@ operator|+
 name|hashBoolean
 argument_list|(
 name|getStale
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasPartial
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|PARTIAL_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getPartial
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -24679,6 +24872,19 @@ operator|~
 literal|0x00000008
 operator|)
 expr_stmt|;
+name|partial_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000010
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -25029,6 +25235,30 @@ name|stale_
 operator|=
 name|stale_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000008
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|partial_
+operator|=
+name|partial_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -25349,6 +25579,23 @@ argument_list|(
 name|other
 operator|.
 name|getStale
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasPartial
+argument_list|()
+condition|)
+block|{
+name|setPartial
+argument_list|(
+name|other
+operator|.
+name|getPartial
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -27075,6 +27322,89 @@ literal|0x00000008
 operator|)
 expr_stmt|;
 name|stale_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional bool partial = 5 [default = false];
+specifier|private
+name|boolean
+name|partial_
+decl_stmt|;
+comment|/**        *<code>optional bool partial = 5 [default = false];</code>        *        *<pre>        * Whether or not the entire result could be returned. Results will be split when        * the RPC chunk size limit is reached. Partial results contain only a subset of the        * cells for a row and must be combined with a result containing the remaining cells        * to form a complete result        *</pre>        */
+specifier|public
+name|boolean
+name|hasPartial
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool partial = 5 [default = false];</code>        *        *<pre>        * Whether or not the entire result could be returned. Results will be split when        * the RPC chunk size limit is reached. Partial results contain only a subset of the        * cells for a row and must be combined with a result containing the remaining cells        * to form a complete result        *</pre>        */
+specifier|public
+name|boolean
+name|getPartial
+parameter_list|()
+block|{
+return|return
+name|partial_
+return|;
+block|}
+comment|/**        *<code>optional bool partial = 5 [default = false];</code>        *        *<pre>        * Whether or not the entire result could be returned. Results will be split when        * the RPC chunk size limit is reached. Partial results contain only a subset of the        * cells for a row and must be combined with a result containing the remaining cells        * to form a complete result        *</pre>        */
+specifier|public
+name|Builder
+name|setPartial
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000010
+expr_stmt|;
+name|partial_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool partial = 5 [default = false];</code>        *        *<pre>        * Whether or not the entire result could be returned. Results will be split when        * the RPC chunk size limit is reached. Partial results contain only a subset of the        * cells for a row and must be combined with a result containing the remaining cells        * to form a complete result        *</pre>        */
+specifier|public
+name|Builder
+name|clearPartial
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000010
+operator|)
+expr_stmt|;
+name|partial_
 operator|=
 literal|false
 expr_stmt|;
@@ -85438,6 +85768,17 @@ name|long
 name|getNextCallSeq
 parameter_list|()
 function_decl|;
+comment|// optional bool client_handles_partials = 7;
+comment|/**      *<code>optional bool client_handles_partials = 7;</code>      */
+name|boolean
+name|hasClientHandlesPartials
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool client_handles_partials = 7;</code>      */
+name|boolean
+name|getClientHandlesPartials
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code ScanRequest}    *    *<pre>    **    * A scan request. Initially, it should specify a scan. Later on, you    * can use the scanner id returned to fetch result batches with a different    * scan request.    *    * The scanner will remain open if there are more results, and it's not    * asked to be closed explicitly.    *    * You can fetch the results and ask the scanner to be closed to save    * a trip if you are not interested in remaining results.    *</pre>    */
 specifier|public
@@ -85957,6 +86298,23 @@ operator|=
 name|input
 operator|.
 name|readUInt64
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|56
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+name|clientHandlesPartials_
+operator|=
+name|input
+operator|.
+name|readBool
 argument_list|()
 expr_stmt|;
 break|break;
@@ -86586,6 +86944,47 @@ return|return
 name|nextCallSeq_
 return|;
 block|}
+comment|// optional bool client_handles_partials = 7;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|CLIENT_HANDLES_PARTIALS_FIELD_NUMBER
+init|=
+literal|7
+decl_stmt|;
+specifier|private
+name|boolean
+name|clientHandlesPartials_
+decl_stmt|;
+comment|/**      *<code>optional bool client_handles_partials = 7;</code>      */
+specifier|public
+name|boolean
+name|hasClientHandlesPartials
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool client_handles_partials = 7;</code>      */
+specifier|public
+name|boolean
+name|getClientHandlesPartials
+parameter_list|()
+block|{
+return|return
+name|clientHandlesPartials_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -86648,6 +87047,10 @@ expr_stmt|;
 name|nextCallSeq_
 operator|=
 literal|0L
+expr_stmt|;
+name|clientHandlesPartials_
+operator|=
+literal|false
 expr_stmt|;
 block|}
 specifier|private
@@ -86899,6 +87302,29 @@ name|nextCallSeq_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|7
+argument_list|,
+name|clientHandlesPartials_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -87122,6 +87548,37 @@ argument_list|(
 literal|6
 argument_list|,
 name|nextCallSeq_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|7
+argument_list|,
+name|clientHandlesPartials_
 argument_list|)
 expr_stmt|;
 block|}
@@ -87497,6 +87954,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasClientHandlesPartials
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasClientHandlesPartials
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasClientHandlesPartials
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getClientHandlesPartials
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getClientHandlesPartials
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -87738,6 +88230,37 @@ operator|+
 name|hashLong
 argument_list|(
 name|getNextCallSeq
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasClientHandlesPartials
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|CLIENT_HANDLES_PARTIALS_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getClientHandlesPartials
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -88718,6 +89241,19 @@ operator|~
 literal|0x00000020
 operator|)
 expr_stmt|;
+name|clientHandlesPartials_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000040
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -89118,6 +89654,30 @@ name|nextCallSeq_
 operator|=
 name|nextCallSeq_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|clientHandlesPartials_
+operator|=
+name|clientHandlesPartials_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -89350,6 +89910,23 @@ argument_list|(
 name|other
 operator|.
 name|getNextCallSeq
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasClientHandlesPartials
+argument_list|()
+condition|)
+block|{
+name|setClientHandlesPartials
+argument_list|(
+name|other
+operator|.
+name|getClientHandlesPartials
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -91284,6 +91861,89 @@ return|return
 name|this
 return|;
 block|}
+comment|// optional bool client_handles_partials = 7;
+specifier|private
+name|boolean
+name|clientHandlesPartials_
+decl_stmt|;
+comment|/**        *<code>optional bool client_handles_partials = 7;</code>        */
+specifier|public
+name|boolean
+name|hasClientHandlesPartials
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool client_handles_partials = 7;</code>        */
+specifier|public
+name|boolean
+name|getClientHandlesPartials
+parameter_list|()
+block|{
+return|return
+name|clientHandlesPartials_
+return|;
+block|}
+comment|/**        *<code>optional bool client_handles_partials = 7;</code>        */
+specifier|public
+name|Builder
+name|setClientHandlesPartials
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+name|clientHandlesPartials_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool client_handles_partials = 7;</code>        */
+specifier|public
+name|Builder
+name|clearClientHandlesPartials
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000040
+operator|)
+expr_stmt|;
+name|clientHandlesPartials_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
 comment|// @@protoc_insertion_point(builder_scope:ScanRequest)
 block|}
 static|static
@@ -91492,6 +92152,47 @@ function_decl|;
 comment|/**      *<code>optional bool stale = 6;</code>      */
 name|boolean
 name|getStale
+parameter_list|()
+function_decl|;
+comment|// repeated bool partial_flag_per_result = 7;
+comment|/**      *<code>repeated bool partial_flag_per_result = 7;</code>      *      *<pre>      * This field is filled in if we are doing cellblocks. In the event that a row      * could not fit all of its cells into a single RPC chunk, the results will be      * returned as partials, and reconstructed into a complete result on the client      * side. This field is a list of flags indicating whether or not the result      * that the cells belong to is a partial result. For example, if this field      * has false, false, true in it, then we know that on the client side, we need to      * make another RPC request since the last result was only a partial.      *</pre>      */
+name|java
+operator|.
+name|util
+operator|.
+name|List
+argument_list|<
+name|java
+operator|.
+name|lang
+operator|.
+name|Boolean
+argument_list|>
+name|getPartialFlagPerResultList
+parameter_list|()
+function_decl|;
+comment|/**      *<code>repeated bool partial_flag_per_result = 7;</code>      *      *<pre>      * This field is filled in if we are doing cellblocks. In the event that a row      * could not fit all of its cells into a single RPC chunk, the results will be      * returned as partials, and reconstructed into a complete result on the client      * side. This field is a list of flags indicating whether or not the result      * that the cells belong to is a partial result. For example, if this field      * has false, false, true in it, then we know that on the client side, we need to      * make another RPC request since the last result was only a partial.      *</pre>      */
+name|int
+name|getPartialFlagPerResultCount
+parameter_list|()
+function_decl|;
+comment|/**      *<code>repeated bool partial_flag_per_result = 7;</code>      *      *<pre>      * This field is filled in if we are doing cellblocks. In the event that a row      * could not fit all of its cells into a single RPC chunk, the results will be      * returned as partials, and reconstructed into a complete result on the client      * side. This field is a list of flags indicating whether or not the result      * that the cells belong to is a partial result. For example, if this field      * has false, false, true in it, then we know that on the client side, we need to      * make another RPC request since the last result was only a partial.      *</pre>      */
+name|boolean
+name|getPartialFlagPerResult
+parameter_list|(
+name|int
+name|index
+parameter_list|)
+function_decl|;
+comment|// optional bool more_results_in_region = 8;
+comment|/**      *<code>optional bool more_results_in_region = 8;</code>      *      *<pre>      * A server may choose to limit the number of results returned to the client for      * reasons such as the size in bytes or quantity of results accumulated. This field      * will true when more results exist in the current region.      *</pre>      */
+name|boolean
+name|hasMoreResultsInRegion
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool more_results_in_region = 8;</code>      *      *<pre>      * A server may choose to limit the number of results returned to the client for      * reasons such as the size in bytes or quantity of results accumulated. This field      * will true when more results exist in the current region.      *</pre>      */
+name|boolean
+name|getMoreResultsInRegion
 parameter_list|()
 function_decl|;
 block|}
@@ -92044,6 +92745,170 @@ argument_list|()
 expr_stmt|;
 break|break;
 block|}
+case|case
+literal|56
+case|:
+block|{
+if|if
+condition|(
+operator|!
+operator|(
+operator|(
+name|mutable_bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|partialFlagPerResult_
+operator|=
+operator|new
+name|java
+operator|.
+name|util
+operator|.
+name|ArrayList
+argument_list|<
+name|java
+operator|.
+name|lang
+operator|.
+name|Boolean
+argument_list|>
+argument_list|()
+expr_stmt|;
+name|mutable_bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+block|}
+name|partialFlagPerResult_
+operator|.
+name|add
+argument_list|(
+name|input
+operator|.
+name|readBool
+argument_list|()
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|58
+case|:
+block|{
+name|int
+name|length
+init|=
+name|input
+operator|.
+name|readRawVarint32
+argument_list|()
+decl_stmt|;
+name|int
+name|limit
+init|=
+name|input
+operator|.
+name|pushLimit
+argument_list|(
+name|length
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+operator|(
+operator|(
+name|mutable_bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+operator|&&
+name|input
+operator|.
+name|getBytesUntilLimit
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|partialFlagPerResult_
+operator|=
+operator|new
+name|java
+operator|.
+name|util
+operator|.
+name|ArrayList
+argument_list|<
+name|java
+operator|.
+name|lang
+operator|.
+name|Boolean
+argument_list|>
+argument_list|()
+expr_stmt|;
+name|mutable_bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+block|}
+while|while
+condition|(
+name|input
+operator|.
+name|getBytesUntilLimit
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|partialFlagPerResult_
+operator|.
+name|add
+argument_list|(
+name|input
+operator|.
+name|readBool
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+name|input
+operator|.
+name|popLimit
+argument_list|(
+name|limit
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|64
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000010
+expr_stmt|;
+name|moreResultsInRegion_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
 block|}
 block|}
 block|}
@@ -92153,6 +93018,33 @@ operator|.
 name|unmodifiableList
 argument_list|(
 name|results_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|mutable_bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|partialFlagPerResult_
+operator|=
+name|java
+operator|.
+name|util
+operator|.
+name|Collections
+operator|.
+name|unmodifiableList
+argument_list|(
+name|partialFlagPerResult_
 argument_list|)
 expr_stmt|;
 block|}
@@ -92788,6 +93680,123 @@ return|return
 name|stale_
 return|;
 block|}
+comment|// repeated bool partial_flag_per_result = 7;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|PARTIAL_FLAG_PER_RESULT_FIELD_NUMBER
+init|=
+literal|7
+decl_stmt|;
+specifier|private
+name|java
+operator|.
+name|util
+operator|.
+name|List
+argument_list|<
+name|java
+operator|.
+name|lang
+operator|.
+name|Boolean
+argument_list|>
+name|partialFlagPerResult_
+decl_stmt|;
+comment|/**      *<code>repeated bool partial_flag_per_result = 7;</code>      *      *<pre>      * This field is filled in if we are doing cellblocks. In the event that a row      * could not fit all of its cells into a single RPC chunk, the results will be      * returned as partials, and reconstructed into a complete result on the client      * side. This field is a list of flags indicating whether or not the result      * that the cells belong to is a partial result. For example, if this field      * has false, false, true in it, then we know that on the client side, we need to      * make another RPC request since the last result was only a partial.      *</pre>      */
+specifier|public
+name|java
+operator|.
+name|util
+operator|.
+name|List
+argument_list|<
+name|java
+operator|.
+name|lang
+operator|.
+name|Boolean
+argument_list|>
+name|getPartialFlagPerResultList
+parameter_list|()
+block|{
+return|return
+name|partialFlagPerResult_
+return|;
+block|}
+comment|/**      *<code>repeated bool partial_flag_per_result = 7;</code>      *      *<pre>      * This field is filled in if we are doing cellblocks. In the event that a row      * could not fit all of its cells into a single RPC chunk, the results will be      * returned as partials, and reconstructed into a complete result on the client      * side. This field is a list of flags indicating whether or not the result      * that the cells belong to is a partial result. For example, if this field      * has false, false, true in it, then we know that on the client side, we need to      * make another RPC request since the last result was only a partial.      *</pre>      */
+specifier|public
+name|int
+name|getPartialFlagPerResultCount
+parameter_list|()
+block|{
+return|return
+name|partialFlagPerResult_
+operator|.
+name|size
+argument_list|()
+return|;
+block|}
+comment|/**      *<code>repeated bool partial_flag_per_result = 7;</code>      *      *<pre>      * This field is filled in if we are doing cellblocks. In the event that a row      * could not fit all of its cells into a single RPC chunk, the results will be      * returned as partials, and reconstructed into a complete result on the client      * side. This field is a list of flags indicating whether or not the result      * that the cells belong to is a partial result. For example, if this field      * has false, false, true in it, then we know that on the client side, we need to      * make another RPC request since the last result was only a partial.      *</pre>      */
+specifier|public
+name|boolean
+name|getPartialFlagPerResult
+parameter_list|(
+name|int
+name|index
+parameter_list|)
+block|{
+return|return
+name|partialFlagPerResult_
+operator|.
+name|get
+argument_list|(
+name|index
+argument_list|)
+return|;
+block|}
+comment|// optional bool more_results_in_region = 8;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MORE_RESULTS_IN_REGION_FIELD_NUMBER
+init|=
+literal|8
+decl_stmt|;
+specifier|private
+name|boolean
+name|moreResultsInRegion_
+decl_stmt|;
+comment|/**      *<code>optional bool more_results_in_region = 8;</code>      *      *<pre>      * A server may choose to limit the number of results returned to the client for      * reasons such as the size in bytes or quantity of results accumulated. This field      * will true when more results exist in the current region.      *</pre>      */
+specifier|public
+name|boolean
+name|hasMoreResultsInRegion
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool more_results_in_region = 8;</code>      *      *<pre>      * A server may choose to limit the number of results returned to the client for      * reasons such as the size in bytes or quantity of results accumulated. This field      * will true when more results exist in the current region.      *</pre>      */
+specifier|public
+name|boolean
+name|getMoreResultsInRegion
+parameter_list|()
+block|{
+return|return
+name|moreResultsInRegion_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -92828,6 +93837,21 @@ name|emptyList
 argument_list|()
 expr_stmt|;
 name|stale_
+operator|=
+literal|false
+expr_stmt|;
+name|partialFlagPerResult_
+operator|=
+name|java
+operator|.
+name|util
+operator|.
+name|Collections
+operator|.
+name|emptyList
+argument_list|()
+expr_stmt|;
+name|moreResultsInRegion_
 operator|=
 literal|false
 expr_stmt|;
@@ -93048,6 +94072,62 @@ argument_list|(
 literal|6
 argument_list|,
 name|stale_
+argument_list|)
+expr_stmt|;
+block|}
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|partialFlagPerResult_
+operator|.
+name|size
+argument_list|()
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|7
+argument_list|,
+name|partialFlagPerResult_
+operator|.
+name|get
+argument_list|(
+name|i
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|8
+argument_list|,
+name|moreResultsInRegion_
 argument_list|)
 expr_stmt|;
 block|}
@@ -93313,6 +94393,68 @@ argument_list|(
 literal|6
 argument_list|,
 name|stale_
+argument_list|)
+expr_stmt|;
+block|}
+block|{
+name|int
+name|dataSize
+init|=
+literal|0
+decl_stmt|;
+name|dataSize
+operator|=
+literal|1
+operator|*
+name|getPartialFlagPerResultList
+argument_list|()
+operator|.
+name|size
+argument_list|()
+expr_stmt|;
+name|size
+operator|+=
+name|dataSize
+expr_stmt|;
+name|size
+operator|+=
+literal|1
+operator|*
+name|getPartialFlagPerResultList
+argument_list|()
+operator|.
+name|size
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|8
+argument_list|,
+name|moreResultsInRegion_
 argument_list|)
 expr_stmt|;
 block|}
@@ -93646,6 +94788,56 @@ name|result
 operator|=
 name|result
 operator|&&
+name|getPartialFlagPerResultList
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|other
+operator|.
+name|getPartialFlagPerResultList
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|hasMoreResultsInRegion
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasMoreResultsInRegion
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasMoreResultsInRegion
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getMoreResultsInRegion
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getMoreResultsInRegion
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -93891,6 +95083,70 @@ operator|+
 name|hashBoolean
 argument_list|(
 name|getStale
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|getPartialFlagPerResultCount
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|PARTIAL_FLAG_PER_RESULT_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|getPartialFlagPerResultList
+argument_list|()
+operator|.
+name|hashCode
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasMoreResultsInRegion
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|MORE_RESULTS_IN_REGION_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getMoreResultsInRegion
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -94832,6 +96088,39 @@ operator|~
 literal|0x00000020
 operator|)
 expr_stmt|;
+name|partialFlagPerResult_
+operator|=
+name|java
+operator|.
+name|util
+operator|.
+name|Collections
+operator|.
+name|emptyList
+argument_list|()
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000040
+operator|)
+expr_stmt|;
+name|moreResultsInRegion_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000080
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -95248,6 +96537,72 @@ name|stale_
 operator|=
 name|stale_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|partialFlagPerResult_
+operator|=
+name|java
+operator|.
+name|util
+operator|.
+name|Collections
+operator|.
+name|unmodifiableList
+argument_list|(
+name|partialFlagPerResult_
+argument_list|)
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000040
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|partialFlagPerResult_
+operator|=
+name|partialFlagPerResult_
+expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000010
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|moreResultsInRegion_
+operator|=
+name|moreResultsInRegion_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -95639,6 +96994,77 @@ argument_list|(
 name|other
 operator|.
 name|getStale
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|!
+name|other
+operator|.
+name|partialFlagPerResult_
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+if|if
+condition|(
+name|partialFlagPerResult_
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|partialFlagPerResult_
+operator|=
+name|other
+operator|.
+name|partialFlagPerResult_
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000040
+operator|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|ensurePartialFlagPerResultIsMutable
+argument_list|()
+expr_stmt|;
+name|partialFlagPerResult_
+operator|.
+name|addAll
+argument_list|(
+name|other
+operator|.
+name|partialFlagPerResult_
+argument_list|)
+expr_stmt|;
+block|}
+name|onChanged
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasMoreResultsInRegion
+argument_list|()
+condition|)
+block|{
+name|setMoreResultsInRegion
+argument_list|(
+name|other
+operator|.
+name|getMoreResultsInRegion
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -97709,6 +99135,350 @@ literal|0x00000020
 operator|)
 expr_stmt|;
 name|stale_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// repeated bool partial_flag_per_result = 7;
+specifier|private
+name|java
+operator|.
+name|util
+operator|.
+name|List
+argument_list|<
+name|java
+operator|.
+name|lang
+operator|.
+name|Boolean
+argument_list|>
+name|partialFlagPerResult_
+init|=
+name|java
+operator|.
+name|util
+operator|.
+name|Collections
+operator|.
+name|emptyList
+argument_list|()
+decl_stmt|;
+specifier|private
+name|void
+name|ensurePartialFlagPerResultIsMutable
+parameter_list|()
+block|{
+if|if
+condition|(
+operator|!
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|partialFlagPerResult_
+operator|=
+operator|new
+name|java
+operator|.
+name|util
+operator|.
+name|ArrayList
+argument_list|<
+name|java
+operator|.
+name|lang
+operator|.
+name|Boolean
+argument_list|>
+argument_list|(
+name|partialFlagPerResult_
+argument_list|)
+expr_stmt|;
+name|bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+block|}
+block|}
+comment|/**        *<code>repeated bool partial_flag_per_result = 7;</code>        *        *<pre>        * This field is filled in if we are doing cellblocks. In the event that a row        * could not fit all of its cells into a single RPC chunk, the results will be        * returned as partials, and reconstructed into a complete result on the client        * side. This field is a list of flags indicating whether or not the result        * that the cells belong to is a partial result. For example, if this field        * has false, false, true in it, then we know that on the client side, we need to        * make another RPC request since the last result was only a partial.        *</pre>        */
+specifier|public
+name|java
+operator|.
+name|util
+operator|.
+name|List
+argument_list|<
+name|java
+operator|.
+name|lang
+operator|.
+name|Boolean
+argument_list|>
+name|getPartialFlagPerResultList
+parameter_list|()
+block|{
+return|return
+name|java
+operator|.
+name|util
+operator|.
+name|Collections
+operator|.
+name|unmodifiableList
+argument_list|(
+name|partialFlagPerResult_
+argument_list|)
+return|;
+block|}
+comment|/**        *<code>repeated bool partial_flag_per_result = 7;</code>        *        *<pre>        * This field is filled in if we are doing cellblocks. In the event that a row        * could not fit all of its cells into a single RPC chunk, the results will be        * returned as partials, and reconstructed into a complete result on the client        * side. This field is a list of flags indicating whether or not the result        * that the cells belong to is a partial result. For example, if this field        * has false, false, true in it, then we know that on the client side, we need to        * make another RPC request since the last result was only a partial.        *</pre>        */
+specifier|public
+name|int
+name|getPartialFlagPerResultCount
+parameter_list|()
+block|{
+return|return
+name|partialFlagPerResult_
+operator|.
+name|size
+argument_list|()
+return|;
+block|}
+comment|/**        *<code>repeated bool partial_flag_per_result = 7;</code>        *        *<pre>        * This field is filled in if we are doing cellblocks. In the event that a row        * could not fit all of its cells into a single RPC chunk, the results will be        * returned as partials, and reconstructed into a complete result on the client        * side. This field is a list of flags indicating whether or not the result        * that the cells belong to is a partial result. For example, if this field        * has false, false, true in it, then we know that on the client side, we need to        * make another RPC request since the last result was only a partial.        *</pre>        */
+specifier|public
+name|boolean
+name|getPartialFlagPerResult
+parameter_list|(
+name|int
+name|index
+parameter_list|)
+block|{
+return|return
+name|partialFlagPerResult_
+operator|.
+name|get
+argument_list|(
+name|index
+argument_list|)
+return|;
+block|}
+comment|/**        *<code>repeated bool partial_flag_per_result = 7;</code>        *        *<pre>        * This field is filled in if we are doing cellblocks. In the event that a row        * could not fit all of its cells into a single RPC chunk, the results will be        * returned as partials, and reconstructed into a complete result on the client        * side. This field is a list of flags indicating whether or not the result        * that the cells belong to is a partial result. For example, if this field        * has false, false, true in it, then we know that on the client side, we need to        * make another RPC request since the last result was only a partial.        *</pre>        */
+specifier|public
+name|Builder
+name|setPartialFlagPerResult
+parameter_list|(
+name|int
+name|index
+parameter_list|,
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|ensurePartialFlagPerResultIsMutable
+argument_list|()
+expr_stmt|;
+name|partialFlagPerResult_
+operator|.
+name|set
+argument_list|(
+name|index
+argument_list|,
+name|value
+argument_list|)
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>repeated bool partial_flag_per_result = 7;</code>        *        *<pre>        * This field is filled in if we are doing cellblocks. In the event that a row        * could not fit all of its cells into a single RPC chunk, the results will be        * returned as partials, and reconstructed into a complete result on the client        * side. This field is a list of flags indicating whether or not the result        * that the cells belong to is a partial result. For example, if this field        * has false, false, true in it, then we know that on the client side, we need to        * make another RPC request since the last result was only a partial.        *</pre>        */
+specifier|public
+name|Builder
+name|addPartialFlagPerResult
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|ensurePartialFlagPerResultIsMutable
+argument_list|()
+expr_stmt|;
+name|partialFlagPerResult_
+operator|.
+name|add
+argument_list|(
+name|value
+argument_list|)
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>repeated bool partial_flag_per_result = 7;</code>        *        *<pre>        * This field is filled in if we are doing cellblocks. In the event that a row        * could not fit all of its cells into a single RPC chunk, the results will be        * returned as partials, and reconstructed into a complete result on the client        * side. This field is a list of flags indicating whether or not the result        * that the cells belong to is a partial result. For example, if this field        * has false, false, true in it, then we know that on the client side, we need to        * make another RPC request since the last result was only a partial.        *</pre>        */
+specifier|public
+name|Builder
+name|addAllPartialFlagPerResult
+parameter_list|(
+name|java
+operator|.
+name|lang
+operator|.
+name|Iterable
+argument_list|<
+name|?
+extends|extends
+name|java
+operator|.
+name|lang
+operator|.
+name|Boolean
+argument_list|>
+name|values
+parameter_list|)
+block|{
+name|ensurePartialFlagPerResultIsMutable
+argument_list|()
+expr_stmt|;
+name|super
+operator|.
+name|addAll
+argument_list|(
+name|values
+argument_list|,
+name|partialFlagPerResult_
+argument_list|)
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>repeated bool partial_flag_per_result = 7;</code>        *        *<pre>        * This field is filled in if we are doing cellblocks. In the event that a row        * could not fit all of its cells into a single RPC chunk, the results will be        * returned as partials, and reconstructed into a complete result on the client        * side. This field is a list of flags indicating whether or not the result        * that the cells belong to is a partial result. For example, if this field        * has false, false, true in it, then we know that on the client side, we need to        * make another RPC request since the last result was only a partial.        *</pre>        */
+specifier|public
+name|Builder
+name|clearPartialFlagPerResult
+parameter_list|()
+block|{
+name|partialFlagPerResult_
+operator|=
+name|java
+operator|.
+name|util
+operator|.
+name|Collections
+operator|.
+name|emptyList
+argument_list|()
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000040
+operator|)
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional bool more_results_in_region = 8;
+specifier|private
+name|boolean
+name|moreResultsInRegion_
+decl_stmt|;
+comment|/**        *<code>optional bool more_results_in_region = 8;</code>        *        *<pre>        * A server may choose to limit the number of results returned to the client for        * reasons such as the size in bytes or quantity of results accumulated. This field        * will true when more results exist in the current region.        *</pre>        */
+specifier|public
+name|boolean
+name|hasMoreResultsInRegion
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool more_results_in_region = 8;</code>        *        *<pre>        * A server may choose to limit the number of results returned to the client for        * reasons such as the size in bytes or quantity of results accumulated. This field        * will true when more results exist in the current region.        *</pre>        */
+specifier|public
+name|boolean
+name|getMoreResultsInRegion
+parameter_list|()
+block|{
+return|return
+name|moreResultsInRegion_
+return|;
+block|}
+comment|/**        *<code>optional bool more_results_in_region = 8;</code>        *        *<pre>        * A server may choose to limit the number of results returned to the client for        * reasons such as the size in bytes or quantity of results accumulated. This field        * will true when more results exist in the current region.        *</pre>        */
+specifier|public
+name|Builder
+name|setMoreResultsInRegion
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000080
+expr_stmt|;
+name|moreResultsInRegion_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool more_results_in_region = 8;</code>        *        *<pre>        * A server may choose to limit the number of results returned to the client for        * reasons such as the size in bytes or quantity of results accumulated. This field        * will true when more results exist in the current region.        *</pre>        */
+specifier|public
+name|Builder
+name|clearMoreResultsInRegion
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000080
+operator|)
+expr_stmt|;
+name|moreResultsInRegion_
 operator|=
 literal|false
 expr_stmt|;
@@ -172561,203 +174331,211 @@ literal|"\n \001(\010:\005false\022!\n\022closest_row_before\030\013 \001(\010"
 operator|+
 literal|":\005false\022)\n\013consistency\030\014 \001(\0162\014.Consisten"
 operator|+
-literal|"cy:\006STRONG\"b\n\006Result\022\023\n\004cell\030\001 \003(\0132\005.Cel"
+literal|"cy:\006STRONG\"z\n\006Result\022\023\n\004cell\030\001 \003(\0132\005.Cel"
 operator|+
 literal|"l\022\035\n\025associated_cell_count\030\002 \001(\005\022\016\n\006exis"
 operator|+
-literal|"ts\030\003 \001(\010\022\024\n\005stale\030\004 \001(\010:\005false\"A\n\nGetReq"
+literal|"ts\030\003 \001(\010\022\024\n\005stale\030\004 \001(\010:\005false\022\026\n\007partia"
 operator|+
-literal|"uest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\021"
+literal|"l\030\005 \001(\010:\005false\"A\n\nGetRequest\022 \n\006region\030\001"
 operator|+
-literal|"\n\003get\030\002 \002(\0132\004.Get\"&\n\013GetResponse\022\027\n\006resu"
+literal|" \002(\0132\020.RegionSpecifier\022\021\n\003get\030\002 \002(\0132\004.Ge"
 operator|+
-literal|"lt\030\001 \001(\0132\007.Result\"\200\001\n\tCondition\022\013\n\003row\030\001"
+literal|"t\"&\n\013GetResponse\022\027\n\006result\030\001 \001(\0132\007.Resul"
 operator|+
-literal|" \002(\014\022\016\n\006family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\014\022"
+literal|"t\"\200\001\n\tCondition\022\013\n\003row\030\001 \002(\014\022\016\n\006family\030\002"
 block|,
-literal|"\"\n\014compare_type\030\004 \002(\0162\014.CompareType\022\037\n\nc"
+literal|" \002(\014\022\021\n\tqualifier\030\003 \002(\014\022\"\n\014compare_type\030"
 operator|+
-literal|"omparator\030\005 \002(\0132\013.Comparator\"\265\006\n\rMutatio"
+literal|"\004 \002(\0162\014.CompareType\022\037\n\ncomparator\030\005 \002(\0132"
 operator|+
-literal|"nProto\022\013\n\003row\030\001 \001(\014\0220\n\013mutate_type\030\002 \001(\016"
+literal|"\013.Comparator\"\265\006\n\rMutationProto\022\013\n\003row\030\001 "
 operator|+
-literal|"2\033.MutationProto.MutationType\0220\n\014column_"
+literal|"\001(\014\0220\n\013mutate_type\030\002 \001(\0162\033.MutationProto"
 operator|+
-literal|"value\030\003 \003(\0132\032.MutationProto.ColumnValue\022"
+literal|".MutationType\0220\n\014column_value\030\003 \003(\0132\032.Mu"
 operator|+
-literal|"\021\n\ttimestamp\030\004 \001(\004\022!\n\tattribute\030\005 \003(\0132\016."
+literal|"tationProto.ColumnValue\022\021\n\ttimestamp\030\004 \001"
 operator|+
-literal|"NameBytesPair\022:\n\ndurability\030\006 \001(\0162\031.Muta"
+literal|"(\004\022!\n\tattribute\030\005 \003(\0132\016.NameBytesPair\022:\n"
 operator|+
-literal|"tionProto.Durability:\013USE_DEFAULT\022\036\n\ntim"
+literal|"\ndurability\030\006 \001(\0162\031.MutationProto.Durabi"
 operator|+
-literal|"e_range\030\007 \001(\0132\n.TimeRange\022\035\n\025associated_"
+literal|"lity:\013USE_DEFAULT\022\036\n\ntime_range\030\007 \001(\0132\n."
 operator|+
-literal|"cell_count\030\010 \001(\005\022\r\n\005nonce\030\t \001(\004\032\347\001\n\013Colu"
+literal|"TimeRange\022\035\n\025associated_cell_count\030\010 \001(\005"
 block|,
-literal|"mnValue\022\016\n\006family\030\001 \002(\014\022B\n\017qualifier_val"
+literal|"\022\r\n\005nonce\030\t \001(\004\032\347\001\n\013ColumnValue\022\016\n\006famil"
 operator|+
-literal|"ue\030\002 \003(\0132).MutationProto.ColumnValue.Qua"
+literal|"y\030\001 \002(\014\022B\n\017qualifier_value\030\002 \003(\0132).Mutat"
 operator|+
-literal|"lifierValue\032\203\001\n\016QualifierValue\022\021\n\tqualif"
+literal|"ionProto.ColumnValue.QualifierValue\032\203\001\n\016"
 operator|+
-literal|"ier\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\022\021\n\ttimestamp\030\003 "
+literal|"QualifierValue\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005val"
 operator|+
-literal|"\001(\004\022.\n\013delete_type\030\004 \001(\0162\031.MutationProto"
+literal|"ue\030\002 \001(\014\022\021\n\ttimestamp\030\003 \001(\004\022.\n\013delete_ty"
 operator|+
-literal|".DeleteType\022\014\n\004tags\030\005 \001(\014\"W\n\nDurability\022"
+literal|"pe\030\004 \001(\0162\031.MutationProto.DeleteType\022\014\n\004t"
 operator|+
-literal|"\017\n\013USE_DEFAULT\020\000\022\014\n\010SKIP_WAL\020\001\022\r\n\tASYNC_"
+literal|"ags\030\005 \001(\014\"W\n\nDurability\022\017\n\013USE_DEFAULT\020\000"
 operator|+
-literal|"WAL\020\002\022\014\n\010SYNC_WAL\020\003\022\r\n\tFSYNC_WAL\020\004\">\n\014Mu"
+literal|"\022\014\n\010SKIP_WAL\020\001\022\r\n\tASYNC_WAL\020\002\022\014\n\010SYNC_WA"
 operator|+
-literal|"tationType\022\n\n\006APPEND\020\000\022\r\n\tINCREMENT\020\001\022\007\n"
+literal|"L\020\003\022\r\n\tFSYNC_WAL\020\004\">\n\014MutationType\022\n\n\006AP"
 operator|+
-literal|"\003PUT\020\002\022\n\n\006DELETE\020\003\"p\n\nDeleteType\022\026\n\022DELE"
+literal|"PEND\020\000\022\r\n\tINCREMENT\020\001\022\007\n\003PUT\020\002\022\n\n\006DELETE"
 block|,
-literal|"TE_ONE_VERSION\020\000\022\034\n\030DELETE_MULTIPLE_VERS"
+literal|"\020\003\"p\n\nDeleteType\022\026\n\022DELETE_ONE_VERSION\020\000"
 operator|+
-literal|"IONS\020\001\022\021\n\rDELETE_FAMILY\020\002\022\031\n\025DELETE_FAMI"
+literal|"\022\034\n\030DELETE_MULTIPLE_VERSIONS\020\001\022\021\n\rDELETE"
 operator|+
-literal|"LY_VERSION\020\003\"\207\001\n\rMutateRequest\022 \n\006region"
+literal|"_FAMILY\020\002\022\031\n\025DELETE_FAMILY_VERSION\020\003\"\207\001\n"
 operator|+
-literal|"\030\001 \002(\0132\020.RegionSpecifier\022 \n\010mutation\030\002 \002"
+literal|"\rMutateRequest\022 \n\006region\030\001 \002(\0132\020.RegionS"
 operator|+
-literal|"(\0132\016.MutationProto\022\035\n\tcondition\030\003 \001(\0132\n."
+literal|"pecifier\022 \n\010mutation\030\002 \002(\0132\016.MutationPro"
 operator|+
-literal|"Condition\022\023\n\013nonce_group\030\004 \001(\004\"<\n\016Mutate"
+literal|"to\022\035\n\tcondition\030\003 \001(\0132\n.Condition\022\023\n\013non"
 operator|+
-literal|"Response\022\027\n\006result\030\001 \001(\0132\007.Result\022\021\n\tpro"
+literal|"ce_group\030\004 \001(\004\"<\n\016MutateResponse\022\027\n\006resu"
 operator|+
-literal|"cessed\030\002 \001(\010\"\271\003\n\004Scan\022\027\n\006column\030\001 \003(\0132\007."
+literal|"lt\030\001 \001(\0132\007.Result\022\021\n\tprocessed\030\002 \001(\010\"\271\003\n"
 operator|+
-literal|"Column\022!\n\tattribute\030\002 \003(\0132\016.NameBytesPai"
+literal|"\004Scan\022\027\n\006column\030\001 \003(\0132\007.Column\022!\n\tattrib"
 operator|+
-literal|"r\022\021\n\tstart_row\030\003 \001(\014\022\020\n\010stop_row\030\004 \001(\014\022\027"
+literal|"ute\030\002 \003(\0132\016.NameBytesPair\022\021\n\tstart_row\030\003"
 block|,
-literal|"\n\006filter\030\005 \001(\0132\007.Filter\022\036\n\ntime_range\030\006 "
+literal|" \001(\014\022\020\n\010stop_row\030\004 \001(\014\022\027\n\006filter\030\005 \001(\0132\007"
 operator|+
-literal|"\001(\0132\n.TimeRange\022\027\n\014max_versions\030\007 \001(\r:\0011"
+literal|".Filter\022\036\n\ntime_range\030\006 \001(\0132\n.TimeRange\022"
 operator|+
-literal|"\022\032\n\014cache_blocks\030\010 \001(\010:\004true\022\022\n\nbatch_si"
+literal|"\027\n\014max_versions\030\007 \001(\r:\0011\022\032\n\014cache_blocks"
 operator|+
-literal|"ze\030\t \001(\r\022\027\n\017max_result_size\030\n \001(\004\022\023\n\013sto"
+literal|"\030\010 \001(\010:\004true\022\022\n\nbatch_size\030\t \001(\r\022\027\n\017max_"
 operator|+
-literal|"re_limit\030\013 \001(\r\022\024\n\014store_offset\030\014 \001(\r\022&\n\036"
+literal|"result_size\030\n \001(\004\022\023\n\013store_limit\030\013 \001(\r\022\024"
 operator|+
-literal|"load_column_families_on_demand\030\r \001(\010\022\r\n\005"
+literal|"\n\014store_offset\030\014 \001(\r\022&\n\036load_column_fami"
 operator|+
-literal|"small\030\016 \001(\010\022\027\n\010reversed\030\017 \001(\010:\005false\022)\n\013"
+literal|"lies_on_demand\030\r \001(\010\022\r\n\005small\030\016 \001(\010\022\027\n\010r"
 operator|+
-literal|"consistency\030\020 \001(\0162\014.Consistency:\006STRONG\022"
+literal|"eversed\030\017 \001(\010:\005false\022)\n\013consistency\030\020 \001("
 operator|+
-literal|"\017\n\007caching\030\021 \001(\r\"\236\001\n\013ScanRequest\022 \n\006regi"
+literal|"\0162\014.Consistency:\006STRONG\022\017\n\007caching\030\021 \001(\r"
 operator|+
-literal|"on\030\001 \001(\0132\020.RegionSpecifier\022\023\n\004scan\030\002 \001(\013"
+literal|"\"\277\001\n\013ScanRequest\022 \n\006region\030\001 \001(\0132\020.Regio"
 block|,
-literal|"2\005.Scan\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016number_of"
+literal|"nSpecifier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\022\n\nscann"
 operator|+
-literal|"_rows\030\004 \001(\r\022\025\n\rclose_scanner\030\005 \001(\010\022\025\n\rne"
+literal|"er_id\030\003 \001(\004\022\026\n\016number_of_rows\030\004 \001(\r\022\025\n\rc"
 operator|+
-literal|"xt_call_seq\030\006 \001(\004\"\210\001\n\014ScanResponse\022\030\n\020ce"
+literal|"lose_scanner\030\005 \001(\010\022\025\n\rnext_call_seq\030\006 \001("
 operator|+
-literal|"lls_per_result\030\001 \003(\r\022\022\n\nscanner_id\030\002 \001(\004"
+literal|"\004\022\037\n\027client_handles_partials\030\007 \001(\010\"\311\001\n\014S"
 operator|+
-literal|"\022\024\n\014more_results\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\022\030\n\007r"
+literal|"canResponse\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n"
 operator|+
-literal|"esults\030\005 \003(\0132\007.Result\022\r\n\005stale\030\006 \001(\010\"\263\001\n"
+literal|"\nscanner_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022"
 operator|+
-literal|"\024BulkLoadHFileRequest\022 \n\006region\030\001 \002(\0132\020."
+literal|"\013\n\003ttl\030\004 \001(\r\022\030\n\007results\030\005 \003(\0132\007.Result\022\r"
 operator|+
-literal|"RegionSpecifier\0225\n\013family_path\030\002 \003(\0132 .B"
+literal|"\n\005stale\030\006 \001(\010\022\037\n\027partial_flag_per_result"
 operator|+
-literal|"ulkLoadHFileRequest.FamilyPath\022\026\n\016assign"
+literal|"\030\007 \003(\010\022\036\n\026more_results_in_region\030\010 \001(\010\"\263"
 operator|+
-literal|"_seq_num\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006family\030\001"
+literal|"\001\n\024BulkLoadHFileRequest\022 \n\006region\030\001 \002(\0132"
 block|,
-literal|" \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileRespo"
+literal|"\020.RegionSpecifier\0225\n\013family_path\030\002 \003(\0132 "
 operator|+
-literal|"nse\022\016\n\006loaded\030\001 \002(\010\"a\n\026CoprocessorServic"
+literal|".BulkLoadHFileRequest.FamilyPath\022\026\n\016assi"
 operator|+
-literal|"eCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service_name\030\002 \002(\t"
+literal|"gn_seq_num\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006family"
 operator|+
-literal|"\022\023\n\013method_name\030\003 \002(\t\022\017\n\007request\030\004 \002(\014\"9"
+literal|"\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileRes"
 operator|+
-literal|"\n\030CoprocessorServiceResult\022\035\n\005value\030\001 \001("
+literal|"ponse\022\016\n\006loaded\030\001 \002(\010\"a\n\026CoprocessorServ"
 operator|+
-literal|"\0132\016.NameBytesPair\"d\n\031CoprocessorServiceR"
+literal|"iceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service_name\030\002 \002"
 operator|+
-literal|"equest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier"
+literal|"(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007request\030\004 \002(\014"
 operator|+
-literal|"\022%\n\004call\030\002 \002(\0132\027.CoprocessorServiceCall\""
+literal|"\"9\n\030CoprocessorServiceResult\022\035\n\005value\030\001 "
 operator|+
-literal|"]\n\032CoprocessorServiceResponse\022 \n\006region\030"
+literal|"\001(\0132\016.NameBytesPair\"d\n\031CoprocessorServic"
 operator|+
-literal|"\001 \002(\0132\020.RegionSpecifier\022\035\n\005value\030\002 \002(\0132\016"
+literal|"eRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifi"
 block|,
-literal|".NameBytesPair\"{\n\006Action\022\r\n\005index\030\001 \001(\r\022"
+literal|"er\022%\n\004call\030\002 \002(\0132\027.CoprocessorServiceCal"
 operator|+
-literal|" \n\010mutation\030\002 \001(\0132\016.MutationProto\022\021\n\003get"
+literal|"l\"]\n\032CoprocessorServiceResponse\022 \n\006regio"
 operator|+
-literal|"\030\003 \001(\0132\004.Get\022-\n\014service_call\030\004 \001(\0132\027.Cop"
+literal|"n\030\001 \002(\0132\020.RegionSpecifier\022\035\n\005value\030\002 \002(\013"
 operator|+
-literal|"rocessorServiceCall\"Y\n\014RegionAction\022 \n\006r"
+literal|"2\016.NameBytesPair\"{\n\006Action\022\r\n\005index\030\001 \001("
 operator|+
-literal|"egion\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006atomic\030"
+literal|"\r\022 \n\010mutation\030\002 \001(\0132\016.MutationProto\022\021\n\003g"
 operator|+
-literal|"\002 \001(\010\022\027\n\006action\030\003 \003(\0132\007.Action\"D\n\017Region"
+literal|"et\030\003 \001(\0132\004.Get\022-\n\014service_call\030\004 \001(\0132\027.C"
 operator|+
-literal|"LoadStats\022\027\n\014memstoreLoad\030\001 \001(\005:\0010\022\030\n\rhe"
+literal|"oprocessorServiceCall\"Y\n\014RegionAction\022 \n"
 operator|+
-literal|"apOccupancy\030\002 \001(\005:\0010\"\266\001\n\021ResultOrExcepti"
+literal|"\006region\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006atomi"
 operator|+
-literal|"on\022\r\n\005index\030\001 \001(\r\022\027\n\006result\030\002 \001(\0132\007.Resu"
+literal|"c\030\002 \001(\010\022\027\n\006action\030\003 \003(\0132\007.Action\"D\n\017Regi"
 operator|+
-literal|"lt\022!\n\texception\030\003 \001(\0132\016.NameBytesPair\0221\n"
+literal|"onLoadStats\022\027\n\014memstoreLoad\030\001 \001(\005:\0010\022\030\n\r"
 block|,
-literal|"\016service_result\030\004 \001(\0132\031.CoprocessorServi"
+literal|"heapOccupancy\030\002 \001(\005:\0010\"\266\001\n\021ResultOrExcep"
 operator|+
-literal|"ceResult\022#\n\tloadStats\030\005 \001(\0132\020.RegionLoad"
+literal|"tion\022\r\n\005index\030\001 \001(\r\022\027\n\006result\030\002 \001(\0132\007.Re"
 operator|+
-literal|"Stats\"f\n\022RegionActionResult\022-\n\021resultOrE"
+literal|"sult\022!\n\texception\030\003 \001(\0132\016.NameBytesPair\022"
 operator|+
-literal|"xception\030\001 \003(\0132\022.ResultOrException\022!\n\tex"
+literal|"1\n\016service_result\030\004 \001(\0132\031.CoprocessorSer"
 operator|+
-literal|"ception\030\002 \001(\0132\016.NameBytesPair\"f\n\014MultiRe"
+literal|"viceResult\022#\n\tloadStats\030\005 \001(\0132\020.RegionLo"
 operator|+
-literal|"quest\022#\n\014regionAction\030\001 \003(\0132\r.RegionActi"
+literal|"adStats\"f\n\022RegionActionResult\022-\n\021resultO"
 operator|+
-literal|"on\022\022\n\nnonceGroup\030\002 \001(\004\022\035\n\tcondition\030\003 \001("
+literal|"rException\030\001 \003(\0132\022.ResultOrException\022!\n\t"
 operator|+
-literal|"\0132\n.Condition\"S\n\rMultiResponse\022/\n\022region"
+literal|"exception\030\002 \001(\0132\016.NameBytesPair\"f\n\014Multi"
 operator|+
-literal|"ActionResult\030\001 \003(\0132\023.RegionActionResult\022"
+literal|"Request\022#\n\014regionAction\030\001 \003(\0132\r.RegionAc"
 operator|+
-literal|"\021\n\tprocessed\030\002 \001(\010*\'\n\013Consistency\022\n\n\006STR"
+literal|"tion\022\022\n\nnonceGroup\030\002 \001(\004\022\035\n\tcondition\030\003 "
 block|,
-literal|"ONG\020\000\022\014\n\010TIMELINE\020\0012\205\003\n\rClientService\022 \n"
+literal|"\001(\0132\n.Condition\"S\n\rMultiResponse\022/\n\022regi"
 operator|+
-literal|"\003Get\022\013.GetRequest\032\014.GetResponse\022)\n\006Mutat"
+literal|"onActionResult\030\001 \003(\0132\023.RegionActionResul"
 operator|+
-literal|"e\022\016.MutateRequest\032\017.MutateResponse\022#\n\004Sc"
+literal|"t\022\021\n\tprocessed\030\002 \001(\010*\'\n\013Consistency\022\n\n\006S"
 operator|+
-literal|"an\022\014.ScanRequest\032\r.ScanResponse\022>\n\rBulkL"
+literal|"TRONG\020\000\022\014\n\010TIMELINE\020\0012\205\003\n\rClientService\022"
 operator|+
-literal|"oadHFile\022\025.BulkLoadHFileRequest\032\026.BulkLo"
+literal|" \n\003Get\022\013.GetRequest\032\014.GetResponse\022)\n\006Mut"
 operator|+
-literal|"adHFileResponse\022F\n\013ExecService\022\032.Coproce"
+literal|"ate\022\016.MutateRequest\032\017.MutateResponse\022#\n\004"
 operator|+
-literal|"ssorServiceRequest\032\033.CoprocessorServiceR"
+literal|"Scan\022\014.ScanRequest\032\r.ScanResponse\022>\n\rBul"
 operator|+
-literal|"esponse\022R\n\027ExecRegionServerService\022\032.Cop"
+literal|"kLoadHFile\022\025.BulkLoadHFileRequest\032\026.Bulk"
 operator|+
-literal|"rocessorServiceRequest\032\033.CoprocessorServ"
+literal|"LoadHFileResponse\022F\n\013ExecService\022\032.Copro"
 operator|+
-literal|"iceResponse\022&\n\005Multi\022\r.MultiRequest\032\016.Mu"
+literal|"cessorServiceRequest\032\033.CoprocessorServic"
 block|,
-literal|"ltiResponseBB\n*org.apache.hadoop.hbase.p"
+literal|"eResponse\022R\n\027ExecRegionServerService\022\032.C"
 operator|+
-literal|"rotobuf.generatedB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|"oprocessorServiceRequest\032\033.CoprocessorSe"
+operator|+
+literal|"rviceResponse\022&\n\005Multi\022\r.MultiRequest\032\016."
+operator|+
+literal|"MultiResponseBB\n*org.apache.hadoop.hbase"
+operator|+
+literal|".protobuf.generatedB\014ClientProtosH\001\210\001\001\240\001"
+operator|+
+literal|"\001"
 block|}
 decl_stmt|;
 name|com
@@ -173040,6 +174818,8 @@ block|,
 literal|"Exists"
 block|,
 literal|"Stale"
+block|,
+literal|"Partial"
 block|, }
 argument_list|)
 expr_stmt|;
@@ -173524,6 +175304,8 @@ block|,
 literal|"CloseScanner"
 block|,
 literal|"NextCallSeq"
+block|,
+literal|"ClientHandlesPartials"
 block|, }
 argument_list|)
 expr_stmt|;
@@ -173574,6 +175356,10 @@ block|,
 literal|"Results"
 block|,
 literal|"Stale"
+block|,
+literal|"PartialFlagPerResult"
+block|,
+literal|"MoreResultsInRegion"
 block|, }
 argument_list|)
 expr_stmt|;

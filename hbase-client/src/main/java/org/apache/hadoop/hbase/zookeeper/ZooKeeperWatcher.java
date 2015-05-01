@@ -1505,6 +1505,16 @@ return|return
 name|quorum
 return|;
 block|}
+comment|/**    * @return the base znode of this zookeeper connection instance.    */
+specifier|public
+name|String
+name|getBaseZNode
+parameter_list|()
+block|{
+return|return
+name|baseZNode
+return|;
+block|}
 comment|/**    * Method called from ZooKeeper for events and connection status.    *<p>    * Valid events are passed along to listeners.  Connection status changes    * are dealt with locally.    */
 annotation|@
 name|Override

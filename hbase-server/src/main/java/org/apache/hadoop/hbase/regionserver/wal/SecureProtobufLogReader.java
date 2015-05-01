@@ -358,7 +358,7 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
-specifier|protected
+specifier|public
 name|List
 argument_list|<
 name|String
@@ -484,7 +484,7 @@ name|key
 operator|=
 name|EncryptionUtil
 operator|.
-name|unwrapKey
+name|unwrapWALKey
 argument_list|(
 name|conf
 argument_list|,
@@ -560,7 +560,7 @@ name|key
 operator|=
 name|EncryptionUtil
 operator|.
-name|unwrapKey
+name|unwrapWALKey
 argument_list|(
 name|conf
 argument_list|,
@@ -623,7 +623,7 @@ name|key
 operator|=
 name|EncryptionUtil
 operator|.
-name|unwrapKey
+name|unwrapWALKey
 argument_list|(
 name|conf
 argument_list|,

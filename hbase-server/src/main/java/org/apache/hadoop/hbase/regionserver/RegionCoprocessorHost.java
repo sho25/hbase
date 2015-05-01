@@ -827,7 +827,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 operator|.
 name|Operation
 import|;
@@ -952,7 +952,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implements the coprocessor environment and runtime support for coprocessors  * loaded within a {@link HRegion}.  */
+comment|/**  * Implements the coprocessor environment and runtime support for coprocessors  * loaded within a {@link Region}.  */
 end_comment
 
 begin_class
@@ -1025,7 +1025,7 @@ implements|implements
 name|RegionCoprocessorEnvironment
 block|{
 specifier|private
-name|HRegion
+name|Region
 name|region
 decl_stmt|;
 specifier|private
@@ -1096,7 +1096,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 specifier|final
@@ -1207,7 +1207,7 @@ comment|/** @return the region */
 annotation|@
 name|Override
 specifier|public
-name|HRegion
+name|Region
 name|getRegion
 parameter_list|()
 block|{
@@ -1424,7 +1424,7 @@ name|RegionServerServices
 name|rsServices
 decl_stmt|;
 comment|/** The region */
-name|HRegion
+name|Region
 name|region
 decl_stmt|;
 comment|/**    * Constructor    * @param region the region    * @param rsServices interface to available region server functionality    * @param conf the configuration    */
@@ -1432,7 +1432,7 @@ specifier|public
 name|RegionCoprocessorHost
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 specifier|final
@@ -1717,8 +1717,8 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
-name|int
-name|priority
+name|String
+name|priorityStr
 init|=
 name|matcher
 operator|.
@@ -1729,6 +1729,11 @@ argument_list|)
 operator|.
 name|trim
 argument_list|()
+decl_stmt|;
+name|int
+name|priority
+init|=
+name|priorityStr
 operator|.
 name|isEmpty
 argument_list|()
@@ -1739,14 +1744,9 @@ name|PRIORITY_USER
 else|:
 name|Integer
 operator|.
-name|valueOf
+name|parseInt
 argument_list|(
-name|matcher
-operator|.
-name|group
-argument_list|(
-literal|3
-argument_list|)
+name|priorityStr
 argument_list|)
 decl_stmt|;
 name|String
@@ -2122,6 +2122,42 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
+name|boolean
+name|coprocessorsEnabled
+init|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|COPROCESSORS_ENABLED_CONF_KEY
+argument_list|,
+name|DEFAULT_COPROCESSORS_ENABLED
+argument_list|)
+decl_stmt|;
+name|boolean
+name|tableCoprocessorsEnabled
+init|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|USER_COPROCESSORS_ENABLED_CONF_KEY
+argument_list|,
+name|DEFAULT_USER_COPROCESSORS_ENABLED
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+operator|(
+name|coprocessorsEnabled
+operator|&&
+name|tableCoprocessorsEnabled
+operator|)
+condition|)
+block|{
+return|return;
+block|}
 comment|// scan the table attributes for coprocessor load specifications
 comment|// initialize the coprocessors
 name|List
@@ -3641,11 +3677,11 @@ name|void
 name|postSplit
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|l
 parameter_list|,
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|)
 throws|throws

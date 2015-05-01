@@ -273,22 +273,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|StoreFileInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|testclassification
 operator|.
 name|SmallTests
@@ -392,6 +376,7 @@ name|Date
 argument_list|()
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|String
 name|TEST_CACHE_SIZE
@@ -399,6 +384,7 @@ init|=
 literal|"2"
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|int
 name|EXPECTED_CACHE_SIZE_ZERO
@@ -406,6 +392,7 @@ init|=
 literal|0
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|int
 name|EXPECTED_CACHE_SIZE_ONE
@@ -413,6 +400,7 @@ init|=
 literal|1
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|int
 name|EXPECTED_CACHE_SIZE_TWO
@@ -420,6 +408,7 @@ init|=
 literal|2
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|int
 name|EXPECTED_CACHE_SIZE_THREE
@@ -427,6 +416,7 @@ init|=
 literal|3
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|long
 name|EXPECTED_REFERENCE_ONE
@@ -434,6 +424,7 @@ init|=
 literal|1
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|long
 name|EXPECTED_REFERENCE_TWO
@@ -441,6 +432,7 @@ init|=
 literal|2
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|String
 name|TABLE
@@ -448,6 +440,7 @@ init|=
 literal|"tableName"
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|String
 name|FAMILY1
@@ -455,6 +448,7 @@ init|=
 literal|"family1"
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|String
 name|FAMILY2
@@ -462,6 +456,7 @@ init|=
 literal|"family2"
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|String
 name|FAMILY3
@@ -469,6 +464,7 @@ init|=
 literal|"family3"
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|byte
 index|[]
@@ -482,6 +478,7 @@ literal|"row"
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|byte
 index|[]
@@ -495,6 +492,7 @@ literal|"row2"
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|byte
 index|[]
@@ -508,6 +506,7 @@ literal|"value"
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|byte
 index|[]
@@ -521,6 +520,7 @@ literal|"value2"
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|byte
 index|[]
@@ -534,6 +534,7 @@ literal|"qf1"
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|byte
 index|[]
@@ -547,6 +548,7 @@ literal|"qf2"
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|byte
 index|[]
@@ -726,7 +728,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create the mob store file.    * @param family    */
+comment|/**    * Create the mob store file.    */
 specifier|private
 name|Path
 name|createMobStoreFile
@@ -749,7 +751,7 @@ name|family
 argument_list|)
 return|;
 block|}
-comment|/**    * Create the mob store file    * @param conf    * @param family    */
+comment|/**    * Create the mob store file    */
 specifier|private
 name|Path
 name|createMobStoreFile
@@ -799,20 +801,15 @@ expr_stmt|;
 return|return
 name|createMobStoreFile
 argument_list|(
-name|conf
-argument_list|,
 name|hcd
 argument_list|)
 return|;
 block|}
-comment|/**    * Create the mob store file    * @param conf    * @param hcd    */
+comment|/**    * Create the mob store file    */
 specifier|private
 name|Path
 name|createMobStoreFile
 parameter_list|(
-name|Configuration
-name|conf
-parameter_list|,
 name|HColumnDescriptor
 name|hcd
 parameter_list|)
@@ -820,18 +817,23 @@ throws|throws
 name|IOException
 block|{
 comment|// Setting up a Store
-name|HTableDescriptor
-name|htd
+name|TableName
+name|tn
 init|=
-operator|new
-name|HTableDescriptor
-argument_list|(
 name|TableName
 operator|.
 name|valueOf
 argument_list|(
 name|TABLE
 argument_list|)
+decl_stmt|;
+name|HTableDescriptor
+name|htd
+init|=
+operator|new
+name|HTableDescriptor
+argument_list|(
+name|tn
 argument_list|)
 decl_stmt|;
 name|htd
@@ -944,7 +946,9 @@ name|regionInfo
 init|=
 operator|new
 name|HRegionInfo
-argument_list|()
+argument_list|(
+name|tn
+argument_list|)
 decl_stmt|;
 name|StoreFile
 operator|.
@@ -1309,7 +1313,7 @@ name|mobCacheConf
 argument_list|)
 decl_stmt|;
 comment|// Before the evict
-comment|// Evict the cache, should clost the first file 1
+comment|// Evict the cache, should close the first file 1
 name|assertEquals
 argument_list|(
 name|EXPECTED_CACHE_SIZE_THREE

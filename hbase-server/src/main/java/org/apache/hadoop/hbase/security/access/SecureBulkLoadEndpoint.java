@@ -317,7 +317,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RequestContext
+name|RpcServer
 import|;
 end_import
 
@@ -523,7 +523,25 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|Region
+operator|.
+name|BulkLoadListener
 import|;
 end_import
 
@@ -1570,7 +1588,7 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-name|HRegion
+name|Region
 name|region
 init|=
 name|env
@@ -2184,18 +2202,16 @@ block|{
 name|User
 name|user
 init|=
-name|RequestContext
+name|RpcServer
 operator|.
 name|getRequestUser
 argument_list|()
 decl_stmt|;
 if|if
 condition|(
-operator|!
-name|RequestContext
-operator|.
-name|isInRequestContext
-argument_list|()
+name|user
+operator|==
+literal|null
 condition|)
 block|{
 return|return
@@ -2264,8 +2280,6 @@ specifier|static
 class|class
 name|SecureBulkLoadListener
 implements|implements
-name|HRegion
-operator|.
 name|BulkLoadListener
 block|{
 comment|// Target filesystem

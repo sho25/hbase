@@ -250,13 +250,19 @@ literal|"Support for proxyuser is not configured"
 argument_list|)
 throw|;
 block|}
+comment|// Authenticated remote user is attempting to do 'doAs' proxy user.
 name|UserGroupInformation
 name|ugi
 init|=
-name|servlet
+name|UserGroupInformation
 operator|.
-name|getRealUser
+name|createRemoteUser
+argument_list|(
+name|request
+operator|.
+name|getRemoteUser
 argument_list|()
+argument_list|)
 decl_stmt|;
 comment|// create and attempt to authorize a proxy user (the client is attempting
 comment|// to do proxy user)

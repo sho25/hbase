@@ -73,7 +73,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|HRegionServer
 import|;
 end_import
 
@@ -89,7 +89,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|handler
+operator|.
+name|FinishRegionRecoveringHandler
 import|;
 end_import
 
@@ -170,6 +172,8 @@ name|server
 expr_stmt|;
 block|}
 comment|/**    * Called when a node has been deleted    * @param path full path of the deleted node    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|nodeDeleted
@@ -246,47 +250,22 @@ operator|+
 literal|1
 argument_list|)
 decl_stmt|;
-name|HRegion
-name|region
-init|=
-name|this
-operator|.
 name|server
 operator|.
-name|getRecoveringRegions
+name|getExecutorService
 argument_list|()
 operator|.
-name|remove
+name|submit
 argument_list|(
+operator|new
+name|FinishRegionRecoveringHandler
+argument_list|(
+name|server
+argument_list|,
 name|regionName
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|region
-operator|!=
-literal|null
-condition|)
-block|{
-name|region
-operator|.
-name|setRecovering
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
+argument_list|,
 name|path
-operator|+
-literal|" deleted; "
-operator|+
-name|regionName
-operator|+
-literal|" recovered."
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

@@ -555,7 +555,7 @@ return|return
 name|conf
 return|;
 block|}
-name|HRegion
+name|Region
 name|region
 init|=
 literal|null
@@ -631,7 +631,7 @@ expr_stmt|;
 block|}
 comment|/**    * Callers must afterward call {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)}    * @param tableName    * @param callingMethod    * @param conf    * @param family    * @throws IOException    * @return created and initialized region.    */
 specifier|private
-name|HRegion
+name|Region
 name|initHRegion
 parameter_list|(
 name|byte
@@ -754,7 +754,7 @@ operator|+
 name|callingMethod
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|r
 init|=
 name|HBaseTestingUtility
@@ -1670,8 +1670,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// Expected block reads: 1
 comment|// The top block has the KV we are
@@ -1895,7 +1897,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test # of blocks read (targetted at some of the cases Lazy Seek optimizes).    *    * @throws Exception    */
+comment|/**    * Test # of blocks read (targeted at some of the cases Lazy Seek optimizes).    *    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
@@ -1974,8 +1976,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// File 2
 name|putData
@@ -2002,8 +2006,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// Expected blocks read: 1.
 comment|// File 2's top block is also the KV we are
@@ -2124,8 +2130,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// Expected blocks read: 1
 comment|// File 3's top block has the "col3" KV we are
@@ -2227,8 +2235,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// For ROWCOL Bloom filter: Expected blocks read: 2.
 comment|// For ROW Bloom filter: Expected blocks read: 3.
@@ -2350,8 +2360,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// File 6: some more puts, but with timestamps older than the
 comment|// previous delete.
@@ -2390,10 +2402,12 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
-comment|// Baseline expected blocks read: 8. [HBASE-4532]
+comment|// Baseline expected blocks read: 6. [HBASE-4532]
 name|kvs
 operator|=
 name|getData
@@ -2413,7 +2427,11 @@ argument_list|,
 literal|"col3"
 argument_list|)
 argument_list|,
-literal|5
+literal|6
+argument_list|,
+literal|7
+argument_list|,
+literal|7
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2461,10 +2479,12 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
-comment|// Expected blocks read: 5. [HBASE-4585]
+comment|// Expected blocks read: 8. [HBASE-4585, HBASE-13109]
 name|kvs
 operator|=
 name|getData
@@ -2484,7 +2504,11 @@ argument_list|,
 literal|"col3"
 argument_list|)
 argument_list|,
-literal|5
+literal|8
+argument_list|,
+literal|9
+argument_list|,
+literal|9
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2632,8 +2656,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// Execute a scan with caching turned off
 comment|// Expected blocks stored: 0
@@ -2922,8 +2948,10 @@ argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|kvs
 operator|=

@@ -1220,19 +1220,6 @@ decl_stmt|;
 comment|// Return the RegionLocations object when locateRegion
 comment|// The ugly format below comes of 'Important gotcha on spying real objects!' from
 comment|// http://mockito.googlecode.com/svn/branches/1.6/javadoc/org/mockito/Mockito.html
-name|ClusterConnection
-name|cConnection
-init|=
-name|HConnectionTestingUtility
-operator|.
-name|getSpiedClusterConnection
-argument_list|(
-name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-decl_stmt|;
 name|Mockito
 operator|.
 name|doReturn
@@ -1242,7 +1229,7 @@ argument_list|)
 operator|.
 name|when
 argument_list|(
-name|cConnection
+name|connection
 argument_list|)
 operator|.
 name|locateRegion

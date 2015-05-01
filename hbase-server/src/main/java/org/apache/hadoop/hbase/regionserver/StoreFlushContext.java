@@ -120,6 +120,29 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Similar to commit, but called in secondary region replicas for replaying the    * flush cache from primary region. Adds the new files to the store, and drops the    * snapshot depending on dropMemstoreSnapshot argument.    * @param fileNames names of the flushed files    * @param dropMemstoreSnapshot whether to drop the prepared memstore snapshot    * @throws IOException    */
+name|void
+name|replayFlush
+parameter_list|(
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|fileNames
+parameter_list|,
+name|boolean
+name|dropMemstoreSnapshot
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Abort the snapshot preparation. Drops the snapshot if any.    * @throws IOException    */
+name|void
+name|abort
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Returns the newly committed files from the flush. Called only if commit returns true    * @return a list of Paths for new files    */
 name|List
 argument_list|<

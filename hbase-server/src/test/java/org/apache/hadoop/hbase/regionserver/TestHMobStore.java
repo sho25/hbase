@@ -1413,6 +1413,9 @@ argument_list|()
 argument_list|,
 name|region
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getStartKey
 argument_list|()
 argument_list|)

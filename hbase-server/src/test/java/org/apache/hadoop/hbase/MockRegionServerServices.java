@@ -337,22 +337,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|HeapMemoryManager
 import|;
 end_import
@@ -370,6 +354,22 @@ operator|.
 name|regionserver
 operator|.
 name|Leases
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|Region
 import|;
 end_import
 
@@ -541,7 +541,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 init|=
@@ -550,7 +550,7 @@ name|HashMap
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -717,7 +717,7 @@ specifier|public
 name|boolean
 name|removeFromOnlineRegions
 parameter_list|(
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 name|ServerName
@@ -746,7 +746,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HRegion
+name|Region
 name|getFromOnlineRegions
 parameter_list|(
 name|String
@@ -769,7 +769,7 @@ name|Override
 specifier|public
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|getOnlineRegions
 parameter_list|(
@@ -803,7 +803,7 @@ specifier|public
 name|void
 name|addToOnlineRegions
 parameter_list|(
-name|HRegion
+name|Region
 name|r
 parameter_list|)
 block|{
@@ -831,7 +831,7 @@ specifier|public
 name|void
 name|postOpenDeployTasks
 parameter_list|(
-name|HRegion
+name|Region
 name|r
 parameter_list|)
 throws|throws
@@ -1254,7 +1254,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HRegion
+name|Region
 argument_list|>
 name|getRecoveringRegions
 parameter_list|()

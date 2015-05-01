@@ -761,6 +761,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|Region
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|RegionScanner
 import|;
 end_import
@@ -985,7 +1001,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALKey
+name|WALFactory
 import|;
 end_import
 
@@ -1001,7 +1017,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALFactory
+name|WALKey
 import|;
 end_import
 
@@ -1067,16 +1083,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Test
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Rule
 import|;
 end_import
@@ -1087,9 +1093,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|rules
-operator|.
-name|TestName
+name|Test
 import|;
 end_import
 
@@ -1104,6 +1108,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -1780,7 +1796,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// move region to another regionserver
-name|HRegion
+name|Region
 name|destRegion
 init|=
 name|regions
@@ -1798,6 +1814,9 @@ operator|.
 name|getServerWith
 argument_list|(
 name|destRegion
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
@@ -1926,18 +1945,28 @@ name|count
 argument_list|)
 expr_stmt|;
 comment|// flush region and make major compaction
+name|Region
+name|region
+init|=
 name|destServer
 operator|.
 name|getOnlineRegion
 argument_list|(
 name|destRegion
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
+decl_stmt|;
+name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// wait to complete major compaction
 for|for
@@ -1945,20 +1974,9 @@ control|(
 name|Store
 name|store
 range|:
-name|destServer
-operator|.
-name|getOnlineRegion
-argument_list|(
-name|destRegion
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
+name|region
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -1968,18 +1986,12 @@ name|triggerMajorCompaction
 argument_list|()
 expr_stmt|;
 block|}
-name|destServer
+name|region
 operator|.
-name|getOnlineRegion
+name|compact
 argument_list|(
-name|destRegion
-operator|.
-name|getRegionName
-argument_list|()
+literal|true
 argument_list|)
-operator|.
-name|compactStores
-argument_list|()
 expr_stmt|;
 comment|// move region to origin regionserver
 name|moveRegionAndWait
@@ -2056,7 +2068,7 @@ specifier|private
 name|void
 name|moveRegionAndWait
 parameter_list|(
-name|HRegion
+name|Region
 name|destRegion
 parameter_list|,
 name|HRegionServer
@@ -2233,7 +2245,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region2
 init|=
 name|HBaseTestingUtility
@@ -2576,7 +2588,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region2
 init|=
 name|HBaseTestingUtility
@@ -2611,7 +2623,7 @@ operator|.
 name|conf
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|HRegion
@@ -2742,6 +2754,8 @@ argument_list|(
 name|hfs
 argument_list|,
 literal|true
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// Add an edit so something in the WAL
@@ -3236,6 +3250,8 @@ argument_list|(
 name|hfs
 argument_list|,
 literal|true
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -3264,7 +3280,7 @@ expr_stmt|;
 comment|// major compact to turn all the bulk loaded files into one normal file
 name|region
 operator|.
-name|compactStores
+name|compact
 argument_list|(
 literal|true
 argument_list|)
@@ -3621,8 +3637,10 @@ block|{
 comment|// If first, so we have at least one family w/ different seqid to rest.
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|first
 operator|=
@@ -4268,8 +4286,10 @@ expr_stmt|;
 comment|// Let us flush the region
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|region
 operator|.
@@ -4841,8 +4861,10 @@ try|try
 block|{
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
@@ -4989,8 +5011,10 @@ try|try
 block|{
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -5661,6 +5685,7 @@ specifier|final
 name|long
 name|myseqid
 parameter_list|,
+specifier|final
 name|Collection
 argument_list|<
 name|Store
@@ -5669,6 +5694,9 @@ name|storesToFlush
 parameter_list|,
 name|MonitoredTask
 name|status
+parameter_list|,
+name|boolean
+name|writeFlushWalMarker
 parameter_list|)
 throws|throws
 name|IOException
@@ -5701,6 +5729,8 @@ name|MonitoredTask
 operator|.
 name|class
 argument_list|)
+argument_list|,
+name|writeFlushWalMarker
 argument_list|)
 decl_stmt|;
 name|flushcount
@@ -5962,8 +5992,10 @@ comment|// Let us flush the region
 comment|// But this time completeflushcache is not yet done
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 for|for
 control|(
@@ -6375,20 +6407,20 @@ specifier|public
 name|void
 name|requestFlush
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 name|boolean
-name|forceFlushAllStores
+name|force
 parameter_list|)
 block|{
 try|try
 block|{
 name|r
 operator|.
-name|flushcache
+name|flush
 argument_list|(
-name|forceFlushAllStores
+name|force
 argument_list|)
 expr_stmt|;
 block|}
@@ -6415,7 +6447,7 @@ specifier|public
 name|void
 name|requestDelayedFlush
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 name|long
@@ -6661,7 +6693,7 @@ name|EnvironmentEdge
 name|ee
 parameter_list|,
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 specifier|final

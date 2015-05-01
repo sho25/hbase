@@ -542,7 +542,7 @@ name|setMaxVersions
 argument_list|(
 name|Integer
 operator|.
-name|valueOf
+name|parseInt
 argument_list|(
 name|versions
 argument_list|)
@@ -1980,7 +1980,7 @@ name|timestamp
 operator|=
 name|Long
 operator|.
-name|valueOf
+name|parseLong
 argument_list|(
 name|vals
 operator|.

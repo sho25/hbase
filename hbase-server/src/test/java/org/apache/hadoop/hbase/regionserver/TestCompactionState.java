@@ -790,7 +790,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 init|=
@@ -990,7 +990,7 @@ condition|)
 block|{
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|regions
@@ -1204,7 +1204,7 @@ name|countStoreFilesInFamily
 parameter_list|(
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 parameter_list|,
@@ -1236,7 +1236,7 @@ name|countStoreFilesInFamilies
 parameter_list|(
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 parameter_list|,
@@ -1254,7 +1254,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|region
 range|:
 name|regions

@@ -189,6 +189,40 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|procedure
+operator|.
+name|MasterProcedureEnv
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|ProcedureExecutor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|executor
 operator|.
 name|ExecutorService
@@ -278,6 +312,14 @@ name|MasterQuotaManager
 name|getMasterQuotaManager
 parameter_list|()
 function_decl|;
+comment|/**    * @return Master's instance of {@link ProcedureExecutor}    */
+name|ProcedureExecutor
+argument_list|<
+name|MasterProcedureEnv
+argument_list|>
+name|getMasterProcedureExecutor
+parameter_list|()
+function_decl|;
 comment|/**    * Check table is modifiable; i.e. exists and is offline.    * @param tableName Name of table to check.    * @throws TableNotDisabledException    * @throws TableNotFoundException    * @throws IOException    */
 comment|// We actually throw the exceptions mentioned in the
 name|void
@@ -295,7 +337,7 @@ throws|,
 name|TableNotDisabledException
 function_decl|;
 comment|/**    * Create a table using the given table definition.    * @param desc The table definition    * @param splitKeys Starting row keys for the initial table regions.  If null    *     a single region is created.    */
-name|void
+name|long
 name|createTable
 parameter_list|(
 name|HTableDescriptor
@@ -310,7 +352,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Delete a table    * @param tableName The table name    * @throws IOException    */
-name|void
+name|long
 name|deleteTable
 parameter_list|(
 specifier|final
@@ -351,7 +393,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Enable an existing table    * @param tableName The table name    * @throws IOException    */
-name|void
+name|long
 name|enableTable
 parameter_list|(
 specifier|final
@@ -362,7 +404,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Disable an existing table    * @param tableName The table name    * @throws IOException    */
-name|void
+name|long
 name|disableTable
 parameter_list|(
 specifier|final

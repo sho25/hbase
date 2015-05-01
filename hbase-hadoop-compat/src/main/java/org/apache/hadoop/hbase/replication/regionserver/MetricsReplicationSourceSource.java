@@ -162,6 +162,10 @@ name|void
 name|clear
 parameter_list|()
 function_decl|;
+name|long
+name|getLastShippedAge
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

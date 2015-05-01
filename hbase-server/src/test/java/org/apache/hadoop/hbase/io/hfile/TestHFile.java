@@ -1685,7 +1685,7 @@ argument_list|)
 operator|.
 name|withCompression
 argument_list|(
-name|AbstractHFileWriter
+name|HFileWriterImpl
 operator|.
 name|compressionByName
 argument_list|(
@@ -2323,7 +2323,7 @@ argument_list|()
 operator|.
 name|withCompression
 argument_list|(
-name|AbstractHFileWriter
+name|HFileWriterImpl
 operator|.
 name|compressionByName
 argument_list|(

@@ -422,6 +422,14 @@ name|get
 parameter_list|)
 block|{
 name|this
+argument_list|(
+name|get
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|this
 operator|.
 name|filter
 operator|=

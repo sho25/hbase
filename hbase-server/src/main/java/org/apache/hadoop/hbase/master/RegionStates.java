@@ -1926,6 +1926,14 @@ name|oldServerName
 operator|!=
 literal|null
 operator|&&
+operator|!
+name|oldServerName
+operator|.
+name|equals
+argument_list|(
+name|serverName
+argument_list|)
+operator|&&
 name|serverHoldings
 operator|.
 name|containsKey
@@ -2747,6 +2755,22 @@ name|HRegionInfo
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|// Offline regions outside the loop and synchronized block to avoid
+comment|// ConcurrentModificationException and deadlock in case of meta anassigned,
+comment|// but RegionState a blocked.
+name|Set
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regionsToOffline
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|()
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|this
@@ -2782,20 +2806,6 @@ argument_list|>
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Offline regions outside the loop to avoid ConcurrentModificationException
-name|Set
-argument_list|<
-name|HRegionInfo
-argument_list|>
-name|regionsToOffline
-init|=
-operator|new
-name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|()
-decl_stmt|;
 for|for
 control|(
 name|HRegionInfo
@@ -3013,6 +3023,12 @@ expr_stmt|;
 block|}
 block|}
 block|}
+name|this
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
+block|}
 for|for
 control|(
 name|HRegionInfo
@@ -3025,12 +3041,6 @@ name|regionOffline
 argument_list|(
 name|hri
 argument_list|)
-expr_stmt|;
-block|}
-name|this
-operator|.
-name|notifyAll
-argument_list|()
 expr_stmt|;
 block|}
 name|cleanIfNoMetaEntry

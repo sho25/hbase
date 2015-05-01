@@ -371,7 +371,7 @@ parameter_list|()
 block|{
 for|for
 control|(
-name|HRegion
+name|Region
 name|r
 range|:
 name|regionServer
@@ -384,8 +384,6 @@ if|if
 condition|(
 operator|!
 name|r
-operator|.
-name|writestate
 operator|.
 name|isReadOnly
 argument_list|()
@@ -461,9 +459,6 @@ name|r
 operator|.
 name|getStores
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 comment|// TODO: some stores might see new data from flush, while others do not which
@@ -514,7 +509,12 @@ name|time
 argument_list|)
 condition|)
 block|{
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|r
+operator|)
 operator|.
 name|setReadsEnabled
 argument_list|(
@@ -534,7 +534,12 @@ argument_list|,
 name|time
 argument_list|)
 expr_stmt|;
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|r
+operator|)
 operator|.
 name|setReadsEnabled
 argument_list|(

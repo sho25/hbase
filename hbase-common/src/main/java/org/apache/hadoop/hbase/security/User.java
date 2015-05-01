@@ -245,6 +245,14 @@ name|HBASE_SECURITY_CONF_KEY
 init|=
 literal|"hbase.security.authentication"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_SECURITY_AUTHORIZATION_CONF_KEY
+init|=
+literal|"hbase.security.authorization"
+decl_stmt|;
 specifier|protected
 name|UserGroupInformation
 name|ugi

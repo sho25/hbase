@@ -242,8 +242,6 @@ operator|.
 name|hfile
 operator|.
 name|HFile
-operator|.
-name|FileInfo
 import|;
 end_import
 
@@ -261,7 +259,9 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|HFileWriterV2
+name|HFile
+operator|.
+name|FileInfo
 import|;
 end_import
 
@@ -310,6 +310,22 @@ operator|.
 name|regionserver
 operator|.
 name|ScanType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|ScannerContext
 import|;
 end_import
 
@@ -938,7 +954,9 @@ name|fileInfo
 operator|.
 name|get
 argument_list|(
-name|HFileWriterV2
+name|HFile
+operator|.
+name|Writer
 operator|.
 name|MAX_MEMSTORE_TS_KEY
 argument_list|)
@@ -1481,6 +1499,22 @@ decl_stmt|;
 name|boolean
 name|hasMore
 decl_stmt|;
+name|ScannerContext
+name|scannerContext
+init|=
+name|ScannerContext
+operator|.
+name|newBuilder
+argument_list|()
+operator|.
+name|setBatchLimit
+argument_list|(
+name|compactionKVMax
+argument_list|)
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 name|throughputController
 operator|.
 name|start
@@ -1500,7 +1534,7 @@ name|next
 argument_list|(
 name|cells
 argument_list|,
-name|compactionKVMax
+name|scannerContext
 argument_list|)
 expr_stmt|;
 if|if

@@ -271,7 +271,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|HRegionServer
 import|;
 end_import
 
@@ -287,7 +287,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|Region
 import|;
 end_import
 
@@ -990,7 +990,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|r
 range|:
 name|hrs
@@ -1006,6 +1006,9 @@ operator|.
 name|add
 argument_list|(
 name|r
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionName
 argument_list|()

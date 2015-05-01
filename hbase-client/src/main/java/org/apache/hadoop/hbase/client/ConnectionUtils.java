@@ -381,7 +381,7 @@ name|cnm
 parameter_list|)
 block|{
 return|return
-name|ConnectionManager
+name|ConnectionImplementation
 operator|.
 name|injectNonceGeneratorForTesting
 argument_list|(
@@ -410,6 +410,7 @@ name|Log
 name|log
 parameter_list|)
 block|{
+comment|// TODO: Fix this. Not all connections from server side should have 10 times the retries.
 name|int
 name|hcRetries
 init|=
@@ -610,17 +611,12 @@ specifier|static
 class|class
 name|MasterlessConnection
 extends|extends
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 block|{
 name|MasterlessConnection
 parameter_list|(
 name|Configuration
 name|conf
-parameter_list|,
-name|boolean
-name|managed
 parameter_list|,
 name|ExecutorService
 name|pool
@@ -634,8 +630,6 @@ block|{
 name|super
 argument_list|(
 name|conf
-argument_list|,
-name|managed
 argument_list|,
 name|pool
 argument_list|,

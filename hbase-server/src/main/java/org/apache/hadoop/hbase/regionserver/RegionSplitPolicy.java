@@ -33,7 +33,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
+name|List
 import|;
 end_import
 
@@ -261,11 +261,8 @@ return|return
 name|explicitSplitPoint
 return|;
 block|}
-name|Map
+name|List
 argument_list|<
-name|byte
-index|[]
-argument_list|,
 name|Store
 argument_list|>
 name|stores
@@ -292,9 +289,6 @@ name|Store
 name|s
 range|:
 name|stores
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|byte

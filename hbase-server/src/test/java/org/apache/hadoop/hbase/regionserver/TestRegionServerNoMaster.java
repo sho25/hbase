@@ -858,7 +858,7 @@ name|getRegionServerThreads
 argument_list|()
 control|)
 block|{
-name|HRegion
+name|Region
 name|region
 init|=
 name|rst
@@ -883,8 +883,10 @@ condition|)
 block|{
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 return|return;
 block|}

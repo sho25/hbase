@@ -81,22 +81,6 @@ name|ScanMetrics
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
-import|;
-end_import
-
 begin_comment
 comment|/**  * Helper class for custom client scanners.  */
 end_comment
@@ -127,31 +111,12 @@ name|scan
 parameter_list|)
 block|{
 comment|// check if application wants to collect scan metrics
-name|byte
-index|[]
-name|enableMetrics
-init|=
-name|scan
-operator|.
-name|getAttribute
-argument_list|(
-name|Scan
-operator|.
-name|SCAN_ATTRIBUTES_METRICS_ENABLE
-argument_list|)
-decl_stmt|;
 if|if
 condition|(
-name|enableMetrics
-operator|!=
-literal|null
-operator|&&
-name|Bytes
+name|scan
 operator|.
-name|toBoolean
-argument_list|(
-name|enableMetrics
-argument_list|)
+name|isScanMetricsEnabled
+argument_list|()
 condition|)
 block|{
 name|scanMetrics
@@ -162,7 +127,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|// TODO: should this be at ResultScanner? ScanMetrics is not public API it seems.
+comment|/**    * Used internally accumulating metrics on scan. To    * enable collection of metrics on a Scanner, call {@link Scan#setScanMetricsEnabled(boolean)}.    * These metrics are cleared at key transition points. Metrics are accumulated in the    * {@link Scan} object itself.    * @see Scan#getScanMetrics()    * @return Returns the running {@link ScanMetrics} instance or null if scan metrics not enabled.    */
 specifier|public
 name|ScanMetrics
 name|getScanMetrics

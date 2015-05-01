@@ -75,9 +75,7 @@ parameter_list|,
 name|String
 name|descriptor
 parameter_list|,
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 name|conn
 parameter_list|)
 throws|throws
@@ -111,9 +109,7 @@ condition|)
 block|{
 operator|(
 operator|(
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 operator|)
 name|abortable
 operator|)

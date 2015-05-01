@@ -169,6 +169,20 @@ name|hadoop
 operator|.
 name|security
 operator|.
+name|UserGroupInformation
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|security
+operator|.
 name|token
 operator|.
 name|Token
@@ -267,6 +281,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|security
+operator|.
+name|PrivilegedExceptionAction
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|Random
@@ -308,6 +332,11 @@ specifier|final
 name|boolean
 name|fallbackAllowed
 decl_stmt|;
+specifier|private
+specifier|final
+name|UserGroupInformation
+name|ticket
+decl_stmt|;
 comment|/**    * Used for client or server's token to send or receive from each other.    */
 specifier|private
 specifier|final
@@ -345,10 +374,13 @@ specifier|private
 name|Random
 name|random
 decl_stmt|;
-comment|/**    * Constructor    *    * @param method                   auth method    * @param token                    for Sasl    * @param serverPrincipal          Server's Kerberos principal name    * @param fallbackAllowed          True if server may also fall back to less secure connection    * @param rpcProtection            Quality of protection. Integrity or privacy    * @param exceptionHandler         handler for exceptions    * @param successfulConnectHandler handler for succesful connects    * @throws java.io.IOException if handler could not be created    */
+comment|/**    * Constructor    *    * @param ticket                   the ugi    * @param method                   auth method    * @param token                    for Sasl    * @param serverPrincipal          Server's Kerberos principal name    * @param fallbackAllowed          True if server may also fall back to less secure connection    * @param rpcProtection            Quality of protection. Integrity or privacy    * @param exceptionHandler         handler for exceptions    * @param successfulConnectHandler handler for succesful connects    * @throws java.io.IOException if handler could not be created    */
 specifier|public
 name|SaslClientHandler
 parameter_list|(
+name|UserGroupInformation
+name|ticket
+parameter_list|,
 name|AuthMethod
 name|method
 parameter_list|,
@@ -378,6 +410,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|this
+operator|.
+name|ticket
+operator|=
+name|ticket
+expr_stmt|;
 name|this
 operator|.
 name|fallbackAllowed
@@ -594,6 +632,7 @@ name|saslClient
 operator|==
 literal|null
 condition|)
+block|{
 throw|throw
 operator|new
 name|IOException
@@ -601,6 +640,7 @@ argument_list|(
 literal|"Unable to find SASL client implementation"
 argument_list|)
 throw|;
+block|}
 block|}
 comment|/**    * Create a Digest Sasl client    *    * @param mechanismNames            names of mechanisms    * @param saslDefaultRealm          default realm for sasl    * @param saslClientCallbackHandler handler for the client    * @return new SaslClient    * @throws java.io.IOException if creation went wrong    */
 specifier|protected
@@ -698,20 +738,68 @@ name|dispose
 argument_list|()
 expr_stmt|;
 block|}
+specifier|private
+name|byte
+index|[]
+name|evaluateChallenge
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|challenge
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+return|return
+name|ticket
+operator|.
+name|doAs
+argument_list|(
+operator|new
+name|PrivilegedExceptionAction
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+argument_list|()
+block|{
+annotation|@
+name|Override
+specifier|public
+name|byte
+index|[]
+name|run
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+return|return
+name|saslClient
+operator|.
+name|evaluateChallenge
+argument_list|(
+name|challenge
+argument_list|)
+return|;
+block|}
+block|}
+argument_list|)
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
 name|void
 name|handlerAdded
 parameter_list|(
+specifier|final
 name|ChannelHandlerContext
 name|ctx
 parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|this
-operator|.
 name|saslToken
 operator|=
 operator|new
@@ -730,8 +818,6 @@ condition|)
 block|{
 name|saslToken
 operator|=
-name|saslClient
-operator|.
 name|evaluateChallenge
 argument_list|(
 name|saslToken
@@ -931,6 +1017,7 @@ operator|.
 name|isDebugEnabled
 argument_list|()
 condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -944,6 +1031,7 @@ operator|+
 literal|" for processing by initSASLContext"
 argument_list|)
 expr_stmt|;
+block|}
 name|in
 operator|.
 name|readBytes
@@ -953,8 +1041,6 @@ argument_list|)
 expr_stmt|;
 name|saslToken
 operator|=
-name|saslClient
-operator|.
 name|evaluateChallenge
 argument_list|(
 name|saslToken
@@ -974,6 +1060,7 @@ operator|.
 name|isDebugEnabled
 argument_list|()
 condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -987,6 +1074,7 @@ operator|+
 literal|" from initSASLContext."
 argument_list|)
 expr_stmt|;
+block|}
 name|writeSaslToken
 argument_list|(
 name|ctx
@@ -1218,7 +1306,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * Write SASL token    *    * @param ctx       to write to    * @param saslToken to write    */
+comment|/**    * Write SASL token    * @param ctx to write to    * @param saslToken to write    */
 specifier|private
 name|void
 name|writeSaslToken

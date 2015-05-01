@@ -27,6 +27,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertArrayEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertEquals
 import|;
 end_import
@@ -939,7 +951,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertArrayEquals
 argument_list|(
 operator|new
 name|String

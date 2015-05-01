@@ -383,7 +383,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|HRegionServer
 import|;
 end_import
 
@@ -399,7 +399,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|Region
 import|;
 end_import
 
@@ -733,7 +733,7 @@ block|}
 comment|// check to see if this server is hosting any regions for the table
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|involvedRegions
 decl_stmt|;
@@ -857,7 +857,7 @@ comment|/**    * Get the list of regions to flush for the table on this server  
 specifier|private
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|getRegionsToFlush
 parameter_list|(

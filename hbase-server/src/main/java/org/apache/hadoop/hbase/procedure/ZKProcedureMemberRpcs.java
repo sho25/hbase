@@ -860,17 +860,6 @@ argument_list|,
 name|path
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"start proc data length is "
-operator|+
-name|data
-operator|.
-name|length
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -915,6 +904,17 @@ name|msg
 argument_list|)
 throw|;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"start proc data length is "
+operator|+
+name|data
+operator|.
+name|length
+argument_list|)
+expr_stmt|;
 name|data
 operator|=
 name|Arrays

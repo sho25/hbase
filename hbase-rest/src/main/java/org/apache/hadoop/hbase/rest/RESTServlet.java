@@ -69,7 +69,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
+name|Admin
 import|;
 end_import
 
@@ -444,7 +444,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|HBaseAdmin
+name|Admin
 name|getAdmin
 parameter_list|()
 throws|throws

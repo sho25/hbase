@@ -106,6 +106,24 @@ specifier|public
 class|class
 name|LoadBalancerFactory
 block|{
+comment|/**    * The default {@link LoadBalancer} class.     *    * @return The Class for the default {@link LoadBalancer}.    */
+specifier|public
+specifier|static
+name|Class
+argument_list|<
+name|?
+extends|extends
+name|LoadBalancer
+argument_list|>
+name|getDefaultLoadBalancerClass
+parameter_list|()
+block|{
+return|return
+name|StochasticLoadBalancer
+operator|.
+name|class
+return|;
+block|}
 comment|/**    * Create a loadbalancer from the given conf.    * @param conf    * @return A {@link LoadBalancer}    */
 specifier|public
 specifier|static
@@ -133,9 +151,8 @@ name|HConstants
 operator|.
 name|HBASE_MASTER_LOADBALANCER_CLASS
 argument_list|,
-name|StochasticLoadBalancer
-operator|.
-name|class
+name|getDefaultLoadBalancerClass
+argument_list|()
 argument_list|,
 name|LoadBalancer
 operator|.

@@ -679,7 +679,7 @@ return|;
 block|}
 block|}
 specifier|private
-name|HRegion
+name|Region
 name|initHRegion
 parameter_list|(
 name|HTableDescriptor
@@ -837,7 +837,7 @@ specifier|private
 name|void
 name|putData
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 name|int
@@ -934,7 +934,7 @@ specifier|private
 name|void
 name|verifyData
 parameter_list|(
-name|HRegion
+name|Region
 name|newReg
 parameter_list|,
 name|int
@@ -1226,14 +1226,14 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|regions
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -1281,7 +1281,7 @@ argument_list|,
 name|families
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|primary
 init|=
 name|initHRegion
@@ -1299,7 +1299,7 @@ argument_list|,
 literal|0
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|replica1
 init|=
 name|initHRegion
@@ -1362,8 +1362,10 @@ argument_list|)
 expr_stmt|;
 name|primary
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|verifyData
 argument_list|(
@@ -1429,10 +1431,15 @@ argument_list|)
 expr_stmt|;
 comment|// simulate an fs failure where we cannot refresh the store files for the replica
 operator|(
-operator|(
+call|(
 name|FailingHRegionFileSystem
+call|)
+argument_list|(
+operator|(
+name|HRegion
 operator|)
 name|replica1
+argument_list|)
 operator|.
 name|getRegionFileSystem
 argument_list|()
@@ -1458,8 +1465,10 @@ argument_list|)
 expr_stmt|;
 name|primary
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|verifyData
 argument_list|(

@@ -178,6 +178,31 @@ name|batchSize
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Get the Age of Last Applied Op    * @return ageOfLastAppliedOp    */
+specifier|public
+name|long
+name|getAgeOfLastAppliedOp
+parameter_list|()
+block|{
+return|return
+name|mss
+operator|.
+name|getLastAppliedOpAge
+argument_list|()
+return|;
+block|}
+comment|/**    * Get the TimeStampOfLastAppliedOp. If no replication Op applied yet, the value is the timestamp    * at which hbase instance starts    * @return timeStampsOfLastAppliedOp;    */
+specifier|public
+name|long
+name|getTimeStampOfLastAppliedOp
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|lastTimestampForAge
+return|;
+block|}
 block|}
 end_class
 

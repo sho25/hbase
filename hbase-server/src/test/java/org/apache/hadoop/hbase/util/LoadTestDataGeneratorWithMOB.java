@@ -150,7 +150,7 @@ name|IllegalArgumentException
 argument_list|(
 literal|"LoadTestDataGeneratorWithMOB can have 3 arguments."
 operator|+
-literal|"1st arguement is a column family, the 2nd argument "
+literal|"1st argument is a column family, the 2nd argument "
 operator|+
 literal|"is the minimum mob data size and the 3rd argument "
 operator|+

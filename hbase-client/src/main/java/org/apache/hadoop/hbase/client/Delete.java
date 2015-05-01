@@ -810,7 +810,9 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Delete all columns of the specified family with a timestamp equal to    * the specified timestamp.    * @param family family name    * @param timestamp version timestamp    * @return this for invocation chaining    */
+comment|/**    * Delete all columns of the specified family with a timestamp equal to    * the specified timestamp.    * @param family family name    * @param timestamp version timestamp    * @return this for invocation chaining    * @deprecated Since hbase-1.0.0. Use {@link #addFamilyVersion(byte[], long)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Delete
 name|deleteFamilyVersion
@@ -832,9 +834,7 @@ name|timestamp
 argument_list|)
 return|;
 block|}
-comment|/**    * Delete all columns of the specified family with a timestamp equal to    * the specified timestamp.    * @param family family name    * @param timestamp version timestamp    * @return this for invocation chaining    * @deprecated Since hbase-1.0.0. Use {@link #addFamilyVersion(byte[], long)}    */
-annotation|@
-name|Deprecated
+comment|/**    * Delete all columns of the specified family with a timestamp equal to    * the specified timestamp.    * @param family family name    * @param timestamp version timestamp    * @return this for invocation chaining    */
 specifier|public
 name|Delete
 name|addFamilyVersion

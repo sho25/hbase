@@ -185,7 +185,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|ConnectionFactory
 import|;
 end_import
 
@@ -201,7 +201,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnectionManager
+name|HConnection
 import|;
 end_import
 
@@ -446,7 +446,7 @@ name|getInt
 argument_list|(
 literal|"replication.source.maxretriesmultiplier"
 argument_list|,
-literal|10
+literal|300
 argument_list|)
 expr_stmt|;
 name|this
@@ -462,8 +462,6 @@ argument_list|(
 literal|"replication.source.socketTimeoutMultiplier"
 argument_list|,
 name|maxRetriesMultiplier
-operator|*
-name|maxRetriesMultiplier
 argument_list|)
 expr_stmt|;
 comment|// TODO: This connection is replication specific or we should make it particular to
@@ -473,7 +471,10 @@ name|this
 operator|.
 name|conn
 operator|=
-name|HConnectionManager
+operator|(
+name|HConnection
+operator|)
+name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(

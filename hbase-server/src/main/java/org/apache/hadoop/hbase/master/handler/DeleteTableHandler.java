@@ -173,6 +173,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|ClusterConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Delete
 import|;
 end_import
@@ -873,7 +889,11 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-comment|// 5. If entry for this table states, remove it.
+comment|// 5.Clean any remaining rows for this table.
+name|cleanAnyRemainingRows
+argument_list|()
+expr_stmt|;
+comment|// 6. If entry for this table states, remove it.
 name|LOG
 operator|.
 name|debug
@@ -895,10 +915,6 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-comment|// 6.Clean any remaining rows for this table.
-name|cleanAnyRemainingRows
-argument_list|()
-expr_stmt|;
 block|}
 comment|/**    * There may be items for this table still up in hbase:meta in the case where the    * info:regioninfo column was empty because of some write error. Remove ALL rows from hbase:meta    * that have to do with this table. See HBASE-12980.    * @throws IOException    */
 specifier|private
@@ -908,6 +924,16 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|ClusterConnection
+name|connection
+init|=
+name|this
+operator|.
+name|masterServices
+operator|.
+name|getConnection
+argument_list|()
+decl_stmt|;
 name|Scan
 name|tableScan
 init|=
@@ -915,6 +941,8 @@ name|MetaTableAccessor
 operator|.
 name|getScanForTableName
 argument_list|(
+name|connection
+argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
@@ -923,12 +951,7 @@ init|(
 name|Table
 name|metaTable
 init|=
-name|this
-operator|.
-name|masterServices
-operator|.
-name|getConnection
-argument_list|()
+name|connection
 operator|.
 name|getTable
 argument_list|(
@@ -1021,6 +1044,31 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+for|for
+control|(
+name|Delete
+name|d
+range|:
+name|deletes
+control|)
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Purging "
+operator|+
+name|d
+argument_list|)
+expr_stmt|;
+block|}
 name|metaTable
 operator|.
 name|delete

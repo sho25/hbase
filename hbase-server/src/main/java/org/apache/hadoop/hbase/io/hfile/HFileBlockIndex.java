@@ -408,7 +408,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Provides functionality to write ({@link BlockIndexWriter}) and read  * ({@link BlockIndexReader}) single-level and multi-level block indexes.  *  * Examples of how to use the block index writer can be found in  * {@link org.apache.hadoop.hbase.util.CompoundBloomFilterWriter} and  *  {@link HFileWriterV2}. Examples of how to use the reader can be  *  found in {@link HFileReaderV2} and TestHFileBlockIndex.  */
+comment|/**  * Provides functionality to write ({@link BlockIndexWriter}) and read  * ({@link BlockIndexReader}) single-level and multi-level block indexes.  *  * Examples of how to use the block index writer can be found in  * {@link org.apache.hadoop.hbase.util.CompoundBloomFilterWriter} and  *  {@link HFileWriterImpl}. Examples of how to use the reader can be  *  found in {@link HFileWriterImpl} and TestHFileBlockIndex.  */
 end_comment
 
 begin_class
@@ -786,8 +786,7 @@ literal|null
 return|;
 block|}
 comment|// the next indexed key
-name|byte
-index|[]
+name|Cell
 name|nextIndexedKey
 init|=
 literal|null
@@ -822,12 +821,18 @@ condition|)
 block|{
 name|nextIndexedKey
 operator|=
+operator|new
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+argument_list|(
 name|blockKeys
 index|[
 name|rootLevelIndex
 operator|+
 literal|1
 index|]
+argument_list|)
 expr_stmt|;
 block|}
 else|else
@@ -1138,7 +1143,13 @@ condition|)
 block|{
 name|nextIndexedKey
 operator|=
+operator|new
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+argument_list|(
 name|tmpNextIndexedKey
+argument_list|)
 expr_stmt|;
 block|}
 block|}

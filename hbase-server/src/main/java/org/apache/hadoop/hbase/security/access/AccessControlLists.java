@@ -611,7 +611,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|InternalScanner
 import|;
 end_import
 
@@ -627,7 +627,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|InternalScanner
+name|Region
 import|;
 end_import
 
@@ -1895,7 +1895,7 @@ specifier|static
 name|boolean
 name|isAclRegion
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|)
 block|{
@@ -1951,7 +1951,7 @@ argument_list|>
 argument_list|>
 name|loadAll
 parameter_list|(
-name|HRegion
+name|Region
 name|aclRegion
 parameter_list|)
 throws|throws

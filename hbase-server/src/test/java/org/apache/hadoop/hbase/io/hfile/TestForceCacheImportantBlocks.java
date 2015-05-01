@@ -231,7 +231,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -511,24 +511,6 @@ operator|new
 name|Object
 index|[]
 block|{
-literal|2
-block|,
-literal|true
-block|}
-argument_list|,
-operator|new
-name|Object
-index|[]
-block|{
-literal|2
-block|,
-literal|false
-block|}
-argument_list|,
-operator|new
-name|Object
-index|[]
-block|{
 literal|3
 block|,
 literal|true
@@ -673,7 +655,7 @@ argument_list|(
 name|cfCacheEnabled
 argument_list|)
 expr_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|TEST_UTIL
@@ -839,7 +821,7 @@ specifier|private
 name|void
 name|writeTestData
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|)
 throws|throws
@@ -965,8 +947,10 @@ condition|)
 block|{
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 block|}

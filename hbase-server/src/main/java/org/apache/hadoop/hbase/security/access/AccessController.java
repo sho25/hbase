@@ -881,7 +881,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RequestContext
+name|RpcServer
 import|;
 end_import
 
@@ -1083,22 +1083,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|InternalScanner
 import|;
 end_import
@@ -1131,6 +1115,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|Region
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|RegionScanner
 import|;
 end_import
@@ -1148,6 +1148,22 @@ operator|.
 name|regionserver
 operator|.
 name|ScanType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|ScannerContext
 import|;
 end_import
 
@@ -1629,14 +1645,13 @@ name|authManager
 init|=
 literal|null
 decl_stmt|;
-comment|// flags if we are running on a region of the _acl_ table
+comment|/** flags if we are running on a region of the _acl_ table */
 name|boolean
 name|aclRegion
 init|=
 literal|false
 decl_stmt|;
-comment|// defined only for Endpoint implementation, so it can have way to
-comment|// access region services.
+comment|/** defined only for Endpoint implementation, so it can have way to    access region services */
 specifier|private
 name|RegionCoprocessorEnvironment
 name|regionEnv
@@ -1673,12 +1688,12 @@ argument_list|>
 argument_list|>
 name|tableAcls
 decl_stmt|;
-comment|// Provider for mapping principal names to Users
+comment|/** Provider for mapping principal names to Users */
 specifier|private
 name|UserProvider
 name|userProvider
 decl_stmt|;
-comment|// The list of users with superuser authority
+comment|/** The list of users with superuser authority */
 specifier|private
 name|List
 argument_list|<
@@ -1686,19 +1701,23 @@ name|String
 argument_list|>
 name|superusers
 decl_stmt|;
-comment|// if we are able to support cell ACLs
+comment|/** if we are active, usually true, only not true if "hbase.security.authorization"    has been set to false in site configuration */
+name|boolean
+name|authorizationEnabled
+decl_stmt|;
+comment|/** if we are able to support cell ACLs */
 name|boolean
 name|cellFeaturesEnabled
 decl_stmt|;
-comment|// if we should check EXEC permissions
+comment|/** if we should check EXEC permissions */
 name|boolean
 name|shouldCheckExecPermission
 decl_stmt|;
-comment|// if we should terminate access checks early as soon as table or CF grants
-comment|// allow access; pre-0.98 compatible behavior
+comment|/** if we should terminate access checks early as soon as table or CF grants     allow access; pre-0.98 compatible behavior */
 name|boolean
 name|compatibleEarlyTermination
 decl_stmt|;
+comment|/** if we have been successfully initialized */
 specifier|private
 specifier|volatile
 name|boolean
@@ -1706,7 +1725,7 @@ name|initialized
 init|=
 literal|false
 decl_stmt|;
-comment|// This boolean having relevance only in the Master.
+comment|/** if the ACL table is available, only relevant in the master */
 specifier|private
 specifier|volatile
 name|boolean
@@ -1715,7 +1734,7 @@ init|=
 literal|false
 decl_stmt|;
 specifier|public
-name|HRegion
+name|Region
 name|getRegion
 parameter_list|()
 block|{
@@ -1751,7 +1770,7 @@ throws|throws
 name|IOException
 block|{
 specifier|final
-name|HRegion
+name|Region
 name|region
 init|=
 name|e
@@ -2692,34 +2711,14 @@ name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
-name|RequestContext
-name|ctx
-init|=
-name|RequestContext
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
 name|InetAddress
 name|remoteAddr
 init|=
-literal|null
-decl_stmt|;
-if|if
-condition|(
-name|ctx
-operator|!=
-literal|null
-condition|)
-block|{
-name|remoteAddr
-operator|=
-name|ctx
+name|RpcServer
 operator|.
 name|getRemoteAddress
 argument_list|()
-expr_stmt|;
-block|}
+decl_stmt|;
 name|AUDITLOG
 operator|.
 name|trace
@@ -2805,18 +2804,16 @@ block|{
 name|User
 name|user
 init|=
-name|RequestContext
+name|RpcServer
 operator|.
 name|getRequestUser
 argument_list|()
 decl_stmt|;
 if|if
 condition|(
-operator|!
-name|RequestContext
-operator|.
-name|isInRequestContext
-argument_list|()
+name|user
+operator|==
+literal|null
 condition|)
 block|{
 comment|// for non-rpc handling, fallback to system user
@@ -2951,6 +2948,180 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|authorizationEnabled
+operator|&&
+operator|!
+name|result
+operator|.
+name|isAllowed
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|AccessDeniedException
+argument_list|(
+literal|"Insufficient permissions "
+operator|+
+name|result
+operator|.
+name|toContextString
+argument_list|()
+argument_list|)
+throw|;
+block|}
+block|}
+comment|/**    * Authorizes that the current user has any of the given permissions for the    * given table, column family and column qualifier.    * @param tableName Table requested    * @param family Column family param    * @param qualifier Column qualifier param    * @throws IOException if obtaining the current user fails    * @throws AccessDeniedException if user has no authorization    */
+specifier|private
+name|void
+name|requireTablePermission
+parameter_list|(
+name|String
+name|request
+parameter_list|,
+name|TableName
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|byte
+index|[]
+name|qualifier
+parameter_list|,
+name|Action
+modifier|...
+name|permissions
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|User
+name|user
+init|=
+name|getActiveUser
+argument_list|()
+decl_stmt|;
+name|AuthResult
+name|result
+init|=
+literal|null
+decl_stmt|;
+for|for
+control|(
+name|Action
+name|permission
+range|:
+name|permissions
+control|)
+block|{
+if|if
+condition|(
+name|authManager
+operator|.
+name|authorize
+argument_list|(
+name|user
+argument_list|,
+name|tableName
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|,
+name|permission
+argument_list|)
+condition|)
+block|{
+name|result
+operator|=
+name|AuthResult
+operator|.
+name|allow
+argument_list|(
+name|request
+argument_list|,
+literal|"Table permission granted"
+argument_list|,
+name|user
+argument_list|,
+name|permission
+argument_list|,
+name|tableName
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+name|result
+operator|.
+name|getParams
+argument_list|()
+operator|.
+name|setFamily
+argument_list|(
+name|family
+argument_list|)
+operator|.
+name|setQualifier
+argument_list|(
+name|qualifier
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+else|else
+block|{
+comment|// rest of the world
+name|result
+operator|=
+name|AuthResult
+operator|.
+name|deny
+argument_list|(
+name|request
+argument_list|,
+literal|"Insufficient permissions"
+argument_list|,
+name|user
+argument_list|,
+name|permission
+argument_list|,
+name|tableName
+argument_list|,
+name|family
+argument_list|,
+name|qualifier
+argument_list|)
+expr_stmt|;
+name|result
+operator|.
+name|getParams
+argument_list|()
+operator|.
+name|setFamily
+argument_list|(
+name|family
+argument_list|)
+operator|.
+name|setQualifier
+argument_list|(
+name|qualifier
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+name|logResult
+argument_list|(
+name|result
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|authorizationEnabled
+operator|&&
 operator|!
 name|result
 operator|.
@@ -3079,6 +3250,8 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|authorizationEnabled
+operator|&&
 operator|!
 name|result
 operator|.
@@ -3126,126 +3299,6 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Authorizes that the current user has permission to perform the given    * action on the set of table column families.    * @param perm Action that is required    * @param env The current coprocessor environment    * @param families The map of column families-qualifiers.    * @throws AccessDeniedException if the authorization check failed    */
-specifier|private
-name|void
-name|requirePermission
-parameter_list|(
-name|String
-name|request
-parameter_list|,
-name|Action
-name|perm
-parameter_list|,
-name|RegionCoprocessorEnvironment
-name|env
-parameter_list|,
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|?
-extends|extends
-name|Collection
-argument_list|<
-name|?
-argument_list|>
-argument_list|>
-name|families
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|User
-name|user
-init|=
-name|getActiveUser
-argument_list|()
-decl_stmt|;
-name|AuthResult
-name|result
-init|=
-name|permissionGranted
-argument_list|(
-name|request
-argument_list|,
-name|user
-argument_list|,
-name|perm
-argument_list|,
-name|env
-argument_list|,
-name|families
-argument_list|)
-decl_stmt|;
-name|logResult
-argument_list|(
-name|result
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-operator|!
-name|result
-operator|.
-name|isAllowed
-argument_list|()
-condition|)
-block|{
-throw|throw
-operator|new
-name|AccessDeniedException
-argument_list|(
-literal|"Insufficient permissions (table="
-operator|+
-name|env
-operator|.
-name|getRegion
-argument_list|()
-operator|.
-name|getTableDesc
-argument_list|()
-operator|.
-name|getTableName
-argument_list|()
-operator|+
-operator|(
-operator|(
-name|families
-operator|!=
-literal|null
-operator|&&
-name|families
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
-operator|)
-condition|?
-literal|", family: "
-operator|+
-name|result
-operator|.
-name|toFamilyString
-argument_list|()
-else|:
-literal|""
-operator|)
-operator|+
-literal|", action="
-operator|+
-name|perm
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|")"
-argument_list|)
-throw|;
-block|}
-block|}
 comment|/**    * Checks that the user has the given global permission. The generated    * audit log message will contain context information for the operation    * being authorized, based on the given parameters.    * @param perm Action being requested    * @param tableName Affected table name.    * @param familyMap Affected column families.    */
 specifier|private
 name|void
@@ -3284,6 +3337,11 @@ init|=
 name|getActiveUser
 argument_list|()
 decl_stmt|;
+name|AuthResult
+name|result
+init|=
+literal|null
+decl_stmt|;
 if|if
 condition|(
 name|authManager
@@ -3296,8 +3354,8 @@ name|perm
 argument_list|)
 condition|)
 block|{
-name|logResult
-argument_list|(
+name|result
+operator|=
 name|AuthResult
 operator|.
 name|allow
@@ -3314,13 +3372,32 @@ name|tableName
 argument_list|,
 name|familyMap
 argument_list|)
+expr_stmt|;
+name|result
+operator|.
+name|getParams
+argument_list|()
+operator|.
+name|setTableName
+argument_list|(
+name|tableName
+argument_list|)
+operator|.
+name|setFamilies
+argument_list|(
+name|familyMap
+argument_list|)
+expr_stmt|;
+name|logResult
+argument_list|(
+name|result
 argument_list|)
 expr_stmt|;
 block|}
 else|else
 block|{
-name|logResult
-argument_list|(
+name|result
+operator|=
 name|AuthResult
 operator|.
 name|deny
@@ -3337,8 +3414,32 @@ name|tableName
 argument_list|,
 name|familyMap
 argument_list|)
+expr_stmt|;
+name|result
+operator|.
+name|getParams
+argument_list|()
+operator|.
+name|setTableName
+argument_list|(
+name|tableName
+argument_list|)
+operator|.
+name|setFamilies
+argument_list|(
+name|familyMap
 argument_list|)
 expr_stmt|;
+name|logResult
+argument_list|(
+name|result
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|authorizationEnabled
+condition|)
+block|{
 throw|throw
 operator|new
 name|AccessDeniedException
@@ -3368,6 +3469,7 @@ operator|+
 literal|")"
 argument_list|)
 throw|;
+block|}
 block|}
 block|}
 comment|/**    * Checks that the user has the given global permission. The generated    * audit log message will contain context information for the operation    * being authorized, based on the given parameters.    * @param perm Action being requested    * @param namespace    */
@@ -3393,6 +3495,11 @@ init|=
 name|getActiveUser
 argument_list|()
 decl_stmt|;
+name|AuthResult
+name|authResult
+init|=
+literal|null
+decl_stmt|;
 if|if
 condition|(
 name|authManager
@@ -3405,8 +3512,8 @@ name|perm
 argument_list|)
 condition|)
 block|{
-name|logResult
-argument_list|(
+name|authResult
+operator|=
 name|AuthResult
 operator|.
 name|allow
@@ -3419,15 +3526,29 @@ name|user
 argument_list|,
 name|perm
 argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+name|authResult
+operator|.
+name|getParams
+argument_list|()
+operator|.
+name|setNamespace
+argument_list|(
 name|namespace
 argument_list|)
+expr_stmt|;
+name|logResult
+argument_list|(
+name|authResult
 argument_list|)
 expr_stmt|;
 block|}
 else|else
 block|{
-name|logResult
-argument_list|(
+name|authResult
+operator|=
 name|AuthResult
 operator|.
 name|deny
@@ -3440,10 +3561,29 @@ name|user
 argument_list|,
 name|perm
 argument_list|,
-name|namespace
-argument_list|)
+literal|null
 argument_list|)
 expr_stmt|;
+name|authResult
+operator|.
+name|getParams
+argument_list|()
+operator|.
+name|setNamespace
+argument_list|(
+name|namespace
+argument_list|)
+expr_stmt|;
+name|logResult
+argument_list|(
+name|authResult
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|authorizationEnabled
+condition|)
+block|{
 throw|throw
 operator|new
 name|AccessDeniedException
@@ -3473,6 +3613,7 @@ operator|+
 literal|")"
 argument_list|)
 throw|;
+block|}
 block|}
 block|}
 comment|/**    * Checks that the user has the given global or namespace permission.    * @param namespace    * @param permissions Actions being requested    */
@@ -3574,6 +3715,178 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|authorizationEnabled
+operator|&&
+operator|!
+name|result
+operator|.
+name|isAllowed
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|AccessDeniedException
+argument_list|(
+literal|"Insufficient permissions "
+operator|+
+name|result
+operator|.
+name|toContextString
+argument_list|()
+argument_list|)
+throw|;
+block|}
+block|}
+comment|/**    * Checks that the user has the given global or namespace permission.    * @param namespace    * @param permissions Actions being requested    */
+specifier|public
+name|void
+name|requireNamespacePermission
+parameter_list|(
+name|String
+name|request
+parameter_list|,
+name|String
+name|namespace
+parameter_list|,
+name|TableName
+name|tableName
+parameter_list|,
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|?
+extends|extends
+name|Collection
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+argument_list|>
+name|familyMap
+parameter_list|,
+name|Action
+modifier|...
+name|permissions
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|User
+name|user
+init|=
+name|getActiveUser
+argument_list|()
+decl_stmt|;
+name|AuthResult
+name|result
+init|=
+literal|null
+decl_stmt|;
+for|for
+control|(
+name|Action
+name|permission
+range|:
+name|permissions
+control|)
+block|{
+if|if
+condition|(
+name|authManager
+operator|.
+name|authorize
+argument_list|(
+name|user
+argument_list|,
+name|namespace
+argument_list|,
+name|permission
+argument_list|)
+condition|)
+block|{
+name|result
+operator|=
+name|AuthResult
+operator|.
+name|allow
+argument_list|(
+name|request
+argument_list|,
+literal|"Namespace permission granted"
+argument_list|,
+name|user
+argument_list|,
+name|permission
+argument_list|,
+name|namespace
+argument_list|)
+expr_stmt|;
+name|result
+operator|.
+name|getParams
+argument_list|()
+operator|.
+name|setTableName
+argument_list|(
+name|tableName
+argument_list|)
+operator|.
+name|setFamilies
+argument_list|(
+name|familyMap
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+else|else
+block|{
+comment|// rest of the world
+name|result
+operator|=
+name|AuthResult
+operator|.
+name|deny
+argument_list|(
+name|request
+argument_list|,
+literal|"Insufficient permissions"
+argument_list|,
+name|user
+argument_list|,
+name|permission
+argument_list|,
+name|namespace
+argument_list|)
+expr_stmt|;
+name|result
+operator|.
+name|getParams
+argument_list|()
+operator|.
+name|setTableName
+argument_list|(
+name|tableName
+argument_list|)
+operator|.
+name|setFamilies
+argument_list|(
+name|familyMap
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+name|logResult
+argument_list|(
+name|result
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|authorizationEnabled
+operator|&&
 operator|!
 name|result
 operator|.
@@ -4282,6 +4595,25 @@ block|}
 block|}
 block|}
 block|}
+elseif|else
+if|if
+condition|(
+name|entry
+operator|.
+name|getValue
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+name|get
+operator|.
+name|addFamily
+argument_list|(
+name|col
+argument_list|)
+expr_stmt|;
+block|}
 else|else
 block|{
 throw|throw
@@ -4548,6 +4880,22 @@ name|more
 init|=
 literal|false
 decl_stmt|;
+name|ScannerContext
+name|scannerContext
+init|=
+name|ScannerContext
+operator|.
+name|newBuilder
+argument_list|()
+operator|.
+name|setBatchLimit
+argument_list|(
+literal|1
+argument_list|)
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 do|do
 block|{
 name|cells
@@ -4564,7 +4912,7 @@ name|next
 argument_list|(
 name|cells
 argument_list|,
-literal|1
+name|scannerContext
 argument_list|)
 expr_stmt|;
 for|for
@@ -5064,6 +5412,24 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// No need to check if we're not going to throw
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+name|m
+operator|.
+name|setAttribute
+argument_list|(
+name|TAG_CHECK_PASSED
+argument_list|,
+name|TRUE
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 comment|// Superusers are allowed to store cells unconditionally.
 if|if
 condition|(
@@ -5078,6 +5444,15 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+name|m
+operator|.
+name|setAttribute
+argument_list|(
+name|TAG_CHECK_PASSED
+argument_list|,
+name|TRUE
+argument_list|)
+expr_stmt|;
 return|return;
 block|}
 comment|// We already checked (prePut vs preBatchMutation)
@@ -5230,6 +5605,33 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|authorizationEnabled
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|User
+operator|.
+name|HBASE_SECURITY_AUTHORIZATION_CONF_KEY
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"The AccessController has been loaded with authorization checks disabled."
+argument_list|)
+expr_stmt|;
+block|}
 name|shouldCheckExecPermission
 operator|=
 name|conf
@@ -5625,6 +6027,13 @@ argument_list|()
 operator|.
 name|getNamespaceAsString
 argument_list|()
+argument_list|,
+name|desc
+operator|.
+name|getTableName
+argument_list|()
+argument_list|,
+name|familyMap
 argument_list|,
 name|Action
 operator|.
@@ -6356,13 +6765,16 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|requirePermission
+name|requireTablePermission
 argument_list|(
 literal|"addColumn"
 argument_list|,
 name|tableName
 argument_list|,
-literal|null
+name|column
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -6610,6 +7022,10 @@ name|ACL_GLOBAL_NAME
 argument_list|)
 condition|)
 block|{
+comment|// We have to unconditionally disallow disable of the ACL table when we are installed,
+comment|// even if not enforcing authorizations. We are still allowing grants and revocations,
+comment|// checking permissions and logging audit messages, etc. If the ACL table is not
+comment|// available we will fail random actions all over the place.
 throw|throw
 operator|new
 name|AccessDeniedException
@@ -6620,7 +7036,7 @@ name|AccessControlLists
 operator|.
 name|ACL_TABLE_NAME
 operator|+
-literal|" table."
+literal|" table with AccessController installed"
 argument_list|)
 throw|;
 block|}
@@ -7047,6 +7463,7 @@ argument_list|)
 condition|)
 block|{
 comment|// list it, if user is the owner of snapshot
+comment|// TODO: We are not logging this for audit
 block|}
 else|else
 block|{
@@ -7200,6 +7617,7 @@ argument_list|)
 condition|)
 block|{
 comment|// Snapshot owner is allowed to delete the snapshot
+comment|// TODO: We are not logging this for audit
 block|}
 else|else
 block|{
@@ -7344,13 +7762,25 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|authManager
+operator|.
+name|getZKPermissionWatcher
+argument_list|()
+operator|.
+name|deleteNamespaceACLNode
+argument_list|(
+name|namespace
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
 name|namespace
 operator|+
-literal|"entry deleted in "
+literal|" entry deleted in "
 operator|+
 name|AccessControlLists
 operator|.
@@ -7571,7 +8001,7 @@ name|getEnvironment
 argument_list|()
 decl_stmt|;
 specifier|final
-name|HRegion
+name|Region
 name|region
 init|=
 name|env
@@ -7660,7 +8090,7 @@ name|getEnvironment
 argument_list|()
 decl_stmt|;
 specifier|final
-name|HRegion
+name|Region
 name|region
 init|=
 name|env
@@ -8114,6 +8544,8 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|authorizationEnabled
+operator|&&
 operator|!
 name|authResult
 operator|.
@@ -8278,7 +8710,7 @@ operator|.
 name|READ
 argument_list|)
 decl_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|getRegion
@@ -8382,6 +8814,26 @@ name|families
 argument_list|)
 condition|)
 block|{
+name|authResult
+operator|.
+name|setAllowed
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|authResult
+operator|.
+name|setReason
+argument_list|(
+literal|"Access allowed with filter"
+argument_list|)
+expr_stmt|;
+comment|// Only wrap the filter if we are enforcing authorizations
+if|if
+condition|(
+name|authorizationEnabled
+condition|)
+block|{
 name|Filter
 name|ourFilter
 init|=
@@ -8433,20 +8885,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|authResult
-operator|.
-name|setAllowed
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-name|authResult
-operator|.
-name|setReason
-argument_list|(
-literal|"Access allowed with filter"
-argument_list|)
-expr_stmt|;
 switch|switch
 condition|(
 name|opType
@@ -8500,12 +8938,33 @@ throw|;
 block|}
 block|}
 block|}
+block|}
 else|else
 block|{
 comment|// New behavior: Any access we might be granted is more fine-grained
 comment|// than whole table or CF. Simply inject a filter and return what is
 comment|// allowed. We will not throw an AccessDeniedException. This is a
 comment|// behavioral change since 0.96.
+name|authResult
+operator|.
+name|setAllowed
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|authResult
+operator|.
+name|setReason
+argument_list|(
+literal|"Access allowed with filter"
+argument_list|)
+expr_stmt|;
+comment|// Only wrap the filter if we are enforcing authorizations
+if|if
+condition|(
+name|authorizationEnabled
+condition|)
+block|{
 name|Filter
 name|ourFilter
 init|=
@@ -8557,20 +9016,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|authResult
-operator|.
-name|setAllowed
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-name|authResult
-operator|.
-name|setReason
-argument_list|(
-literal|"Access allowed with filter"
-argument_list|)
-expr_stmt|;
 switch|switch
 condition|(
 name|opType
@@ -8624,6 +9069,7 @@ throw|;
 block|}
 block|}
 block|}
+block|}
 name|logResult
 argument_list|(
 name|authResult
@@ -8631,6 +9077,8 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|authorizationEnabled
+operator|&&
 operator|!
 name|authResult
 operator|.
@@ -8642,7 +9090,22 @@ throw|throw
 operator|new
 name|AccessDeniedException
 argument_list|(
-literal|"Insufficient permissions (table="
+literal|"Insufficient permissions for user '"
+operator|+
+operator|(
+name|user
+operator|!=
+literal|null
+condition|?
+name|user
+operator|.
+name|getShortName
+argument_list|()
+else|:
+literal|"null"
+operator|)
+operator|+
+literal|"' (table="
 operator|+
 name|table
 operator|+
@@ -8757,12 +9220,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Require WRITE permission to the table, CF, or top visible value, if any.
-comment|// NOTE: We don't need to check the permissions for any earlier Puts
-comment|// because we treat the ACLs in each Put as timestamped like any other
-comment|// HBase value. A new ACL in a new Put applies to that Put. It doesn't
-comment|// change the ACL of any previous Put. This allows simple evolution of
-comment|// security policy over time without requiring expensive updates.
 name|User
 name|user
 init|=
@@ -8776,6 +9233,12 @@ argument_list|,
 name|put
 argument_list|)
 expr_stmt|;
+comment|// Require WRITE permission to the table, CF, or top visible value, if any.
+comment|// NOTE: We don't need to check the permissions for any earlier Puts
+comment|// because we treat the ACLs in each Put as timestamped like any other
+comment|// HBase value. A new ACL in a new Put applies to that Put. It doesn't
+comment|// change the ACL of any previous Put. This allows simple evolution of
+comment|// security policy over time without requiring expensive updates.
 name|RegionCoprocessorEnvironment
 name|env
 init|=
@@ -8855,7 +9318,11 @@ name|TRUE
 argument_list|)
 expr_stmt|;
 block|}
-else|else
+elseif|else
+if|if
+condition|(
+name|authorizationEnabled
+condition|)
 block|{
 throw|throw
 operator|new
@@ -9112,7 +9579,11 @@ name|TRUE
 argument_list|)
 expr_stmt|;
 block|}
-else|else
+elseif|else
+if|if
+condition|(
+name|authorizationEnabled
+condition|)
 block|{
 throw|throw
 operator|new
@@ -9355,6 +9826,8 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|authorizationEnabled
+operator|&&
 operator|!
 name|authResult
 operator|.
@@ -9476,7 +9949,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Require READ and WRITE permissions on the table, CF, and KV to update
 name|User
 name|user
 init|=
@@ -9490,6 +9962,7 @@ argument_list|,
 name|put
 argument_list|)
 expr_stmt|;
+comment|// Require READ and WRITE permissions on the table, CF, and KV to update
 name|RegionCoprocessorEnvironment
 name|env
 init|=
@@ -9576,7 +10049,11 @@ name|TRUE
 argument_list|)
 expr_stmt|;
 block|}
-else|else
+elseif|else
+if|if
+condition|(
+name|authorizationEnabled
+condition|)
 block|{
 throw|throw
 operator|new
@@ -9842,6 +10319,8 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|authorizationEnabled
+operator|&&
 operator|!
 name|authResult
 operator|.
@@ -10038,7 +10517,11 @@ name|TRUE
 argument_list|)
 expr_stmt|;
 block|}
-else|else
+elseif|else
+if|if
+condition|(
+name|authorizationEnabled
+condition|)
 block|{
 throw|throw
 operator|new
@@ -10257,6 +10740,8 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|authorizationEnabled
+operator|&&
 operator|!
 name|authResult
 operator|.
@@ -10434,6 +10919,8 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|authorizationEnabled
+operator|&&
 operator|!
 name|authResult
 operator|.
@@ -10477,7 +10964,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Require WRITE permission to the table, CF, and the KV to be appended
 name|User
 name|user
 init|=
@@ -10491,6 +10977,7 @@ argument_list|,
 name|append
 argument_list|)
 expr_stmt|;
+comment|// Require WRITE permission to the table, CF, and the KV to be appended
 name|RegionCoprocessorEnvironment
 name|env
 init|=
@@ -10570,7 +11057,11 @@ name|TRUE
 argument_list|)
 expr_stmt|;
 block|}
-else|else
+elseif|else
+if|if
+condition|(
+name|authorizationEnabled
+condition|)
 block|{
 throw|throw
 operator|new
@@ -10797,6 +11288,8 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|authorizationEnabled
+operator|&&
 operator|!
 name|authResult
 operator|.
@@ -10842,8 +11335,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Require WRITE permission to the table, CF, and the KV to be replaced by
-comment|// the incremented value
 name|User
 name|user
 init|=
@@ -10857,6 +11348,8 @@ argument_list|,
 name|increment
 argument_list|)
 expr_stmt|;
+comment|// Require WRITE permission to the table, CF, and the KV to be replaced by
+comment|// the incremented value
 name|RegionCoprocessorEnvironment
 name|env
 init|=
@@ -10936,7 +11429,11 @@ name|TRUE
 argument_list|)
 expr_stmt|;
 block|}
-else|else
+elseif|else
+if|if
+condition|(
+name|authorizationEnabled
+condition|)
 block|{
 throw|throw
 operator|new
@@ -11167,6 +11664,8 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|authorizationEnabled
+operator|&&
 operator|!
 name|authResult
 operator|.
@@ -11762,18 +12261,10 @@ parameter_list|)
 throws|throws
 name|AccessDeniedException
 block|{
-if|if
-condition|(
-name|RequestContext
-operator|.
-name|isInRequestContext
-argument_list|()
-condition|)
-block|{
 name|String
 name|requestUserName
 init|=
-name|RequestContext
+name|RpcServer
 operator|.
 name|getRequestUserName
 argument_list|()
@@ -11790,6 +12281,8 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|authorizationEnabled
+operator|&&
 name|owner
 operator|!=
 literal|null
@@ -11814,7 +12307,6 @@ operator|+
 literal|"' is not the scanner owner!"
 argument_list|)
 throw|;
-block|}
 block|}
 block|}
 comment|/**    * Verifies user has CREATE privileges on    * the Column Families involved in the bulkLoadHFile    * request. Specific Column Write privileges are presently    * ignored.    */
@@ -13066,6 +13558,12 @@ literal|null
 decl_stmt|;
 try|try
 block|{
+name|User
+name|user
+init|=
+name|getActiveUser
+argument_list|()
+decl_stmt|;
 name|TableName
 name|tableName
 init|=
@@ -13095,6 +13593,7 @@ operator|instanceof
 name|TablePermission
 condition|)
 block|{
+comment|// Check table permissions
 name|TablePermission
 name|tperm
 init|=
@@ -13262,9 +13761,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|requirePermission
+name|AuthResult
+name|result
+init|=
+name|permissionGranted
 argument_list|(
 literal|"checkPermissions"
+argument_list|,
+name|user
 argument_list|,
 name|action
 argument_list|,
@@ -13272,11 +13776,65 @@ name|regionEnv
 argument_list|,
 name|familyMap
 argument_list|)
+decl_stmt|;
+name|logResult
+argument_list|(
+name|result
+argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|result
+operator|.
+name|isAllowed
+argument_list|()
+condition|)
+block|{
+comment|// Even if passive we need to throw an exception here, we support checking
+comment|// effective permissions, so throw unconditionally
+throw|throw
+operator|new
+name|AccessDeniedException
+argument_list|(
+literal|"Insufficient permissions (table="
+operator|+
+name|tableName
+operator|+
+operator|(
+name|familyMap
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+condition|?
+literal|", family: "
+operator|+
+name|result
+operator|.
+name|toFamilyString
+argument_list|()
+else|:
+literal|""
+operator|)
+operator|+
+literal|", action="
+operator|+
+name|action
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|")"
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 else|else
 block|{
+comment|// Check global permissions
 for|for
 control|(
 name|Action
@@ -13288,13 +13846,94 @@ name|getActions
 argument_list|()
 control|)
 block|{
-name|requirePermission
+name|AuthResult
+name|result
+decl_stmt|;
+if|if
+condition|(
+name|authManager
+operator|.
+name|authorize
 argument_list|(
-literal|"checkPermissions"
+name|user
 argument_list|,
 name|action
 argument_list|)
+condition|)
+block|{
+name|result
+operator|=
+name|AuthResult
+operator|.
+name|allow
+argument_list|(
+literal|"checkPermissions"
+argument_list|,
+literal|"Global action allowed"
+argument_list|,
+name|user
+argument_list|,
+name|action
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|result
+operator|=
+name|AuthResult
+operator|.
+name|deny
+argument_list|(
+literal|"checkPermissions"
+argument_list|,
+literal|"Global action denied"
+argument_list|,
+name|user
+argument_list|,
+name|action
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+name|logResult
+argument_list|(
+name|result
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|result
+operator|.
+name|isAllowed
+argument_list|()
+condition|)
+block|{
+comment|// Even if passive we need to throw an exception here, we support checking
+comment|// effective permissions, so throw unconditionally
+throw|throw
+operator|new
+name|AccessDeniedException
+argument_list|(
+literal|"Insufficient permissions (action="
+operator|+
+name|action
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|")"
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 block|}
@@ -13351,7 +13990,7 @@ argument_list|)
 return|;
 block|}
 specifier|private
-name|HRegion
+name|Region
 name|getRegion
 parameter_list|(
 name|RegionCoprocessorEnvironment
@@ -13373,7 +14012,7 @@ name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 block|{
-name|HRegion
+name|Region
 name|region
 init|=
 name|e
@@ -13403,7 +14042,7 @@ specifier|private
 name|TableName
 name|getTableName
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|)
 block|{
@@ -13471,6 +14110,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// No need to check if we're not going to throw
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return;
+block|}
 name|User
 name|user
 init|=
@@ -13979,10 +14627,10 @@ name|RegionServerCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
-name|HRegion
+name|Region
 name|regionA
 parameter_list|,
-name|HRegion
+name|Region
 name|regionB
 parameter_list|)
 throws|throws
@@ -14022,13 +14670,13 @@ name|RegionServerCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|,
-name|HRegion
+name|Region
 name|regionA
 parameter_list|,
-name|HRegion
+name|Region
 name|regionB
 parameter_list|,
-name|HRegion
+name|Region
 name|mergedRegion
 parameter_list|)
 throws|throws
@@ -14046,10 +14694,10 @@ name|RegionServerCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
-name|HRegion
+name|Region
 name|regionA
 parameter_list|,
-name|HRegion
+name|Region
 name|regionB
 parameter_list|,
 name|List
@@ -14073,13 +14721,13 @@ name|RegionServerCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
-name|HRegion
+name|Region
 name|regionA
 parameter_list|,
-name|HRegion
+name|Region
 name|regionB
 parameter_list|,
-name|HRegion
+name|Region
 name|mergedRegion
 parameter_list|)
 throws|throws
@@ -14097,10 +14745,10 @@ name|RegionServerCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
-name|HRegion
+name|Region
 name|regionA
 parameter_list|,
-name|HRegion
+name|Region
 name|regionB
 parameter_list|)
 throws|throws
@@ -14118,10 +14766,10 @@ name|RegionServerCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
-name|HRegion
+name|Region
 name|regionA
 parameter_list|,
-name|HRegion
+name|Region
 name|regionB
 parameter_list|)
 throws|throws

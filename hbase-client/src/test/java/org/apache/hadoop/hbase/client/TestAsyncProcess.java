@@ -2372,9 +2372,7 @@ specifier|static
 class|class
 name|MyConnectionImpl
 extends|extends
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 block|{
 specifier|final
 name|AtomicInteger
@@ -5305,7 +5303,7 @@ name|configuration
 operator|.
 name|setBoolean
 argument_list|(
-name|ConnectionManager
+name|ConnectionImplementation
 operator|.
 name|RETRIES_BY_SERVER_KEY
 argument_list|,

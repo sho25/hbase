@@ -118,6 +118,14 @@ name|long
 name|t
 parameter_list|)
 function_decl|;
+comment|/**    * Update the scan size.    *    * @param scanSize size of the scan    */
+name|void
+name|updateScannerNext
+parameter_list|(
+name|long
+name|scanSize
+parameter_list|)
+function_decl|;
 comment|/**    * Increment the number of slow Puts that have happened.    */
 name|void
 name|incrSlowPut
@@ -349,6 +357,16 @@ name|String
 name|PERCENT_FILES_LOCAL_DESC
 init|=
 literal|"The percent of HFiles that are stored on the local hdfs data node."
+decl_stmt|;
+name|String
+name|PERCENT_FILES_LOCAL_SECONDARY_REGIONS
+init|=
+literal|"percentFilesLocalSecondaryRegions"
+decl_stmt|;
+name|String
+name|PERCENT_FILES_LOCAL_SECONDARY_REGIONS_DESC
+init|=
+literal|"The percent of HFiles used by secondary regions that are stored on the local hdfs data node."
 decl_stmt|;
 name|String
 name|SPLIT_QUEUE_LENGTH
@@ -855,7 +873,7 @@ decl_stmt|;
 name|String
 name|SPLIT_SUCCESS_KEY
 init|=
-literal|"splitSuccessCounnt"
+literal|"splitSuccessCount"
 decl_stmt|;
 name|String
 name|SPLIT_SUCCESS_DESC

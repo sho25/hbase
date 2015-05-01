@@ -102,7 +102,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Factory implementation to provide the {@link HConnectionImplementation} with  * the implementation of the {@link RetryingCallerInterceptor} that we would use  * to intercept the {@link RpcRetryingCaller} during the course of their calls.  *   */
+comment|/**  * Factory implementation to provide the {@link ConnectionImplementation} with  * the implementation of the {@link RetryingCallerInterceptor} that we would use  * to intercept the {@link RpcRetryingCaller} during the course of their calls.  *   */
 end_comment
 
 begin_class

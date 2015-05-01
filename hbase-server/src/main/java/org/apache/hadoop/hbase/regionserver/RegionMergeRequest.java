@@ -201,10 +201,10 @@ name|tableLock
 decl_stmt|;
 name|RegionMergeRequest
 parameter_list|(
-name|HRegion
+name|Region
 name|a
 parameter_list|,
-name|HRegion
+name|Region
 name|b
 parameter_list|,
 name|HRegionServer
@@ -225,12 +225,18 @@ name|this
 operator|.
 name|region_a
 operator|=
+operator|(
+name|HRegion
+operator|)
 name|a
 expr_stmt|;
 name|this
 operator|.
 name|region_b
 operator|=
+operator|(
+name|HRegion
+operator|)
 name|b
 expr_stmt|;
 name|this
@@ -327,11 +333,11 @@ operator|.
 name|currentTime
 argument_list|()
 decl_stmt|;
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 name|mt
 init|=
 operator|new
-name|RegionMergeTransaction
+name|RegionMergeTransactionImpl
 argument_list|(
 name|region_a
 argument_list|,
@@ -363,12 +369,18 @@ literal|"MERGE_REGIONS:"
 operator|+
 name|region_a
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|", "
 operator|+
 name|region_b
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -735,6 +747,9 @@ operator|+
 literal|"on "
 operator|+
 name|region_a
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()

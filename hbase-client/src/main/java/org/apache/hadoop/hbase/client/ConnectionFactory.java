@@ -144,7 +144,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A non-instantiable class that manages creation of {@link Connection}s.  * Managing the lifecycle of the {@link Connection}s to the cluster is the responsibility of  * the caller.  * From a {@link Connection}, {@link Table} implementations are retrieved  * with {@link Connection#getTable(TableName)}. Example:  *<pre>  * Connection connection = ConnectionFactory.createConnection(config);  * Table table = connection.getTable(TableName.valueOf("table1"));  * try {  *   // Use the table as needed, for a single operation and a single thread  * } finally {  *   table.close();  *   connection.close();  * }  *</pre>  *  * Similarly, {@link Connection} also returns {@link Admin} and {@link RegionLocator}  * implementations.  *  * This class replaces {@link HConnectionManager}, which is now deprecated.  * @see Connection  * @since 0.99.0  */
+comment|/**  * A non-instantiable class that manages creation of {@link Connection}s.  * Managing the lifecycle of the {@link Connection}s to the cluster is the responsibility of  * the caller.  * From a {@link Connection}, {@link Table} implementations are retrieved  * with {@link Connection#getTable(TableName)}. Example:  *<pre>  * Connection connection = ConnectionFactory.createConnection(config);  * Table table = connection.getTable(TableName.valueOf("table1"));  * try {  *   // Use the table as needed, for a single operation and a single thread  * } finally {  *   table.close();  *   connection.close();  * }  *</pre>  *  * Similarly, {@link Connection} also returns {@link Admin} and {@link RegionLocator}  * implementations.  *  * @see Connection  * @since 0.99.0  */
 end_comment
 
 begin_class
@@ -306,42 +306,6 @@ name|getCurrent
 argument_list|()
 expr_stmt|;
 block|}
-return|return
-name|createConnection
-argument_list|(
-name|conf
-argument_list|,
-literal|false
-argument_list|,
-name|pool
-argument_list|,
-name|user
-argument_list|)
-return|;
-block|}
-specifier|static
-name|Connection
-name|createConnection
-parameter_list|(
-specifier|final
-name|Configuration
-name|conf
-parameter_list|,
-specifier|final
-name|boolean
-name|managed
-parameter_list|,
-specifier|final
-name|ExecutorService
-name|pool
-parameter_list|,
-specifier|final
-name|User
-name|user
-parameter_list|)
-throws|throws
-name|IOException
-block|{
 name|String
 name|className
 init|=
@@ -353,9 +317,7 @@ name|HConnection
 operator|.
 name|HBASE_CLIENT_CONNECTION_IMPL
 argument_list|,
-name|ConnectionManager
-operator|.
-name|HConnectionImplementation
+name|ConnectionImplementation
 operator|.
 name|class
 operator|.
@@ -368,8 +330,6 @@ argument_list|<
 name|?
 argument_list|>
 name|clazz
-init|=
-literal|null
 decl_stmt|;
 try|try
 block|{
@@ -414,10 +374,6 @@ name|Configuration
 operator|.
 name|class
 argument_list|,
-name|boolean
-operator|.
-name|class
-argument_list|,
 name|ExecutorService
 operator|.
 name|class
@@ -443,8 +399,6 @@ operator|.
 name|newInstance
 argument_list|(
 name|conf
-argument_list|,
-name|managed
 argument_list|,
 name|pool
 argument_list|,

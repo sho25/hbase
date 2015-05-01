@@ -1180,7 +1180,7 @@ operator|)
 literal|null
 argument_list|)
 expr_stmt|;
-name|HRegion
+name|Region
 name|region
 init|=
 name|rpcServices
@@ -1216,6 +1216,9 @@ argument_list|(
 literal|"High priority because region="
 operator|+
 name|region
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()

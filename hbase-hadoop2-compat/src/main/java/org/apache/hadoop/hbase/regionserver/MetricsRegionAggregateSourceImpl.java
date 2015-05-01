@@ -289,11 +289,6 @@ name|addRecord
 argument_list|(
 name|metricsName
 argument_list|)
-operator|.
-name|setContext
-argument_list|(
-name|metricsContext
-argument_list|)
 decl_stmt|;
 if|if
 condition|(

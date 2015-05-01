@@ -419,7 +419,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -435,7 +435,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 operator|.
 name|Operation
 import|;
@@ -1169,11 +1169,11 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HRegion
+name|Region
 name|l
 parameter_list|,
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|)
 throws|throws
@@ -1576,7 +1576,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This will be called for every batch mutation operation happening at the server. This will be    * called after acquiring the locks on the mutating rows and after applying the proper timestamp    * for each Mutation at the server. The batch may contain Put/Delete. By setting OperationStatus    * of Mutations ({@link MiniBatchOperationInProgress#setOperationStatus(int, OperationStatus)}),    * {@link RegionObserver} can make HRegion to skip these Mutations.    * @param c the environment provided by the region server    * @param miniBatchOp batch of Mutations getting applied to region.    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * This will be called for every batch mutation operation happening at the server. This will be    * called after acquiring the locks on the mutating rows and after applying the proper timestamp    * for each Mutation at the server. The batch may contain Put/Delete. By setting OperationStatus    * of Mutations ({@link MiniBatchOperationInProgress#setOperationStatus(int, OperationStatus)}),    * {@link RegionObserver} can make Region to skip these Mutations.    * @param c the environment provided by the region server    * @param miniBatchOp batch of Mutations getting applied to region.    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|preBatchMutate
 parameter_list|(
@@ -1618,7 +1618,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This will be called for region operations where read lock is acquired in    * {@link HRegion#startRegionOperation()}.    * @param ctx    * @param operation The operation is about to be taken on the region    * @throws IOException    */
+comment|/**    * This will be called for region operations where read lock is acquired in    * {@link Region#startRegionOperation()}.    * @param ctx    * @param operation The operation is about to be taken on the region    * @throws IOException    */
 name|void
 name|postStartRegionOperation
 parameter_list|(
@@ -1635,7 +1635,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after releasing read lock in {@link HRegion#closeRegionOperation(Operation)}.    * @param ctx    * @param operation    * @throws IOException    */
+comment|/**    * Called after releasing read lock in {@link Region#closeRegionOperation()}.    * @param ctx    * @param operation    * @throws IOException    */
 name|void
 name|postCloseRegionOperation
 parameter_list|(

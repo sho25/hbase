@@ -333,7 +333,7 @@ literal|null
 decl_stmt|;
 specifier|private
 specifier|static
-name|HRegion
+name|Region
 name|r1
 init|=
 literal|null

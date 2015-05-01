@@ -47,6 +47,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellUtil
 import|;
 end_import
@@ -354,16 +368,16 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Compare two KeyValue only for their row family qualifier value    */
+comment|/**    * Compare two Cells only for their row family qualifier value    */
 specifier|public
 specifier|static
 name|void
-name|assertKeyValuesEquals
+name|assertCellEquals
 parameter_list|(
-name|KeyValue
+name|Cell
 name|firstKeyValue
 parameter_list|,
-name|KeyValue
+name|Cell
 name|secondKeyValue
 parameter_list|)
 block|{

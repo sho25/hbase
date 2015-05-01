@@ -516,7 +516,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-name|HRegion
+name|Region
 name|region
 init|=
 name|HBaseTestingUtility
@@ -693,12 +693,22 @@ operator|.
 name|increment
 argument_list|(
 name|odd
+argument_list|,
+name|HConstants
+operator|.
+name|NO_NONCE
+argument_list|,
+name|HConstants
+operator|.
+name|NO_NONCE
 argument_list|)
 expr_stmt|;
 name|region
 operator|.
-name|flushcache
-argument_list|()
+name|flush
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// increment even qualifiers 5 times
 for|for
@@ -720,6 +730,14 @@ operator|.
 name|increment
 argument_list|(
 name|even
+argument_list|,
+name|HConstants
+operator|.
+name|NO_NONCE
+argument_list|,
+name|HConstants
+operator|.
+name|NO_NONCE
 argument_list|)
 expr_stmt|;
 comment|// increment all qualifiers, should have value=6 for all
@@ -731,6 +749,14 @@ operator|.
 name|increment
 argument_list|(
 name|all
+argument_list|,
+name|HConstants
+operator|.
+name|NO_NONCE
+argument_list|,
+name|HConstants
+operator|.
+name|NO_NONCE
 argument_list|)
 decl_stmt|;
 name|assertEquals

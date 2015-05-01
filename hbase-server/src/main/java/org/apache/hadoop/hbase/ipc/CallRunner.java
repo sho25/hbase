@@ -119,22 +119,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|security
-operator|.
-name|UserProvider
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Pair
@@ -206,7 +190,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The request processing logic, which is usually executed in thread pools provided by an  * {@link RpcScheduler}.  Call {@link #run()} to actually execute the contained  * {@link RpcServer.Call}  */
+comment|/**  * The request processing logic, which is usually executed in thread pools provided by an  * {@link RpcScheduler}.  Call {@link #run()} to actually execute the contained  * RpcServer.Call  */
 end_comment
 
 begin_class
@@ -230,10 +214,6 @@ specifier|private
 name|MonitoredRPCHandler
 name|status
 decl_stmt|;
-specifier|private
-name|UserProvider
-name|userProvider
-decl_stmt|;
 comment|/**    * On construction, adds the size of this call to the running count of outstanding call sizes.    * Presumption is that we are put on a queue while we wait on an executor to run us.  During this    * time we occupy heap.    */
 comment|// The constructor is shutdown so only RpcServer in this class can make one of these.
 name|CallRunner
@@ -245,9 +225,6 @@ parameter_list|,
 specifier|final
 name|Call
 name|call
-parameter_list|,
-name|UserProvider
-name|userProvider
 parameter_list|)
 block|{
 name|this
@@ -282,12 +259,6 @@ operator|=
 name|getStatus
 argument_list|()
 expr_stmt|;
-name|this
-operator|.
-name|userProvider
-operator|=
-name|userProvider
-expr_stmt|;
 block|}
 specifier|public
 name|Call
@@ -319,12 +290,6 @@ expr_stmt|;
 name|this
 operator|.
 name|status
-operator|=
-literal|null
-expr_stmt|;
-name|this
-operator|.
-name|userProvider
 operator|=
 literal|null
 expr_stmt|;
@@ -548,33 +513,6 @@ name|tinfo
 argument_list|)
 expr_stmt|;
 block|}
-name|RequestContext
-operator|.
-name|set
-argument_list|(
-name|userProvider
-operator|.
-name|create
-argument_list|(
-name|call
-operator|.
-name|connection
-operator|.
-name|user
-argument_list|)
-argument_list|,
-name|RpcServer
-operator|.
-name|getRemoteIp
-argument_list|()
-argument_list|,
-name|call
-operator|.
-name|connection
-operator|.
-name|service
-argument_list|)
-expr_stmt|;
 comment|// make the call
 name|resultPair
 operator|=
@@ -683,14 +621,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Must always clear the request context to avoid leaking
-comment|// credentials between requests.
-name|RequestContext
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
-block|}
 name|RpcServer
 operator|.
 name|CurCall
@@ -700,6 +630,7 @@ argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Set the response for undelayed calls and delayed calls with
 comment|// undelayed responses.
 if|if

@@ -221,7 +221,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|ConnectionFactory
 import|;
 end_import
 
@@ -237,7 +237,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnectionManager
+name|HConnection
 import|;
 end_import
 
@@ -377,7 +377,10 @@ block|{
 name|HConnection
 name|conn
 init|=
-name|HConnectionManager
+operator|(
+name|HConnection
+operator|)
+name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
@@ -632,7 +635,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|// Copied from HConnectionImplementation.getBatchPool()
+comment|// Copied from ConnectionImplementation.getBatchPool()
 comment|// We should get rid of this when HConnection.processBatchCallback is un-deprecated and provides
 comment|// an API to manage a batch pool
 specifier|private
@@ -643,7 +646,7 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
-comment|// Use the same config for keep alive as in HConnectionImplementation.getBatchPool();
+comment|// Use the same config for keep alive as in ConnectionImplementation.getBatchPool();
 name|int
 name|maxThreads
 init|=

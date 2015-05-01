@@ -984,7 +984,7 @@ operator|+
 name|startTime
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|original
 init|=
 name|MobSnapshotTestingUtils
@@ -1098,17 +1098,21 @@ argument_list|,
 name|cloneTableName
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|clonedTable
 init|=
-operator|new
-name|HTable
+name|ConnectionFactory
+operator|.
+name|createConnection
 argument_list|(
 name|UTIL
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
+argument_list|)
+operator|.
+name|getTable
+argument_list|(
 name|cloneTableName
 argument_list|)
 decl_stmt|;
@@ -1190,11 +1194,6 @@ argument_list|(
 name|p
 argument_list|)
 expr_stmt|;
-name|original
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 comment|// Verify that it is not present in the original table
 name|Assert
 operator|.
@@ -1245,7 +1244,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAM
 argument_list|,
@@ -1270,11 +1269,6 @@ name|put
 argument_list|(
 name|p
 argument_list|)
-expr_stmt|;
-name|clonedTable
-operator|.
-name|flushCommits
-argument_list|()
 expr_stmt|;
 comment|// Verify that the new family is not in the restored table's description
 name|Assert
@@ -1408,7 +1402,7 @@ operator|+
 name|startTime
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|original
 init|=
 name|MobSnapshotTestingUtils
@@ -1535,7 +1529,12 @@ name|cloneTableName
 argument_list|)
 expr_stmt|;
 comment|// Verify that region information is the same pre-split
+operator|(
+operator|(
+name|HTable
+operator|)
 name|original
+operator|)
 operator|.
 name|clearRegionCache
 argument_list|()
@@ -1605,6 +1604,9 @@ argument_list|)
 expr_stmt|;
 name|waitOnSplit
 argument_list|(
+operator|(
+name|HTable
+operator|)
 name|original
 argument_list|,
 name|originalRegionCount
@@ -1713,7 +1715,7 @@ operator|+
 name|startTime
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|original
 init|=
 name|MobSnapshotTestingUtils

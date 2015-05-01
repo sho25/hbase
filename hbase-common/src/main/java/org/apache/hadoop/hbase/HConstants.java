@@ -621,6 +621,17 @@ name|ZK_CFG_PROPERTY_PREFIX
 operator|+
 literal|"dataDir"
 decl_stmt|;
+comment|/** Parameter name for the ZK tick time */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ZOOKEEPER_TICK_TIME
+init|=
+name|ZK_CFG_PROPERTY_PREFIX
+operator|+
+literal|"tickTime"
+decl_stmt|;
 comment|/** Default limit on concurrent client-side zookeeper connections */
 specifier|public
 specifier|static
@@ -1079,7 +1090,7 @@ comment|// followed by the meta regions, followed by user regions. Since the roo
 comment|// and meta regions always need to be on-line, this ensures that they will
 comment|// be the first to be reassigned if the server(s) they are being served by
 comment|// should go down.
-comment|/**    * The hbase:meta table's name.    *     */
+comment|/**    * The hbase:meta table's name.    *    */
 annotation|@
 name|Deprecated
 comment|// for compat from 0.94 -> 0.96.
@@ -1770,7 +1781,7 @@ argument_list|,
 literal|0L
 argument_list|)
 decl_stmt|;
-comment|/**      * Parameter name for maximum number of bytes returned when calling a      * scanner's next method.      */
+comment|/**    * Parameter name for maximum number of bytes returned when calling a scanner's next method.    * Controlled by the client.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1778,6 +1789,15 @@ name|String
 name|HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE_KEY
 init|=
 literal|"hbase.client.scanner.max.result.size"
+decl_stmt|;
+comment|/**    * Parameter name for maximum number of bytes returned when calling a scanner's next method.    * Controlled by the server.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_SERVER_SCANNER_MAX_RESULT_SIZE_KEY
+init|=
+literal|"hbase.server.scanner.max.result.size"
 decl_stmt|;
 comment|/**    * Maximum number of bytes returned when calling a scanner's next method.    * Note that when a single row is larger than this limit the row is still    * returned completely.    *    * The default value is 2MB.    */
 specifier|public
@@ -1787,6 +1807,19 @@ name|long
 name|DEFAULT_HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE
 init|=
 literal|2
+operator|*
+literal|1024
+operator|*
+literal|1024
+decl_stmt|;
+comment|/**    * Maximum number of bytes returned when calling a scanner's next method.    * Note that when a single row is larger than this limit the row is still    * returned completely.    * Safety setting to protect the region server.    *    * The default value is 100MB. (a client would rarely request larger chunks on purpose)    */
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_HBASE_SERVER_SCANNER_MAX_RESULT_SIZE
+init|=
+literal|100
 operator|*
 literal|1024
 operator|*
@@ -1916,7 +1949,9 @@ specifier|final
 name|int
 name|DEFAULT_HBASE_CLIENT_SCANNER_CACHING
 init|=
-literal|100
+name|Integer
+operator|.
+name|MAX_VALUE
 decl_stmt|;
 comment|/**    * Parameter name for number of rows that will be fetched when calling next on    * a scanner if it is not served from memory. Higher caching values will    * enable faster scanners but will eat up more memory and some calls of next    * may take longer and longer times when the cache is empty.    */
 specifier|public
@@ -2472,7 +2507,7 @@ name|ENABLE_WAL_COMPRESSION
 init|=
 literal|"hbase.regionserver.wal.enablecompression"
 decl_stmt|;
-comment|/** Configuration name of WAL storage policy    * Valid values are:    *  NONE: no preference in destination of replicas    *  ONE_SSD: place only one replica in SSD and the remaining in default storage    *  and ALL_SSD: place all replica on SSD    *      * See http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html*/
+comment|/** Configuration name of WAL storage policy    * Valid values are:    *  NONE: no preference in destination of replicas    *  ONE_SSD: place only one replica in SSD and the remaining in default storage    *  and ALL_SSD: place all replica on SSD    *    * See http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html*/
 specifier|public
 specifier|static
 specifier|final
@@ -2510,16 +2545,12 @@ comment|/**    * The byte array represents for NO_NEXT_INDEXED_KEY;    * The act
 specifier|public
 specifier|static
 specifier|final
-name|byte
-index|[]
+name|Cell
 name|NO_NEXT_INDEXED_KEY
 init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"NO_NEXT_INDEXED_KEY"
-argument_list|)
+operator|new
+name|KeyValue
+argument_list|()
 decl_stmt|;
 comment|/** delimiter used between portions of a region name */
 specifier|public
@@ -2862,6 +2893,15 @@ name|NO_NONCE
 init|=
 literal|0
 decl_stmt|;
+comment|/** Default cipher for encryption */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CIPHER_AES
+init|=
+literal|"AES"
+decl_stmt|;
 comment|/** Configuration key for the crypto algorithm provider, a class name */
 specifier|public
 specifier|static
@@ -2924,6 +2964,24 @@ name|String
 name|CRYPTO_WAL_KEY_NAME_CONF_KEY
 init|=
 literal|"hbase.crypto.wal.key.name"
+decl_stmt|;
+comment|/** Configuration key for the algorithm used for creating jks key, a string */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CRYPTO_KEY_ALGORITHM_CONF_KEY
+init|=
+literal|"hbase.crypto.key.algorithm"
+decl_stmt|;
+comment|/** Configuration key for the name of the alternate cipher algorithm for the cluster, a string */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CRYPTO_ALTERNATE_KEY_ALGORITHM_CONF_KEY
+init|=
+literal|"hbase.crypto.alternate.key.algorithm"
 decl_stmt|;
 comment|/** Configuration key for enabling WAL encryption, a boolean */
 specifier|public

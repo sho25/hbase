@@ -385,6 +385,18 @@ name|ReflectionUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|htrace
+operator|.
+name|Trace
+import|;
+end_import
+
 begin_comment
 comment|/**  * The MemStore holds in-memory modifications to the Store.  Modifications  * are {@link Cell}s.  When asked to flush, current memstore is moved  * to snapshot and is cleared.  We continue to serve edits out of new memstore  * and backing snapshot until flusher reports in that the flush succeeded. At  * this point we let the snapshot go.  *<p>  * The MemStore functions should not be called in parallel. Callers should hold  *  write and read locks. This is done in {@link HStore}.  *</p>  *  * TODO: Adjust size of the memstore when we remove items because they have  * been deleted.  * TODO: With new KVSLS, need to make sure we update HeapSize with difference  * in KV size.  */
 end_comment
@@ -1053,6 +1065,19 @@ name|snapshotSize
 else|:
 name|keySize
 argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getSnapshotSize
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|snapshotSize
 return|;
 block|}
 comment|/**    * Write an update    * @param cell    * @return approximate size of the passed KV& newly added KV which maybe different than the    *         passed-in KV    */
@@ -2024,6 +2049,8 @@ break|break;
 block|}
 block|}
 comment|/**    * Only used by tests. TODO: Remove    *    * Given the specs of a column, update it, first by inserting a new record,    * then removing the old one.  Since there is only 1 KeyValue involved, the memstoreTS    * will be set to 0, thus ensuring that they instantly appear to anyone. The underlying    * store will ensure that the insert/delete each are atomic. A scanner/reader will either    * get the new value, or the old value and all readers will eventually only see the new    * value after the old was removed.    *    * @param row    * @param family    * @param qualifier    * @param newValue    * @param now    * @return  Timestamp    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|updateColumnValue
@@ -2279,7 +2306,7 @@ literal|1L
 argument_list|)
 return|;
 block|}
-comment|/**    * Update or insert the specified KeyValues.    *<p>    * For each KeyValue, insert into MemStore.  This will atomically upsert the    * value for that row/family/qualifier.  If a KeyValue did already exist,    * it will then be removed.    *<p>    * Currently the memstoreTS is kept at 0 so as each insert happens, it will    * be immediately visible.  May want to change this so it is atomic across    * all KeyValues.    *<p>    * This is called under row lock, so Get operations will still see updates    * atomically.  Scans will only see each KeyValue update as atomic.    *    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate KVs     * @return change in memstore size    */
+comment|/**    * Update or insert the specified KeyValues.    *<p>    * For each KeyValue, insert into MemStore.  This will atomically upsert the    * value for that row/family/qualifier.  If a KeyValue did already exist,    * it will then be removed.    *<p>    * Currently the memstoreTS is kept at 0 so as each insert happens, it will    * be immediately visible.  May want to change this so it is atomic across    * all KeyValues.    *<p>    * This is called under row lock, so Get operations will still see updates    * atomically.  Scans will only see each KeyValue update as atomic.    *    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @return change in memstore size    */
 annotation|@
 name|Override
 specifier|public
@@ -2510,7 +2537,7 @@ block|{
 if|if
 condition|(
 name|versionsVisible
-operator|>
+operator|>=
 literal|1
 condition|)
 block|{
@@ -2949,6 +2976,32 @@ name|snapshotAllocatorAtCreation
 operator|.
 name|incScannerCount
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|Trace
+operator|.
+name|isTracing
+argument_list|()
+operator|&&
+name|Trace
+operator|.
+name|currentSpan
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+name|Trace
+operator|.
+name|currentSpan
+argument_list|()
+operator|.
+name|addTimelineAnnotation
+argument_list|(
+literal|"Creating MemStoreScanner"
+argument_list|)
 expr_stmt|;
 block|}
 block|}

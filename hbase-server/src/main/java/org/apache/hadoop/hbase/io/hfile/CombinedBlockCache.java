@@ -102,7 +102,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * CombinedBlockCache is an abstraction layer that combines  * {@link LruBlockCache} and {@link BucketCache}. The smaller lruCache is used  * to cache bloom blocks and index blocks.  The larger bucketCache is used to  * cache data blocks. {@link #getBlock(BlockCacheKey, boolean, boolean, boolean)} reads  * first from the smaller lruCache before looking for the block in the bucketCache.  Blocks evicted  * from lruCache are put into the bucket cache.   * Metrics are the combined size and hits and misses of both caches.  *   */
+comment|/**  * CombinedBlockCache is an abstraction layer that combines  * {@link LruBlockCache} and {@link BucketCache}. The smaller lruCache is used  * to cache bloom blocks and index blocks.  The larger l2Cache is used to  * cache data blocks. {@link #getBlock(BlockCacheKey, boolean, boolean, boolean)} reads  * first from the smaller lruCache before looking for the block in the l2Cache.  Blocks evicted  * from lruCache are put into the bucket cache.   * Metrics are the combined size and hits and misses of both caches.  *   */
 end_comment
 
 begin_class
@@ -118,17 +118,17 @@ name|ResizableBlockCache
 implements|,
 name|HeapSize
 block|{
-specifier|private
+specifier|protected
 specifier|final
 name|LruBlockCache
 name|lruCache
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
-name|BucketCache
-name|bucketCache
+name|BlockCache
+name|l2Cache
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|CombinedCacheStats
 name|combinedCacheStats
@@ -139,8 +139,8 @@ parameter_list|(
 name|LruBlockCache
 name|lruCache
 parameter_list|,
-name|BucketCache
-name|bucketCache
+name|BlockCache
+name|l2Cache
 parameter_list|)
 block|{
 name|this
@@ -151,9 +151,9 @@ name|lruCache
 expr_stmt|;
 name|this
 operator|.
-name|bucketCache
+name|l2Cache
 operator|=
-name|bucketCache
+name|l2Cache
 expr_stmt|;
 name|this
 operator|.
@@ -167,7 +167,7 @@ operator|.
 name|getStats
 argument_list|()
 argument_list|,
-name|bucketCache
+name|l2Cache
 operator|.
 name|getStats
 argument_list|()
@@ -181,16 +181,38 @@ name|long
 name|heapSize
 parameter_list|()
 block|{
+name|long
+name|l2size
+init|=
+literal|0
+decl_stmt|;
+if|if
+condition|(
+name|l2Cache
+operator|instanceof
+name|HeapSize
+condition|)
+block|{
+name|l2size
+operator|=
+operator|(
+operator|(
+name|HeapSize
+operator|)
+name|l2Cache
+operator|)
+operator|.
+name|heapSize
+argument_list|()
+expr_stmt|;
+block|}
 return|return
 name|lruCache
 operator|.
 name|heapSize
 argument_list|()
 operator|+
-name|bucketCache
-operator|.
-name|heapSize
-argument_list|()
+name|l2size
 return|;
 block|}
 annotation|@
@@ -251,7 +273,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|bucketCache
+name|l2Cache
 operator|.
 name|cacheBlock
 argument_list|(
@@ -261,7 +283,7 @@ name|buf
 argument_list|,
 name|inMemory
 argument_list|,
-name|cacheDataInL1
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -311,7 +333,7 @@ name|updateCacheMetrics
 parameter_list|)
 block|{
 comment|// TODO: is there a hole here, or just awkwardness since in the lruCache getBlock
-comment|// we end up calling bucketCache.getBlock.
+comment|// we end up calling l2Cache.getBlock.
 if|if
 condition|(
 name|lruCache
@@ -337,8 +359,10 @@ name|updateCacheMetrics
 argument_list|)
 return|;
 block|}
-return|return
-name|bucketCache
+name|Cacheable
+name|result
+init|=
+name|l2Cache
 operator|.
 name|getBlock
 argument_list|(
@@ -350,6 +374,9 @@ name|repeat
 argument_list|,
 name|updateCacheMetrics
 argument_list|)
+decl_stmt|;
+return|return
+name|result
 return|;
 block|}
 annotation|@
@@ -370,7 +397,7 @@ argument_list|(
 name|cacheKey
 argument_list|)
 operator|||
-name|bucketCache
+name|l2Cache
 operator|.
 name|evictBlock
 argument_list|(
@@ -396,7 +423,7 @@ argument_list|(
 name|hfileName
 argument_list|)
 operator|+
-name|bucketCache
+name|l2Cache
 operator|.
 name|evictBlocksByHfileName
 argument_list|(
@@ -429,7 +456,7 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
-name|bucketCache
+name|l2Cache
 operator|.
 name|shutdown
 argument_list|()
@@ -448,7 +475,7 @@ operator|.
 name|size
 argument_list|()
 operator|+
-name|bucketCache
+name|l2Cache
 operator|.
 name|size
 argument_list|()
@@ -467,7 +494,7 @@ operator|.
 name|getFreeSize
 argument_list|()
 operator|+
-name|bucketCache
+name|l2Cache
 operator|.
 name|getFreeSize
 argument_list|()
@@ -486,7 +513,7 @@ operator|.
 name|getCurrentSize
 argument_list|()
 operator|+
-name|bucketCache
+name|l2Cache
 operator|.
 name|getCurrentSize
 argument_list|()
@@ -505,7 +532,7 @@ operator|.
 name|getBlockCount
 argument_list|()
 operator|+
-name|bucketCache
+name|l2Cache
 operator|.
 name|getBlockCount
 argument_list|()
@@ -856,7 +883,7 @@ name|lruCache
 block|,
 name|this
 operator|.
-name|bucketCache
+name|l2Cache
 block|}
 return|;
 block|}

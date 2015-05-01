@@ -1292,6 +1292,13 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Query the current state of the balancer    *    * @return true if the balancer is enabled, false otherwise.    */
+name|boolean
+name|isBalancerEnabled
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Enable/Disable the catalog janitor    *    * @param enable if true enables the catalog janitor    * @return the previous state    */
 name|boolean
 name|enableCatalogJanitor

@@ -811,6 +811,11 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|JVMClusterUtil
 operator|.
@@ -829,7 +834,7 @@ name|IOException
 block|{
 comment|// Create each regionserver with its own Configuration instance so each has
 comment|// its HConnection instance rather than share (see HBASE_INSTANCES down in
-comment|// the guts of HConnectionManager.
+comment|// the guts of ConnectionManager).
 comment|// Also, create separate CoordinatedStateManager instance per Server.
 comment|// This is special case when we have to have more than 1 CoordinatedStateManager
 comment|// within 1 process.
@@ -856,9 +861,26 @@ name|config
 argument_list|,
 name|cp
 argument_list|,
+operator|(
+name|Class
+argument_list|<
+name|?
+extends|extends
+name|HRegionServer
+argument_list|>
+operator|)
+name|conf
+operator|.
+name|getClass
+argument_list|(
+name|HConstants
+operator|.
+name|REGION_SERVER_IMPL
+argument_list|,
 name|this
 operator|.
 name|regionServerClass
+argument_list|)
 argument_list|,
 name|index
 argument_list|)
@@ -979,7 +1001,7 @@ name|IOException
 block|{
 comment|// Create each master with its own Configuration instance so each has
 comment|// its HConnection instance rather than share (see HBASE_INSTANCES down in
-comment|// the guts of HConnectionManager.
+comment|// the guts of ConnectionManager.
 comment|// Also, create separate CoordinatedStateManager instance per Server.
 comment|// This is special case when we have to have more than 1 CoordinatedStateManager
 comment|// within 1 process.
@@ -1221,6 +1243,18 @@ expr_stmt|;
 block|}
 return|return
 name|liveServers
+return|;
+block|}
+comment|/**    * @return the Configuration used by this LocalHBaseCluster    */
+specifier|public
+name|Configuration
+name|getConfiguration
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|conf
 return|;
 block|}
 comment|/**    * Wait for the specified region server to stop    * Removes this thread from list of running threads.    * @param serverNumber    * @return Name of region server that just went down.    */

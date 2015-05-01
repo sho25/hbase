@@ -351,7 +351,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RequestContext
+name|RpcServer
 import|;
 end_import
 
@@ -463,7 +463,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|Region
 import|;
 end_import
 
@@ -1922,7 +1922,7 @@ specifier|static
 name|Filter
 name|createVisibilityLabelFilter
 parameter_list|(
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 name|Authorizations
@@ -2025,18 +2025,16 @@ block|{
 name|User
 name|user
 init|=
-name|RequestContext
+name|RpcServer
 operator|.
 name|getRequestUser
 argument_list|()
 decl_stmt|;
 if|if
 condition|(
-operator|!
-name|RequestContext
-operator|.
-name|isInRequestContext
-argument_list|()
+name|user
+operator|==
+literal|null
 condition|)
 block|{
 name|user

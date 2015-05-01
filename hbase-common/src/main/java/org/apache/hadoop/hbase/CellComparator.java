@@ -1381,7 +1381,7 @@ argument_list|)
 return|;
 block|}
 comment|/********************* hashCode ************************/
-comment|/**    * Returns a hash code that is always the same for two Cells having a matching equals(..) result.    * Currently does not guard against nulls, but it could if necessary.    */
+comment|/**    * Returns a hash code that is always the same for two Cells having a matching equals(..) result.    */
 specifier|public
 specifier|static
 name|int
@@ -1429,7 +1429,7 @@ return|return
 name|hash
 return|;
 block|}
-comment|/**    * Returns a hash code that is always the same for two Cells having a matching    * equals(..) result. Currently does not guard against nulls, but it could if    * necessary. Note : Ignore mvcc while calculating the hashcode    *     * @param cell    * @return hashCode    */
+comment|/**    * Returns a hash code that is always the same for two Cells having a matching    * equals(..) result. Note : Ignore mvcc while calculating the hashcode    *     * @param cell    * @return hashCode    */
 specifier|public
 specifier|static
 name|int

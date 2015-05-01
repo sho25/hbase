@@ -61,18 +61,6 @@ name|mockito
 operator|.
 name|Matchers
 operator|.
-name|any
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|mockito
-operator|.
-name|Matchers
-operator|.
 name|anyInt
 import|;
 end_import
@@ -331,45 +319,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|CacheConfig
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|Scan
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|LruBlockCache
 import|;
 end_import
 
@@ -447,9 +399,29 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|wal
+name|io
 operator|.
-name|WALFactory
+name|hfile
+operator|.
+name|CacheConfig
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|LruBlockCache
 import|;
 end_import
 
@@ -539,6 +511,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|zookeeper
 operator|.
 name|KeeperException
@@ -614,7 +602,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test the {@link SplitTransaction} class against an HRegion (as opposed to  * running cluster).  */
+comment|/**  * Test the {@link SplitTransactionImpl} class against an HRegion (as opposed to  * running cluster).  */
 end_comment
 
 begin_class
@@ -1069,13 +1057,13 @@ name|parentRowCount
 argument_list|)
 expr_stmt|;
 comment|// Start transaction.
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 name|prepareGOOD_SPLIT_ROW
 argument_list|()
 decl_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|spiedUponSt
 init|=
 name|spy
@@ -1301,9 +1289,11 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|SplitTransaction
+name|SplitTransactionImpl
 name|prepareGOOD_SPLIT_ROW
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 return|return
 name|prepareGOOD_SPLIT_ROW
@@ -1315,19 +1305,21 @@ argument_list|)
 return|;
 block|}
 specifier|private
-name|SplitTransaction
+name|SplitTransactionImpl
 name|prepareGOOD_SPLIT_ROW
 parameter_list|(
 specifier|final
 name|HRegion
 name|parentRegion
 parameter_list|)
+throws|throws
+name|IOException
 block|{
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|parentRegion
 argument_list|,
@@ -1435,11 +1427,11 @@ argument_list|,
 name|storeMock
 argument_list|)
 expr_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1470,11 +1462,11 @@ throws|throws
 name|IOException
 block|{
 comment|// Pass start row as split key.
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1494,7 +1486,7 @@ expr_stmt|;
 name|st
 operator|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1516,7 +1508,7 @@ expr_stmt|;
 name|st
 operator|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1545,7 +1537,7 @@ expr_stmt|;
 name|st
 operator|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1579,11 +1571,11 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 operator|new
-name|SplitTransaction
+name|SplitTransactionImpl
 argument_list|(
 name|this
 operator|.
@@ -1679,7 +1671,7 @@ name|clearCache
 argument_list|()
 expr_stmt|;
 comment|// Start transaction.
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 name|prepareGOOD_SPLIT_ROW
@@ -1716,7 +1708,7 @@ argument_list|)
 expr_stmt|;
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|daughters
 init|=
@@ -1794,9 +1786,10 @@ name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|this
-operator|.
 name|parent
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getStartKey
 argument_list|()
@@ -1804,6 +1797,9 @@ argument_list|,
 name|daughters
 operator|.
 name|getFirst
+argument_list|()
+operator|.
+name|getRegionInfo
 argument_list|()
 operator|.
 name|getStartKey
@@ -1824,6 +1820,9 @@ operator|.
 name|getFirst
 argument_list|()
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getEndKey
 argument_list|()
 argument_list|)
@@ -1838,6 +1837,9 @@ argument_list|(
 name|daughters
 operator|.
 name|getSecond
+argument_list|()
+operator|.
+name|getRegionInfo
 argument_list|()
 operator|.
 name|getStartKey
@@ -1853,9 +1855,10 @@ name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|this
-operator|.
 name|parent
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getEndKey
 argument_list|()
@@ -1863,6 +1866,9 @@ argument_list|,
 name|daughters
 operator|.
 name|getSecond
+argument_list|()
+operator|.
+name|getRegionInfo
 argument_list|()
 operator|.
 name|getEndKey
@@ -1878,7 +1884,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|openRegion
 range|:
 name|daughters
@@ -2005,7 +2011,7 @@ operator|.
 name|parent
 argument_list|)
 decl_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 name|prepareGOOD_SPLIT_ROW
@@ -2013,7 +2019,7 @@ argument_list|(
 name|spiedRegion
 argument_list|)
 decl_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|spiedUponSt
 init|=
 name|spy
@@ -2188,7 +2194,7 @@ operator|.
 name|parent
 argument_list|)
 decl_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|st
 init|=
 name|prepareGOOD_SPLIT_ROW
@@ -2196,7 +2202,7 @@ argument_list|(
 name|spiedRegion
 argument_list|)
 decl_stmt|;
-name|SplitTransaction
+name|SplitTransactionImpl
 name|spiedUponSt
 init|=
 name|spy
@@ -2425,7 +2431,7 @@ argument_list|)
 expr_stmt|;
 name|PairOfSameType
 argument_list|<
-name|HRegion
+name|Region
 argument_list|>
 name|daughters
 init|=
@@ -2446,7 +2452,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|HRegion
+name|Region
 name|openRegion
 range|:
 name|daughters
@@ -2558,7 +2564,7 @@ name|int
 name|countRows
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|)
 throws|throws

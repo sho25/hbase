@@ -129,6 +129,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -147,7 +161,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
+name|Admin
 import|;
 end_import
 
@@ -163,7 +177,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|Connection
 import|;
 end_import
 
@@ -179,7 +193,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnectionManager
+name|ConnectionFactory
 import|;
 end_import
 
@@ -195,7 +209,23 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTableInterface
+name|RegionLocator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -657,13 +687,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Caller doesn't close the admin afterwards.    * We need to manage it and close it properly.    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|public
-name|HBaseAdmin
+name|Admin
 name|getAdmin
 parameter_list|()
 throws|throws
@@ -710,13 +735,12 @@ name|connInfo
 operator|.
 name|admin
 operator|=
-operator|new
-name|HBaseAdmin
-argument_list|(
 name|connInfo
 operator|.
 name|connection
-argument_list|)
+operator|.
+name|getAdmin
+argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -737,7 +761,7 @@ return|;
 block|}
 comment|/**    * Caller closes the table afterwards.    */
 specifier|public
-name|HTableInterface
+name|Table
 name|getTable
 parameter_list|(
 name|String
@@ -759,7 +783,41 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
+argument_list|)
+return|;
+block|}
+comment|/**    * Retrieve a regionLocator for the table. The user should close the RegionLocator.    */
+specifier|public
+name|RegionLocator
+name|getRegionLocator
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|getCurrentConnection
+argument_list|()
+operator|.
+name|connection
+operator|.
+name|getRegionLocator
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
 argument_list|)
 return|;
 block|}
@@ -865,10 +923,10 @@ argument_list|(
 name|ugi
 argument_list|)
 decl_stmt|;
-name|HConnection
+name|Connection
 name|conn
 init|=
-name|HConnectionManager
+name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
@@ -915,7 +973,7 @@ class|class
 name|ConnectionInfo
 block|{
 specifier|final
-name|HConnection
+name|Connection
 name|connection
 decl_stmt|;
 specifier|final
@@ -923,7 +981,7 @@ name|String
 name|userName
 decl_stmt|;
 specifier|volatile
-name|HBaseAdmin
+name|Admin
 name|admin
 decl_stmt|;
 specifier|private
@@ -936,7 +994,7 @@ name|closed
 decl_stmt|;
 name|ConnectionInfo
 parameter_list|(
-name|HConnection
+name|Connection
 name|conn
 parameter_list|,
 name|String

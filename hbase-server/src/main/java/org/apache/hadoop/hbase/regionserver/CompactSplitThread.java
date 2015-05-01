@@ -522,6 +522,22 @@ name|MERGE_THREADS_DEFAULT
 init|=
 literal|1
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGION_SERVER_REGION_SPLIT_LIMIT
+init|=
+literal|"hbase.regionserver.regionSplitLimit"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_REGION_SERVER_REGION_SPLIT_LIMIT
+init|=
+literal|1000
+decl_stmt|;
 specifier|private
 specifier|final
 name|HRegionServer
@@ -595,11 +611,9 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.regionserver.regionSplitLimit"
+name|REGION_SERVER_REGION_SPLIT_LIMIT
 argument_list|,
-name|Integer
-operator|.
-name|MAX_VALUE
+name|DEFAULT_REGION_SERVER_REGION_SPLIT_LIMIT
 argument_list|)
 expr_stmt|;
 name|int
@@ -1298,11 +1312,11 @@ name|void
 name|requestRegionsMerge
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|a
 parameter_list|,
 specifier|final
-name|HRegion
+name|Region
 name|b
 parameter_list|,
 specifier|final
@@ -1395,7 +1409,7 @@ name|boolean
 name|requestSplit
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|)
 block|{
@@ -1405,7 +1419,12 @@ condition|(
 name|shouldSplitRegion
 argument_list|()
 operator|&&
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|r
+operator|)
 operator|.
 name|getCompactPriority
 argument_list|()
@@ -1419,7 +1438,12 @@ name|byte
 index|[]
 name|midKey
 init|=
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|r
+operator|)
 operator|.
 name|checkSplit
 argument_list|()
@@ -1453,7 +1477,7 @@ name|void
 name|requestSplit
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 name|byte
@@ -1476,6 +1500,9 @@ literal|"Region "
 operator|+
 name|r
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
@@ -1484,13 +1511,23 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|r
+operator|)
 operator|.
 name|shouldForceSplit
 argument_list|()
 condition|)
 block|{
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|r
+operator|)
 operator|.
 name|clearSplit
 argument_list|()
@@ -1572,7 +1609,7 @@ argument_list|>
 name|requestCompaction
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 specifier|final
@@ -1604,7 +1641,7 @@ argument_list|>
 name|requestCompaction
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 specifier|final
@@ -1648,7 +1685,7 @@ name|CompactionRequest
 name|requestCompaction
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 specifier|final
@@ -1693,7 +1730,7 @@ argument_list|>
 name|requestCompaction
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 specifier|final
@@ -1740,7 +1777,7 @@ argument_list|>
 name|requestCompactionInternal
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 specifier|final
@@ -1812,9 +1849,6 @@ range|:
 name|r
 operator|.
 name|getStores
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
@@ -1921,7 +1955,7 @@ name|CompactionRequest
 name|requestCompaction
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 specifier|final
@@ -1964,7 +1998,7 @@ name|void
 name|requestSystemCompaction
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 specifier|final
@@ -1995,7 +2029,7 @@ name|void
 name|requestSystemCompaction
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 specifier|final
@@ -2027,14 +2061,14 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param r HRegion store belongs to    * @param s Store to request compaction on    * @param why Why compaction requested -- used in debug messages    * @param priority override the default priority (NO_PRIORITY == decide)    * @param request custom compaction request. Can be<tt>null</tt> in which case a simple    *          compaction will be used.    */
+comment|/**    * @param r region store belongs to    * @param s Store to request compaction on    * @param why Why compaction requested -- used in debug messages    * @param priority override the default priority (NO_PRIORITY == decide)    * @param request custom compaction request. Can be<tt>null</tt> in which case a simple    *          compaction will be used.    */
 specifier|private
 specifier|synchronized
 name|CompactionRequest
 name|requestCompactionInternal
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 specifier|final
@@ -2256,7 +2290,7 @@ name|CompactionContext
 name|selectCompaction
 parameter_list|(
 specifier|final
-name|HRegion
+name|Region
 name|r
 parameter_list|,
 specifier|final
@@ -2306,6 +2340,9 @@ argument_list|(
 literal|"Not compacting "
 operator|+
 name|r
+operator|.
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -2562,6 +2599,32 @@ name|boolean
 name|shouldSplitRegion
 parameter_list|()
 block|{
+if|if
+condition|(
+name|server
+operator|.
+name|getNumberOfOnlineRegions
+argument_list|()
+operator|>
+literal|0.9
+operator|*
+name|regionSplitLimit
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Total number of regions is approaching the upper limit "
+operator|+
+name|regionSplitLimit
+operator|+
+literal|". "
+operator|+
+literal|"Please consider taking a look at http://hbase.apache.org/book.html#ops.regionmgt"
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 operator|(
 name|regionSplitLimit
@@ -2645,7 +2708,7 @@ parameter_list|(
 name|Store
 name|store
 parameter_list|,
-name|HRegion
+name|Region
 name|region
 parameter_list|,
 name|CompactionContext
@@ -2668,6 +2731,9 @@ name|this
 operator|.
 name|region
 operator|=
+operator|(
+name|HRegion
+operator|)
 name|region
 expr_stmt|;
 name|this
