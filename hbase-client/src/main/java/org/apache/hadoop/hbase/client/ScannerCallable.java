@@ -1609,7 +1609,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-specifier|private
+specifier|protected
 name|void
 name|updateResultsMetrics
 parameter_list|(

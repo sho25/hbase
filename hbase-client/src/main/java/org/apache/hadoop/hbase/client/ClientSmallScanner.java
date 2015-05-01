@@ -972,6 +972,12 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+comment|// We need to update result metrics since we are overriding call()
+name|updateResultsMetrics
+argument_list|(
+name|results
+argument_list|)
+expr_stmt|;
 return|return
 name|results
 return|;
