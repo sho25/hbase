@@ -1363,6 +1363,13 @@ literal|"0.0.0.0"
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|connector
+operator|.
+name|setHeaderBufferSize
+argument_list|(
+literal|8192
+argument_list|)
+expr_stmt|;
 name|server
 operator|.
 name|addConnector
