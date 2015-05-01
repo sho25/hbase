@@ -4208,7 +4208,7 @@ operator|)
 assert|;
 block|}
 block|}
-comment|/**    * This test makes sure that with 5 retries both parallel instances    * of hbck will be completed successfully.    *    * @throws Exception    */
+comment|/**    * This test makes sure that with 10 retries both parallel instances    * of hbck will be completed successfully.    *    * @throws Exception    */
 annotation|@
 name|Test
 argument_list|(
@@ -4253,10 +4253,29 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// Increase retry attempts to make sure the non-active hbck doesn't get starved
+name|Configuration
+name|c
+init|=
+operator|new
+name|Configuration
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+name|c
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.hbck.lockfile.attempts"
+argument_list|,
+literal|10
+argument_list|)
+expr_stmt|;
 return|return
 name|doFsck
 argument_list|(
-name|conf
+name|c
 argument_list|,
 literal|false
 argument_list|)
@@ -4304,7 +4323,7 @@ name|service
 operator|.
 name|awaitTermination
 argument_list|(
-literal|15
+literal|25
 argument_list|,
 name|TimeUnit
 operator|.
