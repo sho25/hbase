@@ -118,6 +118,11 @@ name|void
 name|close
 parameter_list|()
 function_decl|;
+comment|/**    * Allow the client to renew the scanner's lease on the server.    * @return true if the lease was successfully renewed, false otherwise.    */
+name|boolean
+name|renewLease
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 
