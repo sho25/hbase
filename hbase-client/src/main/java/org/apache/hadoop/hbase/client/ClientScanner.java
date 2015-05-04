@@ -861,24 +861,6 @@ operator|.
 name|connection
 return|;
 block|}
-comment|/**      * @return Table name      * @deprecated As of release 0.96      *             (<a href="https://issues.apache.org/jira/browse/HBASE-9508">HBASE-9508</a>).      *             This will be removed in HBase 2.0.0. Use {@link #getTable()}.      */
-annotation|@
-name|Deprecated
-specifier|protected
-name|byte
-index|[]
-name|getTableName
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|tableName
-operator|.
-name|getName
-argument_list|()
-return|;
-block|}
 specifier|protected
 name|TableName
 name|getTable
@@ -1510,7 +1492,7 @@ return|return
 name|sr
 return|;
 block|}
-comment|/**      * Publish the scan metrics. For now, we use scan.setAttribute to pass the metrics back to the      * application or TableInputFormat.Later, we could push it to other systems. We don't use      * metrics framework because it doesn't support multi-instances of the same metrics on the same      * machine; for scan/map reduce scenarios, we will have multiple scans running at the same time.      *      * By default, scan metrics are disabled; if the application wants to collect them, this      * behavior can be turned on by calling calling {@link Scan#setScanMetricsEnabled(boolean)}      *       *<p>This invocation clears the scan metrics. Metrics are aggregated in the Scan instance.      */
+comment|/**      * Publish the scan metrics. For now, we use scan.setAttribute to pass the metrics back to the      * application or TableInputFormat.Later, we could push it to other systems. We don't use      * metrics framework because it doesn't support multi-instances of the same metrics on the same      * machine; for scan/map reduce scenarios, we will have multiple scans running at the same time.      *      * By default, scan metrics are disabled; if the application wants to collect them, this      * behavior can be turned on by calling calling {@link Scan#setScanMetricsEnabled(boolean)}      *      *<p>This invocation clears the scan metrics. Metrics are aggregated in the Scan instance.      */
 specifier|protected
 name|void
 name|writeScanMetrics

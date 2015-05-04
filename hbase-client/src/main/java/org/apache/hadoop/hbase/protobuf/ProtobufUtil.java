@@ -15311,7 +15311,10 @@ name|wrap
 argument_list|(
 name|info
 operator|.
-name|getTableName
+name|getTable
+argument_list|()
+operator|.
+name|toBytes
 argument_list|()
 argument_list|)
 argument_list|)

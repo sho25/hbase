@@ -659,7 +659,14 @@ name|htd
 init|=
 operator|new
 name|HTableDescriptor
-argument_list|()
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|SOME_BYTES
+argument_list|)
+argument_list|)
 decl_stmt|;
 name|htd
 operator|.

@@ -96,7 +96,9 @@ name|UnmodifyableHTableDescriptor
 extends|extends
 name|HTableDescriptor
 block|{
-comment|/** Default constructor */
+comment|/**    * Default constructor.    * @deprecated  As of release 2.0.0. This will be removed in HBase 3.0.0.    *              Use {@link #UnmodifyableHTableDescriptor(HTableDescriptor)}.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|UnmodifyableHTableDescriptor
 parameter_list|()

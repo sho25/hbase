@@ -1283,10 +1283,10 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Default constructor which constructs an empty object.    * For deserializing an HTableDescriptor instance only.    * @deprecated As of release 0.96    *             (<a href="https://issues.apache.org/jira/browse/HBASE-5453">HBASE-5453</a>).    *             This will be removed in HBase 2.0.0.    *             Used by Writables and Writables are going away.    */
+comment|/**    * Default constructor which constructs an empty object.    * For deserializing an HTableDescriptor instance only.    * @deprecated As of release 0.96 (<a href="https://issues.apache.org/jira/browse/HBASE-5453">HBASE-5453</a>).    *             This was made protected in 2.0.0 and will be removed in HBase 3.0.0.    *             Used by Writables and Writables are going away.    */
 annotation|@
 name|Deprecated
-specifier|public
+specifier|protected
 name|HTableDescriptor
 parameter_list|()
 block|{
