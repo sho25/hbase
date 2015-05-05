@@ -141,6 +141,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseInterfaceAudience
 import|;
 end_import
@@ -170,20 +184,6 @@ operator|.
 name|hbase
 operator|.
 name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
 import|;
 end_import
 
@@ -453,9 +453,7 @@ operator|.
 name|MIN_VALUE
 decl_stmt|;
 comment|// General Accessors
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 name|getComparator
 parameter_list|()
 function_decl|;

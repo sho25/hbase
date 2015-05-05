@@ -107,7 +107,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|CellComparator
 import|;
 end_import
 
@@ -151,9 +151,7 @@ argument_list|>
 name|data
 decl_stmt|;
 specifier|final
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 name|comparator
 decl_stmt|;
 specifier|private
@@ -181,7 +179,7 @@ name|this
 argument_list|(
 name|set
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -196,9 +194,7 @@ name|Cell
 argument_list|>
 name|set
 parameter_list|,
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|)
 block|{
@@ -230,7 +226,7 @@ name|this
 argument_list|(
 name|list
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -245,9 +241,7 @@ name|Cell
 argument_list|>
 name|list
 parameter_list|,
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|)
 block|{
@@ -277,9 +271,7 @@ block|}
 specifier|public
 name|CollectionBackedScanner
 parameter_list|(
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|,
 name|Cell

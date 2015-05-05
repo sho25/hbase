@@ -621,6 +621,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellScanner
 import|;
 end_import
@@ -792,22 +806,6 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
-operator|.
-name|KVComparator
 import|;
 end_import
 
@@ -25093,7 +25091,7 @@ name|HRegion
 name|region
 decl_stmt|;
 specifier|protected
-name|KVComparator
+name|CellComparator
 name|comparator
 decl_stmt|;
 annotation|@
@@ -27380,6 +27378,7 @@ name|stopRow
 operator|!=
 literal|null
 operator|&&
+comment|// TODO : currentRow can be tracked as cell rather than byte[]
 name|comparator
 operator|.
 name|compareRows
@@ -37571,7 +37570,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|KVComparator
+name|CellComparator
 name|getCellCompartor
 parameter_list|()
 block|{
@@ -37584,11 +37583,11 @@ operator|.
 name|isMetaRegion
 argument_list|()
 condition|?
-name|KeyValue
+name|CellComparator
 operator|.
 name|META_COMPARATOR
 else|:
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 return|;

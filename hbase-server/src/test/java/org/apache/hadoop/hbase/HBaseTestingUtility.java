@@ -15454,7 +15454,7 @@ name|i
 operator|<
 name|minLen
 operator|&&
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 operator|.

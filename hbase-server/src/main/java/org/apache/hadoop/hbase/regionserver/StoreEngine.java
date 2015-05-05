@@ -77,9 +77,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 import|;
 end_import
 
@@ -315,7 +313,7 @@ parameter_list|,
 name|Store
 name|store
 parameter_list|,
-name|KVComparator
+name|CellComparator
 name|kvComparator
 parameter_list|)
 throws|throws
@@ -331,7 +329,7 @@ parameter_list|,
 name|Store
 name|store
 parameter_list|,
-name|KVComparator
+name|CellComparator
 name|kvComparator
 parameter_list|)
 throws|throws
@@ -402,7 +400,7 @@ parameter_list|,
 name|Configuration
 name|conf
 parameter_list|,
-name|KVComparator
+name|CellComparator
 name|kvComparator
 parameter_list|)
 throws|throws

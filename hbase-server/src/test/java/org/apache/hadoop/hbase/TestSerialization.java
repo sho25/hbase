@@ -574,7 +574,7 @@ decl_stmt|;
 name|long
 name|l
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|write
 argument_list|(
@@ -618,7 +618,7 @@ decl_stmt|;
 name|KeyValue
 name|deserializedKv
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|create
 argument_list|(
@@ -850,7 +850,7 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|create
 argument_list|(
@@ -889,7 +889,7 @@ comment|// length -1
 try|try
 block|{
 comment|// even if we have a good kv now in dis we will just pass length with -1 for simplicity
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|create
 argument_list|(

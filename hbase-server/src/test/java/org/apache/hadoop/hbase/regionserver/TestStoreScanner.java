@@ -129,6 +129,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -354,7 +368,7 @@ name|FALSE
 argument_list|,
 literal|0
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -590,7 +604,7 @@ block|{
 operator|new
 name|KeyValueScanFixture
 argument_list|(
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -1015,7 +1029,7 @@ block|{
 operator|new
 name|KeyValueScanFixture
 argument_list|(
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -4018,7 +4032,7 @@ name|FALSE
 argument_list|,
 literal|0
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -4500,7 +4514,7 @@ name|FALSE
 argument_list|,
 literal|0
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -5114,7 +5128,7 @@ argument_list|,
 literal|200
 argument_list|,
 comment|/* timeToPurgeDeletes */
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)

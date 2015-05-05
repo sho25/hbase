@@ -143,7 +143,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|CellComparator
 import|;
 end_import
 
@@ -158,8 +158,6 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
-operator|.
-name|KVComparator
 import|;
 end_import
 
@@ -270,7 +268,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
-name|KVComparator
+name|CellComparator
 name|kvComparator
 decl_stmt|;
 specifier|private
@@ -297,7 +295,7 @@ decl_stmt|;
 specifier|public
 name|DefaultStoreFileManager
 parameter_list|(
-name|KVComparator
+name|CellComparator
 name|kvComparator
 parameter_list|,
 name|Configuration

@@ -116,6 +116,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+comment|// TODO : Remove this ByteBloomFilter as an instance of BloomFilter
 specifier|public
 class|class
 name|ByteBloomFilter

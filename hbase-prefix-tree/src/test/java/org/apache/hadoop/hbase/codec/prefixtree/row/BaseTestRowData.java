@@ -41,7 +41,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellUtil
 import|;
 end_import
 
@@ -199,9 +199,9 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|CellComparator
+name|CellUtil
 operator|.
-name|equalsRow
+name|matchingRow
 argument_list|(
 name|lastKv
 argument_list|,

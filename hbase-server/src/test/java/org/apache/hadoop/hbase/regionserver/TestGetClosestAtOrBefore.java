@@ -1328,9 +1328,9 @@ block|{
 name|int
 name|firstDelimiter
 init|=
-name|KeyValue
+name|Bytes
 operator|.
-name|getDelimiter
+name|searchDelimiterIndex
 argument_list|(
 name|b
 argument_list|,
@@ -1348,9 +1348,9 @@ decl_stmt|;
 name|int
 name|lastDelimiter
 init|=
-name|KeyValue
+name|Bytes
 operator|.
-name|getDelimiterInReverse
+name|searchDelimiterIndexInReverse
 argument_list|(
 name|b
 argument_list|,

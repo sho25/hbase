@@ -81,6 +81,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestCase
 import|;
 end_import
@@ -839,7 +853,7 @@ name|KeyValueHeap
 argument_list|(
 name|scanners
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -984,7 +998,7 @@ block|{
 name|int
 name|ret
 init|=
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 operator|.
@@ -1309,7 +1323,7 @@ name|KeyValueHeap
 argument_list|(
 name|scanners
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -1727,7 +1741,7 @@ name|KeyValueHeap
 argument_list|(
 name|scanners
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)

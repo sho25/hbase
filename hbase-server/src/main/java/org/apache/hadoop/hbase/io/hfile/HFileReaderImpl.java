@@ -199,6 +199,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellUtil
 import|;
 end_import
@@ -228,6 +242,20 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValueUtil
 import|;
 end_import
 
@@ -670,12 +698,12 @@ literal|1
 decl_stmt|;
 comment|/** Key comparator */
 specifier|private
-name|KVComparator
+name|CellComparator
 name|comparator
 init|=
-operator|new
-name|KVComparator
-argument_list|()
+name|CellComparator
+operator|.
+name|COMPARATOR
 decl_stmt|;
 comment|/** Size of this file. */
 specifier|private
@@ -950,9 +978,7 @@ name|HFileBlockIndex
 operator|.
 name|BlockIndexReader
 argument_list|(
-name|KeyValue
-operator|.
-name|RAW_COMPARATOR
+literal|null
 argument_list|,
 literal|1
 argument_list|)
@@ -1732,7 +1758,7 @@ literal|null
 condition|?
 literal|null
 else|:
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createKeyValueFromKey
 argument_list|(
@@ -1766,7 +1792,7 @@ literal|null
 condition|?
 literal|null
 else|:
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createKeyValueFromKey
 argument_list|(
@@ -1796,7 +1822,7 @@ comment|/** @return comparator */
 annotation|@
 name|Override
 specifier|public
-name|KVComparator
+name|CellComparator
 name|getComparator
 parameter_list|()
 block|{
@@ -2927,7 +2953,7 @@ operator|.
 name|getComparator
 argument_list|()
 operator|.
-name|compareOnlyKeyPortion
+name|compareKeyIgnoresMvcc
 argument_list|(
 name|key
 argument_list|,
@@ -3277,7 +3303,7 @@ operator|.
 name|getComparator
 argument_list|()
 operator|.
-name|compareOnlyKeyPortion
+name|compareKeyIgnoresMvcc
 argument_list|(
 name|key
 argument_list|,
@@ -3476,7 +3502,7 @@ operator|.
 name|getComparator
 argument_list|()
 operator|.
-name|compareOnlyKeyPortion
+name|compareKeyIgnoresMvcc
 argument_list|(
 operator|new
 name|KeyValue
@@ -3897,7 +3923,7 @@ specifier|public
 name|int
 name|compareKey
 parameter_list|(
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|,
 name|byte
@@ -3911,16 +3937,33 @@ name|int
 name|length
 parameter_list|)
 block|{
-return|return
-name|comparator
+comment|// TODO HFileScannerImpl, instance will be used by single thread alone. So we can
+comment|// have one KeyValue.KeyOnlyKeyValue instance as instance variable and reuse here and in
+comment|// compareKey(CellComparator comparator, Cell key), seekBefore(Cell key) and
+comment|// blockSeek(Cell key, boolean seekBefore)
+name|KeyValue
 operator|.
-name|compareFlatKey
+name|KeyOnlyKeyValue
+name|keyOnlyKv
+init|=
+operator|new
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
 argument_list|(
 name|key
 argument_list|,
 name|offset
 argument_list|,
 name|length
+argument_list|)
+decl_stmt|;
+return|return
+name|comparator
+operator|.
+name|compare
+argument_list|(
+name|keyOnlyKv
 argument_list|,
 name|blockBuffer
 operator|.
@@ -4742,7 +4785,7 @@ specifier|public
 name|int
 name|compareKey
 parameter_list|(
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|,
 name|Cell
@@ -4752,7 +4795,7 @@ block|{
 return|return
 name|comparator
 operator|.
-name|compareOnlyKeyPortion
+name|compareKeyIgnoresMvcc
 argument_list|(
 name|key
 argument_list|,
@@ -6580,39 +6623,6 @@ name|getKeyDeepCopy
 argument_list|()
 return|;
 block|}
-specifier|public
-name|int
-name|compareKey
-parameter_list|(
-name|KVComparator
-name|comparator
-parameter_list|,
-name|byte
-index|[]
-name|key
-parameter_list|,
-name|int
-name|offset
-parameter_list|,
-name|int
-name|length
-parameter_list|)
-block|{
-return|return
-name|seeker
-operator|.
-name|compareKey
-argument_list|(
-name|comparator
-argument_list|,
-name|key
-argument_list|,
-name|offset
-argument_list|,
-name|length
-argument_list|)
-return|;
-block|}
 annotation|@
 name|Override
 specifier|public
@@ -6842,7 +6852,7 @@ specifier|public
 name|int
 name|compareKey
 parameter_list|(
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|,
 name|Cell

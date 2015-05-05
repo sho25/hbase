@@ -461,6 +461,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValueUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -1381,9 +1395,7 @@ decl_stmt|;
 comment|// Comparing KeyValues
 specifier|private
 specifier|final
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 name|comparator
 decl_stmt|;
 specifier|final
@@ -1720,9 +1732,7 @@ name|Configuration
 operator|.
 name|class
 block|,
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 operator|.
 name|class
 block|}
@@ -3895,7 +3905,7 @@ name|byte
 index|[]
 name|lastKey
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createKeyValueFromKey
 argument_list|(
@@ -4109,7 +4119,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|CellComparator
+name|comparator
 operator|.
 name|compareRows
 argument_list|(
@@ -9364,7 +9374,7 @@ return|;
 name|KeyValue
 name|firstKV
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createKeyValueFromKey
 argument_list|(
@@ -9389,7 +9399,7 @@ decl_stmt|;
 name|KeyValue
 name|lastKV
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createKeyValueFromKey
 argument_list|(
@@ -11438,9 +11448,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 name|getComparator
 parameter_list|()
 block|{

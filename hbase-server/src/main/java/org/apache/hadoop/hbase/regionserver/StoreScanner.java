@@ -159,6 +159,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellUtil
 import|;
 end_import
@@ -202,22 +216,6 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
-operator|.
-name|KVComparator
 import|;
 end_import
 
@@ -1924,7 +1922,7 @@ name|KeyValueScanner
 argument_list|>
 name|scanners
 parameter_list|,
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|)
 throws|throws
@@ -2551,9 +2549,7 @@ name|Cell
 name|cell
 decl_stmt|;
 comment|// Only do a sanity-check if store and comparator are available.
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 name|comparator
 init|=
 name|store
@@ -3644,9 +3640,7 @@ parameter_list|,
 name|Cell
 name|kv
 parameter_list|,
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|)
 throws|throws

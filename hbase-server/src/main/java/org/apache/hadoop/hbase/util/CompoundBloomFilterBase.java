@@ -43,7 +43,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|CellComparator
 import|;
 end_import
 
@@ -58,8 +58,6 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
-operator|.
-name|KVComparator
 import|;
 end_import
 
@@ -127,7 +125,7 @@ name|hashType
 decl_stmt|;
 comment|/** Comparator used to compare Bloom filter keys */
 specifier|protected
-name|KVComparator
+name|CellComparator
 name|comparator
 decl_stmt|;
 annotation|@

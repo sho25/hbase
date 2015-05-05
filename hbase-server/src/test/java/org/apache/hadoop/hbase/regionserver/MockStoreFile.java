@@ -71,7 +71,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseTestingUtility
+name|CellComparator
 import|;
 end_import
 
@@ -85,9 +85,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|KVComparator
+name|HBaseTestingUtility
 import|;
 end_import
 
@@ -286,7 +284,7 @@ name|byte
 index|[]
 name|getFileSplitPoint
 parameter_list|(
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|)
 throws|throws

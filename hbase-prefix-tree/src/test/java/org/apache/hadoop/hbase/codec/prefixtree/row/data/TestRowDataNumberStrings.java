@@ -264,9 +264,9 @@ name|sort
 argument_list|(
 name|d
 argument_list|,
-operator|new
 name|CellComparator
-argument_list|()
+operator|.
+name|COMPARATOR
 argument_list|)
 expr_stmt|;
 block|}

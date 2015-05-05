@@ -917,6 +917,8 @@ if|if
 condition|(
 name|CellComparator
 operator|.
+name|COMPARATOR
+operator|.
 name|compareRows
 argument_list|(
 name|c

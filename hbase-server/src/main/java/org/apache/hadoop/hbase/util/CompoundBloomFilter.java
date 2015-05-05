@@ -328,6 +328,7 @@ name|hashType
 argument_list|)
 throw|;
 block|}
+comment|// We will pass null for ROW block
 name|index
 operator|=
 operator|new
@@ -387,6 +388,8 @@ argument_list|,
 name|keyOffset
 argument_list|,
 name|keyLength
+argument_list|,
+name|comparator
 argument_list|)
 decl_stmt|;
 if|if

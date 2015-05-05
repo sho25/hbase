@@ -177,20 +177,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|RegionLocations
 import|;
 end_import
@@ -265,9 +251,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 import|;
 end_import
 
@@ -485,7 +469,7 @@ literal|null
 return|;
 block|}
 specifier|private
-name|KVComparator
+name|CellComparator
 name|getRowComparator
 parameter_list|(
 name|TableName
@@ -502,11 +486,11 @@ argument_list|(
 name|tableName
 argument_list|)
 condition|?
-name|KeyValue
+name|CellComparator
 operator|.
 name|META_COMPARATOR
 else|:
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 return|;

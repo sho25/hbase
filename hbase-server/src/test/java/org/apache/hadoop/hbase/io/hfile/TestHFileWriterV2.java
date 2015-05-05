@@ -231,6 +231,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -246,22 +260,6 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
-operator|.
-name|KVComparator
 import|;
 end_import
 
@@ -937,7 +935,7 @@ name|meta
 argument_list|)
 decl_stmt|;
 comment|// Comparator class name is stored in the trailer in version 2.
-name|KVComparator
+name|CellComparator
 name|comparator
 init|=
 name|trailer
@@ -973,9 +971,7 @@ name|HFileBlockIndex
 operator|.
 name|BlockIndexReader
 argument_list|(
-name|KeyValue
-operator|.
-name|RAW_COMPARATOR
+literal|null
 argument_list|,
 literal|1
 argument_list|)

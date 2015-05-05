@@ -81,6 +81,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseInterfaceAudience
 import|;
 end_import
@@ -124,22 +138,6 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
-operator|.
-name|KVComparator
 import|;
 end_import
 
@@ -1008,7 +1006,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/** The comparator to be used with the region */
-name|KVComparator
+name|CellComparator
 name|getCellCompartor
 parameter_list|()
 function_decl|;

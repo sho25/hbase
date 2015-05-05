@@ -358,7 +358,7 @@ control|)
 block|{
 if|if
 condition|(
-name|CellComparator
+name|CellUtil
 operator|.
 name|equalsIgnoreMvccVersion
 argument_list|(

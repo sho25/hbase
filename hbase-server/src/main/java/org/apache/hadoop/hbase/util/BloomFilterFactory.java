@@ -105,7 +105,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|CellComparator
 import|;
 end_import
 
@@ -301,6 +301,7 @@ case|:
 comment|// This is only possible in a version 1 HFile. We are ignoring the
 comment|// passed comparator because raw byte comparators are always used
 comment|// in version 1 Bloom filters.
+comment|// TODO:Remove this code - use only CompoundBloomFilter
 return|return
 operator|new
 name|ByteBloomFilter
@@ -636,7 +637,7 @@ name|BloomType
 operator|.
 name|ROWCOL
 condition|?
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 else|:

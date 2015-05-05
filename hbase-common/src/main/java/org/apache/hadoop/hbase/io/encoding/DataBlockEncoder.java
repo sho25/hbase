@@ -83,9 +83,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 import|;
 end_import
 
@@ -207,7 +205,7 @@ comment|/**    * Create a HFileBlock seeker which find KeyValues within a block.
 name|EncodedSeeker
 name|createSeeker
 parameter_list|(
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|,
 name|HFileBlockDecodingContext
@@ -290,30 +288,12 @@ name|boolean
 name|seekBefore
 parameter_list|)
 function_decl|;
-comment|/**      * Compare the given key against the current key      * @param comparator      * @param key      * @param offset      * @param length      * @return -1 is the passed key is smaller than the current key, 0 if equal and 1 if greater      */
+comment|/**      * Compare the given key against the current key      * @param comparator      * @param key      * @return -1 is the passed key is smaller than the current key, 0 if equal and 1 if greater      */
 specifier|public
 name|int
 name|compareKey
 parameter_list|(
-name|KVComparator
-name|comparator
-parameter_list|,
-name|byte
-index|[]
-name|key
-parameter_list|,
-name|int
-name|offset
-parameter_list|,
-name|int
-name|length
-parameter_list|)
-function_decl|;
-specifier|public
-name|int
-name|compareKey
-parameter_list|(
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|,
 name|Cell
