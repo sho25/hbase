@@ -3004,6 +3004,7 @@ index|[]
 name|key
 parameter_list|)
 block|{
+comment|// No need to use Arrays.equals because INVALID_KEY is null
 return|return
 name|key
 operator|==
@@ -3166,11 +3167,16 @@ if|if
 condition|(
 name|isStart
 operator|&&
+name|Arrays
+operator|.
+name|equals
+argument_list|(
 name|row
-operator|==
+argument_list|,
 name|HConstants
 operator|.
 name|EMPTY_START_ROW
+argument_list|)
 condition|)
 return|return
 literal|0
@@ -3180,12 +3186,18 @@ condition|(
 operator|!
 name|isStart
 operator|&&
+name|Arrays
+operator|.
+name|equals
+argument_list|(
 name|row
-operator|==
+argument_list|,
 name|HConstants
 operator|.
 name|EMPTY_END_ROW
+argument_list|)
 condition|)
+block|{
 return|return
 name|state
 operator|.
@@ -3196,6 +3208,7 @@ argument_list|()
 operator|-
 literal|1
 return|;
+block|}
 comment|// If there's an exact match below, a stripe ends at "row". Stripe right boundary is
 comment|// exclusive, so that means the row is in the next stripe; thus, we need to add one to index.
 comment|// If there's no match, the return value of binarySearch is (-(insertion point) - 1), where
@@ -3302,8 +3315,6 @@ name|byte
 index|[]
 name|result
 init|=
-name|this
-operator|.
 name|fileStarts
 operator|.
 name|get
@@ -3311,10 +3322,15 @@ argument_list|(
 name|sf
 argument_list|)
 decl_stmt|;
+comment|// result and INVALID_KEY_IN_MAP are compared _only_ by reference on purpose here as the latter
+comment|// serves only as a marker and is not to be confused with other empty byte arrays.
+comment|// See Javadoc of INVALID_KEY_IN_MAP for more information
 return|return
+operator|(
 name|result
 operator|==
 literal|null
+operator|)
 condition|?
 name|sf
 operator|.
@@ -3323,7 +3339,6 @@ argument_list|(
 name|STRIPE_START_KEY
 argument_list|)
 else|:
-operator|(
 name|result
 operator|==
 name|INVALID_KEY_IN_MAP
@@ -3331,7 +3346,6 @@ condition|?
 name|INVALID_KEY
 else|:
 name|result
-operator|)
 return|;
 block|}
 specifier|private
@@ -3347,8 +3361,6 @@ name|byte
 index|[]
 name|result
 init|=
-name|this
-operator|.
 name|fileEnds
 operator|.
 name|get
@@ -3356,10 +3368,15 @@ argument_list|(
 name|sf
 argument_list|)
 decl_stmt|;
+comment|// result and INVALID_KEY_IN_MAP are compared _only_ by reference on purpose here as the latter
+comment|// serves only as a marker and is not to be confused with other empty byte arrays.
+comment|// See Javadoc of INVALID_KEY_IN_MAP for more information
 return|return
+operator|(
 name|result
 operator|==
 literal|null
+operator|)
 condition|?
 name|sf
 operator|.
@@ -3368,7 +3385,6 @@ argument_list|(
 name|STRIPE_END_KEY
 argument_list|)
 else|:
-operator|(
 name|result
 operator|==
 name|INVALID_KEY_IN_MAP
@@ -3376,7 +3392,6 @@ condition|?
 name|INVALID_KEY
 else|:
 name|result
-operator|)
 return|;
 block|}
 comment|/**    * Inserts a file in the correct place (by seqnum) in a stripe copy.    * @param stripe Stripe copy to insert into.    * @param sf File to insert.    */

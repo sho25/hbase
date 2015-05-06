@@ -439,6 +439,7 @@ argument_list|(
 name|range
 argument_list|)
 decl_stmt|;
+comment|// No need to use Arrays.equals because ENDKEY is null
 if|if
 condition|(
 name|end
