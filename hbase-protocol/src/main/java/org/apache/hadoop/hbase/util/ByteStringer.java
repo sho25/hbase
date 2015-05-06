@@ -86,7 +86,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Hack to workaround HBASE-1304 issue that keeps bubbling up when a mapreduce context.  */
+comment|/**  * Hack to workaround HBASE-10304 issue that keeps bubbling up when a mapreduce context.  */
 end_comment
 
 begin_class
