@@ -158,8 +158,6 @@ operator|.
 name|get
 argument_list|(
 name|BULKLOAD_STAGING_DIR
-argument_list|,
-literal|"/tmp/hbase-staging"
 argument_list|)
 argument_list|)
 return|;

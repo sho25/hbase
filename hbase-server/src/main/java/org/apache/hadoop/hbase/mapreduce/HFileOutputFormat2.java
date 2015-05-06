@@ -3331,7 +3331,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"hadoop.tmp.dir"
+literal|"hbase.fs.tmp.dir"
 argument_list|)
 argument_list|,
 literal|"partitions_"
