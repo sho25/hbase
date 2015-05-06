@@ -340,7 +340,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HBase's version of ZooKeeper's QuorumPeer. When HBase is set to manage  * ZooKeeper, this class is used to start up QuorumPeer instances. By doing  * things in here rather than directly calling to ZooKeeper, we have more  * control over the process. This class uses {@link ZKConfig} to parse the  * zoo.cfg and inject variables from HBase's site.xml configuration in.  */
+comment|/**  * HBase's version of ZooKeeper's QuorumPeer. When HBase is set to manage  * ZooKeeper, this class is used to start up QuorumPeer instances. By doing  * things in here rather than directly calling to ZooKeeper, we have more  * control over the process. This class uses {@link ZKConfig} to get settings  * from the hbase-site.xml file.  */
 end_comment
 
 begin_class
