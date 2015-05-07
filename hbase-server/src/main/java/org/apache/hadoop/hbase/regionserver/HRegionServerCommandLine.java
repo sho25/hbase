@@ -418,7 +418,7 @@ name|println
 argument_list|(
 literal|"To shutdown the regionserver run "
 operator|+
-literal|"bin/hbase-daemon.sh stop regionserver or send a kill signal to"
+literal|"bin/hbase-daemon.sh stop regionserver or send a kill signal to "
 operator|+
 literal|"the regionserver pid"
 argument_list|)
