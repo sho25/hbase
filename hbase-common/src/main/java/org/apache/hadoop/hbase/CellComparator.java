@@ -1941,7 +1941,7 @@ argument_list|()
 operator|)
 return|;
 block|}
-comment|/**    * Compare the timestamp of the left and right cell    *    * @param left    * @param right    * @return 0 if equal, -1 if left's ts is less than right's ts, 1 if left's ts    *         is greater than right's ts    */
+comment|/**    * Compares cell's timestamps in DESCENDING order.    * The below older timestamps sorting ahead of newer timestamps looks    * wrong but it is intentional. This way, newer timestamps are first    * found when we iterate over a memstore and newer versions are the    * first we trip over when reading from a store file.    * @return 1 if left's timestamp< right's timestamp    *         -1 if left's timestamp> right's timestamp    *         0 if both timestamps are equal    */
 specifier|public
 specifier|static
 name|int
@@ -2273,7 +2273,7 @@ argument_list|()
 operator|)
 return|;
 block|}
-comment|/**    * The below older timestamps sorting ahead of newer timestamps looks    * wrong but it is intentional. This way, newer timestamps are first    * found when we iterate over a memstore and newer versions are the    * first we trip over when reading from a store file.    * @param ltimestamp    * @param rtimestamp    * @return 1 if left timestamp> right timestamp    *         -1 if left timestamp< right timestamp    *         0 if both timestamps are equal    */
+comment|/**    * Compares timestamps in DESCENDING order.    * The below older timestamps sorting ahead of newer timestamps looks    * wrong but it is intentional. This way, newer timestamps are first    * found when we iterate over a memstore and newer versions are the    * first we trip over when reading from a store file.    * @return 1 if left timestamp< right timestamp    *         -1 if left timestamp> right timestamp    *         0 if both timestamps are equal    */
 specifier|public
 specifier|static
 name|int
