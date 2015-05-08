@@ -1957,7 +1957,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preAddColumn
+name|preAddColumnFamily
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -1969,7 +1969,7 @@ name|TableName
 name|tableName
 parameter_list|,
 name|HColumnDescriptor
-name|column
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
@@ -2007,7 +2007,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preModifyColumn
+name|preModifyColumnFamily
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -2019,7 +2019,7 @@ name|TableName
 name|tableName
 parameter_list|,
 name|HColumnDescriptor
-name|descriptor
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
@@ -2057,7 +2057,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preDeleteColumn
+name|preDeleteColumnFamily
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -2070,7 +2070,7 @@ name|tableName
 parameter_list|,
 name|byte
 index|[]
-name|c
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException

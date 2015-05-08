@@ -3015,7 +3015,7 @@ name|Exception
 block|{
 name|ACCESS_CONTROLLER
 operator|.
-name|preAddColumn
+name|preAddColumnFamily
 argument_list|(
 name|ObserverContext
 operator|.
@@ -3109,7 +3109,7 @@ name|Exception
 block|{
 name|ACCESS_CONTROLLER
 operator|.
-name|preModifyColumn
+name|preModifyColumnFamily
 argument_list|(
 name|ObserverContext
 operator|.
@@ -3188,7 +3188,7 @@ name|Exception
 block|{
 name|ACCESS_CONTROLLER
 operator|.
-name|preDeleteColumn
+name|preDeleteColumnFamily
 argument_list|(
 name|ObserverContext
 operator|.

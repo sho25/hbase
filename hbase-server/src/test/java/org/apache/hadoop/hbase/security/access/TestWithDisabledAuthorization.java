@@ -3495,7 +3495,7 @@ argument_list|,
 name|USER_NONE
 argument_list|)
 expr_stmt|;
-comment|// preAddColumn
+comment|// preAddColumnFamily
 name|verifyAllowed
 argument_list|(
 operator|new
@@ -3522,7 +3522,7 @@ argument_list|)
 decl_stmt|;
 name|ACCESS_CONTROLLER
 operator|.
-name|preAddColumn
+name|preAddColumnFamily
 argument_list|(
 name|ObserverContext
 operator|.
@@ -3564,7 +3564,7 @@ argument_list|,
 name|USER_NONE
 argument_list|)
 expr_stmt|;
-comment|// preModifyColumn
+comment|// preModifyColumnFamily
 name|verifyAllowed
 argument_list|(
 operator|new
@@ -3591,7 +3591,7 @@ argument_list|)
 decl_stmt|;
 name|ACCESS_CONTROLLER
 operator|.
-name|preModifyColumn
+name|preModifyColumnFamily
 argument_list|(
 name|ObserverContext
 operator|.
@@ -3633,7 +3633,7 @@ argument_list|,
 name|USER_NONE
 argument_list|)
 expr_stmt|;
-comment|// preDeleteColumn
+comment|// preDeleteColumnFamily
 name|verifyAllowed
 argument_list|(
 operator|new
@@ -3651,7 +3651,7 @@ name|Exception
 block|{
 name|ACCESS_CONTROLLER
 operator|.
-name|preDeleteColumn
+name|preDeleteColumnFamily
 argument_list|(
 name|ObserverContext
 operator|.

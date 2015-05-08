@@ -809,7 +809,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preDeleteColumnHandler
+name|preDeleteColumnFamilyHandler
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -822,7 +822,7 @@ name|tableName
 parameter_list|,
 name|byte
 index|[]
-name|c
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
@@ -837,7 +837,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postDeleteColumnHandler
+name|postDeleteColumnFamilyHandler
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -850,7 +850,7 @@ name|tableName
 parameter_list|,
 name|byte
 index|[]
-name|c
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
@@ -867,7 +867,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preAddColumnHandler
+name|preAddColumnFamilyHandler
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -879,7 +879,7 @@ name|TableName
 name|tableName
 parameter_list|,
 name|HColumnDescriptor
-name|column
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
@@ -1165,7 +1165,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preAddColumnHandler
+name|preAddColumnFamilyHandler
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -1177,7 +1177,7 @@ name|TableName
 name|tableName
 parameter_list|,
 name|HColumnDescriptor
-name|column
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
@@ -1199,7 +1199,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postAddColumnHandler
+name|postAddColumnFamilyHandler
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -1211,7 +1211,7 @@ name|TableName
 name|tableName
 parameter_list|,
 name|HColumnDescriptor
-name|column
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
