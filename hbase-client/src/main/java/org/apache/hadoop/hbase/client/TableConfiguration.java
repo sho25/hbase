@@ -166,6 +166,12 @@ specifier|final
 name|int
 name|maxKeyValueSize
 decl_stmt|;
+comment|// toggle for async/sync prefetch
+specifier|private
+specifier|final
+name|boolean
+name|clientScannerAsyncPrefetch
+decl_stmt|;
 comment|/**    * Constructor    * @param conf Configuration object    */
 name|TableConfiguration
 parameter_list|(
@@ -301,6 +307,23 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
+name|clientScannerAsyncPrefetch
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|Scan
+operator|.
+name|HBASE_CLIENT_SCANNER_ASYNC_PREFETCH
+argument_list|,
+name|Scan
+operator|.
+name|DEFAULT_HBASE_CLIENT_SCANNER_ASYNC_PREFETCH
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
 name|maxKeyValueSize
 operator|=
 name|conf
@@ -377,6 +400,14 @@ operator|=
 name|HConstants
 operator|.
 name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
+expr_stmt|;
+name|this
+operator|.
+name|clientScannerAsyncPrefetch
+operator|=
+name|Scan
+operator|.
+name|DEFAULT_HBASE_CLIENT_SCANNER_ASYNC_PREFETCH
 expr_stmt|;
 name|this
 operator|.
@@ -464,6 +495,15 @@ parameter_list|()
 block|{
 return|return
 name|scannerMaxResultSize
+return|;
+block|}
+specifier|public
+name|boolean
+name|isClientScannerAsyncPrefetch
+parameter_list|()
+block|{
+return|return
+name|clientScannerAsyncPrefetch
 return|;
 block|}
 block|}

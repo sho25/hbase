@@ -186,7 +186,7 @@ specifier|public
 class|class
 name|ReversedClientScanner
 extends|extends
-name|ClientScanner
+name|ClientSimpleScanner
 block|{
 specifier|private
 specifier|static
