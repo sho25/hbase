@@ -28753,7 +28753,7 @@ name|testCompression
 argument_list|(
 name|fam
 operator|.
-name|getCompression
+name|getCompressionType
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -28763,7 +28763,7 @@ name|testCompression
 argument_list|(
 name|fam
 operator|.
-name|getCompactionCompression
+name|getCompactionCompressionType
 argument_list|()
 argument_list|)
 expr_stmt|;

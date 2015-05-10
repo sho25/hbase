@@ -5548,7 +5548,7 @@ literal|")"
 argument_list|,
 name|hcd
 operator|.
-name|getCompression
+name|getCompressionType
 argument_list|()
 argument_list|,
 name|reader
