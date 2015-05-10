@@ -570,10 +570,23 @@ else|:
 literal|0
 return|;
 block|}
-comment|/**    * @return the number of dead region servers in the cluster    */
+comment|/**    * @return the number of dead region servers in the cluster    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13656">HBASE-13656</a>).    *             Use {@link #getDeadServersSize()}.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|int
 name|getDeadServers
+parameter_list|()
+block|{
+return|return
+name|getDeadServersSize
+argument_list|()
+return|;
+block|}
+comment|/**    * @return the number of dead region servers in the cluster    */
+specifier|public
+name|int
+name|getDeadServersSize
 parameter_list|()
 block|{
 return|return
@@ -1408,7 +1421,7 @@ block|}
 name|int
 name|deadServerSize
 init|=
-name|getDeadServers
+name|getDeadServersSize
 argument_list|()
 decl_stmt|;
 name|sb
