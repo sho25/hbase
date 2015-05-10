@@ -2129,7 +2129,7 @@ literal|4
 argument_list|,
 name|hcd
 operator|.
-name|getCompression
+name|getCompressionType
 argument_list|()
 argument_list|,
 literal|false

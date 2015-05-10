@@ -3509,7 +3509,7 @@ name|encode
 argument_list|(
 name|familyDescriptor
 operator|.
-name|getCompression
+name|getCompressionType
 argument_list|()
 operator|.
 name|getName

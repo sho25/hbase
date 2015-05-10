@@ -849,7 +849,7 @@ operator|.
 name|getFamily
 argument_list|()
 operator|.
-name|getCompactionCompression
+name|getCompactionCompressionType
 argument_list|()
 decl_stmt|;
 name|StripeMultiFileWriter
