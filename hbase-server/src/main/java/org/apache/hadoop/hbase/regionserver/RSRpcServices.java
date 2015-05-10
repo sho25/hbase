@@ -9518,6 +9518,9 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|String
 name|encodedName
 init|=
