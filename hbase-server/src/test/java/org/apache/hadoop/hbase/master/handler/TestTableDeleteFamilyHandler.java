@@ -983,7 +983,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|deleteColumnFamily
+name|deleteColumn
 argument_list|(
 name|TABLENAME
 argument_list|,
@@ -1535,7 +1535,7 @@ expr_stmt|;
 block|}
 name|admin
 operator|.
-name|deleteColumnFamily
+name|deleteColumn
 argument_list|(
 name|TABLENAME
 argument_list|,
@@ -1695,7 +1695,7 @@ block|{
 comment|// Test: delete again
 name|admin
 operator|.
-name|deleteColumnFamily
+name|deleteColumn
 argument_list|(
 name|TABLENAME
 argument_list|,

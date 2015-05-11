@@ -1707,7 +1707,7 @@ argument_list|)
 decl_stmt|;
 name|admin
 operator|.
-name|addColumnFamily
+name|addColumn
 argument_list|(
 name|originalTableName
 argument_list|,

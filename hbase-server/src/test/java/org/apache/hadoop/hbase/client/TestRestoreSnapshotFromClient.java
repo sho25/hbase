@@ -1138,7 +1138,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|addColumnFamily
+name|addColumn
 argument_list|(
 name|tableName
 argument_list|,

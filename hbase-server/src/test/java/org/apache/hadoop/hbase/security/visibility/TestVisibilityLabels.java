@@ -5141,7 +5141,7 @@ argument_list|)
 decl_stmt|;
 name|admin
 operator|.
-name|addColumnFamily
+name|addColumn
 argument_list|(
 name|LABELS_TABLE_NAME
 argument_list|,
@@ -5164,7 +5164,7 @@ try|try
 block|{
 name|admin
 operator|.
-name|deleteColumnFamily
+name|deleteColumn
 argument_list|(
 name|LABELS_TABLE_NAME
 argument_list|,
@@ -5209,7 +5209,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|modifyColumnFamily
+name|modifyColumn
 argument_list|(
 name|LABELS_TABLE_NAME
 argument_list|,

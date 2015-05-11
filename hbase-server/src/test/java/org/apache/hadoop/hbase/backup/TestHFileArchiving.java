@@ -2001,7 +2001,7 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 operator|.
-name|deleteColumnFamily
+name|deleteColumn
 argument_list|(
 name|TABLE_NAME
 argument_list|,
