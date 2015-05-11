@@ -8288,7 +8288,7 @@ name|testCompression
 argument_list|(
 name|hcd
 operator|.
-name|getCompressionType
+name|getCompression
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -8298,7 +8298,7 @@ name|testCompression
 argument_list|(
 name|hcd
 operator|.
-name|getCompactionCompressionType
+name|getCompactionCompression
 argument_list|()
 argument_list|)
 expr_stmt|;

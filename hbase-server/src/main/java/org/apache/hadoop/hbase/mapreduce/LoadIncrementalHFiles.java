@@ -4947,7 +4947,7 @@ name|compression
 init|=
 name|familyDescriptor
 operator|.
-name|getCompressionType
+name|getCompression
 argument_list|()
 decl_stmt|;
 name|BloomType

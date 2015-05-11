@@ -331,7 +331,7 @@ operator|.
 name|getFamily
 argument_list|()
 operator|.
-name|getCompressionType
+name|getCompression
 argument_list|()
 argument_list|,
 literal|false

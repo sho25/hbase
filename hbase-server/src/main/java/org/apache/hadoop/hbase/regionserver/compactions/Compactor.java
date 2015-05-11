@@ -568,7 +568,7 @@ operator|.
 name|getFamily
 argument_list|()
 operator|.
-name|getCompactionCompressionType
+name|getCompactionCompression
 argument_list|()
 expr_stmt|;
 name|this

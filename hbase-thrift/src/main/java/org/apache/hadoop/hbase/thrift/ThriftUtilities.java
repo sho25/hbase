@@ -583,7 +583,7 @@ name|compression
 operator|=
 name|in
 operator|.
-name|getCompressionType
+name|getCompression
 argument_list|()
 operator|.
 name|toString
