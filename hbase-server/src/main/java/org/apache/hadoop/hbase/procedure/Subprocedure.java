@@ -159,6 +159,18 @@ name|TimeoutExceptionInjector
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|KeeperException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Distributed procedure member's Subprocedure.  A procedure is sarted on a ProcedureCoordinator  * which communicates with ProcedureMembers who create and start its part of the Procedure.  This  * sub part is called a Subprocedure  *  * Users should subclass this and implement {@link #acquireBarrier()} (get local barrier for this  * member), {@link #insideBarrier()} (execute while globally barriered and release barrier) and  * {@link #cleanup(Exception)} (release state associated with subprocedure.)  *  * When submitted to a ProcedureMemeber, the call method is executed in a separate thread.  * Latches are use too block its progress and trigger continuations when barrier conditions are  * met.  *  * Exception that makes it out of calls to {@link #acquireBarrier()} or {@link #insideBarrier()}  * gets converted into {@link ForeignException}, which will get propagated to the  * {@link ProcedureCoordinator}.  *  * There is a category of procedure (ex: online-snapshots), and a user-specified instance-specific  * barrierName. (ex: snapshot121126).  */
 end_comment
@@ -358,7 +370,29 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-comment|// if it is local, then send it to the coordinator
+comment|// if this is a local KeeperException, don't attempt to notify other members
+if|if
+condition|(
+name|ee
+operator|.
+name|getCause
+argument_list|()
+operator|instanceof
+name|KeeperException
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Was KeeperException, not redispatching error"
+argument_list|,
+name|ee
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+comment|// if it is other local error, then send it to the coordinator
 try|try
 block|{
 name|rpcs

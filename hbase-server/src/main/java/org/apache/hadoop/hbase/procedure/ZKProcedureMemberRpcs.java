@@ -598,11 +598,9 @@ operator|.
 name|getAbortZnode
 argument_list|()
 argument_list|,
-operator|new
-name|IOException
-argument_list|(
 name|e
-argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -683,11 +681,9 @@ name|controllerConnectionFailure
 argument_list|(
 literal|"General failure when watching for new procedures"
 argument_list|,
-operator|new
-name|IOException
-argument_list|(
 name|e
-argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -827,11 +823,9 @@ literal|") for procedure :"
 operator|+
 name|opName
 argument_list|,
-operator|new
-name|IOException
-argument_list|(
 name|e
-argument_list|)
+argument_list|,
+name|opName
 argument_list|)
 expr_stmt|;
 return|return;
@@ -1035,11 +1029,9 @@ literal|"Failed to get data for new procedure:"
 operator|+
 name|opName
 argument_list|,
-operator|new
-name|IOException
-argument_list|(
 name|e
-argument_list|)
+argument_list|,
+name|opName
 argument_list|)
 expr_stmt|;
 block|}
@@ -1057,11 +1049,9 @@ literal|"Failed to get data for new procedure:"
 operator|+
 name|opName
 argument_list|,
-operator|new
-name|IOException
-argument_list|(
 name|e
-argument_list|)
+argument_list|,
+name|opName
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -1203,11 +1193,9 @@ literal|" and member: "
 operator|+
 name|memberName
 argument_list|,
-operator|new
-name|IOException
-argument_list|(
 name|e
-argument_list|)
+argument_list|,
+name|procName
 argument_list|)
 expr_stmt|;
 block|}
@@ -1324,11 +1312,9 @@ name|joinPath
 operator|+
 literal|" to join procedure barrier."
 argument_list|,
-operator|new
-name|IOException
-argument_list|(
 name|e
-argument_list|)
+argument_list|,
+name|procName
 argument_list|)
 expr_stmt|;
 block|}
@@ -1485,11 +1471,9 @@ name|procAbortZNode
 operator|+
 literal|" to abort procedure"
 argument_list|,
-operator|new
-name|IOException
-argument_list|(
 name|e
-argument_list|)
+argument_list|,
+name|procName
 argument_list|)
 expr_stmt|;
 block|}
@@ -1682,11 +1666,9 @@ operator|.
 name|getAbortZnode
 argument_list|()
 argument_list|,
-operator|new
-name|IOException
-argument_list|(
 name|e
-argument_list|)
+argument_list|,
+name|opName
 argument_list|)
 expr_stmt|;
 block|}
