@@ -603,22 +603,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|ChecksumType
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|FSUtils
 import|;
 end_import
@@ -786,17 +770,6 @@ init|=
 literal|16
 operator|*
 literal|1024
-decl_stmt|;
-comment|// TODO: This define is done in three places.  Fix.
-specifier|public
-specifier|static
-specifier|final
-name|ChecksumType
-name|DEFAULT_CHECKSUM_TYPE
-init|=
-name|ChecksumType
-operator|.
-name|CRC32
 decl_stmt|;
 comment|// For measuring number of checksum failures
 specifier|static

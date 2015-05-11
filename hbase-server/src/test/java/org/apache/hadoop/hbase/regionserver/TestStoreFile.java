@@ -760,7 +760,7 @@ name|CKTYPE
 init|=
 name|ChecksumType
 operator|.
-name|CRC32
+name|CRC32C
 decl_stmt|;
 specifier|private
 specifier|static

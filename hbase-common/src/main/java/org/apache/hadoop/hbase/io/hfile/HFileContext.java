@@ -194,16 +194,6 @@ literal|16
 operator|*
 literal|1024
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|ChecksumType
-name|DEFAULT_CHECKSUM_TYPE
-init|=
-name|ChecksumType
-operator|.
-name|CRC32
-decl_stmt|;
 comment|/** Whether checksum is enabled or not**/
 specifier|private
 name|boolean
@@ -246,7 +236,10 @@ specifier|private
 name|ChecksumType
 name|checksumType
 init|=
-name|DEFAULT_CHECKSUM_TYPE
+name|ChecksumType
+operator|.
+name|getDefaultChecksumType
+argument_list|()
 decl_stmt|;
 comment|/** the number of bytes per checksum value **/
 specifier|private

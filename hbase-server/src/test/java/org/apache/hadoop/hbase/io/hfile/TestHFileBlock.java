@@ -1778,7 +1778,17 @@ literal|"DATABLK*\\x00\\x00\\x00>\\x00\\x00\\x0F\\xA0\\xFF\\xFF\\xFF\\xFF"
 operator|+
 literal|"\\xFF\\xFF\\xFF\\xFF"
 operator|+
-literal|"\\x01\\x00\\x00@\\x00\\x00\\x00\\x00["
+literal|"\\x0"
+operator|+
+name|ChecksumType
+operator|.
+name|getDefaultChecksumType
+argument_list|()
+operator|.
+name|getCode
+argument_list|()
+operator|+
+literal|"\\x00\\x00@\\x00\\x00\\x00\\x00["
 comment|// gzip-compressed block: http://www.gzip.org/zlib/rfc-gzip.html
 operator|+
 literal|"\\x1F\\x8B"

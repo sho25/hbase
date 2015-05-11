@@ -2558,9 +2558,10 @@ literal|null
 condition|)
 block|{
 return|return
-name|HFile
+name|ChecksumType
 operator|.
-name|DEFAULT_CHECKSUM_TYPE
+name|getDefaultChecksumType
+argument_list|()
 return|;
 block|}
 else|else
