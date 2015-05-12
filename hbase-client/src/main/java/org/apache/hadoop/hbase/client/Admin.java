@@ -1504,8 +1504,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing table, more IRB friendly version. Asynchronous operation.  This means that    * it may be a while before your schema change is updated across all of the table.    *    * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException if a remote or network exception occurs    */
-name|void
+comment|/**    * Modify an existing table, more IRB friendly version. Asynchronous operation.  This means that    * it may be a while before your schema change is updated across all of the table.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify. You can use Future.get(long, TimeUnit) to wait on the    *     operation to complete    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
 name|modifyTable
 parameter_list|(
 specifier|final
