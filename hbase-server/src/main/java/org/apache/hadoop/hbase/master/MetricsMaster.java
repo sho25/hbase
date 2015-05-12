@@ -215,7 +215,7 @@ name|void
 name|incrementRequests
 parameter_list|(
 specifier|final
-name|int
+name|long
 name|inc
 parameter_list|)
 block|{

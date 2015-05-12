@@ -241,14 +241,14 @@ name|int
 name|getRegions
 parameter_list|()
 function_decl|;
-comment|// optional int32 requests = 4;
-comment|/**      *<code>optional int32 requests = 4;</code>      */
+comment|// optional int64 requests = 4;
+comment|/**      *<code>optional int64 requests = 4;</code>      */
 name|boolean
 name|hasRequests
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional int32 requests = 4;</code>      */
-name|int
+comment|/**      *<code>optional int64 requests = 4;</code>      */
+name|long
 name|getRequests
 parameter_list|()
 function_decl|;
@@ -682,7 +682,7 @@ name|requests_
 operator|=
 name|input
 operator|.
-name|readInt32
+name|readInt64
 argument_list|()
 expr_stmt|;
 break|break;
@@ -6772,14 +6772,14 @@ name|long
 name|getStartCode
 parameter_list|()
 function_decl|;
-comment|// optional int32 requests = 3;
-comment|/**        *<code>optional int32 requests = 3;</code>        */
+comment|// optional int64 requests = 3;
+comment|/**        *<code>optional int64 requests = 3;</code>        */
 name|boolean
 name|hasRequests
 parameter_list|()
 function_decl|;
-comment|/**        *<code>optional int32 requests = 3;</code>        */
-name|int
+comment|/**        *<code>optional int64 requests = 3;</code>        */
+name|long
 name|getRequests
 parameter_list|()
 function_decl|;
@@ -7224,7 +7224,7 @@ name|requests_
 operator|=
 name|input
 operator|.
-name|readInt32
+name|readInt64
 argument_list|()
 expr_stmt|;
 break|break;
@@ -7921,7 +7921,7 @@ return|return
 name|startCode_
 return|;
 block|}
-comment|// optional int32 requests = 3;
+comment|// optional int64 requests = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -7931,10 +7931,10 @@ init|=
 literal|3
 decl_stmt|;
 specifier|private
-name|int
+name|long
 name|requests_
 decl_stmt|;
-comment|/**        *<code>optional int32 requests = 3;</code>        */
+comment|/**        *<code>optional int64 requests = 3;</code>        */
 specifier|public
 name|boolean
 name|hasRequests
@@ -7952,9 +7952,9 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional int32 requests = 3;</code>        */
+comment|/**        *<code>optional int64 requests = 3;</code>        */
 specifier|public
-name|int
+name|long
 name|getRequests
 parameter_list|()
 block|{
@@ -8254,7 +8254,7 @@ literal|0L
 expr_stmt|;
 name|requests_
 operator|=
-literal|0
+literal|0L
 expr_stmt|;
 name|heapSizeMB_
 operator|=
@@ -8451,7 +8451,7 @@ condition|)
 block|{
 name|output
 operator|.
-name|writeInt32
+name|writeInt64
 argument_list|(
 literal|3
 argument_list|,
@@ -8664,7 +8664,7 @@ name|protobuf
 operator|.
 name|CodedOutputStream
 operator|.
-name|computeInt32Size
+name|computeInt64Size
 argument_list|(
 literal|3
 argument_list|,
@@ -9722,7 +9722,7 @@ operator|)
 expr_stmt|;
 name|requests_
 operator|=
-literal|0
+literal|0L
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -11189,12 +11189,12 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional int32 requests = 3;
+comment|// optional int64 requests = 3;
 specifier|private
-name|int
+name|long
 name|requests_
 decl_stmt|;
-comment|/**          *<code>optional int32 requests = 3;</code>          */
+comment|/**          *<code>optional int64 requests = 3;</code>          */
 specifier|public
 name|boolean
 name|hasRequests
@@ -11212,9 +11212,9 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**          *<code>optional int32 requests = 3;</code>          */
+comment|/**          *<code>optional int64 requests = 3;</code>          */
 specifier|public
-name|int
+name|long
 name|getRequests
 parameter_list|()
 block|{
@@ -11222,12 +11222,12 @@ return|return
 name|requests_
 return|;
 block|}
-comment|/**          *<code>optional int32 requests = 3;</code>          */
+comment|/**          *<code>optional int64 requests = 3;</code>          */
 specifier|public
 name|Builder
 name|setRequests
 parameter_list|(
-name|int
+name|long
 name|value
 parameter_list|)
 block|{
@@ -11246,7 +11246,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>optional int32 requests = 3;</code>          */
+comment|/**          *<code>optional int64 requests = 3;</code>          */
 specifier|public
 name|Builder
 name|clearRequests
@@ -11263,7 +11263,7 @@ operator|)
 expr_stmt|;
 name|requests_
 operator|=
-literal|0
+literal|0L
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -13242,7 +13242,7 @@ return|return
 name|regions_
 return|;
 block|}
-comment|// optional int32 requests = 4;
+comment|// optional int64 requests = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -13252,10 +13252,10 @@ init|=
 literal|4
 decl_stmt|;
 specifier|private
-name|int
+name|long
 name|requests_
 decl_stmt|;
-comment|/**      *<code>optional int32 requests = 4;</code>      */
+comment|/**      *<code>optional int64 requests = 4;</code>      */
 specifier|public
 name|boolean
 name|hasRequests
@@ -13273,9 +13273,9 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional int32 requests = 4;</code>      */
+comment|/**      *<code>optional int64 requests = 4;</code>      */
 specifier|public
-name|int
+name|long
 name|getRequests
 parameter_list|()
 block|{
@@ -13358,7 +13358,7 @@ literal|0
 expr_stmt|;
 name|requests_
 operator|=
-literal|0
+literal|0L
 expr_stmt|;
 name|averageLoad_
 operator|=
@@ -13567,7 +13567,7 @@ condition|)
 block|{
 name|output
 operator|.
-name|writeInt32
+name|writeInt64
 argument_list|(
 literal|4
 argument_list|,
@@ -13793,7 +13793,7 @@ name|protobuf
 operator|.
 name|CodedOutputStream
 operator|.
-name|computeInt32Size
+name|computeInt64Size
 argument_list|(
 literal|4
 argument_list|,
@@ -14795,7 +14795,7 @@ operator|)
 expr_stmt|;
 name|requests_
 operator|=
-literal|0
+literal|0L
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -17687,12 +17687,12 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional int32 requests = 4;
+comment|// optional int64 requests = 4;
 specifier|private
-name|int
+name|long
 name|requests_
 decl_stmt|;
-comment|/**        *<code>optional int32 requests = 4;</code>        */
+comment|/**        *<code>optional int64 requests = 4;</code>        */
 specifier|public
 name|boolean
 name|hasRequests
@@ -17710,9 +17710,9 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional int32 requests = 4;</code>        */
+comment|/**        *<code>optional int64 requests = 4;</code>        */
 specifier|public
-name|int
+name|long
 name|getRequests
 parameter_list|()
 block|{
@@ -17720,12 +17720,12 @@ return|return
 name|requests_
 return|;
 block|}
-comment|/**        *<code>optional int32 requests = 4;</code>        */
+comment|/**        *<code>optional int64 requests = 4;</code>        */
 specifier|public
 name|Builder
 name|setRequests
 parameter_list|(
-name|int
+name|long
 name|value
 parameter_list|)
 block|{
@@ -17744,7 +17744,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional int32 requests = 4;</code>        */
+comment|/**        *<code>optional int64 requests = 4;</code>        */
 specifier|public
 name|Builder
 name|clearRequests
@@ -17761,7 +17761,7 @@ operator|)
 expr_stmt|;
 name|requests_
 operator|=
-literal|0
+literal|0L
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -18005,7 +18005,7 @@ literal|"protobuf.generated.StorageClusterStatus."
 operator|+
 literal|"Node\022\021\n\tdeadNodes\030\002 \003(\t\022\017\n\007regions\030\003 \001(\005"
 operator|+
-literal|"\022\020\n\010requests\030\004 \001(\005\022\023\n\013averageLoad\030\005 \001(\001\032"
+literal|"\022\020\n\010requests\030\004 \001(\003\022\023\n\013averageLoad\030\005 \001(\001\032"
 operator|+
 literal|"\322\002\n\006Region\022\014\n\004name\030\001 \002(\014\022\016\n\006stores\030\002 \001(\005"
 operator|+
@@ -18025,7 +18025,7 @@ literal|"\001(\005\022\032\n\022totalCompactingKVs\030\014 \001(\003\022\033\n\0
 operator|+
 literal|"ntCompactedKVs\030\r \001(\003\032\303\001\n\004Node\022\014\n\004name\030\001 "
 operator|+
-literal|"\002(\t\022\021\n\tstartCode\030\002 \001(\003\022\020\n\010requests\030\003 \001(\005"
+literal|"\002(\t\022\021\n\tstartCode\030\002 \001(\003\022\020\n\010requests\030\003 \001(\003"
 operator|+
 literal|"\022\022\n\nheapSizeMB\030\004 \001(\005\022\025\n\rmaxHeapSizeMB\030\005 "
 operator|+

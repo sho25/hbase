@@ -453,7 +453,7 @@ name|serverLoad
 decl_stmt|;
 comment|/* @return number of requests  since last report. */
 specifier|public
-name|int
+name|long
 name|getNumberOfRequests
 parameter_list|()
 block|{
@@ -478,7 +478,7 @@ return|;
 block|}
 comment|/* @return total Number of requests from the start of the region server. */
 specifier|public
-name|int
+name|long
 name|getTotalNumberOfRequests
 parameter_list|()
 block|{

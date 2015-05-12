@@ -3499,6 +3499,10 @@ return|;
 block|}
 comment|/**    * Add load information about the region to the information about the result    * @param loadStats statistics about the current region from which this was returned    * @deprecated use {@link #setStatistics(ClientProtos.RegionLoadStats)} instead    * @throws UnsupportedOperationException if invoked on instance of EMPTY_RESULT    * (which is supposed to be immutable).    */
 annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+annotation|@
 name|Deprecated
 specifier|public
 name|void
@@ -3521,6 +3525,10 @@ name|loadStats
 expr_stmt|;
 block|}
 comment|/**    * Set load information about the region to the information about the result    * @param loadStats statistics about the current region from which this was returned    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|void
 name|setStatistics

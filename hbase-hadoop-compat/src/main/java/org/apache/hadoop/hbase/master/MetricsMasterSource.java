@@ -191,7 +191,7 @@ name|void
 name|incRequests
 parameter_list|(
 specifier|final
-name|int
+name|long
 name|inc
 parameter_list|)
 function_decl|;
