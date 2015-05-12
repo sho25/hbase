@@ -7713,6 +7713,13 @@ range|:
 name|locations
 control|)
 block|{
+if|if
+condition|(
+name|hrl
+operator|==
+literal|null
+condition|)
+continue|continue;
 name|HRegionInfo
 name|regionInfo
 init|=
