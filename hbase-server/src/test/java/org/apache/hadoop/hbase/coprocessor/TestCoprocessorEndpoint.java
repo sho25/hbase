@@ -748,6 +748,17 @@ argument_list|()
 decl_stmt|;
 name|conf
 operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CLIENT_OPERATION_TIMEOUT
+argument_list|,
+literal|5000
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
 name|setStrings
 argument_list|(
 name|CoprocessorHost

@@ -11342,9 +11342,7 @@ operator|new
 name|ServerRpcController
 argument_list|()
 decl_stmt|;
-name|Message
-name|result
-init|=
+return|return
 name|region
 operator|.
 name|execService
@@ -11353,26 +11351,6 @@ name|execController
 argument_list|,
 name|serviceCall
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|execController
-operator|.
-name|getFailedOn
-argument_list|()
-operator|!=
-literal|null
-condition|)
-block|{
-throw|throw
-name|execController
-operator|.
-name|getFailedOn
-argument_list|()
-throw|;
-block|}
-return|return
-name|result
 return|;
 block|}
 comment|/**    * Get data from a table.    *    * @param controller the RPC controller    * @param request the get request    * @throws ServiceException    */
