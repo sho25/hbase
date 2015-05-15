@@ -257,6 +257,11 @@ specifier|private
 name|MonitoredRPCHandler
 name|status
 decl_stmt|;
+specifier|private
+specifier|volatile
+name|boolean
+name|sucessful
+decl_stmt|;
 comment|/**    * On construction, adds the size of this call to the running count of outstanding call sizes.    * Presumption is that we are put on a queue while we wait on an executor to run us.  During this    * time we occupy heap.    */
 comment|// The constructor is shutdown so only RpcServer in this class can make one of these.
 name|CallRunner
@@ -673,6 +678,33 @@ argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|resultPair
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|rpcServer
+operator|.
+name|addCallSize
+argument_list|(
+name|call
+operator|.
+name|getSize
+argument_list|()
+operator|*
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
+name|sucessful
+operator|=
+literal|true
+expr_stmt|;
+block|}
 block|}
 comment|// Set the response for undelayed calls and delayed calls with
 comment|// undelayed responses.
@@ -891,7 +923,12 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-comment|// regardless if successful or not we need to reset the callQueueSize
+if|if
+condition|(
+operator|!
+name|sucessful
+condition|)
+block|{
 name|this
 operator|.
 name|rpcServer
@@ -907,6 +944,7 @@ operator|-
 literal|1
 argument_list|)
 expr_stmt|;
+block|}
 name|cleanup
 argument_list|()
 expr_stmt|;
