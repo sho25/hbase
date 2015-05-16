@@ -324,6 +324,8 @@ argument_list|(
 name|cell
 argument_list|,
 name|cacheMobBlocks
+argument_list|,
+name|readPt
 argument_list|)
 decl_stmt|;
 name|mobKVCount

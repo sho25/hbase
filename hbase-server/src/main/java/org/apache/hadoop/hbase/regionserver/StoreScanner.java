@@ -616,7 +616,7 @@ operator|new
 name|ReentrantLock
 argument_list|()
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|long
 name|readPt

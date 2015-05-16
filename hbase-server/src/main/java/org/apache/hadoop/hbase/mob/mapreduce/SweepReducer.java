@@ -2191,6 +2191,11 @@ name|scanner
 init|=
 literal|null
 decl_stmt|;
+name|file
+operator|.
+name|open
+argument_list|()
+expr_stmt|;
 try|try
 block|{
 name|scanner
@@ -2291,6 +2296,11 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+name|file
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 name|toBeDeleted
 operator|.

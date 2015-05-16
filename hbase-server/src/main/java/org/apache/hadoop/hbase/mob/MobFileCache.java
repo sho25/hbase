@@ -956,7 +956,9 @@ operator|!
 name|isCacheEnabled
 condition|)
 block|{
-return|return
+name|MobFile
+name|mobFile
+init|=
 name|MobFile
 operator|.
 name|create
@@ -969,6 +971,14 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|)
+decl_stmt|;
+name|mobFile
+operator|.
+name|open
+argument_list|()
+expr_stmt|;
+return|return
+name|mobFile
 return|;
 block|}
 else|else

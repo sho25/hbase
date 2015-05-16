@@ -1462,7 +1462,7 @@ argument_list|)
 operator|.
 name|withIncludesMvcc
 argument_list|(
-literal|false
+literal|true
 argument_list|)
 operator|.
 name|withIncludesTags
@@ -1789,7 +1789,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Reads the cell from the mob file.    * @param reference The cell found in the HBase, its value is a path to a mob file.    * @param cacheBlocks Whether the scanner should cache blocks.    * @return The cell found in the mob file.    * @throws IOException    */
+comment|/**    * Reads the cell from the mob file, and the read point does not count.    * @param reference The cell found in the HBase, its value is a path to a mob file.    * @param cacheBlocks Whether the scanner should cache blocks.    * @return The cell found in the mob file.    * @throws IOException    */
 specifier|public
 name|Cell
 name|resolve
@@ -1799,6 +1799,35 @@ name|reference
 parameter_list|,
 name|boolean
 name|cacheBlocks
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|resolve
+argument_list|(
+name|reference
+argument_list|,
+name|cacheBlocks
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+return|;
+block|}
+comment|/**    * Reads the cell from the mob file.    * @param reference The cell found in the HBase, its value is a path to a mob file.    * @param cacheBlocks Whether the scanner should cache blocks.    * @param readPt the read point.    * @return The cell found in the mob file.    * @throws IOException    */
+specifier|public
+name|Cell
+name|resolve
+parameter_list|(
+name|Cell
+name|reference
+parameter_list|,
+name|boolean
+name|cacheBlocks
+parameter_list|,
+name|long
+name|readPt
 parameter_list|)
 throws|throws
 name|IOException
@@ -2019,6 +2048,8 @@ argument_list|,
 name|reference
 argument_list|,
 name|cacheBlocks
+argument_list|,
+name|readPt
 argument_list|)
 expr_stmt|;
 block|}
@@ -2133,7 +2164,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Reads the cell from a mob file.    * The mob file might be located in different directories.    * 1. The working directory.    * 2. The archive directory.    * Reads the cell from the files located in both of the above directories.    * @param locations The possible locations where the mob files are saved.    * @param fileName The file to be read.    * @param search The cell to be searched.    * @param cacheMobBlocks Whether the scanner should cache blocks.    * @return The found cell. Null if there's no such a cell.    * @throws IOException    */
+comment|/**    * Reads the cell from a mob file.    * The mob file might be located in different directories.    * 1. The working directory.    * 2. The archive directory.    * Reads the cell from the files located in both of the above directories.    * @param locations The possible locations where the mob files are saved.    * @param fileName The file to be read.    * @param search The cell to be searched.    * @param cacheMobBlocks Whether the scanner should cache blocks.    * @param readPt the read point.    * @return The found cell. Null if there's no such a cell.    * @throws IOException    */
 specifier|private
 name|Cell
 name|readCell
@@ -2152,6 +2183,9 @@ name|search
 parameter_list|,
 name|boolean
 name|cacheMobBlocks
+parameter_list|,
+name|long
+name|readPt
 parameter_list|)
 throws|throws
 name|IOException
@@ -2205,6 +2239,22 @@ name|mobCacheConfig
 argument_list|)
 expr_stmt|;
 return|return
+name|readPt
+operator|!=
+operator|-
+literal|1
+condition|?
+name|file
+operator|.
+name|readCell
+argument_list|(
+name|search
+argument_list|,
+name|cacheMobBlocks
+argument_list|,
+name|readPt
+argument_list|)
+else|:
 name|file
 operator|.
 name|readCell
