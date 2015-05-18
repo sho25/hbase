@@ -736,7 +736,7 @@ name|thrift
 operator|.
 name|TFieldRequirementType
 operator|.
-name|OPTIONAL
+name|DEFAULT
 argument_list|,
 operator|new
 name|org
@@ -797,7 +797,7 @@ name|thrift
 operator|.
 name|TFieldRequirementType
 operator|.
-name|OPTIONAL
+name|DEFAULT
 argument_list|,
 operator|new
 name|org
