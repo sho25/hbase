@@ -900,7 +900,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Node "
 operator|+
@@ -915,7 +915,7 @@ return|return;
 block|}
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Node "
 operator|+
@@ -1238,7 +1238,7 @@ name|KeeperException
 block|{
 name|LOG
 operator|.
-name|warn
+name|debug
 argument_list|(
 literal|"Possibly transient ZooKeeper, quorum="
 operator|+
