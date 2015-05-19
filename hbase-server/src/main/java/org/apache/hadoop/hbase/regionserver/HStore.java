@@ -1452,7 +1452,7 @@ specifier|private
 name|int
 name|compactionCheckMultiplier
 decl_stmt|;
-specifier|private
+specifier|protected
 name|Encryption
 operator|.
 name|Context
