@@ -91,7 +91,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|CellComparator
 import|;
 end_import
 
@@ -105,9 +105,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellUtil
 import|;
 end_import
 
@@ -138,7 +136,7 @@ name|KeyValueScanner
 argument_list|>
 name|scanners
 parameter_list|,
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|)
 throws|throws
@@ -291,34 +289,8 @@ operator|.
 name|compareRows
 argument_list|(
 name|topKey
-operator|.
-name|getRowArray
-argument_list|()
-argument_list|,
-name|topKey
-operator|.
-name|getRowOffset
-argument_list|()
-argument_list|,
-name|topKey
-operator|.
-name|getRowLength
-argument_list|()
 argument_list|,
 name|seekKey
-operator|.
-name|getRowArray
-argument_list|()
-argument_list|,
-name|seekKey
-operator|.
-name|getRowOffset
-argument_list|()
-argument_list|,
-name|seekKey
-operator|.
-name|getRowLength
-argument_list|()
 argument_list|)
 operator|<
 literal|0
@@ -703,7 +675,7 @@ comment|/**      * Constructor      * @param kvComparator      */
 specifier|public
 name|ReversedKVScannerComparator
 parameter_list|(
-name|KVComparator
+name|CellComparator
 name|kvComparator
 parameter_list|)
 block|{

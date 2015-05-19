@@ -346,6 +346,7 @@ index|[]
 argument_list|>
 block|{
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -354,10 +355,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|this
+name|ScannerCallableWithReplicas
 operator|.
-name|getClass
-argument_list|()
+name|class
 argument_list|)
 decl_stmt|;
 specifier|volatile
@@ -1479,6 +1479,23 @@ return|return
 name|replicaSwitched
 operator|.
 name|get
+argument_list|()
+return|;
+block|}
+comment|/**    * @return true when the most recent RPC response indicated that the response was a heartbeat    *         message. Heartbeat messages are sent back from the server when the processing of the    *         scan request exceeds a certain time threshold. Heartbeats allow the server to avoid    *         timeouts during long running scan operations.    */
+specifier|public
+name|boolean
+name|isHeartbeatMessage
+parameter_list|()
+block|{
+return|return
+name|currentScannerCallable
+operator|!=
+literal|null
+operator|&&
+name|currentScannerCallable
+operator|.
+name|isHeartbeatMessage
 argument_list|()
 return|;
 block|}

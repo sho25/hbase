@@ -1093,6 +1093,7 @@ comment|// The RingBufferEventHandler class hosts the ring buffer consuming code
 comment|// do the actual FS sync are implementations of SyncRunner.  SafePointZigZagLatch is a
 comment|// synchronization class used to halt the consumer at a safe point --  just after all outstanding
 comment|// syncs and appends have completed -- so the log roller can swap the WAL out under it.
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -2044,6 +2045,8 @@ literal|"'"
 argument_list|)
 throw|;
 block|}
+comment|// Now that it exists, set the storage policy for the entire directory of wal files related to
+comment|// this FSHLog instance
 name|FSUtils
 operator|.
 name|setStoragePolicy
@@ -5641,27 +5644,34 @@ name|sequence
 operator|=
 name|sequence
 expr_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|syncFutureCount
+condition|;
+operator|++
+name|i
+control|)
+block|{
 name|this
 operator|.
 name|syncFutures
 operator|.
-name|addAll
-argument_list|(
-name|Arrays
-operator|.
-name|asList
+name|add
 argument_list|(
 name|syncFutures
-argument_list|)
-operator|.
-name|subList
-argument_list|(
-literal|0
-argument_list|,
-name|syncFutureCount
-argument_list|)
+index|[
+name|i
+index|]
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**      * Release the passed<code>syncFuture</code>      * @param syncFuture      * @param currentSequence      * @param t      * @return Returns 1.      */
 specifier|private

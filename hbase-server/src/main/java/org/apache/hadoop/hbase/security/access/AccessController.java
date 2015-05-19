@@ -1575,7 +1575,7 @@ name|EndpointObserver
 implements|,
 name|BulkLoadObserver
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -12261,6 +12261,15 @@ parameter_list|)
 throws|throws
 name|AccessDeniedException
 block|{
+if|if
+condition|(
+operator|!
+name|RpcServer
+operator|.
+name|isInRpcCallContext
+argument_list|()
+condition|)
+return|return;
 name|String
 name|requestUserName
 init|=

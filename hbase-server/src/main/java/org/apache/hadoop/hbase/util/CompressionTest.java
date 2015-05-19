@@ -391,6 +391,7 @@ specifier|public
 class|class
 name|CompressionTest
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -915,6 +916,8 @@ expr_stmt|;
 if|if
 condition|(
 name|CellComparator
+operator|.
+name|COMPARATOR
 operator|.
 name|compareRows
 argument_list|(

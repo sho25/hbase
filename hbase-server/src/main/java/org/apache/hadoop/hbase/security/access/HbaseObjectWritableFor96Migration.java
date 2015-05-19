@@ -1207,7 +1207,7 @@ name|WritableWithSize
 implements|,
 name|Configurable
 block|{
-specifier|protected
+specifier|private
 specifier|final
 specifier|static
 name|Log

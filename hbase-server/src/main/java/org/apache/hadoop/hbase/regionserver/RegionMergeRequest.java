@@ -161,6 +161,7 @@ name|RegionMergeRequest
 implements|implements
 name|Runnable
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

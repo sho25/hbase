@@ -81,9 +81,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 import|;
 end_import
 
@@ -172,7 +170,7 @@ name|KeyValueScanner
 argument_list|>
 name|scanners
 parameter_list|,
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|)
 throws|throws
@@ -617,14 +615,14 @@ name|KeyValueScanner
 argument_list|>
 block|{
 specifier|protected
-name|KVComparator
+name|CellComparator
 name|kvComparator
 decl_stmt|;
 comment|/**      * Constructor      * @param kvComparator      */
 specifier|public
 name|KVScannerComparator
 parameter_list|(
-name|KVComparator
+name|CellComparator
 name|kvComparator
 parameter_list|)
 block|{
@@ -752,7 +750,7 @@ return|;
 block|}
 comment|/**      * @return KVComparator      */
 specifier|public
-name|KVComparator
+name|CellComparator
 name|getComparator
 parameter_list|()
 block|{

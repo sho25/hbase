@@ -1341,6 +1341,11 @@ name|nbAttempt
 init|=
 literal|0
 decl_stmt|;
+name|FSDataInputStream
+name|stream
+init|=
+literal|null
+decl_stmt|;
 while|while
 condition|(
 literal|true
@@ -1387,16 +1392,15 @@ return|;
 block|}
 else|else
 block|{
-name|FSDataInputStream
 name|stream
-init|=
+operator|=
 name|fs
 operator|.
 name|open
 argument_list|(
 name|path
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 comment|// Note that zero-length file will fail to read PB magic, and attempt to create
 comment|// a non-PB reader and fail the same way existing code expects it to. If we get
 comment|// rid of the old reader entirely, we need to handle 0-size files differently from
@@ -1481,6 +1485,50 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+try|try
+block|{
+if|if
+condition|(
+name|stream
+operator|!=
+literal|null
+condition|)
+block|{
+name|stream
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|exception
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Could not close FSDataInputStream"
+operator|+
+name|exception
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"exception details"
+argument_list|,
+name|exception
+argument_list|)
+expr_stmt|;
+block|}
 name|String
 name|msg
 init|=

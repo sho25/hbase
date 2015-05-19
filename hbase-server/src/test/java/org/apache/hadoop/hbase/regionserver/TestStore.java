@@ -25,7 +25,31 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -361,6 +385,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellUtil
 import|;
 end_import
@@ -446,22 +484,6 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
-operator|.
-name|KVComparator
 import|;
 end_import
 
@@ -999,7 +1021,7 @@ specifier|public
 class|class
 name|TestStore
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -2107,7 +2129,7 @@ literal|4
 argument_list|,
 name|hcd
 operator|.
-name|getCompression
+name|getCompressionType
 argument_list|()
 argument_list|,
 literal|false
@@ -3805,7 +3827,7 @@ name|sort
 argument_list|(
 name|result
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -4024,7 +4046,7 @@ name|sort
 argument_list|(
 name|result
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -6928,7 +6950,7 @@ parameter_list|,
 name|Store
 name|store
 parameter_list|,
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|)
 throws|throws

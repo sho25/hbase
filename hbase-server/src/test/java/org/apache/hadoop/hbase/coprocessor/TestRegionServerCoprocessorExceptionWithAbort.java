@@ -353,6 +353,7 @@ specifier|public
 class|class
 name|TestRegionServerCoprocessorExceptionWithAbort
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

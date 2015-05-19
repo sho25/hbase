@@ -1394,6 +1394,8 @@ name|candidates
 return|;
 block|}
 comment|/*    * @param filesToCompact Files to compact. Can be null.    * @return True if we should run a major compaction.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isMajorCompaction
@@ -1573,6 +1575,8 @@ argument_list|(
 name|comConf
 operator|.
 name|conf
+argument_list|,
+literal|false
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1891,6 +1895,8 @@ name|ret
 return|;
 block|}
 comment|/**    * @param compactionSize Total size of some compaction    * @return whether this should be a large or small compaction    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|throttleCompaction

@@ -1012,6 +1012,7 @@ name|RETRIES_BY_SERVER_KEY
 init|=
 literal|"hbase.client.retries.by.server"
 decl_stmt|;
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -2397,7 +2398,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.hconnection.meta.lookup.threads.max.core"
+literal|"hbase.hconnection.meta.lookup.threads.core"
 argument_list|,
 literal|10
 argument_list|)

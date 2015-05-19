@@ -250,7 +250,7 @@ name|JMXListener
 implements|implements
 name|Coprocessor
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -285,7 +285,15 @@ specifier|public
 specifier|static
 specifier|final
 name|int
-name|defRMIRegistryPort
+name|defMasterRMIRegistryPort
+init|=
+literal|10101
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|defRegionserverRMIRegistryPort
 init|=
 literal|10102
 decl_stmt|;
@@ -767,11 +775,44 @@ operator|instanceof
 name|MasterCoprocessorEnvironment
 condition|)
 block|{
+comment|// running on Master
+name|rmiRegistryPort
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"master"
+operator|+
+name|RMI_REGISTRY_PORT_CONF_KEY
+argument_list|,
+name|defMasterRMIRegistryPort
+argument_list|)
+expr_stmt|;
+name|rmiConnectorPort
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"master"
+operator|+
+name|RMI_CONNECTOR_PORT_CONF_KEY
+argument_list|,
+name|rmiRegistryPort
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
-name|error
+name|info
 argument_list|(
-literal|"JMXListener should not be loaded in Master Environment!"
+literal|"Master rmiRegistryPort:"
+operator|+
+name|rmiRegistryPort
+operator|+
+literal|",Master rmiConnectorPort:"
+operator|+
+name|rmiConnectorPort
 argument_list|)
 expr_stmt|;
 block|}
@@ -783,7 +824,7 @@ operator|instanceof
 name|RegionServerCoprocessorEnvironment
 condition|)
 block|{
-comment|// running on RegionServer --since 0.99 HMaster is also a HRegionServer
+comment|// running on RegionServer
 name|rmiRegistryPort
 operator|=
 name|conf
@@ -794,7 +835,7 @@ literal|"regionserver"
 operator|+
 name|RMI_REGISTRY_PORT_CONF_KEY
 argument_list|,
-name|defRMIRegistryPort
+name|defRegionserverRMIRegistryPort
 argument_list|)
 expr_stmt|;
 name|rmiConnectorPort
@@ -839,6 +880,7 @@ argument_list|(
 literal|"JMXListener should not be loaded in Region Environment!"
 argument_list|)
 expr_stmt|;
+return|return;
 block|}
 synchronized|synchronized
 init|(

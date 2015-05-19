@@ -781,13 +781,22 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"no completed procedures to cleanup"
+literal|"No completed procedures to cleanup."
 argument_list|)
 expr_stmt|;
+block|}
 return|return;
 block|}
 specifier|final
@@ -914,6 +923,14 @@ operator|>=
 name|evictTtl
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -926,6 +943,7 @@ name|getKey
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|store
 operator|.
 name|delete
@@ -1430,6 +1448,14 @@ name|getProcId
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1453,6 +1479,7 @@ operator|+
 name|proc
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!
@@ -1583,6 +1610,14 @@ name|isFinished
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1606,6 +1641,7 @@ operator|+
 name|proc
 argument_list|)
 expr_stmt|;
+block|}
 assert|assert
 operator|!
 name|rollbackStack
@@ -2518,17 +2554,26 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"procedure "
+literal|"Procedure "
 operator|+
 name|proc
 operator|+
-literal|" added to the store"
+literal|" added to the store."
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Create the rollback stack for the procedure
 name|RootProcedureState
 name|stack
@@ -2720,6 +2765,14 @@ name|procId
 operator|+
 literal|" is still running"
 assert|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -2728,9 +2781,10 @@ literal|"Procedure procId="
 operator|+
 name|procId
 operator|+
-literal|" already removed by the cleaner"
+literal|" already removed by the cleaner."
 argument_list|)
 expr_stmt|;
+block|}
 return|return;
 block|}
 comment|// The CompletedProcedureCleaner will take care of deletion, once the TTL is expired.
@@ -2918,7 +2972,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"trying to start the execution of "
+literal|"Trying to start the execution of "
 operator|+
 name|proc
 argument_list|)
@@ -3133,9 +3187,17 @@ argument_list|()
 condition|)
 block|{
 comment|// Finalize the procedure state
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"Procedure completed in "
 operator|+
@@ -3154,6 +3216,7 @@ operator|+
 name|proc
 argument_list|)
 expr_stmt|;
+block|}
 name|procedureFinished
 argument_list|(
 name|proc
@@ -3261,7 +3324,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"ignoring CompletedProcedureCleaner exception: "
+literal|"Ignoring CompletedProcedureCleaner exception: "
 operator|+
 name|e
 operator|.
@@ -3423,7 +3486,7 @@ name|subprocStack
 operator|!=
 literal|null
 operator|:
-literal|"called rollback with no steps executed rootProc="
+literal|"Called rollback with no steps executed rootProc="
 operator|+
 name|rootProc
 assert|;
@@ -3625,6 +3688,14 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -3636,6 +3707,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|false
 return|;
@@ -3651,7 +3723,7 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"CODE-BUG: uncatched runtime exception for procedure: "
+literal|"CODE-BUG: Uncatched runtime exception for procedure: "
 operator|+
 name|proc
 argument_list|,
@@ -3673,6 +3745,14 @@ name|shouldKillBeforeStoreUpdate
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -3680,6 +3760,7 @@ argument_list|(
 literal|"TESTING: Kill before store update"
 argument_list|)
 expr_stmt|;
+block|}
 name|stop
 argument_list|()
 expr_stmt|;
@@ -3853,7 +3934,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"yield procedure: "
+literal|"Yield procedure: "
 operator|+
 name|procedure
 argument_list|)
@@ -3878,7 +3959,7 @@ comment|// Catch NullPointerExceptions or similar errors...
 name|String
 name|msg
 init|=
-literal|"CODE-BUG: uncatched runtime exception for procedure: "
+literal|"CODE-BUG: Uncatched runtime exception for procedure: "
 operator|+
 name|procedure
 decl_stmt|;
@@ -4156,6 +4237,14 @@ name|shouldKillBeforeStoreUpdate
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -4163,6 +4252,7 @@ argument_list|(
 literal|"TESTING: Kill before store update"
 argument_list|)
 expr_stmt|;
+block|}
 name|stop
 argument_list|()
 expr_stmt|;
@@ -4194,7 +4284,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"store add "
+literal|"Store add "
 operator|+
 name|procedure
 operator|+
@@ -4233,7 +4323,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"store update "
+literal|"Store update "
 operator|+
 name|procedure
 argument_list|)
@@ -4523,7 +4613,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"the listener "
+literal|"The listener "
 operator|+
 name|listener
 operator|+
@@ -4591,7 +4681,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"the listener "
+literal|"The listener "
 operator|+
 name|listener
 operator|+
@@ -4659,7 +4749,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"the listener "
+literal|"The listener "
 operator|+
 name|listener
 operator|+

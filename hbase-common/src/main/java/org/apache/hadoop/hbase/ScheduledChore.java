@@ -114,6 +114,7 @@ implements|implements
 name|Runnable
 block|{
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -122,10 +123,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|this
+name|ScheduledChore
 operator|.
-name|getClass
-argument_list|()
+name|class
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -938,6 +938,32 @@ name|void
 name|cleanup
 parameter_list|()
 block|{   }
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"[ScheduledChore: Name: "
+operator|+
+name|getName
+argument_list|()
+operator|+
+literal|" Period: "
+operator|+
+name|getPeriod
+argument_list|()
+operator|+
+literal|" Unit: "
+operator|+
+name|getTimeUnit
+argument_list|()
+operator|+
+literal|"]"
+return|;
+block|}
 block|}
 end_class
 

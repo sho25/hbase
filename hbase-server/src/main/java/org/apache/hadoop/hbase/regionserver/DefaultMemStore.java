@@ -197,6 +197,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellUtil
 import|;
 end_import
@@ -468,9 +482,7 @@ name|CellSkipListSet
 name|snapshot
 decl_stmt|;
 specifier|final
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 name|comparator
 decl_stmt|;
 comment|// Used to track own heapSize
@@ -522,7 +534,7 @@ operator|.
 name|create
 argument_list|()
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -537,9 +549,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 name|c
 parameter_list|)
 block|{

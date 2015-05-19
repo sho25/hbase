@@ -565,6 +565,7 @@ name|MemStoreFlusher
 implements|implements
 name|FlushRequester
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

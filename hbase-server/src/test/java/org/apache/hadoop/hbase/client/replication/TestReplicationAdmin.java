@@ -909,15 +909,53 @@ argument_list|,
 literal|"t2"
 argument_list|)
 expr_stmt|;
-name|assertEquals
-argument_list|(
-literal|"t2;t1"
-argument_list|,
+name|String
+name|peerTablesOne
+init|=
 name|admin
 operator|.
 name|getPeerTableCFs
 argument_list|(
 name|ID_ONE
+argument_list|)
+decl_stmt|;
+comment|// Different jdk's return different sort order for the tables. ( Not sure on why exactly )
+comment|//
+comment|// So instead of asserting that the string is exactly we
+comment|// assert that the string contains all tables and the needed separator.
+name|assertTrue
+argument_list|(
+literal|"Should contain t1"
+argument_list|,
+name|peerTablesOne
+operator|.
+name|contains
+argument_list|(
+literal|"t1"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"Should contain t2"
+argument_list|,
+name|peerTablesOne
+operator|.
+name|contains
+argument_list|(
+literal|"t2"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"Should contain ; as the seperator"
+argument_list|,
+name|peerTablesOne
+operator|.
+name|contains
+argument_list|(
+literal|";"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -931,15 +969,61 @@ argument_list|,
 literal|"t3:f1"
 argument_list|)
 expr_stmt|;
-name|assertEquals
-argument_list|(
-literal|"t3:f1;t2;t1"
-argument_list|,
+name|String
+name|peerTablesTwo
+init|=
 name|admin
 operator|.
 name|getPeerTableCFs
 argument_list|(
 name|ID_ONE
+argument_list|)
+decl_stmt|;
+name|assertTrue
+argument_list|(
+literal|"Should contain t1"
+argument_list|,
+name|peerTablesTwo
+operator|.
+name|contains
+argument_list|(
+literal|"t1"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"Should contain t2"
+argument_list|,
+name|peerTablesTwo
+operator|.
+name|contains
+argument_list|(
+literal|"t2"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"Should contain t3:f1"
+argument_list|,
+name|peerTablesTwo
+operator|.
+name|contains
+argument_list|(
+literal|"t3:f1"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"Should contain ; as the seperator"
+argument_list|,
+name|peerTablesTwo
+operator|.
+name|contains
+argument_list|(
+literal|";"
 argument_list|)
 argument_list|)
 expr_stmt|;

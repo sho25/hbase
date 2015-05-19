@@ -527,11 +527,20 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// guard against failure in setup
+if|if
+condition|(
+name|table
+operator|!=
+literal|null
+condition|)
+block|{
 name|table
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|createWithFavoredNode

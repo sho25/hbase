@@ -117,22 +117,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|KVComparator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -168,6 +152,22 @@ operator|.
 name|client
 operator|.
 name|RegionReplicaUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
+operator|.
+name|KVComparator
 import|;
 end_import
 
@@ -980,17 +980,6 @@ literal|false
 argument_list|)
 expr_stmt|;
 name|setHashCode
-argument_list|()
-expr_stmt|;
-block|}
-comment|/** Default constructor - creates empty object    * @deprecated Used by Writables and Writables are going away.    */
-annotation|@
-name|Deprecated
-specifier|public
-name|HRegionInfo
-parameter_list|()
-block|{
-name|super
 argument_list|()
 expr_stmt|;
 block|}
@@ -1969,15 +1958,13 @@ return|return
 name|b
 return|;
 block|}
-comment|/**    * Gets the table name from the specified region name.    * @param regionName    * @return Table name.    * @deprecated Since 0.96.0; use #getTable(byte[])    */
-annotation|@
-name|Deprecated
+comment|/**    * Gets the table name from the specified region name.    * @param regionName to extract the table name from    * @return Table name    */
 specifier|public
 specifier|static
-name|byte
-index|[]
-name|getTableName
+name|TableName
+name|getTable
 parameter_list|(
+specifier|final
 name|byte
 index|[]
 name|regionName
@@ -2051,30 +2038,11 @@ name|offset
 argument_list|)
 expr_stmt|;
 return|return
-name|buff
-return|;
-block|}
-comment|/**    * Gets the table name from the specified region name.    * Like {@link #getTableName(byte[])} only returns a {@link TableName} rather than a byte array.    * @param regionName    * @return Table name    * @see #getTableName(byte[])    */
-specifier|public
-specifier|static
-name|TableName
-name|getTable
-parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|regionName
-parameter_list|)
-block|{
-return|return
 name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|getTableName
-argument_list|(
-name|regionName
-argument_list|)
+name|buff
 argument_list|)
 return|;
 block|}
@@ -2704,31 +2672,14 @@ return|return
 name|endKey
 return|;
 block|}
-comment|/**    * Get current table name of the region    * @return byte array of table name    * @deprecated Since 0.96.0; use #getTable()    */
-annotation|@
-name|Deprecated
-specifier|public
-name|byte
-index|[]
-name|getTableName
-parameter_list|()
-block|{
-return|return
-name|getTable
-argument_list|()
-operator|.
-name|toBytes
-argument_list|()
-return|;
-block|}
-comment|/**    * Get current table name of the region    * @return TableName    * @see #getTableName()    */
+comment|/**    * Get current table name of the region    * @return TableName    */
 specifier|public
 name|TableName
 name|getTable
 parameter_list|()
 block|{
 comment|// This method name should be getTableName but there was already a method getTableName
-comment|// that returned a byte array.  It is unfortunate given everwhere else, getTableName returns
+comment|// that returned a byte array.  It is unfortunate given everywhere else, getTableName returns
 comment|// a TableName instance.
 if|if
 condition|(
@@ -3459,7 +3410,9 @@ return|return
 literal|1
 return|;
 block|}
-comment|/**    * @return Comparator to use comparing {@link KeyValue}s.    */
+comment|/**    * @return Comparator to use comparing {@link KeyValue}s.    * @deprecated This method should not have been here.  Use Region#getCellComparator()    */
+annotation|@
+name|Deprecated
 specifier|public
 name|KVComparator
 name|getComparator
@@ -4176,7 +4129,7 @@ name|idx
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the end key for display. Optionally hide the real end key.     * @param hri    * @param conf    * @return the endkey    */
+comment|/**    * Get the end key for display. Optionally hide the real end key.    * @param hri    * @param conf    * @return the endkey    */
 specifier|public
 specifier|static
 name|byte
@@ -4216,7 +4169,7 @@ return|return
 name|HIDDEN_END_KEY
 return|;
 block|}
-comment|/**    * Get the start key for display. Optionally hide the real start key.     * @param hri    * @param conf    * @return the startkey    */
+comment|/**    * Get the start key for display. Optionally hide the real start key.    * @param hri    * @param conf    * @return the startkey    */
 specifier|public
 specifier|static
 name|byte
@@ -5071,6 +5024,7 @@ name|pblen
 argument_list|)
 expr_stmt|;
 block|}
+comment|//assumption: if Writable serialization, it should be longer than pblen.
 name|int
 name|read
 init|=
@@ -5081,7 +5035,6 @@ argument_list|(
 name|pbuf
 argument_list|)
 decl_stmt|;
-comment|//assumption: it should be longer than pblen.
 if|if
 condition|(
 name|read

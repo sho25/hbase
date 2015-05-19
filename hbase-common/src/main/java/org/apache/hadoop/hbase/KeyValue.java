@@ -344,6 +344,7 @@ name|Tag
 argument_list|>
 argument_list|()
 decl_stmt|;
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -381,7 +382,9 @@ block|{
 name|COLUMN_FAMILY_DELIMITER
 block|}
 decl_stmt|;
-comment|/**    * Comparator for plain key/values; i.e. non-catalog table key/values. Works on Key portion    * of KeyValue only.    */
+comment|/**    * Comparator for plain key/values; i.e. non-catalog table key/values. Works on Key portion    * of KeyValue only.    * @deprecated Use {@link CellComparator#COMPARATOR} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -392,7 +395,9 @@ operator|new
 name|KVComparator
 argument_list|()
 decl_stmt|;
-comment|/**    * A {@link KVComparator} for<code>hbase:meta</code> catalog table    * {@link KeyValue}s.    */
+comment|/**    * A {@link KVComparator} for<code>hbase:meta</code> catalog table    * {@link KeyValue}s.    * @deprecated Use {@link CellComparator#META_COMPARATOR} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -403,7 +408,9 @@ operator|new
 name|MetaComparator
 argument_list|()
 decl_stmt|;
-comment|/**    * Needed for Bloom Filters.    */
+comment|/**    * Needed for Bloom Filters.    *    * @deprecated Use {@link Bytes#BYTES_RAWCOMPARATOR} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -4719,7 +4726,7 @@ literal|false
 return|;
 block|}
 return|return
-name|CellComparator
+name|CellUtil
 operator|.
 name|equals
 argument_list|(
@@ -4741,12 +4748,135 @@ name|hashCode
 parameter_list|()
 block|{
 return|return
-name|CellComparator
-operator|.
-name|hashCodeIgnoreMvcc
+name|calculateHashForKey
 argument_list|(
 name|this
 argument_list|)
+return|;
+block|}
+specifier|private
+name|int
+name|calculateHashForKey
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|)
+block|{
+comment|// pre-calculate the 3 hashes made of byte ranges
+name|int
+name|rowHash
+init|=
+name|Bytes
+operator|.
+name|hashCode
+argument_list|(
+name|cell
+operator|.
+name|getRowArray
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getRowOffset
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getRowLength
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|int
+name|familyHash
+init|=
+name|Bytes
+operator|.
+name|hashCode
+argument_list|(
+name|cell
+operator|.
+name|getFamilyArray
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getFamilyOffset
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getFamilyLength
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|int
+name|qualifierHash
+init|=
+name|Bytes
+operator|.
+name|hashCode
+argument_list|(
+name|cell
+operator|.
+name|getQualifierArray
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getQualifierOffset
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getQualifierLength
+argument_list|()
+argument_list|)
+decl_stmt|;
+comment|// combine the 6 sub-hashes
+name|int
+name|hash
+init|=
+literal|31
+operator|*
+name|rowHash
+operator|+
+name|familyHash
+decl_stmt|;
+name|hash
+operator|=
+literal|31
+operator|*
+name|hash
+operator|+
+name|qualifierHash
+expr_stmt|;
+name|hash
+operator|=
+literal|31
+operator|*
+name|hash
+operator|+
+operator|(
+name|int
+operator|)
+name|cell
+operator|.
+name|getTimestamp
+argument_list|()
+expr_stmt|;
+name|hash
+operator|=
+literal|31
+operator|*
+name|hash
+operator|+
+name|cell
+operator|.
+name|getTypeByte
+argument_list|()
+expr_stmt|;
+return|return
+name|hash
 return|;
 block|}
 comment|//---------------------------------------------------------------------------
@@ -6937,7 +7067,9 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * A {@link KVComparator} for<code>hbase:meta</code> catalog table    * {@link KeyValue}s.    */
+comment|/**    * A {@link KVComparator} for<code>hbase:meta</code> catalog table    * {@link KeyValue}s.    * @deprecated : {@link CellComparator#META_COMPARATOR} to be used    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 class|class
@@ -6961,31 +7093,12 @@ name|Cell
 name|right
 parameter_list|)
 block|{
-name|int
-name|c
-init|=
-name|compareRowKey
-argument_list|(
-name|left
-argument_list|,
-name|right
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|c
-operator|!=
-literal|0
-condition|)
-block|{
-return|return
-name|c
-return|;
-block|}
 return|return
 name|CellComparator
 operator|.
-name|compareWithoutRow
+name|META_COMPARATOR
+operator|.
+name|compareKeyIgnoresMvcc
 argument_list|(
 name|left
 argument_list|,
@@ -7538,7 +7651,9 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Compare KeyValues.  When we compare KeyValues, we only compare the Key    * portion.  This means two KeyValues with same Key but different Values are    * considered the same as far as this Comparator is concerned.    */
+comment|/**    * Compare KeyValues.  When we compare KeyValues, we only compare the Key    * portion.  This means two KeyValues with same Key but different Values are    * considered the same as far as this Comparator is concerned.    * @deprecated : Use {@link CellComparator}.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 class|class
@@ -7626,6 +7741,8 @@ parameter_list|)
 block|{
 return|return
 name|CellComparator
+operator|.
+name|COMPARATOR
 operator|.
 name|compareRows
 argument_list|(
@@ -8057,13 +8174,13 @@ block|{
 return|return
 name|CellComparator
 operator|.
-name|compare
+name|COMPARATOR
+operator|.
+name|compareKeyIgnoresMvcc
 argument_list|(
 name|left
 argument_list|,
 name|right
-argument_list|,
-literal|true
 argument_list|)
 return|;
 block|}
@@ -8088,13 +8205,13 @@ name|compare
 init|=
 name|CellComparator
 operator|.
+name|COMPARATOR
+operator|.
 name|compare
 argument_list|(
 name|left
 argument_list|,
 name|right
-argument_list|,
-literal|false
 argument_list|)
 decl_stmt|;
 return|return
@@ -9569,7 +9686,7 @@ return|return
 name|fakeKey
 return|;
 block|}
-comment|/**      * This is a HFile block index key optimization.      * @param leftKey      * @param rightKey      * @return 0 if equal,<0 if left smaller,>0 if right smaller      * @deprecated Since 0.99.2; Use      *             {@link CellComparator#getMidpoint(KeyValue.KVComparator, Cell, Cell) instead}      */
+comment|/**      * This is a HFile block index key optimization.      * @param leftKey      * @param rightKey      * @return 0 if equal,<0 if left smaller,>0 if right smaller      * @deprecated Since 0.99.2;      */
 annotation|@
 name|Deprecated
 specifier|public
@@ -10932,7 +11049,9 @@ name|rlength
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * This is a TEST only Comparator used in TestSeekTo and TestReseekTo.    */
+comment|/**    * @deprecated  Not to be used for any comparsions    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 class|class

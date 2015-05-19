@@ -348,6 +348,7 @@ class|class
 name|TestHBaseTestingUtility
 block|{
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -356,10 +357,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|this
+name|TestHBaseTestingUtility
 operator|.
-name|getClass
-argument_list|()
+name|class
 argument_list|)
 decl_stmt|;
 comment|/**    * Basic sanity test that spins up multiple HDFS and HBase clusters that share    * the same ZK ensemble. We then create the same table in both and make sure    * that what we insert in one place doesn't end up in the other.    * @throws Exception    */

@@ -338,6 +338,7 @@ extends|extends
 name|WriterBase
 block|{
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -346,10 +347,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|this
+name|SequenceFileLogWriter
 operator|.
-name|getClass
-argument_list|()
+name|class
 argument_list|)
 decl_stmt|;
 comment|// The sequence file we delegate to.

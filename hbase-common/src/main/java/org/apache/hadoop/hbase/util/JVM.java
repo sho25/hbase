@@ -248,6 +248,24 @@ argument_list|(
 literal|"java.version"
 argument_list|)
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|boolean
+name|amd64
+init|=
+name|System
+operator|.
+name|getProperty
+argument_list|(
+literal|"os.arch"
+argument_list|)
+operator|.
+name|contains
+argument_list|(
+literal|"amd64"
+argument_list|)
+decl_stmt|;
 comment|/**    * Constructor. Get the running Operating System instance    */
 specifier|public
 name|JVM
@@ -298,6 +316,17 @@ parameter_list|()
 block|{
 return|return
 name|linux
+return|;
+block|}
+comment|/**    * Check if the arch is amd64;    * @return whether this is amd64 or not.    */
+specifier|public
+specifier|static
+name|boolean
+name|isAmd64
+parameter_list|()
+block|{
+return|return
+name|amd64
 return|;
 block|}
 comment|/**    * Check if the finish() method of GZIPOutputStream is broken    *     * @return whether GZIPOutputStream.finish() is broken.    */

@@ -141,6 +141,7 @@ name|TimeToLiveLogCleaner
 extends|extends
 name|BaseLogCleanerDelegate
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

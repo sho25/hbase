@@ -233,6 +233,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -528,7 +542,7 @@ operator|.
 name|getSimpleName
 argument_list|()
 decl_stmt|;
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -584,7 +598,7 @@ argument_list|<
 name|KeyValue
 argument_list|>
 argument_list|(
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -1065,7 +1079,7 @@ argument_list|,
 name|actual
 argument_list|)
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 operator|.

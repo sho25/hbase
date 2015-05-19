@@ -404,17 +404,6 @@ specifier|private
 name|Boolean
 name|balancerOn
 decl_stmt|;
-comment|/**    * Constructor, for Writable    * @deprecated Used by Writables and Writables are going away.    */
-annotation|@
-name|Deprecated
-specifier|public
-name|ClusterStatus
-parameter_list|()
-block|{
-name|super
-argument_list|()
-expr_stmt|;
-block|}
 specifier|public
 name|ClusterStatus
 parameter_list|(
@@ -960,22 +949,6 @@ block|}
 comment|//
 comment|// Getters
 comment|//
-comment|/**    * Returns detailed region server information: A list of    * {@link ServerName}.    * @return region server information    * @deprecated Use {@link #getServers()}    */
-annotation|@
-name|Deprecated
-specifier|public
-name|Collection
-argument_list|<
-name|ServerName
-argument_list|>
-name|getServerInfo
-parameter_list|()
-block|{
-return|return
-name|getServers
-argument_list|()
-return|;
-block|}
 specifier|public
 name|Collection
 argument_list|<

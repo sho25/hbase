@@ -158,13 +158,10 @@ block|}
 annotation|@
 name|Override
 name|void
-name|setProgress
+name|setTimeProgress
 parameter_list|(
-name|int
-name|batchProgress
-parameter_list|,
 name|long
-name|sizeProgress
+name|timeProgress
 parameter_list|)
 block|{
 comment|// Do nothing. NoLimitScannerContext instances are immutable post-construction
@@ -172,7 +169,51 @@ block|}
 annotation|@
 name|Override
 name|void
+name|updateTimeProgress
+parameter_list|()
+block|{
+comment|// Do nothing. NoLimitScannerContext instances are immutable post-construction
+block|}
+annotation|@
+name|Override
+name|void
+name|setProgress
+parameter_list|(
+name|int
+name|batchProgress
+parameter_list|,
+name|long
+name|sizeProgress
+parameter_list|,
+name|long
+name|timeProgress
+parameter_list|)
+block|{
+comment|// Do nothing. NoLimitScannerContext instances are immutable post-construction
+block|}
+annotation|@
+name|Override
+name|void
+name|clearProgress
+parameter_list|()
+block|{
+comment|// Do nothing. NoLimitScannerContext instances are immutable post-construction
+block|}
+annotation|@
+name|Override
+name|void
 name|setSizeLimitScope
+parameter_list|(
+name|LimitScope
+name|scope
+parameter_list|)
+block|{
+comment|// Do nothing. NoLimitScannerContext instances are immutable post-construction
+block|}
+annotation|@
+name|Override
+name|void
+name|setTimeLimitScope
 parameter_list|(
 name|LimitScope
 name|scope
@@ -212,6 +253,20 @@ annotation|@
 name|Override
 name|boolean
 name|checkSizeLimit
+parameter_list|(
+name|LimitScope
+name|checkerScope
+parameter_list|)
+block|{
+comment|// No limits can be specified, thus return false to indicate no limit has been reached.
+return|return
+literal|false
+return|;
+block|}
+annotation|@
+name|Override
+name|boolean
+name|checkTimeLimit
 parameter_list|(
 name|LimitScope
 name|checkerScope

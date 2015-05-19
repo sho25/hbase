@@ -253,6 +253,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellUtil
 import|;
 end_import
@@ -807,7 +821,9 @@ argument_list|,
 name|Cell
 argument_list|>
 block|{
+specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=
@@ -1755,7 +1771,7 @@ argument_list|)
 operator|.
 name|withComparator
 argument_list|(
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -3315,7 +3331,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"hadoop.tmp.dir"
+literal|"hbase.fs.tmp.dir"
 argument_list|)
 argument_list|,
 literal|"partitions_"
@@ -3493,7 +3509,7 @@ name|encode
 argument_list|(
 name|familyDescriptor
 operator|.
-name|getCompression
+name|getCompressionType
 argument_list|()
 operator|.
 name|getName

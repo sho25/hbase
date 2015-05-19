@@ -2862,6 +2862,20 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Some unit tests don't need a cluster, so no zookeeper at all
+if|if
+condition|(
+operator|!
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.testing.nocluster"
+argument_list|,
+literal|false
+argument_list|)
+condition|)
+block|{
 name|activeMasterManager
 operator|=
 operator|new
@@ -2887,6 +2901,14 @@ argument_list|(
 name|infoPort
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|activeMasterManager
+operator|=
+literal|null
+expr_stmt|;
+block|}
 block|}
 comment|// return the actual infoPort, -1 means disable info server.
 specifier|private
@@ -7443,22 +7465,6 @@ argument_list|(
 name|hTableDescriptor
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|quotaManager
-operator|.
-name|checkNamespaceTableAndRegionQuota
-argument_list|(
-name|hTableDescriptor
-operator|.
-name|getTableName
-argument_list|()
-argument_list|,
-name|newRegions
-operator|.
-name|length
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|cpHost
@@ -8488,7 +8494,7 @@ name|testCompression
 argument_list|(
 name|hcd
 operator|.
-name|getCompression
+name|getCompressionType
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -8498,7 +8504,7 @@ name|testCompression
 argument_list|(
 name|hcd
 operator|.
-name|getCompactionCompression
+name|getCompactionCompressionType
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -8744,7 +8750,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|truncateTable
 parameter_list|(
 name|TableName
@@ -8833,6 +8839,9 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|procId
+return|;
 block|}
 annotation|@
 name|Override
@@ -9554,7 +9563,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|modifyTable
 parameter_list|(
 specifier|final
@@ -9653,6 +9662,9 @@ name|descriptor
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|procId
+return|;
 block|}
 annotation|@
 name|Override

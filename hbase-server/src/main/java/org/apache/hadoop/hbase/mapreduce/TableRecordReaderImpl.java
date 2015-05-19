@@ -334,6 +334,7 @@ name|LOG_PER_ROW_COUNT
 init|=
 literal|"hbase.mapreduce.log.scanner.rowcount"
 decl_stmt|;
+specifier|private
 specifier|static
 specifier|final
 name|Log

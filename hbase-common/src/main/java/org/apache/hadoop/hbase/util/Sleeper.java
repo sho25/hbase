@@ -89,6 +89,7 @@ class|class
 name|Sleeper
 block|{
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -97,13 +98,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|this
+name|Sleeper
 operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getName
-argument_list|()
+name|class
 argument_list|)
 decl_stmt|;
 specifier|private

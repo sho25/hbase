@@ -103,22 +103,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
@@ -247,6 +231,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Admin
@@ -298,22 +298,6 @@ operator|.
 name|client
 operator|.
 name|Delete
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HBaseAdmin
 import|;
 end_import
 
@@ -440,6 +424,7 @@ class|class
 name|HMerge
 block|{
 comment|// TODO: Where is this class used?  How does it relate to Merge in same package?
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -623,16 +608,19 @@ literal|"HBase instance must be running to merge a normal table"
 argument_list|)
 throw|;
 block|}
-name|Admin
-name|admin
+try|try
+init|(
+name|Connection
+name|conn
 init|=
-operator|new
-name|HBaseAdmin
+name|ConnectionFactory
+operator|.
+name|createConnection
 argument_list|(
 name|conf
 argument_list|)
-decl_stmt|;
-try|try
+init|;           Admin admin = conn.getAdmin()
+block|)
 block|{
 if|if
 condition|(
@@ -654,14 +642,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-finally|finally
-block|{
-name|admin
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
 operator|new
 name|OnlineMerger
 argument_list|(
@@ -677,6 +657,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_class
+
+begin_class
 specifier|private
 specifier|static
 specifier|abstract
@@ -1260,7 +1243,13 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
+end_class
+
+begin_comment
 comment|/** Instantiated to compact a normal user table */
+end_comment
+
+begin_class
 specifier|private
 specifier|static
 class|class
@@ -1896,8 +1885,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
-block|}
 end_class
 
+unit|}
 end_unit
 

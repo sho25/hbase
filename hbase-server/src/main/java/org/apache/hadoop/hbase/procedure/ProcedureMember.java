@@ -43,16 +43,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Collection
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|concurrent
 operator|.
 name|ConcurrentMap
@@ -208,7 +198,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Process to kick off and manage a running {@link Subprocedure} on a member. This is the  * specialized part of a {@link Procedure} that actually does procedure type-specific work  * and reports back to the coordinator as it completes each phase.  *<p>  * If there is a connection error ({@link #controllerConnectionFailure(String, IOException)}), all  * currently running subprocedures are notify to failed since there is no longer a way to reach any  * other members or coordinators since the rpcs are down.  */
+comment|/**  * Process to kick off and manage a running {@link Subprocedure} on a member. This is the  * specialized part of a {@link Procedure} that actually does procedure type-specific work  * and reports back to the coordinator as it completes each phase.  */
 end_comment
 
 begin_class
@@ -762,7 +752,7 @@ name|MILLISECONDS
 argument_list|)
 return|;
 block|}
-comment|/**    * The connection to the rest of the procedure group (member and coordinator) has been    * broken/lost/failed. This should fail any interested subprocedure, but not attempt to notify    * other members since we cannot reach them anymore.    * @param message description of the error    * @param cause the actual cause of the failure    *    * TODO i'm tempted to just remove this code completely and treat it like any other abort.    * Implementation wise, if this happens it is a ZK failure which means the RS will abort.    */
+comment|/**    * The connection to the rest of the procedure group (member and coordinator) has been    * broken/lost/failed. This should fail any interested subprocedure, but not attempt to notify    * other members since we cannot reach them anymore.    * @param message description of the error    * @param cause the actual cause of the failure    * @param procName the name of the procedure we'd cancel due to the error.    */
 specifier|public
 name|void
 name|controllerConnectionFailure
@@ -772,21 +762,14 @@ name|String
 name|message
 parameter_list|,
 specifier|final
-name|IOException
+name|Throwable
 name|cause
+parameter_list|,
+specifier|final
+name|String
+name|procName
 parameter_list|)
 block|{
-name|Collection
-argument_list|<
-name|Subprocedure
-argument_list|>
-name|toNotify
-init|=
-name|subprocs
-operator|.
-name|values
-argument_list|()
-decl_stmt|;
 name|LOG
 operator|.
 name|error
@@ -796,16 +779,33 @@ argument_list|,
 name|cause
 argument_list|)
 expr_stmt|;
-for|for
-control|(
-name|Subprocedure
-name|sub
-range|:
-name|toNotify
-control|)
+if|if
+condition|(
+name|procName
+operator|==
+literal|null
+condition|)
 block|{
-comment|// TODO notify the elements, if they aren't null
-name|sub
+return|return;
+block|}
+name|Subprocedure
+name|toNotify
+init|=
+name|subprocs
+operator|.
+name|get
+argument_list|(
+name|procName
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|toNotify
+operator|!=
+literal|null
+condition|)
+block|{
+name|toNotify
 operator|.
 name|cancel
 argument_list|(

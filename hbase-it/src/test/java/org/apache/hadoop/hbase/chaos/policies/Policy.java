@@ -111,6 +111,7 @@ name|Runnable
 block|{
 specifier|protected
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=

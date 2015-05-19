@@ -342,7 +342,7 @@ name|serialVersionUID
 init|=
 literal|1L
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log

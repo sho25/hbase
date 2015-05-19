@@ -496,7 +496,9 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * In {@link HRegionFileSystem#splitStoreFile(org.apache.hadoop.hbase.HRegionInfo, String,    * StoreFile, byte[], boolean, RegionSplitPolicy)} we are not creating the split reference    * if split row not lies in the StoreFile range. But in some use cases we may need to create    * the split reference even when the split row not lies in the range. This method can be used    * to decide, whether to skip the the StoreFile range check or not.    * @return whether to skip the StoreFile range check or not    */
+comment|/**    * In {@link HRegionFileSystem#splitStoreFile(org.apache.hadoop.hbase.HRegionInfo, String,    * StoreFile, byte[], boolean, RegionSplitPolicy)} we are not creating the split reference    * if split row not lies in the StoreFile range. But in some use cases we may need to create    * the split reference even when the split row not lies in the range. This method can be used    * to decide, whether to skip the the StoreFile range check or not.    * @return whether to skip the StoreFile range check or not    * @deprecated Use {@link #skipStoreFileRangeCheck(String)}} instead    */
+annotation|@
+name|Deprecated
 specifier|protected
 name|boolean
 name|skipStoreFileRangeCheck
@@ -504,6 +506,20 @@ parameter_list|()
 block|{
 return|return
 literal|false
+return|;
+block|}
+comment|/**    * See {@link #skipStoreFileRangeCheck()} javadoc.    * @param familyName    * @return whether to skip the StoreFile range check or not    */
+specifier|protected
+name|boolean
+name|skipStoreFileRangeCheck
+parameter_list|(
+name|String
+name|familyName
+parameter_list|)
+block|{
+return|return
+name|skipStoreFileRangeCheck
+argument_list|()
 return|;
 block|}
 block|}

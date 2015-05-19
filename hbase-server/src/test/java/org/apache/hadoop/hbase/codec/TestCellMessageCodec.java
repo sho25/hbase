@@ -169,6 +169,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -291,7 +305,7 @@ specifier|public
 class|class
 name|TestCellMessageCodec
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -885,7 +899,7 @@ argument_list|()
 decl_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellUtil
 operator|.
 name|equals
 argument_list|(
@@ -912,7 +926,7 @@ argument_list|()
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellUtil
 operator|.
 name|equals
 argument_list|(
@@ -939,7 +953,7 @@ argument_list|()
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellUtil
 operator|.
 name|equals
 argument_list|(

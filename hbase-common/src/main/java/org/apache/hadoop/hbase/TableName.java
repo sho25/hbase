@@ -67,22 +67,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|KVComparator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -118,6 +102,22 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
+operator|.
+name|KVComparator
 import|;
 end_import
 
@@ -2121,7 +2121,13 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the appropriate row comparator for this table.    *    * @return The comparator.    */
+comment|/**    * Get the appropriate row comparator for this table.    *    * @return The comparator.    * @deprecated The comparator is an internal property of the table. Should    * not have been exposed here    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+annotation|@
+name|Deprecated
 specifier|public
 name|KVComparator
 name|getRowComparator

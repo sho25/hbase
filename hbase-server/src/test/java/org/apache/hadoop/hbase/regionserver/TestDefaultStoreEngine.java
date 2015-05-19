@@ -41,7 +41,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseConfiguration
+name|CellComparator
 import|;
 end_import
 
@@ -55,9 +55,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|KVComparator
+name|HBaseConfiguration
 import|;
 end_import
 
@@ -366,9 +364,9 @@ name|mockStore
 argument_list|,
 name|conf
 argument_list|,
-operator|new
-name|KVComparator
-argument_list|()
+name|CellComparator
+operator|.
+name|COMPARATOR
 argument_list|)
 decl_stmt|;
 name|Assert

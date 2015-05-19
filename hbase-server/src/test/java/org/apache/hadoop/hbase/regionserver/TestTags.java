@@ -2031,7 +2031,7 @@ init|=
 name|Short
 operator|.
 name|MAX_VALUE
-operator|+
+operator|-
 literal|5
 decl_stmt|;
 name|put

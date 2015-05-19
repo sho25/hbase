@@ -437,20 +437,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseConfiguration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -4633,20 +4619,9 @@ operator|.
 name|resetCounters
 argument_list|()
 expr_stmt|;
-name|Configuration
-name|testConf
-init|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-decl_stmt|;
-name|testConf
+comment|// Not actually enabling DLR for the cluster, just for the ZkCoordinatedStateManager to use.
+comment|// The test is just manipulating ZK manually anyways.
+name|conf
 operator|.
 name|setBoolean
 argument_list|(
@@ -4709,7 +4684,7 @@ name|SplitLogManager
 argument_list|(
 name|ds
 argument_list|,
-name|testConf
+name|conf
 argument_list|,
 name|stopper
 argument_list|,

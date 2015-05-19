@@ -406,6 +406,7 @@ name|MiniHBaseCluster
 extends|extends
 name|HBaseCluster
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

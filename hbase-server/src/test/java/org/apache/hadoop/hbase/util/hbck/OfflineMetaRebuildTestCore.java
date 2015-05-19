@@ -603,7 +603,7 @@ specifier|public
 class|class
 name|OfflineMetaRebuildTestCore
 block|{
-specifier|protected
+specifier|private
 specifier|final
 specifier|static
 name|Log

@@ -122,6 +122,7 @@ name|WALActionsListener
 operator|.
 name|Base
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

@@ -359,6 +359,7 @@ specifier|abstract
 class|class
 name|TestTableInputFormatScanBase
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

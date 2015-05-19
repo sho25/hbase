@@ -251,6 +251,7 @@ specifier|public
 class|class
 name|TestKeyStoreKeyProvider
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

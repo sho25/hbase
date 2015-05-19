@@ -252,6 +252,7 @@ class|class
 name|TestChoreService
 block|{
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -260,10 +261,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|this
+name|TestChoreService
 operator|.
-name|getClass
-argument_list|()
+name|class
 argument_list|)
 decl_stmt|;
 comment|/**    * A few ScheduledChore samples that are useful for testing with ChoreService    */
@@ -996,6 +996,8 @@ name|failureThreshold
 init|=
 literal|5
 decl_stmt|;
+try|try
+block|{
 name|ScheduledChore
 name|chore
 init|=
@@ -1071,11 +1073,15 @@ argument_list|(
 name|brokeOutOfLoop
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|service
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -1118,6 +1124,8 @@ argument_list|(
 literal|"testCancelChore"
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|service
 operator|.
 name|scheduleChore
@@ -1158,11 +1166,15 @@ operator|==
 literal|0
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|service
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -1369,6 +1381,8 @@ argument_list|,
 name|corePoolSize
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|assertEquals
 argument_list|(
 name|corePoolSize
@@ -1379,6 +1393,15 @@ name|getCorePoolSize
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|shutdownService
+argument_list|(
+name|customInit
+argument_list|)
+expr_stmt|;
+block|}
 name|ChoreService
 name|defaultInit
 init|=
@@ -1388,6 +1411,8 @@ argument_list|(
 literal|"testChoreServiceConstruction_default"
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|assertEquals
 argument_list|(
 name|defaultCorePoolSize
@@ -1398,6 +1423,15 @@ name|getCorePoolSize
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|shutdownService
+argument_list|(
+name|defaultInit
+argument_list|)
+expr_stmt|;
+block|}
 name|ChoreService
 name|invalidInit
 init|=
@@ -1410,6 +1444,8 @@ operator|-
 literal|10
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|assertEquals
 argument_list|(
 name|defaultCorePoolSize
@@ -1420,21 +1456,15 @@ name|getCorePoolSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|shutdownService
-argument_list|(
-name|customInit
-argument_list|)
-expr_stmt|;
-name|shutdownService
-argument_list|(
-name|defaultInit
-argument_list|)
-expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|invalidInit
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -1484,6 +1514,8 @@ argument_list|,
 name|period
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|service
 operator|.
 name|scheduleChore
@@ -1531,11 +1563,15 @@ operator|==
 literal|21
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|service
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|public
 name|void
@@ -1617,6 +1653,8 @@ argument_list|,
 name|period
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|service
 operator|.
 name|scheduleChore
@@ -1738,11 +1776,15 @@ operator|==
 literal|26
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|service
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -1775,6 +1817,8 @@ argument_list|,
 name|initialCorePoolSize
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|assertEquals
 argument_list|(
 literal|"Should have a core pool of size: "
@@ -1948,11 +1992,15 @@ name|getCorePoolSize
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|service
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -1991,6 +2039,8 @@ name|chorePeriod
 init|=
 literal|100
 decl_stmt|;
+try|try
+block|{
 comment|// Slow chores always miss their start time and thus the core pool size should be at least as
 comment|// large as the number of running slow chores
 name|SlowChore
@@ -2397,11 +2447,15 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|service
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -2438,6 +2492,8 @@ name|sleepTime
 init|=
 literal|5
 decl_stmt|;
+try|try
+block|{
 name|DoNothingChore
 name|dn1
 init|=
@@ -2629,11 +2685,15 @@ name|getNumberOfScheduledChores
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|service
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -2672,6 +2732,8 @@ literal|5
 operator|*
 name|period
 decl_stmt|;
+try|try
+block|{
 comment|// Slow chores sleep for a length of time LONGER than their period. Thus, SlowChores
 comment|// ALWAYS miss their start time since their execution takes longer than their period
 name|SlowChore
@@ -2857,11 +2919,15 @@ name|getNumberOfChoresMissingStartTime
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|service
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * ChoreServices should never have a core pool size that exceeds the number of chores that have    * been scheduled with the service. For example, if 4 ScheduledChores are scheduled with a    * ChoreService, the number of threads in the ChoreService's core pool should never exceed 4    */
 annotation|@
@@ -2901,6 +2967,8 @@ literal|5
 operator|*
 name|period
 decl_stmt|;
+try|try
+block|{
 comment|// Slow chores sleep for a length of time LONGER than their period. Thus, SlowChores
 comment|// ALWAYS miss their start time since their execution takes longer than their period.
 comment|// Chores that miss their start time will trigger the onChoreMissedStartTime callback
@@ -3126,11 +3194,15 @@ name|getNumberOfScheduledChores
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|service
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -3187,6 +3259,8 @@ argument_list|,
 name|period
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|assertFalse
 argument_list|(
 name|chore
@@ -3372,6 +3446,9 @@ operator|==
 literal|null
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|service1
@@ -3382,6 +3459,7 @@ argument_list|(
 name|service2
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -3430,6 +3508,8 @@ argument_list|,
 name|period
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|assertFalse
 argument_list|(
 name|chore
@@ -3544,11 +3624,15 @@ name|getCountOfChoreCalls
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|service
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -3600,6 +3684,8 @@ name|delta
 init|=
 literal|10
 decl_stmt|;
+try|try
+block|{
 name|ScheduledChore
 name|chore1_group1
 init|=
@@ -3908,11 +3994,15 @@ name|isScheduled
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|service
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -3976,6 +4066,8 @@ argument_list|,
 name|period
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|assertTrue
 argument_list|(
 name|service
@@ -4030,11 +4122,15 @@ name|isScheduled
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|service
 argument_list|)
 expr_stmt|;
+block|}
 name|assertFalse
 argument_list|(
 name|successChore1
@@ -4136,6 +4232,8 @@ argument_list|,
 name|sleep
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|assertTrue
 argument_list|(
 name|service
@@ -4227,11 +4325,15 @@ name|isTerminated
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|service
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -4328,6 +4430,8 @@ argument_list|,
 name|period
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|assertTrue
 argument_list|(
 name|service
@@ -4382,11 +4486,15 @@ name|isScheduled
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|shutdownService
 argument_list|(
 name|service
 argument_list|)
 expr_stmt|;
+block|}
 name|assertFalse
 argument_list|(
 name|service

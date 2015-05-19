@@ -766,6 +766,7 @@ specifier|public
 class|class
 name|TestAtomicOperation
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

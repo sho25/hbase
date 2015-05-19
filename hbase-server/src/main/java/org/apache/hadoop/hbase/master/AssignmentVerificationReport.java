@@ -222,7 +222,7 @@ specifier|public
 class|class
 name|AssignmentVerificationReport
 block|{
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Log

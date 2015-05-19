@@ -365,6 +365,7 @@ name|AbstractRpcClient
 implements|implements
 name|RpcClient
 block|{
+comment|// Log level is being changed in tests
 specifier|public
 specifier|static
 specifier|final

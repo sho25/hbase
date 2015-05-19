@@ -95,7 +95,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|CellUtil
 import|;
 end_import
 
@@ -810,7 +810,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|CellComparator
+name|CellUtil
 operator|.
 name|equals
 argument_list|(
@@ -1788,7 +1788,7 @@ continue|continue;
 block|}
 if|if
 condition|(
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 operator|.

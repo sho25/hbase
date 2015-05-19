@@ -169,6 +169,7 @@ argument_list|<
 name|BaseLogCleanerDelegate
 argument_list|>
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

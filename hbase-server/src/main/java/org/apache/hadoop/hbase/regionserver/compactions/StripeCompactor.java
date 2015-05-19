@@ -829,6 +829,16 @@ literal|true
 expr_stmt|;
 block|}
 specifier|final
+name|boolean
+name|needMvcc
+init|=
+name|fd
+operator|.
+name|maxMVCCReadpoint
+operator|>
+literal|0
+decl_stmt|;
+specifier|final
 name|Compression
 operator|.
 name|Algorithm
@@ -839,7 +849,7 @@ operator|.
 name|getFamily
 argument_list|()
 operator|.
-name|getCompactionCompression
+name|getCompactionCompressionType
 argument_list|()
 decl_stmt|;
 name|StripeMultiFileWriter
@@ -875,7 +885,7 @@ name|compression
 argument_list|,
 literal|true
 argument_list|,
-literal|true
+name|needMvcc
 argument_list|,
 name|fd
 operator|.

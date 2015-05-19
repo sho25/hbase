@@ -771,7 +771,7 @@ specifier|public
 class|class
 name|TestWALFactory
 block|{
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -1920,7 +1920,9 @@ name|htd
 init|=
 operator|new
 name|HTableDescriptor
-argument_list|()
+argument_list|(
+name|tableName
+argument_list|)
 decl_stmt|;
 name|htd
 operator|.
@@ -2823,7 +2825,9 @@ name|htd
 init|=
 operator|new
 name|HTableDescriptor
-argument_list|()
+argument_list|(
+name|tableName
+argument_list|)
 decl_stmt|;
 name|htd
 operator|.
@@ -4401,7 +4405,9 @@ name|htd
 init|=
 operator|new
 name|HTableDescriptor
-argument_list|()
+argument_list|(
+name|tableName
+argument_list|)
 decl_stmt|;
 name|htd
 operator|.

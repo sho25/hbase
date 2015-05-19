@@ -81,6 +81,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseInterfaceAudience
 import|;
 end_import
@@ -990,6 +1004,11 @@ name|scan
 parameter_list|)
 throws|throws
 name|IOException
+function_decl|;
+comment|/** The comparator to be used with the region */
+name|CellComparator
+name|getCellCompartor
+parameter_list|()
 function_decl|;
 comment|/**    * Perform one or more increment operations on a row.    * @param increment    * @param nonceGroup    * @param nonce    * @return result of the operation    * @throws IOException    */
 name|Result

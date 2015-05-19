@@ -459,6 +459,8 @@ specifier|public
 class|class
 name|TestFastFail
 block|{
+specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -467,8 +469,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|getClass
-argument_list|()
+name|TestFastFail
+operator|.
+name|class
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -530,7 +533,7 @@ specifier|final
 name|int
 name|SLEEPTIME
 init|=
-literal|1000
+literal|5000
 decl_stmt|;
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
@@ -876,7 +879,7 @@ comment|/**      * The number of threads that are going to perform actions again
 name|int
 name|nThreads
 init|=
-literal|200
+literal|100
 decl_stmt|;
 name|ExecutorService
 name|service
@@ -1048,11 +1051,10 @@ name|nextInt
 argument_list|()
 argument_list|)
 operator|%
-literal|100
+literal|250
 argument_list|)
 expr_stmt|;
-comment|// Add some jitter
-comment|// here
+comment|// Add some jitter here
 name|byte
 index|[]
 name|row

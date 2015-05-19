@@ -35796,25 +35796,25 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional uint32 number_of_requests = 1;
-comment|/**      *<code>optional uint32 number_of_requests = 1;</code>      *      *<pre>      ** Number of requests since last report.       *</pre>      */
+comment|// optional uint64 number_of_requests = 1;
+comment|/**      *<code>optional uint64 number_of_requests = 1;</code>      *      *<pre>      ** Number of requests since last report.       *</pre>      */
 name|boolean
 name|hasNumberOfRequests
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional uint32 number_of_requests = 1;</code>      *      *<pre>      ** Number of requests since last report.       *</pre>      */
-name|int
+comment|/**      *<code>optional uint64 number_of_requests = 1;</code>      *      *<pre>      ** Number of requests since last report.       *</pre>      */
+name|long
 name|getNumberOfRequests
 parameter_list|()
 function_decl|;
-comment|// optional uint32 total_number_of_requests = 2;
-comment|/**      *<code>optional uint32 total_number_of_requests = 2;</code>      *      *<pre>      ** Total Number of requests from the start of the region server.       *</pre>      */
+comment|// optional uint64 total_number_of_requests = 2;
+comment|/**      *<code>optional uint64 total_number_of_requests = 2;</code>      *      *<pre>      ** Total Number of requests from the start of the region server.       *</pre>      */
 name|boolean
 name|hasTotalNumberOfRequests
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional uint32 total_number_of_requests = 2;</code>      *      *<pre>      ** Total Number of requests from the start of the region server.       *</pre>      */
-name|int
+comment|/**      *<code>optional uint64 total_number_of_requests = 2;</code>      *      *<pre>      ** Total Number of requests from the start of the region server.       *</pre>      */
+name|long
 name|getTotalNumberOfRequests
 parameter_list|()
 function_decl|;
@@ -36494,7 +36494,7 @@ name|numberOfRequests_
 operator|=
 name|input
 operator|.
-name|readUInt32
+name|readUInt64
 argument_list|()
 expr_stmt|;
 break|break;
@@ -36511,7 +36511,7 @@ name|totalNumberOfRequests_
 operator|=
 name|input
 operator|.
-name|readUInt32
+name|readUInt64
 argument_list|()
 expr_stmt|;
 break|break;
@@ -37304,7 +37304,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional uint32 number_of_requests = 1;
+comment|// optional uint64 number_of_requests = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -37314,10 +37314,10 @@ init|=
 literal|1
 decl_stmt|;
 specifier|private
-name|int
+name|long
 name|numberOfRequests_
 decl_stmt|;
-comment|/**      *<code>optional uint32 number_of_requests = 1;</code>      *      *<pre>      ** Number of requests since last report.       *</pre>      */
+comment|/**      *<code>optional uint64 number_of_requests = 1;</code>      *      *<pre>      ** Number of requests since last report.       *</pre>      */
 specifier|public
 name|boolean
 name|hasNumberOfRequests
@@ -37335,9 +37335,9 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional uint32 number_of_requests = 1;</code>      *      *<pre>      ** Number of requests since last report.       *</pre>      */
+comment|/**      *<code>optional uint64 number_of_requests = 1;</code>      *      *<pre>      ** Number of requests since last report.       *</pre>      */
 specifier|public
-name|int
+name|long
 name|getNumberOfRequests
 parameter_list|()
 block|{
@@ -37345,7 +37345,7 @@ return|return
 name|numberOfRequests_
 return|;
 block|}
-comment|// optional uint32 total_number_of_requests = 2;
+comment|// optional uint64 total_number_of_requests = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -37355,10 +37355,10 @@ init|=
 literal|2
 decl_stmt|;
 specifier|private
-name|int
+name|long
 name|totalNumberOfRequests_
 decl_stmt|;
-comment|/**      *<code>optional uint32 total_number_of_requests = 2;</code>      *      *<pre>      ** Total Number of requests from the start of the region server.       *</pre>      */
+comment|/**      *<code>optional uint64 total_number_of_requests = 2;</code>      *      *<pre>      ** Total Number of requests from the start of the region server.       *</pre>      */
 specifier|public
 name|boolean
 name|hasTotalNumberOfRequests
@@ -37376,9 +37376,9 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional uint32 total_number_of_requests = 2;</code>      *      *<pre>      ** Total Number of requests from the start of the region server.       *</pre>      */
+comment|/**      *<code>optional uint64 total_number_of_requests = 2;</code>      *      *<pre>      ** Total Number of requests from the start of the region server.       *</pre>      */
 specifier|public
-name|int
+name|long
 name|getTotalNumberOfRequests
 parameter_list|()
 block|{
@@ -38216,11 +38216,11 @@ parameter_list|()
 block|{
 name|numberOfRequests_
 operator|=
-literal|0
+literal|0L
 expr_stmt|;
 name|totalNumberOfRequests_
 operator|=
-literal|0
+literal|0L
 expr_stmt|;
 name|usedHeapMB_
 operator|=
@@ -38509,7 +38509,7 @@ condition|)
 block|{
 name|output
 operator|.
-name|writeUInt32
+name|writeUInt64
 argument_list|(
 literal|1
 argument_list|,
@@ -38532,7 +38532,7 @@ condition|)
 block|{
 name|output
 operator|.
-name|writeUInt32
+name|writeUInt64
 argument_list|(
 literal|2
 argument_list|,
@@ -38840,7 +38840,7 @@ name|protobuf
 operator|.
 name|CodedOutputStream
 operator|.
-name|computeUInt32Size
+name|computeUInt64Size
 argument_list|(
 literal|1
 argument_list|,
@@ -38871,7 +38871,7 @@ name|protobuf
 operator|.
 name|CodedOutputStream
 operator|.
-name|computeUInt32Size
+name|computeUInt64Size
 argument_list|(
 literal|2
 argument_list|,
@@ -39760,8 +39760,11 @@ operator|*
 name|hash
 operator|)
 operator|+
+name|hashLong
+argument_list|(
 name|getNumberOfRequests
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 if|if
@@ -39788,8 +39791,11 @@ operator|*
 name|hash
 operator|)
 operator|+
+name|hashLong
+argument_list|(
 name|getTotalNumberOfRequests
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 if|if
@@ -40908,7 +40914,7 @@ argument_list|()
 expr_stmt|;
 name|numberOfRequests_
 operator|=
-literal|0
+literal|0L
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -40921,7 +40927,7 @@ operator|)
 expr_stmt|;
 name|totalNumberOfRequests_
 operator|=
-literal|0
+literal|0L
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -42722,12 +42728,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional uint32 number_of_requests = 1;
+comment|// optional uint64 number_of_requests = 1;
 specifier|private
-name|int
+name|long
 name|numberOfRequests_
 decl_stmt|;
-comment|/**        *<code>optional uint32 number_of_requests = 1;</code>        *        *<pre>        ** Number of requests since last report.         *</pre>        */
+comment|/**        *<code>optional uint64 number_of_requests = 1;</code>        *        *<pre>        ** Number of requests since last report.         *</pre>        */
 specifier|public
 name|boolean
 name|hasNumberOfRequests
@@ -42745,9 +42751,9 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional uint32 number_of_requests = 1;</code>        *        *<pre>        ** Number of requests since last report.         *</pre>        */
+comment|/**        *<code>optional uint64 number_of_requests = 1;</code>        *        *<pre>        ** Number of requests since last report.         *</pre>        */
 specifier|public
-name|int
+name|long
 name|getNumberOfRequests
 parameter_list|()
 block|{
@@ -42755,12 +42761,12 @@ return|return
 name|numberOfRequests_
 return|;
 block|}
-comment|/**        *<code>optional uint32 number_of_requests = 1;</code>        *        *<pre>        ** Number of requests since last report.         *</pre>        */
+comment|/**        *<code>optional uint64 number_of_requests = 1;</code>        *        *<pre>        ** Number of requests since last report.         *</pre>        */
 specifier|public
 name|Builder
 name|setNumberOfRequests
 parameter_list|(
-name|int
+name|long
 name|value
 parameter_list|)
 block|{
@@ -42779,7 +42785,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional uint32 number_of_requests = 1;</code>        *        *<pre>        ** Number of requests since last report.         *</pre>        */
+comment|/**        *<code>optional uint64 number_of_requests = 1;</code>        *        *<pre>        ** Number of requests since last report.         *</pre>        */
 specifier|public
 name|Builder
 name|clearNumberOfRequests
@@ -42796,7 +42802,7 @@ operator|)
 expr_stmt|;
 name|numberOfRequests_
 operator|=
-literal|0
+literal|0L
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -42805,12 +42811,12 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 total_number_of_requests = 2;
+comment|// optional uint64 total_number_of_requests = 2;
 specifier|private
-name|int
+name|long
 name|totalNumberOfRequests_
 decl_stmt|;
-comment|/**        *<code>optional uint32 total_number_of_requests = 2;</code>        *        *<pre>        ** Total Number of requests from the start of the region server.         *</pre>        */
+comment|/**        *<code>optional uint64 total_number_of_requests = 2;</code>        *        *<pre>        ** Total Number of requests from the start of the region server.         *</pre>        */
 specifier|public
 name|boolean
 name|hasTotalNumberOfRequests
@@ -42828,9 +42834,9 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional uint32 total_number_of_requests = 2;</code>        *        *<pre>        ** Total Number of requests from the start of the region server.         *</pre>        */
+comment|/**        *<code>optional uint64 total_number_of_requests = 2;</code>        *        *<pre>        ** Total Number of requests from the start of the region server.         *</pre>        */
 specifier|public
-name|int
+name|long
 name|getTotalNumberOfRequests
 parameter_list|()
 block|{
@@ -42838,12 +42844,12 @@ return|return
 name|totalNumberOfRequests_
 return|;
 block|}
-comment|/**        *<code>optional uint32 total_number_of_requests = 2;</code>        *        *<pre>        ** Total Number of requests from the start of the region server.         *</pre>        */
+comment|/**        *<code>optional uint64 total_number_of_requests = 2;</code>        *        *<pre>        ** Total Number of requests from the start of the region server.         *</pre>        */
 specifier|public
 name|Builder
 name|setTotalNumberOfRequests
 parameter_list|(
-name|int
+name|long
 name|value
 parameter_list|)
 block|{
@@ -42862,7 +42868,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional uint32 total_number_of_requests = 2;</code>        *        *<pre>        ** Total Number of requests from the start of the region server.         *</pre>        */
+comment|/**        *<code>optional uint64 total_number_of_requests = 2;</code>        *        *<pre>        ** Total Number of requests from the start of the region server.         *</pre>        */
 specifier|public
 name|Builder
 name|clearTotalNumberOfRequests
@@ -42879,7 +42885,7 @@ operator|)
 expr_stmt|;
 name|totalNumberOfRequests_
 operator|=
-literal|0
+literal|0L
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -70200,9 +70206,9 @@ literal|"ue\030\003 \002(\r\022 \n\030timeStampOfLastShippedOp\030\004 \002"
 operator|+
 literal|"(\004\022\026\n\016replicationLag\030\005 \002(\004\"\346\002\n\nServerLoa"
 operator|+
-literal|"d\022\032\n\022number_of_requests\030\001 \001(\r\022 \n\030total_n"
+literal|"d\022\032\n\022number_of_requests\030\001 \001(\004\022 \n\030total_n"
 operator|+
-literal|"umber_of_requests\030\002 \001(\r\022\024\n\014used_heap_MB\030"
+literal|"umber_of_requests\030\002 \001(\004\022\024\n\014used_heap_MB\030"
 operator|+
 literal|"\003 \001(\r\022\023\n\013max_heap_MB\030\004 \001(\r\022!\n\014region_loa"
 block|,

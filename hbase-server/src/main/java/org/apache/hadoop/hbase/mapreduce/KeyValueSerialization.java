@@ -89,6 +89,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|KeyValueUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|serializer
@@ -246,7 +260,7 @@ name|IOException
 block|{
 comment|// I can't overwrite the passed in KV, not from a proto kv, not just yet.  TODO
 return|return
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|create
 argument_list|(
@@ -346,7 +360,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|write
 argument_list|(

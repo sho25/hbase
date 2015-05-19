@@ -722,6 +722,8 @@ specifier|public
 class|class
 name|TestCoprocessorScanPolicy
 block|{
+specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -730,8 +732,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|getClass
-argument_list|()
+name|TestCoprocessorScanPolicy
+operator|.
+name|class
 argument_list|)
 decl_stmt|;
 specifier|protected

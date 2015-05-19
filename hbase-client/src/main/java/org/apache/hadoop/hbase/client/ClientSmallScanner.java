@@ -19,33 +19,27 @@ end_package
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|io
+name|google
 operator|.
-name|IOException
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
 import|;
 end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|io
+name|google
 operator|.
-name|InterruptedIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
+name|protobuf
 operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ExecutorService
+name|ServiceException
 import|;
 end_import
 
@@ -303,27 +297,33 @@ end_import
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|io
 operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
+name|IOException
 import|;
 end_import
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|io
 operator|.
-name|protobuf
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
 operator|.
-name|ServiceException
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ExecutorService
 import|;
 end_import
 
@@ -340,9 +340,10 @@ specifier|public
 class|class
 name|ClientSmallScanner
 extends|extends
-name|ClientScanner
+name|ClientSimpleScanner
 block|{
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -351,10 +352,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|this
+name|ClientSmallScanner
 operator|.
-name|getClass
-argument_list|()
+name|class
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -972,6 +972,12 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+comment|// We need to update result metrics since we are overriding call()
+name|updateResultsMetrics
+argument_list|(
+name|results
+argument_list|)
+expr_stmt|;
 return|return
 name|results
 return|;

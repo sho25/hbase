@@ -153,22 +153,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|KVComparator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -211,8 +195,8 @@ literal|null
 decl_stmt|;
 specifier|private
 specifier|final
-name|KVComparator
-name|kvcomparator
+name|CellComparator
+name|cellComparator
 decl_stmt|;
 comment|// Flag for whether we're doing getclosest on a metaregion.
 specifier|private
@@ -249,7 +233,7 @@ comment|/**    * @param c    * @param kv Presume first on row: i.e. empty column
 name|GetClosestRowBeforeTracker
 parameter_list|(
 specifier|final
-name|KVComparator
+name|CellComparator
 name|c
 parameter_list|,
 specifier|final
@@ -304,9 +288,9 @@ condition|)
 block|{
 name|l
 operator|=
-name|KeyValue
+name|Bytes
 operator|.
-name|getDelimiter
+name|searchDelimiterIndex
 argument_list|(
 name|kv
 operator|.
@@ -362,7 +346,7 @@ name|ttl
 expr_stmt|;
 name|this
 operator|.
-name|kvcomparator
+name|cellComparator
 operator|=
 name|c
 expr_stmt|;
@@ -431,7 +415,7 @@ argument_list|>
 argument_list|(
 name|this
 operator|.
-name|kvcomparator
+name|cellComparator
 argument_list|)
 expr_stmt|;
 name|this
@@ -510,7 +494,7 @@ operator|||
 operator|(
 name|this
 operator|.
-name|kvcomparator
+name|cellComparator
 operator|.
 name|compareRows
 argument_list|(
@@ -525,7 +509,7 @@ literal|0
 operator|&&
 name|this
 operator|.
-name|kvcomparator
+name|cellComparator
 operator|.
 name|compareRows
 argument_list|(
@@ -962,7 +946,7 @@ block|{
 return|return
 name|this
 operator|.
-name|kvcomparator
+name|cellComparator
 operator|.
 name|compareRows
 argument_list|(

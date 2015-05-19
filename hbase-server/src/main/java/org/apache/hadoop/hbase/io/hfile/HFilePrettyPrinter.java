@@ -459,20 +459,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|KeyValueUtil
 import|;
 end_import
@@ -571,7 +557,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|BloomFilterFactory
+name|BloomFilterUtil
 import|;
 end_import
 
@@ -587,7 +573,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|ByteBloomFilter
+name|BloomFilterFactory
 import|;
 end_import
 
@@ -2146,22 +2132,11 @@ name|result
 init|=
 name|CellComparator
 operator|.
+name|COMPARATOR
+operator|.
 name|compareRows
 argument_list|(
 name|cell
-operator|.
-name|getRowArray
-argument_list|()
-argument_list|,
-name|cell
-operator|.
-name|getRowOffset
-argument_list|()
-argument_list|,
-name|cell
-operator|.
-name|getRowLength
-argument_list|()
 argument_list|,
 name|row
 argument_list|,
@@ -2356,6 +2331,8 @@ block|{
 if|if
 condition|(
 name|CellComparator
+operator|.
+name|COMPARATOR
 operator|.
 name|compareRows
 argument_list|(
@@ -2962,7 +2939,7 @@ argument_list|()
 operator|.
 name|replaceAll
 argument_list|(
-name|ByteBloomFilter
+name|BloomFilterUtil
 operator|.
 name|STATS_RECORD_SEP
 argument_list|,
@@ -3047,7 +3024,7 @@ argument_list|()
 operator|.
 name|replaceAll
 argument_list|(
-name|ByteBloomFilter
+name|BloomFilterUtil
 operator|.
 name|STATS_RECORD_SEP
 argument_list|,
@@ -3225,7 +3202,7 @@ name|prevCell
 operator|!=
 literal|null
 operator|&&
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 operator|.

@@ -550,6 +550,26 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * Report that a {@code SinkPeer} successfully replicated a chunk of data.    *    * @param sinkPeer    *          The SinkPeer that had a failed replication attempt on it    */
+specifier|public
+name|void
+name|reportSinkSuccess
+parameter_list|(
+name|SinkPeer
+name|sinkPeer
+parameter_list|)
+block|{
+name|badReportCounts
+operator|.
+name|remove
+argument_list|(
+name|sinkPeer
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|void
 name|chooseSinks
 parameter_list|()

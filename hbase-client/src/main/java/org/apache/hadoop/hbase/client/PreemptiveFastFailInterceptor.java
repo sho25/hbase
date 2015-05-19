@@ -347,7 +347,7 @@ name|PreemptiveFastFailInterceptor
 extends|extends
 name|RetryingCallerInterceptor
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log

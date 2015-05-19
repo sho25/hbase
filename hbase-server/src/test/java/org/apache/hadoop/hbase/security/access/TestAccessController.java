@@ -12306,6 +12306,8 @@ name|USER_ADMIN
 argument_list|,
 name|USER_CREATE
 argument_list|,
+name|USER_OWNER
+argument_list|,
 name|TABLE_ADMIN
 argument_list|)
 expr_stmt|;
@@ -12329,6 +12331,8 @@ argument_list|,
 name|USER_ADMIN
 argument_list|,
 name|USER_CREATE
+argument_list|,
+name|USER_OWNER
 argument_list|,
 name|TABLE_ADMIN
 argument_list|)
@@ -12430,6 +12434,8 @@ argument_list|,
 name|USER_ADMIN
 argument_list|,
 name|USER_CREATE
+argument_list|,
+name|USER_OWNER
 argument_list|,
 name|USER_RW
 argument_list|,

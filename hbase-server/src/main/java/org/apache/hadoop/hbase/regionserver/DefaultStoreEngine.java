@@ -91,7 +91,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseInterfaceAudience
+name|CellComparator
 import|;
 end_import
 
@@ -105,9 +105,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|KVComparator
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -356,7 +354,7 @@ parameter_list|,
 name|Store
 name|store
 parameter_list|,
-name|KVComparator
+name|CellComparator
 name|kvComparator
 parameter_list|)
 throws|throws

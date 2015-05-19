@@ -57,9 +57,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|Cell
 import|;
 end_import
 
@@ -74,8 +72,22 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|KVComparator
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -170,7 +182,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Bloom filter implementation built on top of {@link ByteBloomFilter},  * encapsulating a set of fixed-size Bloom filters written out at the time of  * {@link org.apache.hadoop.hbase.io.hfile.HFile} generation into the data  * block stream, and loaded on demand at query time. This class only provides  * reading capabilities.  */
+comment|/**  * A Bloom filter implementation built on top of {@link BloomFilterChunk},  * encapsulating a set of fixed-size Bloom filters written out at the time of  * {@link org.apache.hadoop.hbase.io.hfile.HFile} generation into the data  * block stream, and loaded on demand at query time. This class only provides  * reading capabilities.  */
 end_comment
 
 begin_class
@@ -280,6 +292,29 @@ operator|.
 name|readInt
 argument_list|()
 expr_stmt|;
+name|byte
+index|[]
+name|comparatorClassName
+init|=
+name|Bytes
+operator|.
+name|readByteArray
+argument_list|(
+name|meta
+argument_list|)
+decl_stmt|;
+comment|// The writer would have return 0 as the vint length for the case of
+comment|// Bytes.BYTES_RAWCOMPARATOR.  In such cases do not initialize comparator, it can be
+comment|// null
+if|if
+condition|(
+name|comparatorClassName
+operator|.
+name|length
+operator|!=
+literal|0
+condition|)
+block|{
 name|comparator
 operator|=
 name|FixedFileTrailer
@@ -290,15 +325,11 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|Bytes
-operator|.
-name|readByteArray
-argument_list|(
-name|meta
-argument_list|)
+name|comparatorClassName
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 name|hash
 operator|=
 name|Hash
@@ -325,6 +356,7 @@ name|hashType
 argument_list|)
 throw|;
 block|}
+comment|// We will pass null for ROW block
 name|index
 operator|=
 operator|new
@@ -369,9 +401,6 @@ parameter_list|)
 block|{
 comment|// We try to store the result in this variable so we can update stats for
 comment|// testing, but when an error happens, we log a message and return.
-name|boolean
-name|result
-decl_stmt|;
 name|int
 name|block
 init|=
@@ -385,6 +414,40 @@ name|keyOffset
 argument_list|,
 name|keyLength
 argument_list|)
+decl_stmt|;
+return|return
+name|checkContains
+argument_list|(
+name|key
+argument_list|,
+name|keyOffset
+argument_list|,
+name|keyLength
+argument_list|,
+name|block
+argument_list|)
+return|;
+block|}
+specifier|private
+name|boolean
+name|checkContains
+parameter_list|(
+name|byte
+index|[]
+name|key
+parameter_list|,
+name|int
+name|keyOffset
+parameter_list|,
+name|int
+name|keyLength
+parameter_list|,
+name|int
+name|block
+parameter_list|)
+block|{
+name|boolean
+name|result
 decl_stmt|;
 if|if
 condition|(
@@ -481,7 +544,7 @@ argument_list|()
 decl_stmt|;
 name|result
 operator|=
-name|ByteBloomFilter
+name|BloomFilterUtil
 operator|.
 name|contains
 argument_list|(
@@ -542,6 +605,64 @@ return|return
 name|result
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|contains
+parameter_list|(
+name|Cell
+name|keyCell
+parameter_list|,
+name|ByteBuffer
+name|bloom
+parameter_list|)
+block|{
+comment|// We try to store the result in this variable so we can update stats for
+comment|// testing, but when an error happens, we log a message and return.
+name|int
+name|block
+init|=
+name|index
+operator|.
+name|rootBlockContainingKey
+argument_list|(
+name|keyCell
+argument_list|)
+decl_stmt|;
+comment|// TODO : Will be true KeyValue for now.
+comment|// When Offheap comes in we can add an else condition to work
+comment|// on the bytes in offheap
+name|KeyValue
+name|kvKey
+init|=
+operator|(
+name|KeyValue
+operator|)
+name|keyCell
+decl_stmt|;
+return|return
+name|checkContains
+argument_list|(
+name|kvKey
+operator|.
+name|getBuffer
+argument_list|()
+argument_list|,
+name|kvKey
+operator|.
+name|getKeyOffset
+argument_list|()
+argument_list|,
+name|kvKey
+operator|.
+name|getKeyLength
+argument_list|()
+argument_list|,
+name|block
+argument_list|)
+return|;
+block|}
 specifier|public
 name|boolean
 name|supportsAutoLoading
@@ -558,17 +679,6 @@ parameter_list|()
 block|{
 return|return
 name|numChunks
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|KVComparator
-name|getComparator
-parameter_list|()
-block|{
-return|return
-name|comparator
 return|;
 block|}
 specifier|public
@@ -755,7 +865,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-name|ByteBloomFilter
+name|BloomFilterUtil
 operator|.
 name|formatStats
 argument_list|(
@@ -767,7 +877,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-name|ByteBloomFilter
+name|BloomFilterUtil
 operator|.
 name|STATS_RECORD_SEP
 operator|+
@@ -780,10 +890,17 @@ name|sb
 operator|.
 name|append
 argument_list|(
-name|ByteBloomFilter
+name|BloomFilterUtil
 operator|.
 name|STATS_RECORD_SEP
 operator|+
+operator|(
+operator|(
+name|comparator
+operator|!=
+literal|null
+operator|)
+condition|?
 literal|"Comparator: "
 operator|+
 name|comparator
@@ -793,6 +910,19 @@ argument_list|()
 operator|.
 name|getSimpleName
 argument_list|()
+else|:
+literal|"Comparator: "
+operator|+
+name|Bytes
+operator|.
+name|BYTES_RAWCOMPARATOR
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+operator|)
 argument_list|)
 expr_stmt|;
 return|return

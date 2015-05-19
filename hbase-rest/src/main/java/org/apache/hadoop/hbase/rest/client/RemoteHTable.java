@@ -3939,6 +3939,21 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|renewLease
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"renewLease() not supported"
+argument_list|)
+throw|;
+block|}
 block|}
 annotation|@
 name|Override

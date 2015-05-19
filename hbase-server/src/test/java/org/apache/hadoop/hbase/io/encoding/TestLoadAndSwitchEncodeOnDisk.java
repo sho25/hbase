@@ -531,7 +531,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|modifyColumn
+name|modifyColumnFamily
 argument_list|(
 name|TABLE
 argument_list|,

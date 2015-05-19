@@ -115,7 +115,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|CellComparator
 import|;
 end_import
 
@@ -166,9 +166,7 @@ decl_stmt|;
 name|CellSkipListSet
 parameter_list|(
 specifier|final
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 name|c
 parameter_list|)
 block|{

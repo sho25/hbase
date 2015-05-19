@@ -141,7 +141,7 @@ name|TimeToLiveHFileCleaner
 extends|extends
 name|BaseHFileCleanerDelegate
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log

@@ -930,7 +930,8 @@ name|CORE_POOL_SIZE
 init|=
 literal|1
 decl_stmt|;
-specifier|protected
+specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -939,13 +940,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|this
+name|FullyQualifiedRow
 operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getName
-argument_list|()
+name|class
 argument_list|)
 decl_stmt|;
 annotation|@

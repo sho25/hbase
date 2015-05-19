@@ -229,6 +229,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -244,22 +258,6 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
-operator|.
-name|KVComparator
 import|;
 end_import
 
@@ -504,10 +502,11 @@ block|{
 comment|/** Needed doing lookup on blocks. */
 specifier|private
 specifier|final
-name|KVComparator
+name|CellComparator
 name|comparator
 decl_stmt|;
 comment|// Root-level data.
+comment|// TODO : Convert these to Cells (ie) KeyValue.KeyOnlyKV
 specifier|private
 name|byte
 index|[]
@@ -583,7 +582,7 @@ specifier|public
 name|BlockIndexReader
 parameter_list|(
 specifier|final
-name|KVComparator
+name|CellComparator
 name|c
 parameter_list|,
 specifier|final
@@ -613,7 +612,7 @@ specifier|public
 name|BlockIndexReader
 parameter_list|(
 specifier|final
-name|KVComparator
+name|CellComparator
 name|c
 parameter_list|,
 specifier|final
@@ -621,6 +620,7 @@ name|int
 name|treeLevel
 parameter_list|)
 block|{
+comment|// Can be null for METAINDEX block
 name|comparator
 operator|=
 name|c
@@ -1455,7 +1455,10 @@ return|return
 name|rootCount
 return|;
 block|}
-comment|/**      * Finds the root-level index block containing the given key.      *      * @param key      *          Key to find      * @return Offset of block containing<code>key</code> (between 0 and the      *         number of blocks - 1) or -1 if this file does not contain the      *         request.      */
+comment|/**      * Finds the root-level index block containing the given key.      *       * @param key      *          Key to find      * @param comp      *          the comparator to be used      * @return Offset of block containing<code>key</code> (between 0 and the      *         number of blocks - 1) or -1 if this file does not contain the      *         request.      */
+comment|// When we want to find the meta index block or bloom block for ROW bloom
+comment|// type Bytes.BYTES_RAWCOMPARATOR would be enough. For the ROW_COL bloom case we need the
+comment|// CellComparator.
 specifier|public
 name|int
 name|rootBlockContainingKey
@@ -1470,6 +1473,9 @@ name|offset
 parameter_list|,
 name|int
 name|length
+parameter_list|,
+name|CellComparator
+name|comp
 parameter_list|)
 block|{
 name|int
@@ -1487,7 +1493,7 @@ name|offset
 argument_list|,
 name|length
 argument_list|,
-name|comparator
+name|comp
 argument_list|)
 decl_stmt|;
 comment|// pos is between -(blockKeys.length + 1) to blockKeys.length - 1, see
@@ -1540,6 +1546,40 @@ operator|-
 literal|1
 return|;
 block|}
+comment|/**      * Finds the root-level index block containing the given key.      *      * @param key      *          Key to find      * @return Offset of block containing<code>key</code> (between 0 and the      *         number of blocks - 1) or -1 if this file does not contain the      *         request.      */
+comment|// When we want to find the meta index block or bloom block for ROW bloom
+comment|// type
+comment|// Bytes.BYTES_RAWCOMPARATOR would be enough. For the ROW_COL bloom case we
+comment|// need the CellComparator.
+specifier|public
+name|int
+name|rootBlockContainingKey
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|key
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
+parameter_list|)
+block|{
+return|return
+name|rootBlockContainingKey
+argument_list|(
+name|key
+argument_list|,
+name|offset
+argument_list|,
+name|length
+argument_list|,
+name|comparator
+argument_list|)
+return|;
+block|}
 comment|/**      * Finds the root-level index block containing the given key.      *      * @param key      *          Key to find      */
 specifier|public
 name|int
@@ -1550,6 +1590,7 @@ name|Cell
 name|key
 parameter_list|)
 block|{
+comment|// Here the comparator should not be null as this happens for the root-level block
 name|int
 name|pos
 init|=
@@ -1768,6 +1809,7 @@ name|targetKeyRelOffset
 operator|-
 name|SECONDARY_INDEX_ENTRY_OVERHEAD
 decl_stmt|;
+comment|// TODO check whether we can make BB backed Cell here? So can avoid bytes copy.
 return|return
 name|ByteBufferUtils
 operator|.
@@ -1792,7 +1834,7 @@ parameter_list|,
 name|ByteBuffer
 name|nonRootIndex
 parameter_list|,
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|)
 block|{
@@ -1930,6 +1972,7 @@ comment|// we have to compare in this order, because the comparator order
 comment|// has special logic when the 'left side' is a special key.
 comment|// TODO make KeyOnlyKeyValue to be Buffer backed and avoid array() call. This has to be
 comment|// done after HBASE-12224& HBASE-12282
+comment|// TODO avaoid array call.
 name|nonRootIndexKV
 operator|.
 name|setKey
@@ -1954,7 +1997,7 @@ name|cmp
 init|=
 name|comparator
 operator|.
-name|compareOnlyKeyPortion
+name|compareKeyIgnoresMvcc
 argument_list|(
 name|key
 argument_list|,
@@ -2083,7 +2126,7 @@ parameter_list|,
 name|Cell
 name|key
 parameter_list|,
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|)
 block|{

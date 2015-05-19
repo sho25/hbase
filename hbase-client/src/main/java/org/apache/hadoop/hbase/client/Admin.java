@@ -63,6 +63,18 @@ name|java
 operator|.
 name|util
 operator|.
+name|concurrent
+operator|.
+name|Future
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|regex
 operator|.
 name|Pattern
@@ -710,8 +722,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Creates a new table but does not block and wait for it to come online. Asynchronous operation.    * To check if the table exists, use {@link #isTableAvailable} -- it is not safe to create an    * HTable instance to this table before it is available. Note : Avoid passing empty split key.    *    * @param desc table descriptor for table    * @throws IllegalArgumentException Bad table name, if the split keys are repeated and if the    * split key has empty byte array.    * @throws MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    */
-name|void
+comment|/**    * Creates a new table but does not block and wait for it to come online.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IllegalArgumentException Bad table name, if the split keys    *    are repeated and if the split key has empty byte array.    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
 name|createTableAsync
 parameter_list|(
 specifier|final
@@ -732,6 +747,19 @@ name|void
 name|deleteTable
 parameter_list|(
 specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Deletes the table but does not block and wait for it be completely removed.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async delete. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|deleteTableAsync
+parameter_list|(
 name|TableName
 name|tableName
 parameter_list|)
@@ -776,6 +804,24 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Truncate the table but does not block and wait for it be completely enabled. You can use    * Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param tableName name of table to delete    * @param preserveSplits true if the splits should be preserved    * @throws IOException if a remote or network exception occurs    * @return the result of the async truncate. You can use Future.get(long, TimeUnit) to wait on the    *         operation to complete.    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|truncateTableAsync
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|boolean
+name|preserveSplits
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Enable a table.  May timeout.  Use {@link #enableTableAsync(org.apache.hadoop.hbase.TableName)}    * and {@link #isTableEnabled(org.apache.hadoop.hbase.TableName)} instead. The table has to be in    * disabled state for it to be enabled.    *    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs There could be couple types of    * IOException TableNotFoundException means the table doesn't exist. TableNotDisabledException    * means the table isn't in disabled state.    * @see #isTableEnabled(org.apache.hadoop.hbase.TableName)    * @see #disableTable(org.apache.hadoop.hbase.TableName)    * @see #enableTableAsync(org.apache.hadoop.hbase.TableName)    */
 name|void
 name|enableTable
@@ -787,8 +833,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Brings a table on-line (enables it).  Method returns immediately though enable of table may    * take some time to complete, especially if the table is large (All regions are opened as part of    * enabling process).  Check {@link #isTableEnabled(org.apache.hadoop.hbase.TableName)} to learn    * when table is fully online.  If table is taking too long to online, check server logs.    *    * @param tableName    * @throws IOException    * @since 0.90.0    */
-name|void
+comment|/**    * Enable the table but does not block and wait for it be completely enabled.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async enable. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
 name|enableTableAsync
 parameter_list|(
 specifier|final
@@ -820,8 +869,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Starts the disable of a table.  If it is being served, the master will tell the servers to stop    * serving it.  This method returns immediately. The disable of a table can take some time if the    * table is large (all regions are closed as part of table disable operation). Call {@link    * #isTableDisabled(org.apache.hadoop.hbase.TableName)} to check for when disable completes. If    * table is taking too long to online, check server logs.    *    * @param tableName name of table    * @throws IOException if a remote or network exception occurs    * @see #isTableDisabled(org.apache.hadoop.hbase.TableName)    * @see #isTableEnabled(org.apache.hadoop.hbase.TableName)    * @since 0.90.0    */
-name|void
+comment|/**    * Disable the table but does not block and wait for it be completely disabled.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async disable. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
 name|disableTableAsync
 parameter_list|(
 specifier|final
@@ -942,7 +994,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Add a column to an existing table. Asynchronous operation.    *    * @param tableName name of the table to add column to    * @param column column descriptor of column to be added    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Add a column family to an existing table. Asynchronous operation.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #addColumnFamily(TableName, HColumnDescriptor)}.    */
+annotation|@
+name|Deprecated
 name|void
 name|addColumn
 parameter_list|(
@@ -952,12 +1006,29 @@ name|tableName
 parameter_list|,
 specifier|final
 name|HColumnDescriptor
-name|column
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete a column from a table. Asynchronous operation.    *    * @param tableName name of table    * @param columnName name of column to be deleted    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Add a column family to an existing table. Asynchronous operation.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    */
+name|void
+name|addColumnFamily
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|HColumnDescriptor
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Delete a column family from a table. Asynchronous operation.    *    * @param tableName name of table    * @param columnFamily name of column family to be deleted    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #deleteColumnFamily(TableName, byte[])}}.    */
+annotation|@
+name|Deprecated
 name|void
 name|deleteColumn
 parameter_list|(
@@ -968,12 +1039,30 @@ parameter_list|,
 specifier|final
 name|byte
 index|[]
-name|columnName
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing column family on a table. Asynchronous operation.    *    * @param tableName name of table    * @param descriptor new column descriptor to use    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Delete a column family from a table. Asynchronous operation.    *    * @param tableName name of table    * @param columnFamily name of column family to be deleted    * @throws IOException if a remote or network exception occurs    */
+name|void
+name|deleteColumnFamily
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Modify an existing column family on a table. Asynchronous operation.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #modifyColumnFamily(TableName, HColumnDescriptor)}.    */
+annotation|@
+name|Deprecated
 name|void
 name|modifyColumn
 parameter_list|(
@@ -983,7 +1072,22 @@ name|tableName
 parameter_list|,
 specifier|final
 name|HColumnDescriptor
-name|descriptor
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Modify an existing column family on a table. Asynchronous operation.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    */
+name|void
+name|modifyColumnFamily
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|HColumnDescriptor
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
@@ -1400,8 +1504,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing table, more IRB friendly version. Asynchronous operation.  This means that    * it may be a while before your schema change is updated across all of the table.    *    * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException if a remote or network exception occurs    */
-name|void
+comment|/**    * Modify an existing table, more IRB friendly version. Asynchronous operation.  This means that    * it may be a while before your schema change is updated across all of the table.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify. You can use Future.get(long, TimeUnit) to wait on the    *     operation to complete    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
 name|modifyTable
 parameter_list|(
 specifier|final

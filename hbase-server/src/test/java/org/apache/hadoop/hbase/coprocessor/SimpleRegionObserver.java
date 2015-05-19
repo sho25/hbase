@@ -776,6 +776,7 @@ name|SimpleRegionObserver
 extends|extends
 name|BaseRegionObserver
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

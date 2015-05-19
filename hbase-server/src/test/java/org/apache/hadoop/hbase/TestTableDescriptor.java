@@ -169,8 +169,9 @@ specifier|public
 class|class
 name|TestTableDescriptor
 block|{
-specifier|final
+specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=

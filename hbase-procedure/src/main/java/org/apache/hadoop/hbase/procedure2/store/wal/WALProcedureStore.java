@@ -63,6 +63,20 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|locks
 operator|.
 name|Condition
@@ -91,7 +105,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|ArrayBlockingQueue
+name|LinkedTransferQueue
 import|;
 end_import
 
@@ -531,6 +545,43 @@ init|=
 literal|100
 decl_stmt|;
 specifier|private
+specifier|static
+specifier|final
+name|String
+name|USE_HSYNC_CONF_KEY
+init|=
+literal|"hbase.procedure.store.wal.use.hsync"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_USE_HSYNC
+init|=
+literal|true
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|ROLL_THRESHOLD_CONF_KEY
+init|=
+literal|"hbase.procedure.store.wal.roll.threshold"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_ROLL_THRESHOLD
+init|=
+literal|32
+operator|*
+literal|1024
+operator|*
+literal|1024
+decl_stmt|;
+comment|// 32M
+specifier|private
 specifier|final
 name|CopyOnWriteArrayList
 argument_list|<
@@ -650,7 +701,7 @@ literal|false
 argument_list|)
 decl_stmt|;
 specifier|private
-name|ArrayBlockingQueue
+name|LinkedTransferQueue
 argument_list|<
 name|ByteSlot
 argument_list|>
@@ -668,6 +719,16 @@ init|=
 literal|null
 decl_stmt|;
 specifier|private
+name|AtomicLong
+name|totalSynced
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
+specifier|private
 name|FSDataOutputStream
 name|stream
 init|=
@@ -675,7 +736,7 @@ literal|null
 decl_stmt|;
 specifier|private
 name|long
-name|totalSynced
+name|lastRollTs
 init|=
 literal|0
 decl_stmt|;
@@ -699,6 +760,14 @@ specifier|private
 name|ByteSlot
 index|[]
 name|slots
+decl_stmt|;
+specifier|private
+name|long
+name|rollThreshold
+decl_stmt|;
+specifier|private
+name|boolean
+name|useHsync
 decl_stmt|;
 specifier|private
 name|int
@@ -785,21 +854,17 @@ expr_stmt|;
 name|slotsCache
 operator|=
 operator|new
-name|ArrayBlockingQueue
-argument_list|(
-name|numSlots
-argument_list|,
-literal|true
-argument_list|)
+name|LinkedTransferQueue
+argument_list|()
 expr_stmt|;
 while|while
 condition|(
 name|slotsCache
 operator|.
-name|remainingCapacity
+name|size
 argument_list|()
-operator|>
-literal|0
+operator|<
+name|numSlots
 condition|)
 block|{
 name|slotsCache
@@ -813,6 +878,17 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Tunings
+name|rollThreshold
+operator|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+name|ROLL_THRESHOLD_CONF_KEY
+argument_list|,
+name|DEFAULT_ROLL_THRESHOLD
+argument_list|)
+expr_stmt|;
 name|syncWaitMsec
 operator|=
 name|conf
@@ -822,6 +898,17 @@ argument_list|(
 name|SYNC_WAIT_MSEC_CONF_KEY
 argument_list|,
 name|DEFAULT_SYNC_WAIT_MSEC
+argument_list|)
+expr_stmt|;
+name|useHsync
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|USE_HSYNC_CONF_KEY
+argument_list|,
+name|DEFAULT_USE_HSYNC
 argument_list|)
 expr_stmt|;
 comment|// Init sync thread
@@ -864,7 +951,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"got an exception from the sync-loop"
+literal|"Got an exception from the sync-loop"
 argument_list|,
 name|e
 argument_list|)
@@ -1129,16 +1216,24 @@ name|flushLogId
 argument_list|)
 condition|)
 block|{
-comment|// someone else has already created this log
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"someone else has already created log "
+literal|"Someone else has already created log: "
 operator|+
 name|flushLogId
 argument_list|)
 expr_stmt|;
+block|}
 continue|continue;
 block|}
 comment|// We have the lease on the log
@@ -1157,16 +1252,24 @@ operator|>
 name|flushLogId
 condition|)
 block|{
-comment|// Someone else created new logs
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"someone else created new logs. expected maxLogId< "
+literal|"Someone else created new logs. Expected maxLogId< "
 operator|+
 name|flushLogId
 argument_list|)
 expr_stmt|;
+block|}
 name|logs
 operator|.
 name|getLast
@@ -1181,7 +1284,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"lease acquired flushLogId="
+literal|"Lease acquired for flushLogId: "
 operator|+
 name|flushLogId
 argument_list|)
@@ -1228,13 +1331,22 @@ operator|==
 literal|1
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"No state logs to replay"
+literal|"No state logs to replay."
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|null
 return|;
@@ -1405,11 +1517,11 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"insert "
+literal|"Insert "
 operator|+
 name|proc
 operator|+
-literal|" subproc="
+literal|", subproc="
 operator|+
 name|Arrays
 operator|.
@@ -1498,7 +1610,7 @@ literal|"Unable to serialize one of the procedure: proc="
 operator|+
 name|proc
 operator|+
-literal|" subprocs="
+literal|", subprocs="
 operator|+
 name|Arrays
 operator|.
@@ -1532,13 +1644,6 @@ init|(
 name|storeTracker
 init|)
 block|{
-if|if
-condition|(
-name|logId
-operator|==
-name|flushLogId
-condition|)
-block|{
 name|storeTracker
 operator|.
 name|insert
@@ -1548,7 +1653,6 @@ argument_list|,
 name|subprocs
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 annotation|@
@@ -1574,7 +1678,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"update "
+literal|"Update "
 operator|+
 name|proc
 argument_list|)
@@ -1659,13 +1763,6 @@ init|(
 name|storeTracker
 init|)
 block|{
-if|if
-condition|(
-name|logId
-operator|==
-name|flushLogId
-condition|)
-block|{
 name|storeTracker
 operator|.
 name|update
@@ -1673,6 +1770,13 @@ argument_list|(
 name|proc
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|logId
+operator|==
+name|flushLogId
+condition|)
+block|{
 name|removeOldLogs
 operator|=
 name|storeTracker
@@ -1719,7 +1823,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"delete "
+literal|"Delete "
 operator|+
 name|procId
 argument_list|)
@@ -1803,13 +1907,6 @@ init|(
 name|storeTracker
 init|)
 block|{
-if|if
-condition|(
-name|logId
-operator|==
-name|flushLogId
-condition|)
-block|{
 name|storeTracker
 operator|.
 name|delete
@@ -1819,10 +1916,24 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|logId
+operator|==
+name|flushLogId
+condition|)
+block|{
+if|if
+condition|(
 name|storeTracker
 operator|.
 name|isEmpty
 argument_list|()
+operator|&&
+name|totalSynced
+operator|.
+name|get
+argument_list|()
+operator|>
+name|rollThreshold
 condition|)
 block|{
 name|removeOldLogs
@@ -2012,6 +2123,11 @@ operator|.
 name|length
 condition|)
 block|{
+name|waitCond
+operator|.
+name|signal
+argument_list|()
+expr_stmt|;
 name|slotCond
 operator|.
 name|signal
@@ -2099,17 +2215,51 @@ name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
+name|float
+name|rollTsSec
+init|=
+operator|(
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|lastRollTs
+operator|)
+operator|/
+literal|1000.0f
+decl_stmt|;
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Waiting for data. flushed="
-operator|+
+name|String
+operator|.
+name|format
+argument_list|(
+literal|"Waiting for data. flushed=%s (%s/sec)"
+argument_list|,
 name|StringUtils
 operator|.
 name|humanSize
 argument_list|(
 name|totalSynced
+operator|.
+name|get
+argument_list|()
+argument_list|)
+argument_list|,
+name|StringUtils
+operator|.
+name|humanSize
+argument_list|(
+name|totalSynced
+operator|.
+name|get
+argument_list|()
+operator|/
+name|rollTsSec
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2131,6 +2281,23 @@ continue|continue;
 block|}
 block|}
 comment|// Wait SYNC_WAIT_MSEC or the signal of "slots full" before flushing
+name|long
+name|syncWaitSt
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|slotIndex
+operator|!=
+name|slots
+operator|.
+name|length
+condition|)
+block|{
 name|slotCond
 operator|.
 name|await
@@ -2142,6 +2309,98 @@ operator|.
 name|MILLISECONDS
 argument_list|)
 expr_stmt|;
+block|}
+name|long
+name|syncWaitMs
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|syncWaitSt
+decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+operator|&&
+operator|(
+name|syncWaitMs
+operator|>
+literal|10
+operator|||
+name|slotIndex
+operator|<
+name|slots
+operator|.
+name|length
+operator|)
+condition|)
+block|{
+name|float
+name|rollSec
+init|=
+operator|(
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|lastRollTs
+operator|)
+operator|/
+literal|1000.0f
+decl_stmt|;
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Sync wait "
+operator|+
+name|StringUtils
+operator|.
+name|humanTimeDiff
+argument_list|(
+name|syncWaitMs
+argument_list|)
+operator|+
+literal|", slotIndex="
+operator|+
+name|slotIndex
+operator|+
+literal|", totalSynced="
+operator|+
+name|StringUtils
+operator|.
+name|humanSize
+argument_list|(
+name|totalSynced
+operator|.
+name|get
+argument_list|()
+argument_list|)
+operator|+
+literal|" "
+operator|+
+name|StringUtils
+operator|.
+name|humanSize
+argument_list|(
+name|totalSynced
+operator|.
+name|get
+argument_list|()
+operator|/
+name|rollSec
+argument_list|)
+operator|+
+literal|"/sec"
+argument_list|)
+expr_stmt|;
+block|}
 name|inSync
 operator|.
 name|set
@@ -2150,9 +2409,12 @@ literal|true
 argument_list|)
 expr_stmt|;
 name|totalSynced
-operator|+=
+operator|.
+name|addAndGet
+argument_list|(
 name|syncSlots
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|slotIndex
 operator|=
@@ -2251,7 +2513,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"sync slot failed, abort."
+literal|"Sync slot failed, abort."
 argument_list|,
 name|e
 argument_list|)
@@ -2339,11 +2601,25 @@ name|size
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|useHsync
+condition|)
+block|{
 name|stream
 operator|.
 name|hsync
 argument_list|()
 expr_stmt|;
+block|}
+else|else
+block|{
+name|stream
+operator|.
+name|hflush
+argument_list|()
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|LOG
@@ -2366,7 +2642,7 @@ name|slots
 operator|.
 name|length
 operator|+
-literal|" flushed="
+literal|", flushed="
 operator|+
 name|StringUtils
 operator|.
@@ -2611,8 +2887,18 @@ operator|=
 name|logId
 expr_stmt|;
 name|totalSynced
-operator|=
+operator|.
+name|set
+argument_list|(
 literal|0
+argument_list|)
+expr_stmt|;
+name|lastRollTs
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 expr_stmt|;
 name|logs
 operator|.
@@ -2640,15 +2926,24 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"Roll new state log: "
 operator|+
 name|logId
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|true
 return|;
@@ -2737,23 +3032,47 @@ name|long
 name|lastLogId
 parameter_list|)
 block|{
+if|if
+condition|(
+name|logs
+operator|.
+name|size
+argument_list|()
+operator|<=
+literal|1
+condition|)
+block|{
+assert|assert
+name|logs
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|1
+operator|:
+literal|"Expected at least one active log to be running."
+assert|;
+return|return;
+block|}
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
-literal|"Remove all state logs with ID less then "
+literal|"Remove all state logs with ID less than "
 operator|+
 name|lastLogId
 argument_list|)
 expr_stmt|;
-while|while
-condition|(
-operator|!
-name|logs
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
+block|}
+do|do
 block|{
 name|ProcedureWALFile
 name|log
@@ -2781,6 +3100,15 @@ name|log
 argument_list|)
 expr_stmt|;
 block|}
+do|while
+condition|(
+operator|!
+name|logs
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+do|;
 block|}
 specifier|private
 name|boolean
@@ -2793,15 +3121,24 @@ parameter_list|)
 block|{
 try|try
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"remove log: "
+literal|"Remove log: "
 operator|+
 name|log
 argument_list|)
 expr_stmt|;
+block|}
 name|log
 operator|.
 name|removeFile
@@ -2825,7 +3162,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"unable to remove log "
+literal|"Unable to remove log: "
 operator|+
 name|log
 argument_list|,
@@ -3045,7 +3382,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"log directory not found: "
+literal|"Log directory not found: "
 operator|+
 name|e
 operator|.
@@ -3378,7 +3715,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Remove uninitialized log "
+literal|"Remove uninitialized log: "
 operator|+
 name|logFile
 argument_list|)
@@ -3392,15 +3729,24 @@ return|return
 literal|null
 return|;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"opening state-log: "
+literal|"Opening state-log: "
 operator|+
 name|logFile
 argument_list|)
 expr_stmt|;
+block|}
 try|try
 block|{
 name|log
@@ -3421,7 +3767,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Remove uninitialized log "
+literal|"Remove uninitialized log: "
 operator|+
 name|logFile
 argument_list|,
@@ -3491,12 +3837,11 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-comment|// unfinished compacted log throw it away
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unfinished compacted log "
+literal|"Unfinished compacted log: "
 operator|+
 name|logFile
 argument_list|,

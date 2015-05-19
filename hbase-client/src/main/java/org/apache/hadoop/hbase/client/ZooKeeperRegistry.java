@@ -191,6 +191,7 @@ name|ZooKeeperRegistry
 implements|implements
 name|Registry
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

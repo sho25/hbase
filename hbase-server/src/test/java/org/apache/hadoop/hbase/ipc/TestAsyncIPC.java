@@ -932,7 +932,7 @@ name|setBoolean
 argument_list|(
 name|AsyncRpcClient
 operator|.
-name|USE_NATIVE_TRANSPORT
+name|USE_GLOBAL_EVENT_LOOP_GROUP
 argument_list|,
 name|useGlobalEventLoopGroup
 argument_list|)

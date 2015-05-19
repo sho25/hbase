@@ -205,6 +205,7 @@ specifier|public
 class|class
 name|JerseyResource
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

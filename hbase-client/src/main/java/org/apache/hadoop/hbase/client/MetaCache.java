@@ -241,6 +241,20 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CellComparator
+import|;
+end_import
+
 begin_comment
 comment|/**  * A cache implementation for region locations from meta.  */
 end_comment
@@ -418,10 +432,10 @@ operator|.
 name|EMPTY_END_ROW
 argument_list|)
 operator|||
-name|tableName
-operator|.
 name|getRowComparator
-argument_list|()
+argument_list|(
+name|tableName
+argument_list|)
 operator|.
 name|compareRows
 argument_list|(
@@ -452,6 +466,33 @@ block|}
 comment|// Passed all the way through, so we got nothing - complete cache miss
 return|return
 literal|null
+return|;
+block|}
+specifier|private
+name|CellComparator
+name|getRowComparator
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+block|{
+return|return
+name|TableName
+operator|.
+name|META_TABLE_NAME
+operator|.
+name|equals
+argument_list|(
+name|tableName
+argument_list|)
+condition|?
+name|CellComparator
+operator|.
+name|META_COMPARATOR
+else|:
+name|CellComparator
+operator|.
+name|COMPARATOR
 return|;
 block|}
 comment|/**    * Put a newly discovered HRegionLocation into the cache.    * @param tableName The table name.    * @param source the source of the new location    * @param location the new location    */

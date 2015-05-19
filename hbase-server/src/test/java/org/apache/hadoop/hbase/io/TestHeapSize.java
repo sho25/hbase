@@ -535,6 +535,7 @@ specifier|public
 class|class
 name|TestHeapSize
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

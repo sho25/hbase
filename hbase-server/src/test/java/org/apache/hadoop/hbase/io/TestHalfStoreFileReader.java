@@ -149,6 +149,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -588,7 +602,7 @@ decl_stmt|;
 name|KeyValue
 name|midKV
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createKeyValueFromKey
 argument_list|(
@@ -973,7 +987,7 @@ decl_stmt|;
 name|KeyValue
 name|midKV
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createKeyValueFromKey
 argument_list|(
@@ -1033,7 +1047,7 @@ control|)
 block|{
 if|if
 condition|(
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 operator|.

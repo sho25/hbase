@@ -308,6 +308,7 @@ name|SingleColumnValueFilter
 extends|extends
 name|FilterBase
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

@@ -446,7 +446,7 @@ argument_list|<
 name|WALKey
 argument_list|>
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log

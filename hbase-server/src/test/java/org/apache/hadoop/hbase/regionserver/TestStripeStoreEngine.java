@@ -195,7 +195,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseConfiguration
+name|CellComparator
 import|;
 end_import
 
@@ -209,9 +209,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|KVComparator
+name|HBaseConfiguration
 import|;
 end_import
 
@@ -909,12 +907,12 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-name|KVComparator
+name|CellComparator
 name|kvComparator
 init|=
 name|mock
 argument_list|(
-name|KVComparator
+name|CellComparator
 operator|.
 name|class
 argument_list|)

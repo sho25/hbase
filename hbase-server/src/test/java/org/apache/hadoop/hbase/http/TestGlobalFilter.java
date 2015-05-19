@@ -291,6 +291,7 @@ name|TestGlobalFilter
 extends|extends
 name|HttpServerFunctionalTest
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

@@ -427,7 +427,7 @@ specifier|public
 class|class
 name|TestIPCUtil
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -437,7 +437,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|IPCUtil
+name|TestIPCUtil
 operator|.
 name|class
 argument_list|)

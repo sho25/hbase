@@ -860,9 +860,7 @@ specifier|final
 name|int
 name|DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT
 init|=
-name|Integer
-operator|.
-name|MAX_VALUE
+literal|60000
 decl_stmt|;
 comment|/** Used to construct the name of the log directory for a region server */
 specifier|public
@@ -2386,7 +2384,7 @@ specifier|final
 name|int
 name|DEFAULT_REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
 init|=
-literal|10
+literal|20
 decl_stmt|;
 specifier|public
 specifier|static
@@ -2507,7 +2505,7 @@ name|ENABLE_WAL_COMPRESSION
 init|=
 literal|"hbase.regionserver.wal.enablecompression"
 decl_stmt|;
-comment|/** Configuration name of WAL storage policy    * Valid values are:    *  NONE: no preference in destination of replicas    *  ONE_SSD: place only one replica in SSD and the remaining in default storage    *  and ALL_SSD: place all replica on SSD    *    * See http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html*/
+comment|/** Configuration name of WAL storage policy    * Valid values are:    *  NONE: no preference in destination of block replicas    *  ONE_SSD: place only one block replica in SSD and the remaining in default storage    *  and ALL_SSD: place all block replicas on SSD    *    * See http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html*/
 specifier|public
 specifier|static
 specifier|final
@@ -2578,6 +2576,7 @@ init|=
 literal|false
 decl_stmt|;
 comment|/**    * QOS attributes: these attributes are used to demarcate RPC call processing    * by different set of handlers. For example, HIGH_QOS tagged methods are    * handled by high priority handlers.    */
+comment|// normal_QOS< QOS_threshold< replication_QOS< replay_QOS< admin_QOS< high_QOS
 specifier|public
 specifier|static
 specifier|final
@@ -2610,7 +2609,6 @@ name|REPLICATION_QOS
 init|=
 literal|5
 decl_stmt|;
-comment|// normal_QOS< replication_QOS< high_QOS
 specifier|public
 specifier|static
 specifier|final
@@ -2619,7 +2617,6 @@ name|REPLAY_QOS
 init|=
 literal|6
 decl_stmt|;
-comment|// REPLICATION_QOS< REPLAY_QOS< high_QOS
 specifier|public
 specifier|static
 specifier|final
@@ -2628,7 +2625,6 @@ name|ADMIN_QOS
 init|=
 literal|100
 decl_stmt|;
-comment|// QOS_THRESHOLD< ADMIN_QOS< high_QOS
 specifier|public
 specifier|static
 specifier|final

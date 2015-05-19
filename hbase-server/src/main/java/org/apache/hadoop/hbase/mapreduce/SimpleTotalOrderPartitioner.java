@@ -578,10 +578,6 @@ name|key
 operator|.
 name|getLength
 argument_list|()
-argument_list|,
-name|Bytes
-operator|.
-name|BYTES_RAWCOMPARATOR
 argument_list|)
 decl_stmt|;
 comment|// Below code is from hfile index search.

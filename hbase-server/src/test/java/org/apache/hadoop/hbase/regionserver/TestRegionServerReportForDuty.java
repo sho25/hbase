@@ -560,6 +560,11 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+name|waitForClusterOnline
+argument_list|(
+name|master
+argument_list|)
+expr_stmt|;
 comment|// Add a 2nd region server
 name|cluster
 operator|.
@@ -610,10 +615,8 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-name|waitForClusterOnline
-argument_list|(
-name|master
-argument_list|)
+name|waitForSecondRsStarted
+argument_list|()
 expr_stmt|;
 comment|// Stop the current master.
 name|master
@@ -772,7 +775,45 @@ argument_list|()
 operator|.
 name|isInitialized
 argument_list|()
-operator|&&
+condition|)
+block|{
+break|break;
+block|}
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+name|SLEEP_INTERVAL
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Waiting for master to come online ..."
+argument_list|)
+expr_stmt|;
+block|}
+name|rs
+operator|.
+name|waitForServerOnline
+argument_list|()
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|waitForSecondRsStarted
+parameter_list|()
+throws|throws
+name|InterruptedException
+block|{
+while|while
+condition|(
+literal|true
+condition|)
+block|{
+if|if
+condition|(
 operator|(
 operator|(
 name|MyRegionServer
@@ -802,15 +843,10 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Waiting for master to come online ..."
+literal|"Waiting 2nd RS to be started ..."
 argument_list|)
 expr_stmt|;
 block|}
-name|rs
-operator|.
-name|waitForServerOnline
-argument_list|()
-expr_stmt|;
 block|}
 comment|// Create a Region Server that provide a hook so that we can wait for the master switch over
 comment|// before continuing reportForDuty to the mater.
@@ -941,7 +977,11 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{         }
+block|{
+return|return
+literal|null
+return|;
+block|}
 name|LOG
 operator|.
 name|debug

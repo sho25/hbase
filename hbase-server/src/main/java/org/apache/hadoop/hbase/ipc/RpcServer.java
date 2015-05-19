@@ -1583,6 +1583,7 @@ name|RpcServer
 implements|implements
 name|RpcServerInterface
 block|{
+comment|// LOG is being used in CallRunner and the log level is being changed in tests
 specifier|public
 specifier|static
 specifier|final
@@ -1597,6 +1598,16 @@ name|RpcServer
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|CallQueueTooBigException
+name|CALL_QUEUE_TOO_BIG_EXCEPTION
+init|=
+operator|new
+name|CallQueueTooBigException
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
@@ -7545,7 +7556,9 @@ parameter_list|(
 name|SaslException
 name|ignored
 parameter_list|)
-block|{         }
+block|{
+comment|// Ignored. This is being disposed of anyway.
+block|}
 block|}
 block|}
 specifier|private
@@ -9160,15 +9173,20 @@ operator|new
 name|ByteArrayOutputStream
 argument_list|()
 decl_stmt|;
+name|metrics
+operator|.
+name|exception
+argument_list|(
+name|CALL_QUEUE_TOO_BIG_EXCEPTION
+argument_list|)
+expr_stmt|;
 name|setupResponse
 argument_list|(
 name|responseBuffer
 argument_list|,
 name|callTooBig
 argument_list|,
-operator|new
-name|CallQueueTooBigException
-argument_list|()
+name|CALL_QUEUE_TOO_BIG_EXCEPTION
 argument_list|,
 literal|"Call queue is full on "
 operator|+
@@ -9381,6 +9399,13 @@ name|warn
 argument_list|(
 name|msg
 argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+name|metrics
+operator|.
+name|exception
+argument_list|(
 name|t
 argument_list|)
 expr_stmt|;
@@ -11108,6 +11133,14 @@ operator|.
 name|getCause
 argument_list|()
 expr_stmt|;
+comment|// increment the number of requests that were exceptions.
+name|metrics
+operator|.
+name|exception
+argument_list|(
+name|e
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|e
@@ -11964,6 +11997,21 @@ name|CurCall
 operator|.
 name|get
 argument_list|()
+return|;
+block|}
+specifier|public
+specifier|static
+name|boolean
+name|isInRpcCallContext
+parameter_list|()
+block|{
+return|return
+name|CurCall
+operator|.
+name|get
+argument_list|()
+operator|!=
+literal|null
 return|;
 block|}
 comment|/**    * Returns the user credentials associated with the current RPC request or    *<code>null</code> if no credentials were provided.    * @return A User    */

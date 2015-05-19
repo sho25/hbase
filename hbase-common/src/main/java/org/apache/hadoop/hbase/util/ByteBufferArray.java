@@ -127,6 +127,7 @@ specifier|final
 class|class
 name|ByteBufferArray
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

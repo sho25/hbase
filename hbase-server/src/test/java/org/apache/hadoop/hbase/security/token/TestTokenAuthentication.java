@@ -1054,6 +1054,7 @@ expr_stmt|;
 block|}
 specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=
@@ -1090,6 +1091,7 @@ name|Server
 block|{
 specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=

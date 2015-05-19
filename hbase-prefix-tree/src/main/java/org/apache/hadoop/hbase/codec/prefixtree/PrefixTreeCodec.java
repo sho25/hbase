@@ -99,7 +99,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|CellComparator
 import|;
 end_import
 
@@ -114,8 +114,6 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
-operator|.
-name|KVComparator
 import|;
 end_import
 
@@ -129,25 +127,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|CellComparator
 operator|.
-name|MetaComparator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
-operator|.
-name|RawBytesComparator
+name|MetaCellComparator
 import|;
 end_import
 
@@ -893,7 +875,7 @@ specifier|public
 name|EncodedSeeker
 name|createSeeker
 parameter_list|(
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|,
 name|HFileBlockDecodingContext
@@ -904,23 +886,7 @@ if|if
 condition|(
 name|comparator
 operator|instanceof
-name|RawBytesComparator
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"comparator must be KeyValue.KeyComparator"
-argument_list|)
-throw|;
-block|}
-elseif|else
-if|if
-condition|(
-name|comparator
-operator|instanceof
-name|MetaComparator
+name|MetaCellComparator
 condition|)
 block|{
 throw|throw

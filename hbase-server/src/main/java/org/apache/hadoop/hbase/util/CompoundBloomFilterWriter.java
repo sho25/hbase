@@ -131,9 +131,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 import|;
 end_import
 
@@ -224,7 +222,7 @@ name|BloomFilterWriter
 implements|,
 name|InlineBlockWriter
 block|{
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -241,12 +239,12 @@ argument_list|)
 decl_stmt|;
 comment|/** The current chunk being written to */
 specifier|private
-name|ByteBloomFilter
+name|BloomFilterChunk
 name|chunk
 decl_stmt|;
 comment|/** Previous chunk, so that we can create another similar chunk */
 specifier|private
-name|ByteBloomFilter
+name|BloomFilterChunk
 name|prevChunk
 decl_stmt|;
 comment|/** Maximum fold factor */
@@ -272,7 +270,7 @@ name|byte
 index|[]
 name|firstKey
 decl_stmt|;
-name|ByteBloomFilter
+name|BloomFilterChunk
 name|chunk
 decl_stmt|;
 block|}
@@ -334,13 +332,13 @@ parameter_list|,
 name|boolean
 name|cacheOnWrite
 parameter_list|,
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|)
 block|{
 name|chunkByteSize
 operator|=
-name|ByteBloomFilter
+name|BloomFilterUtil
 operator|.
 name|computeFoldableByteSize
 argument_list|(
@@ -692,7 +690,7 @@ block|{
 comment|// First chunk
 name|chunk
 operator|=
-name|ByteBloomFilter
+name|BloomFilterUtil
 operator|.
 name|createBySize
 argument_list|(
@@ -789,7 +787,7 @@ operator|.
 name|peek
 argument_list|()
 decl_stmt|;
-name|ByteBloomFilter
+name|BloomFilterChunk
 name|readyChunkBloom
 init|=
 name|readyChunk
@@ -798,10 +796,7 @@ name|chunk
 decl_stmt|;
 name|readyChunkBloom
 operator|.
-name|getDataWriter
-argument_list|()
-operator|.
-name|write
+name|writeBloom
 argument_list|(
 name|out
 argument_list|)
@@ -888,7 +883,7 @@ literal|"Cant read with this class."
 argument_list|)
 throw|;
 block|}
-comment|/**      * This is modeled after {@link ByteBloomFilter.MetaWriter} for simplicity,      * although the two metadata formats do not have to be consistent. This      * does have to be consistent with how {@link      * CompoundBloomFilter#CompoundBloomFilter(DataInput,      * org.apache.hadoop.hbase.io.hfile.HFile.Reader)} reads fields.      */
+comment|/**      * This is modeled after {@link BloomFilterChunk.MetaWriter} for simplicity,      * although the two metadata formats do not have to be consistent. This      * does have to be consistent with how {@link      * CompoundBloomFilter#CompoundBloomFilter(DataInput,      * org.apache.hadoop.hbase.io.hfile.HFile.Reader)} reads fields.      */
 annotation|@
 name|Override
 specifier|public
@@ -960,6 +955,13 @@ argument_list|(
 name|numChunks
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|comparator
+operator|!=
+literal|null
+condition|)
+block|{
 name|Bytes
 operator|.
 name|writeByteArray
@@ -980,6 +982,20 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+comment|// Internally writes a 0 vint if the byte[] is null
+name|Bytes
+operator|.
+name|writeByteArray
+argument_list|(
+name|out
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Write a single-level index without compression or block header.
 name|bloomBlockIndexWriter
 operator|.
@@ -995,6 +1011,13 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|void
+name|compactBloom
+parameter_list|()
+block|{   }
+annotation|@
+name|Override
+specifier|public
 name|Writable
 name|getMetaWriter
 parameter_list|()
@@ -1004,22 +1027,6 @@ operator|new
 name|MetaWriter
 argument_list|()
 return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|compactBloom
-parameter_list|()
-block|{   }
-annotation|@
-name|Override
-specifier|public
-name|void
-name|allocBloom
-parameter_list|()
-block|{
-comment|// Nothing happens here. All allocation happens on demand.
 block|}
 annotation|@
 name|Override

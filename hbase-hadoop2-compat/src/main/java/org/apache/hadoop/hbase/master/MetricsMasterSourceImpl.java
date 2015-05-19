@@ -219,12 +219,14 @@ literal|0l
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|incRequests
 parameter_list|(
 specifier|final
-name|int
+name|long
 name|inc
 parameter_list|)
 block|{

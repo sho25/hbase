@@ -1711,7 +1711,8 @@ parameter_list|()
 function_decl|;
 block|}
 comment|/**    * @return greater byte array than given (row) which satisfies the fuzzy rule if it exists,    *         null otherwise    */
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|static
 name|byte
 index|[]
@@ -1888,6 +1889,8 @@ name|isMax
 argument_list|(
 name|row
 index|[
+name|offset
+operator|+
 name|i
 index|]
 argument_list|)

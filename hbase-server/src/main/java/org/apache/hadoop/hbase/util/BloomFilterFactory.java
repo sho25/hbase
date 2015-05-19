@@ -105,7 +105,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|CellComparator
 import|;
 end_import
 
@@ -293,21 +293,6 @@ condition|(
 name|version
 condition|)
 block|{
-case|case
-name|ByteBloomFilter
-operator|.
-name|VERSION
-case|:
-comment|// This is only possible in a version 1 HFile. We are ignoring the
-comment|// passed comparator because raw byte comparators are always used
-comment|// in version 1 Bloom filters.
-return|return
-operator|new
-name|ByteBloomFilter
-argument_list|(
-name|meta
-argument_list|)
-return|;
 case|case
 name|CompoundBloomFilterBase
 operator|.
@@ -636,13 +621,11 @@ name|BloomType
 operator|.
 name|ROWCOL
 condition|?
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 else|:
-name|KeyValue
-operator|.
-name|RAW_COMPARATOR
+literal|null
 argument_list|)
 decl_stmt|;
 name|writer
@@ -756,9 +739,7 @@ operator|.
 name|shouldCacheBloomsOnWrite
 argument_list|()
 argument_list|,
-name|KeyValue
-operator|.
-name|RAW_COMPARATOR
+literal|null
 argument_list|)
 decl_stmt|;
 name|writer

@@ -441,6 +441,7 @@ name|TestReplicationEndpoint
 extends|extends
 name|TestReplicationBase
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

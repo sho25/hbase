@@ -885,6 +885,13 @@ name|getWriteTime
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|replicationSinkMgr
+operator|.
+name|reportSinkSuccess
+argument_list|(
+name|sinkPeer
+argument_list|)
+expr_stmt|;
 return|return
 literal|true
 return|;

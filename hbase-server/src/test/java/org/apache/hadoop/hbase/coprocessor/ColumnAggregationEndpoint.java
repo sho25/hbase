@@ -312,6 +312,7 @@ name|Coprocessor
 implements|,
 name|CoprocessorService
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

@@ -213,6 +213,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -586,7 +600,7 @@ argument_list|<
 name|Cell
 argument_list|>
 argument_list|(
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -810,7 +824,7 @@ name|encoder
 operator|.
 name|createSeeker
 argument_list|(
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -1173,7 +1187,7 @@ name|encoder
 operator|.
 name|createSeeker
 argument_list|(
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -1253,7 +1267,7 @@ name|previousKV
 operator|!=
 literal|null
 operator|&&
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 operator|.
@@ -1439,7 +1453,7 @@ name|encoder
 operator|.
 name|createSeeker
 argument_list|(
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -1603,7 +1617,7 @@ name|encoder
 operator|.
 name|createSeeker
 argument_list|(
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -1807,7 +1821,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 operator|.

@@ -95,9 +95,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 import|;
 end_import
 
@@ -144,7 +142,7 @@ parameter_list|,
 name|FSDataOutputStream
 name|ostream
 parameter_list|,
-name|KVComparator
+name|CellComparator
 name|comparator
 parameter_list|,
 name|HFileContext

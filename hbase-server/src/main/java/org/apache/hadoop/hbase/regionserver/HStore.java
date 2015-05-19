@@ -461,6 +461,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValueUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -1244,6 +1258,7 @@ name|DEFAULT_BLOCKING_STOREFILE_COUNT
 init|=
 literal|7
 decl_stmt|;
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -1395,9 +1410,7 @@ decl_stmt|;
 comment|// Comparing KeyValues
 specifier|private
 specifier|final
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 name|comparator
 decl_stmt|;
 specifier|final
@@ -1634,9 +1647,9 @@ name|this
 operator|.
 name|comparator
 operator|=
-name|info
+name|region
 operator|.
-name|getComparator
+name|getCellCompartor
 argument_list|()
 expr_stmt|;
 comment|// used by ScanQueryMatcher
@@ -1734,9 +1747,7 @@ name|Configuration
 operator|.
 name|class
 block|,
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 operator|.
 name|class
 block|}
@@ -2310,7 +2321,7 @@ parameter_list|,
 name|Configuration
 name|conf
 parameter_list|,
-name|KVComparator
+name|CellComparator
 name|kvComparator
 parameter_list|)
 throws|throws
@@ -2615,9 +2626,10 @@ literal|null
 condition|)
 block|{
 return|return
-name|HFile
+name|ChecksumType
 operator|.
-name|DEFAULT_CHECKSUM_TYPE
+name|getDefaultChecksumType
+argument_list|()
 return|;
 block|}
 else|else
@@ -3962,7 +3974,7 @@ name|byte
 index|[]
 name|lastKey
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createKeyValueFromKey
 argument_list|(
@@ -4176,7 +4188,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|CellComparator
+name|comparator
 operator|.
 name|compareRows
 argument_list|(
@@ -8969,8 +8981,8 @@ name|long
 name|now
 parameter_list|)
 block|{
-comment|// Do not create an Iterator or Tag objects unless the cell actually has
-comment|// tags
+comment|// Do not create an Iterator or Tag objects unless the cell actually has tags.
+comment|// TODO: This check for tags is really expensive. We decode an int for key and value. Costs.
 if|if
 condition|(
 name|cell
@@ -9431,7 +9443,7 @@ return|;
 name|KeyValue
 name|firstKV
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createKeyValueFromKey
 argument_list|(
@@ -9456,7 +9468,7 @@ decl_stmt|;
 name|KeyValue
 name|lastKV
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createKeyValueFromKey
 argument_list|(
@@ -11546,9 +11558,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|KeyValue
-operator|.
-name|KVComparator
+name|CellComparator
 name|getComparator
 parameter_list|()
 block|{

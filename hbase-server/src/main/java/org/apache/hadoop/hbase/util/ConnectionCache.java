@@ -302,6 +302,7 @@ name|ConnectionCache
 block|{
 specifier|private
 specifier|static
+specifier|final
 name|Logger
 name|LOG
 init|=
@@ -1113,6 +1114,9 @@ name|closed
 operator|=
 literal|true
 expr_stmt|;
+return|return
+literal|true
+return|;
 block|}
 return|return
 literal|false

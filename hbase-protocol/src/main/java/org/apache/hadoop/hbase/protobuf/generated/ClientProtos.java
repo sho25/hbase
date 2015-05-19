@@ -85779,6 +85779,17 @@ name|boolean
 name|getClientHandlesPartials
 parameter_list|()
 function_decl|;
+comment|// optional bool client_handles_heartbeats = 8;
+comment|/**      *<code>optional bool client_handles_heartbeats = 8;</code>      */
+name|boolean
+name|hasClientHandlesHeartbeats
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool client_handles_heartbeats = 8;</code>      */
+name|boolean
+name|getClientHandlesHeartbeats
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code ScanRequest}    *    *<pre>    **    * A scan request. Initially, it should specify a scan. Later on, you    * can use the scanner id returned to fetch result batches with a different    * scan request.    *    * The scanner will remain open if there are more results, and it's not    * asked to be closed explicitly.    *    * You can fetch the results and ask the scanner to be closed to save    * a trip if you are not interested in remaining results.    *</pre>    */
 specifier|public
@@ -86311,6 +86322,23 @@ operator||=
 literal|0x00000040
 expr_stmt|;
 name|clientHandlesPartials_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|64
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000080
+expr_stmt|;
+name|clientHandlesHeartbeats_
 operator|=
 name|input
 operator|.
@@ -86985,6 +87013,47 @@ return|return
 name|clientHandlesPartials_
 return|;
 block|}
+comment|// optional bool client_handles_heartbeats = 8;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|CLIENT_HANDLES_HEARTBEATS_FIELD_NUMBER
+init|=
+literal|8
+decl_stmt|;
+specifier|private
+name|boolean
+name|clientHandlesHeartbeats_
+decl_stmt|;
+comment|/**      *<code>optional bool client_handles_heartbeats = 8;</code>      */
+specifier|public
+name|boolean
+name|hasClientHandlesHeartbeats
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool client_handles_heartbeats = 8;</code>      */
+specifier|public
+name|boolean
+name|getClientHandlesHeartbeats
+parameter_list|()
+block|{
+return|return
+name|clientHandlesHeartbeats_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -87049,6 +87118,10 @@ operator|=
 literal|0L
 expr_stmt|;
 name|clientHandlesPartials_
+operator|=
+literal|false
+expr_stmt|;
+name|clientHandlesHeartbeats_
 operator|=
 literal|false
 expr_stmt|;
@@ -87325,6 +87398,29 @@ name|clientHandlesPartials_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|8
+argument_list|,
+name|clientHandlesHeartbeats_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -87579,6 +87675,37 @@ argument_list|(
 literal|7
 argument_list|,
 name|clientHandlesPartials_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|8
+argument_list|,
+name|clientHandlesHeartbeats_
 argument_list|)
 expr_stmt|;
 block|}
@@ -87989,6 +88116,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasClientHandlesHeartbeats
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasClientHandlesHeartbeats
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasClientHandlesHeartbeats
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getClientHandlesHeartbeats
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getClientHandlesHeartbeats
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -88261,6 +88423,37 @@ operator|+
 name|hashBoolean
 argument_list|(
 name|getClientHandlesPartials
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasClientHandlesHeartbeats
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|CLIENT_HANDLES_HEARTBEATS_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getClientHandlesHeartbeats
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -89254,6 +89447,19 @@ operator|~
 literal|0x00000040
 operator|)
 expr_stmt|;
+name|clientHandlesHeartbeats_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000080
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -89678,6 +89884,30 @@ name|clientHandlesPartials_
 operator|=
 name|clientHandlesPartials_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000080
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|clientHandlesHeartbeats_
+operator|=
+name|clientHandlesHeartbeats_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -89927,6 +90157,23 @@ argument_list|(
 name|other
 operator|.
 name|getClientHandlesPartials
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasClientHandlesHeartbeats
+argument_list|()
+condition|)
+block|{
+name|setClientHandlesHeartbeats
+argument_list|(
+name|other
+operator|.
+name|getClientHandlesHeartbeats
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -91944,6 +92191,89 @@ return|return
 name|this
 return|;
 block|}
+comment|// optional bool client_handles_heartbeats = 8;
+specifier|private
+name|boolean
+name|clientHandlesHeartbeats_
+decl_stmt|;
+comment|/**        *<code>optional bool client_handles_heartbeats = 8;</code>        */
+specifier|public
+name|boolean
+name|hasClientHandlesHeartbeats
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool client_handles_heartbeats = 8;</code>        */
+specifier|public
+name|boolean
+name|getClientHandlesHeartbeats
+parameter_list|()
+block|{
+return|return
+name|clientHandlesHeartbeats_
+return|;
+block|}
+comment|/**        *<code>optional bool client_handles_heartbeats = 8;</code>        */
+specifier|public
+name|Builder
+name|setClientHandlesHeartbeats
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000080
+expr_stmt|;
+name|clientHandlesHeartbeats_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool client_handles_heartbeats = 8;</code>        */
+specifier|public
+name|Builder
+name|clearClientHandlesHeartbeats
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000080
+operator|)
+expr_stmt|;
+name|clientHandlesHeartbeats_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
 comment|// @@protoc_insertion_point(builder_scope:ScanRequest)
 block|}
 static|static
@@ -92193,6 +92523,17 @@ function_decl|;
 comment|/**      *<code>optional bool more_results_in_region = 8;</code>      *      *<pre>      * A server may choose to limit the number of results returned to the client for      * reasons such as the size in bytes or quantity of results accumulated. This field      * will true when more results exist in the current region.      *</pre>      */
 name|boolean
 name|getMoreResultsInRegion
+parameter_list|()
+function_decl|;
+comment|// optional bool heartbeat_message = 9;
+comment|/**      *<code>optional bool heartbeat_message = 9;</code>      *      *<pre>      * This field is filled in if the server is sending back a heartbeat message.      * Heartbeat messages are sent back to the client to prevent the scanner from      * timing out. Seeing a heartbeat message communicates to the Client that the      * server would have continued to scan had the time limit not been reached.      *</pre>      */
+name|boolean
+name|hasHeartbeatMessage
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool heartbeat_message = 9;</code>      *      *<pre>      * This field is filled in if the server is sending back a heartbeat message.      * Heartbeat messages are sent back to the client to prevent the scanner from      * timing out. Seeing a heartbeat message communicates to the Client that the      * server would have continued to scan had the time limit not been reached.      *</pre>      */
+name|boolean
+name|getHeartbeatMessage
 parameter_list|()
 function_decl|;
 block|}
@@ -92901,6 +93242,23 @@ operator||=
 literal|0x00000010
 expr_stmt|;
 name|moreResultsInRegion_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|72
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000020
+expr_stmt|;
+name|heartbeatMessage_
 operator|=
 name|input
 operator|.
@@ -93797,6 +94155,47 @@ return|return
 name|moreResultsInRegion_
 return|;
 block|}
+comment|// optional bool heartbeat_message = 9;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|HEARTBEAT_MESSAGE_FIELD_NUMBER
+init|=
+literal|9
+decl_stmt|;
+specifier|private
+name|boolean
+name|heartbeatMessage_
+decl_stmt|;
+comment|/**      *<code>optional bool heartbeat_message = 9;</code>      *      *<pre>      * This field is filled in if the server is sending back a heartbeat message.      * Heartbeat messages are sent back to the client to prevent the scanner from      * timing out. Seeing a heartbeat message communicates to the Client that the      * server would have continued to scan had the time limit not been reached.      *</pre>      */
+specifier|public
+name|boolean
+name|hasHeartbeatMessage
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000020
+operator|)
+operator|==
+literal|0x00000020
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool heartbeat_message = 9;</code>      *      *<pre>      * This field is filled in if the server is sending back a heartbeat message.      * Heartbeat messages are sent back to the client to prevent the scanner from      * timing out. Seeing a heartbeat message communicates to the Client that the      * server would have continued to scan had the time limit not been reached.      *</pre>      */
+specifier|public
+name|boolean
+name|getHeartbeatMessage
+parameter_list|()
+block|{
+return|return
+name|heartbeatMessage_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -93852,6 +94251,10 @@ name|emptyList
 argument_list|()
 expr_stmt|;
 name|moreResultsInRegion_
+operator|=
+literal|false
+expr_stmt|;
+name|heartbeatMessage_
 operator|=
 literal|false
 expr_stmt|;
@@ -94128,6 +94531,29 @@ argument_list|(
 literal|8
 argument_list|,
 name|moreResultsInRegion_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000020
+operator|)
+operator|==
+literal|0x00000020
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|9
+argument_list|,
+name|heartbeatMessage_
 argument_list|)
 expr_stmt|;
 block|}
@@ -94455,6 +94881,37 @@ argument_list|(
 literal|8
 argument_list|,
 name|moreResultsInRegion_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000020
+operator|)
+operator|==
+literal|0x00000020
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|9
+argument_list|,
+name|heartbeatMessage_
 argument_list|)
 expr_stmt|;
 block|}
@@ -94838,6 +95295,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasHeartbeatMessage
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasHeartbeatMessage
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasHeartbeatMessage
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getHeartbeatMessage
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getHeartbeatMessage
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -95147,6 +95639,37 @@ operator|+
 name|hashBoolean
 argument_list|(
 name|getMoreResultsInRegion
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasHeartbeatMessage
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|HEARTBEAT_MESSAGE_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getHeartbeatMessage
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -96121,6 +96644,19 @@ operator|~
 literal|0x00000080
 operator|)
 expr_stmt|;
+name|heartbeatMessage_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000100
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -96603,6 +97139,30 @@ name|moreResultsInRegion_
 operator|=
 name|moreResultsInRegion_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000100
+operator|)
+operator|==
+literal|0x00000100
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000020
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|heartbeatMessage_
+operator|=
+name|heartbeatMessage_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -97065,6 +97625,23 @@ argument_list|(
 name|other
 operator|.
 name|getMoreResultsInRegion
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasHeartbeatMessage
+argument_list|()
+condition|)
+block|{
+name|setHeartbeatMessage
+argument_list|(
+name|other
+operator|.
+name|getHeartbeatMessage
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -99479,6 +100056,89 @@ literal|0x00000080
 operator|)
 expr_stmt|;
 name|moreResultsInRegion_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional bool heartbeat_message = 9;
+specifier|private
+name|boolean
+name|heartbeatMessage_
+decl_stmt|;
+comment|/**        *<code>optional bool heartbeat_message = 9;</code>        *        *<pre>        * This field is filled in if the server is sending back a heartbeat message.        * Heartbeat messages are sent back to the client to prevent the scanner from        * timing out. Seeing a heartbeat message communicates to the Client that the        * server would have continued to scan had the time limit not been reached.        *</pre>        */
+specifier|public
+name|boolean
+name|hasHeartbeatMessage
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000100
+operator|)
+operator|==
+literal|0x00000100
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool heartbeat_message = 9;</code>        *        *<pre>        * This field is filled in if the server is sending back a heartbeat message.        * Heartbeat messages are sent back to the client to prevent the scanner from        * timing out. Seeing a heartbeat message communicates to the Client that the        * server would have continued to scan had the time limit not been reached.        *</pre>        */
+specifier|public
+name|boolean
+name|getHeartbeatMessage
+parameter_list|()
+block|{
+return|return
+name|heartbeatMessage_
+return|;
+block|}
+comment|/**        *<code>optional bool heartbeat_message = 9;</code>        *        *<pre>        * This field is filled in if the server is sending back a heartbeat message.        * Heartbeat messages are sent back to the client to prevent the scanner from        * timing out. Seeing a heartbeat message communicates to the Client that the        * server would have continued to scan had the time limit not been reached.        *</pre>        */
+specifier|public
+name|Builder
+name|setHeartbeatMessage
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000100
+expr_stmt|;
+name|heartbeatMessage_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool heartbeat_message = 9;</code>        *        *<pre>        * This field is filled in if the server is sending back a heartbeat message.        * Heartbeat messages are sent back to the client to prevent the scanner from        * timing out. Seeing a heartbeat message communicates to the Client that the        * server would have continued to scan had the time limit not been reached.        *</pre>        */
+specifier|public
+name|Builder
+name|clearHeartbeatMessage
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000100
+operator|)
+expr_stmt|;
+name|heartbeatMessage_
 operator|=
 literal|false
 expr_stmt|;
@@ -174423,7 +175083,7 @@ literal|"eversed\030\017 \001(\010:\005false\022)\n\013consistency\030\020 \001(
 operator|+
 literal|"\0162\014.Consistency:\006STRONG\022\017\n\007caching\030\021 \001(\r"
 operator|+
-literal|"\"\277\001\n\013ScanRequest\022 \n\006region\030\001 \001(\0132\020.Regio"
+literal|"\"\342\001\n\013ScanRequest\022 \n\006region\030\001 \001(\0132\020.Regio"
 block|,
 literal|"nSpecifier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\022\n\nscann"
 operator|+
@@ -174431,111 +175091,113 @@ literal|"er_id\030\003 \001(\004\022\026\n\016number_of_rows\030\004 \001(\r\022
 operator|+
 literal|"lose_scanner\030\005 \001(\010\022\025\n\rnext_call_seq\030\006 \001("
 operator|+
-literal|"\004\022\037\n\027client_handles_partials\030\007 \001(\010\"\311\001\n\014S"
+literal|"\004\022\037\n\027client_handles_partials\030\007 \001(\010\022!\n\031cl"
 operator|+
-literal|"canResponse\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n"
+literal|"ient_handles_heartbeats\030\010 \001(\010\"\344\001\n\014ScanRe"
 operator|+
-literal|"\nscanner_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022"
+literal|"sponse\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n\nscan"
 operator|+
-literal|"\013\n\003ttl\030\004 \001(\r\022\030\n\007results\030\005 \003(\0132\007.Result\022\r"
+literal|"ner_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022\013\n\003tt"
 operator|+
-literal|"\n\005stale\030\006 \001(\010\022\037\n\027partial_flag_per_result"
+literal|"l\030\004 \001(\r\022\030\n\007results\030\005 \003(\0132\007.Result\022\r\n\005sta"
 operator|+
-literal|"\030\007 \003(\010\022\036\n\026more_results_in_region\030\010 \001(\010\"\263"
+literal|"le\030\006 \001(\010\022\037\n\027partial_flag_per_result\030\007 \003("
 operator|+
-literal|"\001\n\024BulkLoadHFileRequest\022 \n\006region\030\001 \002(\0132"
+literal|"\010\022\036\n\026more_results_in_region\030\010 \001(\010\022\031\n\021hea"
 block|,
-literal|"\020.RegionSpecifier\0225\n\013family_path\030\002 \003(\0132 "
+literal|"rtbeat_message\030\t \001(\010\"\263\001\n\024BulkLoadHFileRe"
 operator|+
-literal|".BulkLoadHFileRequest.FamilyPath\022\026\n\016assi"
+literal|"quest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022"
 operator|+
-literal|"gn_seq_num\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006family"
+literal|"5\n\013family_path\030\002 \003(\0132 .BulkLoadHFileRequ"
 operator|+
-literal|"\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileRes"
+literal|"est.FamilyPath\022\026\n\016assign_seq_num\030\003 \001(\010\032*"
 operator|+
-literal|"ponse\022\016\n\006loaded\030\001 \002(\010\"a\n\026CoprocessorServ"
+literal|"\n\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002"
 operator|+
-literal|"iceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service_name\030\002 \002"
+literal|"(\t\"\'\n\025BulkLoadHFileResponse\022\016\n\006loaded\030\001 "
 operator|+
-literal|"(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007request\030\004 \002(\014"
+literal|"\002(\010\"a\n\026CoprocessorServiceCall\022\013\n\003row\030\001 \002"
 operator|+
-literal|"\"9\n\030CoprocessorServiceResult\022\035\n\005value\030\001 "
+literal|"(\014\022\024\n\014service_name\030\002 \002(\t\022\023\n\013method_name\030"
 operator|+
-literal|"\001(\0132\016.NameBytesPair\"d\n\031CoprocessorServic"
+literal|"\003 \002(\t\022\017\n\007request\030\004 \002(\014\"9\n\030CoprocessorSer"
 operator|+
-literal|"eRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifi"
+literal|"viceResult\022\035\n\005value\030\001 \001(\0132\016.NameBytesPai"
 block|,
-literal|"er\022%\n\004call\030\002 \002(\0132\027.CoprocessorServiceCal"
+literal|"r\"d\n\031CoprocessorServiceRequest\022 \n\006region"
 operator|+
-literal|"l\"]\n\032CoprocessorServiceResponse\022 \n\006regio"
+literal|"\030\001 \002(\0132\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132\027"
 operator|+
-literal|"n\030\001 \002(\0132\020.RegionSpecifier\022\035\n\005value\030\002 \002(\013"
+literal|".CoprocessorServiceCall\"]\n\032CoprocessorSe"
 operator|+
-literal|"2\016.NameBytesPair\"{\n\006Action\022\r\n\005index\030\001 \001("
+literal|"rviceResponse\022 \n\006region\030\001 \002(\0132\020.RegionSp"
 operator|+
-literal|"\r\022 \n\010mutation\030\002 \001(\0132\016.MutationProto\022\021\n\003g"
+literal|"ecifier\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\"{"
 operator|+
-literal|"et\030\003 \001(\0132\004.Get\022-\n\014service_call\030\004 \001(\0132\027.C"
+literal|"\n\006Action\022\r\n\005index\030\001 \001(\r\022 \n\010mutation\030\002 \001("
 operator|+
-literal|"oprocessorServiceCall\"Y\n\014RegionAction\022 \n"
+literal|"\0132\016.MutationProto\022\021\n\003get\030\003 \001(\0132\004.Get\022-\n\014"
 operator|+
-literal|"\006region\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006atomi"
+literal|"service_call\030\004 \001(\0132\027.CoprocessorServiceC"
 operator|+
-literal|"c\030\002 \001(\010\022\027\n\006action\030\003 \003(\0132\007.Action\"D\n\017Regi"
+literal|"all\"Y\n\014RegionAction\022 \n\006region\030\001 \002(\0132\020.Re"
 operator|+
-literal|"onLoadStats\022\027\n\014memstoreLoad\030\001 \001(\005:\0010\022\030\n\r"
+literal|"gionSpecifier\022\016\n\006atomic\030\002 \001(\010\022\027\n\006action\030"
 block|,
-literal|"heapOccupancy\030\002 \001(\005:\0010\"\266\001\n\021ResultOrExcep"
+literal|"\003 \003(\0132\007.Action\"D\n\017RegionLoadStats\022\027\n\014mem"
 operator|+
-literal|"tion\022\r\n\005index\030\001 \001(\r\022\027\n\006result\030\002 \001(\0132\007.Re"
+literal|"storeLoad\030\001 \001(\005:\0010\022\030\n\rheapOccupancy\030\002 \001("
 operator|+
-literal|"sult\022!\n\texception\030\003 \001(\0132\016.NameBytesPair\022"
+literal|"\005:\0010\"\266\001\n\021ResultOrException\022\r\n\005index\030\001 \001("
 operator|+
-literal|"1\n\016service_result\030\004 \001(\0132\031.CoprocessorSer"
+literal|"\r\022\027\n\006result\030\002 \001(\0132\007.Result\022!\n\texception\030"
 operator|+
-literal|"viceResult\022#\n\tloadStats\030\005 \001(\0132\020.RegionLo"
+literal|"\003 \001(\0132\016.NameBytesPair\0221\n\016service_result\030"
 operator|+
-literal|"adStats\"f\n\022RegionActionResult\022-\n\021resultO"
+literal|"\004 \001(\0132\031.CoprocessorServiceResult\022#\n\tload"
 operator|+
-literal|"rException\030\001 \003(\0132\022.ResultOrException\022!\n\t"
+literal|"Stats\030\005 \001(\0132\020.RegionLoadStats\"f\n\022RegionA"
 operator|+
-literal|"exception\030\002 \001(\0132\016.NameBytesPair\"f\n\014Multi"
+literal|"ctionResult\022-\n\021resultOrException\030\001 \003(\0132\022"
 operator|+
-literal|"Request\022#\n\014regionAction\030\001 \003(\0132\r.RegionAc"
+literal|".ResultOrException\022!\n\texception\030\002 \001(\0132\016."
 operator|+
-literal|"tion\022\022\n\nnonceGroup\030\002 \001(\004\022\035\n\tcondition\030\003 "
+literal|"NameBytesPair\"f\n\014MultiRequest\022#\n\014regionA"
 block|,
-literal|"\001(\0132\n.Condition\"S\n\rMultiResponse\022/\n\022regi"
+literal|"ction\030\001 \003(\0132\r.RegionAction\022\022\n\nnonceGroup"
 operator|+
-literal|"onActionResult\030\001 \003(\0132\023.RegionActionResul"
+literal|"\030\002 \001(\004\022\035\n\tcondition\030\003 \001(\0132\n.Condition\"S\n"
 operator|+
-literal|"t\022\021\n\tprocessed\030\002 \001(\010*\'\n\013Consistency\022\n\n\006S"
+literal|"\rMultiResponse\022/\n\022regionActionResult\030\001 \003"
 operator|+
-literal|"TRONG\020\000\022\014\n\010TIMELINE\020\0012\205\003\n\rClientService\022"
+literal|"(\0132\023.RegionActionResult\022\021\n\tprocessed\030\002 \001"
 operator|+
-literal|" \n\003Get\022\013.GetRequest\032\014.GetResponse\022)\n\006Mut"
+literal|"(\010*\'\n\013Consistency\022\n\n\006STRONG\020\000\022\014\n\010TIMELIN"
 operator|+
-literal|"ate\022\016.MutateRequest\032\017.MutateResponse\022#\n\004"
+literal|"E\020\0012\205\003\n\rClientService\022 \n\003Get\022\013.GetReques"
 operator|+
-literal|"Scan\022\014.ScanRequest\032\r.ScanResponse\022>\n\rBul"
+literal|"t\032\014.GetResponse\022)\n\006Mutate\022\016.MutateReques"
 operator|+
-literal|"kLoadHFile\022\025.BulkLoadHFileRequest\032\026.Bulk"
+literal|"t\032\017.MutateResponse\022#\n\004Scan\022\014.ScanRequest"
 operator|+
-literal|"LoadHFileResponse\022F\n\013ExecService\022\032.Copro"
+literal|"\032\r.ScanResponse\022>\n\rBulkLoadHFile\022\025.BulkL"
 operator|+
-literal|"cessorServiceRequest\032\033.CoprocessorServic"
+literal|"oadHFileRequest\032\026.BulkLoadHFileResponse\022"
 block|,
-literal|"eResponse\022R\n\027ExecRegionServerService\022\032.C"
+literal|"F\n\013ExecService\022\032.CoprocessorServiceReque"
 operator|+
-literal|"oprocessorServiceRequest\032\033.CoprocessorSe"
+literal|"st\032\033.CoprocessorServiceResponse\022R\n\027ExecR"
 operator|+
-literal|"rviceResponse\022&\n\005Multi\022\r.MultiRequest\032\016."
+literal|"egionServerService\022\032.CoprocessorServiceR"
 operator|+
-literal|"MultiResponseBB\n*org.apache.hadoop.hbase"
+literal|"equest\032\033.CoprocessorServiceResponse\022&\n\005M"
 operator|+
-literal|".protobuf.generatedB\014ClientProtosH\001\210\001\001\240\001"
+literal|"ulti\022\r.MultiRequest\032\016.MultiResponseBB\n*o"
 operator|+
-literal|"\001"
+literal|"rg.apache.hadoop.hbase.protobuf.generate"
+operator|+
+literal|"dB\014ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -175306,6 +175968,8 @@ block|,
 literal|"NextCallSeq"
 block|,
 literal|"ClientHandlesPartials"
+block|,
+literal|"ClientHandlesHeartbeats"
 block|, }
 argument_list|)
 expr_stmt|;
@@ -175360,6 +176024,8 @@ block|,
 literal|"PartialFlagPerResult"
 block|,
 literal|"MoreResultsInRegion"
+block|,
+literal|"HeartbeatMessage"
 block|, }
 argument_list|)
 expr_stmt|;

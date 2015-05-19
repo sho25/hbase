@@ -1414,7 +1414,7 @@ name|sort
 argument_list|(
 name|kvs
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -1715,7 +1715,7 @@ name|deleteInfo
 operator|+
 literal|";"
 argument_list|,
-name|CellComparator
+name|CellUtil
 operator|.
 name|equalsIgnoreMvccVersion
 argument_list|(

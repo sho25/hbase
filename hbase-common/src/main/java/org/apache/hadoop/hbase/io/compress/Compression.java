@@ -353,6 +353,7 @@ specifier|final
 class|class
 name|Compression
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

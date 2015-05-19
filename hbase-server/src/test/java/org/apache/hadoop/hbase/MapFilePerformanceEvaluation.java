@@ -229,6 +229,7 @@ name|ROW_COUNT
 init|=
 literal|100000
 decl_stmt|;
+specifier|private
 specifier|static
 specifier|final
 name|Log

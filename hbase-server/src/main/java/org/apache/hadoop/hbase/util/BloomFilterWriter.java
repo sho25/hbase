@@ -62,11 +62,6 @@ name|BloomFilterWriter
 extends|extends
 name|BloomFilterBase
 block|{
-comment|/** Allocate memory for the bloom filter data. */
-name|void
-name|allocBloom
-parameter_list|()
-function_decl|;
 comment|/** Compact the Bloom filter before writing metadata& data to disk. */
 name|void
 name|compactBloom

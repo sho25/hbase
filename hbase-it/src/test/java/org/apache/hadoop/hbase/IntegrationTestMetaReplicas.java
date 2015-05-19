@@ -221,6 +221,7 @@ specifier|public
 class|class
 name|IntegrationTestMetaReplicas
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

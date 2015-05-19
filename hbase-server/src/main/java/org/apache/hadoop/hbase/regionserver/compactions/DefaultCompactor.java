@@ -818,6 +818,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// When all MVCC readpoints are 0, don't write them.
+comment|// See HBASE-8166, HBASE-12600, and HBASE-13389.
+comment|// make this writer with tags always because of possible new cells with tags.
 name|StoreFile
 operator|.
 name|Writer
@@ -841,7 +844,7 @@ name|fd
 operator|.
 name|maxMVCCReadpoint
 operator|>=
-name|smallestReadPoint
+literal|0
 argument_list|,
 name|fd
 operator|.

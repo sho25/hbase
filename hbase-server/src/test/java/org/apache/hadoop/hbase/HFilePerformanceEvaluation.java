@@ -434,6 +434,7 @@ literal|"WARN"
 argument_list|)
 expr_stmt|;
 block|}
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -1899,11 +1900,9 @@ argument_list|)
 operator|.
 name|withComparator
 argument_list|(
-operator|new
-name|KeyValue
+name|CellComparator
 operator|.
-name|RawBytesComparator
-argument_list|()
+name|COMPARATOR
 argument_list|)
 operator|.
 name|create

@@ -413,6 +413,7 @@ operator|new
 name|TestName
 argument_list|()
 decl_stmt|;
+specifier|private
 specifier|static
 specifier|final
 name|Log

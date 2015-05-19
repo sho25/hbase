@@ -351,7 +351,9 @@ argument_list|,
 name|KeyValue
 argument_list|>
 block|{
+specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=

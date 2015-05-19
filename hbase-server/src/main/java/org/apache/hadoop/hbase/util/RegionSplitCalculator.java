@@ -211,8 +211,9 @@ extends|extends
 name|KeyRange
 parameter_list|>
 block|{
-specifier|final
+specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=
@@ -438,6 +439,7 @@ argument_list|(
 name|range
 argument_list|)
 decl_stmt|;
+comment|// No need to use Arrays.equals because ENDKEY is null
 if|if
 condition|(
 name|end

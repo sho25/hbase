@@ -418,6 +418,7 @@ specifier|public
 class|class
 name|IPCUtil
 block|{
+comment|// LOG is being used in TestIPCUtil
 specifier|public
 specifier|static
 specifier|final

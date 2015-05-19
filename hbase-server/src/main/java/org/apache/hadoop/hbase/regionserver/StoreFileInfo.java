@@ -286,7 +286,7 @@ specifier|public
 class|class
 name|StoreFileInfo
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -1881,6 +1881,14 @@ argument_list|(
 literal|1
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1898,6 +1906,7 @@ operator|+
 name|nameStrippedOfSuffix
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Build up new path with the referenced region in place of our current
 comment|// region in the reference path.  Also strip regionname suffix from name.
 return|return
