@@ -951,7 +951,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"got an exception from the sync-loop"
+literal|"Got an exception from the sync-loop"
 argument_list|,
 name|e
 argument_list|)
@@ -1216,16 +1216,24 @@ name|flushLogId
 argument_list|)
 condition|)
 block|{
-comment|// someone else has already created this log
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"someone else has already created log "
+literal|"Someone else has already created log: "
 operator|+
 name|flushLogId
 argument_list|)
 expr_stmt|;
+block|}
 continue|continue;
 block|}
 comment|// We have the lease on the log
@@ -1244,16 +1252,24 @@ operator|>
 name|flushLogId
 condition|)
 block|{
-comment|// Someone else created new logs
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"someone else created new logs. expected maxLogId< "
+literal|"Someone else created new logs. Expected maxLogId< "
 operator|+
 name|flushLogId
 argument_list|)
 expr_stmt|;
+block|}
 name|logs
 operator|.
 name|getLast
@@ -1268,7 +1284,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"lease acquired flushLogId="
+literal|"Lease acquired for flushLogId: "
 operator|+
 name|flushLogId
 argument_list|)
@@ -1315,13 +1331,22 @@ operator|==
 literal|1
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"No state logs to replay"
+literal|"No state logs to replay."
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|null
 return|;
@@ -1492,11 +1517,11 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"insert "
+literal|"Insert "
 operator|+
 name|proc
 operator|+
-literal|" subproc="
+literal|", subproc="
 operator|+
 name|Arrays
 operator|.
@@ -1585,7 +1610,7 @@ literal|"Unable to serialize one of the procedure: proc="
 operator|+
 name|proc
 operator|+
-literal|" subprocs="
+literal|", subprocs="
 operator|+
 name|Arrays
 operator|.
@@ -1653,7 +1678,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"update "
+literal|"Update "
 operator|+
 name|proc
 argument_list|)
@@ -1798,7 +1823,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"delete "
+literal|"Delete "
 operator|+
 name|procId
 argument_list|)
@@ -2333,7 +2358,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"sync wait "
+literal|"Sync wait "
 operator|+
 name|StringUtils
 operator|.
@@ -2342,11 +2367,11 @@ argument_list|(
 name|syncWaitMs
 argument_list|)
 operator|+
-literal|" slotIndex="
+literal|", slotIndex="
 operator|+
 name|slotIndex
 operator|+
-literal|" totalSynced="
+literal|", totalSynced="
 operator|+
 name|StringUtils
 operator|.
@@ -2488,7 +2513,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"sync slot failed, abort."
+literal|"Sync slot failed, abort."
 argument_list|,
 name|e
 argument_list|)
@@ -2617,7 +2642,7 @@ name|slots
 operator|.
 name|length
 operator|+
-literal|" flushed="
+literal|", flushed="
 operator|+
 name|StringUtils
 operator|.
@@ -2901,15 +2926,24 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"Roll new state log: "
 operator|+
 name|logId
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|true
 return|;
@@ -2998,23 +3032,47 @@ name|long
 name|lastLogId
 parameter_list|)
 block|{
+if|if
+condition|(
+name|logs
+operator|.
+name|size
+argument_list|()
+operator|<=
+literal|1
+condition|)
+block|{
+assert|assert
+name|logs
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|1
+operator|:
+literal|"Expected at least one active log to be running."
+assert|;
+return|return;
+block|}
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
-literal|"Remove all state logs with ID less then "
+literal|"Remove all state logs with ID less than "
 operator|+
 name|lastLogId
 argument_list|)
 expr_stmt|;
-while|while
-condition|(
-operator|!
-name|logs
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
+block|}
+do|do
 block|{
 name|ProcedureWALFile
 name|log
@@ -3042,6 +3100,15 @@ name|log
 argument_list|)
 expr_stmt|;
 block|}
+do|while
+condition|(
+operator|!
+name|logs
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+do|;
 block|}
 specifier|private
 name|boolean
@@ -3054,15 +3121,24 @@ parameter_list|)
 block|{
 try|try
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"remove log: "
+literal|"Remove log: "
 operator|+
 name|log
 argument_list|)
 expr_stmt|;
+block|}
 name|log
 operator|.
 name|removeFile
@@ -3086,7 +3162,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"unable to remove log "
+literal|"Unable to remove log: "
 operator|+
 name|log
 argument_list|,
@@ -3306,7 +3382,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"log directory not found: "
+literal|"Log directory not found: "
 operator|+
 name|e
 operator|.
@@ -3639,7 +3715,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Remove uninitialized log "
+literal|"Remove uninitialized log: "
 operator|+
 name|logFile
 argument_list|)
@@ -3653,15 +3729,24 @@ return|return
 literal|null
 return|;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"opening state-log: "
+literal|"Opening state-log: "
 operator|+
 name|logFile
 argument_list|)
 expr_stmt|;
+block|}
 try|try
 block|{
 name|log
@@ -3682,7 +3767,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Remove uninitialized log "
+literal|"Remove uninitialized log: "
 operator|+
 name|logFile
 argument_list|,
@@ -3752,12 +3837,11 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-comment|// unfinished compacted log throw it away
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unfinished compacted log "
+literal|"Unfinished compacted log: "
 operator|+
 name|logFile
 argument_list|,
