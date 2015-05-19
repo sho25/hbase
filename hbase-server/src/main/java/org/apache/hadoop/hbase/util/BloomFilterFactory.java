@@ -294,22 +294,6 @@ name|version
 condition|)
 block|{
 case|case
-name|ByteBloomFilter
-operator|.
-name|VERSION
-case|:
-comment|// This is only possible in a version 1 HFile. We are ignoring the
-comment|// passed comparator because raw byte comparators are always used
-comment|// in version 1 Bloom filters.
-comment|// TODO:Remove this code - use only CompoundBloomFilter
-return|return
-operator|new
-name|ByteBloomFilter
-argument_list|(
-name|meta
-argument_list|)
-return|;
-case|case
 name|CompoundBloomFilterBase
 operator|.
 name|VERSION

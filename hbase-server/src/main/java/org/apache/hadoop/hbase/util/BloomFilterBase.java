@@ -61,32 +61,6 @@ name|long
 name|getByteSize
 parameter_list|()
 function_decl|;
-comment|/**    * Create a key for a row-column Bloom filter.    */
-name|byte
-index|[]
-name|createBloomKey
-parameter_list|(
-name|byte
-index|[]
-name|rowBuf
-parameter_list|,
-name|int
-name|rowOffset
-parameter_list|,
-name|int
-name|rowLen
-parameter_list|,
-name|byte
-index|[]
-name|qualBuf
-parameter_list|,
-name|int
-name|qualOffset
-parameter_list|,
-name|int
-name|qualLen
-parameter_list|)
-function_decl|;
 block|}
 end_interface
 

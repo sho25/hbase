@@ -57,6 +57,34 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -154,7 +182,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Bloom filter implementation built on top of {@link ByteBloomFilter},  * encapsulating a set of fixed-size Bloom filters written out at the time of  * {@link org.apache.hadoop.hbase.io.hfile.HFile} generation into the data  * block stream, and loaded on demand at query time. This class only provides  * reading capabilities.  */
+comment|/**  * A Bloom filter implementation built on top of {@link BloomFilterChunk},  * encapsulating a set of fixed-size Bloom filters written out at the time of  * {@link org.apache.hadoop.hbase.io.hfile.HFile} generation into the data  * block stream, and loaded on demand at query time. This class only provides  * reading capabilities.  */
 end_comment
 
 begin_class
@@ -373,9 +401,6 @@ parameter_list|)
 block|{
 comment|// We try to store the result in this variable so we can update stats for
 comment|// testing, but when an error happens, we log a message and return.
-name|boolean
-name|result
-decl_stmt|;
 name|int
 name|block
 init|=
@@ -388,9 +413,41 @@ argument_list|,
 name|keyOffset
 argument_list|,
 name|keyLength
-argument_list|,
-name|comparator
 argument_list|)
+decl_stmt|;
+return|return
+name|checkContains
+argument_list|(
+name|key
+argument_list|,
+name|keyOffset
+argument_list|,
+name|keyLength
+argument_list|,
+name|block
+argument_list|)
+return|;
+block|}
+specifier|private
+name|boolean
+name|checkContains
+parameter_list|(
+name|byte
+index|[]
+name|key
+parameter_list|,
+name|int
+name|keyOffset
+parameter_list|,
+name|int
+name|keyLength
+parameter_list|,
+name|int
+name|block
+parameter_list|)
+block|{
+name|boolean
+name|result
 decl_stmt|;
 if|if
 condition|(
@@ -487,7 +544,7 @@ argument_list|()
 decl_stmt|;
 name|result
 operator|=
-name|ByteBloomFilter
+name|BloomFilterUtil
 operator|.
 name|contains
 argument_list|(
@@ -546,6 +603,64 @@ expr_stmt|;
 block|}
 return|return
 name|result
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|contains
+parameter_list|(
+name|Cell
+name|keyCell
+parameter_list|,
+name|ByteBuffer
+name|bloom
+parameter_list|)
+block|{
+comment|// We try to store the result in this variable so we can update stats for
+comment|// testing, but when an error happens, we log a message and return.
+name|int
+name|block
+init|=
+name|index
+operator|.
+name|rootBlockContainingKey
+argument_list|(
+name|keyCell
+argument_list|)
+decl_stmt|;
+comment|// TODO : Will be true KeyValue for now.
+comment|// When Offheap comes in we can add an else condition to work
+comment|// on the bytes in offheap
+name|KeyValue
+name|kvKey
+init|=
+operator|(
+name|KeyValue
+operator|)
+name|keyCell
+decl_stmt|;
+return|return
+name|checkContains
+argument_list|(
+name|kvKey
+operator|.
+name|getBuffer
+argument_list|()
+argument_list|,
+name|kvKey
+operator|.
+name|getKeyOffset
+argument_list|()
+argument_list|,
+name|kvKey
+operator|.
+name|getKeyLength
+argument_list|()
+argument_list|,
+name|block
+argument_list|)
 return|;
 block|}
 specifier|public
@@ -750,7 +865,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-name|ByteBloomFilter
+name|BloomFilterUtil
 operator|.
 name|formatStats
 argument_list|(
@@ -762,7 +877,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-name|ByteBloomFilter
+name|BloomFilterUtil
 operator|.
 name|STATS_RECORD_SEP
 operator|+
@@ -775,7 +890,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-name|ByteBloomFilter
+name|BloomFilterUtil
 operator|.
 name|STATS_RECORD_SEP
 operator|+

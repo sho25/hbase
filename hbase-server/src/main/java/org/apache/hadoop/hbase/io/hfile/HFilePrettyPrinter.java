@@ -557,7 +557,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|BloomFilterFactory
+name|BloomFilterUtil
 import|;
 end_import
 
@@ -573,7 +573,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|ByteBloomFilter
+name|BloomFilterFactory
 import|;
 end_import
 
@@ -2939,7 +2939,7 @@ argument_list|()
 operator|.
 name|replaceAll
 argument_list|(
-name|ByteBloomFilter
+name|BloomFilterUtil
 operator|.
 name|STATS_RECORD_SEP
 argument_list|,
@@ -3024,7 +3024,7 @@ argument_list|()
 operator|.
 name|replaceAll
 argument_list|(
-name|ByteBloomFilter
+name|BloomFilterUtil
 operator|.
 name|STATS_RECORD_SEP
 argument_list|,
