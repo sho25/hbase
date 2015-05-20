@@ -47,7 +47,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueUtil
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -61,9 +63,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|KeyValueUtil
 import|;
 end_import
 
@@ -264,9 +264,6 @@ specifier|protected
 name|boolean
 name|nextRow
 parameter_list|(
-name|ScannerContext
-name|scannerContext
-parameter_list|,
 name|byte
 index|[]
 name|currentRow
