@@ -240,15 +240,10 @@ control|)
 block|{
 name|descriptor
 operator|.
-name|setMaxVersions
+name|setVersions
 argument_list|(
 name|versions
-argument_list|)
-expr_stmt|;
-name|descriptor
-operator|.
-name|setMinVersions
-argument_list|(
+argument_list|,
 name|versions
 argument_list|)
 expr_stmt|;

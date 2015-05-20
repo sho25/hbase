@@ -1994,6 +1994,72 @@ return|return
 name|this
 return|;
 block|}
+comment|/**    * Set minimum and maximum versions to keep    *    * @param minVersions minimal number of versions    * @param maxVersions maximum number of versions    * @return this (for chained invocation)    */
+specifier|public
+name|HColumnDescriptor
+name|setVersions
+parameter_list|(
+name|int
+name|minVersions
+parameter_list|,
+name|int
+name|maxVersions
+parameter_list|)
+block|{
+if|if
+condition|(
+name|minVersions
+operator|<=
+literal|0
+condition|)
+block|{
+comment|// TODO: Allow minVersion and maxVersion of 0 to be the way you say "Keep all versions".
+comment|// Until there is support, consider 0 or< 0 -- a configuration error.
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Minimum versions must be positive"
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+name|maxVersions
+operator|<
+name|minVersions
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Unable to set MaxVersion to "
+operator|+
+name|maxVersions
+operator|+
+literal|" and set MinVersion to "
+operator|+
+name|minVersions
+operator|+
+literal|", as maximum versions must be>= minimum versions."
+argument_list|)
+throw|;
+block|}
+name|setMinVersions
+argument_list|(
+name|minVersions
+argument_list|)
+expr_stmt|;
+name|setMaxVersions
+argument_list|(
+name|maxVersions
+argument_list|)
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
 comment|/**    * @return The storefile/hfile blocksize for this column family.    */
 specifier|public
 specifier|synchronized
