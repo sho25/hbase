@@ -1298,11 +1298,7 @@ name|merger
 init|=
 operator|new
 name|Merge
-argument_list|(
-name|this
-operator|.
-name|conf
-argument_list|)
+argument_list|()
 decl_stmt|;
 name|LOG
 operator|.

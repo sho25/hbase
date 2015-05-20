@@ -535,20 +535,6 @@ name|hadoop
 operator|.
 name|util
 operator|.
-name|GenericOptionsParser
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|util
-operator|.
 name|Tool
 import|;
 end_import
@@ -1504,6 +1490,18 @@ name|Context
 name|context
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Setting up "
+operator|+
+name|getClass
+argument_list|()
+operator|+
+literal|" mapper."
+argument_list|)
+expr_stmt|;
 name|Configuration
 name|conf
 init|=
@@ -1553,6 +1551,25 @@ name|durabilityStr
 operator|.
 name|toUpperCase
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"setting WAL durability to "
+operator|+
+name|durability
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"setting WAL durability to default."
 argument_list|)
 expr_stmt|;
 block|}
@@ -2751,6 +2768,13 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"writing to hfiles for bulk load."
+argument_list|)
+expr_stmt|;
 name|job
 operator|.
 name|setMapperClass
@@ -2869,6 +2893,13 @@ block|}
 block|}
 else|else
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"writing directly to table from Mapper."
+argument_list|)
+expr_stmt|;
 comment|// No reducers.  Just write straight to table.  Call initTableReducerJob
 comment|// because it sets up the TableOutputFormat.
 name|job
@@ -3151,6 +3182,13 @@ name|durability
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Flushing all data that skipped the WAL."
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|connection
@@ -3226,25 +3264,9 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|String
-index|[]
-name|otherArgs
-init|=
-operator|new
-name|GenericOptionsParser
-argument_list|(
-name|getConf
-argument_list|()
-argument_list|,
-name|args
-argument_list|)
-operator|.
-name|getRemainingArgs
-argument_list|()
-decl_stmt|;
 if|if
 condition|(
-name|otherArgs
+name|args
 operator|.
 name|length
 operator|<
@@ -3255,7 +3277,7 @@ name|usage
 argument_list|(
 literal|"Wrong number of arguments: "
 operator|+
-name|otherArgs
+name|args
 operator|.
 name|length
 argument_list|)
@@ -3305,7 +3327,7 @@ argument_list|(
 name|getConf
 argument_list|()
 argument_list|,
-name|otherArgs
+name|args
 argument_list|)
 decl_stmt|;
 name|boolean

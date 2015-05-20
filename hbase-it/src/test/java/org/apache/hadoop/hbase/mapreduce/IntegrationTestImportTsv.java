@@ -163,7 +163,7 @@ name|hadoop
 operator|.
 name|conf
 operator|.
-name|Configurable
+name|Configured
 import|;
 end_import
 
@@ -433,20 +433,6 @@ name|hadoop
 operator|.
 name|util
 operator|.
-name|GenericOptionsParser
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|util
-operator|.
 name|Tool
 import|;
 end_import
@@ -524,9 +510,9 @@ argument_list|)
 specifier|public
 class|class
 name|IntegrationTestImportTsv
+extends|extends
+name|Configured
 implements|implements
-name|Configurable
-implements|,
 name|Tool
 block|{
 specifier|private
@@ -788,13 +774,13 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
+name|LOG
+operator|.
+name|debug
 argument_list|(
-literal|"setConf not supported"
+literal|"Ignoring setConf call."
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 annotation|@
 name|BeforeClass
@@ -1421,7 +1407,7 @@ operator|.
 name|println
 argument_list|()
 expr_stmt|;
-name|GenericOptionsParser
+name|ToolRunner
 operator|.
 name|printGenericCommandUsage
 argument_list|(
@@ -1484,29 +1470,19 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-comment|// not using ToolRunner to avoid unnecessary call to setConf()
-name|args
-operator|=
-operator|new
-name|GenericOptionsParser
-argument_list|(
-name|conf
-argument_list|,
-name|args
-argument_list|)
-operator|.
-name|getRemainingArgs
-argument_list|()
-expr_stmt|;
 name|int
 name|status
 init|=
-operator|new
-name|IntegrationTestImportTsv
-argument_list|()
+name|ToolRunner
 operator|.
 name|run
 argument_list|(
+name|conf
+argument_list|,
+operator|new
+name|IntegrationTestImportTsv
+argument_list|()
+argument_list|,
 name|args
 argument_list|)
 decl_stmt|;
