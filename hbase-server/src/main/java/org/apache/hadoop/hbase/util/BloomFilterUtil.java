@@ -73,6 +73,7 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|BloomFilterUtil
 block|{
@@ -162,6 +163,11 @@ operator|)
 literal|0x80
 block|}
 decl_stmt|;
+comment|/**    * Private constructor to keep this class from being instantiated.    */
+specifier|private
+name|BloomFilterUtil
+parameter_list|()
+block|{   }
 comment|/**    * @param maxKeys    * @param errorRate    * @return the number of bits for a Bloom filter than can hold the given    *         number of keys and provide the given error rate, assuming that the    *         optimal number of hash functions is used and it does not have to    *         be an integer.    */
 specifier|public
 specifier|static
@@ -646,33 +652,6 @@ name|buf
 argument_list|,
 name|offset
 argument_list|,
-name|length
-argument_list|,
-name|bloom
-argument_list|)
-return|;
-block|}
-comment|/** Should only be used in tests */
-name|boolean
-name|contains
-parameter_list|(
-name|byte
-index|[]
-name|buf
-parameter_list|,
-name|ByteBuffer
-name|bloom
-parameter_list|)
-block|{
-return|return
-name|contains
-argument_list|(
-name|buf
-argument_list|,
-literal|0
-argument_list|,
-name|buf
-operator|.
 name|length
 argument_list|,
 name|bloom
