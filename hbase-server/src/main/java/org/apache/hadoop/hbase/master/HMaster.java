@@ -8183,7 +8183,7 @@ argument_list|()
 operator|.
 name|contains
 argument_list|(
-literal|"org/apache/hadoop/hdfs/protocol/FSConstants$SafeModeAction"
+literal|"org/apache/hadoop/hdfs/protocol/HdfsConstants$SafeModeAction"
 argument_list|)
 condition|)
 block|{

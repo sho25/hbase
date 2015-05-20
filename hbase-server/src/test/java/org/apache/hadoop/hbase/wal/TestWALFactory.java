@@ -547,7 +547,7 @@ name|hdfs
 operator|.
 name|protocol
 operator|.
-name|FSConstants
+name|HdfsConstants
 import|;
 end_import
 
@@ -2968,7 +2968,7 @@ name|dfs
 operator|.
 name|setSafeMode
 argument_list|(
-name|FSConstants
+name|HdfsConstants
 operator|.
 name|SafeModeAction
 operator|.

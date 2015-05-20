@@ -2692,7 +2692,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * We use reflection because {@link DistributedFileSystem#setSafeMode(    * FSConstants.SafeModeAction action, boolean isChecked)} is not in hadoop 1.1    *    * @param dfs    * @return whether we're in safe mode    * @throws IOException    */
+comment|/**    * We use reflection because {@link DistributedFileSystem#setSafeMode(    * HdfsConstants.SafeModeAction action, boolean isChecked)} is not in hadoop 1.1    *    * @param dfs    * @return whether we're in safe mode    * @throws IOException    */
 end_comment
 
 begin_function
@@ -2742,7 +2742,7 @@ name|hdfs
 operator|.
 name|protocol
 operator|.
-name|FSConstants
+name|HdfsConstants
 operator|.
 name|SafeModeAction
 operator|.
@@ -2775,7 +2775,7 @@ name|hdfs
 operator|.
 name|protocol
 operator|.
-name|FSConstants
+name|HdfsConstants
 operator|.
 name|SafeModeAction
 operator|.
@@ -2823,7 +2823,7 @@ name|hdfs
 operator|.
 name|protocol
 operator|.
-name|FSConstants
+name|HdfsConstants
 operator|.
 name|SafeModeAction
 operator|.
