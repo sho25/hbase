@@ -85790,6 +85790,17 @@ name|boolean
 name|getClientHandlesHeartbeats
 parameter_list|()
 function_decl|;
+comment|// optional bool track_scan_metrics = 9;
+comment|/**      *<code>optional bool track_scan_metrics = 9;</code>      */
+name|boolean
+name|hasTrackScanMetrics
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool track_scan_metrics = 9;</code>      */
+name|boolean
+name|getTrackScanMetrics
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code ScanRequest}    *    *<pre>    **    * A scan request. Initially, it should specify a scan. Later on, you    * can use the scanner id returned to fetch result batches with a different    * scan request.    *    * The scanner will remain open if there are more results, and it's not    * asked to be closed explicitly.    *    * You can fetch the results and ask the scanner to be closed to save    * a trip if you are not interested in remaining results.    *</pre>    */
 specifier|public
@@ -86339,6 +86350,23 @@ operator||=
 literal|0x00000080
 expr_stmt|;
 name|clientHandlesHeartbeats_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|72
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000100
+expr_stmt|;
+name|trackScanMetrics_
 operator|=
 name|input
 operator|.
@@ -87054,6 +87082,47 @@ return|return
 name|clientHandlesHeartbeats_
 return|;
 block|}
+comment|// optional bool track_scan_metrics = 9;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|TRACK_SCAN_METRICS_FIELD_NUMBER
+init|=
+literal|9
+decl_stmt|;
+specifier|private
+name|boolean
+name|trackScanMetrics_
+decl_stmt|;
+comment|/**      *<code>optional bool track_scan_metrics = 9;</code>      */
+specifier|public
+name|boolean
+name|hasTrackScanMetrics
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000100
+operator|)
+operator|==
+literal|0x00000100
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool track_scan_metrics = 9;</code>      */
+specifier|public
+name|boolean
+name|getTrackScanMetrics
+parameter_list|()
+block|{
+return|return
+name|trackScanMetrics_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -87122,6 +87191,10 @@ operator|=
 literal|false
 expr_stmt|;
 name|clientHandlesHeartbeats_
+operator|=
+literal|false
+expr_stmt|;
+name|trackScanMetrics_
 operator|=
 literal|false
 expr_stmt|;
@@ -87421,6 +87494,29 @@ name|clientHandlesHeartbeats_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000100
+operator|)
+operator|==
+literal|0x00000100
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|9
+argument_list|,
+name|trackScanMetrics_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -87706,6 +87802,37 @@ argument_list|(
 literal|8
 argument_list|,
 name|clientHandlesHeartbeats_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000100
+operator|)
+operator|==
+literal|0x00000100
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|9
+argument_list|,
+name|trackScanMetrics_
 argument_list|)
 expr_stmt|;
 block|}
@@ -88151,6 +88278,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasTrackScanMetrics
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasTrackScanMetrics
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasTrackScanMetrics
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getTrackScanMetrics
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getTrackScanMetrics
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -88454,6 +88616,37 @@ operator|+
 name|hashBoolean
 argument_list|(
 name|getClientHandlesHeartbeats
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasTrackScanMetrics
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|TRACK_SCAN_METRICS_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getTrackScanMetrics
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -89460,6 +89653,19 @@ operator|~
 literal|0x00000080
 operator|)
 expr_stmt|;
+name|trackScanMetrics_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000100
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -89908,6 +90114,30 @@ name|clientHandlesHeartbeats_
 operator|=
 name|clientHandlesHeartbeats_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000100
+operator|)
+operator|==
+literal|0x00000100
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000100
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|trackScanMetrics_
+operator|=
+name|trackScanMetrics_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -90174,6 +90404,23 @@ argument_list|(
 name|other
 operator|.
 name|getClientHandlesHeartbeats
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasTrackScanMetrics
+argument_list|()
+condition|)
+block|{
+name|setTrackScanMetrics
+argument_list|(
+name|other
+operator|.
+name|getTrackScanMetrics
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -92274,6 +92521,89 @@ return|return
 name|this
 return|;
 block|}
+comment|// optional bool track_scan_metrics = 9;
+specifier|private
+name|boolean
+name|trackScanMetrics_
+decl_stmt|;
+comment|/**        *<code>optional bool track_scan_metrics = 9;</code>        */
+specifier|public
+name|boolean
+name|hasTrackScanMetrics
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000100
+operator|)
+operator|==
+literal|0x00000100
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool track_scan_metrics = 9;</code>        */
+specifier|public
+name|boolean
+name|getTrackScanMetrics
+parameter_list|()
+block|{
+return|return
+name|trackScanMetrics_
+return|;
+block|}
+comment|/**        *<code>optional bool track_scan_metrics = 9;</code>        */
+specifier|public
+name|Builder
+name|setTrackScanMetrics
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000100
+expr_stmt|;
+name|trackScanMetrics_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool track_scan_metrics = 9;</code>        */
+specifier|public
+name|Builder
+name|clearTrackScanMetrics
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000100
+operator|)
+expr_stmt|;
+name|trackScanMetrics_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
 comment|// @@protoc_insertion_point(builder_scope:ScanRequest)
 block|}
 static|static
@@ -92534,6 +92864,50 @@ function_decl|;
 comment|/**      *<code>optional bool heartbeat_message = 9;</code>      *      *<pre>      * This field is filled in if the server is sending back a heartbeat message.      * Heartbeat messages are sent back to the client to prevent the scanner from      * timing out. Seeing a heartbeat message communicates to the Client that the      * server would have continued to scan had the time limit not been reached.      *</pre>      */
 name|boolean
 name|getHeartbeatMessage
+parameter_list|()
+function_decl|;
+comment|// optional .ScanMetrics scan_metrics = 10;
+comment|/**      *<code>optional .ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+name|boolean
+name|hasScanMetrics
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional .ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+name|getScanMetrics
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional .ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetricsOrBuilder
+name|getScanMetricsOrBuilder
 parameter_list|()
 function_decl|;
 block|}
@@ -93264,6 +93638,107 @@ name|input
 operator|.
 name|readBool
 argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|82
+case|:
+block|{
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+operator|.
+name|Builder
+name|subBuilder
+init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|subBuilder
+operator|=
+name|scanMetrics_
+operator|.
+name|toBuilder
+argument_list|()
+expr_stmt|;
+block|}
+name|scanMetrics_
+operator|=
+name|input
+operator|.
+name|readMessage
+argument_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+operator|.
+name|PARSER
+argument_list|,
+name|extensionRegistry
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|subBuilder
+operator|!=
+literal|null
+condition|)
+block|{
+name|subBuilder
+operator|.
+name|mergeFrom
+argument_list|(
+name|scanMetrics_
+argument_list|)
+expr_stmt|;
+name|scanMetrics_
+operator|=
+name|subBuilder
+operator|.
+name|buildPartial
+argument_list|()
+expr_stmt|;
+block|}
+name|bitField0_
+operator||=
+literal|0x00000040
 expr_stmt|;
 break|break;
 block|}
@@ -94196,6 +94671,99 @@ return|return
 name|heartbeatMessage_
 return|;
 block|}
+comment|// optional .ScanMetrics scan_metrics = 10;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SCAN_METRICS_FIELD_NUMBER
+init|=
+literal|10
+decl_stmt|;
+specifier|private
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+name|scanMetrics_
+decl_stmt|;
+comment|/**      *<code>optional .ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+specifier|public
+name|boolean
+name|hasScanMetrics
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional .ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+specifier|public
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+name|getScanMetrics
+parameter_list|()
+block|{
+return|return
+name|scanMetrics_
+return|;
+block|}
+comment|/**      *<code>optional .ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+specifier|public
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetricsOrBuilder
+name|getScanMetricsOrBuilder
+parameter_list|()
+block|{
+return|return
+name|scanMetrics_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -94257,6 +94825,27 @@ expr_stmt|;
 name|heartbeatMessage_
 operator|=
 literal|false
+expr_stmt|;
+name|scanMetrics_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+operator|.
+name|getDefaultInstance
+argument_list|()
 expr_stmt|;
 block|}
 specifier|private
@@ -94554,6 +95143,29 @@ argument_list|(
 literal|9
 argument_list|,
 name|heartbeatMessage_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeMessage
+argument_list|(
+literal|10
+argument_list|,
+name|scanMetrics_
 argument_list|)
 expr_stmt|;
 block|}
@@ -94912,6 +95524,37 @@ argument_list|(
 literal|9
 argument_list|,
 name|heartbeatMessage_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeMessageSize
+argument_list|(
+literal|10
+argument_list|,
+name|scanMetrics_
 argument_list|)
 expr_stmt|;
 block|}
@@ -95330,6 +95973,42 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasScanMetrics
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasScanMetrics
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasScanMetrics
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+name|getScanMetrics
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|other
+operator|.
+name|getScanMetrics
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -95672,6 +96351,37 @@ argument_list|(
 name|getHeartbeatMessage
 argument_list|()
 argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasScanMetrics
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|SCAN_METRICS_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|getScanMetrics
+argument_list|()
+operator|.
+name|hashCode
+argument_list|()
 expr_stmt|;
 block|}
 name|hash
@@ -96479,6 +97189,9 @@ block|{
 name|getResultsFieldBuilder
 argument_list|()
 expr_stmt|;
+name|getScanMetricsFieldBuilder
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 specifier|private
@@ -96655,6 +97368,52 @@ name|bitField0_
 operator|&
 operator|~
 literal|0x00000100
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|scanMetricsBuilder_
+operator|==
+literal|null
+condition|)
+block|{
+name|scanMetrics_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+operator|.
+name|getDefaultInstance
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+name|scanMetricsBuilder_
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000200
 operator|)
 expr_stmt|;
 return|return
@@ -97163,6 +97922,50 @@ name|heartbeatMessage_
 operator|=
 name|heartbeatMessage_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000200
+operator|)
+operator|==
+literal|0x00000200
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|scanMetricsBuilder_
+operator|==
+literal|null
+condition|)
+block|{
+name|result
+operator|.
+name|scanMetrics_
+operator|=
+name|scanMetrics_
+expr_stmt|;
+block|}
+else|else
+block|{
+name|result
+operator|.
+name|scanMetrics_
+operator|=
+name|scanMetricsBuilder_
+operator|.
+name|build
+argument_list|()
+expr_stmt|;
+block|}
 name|result
 operator|.
 name|bitField0_
@@ -97642,6 +98445,23 @@ argument_list|(
 name|other
 operator|.
 name|getHeartbeatMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasScanMetrics
+argument_list|()
+condition|)
+block|{
+name|mergeScanMetrics
+argument_list|(
+name|other
+operator|.
+name|getScanMetrics
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -100147,6 +100967,709 @@ argument_list|()
 expr_stmt|;
 return|return
 name|this
+return|;
+block|}
+comment|// optional .ScanMetrics scan_metrics = 10;
+specifier|private
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+name|scanMetrics_
+init|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+operator|.
+name|getDefaultInstance
+argument_list|()
+decl_stmt|;
+specifier|private
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|SingleFieldBuilder
+argument_list|<
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+argument_list|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+operator|.
+name|Builder
+argument_list|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetricsOrBuilder
+argument_list|>
+name|scanMetricsBuilder_
+decl_stmt|;
+comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+specifier|public
+name|boolean
+name|hasScanMetrics
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000200
+operator|)
+operator|==
+literal|0x00000200
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+specifier|public
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+name|getScanMetrics
+parameter_list|()
+block|{
+if|if
+condition|(
+name|scanMetricsBuilder_
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+name|scanMetrics_
+return|;
+block|}
+else|else
+block|{
+return|return
+name|scanMetricsBuilder_
+operator|.
+name|getMessage
+argument_list|()
+return|;
+block|}
+block|}
+comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+specifier|public
+name|Builder
+name|setScanMetrics
+parameter_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+name|value
+parameter_list|)
+block|{
+if|if
+condition|(
+name|scanMetricsBuilder_
+operator|==
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+name|value
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|()
+throw|;
+block|}
+name|scanMetrics_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+name|scanMetricsBuilder_
+operator|.
+name|setMessage
+argument_list|(
+name|value
+argument_list|)
+expr_stmt|;
+block|}
+name|bitField0_
+operator||=
+literal|0x00000200
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+specifier|public
+name|Builder
+name|setScanMetrics
+parameter_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+operator|.
+name|Builder
+name|builderForValue
+parameter_list|)
+block|{
+if|if
+condition|(
+name|scanMetricsBuilder_
+operator|==
+literal|null
+condition|)
+block|{
+name|scanMetrics_
+operator|=
+name|builderForValue
+operator|.
+name|build
+argument_list|()
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+name|scanMetricsBuilder_
+operator|.
+name|setMessage
+argument_list|(
+name|builderForValue
+operator|.
+name|build
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+name|bitField0_
+operator||=
+literal|0x00000200
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+specifier|public
+name|Builder
+name|mergeScanMetrics
+parameter_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+name|value
+parameter_list|)
+block|{
+if|if
+condition|(
+name|scanMetricsBuilder_
+operator|==
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000200
+operator|)
+operator|==
+literal|0x00000200
+operator|)
+operator|&&
+name|scanMetrics_
+operator|!=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+operator|.
+name|getDefaultInstance
+argument_list|()
+condition|)
+block|{
+name|scanMetrics_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+operator|.
+name|newBuilder
+argument_list|(
+name|scanMetrics_
+argument_list|)
+operator|.
+name|mergeFrom
+argument_list|(
+name|value
+argument_list|)
+operator|.
+name|buildPartial
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+name|scanMetrics_
+operator|=
+name|value
+expr_stmt|;
+block|}
+name|onChanged
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+name|scanMetricsBuilder_
+operator|.
+name|mergeFrom
+argument_list|(
+name|value
+argument_list|)
+expr_stmt|;
+block|}
+name|bitField0_
+operator||=
+literal|0x00000200
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+specifier|public
+name|Builder
+name|clearScanMetrics
+parameter_list|()
+block|{
+if|if
+condition|(
+name|scanMetricsBuilder_
+operator|==
+literal|null
+condition|)
+block|{
+name|scanMetrics_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+operator|.
+name|getDefaultInstance
+argument_list|()
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+name|scanMetricsBuilder_
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000200
+operator|)
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+specifier|public
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+operator|.
+name|Builder
+name|getScanMetricsBuilder
+parameter_list|()
+block|{
+name|bitField0_
+operator||=
+literal|0x00000200
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|getScanMetricsFieldBuilder
+argument_list|()
+operator|.
+name|getBuilder
+argument_list|()
+return|;
+block|}
+comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+specifier|public
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetricsOrBuilder
+name|getScanMetricsOrBuilder
+parameter_list|()
+block|{
+if|if
+condition|(
+name|scanMetricsBuilder_
+operator|!=
+literal|null
+condition|)
+block|{
+return|return
+name|scanMetricsBuilder_
+operator|.
+name|getMessageOrBuilder
+argument_list|()
+return|;
+block|}
+else|else
+block|{
+return|return
+name|scanMetrics_
+return|;
+block|}
+block|}
+comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+specifier|private
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|SingleFieldBuilder
+argument_list|<
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+argument_list|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+operator|.
+name|Builder
+argument_list|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetricsOrBuilder
+argument_list|>
+name|getScanMetricsFieldBuilder
+parameter_list|()
+block|{
+if|if
+condition|(
+name|scanMetricsBuilder_
+operator|==
+literal|null
+condition|)
+block|{
+name|scanMetricsBuilder_
+operator|=
+operator|new
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|SingleFieldBuilder
+argument_list|<
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+argument_list|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetrics
+operator|.
+name|Builder
+argument_list|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
+operator|.
+name|ScanMetricsOrBuilder
+argument_list|>
+argument_list|(
+name|scanMetrics_
+argument_list|,
+name|getParentForChildren
+argument_list|()
+argument_list|,
+name|isClean
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|scanMetrics_
+operator|=
+literal|null
+expr_stmt|;
+block|}
+return|return
+name|scanMetricsBuilder_
 return|;
 block|}
 comment|// @@protoc_insertion_point(builder_scope:ScanResponse)
@@ -174967,237 +176490,241 @@ init|=
 block|{
 literal|"\n\014Client.proto\032\013HBase.proto\032\014Filter.prot"
 operator|+
-literal|"o\032\nCell.proto\032\020Comparator.proto\"\037\n\016Autho"
+literal|"o\032\nCell.proto\032\020Comparator.proto\032\017MapRedu"
 operator|+
-literal|"rizations\022\r\n\005label\030\001 \003(\t\"$\n\016CellVisibili"
+literal|"ce.proto\"\037\n\016Authorizations\022\r\n\005label\030\001 \003("
 operator|+
-literal|"ty\022\022\n\nexpression\030\001 \002(\t\"+\n\006Column\022\016\n\006fami"
+literal|"\t\"$\n\016CellVisibility\022\022\n\nexpression\030\001 \002(\t\""
 operator|+
-literal|"ly\030\001 \002(\014\022\021\n\tqualifier\030\002 \003(\014\"\324\002\n\003Get\022\013\n\003r"
+literal|"+\n\006Column\022\016\n\006family\030\001 \002(\014\022\021\n\tqualifier\030\002"
 operator|+
-literal|"ow\030\001 \002(\014\022\027\n\006column\030\002 \003(\0132\007.Column\022!\n\tatt"
+literal|" \003(\014\"\324\002\n\003Get\022\013\n\003row\030\001 \002(\014\022\027\n\006column\030\002 \003("
 operator|+
-literal|"ribute\030\003 \003(\0132\016.NameBytesPair\022\027\n\006filter\030\004"
+literal|"\0132\007.Column\022!\n\tattribute\030\003 \003(\0132\016.NameByte"
 operator|+
-literal|" \001(\0132\007.Filter\022\036\n\ntime_range\030\005 \001(\0132\n.Time"
+literal|"sPair\022\027\n\006filter\030\004 \001(\0132\007.Filter\022\036\n\ntime_r"
 operator|+
-literal|"Range\022\027\n\014max_versions\030\006 \001(\r:\0011\022\032\n\014cache_"
+literal|"ange\030\005 \001(\0132\n.TimeRange\022\027\n\014max_versions\030\006"
 operator|+
-literal|"blocks\030\007 \001(\010:\004true\022\023\n\013store_limit\030\010 \001(\r\022"
+literal|" \001(\r:\0011\022\032\n\014cache_blocks\030\007 \001(\010:\004true\022\023\n\013s"
 block|,
-literal|"\024\n\014store_offset\030\t \001(\r\022\035\n\016existence_only\030"
+literal|"tore_limit\030\010 \001(\r\022\024\n\014store_offset\030\t \001(\r\022\035"
 operator|+
-literal|"\n \001(\010:\005false\022!\n\022closest_row_before\030\013 \001(\010"
+literal|"\n\016existence_only\030\n \001(\010:\005false\022!\n\022closest"
 operator|+
-literal|":\005false\022)\n\013consistency\030\014 \001(\0162\014.Consisten"
+literal|"_row_before\030\013 \001(\010:\005false\022)\n\013consistency\030"
 operator|+
-literal|"cy:\006STRONG\"z\n\006Result\022\023\n\004cell\030\001 \003(\0132\005.Cel"
+literal|"\014 \001(\0162\014.Consistency:\006STRONG\"z\n\006Result\022\023\n"
 operator|+
-literal|"l\022\035\n\025associated_cell_count\030\002 \001(\005\022\016\n\006exis"
+literal|"\004cell\030\001 \003(\0132\005.Cell\022\035\n\025associated_cell_co"
 operator|+
-literal|"ts\030\003 \001(\010\022\024\n\005stale\030\004 \001(\010:\005false\022\026\n\007partia"
+literal|"unt\030\002 \001(\005\022\016\n\006exists\030\003 \001(\010\022\024\n\005stale\030\004 \001(\010"
 operator|+
-literal|"l\030\005 \001(\010:\005false\"A\n\nGetRequest\022 \n\006region\030\001"
-operator|+
-literal|" \002(\0132\020.RegionSpecifier\022\021\n\003get\030\002 \002(\0132\004.Ge"
-operator|+
-literal|"t\"&\n\013GetResponse\022\027\n\006result\030\001 \001(\0132\007.Resul"
-operator|+
-literal|"t\"\200\001\n\tCondition\022\013\n\003row\030\001 \002(\014\022\016\n\006family\030\002"
-block|,
-literal|" \002(\014\022\021\n\tqualifier\030\003 \002(\014\022\"\n\014compare_type\030"
-operator|+
-literal|"\004 \002(\0162\014.CompareType\022\037\n\ncomparator\030\005 \002(\0132"
-operator|+
-literal|"\013.Comparator\"\265\006\n\rMutationProto\022\013\n\003row\030\001 "
-operator|+
-literal|"\001(\014\0220\n\013mutate_type\030\002 \001(\0162\033.MutationProto"
-operator|+
-literal|".MutationType\0220\n\014column_value\030\003 \003(\0132\032.Mu"
-operator|+
-literal|"tationProto.ColumnValue\022\021\n\ttimestamp\030\004 \001"
-operator|+
-literal|"(\004\022!\n\tattribute\030\005 \003(\0132\016.NameBytesPair\022:\n"
-operator|+
-literal|"\ndurability\030\006 \001(\0162\031.MutationProto.Durabi"
-operator|+
-literal|"lity:\013USE_DEFAULT\022\036\n\ntime_range\030\007 \001(\0132\n."
-operator|+
-literal|"TimeRange\022\035\n\025associated_cell_count\030\010 \001(\005"
-block|,
-literal|"\022\r\n\005nonce\030\t \001(\004\032\347\001\n\013ColumnValue\022\016\n\006famil"
-operator|+
-literal|"y\030\001 \002(\014\022B\n\017qualifier_value\030\002 \003(\0132).Mutat"
-operator|+
-literal|"ionProto.ColumnValue.QualifierValue\032\203\001\n\016"
-operator|+
-literal|"QualifierValue\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005val"
-operator|+
-literal|"ue\030\002 \001(\014\022\021\n\ttimestamp\030\003 \001(\004\022.\n\013delete_ty"
-operator|+
-literal|"pe\030\004 \001(\0162\031.MutationProto.DeleteType\022\014\n\004t"
-operator|+
-literal|"ags\030\005 \001(\014\"W\n\nDurability\022\017\n\013USE_DEFAULT\020\000"
-operator|+
-literal|"\022\014\n\010SKIP_WAL\020\001\022\r\n\tASYNC_WAL\020\002\022\014\n\010SYNC_WA"
-operator|+
-literal|"L\020\003\022\r\n\tFSYNC_WAL\020\004\">\n\014MutationType\022\n\n\006AP"
-operator|+
-literal|"PEND\020\000\022\r\n\tINCREMENT\020\001\022\007\n\003PUT\020\002\022\n\n\006DELETE"
-block|,
-literal|"\020\003\"p\n\nDeleteType\022\026\n\022DELETE_ONE_VERSION\020\000"
-operator|+
-literal|"\022\034\n\030DELETE_MULTIPLE_VERSIONS\020\001\022\021\n\rDELETE"
-operator|+
-literal|"_FAMILY\020\002\022\031\n\025DELETE_FAMILY_VERSION\020\003\"\207\001\n"
-operator|+
-literal|"\rMutateRequest\022 \n\006region\030\001 \002(\0132\020.RegionS"
-operator|+
-literal|"pecifier\022 \n\010mutation\030\002 \002(\0132\016.MutationPro"
-operator|+
-literal|"to\022\035\n\tcondition\030\003 \001(\0132\n.Condition\022\023\n\013non"
-operator|+
-literal|"ce_group\030\004 \001(\004\"<\n\016MutateResponse\022\027\n\006resu"
-operator|+
-literal|"lt\030\001 \001(\0132\007.Result\022\021\n\tprocessed\030\002 \001(\010\"\271\003\n"
-operator|+
-literal|"\004Scan\022\027\n\006column\030\001 \003(\0132\007.Column\022!\n\tattrib"
-operator|+
-literal|"ute\030\002 \003(\0132\016.NameBytesPair\022\021\n\tstart_row\030\003"
-block|,
-literal|" \001(\014\022\020\n\010stop_row\030\004 \001(\014\022\027\n\006filter\030\005 \001(\0132\007"
-operator|+
-literal|".Filter\022\036\n\ntime_range\030\006 \001(\0132\n.TimeRange\022"
-operator|+
-literal|"\027\n\014max_versions\030\007 \001(\r:\0011\022\032\n\014cache_blocks"
-operator|+
-literal|"\030\010 \001(\010:\004true\022\022\n\nbatch_size\030\t \001(\r\022\027\n\017max_"
-operator|+
-literal|"result_size\030\n \001(\004\022\023\n\013store_limit\030\013 \001(\r\022\024"
-operator|+
-literal|"\n\014store_offset\030\014 \001(\r\022&\n\036load_column_fami"
-operator|+
-literal|"lies_on_demand\030\r \001(\010\022\r\n\005small\030\016 \001(\010\022\027\n\010r"
-operator|+
-literal|"eversed\030\017 \001(\010:\005false\022)\n\013consistency\030\020 \001("
-operator|+
-literal|"\0162\014.Consistency:\006STRONG\022\017\n\007caching\030\021 \001(\r"
-operator|+
-literal|"\"\342\001\n\013ScanRequest\022 \n\006region\030\001 \001(\0132\020.Regio"
-block|,
-literal|"nSpecifier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\022\n\nscann"
-operator|+
-literal|"er_id\030\003 \001(\004\022\026\n\016number_of_rows\030\004 \001(\r\022\025\n\rc"
-operator|+
-literal|"lose_scanner\030\005 \001(\010\022\025\n\rnext_call_seq\030\006 \001("
-operator|+
-literal|"\004\022\037\n\027client_handles_partials\030\007 \001(\010\022!\n\031cl"
-operator|+
-literal|"ient_handles_heartbeats\030\010 \001(\010\"\344\001\n\014ScanRe"
-operator|+
-literal|"sponse\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n\nscan"
-operator|+
-literal|"ner_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022\013\n\003tt"
-operator|+
-literal|"l\030\004 \001(\r\022\030\n\007results\030\005 \003(\0132\007.Result\022\r\n\005sta"
-operator|+
-literal|"le\030\006 \001(\010\022\037\n\027partial_flag_per_result\030\007 \003("
-operator|+
-literal|"\010\022\036\n\026more_results_in_region\030\010 \001(\010\022\031\n\021hea"
-block|,
-literal|"rtbeat_message\030\t \001(\010\"\263\001\n\024BulkLoadHFileRe"
+literal|":\005false\022\026\n\007partial\030\005 \001(\010:\005false\"A\n\nGetRe"
 operator|+
 literal|"quest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022"
 operator|+
-literal|"5\n\013family_path\030\002 \003(\0132 .BulkLoadHFileRequ"
+literal|"\021\n\003get\030\002 \002(\0132\004.Get\"&\n\013GetResponse\022\027\n\006res"
 operator|+
-literal|"est.FamilyPath\022\026\n\016assign_seq_num\030\003 \001(\010\032*"
-operator|+
-literal|"\n\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002"
-operator|+
-literal|"(\t\"\'\n\025BulkLoadHFileResponse\022\016\n\006loaded\030\001 "
-operator|+
-literal|"\002(\010\"a\n\026CoprocessorServiceCall\022\013\n\003row\030\001 \002"
-operator|+
-literal|"(\014\022\024\n\014service_name\030\002 \002(\t\022\023\n\013method_name\030"
-operator|+
-literal|"\003 \002(\t\022\017\n\007request\030\004 \002(\014\"9\n\030CoprocessorSer"
-operator|+
-literal|"viceResult\022\035\n\005value\030\001 \001(\0132\016.NameBytesPai"
+literal|"ult\030\001 \001(\0132\007.Result\"\200\001\n\tCondition\022\013\n\003row\030"
 block|,
-literal|"r\"d\n\031CoprocessorServiceRequest\022 \n\006region"
+literal|"\001 \002(\014\022\016\n\006family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\014"
 operator|+
-literal|"\030\001 \002(\0132\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132\027"
+literal|"\022\"\n\014compare_type\030\004 \002(\0162\014.CompareType\022\037\n\n"
 operator|+
-literal|".CoprocessorServiceCall\"]\n\032CoprocessorSe"
+literal|"comparator\030\005 \002(\0132\013.Comparator\"\265\006\n\rMutati"
 operator|+
-literal|"rviceResponse\022 \n\006region\030\001 \002(\0132\020.RegionSp"
+literal|"onProto\022\013\n\003row\030\001 \001(\014\0220\n\013mutate_type\030\002 \001("
 operator|+
-literal|"ecifier\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\"{"
+literal|"\0162\033.MutationProto.MutationType\0220\n\014column"
 operator|+
-literal|"\n\006Action\022\r\n\005index\030\001 \001(\r\022 \n\010mutation\030\002 \001("
+literal|"_value\030\003 \003(\0132\032.MutationProto.ColumnValue"
 operator|+
-literal|"\0132\016.MutationProto\022\021\n\003get\030\003 \001(\0132\004.Get\022-\n\014"
+literal|"\022\021\n\ttimestamp\030\004 \001(\004\022!\n\tattribute\030\005 \003(\0132\016"
 operator|+
-literal|"service_call\030\004 \001(\0132\027.CoprocessorServiceC"
+literal|".NameBytesPair\022:\n\ndurability\030\006 \001(\0162\031.Mut"
 operator|+
-literal|"all\"Y\n\014RegionAction\022 \n\006region\030\001 \002(\0132\020.Re"
+literal|"ationProto.Durability:\013USE_DEFAULT\022\036\n\nti"
 operator|+
-literal|"gionSpecifier\022\016\n\006atomic\030\002 \001(\010\022\027\n\006action\030"
+literal|"me_range\030\007 \001(\0132\n.TimeRange\022\035\n\025associated"
 block|,
-literal|"\003 \003(\0132\007.Action\"D\n\017RegionLoadStats\022\027\n\014mem"
+literal|"_cell_count\030\010 \001(\005\022\r\n\005nonce\030\t \001(\004\032\347\001\n\013Col"
 operator|+
-literal|"storeLoad\030\001 \001(\005:\0010\022\030\n\rheapOccupancy\030\002 \001("
+literal|"umnValue\022\016\n\006family\030\001 \002(\014\022B\n\017qualifier_va"
 operator|+
-literal|"\005:\0010\"\266\001\n\021ResultOrException\022\r\n\005index\030\001 \001("
+literal|"lue\030\002 \003(\0132).MutationProto.ColumnValue.Qu"
 operator|+
-literal|"\r\022\027\n\006result\030\002 \001(\0132\007.Result\022!\n\texception\030"
+literal|"alifierValue\032\203\001\n\016QualifierValue\022\021\n\tquali"
 operator|+
-literal|"\003 \001(\0132\016.NameBytesPair\0221\n\016service_result\030"
+literal|"fier\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\022\021\n\ttimestamp\030\003"
 operator|+
-literal|"\004 \001(\0132\031.CoprocessorServiceResult\022#\n\tload"
+literal|" \001(\004\022.\n\013delete_type\030\004 \001(\0162\031.MutationProt"
 operator|+
-literal|"Stats\030\005 \001(\0132\020.RegionLoadStats\"f\n\022RegionA"
+literal|"o.DeleteType\022\014\n\004tags\030\005 \001(\014\"W\n\nDurability"
 operator|+
-literal|"ctionResult\022-\n\021resultOrException\030\001 \003(\0132\022"
+literal|"\022\017\n\013USE_DEFAULT\020\000\022\014\n\010SKIP_WAL\020\001\022\r\n\tASYNC"
 operator|+
-literal|".ResultOrException\022!\n\texception\030\002 \001(\0132\016."
+literal|"_WAL\020\002\022\014\n\010SYNC_WAL\020\003\022\r\n\tFSYNC_WAL\020\004\">\n\014M"
 operator|+
-literal|"NameBytesPair\"f\n\014MultiRequest\022#\n\014regionA"
+literal|"utationType\022\n\n\006APPEND\020\000\022\r\n\tINCREMENT\020\001\022\007"
 block|,
-literal|"ction\030\001 \003(\0132\r.RegionAction\022\022\n\nnonceGroup"
+literal|"\n\003PUT\020\002\022\n\n\006DELETE\020\003\"p\n\nDeleteType\022\026\n\022DEL"
 operator|+
-literal|"\030\002 \001(\004\022\035\n\tcondition\030\003 \001(\0132\n.Condition\"S\n"
+literal|"ETE_ONE_VERSION\020\000\022\034\n\030DELETE_MULTIPLE_VER"
 operator|+
-literal|"\rMultiResponse\022/\n\022regionActionResult\030\001 \003"
+literal|"SIONS\020\001\022\021\n\rDELETE_FAMILY\020\002\022\031\n\025DELETE_FAM"
 operator|+
-literal|"(\0132\023.RegionActionResult\022\021\n\tprocessed\030\002 \001"
+literal|"ILY_VERSION\020\003\"\207\001\n\rMutateRequest\022 \n\006regio"
 operator|+
-literal|"(\010*\'\n\013Consistency\022\n\n\006STRONG\020\000\022\014\n\010TIMELIN"
+literal|"n\030\001 \002(\0132\020.RegionSpecifier\022 \n\010mutation\030\002 "
 operator|+
-literal|"E\020\0012\205\003\n\rClientService\022 \n\003Get\022\013.GetReques"
+literal|"\002(\0132\016.MutationProto\022\035\n\tcondition\030\003 \001(\0132\n"
 operator|+
-literal|"t\032\014.GetResponse\022)\n\006Mutate\022\016.MutateReques"
+literal|".Condition\022\023\n\013nonce_group\030\004 \001(\004\"<\n\016Mutat"
 operator|+
-literal|"t\032\017.MutateResponse\022#\n\004Scan\022\014.ScanRequest"
+literal|"eResponse\022\027\n\006result\030\001 \001(\0132\007.Result\022\021\n\tpr"
 operator|+
-literal|"\032\r.ScanResponse\022>\n\rBulkLoadHFile\022\025.BulkL"
+literal|"ocessed\030\002 \001(\010\"\271\003\n\004Scan\022\027\n\006column\030\001 \003(\0132\007"
 operator|+
-literal|"oadHFileRequest\032\026.BulkLoadHFileResponse\022"
+literal|".Column\022!\n\tattribute\030\002 \003(\0132\016.NameBytesPa"
 block|,
-literal|"F\n\013ExecService\022\032.CoprocessorServiceReque"
+literal|"ir\022\021\n\tstart_row\030\003 \001(\014\022\020\n\010stop_row\030\004 \001(\014\022"
 operator|+
-literal|"st\032\033.CoprocessorServiceResponse\022R\n\027ExecR"
+literal|"\027\n\006filter\030\005 \001(\0132\007.Filter\022\036\n\ntime_range\030\006"
 operator|+
-literal|"egionServerService\022\032.CoprocessorServiceR"
+literal|" \001(\0132\n.TimeRange\022\027\n\014max_versions\030\007 \001(\r:\001"
 operator|+
-literal|"equest\032\033.CoprocessorServiceResponse\022&\n\005M"
+literal|"1\022\032\n\014cache_blocks\030\010 \001(\010:\004true\022\022\n\nbatch_s"
 operator|+
-literal|"ulti\022\r.MultiRequest\032\016.MultiResponseBB\n*o"
+literal|"ize\030\t \001(\r\022\027\n\017max_result_size\030\n \001(\004\022\023\n\013st"
 operator|+
-literal|"rg.apache.hadoop.hbase.protobuf.generate"
+literal|"ore_limit\030\013 \001(\r\022\024\n\014store_offset\030\014 \001(\r\022&\n"
 operator|+
-literal|"dB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|"\036load_column_families_on_demand\030\r \001(\010\022\r\n"
+operator|+
+literal|"\005small\030\016 \001(\010\022\027\n\010reversed\030\017 \001(\010:\005false\022)\n"
+operator|+
+literal|"\013consistency\030\020 \001(\0162\014.Consistency:\006STRONG"
+operator|+
+literal|"\022\017\n\007caching\030\021 \001(\r\"\376\001\n\013ScanRequest\022 \n\006reg"
+block|,
+literal|"ion\030\001 \001(\0132\020.RegionSpecifier\022\023\n\004scan\030\002 \001("
+operator|+
+literal|"\0132\005.Scan\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016number_o"
+operator|+
+literal|"f_rows\030\004 \001(\r\022\025\n\rclose_scanner\030\005 \001(\010\022\025\n\rn"
+operator|+
+literal|"ext_call_seq\030\006 \001(\004\022\037\n\027client_handles_par"
+operator|+
+literal|"tials\030\007 \001(\010\022!\n\031client_handles_heartbeats"
+operator|+
+literal|"\030\010 \001(\010\022\032\n\022track_scan_metrics\030\t \001(\010\"\210\002\n\014S"
+operator|+
+literal|"canResponse\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n"
+operator|+
+literal|"\nscanner_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022"
+operator|+
+literal|"\013\n\003ttl\030\004 \001(\r\022\030\n\007results\030\005 \003(\0132\007.Result\022\r"
+operator|+
+literal|"\n\005stale\030\006 \001(\010\022\037\n\027partial_flag_per_result"
+block|,
+literal|"\030\007 \003(\010\022\036\n\026more_results_in_region\030\010 \001(\010\022\031"
+operator|+
+literal|"\n\021heartbeat_message\030\t \001(\010\022\"\n\014scan_metric"
+operator|+
+literal|"s\030\n \001(\0132\014.ScanMetrics\"\263\001\n\024BulkLoadHFileR"
+operator|+
+literal|"equest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier"
+operator|+
+literal|"\0225\n\013family_path\030\002 \003(\0132 .BulkLoadHFileReq"
+operator|+
+literal|"uest.FamilyPath\022\026\n\016assign_seq_num\030\003 \001(\010\032"
+operator|+
+literal|"*\n\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 "
+operator|+
+literal|"\002(\t\"\'\n\025BulkLoadHFileResponse\022\016\n\006loaded\030\001"
+operator|+
+literal|" \002(\010\"a\n\026CoprocessorServiceCall\022\013\n\003row\030\001 "
+operator|+
+literal|"\002(\014\022\024\n\014service_name\030\002 \002(\t\022\023\n\013method_name"
+block|,
+literal|"\030\003 \002(\t\022\017\n\007request\030\004 \002(\014\"9\n\030CoprocessorSe"
+operator|+
+literal|"rviceResult\022\035\n\005value\030\001 \001(\0132\016.NameBytesPa"
+operator|+
+literal|"ir\"d\n\031CoprocessorServiceRequest\022 \n\006regio"
+operator|+
+literal|"n\030\001 \002(\0132\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132"
+operator|+
+literal|"\027.CoprocessorServiceCall\"]\n\032CoprocessorS"
+operator|+
+literal|"erviceResponse\022 \n\006region\030\001 \002(\0132\020.RegionS"
+operator|+
+literal|"pecifier\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\""
+operator|+
+literal|"{\n\006Action\022\r\n\005index\030\001 \001(\r\022 \n\010mutation\030\002 \001"
+operator|+
+literal|"(\0132\016.MutationProto\022\021\n\003get\030\003 \001(\0132\004.Get\022-\n"
+operator|+
+literal|"\014service_call\030\004 \001(\0132\027.CoprocessorService"
+block|,
+literal|"Call\"Y\n\014RegionAction\022 \n\006region\030\001 \002(\0132\020.R"
+operator|+
+literal|"egionSpecifier\022\016\n\006atomic\030\002 \001(\010\022\027\n\006action"
+operator|+
+literal|"\030\003 \003(\0132\007.Action\"D\n\017RegionLoadStats\022\027\n\014me"
+operator|+
+literal|"mstoreLoad\030\001 \001(\005:\0010\022\030\n\rheapOccupancy\030\002 \001"
+operator|+
+literal|"(\005:\0010\"\266\001\n\021ResultOrException\022\r\n\005index\030\001 \001"
+operator|+
+literal|"(\r\022\027\n\006result\030\002 \001(\0132\007.Result\022!\n\texception"
+operator|+
+literal|"\030\003 \001(\0132\016.NameBytesPair\0221\n\016service_result"
+operator|+
+literal|"\030\004 \001(\0132\031.CoprocessorServiceResult\022#\n\tloa"
+operator|+
+literal|"dStats\030\005 \001(\0132\020.RegionLoadStats\"f\n\022Region"
+operator|+
+literal|"ActionResult\022-\n\021resultOrException\030\001 \003(\0132"
+block|,
+literal|"\022.ResultOrException\022!\n\texception\030\002 \001(\0132\016"
+operator|+
+literal|".NameBytesPair\"f\n\014MultiRequest\022#\n\014region"
+operator|+
+literal|"Action\030\001 \003(\0132\r.RegionAction\022\022\n\nnonceGrou"
+operator|+
+literal|"p\030\002 \001(\004\022\035\n\tcondition\030\003 \001(\0132\n.Condition\"S"
+operator|+
+literal|"\n\rMultiResponse\022/\n\022regionActionResult\030\001 "
+operator|+
+literal|"\003(\0132\023.RegionActionResult\022\021\n\tprocessed\030\002 "
+operator|+
+literal|"\001(\010*\'\n\013Consistency\022\n\n\006STRONG\020\000\022\014\n\010TIMELI"
+operator|+
+literal|"NE\020\0012\205\003\n\rClientService\022 \n\003Get\022\013.GetReque"
+operator|+
+literal|"st\032\014.GetResponse\022)\n\006Mutate\022\016.MutateReque"
+operator|+
+literal|"st\032\017.MutateResponse\022#\n\004Scan\022\014.ScanReques"
+block|,
+literal|"t\032\r.ScanResponse\022>\n\rBulkLoadHFile\022\025.Bulk"
+operator|+
+literal|"LoadHFileRequest\032\026.BulkLoadHFileResponse"
+operator|+
+literal|"\022F\n\013ExecService\022\032.CoprocessorServiceRequ"
+operator|+
+literal|"est\032\033.CoprocessorServiceResponse\022R\n\027Exec"
+operator|+
+literal|"RegionServerService\022\032.CoprocessorService"
+operator|+
+literal|"Request\032\033.CoprocessorServiceResponse\022&\n\005"
+operator|+
+literal|"Multi\022\r.MultiRequest\032\016.MultiResponseBB\n*"
+operator|+
+literal|"org.apache.hadoop.hbase.protobuf.generat"
+operator|+
+literal|"edB\014ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -175970,6 +177497,8 @@ block|,
 literal|"ClientHandlesPartials"
 block|,
 literal|"ClientHandlesHeartbeats"
+block|,
+literal|"TrackScanMetrics"
 block|, }
 argument_list|)
 expr_stmt|;
@@ -176026,6 +177555,8 @@ block|,
 literal|"MoreResultsInRegion"
 block|,
 literal|"HeartbeatMessage"
+block|,
+literal|"ScanMetrics"
 block|, }
 argument_list|)
 expr_stmt|;
@@ -176728,6 +178259,23 @@ operator|.
 name|generated
 operator|.
 name|ComparatorProtos
+operator|.
+name|getDescriptor
+argument_list|()
+block|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MapReduceProtos
 operator|.
 name|getDescriptor
 argument_list|()

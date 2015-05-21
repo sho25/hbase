@@ -292,6 +292,9 @@ specifier|protected
 name|boolean
 name|nextRow
 parameter_list|(
+name|ScannerContext
+name|scannerContext
+parameter_list|,
 name|Cell
 name|curRowCell
 parameter_list|)
