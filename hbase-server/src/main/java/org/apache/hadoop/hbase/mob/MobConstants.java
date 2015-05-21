@@ -209,8 +209,6 @@ operator|*
 literal|60
 operator|*
 literal|60
-operator|*
-literal|1000
 decl_stmt|;
 comment|// one day
 specifier|public
@@ -449,8 +447,6 @@ operator|*
 literal|60
 operator|*
 literal|60
-operator|*
-literal|1000
 operator|*
 literal|7
 decl_stmt|;
