@@ -893,6 +893,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -4049,6 +4059,9 @@ expr_stmt|;
 block|}
 block|}
 annotation|@
+name|Ignore
+comment|// TODO: HBASE-13391 to fix flaky test
+annotation|@
 name|Test
 argument_list|(
 name|timeout
@@ -4436,6 +4449,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Ignore
+comment|// TODO: HBASE-13391 to fix flaky test
 annotation|@
 name|Test
 argument_list|(
