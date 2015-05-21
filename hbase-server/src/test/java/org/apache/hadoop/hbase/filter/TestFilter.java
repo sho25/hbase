@@ -5047,7 +5047,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests the the {@link WhileMatchFilter} works in combination with a    * {@link Filter} that uses the    * {@link Filter#filterRowKey(byte[], int, int)} method.    *    * See HBASE-2258.    *    * @throws Exception    */
+comment|/**    * Tests the the {@link WhileMatchFilter} works in combination with a    * {@link Filter} that uses the    * {@link Filter#filterRowKey(Cell)} method.    *    * See HBASE-2258.    *    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public

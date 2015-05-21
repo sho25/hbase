@@ -402,6 +402,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// No call to this.
 return|return
 name|this
 operator|.
@@ -414,6 +415,29 @@ argument_list|,
 name|offset
 argument_list|,
 name|length
+argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|filterRowKey
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|this
+operator|.
+name|filter
+operator|.
+name|filterRowKey
+argument_list|(
+name|cell
 argument_list|)
 return|;
 block|}

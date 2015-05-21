@@ -261,15 +261,8 @@ specifier|public
 name|boolean
 name|filterRowKey
 parameter_list|(
-name|byte
-index|[]
-name|buffer
-parameter_list|,
-name|int
-name|offset
-parameter_list|,
-name|int
-name|length
+name|Cell
+name|firstRowCell
 parameter_list|)
 block|{
 if|if

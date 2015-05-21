@@ -328,21 +328,30 @@ specifier|public
 name|boolean
 name|filterRowKey
 parameter_list|(
-name|byte
-index|[]
-name|buffer
-parameter_list|,
-name|int
-name|offset
-parameter_list|,
-name|int
-name|length
+name|Cell
+name|firstRowCell
 parameter_list|)
 block|{
 comment|// If it is the first time of running, calculate the current range index for
 comment|// the row key. If index is out of bound which happens when the start row
 comment|// user sets is after the largest stop row of the ranges, stop the scan.
 comment|// If row key is after the current range, find the next range and update index.
+name|int
+name|length
+init|=
+name|firstRowCell
+operator|.
+name|getRowLength
+argument_list|()
+decl_stmt|;
+name|int
+name|offset
+init|=
+name|firstRowCell
+operator|.
+name|getRowOffset
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -353,7 +362,10 @@ name|range
 operator|.
 name|contains
 argument_list|(
-name|buffer
+name|firstRowCell
+operator|.
+name|getRowArray
+argument_list|()
 argument_list|,
 name|offset
 argument_list|,
@@ -375,9 +387,15 @@ name|System
 operator|.
 name|arraycopy
 argument_list|(
-name|buffer
+name|firstRowCell
+operator|.
+name|getRowArray
+argument_list|()
 argument_list|,
-name|offset
+name|firstRowCell
+operator|.
+name|getRowOffset
+argument_list|()
 argument_list|,
 name|rowkey
 argument_list|,
@@ -507,7 +525,10 @@ name|range
 operator|.
 name|contains
 argument_list|(
-name|buffer
+name|firstRowCell
+operator|.
+name|getRowArray
+argument_list|()
 argument_list|,
 name|offset
 argument_list|,

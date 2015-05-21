@@ -100,7 +100,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface for row and column filters directly applied within the regionserver.  *  * A filter can expect the following call sequence:  *<ul>  *<li> {@link #reset()} : reset the filter state before filtering a new row.</li>  *<li> {@link #filterAllRemaining()}: true means row scan is over; false means keep going.</li>  *<li> {@link #filterRowKey(byte[],int,int)}: true means drop this row; false means include.</li>  *<li> {@link #filterKeyValue(Cell)}: decides whether to include or exclude this Cell.  *        See {@link ReturnCode}.</li>  *<li> {@link #transformCell(Cell)}: if the Cell is included, let the filter transform the  *        Cell.</li>  *<li> {@link #filterRowCells(List)}: allows direct modification of the final list to be submitted  *<li> {@link #filterRow()}: last chance to drop entire row based on the sequence of  *        filter calls. Eg: filter a row if it doesn't contain a specified column.</li>  *</ul>  *  * Filter instances are created one per region/scan.  This abstract class replaces  * the old RowFilterInterface.  *  * When implementing your own filters, consider inheriting {@link FilterBase} to help  * you reduce boilerplate.  *  * @see FilterBase  */
+comment|/**  * Interface for row and column filters directly applied within the regionserver.  *  * A filter can expect the following call sequence:  *<ul>  *<li> {@link #reset()} : reset the filter state before filtering a new row.</li>  *<li> {@link #filterAllRemaining()}: true means row scan is over; false means keep going.</li>  *<li> {@link #filterRowKey(Cell)}: true means drop this row; false means include.</li>  *<li> {@link #filterKeyValue(Cell)}: decides whether to include or exclude this Cell.  *        See {@link ReturnCode}.</li>  *<li> {@link #transformCell(Cell)}: if the Cell is included, let the filter transform the  *        Cell.</li>  *<li> {@link #filterRowCells(List)}: allows direct modification of the final list to be submitted  *<li> {@link #filterRow()}: last chance to drop entire row based on the sequence of  *        filter calls. Eg: filter a row if it doesn't contain a specified column.</li>  *</ul>  *  * Filter instances are created one per region/scan.  This abstract class replaces  * the old RowFilterInterface.  *  * When implementing your own filters, consider inheriting {@link FilterBase} to help  * you reduce boilerplate.  *  * @see FilterBase  */
 end_comment
 
 begin_class
@@ -131,7 +131,9 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Filters a row based on the row key. If this returns true, the entire row will be excluded. If    * false, each KeyValue in the row will be passed to {@link #filterKeyValue(Cell)} below.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param buffer buffer containing row key    * @param offset offset into buffer where row key starts    * @param length length of the row key    * @return true, remove entire row, false, include the row (maybe).    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
+comment|/**    * Filters a row based on the row key. If this returns true, the entire row will be excluded. If    * false, each KeyValue in the row will be passed to {@link #filterKeyValue(Cell)} below.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param buffer buffer containing row key    * @param offset offset into buffer where row key starts    * @param length length of the row key    * @return true, remove entire row, false, include the row (maybe).    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Instead use {@link #filterRowKey(Cell)}    */
+annotation|@
+name|Deprecated
 specifier|abstract
 specifier|public
 name|boolean
@@ -146,6 +148,18 @@ name|offset
 parameter_list|,
 name|int
 name|length
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Filters a row based on the row key. If this returns true, the entire row will be excluded. If    * false, each KeyValue in the row will be passed to {@link #filterKeyValue(Cell)} below.    *    * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *    * @param firstRowCell The first cell coming in the new row    * @return true, remove entire row, false, include the row (maybe).    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
+specifier|abstract
+specifier|public
+name|boolean
+name|filterRowKey
+parameter_list|(
+name|Cell
+name|firstRowCell
 parameter_list|)
 throws|throws
 name|IOException

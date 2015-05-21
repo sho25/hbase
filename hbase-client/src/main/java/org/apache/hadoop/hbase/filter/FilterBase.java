@@ -104,9 +104,11 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{   }
-comment|/**    * Filters that do not filter by row key can inherit this implementation that    * never filters anything. (ie: returns false).    *    * @inheritDoc    */
+comment|/**    * Filters that do not filter by row key can inherit this implementation that    * never filters anything. (ie: returns false).    *    * @inheritDoc    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Instead use {@link #filterRowKey(Cell)}    */
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|filterRowKey
@@ -126,6 +128,40 @@ name|IOException
 block|{
 return|return
 literal|false
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|filterRowKey
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// TODO when cell is backed by DirectByteBuffer, we would need to copy row bytes to temp byte[]
+comment|// and call old method for BC.
+return|return
+name|filterRowKey
+argument_list|(
+name|cell
+operator|.
+name|getRowArray
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getRowOffset
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getRowLength
+argument_list|()
+argument_list|)
 return|;
 block|}
 comment|/**    * Filters that never filter all remaining can inherit this implementation that    * never stops the filter early.    *    * @inheritDoc    */

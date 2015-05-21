@@ -236,6 +236,23 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|boolean
+name|filterRowKey
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// Impl in FilterBase might do unnecessary copy for Off heap backed Cells.
+return|return
+literal|false
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|Cell
 name|transformCell
 parameter_list|(
