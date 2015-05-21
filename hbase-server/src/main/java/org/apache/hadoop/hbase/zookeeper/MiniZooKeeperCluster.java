@@ -1197,14 +1197,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-operator|!
-name|started
-condition|)
-block|{
-return|return;
-block|}
 comment|// shut down all the zk servers
 for|for
 control|(
@@ -1269,6 +1261,11 @@ argument_list|)
 throw|;
 block|}
 block|}
+name|standaloneServerFactoryList
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 for|for
 control|(
 name|ZooKeeperServer
@@ -1287,7 +1284,17 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+name|zooKeeperServers
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 comment|// clear everything
+if|if
+condition|(
+name|started
+condition|)
+block|{
 name|started
 operator|=
 literal|false
@@ -1296,17 +1303,7 @@ name|activeZKServerIndex
 operator|=
 literal|0
 expr_stmt|;
-name|standaloneServerFactoryList
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
 name|clientPortList
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
-name|zooKeeperServers
 operator|.
 name|clear
 argument_list|()
@@ -1318,6 +1315,7 @@ argument_list|(
 literal|"Shutdown MiniZK cluster with all ZK servers"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**@return clientPort return clientPort if there is another ZK backup can run    *         when killing the current active; return -1, if there is no backups.    * @throws IOException    * @throws InterruptedException    */
 specifier|public
