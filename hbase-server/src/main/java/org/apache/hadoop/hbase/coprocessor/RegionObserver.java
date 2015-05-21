@@ -2288,7 +2288,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This will be called by the scan flow when the current scanned row is being filtered out by the    * filter. The filter may be filtering out the row via any of the below scenarios    *<ol>    *<li>    *<code>boolean filterRowKey(byte [] buffer, int offset, int length)</code> returning true</li>    *<li>    *<code>boolean filterRow()</code> returning true</li>    *<li>    *<code>void filterRow(List<KeyValue> kvs)</code> removing all the kvs from the passed List</li>    *</ol>    * @param c the environment provided by the region server    * @param s the scanner    * @param currentRow The current rowkey which got filtered out    * @param offset offset to rowkey    * @param length length of rowkey    * @param hasMore the 'has more' indication    * @return whether more rows are available for the scanner or not    * @throws IOException    */
+comment|/**    * This will be called by the scan flow when the current scanned row is being filtered out by the    * filter. The filter may be filtering out the row via any of the below scenarios    *<ol>    *<li>    *<code>boolean filterRowKey(byte [] buffer, int offset, int length)</code> returning true</li>    *<li>    *<code>boolean filterRow()</code> returning true</li>    *<li>    *<code>void filterRow(List<KeyValue> kvs)</code> removing all the kvs from the passed List</li>    *</ol>    * @param c the environment provided by the region server    * @param s the scanner    * @param currentRow The current rowkey which got filtered out    * @param offset offset to rowkey    * @param length length of rowkey    * @param hasMore the 'has more' indication    * @return whether more rows are available for the scanner or not    * @throws IOException    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    * Instead use {@link #postScannerFilterRow(ObserverContext, InternalScanner, Cell, boolean)}    */
+annotation|@
+name|Deprecated
 name|boolean
 name|postScannerFilterRow
 parameter_list|(
@@ -2315,6 +2317,31 @@ parameter_list|,
 specifier|final
 name|short
 name|length
+parameter_list|,
+specifier|final
+name|boolean
+name|hasMore
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * This will be called by the scan flow when the current scanned row is being filtered out by the    * filter. The filter may be filtering out the row via any of the below scenarios    *<ol>    *<li>    *<code>boolean filterRowKey(byte [] buffer, int offset, int length)</code> returning true</li>    *<li>    *<code>boolean filterRow()</code> returning true</li>    *<li>    *<code>void filterRow(List<KeyValue> kvs)</code> removing all the kvs from the passed List</li>    *</ol>    * @param c the environment provided by the region server    * @param s the scanner    * @param curRowCell The cell in the current row which got filtered out    * @param hasMore the 'has more' indication    * @return whether more rows are available for the scanner or not    * @throws IOException    */
+name|boolean
+name|postScannerFilterRow
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|c
+parameter_list|,
+specifier|final
+name|InternalScanner
+name|s
+parameter_list|,
+name|Cell
+name|curRowCell
 parameter_list|,
 specifier|final
 name|boolean
