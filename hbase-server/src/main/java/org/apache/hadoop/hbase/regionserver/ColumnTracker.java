@@ -37,6 +37,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -74,21 +88,14 @@ specifier|public
 interface|interface
 name|ColumnTracker
 block|{
-comment|/**    * Checks if the column is present in the list of requested columns by returning the match code    * instance. It does not check against the number of versions for the columns asked for. To do the    * version check, one has to call {@link #checkVersions(byte[], int, int, long, byte, boolean)}    * method based on the return type (INCLUDE) of this method. The values that can be returned by    * this method are {@link MatchCode#INCLUDE}, {@link MatchCode#SEEK_NEXT_COL} and    * {@link MatchCode#SEEK_NEXT_ROW}.    * @param bytes    * @param offset    * @param length    * @param type The type of the KeyValue    * @return The match code instance.    * @throws IOException in case there is an internal consistency problem caused by a data    *           corruption.    */
+comment|/**    * Checks if the column is present in the list of requested columns by returning the match code    * instance. It does not check against the number of versions for the columns asked for. To do the    * version check, one has to call {@link #checkVersions(Cell, long, byte, boolean)}    * method based on the return type (INCLUDE) of this method. The values that can be returned by    * this method are {@link MatchCode#INCLUDE}, {@link MatchCode#SEEK_NEXT_COL} and    * {@link MatchCode#SEEK_NEXT_ROW}.    * @param cell    * @param type The type of the KeyValue    * @return The match code instance.    * @throws IOException in case there is an internal consistency problem caused by a data    *           corruption.    */
 name|ScanQueryMatcher
 operator|.
 name|MatchCode
 name|checkColumn
 parameter_list|(
-name|byte
-index|[]
-name|bytes
-parameter_list|,
-name|int
-name|offset
-parameter_list|,
-name|int
-name|length
+name|Cell
+name|cell
 parameter_list|,
 name|byte
 name|type
@@ -96,21 +103,14 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Keeps track of the number of versions for the columns asked for. It assumes that the user has    * already checked if the keyvalue needs to be included by calling the    * {@link #checkColumn(byte[], int, int, byte)} method. The enum values returned by this method    * are {@link MatchCode#SKIP}, {@link MatchCode#INCLUDE},    * {@link MatchCode#INCLUDE_AND_SEEK_NEXT_COL} and {@link MatchCode#INCLUDE_AND_SEEK_NEXT_ROW}.    * Implementations which include all the columns could just return {@link MatchCode#INCLUDE} in    * the {@link #checkColumn(byte[], int, int, byte)} method and perform all the operations in this    * checkVersions method.    * @param type the type of the key value (Put/Delete)    * @param ttl The timeToLive to enforce.    * @param ignoreCount indicates if the KV needs to be excluded while counting (used during    *          compactions. We only count KV's that are older than all the scanners' read points.)    * @return the scan query matcher match code instance    * @throws IOException in case there is an internal consistency problem caused by a data    *           corruption.    */
+comment|/**    * Keeps track of the number of versions for the columns asked for. It assumes that the user has    * already checked if the keyvalue needs to be included by calling the    * {@link #checkColumn(Cell, byte)} method. The enum values returned by this method    * are {@link MatchCode#SKIP}, {@link MatchCode#INCLUDE},    * {@link MatchCode#INCLUDE_AND_SEEK_NEXT_COL} and {@link MatchCode#INCLUDE_AND_SEEK_NEXT_ROW}.    * Implementations which include all the columns could just return {@link MatchCode#INCLUDE} in    * the {@link #checkColumn(Cell, byte)} method and perform all the operations in this    * checkVersions method.    * @param cell    * @param ttl The timeToLive to enforce.    * @param type the type of the key value (Put/Delete)    * @param ignoreCount indicates if the KV needs to be excluded while counting (used during    *          compactions. We only count KV's that are older than all the scanners' read points.)    * @return the scan query matcher match code instance    * @throws IOException in case there is an internal consistency problem caused by a data    *           corruption.    */
 name|ScanQueryMatcher
 operator|.
 name|MatchCode
 name|checkVersions
 parameter_list|(
-name|byte
-index|[]
-name|bytes
-parameter_list|,
-name|int
-name|offset
-parameter_list|,
-name|int
-name|length
+name|Cell
+name|cell
 parameter_list|,
 name|long
 name|ttl
@@ -139,19 +139,12 @@ name|ColumnCount
 name|getColumnHint
 parameter_list|()
 function_decl|;
-comment|/**    * Retrieve the MatchCode for the next row or column    */
+comment|/**    * Retrieve the MatchCode for the next row or column    * @param cell    */
 name|MatchCode
 name|getNextRowOrNextColumn
 parameter_list|(
-name|byte
-index|[]
-name|bytes
-parameter_list|,
-name|int
-name|offset
-parameter_list|,
-name|int
-name|qualLength
+name|Cell
+name|cell
 parameter_list|)
 function_decl|;
 comment|/**    * Give the tracker a chance to declare it's done based on only the timestamp    * to allow an early out.    *    * @param timestamp    * @return<code>true</code> to early out based on timestamp.    */
