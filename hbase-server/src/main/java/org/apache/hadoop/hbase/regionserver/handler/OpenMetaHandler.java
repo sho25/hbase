@@ -141,6 +141,9 @@ parameter_list|,
 specifier|final
 name|HTableDescriptor
 name|htd
+parameter_list|,
+name|long
+name|masterSystemTime
 parameter_list|)
 block|{
 name|super
@@ -152,6 +155,8 @@ argument_list|,
 name|regionInfo
 argument_list|,
 name|htd
+argument_list|,
+name|masterSystemTime
 argument_list|,
 name|EventType
 operator|.

@@ -7131,6 +7131,9 @@ name|sn
 argument_list|,
 name|openSeqNum
 argument_list|,
+operator|-
+literal|1
+argument_list|,
 name|regionInfo
 operator|.
 name|getReplicaId
@@ -7295,6 +7298,9 @@ name|putOfMerged
 argument_list|,
 name|sn
 argument_list|,
+literal|1
+argument_list|,
+operator|-
 literal|1
 argument_list|,
 name|mergedRegion
@@ -7479,6 +7485,9 @@ name|sn
 argument_list|,
 literal|1
 argument_list|,
+operator|-
+literal|1
+argument_list|,
 name|splitA
 operator|.
 name|getReplicaId
@@ -7492,6 +7501,9 @@ name|putB
 argument_list|,
 name|sn
 argument_list|,
+literal|1
+argument_list|,
+operator|-
 literal|1
 argument_list|,
 name|splitB
@@ -7970,7 +7982,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Updates the location of the specified region in hbase:meta to be the specified    * server hostname and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting    * hbase:meta and makes edits to that region.    *    * @param connection connection we're using    * @param regionInfo region to update location of    * @param sn Server name    * @throws IOException    */
+comment|/**    * Updates the location of the specified region in hbase:meta to be the specified    * server hostname and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting    * hbase:meta and makes edits to that region.    *    * @param connection connection we're using    * @param regionInfo region to update location of    * @param openSeqNum the latest sequence number obtained when the region was open    * @param sn Server name    * @param masterSystemTime wall clock time from master if passed in the open region RPC or -1    * @throws IOException    */
 end_comment
 
 begin_function
@@ -7989,7 +8001,10 @@ name|ServerName
 name|sn
 parameter_list|,
 name|long
-name|updateSeqNum
+name|openSeqNum
+parameter_list|,
+name|long
+name|masterSystemTime
 parameter_list|)
 throws|throws
 name|IOException
@@ -8002,14 +8017,16 @@ name|regionInfo
 argument_list|,
 name|sn
 argument_list|,
-name|updateSeqNum
+name|openSeqNum
+argument_list|,
+name|masterSystemTime
 argument_list|)
 expr_stmt|;
 block|}
 end_function
 
 begin_comment
-comment|/**    * Updates the location of the specified region to be the specified server.    *<p>    * Connects to the specified server which should be hosting the specified    * catalog region name to perform the edit.    *    * @param connection connection we're using    * @param regionInfo region to update location of    * @param sn Server name    * @param openSeqNum the latest sequence number obtained when the region was open    * @throws IOException In particular could throw {@link java.net.ConnectException}    * if the server is down on other end.    */
+comment|/**    * Updates the location of the specified region to be the specified server.    *<p>    * Connects to the specified server which should be hosting the specified    * catalog region name to perform the edit.    *    * @param connection connection we're using    * @param regionInfo region to update location of    * @param sn Server name    * @param openSeqNum the latest sequence number obtained when the region was open    * @param masterSystemTime wall clock time from master if passed in the open region RPC or -1    * @throws IOException In particular could throw {@link java.net.ConnectException}    * if the server is down on other end.    */
 end_comment
 
 begin_function
@@ -8030,19 +8047,30 @@ name|sn
 parameter_list|,
 name|long
 name|openSeqNum
+parameter_list|,
+name|long
+name|masterSystemTime
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// region replicas are kept in the primary region's row
+comment|// use the maximum of what master passed us vs local time.
 name|long
 name|time
 init|=
+name|Math
+operator|.
+name|max
+argument_list|(
 name|EnvironmentEdgeManager
 operator|.
 name|currentTime
 argument_list|()
+argument_list|,
+name|masterSystemTime
+argument_list|)
 decl_stmt|;
+comment|// region replicas are kept in the primary region's row
 name|Put
 name|put
 init|=
@@ -8064,6 +8092,8 @@ argument_list|,
 name|sn
 argument_list|,
 name|openSeqNum
+argument_list|,
+name|time
 argument_list|,
 name|regionInfo
 operator|.
@@ -8661,20 +8691,28 @@ parameter_list|,
 name|long
 name|openSeqNum
 parameter_list|,
+name|long
+name|time
+parameter_list|,
 name|int
 name|replicaId
 parameter_list|)
 block|{
-comment|// using regionserver's local time as the timestamp of Put.
-comment|// See: HBASE-11536
-name|long
-name|now
-init|=
+if|if
+condition|(
+name|time
+operator|<=
+literal|0
+condition|)
+block|{
+name|time
+operator|=
 name|EnvironmentEdgeManager
 operator|.
 name|currentTime
 argument_list|()
-decl_stmt|;
+expr_stmt|;
+block|}
 name|p
 operator|.
 name|addImmutable
@@ -8687,7 +8725,7 @@ argument_list|(
 name|replicaId
 argument_list|)
 argument_list|,
-name|now
+name|time
 argument_list|,
 name|Bytes
 operator|.
@@ -8712,7 +8750,7 @@ argument_list|(
 name|replicaId
 argument_list|)
 argument_list|,
-name|now
+name|time
 argument_list|,
 name|Bytes
 operator|.
@@ -8737,7 +8775,7 @@ argument_list|(
 name|replicaId
 argument_list|)
 argument_list|,
-name|now
+name|time
 argument_list|,
 name|Bytes
 operator|.

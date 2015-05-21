@@ -5073,6 +5073,9 @@ operator|.
 name|getStartcode
 argument_list|()
 argument_list|,
+operator|-
+literal|1
+argument_list|,
 literal|2
 argument_list|)
 expr_stmt|;

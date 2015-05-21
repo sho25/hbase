@@ -22601,6 +22601,17 @@ name|long
 name|getServerStartCode
 parameter_list|()
 function_decl|;
+comment|// optional uint64 master_system_time = 5;
+comment|/**      *<code>optional uint64 master_system_time = 5;</code>      *      *<pre>      * wall clock time from master      *</pre>      */
+name|boolean
+name|hasMasterSystemTime
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional uint64 master_system_time = 5;</code>      *      *<pre>      * wall clock time from master      *</pre>      */
+name|long
+name|getMasterSystemTime
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code OpenRegionRequest}    */
 specifier|public
@@ -22949,6 +22960,23 @@ operator||=
 literal|0x00000001
 expr_stmt|;
 name|serverStartCode_
+operator|=
+name|input
+operator|.
+name|readUInt64
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|40
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000002
+expr_stmt|;
+name|masterSystemTime_
 operator|=
 name|input
 operator|.
@@ -29836,6 +29864,47 @@ return|return
 name|serverStartCode_
 return|;
 block|}
+comment|// optional uint64 master_system_time = 5;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MASTER_SYSTEM_TIME_FIELD_NUMBER
+init|=
+literal|5
+decl_stmt|;
+specifier|private
+name|long
+name|masterSystemTime_
+decl_stmt|;
+comment|/**      *<code>optional uint64 master_system_time = 5;</code>      *      *<pre>      * wall clock time from master      *</pre>      */
+specifier|public
+name|boolean
+name|hasMasterSystemTime
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional uint64 master_system_time = 5;</code>      *      *<pre>      * wall clock time from master      *</pre>      */
+specifier|public
+name|long
+name|getMasterSystemTime
+parameter_list|()
+block|{
+return|return
+name|masterSystemTime_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -29853,6 +29922,10 @@ name|emptyList
 argument_list|()
 expr_stmt|;
 name|serverStartCode_
+operator|=
+literal|0L
+expr_stmt|;
+name|masterSystemTime_
 operator|=
 literal|0L
 expr_stmt|;
@@ -30011,6 +30084,29 @@ name|serverStartCode_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt64
+argument_list|(
+literal|5
+argument_list|,
+name|masterSystemTime_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -30120,6 +30216,37 @@ argument_list|(
 literal|2
 argument_list|,
 name|serverStartCode_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt64Size
+argument_list|(
+literal|5
+argument_list|,
+name|masterSystemTime_
 argument_list|)
 expr_stmt|;
 block|}
@@ -30333,6 +30460,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasMasterSystemTime
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasMasterSystemTime
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasMasterSystemTime
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getMasterSystemTime
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getMasterSystemTime
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -30455,6 +30617,37 @@ operator|+
 name|hashLong
 argument_list|(
 name|getServerStartCode
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasMasterSystemTime
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|MASTER_SYSTEM_TIME_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getMasterSystemTime
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -31337,6 +31530,19 @@ operator|~
 literal|0x00000002
 operator|)
 expr_stmt|;
+name|masterSystemTime_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -31639,6 +31845,30 @@ name|serverStartCode_
 operator|=
 name|serverStartCode_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000002
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|masterSystemTime_
+operator|=
+name|masterSystemTime_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -31925,6 +32155,23 @@ argument_list|(
 name|other
 operator|.
 name|getServerStartCode
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasMasterSystemTime
+argument_list|()
+condition|)
+block|{
+name|setMasterSystemTime
+argument_list|(
+name|other
+operator|.
+name|getMasterSystemTime
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -33574,6 +33821,89 @@ literal|0x00000002
 operator|)
 expr_stmt|;
 name|serverStartCode_
+operator|=
+literal|0L
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional uint64 master_system_time = 5;
+specifier|private
+name|long
+name|masterSystemTime_
+decl_stmt|;
+comment|/**        *<code>optional uint64 master_system_time = 5;</code>        *        *<pre>        * wall clock time from master        *</pre>        */
+specifier|public
+name|boolean
+name|hasMasterSystemTime
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional uint64 master_system_time = 5;</code>        *        *<pre>        * wall clock time from master        *</pre>        */
+specifier|public
+name|long
+name|getMasterSystemTime
+parameter_list|()
+block|{
+return|return
+name|masterSystemTime_
+return|;
+block|}
+comment|/**        *<code>optional uint64 master_system_time = 5;</code>        *        *<pre>        * wall clock time from master        *</pre>        */
+specifier|public
+name|Builder
+name|setMasterSystemTime
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|masterSystemTime_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional uint64 master_system_time = 5;</code>        *        *<pre>        * wall clock time from master        *</pre>        */
+specifier|public
+name|Builder
+name|clearMasterSystemTime
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
+name|masterSystemTime_
 operator|=
 literal|0L
 expr_stmt|;
@@ -139685,167 +140015,169 @@ literal|"nlineRegionRequest\";\n\027GetOnlineRegionRes"
 operator|+
 literal|"ponse\022 \n\013region_info\030\001 \003(\0132\013.RegionInfo\""
 operator|+
-literal|"\374\001\n\021OpenRegionRequest\0224\n\topen_info\030\001 \003(\013"
+literal|"\230\002\n\021OpenRegionRequest\0224\n\topen_info\030\001 \003(\013"
 operator|+
 literal|"2!.OpenRegionRequest.RegionOpenInfo\022\027\n\017s"
 operator|+
-literal|"erverStartCode\030\002 \001(\004\032\227\001\n\016RegionOpenInfo\022"
+literal|"erverStartCode\030\002 \001(\004\022\032\n\022master_system_ti"
 operator|+
-literal|"\033\n\006region\030\001 \002(\0132\013.RegionInfo\022\037\n\027version_"
+literal|"me\030\005 \001(\004\032\227\001\n\016RegionOpenInfo\022\033\n\006region\030\001 "
 operator|+
-literal|"of_offline_node\030\002 \001(\r\022\"\n\rfavored_nodes\030\003"
+literal|"\002(\0132\013.RegionInfo\022\037\n\027version_of_offline_n"
 operator|+
-literal|" \003(\0132\013.ServerName\022#\n\033openForDistributedL"
+literal|"ode\030\002 \001(\r\022\"\n\rfavored_nodes\030\003 \003(\0132\013.Serve"
 block|,
-literal|"ogReplay\030\004 \001(\010\"\235\001\n\022OpenRegionResponse\022=\n"
+literal|"rName\022#\n\033openForDistributedLogReplay\030\004 \001"
 operator|+
-literal|"\ropening_state\030\001 \003(\0162&.OpenRegionRespons"
+literal|"(\010\"\235\001\n\022OpenRegionResponse\022=\n\ropening_sta"
 operator|+
-literal|"e.RegionOpeningState\"H\n\022RegionOpeningSta"
+literal|"te\030\001 \003(\0162&.OpenRegionResponse.RegionOpen"
 operator|+
-literal|"te\022\n\n\006OPENED\020\000\022\022\n\016ALREADY_OPENED\020\001\022\022\n\016FA"
+literal|"ingState\"H\n\022RegionOpeningState\022\n\n\006OPENED"
 operator|+
-literal|"ILED_OPENING\020\002\"6\n\023WarmupRegionRequest\022\037\n"
+literal|"\020\000\022\022\n\016ALREADY_OPENED\020\001\022\022\n\016FAILED_OPENING"
 operator|+
-literal|"\nregionInfo\030\001 \002(\0132\013.RegionInfo\"\026\n\024Warmup"
+literal|"\020\002\"6\n\023WarmupRegionRequest\022\037\n\nregionInfo\030"
 operator|+
-literal|"RegionResponse\"\271\001\n\022CloseRegionRequest\022 \n"
+literal|"\001 \002(\0132\013.RegionInfo\"\026\n\024WarmupRegionRespon"
 operator|+
-literal|"\006region\030\001 \002(\0132\020.RegionSpecifier\022\037\n\027versi"
+literal|"se\"\271\001\n\022CloseRegionRequest\022 \n\006region\030\001 \002("
 operator|+
-literal|"on_of_closing_node\030\002 \001(\r\022\036\n\020transition_i"
+literal|"\0132\020.RegionSpecifier\022\037\n\027version_of_closin"
 operator|+
-literal|"n_ZK\030\003 \001(\010:\004true\022\'\n\022destination_server\030\004"
+literal|"g_node\030\002 \001(\r\022\036\n\020transition_in_ZK\030\003 \001(\010:\004"
 block|,
-literal|" \001(\0132\013.ServerName\022\027\n\017serverStartCode\030\005 \001"
+literal|"true\022\'\n\022destination_server\030\004 \001(\0132\013.Serve"
 operator|+
-literal|"(\004\"%\n\023CloseRegionResponse\022\016\n\006closed\030\001 \002("
+literal|"rName\022\027\n\017serverStartCode\030\005 \001(\004\"%\n\023CloseR"
 operator|+
-literal|"\010\"p\n\022FlushRegionRequest\022 \n\006region\030\001 \002(\0132"
+literal|"egionResponse\022\016\n\006closed\030\001 \002(\010\"p\n\022FlushRe"
 operator|+
-literal|"\020.RegionSpecifier\022\030\n\020if_older_than_ts\030\002 "
+literal|"gionRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpec"
 operator|+
-literal|"\001(\004\022\036\n\026write_flush_wal_marker\030\003 \001(\010\"_\n\023F"
+literal|"ifier\022\030\n\020if_older_than_ts\030\002 \001(\004\022\036\n\026write"
 operator|+
-literal|"lushRegionResponse\022\027\n\017last_flush_time\030\001 "
+literal|"_flush_wal_marker\030\003 \001(\010\"_\n\023FlushRegionRe"
 operator|+
-literal|"\002(\004\022\017\n\007flushed\030\002 \001(\010\022\036\n\026wrote_flush_wal_"
+literal|"sponse\022\027\n\017last_flush_time\030\001 \002(\004\022\017\n\007flush"
 operator|+
-literal|"marker\030\003 \001(\010\"K\n\022SplitRegionRequest\022 \n\006re"
+literal|"ed\030\002 \001(\010\022\036\n\026wrote_flush_wal_marker\030\003 \001(\010"
 operator|+
-literal|"gion\030\001 \002(\0132\020.RegionSpecifier\022\023\n\013split_po"
+literal|"\"K\n\022SplitRegionRequest\022 \n\006region\030\001 \002(\0132\020"
 operator|+
-literal|"int\030\002 \001(\014\"\025\n\023SplitRegionResponse\"W\n\024Comp"
+literal|".RegionSpecifier\022\023\n\013split_point\030\002 \001(\014\"\025\n"
 block|,
-literal|"actRegionRequest\022 \n\006region\030\001 \002(\0132\020.Regio"
+literal|"\023SplitRegionResponse\"W\n\024CompactRegionReq"
 operator|+
-literal|"nSpecifier\022\r\n\005major\030\002 \001(\010\022\016\n\006family\030\003 \001("
+literal|"uest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\r"
 operator|+
-literal|"\014\"\027\n\025CompactRegionResponse\"\262\001\n\031UpdateFav"
+literal|"\n\005major\030\002 \001(\010\022\016\n\006family\030\003 \001(\014\"\027\n\025Compact"
 operator|+
-literal|"oredNodesRequest\022@\n\013update_info\030\001 \003(\0132+."
+literal|"RegionResponse\"\262\001\n\031UpdateFavoredNodesReq"
 operator|+
-literal|"UpdateFavoredNodesRequest.RegionUpdateIn"
+literal|"uest\022@\n\013update_info\030\001 \003(\0132+.UpdateFavore"
 operator|+
-literal|"fo\032S\n\020RegionUpdateInfo\022\033\n\006region\030\001 \002(\0132\013"
+literal|"dNodesRequest.RegionUpdateInfo\032S\n\020Region"
 operator|+
-literal|".RegionInfo\022\"\n\rfavored_nodes\030\002 \003(\0132\013.Ser"
+literal|"UpdateInfo\022\033\n\006region\030\001 \002(\0132\013.RegionInfo\022"
 operator|+
-literal|"verName\".\n\032UpdateFavoredNodesResponse\022\020\n"
+literal|"\"\n\rfavored_nodes\030\002 \003(\0132\013.ServerName\".\n\032U"
 operator|+
-literal|"\010response\030\001 \001(\r\"v\n\023MergeRegionsRequest\022\""
+literal|"pdateFavoredNodesResponse\022\020\n\010response\030\001 "
 operator|+
-literal|"\n\010region_a\030\001 \002(\0132\020.RegionSpecifier\022\"\n\010re"
+literal|"\001(\r\"v\n\023MergeRegionsRequest\022\"\n\010region_a\030\001"
 block|,
-literal|"gion_b\030\002 \002(\0132\020.RegionSpecifier\022\027\n\010forcib"
+literal|" \002(\0132\020.RegionSpecifier\022\"\n\010region_b\030\002 \002(\013"
 operator|+
-literal|"le\030\003 \001(\010:\005false\"\026\n\024MergeRegionsResponse\""
+literal|"2\020.RegionSpecifier\022\027\n\010forcible\030\003 \001(\010:\005fa"
 operator|+
-literal|"X\n\010WALEntry\022\024\n\003key\030\001 \002(\0132\007.WALKey\022\027\n\017key"
+literal|"lse\"\026\n\024MergeRegionsResponse\"X\n\010WALEntry\022"
 operator|+
-literal|"_value_bytes\030\002 \003(\014\022\035\n\025associated_cell_co"
+literal|"\024\n\003key\030\001 \002(\0132\007.WALKey\022\027\n\017key_value_bytes"
 operator|+
-literal|"unt\030\003 \001(\005\"4\n\030ReplicateWALEntryRequest\022\030\n"
+literal|"\030\002 \003(\014\022\035\n\025associated_cell_count\030\003 \001(\005\"4\n"
 operator|+
-literal|"\005entry\030\001 \003(\0132\t.WALEntry\"\033\n\031ReplicateWALE"
+literal|"\030ReplicateWALEntryRequest\022\030\n\005entry\030\001 \003(\013"
 operator|+
-literal|"ntryResponse\"\026\n\024RollWALWriterRequest\"0\n\025"
+literal|"2\t.WALEntry\"\033\n\031ReplicateWALEntryResponse"
 operator|+
-literal|"RollWALWriterResponse\022\027\n\017region_to_flush"
+literal|"\"\026\n\024RollWALWriterRequest\"0\n\025RollWALWrite"
 operator|+
-literal|"\030\001 \003(\014\"#\n\021StopServerRequest\022\016\n\006reason\030\001 "
+literal|"rResponse\022\027\n\017region_to_flush\030\001 \003(\014\"#\n\021St"
 operator|+
-literal|"\002(\t\"\024\n\022StopServerResponse\"\026\n\024GetServerIn"
+literal|"opServerRequest\022\016\n\006reason\030\001 \002(\t\"\024\n\022StopS"
 block|,
-literal|"foRequest\"B\n\nServerInfo\022 \n\013server_name\030\001"
+literal|"erverResponse\"\026\n\024GetServerInfoRequest\"B\n"
 operator|+
-literal|" \002(\0132\013.ServerName\022\022\n\nwebui_port\030\002 \001(\r\"9\n"
+literal|"\nServerInfo\022 \n\013server_name\030\001 \002(\0132\013.Serve"
 operator|+
-literal|"\025GetServerInfoResponse\022 \n\013server_info\030\001 "
+literal|"rName\022\022\n\nwebui_port\030\002 \001(\r\"9\n\025GetServerIn"
 operator|+
-literal|"\002(\0132\013.ServerInfo\"\034\n\032UpdateConfigurationR"
+literal|"foResponse\022 \n\013server_info\030\001 \002(\0132\013.Server"
 operator|+
-literal|"equest\"\035\n\033UpdateConfigurationResponse2\325\010"
+literal|"Info\"\034\n\032UpdateConfigurationRequest\"\035\n\033Up"
 operator|+
-literal|"\n\014AdminService\022>\n\rGetRegionInfo\022\025.GetReg"
+literal|"dateConfigurationResponse2\325\010\n\014AdminServi"
 operator|+
-literal|"ionInfoRequest\032\026.GetRegionInfoResponse\022;"
+literal|"ce\022>\n\rGetRegionInfo\022\025.GetRegionInfoReque"
 operator|+
-literal|"\n\014GetStoreFile\022\024.GetStoreFileRequest\032\025.G"
+literal|"st\032\026.GetRegionInfoResponse\022;\n\014GetStoreFi"
 operator|+
-literal|"etStoreFileResponse\022D\n\017GetOnlineRegion\022\027"
+literal|"le\022\024.GetStoreFileRequest\032\025.GetStoreFileR"
 operator|+
-literal|".GetOnlineRegionRequest\032\030.GetOnlineRegio"
+literal|"esponse\022D\n\017GetOnlineRegion\022\027.GetOnlineRe"
 block|,
-literal|"nResponse\0225\n\nOpenRegion\022\022.OpenRegionRequ"
+literal|"gionRequest\032\030.GetOnlineRegionResponse\0225\n"
 operator|+
-literal|"est\032\023.OpenRegionResponse\022;\n\014WarmupRegion"
+literal|"\nOpenRegion\022\022.OpenRegionRequest\032\023.OpenRe"
 operator|+
-literal|"\022\024.WarmupRegionRequest\032\025.WarmupRegionRes"
+literal|"gionResponse\022;\n\014WarmupRegion\022\024.WarmupReg"
 operator|+
-literal|"ponse\0228\n\013CloseRegion\022\023.CloseRegionReques"
+literal|"ionRequest\032\025.WarmupRegionResponse\0228\n\013Clo"
 operator|+
-literal|"t\032\024.CloseRegionResponse\0228\n\013FlushRegion\022\023"
+literal|"seRegion\022\023.CloseRegionRequest\032\024.CloseReg"
 operator|+
-literal|".FlushRegionRequest\032\024.FlushRegionRespons"
+literal|"ionResponse\0228\n\013FlushRegion\022\023.FlushRegion"
 operator|+
-literal|"e\0228\n\013SplitRegion\022\023.SplitRegionRequest\032\024."
+literal|"Request\032\024.FlushRegionResponse\0228\n\013SplitRe"
 operator|+
-literal|"SplitRegionResponse\022>\n\rCompactRegion\022\025.C"
+literal|"gion\022\023.SplitRegionRequest\032\024.SplitRegionR"
 operator|+
-literal|"ompactRegionRequest\032\026.CompactRegionRespo"
+literal|"esponse\022>\n\rCompactRegion\022\025.CompactRegion"
 operator|+
-literal|"nse\022;\n\014MergeRegions\022\024.MergeRegionsReques"
+literal|"Request\032\026.CompactRegionResponse\022;\n\014Merge"
 block|,
-literal|"t\032\025.MergeRegionsResponse\022J\n\021ReplicateWAL"
+literal|"Regions\022\024.MergeRegionsRequest\032\025.MergeReg"
 operator|+
-literal|"Entry\022\031.ReplicateWALEntryRequest\032\032.Repli"
+literal|"ionsResponse\022J\n\021ReplicateWALEntry\022\031.Repl"
 operator|+
-literal|"cateWALEntryResponse\022?\n\006Replay\022\031.Replica"
+literal|"icateWALEntryRequest\032\032.ReplicateWALEntry"
 operator|+
-literal|"teWALEntryRequest\032\032.ReplicateWALEntryRes"
+literal|"Response\022?\n\006Replay\022\031.ReplicateWALEntryRe"
 operator|+
-literal|"ponse\022>\n\rRollWALWriter\022\025.RollWALWriterRe"
+literal|"quest\032\032.ReplicateWALEntryResponse\022>\n\rRol"
 operator|+
-literal|"quest\032\026.RollWALWriterResponse\022>\n\rGetServ"
+literal|"lWALWriter\022\025.RollWALWriterRequest\032\026.Roll"
 operator|+
-literal|"erInfo\022\025.GetServerInfoRequest\032\026.GetServe"
+literal|"WALWriterResponse\022>\n\rGetServerInfo\022\025.Get"
 operator|+
-literal|"rInfoResponse\0225\n\nStopServer\022\022.StopServer"
+literal|"ServerInfoRequest\032\026.GetServerInfoRespons"
 operator|+
-literal|"Request\032\023.StopServerResponse\022M\n\022UpdateFa"
+literal|"e\0225\n\nStopServer\022\022.StopServerRequest\032\023.St"
 operator|+
-literal|"voredNodes\022\032.UpdateFavoredNodesRequest\032\033"
+literal|"opServerResponse\022M\n\022UpdateFavoredNodes\022\032"
 block|,
-literal|".UpdateFavoredNodesResponse\022P\n\023UpdateCon"
+literal|".UpdateFavoredNodesRequest\032\033.UpdateFavor"
 operator|+
-literal|"figuration\022\033.UpdateConfigurationRequest\032"
+literal|"edNodesResponse\022P\n\023UpdateConfiguration\022\033"
 operator|+
-literal|"\034.UpdateConfigurationResponseBA\n*org.apa"
+literal|".UpdateConfigurationRequest\032\034.UpdateConf"
 operator|+
-literal|"che.hadoop.hbase.protobuf.generatedB\013Adm"
+literal|"igurationResponseBA\n*org.apache.hadoop.h"
 operator|+
-literal|"inProtosH\001\210\001\001\240\001\001"
+literal|"base.protobuf.generatedB\013AdminProtosH\001\210\001"
+operator|+
+literal|"\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -140186,6 +140518,8 @@ block|{
 literal|"OpenInfo"
 block|,
 literal|"ServerStartCode"
+block|,
+literal|"MasterSystemTime"
 block|, }
 argument_list|)
 expr_stmt|;

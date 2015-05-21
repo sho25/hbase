@@ -904,6 +904,9 @@ operator|.
 name|getStartcode
 argument_list|()
 argument_list|,
+operator|-
+literal|1
+argument_list|,
 name|i
 argument_list|)
 expr_stmt|;
