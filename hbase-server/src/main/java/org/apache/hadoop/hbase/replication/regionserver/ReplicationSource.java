@@ -761,13 +761,6 @@ specifier|private
 name|WALEntryFilter
 name|walEntryFilter
 decl_stmt|;
-comment|// Context for ReplicationEndpoint#replicate()
-specifier|private
-name|ReplicationEndpoint
-operator|.
-name|ReplicateContext
-name|replicateContext
-decl_stmt|;
 comment|// throttler
 specifier|private
 name|ReplicationThrottler
@@ -1063,16 +1056,6 @@ operator|.
 name|replicationEndpoint
 operator|=
 name|replicationEndpoint
-expr_stmt|;
-name|this
-operator|.
-name|replicateContext
-operator|=
-operator|new
-name|ReplicationEndpoint
-operator|.
-name|ReplicateContext
-argument_list|()
 expr_stmt|;
 block|}
 specifier|private
@@ -3427,6 +3410,18 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|// create replicateContext here, so the entries can be GC'd upon return from this call stack
+name|ReplicationEndpoint
+operator|.
+name|ReplicateContext
+name|replicateContext
+init|=
+operator|new
+name|ReplicationEndpoint
+operator|.
+name|ReplicateContext
+argument_list|()
+decl_stmt|;
 name|replicateContext
 operator|.
 name|setEntries

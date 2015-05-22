@@ -440,6 +440,7 @@ name|HBaseInterfaceAudience
 operator|.
 name|REPLICATION
 argument_list|)
+specifier|static
 class|class
 name|ReplicateContext
 block|{
