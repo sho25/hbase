@@ -2256,23 +2256,12 @@ range|:
 name|cells
 control|)
 block|{
-comment|// TODO remove this after the new code are introduced.
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|cell
-argument_list|)
-decl_stmt|;
 comment|// write the mob cell to the mob file.
 name|writer
 operator|.
 name|append
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 comment|// write the new reference cell to the store file.
@@ -2283,7 +2272,7 @@ name|MobUtils
 operator|.
 name|createMobRefKeyValue
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 name|fileName
 argument_list|,
@@ -2810,22 +2799,11 @@ range|:
 name|cells
 control|)
 block|{
-comment|// TODO remove this after the new code are introduced.
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|cell
-argument_list|)
-decl_stmt|;
 name|writer
 operator|.
 name|append
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 block|}
