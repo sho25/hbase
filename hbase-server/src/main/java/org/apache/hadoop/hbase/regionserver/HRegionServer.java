@@ -8291,6 +8291,14 @@ name|void
 name|chore
 parameter_list|()
 block|{
+specifier|final
+name|StringBuffer
+name|whyFlush
+init|=
+operator|new
+name|StringBuffer
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|Region
@@ -8323,7 +8331,9 @@ name|r
 operator|)
 operator|.
 name|shouldFlush
-argument_list|()
+argument_list|(
+name|whyFlush
+argument_list|)
 condition|)
 block|{
 name|FlushRequester
@@ -8360,7 +8370,7 @@ argument_list|(
 name|getName
 argument_list|()
 operator|+
-literal|" requesting flush for region "
+literal|" requesting flush of "
 operator|+
 name|r
 operator|.
@@ -8370,9 +8380,18 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" after a delay of "
+literal|" because "
+operator|+
+name|whyFlush
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" after random delay "
 operator|+
 name|randomDelay
+operator|+
+literal|"ms"
 argument_list|)
 expr_stmt|;
 comment|//Throttle the flushes by putting a delay. If we don't throttle, and there

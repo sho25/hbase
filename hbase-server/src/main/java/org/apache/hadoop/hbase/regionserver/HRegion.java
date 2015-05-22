@@ -9751,8 +9751,19 @@ block|}
 comment|/**    * Should the memstore be flushed now    */
 name|boolean
 name|shouldFlush
-parameter_list|()
+parameter_list|(
+specifier|final
+name|StringBuffer
+name|whyFlush
+parameter_list|)
 block|{
+name|whyFlush
+operator|.
+name|setLength
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
 comment|// This is a rough measure.
 if|if
 condition|(
@@ -9780,6 +9791,19 @@ argument_list|()
 operator|)
 condition|)
 block|{
+name|whyFlush
+operator|.
+name|append
+argument_list|(
+literal|"more than max edits, "
+operator|+
+name|this
+operator|.
+name|flushPerChanges
+operator|+
+literal|", since last flush"
+argument_list|)
+expr_stmt|;
 return|return
 literal|true
 return|;
@@ -9874,6 +9898,18 @@ name|modifiedFlushCheckInterval
 condition|)
 block|{
 comment|// we have an old enough edit in the memstore, flush
+name|whyFlush
+operator|.
+name|append
+argument_list|(
+name|s
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" has an old edit so flush to free WALs"
+argument_list|)
+expr_stmt|;
 return|return
 literal|true
 return|;
