@@ -95,6 +95,22 @@ name|RequestHeader
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|User
+import|;
+end_import
+
 begin_comment
 comment|/**  * Function to figure priority of incoming request.  */
 end_comment
@@ -123,7 +139,7 @@ specifier|public
 interface|interface
 name|PriorityFunction
 block|{
-comment|/**    * Returns the 'priority type' of the specified request.    * The returned value is mainly used to select the dispatch queue.    * @param header    * @param param    * @return Priority of this request.    */
+comment|/**    * Returns the 'priority type' of the specified request.    * The returned value is mainly used to select the dispatch queue.    * @param header    * @param param    * @param user    * @return Priority of this request.    */
 name|int
 name|getPriority
 parameter_list|(
@@ -132,6 +148,9 @@ name|header
 parameter_list|,
 name|Message
 name|param
+parameter_list|,
+name|User
+name|user
 parameter_list|)
 function_decl|;
 comment|/**    * Returns the deadline of the specified request.    * The returned value is used to sort the dispatch queue.    * @param header    * @param param    * @return Deadline of this request. 0 now, otherwise msec of 'delay'    */

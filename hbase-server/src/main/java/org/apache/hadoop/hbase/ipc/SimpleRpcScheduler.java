@@ -1000,6 +1000,11 @@ argument_list|,
 name|call
 operator|.
 name|param
+argument_list|,
+name|call
+operator|.
+name|getRequestUser
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if

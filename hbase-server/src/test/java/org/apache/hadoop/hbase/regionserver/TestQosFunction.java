@@ -187,6 +187,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|security
+operator|.
+name|User
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|testclassification
 operator|.
 name|RegionServerTests
@@ -389,6 +405,8 @@ decl_stmt|;
 comment|// Set method name in pb style with the method name capitalized.
 name|checkMethod
 argument_list|(
+name|conf
+argument_list|,
 literal|"ReplicateWALEntry"
 argument_list|,
 name|HConstants
@@ -401,6 +419,8 @@ expr_stmt|;
 comment|// Set method name in pb style with the method name capitalized.
 name|checkMethod
 argument_list|(
+name|conf
+argument_list|,
 literal|"OpenRegion"
 argument_list|,
 name|HConstants
@@ -413,6 +433,8 @@ expr_stmt|;
 comment|// Check multi works.
 name|checkMethod
 argument_list|(
+name|conf
+argument_list|,
 literal|"Multi"
 argument_list|,
 name|HConstants
@@ -682,6 +704,8 @@ literal|"ReportRegionStateTransition"
 decl_stmt|;
 name|checkMethod
 argument_list|(
+name|conf
+argument_list|,
 name|reportFuncName
 argument_list|,
 name|HConstants
@@ -695,6 +719,8 @@ argument_list|)
 expr_stmt|;
 name|checkMethod
 argument_list|(
+name|conf
+argument_list|,
 name|reportFuncName
 argument_list|,
 name|HConstants
@@ -711,6 +737,9 @@ specifier|private
 name|void
 name|checkMethod
 parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
 specifier|final
 name|String
 name|methodName
@@ -726,6 +755,8 @@ parameter_list|)
 block|{
 name|checkMethod
 argument_list|(
+name|conf
+argument_list|,
 name|methodName
 argument_list|,
 name|expected
@@ -740,6 +771,9 @@ specifier|private
 name|void
 name|checkMethod
 parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
 specifier|final
 name|String
 name|methodName
@@ -790,6 +824,22 @@ name|build
 argument_list|()
 argument_list|,
 name|param
+argument_list|,
+name|User
+operator|.
+name|createUserForTesting
+argument_list|(
+name|conf
+argument_list|,
+literal|"someuser"
+argument_list|,
+operator|new
+name|String
+index|[]
+block|{
+literal|"somegroup"
+block|}
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
