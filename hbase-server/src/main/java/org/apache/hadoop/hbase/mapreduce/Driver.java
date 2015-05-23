@@ -89,6 +89,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|snapshot
+operator|.
+name|ExportSnapshot
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|util
 operator|.
 name|ProgramDriver
@@ -149,7 +165,7 @@ name|RowCounter
 operator|.
 name|class
 argument_list|,
-literal|"Count rows in HBase table"
+literal|"Count rows in HBase table."
 argument_list|)
 expr_stmt|;
 name|pgd
@@ -164,7 +180,7 @@ name|CellCounter
 operator|.
 name|class
 argument_list|,
-literal|"Count cells in HBase table"
+literal|"Count cells in HBase table."
 argument_list|)
 expr_stmt|;
 name|pgd
@@ -239,7 +255,7 @@ name|CopyTable
 operator|.
 name|class
 argument_list|,
-literal|"Export a table from local cluster to peer cluster"
+literal|"Export a table from local cluster to peer cluster."
 argument_list|)
 expr_stmt|;
 name|pgd
@@ -261,6 +277,38 @@ operator|+
 literal|" doesn't work for incrementColumnValues'd cells since the"
 operator|+
 literal|" timestamp is changed after being appended to the log."
+argument_list|)
+expr_stmt|;
+name|pgd
+operator|.
+name|addClass
+argument_list|(
+name|WALPlayer
+operator|.
+name|NAME
+argument_list|,
+name|WALPlayer
+operator|.
+name|class
+argument_list|,
+literal|"Replay WAL files."
+argument_list|)
+expr_stmt|;
+name|pgd
+operator|.
+name|addClass
+argument_list|(
+name|ExportSnapshot
+operator|.
+name|NAME
+argument_list|,
+name|ExportSnapshot
+operator|.
+name|class
+argument_list|,
+literal|"Export"
+operator|+
+literal|" the specific snapshot to a given FileSystem."
 argument_list|)
 expr_stmt|;
 name|ProgramDriver

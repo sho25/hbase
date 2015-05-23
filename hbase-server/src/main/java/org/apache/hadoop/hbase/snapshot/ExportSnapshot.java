@@ -820,6 +820,14 @@ name|Configured
 implements|implements
 name|Tool
 block|{
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|NAME
+init|=
+literal|"exportsnapshot"
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
