@@ -1389,7 +1389,7 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|int
 name|blocksize
@@ -1399,11 +1399,11 @@ name|HFileDataBlockEncoder
 name|dataBlockEncoder
 decl_stmt|;
 comment|/** Checksum configuration */
-specifier|private
+specifier|protected
 name|ChecksumType
 name|checksumType
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|bytesPerChecksum
 decl_stmt|;
