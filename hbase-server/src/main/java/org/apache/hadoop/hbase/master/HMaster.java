@@ -4393,6 +4393,26 @@ operator|.
 name|clearDeadServersWithSameHostNameAndPortOfOnlineServer
 argument_list|()
 expr_stmt|;
+comment|// Check and set the znode ACLs if needed in case we are overtaking a non-secure configuration
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Checking ZNode ACLs"
+argument_list|)
+expr_stmt|;
+name|zooKeeper
+operator|.
+name|checkAndSetZNodeAcls
+argument_list|()
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Calling postStartMaster coprocessors"
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|this
