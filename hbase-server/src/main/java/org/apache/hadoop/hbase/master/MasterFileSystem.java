@@ -227,6 +227,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|fs
+operator|.
+name|permission
+operator|.
+name|FsPermission
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|ClusterId
@@ -372,22 +388,6 @@ operator|.
 name|backup
 operator|.
 name|HFileArchiver
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|TableState
 import|;
 end_import
 
@@ -2096,6 +2096,37 @@ literal|1000
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|boolean
+name|isSecurityEnabled
+init|=
+literal|"kerberos"
+operator|.
+name|equalsIgnoreCase
+argument_list|(
+name|c
+operator|.
+name|get
+argument_list|(
+literal|"hbase.security.authentication"
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|FsPermission
+name|rootDirPerms
+init|=
+operator|new
+name|FsPermission
+argument_list|(
+name|c
+operator|.
+name|get
+argument_list|(
+literal|"hbase.rootdir.perms"
+argument_list|,
+literal|"700"
+argument_list|)
+argument_list|)
+decl_stmt|;
 comment|// Filesystem is good. Go ahead and check for hbase.rootdir.
 try|try
 block|{
@@ -2110,6 +2141,23 @@ name|rd
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|isSecurityEnabled
+condition|)
+block|{
+name|fs
+operator|.
+name|mkdirs
+argument_list|(
+name|rd
+argument_list|,
+name|rootDirPerms
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|fs
 operator|.
 name|mkdirs
@@ -2117,6 +2165,7 @@ argument_list|(
 name|rd
 argument_list|)
 expr_stmt|;
+block|}
 comment|// DFS leaves safe mode with 0 DNs when there are 0 blocks.
 comment|// We used to handle this by checking the current DN count and waiting until
 comment|// it is nonzero. With security, the check for datanode count doesn't work --
@@ -2185,6 +2234,81 @@ operator|+
 literal|" is not a directory"
 argument_list|)
 throw|;
+block|}
+if|if
+condition|(
+name|isSecurityEnabled
+operator|&&
+operator|!
+name|rootDirPerms
+operator|.
+name|equals
+argument_list|(
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
+name|rd
+argument_list|)
+operator|.
+name|getPermission
+argument_list|()
+argument_list|)
+condition|)
+block|{
+comment|// check whether the permission match
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Found rootdir permissions NOT matching expected \"hbase.rootdir.perms\" for "
+operator|+
+literal|"rootdir="
+operator|+
+name|rd
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" permissions="
+operator|+
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
+name|rd
+argument_list|)
+operator|.
+name|getPermission
+argument_list|()
+operator|+
+literal|" and  \"hbase.rootdir.perms\" configured as "
+operator|+
+name|c
+operator|.
+name|get
+argument_list|(
+literal|"hbase.rootdir.perms"
+argument_list|,
+literal|"700"
+argument_list|)
+operator|+
+literal|". Automatically setting the permissions. You"
+operator|+
+literal|" can change the permissions by setting \"hbase.rootdir.perms\" in hbase-site.xml "
+operator|+
+literal|"and restarting the master"
+argument_list|)
+expr_stmt|;
+name|fs
+operator|.
+name|setPermission
+argument_list|(
+name|rd
+argument_list|,
+name|rootDirPerms
+argument_list|)
+expr_stmt|;
 block|}
 comment|// as above
 name|FSUtils
