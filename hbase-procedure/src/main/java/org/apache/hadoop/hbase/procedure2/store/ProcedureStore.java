@@ -31,16 +31,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Iterator
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -115,6 +105,63 @@ name|abortProcess
 parameter_list|()
 function_decl|;
 block|}
+comment|/**    * An Iterator over a collection of Procedure    */
+specifier|public
+interface|interface
+name|ProcedureIterator
+block|{
+comment|/**      * Reset the Iterator by seeking to the beginning of the list.      */
+name|void
+name|reset
+parameter_list|()
+function_decl|;
+comment|/**      * Returns true if the iterator has more elements.      * (In other words, returns true if next() would return a Procedure      * rather than throwing an exception.)      * @return true if the iterator has more procedures      */
+name|boolean
+name|hasNext
+parameter_list|()
+function_decl|;
+comment|/**      * Returns the next procedure in the iteration.      * @throws IOException if there was an error fetching/deserializing the procedure      * @throws NoSuchElementException if the iteration has no more elements      * @return the next procedure in the iteration.      */
+name|Procedure
+name|next
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+block|}
+comment|/**    * Interface passed to the ProcedureStore.load() method to handle the store-load events.    */
+specifier|public
+interface|interface
+name|ProcedureLoader
+block|{
+comment|/**      * Called by ProcedureStore.load() to notify about the maximum proc-id in the store.      * @param maxProcId the highest proc-id in the store      */
+name|void
+name|setMaxProcId
+parameter_list|(
+name|long
+name|maxProcId
+parameter_list|)
+function_decl|;
+comment|/**      * Called by the ProcedureStore.load() every time a set of procedures are ready to be executed.      * The ProcedureIterator passed to the method, has the procedure sorted in replay-order.      * @param procIter iterator over the procedures ready to be added to the executor.      */
+name|void
+name|load
+parameter_list|(
+name|ProcedureIterator
+name|procIter
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**      * Called by the ProcedureStore.load() in case we have procedures not-ready to be added to      * the executor, which probably means they are corrupted since some information/link is missing.      * @param procIter iterator over the procedures not ready to be added to the executor, corrupted      */
+name|void
+name|handleCorrupted
+parameter_list|(
+name|ProcedureIterator
+name|procIter
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+block|}
 comment|/**    * Add the listener to the notification list.    * @param listener The AssignmentListener to register    */
 name|void
 name|registerListener
@@ -166,13 +213,13 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Load the Procedures in the store.    * @return the set of procedures present in the store    */
-name|Iterator
-argument_list|<
-name|Procedure
-argument_list|>
+comment|/**    * Load the Procedures in the store.    * @param loader the ProcedureLoader that will handle the store-load events    */
+name|void
 name|load
-parameter_list|()
+parameter_list|(
+name|ProcedureLoader
+name|loader
+parameter_list|)
 throws|throws
 name|IOException
 function_decl|;

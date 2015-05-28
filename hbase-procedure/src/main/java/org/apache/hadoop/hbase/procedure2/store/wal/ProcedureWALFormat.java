@@ -185,6 +185,26 @@ name|hbase
 operator|.
 name|procedure2
 operator|.
+name|store
+operator|.
+name|ProcedureStore
+operator|.
+name|ProcedureLoader
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
 name|util
 operator|.
 name|ByteSlot
@@ -370,6 +390,8 @@ block|}
 block|}
 interface|interface
 name|Loader
+extends|extends
+name|ProcedureLoader
 block|{
 name|void
 name|removeLog
@@ -395,10 +417,7 @@ parameter_list|()
 block|{}
 specifier|public
 specifier|static
-name|Iterator
-argument_list|<
-name|Procedure
-argument_list|>
+name|void
 name|load
 parameter_list|(
 specifier|final
@@ -479,6 +498,13 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+name|reader
+operator|.
+name|finalize
+argument_list|(
+name|loader
+argument_list|)
+expr_stmt|;
 comment|// The tracker is now updated with all the procedures read from the logs
 name|tracker
 operator|.
@@ -503,13 +529,6 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|// TODO: Write compacted version?
-return|return
-name|reader
-operator|.
-name|getProcedures
-argument_list|()
-return|;
 block|}
 specifier|public
 specifier|static

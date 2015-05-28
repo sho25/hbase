@@ -333,6 +333,8 @@ argument_list|(
 name|procExecutor
 argument_list|,
 literal|null
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -352,6 +354,9 @@ name|procExecutor
 parameter_list|,
 name|Runnable
 name|beforeStartAction
+parameter_list|,
+name|boolean
+name|failOnCorrupted
 parameter_list|)
 throws|throws
 name|Exception
@@ -425,6 +430,8 @@ operator|.
 name|start
 argument_list|(
 name|execThreads
+argument_list|,
+name|failOnCorrupted
 argument_list|)
 expr_stmt|;
 block|}

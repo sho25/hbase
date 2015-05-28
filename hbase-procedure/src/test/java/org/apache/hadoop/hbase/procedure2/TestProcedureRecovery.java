@@ -535,6 +535,8 @@ operator|.
 name|start
 argument_list|(
 name|PROCEDURE_EXECUTOR_SLOTS
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|procSleepInterval

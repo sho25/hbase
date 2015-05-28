@@ -49,6 +49,7 @@ specifier|private
 name|MasterProcedureConstants
 parameter_list|()
 block|{}
+comment|/** Used to construct the name of the log directory for master procedures */
 specifier|public
 specifier|static
 specifier|final
@@ -57,6 +58,7 @@ name|MASTER_PROCEDURE_LOGDIR
 init|=
 literal|"MasterProcWALs"
 decl_stmt|;
+comment|/** Number of threads used by the procedure executor */
 specifier|public
 specifier|static
 specifier|final
@@ -72,6 +74,23 @@ name|int
 name|DEFAULT_MIN_MASTER_PROCEDURE_THREADS
 init|=
 literal|4
+decl_stmt|;
+comment|/**    * Procedure replay sanity check. In case a WAL is missing or unreadable we    * may lose information about pending/running procedures.    * Set this to true in case you want the Master failing on load if a corrupted    * procedure is encountred.    * (Default is off, because we prefer having the Master up and running and    * fix the "in transition" state "by hand")    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|EXECUTOR_ABORT_ON_CORRUPTION
+init|=
+literal|"hbase.procedure.abort.on.corruption"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_EXECUTOR_ABORT_ON_CORRUPTION
+init|=
+literal|false
 decl_stmt|;
 block|}
 end_class
