@@ -71,6 +71,11 @@ specifier|final
 name|KeyValueScanner
 name|scanner
 decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|tagsPresent
+decl_stmt|;
 specifier|public
 name|MemStoreSnapshot
 parameter_list|(
@@ -88,6 +93,9 @@ name|timeRangeTracker
 parameter_list|,
 name|KeyValueScanner
 name|scanner
+parameter_list|,
+name|boolean
+name|tagsPresent
 parameter_list|)
 block|{
 name|this
@@ -119,6 +127,12 @@ operator|.
 name|scanner
 operator|=
 name|scanner
+expr_stmt|;
+name|this
+operator|.
+name|tagsPresent
+operator|=
+name|tagsPresent
 expr_stmt|;
 block|}
 comment|/**    * @return snapshot's identifier.    */
@@ -173,6 +187,18 @@ return|return
 name|this
 operator|.
 name|scanner
+return|;
+block|}
+comment|/**    * @return true if tags are present in this snapshot    */
+specifier|public
+name|boolean
+name|isTagsPresent
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|tagsPresent
 return|;
 block|}
 block|}

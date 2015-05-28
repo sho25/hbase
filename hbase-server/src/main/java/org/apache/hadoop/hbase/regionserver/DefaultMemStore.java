@@ -522,6 +522,10 @@ specifier|volatile
 name|long
 name|snapshotId
 decl_stmt|;
+specifier|volatile
+name|boolean
+name|tagsPresent
+decl_stmt|;
 comment|/**    * Default constructor. Used for tests.    */
 specifier|public
 name|DefaultMemStore
@@ -896,7 +900,9 @@ name|MAX_VALUE
 expr_stmt|;
 block|}
 block|}
-return|return
+name|MemStoreSnapshot
+name|memStoreSnapshot
+init|=
 operator|new
 name|MemStoreSnapshot
 argument_list|(
@@ -926,7 +932,20 @@ name|this
 operator|.
 name|comparator
 argument_list|)
+argument_list|,
+name|this
+operator|.
+name|tagsPresent
 argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|tagsPresent
+operator|=
+literal|false
+expr_stmt|;
+return|return
+name|memStoreSnapshot
 return|;
 block|}
 comment|/**    * The passed snapshot was successfully persisted; it can be let go.    * @param id Id of the snapshot to clean out.    * @throws UnexpectedStateException    * @see #snapshot()    */
@@ -1163,6 +1182,25 @@ argument_list|(
 name|e
 argument_list|)
 decl_stmt|;
+comment|// In no tags case this NoTagsKeyValue.getTagsLength() is a cheap call.
+comment|// When we use ACL CP or Visibility CP which deals with Tags during
+comment|// mutation, the TagRewriteCell.getTagsLength() is a cheaper call. We do not
+comment|// parse the byte[] to identify the tags length.
+if|if
+condition|(
+name|e
+operator|.
+name|getTagsLength
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|tagsPresent
+operator|=
+literal|true
+expr_stmt|;
+block|}
 name|setOldestEditTimeToNow
 argument_list|()
 expr_stmt|;
@@ -4021,6 +4059,10 @@ name|Bytes
 operator|.
 name|SIZEOF_LONG
 operator|)
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_BOOLEAN
 argument_list|)
 decl_stmt|;
 specifier|public

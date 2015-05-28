@@ -2625,7 +2625,7 @@ operator|.
 name|SIZEOF_INT
 return|;
 block|}
-comment|/**    * Create a KeyValue reading from the raw InputStream. Named    *<code>iscreate</code> so doesn't clash with {@link #create(DataInput)}    *    * @param in    * @return Created KeyValue OR if we find a length of zero, we will return    *         null which can be useful marking a stream as done.    * @throws IOException    */
+comment|/**    * Create a KeyValue reading from the raw InputStream. Named    *<code>iscreate</code> so doesn't clash with {@link #create(DataInput)}    *    * @param in    * @param withTags whether the keyvalue should include tags are not    * @return Created KeyValue OR if we find a length of zero, we will return    *         null which can be useful marking a stream as done.    * @throws IOException    */
 specifier|public
 specifier|static
 name|KeyValue
@@ -2634,6 +2634,9 @@ parameter_list|(
 specifier|final
 name|InputStream
 name|in
+parameter_list|,
+name|boolean
+name|withTags
 parameter_list|)
 throws|throws
 name|IOException
@@ -2747,6 +2750,11 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|withTags
+condition|)
+block|{
 return|return
 operator|new
 name|KeyValue
@@ -2760,6 +2768,23 @@ operator|.
 name|length
 argument_list|)
 return|;
+block|}
+else|else
+block|{
+return|return
+operator|new
+name|NoTagsKeyValue
+argument_list|(
+name|bytes
+argument_list|,
+literal|0
+argument_list|,
+name|bytes
+operator|.
+name|length
+argument_list|)
+return|;
+block|}
 block|}
 comment|/**    * @param b    * @return A KeyValue made of a byte array that holds the key-only part.    *         Needed to convert hfile index members to KeyValues.    */
 specifier|public

@@ -338,7 +338,10 @@ literal|false
 argument_list|,
 literal|true
 argument_list|,
-literal|true
+name|snapshot
+operator|.
+name|isTagsPresent
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|writer

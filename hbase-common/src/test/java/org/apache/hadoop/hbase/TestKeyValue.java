@@ -4877,6 +4877,8 @@ operator|.
 name|iscreate
 argument_list|(
 name|is
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|assertTrue
@@ -4897,6 +4899,8 @@ operator|.
 name|iscreate
 argument_list|(
 name|is
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|assertTrue

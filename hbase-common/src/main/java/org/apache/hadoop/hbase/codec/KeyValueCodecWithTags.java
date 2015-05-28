@@ -203,12 +203,15 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// create KeyValue with tags
 return|return
 name|KeyValueUtil
 operator|.
 name|iscreate
 argument_list|(
 name|in
+argument_list|,
+literal|true
 argument_list|)
 return|;
 block|}
