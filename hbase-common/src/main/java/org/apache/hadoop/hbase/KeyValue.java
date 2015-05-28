@@ -10612,7 +10612,9 @@ name|existingTags
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a KeyValue reading from the raw InputStream.    * Named<code>iscreate</code> so doesn't clash with {@link #create(DataInput)}    * @param in    * @return Created KeyValue OR if we find a length of zero, we will return null which    * can be useful marking a stream as done.    * @throws IOException    */
+comment|/**    * Create a KeyValue reading from the raw InputStream.    * Named<code>iscreate</code> so doesn't clash with {@link #create(DataInput)}    * @param in    * @return Created KeyValue OR if we find a length of zero, we will return null which    * can be useful marking a stream as done.    * @throws IOException    * {@link Deprecated} As of 1.2. Use {@link KeyValueUtil#iscreate(InputStream, boolean)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|KeyValue
