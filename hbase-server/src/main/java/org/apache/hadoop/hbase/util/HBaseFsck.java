@@ -1842,6 +1842,25 @@ name|DEFAULT_LOCK_FILE_ATTEMPT_SLEEP_INTERVAL
 init|=
 literal|200
 decl_stmt|;
+comment|// milliseconds
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_LOCK_FILE_ATTEMPT_MAX_SLEEP_TIME
+init|=
+literal|5000
+decl_stmt|;
+comment|// milliseconds
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_WAIT_FOR_LOCK_TIMEOUT
+init|=
+literal|30
+decl_stmt|;
+comment|// seconds
 comment|/**********************    * Internal resources    **********************/
 specifier|private
 specifier|static
@@ -2379,6 +2398,16 @@ literal|"hbase.hbck.lockfile.attempt.sleep.interval"
 argument_list|,
 name|DEFAULT_LOCK_FILE_ATTEMPT_SLEEP_INTERVAL
 argument_list|)
+argument_list|,
+name|getConf
+argument_list|()
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.hbck.lockfile.attempt.maxsleeptime"
+argument_list|,
+name|DEFAULT_LOCK_FILE_ATTEMPT_MAX_SLEEP_TIME
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2443,6 +2472,16 @@ argument_list|(
 literal|"hbase.hbck.lockfile.attempt.sleep.interval"
 argument_list|,
 name|DEFAULT_LOCK_FILE_ATTEMPT_SLEEP_INTERVAL
+argument_list|)
+argument_list|,
+name|getConf
+argument_list|()
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.hbck.lockfile.attempt.maxsleeptime"
+argument_list|,
+name|DEFAULT_LOCK_FILE_ATTEMPT_MAX_SLEEP_TIME
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2827,7 +2866,15 @@ specifier|final
 name|int
 name|timeoutInSeconds
 init|=
-literal|30
+name|getConf
+argument_list|()
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.hbck.lockfile.maxwaittime"
+argument_list|,
+name|DEFAULT_WAIT_FOR_LOCK_TIMEOUT
+argument_list|)
 decl_stmt|;
 name|FSDataOutputStream
 name|stream
@@ -2981,6 +3028,13 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Finishing hbck"
+argument_list|)
+expr_stmt|;
 return|return;
 block|}
 catch|catch
@@ -3128,7 +3182,7 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-comment|// Add a shutdown hook to this thread, incase user tries to
+comment|// Add a shutdown hook to this thread, in case user tries to
 comment|// kill the hbck with a ctrl-c, we want to cleanup the lock so that
 comment|// it is available for further calls
 name|Runtime
@@ -3167,7 +3221,7 @@ argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Launching hbck"
 argument_list|)

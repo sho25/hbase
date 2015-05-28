@@ -4190,7 +4190,7 @@ operator|)
 assert|;
 block|}
 block|}
-comment|/**    * This test makes sure that with 10 retries both parallel instances    * of hbck will be completed successfully.    *    * @throws Exception    */
+comment|/**    * This test makes sure that with enough retries both parallel instances    * of hbck will be completed successfully.    *    * @throws Exception    */
 annotation|@
 name|Test
 argument_list|(
@@ -4217,6 +4217,32 @@ argument_list|>
 name|hbck1
 decl_stmt|,
 name|hbck2
+decl_stmt|;
+comment|// With the ExponentialBackoffPolicyWithLimit (starting with 200 milliseconds sleep time, and
+comment|// max sleep time of 5 seconds), we can retry around 15 times within 60 seconds before bail out.
+specifier|final
+name|int
+name|timeoutInSeconds
+init|=
+literal|60
+decl_stmt|;
+specifier|final
+name|int
+name|sleepIntervalInMilliseconds
+init|=
+literal|200
+decl_stmt|;
+specifier|final
+name|int
+name|maxSleepTimeInMilliseconds
+init|=
+literal|6000
+decl_stmt|;
+specifier|final
+name|int
+name|maxRetryAttempts
+init|=
+literal|15
 decl_stmt|;
 class|class
 name|RunHbck
@@ -4249,9 +4275,36 @@ name|c
 operator|.
 name|setInt
 argument_list|(
+literal|"hbase.hbck.lockfile.maxwaittime"
+argument_list|,
+name|timeoutInSeconds
+argument_list|)
+expr_stmt|;
+name|c
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.hbck.lockfile.attempt.sleep.interval"
+argument_list|,
+name|sleepIntervalInMilliseconds
+argument_list|)
+expr_stmt|;
+name|c
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.hbck.lockfile.attempt.maxsleeptime"
+argument_list|,
+name|maxSleepTimeInMilliseconds
+argument_list|)
+expr_stmt|;
+name|c
+operator|.
+name|setInt
+argument_list|(
 literal|"hbase.hbck.lockfile.attempts"
 argument_list|,
-literal|10
+name|maxRetryAttempts
 argument_list|)
 expr_stmt|;
 return|return
@@ -4300,12 +4353,14 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
-comment|//wait for 15 seconds, for both hbck calls finish
+comment|//wait for some time, for both hbck calls finish
 name|service
 operator|.
 name|awaitTermination
 argument_list|(
-literal|25
+name|timeoutInSeconds
+operator|*
+literal|2
 argument_list|,
 name|TimeUnit
 operator|.
