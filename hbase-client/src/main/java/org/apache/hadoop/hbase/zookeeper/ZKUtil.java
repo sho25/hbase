@@ -1856,13 +1856,13 @@ argument_list|(
 name|HConstants
 operator|.
 name|ZOOKEEPER_QUORUM
+argument_list|)
 operator|.
 name|replaceAll
 argument_list|(
 literal|"[\\t\\n\\x0B\\f\\r]"
 argument_list|,
 literal|""
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|StringBuilder
