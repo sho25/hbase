@@ -323,11 +323,11 @@ name|hbase
 operator|.
 name|mob
 operator|.
-name|mapreduce
+name|compactions
 operator|.
-name|SweepJob
+name|PartitionedMobCompactionRequest
 operator|.
-name|SweepCounter
+name|CompactionPartitionId
 import|;
 end_import
 
@@ -345,9 +345,9 @@ name|mob
 operator|.
 name|mapreduce
 operator|.
-name|SweepReducer
+name|SweepJob
 operator|.
-name|SweepPartitionId
+name|SweepCounter
 import|;
 end_import
 
@@ -484,7 +484,7 @@ name|long
 name|flushSize
 decl_stmt|;
 specifier|private
-name|SweepPartitionId
+name|CompactionPartitionId
 name|partitionId
 decl_stmt|;
 specifier|private
@@ -648,7 +648,7 @@ specifier|public
 name|void
 name|setPartitionId
 parameter_list|(
-name|SweepPartitionId
+name|CompactionPartitionId
 name|partitionId
 parameter_list|)
 block|{
@@ -984,6 +984,11 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|long
+name|updatedCount
+init|=
+literal|0
+decl_stmt|;
 while|while
 condition|(
 literal|null
@@ -1048,6 +1053,15 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
+name|updatedCount
+operator|++
+expr_stmt|;
+block|}
+name|table
+operator|.
+name|flush
+argument_list|()
+expr_stmt|;
 name|context
 operator|.
 name|getCounter
@@ -1059,14 +1073,8 @@ argument_list|)
 operator|.
 name|increment
 argument_list|(
-literal|1
+name|updatedCount
 argument_list|)
-expr_stmt|;
-block|}
-name|table
-operator|.
-name|flush
-argument_list|()
 expr_stmt|;
 name|scanner
 operator|.

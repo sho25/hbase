@@ -15,7 +15,7 @@ name|hbase
 operator|.
 name|mob
 operator|.
-name|filecompactions
+name|compactions
 package|;
 end_package
 
@@ -192,7 +192,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A mob file compactor to directly compact the mob files.  */
+comment|/**  * A mob compactor to directly compact the mob files.  */
 end_comment
 
 begin_class
@@ -203,7 +203,7 @@ name|Private
 specifier|public
 specifier|abstract
 class|class
-name|MobFileCompactor
+name|MobCompactor
 block|{
 specifier|protected
 name|FileSystem
@@ -234,7 +234,7 @@ name|ExecutorService
 name|pool
 decl_stmt|;
 specifier|public
-name|MobFileCompactor
+name|MobCompactor
 parameter_list|(
 name|Configuration
 name|conf
@@ -333,7 +333,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Compacts the mob files by compaction type for the current column family.    * @param isForceAllFiles Whether add all mob files into the compaction.    * @return The paths of new mob files generated in the compaction.    * @throws IOException    */
+comment|/**    * Compacts the mob files by compaction type for the current column family.    * @param allFiles Whether add all mob files into the compaction.    * @return The paths of new mob files generated in the compaction.    * @throws IOException    */
 specifier|public
 name|List
 argument_list|<
@@ -342,7 +342,7 @@ argument_list|>
 name|compact
 parameter_list|(
 name|boolean
-name|isForceAllFiles
+name|allFiles
 parameter_list|)
 throws|throws
 name|IOException
@@ -362,11 +362,11 @@ name|mobFamilyDir
 argument_list|)
 argument_list|)
 argument_list|,
-name|isForceAllFiles
+name|allFiles
 argument_list|)
 return|;
 block|}
-comment|/**    * Compacts the candidate mob files.    * @param files The candidate mob files.    * @param isForceAllFiles Whether add all mob files into the compaction.    * @return The paths of new mob files generated in the compaction.    * @throws IOException    */
+comment|/**    * Compacts the candidate mob files.    * @param files The candidate mob files.    * @param allFiles Whether add all mob files into the compaction.    * @return The paths of new mob files generated in the compaction.    * @throws IOException    */
 specifier|public
 specifier|abstract
 name|List
@@ -382,7 +382,7 @@ argument_list|>
 name|files
 parameter_list|,
 name|boolean
-name|isForceAllFiles
+name|allFiles
 parameter_list|)
 throws|throws
 name|IOException

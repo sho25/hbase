@@ -684,42 +684,42 @@ init|=
 literal|"The total amount of data processed during major compactions, in bytes"
 decl_stmt|;
 name|String
-name|MOB_COMPACTED_INTO_MOB_CELLS_COUNT
+name|CELLS_COUNT_COMPACTED_TO_MOB
 init|=
-literal|"mobCompactedIntoMobCellsCount"
+literal|"cellsCountCompactedToMob"
 decl_stmt|;
 name|String
-name|MOB_COMPACTED_INTO_MOB_CELLS_COUNT_DESC
+name|CELLS_COUNT_COMPACTED_TO_MOB_DESC
 init|=
 literal|"The number of cells moved to mob during compaction"
 decl_stmt|;
 name|String
-name|MOB_COMPACTED_FROM_MOB_CELLS_COUNT
+name|CELLS_COUNT_COMPACTED_FROM_MOB
 init|=
-literal|"mobCompactedFromMobCellsCount"
+literal|"cellsCountCompactedFromMob"
 decl_stmt|;
 name|String
-name|MOB_COMPACTED_FROM_MOB_CELLS_COUNT_DESC
+name|CELLS_COUNT_COMPACTED_FROM_MOB_DESC
 init|=
 literal|"The number of cells moved from mob during compaction"
 decl_stmt|;
 name|String
-name|MOB_COMPACTED_INTO_MOB_CELLS_SIZE
+name|CELLS_SIZE_COMPACTED_TO_MOB
 init|=
-literal|"mobCompactedIntoMobCellsSize"
+literal|"cellsSizeCompactedToMob"
 decl_stmt|;
 name|String
-name|MOB_COMPACTED_INTO_MOB_CELLS_SIZE_DESC
+name|CELLS_SIZE_COMPACTED_TO_MOB_DESC
 init|=
 literal|"The total amount of cells move to mob during compaction, in bytes"
 decl_stmt|;
 name|String
-name|MOB_COMPACTED_FROM_MOB_CELLS_SIZE
+name|CELLS_SIZE_COMPACTED_FROM_MOB
 init|=
-literal|"mobCompactedFromMobCellsSize"
+literal|"cellsSizeCompactedFromMob"
 decl_stmt|;
 name|String
-name|MOB_COMPACTED_FROM_MOB_CELLS_SIZE_DESC
+name|CELLS_SIZE_COMPACTED_FROM_MOB_DESC
 init|=
 literal|"The total amount of cells move from mob during compaction, in bytes"
 decl_stmt|;

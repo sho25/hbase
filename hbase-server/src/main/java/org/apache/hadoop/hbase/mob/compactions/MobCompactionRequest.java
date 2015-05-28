@@ -15,7 +15,7 @@ name|hbase
 operator|.
 name|mob
 operator|.
-name|filecompactions
+name|compactions
 package|;
 end_package
 
@@ -45,7 +45,7 @@ name|Private
 specifier|public
 specifier|abstract
 class|class
-name|MobFileCompactionRequest
+name|MobCompactionRequest
 block|{
 specifier|protected
 name|long

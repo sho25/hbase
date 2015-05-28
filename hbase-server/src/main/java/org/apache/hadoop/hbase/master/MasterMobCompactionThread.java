@@ -240,7 +240,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The mob file compaction thread used in {@link MasterRpcServices}  */
+comment|/**  * The mob compaction thread used in {@link MasterRpcServices}  */
 end_comment
 
 begin_class
@@ -250,7 +250,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|MasterMobFileCompactionThread
+name|MasterMobCompactionThread
 block|{
 specifier|static
 specifier|final
@@ -261,7 +261,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|MasterMobFileCompactionThread
+name|MasterMobCompactionThread
 operator|.
 name|class
 argument_list|)
@@ -279,7 +279,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|ExecutorService
-name|mobFileCompactorPool
+name|mobCompactorPool
 decl_stmt|;
 specifier|private
 specifier|final
@@ -287,7 +287,7 @@ name|ExecutorService
 name|masterMobPool
 decl_stmt|;
 specifier|public
-name|MasterMobFileCompactionThread
+name|MasterMobCompactionThread
 parameter_list|(
 name|HMaster
 name|master
@@ -320,7 +320,7 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
-comment|// this pool is used to run the mob file compaction
+comment|// this pool is used to run the mob compaction
 name|this
 operator|.
 name|masterMobPool
@@ -374,7 +374,7 @@ name|setName
 argument_list|(
 name|n
 operator|+
-literal|"-MasterMobFileCompaction-"
+literal|"-MasterMobCompaction-"
 operator|+
 name|EnvironmentEdgeManager
 operator|.
@@ -403,15 +403,15 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-comment|// this pool is used in the mob file compaction to compact the mob files by partitions
+comment|// this pool is used in the mob compaction to compact the mob files by partitions
 comment|// in parallel
 name|this
 operator|.
-name|mobFileCompactorPool
+name|mobCompactorPool
 operator|=
 name|MobUtils
 operator|.
-name|createMobFileCompactorThreadPool
+name|createMobCompactorThreadPool
 argument_list|(
 name|master
 operator|.
@@ -420,10 +420,10 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Requests mob file compaction    * @param conf The Configuration    * @param fs The file system    * @param tableName The table the compact    * @param hcds The column descriptors    * @param tableLockManager The tableLock manager    * @param isForceAllFiles Whether add all mob files into the compaction.    */
+comment|/**    * Requests mob compaction    * @param conf The Configuration    * @param fs The file system    * @param tableName The table the compact    * @param columns The column descriptors    * @param tableLockManager The tableLock manager    * @param allFiles Whether add all mob files into the compaction.    */
 specifier|public
 name|void
-name|requestMobFileCompaction
+name|requestMobCompaction
 parameter_list|(
 name|Configuration
 name|conf
@@ -438,20 +438,20 @@ name|List
 argument_list|<
 name|HColumnDescriptor
 argument_list|>
-name|hcds
+name|columns
 parameter_list|,
 name|TableLockManager
 name|tableLockManager
 parameter_list|,
 name|boolean
-name|isForceAllFiles
+name|allFiles
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 name|master
 operator|.
-name|reportMobFileCompactionStart
+name|reportMobCompactionStart
 argument_list|(
 name|tableName
 argument_list|)
@@ -469,13 +469,13 @@ name|fs
 argument_list|,
 name|tableName
 argument_list|,
-name|hcds
+name|columns
 argument_list|,
 name|tableLockManager
 argument_list|,
-name|isForceAllFiles
+name|allFiles
 argument_list|,
-name|mobFileCompactorPool
+name|mobCompactorPool
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -491,7 +491,7 @@ try|try
 block|{
 name|master
 operator|.
-name|reportMobFileCompactionEnd
+name|reportMobCompactionEnd
 argument_list|(
 name|tableName
 argument_list|)
@@ -507,7 +507,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to mark end of mob file compation"
+literal|"Failed to mark end of mob compation"
 argument_list|,
 name|e1
 argument_list|)
@@ -529,9 +529,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"The mob file compaction is requested for the columns "
+literal|"The mob compaction is requested for the columns "
 operator|+
-name|hcds
+name|columns
 operator|+
 literal|" of the table "
 operator|+
@@ -570,7 +570,7 @@ name|tableLockManager
 decl_stmt|;
 specifier|private
 name|boolean
-name|isForceAllFiles
+name|allFiles
 decl_stmt|;
 specifier|private
 name|ExecutorService
@@ -595,7 +595,7 @@ name|TableLockManager
 name|tableLockManager
 parameter_list|,
 name|boolean
-name|isForceAllFiles
+name|allFiles
 parameter_list|,
 name|ExecutorService
 name|pool
@@ -630,9 +630,9 @@ name|tableLockManager
 expr_stmt|;
 name|this
 operator|.
-name|isForceAllFiles
+name|allFiles
 operator|=
-name|isForceAllFiles
+name|allFiles
 expr_stmt|;
 name|this
 operator|.
@@ -660,7 +660,7 @@ control|)
 block|{
 name|MobUtils
 operator|.
-name|doMobFileCompaction
+name|doMobCompaction
 argument_list|(
 name|conf
 argument_list|,
@@ -674,7 +674,7 @@ name|pool
 argument_list|,
 name|tableLockManager
 argument_list|,
-name|isForceAllFiles
+name|allFiles
 argument_list|)
 expr_stmt|;
 block|}
@@ -689,7 +689,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to perform the mob file compaction"
+literal|"Failed to perform the mob compaction"
 argument_list|,
 name|e
 argument_list|)
@@ -701,7 +701,7 @@ try|try
 block|{
 name|master
 operator|.
-name|reportMobFileCompactionEnd
+name|reportMobCompactionEnd
 argument_list|(
 name|tableName
 argument_list|)
@@ -717,7 +717,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to mark end of mob file compation"
+literal|"Failed to mark end of mob compation"
 argument_list|,
 name|e
 argument_list|)
@@ -732,7 +732,7 @@ name|void
 name|interruptIfNecessary
 parameter_list|()
 block|{
-name|mobFileCompactorPool
+name|mobCompactorPool
 operator|.
 name|shutdown
 argument_list|()
@@ -751,20 +751,20 @@ parameter_list|()
 block|{
 name|waitFor
 argument_list|(
-name|mobFileCompactorPool
+name|mobCompactorPool
 argument_list|,
-literal|"Mob file Compaction Thread"
+literal|"Mob Compaction Thread"
 argument_list|)
 expr_stmt|;
 name|waitFor
 argument_list|(
 name|masterMobPool
 argument_list|,
-literal|"Region Server Mob File Compaction Thread"
+literal|"Region Server Mob Compaction Thread"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Closes the MasterMobFileCompactionThread.    */
+comment|/**    * Closes the MasterMobCompactionThread.    */
 specifier|public
 name|void
 name|close

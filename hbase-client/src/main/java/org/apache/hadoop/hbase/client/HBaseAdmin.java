@@ -17152,7 +17152,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|compactMob
+name|compactMobs
 parameter_list|(
 specifier|final
 name|TableName
@@ -17231,7 +17231,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|majorCompactMob
+name|majorCompactMobs
 parameter_list|(
 specifier|final
 name|TableName

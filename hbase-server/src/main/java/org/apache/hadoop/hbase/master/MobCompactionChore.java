@@ -198,7 +198,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The Class MobFileCompactChore for running compaction regularly to merge small mob files.  */
+comment|/**  * The Class MobCompactChore for running compaction regularly to merge small mob files.  */
 end_comment
 
 begin_class
@@ -208,7 +208,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|MobFileCompactionChore
+name|MobCompactionChore
 extends|extends
 name|ScheduledChore
 block|{
@@ -222,7 +222,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|MobFileCompactionChore
+name|MobCompactionChore
 operator|.
 name|class
 argument_list|)
@@ -240,7 +240,7 @@ name|ExecutorService
 name|pool
 decl_stmt|;
 specifier|public
-name|MobFileCompactionChore
+name|MobCompactionChore
 parameter_list|(
 name|HMaster
 name|master
@@ -253,7 +253,7 @@ operator|.
 name|getServerName
 argument_list|()
 operator|+
-literal|"-MobFileCompactChore"
+literal|"-MobCompactionChore"
 argument_list|,
 name|master
 argument_list|,
@@ -266,11 +266,11 @@ name|getInt
 argument_list|(
 name|MobConstants
 operator|.
-name|MOB_FILE_COMPACTION_CHORE_PERIOD
+name|MOB_COMPACTION_CHORE_PERIOD
 argument_list|,
 name|MobConstants
 operator|.
-name|DEFAULT_MOB_FILE_COMPACTION_CHORE_PERIOD
+name|DEFAULT_MOB_COMPACTION_CHORE_PERIOD
 argument_list|)
 argument_list|,
 name|master
@@ -282,11 +282,11 @@ name|getInt
 argument_list|(
 name|MobConstants
 operator|.
-name|MOB_FILE_COMPACTION_CHORE_PERIOD
+name|MOB_COMPACTION_CHORE_PERIOD
 argument_list|,
 name|MobConstants
 operator|.
-name|DEFAULT_MOB_FILE_COMPACTION_CHORE_PERIOD
+name|DEFAULT_MOB_COMPACTION_CHORE_PERIOD
 argument_list|)
 argument_list|,
 name|TimeUnit
@@ -315,7 +315,7 @@ name|pool
 operator|=
 name|MobUtils
 operator|.
-name|createMobFileCompactorThreadPool
+name|createMobCompactorThreadPool
 argument_list|(
 name|master
 operator|.
@@ -427,7 +427,7 @@ condition|)
 block|{
 name|master
 operator|.
-name|reportMobFileCompactionStart
+name|reportMobCompactionStart
 argument_list|(
 name|htd
 operator|.
@@ -442,7 +442,7 @@ expr_stmt|;
 block|}
 name|MobUtils
 operator|.
-name|doMobFileCompaction
+name|doMobCompaction
 argument_list|(
 name|master
 operator|.
@@ -479,7 +479,7 @@ condition|)
 block|{
 name|master
 operator|.
-name|reportMobFileCompactionEnd
+name|reportMobCompactionEnd
 argument_list|(
 name|htd
 operator|.
@@ -501,7 +501,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Fail to clean the expired mob files"
+literal|"Failed to compact mob files"
 argument_list|,
 name|e
 argument_list|)

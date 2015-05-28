@@ -678,7 +678,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Fail to close the HBaseAdmin."
+literal|"Failed to close the HBaseAdmin."
 argument_list|,
 name|e
 argument_list|)

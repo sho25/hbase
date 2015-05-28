@@ -377,6 +377,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -625,9 +639,9 @@ name|hbase
 operator|.
 name|mob
 operator|.
-name|filecompactions
+name|compactions
 operator|.
-name|MobFileCompactor
+name|MobCompactor
 import|;
 end_import
 
@@ -643,9 +657,9 @@ name|hbase
 operator|.
 name|mob
 operator|.
-name|filecompactions
+name|compactions
 operator|.
-name|PartitionedMobFileCompactor
+name|PartitionedMobCompactor
 import|;
 end_import
 
@@ -1410,7 +1424,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Fail to find the mob file "
+literal|"Failed to find the mob file "
 operator|+
 name|path
 argument_list|,
@@ -1681,7 +1695,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Fail to delete the mob files "
+literal|"Failed to delete the mob files "
 operator|+
 name|filesToClean
 argument_list|,
@@ -2768,7 +2782,7 @@ name|cryptoContext
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a writer for the del file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param mobFileName The mob file name.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @return The writer for the mob file.    * @throws IOException    */
+comment|/**    * Creates a writer for the mob file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param mobFileName The mob file name.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @return The writer for the mob file.    * @throws IOException    */
 specifier|private
 specifier|static
 name|StoreFile
@@ -3158,7 +3172,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Fail to open mob file["
+literal|"Failed to open mob file["
 operator|+
 name|path
 operator|+
@@ -3319,11 +3333,11 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Performs the mob file compaction.    * @param conf the Configuration    * @param fs the file system    * @param tableName the table the compact    * @param hcd the column descriptor    * @param pool the thread pool    * @param tableLockManager the tableLock manager    * @param isForceAllFiles Whether add all mob files into the compaction.    */
+comment|/**    * Performs the mob compaction.    * @param conf the Configuration    * @param fs the file system    * @param tableName the table the compact    * @param hcd the column descriptor    * @param pool the thread pool    * @param tableLockManager the tableLock manager    * @param allFiles Whether add all mob files into the compaction.    */
 specifier|public
 specifier|static
 name|void
-name|doMobFileCompaction
+name|doMobCompaction
 parameter_list|(
 name|Configuration
 name|conf
@@ -3344,7 +3358,7 @@ name|TableLockManager
 name|tableLockManager
 parameter_list|,
 name|boolean
-name|isForceAllFiles
+name|allFiles
 parameter_list|)
 throws|throws
 name|IOException
@@ -3358,9 +3372,9 @@ name|get
 argument_list|(
 name|MobConstants
 operator|.
-name|MOB_FILE_COMPACTOR_CLASS_KEY
+name|MOB_COMPACTOR_CLASS_KEY
 argument_list|,
-name|PartitionedMobFileCompactor
+name|PartitionedMobCompactor
 operator|.
 name|class
 operator|.
@@ -3368,8 +3382,8 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// instantiate the mob file compactor.
-name|MobFileCompactor
+comment|// instantiate the mob compactor.
+name|MobCompactor
 name|compactor
 init|=
 literal|null
@@ -3482,7 +3496,7 @@ argument_list|(
 name|tableName
 argument_list|)
 argument_list|,
-literal|"Run MobFileCompaction"
+literal|"Run MobCompactor"
 argument_list|)
 expr_stmt|;
 name|lock
@@ -3499,7 +3513,7 @@ name|compactor
 operator|.
 name|compact
 argument_list|(
-name|isForceAllFiles
+name|allFiles
 argument_list|)
 expr_stmt|;
 block|}
@@ -3513,7 +3527,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Fail to compact the mob files for the column "
+literal|"Failed to compact the mob files for the column "
 operator|+
 name|hcd
 operator|.
@@ -3560,7 +3574,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Fail to release the write lock for the table "
+literal|"Failed to release the write lock for the table "
 operator|+
 name|tableName
 operator|.
@@ -3578,7 +3592,7 @@ comment|/**    * Creates a thread pool.    * @param conf the Configuration    * 
 specifier|public
 specifier|static
 name|ExecutorService
-name|createMobFileCompactorThreadPool
+name|createMobCompactorThreadPool
 parameter_list|(
 name|Configuration
 name|conf
@@ -3593,11 +3607,11 @@ name|getInt
 argument_list|(
 name|MobConstants
 operator|.
-name|MOB_FILE_COMPACTION_THREADS_MAX
+name|MOB_COMPACTION_THREADS_MAX
 argument_list|,
 name|MobConstants
 operator|.
-name|DEFAULT_MOB_FILE_COMPACTION_THREADS_MAX
+name|DEFAULT_MOB_COMPACTION_THREADS_MAX
 argument_list|)
 decl_stmt|;
 if|if
@@ -3648,7 +3662,7 @@ name|Threads
 operator|.
 name|newDaemonThreadFactory
 argument_list|(
-literal|"MobFileCompactor"
+literal|"MobCompactor"
 argument_list|)
 argument_list|,
 operator|new
@@ -4054,6 +4068,50 @@ expr_stmt|;
 block|}
 return|return
 name|cryptoContext
+return|;
+block|}
+comment|/**    * Checks whether this table has mob-enabled columns.    * @param htd The current table descriptor.    * @return Whether this table has mob-enabled columns.    */
+specifier|public
+specifier|static
+name|boolean
+name|hasMobColumns
+parameter_list|(
+name|HTableDescriptor
+name|htd
+parameter_list|)
+block|{
+name|HColumnDescriptor
+index|[]
+name|hcds
+init|=
+name|htd
+operator|.
+name|getColumnFamilies
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|HColumnDescriptor
+name|hcd
+range|:
+name|hcds
+control|)
+block|{
+if|if
+condition|(
+name|hcd
+operator|.
+name|isMobEnabled
+argument_list|()
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+block|}
+return|return
+literal|false
 return|;
 block|}
 block|}

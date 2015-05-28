@@ -224,7 +224,7 @@ condition|)
 block|{
 name|admin
 operator|.
-name|majorCompactMob
+name|majorCompactMobs
 argument_list|(
 name|tableName
 argument_list|)
@@ -234,7 +234,7 @@ else|else
 block|{
 name|admin
 operator|.
-name|compactMob
+name|compactMobs
 argument_list|(
 name|tableName
 argument_list|)

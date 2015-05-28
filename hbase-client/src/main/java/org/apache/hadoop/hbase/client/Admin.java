@@ -2186,7 +2186,7 @@ name|IOException
 function_decl|;
 comment|/**    * Compact the mob files in all mob-enabled column families. Asynchronous operation.    *    * @param tableName table to compact    * @throws IOException    * @throws InterruptedException    */
 name|void
-name|compactMob
+name|compactMobs
 parameter_list|(
 specifier|final
 name|TableName
@@ -2217,7 +2217,7 @@ name|InterruptedException
 function_decl|;
 comment|/**    * Major compact the mob files in all mob-enabled column family. Asynchronous operation.    *    * @param tableName table to compact    * @throws IOException    * @throws InterruptedException    */
 name|void
-name|majorCompactMob
+name|majorCompactMobs
 parameter_list|(
 specifier|final
 name|TableName

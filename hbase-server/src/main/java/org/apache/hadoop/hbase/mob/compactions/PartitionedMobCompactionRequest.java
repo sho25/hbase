@@ -15,7 +15,7 @@ name|hbase
 operator|.
 name|mob
 operator|.
-name|filecompactions
+name|compactions
 package|;
 end_package
 
@@ -104,7 +104,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An implementation of {@link MobFileCompactionRequest} that is used in  * {@link PartitionedMobFileCompactor}.  * The mob files that have the same start key and date in their names belong to  * the same partition.  */
+comment|/**  * An implementation of {@link MobCompactionRequest} that is used in  * {@link PartitionedMobCompactor}.  * The mob files that have the same start key and date in their names belong to  * the same partition.  */
 end_comment
 
 begin_class
@@ -114,9 +114,9 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|PartitionedMobFileCompactionRequest
+name|PartitionedMobCompactionRequest
 extends|extends
-name|MobFileCompactionRequest
+name|MobCompactionRequest
 block|{
 specifier|protected
 name|Collection
@@ -133,7 +133,7 @@ argument_list|>
 name|compactionPartitions
 decl_stmt|;
 specifier|public
-name|PartitionedMobFileCompactionRequest
+name|PartitionedMobCompactionRequest
 parameter_list|(
 name|Collection
 argument_list|<
@@ -200,7 +200,7 @@ operator|.
 name|delFiles
 return|;
 block|}
-comment|/**    * The partition in the mob file compaction.    * The mob files that have the same start key and date in their names belong to    * the same partition.    */
+comment|/**    * The partition in the mob compaction.    * The mob files that have the same start key and date in their names belong to    * the same partition.    */
 specifier|protected
 specifier|static
 class|class
@@ -284,7 +284,7 @@ return|;
 block|}
 block|}
 comment|/**    * The partition id that consists of start key and date of the mob file name.    */
-specifier|protected
+specifier|public
 specifier|static
 class|class
 name|CompactionPartitionId

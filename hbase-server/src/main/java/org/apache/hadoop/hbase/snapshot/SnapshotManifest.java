@@ -962,7 +962,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Storing '"
+literal|"Storing mob region '"
 operator|+
 name|regionInfo
 operator|+
@@ -989,7 +989,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Creating references for hfiles"
+literal|"Creating references for mob files"
 argument_list|)
 expr_stmt|;
 name|Path
@@ -1148,7 +1148,7 @@ literal|"Adding snapshot references for "
 operator|+
 name|storeFiles
 operator|+
-literal|" hfiles"
+literal|" mob files"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1203,7 +1203,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Adding reference for file ("
+literal|"Adding reference for mob file ("
 operator|+
 operator|(
 name|i

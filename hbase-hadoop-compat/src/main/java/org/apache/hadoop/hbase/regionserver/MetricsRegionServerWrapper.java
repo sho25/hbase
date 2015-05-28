@@ -256,24 +256,24 @@ name|long
 name|getMajorCompactedCellsSize
 parameter_list|()
 function_decl|;
-comment|/**    * Gets the number of cells move to mob during compaction.    */
+comment|/**    * Gets the number of cells moved to mob during compaction.    */
 name|long
-name|getMobCompactedIntoMobCellsCount
+name|getCellsCountCompactedToMob
 parameter_list|()
 function_decl|;
-comment|/**    * Gets the number of cells move from mob during compaction.    */
+comment|/**    * Gets the number of cells moved from mob during compaction.    */
 name|long
-name|getMobCompactedFromMobCellsCount
+name|getCellsCountCompactedFromMob
 parameter_list|()
 function_decl|;
-comment|/**    * Gets the total amount of cells move to mob during compaction, in bytes.    */
+comment|/**    * Gets the total amount of cells moved to mob during compaction, in bytes.    */
 name|long
-name|getMobCompactedIntoMobCellsSize
+name|getCellsSizeCompactedToMob
 parameter_list|()
 function_decl|;
-comment|/**    * Gets the total amount of cells move from mob during compaction, in bytes.    */
+comment|/**    * Gets the total amount of cells moved from mob during compaction, in bytes.    */
 name|long
-name|getMobCompactedFromMobCellsSize
+name|getCellsSizeCompactedFromMob
 parameter_list|()
 function_decl|;
 comment|/**    * Gets the number of the flushes in mob-enabled stores.    */

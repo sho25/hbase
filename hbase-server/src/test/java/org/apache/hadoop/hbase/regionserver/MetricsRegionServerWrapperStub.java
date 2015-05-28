@@ -565,7 +565,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMobCompactedIntoMobCellsCount
+name|getCellsCountCompactedToMob
 parameter_list|()
 block|{
 return|return
@@ -576,7 +576,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMobCompactedFromMobCellsCount
+name|getCellsCountCompactedFromMob
 parameter_list|()
 block|{
 return|return
@@ -587,7 +587,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMobCompactedIntoMobCellsSize
+name|getCellsSizeCompactedToMob
 parameter_list|()
 block|{
 return|return
@@ -598,7 +598,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMobCompactedFromMobCellsSize
+name|getCellsSizeCompactedFromMob
 parameter_list|()
 block|{
 return|return

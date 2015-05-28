@@ -905,7 +905,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Fail to evict the file "
+literal|"Failed to evict the file "
 operator|+
 name|fileName
 argument_list|,
@@ -1237,7 +1237,7 @@ literal|0
 init|;
 name|i
 operator|<
-literal|10
+literal|100
 condition|;
 name|i
 operator|++

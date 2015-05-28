@@ -15,7 +15,7 @@ name|hbase
 operator|.
 name|mob
 operator|.
-name|filecompactions
+name|compactions
 package|;
 end_package
 
@@ -75,9 +75,9 @@ name|hbase
 operator|.
 name|mob
 operator|.
-name|filecompactions
+name|compactions
 operator|.
-name|PartitionedMobFileCompactionRequest
+name|PartitionedMobCompactionRequest
 operator|.
 name|CompactionPartition
 import|;
@@ -95,9 +95,9 @@ name|hbase
 operator|.
 name|mob
 operator|.
-name|filecompactions
+name|compactions
 operator|.
-name|PartitionedMobFileCompactionRequest
+name|PartitionedMobCompactionRequest
 operator|.
 name|CompactionPartitionId
 import|;
@@ -147,7 +147,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|TestPartitionedMobFileCompactionRequest
+name|TestPartitionedMobCompactionRequest
 block|{
 annotation|@
 name|Test

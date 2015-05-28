@@ -566,7 +566,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test mob compaction  */
+comment|/**  * Test mob store compaction  */
 end_comment
 
 begin_class
@@ -579,7 +579,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|TestMobCompaction
+name|TestMobStoreCompaction
 block|{
 annotation|@
 name|Rule
@@ -600,7 +600,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestMobCompaction
+name|TestMobStoreCompaction
 operator|.
 name|class
 operator|.
@@ -1257,7 +1257,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * This test will first generate store files, then bulk load them and trigger the compaction. When    * compaction, the cell value will be larger than the threshold.    */
+comment|/**    * This test will first generate store files, then bulk load them and trigger the compaction.    * When compaction, the cell value will be larger than the threshold.    */
 annotation|@
 name|Test
 specifier|public

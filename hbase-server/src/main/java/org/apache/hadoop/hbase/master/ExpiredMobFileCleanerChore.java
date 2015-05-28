@@ -568,7 +568,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Fail to release the write lock for the table "
+literal|"Fail to release the read lock for the table "
 operator|+
 name|htd
 operator|.

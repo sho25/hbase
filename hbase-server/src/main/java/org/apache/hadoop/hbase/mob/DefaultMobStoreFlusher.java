@@ -591,7 +591,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Flushed, sequenceid="
+literal|"Mob store is flushed, sequenceid="
 operator|+
 name|cacheFlushId
 operator|+
@@ -1062,7 +1062,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Fail to delete the temp mob file"
+literal|"Failed to delete the temp mob file"
 argument_list|,
 name|e
 argument_list|)

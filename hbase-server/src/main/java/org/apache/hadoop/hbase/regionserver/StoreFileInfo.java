@@ -328,7 +328,7 @@ operator|+
 literal|")"
 argument_list|)
 decl_stmt|;
-comment|/**    * A non-capture group, for hfiles, so that this can be embedded.    * A del file has (_del) as suffix.    */
+comment|/**    * A non-capture group, for del files, so that this can be embedded.    * A del file has (_del) as suffix.    */
 specifier|public
 specifier|static
 specifier|final

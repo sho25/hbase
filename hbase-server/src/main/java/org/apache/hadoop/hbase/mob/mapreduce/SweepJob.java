@@ -842,42 +842,42 @@ specifier|final
 name|String
 name|SWEEP_JOB_ID
 init|=
-literal|"mob.sweep.job.id"
+literal|"hbase.mob.sweep.job.id"
 decl_stmt|;
 specifier|static
 specifier|final
 name|String
 name|SWEEP_JOB_SERVERNAME
 init|=
-literal|"mob.sweep.job.servername"
+literal|"hbase.mob.sweep.job.servername"
 decl_stmt|;
 specifier|static
 specifier|final
 name|String
 name|SWEEP_JOB_TABLE_NODE
 init|=
-literal|"mob.sweep.job.table.node"
+literal|"hbase.mob.sweep.job.table.node"
 decl_stmt|;
 specifier|static
 specifier|final
 name|String
 name|WORKING_DIR_KEY
 init|=
-literal|"mob.sweep.job.dir"
+literal|"hbase.mob.sweep.job.dir"
 decl_stmt|;
 specifier|static
 specifier|final
 name|String
 name|WORKING_ALLNAMES_FILE_KEY
 init|=
-literal|"mob.sweep.job.all.file"
+literal|"hbase.mob.sweep.job.all.file"
 decl_stmt|;
 specifier|static
 specifier|final
 name|String
 name|WORKING_VISITED_DIR_KEY
 init|=
-literal|"mob.sweep.job.visited.dir"
+literal|"hbase.mob.sweep.job.visited.dir"
 decl_stmt|;
 specifier|static
 specifier|final
@@ -1685,7 +1685,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Fail to release the table lock "
+literal|"Failed to release the table lock "
 operator|+
 name|tableName
 argument_list|,
@@ -2914,7 +2914,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Fail to archive the store files "
+literal|"Failed to archive the store files "
 operator|+
 name|storeFiles
 argument_list|,
@@ -2986,7 +2986,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Fail to delete the working directory after sweeping store "
+literal|"Failed to delete the working directory after sweeping store "
 operator|+
 name|familyName
 operator|+
@@ -3083,6 +3083,13 @@ operator|.
 name|value
 operator|==
 literal|null
+operator|&&
+name|o
+operator|.
+name|getValue
+argument_list|()
+operator|==
+literal|null
 condition|)
 block|{
 return|return
@@ -3100,6 +3107,21 @@ literal|null
 condition|)
 block|{
 return|return
+literal|1
+return|;
+block|}
+elseif|else
+if|if
+condition|(
+name|this
+operator|.
+name|value
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+operator|-
 literal|1
 return|;
 block|}

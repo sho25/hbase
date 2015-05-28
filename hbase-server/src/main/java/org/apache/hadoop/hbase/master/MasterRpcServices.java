@@ -9446,7 +9446,7 @@ argument_list|)
 throw|;
 block|}
 name|boolean
-name|isForceAllFiles
+name|allFiles
 init|=
 literal|false
 decl_stmt|;
@@ -9544,7 +9544,7 @@ literal|"Column family "
 operator|+
 name|hcd
 operator|.
-name|getName
+name|getNameAsString
 argument_list|()
 operator|+
 literal|" is not a mob column family"
@@ -9558,7 +9558,7 @@ literal|"Column family "
 operator|+
 name|hcd
 operator|.
-name|getName
+name|getNameAsString
 argument_list|()
 operator|+
 literal|" is not a mob column family"
@@ -9615,14 +9615,14 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"No mob column families are assigned in the mob file compaction"
+literal|"No mob column families are assigned in the mob compaction"
 argument_list|)
 expr_stmt|;
 throw|throw
 operator|new
 name|DoNotRetryIOException
 argument_list|(
-literal|"No mob column families are assigned in the mob file compaction"
+literal|"No mob column families are assigned in the mob compaction"
 argument_list|)
 throw|;
 block|}
@@ -9639,7 +9639,7 @@ name|getMajor
 argument_list|()
 condition|)
 block|{
-name|isForceAllFiles
+name|allFiles
 operator|=
 literal|true
 expr_stmt|;
@@ -9674,7 +9674,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"User-triggered mob file compaction requested for table: "
+literal|"User-triggered mob compaction requested for table: "
 operator|+
 name|tableName
 operator|.
@@ -9689,30 +9689,13 @@ expr_stmt|;
 block|}
 name|master
 operator|.
-name|mobFileCompactThread
-operator|.
-name|requestMobFileCompaction
+name|requestMobCompaction
 argument_list|(
-name|master
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
-name|master
-operator|.
-name|getFileSystem
-argument_list|()
-argument_list|,
 name|tableName
 argument_list|,
 name|compactedColumns
 argument_list|,
-name|master
-operator|.
-name|getTableLockManager
-argument_list|()
-argument_list|,
-name|isForceAllFiles
+name|allFiles
 argument_list|)
 expr_stmt|;
 return|return

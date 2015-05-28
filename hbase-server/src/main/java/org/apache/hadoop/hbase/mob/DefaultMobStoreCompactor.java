@@ -324,7 +324,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|DefaultMobCompactor
+name|DefaultMobStoreCompactor
 extends|extends
 name|DefaultCompactor
 block|{
@@ -338,7 +338,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|DefaultMobCompactor
+name|DefaultMobStoreCompactor
 operator|.
 name|class
 argument_list|)
@@ -352,7 +352,7 @@ name|HMobStore
 name|mobStore
 decl_stmt|;
 specifier|public
-name|DefaultMobCompactor
+name|DefaultMobStoreCompactor
 parameter_list|(
 name|Configuration
 name|conf
@@ -517,6 +517,8 @@ operator|.
 name|COMPACT_DROP_DELETES
 condition|)
 block|{
+comment|// In major compaction, we need to write the delete markers to del files, so we have to
+comment|// retain the them in scanning.
 name|scanType
 operator|=
 name|ScanType
@@ -577,7 +579,7 @@ return|;
 block|}
 block|}
 comment|// TODO refactor to take advantage of the throughput controller.
-comment|/**    * Performs compaction on a column family with the mob flag enabled.    * This is for when the mob threshold size has changed or if the mob    * column family mode has been toggled via an alter table statement.    * Compacts the files by the following rules.    * 1. If the cell has a mob reference tag, the cell's value is the path of the mob file.    *<ol>    *<li>    * If the value size of a cell is larger than the threshold, this cell is regarded as a mob,    * directly copy the (with mob tag) cell into the new store file.    *</li>    *<li>    * Otherwise, retrieve the mob cell from the mob file, and writes a copy of the cell into    * the new store file.    *</li>    *</ol>    * 2. If the cell doesn't have a reference tag.    *<ol>    *<li>    * If the value size of a cell is larger than the threshold, this cell is regarded as a mob,    * write this cell to a mob file, and write the path of this mob file to the store file.    *</li>    *<li>    * Otherwise, directly write this cell into the store file.    *</li>    *</ol>    * In the mob compaction, the {@link MobCompactionStoreScanner} is used as a scanner    * which could output the normal cells and delete markers together when required.    * After the major compaction on the normal hfiles, we have a guarantee that we have purged all    * deleted or old version mob refs, and the delete markers are written to a del file with the    * suffix _del. Because of this, it is safe to use the del file in the mob compaction.    * The mob compaction doesn't take place in the normal hfiles, it occurs directly in the    * mob files. When the small mob files are merged into bigger ones, the del file is added into    * the scanner to filter the deleted cells.    * @param fd File details    * @param scanner Where to read from.    * @param writer Where to write to.    * @param smallestReadPoint Smallest read point.    * @param cleanSeqId When true, remove seqId(used to be mvcc) value which is<= smallestReadPoint    * @param major Is a major compaction.    * @return Whether compaction ended; false if it was interrupted for any reason.    */
+comment|/**    * Performs compaction on a column family with the mob flag enabled.    * This is for when the mob threshold size has changed or if the mob    * column family mode has been toggled via an alter table statement.    * Compacts the files by the following rules.    * 1. If the cell has a mob reference tag, the cell's value is the path of the mob file.    *<ol>    *<li>    * If the value size of a cell is larger than the threshold, this cell is regarded as a mob,    * directly copy the (with mob tag) cell into the new store file.    *</li>    *<li>    * Otherwise, retrieve the mob cell from the mob file, and writes a copy of the cell into    * the new store file.    *</li>    *</ol>    * 2. If the cell doesn't have a reference tag.    *<ol>    *<li>    * If the value size of a cell is larger than the threshold, this cell is regarded as a mob,    * write this cell to a mob file, and write the path of this mob file to the store file.    *</li>    *<li>    * Otherwise, directly write this cell into the store file.    *</li>    *</ol>    * In the mob compaction, the {@link MobCompactionStoreScanner} is used as a scanner    * which could output the normal cells and delete markers together when required.    * After the major compaction on the normal hfiles, we have a guarantee that we have purged all    * deleted or old version mob refs, and the delete markers are written to a del file with the    * suffix _del. Because of this, it is safe to use the del file in the mob compaction.    * The mob compaction doesn't take place in the normal hfiles, it occurs directly in the    * mob files. When the small mob files are merged into bigger ones, the del file is added into    * the scanner to filter the deleted cells.    * @param fd File details    * @param scanner Where to read from.    * @param writer Where to write to.    * @param smallestReadPoint Smallest read point.    * @param cleanSeqId When true, remove seqId(used to be mvcc) value which is<= smallestReadPoint    * @param throughputController The compaction throughput controller.    * @param major Is a major compaction.    * @return Whether compaction ended; false if it was interrupted for any reason.    */
 annotation|@
 name|Override
 specifier|protected
@@ -736,22 +738,22 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 name|long
-name|mobCompactedIntoMobCellsCount
+name|cellsCountCompactedToMob
 init|=
 literal|0
 decl_stmt|;
 name|long
-name|mobCompactedFromMobCellsCount
+name|cellsCountCompactedFromMob
 init|=
 literal|0
 decl_stmt|;
 name|long
-name|mobCompactedIntoMobCellsSize
+name|cellsSizeCompactedToMob
 init|=
 literal|0
 decl_stmt|;
 name|long
-name|mobCompactedFromMobCellsSize
+name|cellsSizeCompactedFromMob
 init|=
 literal|0
 decl_stmt|;
@@ -821,7 +823,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Fail to create mob writer, "
+literal|"Failed to create mob writer, "
 operator|+
 literal|"we will continue the compaction by writing MOB cells directly in store files"
 argument_list|,
@@ -1076,10 +1078,10 @@ argument_list|(
 name|mobCell
 argument_list|)
 expr_stmt|;
-name|mobCompactedFromMobCellsCount
+name|cellsCountCompactedFromMob
 operator|++
 expr_stmt|;
-name|mobCompactedFromMobCellsSize
+name|cellsSizeCompactedFromMob
 operator|+=
 name|mobCell
 operator|.
@@ -1186,10 +1188,10 @@ argument_list|(
 name|reference
 argument_list|)
 expr_stmt|;
-name|mobCompactedIntoMobCellsCount
+name|cellsCountCompactedToMob
 operator|++
 expr_stmt|;
-name|mobCompactedIntoMobCellsSize
+name|cellsSizeCompactedToMob
 operator|+=
 name|c
 operator|.
@@ -1377,7 +1379,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Fail to delete the temp mob file"
+literal|"Failed to delete the temp mob file"
 argument_list|,
 name|e
 argument_list|)
@@ -1445,7 +1447,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Fail to delete the temp del file"
+literal|"Failed to delete the temp del file"
 argument_list|,
 name|e
 argument_list|)
@@ -1455,30 +1457,30 @@ block|}
 block|}
 name|mobStore
 operator|.
-name|updateMobCompactedFromMobCellsCount
+name|updateCellsCountCompactedFromMob
 argument_list|(
-name|mobCompactedFromMobCellsCount
+name|cellsCountCompactedFromMob
 argument_list|)
 expr_stmt|;
 name|mobStore
 operator|.
-name|updateMobCompactedIntoMobCellsCount
+name|updateCellsCountCompactedToMob
 argument_list|(
-name|mobCompactedIntoMobCellsCount
+name|cellsCountCompactedToMob
 argument_list|)
 expr_stmt|;
 name|mobStore
 operator|.
-name|updateMobCompactedFromMobCellsSize
+name|updateCellsSizeCompactedFromMob
 argument_list|(
-name|mobCompactedFromMobCellsSize
+name|cellsSizeCompactedFromMob
 argument_list|)
 expr_stmt|;
 name|mobStore
 operator|.
-name|updateMobCompactedIntoMobCellsSize
+name|updateCellsSizeCompactedToMob
 argument_list|(
-name|mobCompactedIntoMobCellsSize
+name|cellsSizeCompactedToMob
 argument_list|)
 expr_stmt|;
 name|progress

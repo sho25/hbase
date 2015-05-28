@@ -15,7 +15,7 @@ name|hbase
 operator|.
 name|mob
 operator|.
-name|filecompactions
+name|compactions
 package|;
 end_package
 
@@ -419,9 +419,45 @@ name|hbase
 operator|.
 name|mob
 operator|.
-name|filecompactions
+name|compactions
 operator|.
-name|MobFileCompactionRequest
+name|PartitionedMobCompactionRequest
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|mob
+operator|.
+name|compactions
+operator|.
+name|PartitionedMobCompactor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|mob
+operator|.
+name|compactions
+operator|.
+name|MobCompactionRequest
 operator|.
 name|CompactionType
 import|;
@@ -439,9 +475,9 @@ name|hbase
 operator|.
 name|mob
 operator|.
-name|filecompactions
+name|compactions
 operator|.
-name|PartitionedMobFileCompactionRequest
+name|PartitionedMobCompactionRequest
 operator|.
 name|CompactionPartition
 import|;
@@ -559,7 +595,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|TestPartitionedMobFileCompactor
+name|TestPartitionedMobCompactor
 block|{
 specifier|private
 specifier|final
@@ -915,7 +951,7 @@ name|mergeSize
 init|=
 name|MobConstants
 operator|.
-name|DEFAULT_MOB_FILE_COMPACTION_MERGEABLE_THRESHOLD
+name|DEFAULT_MOB_COMPACTION_MERGEABLE_THRESHOLD
 decl_stmt|;
 name|List
 argument_list|<
@@ -1120,14 +1156,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// set the mob file compaction mergeable threshold
+comment|// set the mob compaction mergeable threshold
 name|conf
 operator|.
 name|setLong
 argument_list|(
 name|MobConstants
 operator|.
-name|MOB_FILE_COMPACTION_MERGEABLE_THRESHOLD
+name|MOB_COMPACTION_MERGEABLE_THRESHOLD
 argument_list|,
 name|mergeSize
 argument_list|)
@@ -1263,14 +1299,14 @@ name|startKey
 argument_list|)
 expr_stmt|;
 block|}
-comment|// set the mob file compaction mergeable threshold
+comment|// set the mob compaction mergeable threshold
 name|conf
 operator|.
 name|setLong
 argument_list|(
 name|MobConstants
 operator|.
-name|MOB_FILE_COMPACTION_MERGEABLE_THRESHOLD
+name|MOB_COMPACTION_MERGEABLE_THRESHOLD
 argument_list|,
 name|mergeSize
 argument_list|)
@@ -1415,14 +1451,14 @@ expr_stmt|;
 name|listFiles
 argument_list|()
 expr_stmt|;
-comment|// set the mob file compaction batch size
+comment|// set the mob compaction batch size
 name|conf
 operator|.
 name|setInt
 argument_list|(
 name|MobConstants
 operator|.
-name|MOB_FILE_COMPACTION_BATCH_SIZE
+name|MOB_COMPACTION_BATCH_SIZE
 argument_list|,
 literal|4
 argument_list|)
@@ -1508,14 +1544,14 @@ argument_list|,
 literal|5
 argument_list|)
 expr_stmt|;
-comment|// set the mob file compaction batch size
+comment|// set the mob compaction batch size
 name|conf
 operator|.
 name|setInt
 argument_list|(
 name|MobConstants
 operator|.
-name|MOB_FILE_COMPACTION_BATCH_SIZE
+name|MOB_COMPACTION_BATCH_SIZE
 argument_list|,
 literal|2
 argument_list|)
@@ -1532,7 +1568,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests the selectFiles    * @param tableName the table name    * @param type the expected compaction type    * @param expected the expected start keys    */
+comment|/**    * Tests the selectFiles    * @param tableName the table name    * @param type the expected compaction type    * @param isForceAllFiles whether all the mob files are selected    * @param expected the expected start keys    */
 specifier|private
 name|void
 name|testSelectFiles
@@ -1558,11 +1594,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|PartitionedMobFileCompactor
+name|PartitionedMobCompactor
 name|compactor
 init|=
 operator|new
-name|PartitionedMobFileCompactor
+name|PartitionedMobCompactor
 argument_list|(
 name|conf
 argument_list|,
@@ -1617,7 +1653,7 @@ return|return
 literal|null
 return|;
 block|}
-name|PartitionedMobFileCompactionRequest
+name|PartitionedMobCompactionRequest
 name|request
 init|=
 name|select
@@ -1673,7 +1709,7 @@ name|isForceAllFiles
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests the compacteDelFile    * @param tableName the table name    * @param expectedFileCount the expected file count    * @param expectedCellCount the expected cell count    */
+comment|/**    * Tests the compacteDelFile    * @param tableName the table name    * @param expectedFileCount the expected file count    * @param expectedCellCount the expected cell count    * @param isForceAllFiles whether all the mob files are selected    */
 specifier|private
 name|void
 name|testCompactDelFiles
@@ -1695,11 +1731,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|PartitionedMobFileCompactor
+name|PartitionedMobCompactor
 name|compactor
 init|=
 operator|new
-name|PartitionedMobFileCompactor
+name|PartitionedMobCompactor
 argument_list|(
 name|conf
 argument_list|,
@@ -1726,7 +1762,7 @@ name|Path
 argument_list|>
 name|performCompaction
 parameter_list|(
-name|PartitionedMobFileCompactionRequest
+name|PartitionedMobCompactionRequest
 name|request
 parameter_list|)
 throws|throws
@@ -2721,11 +2757,11 @@ name|setLong
 argument_list|(
 name|MobConstants
 operator|.
-name|MOB_FILE_COMPACTION_MERGEABLE_THRESHOLD
+name|MOB_COMPACTION_MERGEABLE_THRESHOLD
 argument_list|,
 name|MobConstants
 operator|.
-name|DEFAULT_MOB_FILE_COMPACTION_MERGEABLE_THRESHOLD
+name|DEFAULT_MOB_COMPACTION_MERGEABLE_THRESHOLD
 argument_list|)
 expr_stmt|;
 name|conf
@@ -2747,11 +2783,11 @@ name|setInt
 argument_list|(
 name|MobConstants
 operator|.
-name|MOB_FILE_COMPACTION_BATCH_SIZE
+name|MOB_COMPACTION_BATCH_SIZE
 argument_list|,
 name|MobConstants
 operator|.
-name|DEFAULT_MOB_FILE_COMPACTION_BATCH_SIZE
+name|DEFAULT_MOB_COMPACTION_BATCH_SIZE
 argument_list|)
 expr_stmt|;
 block|}

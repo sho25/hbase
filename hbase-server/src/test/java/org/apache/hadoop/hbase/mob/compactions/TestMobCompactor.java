@@ -15,7 +15,7 @@ name|hbase
 operator|.
 name|mob
 operator|.
-name|filecompactions
+name|compactions
 package|;
 end_package
 
@@ -661,6 +661,42 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|mob
+operator|.
+name|compactions
+operator|.
+name|MobCompactor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|mob
+operator|.
+name|compactions
+operator|.
+name|PartitionedMobCompactor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -917,7 +953,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|TestMobFileCompactor
+name|TestMobCompactor
 block|{
 specifier|private
 specifier|final
@@ -1106,7 +1142,7 @@ name|setLong
 argument_list|(
 name|MobConstants
 operator|.
-name|MOB_FILE_COMPACTION_MERGEABLE_THRESHOLD
+name|MOB_COMPACTION_MERGEABLE_THRESHOLD
 argument_list|,
 literal|5000
 argument_list|)
@@ -1645,11 +1681,11 @@ name|family1
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|MobFileCompactor
+name|MobCompactor
 name|compactor
 init|=
 operator|new
-name|PartitionedMobFileCompactor
+name|PartitionedMobCompactor
 argument_list|(
 name|conf
 argument_list|,
@@ -1826,11 +1862,11 @@ name|family1
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|MobFileCompactor
+name|MobCompactor
 name|compactor
 init|=
 operator|new
-name|PartitionedMobFileCompactor
+name|PartitionedMobCompactor
 argument_list|(
 name|conf
 argument_list|,
@@ -2214,11 +2250,11 @@ name|family1
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|MobFileCompactor
+name|MobCompactor
 name|compactor
 init|=
 operator|new
-name|PartitionedMobFileCompactor
+name|PartitionedMobCompactor
 argument_list|(
 name|conf
 argument_list|,
@@ -2509,11 +2545,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// do the mob file compaction
-name|MobFileCompactor
+name|MobCompactor
 name|compactor
 init|=
 operator|new
-name|PartitionedMobFileCompactor
+name|PartitionedMobCompactor
 argument_list|(
 name|conf
 argument_list|,
@@ -2665,7 +2701,7 @@ name|setLong
 argument_list|(
 name|MobConstants
 operator|.
-name|MOB_FILE_COMPACTION_MERGEABLE_THRESHOLD
+name|MOB_COMPACTION_MERGEABLE_THRESHOLD
 argument_list|,
 name|mergeSize
 argument_list|)
@@ -2864,11 +2900,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// do the mob file compaction
-name|MobFileCompactor
+name|MobCompactor
 name|compactor
 init|=
 operator|new
-name|PartitionedMobFileCompactor
+name|PartitionedMobCompactor
 argument_list|(
 name|conf
 argument_list|,
@@ -3018,7 +3054,7 @@ name|setInt
 argument_list|(
 name|MobConstants
 operator|.
-name|MOB_FILE_COMPACTION_BATCH_SIZE
+name|MOB_COMPACTION_BATCH_SIZE
 argument_list|,
 name|batchSize
 argument_list|)
@@ -3208,12 +3244,12 @@ name|family2
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// do the mob file compaction
-name|MobFileCompactor
+comment|// do the mob compaction
+name|MobCompactor
 name|compactor
 init|=
 operator|new
-name|PartitionedMobFileCompactor
+name|PartitionedMobCompactor
 argument_list|(
 name|conf
 argument_list|,
@@ -3522,12 +3558,12 @@ name|family2
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// do the mob file compaction
-name|MobFileCompactor
+comment|// do the mob compaction
+name|MobCompactor
 name|compactor
 init|=
 operator|new
-name|PartitionedMobFileCompactor
+name|PartitionedMobCompactor
 argument_list|(
 name|conf
 argument_list|,
@@ -4170,7 +4206,7 @@ argument_list|,
 name|family1
 argument_list|)
 decl_stmt|;
-comment|// do the mob file compaction
+comment|// do the mob compaction
 name|admin
 operator|.
 name|compactMob
@@ -4492,7 +4528,7 @@ name|family2
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// do the major mob file compaction, it will force all files to compaction
+comment|// do the major mob compaction, it will force all files to compaction
 name|admin
 operator|.
 name|majorCompactMob
@@ -6287,11 +6323,11 @@ name|setLong
 argument_list|(
 name|MobConstants
 operator|.
-name|MOB_FILE_COMPACTION_MERGEABLE_THRESHOLD
+name|MOB_COMPACTION_MERGEABLE_THRESHOLD
 argument_list|,
 name|MobConstants
 operator|.
-name|DEFAULT_MOB_FILE_COMPACTION_MERGEABLE_THRESHOLD
+name|DEFAULT_MOB_COMPACTION_MERGEABLE_THRESHOLD
 argument_list|)
 expr_stmt|;
 name|conf
@@ -6300,11 +6336,11 @@ name|setInt
 argument_list|(
 name|MobConstants
 operator|.
-name|MOB_FILE_COMPACTION_BATCH_SIZE
+name|MOB_COMPACTION_BATCH_SIZE
 argument_list|,
 name|MobConstants
 operator|.
-name|DEFAULT_MOB_FILE_COMPACTION_BATCH_SIZE
+name|DEFAULT_MOB_COMPACTION_BATCH_SIZE
 argument_list|)
 expr_stmt|;
 block|}

@@ -150,7 +150,7 @@ block|{
 name|compactor
 operator|=
 operator|new
-name|DefaultMobCompactor
+name|DefaultMobStoreCompactor
 argument_list|(
 name|conf
 argument_list|,

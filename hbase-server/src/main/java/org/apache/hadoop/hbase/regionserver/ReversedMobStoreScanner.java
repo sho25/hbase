@@ -209,7 +209,7 @@ operator|)
 name|store
 expr_stmt|;
 block|}
-comment|/**    * Firstly reads the cells from the HBase. If the cell are a reference cell (which has the    * reference tag), the scanner need seek this cell from the mob file, and use the cell found    * from the mob file as the result.    */
+comment|/**    * Firstly reads the cells from the HBase. If the cell is a reference cell (which has the    * reference tag), the scanner need seek this cell from the mob file, and use the cell found    * from the mob file as the result.    */
 annotation|@
 name|Override
 specifier|public

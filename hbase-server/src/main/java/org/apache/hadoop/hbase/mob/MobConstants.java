@@ -372,20 +372,20 @@ name|EMPTY_STRING
 init|=
 literal|""
 decl_stmt|;
-comment|/**    * If the size of a mob file is less than this value, it's regarded as a small file and needs to    * be merged in mob file compaction. The default value is 192MB.    */
+comment|/**    * If the size of a mob file is less than this value, it's regarded as a small file and needs to    * be merged in mob compaction. The default value is 192MB.    */
 specifier|public
 specifier|static
 specifier|final
 name|String
-name|MOB_FILE_COMPACTION_MERGEABLE_THRESHOLD
+name|MOB_COMPACTION_MERGEABLE_THRESHOLD
 init|=
-literal|"hbase.mob.file.compaction.mergeable.threshold"
+literal|"hbase.mob.compaction.mergeable.threshold"
 decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
 name|long
-name|DEFAULT_MOB_FILE_COMPACTION_MERGEABLE_THRESHOLD
+name|DEFAULT_MOB_COMPACTION_MERGEABLE_THRESHOLD
 init|=
 literal|192
 operator|*
@@ -393,7 +393,7 @@ literal|1024
 operator|*
 literal|1024
 decl_stmt|;
-comment|/**    * The max number of del files that is allowed in the mob file compaction. In the mob file    * compaction, when the number of existing del files is larger than this value, they are merged    * until number of del files is not larger this value. The default value is 3.    */
+comment|/**    * The max number of del files that is allowed in the mob file compaction. In the mob    * compaction, when the number of existing del files is larger than this value, they are merged    * until number of del files is not larger this value. The default value is 3.    */
 specifier|public
 specifier|static
 specifier|final
@@ -410,37 +410,37 @@ name|DEFAULT_MOB_DELFILE_MAX_COUNT
 init|=
 literal|3
 decl_stmt|;
-comment|/**    * The max number of the mob files that is allowed in a batch of the mob file compaction.    * The mob file compaction merges the small mob files to bigger ones. If the number of the    * small files is very large, it could lead to a "too many opened file handlers" in the merge.    * And the merge has to be split into batches. This value limits the number of mob files    * that are selected in a batch of the mob file compaction. The default value is 100.    */
+comment|/**    * The max number of the mob files that is allowed in a batch of the mob compaction.    * The mob compaction merges the small mob files to bigger ones. If the number of the    * small files is very large, it could lead to a "too many opened file handlers" in the merge.    * And the merge has to be split into batches. This value limits the number of mob files    * that are selected in a batch of the mob compaction. The default value is 100.    */
 specifier|public
 specifier|static
 specifier|final
 name|String
-name|MOB_FILE_COMPACTION_BATCH_SIZE
+name|MOB_COMPACTION_BATCH_SIZE
 init|=
-literal|"hbase.mob.file.compaction.batch.size"
+literal|"hbase.mob.compaction.batch.size"
 decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|DEFAULT_MOB_FILE_COMPACTION_BATCH_SIZE
+name|DEFAULT_MOB_COMPACTION_BATCH_SIZE
 init|=
 literal|100
 decl_stmt|;
-comment|/**    * The period that MobFileCompactionChore runs. The unit is millisecond.    * The default value is one week.    */
+comment|/**    * The period that MobCompactionChore runs. The unit is second.    * The default value is one week.    */
 specifier|public
 specifier|static
 specifier|final
 name|String
-name|MOB_FILE_COMPACTION_CHORE_PERIOD
+name|MOB_COMPACTION_CHORE_PERIOD
 init|=
-literal|"hbase.mob.file.compaction.chore.period"
+literal|"hbase.mob.compaction.chore.period"
 decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|DEFAULT_MOB_FILE_COMPACTION_CHORE_PERIOD
+name|DEFAULT_MOB_COMPACTION_CHORE_PERIOD
 init|=
 literal|24
 operator|*
@@ -455,24 +455,24 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|MOB_FILE_COMPACTOR_CLASS_KEY
+name|MOB_COMPACTOR_CLASS_KEY
 init|=
-literal|"hbase.mob.file.compactor.class"
+literal|"hbase.mob.compactor.class"
 decl_stmt|;
-comment|/**    * The max number of threads used in MobFileCompactor.    */
+comment|/**    * The max number of threads used in MobCompactor.    */
 specifier|public
 specifier|static
 specifier|final
 name|String
-name|MOB_FILE_COMPACTION_THREADS_MAX
+name|MOB_COMPACTION_THREADS_MAX
 init|=
-literal|"hbase.mob.file.compaction.threads.max"
+literal|"hbase.mob.compaction.threads.max"
 decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|DEFAULT_MOB_FILE_COMPACTION_THREADS_MAX
+name|DEFAULT_MOB_COMPACTION_THREADS_MAX
 init|=
 literal|1
 decl_stmt|;
