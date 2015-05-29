@@ -478,6 +478,16 @@ parameter_list|)
 block|{
 comment|// no-op
 block|}
+comment|/**    * By default, the executor will run procedures start to finish. Return true to make the executor    * yield between each flow step to give other procedures time to run their flow steps.    * @return Return true if the executor should yield on completion of a flow state step.    * Defaults to return false.    */
+specifier|protected
+name|boolean
+name|isYieldAfterSuccessfulFlowStateStep
+parameter_list|()
+block|{
+return|return
+literal|false
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public

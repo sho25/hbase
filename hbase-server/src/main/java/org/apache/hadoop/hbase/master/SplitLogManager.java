@@ -2237,6 +2237,18 @@ block|{
 comment|// the function is only used in WALEdit direct replay mode
 return|return;
 block|}
+if|if
+condition|(
+name|serverNames
+operator|==
+literal|null
+operator|||
+name|serverNames
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+return|return;
 name|Set
 argument_list|<
 name|String
@@ -2250,13 +2262,6 @@ name|String
 argument_list|>
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|serverNames
-operator|!=
-literal|null
-condition|)
-block|{
 for|for
 control|(
 name|ServerName
@@ -2276,9 +2281,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-try|try
-block|{
 name|this
 operator|.
 name|recoveringRegionLock
@@ -2286,6 +2288,8 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
+try|try
+block|{
 operator|(
 operator|(
 name|BaseCoordinatedStateManager

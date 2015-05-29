@@ -2299,7 +2299,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Adding to processed servers "
+literal|"Adding to log splitting servers "
 operator|+
 name|serverName
 argument_list|)
@@ -2430,7 +2430,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Removed from processed servers "
+literal|"Removed from log splitting servers "
 operator|+
 name|e
 operator|.

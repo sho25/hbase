@@ -764,11 +764,20 @@ name|splitLogZNode
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"tasks arrived or departed"
+literal|"tasks arrived or departed on "
+operator|+
+name|path
 argument_list|)
 expr_stmt|;
 synchronized|synchronized

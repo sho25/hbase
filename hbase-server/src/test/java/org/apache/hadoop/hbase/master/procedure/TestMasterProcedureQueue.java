@@ -55,32 +55,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicInteger
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ConcurrentHashMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|ArrayList
 import|;
 end_import
@@ -102,6 +76,32 @@ operator|.
 name|util
 operator|.
 name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ConcurrentHashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicInteger
 import|;
 end_import
 
@@ -246,16 +246,6 @@ operator|.
 name|junit
 operator|.
 name|After
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
 import|;
 end_import
 
@@ -745,7 +735,7 @@ name|assertTrue
 argument_list|(
 name|queue
 operator|.
-name|tryAcquireTableWrite
+name|tryAcquireTableExclusiveLock
 argument_list|(
 name|tableName
 argument_list|,
@@ -777,7 +767,7 @@ expr_stmt|;
 comment|// release the xlock
 name|queue
 operator|.
-name|releaseTableWrite
+name|releaseTableExclusiveLock
 argument_list|(
 name|tableName
 argument_list|)
@@ -901,7 +891,7 @@ name|assertTrue
 argument_list|(
 name|queue
 operator|.
-name|tryAcquireTableRead
+name|tryAcquireTableSharedLock
 argument_list|(
 name|tableName
 argument_list|,
@@ -952,7 +942,7 @@ expr_stmt|;
 comment|// release the rlock
 name|queue
 operator|.
-name|releaseTableRead
+name|releaseTableSharedLock
 argument_list|(
 name|tableName
 argument_list|)
@@ -1121,7 +1111,7 @@ literal|true
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableWrite
+name|tryAcquireTableExclusiveLock
 argument_list|(
 name|tableName
 argument_list|,
@@ -1145,7 +1135,7 @@ expr_stmt|;
 comment|// Release the write lock and acquire the read lock
 name|queue
 operator|.
-name|releaseTableWrite
+name|releaseTableExclusiveLock
 argument_list|(
 name|tableName
 argument_list|)
@@ -1174,7 +1164,7 @@ literal|true
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableRead
+name|tryAcquireTableSharedLock
 argument_list|(
 name|tableName
 argument_list|,
@@ -1208,7 +1198,7 @@ literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableWrite
+name|tryAcquireTableExclusiveLock
 argument_list|(
 name|tableName
 argument_list|,
@@ -1221,7 +1211,7 @@ expr_stmt|;
 comment|// release the rdlock of item 2 and take the wrlock for the 3d item
 name|queue
 operator|.
-name|releaseTableRead
+name|releaseTableSharedLock
 argument_list|(
 name|tableName
 argument_list|)
@@ -1232,7 +1222,7 @@ literal|true
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableWrite
+name|tryAcquireTableExclusiveLock
 argument_list|(
 name|tableName
 argument_list|,
@@ -1256,7 +1246,7 @@ expr_stmt|;
 comment|// Release the write lock and acquire the read lock
 name|queue
 operator|.
-name|releaseTableWrite
+name|releaseTableExclusiveLock
 argument_list|(
 name|tableName
 argument_list|)
@@ -1285,7 +1275,7 @@ literal|true
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableRead
+name|tryAcquireTableSharedLock
 argument_list|(
 name|tableName
 argument_list|,
@@ -1319,7 +1309,7 @@ literal|true
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableRead
+name|tryAcquireTableSharedLock
 argument_list|(
 name|tableName
 argument_list|,
@@ -1332,14 +1322,14 @@ expr_stmt|;
 comment|// Release 4th and 5th read-lock
 name|queue
 operator|.
-name|releaseTableRead
+name|releaseTableSharedLock
 argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
 name|queue
 operator|.
-name|releaseTableRead
+name|releaseTableSharedLock
 argument_list|(
 name|tableName
 argument_list|)
@@ -2163,7 +2153,7 @@ name|avail
 operator|=
 name|queue
 operator|.
-name|tryAcquireTableWrite
+name|tryAcquireTableExclusiveLock
 argument_list|(
 name|proc
 operator|.
@@ -2186,7 +2176,7 @@ name|avail
 operator|=
 name|queue
 operator|.
-name|tryAcquireTableRead
+name|tryAcquireTableSharedLock
 argument_list|(
 name|proc
 operator|.
@@ -2256,7 +2246,7 @@ name|EDIT
 case|:
 name|queue
 operator|.
-name|releaseTableWrite
+name|releaseTableExclusiveLock
 argument_list|(
 name|proc
 operator|.
@@ -2270,7 +2260,7 @@ name|READ
 case|:
 name|queue
 operator|.
-name|releaseTableRead
+name|releaseTableSharedLock
 argument_list|(
 name|proc
 operator|.

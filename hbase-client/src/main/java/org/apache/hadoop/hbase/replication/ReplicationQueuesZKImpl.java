@@ -957,7 +957,7 @@ literal|"Atomically moving "
 operator|+
 name|regionserverZnode
 operator|+
-literal|"'s wals to my queue"
+literal|"'s WALs to my queue"
 argument_list|)
 expr_stmt|;
 name|newQueues
@@ -1901,9 +1901,16 @@ name|deadRSZnodePath
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|" The multi list size is: "
 operator|+
@@ -1926,9 +1933,16 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Atomically moved the dead regionserver logs. "
 argument_list|)

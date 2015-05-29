@@ -465,7 +465,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * @return true if master enables ServerShutdownHandler;    */
 name|boolean
-name|isServerShutdownHandlerEnabled
+name|isServerCrashProcessingEnabled
 parameter_list|()
 function_decl|;
 comment|/**    * Registers a new protocol buffer {@link Service} subclass as a master coprocessor endpoint.    *    *<p>    * Only a single instance may be registered for a given {@link Service} subclass (the    * instances are keyed on {@link com.google.protobuf.Descriptors.ServiceDescriptor#getFullName()}.    * After the first registration, subsequent calls with the same service name will fail with    * a return value of {@code false}.    *</p>    * @param instance the {@code Service} subclass instance to expose as a coprocessor endpoint    * @return {@code true} if the registration was successful, {@code false}    * otherwise    */

@@ -4196,7 +4196,7 @@ name|toAssignRegions
 init|=
 name|am
 operator|.
-name|processServerShutdown
+name|cleanOutCrashedServerReferences
 argument_list|(
 name|destServerName
 argument_list|)
@@ -7680,7 +7680,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|isServerShutdownHandlerEnabled
+name|isServerCrashProcessingEnabled
 parameter_list|()
 block|{
 return|return
@@ -7691,7 +7691,7 @@ argument_list|()
 operator|&&
 name|super
 operator|.
-name|isServerShutdownHandlerEnabled
+name|isServerCrashProcessingEnabled
 argument_list|()
 return|;
 block|}

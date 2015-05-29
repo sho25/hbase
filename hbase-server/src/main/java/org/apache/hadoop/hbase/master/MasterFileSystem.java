@@ -571,6 +571,20 @@ name|RemoteException
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class abstracts a bunch of operations the HMaster needs to interact with  * the underlying file system, including splitting log files, checking file  * system status, etc.  */
 end_comment
@@ -896,6 +910,18 @@ operator|.
 name|isLogReplaying
 argument_list|()
 expr_stmt|;
+block|}
+annotation|@
+name|VisibleForTesting
+name|SplitLogManager
+name|getSplitLogManager
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|splitLogManager
+return|;
 block|}
 comment|/**    * Create initial layout in filesystem.    *<ol>    *<li>Check if the meta region exists and is readable, if not create it.    * Create hbase.version and the hbase:meta directory if not one.    *</li>    *<li>Create a log archive directory for RS to put archived logs</li>    *</ol>    * Idempotent.    */
 specifier|private

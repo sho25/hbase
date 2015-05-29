@@ -208,7 +208,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Class to hold dead servers list and utility querying dead server list.  */
+comment|/**  * Class to hold dead servers list and utility querying dead server list.  * On znode expiration, servers are added here.  */
 end_comment
 
 begin_class
@@ -452,13 +452,26 @@ name|ServerName
 name|sn
 parameter_list|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finished processing "
+literal|"Finished "
 operator|+
 name|sn
+operator|+
+literal|"; numProcessing="
+operator|+
+name|this
+operator|.
+name|numProcessing
 argument_list|)
 expr_stmt|;
 name|this

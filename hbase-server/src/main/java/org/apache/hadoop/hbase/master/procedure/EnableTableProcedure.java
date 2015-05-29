@@ -625,7 +625,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param env MasterProcedureEnv    * @throws IOException    * @param tableName the table to operate on    * @param skipTableStateCheck whether to check table state    */
+comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param tableName the table to operate on    * @param skipTableStateCheck whether to check table state    * @throws IOException    */
 specifier|public
 name|EnableTableProcedure
 parameter_list|(
@@ -1180,7 +1180,7 @@ operator|.
 name|getProcedureQueue
 argument_list|()
 operator|.
-name|tryAcquireTableWrite
+name|tryAcquireTableExclusiveLock
 argument_list|(
 name|tableName
 argument_list|,
@@ -1209,7 +1209,7 @@ operator|.
 name|getProcedureQueue
 argument_list|()
 operator|.
-name|releaseTableWrite
+name|releaseTableExclusiveLock
 argument_list|(
 name|tableName
 argument_list|)

@@ -2279,7 +2279,7 @@ comment|// flag set after we complete assignMeta.
 specifier|private
 specifier|volatile
 name|boolean
-name|serverShutdownHandlerEnabled
+name|serverCrashProcessingEnabled
 init|=
 literal|false
 decl_stmt|;
@@ -3897,16 +3897,6 @@ operator|.
 name|getFailedServersFromLogFolders
 argument_list|()
 decl_stmt|;
-comment|// remove stale recovering regions from previous run
-name|this
-operator|.
-name|fileSystemManager
-operator|.
-name|removeStaleRecoveringRegionsFromZK
-argument_list|(
-name|previouslyFailedServers
-argument_list|)
-expr_stmt|;
 comment|// log splitting for hbase:meta server
 name|ServerName
 name|oldMetaServerLocation
@@ -4160,7 +4150,7 @@ operator|.
 name|joinCluster
 argument_list|()
 expr_stmt|;
-comment|//set cluster status again after user regions are assigned
+comment|// set cluster status again after user regions are assigned
 name|this
 operator|.
 name|balancer
@@ -4171,8 +4161,7 @@ name|getClusterStatus
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Start balancer and meta catalog janitor after meta and regions have
-comment|// been assigned.
+comment|// Start balancer and meta catalog janitor after meta and regions have been assigned.
 name|status
 operator|.
 name|setStatus
@@ -4307,6 +4296,7 @@ operator|.
 name|balancer
 argument_list|)
 expr_stmt|;
+comment|// Set master as 'initialized'.
 name|initialized
 operator|=
 literal|true
@@ -5000,7 +4990,7 @@ name|HRegionInfo
 operator|.
 name|DEFAULT_REPLICA_ID
 condition|)
-name|enableServerShutdownHandler
+name|enableCrashedServerProcessing
 argument_list|(
 name|assigned
 operator|!=
@@ -5195,7 +5185,7 @@ block|}
 block|}
 specifier|private
 name|void
-name|enableServerShutdownHandler
+name|enableCrashedServerProcessing
 parameter_list|(
 specifier|final
 name|boolean
@@ -5206,18 +5196,17 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-comment|// If ServerShutdownHandler is disabled, we enable it and expire those dead
-comment|// but not expired servers. This is required so that if meta is assigning to
-comment|// a server which dies after assignMeta starts assignment,
-comment|// SSH can re-assign it. Otherwise, we will be
+comment|// If crashed server processing is disabled, we enable it and expire those dead but not expired
+comment|// servers. This is required so that if meta is assigning to a server which dies after
+comment|// assignMeta starts assignment, ServerCrashProcedure can re-assign it. Otherwise, we will be
 comment|// stuck here waiting forever if waitForMeta is specified.
 if|if
 condition|(
 operator|!
-name|serverShutdownHandlerEnabled
+name|serverCrashProcessingEnabled
 condition|)
 block|{
-name|serverShutdownHandlerEnabled
+name|serverCrashProcessingEnabled
 operator|=
 literal|true
 expr_stmt|;
@@ -10510,19 +10499,37 @@ return|return
 name|initialized
 return|;
 block|}
-comment|/**    * ServerShutdownHandlerEnabled is set false before completing    * assignMeta to prevent processing of ServerShutdownHandler.    * @return true if assignMeta has completed;    */
+comment|/**    * ServerCrashProcessingEnabled is set false before completing assignMeta to prevent processing    * of crashed servers.    * @return true if assignMeta has completed;    */
 annotation|@
 name|Override
 specifier|public
 name|boolean
-name|isServerShutdownHandlerEnabled
+name|isServerCrashProcessingEnabled
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|serverShutdownHandlerEnabled
+name|serverCrashProcessingEnabled
 return|;
+block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|void
+name|setServerCrashProcessingEnabled
+parameter_list|(
+specifier|final
+name|boolean
+name|b
+parameter_list|)
+block|{
+name|this
+operator|.
+name|serverCrashProcessingEnabled
+operator|=
+name|b
+expr_stmt|;
 block|}
 comment|/**    * Report whether this master has started initialization and is about to do meta region assignment    * @return true if master is in initialization& about to assign hbase:meta regions    */
 specifier|public

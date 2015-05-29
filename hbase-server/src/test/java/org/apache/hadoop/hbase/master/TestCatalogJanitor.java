@@ -2113,7 +2113,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|isServerShutdownHandlerEnabled
+name|isServerCrashProcessingEnabled
 parameter_list|()
 block|{
 return|return

@@ -712,7 +712,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * ZooKeeper based implementation of  *  {@link org.apache.hadoop.hbase.master.SplitLogManagerCoordination}  */
+comment|/**  * ZooKeeper based implementation of  * {@link SplitLogManagerCoordination}  */
 end_comment
 
 begin_class
@@ -3763,7 +3763,7 @@ literal|"Marked "
 operator|+
 name|regionEncodeName
 operator|+
-literal|" as recovering from "
+literal|" recovering from "
 operator|+
 name|serverName
 operator|+
@@ -3915,7 +3915,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * ZooKeeper implementation of    * {@link org.apache.hadoop.hbase.master.    * SplitLogManagerCoordination#removeStaleRecoveringRegions(Set)}    */
+comment|/**    * ZooKeeper implementation of    * {@link org.apache.hadoop.hbase.coordination.    * SplitLogManagerCoordination#removeStaleRecoveringRegions(Set)}    */
 annotation|@
 name|Override
 specifier|public
@@ -5118,7 +5118,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * {@link org.apache.hadoop.hbase.master.SplitLogManager} can use objects implementing this     * interface to finish off a partially done task by     * {@link org.apache.hadoop.hbase.regionserver.SplitLogWorker}. This provides a     * serialization point at the end of the task processing. Must be restartable and idempotent.    */
+comment|/**    * {@link org.apache.hadoop.hbase.master.SplitLogManager} can use objects implementing this    * interface to finish off a partially done task by    * {@link org.apache.hadoop.hbase.regionserver.SplitLogWorker}. This provides a    * serialization point at the end of the task processing. Must be restartable and idempotent.    */
 specifier|public
 interface|interface
 name|TaskFinisher

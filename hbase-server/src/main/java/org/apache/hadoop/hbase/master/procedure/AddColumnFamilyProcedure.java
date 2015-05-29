@@ -923,7 +923,7 @@ operator|.
 name|getProcedureQueue
 argument_list|()
 operator|.
-name|tryAcquireTableWrite
+name|tryAcquireTableExclusiveLock
 argument_list|(
 name|tableName
 argument_list|,
@@ -952,7 +952,7 @@ operator|.
 name|getProcedureQueue
 argument_list|()
 operator|.
-name|releaseTableWrite
+name|releaseTableExclusiveLock
 argument_list|(
 name|tableName
 argument_list|)

@@ -3431,7 +3431,7 @@ operator|.
 name|COMPARATOR
 return|;
 block|}
-comment|/**    * Convert a HRegionInfo to a RegionInfo    *    * @return the converted RegionInfo    */
+comment|/**    * Convert a HRegionInfo to the protobuf RegionInfo    *    * @return the converted RegionInfo    */
 name|RegionInfo
 name|convert
 parameter_list|()

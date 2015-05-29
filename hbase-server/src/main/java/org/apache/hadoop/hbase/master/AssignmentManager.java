@@ -347,6 +347,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CoordinatedStateException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseIOException
 import|;
 end_import
@@ -1933,7 +1947,7 @@ name|processQueuedDeadServers
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Called on startup.    * Figures whether a fresh cluster start of we are joining extant running cluster.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * Called on startup.    * Figures whether a fresh cluster start of we are joining extant running cluster.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    * @throws CoordinatedStateException     */
 name|void
 name|joinCluster
 parameter_list|()
@@ -1943,6 +1957,8 @@ throws|,
 name|KeeperException
 throws|,
 name|InterruptedException
+throws|,
+name|CoordinatedStateException
 block|{
 name|long
 name|startTime
@@ -1971,8 +1987,7 @@ name|rebuildUserRegions
 argument_list|()
 decl_stmt|;
 comment|// This method will assign all user regions if a clean server startup or
-comment|// it will reconstruct master state and cleanup any leftovers from
-comment|// previous master process.
+comment|// it will reconstruct master state and cleanup any leftovers from previous master process.
 name|boolean
 name|failover
 init|=
@@ -2008,7 +2023,7 @@ name|failover
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Process all regions that are in transition in zookeeper and also    * processes the list of dead servers by scanning the META.    * Used by master joining an cluster.  If we figure this is a clean cluster    * startup, will assign all user regions.    * @param deadServers    *          Map of dead servers and their regions. Can be null.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Process all regions that are in transition in zookeeper and also    * processes the list of dead servers.    * Used by master joining an cluster.  If we figure this is a clean cluster    * startup, will assign all user regions.    * @param deadServers Set of servers that are offline probably legitimately that were carrying    * regions according to a scan of hbase:meta. Can be null.    * @throws IOException    * @throws InterruptedException    */
 name|boolean
 name|processDeadServersAndRegionsInTransition
 parameter_list|(
@@ -2020,10 +2035,15 @@ argument_list|>
 name|deadServers
 parameter_list|)
 throws|throws
+name|KeeperException
+throws|,
 name|IOException
 throws|,
 name|InterruptedException
+throws|,
+name|CoordinatedStateException
 block|{
+comment|// TODO Needed? List<String> nodes = ZKUtil.listChildrenNoWatch(watcher, watcher.assignmentZNode);
 name|boolean
 name|failover
 init|=
@@ -7432,7 +7452,7 @@ return|return
 name|regionsNotRecordedInMeta
 return|;
 block|}
-comment|/**    * Rebuild the list of user regions and assignment information.    *<p>    * Returns a set of servers that are not found to be online that hosted    * some regions.    * @return set of servers not online that hosted some regions per meta    * @throws IOException    */
+comment|/**    * Rebuild the list of user regions and assignment information.    * Updates regionstates with findings as we go through list of regions.    * @return set of servers not online that hosted some regions according to a scan of hbase:meta    * @throws IOException    */
 name|Set
 argument_list|<
 name|ServerName
@@ -9628,13 +9648,13 @@ return|return
 name|matchAssignedAddr
 return|;
 block|}
-comment|/**    * Process shutdown server removing any assignments.    * @param sn Server that went down.    * @return list of regions in transition on this server    */
+comment|/**    * Clean out crashed server removing any assignments.    * @param sn Server that went down.    * @return list of regions in transition on this server    */
 specifier|public
 name|List
 argument_list|<
 name|HRegionInfo
 argument_list|>
-name|processServerShutdown
+name|cleanOutCrashedServerReferences
 parameter_list|(
 specifier|final
 name|ServerName

@@ -625,7 +625,7 @@ name|DEFAULT_REPLICA_ID
 argument_list|)
 return|;
 block|}
-comment|/**    *     * @param zkw    * @param replicaId    * @return meta table regions and their locations.    */
+comment|/**    *    * @param zkw    * @param replicaId    * @return meta table regions and their locations.    */
 specifier|public
 name|List
 argument_list|<
@@ -732,7 +732,7 @@ name|DEFAULT_REPLICA_ID
 argument_list|)
 return|;
 block|}
-comment|/**    *     * @param zkw    * @param replicaId    * @return List of meta regions    */
+comment|/**    *    * @param zkw    * @param replicaId    * @return List of meta regions    */
 specifier|public
 name|List
 argument_list|<

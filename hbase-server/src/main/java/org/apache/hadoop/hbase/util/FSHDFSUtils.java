@@ -804,7 +804,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Recovering lease on dfs file "
+literal|"Recover lease on dfs file "
 operator|+
 name|p
 argument_list|)
@@ -1218,11 +1218,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"recoverLease="
-operator|+
+operator|(
 name|recovered
-operator|+
-literal|", "
+condition|?
+literal|"Recovered lease, "
+else|:
+literal|"Failed to recover lease, "
+operator|)
 operator|+
 name|getLogMessageDetail
 argument_list|(

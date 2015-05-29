@@ -11145,7 +11145,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Find index of passed delimiter walking from end of buffer backwards.    *     * @param b    * @param delimiter    * @return Index of delimiter    */
+comment|/**    * Find index of passed delimiter walking from end of buffer backwards.    *    * @param b    * @param delimiter    * @return Index of delimiter    */
 specifier|public
 specifier|static
 name|int
