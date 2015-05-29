@@ -17656,6 +17656,8 @@ init|=
 name|createZooKeeperWatcher
 argument_list|()
 decl_stmt|;
+try|try
+block|{
 name|ZKUtil
 operator|.
 name|deleteNode
@@ -17675,6 +17677,15 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|zkw
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 specifier|private
 name|void
