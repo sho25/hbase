@@ -2227,15 +2227,15 @@ literal|true
 argument_list|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|error
+throw|throw
+operator|new
+name|IOException
 argument_list|(
-literal|"Couldn't delete "
+literal|"Couldn't delete mob dir "
 operator|+
 name|mobTableDir
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 block|}
 block|}
