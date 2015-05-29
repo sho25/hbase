@@ -44150,6 +44150,35 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
+comment|// HBASE-13776 Setting illegal versions for HColumnDescriptor
+comment|//  does not throw IllegalArgumentException
+comment|// finally, minVersions must be less than or equal to maxVersions
+name|hcd
+operator|.
+name|setMaxVersions
+argument_list|(
+literal|4
+argument_list|)
+expr_stmt|;
+name|hcd
+operator|.
+name|setMinVersions
+argument_list|(
+literal|5
+argument_list|)
+expr_stmt|;
+name|checkTableIsIllegal
+argument_list|(
+name|htd
+argument_list|)
+expr_stmt|;
+name|hcd
+operator|.
+name|setMinVersions
+argument_list|(
+literal|3
+argument_list|)
+expr_stmt|;
 name|hcd
 operator|.
 name|setScope

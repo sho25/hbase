@@ -7855,6 +7855,46 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// max versions already being checked
+comment|// HBASE-13776 Setting illegal versions for HColumnDescriptor
+comment|//  does not throw IllegalArgumentException
+comment|// check minVersions<= maxVerions
+if|if
+condition|(
+name|hcd
+operator|.
+name|getMinVersions
+argument_list|()
+operator|>
+name|hcd
+operator|.
+name|getMaxVersions
+argument_list|()
+condition|)
+block|{
+name|String
+name|message
+init|=
+literal|"Min versions for column family "
+operator|+
+name|hcd
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|" must be less than the Max versions."
+decl_stmt|;
+name|warnOrThrowExceptionForFailure
+argument_list|(
+name|logWarn
+argument_list|,
+name|CONF_KEY
+argument_list|,
+name|message
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
 comment|// check replication scope
 if|if
 condition|(
