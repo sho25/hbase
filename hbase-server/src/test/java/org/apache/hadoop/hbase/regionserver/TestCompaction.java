@@ -3130,6 +3130,12 @@ argument_list|(
 name|cst
 argument_list|)
 expr_stmt|;
+comment|//prevent large compaction thread pool stealing job from small compaction queue.
+name|cst
+operator|.
+name|shutdownLongCompactions
+argument_list|()
+expr_stmt|;
 comment|// Set up the region mock that redirects compactions.
 name|HRegion
 name|r
