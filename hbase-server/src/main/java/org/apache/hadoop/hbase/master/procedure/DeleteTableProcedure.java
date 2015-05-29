@@ -2436,6 +2436,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|tableName
+operator|.
+name|isSystemTable
+argument_list|()
+condition|)
+block|{
 name|ProcedureSyncWait
 operator|.
 name|getMasterQuotaManager
@@ -2448,6 +2457,7 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 end_class
