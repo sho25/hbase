@@ -851,7 +851,9 @@ specifier|final
 name|int
 name|DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT
 init|=
-literal|60000
+name|Integer
+operator|.
+name|MAX_VALUE
 decl_stmt|;
 comment|/** Used to construct the name of the log directory for a region server */
 specifier|public
