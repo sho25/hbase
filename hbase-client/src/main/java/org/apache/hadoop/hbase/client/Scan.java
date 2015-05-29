@@ -738,6 +738,13 @@ operator|.
 name|isReversed
 argument_list|()
 expr_stmt|;
+name|asyncPrefetch
+operator|=
+name|scan
+operator|.
+name|isAsyncPrefetch
+argument_list|()
+expr_stmt|;
 name|small
 operator|=
 name|scan
