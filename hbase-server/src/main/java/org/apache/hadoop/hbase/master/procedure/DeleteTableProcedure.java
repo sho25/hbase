@@ -691,6 +691,8 @@ parameter_list|,
 name|DeleteTableState
 name|state
 parameter_list|)
+throws|throws
+name|InterruptedException
 block|{
 if|if
 condition|(
@@ -1011,30 +1013,6 @@ operator|.
 name|warn
 argument_list|(
 literal|"Retriable error trying to delete table="
-operator|+
-name|getTableName
-argument_list|()
-operator|+
-literal|" state="
-operator|+
-name|state
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-comment|// if the interrupt is real, the executor will be stopped.
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Interrupted trying to delete table="
 operator|+
 name|getTableName
 argument_list|()

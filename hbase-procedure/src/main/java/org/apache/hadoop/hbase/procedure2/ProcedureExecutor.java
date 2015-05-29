@@ -3359,6 +3359,27 @@ argument_list|)
 expr_stmt|;
 break|break;
 block|}
+comment|// if the procedure is kind enough to pass the slot to someone else, yield
+if|if
+condition|(
+name|proc
+operator|.
+name|isYieldAfterExecutionStep
+argument_list|(
+name|getEnvironment
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|runnables
+operator|.
+name|yield
+argument_list|(
+name|proc
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
 block|}
 do|while
 condition|(
@@ -3757,6 +3778,22 @@ argument_list|(
 name|stackTail
 argument_list|)
 expr_stmt|;
+comment|// if the procedure is kind enough to pass the slot to someone else, yield
+if|if
+condition|(
+name|proc
+operator|.
+name|isYieldAfterExecutionStep
+argument_list|(
+name|getEnvironment
+argument_list|()
+argument_list|)
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 block|}
 comment|// Finalize the procedure state
 name|LOG
@@ -3849,6 +3886,23 @@ return|;
 block|}
 catch|catch
 parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|handleInterruptedException
+argument_list|(
+name|proc
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+catch|catch
+parameter_list|(
 name|Throwable
 name|e
 parameter_list|)
@@ -3880,14 +3934,6 @@ name|shouldKillBeforeStoreUpdate
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
@@ -3895,7 +3941,6 @@ argument_list|(
 literal|"TESTING: Kill before store update"
 argument_list|)
 expr_stmt|;
-block|}
 name|stop
 argument_list|()
 expr_stmt|;
@@ -4072,9 +4117,38 @@ argument_list|(
 literal|"Yield procedure: "
 operator|+
 name|procedure
+operator|+
+literal|": "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|runnables
+operator|.
+name|yield
+argument_list|(
+name|procedure
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|handleInterruptedException
+argument_list|(
+name|procedure
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 name|runnables
 operator|.
 name|yield
@@ -4372,14 +4446,6 @@ name|shouldKillBeforeStoreUpdate
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
@@ -4387,7 +4453,6 @@ argument_list|(
 literal|"TESTING: Kill before store update"
 argument_list|)
 expr_stmt|;
-block|}
 name|stop
 argument_list|()
 expr_stmt|;
@@ -4480,6 +4545,22 @@ name|store
 operator|.
 name|isRunning
 argument_list|()
+condition|)
+block|{
+return|return;
+block|}
+comment|// if the procedure is kind enough to pass the slot to someone else, yield
+if|if
+condition|(
+name|reExecute
+operator|&&
+name|procedure
+operator|.
+name|isYieldAfterExecutionStep
+argument_list|(
+name|getEnvironment
+argument_list|()
+argument_list|)
 condition|)
 block|{
 return|return;
@@ -4697,6 +4778,47 @@ block|}
 return|return;
 block|}
 block|}
+block|}
+specifier|private
+name|void
+name|handleInterruptedException
+parameter_list|(
+specifier|final
+name|Procedure
+name|proc
+parameter_list|,
+specifier|final
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"got an interrupt during "
+operator|+
+name|proc
+operator|+
+literal|". suspend and retry it later."
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+comment|// NOTE: We don't call Thread.currentThread().interrupt()
+comment|// because otherwise all the subsequent calls e.g. Thread.sleep() will throw
+comment|// the InterruptedException. If the master is going down, we will be notified
+comment|// and the executor/store will be stopped.
+comment|// (The interrupted procedure will be retried on the next run)
 block|}
 specifier|private
 name|void

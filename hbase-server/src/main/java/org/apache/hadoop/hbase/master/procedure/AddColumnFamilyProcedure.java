@@ -502,6 +502,8 @@ specifier|final
 name|AddColumnFamilyState
 name|state
 parameter_list|)
+throws|throws
+name|InterruptedException
 block|{
 if|if
 condition|(
@@ -625,8 +627,6 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|InterruptedException
-decl||
 name|IOException
 name|e
 parameter_list|)

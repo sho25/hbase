@@ -367,7 +367,7 @@ name|result
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * The main code of the procedure. It must be idempotent since execute()    * may be called multiple time in case of machine failure in the middle    * of the execution.    * @return a set of sub-procedures or null if there is nothing else to execute.    */
+comment|/**    * The main code of the procedure. It must be idempotent since execute()    * may be called multiple time in case of machine failure in the middle    * of the execution.    * @param env the environment passed to the ProcedureExecutor    * @return a set of sub-procedures or null if there is nothing else to execute.    * @throw ProcedureYieldException the procedure will be added back to the queue and retried later    * @throw InterruptedException the procedure will be added back to the queue and retried later    */
 specifier|protected
 specifier|abstract
 name|Procedure
@@ -379,8 +379,10 @@ name|env
 parameter_list|)
 throws|throws
 name|ProcedureYieldException
+throws|,
+name|InterruptedException
 function_decl|;
-comment|/**    * The code to undo what done by the execute() code.    * It is called when the procedure or one of the sub-procedure failed or an    * abort was requested. It should cleanup all the resources created by    * the execute() call. The implementation must be idempotent since rollback()    * may be called multiple time in case of machine failure in the middle    * of the execution.    * @throws IOException temporary failure, the rollback will retry later    */
+comment|/**    * The code to undo what done by the execute() code.    * It is called when the procedure or one of the sub-procedure failed or an    * abort was requested. It should cleanup all the resources created by    * the execute() call. The implementation must be idempotent since rollback()    * may be called multiple time in case of machine failure in the middle    * of the execution.    * @param env the environment passed to the ProcedureExecutor    * @throws IOException temporary failure, the rollback will retry later    * @throw InterruptedException the procedure will be added back to the queue and retried later    */
 specifier|protected
 specifier|abstract
 name|void
@@ -391,6 +393,8 @@ name|env
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 function_decl|;
 comment|/**    * The abort() call is asynchronous and each procedure must decide how to deal    * with that, if they want to be abortable. The simplest implementation    * is to have an AtomicBoolean set in the abort() method and then the execute()    * will check if the abort flag is set or not.    * abort() may be called multiple times from the client, so the implementation    * must be idempotent.    *    * NOTE: abort() is not like Thread.interrupt() it is just a notification    * that allows the procedure implementor where to abort to avoid leak and    * have a better control on what was executed and what not.    */
 specifier|protected
@@ -478,11 +482,15 @@ parameter_list|)
 block|{
 comment|// no-op
 block|}
-comment|/**    * By default, the executor will run procedures start to finish. Return true to make the executor    * yield between each flow step to give other procedures time to run their flow steps.    * @return Return true if the executor should yield on completion of a flow state step.    * Defaults to return false.    */
+comment|/**    * By default, the executor will try ro run procedures start to finish.    * Return true to make the executor yield between each execution step to    * give other procedures time to run their steps.    * @param env the environment passed to the ProcedureExecutor    * @return Return true if the executor should yield on completion of an execution step.    *         Defaults to return false.    */
 specifier|protected
 name|boolean
-name|isYieldAfterSuccessfulFlowStateStep
-parameter_list|()
+name|isYieldAfterExecutionStep
+parameter_list|(
+specifier|final
+name|TEnvironment
+name|env
+parameter_list|)
 block|{
 return|return
 literal|false
@@ -1188,6 +1196,8 @@ name|env
 parameter_list|)
 throws|throws
 name|ProcedureYieldException
+throws|,
+name|InterruptedException
 block|{
 try|try
 block|{
@@ -1223,6 +1233,8 @@ name|env
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 try|try
 block|{

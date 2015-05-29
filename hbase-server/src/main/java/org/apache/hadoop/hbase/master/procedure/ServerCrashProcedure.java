@@ -3762,8 +3762,14 @@ annotation|@
 name|Override
 specifier|protected
 name|boolean
-name|isYieldAfterSuccessfulFlowStateStep
-parameter_list|()
+name|isYieldBeforeExecuteFromState
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|,
+name|ServerCrashState
+name|state
+parameter_list|)
 block|{
 return|return
 literal|true

@@ -144,6 +144,8 @@ name|env
 parameter_list|)
 throws|throws
 name|ProcedureYieldException
+throws|,
+name|InterruptedException
 block|{
 name|updateTimestamp
 argument_list|()
@@ -192,6 +194,8 @@ name|env
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 name|updateTimestamp
 argument_list|()
