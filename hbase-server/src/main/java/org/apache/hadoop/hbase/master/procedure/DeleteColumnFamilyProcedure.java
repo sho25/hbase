@@ -1422,6 +1422,31 @@ literal|"' does not exist, so it cannot be deleted"
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
+name|unmodifiedHTableDescriptor
+operator|.
+name|getColumnFamilies
+argument_list|()
+operator|.
+name|length
+operator|==
+literal|1
+condition|)
+block|{
+throw|throw
+operator|new
+name|InvalidFamilyOperationException
+argument_list|(
+literal|"Family '"
+operator|+
+name|getColumnFamilyName
+argument_list|()
+operator|+
+literal|"' is the only column family in the table, so it cannot be deleted"
+argument_list|)
+throw|;
+block|}
 block|}
 comment|/**    * Action before deleting column family.    * @param env MasterProcedureEnv    * @param state the procedure state    * @throws IOException    * @throws InterruptedException    */
 specifier|private
