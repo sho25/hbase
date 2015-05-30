@@ -367,7 +367,7 @@ name|result
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * The main code of the procedure. It must be idempotent since execute()    * may be called multiple time in case of machine failure in the middle    * of the execution.    * @param env the environment passed to the ProcedureExecutor    * @return a set of sub-procedures or null if there is nothing else to execute.    * @throw ProcedureYieldException the procedure will be added back to the queue and retried later    * @throw InterruptedException the procedure will be added back to the queue and retried later    */
+comment|/**    * The main code of the procedure. It must be idempotent since execute()    * may be called multiple time in case of machine failure in the middle    * of the execution.    * @param env the environment passed to the ProcedureExecutor    * @return a set of sub-procedures or null if there is nothing else to execute.    * @throws ProcedureYieldException the procedure will be added back to the queue and retried later    * @throws InterruptedException the procedure will be added back to the queue and retried later    */
 specifier|protected
 specifier|abstract
 name|Procedure
@@ -382,7 +382,7 @@ name|ProcedureYieldException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * The code to undo what done by the execute() code.    * It is called when the procedure or one of the sub-procedure failed or an    * abort was requested. It should cleanup all the resources created by    * the execute() call. The implementation must be idempotent since rollback()    * may be called multiple time in case of machine failure in the middle    * of the execution.    * @param env the environment passed to the ProcedureExecutor    * @throws IOException temporary failure, the rollback will retry later    * @throw InterruptedException the procedure will be added back to the queue and retried later    */
+comment|/**    * The code to undo what done by the execute() code.    * It is called when the procedure or one of the sub-procedure failed or an    * abort was requested. It should cleanup all the resources created by    * the execute() call. The implementation must be idempotent since rollback()    * may be called multiple time in case of machine failure in the middle    * of the execution.    * @param env the environment passed to the ProcedureExecutor    * @throws IOException temporary failure, the rollback will retry later    * @throws InterruptedException the procedure will be added back to the queue and retried later    */
 specifier|protected
 specifier|abstract
 name|void
