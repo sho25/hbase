@@ -590,10 +590,17 @@ operator|.
 name|getKey
 argument_list|()
 argument_list|,
+operator|new
+name|ArrayList
+argument_list|<
+name|Cell
+argument_list|>
+argument_list|(
 name|entry
 operator|.
 name|getValue
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
