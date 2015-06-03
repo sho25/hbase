@@ -1852,13 +1852,17 @@ init|=
 literal|5000
 decl_stmt|;
 comment|// milliseconds
+comment|// We have to set the timeout value> HdfsConstants.LEASE_SOFTLIMIT_PERIOD.
+comment|// In HADOOP-2.6 and later, the Namenode proxy now created with custom RetryPolicy for
+comment|// AlreadyBeingCreatedException which is implies timeout on this operations up to
+comment|// HdfsConstants.LEASE_SOFTLIMIT_PERIOD (60 seconds).
 specifier|private
 specifier|static
 specifier|final
 name|int
 name|DEFAULT_WAIT_FOR_LOCK_TIMEOUT
 init|=
-literal|30
+literal|80
 decl_stmt|;
 comment|// seconds
 comment|/**********************    * Internal resources    **********************/

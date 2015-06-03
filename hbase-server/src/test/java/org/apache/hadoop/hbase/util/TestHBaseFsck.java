@@ -4219,12 +4219,16 @@ decl_stmt|,
 name|hbck2
 decl_stmt|;
 comment|// With the ExponentialBackoffPolicyWithLimit (starting with 200 milliseconds sleep time, and
-comment|// max sleep time of 5 seconds), we can retry around 15 times within 60 seconds before bail out.
+comment|// max sleep time of 5 seconds), we can retry around 15 times within 80 seconds before bail out.
+comment|//
+comment|// Note: the reason to use 80 seconds is that in HADOOP-2.6 and later, the create file would
+comment|// retry up to HdfsConstants.LEASE_SOFTLIMIT_PERIOD (60 seconds).  See HBASE-13574 for more
+comment|// details.
 specifier|final
 name|int
 name|timeoutInSeconds
 init|=
-literal|60
+literal|80
 decl_stmt|;
 specifier|final
 name|int
