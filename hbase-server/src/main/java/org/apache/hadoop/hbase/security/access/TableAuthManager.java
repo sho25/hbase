@@ -2102,7 +2102,7 @@ block|{
 comment|// Global authorizations supercede namespace level
 if|if
 condition|(
-name|authorizeUser
+name|authorize
 argument_list|(
 name|user
 argument_list|,
@@ -2300,37 +2300,6 @@ expr_stmt|;
 block|}
 return|return
 literal|false
-return|;
-block|}
-comment|/**    * Checks global authorization for a specific action for a user, based on the    * stored user permissions.    */
-specifier|public
-name|boolean
-name|authorizeUser
-parameter_list|(
-name|User
-name|user
-parameter_list|,
-name|Permission
-operator|.
-name|Action
-name|action
-parameter_list|)
-block|{
-return|return
-name|authorize
-argument_list|(
-name|globalCache
-operator|.
-name|getUser
-argument_list|(
-name|user
-operator|.
-name|getShortName
-argument_list|()
-argument_list|)
-argument_list|,
-name|action
-argument_list|)
 return|;
 block|}
 comment|/**    * Checks authorization to a given table and column family for a user, based on the    * stored user permissions.    *    * @param user    * @param table    * @param family    * @param action    * @return true if known and authorized, false otherwise    */
