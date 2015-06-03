@@ -4028,6 +4028,17 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
+comment|// HBASE-13574 found that in HADOOP-2.6 and later, the create file would internally retry.
+comment|// To avoid flakiness of the test, set low max wait time.
+name|c
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.hbck.lockfile.maxwaittime"
+argument_list|,
+literal|3
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 return|return
