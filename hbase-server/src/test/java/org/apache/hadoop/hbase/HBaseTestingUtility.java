@@ -3097,6 +3097,53 @@ literal|null
 argument_list|)
 expr_stmt|;
 comment|// Set this just-started cluster as our filesystem.
+name|setFs
+argument_list|()
+expr_stmt|;
+comment|// Wait for the cluster to be totally up
+name|this
+operator|.
+name|dfsCluster
+operator|.
+name|waitClusterUp
+argument_list|()
+expr_stmt|;
+comment|//reset the test directory for test file system
+name|dataTestDirOnTestFS
+operator|=
+literal|null
+expr_stmt|;
+return|return
+name|this
+operator|.
+name|dfsCluster
+return|;
+block|}
+specifier|private
+name|void
+name|setFs
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|dfsCluster
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Skipping setting fs because dfsCluster is null"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|FileSystem
 name|fs
 init|=
@@ -3125,24 +3172,6 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Wait for the cluster to be totally up
-name|this
-operator|.
-name|dfsCluster
-operator|.
-name|waitClusterUp
-argument_list|()
-expr_stmt|;
-comment|//reset the test directory for test file system
-name|dataTestDirOnTestFS
-operator|=
-literal|null
-expr_stmt|;
-return|return
-name|this
-operator|.
-name|dfsCluster
-return|;
 block|}
 specifier|public
 name|MiniDFSCluster
@@ -4443,6 +4472,17 @@ argument_list|)
 expr_stmt|;
 comment|// Bring up mini dfs cluster. This spews a bunch of warnings about missing
 comment|// scheme. Complaints are 'Scheme is undefined for build/test/data/dfs/name1'.
+if|if
+condition|(
+name|this
+operator|.
+name|dfsCluster
+operator|==
+literal|null
+condition|)
+block|{
+name|dfsCluster
+operator|=
 name|startMiniDFSCluster
 argument_list|(
 name|numDataNodes
@@ -4450,6 +4490,7 @@ argument_list|,
 name|dataNodeHosts
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Start up a zk cluster.
 if|if
 condition|(
@@ -13327,6 +13368,38 @@ name|MiniDFSCluster
 name|cluster
 parameter_list|)
 throws|throws
+name|IllegalStateException
+throws|,
+name|IOException
+block|{
+name|setDFSCluster
+argument_list|(
+name|cluster
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Set the MiniDFSCluster    * @param cluster cluster to use    * @param requireDown require the that cluster not be "up" (MiniDFSCluster#isClusterUp) before    * it is set.    * @throws IllegalStateException if the passed cluster is up when it is required to be down    * @throws IOException if the FileSystem could not be set from the passed dfs cluster    */
+end_comment
+
+begin_function
+specifier|public
+name|void
+name|setDFSCluster
+parameter_list|(
+name|MiniDFSCluster
+name|cluster
+parameter_list|,
+name|boolean
+name|requireDown
+parameter_list|)
+throws|throws
+name|IllegalStateException
+throws|,
 name|IOException
 block|{
 if|if
@@ -13334,6 +13407,8 @@ condition|(
 name|dfsCluster
 operator|!=
 literal|null
+operator|&&
+name|requireDown
 operator|&&
 name|dfsCluster
 operator|.
@@ -13343,7 +13418,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|IllegalStateException
 argument_list|(
 literal|"DFSCluster is already running! Shut it down first."
 argument_list|)
@@ -13354,6 +13429,11 @@ operator|.
 name|dfsCluster
 operator|=
 name|cluster
+expr_stmt|;
+name|this
+operator|.
+name|setFs
+argument_list|()
 expr_stmt|;
 block|}
 end_function
