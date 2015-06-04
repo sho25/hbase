@@ -3110,7 +3110,7 @@ name|getTagsLength
 argument_list|()
 decl_stmt|;
 comment|// write total length
-name|StreamUtils
+name|KeyValue
 operator|.
 name|writeInt
 argument_list|(
@@ -3133,7 +3133,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// write key length
-name|StreamUtils
+name|KeyValue
 operator|.
 name|writeInt
 argument_list|(
@@ -3150,7 +3150,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// write value length
-name|StreamUtils
+name|KeyValue
 operator|.
 name|writeInt
 argument_list|(
