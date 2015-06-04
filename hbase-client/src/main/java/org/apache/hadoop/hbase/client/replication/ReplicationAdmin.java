@@ -619,7 +619,7 @@ specifier|final
 name|String
 name|CFNAME
 init|=
-literal|"columnFamlyName"
+literal|"columnFamilyName"
 decl_stmt|;
 comment|// only Global for now, can add other type
 comment|// such as, 1) no global replication, or 2) the table is replicated to this cluster, etc.
