@@ -5630,6 +5630,51 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|conn
+operator|.
+name|callSender
+operator|!=
+literal|null
+condition|)
+block|{
+name|conn
+operator|.
+name|callSender
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
+comment|// In case the CallSender did not setupIOStreams() yet, the Connection may not be started
+comment|// at all (if CallSender has a cancelled Call it can happen). See HBASE-13851
+if|if
+condition|(
+operator|!
+name|conn
+operator|.
+name|isAlive
+argument_list|()
+condition|)
+block|{
+name|conn
+operator|.
+name|markClosed
+argument_list|(
+operator|new
+name|InterruptedIOException
+argument_list|(
+literal|"RpcClient is closing"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|conn
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 block|}
 comment|// wait until all connections are closed
