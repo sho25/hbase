@@ -168,6 +168,11 @@ name|Cell
 name|getNextIndexedKey
 parameter_list|()
 function_decl|;
+comment|/**    * Close this HFile scanner and do necessary cleanup.    */
+name|void
+name|close
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

@@ -53,6 +53,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -64,6 +74,16 @@ operator|.
 name|util
 operator|.
 name|NavigableSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
 import|;
 end_import
 
@@ -544,6 +564,20 @@ specifier|protected
 specifier|final
 name|long
 name|cellsPerHeartbeatCheck
+decl_stmt|;
+specifier|protected
+name|Set
+argument_list|<
+name|KeyValueHeap
+argument_list|>
+name|heapsForDelayedClose
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|KeyValueHeap
+argument_list|>
+argument_list|()
 decl_stmt|;
 comment|/**    * The number of KVs seen by the scanner. Includes explicitly skipped KVs, but not    * KVs skipped via seeking to next row/column. TODO: estimate them?    */
 specifier|private
@@ -2154,6 +2188,20 @@ name|void
 name|close
 parameter_list|()
 block|{
+name|close
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|close
+parameter_list|(
+name|boolean
+name|withHeapClose
+parameter_list|)
+block|{
 name|lock
 operator|.
 name|lock
@@ -2194,12 +2242,41 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|withHeapClose
+condition|)
+block|{
+for|for
+control|(
+name|KeyValueHeap
+name|h
+range|:
+name|this
+operator|.
+name|heapsForDelayedClose
+control|)
+block|{
+name|h
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+name|this
+operator|.
+name|heapsForDelayedClose
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
 name|this
 operator|.
 name|heap
 operator|!=
 literal|null
 condition|)
+block|{
 name|this
 operator|.
 name|heap
@@ -2214,6 +2291,38 @@ operator|=
 literal|null
 expr_stmt|;
 comment|// CLOSED!
+block|}
+block|}
+else|else
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|heap
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|heapsForDelayedClose
+operator|.
+name|add
+argument_list|(
+name|this
+operator|.
+name|heap
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|heap
+operator|=
+literal|null
+expr_stmt|;
+block|}
+block|}
 name|this
 operator|.
 name|lastTop
@@ -2374,8 +2483,11 @@ literal|null
 condition|)
 block|{
 name|close
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 expr_stmt|;
+comment|// Do all cleanup except heap.close()
 return|return
 name|scannerContext
 operator|.
@@ -2408,8 +2520,11 @@ literal|null
 condition|)
 block|{
 name|close
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 expr_stmt|;
+comment|// Do all cleanup except heap.close()
 return|return
 name|scannerContext
 operator|.
@@ -2651,7 +2766,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|// TODO convert Scan Query Matcher to be Cell instead of KV based ?
 name|cell
 operator|=
 name|f
@@ -2919,8 +3033,11 @@ case|case
 name|DONE_SCAN
 case|:
 name|close
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 expr_stmt|;
+comment|// Do all cleanup except heap.close()
 return|return
 name|scannerContext
 operator|.
@@ -2998,7 +3115,6 @@ break|break;
 case|case
 name|SEEK_NEXT_USING_HINT
 case|:
-comment|// TODO convert resee to Cell?
 name|Cell
 name|nextKV
 init|=
@@ -3064,8 +3180,11 @@ return|;
 block|}
 comment|// No more keys
 name|close
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 expr_stmt|;
+comment|// Do all cleanup except heap.close()
 return|return
 name|scannerContext
 operator|.
@@ -3274,12 +3393,16 @@ comment|//DebugPrint.println("SS updateReaders, topKey = " + lastTop);
 comment|// close scanners to old obsolete Store files
 name|this
 operator|.
-name|heap
+name|heapsForDelayedClose
 operator|.
-name|close
-argument_list|()
+name|add
+argument_list|(
+name|this
+operator|.
+name|heap
+argument_list|)
 expr_stmt|;
-comment|// bubble thru and close all scanners.
+comment|// Don't close now. Delay it till StoreScanner#close
 name|this
 operator|.
 name|heap

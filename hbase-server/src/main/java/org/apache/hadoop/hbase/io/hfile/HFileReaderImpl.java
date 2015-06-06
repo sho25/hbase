@@ -4826,6 +4826,15 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|close
+parameter_list|()
+block|{
+comment|// HBASE-12295 will add code here.
+block|}
 block|}
 specifier|public
 name|Path
