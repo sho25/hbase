@@ -61,16 +61,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|UnsupportedEncodingException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|lang
 operator|.
 name|reflect
@@ -2631,7 +2621,7 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
-comment|/**    * The max sequence id of flushed data on this region.  Used doing some rough calculations on    * whether time to flush or not.    */
+comment|/**    * The max sequence id of flushed data on this region. There is no edit in memory that is    * less that this sequence id.    */
 specifier|private
 specifier|volatile
 name|long
@@ -2641,7 +2631,7 @@ name|HConstants
 operator|.
 name|NO_SEQNUM
 decl_stmt|;
-comment|/**    * Record the sequence id of last flush operation.    */
+comment|/**    * Record the sequence id of last flush operation. Can be in advance of    * {@link #maxFlushedSeqId} when flushing a single column family. In this case,    * {@link #maxFlushedSeqId} will be older than the oldest edit in memory.    */
 specifier|private
 specifier|volatile
 name|long
@@ -3842,7 +3832,7 @@ specifier|final
 name|boolean
 name|regionStatsEnabled
 decl_stmt|;
-comment|/**    * HRegion constructor. This constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#createHRegion} or {@link HRegion#openHRegion} method.    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param wal The WAL is the outbound log for any updates to the HRegion    * The wal file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate wal info for this HRegion. If there is a previous wal file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param confParam is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd the table descriptor    * @param rsServices reference to {@link RegionServerServices} or null    */
+comment|/**    * HRegion constructor. This constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#createHRegion} or {@link HRegion#openHRegion} method.    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param wal The WAL is the outbound log for any updates to the HRegion    * The wal file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate wal info for this HRegion. If there is a previous wal file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param confParam is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd the table descriptor    * @param rsServices reference to {@link RegionServerServices} or null    * @deprecated Use other constructors.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -8382,7 +8372,7 @@ argument_list|()
 control|)
 block|{
 name|long
-name|oldestUnflushedSeqId
+name|earliest
 init|=
 name|this
 operator|.
@@ -8395,8 +8385,26 @@ argument_list|,
 name|familyName
 argument_list|)
 decl_stmt|;
-comment|// no oldestUnflushedSeqId means no data has written to the store after last flush, so we use
-comment|// lastFlushOpSeqId as complete sequence id for the store.
+comment|// Subtract - 1 to go earlier than the current oldest, unflushed edit in memstore; this will
+comment|// give us a sequence id that is for sure flushed. We want edit replay to start after this
+comment|// sequence id in this region. If NO_SEQNUM, use the regions maximum flush id.
+name|long
+name|csid
+init|=
+operator|(
+name|earliest
+operator|==
+name|HConstants
+operator|.
+name|NO_SEQNUM
+operator|)
+condition|?
+name|lastFlushOpSeqIdLocal
+else|:
+name|earliest
+operator|-
+literal|1
+decl_stmt|;
 name|regionLoadBldr
 operator|.
 name|addStoreCompleteSequenceId
@@ -8418,15 +8426,7 @@ argument_list|)
 operator|.
 name|setSequenceId
 argument_list|(
-name|oldestUnflushedSeqId
-operator|<
-literal|0
-condition|?
-name|lastFlushOpSeqIdLocal
-else|:
-name|oldestUnflushedSeqId
-operator|-
-literal|1
+name|csid
 argument_list|)
 operator|.
 name|build
@@ -8439,9 +8439,8 @@ name|regionLoadBldr
 operator|.
 name|setCompleteSequenceId
 argument_list|(
-name|this
-operator|.
-name|maxFlushedSeqId
+name|getMaxFlushedSeqId
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -9584,7 +9583,7 @@ name|store
 parameter_list|)
 block|{
 name|long
-name|maxFlushedSeqId
+name|earliest
 init|=
 name|this
 operator|.
@@ -9611,11 +9610,11 @@ literal|1
 decl_stmt|;
 if|if
 condition|(
-name|maxFlushedSeqId
+name|earliest
 operator|>
 literal|0
 operator|&&
-name|maxFlushedSeqId
+name|earliest
 operator|+
 name|flushPerChanges
 operator|<
@@ -9637,31 +9636,37 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Column Family: "
+literal|"Flush column family "
 operator|+
 name|store
 operator|.
 name|getColumnFamilyName
 argument_list|()
 operator|+
-literal|" of region "
+literal|" of "
+operator|+
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" because unflushed sequenceid="
+operator|+
+name|earliest
+operator|+
+literal|" is> "
 operator|+
 name|this
+operator|.
+name|flushPerChanges
 operator|+
-literal|" will be flushed because its max flushed seqId("
-operator|+
-name|maxFlushedSeqId
-operator|+
-literal|") is far away from current("
+literal|" from current="
 operator|+
 name|sequenceId
 operator|.
 name|get
 argument_list|()
-operator|+
-literal|"), max allowed is "
-operator|+
-name|flushPerChanges
 argument_list|)
 expr_stmt|;
 block|}
@@ -9671,6 +9676,8 @@ return|;
 block|}
 if|if
 condition|(
+name|this
+operator|.
 name|flushCheckInterval
 operator|<=
 literal|0
@@ -9697,6 +9704,8 @@ argument_list|()
 operator|<
 name|now
 operator|-
+name|this
+operator|.
 name|flushCheckInterval
 condition|)
 block|{
@@ -9712,31 +9721,37 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Column Family: "
+literal|"Flush column family: "
 operator|+
 name|store
 operator|.
 name|getColumnFamilyName
 argument_list|()
 operator|+
-literal|" of region "
+literal|" of "
 operator|+
-name|this
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
 operator|+
-literal|" will be flushed because time of its oldest edit ("
+literal|" because time of oldest edit="
 operator|+
 name|store
 operator|.
 name|timeOfOldestEdit
 argument_list|()
 operator|+
-literal|") is far away from now("
+literal|" is> "
+operator|+
+name|this
+operator|.
+name|flushCheckInterval
+operator|+
+literal|" from now ="
 operator|+
 name|now
-operator|+
-literal|"), max allowed is "
-operator|+
-name|flushCheckInterval
 argument_list|)
 expr_stmt|;
 block|}
@@ -10312,29 +10327,82 @@ name|isInfoEnabled
 argument_list|()
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
+comment|// Log a fat line detailing what is being flushed.
+name|StringBuilder
+name|perCfExtras
+init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|isAllFamilies
 argument_list|(
-literal|"Started memstore flush for "
-operator|+
-name|this
-operator|+
-literal|", current region memstore size "
-operator|+
+name|storesToFlush
+argument_list|)
+condition|)
+block|{
+name|perCfExtras
+operator|=
+operator|new
+name|StringBuilder
+argument_list|()
+expr_stmt|;
+for|for
+control|(
+name|Store
+name|store
+range|:
+name|storesToFlush
+control|)
+block|{
+name|perCfExtras
+operator|.
+name|append
+argument_list|(
+literal|"; "
+argument_list|)
+expr_stmt|;
+name|perCfExtras
+operator|.
+name|append
+argument_list|(
+name|store
+operator|.
+name|getColumnFamilyName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|perCfExtras
+operator|.
+name|append
+argument_list|(
+literal|"="
+argument_list|)
+expr_stmt|;
+name|perCfExtras
+operator|.
+name|append
+argument_list|(
 name|StringUtils
 operator|.
 name|byteDesc
 argument_list|(
-name|this
+name|store
 operator|.
-name|memstoreSize
-operator|.
-name|get
+name|getMemStoreSize
 argument_list|()
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Flushing "
 operator|+
-literal|", and "
 operator|+
 name|storesToFlush
 operator|.
@@ -10348,7 +10416,41 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" column families' memstores are being flushed."
+literal|" column families, memstore="
+operator|+
+name|StringUtils
+operator|.
+name|byteDesc
+argument_list|(
+name|this
+operator|.
+name|memstoreSize
+operator|.
+name|get
+argument_list|()
+argument_list|)
+operator|+
+operator|(
+operator|(
+name|perCfExtras
+operator|!=
+literal|null
+operator|&&
+name|perCfExtras
+operator|.
+name|length
+argument_list|()
+operator|>
+literal|0
+operator|)
+condition|?
+name|perCfExtras
+operator|.
+name|toString
+argument_list|()
+else|:
+literal|""
+operator|)
 operator|+
 operator|(
 operator|(
@@ -10359,64 +10461,12 @@ operator|)
 condition|?
 literal|""
 else|:
-literal|"; wal is null, using passed sequenceid="
+literal|"; WAL is null, using passed sequenceid="
 operator|+
 name|myseqid
 operator|)
 argument_list|)
 expr_stmt|;
-comment|// only log when we are not flushing all stores.
-if|if
-condition|(
-name|this
-operator|.
-name|stores
-operator|.
-name|size
-argument_list|()
-operator|>
-name|storesToFlush
-operator|.
-name|size
-argument_list|()
-condition|)
-block|{
-for|for
-control|(
-name|Store
-name|store
-range|:
-name|storesToFlush
-control|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Flushing Column Family: "
-operator|+
-name|store
-operator|.
-name|getColumnFamilyName
-argument_list|()
-operator|+
-literal|" which was occupying "
-operator|+
-name|StringUtils
-operator|.
-name|byteDesc
-argument_list|(
-name|store
-operator|.
-name|getMemStoreSize
-argument_list|()
-argument_list|)
-operator|+
-literal|" of memstore."
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 block|}
 comment|// Stop updates while we snapshot the memstore of all of these regions' stores. We only have
 comment|// to do this for a moment.  It is quick. We also set the memstore size to zero here before we
@@ -10557,7 +10607,8 @@ name|BYTES_COMPARATOR
 argument_list|)
 decl_stmt|;
 comment|// The sequence id of this flush operation which is used to log FlushMarker and pass to
-comment|// createFlushContext to use as the store file's sequence id.
+comment|// createFlushContext to use as the store file's sequence id. It can be in advance of edits
+comment|// still in the memstore, edits that are in other column families yet to be flushed.
 name|long
 name|flushOpSeqId
 init|=
@@ -10565,8 +10616,8 @@ name|HConstants
 operator|.
 name|NO_SEQNUM
 decl_stmt|;
-comment|// The max flushed sequence id after this flush operation. Used as completeSequenceId which is
-comment|// passed to HMaster.
+comment|// The max flushed sequence id after this flush operation completes. All edits in memstore
+comment|// will be in advance of this sequence id.
 name|long
 name|flushedSeqId
 init|=
@@ -10607,9 +10658,9 @@ operator|!=
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-operator|!
+name|Long
+name|earliestUnflushedSequenceIdForTheRegion
+init|=
 name|wal
 operator|.
 name|startCacheFlush
@@ -10618,14 +10669,18 @@ name|encodedRegionName
 argument_list|,
 name|flushedFamilyNames
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|earliestUnflushedSequenceIdForTheRegion
+operator|==
+literal|null
 condition|)
 block|{
-comment|// This should never happen.
+comment|// This should never happen. This is how startCacheFlush signals flush cannot proceed.
 name|String
 name|msg
 init|=
-literal|"Flush will not be started for ["
-operator|+
 name|this
 operator|.
 name|getRegionInfo
@@ -10634,7 +10689,7 @@ operator|.
 name|getEncodedName
 argument_list|()
 operator|+
-literal|"] - because the WAL is closing."
+literal|" flush aborted; WAL closing."
 decl_stmt|;
 name|status
 operator|.
@@ -10672,31 +10727,24 @@ argument_list|(
 name|wal
 argument_list|)
 expr_stmt|;
-name|long
-name|oldestUnflushedSeqId
-init|=
-name|wal
-operator|.
-name|getEarliestMemstoreSeqNum
-argument_list|(
-name|encodedRegionName
-argument_list|)
-decl_stmt|;
-comment|// no oldestUnflushedSeqId means we flushed all stores.
-comment|// or the unflushed stores are all empty.
+comment|// Back up 1, minus 1 from oldest sequence id in memstore to get last 'flushed' edit
 name|flushedSeqId
 operator|=
-operator|(
-name|oldestUnflushedSeqId
+name|earliestUnflushedSequenceIdForTheRegion
+operator|.
+name|longValue
+argument_list|()
 operator|==
 name|HConstants
 operator|.
 name|NO_SEQNUM
-operator|)
 condition|?
 name|flushOpSeqId
 else|:
-name|oldestUnflushedSeqId
+name|earliestUnflushedSequenceIdForTheRegion
+operator|.
+name|longValue
+argument_list|()
 operator|-
 literal|1
 expr_stmt|;
@@ -11089,6 +11137,37 @@ name|flushedSeqId
 argument_list|,
 name|totalFlushableSizeOfFlushableStores
 argument_list|)
+return|;
+block|}
+comment|/**    * @param families    * @return True if passed Set is all families in the region.    */
+specifier|private
+name|boolean
+name|isAllFamilies
+parameter_list|(
+specifier|final
+name|Collection
+argument_list|<
+name|Store
+argument_list|>
+name|families
+parameter_list|)
+block|{
+return|return
+name|families
+operator|==
+literal|null
+operator|||
+name|this
+operator|.
+name|stores
+operator|.
+name|size
+argument_list|()
+operator|==
+name|families
+operator|.
+name|size
+argument_list|()
 return|;
 block|}
 comment|/**    * Writes a marker to WAL indicating a flush is requested but cannot be complete due to various    * reasons. Ignores exceptions from WAL. Returns whether the write succeeded.    * @param wal    * @return whether WAL write was successful    */
@@ -11671,14 +11750,12 @@ name|startTime
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Update the oldest unflushed sequence id for region.
 name|this
 operator|.
 name|maxFlushedSeqId
 operator|=
 name|flushedSeqId
 expr_stmt|;
-comment|// Record flush operation sequence id.
 name|this
 operator|.
 name|lastFlushOpSeqId
@@ -18280,6 +18357,12 @@ argument_list|(
 literal|"Flush requested on "
 operator|+
 name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -29467,7 +29550,7 @@ name|cells
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Computes the Path of the HRegion    *    * @param tabledir qualified path for table    * @param name ENCODED region name    * @return Path of HRegion directory    */
+comment|/**    * Computes the Path of the HRegion    *    * @param tabledir qualified path for table    * @param name ENCODED region name    * @return Path of HRegion directory    * @deprecated For tests only; to be removed.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -29494,7 +29577,7 @@ name|name
 argument_list|)
 return|;
 block|}
-comment|/**    * Computes the Path of the HRegion    *    * @param rootdir qualified path of HBase root directory    * @param info HRegionInfo for the region    * @return qualified path of region directory    */
+comment|/**    * Computes the Path of the HRegion    *    * @param rootdir qualified path of HBase root directory    * @param info HRegionInfo for the region    * @return qualified path of region directory    * @deprecated For tests only; to be removed.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -36877,6 +36960,16 @@ name|txid
 argument_list|)
 expr_stmt|;
 break|break;
+default|default:
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Unknown durability "
+operator|+
+name|durability
+argument_list|)
+throw|;
 block|}
 block|}
 block|}

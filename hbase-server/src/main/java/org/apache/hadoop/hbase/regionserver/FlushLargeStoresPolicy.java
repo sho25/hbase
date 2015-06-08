@@ -345,31 +345,35 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Column Family: "
+literal|"Flush Column Family "
 operator|+
 name|store
 operator|.
 name|getColumnFamilyName
 argument_list|()
 operator|+
-literal|" of region "
+literal|" of "
 operator|+
 name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
 operator|+
-literal|" will be flushed because of memstoreSize("
+literal|" because memstoreSize="
 operator|+
 name|store
 operator|.
 name|getMemStoreSize
 argument_list|()
 operator|+
-literal|") is larger than lower bound("
+literal|"> lower bound="
 operator|+
 name|this
 operator|.
 name|flushSizeLowerBound
-operator|+
-literal|")"
 argument_list|)
 expr_stmt|;
 block|}

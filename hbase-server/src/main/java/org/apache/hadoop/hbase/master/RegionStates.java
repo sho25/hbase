@@ -1865,10 +1865,6 @@ operator|+
 literal|" on "
 operator|+
 name|serverName
-operator|+
-literal|" "
-operator|+
-name|hri
 argument_list|)
 expr_stmt|;
 block|}
@@ -2909,7 +2905,7 @@ literal|"Transitioning "
 operator|+
 name|state
 operator|+
-literal|" will be handled by SSH for "
+literal|" will be handled by ServerCrashProcedure for "
 operator|+
 name|sn
 argument_list|)
@@ -2972,7 +2968,7 @@ literal|"Found region in "
 operator|+
 name|state
 operator|+
-literal|" to be reassigned by SSH for "
+literal|" to be reassigned by ServerCrashProcedure for "
 operator|+
 name|sn
 argument_list|)

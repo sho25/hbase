@@ -646,6 +646,7 @@ name|getLastFlushedSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// This will be the sequenceid just before that of the earliest edit in memstore.
 name|long
 name|storeSequenceId
 init|=

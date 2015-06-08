@@ -481,6 +481,20 @@ name|com
 operator|.
 name|google
 operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
 name|protobuf
 operator|.
 name|Message
@@ -614,12 +628,16 @@ name|long
 name|getOpenSeqNum
 parameter_list|()
 function_decl|;
-comment|/** @return the max sequence id of flushed data on this region */
+comment|/** @return the max sequence id of flushed data on this region; no edit in memory will have    * a sequence id that is less that what is returned here.    */
 name|long
 name|getMaxFlushedSeqId
 parameter_list|()
 function_decl|;
-comment|/** @return the oldest sequence id found in the store for the given family */
+comment|/** @return the oldest flushed sequence id for the given family; can be beyond    * {@link #getMaxFlushedSeqId()} in case where we've flushed a subset of a regions column    * families    * @deprecated Since version 1.2.0. Exposes too much about our internals; shutting it down.    * Do not use.    */
+annotation|@
+name|VisibleForTesting
+annotation|@
+name|Deprecated
 specifier|public
 name|long
 name|getOldestSeqIdOfStore

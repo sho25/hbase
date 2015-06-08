@@ -931,6 +931,7 @@ name|clusterShutdown
 init|=
 literal|false
 decl_stmt|;
+comment|/**    * The last flushed sequence id for a region.    */
 specifier|private
 specifier|final
 name|ConcurrentNavigableMap
@@ -956,6 +957,7 @@ operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 decl_stmt|;
+comment|/**    * The last flushed sequence id for a store in a region.    */
 specifier|private
 specifier|final
 name|ConcurrentNavigableMap
@@ -1618,6 +1620,35 @@ decl_stmt|;
 comment|// Don't let smaller sequence ids override greater sequence ids.
 if|if
 condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|encodedRegionName
+argument_list|)
+operator|+
+literal|", existingValue="
+operator|+
+name|existingValue
+operator|+
+literal|", completeSequenceId="
+operator|+
+name|l
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
 name|existingValue
 operator|==
 literal|null
@@ -1747,6 +1778,44 @@ operator|.
 name|getSequenceId
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|encodedRegionName
+argument_list|)
+operator|+
+literal|", family="
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|family
+argument_list|)
+operator|+
+literal|", existingValue="
+operator|+
+name|existingValue
+operator|+
+literal|", completeSequenceId="
+operator|+
+name|l
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Don't let smaller sequence ids override greater sequence ids.
 if|if
 condition|(

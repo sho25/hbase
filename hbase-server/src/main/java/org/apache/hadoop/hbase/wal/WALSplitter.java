@@ -1513,6 +1513,18 @@ name|ServiceException
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|TextFormat
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class is responsible for splitting up a bunch of regionserver commit log  * files that are no longer being written to, into new files, one per region for  * region to replay on startup. Delete the old log files when finished.  */
 end_comment
@@ -2530,7 +2542,7 @@ name|getEncodedRegionName
 argument_list|()
 decl_stmt|;
 name|String
-name|key
+name|encodedRegionNameAsStr
 init|=
 name|Bytes
 operator|.
@@ -2545,7 +2557,7 @@ name|lastFlushedSequenceIds
 operator|.
 name|get
 argument_list|(
-name|key
+name|encodedRegionNameAsStr
 argument_list|)
 expr_stmt|;
 if|if
@@ -2574,7 +2586,7 @@ name|getRegionFlushedSequenceId
 argument_list|(
 name|failedServerName
 argument_list|,
-name|key
+name|encodedRegionNameAsStr
 argument_list|)
 decl_stmt|;
 if|if
@@ -2591,6 +2603,33 @@ operator|.
 name|getLastFlushedSequenceId
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"DLR Last flushed sequenceid for "
+operator|+
+name|encodedRegionNameAsStr
+operator|+
+literal|": "
+operator|+
+name|TextFormat
+operator|.
+name|shortDebugString
+argument_list|(
+name|ids
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 elseif|else
@@ -2668,7 +2707,7 @@ name|regionMaxSeqIdInStores
 operator|.
 name|put
 argument_list|(
-name|key
+name|encodedRegionNameAsStr
 argument_list|,
 name|maxSeqIdInStores
 argument_list|)
@@ -2680,6 +2719,33 @@ operator|.
 name|getLastFlushedSequenceId
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"DLS Last flushed sequenceid for "
+operator|+
+name|encodedRegionNameAsStr
+operator|+
+literal|": "
+operator|+
+name|TextFormat
+operator|.
+name|shortDebugString
+argument_list|(
+name|ids
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -2698,7 +2764,7 @@ name|lastFlushedSequenceIds
 operator|.
 name|put
 argument_list|(
-name|key
+name|encodedRegionNameAsStr
 argument_list|,
 name|lastFlushedSequenceId
 argument_list|)
@@ -5909,15 +5975,18 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"Writer thread "
-operator|+
-name|this
-operator|+
-literal|": starting"
+literal|"Writer thread starting"
 argument_list|)
 expr_stmt|;
 while|while
@@ -6560,7 +6629,24 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Split writers finished"
+operator|(
+name|this
+operator|.
+name|writerThreads
+operator|==
+literal|null
+condition|?
+literal|0
+else|:
+name|this
+operator|.
+name|writerThreads
+operator|.
+name|size
+argument_list|()
+operator|)
+operator|+
+literal|" split writers finished; closing..."
 argument_list|)
 expr_stmt|;
 return|return
@@ -6887,9 +6973,17 @@ name|entrySet
 argument_list|()
 control|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Submitting close of "
 operator|+
@@ -6906,6 +7000,7 @@ operator|.
 name|p
 argument_list|)
 expr_stmt|;
+block|}
 name|completionService
 operator|.
 name|submit
@@ -6937,9 +7032,16 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Closing "
 operator|+
@@ -6992,19 +7094,19 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Closed wap "
+literal|"Closed "
 operator|+
 name|wap
 operator|.
 name|p
 operator|+
-literal|" (wrote "
+literal|"; wrote "
 operator|+
 name|wap
 operator|.
 name|editsWritten
 operator|+
-literal|" edits in "
+literal|" edit(s) in "
 operator|+
 operator|(
 name|wap
@@ -7016,7 +7118,7 @@ operator|/
 literal|1000
 operator|)
 operator|+
-literal|"ms)"
+literal|"ms"
 argument_list|)
 expr_stmt|;
 if|if
@@ -7879,24 +7981,14 @@ argument_list|)
 decl_stmt|;
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Creating writer path="
 operator|+
 name|regionedits
-operator|+
-literal|" region="
-operator|+
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
-name|region
-argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
-operator|(
 operator|new
 name|WriterAndPath
 argument_list|(
@@ -7904,7 +7996,6 @@ name|regionedits
 argument_list|,
 name|w
 argument_list|)
-operator|)
 return|;
 block|}
 specifier|private
@@ -8019,6 +8110,24 @@ argument_list|(
 name|family
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"CHANGE REMOVE "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|family
+argument_list|)
+operator|+
+literal|", max="
+operator|+
+name|maxSeqId
+argument_list|)
+expr_stmt|;
 comment|// Do not skip cell even if maxSeqId is null. Maybe we are in a rolling upgrade,
 comment|// or the master was crashed before and we can not get the information.
 if|if
@@ -8210,7 +8319,6 @@ argument_list|(
 name|logEntry
 argument_list|)
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|updateRegionMaximumEditLogSeqNum
@@ -8221,6 +8329,7 @@ expr_stmt|;
 name|editsCount
 operator|++
 expr_stmt|;
+block|}
 block|}
 comment|// Pass along summary statistics
 name|wap

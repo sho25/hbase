@@ -1188,7 +1188,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Store holds a column family in a Region.  Its a memstore and a set of zero  * or more StoreFiles, which stretch backwards over time.  *  *<p>There's no reason to consider append-logging at this level; all logging  * and locking is handled at the HRegion level.  Store just provides  * services to manage sets of StoreFiles.  One of the most important of those  * services is compaction services where files are aggregated once they pass  * a configurable threshold.  *  *<p>The only thing having to do with logs that Store needs to deal with is  * the reconstructionLog.  This is a segment of an HRegion's log that might  * NOT be present upon startup.  If the param is NULL, there's nothing to do.  * If the param is non-NULL, we need to process the log to reconstruct  * a TreeMap that might not have been written to disk before the process  * died.  *  *<p>It's assumed that after this constructor returns, the reconstructionLog  * file will be deleted (by whoever has instantiated the Store).  *  *<p>Locking and transactions are handled at a higher level.  This API should  * not be called directly but by an HRegion manager.  */
+comment|/**  * A Store holds a column family in a Region.  Its a memstore and a set of zero  * or more StoreFiles, which stretch backwards over time.  *  *<p>There's no reason to consider append-logging at this level; all logging  * and locking is handled at the HRegion level.  Store just provides  * services to manage sets of StoreFiles.  One of the most important of those  * services is compaction services where files are aggregated once they pass  * a configurable threshold.  *  *<p>Locking and transactions are handled at a higher level.  This API should  * not be called directly but by an HRegion manager.  */
 end_comment
 
 begin_class
@@ -4874,7 +4874,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Write out current snapshot.  Presumes {@link #snapshot()} has been called    * previously.    * @param logCacheFlushId flush sequence number    * @param snapshot    * @param status    * @return The path name of the tmp file to which the store was flushed    * @throws IOException    */
+comment|/**    * Write out current snapshot.  Presumes {@link #snapshot()} has been called previously.    * @param logCacheFlushId flush sequence number    * @param snapshot    * @param status    * @return The path name of the tmp file to which the store was flushed    * @throws IOException    */
 specifier|protected
 name|List
 argument_list|<
