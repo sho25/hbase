@@ -1282,10 +1282,12 @@ condition|)
 block|{
 name|row
 operator|=
-name|key
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytesBinary
+argument_list|(
+name|key
+argument_list|)
 expr_stmt|;
 name|isSeekToRow
 operator|=

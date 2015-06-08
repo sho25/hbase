@@ -7090,23 +7090,43 @@ return|return
 literal|null
 return|;
 block|}
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
-literal|"Closed "
+literal|"Closed wap "
 operator|+
 name|wap
 operator|.
 name|p
 operator|+
-literal|"; wrote "
+literal|" (wrote "
 operator|+
+operator|(
 name|wap
 operator|.
 name|editsWritten
+operator|-
+name|wap
+operator|.
+name|editsSkipped
+operator|)
 operator|+
-literal|" edit(s) in "
+literal|" edits, skipped "
+operator|+
+name|wap
+operator|.
+name|editsSkipped
+operator|+
+literal|" edits in "
 operator|+
 operator|(
 name|wap
@@ -7121,6 +7141,7 @@ operator|+
 literal|"ms"
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|wap
@@ -8330,6 +8351,16 @@ name|editsCount
 operator|++
 expr_stmt|;
 block|}
+else|else
+block|{
+name|wap
+operator|.
+name|incrementSkippedEdits
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|// Pass along summary statistics
 name|wap
@@ -8502,6 +8533,12 @@ name|editsWritten
 init|=
 literal|0
 decl_stmt|;
+comment|/* Count of edits skipped to this path */
+name|long
+name|editsSkipped
+init|=
+literal|0
+decl_stmt|;
 comment|/* Number of nanos spent writing to this log */
 name|long
 name|nanosSpent
@@ -8518,6 +8555,18 @@ block|{
 name|editsWritten
 operator|+=
 name|edits
+expr_stmt|;
+block|}
+name|void
+name|incrementSkippedEdits
+parameter_list|(
+name|int
+name|skipped
+parameter_list|)
+block|{
+name|editsSkipped
+operator|+=
+name|skipped
 expr_stmt|;
 block|}
 name|void

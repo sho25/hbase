@@ -1608,8 +1608,9 @@ specifier|final
 name|int
 name|MISSING_ROWS_TO_LOG
 init|=
-literal|50
+literal|2
 decl_stmt|;
+comment|// YARN complains when too many counters
 specifier|private
 specifier|static
 specifier|final
