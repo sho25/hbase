@@ -8125,24 +8125,6 @@ argument_list|(
 name|family
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"CHANGE REMOVE "
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|family
-argument_list|)
-operator|+
-literal|", max="
-operator|+
-name|maxSeqId
-argument_list|)
-expr_stmt|;
 comment|// Do not skip cell even if maxSeqId is null. Maybe we are in a rolling upgrade,
 comment|// or the master was crashed before and we can not get the information.
 if|if
