@@ -546,9 +546,13 @@ name|conf
 operator|.
 name|setLong
 argument_list|(
-literal|"hbase.hregion.memstore.block.multiplier"
+name|HConstants
+operator|.
+name|HREGION_MEMSTORE_BLOCK_MULTIPLIER
 argument_list|,
-literal|2
+name|HConstants
+operator|.
+name|DEFAULT_HREGION_MEMSTORE_BLOCK_MULTIPLIER
 argument_list|)
 expr_stmt|;
 name|UTIL

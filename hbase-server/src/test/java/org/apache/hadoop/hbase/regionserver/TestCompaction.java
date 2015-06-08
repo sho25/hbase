@@ -959,7 +959,9 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.hregion.memstore.block.multiplier"
+name|HConstants
+operator|.
+name|HREGION_MEMSTORE_BLOCK_MULTIPLIER
 argument_list|,
 literal|100
 argument_list|)

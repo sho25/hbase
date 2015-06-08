@@ -1034,6 +1034,24 @@ name|DEFAULT_HSTORE_OPEN_AND_CLOSE_THREADS_MAX
 init|=
 literal|1
 decl_stmt|;
+comment|/**    * Block updates if memstore has hbase.hregion.memstore.block.multiplier    * times hbase.hregion.memstore.flush.size bytes.  Useful preventing    * runaway memstore during spikes in update traffic.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HREGION_MEMSTORE_BLOCK_MULTIPLIER
+init|=
+literal|"hbase.hregion.memstore.block.multiplier"
+decl_stmt|;
+comment|/**    * Default value for hbase.hregion.memstore.block.multiplier    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_HREGION_MEMSTORE_BLOCK_MULTIPLIER
+init|=
+literal|4
+decl_stmt|;
 comment|/** Conf key for the memstore size at which we flush the memstore */
 specifier|public
 specifier|static
