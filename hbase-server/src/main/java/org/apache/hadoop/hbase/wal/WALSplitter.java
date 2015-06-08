@@ -7110,15 +7110,9 @@ name|p
 operator|+
 literal|" (wrote "
 operator|+
-operator|(
 name|wap
 operator|.
 name|editsWritten
-operator|-
-name|wap
-operator|.
-name|editsSkipped
-operator|)
 operator|+
 literal|" edits, skipped "
 operator|+
