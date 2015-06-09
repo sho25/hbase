@@ -13,7 +13,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|io
+operator|.
+name|hfile
 package|;
 end_package
 
@@ -101,11 +103,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|util
 operator|.
-name|hfile
-operator|.
-name|BlockType
+name|BloomFilter
 import|;
 end_import
 
@@ -119,11 +119,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|util
 operator|.
-name|hfile
-operator|.
-name|FixedFileTrailer
+name|BloomFilterUtil
 import|;
 end_import
 
@@ -137,11 +135,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|util
 operator|.
-name|hfile
-operator|.
-name|HFile
+name|Bytes
 import|;
 end_import
 
@@ -155,34 +151,14 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|util
 operator|.
-name|hfile
-operator|.
-name|HFileBlock
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|HFileBlockIndex
+name|Hash
 import|;
 end_import
 
 begin_comment
-comment|/**  * A Bloom filter implementation built on top of {@link BloomFilterChunk},  * encapsulating a set of fixed-size Bloom filters written out at the time of  * {@link org.apache.hadoop.hbase.io.hfile.HFile} generation into the data  * block stream, and loaded on demand at query time. This class only provides  * reading capabilities.  */
+comment|/**  * A Bloom filter implementation built on top of   * {@link org.apache.hadoop.hbase.util.BloomFilterChunk}, encapsulating  * a set of fixed-size Bloom filters written out at the time of  * {@link org.apache.hadoop.hbase.io.hfile.HFile} generation into the data  * block stream, and loaded on demand at query time. This class only provides  * reading capabilities.  */
 end_comment
 
 begin_class
@@ -357,18 +333,39 @@ argument_list|)
 throw|;
 block|}
 comment|// We will pass null for ROW block
+if|if
+condition|(
+name|comparator
+operator|==
+literal|null
+condition|)
+block|{
 name|index
 operator|=
 operator|new
 name|HFileBlockIndex
 operator|.
-name|BlockIndexReader
+name|ByteArrayKeyBlockIndexReader
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|index
+operator|=
+operator|new
+name|HFileBlockIndex
+operator|.
+name|CellBasedKeyBlockIndexReader
 argument_list|(
 name|comparator
 argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
+block|}
 name|index
 operator|.
 name|readRootIndex

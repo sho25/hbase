@@ -1466,8 +1466,7 @@ index|[]
 name|getLastKey
 parameter_list|()
 function_decl|;
-name|byte
-index|[]
+name|Cell
 name|midkey
 parameter_list|()
 throws|throws
@@ -1481,8 +1480,7 @@ name|long
 name|getEntries
 parameter_list|()
 function_decl|;
-name|byte
-index|[]
+name|Cell
 name|getFirstKey
 parameter_list|()
 function_decl|;

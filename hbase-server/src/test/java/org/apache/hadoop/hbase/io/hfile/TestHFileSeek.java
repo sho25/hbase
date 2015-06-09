@@ -1293,9 +1293,17 @@ name|KeySampler
 argument_list|(
 name|rng
 argument_list|,
+operator|(
+operator|(
+name|KeyValue
+operator|)
 name|reader
 operator|.
 name|getFirstKey
+argument_list|()
+operator|)
+operator|.
+name|getKey
 argument_list|()
 argument_list|,
 name|reader

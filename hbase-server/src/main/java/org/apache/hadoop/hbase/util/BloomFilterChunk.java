@@ -88,7 +88,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The basic building block for the {@link CompoundBloomFilter}  */
+comment|/**  * The basic building block for the {@link org.apache.hadoop.hbase.io.hfile.CompoundBloomFilter}  */
 end_comment
 
 begin_class

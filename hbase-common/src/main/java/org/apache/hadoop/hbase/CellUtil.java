@@ -3899,6 +3899,18 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+operator|(
+name|cell
+operator|instanceof
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+operator|)
+condition|)
+block|{
 name|sb
 operator|.
 name|append
@@ -3916,6 +3928,7 @@ name|getValueLength
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|sb
 operator|.
 name|append

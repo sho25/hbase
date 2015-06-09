@@ -13,7 +13,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|io
+operator|.
+name|hfile
 package|;
 end_package
 
@@ -30,6 +32,22 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|BloomFilterBase
 import|;
 end_import
 
@@ -90,7 +108,7 @@ specifier|protected
 name|long
 name|totalMaxKeys
 decl_stmt|;
-comment|/** Hash function type to use, as defined in {@link Hash} */
+comment|/** Hash function type to use, as defined in {@link org.apache.hadoop.hbase.util.Hash} */
 specifier|protected
 name|int
 name|hashType

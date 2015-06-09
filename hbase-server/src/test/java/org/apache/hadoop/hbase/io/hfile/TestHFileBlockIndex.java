@@ -1260,7 +1260,7 @@ init|=
 operator|new
 name|HFileBlockIndex
 operator|.
-name|BlockIndexReader
+name|CellBasedKeyBlockIndexReader
 argument_list|(
 name|CellComparator
 operator|.
@@ -3133,10 +3133,8 @@ init|=
 operator|new
 name|HFileBlockIndex
 operator|.
-name|BlockIndexReader
+name|ByteArrayKeyBlockIndexReader
 argument_list|(
-literal|null
-argument_list|,
 literal|1
 argument_list|)
 decl_stmt|;
@@ -3151,13 +3149,14 @@ decl_stmt|;
 comment|// Since the arrays in BlockIndex(byte [][] blockKeys, long [] blockOffsets,
 comment|// int [] blockDataSizes) are all null they are not going to show up in the
 comment|// HeapSize calculation, so need to remove those array costs from expected.
+comment|// Already the block keys are not there in this case
 name|expected
 operator|-=
 name|ClassSize
 operator|.
 name|align
 argument_list|(
-literal|3
+literal|2
 operator|*
 name|ClassSize
 operator|.
@@ -3171,6 +3170,8 @@ operator|!=
 name|actual
 condition|)
 block|{
+name|expected
+operator|=
 name|ClassSize
 operator|.
 name|estimateBase
@@ -3610,9 +3611,17 @@ index|[
 literal|0
 index|]
 argument_list|,
+operator|(
+operator|(
+name|KeyValue
+operator|)
 name|reader
 operator|.
 name|getFirstKey
+argument_list|()
+operator|)
+operator|.
+name|getKey
 argument_list|()
 argument_list|)
 argument_list|)
@@ -4064,15 +4073,10 @@ literal|2
 argument_list|)
 argument_list|)
 argument_list|,
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
 name|reader
 operator|.
 name|midkey
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|assertEquals

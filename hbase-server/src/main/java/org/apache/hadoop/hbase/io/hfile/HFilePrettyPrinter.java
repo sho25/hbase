@@ -2851,15 +2851,17 @@ name|println
 argument_list|(
 literal|"Mid-key: "
 operator|+
-name|Bytes
+operator|(
+name|CellUtil
 operator|.
-name|toStringBinary
+name|getCellKeyAsString
 argument_list|(
 name|reader
 operator|.
 name|midkey
 argument_list|()
 argument_list|)
+operator|)
 argument_list|)
 expr_stmt|;
 block|}

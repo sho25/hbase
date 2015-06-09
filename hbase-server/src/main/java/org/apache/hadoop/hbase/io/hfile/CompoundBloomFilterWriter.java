@@ -13,7 +13,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|io
+operator|.
+name|hfile
 package|;
 end_package
 
@@ -145,11 +147,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|util
 operator|.
-name|hfile
-operator|.
-name|BlockType
+name|BloomFilterChunk
 import|;
 end_import
 
@@ -163,11 +163,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|util
 operator|.
-name|hfile
-operator|.
-name|HFileBlockIndex
+name|BloomFilterUtil
 import|;
 end_import
 
@@ -181,11 +179,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|util
 operator|.
-name|hfile
+name|BloomFilterWriter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|InlineBlockWriter
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 

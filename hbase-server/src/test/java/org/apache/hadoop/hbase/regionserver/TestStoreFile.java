@@ -1289,18 +1289,13 @@ decl_stmt|;
 comment|// Split on a row, not in middle of row.  Midkey returned by reader
 comment|// may be in middle of row.  Create new one with empty column and
 comment|// timestamp.
-name|KeyValue
+name|Cell
 name|kv
 init|=
-name|KeyValueUtil
-operator|.
-name|createKeyValueFromKey
-argument_list|(
 name|reader
 operator|.
 name|midkey
 argument_list|()
-argument_list|)
 decl_stmt|;
 name|byte
 index|[]
@@ -2309,8 +2304,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
+name|Cell
 name|midkey
 init|=
 name|f
@@ -2324,12 +2318,10 @@ decl_stmt|;
 name|KeyValue
 name|midKV
 init|=
-name|KeyValueUtil
-operator|.
-name|createKeyValueFromKey
-argument_list|(
+operator|(
+name|KeyValue
+operator|)
 name|midkey
-argument_list|)
 decl_stmt|;
 name|byte
 index|[]
@@ -2493,7 +2485,10 @@ name|ByteBuffer
 operator|.
 name|wrap
 argument_list|(
-name|midkey
+name|midKV
+operator|.
+name|getKey
+argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
@@ -2607,12 +2602,7 @@ argument_list|)
 operator|+
 literal|"< midkey="
 operator|+
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
 name|midkey
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
