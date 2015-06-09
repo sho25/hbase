@@ -5887,7 +5887,7 @@ name|long
 name|getWriteRequestCount
 parameter_list|()
 block|{
-name|int
+name|long
 name|writeCount
 init|=
 literal|0
