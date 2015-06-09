@@ -379,6 +379,12 @@ block|{
 case|case
 name|REQUEST_NUMBER
 case|:
+case|case
+name|WRITE_NUMBER
+case|:
+case|case
+name|READ_NUMBER
+case|:
 name|builder
 operator|.
 name|append
@@ -399,6 +405,12 @@ expr_stmt|;
 break|break;
 case|case
 name|REQUEST_SIZE
+case|:
+case|case
+name|WRITE_SIZE
+case|:
+case|case
+name|READ_SIZE
 case|:
 name|builder
 operator|.

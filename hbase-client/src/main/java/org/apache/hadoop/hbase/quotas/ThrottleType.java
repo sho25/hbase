@@ -66,11 +66,23 @@ specifier|public
 enum|enum
 name|ThrottleType
 block|{
-comment|/** Throttling based on the number of request per time-unit */
+comment|/** Throttling based on the number of requests per time-unit */
 name|REQUEST_NUMBER
 block|,
 comment|/** Throttling based on the read+write data size */
 name|REQUEST_SIZE
+block|,
+comment|/** Throttling based on the number of write requests per time-unit */
+name|WRITE_NUMBER
+block|,
+comment|/** Throttling based on the write data size */
+name|WRITE_SIZE
+block|,
+comment|/** Throttling based on the number of read requests per time-unit */
+name|READ_NUMBER
+block|,
+comment|/** Throttling based on the read data size */
+name|READ_SIZE
 block|, }
 end_enum
 
