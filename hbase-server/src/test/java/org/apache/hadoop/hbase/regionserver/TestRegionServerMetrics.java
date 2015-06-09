@@ -3200,7 +3200,7 @@ name|metricsHelper
 operator|.
 name|assertCounter
 argument_list|(
-literal|"mobCompactedFromMobCellsCount"
+literal|"cellsCountCompactedFromMob"
 argument_list|,
 name|numHfiles
 argument_list|,
@@ -3211,7 +3211,7 @@ name|metricsHelper
 operator|.
 name|assertCounter
 argument_list|(
-literal|"mobCompactedIntoMobCellsCount"
+literal|"cellsCountCompactedToMob"
 argument_list|,
 literal|0
 argument_list|,
@@ -3362,7 +3362,7 @@ name|metricsHelper
 operator|.
 name|assertCounter
 argument_list|(
-literal|"mobCompactedFromMobCellsCount"
+literal|"cellsCountCompactedFromMob"
 argument_list|,
 literal|0
 argument_list|,
@@ -3373,7 +3373,7 @@ name|metricsHelper
 operator|.
 name|assertCounter
 argument_list|(
-literal|"mobCompactedIntoMobCellsCount"
+literal|"cellsCountCompactedToMob"
 argument_list|,
 literal|2
 operator|*
