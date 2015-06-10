@@ -912,6 +912,21 @@ specifier|final
 name|BloomType
 name|cfBloomType
 decl_stmt|;
+comment|/**    * Key for skipping resetting sequence id in metadata.    * For bulk loaded hfiles, the scanner resets the cell seqId with the latest one,    * if this metadata is set as true, the reset is skipped.    */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|SKIP_RESET_SEQ_ID
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"SKIP_RESET_SEQ_ID"
+argument_list|)
+decl_stmt|;
 comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a    * substantial amount of ram depending on the underlying files (10-20MB?).    *    * @param fs  The current file system to use.    * @param p  The path of the file.    * @param conf  The current configuration.    * @param cacheConf  The cache configuration and block cache reference.    * @param cfBloomType The bloom type to use for this store file as specified    *          by column family configuration. This may or may not be the same    *          as the Bloom filter type actually present in the HFile, because    *          column family configuration might change. If this is    *          {@link BloomType#NONE}, the existing Bloom filter is ignored.    * @throws IOException When opening the reader fails.    */
 specifier|public
 name|StoreFile
@@ -1654,6 +1669,28 @@ literal|1
 expr_stmt|;
 block|}
 block|}
+comment|// SKIP_RESET_SEQ_ID only works in bulk loaded file.
+comment|// In mob compaction, the hfile where the cells contain the path of a new mob file is bulk
+comment|// loaded to hbase, these cells have the same seqIds with the old ones. We do not want
+comment|// to reset new seqIds for them since this might make a mess of the visibility of cells that
+comment|// have the same row key but different seqIds.
+name|this
+operator|.
+name|reader
+operator|.
+name|setSkipResetSeqId
+argument_list|(
+name|isSkipResetSeqId
+argument_list|(
+name|metadataMap
+operator|.
+name|get
+argument_list|(
+name|SKIP_RESET_SEQ_ID
+argument_list|)
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|reader
@@ -2240,6 +2277,42 @@ name|sb
 operator|.
 name|toString
 argument_list|()
+return|;
+block|}
+comment|/**    * Gets whether to skip resetting the sequence id for cells.    * @param skipResetSeqId The byte array of boolean.    * @return Whether to skip resetting the sequence id.    */
+specifier|private
+name|boolean
+name|isSkipResetSeqId
+parameter_list|(
+name|byte
+index|[]
+name|skipResetSeqId
+parameter_list|)
+block|{
+if|if
+condition|(
+name|skipResetSeqId
+operator|!=
+literal|null
+operator|&&
+name|skipResetSeqId
+operator|.
+name|length
+operator|==
+literal|1
+condition|)
+block|{
+return|return
+name|Bytes
+operator|.
+name|toBoolean
+argument_list|(
+name|skipResetSeqId
+argument_list|)
+return|;
+block|}
+return|return
+literal|false
 return|;
 block|}
 specifier|public
@@ -4443,6 +4516,12 @@ name|lastBloomKeyOnlyKV
 init|=
 literal|null
 decl_stmt|;
+specifier|private
+name|boolean
+name|skipResetSeqId
+init|=
+literal|true
+decl_stmt|;
 specifier|public
 name|Reader
 parameter_list|(
@@ -6448,6 +6527,28 @@ operator|.
 name|getMaximumTimestamp
 argument_list|()
 return|;
+block|}
+name|boolean
+name|isSkipResetSeqId
+parameter_list|()
+block|{
+return|return
+name|skipResetSeqId
+return|;
+block|}
+name|void
+name|setSkipResetSeqId
+parameter_list|(
+name|boolean
+name|skipResetSeqId
+parameter_list|)
+block|{
+name|this
+operator|.
+name|skipResetSeqId
+operator|=
+name|skipResetSeqId
+expr_stmt|;
 block|}
 block|}
 comment|/**    * Useful comparators for comparing StoreFiles.    */

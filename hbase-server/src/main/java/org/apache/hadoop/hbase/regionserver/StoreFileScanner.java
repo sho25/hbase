@@ -1004,6 +1004,14 @@ name|reader
 operator|.
 name|isBulkLoaded
 argument_list|()
+operator|&&
+operator|!
+name|this
+operator|.
+name|reader
+operator|.
+name|isSkipResetSeqId
+argument_list|()
 condition|)
 block|{
 name|CellUtil
