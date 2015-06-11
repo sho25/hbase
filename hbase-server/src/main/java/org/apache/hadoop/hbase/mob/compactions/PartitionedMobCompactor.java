@@ -1575,6 +1575,16 @@ name|StoreFile
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|List
+argument_list|<
+name|Path
+argument_list|>
+name|paths
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
 for|for
 control|(
 name|Path
@@ -1602,6 +1612,13 @@ operator|.
 name|NONE
 argument_list|)
 decl_stmt|;
+comment|// pre-create reader of a del file to avoid race condition when opening the reader in each
+comment|// partition.
+name|sf
+operator|.
+name|createReader
+argument_list|()
+expr_stmt|;
 name|newDelFiles
 operator|.
 name|add
@@ -1625,19 +1642,15 @@ literal|" del files"
 argument_list|)
 expr_stmt|;
 comment|// compact the mob files by partitions.
-name|List
-argument_list|<
-name|Path
-argument_list|>
 name|paths
-init|=
+operator|=
 name|compactMobFiles
 argument_list|(
 name|request
 argument_list|,
 name|newDelFiles
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -1652,6 +1665,15 @@ operator|+
 literal|" mob files"
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|closeStoreFileReaders
+argument_list|(
+name|newDelFiles
+argument_list|)
+expr_stmt|;
+block|}
 comment|// archive the del files if all the mob files are selected.
 if|if
 condition|(
@@ -2349,6 +2371,59 @@ return|return
 name|newFiles
 return|;
 block|}
+comment|/**    * Closes the readers of store files.    * @param storeFiles The store files to be closed.    */
+specifier|private
+name|void
+name|closeStoreFileReaders
+parameter_list|(
+name|List
+argument_list|<
+name|StoreFile
+argument_list|>
+name|storeFiles
+parameter_list|)
+block|{
+for|for
+control|(
+name|StoreFile
+name|storeFile
+range|:
+name|storeFiles
+control|)
+block|{
+try|try
+block|{
+name|storeFile
+operator|.
+name|closeReader
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to close the reader on store file "
+operator|+
+name|storeFile
+operator|.
+name|getPath
+argument_list|()
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
 comment|/**    * Compacts a partition of selected small mob files and all the del files in a batch.    * @param request The compaction request.    * @param partition A compaction partition.    * @param table The current table.    * @param filesToCompact The files to be compacted.    * @param batch The number of mob files to be compacted in a batch.    * @param bulkloadPathOfPartition The directory where the bulkload column of the current    *        partition is saved.    * @param bulkloadColumnPath The directory where the bulkload files of current partition    *        are saved.    * @param newFiles The paths of new mob files after compactions.    * @throws IOException    */
 specifier|private
 name|void
@@ -2768,6 +2843,11 @@ block|}
 comment|// archive the old mob files, do not archive the del files.
 try|try
 block|{
+name|closeStoreFileReaders
+argument_list|(
+name|mobFilesToCompact
+argument_list|)
+expr_stmt|;
 name|MobUtils
 operator|.
 name|removeMobFiles
