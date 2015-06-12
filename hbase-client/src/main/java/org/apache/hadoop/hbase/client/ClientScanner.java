@@ -2416,9 +2416,17 @@ name|resultsFromServer
 argument_list|,
 literal|0
 argument_list|,
+operator|(
+literal|null
+operator|==
+name|resultsFromServer
+condition|?
+literal|0
+else|:
 name|resultsFromServer
 operator|.
 name|length
+operator|)
 argument_list|)
 expr_stmt|;
 return|return
