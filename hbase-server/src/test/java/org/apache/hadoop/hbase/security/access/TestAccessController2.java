@@ -23,6 +23,22 @@ begin_import
 import|import static
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|AuthUtil
+operator|.
+name|toGroupEntry
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
@@ -865,7 +881,7 @@ argument_list|)
 expr_stmt|;
 name|TESTGROUP_1_NAME
 operator|=
-name|convertToGroup
+name|toGroupEntry
 argument_list|(
 name|TESTGROUP_1
 argument_list|)

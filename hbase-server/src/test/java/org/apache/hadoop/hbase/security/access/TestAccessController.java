@@ -23,6 +23,22 @@ begin_import
 import|import static
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|AuthUtil
+operator|.
+name|toGroupEntry
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
@@ -2525,7 +2541,7 @@ name|grantGlobal
 argument_list|(
 name|TEST_UTIL
 argument_list|,
-name|convertToGroup
+name|toGroupEntry
 argument_list|(
 name|GROUP_ADMIN
 argument_list|)
@@ -2541,7 +2557,7 @@ name|grantGlobal
 argument_list|(
 name|TEST_UTIL
 argument_list|,
-name|convertToGroup
+name|toGroupEntry
 argument_list|(
 name|GROUP_CREATE
 argument_list|)
@@ -2557,7 +2573,7 @@ name|grantGlobal
 argument_list|(
 name|TEST_UTIL
 argument_list|,
-name|convertToGroup
+name|toGroupEntry
 argument_list|(
 name|GROUP_READ
 argument_list|)
@@ -2573,7 +2589,7 @@ name|grantGlobal
 argument_list|(
 name|TEST_UTIL
 argument_list|,
-name|convertToGroup
+name|toGroupEntry
 argument_list|(
 name|GROUP_WRITE
 argument_list|)

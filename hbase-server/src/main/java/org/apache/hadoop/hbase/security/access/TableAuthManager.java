@@ -123,6 +123,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|AuthUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -184,6 +198,22 @@ operator|.
 name|exceptions
 operator|.
 name|DeserializationException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|Superusers
 import|;
 end_import
 
@@ -500,7 +530,7 @@ name|perms
 argument_list|)
 return|;
 block|}
-comment|/**      * Returns a combined map of user and group permissions, with group names prefixed by      * {@link AccessControlLists#GROUP_PREFIX}.      */
+comment|/**      * Returns a combined map of user and group permissions, with group names prefixed by      * {@link AuthUtil#GROUP_PREFIX}.      */
 specifier|public
 name|ListMultimap
 argument_list|<
@@ -546,11 +576,12 @@ name|tmp
 operator|.
 name|putAll
 argument_list|(
-name|AccessControlLists
+name|AuthUtil
 operator|.
-name|GROUP_PREFIX
-operator|+
+name|toGroupEntry
+argument_list|(
 name|group
+argument_list|)
 argument_list|,
 name|groupCache
 operator|.
@@ -816,7 +847,7 @@ name|conf
 operator|.
 name|getStrings
 argument_list|(
-name|AccessControlLists
+name|Superusers
 operator|.
 name|SUPERUSER_CONF_KEY
 argument_list|,
@@ -845,7 +876,7 @@ control|)
 block|{
 if|if
 condition|(
-name|AccessControlLists
+name|AuthUtil
 operator|.
 name|isGroupPrincipal
 argument_list|(
@@ -857,7 +888,7 @@ name|newCache
 operator|.
 name|putGroup
 argument_list|(
-name|AccessControlLists
+name|AuthUtil
 operator|.
 name|getGroupName
 argument_list|(
@@ -1172,7 +1203,7 @@ control|)
 block|{
 if|if
 condition|(
-name|AccessControlLists
+name|AuthUtil
 operator|.
 name|isGroupPrincipal
 argument_list|(
@@ -1187,7 +1218,7 @@ name|newCache
 operator|.
 name|putGroup
 argument_list|(
-name|AccessControlLists
+name|AuthUtil
 operator|.
 name|getGroupName
 argument_list|(
@@ -1315,7 +1346,7 @@ control|)
 block|{
 if|if
 condition|(
-name|AccessControlLists
+name|AuthUtil
 operator|.
 name|isGroupPrincipal
 argument_list|(
@@ -1330,7 +1361,7 @@ name|newTablePerms
 operator|.
 name|putGroup
 argument_list|(
-name|AccessControlLists
+name|AuthUtil
 operator|.
 name|getGroupName
 argument_list|(
@@ -1431,7 +1462,7 @@ control|)
 block|{
 if|if
 condition|(
-name|AccessControlLists
+name|AuthUtil
 operator|.
 name|isGroupPrincipal
 argument_list|(
@@ -1446,7 +1477,7 @@ name|newTablePerms
 operator|.
 name|putGroup
 argument_list|(
-name|AccessControlLists
+name|AuthUtil
 operator|.
 name|getGroupName
 argument_list|(
