@@ -108,7 +108,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Compaction configuration for a particular instance of HStore.  * Takes into account both global settings and ones set on the column family/store.  * Control knobs for default compaction algorithm:  *<p/>  * maxCompactSize - upper bound on file size to be included in minor compactions  * minCompactSize - lower bound below which compaction is selected without ratio test  * minFilesToCompact - lower bound on number of files in any minor compaction  * maxFilesToCompact - upper bound on number of files in any minor compaction  * compactionRatio - Ratio used for compaction  * minLocalityToForceCompact - Locality threshold for a store file to major compact (HBASE-11195)  *<p/>  * Set parameter as "hbase.hstore.compaction.<attribute>"  */
+comment|/**  *<p>  * Compaction configuration for a particular instance of HStore.  * Takes into account both global settings and ones set on the column family/store.  * Control knobs for default compaction algorithm:  *</p>  *<p>  * maxCompactSize - upper bound on file size to be included in minor compactions  * minCompactSize - lower bound below which compaction is selected without ratio test  * minFilesToCompact - lower bound on number of files in any minor compaction  * maxFilesToCompact - upper bound on number of files in any minor compaction  * compactionRatio - Ratio used for compaction  * minLocalityToForceCompact - Locality threshold for a store file to major compact (HBASE-11195)  *</p>  * Set parameter as "hbase.hstore.compaction.&lt;attribute&gt;"  */
 end_comment
 
 begin_class

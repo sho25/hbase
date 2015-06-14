@@ -4,7 +4,7 @@ comment|/*  * Licensed to the Apache Software Foundation (ASF) under one or more
 end_comment
 
 begin_comment
-comment|/**  * This package provides access to JMX primarily through the  * {@link org.apache.hadoop.hbase.http.jmx.JMXJsonServlet} class.  *<p>  * Copied from hadoop source code.<br/>  * See https://issues.apache.org/jira/browse/HADOOP-10232 to know why.  *</p>  */
+comment|/**  * This package provides access to JMX primarily through the  * {@link org.apache.hadoop.hbase.http.jmx.JMXJsonServlet} class.  *<p>  * Copied from hadoop source code.<br>  * See https://issues.apache.org/jira/browse/HADOOP-10232 to know why.  *</p>  */
 end_comment
 
 begin_package
