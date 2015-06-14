@@ -3353,6 +3353,8 @@ name|wroteFlushMarker
 expr_stmt|;
 block|}
 comment|/**      * Convenience method, the equivalent of checking if result is      * FLUSHED_NO_COMPACTION_NEEDED or FLUSHED_NO_COMPACTION_NEEDED.      * @return true if the memstores were flushed, else false.      */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isFlushSucceeded
@@ -3373,6 +3375,8 @@ name|FLUSHED_COMPACTION_NEEDED
 return|;
 block|}
 comment|/**      * Convenience method, the equivalent of checking if result is FLUSHED_COMPACTION_NEEDED.      * @return True if the flush requested a compaction, else false (doesn't even mean it flushed).      */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isCompactionNeeded
@@ -6705,7 +6709,7 @@ operator|.
 name|isLoadingCfsOnDemandDefault
 return|;
 block|}
-comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't    * service any more calls.    *    *<p>This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of all HStoreFile objects. Returns empty    * vector if already closed and null if judged that it should not close.    *    * @throws IOException e    */
+comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't    * service any more calls.    *    *<p>This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of all HStoreFile objects. Returns empty    * vector if already closed and null if judged that it should not close.    *    * @throws IOException e    * @throws DroppedSnapshotException Thrown when replay of wal is required    * because a Snapshot was not properly persisted. The region is put in closing mode, and the    * caller MUST abort after this.    */
 specifier|public
 name|Map
 argument_list|<
@@ -6793,7 +6797,7 @@ init|=
 literal|1000000000
 decl_stmt|;
 comment|// 1G
-comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *    * @throws IOException e    */
+comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *    * @throws IOException e    * @throws DroppedSnapshotException Thrown when replay of wal is required    * because a Snapshot was not properly persisted. The region is put in closing mode, and the    * caller MUST abort after this.    */
 specifier|public
 name|Map
 argument_list|<
@@ -6871,6 +6875,27 @@ name|cleanup
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+comment|/**    * Exposed for some very specific unit tests.    */
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|void
+name|setClosing
+parameter_list|(
+name|boolean
+name|closing
+parameter_list|)
+block|{
+name|this
+operator|.
+name|closing
+operator|.
+name|set
+argument_list|(
+name|closing
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 name|Map
@@ -9182,7 +9207,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Flush the cache.    *    * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    * @param forceFlushAllStores whether we want to flush all stores    * @param writeFlushRequestWalMarker whether to write the flush request marker to WAL    * @return whether the flush is success and whether the region needs compacting    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of wal is required    * because a Snapshot was not properly persisted.    */
+comment|/**    * Flush the cache.    *    * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    * @param forceFlushAllStores whether we want to flush all stores    * @param writeFlushRequestWalMarker whether to write the flush request marker to WAL    * @return whether the flush is success and whether the region needs compacting    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of wal is required    * because a Snapshot was not properly persisted. The region is put in closing mode, and the    * caller MUST abort after this.    */
 specifier|public
 name|FlushResult
 name|flushcache
@@ -11703,6 +11728,37 @@ name|t
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// Callers for flushcache() should catch DroppedSnapshotException and abort the region server.
+comment|// However, since we may have the region read lock, we cannot call close(true) here since
+comment|// we cannot promote to a write lock. Instead we are setting closing so that all other region
+comment|// operations except for close will be rejected.
+name|this
+operator|.
+name|closing
+operator|.
+name|set
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|rsServices
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// This is a safeguard against the case where the caller fails to explicitly handle aborting
+name|rsServices
+operator|.
+name|abort
+argument_list|(
+literal|"Replay of WAL required. Forcing server shutdown"
+argument_list|,
+name|dse
+argument_list|)
+expr_stmt|;
+block|}
 throw|throw
 name|dse
 throw|;
@@ -30417,6 +30473,8 @@ return|return
 name|results
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|mutateRow
@@ -30485,6 +30543,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Perform atomic mutations within the region.    * @param mutations The list of mutations to perform.    *<code>mutations</code> can contain operations for multiple rows.    * Caller has to ensure that all rows are contained in this region.    * @param rowsToLock Rows to lock    * @param nonceGroup Optional nonce group of the operation (client Id)    * @param nonce Optional nonce of the operation (unique random id to ensure "more idempotence")    * If multiple rows are locked care should be taken that    *<code>rowsToLock</code> is sorted in order to avoid deadlocks.    * @throws IOException    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|mutateRowsWithLocks
@@ -35972,6 +36032,8 @@ name|count
 return|;
 block|}
 comment|/** @return the coprocessor host */
+annotation|@
+name|Override
 specifier|public
 name|RegionCoprocessorHost
 name|getCoprocessorHost

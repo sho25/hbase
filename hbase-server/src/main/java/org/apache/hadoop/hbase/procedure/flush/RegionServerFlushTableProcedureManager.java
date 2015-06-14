@@ -211,7 +211,35 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Abortable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|DaemonThreadFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|DroppedSnapshotException
 import|;
 end_import
 
@@ -831,6 +859,8 @@ name|toString
 argument_list|()
 argument_list|,
 name|conf
+argument_list|,
+name|rss
 argument_list|)
 decl_stmt|;
 return|return
@@ -921,6 +951,11 @@ name|FlushTableSubprocedurePool
 block|{
 specifier|private
 specifier|final
+name|Abortable
+name|abortable
+decl_stmt|;
+specifier|private
+specifier|final
 name|ExecutorCompletionService
 argument_list|<
 name|Void
@@ -970,8 +1005,17 @@ name|name
 parameter_list|,
 name|Configuration
 name|conf
+parameter_list|,
+name|Abortable
+name|abortable
 parameter_list|)
 block|{
+name|this
+operator|.
+name|abortable
+operator|=
+name|abortable
+expr_stmt|;
 comment|// configure the executor service
 name|long
 name|keepAlive
@@ -1261,12 +1305,17 @@ name|ExecutionException
 name|e
 parameter_list|)
 block|{
-if|if
-condition|(
+name|Throwable
+name|cause
+init|=
 name|e
 operator|.
 name|getCause
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|cause
 operator|instanceof
 name|ForeignException
 condition|)
@@ -1289,6 +1338,25 @@ operator|.
 name|getCause
 argument_list|()
 throw|;
+block|}
+elseif|else
+if|if
+condition|(
+name|cause
+operator|instanceof
+name|DroppedSnapshotException
+condition|)
+block|{
+comment|// we have to abort the region server according to contract of flush
+name|abortable
+operator|.
+name|abort
+argument_list|(
+literal|"Received DroppedSnapshotException, aborting"
+argument_list|,
+name|cause
+argument_list|)
+expr_stmt|;
 block|}
 name|LOG
 operator|.
@@ -1322,7 +1390,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**      * This attempts to cancel out all pending and in progress tasks (interruptions issues)      * @throws InterruptedException      */
+comment|/**      * This attempts to cancel out all pending and in progress tasks. Does not interrupt the running      * tasks itself. An ongoing HRegion.flush() should not be interrupted (see HBASE-13877).      * @throws InterruptedException      */
 name|void
 name|cancelTasks
 parameter_list|()
@@ -1395,7 +1463,7 @@ name|stop
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * Abruptly shutdown the thread pool.  Call when exiting a region server.      */
+comment|/**      * Gracefully shutdown the thread pool. An ongoing HRegion.flush() should not be      * interrupted (see HBASE-13877)      */
 name|void
 name|stop
 parameter_list|()
@@ -1417,7 +1485,7 @@ name|this
 operator|.
 name|executor
 operator|.
-name|shutdownNow
+name|shutdown
 argument_list|()
 expr_stmt|;
 block|}

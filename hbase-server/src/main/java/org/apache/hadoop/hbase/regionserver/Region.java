@@ -657,7 +657,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**     * @return map of column family names to max sequence id that was read from storage when this    * region was opened    */
+comment|/**    * @return map of column family names to max sequence id that was read from storage when this    * region was opened    */
 specifier|public
 name|Map
 argument_list|<
@@ -788,14 +788,14 @@ name|COMPACT_REGION
 block|,
 name|REPLAY_EVENT
 block|}
-comment|/**    * This method needs to be called before any public call that reads or    * modifies data.     * Acquires a read lock and checks if the region is closing or closed.    *<p>{@link #closeRegionOperation} MUST then always be called after    * the operation has completed, whether it succeeded or failed.    * @throws IOException    */
+comment|/**    * This method needs to be called before any public call that reads or    * modifies data.    * Acquires a read lock and checks if the region is closing or closed.    *<p>{@link #closeRegionOperation} MUST then always be called after    * the operation has completed, whether it succeeded or failed.    * @throws IOException    */
 name|void
 name|startRegionOperation
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This method needs to be called before any public call that reads or    * modifies data.     * Acquires a read lock and checks if the region is closing or closed.    *<p>{@link #closeRegionOperation} MUST then always be called after    * the operation has completed, whether it succeeded or failed.    * @param op The operation is about to be taken on the region    * @throws IOException    */
+comment|/**    * This method needs to be called before any public call that reads or    * modifies data.    * Acquires a read lock and checks if the region is closing or closed.    *<p>{@link #closeRegionOperation} MUST then always be called after    * the operation has completed, whether it succeeded or failed.    * @param op The operation is about to be taken on the region    * @throws IOException    */
 name|void
 name|startRegionOperation
 parameter_list|(
@@ -1054,7 +1054,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Perform atomic mutations within the region.    *     * @param mutations The list of mutations to perform.    *<code>mutations</code> can contain operations for multiple rows.    * Caller has to ensure that all rows are contained in this region.    * @param rowsToLock Rows to lock    * @param nonceGroup Optional nonce group of the operation (client Id)    * @param nonce Optional nonce of the operation (unique random id to ensure "more idempotence")    * If multiple rows are locked care should be taken that    *<code>rowsToLock</code> is sorted in order to avoid deadlocks.    * @throws IOException    */
+comment|/**    * Perform atomic mutations within the region.    *    * @param mutations The list of mutations to perform.    *<code>mutations</code> can contain operations for multiple rows.    * Caller has to ensure that all rows are contained in this region.    * @param rowsToLock Rows to lock    * @param nonceGroup Optional nonce group of the operation (client Id)    * @param nonce Optional nonce of the operation (unique random id to ensure "more idempotence")    * If multiple rows are locked care should be taken that    *<code>rowsToLock</code> is sorted in order to avoid deadlocks.    * @throws IOException    */
 name|void
 name|mutateRowsWithLocks
 parameter_list|(
@@ -1381,7 +1381,7 @@ name|isCompactionNeeded
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Flush the cache.    *    *<p>When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    * @param force whether we want to force a flush of all stores    * @return FlushResult indicating whether the flush was successful or not and if    * the region needs compacting    *    * @throws IOException general io exceptions    * because a snapshot was not properly persisted.    */
+comment|/**    * Flush the cache.    *    *<p>When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    * @param force whether we want to force a flush of all stores    * @return FlushResult indicating whether the flush was successful or not and if    * the region needs compacting    *    * @throws IOException general io exceptions    * because a snapshot was not properly persisted.    * @throws DroppedSnapshotException Thrown when abort is required. The caller MUST catch this    * exception and MUST abort. Any further operation to the region may cause data loss.    */
 name|FlushResult
 name|flush
 parameter_list|(
@@ -1391,7 +1391,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Synchronously compact all stores in the region.    *<p>This operation could block for a long time, so don't call it from a    * time-sensitive thread.    *<p>Note that no locks are taken to prevent possible conflicts between     * compaction and splitting activities. The regionserver does not normally compact    * and split in parallel. However by calling this method you may introduce    * unexpected and unhandled concurrency. Don't do this unless you know what    * you are doing.    *    * @param majorCompaction True to force a major compaction regardless of thresholds    * @throws IOException    */
+comment|/**    * Synchronously compact all stores in the region.    *<p>This operation could block for a long time, so don't call it from a    * time-sensitive thread.    *<p>Note that no locks are taken to prevent possible conflicts between    * compaction and splitting activities. The regionserver does not normally compact    * and split in parallel. However by calling this method you may introduce    * unexpected and unhandled concurrency. Don't do this unless you know what    * you are doing.    *    * @param majorCompaction True to force a major compaction regardless of thresholds    * @throws IOException    */
 name|void
 name|compact
 parameter_list|(

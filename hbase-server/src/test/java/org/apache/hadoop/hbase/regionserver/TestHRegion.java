@@ -3496,6 +3496,16 @@ name|dse
 parameter_list|)
 block|{
 comment|// What we are expecting
+name|region
+operator|.
+name|closing
+operator|.
+name|set
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+comment|// this is needed for the rest of the test to work
 block|}
 comment|// Make it so all writes succeed from here on out
 name|ffs

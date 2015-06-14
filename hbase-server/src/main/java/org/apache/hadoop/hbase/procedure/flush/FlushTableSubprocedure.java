@@ -185,24 +185,6 @@ name|Region
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|Region
-operator|.
-name|Operation
-import|;
-end_import
-
 begin_comment
 comment|/**  * This flush region implementation uses the distributed procedure framework to flush  * table regions.  * Its acquireBarrier stage does nothing.  Its insideBarrier stage flushes the regions.  */
 end_comment

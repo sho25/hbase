@@ -4906,6 +4906,15 @@ operator|.
 name|isAborted
 argument_list|()
 expr_stmt|;
+name|region
+operator|.
+name|setClosing
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+comment|// region normally does not accept writes after
+comment|// DroppedSnapshotException. We mock around it for this test.
 block|}
 comment|// writing more data
 name|int

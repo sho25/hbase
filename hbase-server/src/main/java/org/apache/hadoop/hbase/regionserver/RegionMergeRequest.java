@@ -81,6 +81,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|DroppedSnapshotException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|TableLockManager
@@ -489,6 +503,24 @@ literal|" stopping"
 else|:
 literal|" stopped"
 operator|)
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+if|if
+condition|(
+name|e
+operator|instanceof
+name|DroppedSnapshotException
+condition|)
+block|{
+name|server
+operator|.
+name|abort
+argument_list|(
+literal|"Replay of WAL required. Forcing server shutdown"
 argument_list|,
 name|e
 argument_list|)
