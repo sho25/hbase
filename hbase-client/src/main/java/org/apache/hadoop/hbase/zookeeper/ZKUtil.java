@@ -2998,6 +2998,10 @@ block|{
 return|return
 operator|(
 name|data
+operator|==
+literal|null
+operator|||
+name|data
 operator|.
 name|length
 operator|==
