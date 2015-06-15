@@ -1972,6 +1972,12 @@ condition|(
 name|rpcChannel
 operator|==
 literal|null
+operator|||
+operator|!
+name|rpcChannel
+operator|.
+name|isAlive
+argument_list|()
 condition|)
 block|{
 name|rpcChannel
