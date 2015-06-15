@@ -171,7 +171,7 @@ specifier|private
 name|int
 name|bufferCount
 decl_stmt|;
-comment|/**    * We allocate a number of byte buffers as the capacity. In order not to out    * of the array bounds for the last byte(see {@link ByteBufferArray#multiple}),     * we will allocate one additional buffer with capacity 0;    * @param capacity total size of the byte buffer array    * @param directByteBuffer true if we allocate direct buffer    */
+comment|/**    * We allocate a number of byte buffers as the capacity. In order not to out    * of the array bounds for the last byte(see {@link ByteBufferArray#multiple}),    * we will allocate one additional buffer with capacity 0;    * @param capacity total size of the byte buffer array    * @param directByteBuffer true if we allocate direct buffer    */
 specifier|public
 name|ByteBufferArray
 parameter_list|(
@@ -440,10 +440,25 @@ name|dstArray
 argument_list|,
 name|dstOffset
 argument_list|,
+name|GET_MULTIPLE_VISTOR
+argument_list|)
+expr_stmt|;
+return|return
+name|len
+return|;
+block|}
+specifier|private
+specifier|final
+specifier|static
+name|Visitor
+name|GET_MULTIPLE_VISTOR
+init|=
 operator|new
 name|Visitor
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|visit
@@ -475,12 +490,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-argument_list|)
-expr_stmt|;
-return|return
-name|len
-return|;
-block|}
+decl_stmt|;
 comment|/**    * Transfers bytes from the given source array into this buffer array    * @param start start offset of this buffer array    * @param len The maximum number of bytes to be read from the given array    * @param srcArray The array from which bytes are to be read    */
 specifier|public
 name|void
@@ -538,10 +548,22 @@ name|srcArray
 argument_list|,
 name|srcOffset
 argument_list|,
+name|PUT_MULTIPLE_VISITOR
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+specifier|final
+specifier|static
+name|Visitor
+name|PUT_MULTIPLE_VISITOR
+init|=
 operator|new
 name|Visitor
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|visit
@@ -573,9 +595,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 specifier|private
 interface|interface
 name|Visitor
