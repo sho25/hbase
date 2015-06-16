@@ -1819,6 +1819,28 @@ literal|" setting and/or server java heap size"
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
+name|c
+operator|.
+name|get
+argument_list|(
+literal|"hbase.bucketcache.percentage.in.combinedcache"
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Configuration 'hbase.bucketcache.percentage.in.combinedcache' is no longer "
+operator|+
+literal|"respected. See comments in http://hbase.apache.org/book.html#_changes_of_note"
+argument_list|)
+expr_stmt|;
+block|}
 name|int
 name|writerThreads
 init|=
