@@ -126,16 +126,13 @@ operator|.
 name|MAX_VALUE
 decl_stmt|;
 comment|// Currently available resource units
-comment|/**    * Refill the available units w.r.t the elapsed time.    * @param limit Maximum available resource units that can be refilled to.    * @param available Currently available resource units    */
+comment|/**    * Refill the available units w.r.t the elapsed time.    * @param limit Maximum available resource units that can be refilled to.    * @return how many resource units may be refilled ?    */
 specifier|abstract
 name|long
 name|refill
 parameter_list|(
 name|long
 name|limit
-parameter_list|,
-name|long
-name|available
 parameter_list|)
 function_decl|;
 comment|/**    * Time in milliseconds to wait for before requesting to consume 'amount' resource.    * @param limit Maximum available resource units that can be refilled to.    * @param available Currently available resource units    * @param amount Resources for which time interval to calculate for    * @return estimate of the ms required to wait before being able to provide 'amount' resources.    */
@@ -429,8 +426,6 @@ init|=
 name|refill
 argument_list|(
 name|limit
-argument_list|,
-name|avail
 argument_list|)
 decl_stmt|;
 if|if

@@ -113,9 +113,6 @@ name|refill
 parameter_list|(
 name|long
 name|limit
-parameter_list|,
-name|long
-name|available
 parameter_list|)
 block|{
 specifier|final
