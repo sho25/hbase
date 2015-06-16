@@ -1884,7 +1884,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Visits the locks (both held and attempted) with the given MetadataHandler.    * @throws IOException If there is an unrecoverable error    */
+comment|/**    * Visits the locks (both held and attempted) with the given MetadataHandler.    * @throws InterruptedException If there is an unrecoverable error    */
 specifier|public
 name|void
 name|visitLocks

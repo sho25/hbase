@@ -120,7 +120,7 @@ name|boolean
 name|hasNext
 parameter_list|()
 function_decl|;
-comment|/**      * Returns the next procedure in the iteration.      * @throws IOException if there was an error fetching/deserializing the procedure      * @return the next procedure in the iteration.      */
+comment|/**      * Returns the next procedure in the iteration.      * @throws IOException if there was an error fetching/deserializing the procedure      * @throws NoSuchElementException if the iteration has no more elements      * @return the next procedure in the iteration.      */
 name|Procedure
 name|next
 parameter_list|()

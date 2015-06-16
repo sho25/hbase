@@ -100,7 +100,7 @@ return|;
 block|}
 comment|// TODO:
 comment|// ZeroCopyLiteralByteString.wrap(this.buf, 0, this.count);
-comment|/**    * Extracts the byte array from the given {@link ByteString} without copy.    * @param buf A buffer from which to extract the array.  This buffer must be    * actually an instance of a {@code LiteralByteString}.    * @return byte[] representation    */
+comment|/**    * Extracts the byte array from the given {@link ByteString} without copy.    * @param buf A buffer from which to extract the array.  This buffer must be    * actually an instance of a {@code LiteralByteString}.    */
 specifier|public
 specifier|static
 name|byte

@@ -275,7 +275,7 @@ name|hashType
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Determines&amp; initializes bloom filter meta data from user config. Call    * {@link #allocBloom()} to allocate bloom filter data.    *    * @param maxKeys Maximum expected number of keys that will be stored in this    *          bloom    * @param errorRate Desired false positive error rate. Lower rate = more    *          storage required    * @param hashType Type of hash function to use    * @param foldFactor When finished adding entries, you may be able to 'fold'    *          this bloom to save space. Tradeoff potentially excess bytes in    *          bloom for ability to fold if keyCount is exponentially greater    *          than maxKeys.    * @throws IllegalArgumentException    */
+comment|/**    * Determines& initializes bloom filter meta data from user config. Call    * {@link #allocBloom()} to allocate bloom filter data.    *    * @param maxKeys Maximum expected number of keys that will be stored in this    *          bloom    * @param errorRate Desired false positive error rate. Lower rate = more    *          storage required    * @param hashType Type of hash function to use    * @param foldFactor When finished adding entries, you may be able to 'fold'    *          this bloom to save space. Tradeoff potentially excess bytes in    *          bloom for ability to fold if keyCount is exponentially greater    *          than maxKeys.    * @throws IllegalArgumentException    */
 specifier|public
 name|BloomFilterChunk
 parameter_list|(

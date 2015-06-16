@@ -449,7 +449,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return string representing the rest api's version    * @throws IOException    *           if the endpoint does not exist, there is a timeout, or some other    *           general failure mode    */
+comment|/**    * @return string representing the rest api's version    * @throws IOEXception    *           if the endpoint does not exist, there is a timeout, or some other    *           general failure mode    */
 specifier|public
 name|VersionModel
 name|getRestVersion
@@ -651,7 +651,7 @@ literal|" timed out"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @return string representing the cluster's version    * @throws IOException if the endpoint does not exist, there is a timeout, or some other general failure mode    */
+comment|/**    * @return string representing the cluster's version    * @throws IOEXception if the endpoint does not exist, there is a timeout, or some other general failure mode    */
 specifier|public
 name|StorageClusterStatusModel
 name|getClusterStatus
@@ -847,7 +847,7 @@ literal|" timed out"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @return string representing the cluster's version    * @throws IOException    *           if the endpoint does not exist, there is a timeout, or some other    *           general failure mode    */
+comment|/**    * @return string representing the cluster's version    * @throws IOEXception    *           if the endpoint does not exist, there is a timeout, or some other    *           general failure mode    */
 specifier|public
 name|StorageClusterVersionModel
 name|getClusterVersion
@@ -1691,7 +1691,7 @@ literal|" timed out"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @return string representing the cluster's version    * @throws IOException    *           if the endpoint does not exist, there is a timeout, or some other    *           general failure mode    */
+comment|/**    * @return string representing the cluster's version    * @throws IOEXception    *           if the endpoint does not exist, there is a timeout, or some other    *           general failure mode    */
 specifier|public
 name|TableListModel
 name|getTableList

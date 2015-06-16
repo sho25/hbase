@@ -1122,7 +1122,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/****************** complete seek when token mismatch ******************/
-comment|/**    * @param searcherIsAfterInputKey&lt;0: input key is before the searcher's position<br>    *&gt;0: input key is after the searcher's position    */
+comment|/**    * @param searcherIsAfterInputKey&lt;0: input key is before the searcher's position<br/>    *&gt;0: input key is after the searcher's position    */
 specifier|protected
 name|CellScannerPosition
 name|fixRowTokenMissReverse

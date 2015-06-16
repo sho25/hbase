@@ -634,7 +634,7 @@ return|return
 name|rtn
 return|;
 block|}
-comment|/**    * Retrieve the snapshot name -&gt; list&lt;scan&gt; mapping pushed to configuration by    * {@link #setSnapshotToScans(org.apache.hadoop.conf.Configuration, java.util.Map)}    *    * @param conf Configuration to extract name -&gt; list&lt;scan&gt; mappings from.    * @return the snapshot name -&gt; list&lt;scan&gt; mapping pushed to configuration    * @throws IOException    */
+comment|/**    * Retrieve the snapshot name -> list<scan> mapping pushed to configuration by    * {@link #setSnapshotToScans(org.apache.hadoop.conf.Configuration, java.util.Map)}    *    * @param conf Configuration to extract name -> list<scan> mappings from.    * @return the snapshot name -> list<scan> mapping pushed to configuration    * @throws IOException    */
 specifier|public
 name|Map
 argument_list|<

@@ -94,7 +94,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Create a Jetty embedded server to answer http requests. The primary goal  * is to serve up status information for the server.  * There are three contexts:  *   "/stacks/" -&gt; points to stack trace  *   "/static/" -&gt; points to common static files (src/hbase-webapps/static)  *   "/" -&gt; the jsp server code from (src/hbase-webapps/&lt;name&gt;)  */
+comment|/**  * Create a Jetty embedded server to answer http requests. The primary goal  * is to serve up status information for the server.  * There are three contexts:  *   "/stacks/" -> points to stack trace  *   "/static/" -> points to common static files (src/hbase-webapps/static)  *   "/" -> the jsp server code from (src/hbase-webapps/<name>)  */
 end_comment
 
 begin_class
@@ -129,7 +129,7 @@ operator|.
 name|HttpServer
 name|httpServer
 decl_stmt|;
-comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/hbase-webapps/<code>name</code>.    * @param name The name of the server    * @param bindAddress address to bind to    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and    * increment by 1 until it finds a free port.    * @throws IOException e    */
+comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/hbase-webapps/<code>name<code>.    * @param name The name of the server    * @param bindAddress address to bind to    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and    * increment by 1 until it finds a free port.    * @throws IOException e    */
 specifier|public
 name|InfoServer
 parameter_list|(

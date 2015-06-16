@@ -4,7 +4,7 @@ comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or m
 end_comment
 
 begin_comment
-comment|/**  *<p>  * This package provides user-selectable (via configuration) classes that add  * functionality to the web UI. They are configured as a list of classes in the  * configuration parameter<b>hadoop.http.filter.initializers</b>.  *</p>  *<ul>  *<li><b>StaticUserWebFilter</b> - An authorization plugin that makes all  * users a static configured user.  *</ul>  *<p>  * Copied from hadoop source code.<br>  * See https://issues.apache.org/jira/browse/HADOOP-10232 to know why  *</p>  */
+comment|/**  *<p>  * This package provides user-selectable (via configuration) classes that add  * functionality to the web UI. They are configured as a list of classes in the  * configuration parameter<b>hadoop.http.filter.initializers</b>.  *</p>  *<ul>  *<li><b>StaticUserWebFilter</b> - An authorization plugin that makes all  * users a static configured user.  *</ul>  *<p>  * Copied from hadoop source code.<br/>  * See https://issues.apache.org/jira/browse/HADOOP-10232 to know why  *</p>  */
 end_comment
 
 begin_annotation

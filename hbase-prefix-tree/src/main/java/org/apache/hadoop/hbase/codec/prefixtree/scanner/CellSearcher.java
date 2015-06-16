@@ -79,7 +79,7 @@ name|Cell
 name|key
 parameter_list|)
 function_decl|;
-comment|/**    *<p>    * Same as positionAt(..), but go to the extra effort of finding the previous key if there's no    * exact match.    *</p>    * @param key position the CellScanner on this key or the closest cell before    * @return AT if exact match<br>    *         BEFORE if on last cell before key<br>    *         BEFORE_FIRST if key was before the first cell in this scanner's scope    */
+comment|/**    *<p>    * Same as positionAt(..), but go to the extra effort of finding the previous key if there's no    * exact match.    *</p>    * @param key position the CellScanner on this key or the closest cell before    * @return AT if exact match<br/>    *         BEFORE if on last cell before key<br/>    *         BEFORE_FIRST if key was before the first cell in this scanner's scope    */
 name|CellScannerPosition
 name|positionAtOrBefore
 parameter_list|(
@@ -87,7 +87,7 @@ name|Cell
 name|key
 parameter_list|)
 function_decl|;
-comment|/**    *<p>    * Same as positionAt(..), but go to the extra effort of finding the next key if there's no exact    * match.    *</p>    * @param key position the CellScanner on this key or the closest cell after    * @return AT if exact match<br>    *         AFTER if on first cell after key<br>    *         AFTER_LAST if key was after the last cell in this scanner's scope    */
+comment|/**    *<p>    * Same as positionAt(..), but go to the extra effort of finding the next key if there's no exact    * match.    *</p>    * @param key position the CellScanner on this key or the closest cell after    * @return AT if exact match<br/>    *         AFTER if on first cell after key<br/>    *         AFTER_LAST if key was after the last cell in this scanner's scope    */
 name|CellScannerPosition
 name|positionAtOrAfter
 parameter_list|(

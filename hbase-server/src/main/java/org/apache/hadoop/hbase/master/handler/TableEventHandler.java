@@ -1316,7 +1316,7 @@ return|return
 name|done
 return|;
 block|}
-comment|/**    * Gets a TableDescriptor from the masterServices.  Can Throw exceptions.    *    * @return Table descriptor for this table    * @throws FileNotFoundException    * @throws IOException    */
+comment|/**    * Gets a TableDescriptor from the masterServices.  Can Throw exceptions.    *    * @return Table descriptor for this table    * @throws TableExistsException    * @throws FileNotFoundException    * @throws IOException    */
 specifier|public
 name|TableDescriptor
 name|getTableDescriptor

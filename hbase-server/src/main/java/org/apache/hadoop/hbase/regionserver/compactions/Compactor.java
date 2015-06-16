@@ -1276,7 +1276,7 @@ name|request
 argument_list|)
 return|;
 block|}
-comment|/**    * Performs the compaction.    * @param scanner Where to read from.    * @param writer Where to write to.    * @param smallestReadPoint Smallest read point.    * @param cleanSeqId When true, remove seqId(used to be mvcc) value which is&lt;= smallestReadPoint    * @return Whether compaction ended; false if it was interrupted for some reason.    */
+comment|/**    * Performs the compaction.    * @param scanner Where to read from.    * @param writer Where to write to.    * @param smallestReadPoint Smallest read point.    * @param cleanSeqId When true, remove seqId(used to be mvcc) value which is<= smallestReadPoint    * @return Whether compaction ended; false if it was interrupted for some reason.    */
 specifier|protected
 name|boolean
 name|performCompaction
