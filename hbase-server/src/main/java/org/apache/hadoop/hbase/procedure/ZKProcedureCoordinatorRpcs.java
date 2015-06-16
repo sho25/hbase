@@ -1433,6 +1433,23 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|data
+operator|==
+literal|null
+operator|||
+name|data
+operator|.
+name|length
+operator|==
+literal|0
+condition|)
+block|{
+comment|// ignore
+return|return;
+block|}
+elseif|else
+if|if
+condition|(
 operator|!
 name|ProtobufUtil
 operator|.
