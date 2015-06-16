@@ -7330,6 +7330,10 @@ operator|.
 name|cacheFlusher
 argument_list|,
 name|this
+argument_list|,
+name|this
+operator|.
+name|regionServerAccounting
 argument_list|)
 expr_stmt|;
 if|if
