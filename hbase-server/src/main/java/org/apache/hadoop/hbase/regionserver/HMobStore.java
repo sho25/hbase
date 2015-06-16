@@ -405,6 +405,24 @@ name|io
 operator|.
 name|hfile
 operator|.
+name|CorruptHFileException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
 name|HFileContext
 import|;
 end_import
@@ -1841,7 +1859,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Reads the cell from the mob file, and the read point does not count.    * @param reference The cell found in the HBase, its value is a path to a mob file.    * @param cacheBlocks Whether the scanner should cache blocks.    * @return The cell found in the mob file.    * @throws IOException    */
+comment|/**    * Reads the cell from the mob file, and the read point does not count.    * This is used for DefaultMobStoreCompactor where we can read empty value for the missing cell.    * @param reference The cell found in the HBase, its value is a path to a mob file.    * @param cacheBlocks Whether the scanner should cache blocks.    * @return The cell found in the mob file.    * @throws IOException    */
 specifier|public
 name|Cell
 name|resolve
@@ -1864,10 +1882,12 @@ name|cacheBlocks
 argument_list|,
 operator|-
 literal|1
+argument_list|,
+literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * Reads the cell from the mob file.    * @param reference The cell found in the HBase, its value is a path to a mob file.    * @param cacheBlocks Whether the scanner should cache blocks.    * @param readPt the read point.    * @return The cell found in the mob file.    * @throws IOException    */
+comment|/**    * Reads the cell from the mob file.    * @param reference The cell found in the HBase, its value is a path to a mob file.    * @param cacheBlocks Whether the scanner should cache blocks.    * @param readPt the read point.    * @param readEmptyValueOnMobCellMiss Whether return null value when the mob file is    *        missing or corrupt.    * @return The cell found in the mob file.    * @throws IOException    */
 specifier|public
 name|Cell
 name|resolve
@@ -1880,6 +1900,9 @@ name|cacheBlocks
 parameter_list|,
 name|long
 name|readPt
+parameter_list|,
+name|boolean
+name|readEmptyValueOnMobCellMiss
 parameter_list|)
 throws|throws
 name|IOException
@@ -2102,6 +2125,8 @@ argument_list|,
 name|cacheBlocks
 argument_list|,
 name|readPt
+argument_list|,
+name|readEmptyValueOnMobCellMiss
 argument_list|)
 expr_stmt|;
 block|}
@@ -2216,7 +2241,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Reads the cell from a mob file.    * The mob file might be located in different directories.    * 1. The working directory.    * 2. The archive directory.    * Reads the cell from the files located in both of the above directories.    * @param locations The possible locations where the mob files are saved.    * @param fileName The file to be read.    * @param search The cell to be searched.    * @param cacheMobBlocks Whether the scanner should cache blocks.    * @param readPt the read point.    * @return The found cell. Null if there's no such a cell.    * @throws IOException    */
+comment|/**    * Reads the cell from a mob file.    * The mob file might be located in different directories.    * 1. The working directory.    * 2. The archive directory.    * Reads the cell from the files located in both of the above directories.    * @param locations The possible locations where the mob files are saved.    * @param fileName The file to be read.    * @param search The cell to be searched.    * @param cacheMobBlocks Whether the scanner should cache blocks.    * @param readPt the read point.    * @param readEmptyValueOnMobCellMiss Whether return null value when the mob file is    *        missing or corrupt.    * @return The found cell. Null if there's no such a cell.    * @throws IOException    */
 specifier|private
 name|Cell
 name|readCell
@@ -2238,6 +2263,9 @@ name|cacheMobBlocks
 parameter_list|,
 name|long
 name|readPt
+parameter_list|,
+name|boolean
+name|readEmptyValueOnMobCellMiss
 parameter_list|)
 throws|throws
 name|IOException
@@ -2247,6 +2275,11 @@ name|fs
 init|=
 name|getFileSystem
 argument_list|()
+decl_stmt|;
+name|Throwable
+name|throwable
+init|=
+literal|null
 decl_stmt|;
 for|for
 control|(
@@ -2333,6 +2366,10 @@ argument_list|(
 name|fileName
 argument_list|)
 expr_stmt|;
+name|throwable
+operator|=
+name|e
+expr_stmt|;
 if|if
 condition|(
 operator|(
@@ -2365,6 +2402,29 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+elseif|else
+if|if
+condition|(
+name|e
+operator|instanceof
+name|CorruptHFileException
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"The mob file "
+operator|+
+name|path
+operator|+
+literal|" is corrupt"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
 else|else
 block|{
 throw|throw
@@ -2378,6 +2438,7 @@ name|NullPointerException
 name|e
 parameter_list|)
 block|{
+comment|// HDFS 1.x - DFSInputStream.getBlockAt()
 name|mobCacheConfig
 operator|.
 name|getMobFileCache
@@ -2396,6 +2457,10 @@ literal|"Fail to read the cell"
 argument_list|,
 name|e
 argument_list|)
+expr_stmt|;
+name|throwable
+operator|=
+name|e
 expr_stmt|;
 block|}
 catch|catch
@@ -2404,6 +2469,7 @@ name|AssertionError
 name|e
 parameter_list|)
 block|{
+comment|// assert in HDFS 1.x - DFSInputStream.getBlockAt()
 name|mobCacheConfig
 operator|.
 name|getMobFileCache
@@ -2422,6 +2488,10 @@ literal|"Fail to read the cell"
 argument_list|,
 name|e
 argument_list|)
+expr_stmt|;
+name|throwable
+operator|=
+name|e
 expr_stmt|;
 block|}
 finally|finally
@@ -2457,11 +2527,44 @@ operator|+
 literal|" could not be found in the locations "
 operator|+
 name|locations
+operator|+
+literal|" or it is corrupt"
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|readEmptyValueOnMobCellMiss
+condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
+elseif|else
+if|if
+condition|(
+name|throwable
+operator|instanceof
+name|IOException
+condition|)
+block|{
+throw|throw
+operator|(
+name|IOException
+operator|)
+name|throwable
+throw|;
+block|}
+else|else
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|throwable
+argument_list|)
+throw|;
+block|}
 block|}
 comment|/**    * Gets the mob file path.    * @return The mob file path.    */
 specifier|public

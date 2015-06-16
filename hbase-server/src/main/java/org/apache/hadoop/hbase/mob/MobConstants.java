@@ -148,6 +148,14 @@ specifier|public
 specifier|static
 specifier|final
 name|String
+name|EMPTY_VALUE_ON_MOBCELL_MISS
+init|=
+literal|"empty.value.on.mobcell.miss"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
 name|MOB_FILE_CACHE_SIZE_KEY
 init|=
 literal|"hbase.mob.file.cache.size"
