@@ -2974,7 +2974,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes Bytes to check.    * @return True if passed<code>bytes</code> has {@link ProtobufMagic#PB_MAGIC} for a prefix.    */
+comment|/**    * @param bytes Bytes to check.    * @param offset offset to start at    * @param len length to use    * @return True if passed<code>bytes</code> has {@link ProtobufMagic#PB_MAGIC} for a prefix.    */
 specifier|public
 specifier|static
 name|boolean
@@ -3040,7 +3040,7 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * @param bytes    * @throws DeserializationException if we are missing the pb magic prefix    */
+comment|/**    * @param bytes bytes to check    * @throws DeserializationException if we are missing the pb magic prefix    */
 specifier|public
 specifier|static
 name|void

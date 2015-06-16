@@ -170,7 +170,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Individual node in a Trie structure.  Each node is one of 3 types:  *<li>Branch: an internal trie node that may have a token and must have multiple children, but does  * not represent an actual input byte[], hence its numOccurrences is 0  *<li>Leaf: a node with no children and where numOccurrences is&gt;= 1.  It's token represents the  * last bytes in the input byte[]s.  *<li>Nub: a combination of a branch and leaf.  Its token represents the last bytes of input  * byte[]s and has numOccurrences&gt;= 1, but it also has child nodes which represent input byte[]s  * that add bytes to this nodes input byte[].  *<br><br>  * Example inputs (numInputs=7):  * 0: AAA  * 1: AAA  * 2: AAB  * 3: AAB  * 4: AAB  * 5: AABQQ  * 6: AABQQ  *<br><br>  * Resulting TokenizerNodes:  * AA&lt;- branch, numOccurrences=0, tokenStartOffset=0, token.length=2  * A&lt;- leaf, numOccurrences=2, tokenStartOffset=2, token.length=1  * B&lt;- nub, numOccurrences=3, tokenStartOffset=2, token.length=1  * QQ&lt;- leaf, numOccurrences=2, tokenStartOffset=3, token.length=2  *<br><br>  * numInputs == 7 == sum(numOccurrences) == 0 + 2 + 3 + 2  */
+comment|/**  * Individual node in a Trie structure.  Each node is one of 3 types:  *<ul>  *<li>Branch: an internal trie node that may have a token and must have multiple children, but does  * not represent an actual input byte[], hence its numOccurrences is 0  *<li>Leaf: a node with no children and where numOccurrences is&gt;= 1.  It's token represents the  * last bytes in the input byte[]s.  *<li>Nub: a combination of a branch and leaf.  Its token represents the last bytes of input  * byte[]s and has numOccurrences&gt;= 1, but it also has child nodes which represent input byte[]s  * that add bytes to this nodes input byte[].  *</ul>  *<br><br>  * Example inputs (numInputs=7):  * 0: AAA  * 1: AAA  * 2: AAB  * 3: AAB  * 4: AAB  * 5: AABQQ  * 6: AABQQ  *<br><br>  * Resulting TokenizerNodes:  * AA&lt;- branch, numOccurrences=0, tokenStartOffset=0, token.length=2  * A&lt;- leaf, numOccurrences=2, tokenStartOffset=2, token.length=1  * B&lt;- nub, numOccurrences=3, tokenStartOffset=2, token.length=1  * QQ&lt;- leaf, numOccurrences=2, tokenStartOffset=3, token.length=2  *<br><br>  * numInputs == 7 == sum(numOccurrences) == 0 + 2 + 3 + 2  */
 end_comment
 
 begin_class
@@ -2072,7 +2072,7 @@ argument_list|()
 return|;
 block|}
 comment|/********************** simple mutation methods *************************/
-comment|/**    * Each occurrence> 1 indicates a repeat of the previous entry.  This can be called directly by    * an external class without going through the process of detecting a repeat if it is a known    * repeat by some external mechanism.  PtEncoder uses this when adding cells to a row if it knows    * the new cells are part of the current row.    * @param d increment by this amount    */
+comment|/**    * Each occurrence&gt; 1 indicates a repeat of the previous entry.    * This can be called directly by    * an external class without going through the process of detecting a repeat if it is a known    * repeat by some external mechanism.  PtEncoder uses this when adding cells to a row if it knows    * the new cells are part of the current row.    * @param d increment by this amount    */
 specifier|public
 name|void
 name|incrementNumOccurrences

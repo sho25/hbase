@@ -420,7 +420,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class marches through all of the region's hfiles and verifies that  * they are all valid files. One just needs to instantiate the class, use  * checkTables(List<Path>) and then retrieve the corrupted hfiles (and  * quarantined files if in quarantining mode)  *  * The implementation currently parallelizes at the regionDir level.  */
+comment|/**  * This class marches through all of the region's hfiles and verifies that  * they are all valid files. One just needs to instantiate the class, use  * checkTables(List&lt;Path&gt;) and then retrieve the corrupted hfiles (and  * quarantined files if in quarantining mode)  *  * The implementation currently parallelizes at the regionDir level.  */
 end_comment
 
 begin_class

@@ -116,7 +116,7 @@ specifier|public
 class|class
 name|ServerSideScanMetrics
 block|{
-comment|/**    * Hash to hold the String -> Atomic Long mappings for each metric    */
+comment|/**    * Hash to hold the String -&gt; Atomic Long mappings for each metric    */
 specifier|private
 specifier|final
 name|Map
@@ -325,7 +325,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Get all of the values since the last time this function was called. Calling this function will    * reset all AtomicLongs in the instance back to 0.    * @return A Map of String -> Long for metrics    */
+comment|/**    * Get all of the values since the last time this function was called. Calling this function will    * reset all AtomicLongs in the instance back to 0.    * @return A Map of String -&gt; Long for metrics    */
 specifier|public
 name|Map
 argument_list|<

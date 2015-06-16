@@ -11794,7 +11794,7 @@ name|long
 name|nonce
 decl_stmt|;
 block|}
-comment|/**    * This function is used to construct mutations from a WALEntry. It also reconstructs WALKey&    * WALEdit from the passed in WALEntry    * @param entry    * @param cells    * @param logEntry pair of WALKey and WALEdit instance stores WALKey and WALEdit instances    *          extracted from the passed in WALEntry.    * @return list of Pair<MutationType, Mutation> to be replayed    * @throws IOException    */
+comment|/**    * This function is used to construct mutations from a WALEntry. It also    * reconstructs WALKey&amp; WALEdit from the passed in WALEntry    * @param entry    * @param cells    * @param logEntry pair of WALKey and WALEdit instance stores WALKey and WALEdit instances    *          extracted from the passed in WALEntry.    * @return list of Pair&lt;MutationType, Mutation&gt; to be replayed    * @throws IOException    */
 specifier|public
 specifier|static
 name|List

@@ -2193,7 +2193,7 @@ operator|.
 name|totalSize
 return|;
 block|}
-comment|/**    * Allocate a block with specified size. Return the offset    * @param blockSize size of block    * @throws BucketAllocatorException,CacheFullException    * @return the offset in the IOEngine    */
+comment|/**    * Allocate a block with specified size. Return the offset    * @param blockSize size of block    * @throws BucketAllocatorException    * @throws CacheFullException    * @return the offset in the IOEngine    */
 specifier|public
 specifier|synchronized
 name|long

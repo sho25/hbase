@@ -258,7 +258,7 @@ operator|-
 name|length2
 return|;
 block|}
-comment|/**    * @param bytes Bytes to check.    * @return True if passed<code>bytes</code> has {@link #PB_MAGIC} for a prefix.    */
+comment|/**    * @param bytes Bytes to check.    * @param offset offset to start at    * @param len length to use    * @return True if passed<code>bytes</code> has {@link #PB_MAGIC} for a prefix.    */
 specifier|public
 specifier|static
 name|boolean
