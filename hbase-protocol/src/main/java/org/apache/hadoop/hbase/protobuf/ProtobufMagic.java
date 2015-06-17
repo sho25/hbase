@@ -39,27 +39,6 @@ end_comment
 
 begin_class
 annotation|@
-name|edu
-operator|.
-name|umd
-operator|.
-name|cs
-operator|.
-name|findbugs
-operator|.
-name|annotations
-operator|.
-name|SuppressWarnings
-argument_list|(
-name|value
-operator|=
-literal|"DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED"
-argument_list|,
-name|justification
-operator|=
-literal|"None. Address sometime."
-argument_list|)
-annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
