@@ -1238,13 +1238,6 @@ return|;
 block|}
 if|if
 condition|(
-name|methodName
-operator|.
-name|equalsIgnoreCase
-argument_list|(
-literal|"multi"
-argument_list|)
-operator|&&
 name|param
 operator|instanceof
 name|MultiRequest
@@ -1462,12 +1455,9 @@ return|;
 block|}
 if|if
 condition|(
-name|methodName
-operator|.
-name|equalsIgnoreCase
-argument_list|(
-literal|"scan"
-argument_list|)
+name|param
+operator|instanceof
+name|ScanRequest
 condition|)
 block|{
 comment|// scanner methods...
@@ -1557,12 +1547,9 @@ comment|// If meta is moving then all the rest of report the report state transi
 comment|// blocked. We shouldn't be in the same queue.
 if|if
 condition|(
-name|methodName
-operator|.
-name|equalsIgnoreCase
-argument_list|(
-literal|"ReportRegionStateTransition"
-argument_list|)
+name|param
+operator|instanceof
+name|ReportRegionStateTransitionRequest
 condition|)
 block|{
 comment|// Regions are moving
@@ -1659,22 +1646,11 @@ name|Message
 name|param
 parameter_list|)
 block|{
-name|String
-name|methodName
-init|=
-name|header
-operator|.
-name|getMethodName
-argument_list|()
-decl_stmt|;
 if|if
 condition|(
-name|methodName
-operator|.
-name|equalsIgnoreCase
-argument_list|(
-literal|"scan"
-argument_list|)
+name|param
+operator|instanceof
+name|ScanRequest
 condition|)
 block|{
 name|ScanRequest
