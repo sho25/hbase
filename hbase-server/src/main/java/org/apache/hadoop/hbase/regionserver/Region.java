@@ -1381,7 +1381,7 @@ name|isCompactionNeeded
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Flush the cache.    *    *<p>When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    * @param force whether we want to force a flush of all stores    * @return FlushResult indicating whether the flush was successful or not and if    * the region needs compacting    *    * @throws IOException general io exceptions    * because a snapshot was not properly persisted.    * @throws DroppedSnapshotException Thrown when abort is required. The caller MUST catch this    * exception and MUST abort. Any further operation to the region may cause data loss.    */
+comment|/**    * Flush the cache.    *    *<p>When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    * @param force whether we want to force a flush of all stores    * @return FlushResult indicating whether the flush was successful or not and if    * the region needs compacting    *    * @throws IOException general io exceptions    * because a snapshot was not properly persisted.    */
 name|FlushResult
 name|flush
 parameter_list|(

@@ -1856,7 +1856,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Returns the number of elements between the current position and the    * limit.</p>    * @return the remaining elements in this MBB    */
+comment|/**    * Returns the number of elements between the current position and the    * limit.    * @return the remaining elements in this MBB    */
 specifier|public
 name|int
 name|remaining

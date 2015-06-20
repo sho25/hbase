@@ -1196,7 +1196,7 @@ operator|.
 name|logSeqNum
 return|;
 block|}
-comment|/**    * Allow that the log sequence id to be set post-construction and release all waiters on assigned    * sequence number.    * Only public for {@link org.apache.hadoop.hbase.regionserver.wal.FSWALEntry}    * @param sequence    */
+comment|/**    * Allow that the log sequence id to be set post-construction and release all waiters on assigned    * sequence number.    * Only public for org.apache.hadoop.hbase.regionserver.wal.FSWALEntry    * @param sequence    */
 annotation|@
 name|InterfaceAudience
 operator|.
