@@ -255,6 +255,17 @@ return|return
 literal|null
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|shipped
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+comment|// do nothing
+block|}
 block|}
 end_class
 

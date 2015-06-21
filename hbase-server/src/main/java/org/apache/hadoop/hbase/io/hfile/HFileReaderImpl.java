@@ -4823,6 +4823,17 @@ parameter_list|()
 block|{
 comment|// HBASE-12295 will add code here.
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|shipped
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+comment|// HBASE-12295 will add code here.
+block|}
 block|}
 specifier|public
 name|Path

@@ -134,6 +134,8 @@ interface|interface
 name|RegionScanner
 extends|extends
 name|InternalScanner
+extends|,
+name|Shipper
 block|{
 comment|/**    * @return The RegionInfo for this scanner.    */
 name|HRegionInfo

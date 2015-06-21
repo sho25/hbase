@@ -2078,6 +2078,10 @@ specifier|private
 name|InetAddress
 name|remoteAddress
 decl_stmt|;
+specifier|private
+name|RpcCallback
+name|callback
+decl_stmt|;
 name|Call
 parameter_list|(
 name|int
@@ -2866,6 +2870,45 @@ name|response
 operator|=
 name|bc
 expr_stmt|;
+comment|// Once a response message is created and set to this.response, this Call can be treated as
+comment|// done. The Responder thread will do the n/w write of this message back to client.
+if|if
+condition|(
+name|this
+operator|.
+name|callback
+operator|!=
+literal|null
+condition|)
+block|{
+try|try
+block|{
+name|this
+operator|.
+name|callback
+operator|.
+name|run
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+comment|// Don't allow any exception here to kill this handler thread.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Exception while running the Rpc Callback."
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 specifier|private
 name|BufferChain
@@ -3376,6 +3419,23 @@ operator|.
 name|getVersionInfo
 argument_list|()
 return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|setCallBack
+parameter_list|(
+name|RpcCallback
+name|callback
+parameter_list|)
+block|{
+name|this
+operator|.
+name|callback
+operator|=
+name|callback
+expr_stmt|;
 block|}
 block|}
 comment|/** Listens on the socket. Creates jobs for the handler threads*/

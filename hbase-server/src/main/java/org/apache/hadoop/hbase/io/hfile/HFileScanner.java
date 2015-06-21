@@ -65,6 +65,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|Shipper
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Cell
 import|;
 end_import
@@ -81,6 +97,8 @@ name|Private
 specifier|public
 interface|interface
 name|HFileScanner
+extends|extends
+name|Shipper
 block|{
 comment|/**    * SeekTo or just before the passed<code>cell</code>.  Examine the return    * code to figure whether we found the cell or not.    * Consider the cell stream of all the cells in the file,    *<code>c[0] .. c[n]</code>, where there are n cells in the file.    * @param cell    * @return -1, if cell&lt; c[0], no position;    * 0, such that c[i] = cell and scanner is left in position i; and    * 1, such that c[i]&lt; cell, and scanner is left in position i.    * The scanner will position itself between c[i] and c[i+1] where    * c[i]&lt; cell&lt;= c[i+1].    * If there is no cell c[i+1] greater than or equal to the input cell, then the    * scanner will position itself at the end of the file and next() will return    * false when it is called.    * @throws IOException    */
 name|int

@@ -95,6 +95,8 @@ name|Private
 specifier|public
 interface|interface
 name|KeyValueScanner
+extends|extends
+name|Shipper
 block|{
 comment|/**    * Look at the next Cell in this scanner, but do not iterate scanner.    * @return the next Cell    */
 name|Cell

@@ -100,6 +100,14 @@ name|VersionInfo
 name|getClientVersionInfo
 parameter_list|()
 function_decl|;
+comment|/**    * Sets a callback which has to be executed at the end of this RPC call. Such a callback is an    * optional one for any Rpc call.    *    * @param callback    */
+name|void
+name|setCallBack
+parameter_list|(
+name|RpcCallback
+name|callback
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 

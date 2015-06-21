@@ -2035,6 +2035,23 @@ name|getNextIndexedKey
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|shipped
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|this
+operator|.
+name|hfs
+operator|.
+name|shipped
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 end_class
 

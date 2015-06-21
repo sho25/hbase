@@ -601,9 +601,9 @@ literal|" closed leases"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a lease and insert it to the map of leases.    *    * @param leaseName name of the lease    * @param leaseTimeoutPeriod length of the lease in milliseconds    * @param listener listener that will process lease expirations    * @throws LeaseStillHeldException    */
+comment|/**    * Create a lease and insert it to the map of leases.    *    * @param leaseName name of the lease    * @param leaseTimeoutPeriod length of the lease in milliseconds    * @param listener listener that will process lease expirations    * @return The lease created.    * @throws LeaseStillHeldException    */
 specifier|public
-name|void
+name|Lease
 name|createLease
 parameter_list|(
 name|String
@@ -619,8 +619,9 @@ parameter_list|)
 throws|throws
 name|LeaseStillHeldException
 block|{
-name|addLease
-argument_list|(
+name|Lease
+name|lease
+init|=
 operator|new
 name|Lease
 argument_list|(
@@ -630,8 +631,15 @@ name|leaseTimeoutPeriod
 argument_list|,
 name|listener
 argument_list|)
+decl_stmt|;
+name|addLease
+argument_list|(
+name|lease
 argument_list|)
 expr_stmt|;
+return|return
+name|lease
+return|;
 block|}
 comment|/**    * Inserts lease.  Resets expiration before insertion.    * @param lease    * @throws LeaseStillHeldException    */
 specifier|public
