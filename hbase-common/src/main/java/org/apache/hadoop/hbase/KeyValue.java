@@ -536,6 +536,16 @@ operator|.
 name|SIZEOF_INT
 comment|/*valuelength*/
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|ROW_KEY_OFFSET
+init|=
+name|ROW_OFFSET
+operator|+
+name|ROW_LENGTH_SIZE
+decl_stmt|;
 comment|// Size of the length ints in a KeyValue datastructure.
 specifier|public
 specifier|static
@@ -5787,12 +5797,11 @@ name|getRowOffset
 parameter_list|()
 block|{
 return|return
-name|getKeyOffset
-argument_list|()
-operator|+
-name|Bytes
+name|this
 operator|.
-name|SIZEOF_SHORT
+name|offset
+operator|+
+name|ROW_KEY_OFFSET
 return|;
 block|}
 comment|/**    * @return Row length    */
@@ -5860,11 +5869,7 @@ name|this
 operator|.
 name|offset
 operator|+
-name|ROW_OFFSET
-operator|+
-name|Bytes
-operator|.
-name|SIZEOF_SHORT
+name|ROW_KEY_OFFSET
 operator|+
 name|rlength
 operator|+
