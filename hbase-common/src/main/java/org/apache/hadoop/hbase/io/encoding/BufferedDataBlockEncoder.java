@@ -2784,6 +2784,18 @@ name|tagCompressionContext
 init|=
 literal|null
 decl_stmt|;
+specifier|protected
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+name|keyOnlyKV
+init|=
+operator|new
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+argument_list|()
+decl_stmt|;
 specifier|public
 name|BufferedEncodedSeeker
 parameter_list|(
@@ -2899,20 +2911,9 @@ name|Cell
 name|key
 parameter_list|)
 block|{
-comment|// TODO BufferedEncodedSeeker, instance will be used by single thread alone. So we can
-comment|// have one KeyValue.KeyOnlyKeyValue instance as instance variable and reuse here and in
-comment|// seekToKeyInBlock
-return|return
-name|comparator
+name|keyOnlyKV
 operator|.
-name|compareKeyIgnoresMvcc
-argument_list|(
-name|key
-argument_list|,
-operator|new
-name|KeyValue
-operator|.
-name|KeyOnlyKeyValue
+name|setKey
 argument_list|(
 name|current
 operator|.
@@ -2924,6 +2925,15 @@ name|current
 operator|.
 name|keyLength
 argument_list|)
+expr_stmt|;
+return|return
+name|comparator
+operator|.
+name|compareKeyIgnoresMvcc
+argument_list|(
+name|key
+argument_list|,
+name|keyOnlyKV
 argument_list|)
 return|;
 block|}
@@ -3557,23 +3567,12 @@ operator|.
 name|invalidate
 argument_list|()
 expr_stmt|;
-name|KeyValue
-operator|.
-name|KeyOnlyKeyValue
-name|currentCell
-init|=
-operator|new
-name|KeyValue
-operator|.
-name|KeyOnlyKeyValue
-argument_list|()
-decl_stmt|;
 do|do
 block|{
 name|int
 name|comp
 decl_stmt|;
-name|currentCell
+name|keyOnlyKV
 operator|.
 name|setKey
 argument_list|(
@@ -3638,7 +3637,7 @@ name|findCommonPrefixInRowPart
 argument_list|(
 name|seekCell
 argument_list|,
-name|currentCell
+name|keyOnlyKV
 argument_list|,
 name|rowCommonPrefix
 argument_list|)
@@ -3649,7 +3648,7 @@ name|compareCommonRowPrefix
 argument_list|(
 name|seekCell
 argument_list|,
-name|currentCell
+name|keyOnlyKV
 argument_list|,
 name|rowCommonPrefix
 argument_list|)
@@ -3667,7 +3666,7 @@ name|compareTypeBytes
 argument_list|(
 name|seekCell
 argument_list|,
-name|currentCell
+name|keyOnlyKV
 argument_list|)
 expr_stmt|;
 if|if
@@ -3699,7 +3698,7 @@ operator|-
 operator|(
 literal|3
 operator|+
-name|currentCell
+name|keyOnlyKV
 operator|.
 name|getRowLength
 argument_list|()
@@ -3713,7 +3712,7 @@ name|findCommonPrefixInFamilyPart
 argument_list|(
 name|seekCell
 argument_list|,
-name|currentCell
+name|keyOnlyKV
 argument_list|,
 name|familyCommonPrefix
 argument_list|)
@@ -3724,7 +3723,7 @@ name|compareCommonFamilyPrefix
 argument_list|(
 name|seekCell
 argument_list|,
-name|currentCell
+name|keyOnlyKV
 argument_list|,
 name|familyCommonPrefix
 argument_list|)
@@ -3759,12 +3758,12 @@ operator|-
 operator|(
 literal|3
 operator|+
-name|currentCell
+name|keyOnlyKV
 operator|.
 name|getRowLength
 argument_list|()
 operator|+
-name|currentCell
+name|keyOnlyKV
 operator|.
 name|getFamilyLength
 argument_list|()
@@ -3778,7 +3777,7 @@ name|findCommonPrefixInQualifierPart
 argument_list|(
 name|seekCell
 argument_list|,
-name|currentCell
+name|keyOnlyKV
 argument_list|,
 name|qualCommonPrefix
 argument_list|)
@@ -3789,7 +3788,7 @@ name|compareCommonQualifierPrefix
 argument_list|(
 name|seekCell
 argument_list|,
-name|currentCell
+name|keyOnlyKV
 argument_list|,
 name|qualCommonPrefix
 argument_list|)
@@ -3809,7 +3808,7 @@ name|compareTimestamps
 argument_list|(
 name|seekCell
 argument_list|,
-name|currentCell
+name|keyOnlyKV
 argument_list|)
 expr_stmt|;
 if|if
@@ -3832,7 +3831,7 @@ operator|=
 operator|(
 literal|0xff
 operator|&
-name|currentCell
+name|keyOnlyKV
 operator|.
 name|getTypeByte
 argument_list|()
