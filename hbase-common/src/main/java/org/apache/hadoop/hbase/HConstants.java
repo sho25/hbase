@@ -407,6 +407,24 @@ name|HBASE_MASTER_LOADBALANCER_CLASS
 init|=
 literal|"hbase.master.loadbalancer.class"
 decl_stmt|;
+comment|/** Config for pluggable region normalizer */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_MASTER_NORMALIZER_CLASS
+init|=
+literal|"hbase.master.normalizer.class"
+decl_stmt|;
+comment|/** Config for enabling/disabling pluggable region normalizer */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_NORMALIZER_ENABLED
+init|=
+literal|"hbase.normalizer.enabled"
+decl_stmt|;
 comment|/** Cluster is standalone or pseudo-distributed */
 specifier|public
 specifier|static

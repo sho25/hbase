@@ -829,6 +829,32 @@ name|REGION_MEMSTORE_REPLICATION
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|/**    *<em>INTERNAL</em> Used by shell/rest interface to access this metadata    * attribute which denotes if the table should be treated by region normalizer.    *    * @see #isNormalizationEnabled()    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|NORMALIZATION_ENABLED
+init|=
+literal|"NORMALIZATION_ENABLED"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|Bytes
+name|NORMALIZATION_ENABLED_KEY
+init|=
+operator|new
+name|Bytes
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|NORMALIZATION_ENABLED
+argument_list|)
+argument_list|)
+decl_stmt|;
 comment|/** Default durability for HTD is USE_DEFAULT, which defaults to HBase-global default value */
 specifier|private
 specifier|static
@@ -910,6 +936,15 @@ name|boolean
 name|DEFAULT_COMPACTION_ENABLED
 init|=
 literal|true
+decl_stmt|;
+comment|/**    * Constant that denotes whether the table is normalized by default.    */
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_NORMALIZATION_ENABLED
+init|=
+literal|false
 decl_stmt|;
 comment|/**    * Constant that denotes the maximum default size of the memstore after which    * the contents are flushed to the store files    */
 specifier|public
@@ -2188,6 +2223,46 @@ block|{
 name|setValue
 argument_list|(
 name|COMPACTION_ENABLED_KEY
+argument_list|,
+name|isEnable
+condition|?
+name|TRUE
+else|:
+name|FALSE
+argument_list|)
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**    * Check if normalization enable flag of the table is true. If flag is    * false then no region normalizer won't attempt to normalize this table.    *    * @return true if region normalization is enabled for this table    */
+specifier|public
+name|boolean
+name|isNormalizationEnabled
+parameter_list|()
+block|{
+return|return
+name|isSomething
+argument_list|(
+name|NORMALIZATION_ENABLED_KEY
+argument_list|,
+name|DEFAULT_NORMALIZATION_ENABLED
+argument_list|)
+return|;
+block|}
+comment|/**    * Setting the table normalization enable flag.    *    * @param isEnable True if enable normalization.    */
+specifier|public
+name|HTableDescriptor
+name|setNormalizationEnabled
+parameter_list|(
+specifier|final
+name|boolean
+name|isEnable
+parameter_list|)
+block|{
+name|setValue
+argument_list|(
+name|NORMALIZATION_ENABLED_KEY
 argument_list|,
 name|isEnable
 condition|?
