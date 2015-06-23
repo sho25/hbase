@@ -746,7 +746,7 @@ name|IOException
 block|{
 name|hBaseClusterManager
 operator|.
-name|kill
+name|suspend
 argument_list|(
 name|service
 argument_list|,
@@ -776,7 +776,7 @@ name|IOException
 block|{
 name|hBaseClusterManager
 operator|.
-name|kill
+name|resume
 argument_list|(
 name|service
 argument_list|,
