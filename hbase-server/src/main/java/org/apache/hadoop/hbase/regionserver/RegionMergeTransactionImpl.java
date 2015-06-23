@@ -413,6 +413,11 @@ specifier|final
 name|boolean
 name|forcible
 decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|masterSystemTime
+decl_stmt|;
 comment|/*    * Transaction state for listener, only valid during execute and    * rollback    */
 specifier|private
 name|RegionMergeTransactionPhase
@@ -617,6 +622,41 @@ name|boolean
 name|forcible
 parameter_list|)
 block|{
+name|this
+argument_list|(
+name|a
+argument_list|,
+name|b
+argument_list|,
+name|forcible
+argument_list|,
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Constructor    * @param a region a to merge    * @param b region b to merge    * @param forcible if false, we will only merge adjacent regions    * @param masterSystemTime the time at the master side    */
+specifier|public
+name|RegionMergeTransactionImpl
+parameter_list|(
+specifier|final
+name|Region
+name|a
+parameter_list|,
+specifier|final
+name|Region
+name|b
+parameter_list|,
+specifier|final
+name|boolean
+name|forcible
+parameter_list|,
+name|long
+name|masterSystemTime
+parameter_list|)
+block|{
 if|if
 condition|(
 name|a
@@ -680,6 +720,12 @@ operator|.
 name|forcible
 operator|=
 name|forcible
+expr_stmt|;
+name|this
+operator|.
+name|masterSystemTime
+operator|=
+name|masterSystemTime
 expr_stmt|;
 name|this
 operator|.
@@ -1645,6 +1691,22 @@ argument_list|(
 name|mergedRegion
 argument_list|)
 decl_stmt|;
+comment|// use the maximum of what master passed us vs local time.
+name|long
+name|time
+init|=
+name|Math
+operator|.
+name|max
+argument_list|(
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+argument_list|,
+name|masterSystemTime
+argument_list|)
+decl_stmt|;
 comment|// Put for parent
 name|Put
 name|putOfMerged
@@ -1654,6 +1716,8 @@ operator|.
 name|makePutFromRegionInfo
 argument_list|(
 name|copyOfMerged
+argument_list|,
+name|time
 argument_list|)
 decl_stmt|;
 name|putOfMerged
@@ -1708,6 +1772,8 @@ operator|.
 name|makeDeleteFromRegionInfo
 argument_list|(
 name|regionA
+argument_list|,
+name|time
 argument_list|)
 decl_stmt|;
 name|Delete
@@ -1718,6 +1784,8 @@ operator|.
 name|makeDeleteFromRegionInfo
 argument_list|(
 name|regionB
+argument_list|,
+name|time
 argument_list|)
 decl_stmt|;
 name|mutations

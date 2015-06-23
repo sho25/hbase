@@ -214,6 +214,11 @@ specifier|private
 name|TableLock
 name|tableLock
 decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|masterSystemTime
+decl_stmt|;
 name|RegionMergeRequest
 parameter_list|(
 name|Region
@@ -227,6 +232,9 @@ name|hrs
 parameter_list|,
 name|boolean
 name|forcible
+parameter_list|,
+name|long
+name|masterSystemTime
 parameter_list|)
 block|{
 name|Preconditions
@@ -265,6 +273,12 @@ operator|.
 name|forcible
 operator|=
 name|forcible
+expr_stmt|;
+name|this
+operator|.
+name|masterSystemTime
+operator|=
+name|masterSystemTime
 expr_stmt|;
 block|}
 annotation|@
@@ -359,6 +373,8 @@ argument_list|,
 name|region_b
 argument_list|,
 name|forcible
+argument_list|,
+name|masterSystemTime
 argument_list|)
 decl_stmt|;
 comment|//acquire a shared read lock on the table, so that table schema modifications

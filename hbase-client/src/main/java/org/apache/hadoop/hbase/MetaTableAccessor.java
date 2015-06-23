@@ -6045,6 +6045,42 @@ name|HRegionInfo
 name|regionInfo
 parameter_list|)
 block|{
+name|long
+name|now
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+decl_stmt|;
+return|return
+name|makeDeleteFromRegionInfo
+argument_list|(
+name|regionInfo
+argument_list|,
+name|now
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Generates and returns a Delete containing the region info for the catalog    * table    */
+end_comment
+
+begin_function
+specifier|public
+specifier|static
+name|Delete
+name|makeDeleteFromRegionInfo
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
+name|long
+name|ts
+parameter_list|)
+block|{
 if|if
 condition|(
 name|regionInfo
@@ -6060,14 +6096,6 @@ literal|"Can't make a delete for null region"
 argument_list|)
 throw|;
 block|}
-name|long
-name|now
-init|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-decl_stmt|;
 name|Delete
 name|delete
 init|=
@@ -6087,7 +6115,7 @@ argument_list|(
 name|getCatalogFamily
 argument_list|()
 argument_list|,
-name|now
+name|ts
 argument_list|)
 expr_stmt|;
 return|return
@@ -7224,7 +7252,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Merge the two regions into one in an atomic operation. Deletes the two    * merging regions in hbase:meta and adds the merged region with the information of    * two merging regions.    * @param connection connection we're using    * @param mergedRegion the merged region    * @param regionA    * @param regionB    * @param sn the location of the region    * @throws IOException    */
+comment|/**    * Merge the two regions into one in an atomic operation. Deletes the two    * merging regions in hbase:meta and adds the merged region with the information of    * two merging regions.    * @param connection connection we're using    * @param mergedRegion the merged region    * @param regionA    * @param regionB    * @param sn the location of the region    * @param masterSystemTime    * @throws IOException    */
 end_comment
 
 begin_function
@@ -7251,6 +7279,9 @@ name|sn
 parameter_list|,
 name|int
 name|regionReplication
+parameter_list|,
+name|long
+name|masterSystemTime
 parameter_list|)
 throws|throws
 name|IOException
@@ -7274,6 +7305,22 @@ argument_list|(
 name|mergedRegion
 argument_list|)
 decl_stmt|;
+comment|// use the maximum of what master passed us vs local time.
+name|long
+name|time
+init|=
+name|Math
+operator|.
+name|max
+argument_list|(
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+argument_list|,
+name|masterSystemTime
+argument_list|)
+decl_stmt|;
 comment|// Put for parent
 name|Put
 name|putOfMerged
@@ -7281,6 +7328,8 @@ init|=
 name|makePutFromRegionInfo
 argument_list|(
 name|copyOfMerged
+argument_list|,
+name|time
 argument_list|)
 decl_stmt|;
 name|putOfMerged
@@ -7326,6 +7375,8 @@ init|=
 name|makeDeleteFromRegionInfo
 argument_list|(
 name|regionA
+argument_list|,
+name|time
 argument_list|)
 decl_stmt|;
 name|Delete
@@ -7334,6 +7385,8 @@ init|=
 name|makeDeleteFromRegionInfo
 argument_list|(
 name|regionB
+argument_list|,
+name|time
 argument_list|)
 decl_stmt|;
 comment|// The merged is a new region, openSeqNum = 1 is fine.

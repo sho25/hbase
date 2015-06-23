@@ -5534,6 +5534,17 @@ argument_list|(
 name|forcible
 argument_list|)
 expr_stmt|;
+comment|// send the master's wall clock time as well, so that the RS can refer to it
+name|builder
+operator|.
+name|setMasterSystemTime
+argument_list|(
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+argument_list|)
+expr_stmt|;
 return|return
 name|builder
 operator|.

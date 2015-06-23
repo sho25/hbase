@@ -1338,6 +1338,9 @@ parameter_list|,
 specifier|final
 name|boolean
 name|forcible
+parameter_list|,
+name|long
+name|masterSystemTime
 parameter_list|)
 block|{
 try|try
@@ -1358,6 +1361,8 @@ operator|.
 name|server
 argument_list|,
 name|forcible
+argument_list|,
+name|masterSystemTime
 argument_list|)
 argument_list|)
 expr_stmt|;
