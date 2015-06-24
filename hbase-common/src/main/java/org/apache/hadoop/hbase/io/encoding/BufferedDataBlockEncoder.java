@@ -3044,6 +3044,11 @@ operator|.
 name|keyLength
 argument_list|)
 expr_stmt|;
+name|keyBuffer
+operator|.
+name|rewind
+argument_list|()
+expr_stmt|;
 return|return
 name|keyBuffer
 return|;
@@ -3250,6 +3255,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|kvBuffer
+operator|.
+name|rewind
+argument_list|()
+expr_stmt|;
 return|return
 name|kvBuffer
 return|;

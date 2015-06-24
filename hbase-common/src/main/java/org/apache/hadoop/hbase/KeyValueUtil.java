@@ -599,6 +599,7 @@ return|return
 name|kvCell
 return|;
 block|}
+comment|/**    * The position will be set to the beginning of the new ByteBuffer    * @param cell    * @return the Bytebuffer containing the key part of the cell    */
 specifier|public
 specifier|static
 name|ByteBuffer
@@ -641,17 +642,6 @@ argument_list|(
 name|bytes
 argument_list|)
 decl_stmt|;
-name|buffer
-operator|.
-name|position
-argument_list|(
-name|buffer
-operator|.
-name|limit
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|//make it look as if each field were appended
 return|return
 name|buffer
 return|;
@@ -958,6 +948,7 @@ return|return
 name|pos
 return|;
 block|}
+comment|/**    * The position will be set to the beginning of the new ByteBuffer    * @param cell    * @return the ByteBuffer containing the cell    */
 specifier|public
 specifier|static
 name|ByteBuffer
@@ -1000,17 +991,6 @@ argument_list|(
 name|bytes
 argument_list|)
 decl_stmt|;
-name|buffer
-operator|.
-name|position
-argument_list|(
-name|buffer
-operator|.
-name|limit
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|//make it look as if each field were appended
 return|return
 name|buffer
 return|;

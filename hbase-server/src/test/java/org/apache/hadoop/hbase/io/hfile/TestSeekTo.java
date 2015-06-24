@@ -493,16 +493,6 @@ name|values
 argument_list|()
 control|)
 block|{
-comment|// Remove after HBASE-13939
-if|if
-condition|(
-name|encoding
-operator|!=
-name|DataBlockEncoding
-operator|.
-name|PREFIX_TREE
-condition|)
-block|{
 name|paramList
 operator|.
 name|add
@@ -515,7 +505,6 @@ name|encoding
 block|}
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 return|return
 name|paramList
