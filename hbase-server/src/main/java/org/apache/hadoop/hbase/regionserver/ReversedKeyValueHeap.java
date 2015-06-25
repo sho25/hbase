@@ -613,6 +613,12 @@ name|this
 operator|.
 name|current
 operator|=
+literal|null
+expr_stmt|;
+name|this
+operator|.
+name|current
+operator|=
 name|pollRealKV
 argument_list|()
 expr_stmt|;
@@ -661,6 +667,12 @@ name|this
 operator|.
 name|current
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|current
+operator|=
+literal|null
 expr_stmt|;
 name|this
 operator|.
