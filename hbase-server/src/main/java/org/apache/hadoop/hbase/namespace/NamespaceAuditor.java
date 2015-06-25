@@ -187,20 +187,6 @@ name|QuotaExceededException
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
 begin_comment
 comment|/**  * The Class NamespaceAuditor performs checks to ensure operations like table creation  * and region splitting preserve namespace quota. The namespace quota can be specified  * while namespace creation.  */
 end_comment
@@ -651,9 +637,8 @@ name|hri
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Used only for unit tests.    * @param namespace The name of the namespace    * @return An instance of NamespaceTableAndRegionInfo    */
-annotation|@
-name|VisibleForTesting
+comment|/**    * @param namespace The name of the namespace    * @return An instance of NamespaceTableAndRegionInfo    */
+specifier|public
 name|NamespaceTableAndRegionInfo
 name|getState
 parameter_list|(
