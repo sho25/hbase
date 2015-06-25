@@ -6326,6 +6326,16 @@ range|:
 name|regions
 control|)
 block|{
+if|if
+condition|(
+name|region
+operator|.
+name|getCoprocessorHost
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
 name|Set
 argument_list|<
 name|String
@@ -6377,6 +6387,7 @@ name|build
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|serverLoad
 operator|.
