@@ -770,7 +770,7 @@ name|long
 name|ts
 decl_stmt|;
 comment|// clean up content of TABLE_NAME
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL

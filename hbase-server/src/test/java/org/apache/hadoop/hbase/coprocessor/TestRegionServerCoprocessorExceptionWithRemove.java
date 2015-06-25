@@ -163,6 +163,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|HRegionServer
@@ -508,7 +524,7 @@ argument_list|(
 literal|"aaa"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -569,7 +585,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,
@@ -585,11 +601,6 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 comment|// We may need two puts to reliably get an exception
 name|table
 operator|.
@@ -597,11 +608,6 @@ name|put
 argument_list|(
 name|put
 argument_list|)
-expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
 expr_stmt|;
 block|}
 catch|catch

@@ -1065,10 +1065,7 @@ block|{
 name|f
 block|}
 argument_list|,
-name|HTU
-operator|.
-name|getConfiguration
-argument_list|()
+literal|null
 argument_list|)
 decl_stmt|;
 name|Put
@@ -1082,7 +1079,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|f
 argument_list|,
@@ -1296,10 +1293,7 @@ block|{
 name|f
 block|}
 argument_list|,
-name|HTU
-operator|.
-name|getConfiguration
-argument_list|()
+literal|null
 argument_list|)
 decl_stmt|;
 comment|// basic test: it should work.
@@ -1314,7 +1308,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|f
 argument_list|,
@@ -2343,10 +2337,7 @@ block|{
 name|f
 block|}
 argument_list|,
-name|HTU
-operator|.
-name|getConfiguration
-argument_list|()
+literal|null
 argument_list|)
 decl_stmt|;
 comment|// create hfiles to load.

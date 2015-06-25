@@ -435,13 +435,12 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"client-pushback"
 argument_list|)
@@ -607,19 +606,12 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-name|TableName
-name|tablename
-init|=
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
-name|tableName
-argument_list|)
-decl_stmt|;
-name|Connection
+name|ClusterConnection
 name|conn
 init|=
+operator|(
+name|ClusterConnection
+operator|)
 name|ConnectionFactory
 operator|.
 name|createConnection
@@ -637,7 +629,7 @@ name|conn
 operator|.
 name|getTable
 argument_list|(
-name|tablename
+name|tableName
 argument_list|)
 decl_stmt|;
 name|HRegionServer
@@ -660,7 +652,7 @@ name|rs
 operator|.
 name|getOnlineRegions
 argument_list|(
-name|tablename
+name|tableName
 argument_list|)
 operator|.
 name|get
@@ -674,7 +666,7 @@ name|debug
 argument_list|(
 literal|"Writing some data to "
 operator|+
-name|tablename
+name|tableName
 argument_list|)
 expr_stmt|;
 comment|// write some data
@@ -694,7 +686,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -714,11 +706,6 @@ name|put
 argument_list|(
 name|p
 argument_list|)
-expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
 expr_stmt|;
 comment|// get the current load on RS. Hopefully memstore isn't flushed since we wrote the the data
 name|int
@@ -753,21 +740,14 @@ name|debug
 argument_list|(
 literal|"Done writing some data to "
 operator|+
-name|tablename
+name|tableName
 argument_list|)
 expr_stmt|;
 comment|// get the stats for the region hosting our table
-name|ClusterConnection
-name|connection
-init|=
-name|table
-operator|.
-name|connection
-decl_stmt|;
 name|ClientBackoffPolicy
 name|backoffPolicy
 init|=
-name|connection
+name|conn
 operator|.
 name|getBackoffPolicy
 argument_list|()
@@ -784,7 +764,7 @@ expr_stmt|;
 name|ServerStatisticTracker
 name|stats
 init|=
-name|connection
+name|conn
 operator|.
 name|getStatisticsTracker
 argument_list|()
@@ -957,7 +937,7 @@ name|ap
 operator|.
 name|submit
 argument_list|(
-name|tablename
+name|tableName
 argument_list|,
 name|ops
 argument_list|,

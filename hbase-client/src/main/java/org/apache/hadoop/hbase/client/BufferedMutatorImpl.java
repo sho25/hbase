@@ -186,7 +186,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<p>  * Used to communicate with a single HBase table similar to {@link HTable}  * but meant for batched, potentially asynchronous puts. Obtain an instance from  * a {@link Connection} and call {@link #close()} afterwards.  *</p>  *  * @see ConnectionFactory  * @see Connection  * @since 1.0.0  */
+comment|/**  *<p>  * Used to communicate with a single HBase table similar to {@link Table}  * but meant for batched, potentially asynchronous puts. Obtain an instance from  * a {@link Connection} and call {@link #close()} afterwards.  *</p>  *  * @see ConnectionFactory  * @see Connection  * @since 1.0.0  */
 end_comment
 
 begin_class

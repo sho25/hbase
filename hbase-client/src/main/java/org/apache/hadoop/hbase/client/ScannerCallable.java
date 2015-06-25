@@ -502,7 +502,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Scanner operations such as create, next, etc.  * Used by {@link ResultScanner}s made by {@link HTable}. Passed to a retrying caller such as  * {@link RpcRetryingCaller} so fails are retried.  */
+comment|/**  * Scanner operations such as create, next, etc.  * Used by {@link ResultScanner}s made by {@link Table}. Passed to a retrying caller such as  * {@link RpcRetryingCaller} so fails are retried.  */
 end_comment
 
 begin_class

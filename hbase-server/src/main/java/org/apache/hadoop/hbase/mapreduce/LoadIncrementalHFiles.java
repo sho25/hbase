@@ -5202,7 +5202,7 @@ name|key
 argument_list|)
 return|;
 block|}
-comment|/*    * Infers region boundaries for a new table.    * Parameter:    *   bdryMap is a map between keys to an integer belonging to {+1, -1}    *     If a key is a start key of a file, then it maps to +1    *     If a key is an end key of a file, then it maps to -1    * Algo:    * 1) Poll on the keys in order:    *    a) Keep adding the mapped values to these keys (runningSum)    *    b) Each time runningSum reaches 0, add the start Key from when the runningSum had started to a boundary list.    * 2) Return the boundary list.    */
+comment|/*    * Infers region boundaries for a new table.    * Parameter:    *   bdryMap is a map between keys to an integer belonging to {+1, -1}    *     If a key is a start key of a file, then it maps to +1    *     If a key is an end key of a file, then it maps to -1    * Algo:    * 1) Poll on the keys in order:    *    a) Keep adding the mapped values to these keys (runningSum)    *    b) Each time runningSum reaches 0, add the start Key from when the runningSum had started to    *       a boundary list.    * 2) Return the boundary list.    */
 specifier|public
 specifier|static
 name|byte
@@ -5871,12 +5871,9 @@ argument_list|)
 decl_stmt|;
 try|try
 init|(
-name|HTable
+name|Table
 name|table
 init|=
-operator|(
-name|HTable
-operator|)
 name|connection
 operator|.
 name|getTable
@@ -5884,13 +5881,26 @@ argument_list|(
 name|tableName
 argument_list|)
 init|;
+name|RegionLocator
+name|locator
+operator|=
+name|connection
+operator|.
+name|getRegionLocator
+argument_list|(
+name|tableName
+argument_list|)
 init|)
 block|{
 name|doBulkLoad
 argument_list|(
 name|hfofDir
 argument_list|,
+name|admin
+argument_list|,
 name|table
+argument_list|,
+name|locator
 argument_list|)
 expr_stmt|;
 block|}

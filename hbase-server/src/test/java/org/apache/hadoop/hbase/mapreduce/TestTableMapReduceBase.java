@@ -450,7 +450,7 @@ operator|.
 name|startMiniCluster
 argument_list|()
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|UTIL

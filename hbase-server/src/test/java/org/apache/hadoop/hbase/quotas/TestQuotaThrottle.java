@@ -205,6 +205,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|User
@@ -526,7 +542,7 @@ name|envEdge
 decl_stmt|;
 specifier|private
 specifier|static
-name|HTable
+name|Table
 index|[]
 name|tables
 decl_stmt|;
@@ -655,7 +671,7 @@ expr_stmt|;
 name|tables
 operator|=
 operator|new
-name|HTable
+name|Table
 index|[
 name|TABLE_NAMES
 operator|.
@@ -3554,7 +3570,7 @@ name|int
 name|maxOps
 parameter_list|,
 specifier|final
-name|HTable
+name|Table
 modifier|...
 name|tables
 parameter_list|)
@@ -3612,7 +3628,7 @@ expr_stmt|;
 for|for
 control|(
 specifier|final
-name|HTable
+name|Table
 name|table
 range|:
 name|tables
@@ -3690,7 +3706,7 @@ name|int
 name|maxOps
 parameter_list|,
 specifier|final
-name|HTable
+name|Table
 modifier|...
 name|tables
 parameter_list|)
@@ -3730,7 +3746,7 @@ decl_stmt|;
 for|for
 control|(
 specifier|final
-name|HTable
+name|Table
 name|table
 range|:
 name|tables

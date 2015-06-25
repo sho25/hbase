@@ -105,6 +105,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|AbstractRpcClient
@@ -294,13 +308,12 @@ throws|throws
 name|IOException
 block|{
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|t
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testBasics"
 argument_list|)
@@ -338,7 +351,7 @@ literal|"cf3"
 argument_list|)
 block|}
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -491,6 +504,21 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|ht
+operator|instanceof
+name|HTableInterface
+condition|)
+block|{
+name|HTableInterface
+name|hti
+init|=
+operator|(
+name|HTableInterface
+operator|)
+name|ht
+decl_stmt|;
 comment|// Check getRowOrBefore
 name|byte
 index|[]
@@ -503,7 +531,7 @@ index|]
 decl_stmt|;
 name|r
 operator|=
-name|ht
+name|hti
 operator|.
 name|getRowOrBefore
 argument_list|(
@@ -529,6 +557,7 @@ name|f
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Check scan.
 name|ResultScanner
 name|scanner

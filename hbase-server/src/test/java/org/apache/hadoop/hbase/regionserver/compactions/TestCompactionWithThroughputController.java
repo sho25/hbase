@@ -742,7 +742,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL

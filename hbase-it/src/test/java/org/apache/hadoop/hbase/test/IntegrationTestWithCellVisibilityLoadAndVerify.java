@@ -3012,9 +3012,7 @@ argument_list|)
 operator|.
 name|deleteTable
 argument_list|(
-name|htd
-operator|.
-name|getName
+name|getTablename
 argument_list|()
 argument_list|)
 expr_stmt|;

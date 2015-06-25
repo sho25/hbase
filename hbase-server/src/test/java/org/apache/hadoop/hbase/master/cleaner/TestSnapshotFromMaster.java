@@ -1944,10 +1944,7 @@ block|{
 name|TEST_FAM
 block|}
 argument_list|,
-name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// load the table (creates 4 hfiles)
@@ -1980,9 +1977,6 @@ name|UTIL
 operator|.
 name|loadTable
 argument_list|(
-operator|(
-name|HTable
-operator|)
 name|UTIL
 operator|.
 name|getConnection

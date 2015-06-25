@@ -79,7 +79,7 @@ specifier|abstract
 class|class
 name|Batch
 block|{
-comment|/**    * Defines a unit of work to be executed.    *    *<p>    * When used with    * {@link org.apache.hadoop.hbase.client.HTable#coprocessorService(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)}    * the implementations {@link Batch.Call#call(Object)} method will be invoked    * with a proxy to each region's coprocessor {@link com.google.protobuf.Service} implementation.    *</p>    * @see org.apache.hadoop.hbase.client.coprocessor    * @see org.apache.hadoop.hbase.client.HTable#coprocessorService(byte[])    * @see org.apache.hadoop.hbase.client.HTable#coprocessorService(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)    * @param<T> the instance type to be passed to    * {@link Batch.Call#call(Object)}    * @param<R> the return type from {@link Batch.Call#call(Object)}    */
+comment|/**    * Defines a unit of work to be executed.    *    *<p>    * When used with    * {@link org.apache.hadoop.hbase.client.Table#coprocessorService(Class, byte[], byte[],    * org.apache.hadoop.hbase.client.coprocessor.Batch.Call)}    * the implementations {@link Batch.Call#call(Object)} method will be invoked    * with a proxy to each region's coprocessor {@link com.google.protobuf.Service} implementation.    *</p>    * @see org.apache.hadoop.hbase.client.coprocessor    * @see org.apache.hadoop.hbase.client.Table#coprocessorService(byte[])    * @see org.apache.hadoop.hbase.client.Table#coprocessorService(Class, byte[], byte[],    * org.apache.hadoop.hbase.client.coprocessor.Batch.Call)    * @param<T> the instance type to be passed to    * {@link Batch.Call#call(Object)}    * @param<R> the return type from {@link Batch.Call#call(Object)}    */
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -107,7 +107,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|/**    * Defines a generic callback to be triggered for each {@link Batch.Call#call(Object)}    * result.    *    *<p>    * When used with    * {@link org.apache.hadoop.hbase.client.HTable#coprocessorService(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)}    * the implementation's {@link Batch.Callback#update(byte[], byte[], Object)}    * method will be called with the {@link Batch.Call#call(Object)} return value    * from each region in the selected range.    *</p>    * @param<R> the return type from the associated {@link Batch.Call#call(Object)}    * @see org.apache.hadoop.hbase.client.HTable#coprocessorService(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)    */
+comment|/**    * Defines a generic callback to be triggered for each {@link Batch.Call#call(Object)}    * result.    *    *<p>    * When used with    * {@link org.apache.hadoop.hbase.client.Table#coprocessorService(Class, byte[], byte[],    * org.apache.hadoop.hbase.client.coprocessor.Batch.Call)}    * the implementation's {@link Batch.Callback#update(byte[], byte[], Object)}    * method will be called with the {@link Batch.Call#call(Object)} return value    * from each region in the selected range.    *</p>    * @param<R> the return type from the associated {@link Batch.Call#call(Object)}    * @see org.apache.hadoop.hbase.client.Table#coprocessorService(Class, byte[], byte[],    * org.apache.hadoop.hbase.client.coprocessor.Batch.Call)    */
 annotation|@
 name|InterfaceAudience
 operator|.

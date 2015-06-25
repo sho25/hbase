@@ -48,7 +48,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Get, Put, Increment, Append, or Delete associated with it's region.  Used internally by    * {@link HTable#batch} to associate the action with it's region and maintain  * the index from the original request.   */
+comment|/**  * A Get, Put, Increment, Append, or Delete associated with it's region.  Used internally by    * {@link Table#batch} to associate the action with it's region and maintain  * the index from the original request.   */
 end_comment
 
 begin_class

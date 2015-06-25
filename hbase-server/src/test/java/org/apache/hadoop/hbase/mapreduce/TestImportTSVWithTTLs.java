@@ -645,15 +645,20 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|String
+name|TableName
 name|tableName
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"test-"
 operator|+
 name|UUID
 operator|.
 name|randomUUID
 argument_list|()
+argument_list|)
 decl_stmt|;
 comment|// Prepare the arguments required for the test.
 name|String
@@ -689,6 +694,9 @@ operator|+
 literal|"=\u001b"
 block|,
 name|tableName
+operator|.
+name|getNameAsString
+argument_list|()
 block|}
 decl_stmt|;
 name|String
@@ -700,12 +708,7 @@ name|util
 operator|.
 name|createTable
 argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|,
 name|FAMILY
 argument_list|)

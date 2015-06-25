@@ -582,7 +582,7 @@ argument_list|(
 name|slaves
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 name|UTIL

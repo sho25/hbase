@@ -2360,7 +2360,7 @@ literal|"testRSSplitDaughtersAreOnlinedAfterShutdownHandling"
 argument_list|)
 decl_stmt|;
 comment|// Create table then get the single region for our new table.
-name|HTable
+name|Table
 name|t
 init|=
 name|createTableAndWait
@@ -2590,7 +2590,7 @@ literal|"testExistingZnodeBlocksSplitAndWeRollback"
 argument_list|)
 decl_stmt|;
 comment|// Create table then get the single region for our new table.
-name|HTable
+name|Table
 name|t
 init|=
 name|createTableAndWait
@@ -2900,7 +2900,7 @@ literal|"testShutdownFixupWhenDaughterHasSplit"
 argument_list|)
 decl_stmt|;
 comment|// Create table then get the single region for our new table.
-name|HTable
+name|Table
 name|t
 init|=
 name|createTableAndWait
@@ -3952,7 +3952,7 @@ literal|"testMasterRestartAtRegionSplitPendingCatalogJanitor"
 argument_list|)
 decl_stmt|;
 comment|// Create table then get the single region for our new table.
-name|HTable
+name|Table
 name|t
 init|=
 name|createTableAndWait
@@ -4660,10 +4660,7 @@ literal|"cf"
 argument_list|)
 block|}
 argument_list|,
-name|TESTING_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+literal|null
 argument_list|)
 decl_stmt|;
 name|List
@@ -6653,12 +6650,9 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|hTable
 init|=
-operator|(
-name|HTable
-operator|)
 name|connection
 operator|.
 name|getTable
@@ -8678,7 +8672,7 @@ name|regions
 return|;
 block|}
 specifier|private
-name|HTable
+name|Table
 name|createTableAndWait
 parameter_list|(
 name|TableName
@@ -8693,7 +8687,7 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|HTable
+name|Table
 name|t
 init|=
 name|TESTING_UTIL

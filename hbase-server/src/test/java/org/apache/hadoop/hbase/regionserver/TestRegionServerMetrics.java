@@ -2274,7 +2274,7 @@ expr_stmt|;
 block|}
 try|try
 init|(
-name|HTable
+name|Table
 name|t
 init|=
 name|TEST_UTIL
@@ -2623,7 +2623,7 @@ expr_stmt|;
 block|}
 try|try
 init|(
-name|HTable
+name|Table
 name|t
 init|=
 name|TEST_UTIL

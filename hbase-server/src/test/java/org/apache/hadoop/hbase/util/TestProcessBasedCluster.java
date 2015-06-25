@@ -362,7 +362,7 @@ name|createRandomTable
 argument_list|(
 name|HTestConst
 operator|.
-name|DEFAULT_TABLE_STR
+name|DEFAULT_TABLE
 argument_list|,
 name|HTestConst
 operator|.

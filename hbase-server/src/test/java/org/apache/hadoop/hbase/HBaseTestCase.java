@@ -2166,7 +2166,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * A class that makes a {@link Incommon} out of a {@link HTable}    */
+comment|/**    * A class that makes a {@link Incommon} out of a {@link Table}    */
 specifier|public
 specifier|static
 class|class

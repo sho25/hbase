@@ -287,9 +287,6 @@ name|utility1
 operator|.
 name|loadTable
 argument_list|(
-operator|(
-name|HTable
-operator|)
 name|htable1
 argument_list|,
 name|famName

@@ -3493,12 +3493,9 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|htable
 init|=
-operator|(
-name|HTable
-operator|)
 name|connection
 operator|.
 name|getTable

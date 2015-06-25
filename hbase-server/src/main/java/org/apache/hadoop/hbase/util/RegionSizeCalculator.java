@@ -331,6 +331,22 @@ name|RegionLocator
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
 begin_comment
 comment|/**  * Computes size of each region for given table and given column families.  * The value is used by MapReduce for better scheduling.  * */
 end_comment
@@ -402,7 +418,7 @@ name|Deprecated
 specifier|public
 name|RegionSizeCalculator
 parameter_list|(
-name|HTable
+name|Table
 name|table
 parameter_list|)
 throws|throws
@@ -423,6 +439,19 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 init|;
+name|RegionLocator
+name|locator
+operator|=
+name|conn
+operator|.
+name|getRegionLocator
+argument_list|(
+name|table
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+init|;
 name|Admin
 name|admin
 operator|=
@@ -434,10 +463,7 @@ init|)
 block|{
 name|init
 argument_list|(
-name|table
-operator|.
-name|getRegionLocator
-argument_list|()
+name|locator
 argument_list|,
 name|admin
 argument_list|)

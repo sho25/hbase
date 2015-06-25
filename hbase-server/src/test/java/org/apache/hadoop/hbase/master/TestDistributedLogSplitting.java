@@ -2703,7 +2703,7 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|installTable
@@ -2734,7 +2734,7 @@ argument_list|(
 operator|(
 name|ClusterConnection
 operator|)
-name|ht
+name|TEST_UTIL
 operator|.
 name|getConnection
 argument_list|()
@@ -2987,7 +2987,7 @@ argument_list|(
 operator|(
 name|ClusterConnection
 operator|)
-name|ht
+name|TEST_UTIL
 operator|.
 name|getConnection
 argument_list|()
@@ -5008,7 +5008,7 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|installTable
@@ -6164,7 +6164,7 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|installTable
@@ -9364,7 +9364,7 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|installTable
@@ -9590,7 +9590,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|HTable
+name|Table
 name|installTable
 parameter_list|(
 name|ZooKeeperWatcher
@@ -9623,7 +9623,7 @@ literal|0
 argument_list|)
 return|;
 block|}
-name|HTable
+name|Table
 name|installTable
 parameter_list|(
 name|ZooKeeperWatcher
@@ -9677,7 +9677,7 @@ operator|+
 literal|" regions"
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -9702,10 +9702,15 @@ init|(
 name|RegionLocator
 name|r
 init|=
-name|ht
+name|TEST_UTIL
+operator|.
+name|getConnection
+argument_list|()
 operator|.
 name|getRegionLocator
-argument_list|()
+argument_list|(
+name|table
+argument_list|)
 init|)
 block|{
 name|numRegions

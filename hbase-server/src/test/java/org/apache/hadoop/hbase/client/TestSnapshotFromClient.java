@@ -681,10 +681,7 @@ block|{
 name|TEST_FAM
 block|}
 argument_list|,
-name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+literal|null
 argument_list|)
 expr_stmt|;
 block|}

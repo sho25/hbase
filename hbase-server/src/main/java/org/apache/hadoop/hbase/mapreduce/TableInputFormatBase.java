@@ -2765,8 +2765,8 @@ block|}
 block|}
 comment|//transform the List of bytes to byte[]
 name|byte
-name|result
 index|[]
+name|result
 init|=
 operator|new
 name|byte
@@ -2835,7 +2835,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Allows subclasses to get the {@link HTable}.    *    * @deprecated use {@link #getTable()}    */
+comment|/**    * Allows subclasses to get the {@link Table}.    *    * @deprecated use {@link #getTable()}    */
 annotation|@
 name|Deprecated
 specifier|protected

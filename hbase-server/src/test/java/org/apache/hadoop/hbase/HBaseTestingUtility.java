@@ -483,6 +483,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|BufferedMutator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Connection
 import|;
 end_import
@@ -596,6 +612,22 @@ operator|.
 name|client
 operator|.
 name|HConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|HRegionLocator
 import|;
 end_import
 
@@ -5452,7 +5484,9 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param family    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param family    * @return An HTable instance for the created table.    * @throws IOException    * @deprecated use {@link #createTable(TableName, byte[])}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|createTable
@@ -5680,7 +5714,9 @@ name|splitKeys
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @return An HTable instance for the created table.    * @throws IOException    * @deprecated use {@link #createTable(TableName, byte[][])}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|createTable
@@ -5811,6 +5847,8 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|createTable
@@ -5863,6 +5901,8 @@ name|numRegions
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|createTable
@@ -6202,7 +6242,9 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @param c Configuration to use    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @param c Configuration to use    * @return An HTable instance for the created table.    * @throws IOException    * @deprecated use {@link #createTable(TableName, byte[][])}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|createTable
@@ -6282,7 +6324,9 @@ name|c
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @param c Configuration to use    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @param c Configuration to use    * @return An HTable instance for the created table.    * @throws IOException    * @deprecated use {@link #createTable(TableName, byte[][])}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|createTable
@@ -6379,7 +6423,9 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @param c Configuration to use    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @param c Configuration to use    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    * @deprecated use {@link #createTable(TableName, byte[][], int)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|createTable
@@ -6469,7 +6515,9 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @param c Configuration to use    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @param c Configuration to use    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    * @deprecated use {@link #createTable(TableName, byte[][], int)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|createTable
@@ -6562,7 +6610,9 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param family    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param family    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    * @deprecated use {@link #createTable(TableName, byte[], int)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|createTable
@@ -6633,7 +6683,9 @@ name|numVersions
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    * @deprecated use {@link #createTable(TableName, byte[][], int)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|createTable
@@ -6831,7 +6883,9 @@ name|KEYS_FOR_HBA_CREATE_TABLE
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @param blockSize    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @param blockSize    * @return An HTable instance for the created table.    * @throws IOException    * @deprecated use {@link #createTable(TableName, byte[][], int, int)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|createTable
@@ -6966,7 +7020,9 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    * @deprecated use {@link #createTable(TableName, byte[][], int)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|createTable
@@ -7101,7 +7157,9 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param family    * @param splitRows    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param family    * @param splitRows    * @return An HTable instance for the created table.    * @throws IOException    * @deprecated use {@link #createTable(TableName, byte[], byte[][])}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|createTable
@@ -7238,7 +7296,9 @@ name|KEYS_FOR_HBA_CREATE_TABLE
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @param splitRows    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @param splitRows    * @return An HTable instance for the created table.    * @throws IOException    * @deprecated use {@link #createTable(TableName, byte[][], byte[][])}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|createTable
@@ -7573,7 +7633,9 @@ name|table
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Drop an existing table    * @param tableName existing table    */
+comment|/**    * Drop an existing table    * @param tableName existing table    * @deprecated use {@link #deleteTable(TableName)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|deleteTable
@@ -7595,7 +7657,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Drop an existing table    * @param tableName existing table    */
+comment|/**    * Drop an existing table    * @param tableName existing table    * @deprecated use {@link #deleteTable(TableName)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|deleteTable
@@ -7811,6 +7875,8 @@ operator|.
 name|UTF8_CHARSET
 argument_list|)
 decl_stmt|;
+annotation|@
+name|Deprecated
 specifier|public
 name|HTableDescriptor
 name|createTableDescriptor
@@ -7835,11 +7901,10 @@ name|KeepDeletedCells
 name|keepDeleted
 parameter_list|)
 block|{
-name|HTableDescriptor
-name|htd
-init|=
-operator|new
-name|HTableDescriptor
+return|return
+name|this
+operator|.
+name|createTableDescriptor
 argument_list|(
 name|TableName
 operator|.
@@ -7847,6 +7912,86 @@ name|valueOf
 argument_list|(
 name|name
 argument_list|)
+argument_list|,
+name|minVersions
+argument_list|,
+name|versions
+argument_list|,
+name|ttl
+argument_list|,
+name|keepDeleted
+argument_list|)
+return|;
+block|}
+comment|/**    * Create a table of name<code>name</code>.    * @param name Name to give table.    * @return Column descriptor.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|HTableDescriptor
+name|createTableDescriptor
+parameter_list|(
+specifier|final
+name|String
+name|name
+parameter_list|)
+block|{
+return|return
+name|createTableDescriptor
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|name
+argument_list|)
+argument_list|,
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_MIN_VERSIONS
+argument_list|,
+name|MAXVERSIONS
+argument_list|,
+name|HConstants
+operator|.
+name|FOREVER
+argument_list|,
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_KEEP_DELETED
+argument_list|)
+return|;
+block|}
+specifier|public
+name|HTableDescriptor
+name|createTableDescriptor
+parameter_list|(
+specifier|final
+name|TableName
+name|name
+parameter_list|,
+specifier|final
+name|int
+name|minVersions
+parameter_list|,
+specifier|final
+name|int
+name|versions
+parameter_list|,
+specifier|final
+name|int
+name|ttl
+parameter_list|,
+name|KeepDeletedCells
+name|keepDeleted
+parameter_list|)
+block|{
+name|HTableDescriptor
+name|htd
+init|=
+operator|new
+name|HTableDescriptor
+argument_list|(
+name|name
 argument_list|)
 decl_stmt|;
 for|for
@@ -7915,7 +8060,7 @@ name|HTableDescriptor
 name|createTableDescriptor
 parameter_list|(
 specifier|final
-name|String
+name|TableName
 name|name
 parameter_list|)
 block|{
@@ -8049,7 +8194,9 @@ name|wal
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName    * @param startKey    * @param stopKey    * @param callingMethod    * @param conf    * @param isReadOnly    * @param families    * @throws IOException    * @return A region on which you must call              {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} when done.    */
+comment|/**    * @param tableName    * @param startKey    * @param stopKey    * @param callingMethod    * @param conf    * @param isReadOnly    * @param families    * @throws IOException    * @return A region on which you must call              {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} when done.    * @deprecated use    * {@link #createLocalHRegion(TableName, byte[], byte[], boolean, Durability, WAL, byte[]...)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HRegion
 name|createLocalHRegion
@@ -8089,11 +8236,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTableDescriptor
-name|htd
-init|=
-operator|new
-name|HTableDescriptor
+return|return
+name|this
+operator|.
+name|createLocalHRegion
 argument_list|(
 name|TableName
 operator|.
@@ -8101,6 +8247,61 @@ name|valueOf
 argument_list|(
 name|tableName
 argument_list|)
+argument_list|,
+name|startKey
+argument_list|,
+name|stopKey
+argument_list|,
+name|isReadOnly
+argument_list|,
+name|durability
+argument_list|,
+name|wal
+argument_list|,
+name|families
+argument_list|)
+return|;
+block|}
+comment|/**    * @param tableName    * @param startKey    * @param stopKey    * @param callingMethod    * @param conf    * @param isReadOnly    * @param families    * @return A region on which you must call    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} when done.    * @throws IOException    */
+specifier|public
+name|HRegion
+name|createLocalHRegion
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|startKey
+parameter_list|,
+name|byte
+index|[]
+name|stopKey
+parameter_list|,
+name|boolean
+name|isReadOnly
+parameter_list|,
+name|Durability
+name|durability
+parameter_list|,
+name|WAL
+name|wal
+parameter_list|,
+name|byte
+index|[]
+modifier|...
+name|families
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|HTableDescriptor
+name|htd
+init|=
+operator|new
+name|HTableDescriptor
+argument_list|(
+name|tableName
 argument_list|)
 decl_stmt|;
 name|htd
@@ -8184,7 +8385,9 @@ return|;
 block|}
 comment|//
 comment|// ==========================================================================
-comment|/**    * Provide an existing table name to truncate.    * Scans the table and issues a delete for each row read.    * @param tableName existing table    * @return HTable to that new table    * @throws IOException    */
+comment|/**    * Provide an existing table name to truncate.    * Scans the table and issues a delete for each row read.    * @param tableName existing table    * @return HTable to that new table    * @throws IOException    * @deprecated use {@link #deleteTableData(TableName)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|deleteTableData
@@ -8361,7 +8564,9 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Truncate a table using the admin command.    * Effectively disables, deletes, and recreates the table.    * @param tableName table which must exist.    * @param preserveRegions keep the existing split points    * @return HTable for the new table    */
+comment|/**    * Truncate a table using the admin command.    * Effectively disables, deletes, and recreates the table.    *    * @param tableName       table which must exist.    * @param preserveRegions keep the existing split points    * @return HTable for the new table    * @deprecated use {@link #truncateTable(TableName, boolean)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|truncateTable
@@ -8392,7 +8597,9 @@ name|preserveRegions
 argument_list|)
 return|;
 block|}
-comment|/**    * Truncate a table using the admin command.    * Effectively disables, deletes, and recreates the table.    * For previous behavior of issuing row deletes, see    * deleteTableData.    * Expressly does not preserve regions of existing table.    * @param tableName table which must exist.    * @return HTable for the new table    */
+comment|/**    * Truncate a table using the admin command.    * Effectively disables, deletes, and recreates the table.    * For previous behavior of issuing row deletes, see    * deleteTableData.    * Expressly does not preserve regions of existing table.    *    * @param tableName table which must exist.    * @return HTable for the new table    * @deprecated use {@link #truncateTable(TableName)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 name|truncateTable
@@ -8408,7 +8615,12 @@ block|{
 return|return
 name|truncateTable
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|,
 literal|false
 argument_list|)
@@ -10796,9 +11008,6 @@ block|{
 name|Table
 name|meta
 init|=
-operator|(
-name|HTable
-operator|)
 name|getConnection
 argument_list|()
 operator|.
@@ -11159,9 +11368,6 @@ comment|// TODO: Redo using MetaTableAccessor class
 name|Table
 name|t
 init|=
-operator|(
-name|HTable
-operator|)
 name|getConnection
 argument_list|()
 operator|.
@@ -15820,16 +16026,89 @@ return|;
 block|}
 end_function
 
+begin_function
+annotation|@
+name|Deprecated
+specifier|public
+name|HTable
+name|createRandomTable
+parameter_list|(
+name|String
+name|tableName
+parameter_list|,
+specifier|final
+name|Collection
+argument_list|<
+name|String
+argument_list|>
+name|families
+parameter_list|,
+specifier|final
+name|int
+name|maxVersions
+parameter_list|,
+specifier|final
+name|int
+name|numColsPerRow
+parameter_list|,
+specifier|final
+name|int
+name|numFlushes
+parameter_list|,
+specifier|final
+name|int
+name|numRegions
+parameter_list|,
+specifier|final
+name|int
+name|numRowsPerFlush
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
+return|return
+operator|(
+name|HTable
+operator|)
+name|this
+operator|.
+name|createRandomTable
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|families
+argument_list|,
+name|maxVersions
+argument_list|,
+name|numColsPerRow
+argument_list|,
+name|numFlushes
+argument_list|,
+name|numRegions
+argument_list|,
+name|numRowsPerFlush
+argument_list|)
+return|;
+block|}
+end_function
+
 begin_comment
 comment|/** Creates a random table with the given parameters */
 end_comment
 
 begin_function
 specifier|public
-name|HTable
+name|Table
 name|createRandomTable
 parameter_list|(
-name|String
+name|TableName
 name|tableName
 parameter_list|,
 specifier|final
@@ -16008,7 +16287,7 @@ init|=
 literal|"%08x"
 decl_stmt|;
 specifier|final
-name|HTable
+name|Table
 name|table
 init|=
 name|createTable
@@ -16068,6 +16347,17 @@ name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
 block|}
+name|BufferedMutator
+name|mutator
+init|=
+name|getConnection
+argument_list|()
+operator|.
+name|getBufferedMutator
+argument_list|(
+name|tableName
+argument_list|)
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -16304,9 +16594,9 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|table
+name|mutator
 operator|.
-name|put
+name|mutate
 argument_list|(
 name|put
 argument_list|)
@@ -16321,9 +16611,9 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|table
+name|mutator
 operator|.
-name|delete
+name|mutate
 argument_list|(
 name|del
 argument_list|)
@@ -16343,9 +16633,9 @@ operator|+
 name|tableName
 argument_list|)
 expr_stmt|;
-name|table
+name|mutator
 operator|.
-name|flushCommits
+name|flush
 argument_list|()
 expr_stmt|;
 if|if
@@ -16368,6 +16658,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|mutator
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 return|return
 name|table
 return|;

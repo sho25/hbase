@@ -1579,9 +1579,6 @@ name|createTable
 argument_list|(
 name|getTablename
 argument_list|()
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 operator|new
 name|byte

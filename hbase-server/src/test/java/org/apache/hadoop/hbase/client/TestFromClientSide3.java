@@ -752,7 +752,7 @@ parameter_list|(
 name|HBaseAdmin
 name|admin
 parameter_list|,
-name|HTable
+name|Table
 name|table
 parameter_list|,
 name|byte
@@ -772,11 +772,30 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
+try|try
+init|(
+name|RegionLocator
+name|locator
+init|=
+name|TEST_UTIL
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|getRegionLocator
+argument_list|(
+name|table
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+init|)
+block|{
 comment|// connection needed for poll-wait
 name|HRegionLocation
 name|loc
 init|=
-name|table
+name|locator
 operator|.
 name|getRegionLocation
 argument_list|(
@@ -868,7 +887,6 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
-comment|// TODO: replace this api with a synchronous flush after HBASE-2949
 name|admin
 operator|.
 name|flush
@@ -877,33 +895,6 @@ name|table
 operator|.
 name|getName
 argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// synchronously poll wait for a new storefile to appear (flush happened)
-while|while
-condition|(
-name|ProtobufUtil
-operator|.
-name|getStoreFiles
-argument_list|(
-name|server
-argument_list|,
-name|regName
-argument_list|,
-name|FAMILY
-argument_list|)
-operator|.
-name|size
-argument_list|()
-operator|==
-name|sfCount
-condition|)
-block|{
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|40
 argument_list|)
 expr_stmt|;
 block|}
@@ -952,7 +943,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|hTable
 init|=
 name|TEST_UTIL
@@ -1015,11 +1006,27 @@ argument_list|,
 literal|100
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|RegionLocator
+name|locator
+init|=
+name|TEST_UTIL
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|getRegionLocator
+argument_list|(
+name|TABLE
+argument_list|)
+init|)
+block|{
 comment|// Verify we have multiple store files.
 name|HRegionLocation
 name|loc
 init|=
-name|hTable
+name|locator
 operator|.
 name|getRegionLocation
 argument_list|(
@@ -1110,7 +1117,7 @@ block|{
 comment|// The number of store files after compaction should be lesser.
 name|loc
 operator|=
-name|hTable
+name|locator
 operator|.
 name|getRegionLocation
 argument_list|(
@@ -1343,7 +1350,7 @@ argument_list|)
 expr_stmt|;
 name|loc
 operator|=
-name|hTable
+name|locator
 operator|.
 name|getRegionLocation
 argument_list|(
@@ -1533,7 +1540,7 @@ control|)
 block|{
 name|loc
 operator|=
-name|hTable
+name|locator
 operator|.
 name|getRegionLocation
 argument_list|(
@@ -1754,6 +1761,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -1770,9 +1778,9 @@ name|TEST_UTIL
 operator|.
 name|createTable
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testHTableBatchWithEmptyPut"
 argument_list|)
@@ -1872,7 +1880,7 @@ parameter_list|(
 name|IllegalArgumentException
 name|iae
 parameter_list|)
-block|{      }
+block|{            }
 finally|finally
 block|{
 name|table
@@ -1899,9 +1907,9 @@ name|TEST_UTIL
 operator|.
 name|createTable
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testHTableExistsMethodSingleRegionSingleGet"
 argument_list|)
@@ -1992,16 +2000,16 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
 operator|.
 name|createTable
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testHTableExistsMethodSingleRegionMultipleGets"
 argument_list|)
@@ -2084,13 +2092,13 @@ name|ANOTHERROW
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Boolean
+name|boolean
 index|[]
 name|results
 init|=
 name|table
 operator|.
-name|exists
+name|existsAll
 argument_list|(
 name|gets
 argument_list|)
@@ -2142,9 +2150,9 @@ name|TEST_UTIL
 operator|.
 name|createTable
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testHTableExistsBeforeGet"
 argument_list|)
@@ -2171,7 +2179,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -2297,9 +2305,9 @@ name|TEST_UTIL
 operator|.
 name|createTable
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testHTableExistsAllBeforeGet"
 argument_list|)
@@ -2326,7 +2334,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -2352,7 +2360,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -2598,7 +2606,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -2666,7 +2674,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -2825,13 +2833,13 @@ argument_list|(
 literal|"Calling exists"
 argument_list|)
 expr_stmt|;
-name|Boolean
+name|boolean
 index|[]
 name|results
 init|=
 name|table
 operator|.
-name|exists
+name|existsAll
 argument_list|(
 name|gets
 argument_list|)
@@ -2955,7 +2963,7 @@ name|results
 operator|=
 name|table
 operator|.
-name|exists
+name|existsAll
 argument_list|(
 name|gets
 argument_list|)
@@ -3105,7 +3113,7 @@ name|results
 operator|=
 name|table
 operator|.
-name|exists
+name|existsAll
 argument_list|(
 name|gets
 argument_list|)
@@ -3358,16 +3366,16 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
 operator|.
 name|createTable
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testLeaseRenewal"
 argument_list|)

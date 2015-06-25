@@ -956,7 +956,7 @@ parameter_list|,
 name|int
 name|putNum
 parameter_list|,
-name|HTable
+name|Table
 name|table
 parameter_list|)
 throws|throws
@@ -2366,7 +2366,7 @@ name|build
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -2481,11 +2481,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|table
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 name|Thread
 operator|.
 name|sleep
@@ -2968,13 +2963,9 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-name|HTable
+name|Table
 name|table
 init|=
-literal|null
-decl_stmt|;
-name|table
-operator|=
 name|TEST_UTIL
 operator|.
 name|createTable
@@ -2983,7 +2974,7 @@ name|tableName
 argument_list|,
 name|FAMILIES
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// Force flush the namespace table so edits to it are not hanging around as oldest
 comment|// edits. Otherwise, below, when we make maximum number of WAL files, then it will be
 comment|// the namespace region that is flushed and not the below 'desiredRegion'.
@@ -3129,11 +3120,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|table
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 comment|// Roll the WAL. The log file count is less than maxLogs so no flush is triggered.
 name|int
 name|currentNumRolledLogFiles
@@ -3244,11 +3230,6 @@ argument_list|,
 literal|12345678
 argument_list|)
 argument_list|)
-expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
 expr_stmt|;
 comment|// Make numRolledLogFiles greater than maxLogs
 name|desiredRegionAndServer

@@ -277,7 +277,7 @@ argument_list|(
 literal|"cf"
 argument_list|)
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
 name|TEST_UTIL
@@ -510,7 +510,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -531,7 +531,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -568,7 +568,7 @@ argument_list|)
 decl_stmt|;
 name|del
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
