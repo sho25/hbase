@@ -372,7 +372,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-specifier|private
+specifier|protected
 name|FSHLog
 name|log
 init|=
