@@ -735,8 +735,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ByteBuffer
-name|getFirstKeyInBlock
+name|Cell
+name|getFirstKeyCellInBlock
 parameter_list|(
 name|ByteBuffer
 name|block
@@ -780,15 +780,10 @@ literal|null
 return|;
 block|}
 return|return
-name|KeyValueUtil
-operator|.
-name|copyKeyToNewByteBuffer
-argument_list|(
 name|searcher
 operator|.
 name|current
 argument_list|()
-argument_list|)
 return|;
 block|}
 finally|finally
