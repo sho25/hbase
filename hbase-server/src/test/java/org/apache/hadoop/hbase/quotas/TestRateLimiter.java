@@ -715,7 +715,7 @@ literal|10
 argument_list|,
 name|TimeUnit
 operator|.
-name|MILLISECONDS
+name|SECONDS
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -764,7 +764,7 @@ operator|.
 name|getNextRefillTime
 argument_list|()
 operator|-
-literal|3
+literal|1000
 argument_list|)
 expr_stmt|;
 name|assertTrue
