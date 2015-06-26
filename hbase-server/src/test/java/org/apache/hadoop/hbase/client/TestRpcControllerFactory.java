@@ -843,11 +843,7 @@ argument_list|,
 name|p2
 argument_list|)
 argument_list|,
-operator|new
-name|Object
-index|[
-literal|2
-index|]
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// this only goes to a single server, so we don't need to change the count here

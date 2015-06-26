@@ -6685,14 +6685,7 @@ name|batch
 argument_list|(
 name|mutations
 argument_list|,
-operator|new
-name|Object
-index|[
-name|mutations
-operator|.
-name|size
-argument_list|()
-index|]
+literal|null
 argument_list|)
 expr_stmt|;
 block|}

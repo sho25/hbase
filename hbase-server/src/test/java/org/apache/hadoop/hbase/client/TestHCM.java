@@ -127,6 +127,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -6307,10 +6317,12 @@ name|otherRow
 argument_list|)
 expr_stmt|;
 comment|// do multi
-name|table
-operator|.
-name|batch
-argument_list|(
+name|ArrayList
+argument_list|<
+name|Put
+argument_list|>
+name|actions
+init|=
 name|Lists
 operator|.
 name|newArrayList
@@ -6319,6 +6331,14 @@ name|put4
 argument_list|,
 name|put3
 argument_list|)
+decl_stmt|;
+name|table
+operator|.
+name|batch
+argument_list|(
+name|actions
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// first should be a valid row,

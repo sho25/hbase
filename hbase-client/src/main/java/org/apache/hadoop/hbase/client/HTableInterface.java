@@ -29,16 +29,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -98,33 +88,7 @@ index|[]
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|/**    * @deprecated Use {@link #existsAll(java.util.List)}  instead.    */
-annotation|@
-name|Deprecated
-name|Boolean
-index|[]
-name|exists
-parameter_list|(
-name|List
-argument_list|<
-name|Get
-argument_list|>
-name|gets
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * See {@link #setAutoFlush(boolean, boolean)}    *    * @param autoFlush    *          Whether or not to enable 'auto-flush'.    * @deprecated in 0.96. When called with setAutoFlush(false), this function also    *  set clearBufferOnFail to true, which is unexpected but kept for historical reasons.    *  Replace it with setAutoFlush(false, false) if this is exactly what you want, though    *  this is the method you want for most cases.    */
-annotation|@
-name|Deprecated
-name|void
-name|setAutoFlush
-parameter_list|(
-name|boolean
-name|autoFlush
-parameter_list|)
-function_decl|;
-comment|/**    * Turns 'auto-flush' on or off.    *<p>    * When enabled (default), {@link Put} operations don't get buffered/delayed    * and are immediately executed. Failed operations are not retried. This is    * slower but safer.    *<p>    * Turning off {@code #autoFlush} means that multiple {@link Put}s will be    * accepted before any RPC is actually sent to do the write operations. If the    * application dies before pending writes get flushed to HBase, data will be    * lost.    *<p>    * When you turn {@code #autoFlush} off, you should also consider the    * {@code #clearBufferOnFail} option. By default, asynchronous {@link Put}    * requests will be retried on failure until successful. However, this can    * pollute the writeBuffer and slow down batching performance. Additionally,    * you may want to issue a number of Put requests and call    * {@link #flushCommits()} as a barrier. In both use cases, consider setting    * clearBufferOnFail to true to erase the buffer after {@link #flushCommits()}    * has been called, regardless of success.    *<p>    * In other words, if you call {@code #setAutoFlush(false)}; HBase will retry N time for each    *  flushCommit, including the last one when closing the table. This is NOT recommended,    *  most of the time you want to call {@code #setAutoFlush(false, true)}.    *    * @param autoFlush    *          Whether or not to enable 'auto-flush'.    * @param clearBufferOnFail    *          Whether to keep Put failures in the writeBuffer. If autoFlush is true, then    *          the value of this parameter is ignored and clearBufferOnFail is set to true.    *          Setting clearBufferOnFail to false is deprecated since 0.96.    * @deprecated in 0.99 since setting clearBufferOnFail is deprecated. Use    *  {@link #setAutoFlush(boolean)}} instead.    * @see BufferedMutator#flush()    */
+comment|/**    * Turns 'auto-flush' on or off.    *<p>    * When enabled (default), {@link Put} operations don't get buffered/delayed    * and are immediately executed. Failed operations are not retried. This is    * slower but safer.    *<p>    * Turning off {@code #autoFlush} means that multiple {@link Put}s will be    * accepted before any RPC is actually sent to do the write operations. If the    * application dies before pending writes get flushed to HBase, data will be    * lost.    *<p>    * When you turn {@code #autoFlush} off, you should also consider the    * {@code #clearBufferOnFail} option. By default, asynchronous {@link Put}    * requests will be retried on failure until successful. However, this can    * pollute the writeBuffer and slow down batching performance. Additionally,    * you may want to issue a number of Put requests and call    * {@link #flushCommits()} as a barrier. In both use cases, consider setting    * clearBufferOnFail to true to erase the buffer after {@link #flushCommits()}    * has been called, regardless of success.    *<p>    * In other words, if you call {@code #setAutoFlush(false)}; HBase will retry N time for each    *  flushCommit, including the last one when closing the table. This is NOT recommended,    *  most of the time you want to call {@code #setAutoFlush(false, true)}.    *    * @param autoFlush    *          Whether or not to enable 'auto-flush'.    * @param clearBufferOnFail    *          Whether to keep Put failures in the writeBuffer. If autoFlush is true, then    *          the value of this parameter is ignored and clearBufferOnFail is set to true.    *          Setting clearBufferOnFail to false is deprecated since 0.96.    * @deprecated in 0.99 since setting clearBufferOnFail is deprecated.    * @see BufferedMutator#flush()    */
 annotation|@
 name|Deprecated
 name|void
@@ -137,7 +101,7 @@ name|boolean
 name|clearBufferOnFail
 parameter_list|)
 function_decl|;
-comment|/**    * Set the autoFlush behavior, without changing the value of {@code clearBufferOnFail}.    * @deprecated in 0.99 since setting clearBufferOnFail is deprecated. Use    * {@link #setAutoFlush(boolean)} instead, or better still, move on to {@link BufferedMutator}    */
+comment|/**    * Set the autoFlush behavior, without changing the value of {@code clearBufferOnFail}.    * @deprecated in 0.99 since setting clearBufferOnFail is deprecated. Move on to    *             {@link BufferedMutator}    */
 annotation|@
 name|Deprecated
 name|void
@@ -178,23 +142,6 @@ name|setWriteBufferSize
 parameter_list|(
 name|long
 name|writeBufferSize
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Return the row that matches<i>row</i> exactly,    * or the one that immediately precedes it.    *    * @param row A row key.    * @param family Column family to include in the {@link Result}.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    *    * @deprecated As of version 0.92 this method is deprecated without    * replacement. Since version 0.96+, you can use reversed scan.    * getRowOrBefore is used internally to find entries in hbase:meta and makes    * various assumptions about the table (which are true for hbase:meta but not    * in general) to be efficient.    */
-annotation|@
-name|Deprecated
-name|Result
-name|getRowOrBefore
-parameter_list|(
-name|byte
-index|[]
-name|row
-parameter_list|,
-name|byte
-index|[]
-name|family
 parameter_list|)
 throws|throws
 name|IOException

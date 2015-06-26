@@ -312,27 +312,6 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Same as {@link #batch(List, Object[])}, but returns an array of    * results instead of using a results parameter reference.    *    * @param actions list of Get, Put, Delete, Increment, Append objects    * @return the results from the actions. A null in the return array means that    *         the call for that action failed, even after retries    * @throws IOException    * @since 0.90.0    * @deprecated If any exception is thrown by one of the actions, there is no way to    * retrieve the partially executed results. Use {@link #batch(List, Object[])} instead.    */
-annotation|@
-name|Deprecated
-name|Object
-index|[]
-name|batch
-parameter_list|(
-specifier|final
-name|List
-argument_list|<
-name|?
-extends|extends
-name|Row
-argument_list|>
-name|actions
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
-function_decl|;
 comment|/**    * Same as {@link #batch(List, Object[])}, but with a callback.    * @since 0.96.0    */
 parameter_list|<
 name|R
@@ -355,37 +334,6 @@ index|[]
 name|results
 parameter_list|,
 specifier|final
-name|Batch
-operator|.
-name|Callback
-argument_list|<
-name|R
-argument_list|>
-name|callback
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
-function_decl|;
-comment|/**    * Same as {@link #batch(List)}, but with a callback.    *    * @since 0.96.0    * @deprecated If any exception is thrown by one of the actions, there is no way to retrieve the    * partially executed results. Use {@link #batchCallback(List, Object[],    * org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)} instead.    */
-annotation|@
-name|Deprecated
-argument_list|<
-name|R
-argument_list|>
-name|Object
-index|[]
-name|batchCallback
-parameter_list|(
-name|List
-argument_list|<
-name|?
-extends|extends
-name|Row
-argument_list|>
-name|actions
-parameter_list|,
 name|Batch
 operator|.
 name|Callback
@@ -459,7 +407,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Puts some data in the table.    *     * @param put The data to put.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+comment|/**    * Puts some data in the table.    *    * @param put The data to put.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 name|void
 name|put
 parameter_list|(
