@@ -333,7 +333,7 @@ literal|null
 return|;
 block|}
 comment|// APIs to read primitive data from a byte[] using Unsafe way
-comment|/**    * Converts a byte array to a short value.    * @param bytes byte array    * @param offset offset into array    * @return the short value    */
+comment|/**    * Converts a byte array to a short value considering it was written in big-endian format.    * @param bytes byte array    * @param offset offset into array    * @return the short value    */
 specifier|public
 specifier|static
 name|short
@@ -386,7 +386,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Converts a byte array to an int value.    * @param bytes byte array    * @param offset offset into array    * @return the int value    */
+comment|/**    * Converts a byte array to an int value considering it was written in big-endian format.    * @param bytes byte array    * @param offset offset into array    * @return the int value    */
 specifier|public
 specifier|static
 name|int
@@ -439,7 +439,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Converts a byte array to a long value.    * @param bytes byte array    * @param offset offset into array    * @return the long value    */
+comment|/**    * Converts a byte array to a long value considering it was written in big-endian format.    * @param bytes byte array    * @param offset offset into array    * @return the long value    */
 specifier|public
 specifier|static
 name|long
@@ -493,7 +493,7 @@ return|;
 block|}
 block|}
 comment|// APIs to write primitive data to a byte[] using Unsafe way
-comment|/**    * Put a short value out to the specified byte array position.    * @param bytes the byte array    * @param offset position in the array    * @param val short to write out    * @return incremented offset    */
+comment|/**    * Put a short value out to the specified byte array position in big-endian format.    * @param bytes the byte array    * @param offset position in the array    * @param val short to write out    * @return incremented offset    */
 specifier|public
 specifier|static
 name|int
@@ -546,7 +546,7 @@ operator|.
 name|SIZEOF_SHORT
 return|;
 block|}
-comment|/**    * Put an int value out to the specified byte array position.    * @param bytes the byte array    * @param offset position in the array    * @param val int to write out    * @return incremented offset    */
+comment|/**    * Put an int value out to the specified byte array position in big-endian format.    * @param bytes the byte array    * @param offset position in the array    * @param val int to write out    * @return incremented offset    */
 specifier|public
 specifier|static
 name|int
@@ -599,7 +599,7 @@ operator|.
 name|SIZEOF_INT
 return|;
 block|}
-comment|/**    * Put a long value out to the specified byte array position.    * @param bytes the byte array    * @param offset position in the array    * @param val long to write out    * @return incremented offset    */
+comment|/**    * Put a long value out to the specified byte array position in big-endian format.    * @param bytes the byte array    * @param offset position in the array    * @param val long to write out    * @return incremented offset    */
 specifier|public
 specifier|static
 name|int
@@ -653,7 +653,7 @@ name|SIZEOF_LONG
 return|;
 block|}
 comment|// APIs to read primitive data from a ByteBuffer using Unsafe way
-comment|/**    * Reads a short value at the given buffer's offset.    * @param buf    * @param offset    * @return short value at offset    */
+comment|/**    * Reads a short value at the given buffer's offset considering it was written in big-endian    * format.    *    * @param buf    * @param offset    * @return short value at offset    */
 specifier|public
 specifier|static
 name|short
@@ -666,9 +666,46 @@ name|int
 name|offset
 parameter_list|)
 block|{
+if|if
+condition|(
+name|littleEndian
+condition|)
+block|{
+return|return
+name|Short
+operator|.
+name|reverseBytes
+argument_list|(
+name|getAsShort
+argument_list|(
+name|buf
+argument_list|,
+name|offset
+argument_list|)
+argument_list|)
+return|;
+block|}
+return|return
+name|getAsShort
+argument_list|(
+name|buf
+argument_list|,
+name|offset
+argument_list|)
+return|;
+block|}
+comment|/**    * Reads bytes at the given offset as a short value.    * @param buf    * @param offset    * @return short value at offset    */
+specifier|static
 name|short
-name|ret
-decl_stmt|;
+name|getAsShort
+parameter_list|(
+name|ByteBuffer
+name|buf
+parameter_list|,
+name|int
+name|offset
+parameter_list|)
+block|{
 if|if
 condition|(
 name|buf
@@ -677,8 +714,7 @@ name|isDirect
 argument_list|()
 condition|)
 block|{
-name|ret
-operator|=
+return|return
 name|theUnsafe
 operator|.
 name|getShort
@@ -695,12 +731,9 @@ argument_list|()
 operator|+
 name|offset
 argument_list|)
-expr_stmt|;
+return|;
 block|}
-else|else
-block|{
-name|ret
-operator|=
+return|return
 name|theUnsafe
 operator|.
 name|getShort
@@ -719,27 +752,9 @@ argument_list|()
 operator|+
 name|offset
 argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|littleEndian
-condition|)
-block|{
-return|return
-name|Short
-operator|.
-name|reverseBytes
-argument_list|(
-name|ret
-argument_list|)
 return|;
 block|}
-return|return
-name|ret
-return|;
-block|}
-comment|/**    * Reads an int value at the given buffer's offset.    * @param buf    * @param offset    * @return int value at offset    */
+comment|/**    * Reads an int value at the given buffer's offset considering it was written in big-endian    * format.    *    * @param buf    * @param offset    * @return int value at offset    */
 specifier|public
 specifier|static
 name|int
@@ -752,9 +767,46 @@ name|int
 name|offset
 parameter_list|)
 block|{
+if|if
+condition|(
+name|littleEndian
+condition|)
+block|{
+return|return
+name|Integer
+operator|.
+name|reverseBytes
+argument_list|(
+name|getAsInt
+argument_list|(
+name|buf
+argument_list|,
+name|offset
+argument_list|)
+argument_list|)
+return|;
+block|}
+return|return
+name|getAsInt
+argument_list|(
+name|buf
+argument_list|,
+name|offset
+argument_list|)
+return|;
+block|}
+comment|/**    * Reads bytes at the given offset as an int value.    * @param buf    * @param offset    * @return int value at offset    */
+specifier|static
 name|int
-name|ret
-decl_stmt|;
+name|getAsInt
+parameter_list|(
+name|ByteBuffer
+name|buf
+parameter_list|,
+name|int
+name|offset
+parameter_list|)
+block|{
 if|if
 condition|(
 name|buf
@@ -763,8 +815,7 @@ name|isDirect
 argument_list|()
 condition|)
 block|{
-name|ret
-operator|=
+return|return
 name|theUnsafe
 operator|.
 name|getInt
@@ -781,12 +832,9 @@ argument_list|()
 operator|+
 name|offset
 argument_list|)
-expr_stmt|;
+return|;
 block|}
-else|else
-block|{
-name|ret
-operator|=
+return|return
 name|theUnsafe
 operator|.
 name|getInt
@@ -805,27 +853,9 @@ argument_list|()
 operator|+
 name|offset
 argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|littleEndian
-condition|)
-block|{
-return|return
-name|Integer
-operator|.
-name|reverseBytes
-argument_list|(
-name|ret
-argument_list|)
 return|;
 block|}
-return|return
-name|ret
-return|;
-block|}
-comment|/**    * Reads a long value at the given buffer's offset.    * @param buf    * @param offset    * @return long value at offset    */
+comment|/**    * Reads a long value at the given buffer's offset considering it was written in big-endian    * format.    *    * @param buf    * @param offset    * @return long value at offset    */
 specifier|public
 specifier|static
 name|long
@@ -838,9 +868,46 @@ name|int
 name|offset
 parameter_list|)
 block|{
+if|if
+condition|(
+name|littleEndian
+condition|)
+block|{
+return|return
+name|Long
+operator|.
+name|reverseBytes
+argument_list|(
+name|getAsLong
+argument_list|(
+name|buf
+argument_list|,
+name|offset
+argument_list|)
+argument_list|)
+return|;
+block|}
+return|return
+name|getAsLong
+argument_list|(
+name|buf
+argument_list|,
+name|offset
+argument_list|)
+return|;
+block|}
+comment|/**    * Reads bytes at the given offset as a long value.    * @param buf    * @param offset    * @return long value at offset    */
+specifier|static
 name|long
-name|ret
-decl_stmt|;
+name|getAsLong
+parameter_list|(
+name|ByteBuffer
+name|buf
+parameter_list|,
+name|int
+name|offset
+parameter_list|)
+block|{
 if|if
 condition|(
 name|buf
@@ -849,8 +916,7 @@ name|isDirect
 argument_list|()
 condition|)
 block|{
-name|ret
-operator|=
+return|return
 name|theUnsafe
 operator|.
 name|getLong
@@ -867,12 +933,9 @@ argument_list|()
 operator|+
 name|offset
 argument_list|)
-expr_stmt|;
+return|;
 block|}
-else|else
-block|{
-name|ret
-operator|=
+return|return
 name|theUnsafe
 operator|.
 name|getLong
@@ -891,24 +954,6 @@ argument_list|()
 operator|+
 name|offset
 argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|littleEndian
-condition|)
-block|{
-return|return
-name|Long
-operator|.
-name|reverseBytes
-argument_list|(
-name|ret
-argument_list|)
-return|;
-block|}
-return|return
-name|ret
 return|;
 block|}
 comment|// APIs to copy data. This will be direct memory location copy and will be much faster
