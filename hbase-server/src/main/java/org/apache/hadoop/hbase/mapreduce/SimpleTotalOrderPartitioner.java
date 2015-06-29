@@ -552,6 +552,12 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|lastReduces
+operator|=
+name|reduces
+expr_stmt|;
 block|}
 name|int
 name|pos
@@ -718,6 +724,14 @@ argument_list|(
 name|endkey
 argument_list|)
 argument_list|)
+expr_stmt|;
+comment|// Reset last reduces count on change of Start / End key
+name|this
+operator|.
+name|lastReduces
+operator|=
+operator|-
+literal|1
 expr_stmt|;
 block|}
 block|}
