@@ -4980,8 +4980,7 @@ literal|0
 argument_list|,
 name|mutator
 operator|.
-name|getWriteBuffer
-argument_list|()
+name|writeAsyncBuffer
 operator|.
 name|size
 argument_list|()
@@ -5018,8 +5017,7 @@ literal|0
 argument_list|,
 name|mutator
 operator|.
-name|getWriteBuffer
-argument_list|()
+name|writeAsyncBuffer
 operator|.
 name|size
 argument_list|()

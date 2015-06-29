@@ -123,6 +123,20 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -239,7 +253,8 @@ specifier|volatile
 name|Configuration
 name|conf
 decl_stmt|;
-specifier|private
+annotation|@
+name|VisibleForTesting
 name|List
 argument_list|<
 name|Row
@@ -1007,23 +1022,6 @@ return|return
 name|this
 operator|.
 name|writeBufferSize
-return|;
-block|}
-comment|/**    * This is used for legacy purposes only. This should not beÓ    * called from production uses.    * @deprecated Going away when we drop public support for {@link HTableInterface}. Ó   */
-annotation|@
-name|Deprecated
-specifier|public
-name|List
-argument_list|<
-name|Row
-argument_list|>
-name|getWriteBuffer
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|writeAsyncBuffer
 return|;
 block|}
 block|}
