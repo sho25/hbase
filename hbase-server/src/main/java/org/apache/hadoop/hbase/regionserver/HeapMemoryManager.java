@@ -637,6 +637,11 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
+name|boolean
+name|tuningEnabled
+init|=
+literal|true
+decl_stmt|;
 name|globalMemStorePercent
 operator|=
 name|HeapMemorySizeUtil
@@ -786,9 +791,10 @@ operator|==
 name|globalMemStorePercentMaxRange
 condition|)
 block|{
-return|return
+name|tuningEnabled
+operator|=
 literal|false
-return|;
+expr_stmt|;
 block|}
 comment|// Initialize max and min range for block cache
 name|blockCachePercentMinRange
@@ -895,6 +901,8 @@ expr_stmt|;
 block|}
 if|if
 condition|(
+name|tuningEnabled
+operator|&&
 name|blockCachePercent
 operator|==
 name|blockCachePercentMinRange
@@ -904,9 +912,10 @@ operator|==
 name|blockCachePercentMaxRange
 condition|)
 block|{
-return|return
+name|tuningEnabled
+operator|=
 literal|false
-return|;
+expr_stmt|;
 block|}
 name|int
 name|gml
@@ -1068,7 +1077,7 @@ argument_list|)
 throw|;
 block|}
 return|return
-literal|true
+name|tuningEnabled
 return|;
 block|}
 specifier|public
