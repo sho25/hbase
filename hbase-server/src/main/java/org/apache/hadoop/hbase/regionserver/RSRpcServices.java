@@ -14267,7 +14267,7 @@ name|currentScanResultSize
 operator|+=
 name|CellUtil
 operator|.
-name|estimatedHeapSizeOfWithoutTags
+name|estimatedHeapSizeOf
 argument_list|(
 name|cell
 argument_list|)

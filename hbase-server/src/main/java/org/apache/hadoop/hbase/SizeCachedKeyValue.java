@@ -164,22 +164,6 @@ operator|+
 name|HEAP_SIZE_OVERHEAD
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
-name|long
-name|heapSizeWithoutTags
-parameter_list|()
-block|{
-return|return
-name|super
-operator|.
-name|heapSizeWithoutTags
-argument_list|()
-operator|+
-name|HEAP_SIZE_OVERHEAD
-return|;
-block|}
 block|}
 end_class
 
