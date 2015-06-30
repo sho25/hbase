@@ -3147,6 +3147,15 @@ name|DEFAULT_HEAP_OCCUPANCY_HIGH_WATERMARK
 init|=
 literal|0.98f
 decl_stmt|;
+comment|/**    * The max number of threads used for splitting storefiles in parallel during    * the region split process.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGION_SPLIT_THREADS_MAX
+init|=
+literal|"hbase.regionserver.region.split.threads.max"
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()
