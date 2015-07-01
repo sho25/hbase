@@ -899,6 +899,9 @@ operator|.
 name|append
 argument_list|(
 name|hostName
+operator|.
+name|toLowerCase
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|name
@@ -1300,13 +1303,15 @@ operator|.
 name|getHostname
 argument_list|()
 operator|.
-name|equals
+name|compareToIgnoreCase
 argument_list|(
 name|right
 operator|.
 name|getHostname
 argument_list|()
 argument_list|)
+operator|==
+literal|0
 operator|&&
 name|left
 operator|.
