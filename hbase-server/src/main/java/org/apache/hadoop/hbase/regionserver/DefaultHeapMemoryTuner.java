@@ -248,7 +248,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The default implementation for the HeapMemoryTuner. This will do statistical checks on  * number of evictions, cache misses and flushes to decide whether there should be changes  * in the heap size of memstore/block cache. During each tuner operation tuner takes a step  * which can either be INCREASE_BLOCK_CACHE_SIZE (increase block cache size),  * INCREASE_MEMSTORE_SIZE (increase memstore size) and by default it is NEUTRAL (no change).  * We say block cache is sufficient when there is no block cache eviction at all or major amount of  * memory allocated to block cache is empty, similarly we say memory allocated for memstore is  * sufficient when there is no memstore flushes because of heap pressure or major amount of  * memory allocated to memstore is empty. If both are sufficient we do nothing, if exactly one of  * them is found to be sufficient we decrease its size by<i>step</i> and increase the other by  * same amount. If none of them is sufficient we do statistical analysis on number of cache misses  * and flushes to determine tuner direction. Based on these statistics we decide the tuner  * direction. If we are not confident about which step direction to take we do nothing and wait for  * next iteration. On expectation we will be tuning for at least 22% tuner calls. The number of  * past periods to consider for statistics calculation can be specified in config by  *<i>hbase.regionserver.heapmemory.autotuner.lookup.periods</i>. Also these many initial calls to  * tuner will be ignored (cache is warming up and we leave the system to reach steady state).  * After the tuner takes a step, in next call we insure that last call was indeed helpful and did  * not do us any harm. If not then we revert the previous step. The step size is dynamic and it  * changes based on current and previous tuning direction. When last tuner step was NEUTRAL  * and current tuning step is not NEUTRAL then we assume we are restarting the tuning process and  * step size is changed to maximum allowed size which can be specified  in config by  *<i>hbase.regionserver.heapmemory.autotuner.step.max</i>. If we are reverting the previous step  * then we decrease step size to half. This decrease is similar to binary search where we try to  * reach the most desired value. The minimum step size can be specified  in config by  *<i>hbase.regionserver.heapmemory.autotuner.step.max</i>. In other cases we leave step size  * unchanged.  */
+comment|/**  * The default implementation for the HeapMemoryTuner. This will do statistical checks on  * number of evictions, cache misses and flushes to decide whether there should be changes  * in the heap size of memstore/block cache. During each tuner operation tuner takes a step  * which can either be INCREASE_BLOCK_CACHE_SIZE (increase block cache size),  * INCREASE_MEMSTORE_SIZE (increase memstore size) and by default it is NEUTRAL (no change).  * We say block cache is sufficient when there is no block cache eviction at all or major amount of  * memory allocated to block cache is empty, similarly we say memory allocated for memstore is  * sufficient when there is no memstore flushes because of heap pressure or major amount of  * memory allocated to memstore is empty. If both are sufficient we do nothing, if exactly one of  * them is found to be sufficient we decrease its size by<i>step</i> and increase the other by  * same amount. If none of them is sufficient we do statistical analysis on number of cache misses  * and flushes to determine tuner direction. Based on these statistics we decide the tuner  * direction. If we are not confident about which step direction to take we do nothing and wait for  * next iteration. On expectation we will be tuning for at least 22% tuner calls. The number of  * past periods to consider for statistics calculation can be specified in config by  *<i>hbase.regionserver.heapmemory.autotuner.lookup.periods</i>. Also these many initial calls to  * tuner will be ignored (cache is warming up and we leave the system to reach steady state).  * After the tuner takes a step, in next call we insure that last call was indeed helpful and did  * not do us any harm. If not then we revert the previous step. The step size is dynamic and it  * changes based on current and previous tuning direction. When last tuner step was NEUTRAL  * and current tuning step is not NEUTRAL then we assume we are restarting the tuning process and  * step size is changed to maximum allowed size which can be specified  in config by  *<i>hbase.regionserver.heapmemory.autotuner.step.max</i>. If we are reverting the previous step  * then we decrease step size to half. This decrease is similar to binary search where we try to  * reach the most desired value. The minimum step size can be specified  in config by  *<i>hbase.regionserver.heapmemory.autotuner.step.min</i>. In other cases we leave step size  * unchanged.  */
 end_comment
 
 begin_class
@@ -988,6 +988,36 @@ expr_stmt|;
 name|tunerLog
 operator|+=
 literal|"Increasing memstore size as observed increase in number of flushes."
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|blockedFlushCount
+operator|>
+literal|0
+operator|&&
+name|prevTuneDirection
+operator|==
+name|StepDirection
+operator|.
+name|NEUTRAL
+condition|)
+block|{
+comment|// we do not want blocked flushes
+name|newTuneDirection
+operator|=
+name|StepDirection
+operator|.
+name|INCREASE_MEMSTORE_SIZE
+expr_stmt|;
+name|tunerLog
+operator|+=
+literal|"Increasing memstore size as observed "
+operator|+
+name|blockedFlushCount
+operator|+
+literal|" blocked flushes."
 expr_stmt|;
 block|}
 else|else
