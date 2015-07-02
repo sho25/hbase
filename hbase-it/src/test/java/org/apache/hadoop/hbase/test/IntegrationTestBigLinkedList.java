@@ -3926,6 +3926,19 @@ name|WALSearcher
 extends|extends
 name|WALPlayer
 block|{
+specifier|public
+name|WALSearcher
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**        * The actual searcher mapper.        */
 specifier|public
 specifier|static
@@ -4428,7 +4441,10 @@ argument_list|()
 argument_list|,
 operator|new
 name|WALSearcher
+argument_list|(
+name|getConf
 argument_list|()
+argument_list|)
 argument_list|,
 operator|new
 name|String
@@ -4464,7 +4480,10 @@ argument_list|()
 argument_list|,
 operator|new
 name|WALSearcher
+argument_list|(
+name|getConf
 argument_list|()
+argument_list|)
 argument_list|,
 operator|new
 name|String
