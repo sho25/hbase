@@ -825,6 +825,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|RegionServerAbortedException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|RegionServerStoppedException
 import|;
 end_import
@@ -6225,7 +6241,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Attempting to unassign a region not in RegionStates"
+literal|"Attempting to unassign a region not in RegionStates "
 operator|+
 name|region
 operator|.

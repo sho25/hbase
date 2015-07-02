@@ -653,6 +653,20 @@ name|JOB_NAME_CONF_KEY
 init|=
 literal|"mapreduce.job.name"
 decl_stmt|;
+comment|/**    * @param conf The {@link Configuration} to use.    */
+specifier|public
+name|WALPlayer
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * A mapper that just writes out KeyValues.    * This one can be used together with {@link KeyValueSortReducer}    */
 specifier|static
 class|class
@@ -2063,14 +2077,14 @@ name|ToolRunner
 operator|.
 name|run
 argument_list|(
+operator|new
+name|WALPlayer
+argument_list|(
 name|HBaseConfiguration
 operator|.
 name|create
 argument_list|()
-argument_list|,
-operator|new
-name|WALPlayer
-argument_list|()
+argument_list|)
 argument_list|,
 name|args
 argument_list|)

@@ -60,7 +60,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Thrown by the region server when it is in shutting down state.  */
+comment|/**  * Thrown by the region server when it is in shutting down state.  * @see RegionServerAbortedException  */
 end_comment
 
 begin_class
