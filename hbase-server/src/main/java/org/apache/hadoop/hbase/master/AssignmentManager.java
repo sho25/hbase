@@ -4538,7 +4538,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Assigning a region not in region states: "
+literal|"Assigning but not in region states: "
 operator|+
 name|region
 argument_list|)
