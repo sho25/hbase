@@ -3108,16 +3108,6 @@ literal|false
 return|;
 block|}
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|CellComparator
-name|cellComparator
-init|=
-operator|new
-name|CellComparator
-argument_list|()
-decl_stmt|;
 comment|/**      * Compare row keys of the given Result objects.      * Nulls are after non-nulls      */
 specifier|private
 specifier|static
@@ -3161,10 +3151,12 @@ comment|// target missing row
 block|}
 else|else
 block|{
+comment|// Sync on no META tables only. We can directly do what CellComparator is doing inside.
+comment|// Never the call going to MetaCellComparator.
 return|return
-name|cellComparator
+name|Bytes
 operator|.
-name|compareRows
+name|compareTo
 argument_list|(
 name|r1
 argument_list|,
