@@ -4272,6 +4272,14 @@ condition|(
 name|t
 operator|instanceof
 name|RegionServerAbortedException
+operator|||
+name|t
+operator|instanceof
+name|RegionServerStoppedException
+operator|||
+name|t
+operator|instanceof
+name|ServerNotRunningYetException
 condition|)
 block|{
 comment|// RS is aborting, we cannot offline the region since the region may need to do WAL
@@ -4300,14 +4308,6 @@ condition|(
 name|t
 operator|instanceof
 name|NotServingRegionException
-operator|||
-name|t
-operator|instanceof
-name|RegionServerStoppedException
-operator|||
-name|t
-operator|instanceof
-name|ServerNotRunningYetException
 condition|)
 block|{
 name|LOG
