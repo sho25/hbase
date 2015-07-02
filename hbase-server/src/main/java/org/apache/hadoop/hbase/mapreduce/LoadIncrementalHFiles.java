@@ -3653,6 +3653,20 @@ literal|"-rwxrwxrwx"
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|fs
+operator|.
+name|setPermission
+argument_list|(
+name|topOut
+argument_list|,
+name|FsPermission
+operator|.
+name|valueOf
+argument_list|(
+literal|"-rwxrwxrwx"
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// Add these back at the *front* of the queue, so there's a lower
 comment|// chance that the region will just split again before we get there.
 name|List
