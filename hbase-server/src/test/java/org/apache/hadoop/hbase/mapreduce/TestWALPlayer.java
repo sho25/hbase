@@ -906,9 +906,7 @@ name|player
 init|=
 operator|new
 name|WALPlayer
-argument_list|(
-name|configuration
-argument_list|)
+argument_list|()
 decl_stmt|;
 name|String
 name|optionName

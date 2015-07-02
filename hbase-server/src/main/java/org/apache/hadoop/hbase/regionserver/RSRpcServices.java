@@ -7038,29 +7038,12 @@ if|if
 condition|(
 name|regionServer
 operator|.
-name|isAborted
-argument_list|()
-condition|)
-block|{
-throw|throw
-operator|new
-name|RegionServerAbortedException
-argument_list|(
-literal|"Server "
-operator|+
-name|regionServer
-operator|.
-name|serverName
-operator|+
-literal|" aborting"
-argument_list|)
-throw|;
-block|}
-if|if
-condition|(
-name|regionServer
-operator|.
 name|isStopped
+argument_list|()
+operator|||
+name|regionServer
+operator|.
+name|isAborted
 argument_list|()
 condition|)
 block|{
@@ -7074,7 +7057,18 @@ name|regionServer
 operator|.
 name|serverName
 operator|+
-literal|" stopping"
+literal|" not running"
+operator|+
+operator|(
+name|regionServer
+operator|.
+name|isAborted
+argument_list|()
+condition|?
+literal|", aborting"
+else|:
+literal|""
+operator|)
 argument_list|)
 throw|;
 block|}
