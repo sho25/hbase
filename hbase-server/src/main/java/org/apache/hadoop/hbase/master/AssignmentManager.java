@@ -825,6 +825,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|RegionServerAbortedException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|RegionServerStoppedException
 import|;
 end_import
@@ -1947,7 +1963,7 @@ name|processQueuedDeadServers
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Called on startup.    * Figures whether a fresh cluster start of we are joining extant running cluster.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    * @throws CoordinatedStateException     */
+comment|/**    * Called on startup.    * Figures whether a fresh cluster start of we are joining extant running cluster.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    * @throws CoordinatedStateException    */
 name|void
 name|joinCluster
 parameter_list|()
@@ -4216,6 +4232,21 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
+name|long
+name|sleepTime
+init|=
+literal|0
+decl_stmt|;
+name|Configuration
+name|conf
+init|=
+name|this
+operator|.
+name|server
+operator|.
+name|getConfiguration
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|t
@@ -4236,6 +4267,34 @@ name|unwrapRemoteException
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|t
+operator|instanceof
+name|RegionServerAbortedException
+condition|)
+block|{
+comment|// RS is aborting, we cannot offline the region since the region may need to do WAL
+comment|// recovery. Until we see  the RS expiration, we should retry.
+name|sleepTime
+operator|=
+literal|1
+operator|+
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|RpcClient
+operator|.
+name|FAILED_SERVER_EXPIRY_KEY
+argument_list|,
+name|RpcClient
+operator|.
+name|FAILED_SERVER_EXPIRY_DEFAULT
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
 if|if
 condition|(
 name|t
@@ -4296,21 +4355,8 @@ condition|)
 block|{
 comment|// In case the server is in the failed server list, no point to
 comment|// retry too soon. Retry after the failed_server_expiry time
-try|try
-block|{
-name|Configuration
-name|conf
-init|=
-name|this
-operator|.
-name|server
-operator|.
-name|getConfiguration
-argument_list|()
-decl_stmt|;
-name|long
 name|sleepTime
-init|=
+operator|=
 literal|1
 operator|+
 name|conf
@@ -4325,7 +4371,7 @@ name|RpcClient
 operator|.
 name|FAILED_SERVER_EXPIRY_DEFAULT
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -4350,6 +4396,16 @@ name|t
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+try|try
+block|{
+if|if
+condition|(
+name|sleepTime
+operator|>
+literal|0
+condition|)
+block|{
 name|Thread
 operator|.
 name|sleep
@@ -4357,6 +4413,7 @@ argument_list|(
 name|sleepTime
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -4368,17 +4425,23 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to unassign "
+literal|"Interrupted unassign "
 operator|+
 name|region
 operator|.
 name|getRegionNameAsString
 argument_list|()
-operator|+
-literal|" since interrupted"
 argument_list|,
 name|ie
 argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
 expr_stmt|;
 name|regionStates
 operator|.
@@ -4391,16 +4454,7 @@ operator|.
 name|FAILED_CLOSE
 argument_list|)
 expr_stmt|;
-name|Thread
-operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
 return|return;
-block|}
 block|}
 name|LOG
 operator|.
@@ -6225,7 +6279,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Attempting to unassign a region not in RegionStates"
+literal|"Attempting to unassign a region not in RegionStates "
 operator|+
 name|region
 operator|.

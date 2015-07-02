@@ -6201,33 +6201,6 @@ name|hri
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Try to unassign the dead region before SSH
-name|am
-operator|.
-name|unassign
-argument_list|(
-name|hri
-argument_list|)
-expr_stmt|;
-comment|// The region should be moved to offline since the server is dead
-name|RegionState
-name|state
-init|=
-name|regionStates
-operator|.
-name|getRegionState
-argument_list|(
-name|hri
-argument_list|)
-decl_stmt|;
-name|assertTrue
-argument_list|(
-name|state
-operator|.
-name|isOffline
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// Kill the hosting server, which doesn't have meta on it.
 name|cluster
 operator|.
@@ -6644,33 +6617,6 @@ name|getRegionServerOfRegion
 argument_list|(
 name|hri
 argument_list|)
-argument_list|)
-expr_stmt|;
-comment|// Try to unassign the dead region before SSH
-name|am
-operator|.
-name|unassign
-argument_list|(
-name|hri
-argument_list|)
-expr_stmt|;
-comment|// The region should be moved to offline since the server is dead
-name|RegionState
-name|state
-init|=
-name|regionStates
-operator|.
-name|getRegionState
-argument_list|(
-name|hri
-argument_list|)
-decl_stmt|;
-name|assertTrue
-argument_list|(
-name|state
-operator|.
-name|isOffline
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Disable the table now.
