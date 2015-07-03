@@ -616,7 +616,7 @@ decl_stmt|;
 while|while
 condition|(
 name|elemIndex
-operator|>
+operator|>=
 name|this
 operator|.
 name|itemBeginPos
@@ -671,7 +671,7 @@ decl_stmt|;
 while|while
 condition|(
 name|elemIndex
-operator|<
+operator|>=
 name|this
 operator|.
 name|itemBeginPos
