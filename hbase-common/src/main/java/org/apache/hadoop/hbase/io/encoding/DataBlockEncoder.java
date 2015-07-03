@@ -247,9 +247,9 @@ name|ByteBuffer
 name|buffer
 parameter_list|)
 function_decl|;
-comment|/**      * Does a deep copy of the key at the current position. A deep copy is      * necessary because buffers are reused in the decoder.      * @return key at current position      */
-name|ByteBuffer
-name|getKeyDeepCopy
+comment|/**      * From the current position creates a cell using the key part      * of the current buffer      * @return key at current position      */
+name|Cell
+name|getKey
 parameter_list|()
 function_decl|;
 comment|/**      * Does a shallow copy of the value at the current position. A shallow      * copy is possible because the returned buffer refers to the backing array      * of the original encoded buffer.      * @return value at current position      */

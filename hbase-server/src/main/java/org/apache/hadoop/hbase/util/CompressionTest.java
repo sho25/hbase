@@ -910,7 +910,7 @@ name|cc
 operator|=
 name|scanner
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 expr_stmt|;
 if|if

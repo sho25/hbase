@@ -144,8 +144,8 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Gets a buffer view to the current key. You must call    * {@link #seekTo(Cell)} before this method.    * @return byte buffer for the key. The limit is set to the key size, and the    * position is 0, the start of the buffer view.    */
-name|ByteBuffer
+comment|/**    * Gets the current key in the form of a cell. You must call    * {@link #seekTo(Cell)} before this method.    * @return gets the current key as a Cell.    */
+name|Cell
 name|getKey
 parameter_list|()
 function_decl|;
@@ -154,9 +154,9 @@ name|ByteBuffer
 name|getValue
 parameter_list|()
 function_decl|;
-comment|/**    * @return Instance of {@link org.apache.hadoop.hbase.KeyValue}.    */
+comment|/**    * @return Instance of {@link org.apache.hadoop.hbase.Cell}.    */
 name|Cell
-name|getKeyValue
+name|getCell
 parameter_list|()
 function_decl|;
 comment|/**    * Convenience method to get a copy of the key as a string - interpreting the    * bytes as UTF8. You must call {@link #seekTo(Cell)} before this method.    * @return key as a string    */

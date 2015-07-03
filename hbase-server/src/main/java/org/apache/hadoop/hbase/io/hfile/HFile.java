@@ -1461,8 +1461,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-name|byte
-index|[]
+name|Cell
 name|getLastKey
 parameter_list|()
 function_decl|;

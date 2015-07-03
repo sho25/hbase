@@ -745,7 +745,7 @@ name|curr
 operator|=
 name|scanner
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 expr_stmt|;
 name|KeyValue
@@ -1397,7 +1397,7 @@ expr_stmt|;
 return|return
 name|scanner
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 return|;
 block|}

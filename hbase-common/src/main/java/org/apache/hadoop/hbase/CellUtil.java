@@ -4505,6 +4505,16 @@ name|verbose
 condition|)
 block|{
 comment|// TODO: pretty print tags as well
+if|if
+condition|(
+name|cell
+operator|.
+name|getTagsLength
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
 name|tag
 operator|=
 name|Bytes
@@ -4527,6 +4537,19 @@ name|getTagsLength
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+operator|!
+operator|(
+name|cell
+operator|instanceof
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+operator|)
+condition|)
+block|{
 name|value
 operator|=
 name|Bytes
@@ -4549,6 +4572,7 @@ name|getValueLength
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|builder
 operator|.

@@ -1807,10 +1807,12 @@ argument_list|()
 condition|?
 name|left
 else|:
-name|cell
+name|CellUtil
 operator|.
-name|getRow
-argument_list|()
+name|cloneRow
+argument_list|(
+name|cell
+argument_list|)
 decl_stmt|;
 comment|// make a copy
 if|if
@@ -1929,10 +1931,12 @@ condition|)
 block|{
 name|lastRowInCurrentWriter
 operator|=
-name|cell
+name|CellUtil
 operator|.
-name|getRow
-argument_list|()
+name|cloneRow
+argument_list|(
+name|cell
+argument_list|)
 expr_stmt|;
 comment|// make a copy
 if|if

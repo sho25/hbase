@@ -2462,8 +2462,7 @@ argument_list|(
 name|splitRow
 argument_list|)
 decl_stmt|;
-name|byte
-index|[]
+name|Cell
 name|lastKey
 init|=
 name|f
@@ -2501,12 +2500,6 @@ argument_list|(
 name|splitKey
 argument_list|,
 name|lastKey
-argument_list|,
-literal|0
-argument_list|,
-name|lastKey
-operator|.
-name|length
 argument_list|)
 operator|>
 literal|0

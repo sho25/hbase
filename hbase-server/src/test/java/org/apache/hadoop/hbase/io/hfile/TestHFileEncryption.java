@@ -1704,7 +1704,7 @@ name|kv
 init|=
 name|scanner
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 decl_stmt|;
 name|assertTrue

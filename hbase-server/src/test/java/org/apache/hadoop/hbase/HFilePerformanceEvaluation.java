@@ -2182,7 +2182,7 @@ name|this
 operator|.
 name|scanner
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 decl_stmt|;
 name|PerformanceEvaluationCommons
@@ -2338,7 +2338,7 @@ name|c
 init|=
 name|scanner
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 decl_stmt|;
 name|PerformanceEvaluationCommons
@@ -2499,7 +2499,7 @@ name|c
 operator|=
 name|scanner
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 expr_stmt|;
 comment|// System.out.println("Found row: " +
@@ -2550,7 +2550,7 @@ name|c
 operator|=
 name|scanner
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 expr_stmt|;
 name|PerformanceEvaluationCommons
@@ -2706,7 +2706,7 @@ block|}
 comment|// TODO: Fix. Make scanner do Cells.
 name|scanner
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 expr_stmt|;
 block|}

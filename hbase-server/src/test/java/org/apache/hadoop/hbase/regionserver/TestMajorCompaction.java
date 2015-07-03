@@ -2285,7 +2285,7 @@ name|row
 init|=
 name|scanner
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 operator|.
 name|getRow

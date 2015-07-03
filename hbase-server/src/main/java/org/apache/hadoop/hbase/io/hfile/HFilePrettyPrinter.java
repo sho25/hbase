@@ -2113,7 +2113,7 @@ name|cell
 init|=
 name|scanner
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 decl_stmt|;
 if|if
@@ -3290,10 +3290,12 @@ condition|)
 block|{
 name|biggestRow
 operator|=
-name|prevCell
+name|CellUtil
 operator|.
-name|getRow
-argument_list|()
+name|cloneRow
+argument_list|(
+name|prevCell
+argument_list|)
 expr_stmt|;
 name|maxRowBytes
 operator|=
