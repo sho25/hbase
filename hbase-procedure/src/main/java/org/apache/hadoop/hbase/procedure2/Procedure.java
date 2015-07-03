@@ -589,12 +589,9 @@ argument_list|(
 literal|" state="
 argument_list|)
 expr_stmt|;
-name|sb
-operator|.
-name|append
+name|toStringState
 argument_list|(
-name|getState
-argument_list|()
+name|sb
 argument_list|)
 expr_stmt|;
 return|return
@@ -603,6 +600,24 @@ operator|.
 name|toString
 argument_list|()
 return|;
+block|}
+comment|/**    * Called from {@link #toString()} when interpolating {@link Procedure} state    * @param builder Append current {@link ProcedureState}    */
+specifier|protected
+name|void
+name|toStringState
+parameter_list|(
+name|StringBuilder
+name|builder
+parameter_list|)
+block|{
+name|builder
+operator|.
+name|append
+argument_list|(
+name|getState
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Extend the toString() information with the procedure details    * e.g. className and parameters    * @param builder the string builder to use to append the proc specific information    */
 specifier|protected
