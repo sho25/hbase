@@ -1495,7 +1495,7 @@ name|ltype
 operator|)
 return|;
 block|}
-comment|/**    * Compares the rows of the left and right cell    * For the hbase:meta case the     * ({@link #compareRows(byte[], int, int, byte[], int, int)} is overridden such    * that it can handle the hbase:meta cells. The caller should ensure using the     * appropriate comparator for hbase:meta    * TODO : Handle BB cases here    * @param left    * @param right    * @return 0 if both cells are equal, 1 if left cell is bigger than right, -1 otherwise    */
+comment|/**    * Compares the rows of the left and right cell.    * For the hbase:meta case this method is overridden such that it can handle hbase:meta cells.    * The caller should ensure using the appropriate comparator for hbase:meta.    * TODO : Handle BB cases here    * @param left    * @param right    * @return 0 if both cells are equal, 1 if left cell is bigger than right, -1 otherwise    */
 specifier|public
 name|int
 name|compareRows
