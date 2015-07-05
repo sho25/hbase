@@ -2021,7 +2021,7 @@ name|leftLength
 else|:
 name|rightLength
 decl_stmt|;
-name|short
+name|int
 name|diffIdx
 init|=
 literal|0
