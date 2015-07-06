@@ -354,7 +354,7 @@ name|RunQueue
 argument_list|>
 name|tableFairQ
 decl_stmt|;
-comment|/**    * Rely on basic fair q. ServerCrashProcedure will yield if meta is not assigned. This way, the    * server that was carrying meta should rise to the top of the queue (this is how it used to    * work when we had handlers and ServerShutdownHandler ran). TODO: special handling of servers    * that were carrying system tables on crash; do I need to have these servers have priority?    *     *<p>Apart from the special-casing of meta and system tables, fairq is what we want    */
+comment|/**    * Rely on basic fair q. ServerCrashProcedure will yield if meta is not assigned. This way, the    * server that was carrying meta should rise to the top of the queue (this is how it used to    * work when we had handlers and ServerShutdownHandler ran). TODO: special handling of servers    * that were carrying system tables on crash; do I need to have these servers have priority?    *    *<p>Apart from the special-casing of meta and system tables, fairq is what we want    */
 specifier|private
 specifier|final
 name|ProcedureFairRunQueues
@@ -1511,10 +1511,9 @@ operator|.
 name|isEmpty
 argument_list|()
 operator|&&
-operator|!
 name|queue
 operator|.
-name|isLocked
+name|acquireDeleteLock
 argument_list|()
 condition|)
 block|{
@@ -1602,7 +1601,7 @@ name|poll
 parameter_list|()
 function_decl|;
 name|boolean
-name|isLocked
+name|acquireDeleteLock
 parameter_list|()
 function_decl|;
 block|}
@@ -1776,6 +1775,17 @@ return|;
 block|}
 annotation|@
 name|Override
+specifier|public
+specifier|synchronized
+name|boolean
+name|acquireDeleteLock
+parameter_list|()
+block|{
+return|return
+name|tryExclusiveLock
+argument_list|()
+return|;
+block|}
 specifier|public
 specifier|synchronized
 name|boolean
