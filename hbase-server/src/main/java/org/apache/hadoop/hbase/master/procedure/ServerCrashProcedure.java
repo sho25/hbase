@@ -632,13 +632,13 @@ name|HRegionInfo
 argument_list|>
 name|regionsOnCrashedServer
 decl_stmt|;
-comment|/**    * Regions to assign. Usually some subset of {@link #regionsOnCrashedServer}    */
+comment|/**    * Regions assigned. Usually some subset of {@link #regionsOnCrashedServer}.    */
 specifier|private
 name|List
 argument_list|<
 name|HRegionInfo
 argument_list|>
-name|regionsToAssign
+name|regionsAssigned
 decl_stmt|;
 specifier|private
 name|boolean
@@ -851,16 +851,6 @@ operator|.
 name|getMasterServices
 argument_list|()
 decl_stmt|;
-try|try
-block|{
-switch|switch
-condition|(
-name|state
-condition|)
-block|{
-case|case
-name|SERVER_CRASH_START
-case|:
 comment|// Is master fully online? If not, yield. No processing of servers unless master is up
 if|if
 condition|(
@@ -880,6 +870,16 @@ literal|"Waiting on master failover to complete"
 argument_list|)
 expr_stmt|;
 block|}
+try|try
+block|{
+switch|switch
+condition|(
+name|state
+condition|)
+block|{
+case|case
+name|SERVER_CRASH_START
+case|:
 name|LOG
 operator|.
 name|info
@@ -971,7 +971,7 @@ name|setNextState
 argument_list|(
 name|ServerCrashState
 operator|.
-name|SERVER_CRASH_CALC_REGIONS_TO_ASSIGN
+name|SERVER_CRASH_ASSIGN
 argument_list|)
 expr_stmt|;
 block|}
@@ -1045,7 +1045,7 @@ name|setNextState
 argument_list|(
 name|ServerCrashState
 operator|.
-name|SERVER_CRASH_CALC_REGIONS_TO_ASSIGN
+name|SERVER_CRASH_ASSIGN
 argument_list|)
 expr_stmt|;
 break|break;
@@ -1076,33 +1076,24 @@ name|setNextState
 argument_list|(
 name|ServerCrashState
 operator|.
-name|SERVER_CRASH_CALC_REGIONS_TO_ASSIGN
+name|SERVER_CRASH_ASSIGN
 argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|SERVER_CRASH_CALC_REGIONS_TO_ASSIGN
+name|SERVER_CRASH_ASSIGN
 case|:
-name|this
-operator|.
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
 name|regionsToAssign
-operator|=
+init|=
 name|calcRegionsToAssign
 argument_list|(
 name|env
 argument_list|)
-expr_stmt|;
-name|setNextState
-argument_list|(
-name|ServerCrashState
-operator|.
-name|SERVER_CRASH_ASSIGN
-argument_list|)
-expr_stmt|;
-break|break;
-case|case
-name|SERVER_CRASH_ASSIGN
-case|:
+decl_stmt|;
 comment|// Assign may not be idempotent. SSH used to requeue the SSH if we got an IOE assigning
 comment|// which is what we are mimicing here but it looks prone to double assignment if assign
 comment|// fails midway. TODO: Test.
@@ -1110,15 +1101,11 @@ comment|// If no regions to assign, skip assign and skip to the finish.
 name|boolean
 name|regions
 init|=
-name|this
-operator|.
 name|regionsToAssign
 operator|!=
 literal|null
 operator|&&
 operator|!
-name|this
-operator|.
 name|regionsToAssign
 operator|.
 name|isEmpty
@@ -1129,6 +1116,12 @@ condition|(
 name|regions
 condition|)
 block|{
+name|this
+operator|.
+name|regionsAssigned
+operator|=
+name|regionsToAssign
+expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -1136,8 +1129,6 @@ name|assign
 argument_list|(
 name|env
 argument_list|,
-name|this
-operator|.
 name|regionsToAssign
 argument_list|)
 condition|)
@@ -1151,8 +1142,6 @@ block|}
 block|}
 if|if
 condition|(
-name|regions
-operator|&&
 name|this
 operator|.
 name|shouldSplitWal
@@ -1160,6 +1149,10 @@ operator|&&
 name|distributedLogReplay
 condition|)
 block|{
+comment|// Take this route even if there are apparently no regions assigned. This may be our
+comment|// second time through here; i.e. we assigned and crashed just about here. On second
+comment|// time through, there will be no regions because we assigned them in the previous step.
+comment|// Even though no regions, we need to go through here to clean up the DLR zk markers.
 name|setNextState
 argument_list|(
 name|ServerCrashState
@@ -1182,7 +1175,7 @@ break|break;
 case|case
 name|SERVER_CRASH_WAIT_ON_ASSIGN
 case|:
-comment|// TODO: The list of regionsToAssign may be more than we actually assigned. See down in
+comment|// TODO: The list of regionsAssigned may be more than we actually assigned. See down in
 comment|// AM #1629 around 'if (regionStates.wasRegionOnDeadServer(encodedName)) {' where where we
 comment|// will skip assigning a region because it is/was on a dead server. Should never happen!
 comment|// It was on this server. Worst comes to worst, we'll still wait here till other server is
@@ -1192,14 +1185,14 @@ if|if
 condition|(
 name|this
 operator|.
-name|regionsToAssign
+name|regionsAssigned
 operator|!=
 literal|null
 operator|&&
 operator|!
 name|this
 operator|.
-name|regionsToAssign
+name|regionsAssigned
 operator|.
 name|isEmpty
 argument_list|()
@@ -1214,7 +1207,7 @@ name|env
 argument_list|,
 name|this
 operator|.
-name|regionsToAssign
+name|regionsAssigned
 argument_list|)
 condition|)
 block|{
@@ -2177,14 +2170,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Skip assigning region "
+literal|"Skip assigning "
 operator|+
 name|hri
 operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" because it has been opened in "
+literal|" because opened on "
 operator|+
 name|addressFromAM
 operator|.
@@ -2917,14 +2910,14 @@ if|if
 condition|(
 name|this
 operator|.
-name|regionsToAssign
+name|regionsAssigned
 operator|!=
 literal|null
 operator|&&
 operator|!
 name|this
 operator|.
-name|regionsToAssign
+name|regionsAssigned
 operator|.
 name|isEmpty
 argument_list|()
@@ -2937,12 +2930,12 @@ name|hri
 range|:
 name|this
 operator|.
-name|regionsToAssign
+name|regionsAssigned
 control|)
 block|{
 name|state
 operator|.
-name|addRegionsToAssign
+name|addRegionsAssigned
 argument_list|(
 name|HRegionInfo
 operator|.
@@ -3114,7 +3107,7 @@ name|size
 operator|=
 name|state
 operator|.
-name|getRegionsToAssignCount
+name|getRegionsAssignedCount
 argument_list|()
 expr_stmt|;
 if|if
@@ -3126,7 +3119,7 @@ condition|)
 block|{
 name|this
 operator|.
-name|regionsToAssign
+name|regionsAssigned
 operator|=
 operator|new
 name|ArrayList
@@ -3150,7 +3143,7 @@ control|)
 block|{
 name|this
 operator|.
-name|regionsToAssign
+name|regionsAssigned
 operator|.
 name|add
 argument_list|(

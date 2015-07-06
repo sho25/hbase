@@ -2272,7 +2272,7 @@ operator|=
 operator|new
 name|Thread
 argument_list|(
-literal|"ProcedureExecutorThread-"
+literal|"ProcedureExecutor-"
 operator|+
 name|i
 argument_list|)

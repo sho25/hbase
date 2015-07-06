@@ -1418,13 +1418,6 @@ argument_list|(
 literal|"Checking directory contents..."
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Scheduling batch of logs to split"
-argument_list|)
-expr_stmt|;
 name|SplitLogCounters
 operator|.
 name|tot_mgr_log_split_batch_start
@@ -1436,7 +1429,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"started splitting "
+literal|"Started splitting "
 operator|+
 name|logfiles
 operator|.
@@ -1742,11 +1735,17 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"returning success without actually splitting and "
+literal|"Returning success without actually splitting and "
 operator|+
 literal|"deleting all the log files in path "
 operator|+
 name|logDir
+operator|+
+literal|": "
+operator|+
+name|files
+argument_list|,
+name|ioe
 argument_list|)
 expr_stmt|;
 block|}

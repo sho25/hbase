@@ -4024,18 +4024,10 @@ argument_list|,
 literal|6
 argument_list|)
 block|,
-comment|/**      *<code>SERVER_CRASH_CALC_REGIONS_TO_ASSIGN = 7;</code>      */
-name|SERVER_CRASH_CALC_REGIONS_TO_ASSIGN
-argument_list|(
-literal|6
-argument_list|,
-literal|7
-argument_list|)
-block|,
-comment|/**      *<code>SERVER_CRASH_ASSIGN = 8;</code>      */
+comment|/**      *<code>SERVER_CRASH_ASSIGN = 8;</code>      *      *<pre>      * Removed SERVER_CRASH_CALC_REGIONS_TO_ASSIGN = 7;      *</pre>      */
 name|SERVER_CRASH_ASSIGN
 argument_list|(
-literal|7
+literal|6
 argument_list|,
 literal|8
 argument_list|)
@@ -4043,7 +4035,7 @@ block|,
 comment|/**      *<code>SERVER_CRASH_WAIT_ON_ASSIGN = 9;</code>      */
 name|SERVER_CRASH_WAIT_ON_ASSIGN
 argument_list|(
-literal|8
+literal|7
 argument_list|,
 literal|9
 argument_list|)
@@ -4051,7 +4043,7 @@ block|,
 comment|/**      *<code>SERVER_CRASH_FINISH = 100;</code>      */
 name|SERVER_CRASH_FINISH
 argument_list|(
-literal|9
+literal|8
 argument_list|,
 literal|100
 argument_list|)
@@ -4110,16 +4102,7 @@ name|SERVER_CRASH_PREPARE_LOG_REPLAY_VALUE
 init|=
 literal|6
 decl_stmt|;
-comment|/**      *<code>SERVER_CRASH_CALC_REGIONS_TO_ASSIGN = 7;</code>      */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|SERVER_CRASH_CALC_REGIONS_TO_ASSIGN_VALUE
-init|=
-literal|7
-decl_stmt|;
-comment|/**      *<code>SERVER_CRASH_ASSIGN = 8;</code>      */
+comment|/**      *<code>SERVER_CRASH_ASSIGN = 8;</code>      *      *<pre>      * Removed SERVER_CRASH_CALC_REGIONS_TO_ASSIGN = 7;      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -4205,12 +4188,6 @@ literal|6
 case|:
 return|return
 name|SERVER_CRASH_PREPARE_LOG_REPLAY
-return|;
-case|case
-literal|7
-case|:
-return|return
-name|SERVER_CRASH_CALC_REGIONS_TO_ASSIGN
 return|;
 case|case
 literal|8
@@ -64151,8 +64128,8 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated .RegionInfo regions_to_assign = 4;
-comment|/**      *<code>repeated .RegionInfo regions_to_assign = 4;</code>      */
+comment|// repeated .RegionInfo regions_assigned = 4;
+comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
 name|java
 operator|.
 name|util
@@ -64175,10 +64152,10 @@ name|HBaseProtos
 operator|.
 name|RegionInfo
 argument_list|>
-name|getRegionsToAssignList
+name|getRegionsAssignedList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo regions_to_assign = 4;</code>      */
+comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -64194,18 +64171,18 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionInfo
-name|getRegionsToAssign
+name|getRegionsAssigned
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo regions_to_assign = 4;</code>      */
+comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
 name|int
-name|getRegionsToAssignCount
+name|getRegionsAssignedCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo regions_to_assign = 4;</code>      */
+comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
 name|java
 operator|.
 name|util
@@ -64230,10 +64207,10 @@ name|HBaseProtos
 operator|.
 name|RegionInfoOrBuilder
 argument_list|>
-name|getRegionsToAssignOrBuilderList
+name|getRegionsAssignedOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo regions_to_assign = 4;</code>      */
+comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -64249,7 +64226,7 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionInfoOrBuilder
-name|getRegionsToAssignOrBuilder
+name|getRegionsAssignedOrBuilder
 parameter_list|(
 name|int
 name|index
@@ -64748,7 +64725,7 @@ literal|0x00000008
 operator|)
 condition|)
 block|{
-name|regionsToAssign_
+name|regionsAssigned_
 operator|=
 operator|new
 name|java
@@ -64780,7 +64757,7 @@ operator||=
 literal|0x00000008
 expr_stmt|;
 block|}
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|add
 argument_list|(
@@ -64944,7 +64921,7 @@ literal|0x00000008
 operator|)
 condition|)
 block|{
-name|regionsToAssign_
+name|regionsAssigned_
 operator|=
 name|java
 operator|.
@@ -64954,7 +64931,7 @@ name|Collections
 operator|.
 name|unmodifiableList
 argument_list|(
-name|regionsToAssign_
+name|regionsAssigned_
 argument_list|)
 expr_stmt|;
 block|}
@@ -65484,12 +65461,12 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated .RegionInfo regions_to_assign = 4;
+comment|// repeated .RegionInfo regions_assigned = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REGIONS_TO_ASSIGN_FIELD_NUMBER
+name|REGIONS_ASSIGNED_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -65516,9 +65493,9 @@ name|HBaseProtos
 operator|.
 name|RegionInfo
 argument_list|>
-name|regionsToAssign_
+name|regionsAssigned_
 decl_stmt|;
-comment|/**      *<code>repeated .RegionInfo regions_to_assign = 4;</code>      */
+comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -65542,14 +65519,14 @@ name|HBaseProtos
 operator|.
 name|RegionInfo
 argument_list|>
-name|getRegionsToAssignList
+name|getRegionsAssignedList
 parameter_list|()
 block|{
 return|return
-name|regionsToAssign_
+name|regionsAssigned_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo regions_to_assign = 4;</code>      */
+comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -65575,27 +65552,27 @@ name|HBaseProtos
 operator|.
 name|RegionInfoOrBuilder
 argument_list|>
-name|getRegionsToAssignOrBuilderList
+name|getRegionsAssignedOrBuilderList
 parameter_list|()
 block|{
 return|return
-name|regionsToAssign_
+name|regionsAssigned_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo regions_to_assign = 4;</code>      */
+comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
 specifier|public
 name|int
-name|getRegionsToAssignCount
+name|getRegionsAssignedCount
 parameter_list|()
 block|{
 return|return
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo regions_to_assign = 4;</code>      */
+comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -65612,14 +65589,14 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionInfo
-name|getRegionsToAssign
+name|getRegionsAssigned
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|get
 argument_list|(
@@ -65627,7 +65604,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo regions_to_assign = 4;</code>      */
+comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -65644,14 +65621,14 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionInfoOrBuilder
-name|getRegionsToAssignOrBuilder
+name|getRegionsAssignedOrBuilder
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|get
 argument_list|(
@@ -65782,7 +65759,7 @@ operator|.
 name|emptyList
 argument_list|()
 expr_stmt|;
-name|regionsToAssign_
+name|regionsAssigned_
 operator|=
 name|java
 operator|.
@@ -65911,7 +65888,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|getRegionsToAssignCount
+name|getRegionsAssignedCount
 argument_list|()
 condition|;
 name|i
@@ -65921,7 +65898,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|getRegionsToAssign
+name|getRegionsAssigned
 argument_list|(
 name|i
 argument_list|)
@@ -66058,7 +66035,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|size
 argument_list|()
@@ -66073,7 +66050,7 @@ name|writeMessage
 argument_list|(
 literal|4
 argument_list|,
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|get
 argument_list|(
@@ -66280,7 +66257,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|size
 argument_list|()
@@ -66303,7 +66280,7 @@ name|computeMessageSize
 argument_list|(
 literal|4
 argument_list|,
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|get
 argument_list|(
@@ -66620,14 +66597,14 @@ name|result
 operator|=
 name|result
 operator|&&
-name|getRegionsToAssignList
+name|getRegionsAssignedList
 argument_list|()
 operator|.
 name|equals
 argument_list|(
 name|other
 operator|.
-name|getRegionsToAssignList
+name|getRegionsAssignedList
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -66864,7 +66841,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|getRegionsToAssignCount
+name|getRegionsAssignedCount
 argument_list|()
 operator|>
 literal|0
@@ -66878,7 +66855,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REGIONS_TO_ASSIGN_FIELD_NUMBER
+name|REGIONS_ASSIGNED_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -66888,7 +66865,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getRegionsToAssignList
+name|getRegionsAssignedList
 argument_list|()
 operator|.
 name|hashCode
@@ -67765,7 +67742,7 @@ expr_stmt|;
 name|getRegionsOnCrashedServerFieldBuilder
 argument_list|()
 expr_stmt|;
-name|getRegionsToAssignFieldBuilder
+name|getRegionsAssignedFieldBuilder
 argument_list|()
 expr_stmt|;
 block|}
@@ -67889,12 +67866,12 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|regionsToAssign_
+name|regionsAssigned_
 operator|=
 name|java
 operator|.
@@ -67917,7 +67894,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -68297,7 +68274,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
@@ -68315,7 +68292,7 @@ literal|0x00000008
 operator|)
 condition|)
 block|{
-name|regionsToAssign_
+name|regionsAssigned_
 operator|=
 name|java
 operator|.
@@ -68325,7 +68302,7 @@ name|Collections
 operator|.
 name|unmodifiableList
 argument_list|(
-name|regionsToAssign_
+name|regionsAssigned_
 argument_list|)
 expr_stmt|;
 name|bitField0_
@@ -68340,18 +68317,18 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|regionsToAssign_
+name|regionsAssigned_
 operator|=
-name|regionsToAssign_
+name|regionsAssigned_
 expr_stmt|;
 block|}
 else|else
 block|{
 name|result
 operator|.
-name|regionsToAssign_
+name|regionsAssigned_
 operator|=
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|build
 argument_list|()
@@ -68714,7 +68691,7 @@ block|}
 block|}
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
@@ -68724,7 +68701,7 @@ condition|(
 operator|!
 name|other
 operator|.
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|isEmpty
 argument_list|()
@@ -68732,17 +68709,17 @@ condition|)
 block|{
 if|if
 condition|(
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|regionsToAssign_
+name|regionsAssigned_
 operator|=
 name|other
 operator|.
-name|regionsToAssign_
+name|regionsAssigned_
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -68756,16 +68733,16 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|ensureRegionsToAssignIsMutable
+name|ensureRegionsAssignedIsMutable
 argument_list|()
 expr_stmt|;
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|addAll
 argument_list|(
 name|other
 operator|.
-name|regionsToAssign_
+name|regionsAssigned_
 argument_list|)
 expr_stmt|;
 block|}
@@ -68781,7 +68758,7 @@ condition|(
 operator|!
 name|other
 operator|.
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|isEmpty
 argument_list|()
@@ -68789,26 +68766,26 @@ condition|)
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|dispose
 argument_list|()
 expr_stmt|;
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|=
 literal|null
 expr_stmt|;
-name|regionsToAssign_
+name|regionsAssigned_
 operator|=
 name|other
 operator|.
-name|regionsToAssign_
+name|regionsAssigned_
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -68819,7 +68796,7 @@ operator|~
 literal|0x00000008
 operator|)
 expr_stmt|;
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|=
 name|com
 operator|.
@@ -68831,7 +68808,7 @@ name|GeneratedMessage
 operator|.
 name|alwaysUseFieldBuilders
 condition|?
-name|getRegionsToAssignFieldBuilder
+name|getRegionsAssignedFieldBuilder
 argument_list|()
 else|:
 literal|null
@@ -68839,13 +68816,13 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|addAllMessages
 argument_list|(
 name|other
 operator|.
-name|regionsToAssign_
+name|regionsAssigned_
 argument_list|)
 expr_stmt|;
 block|}
@@ -68972,7 +68949,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|getRegionsToAssignCount
+name|getRegionsAssignedCount
 argument_list|()
 condition|;
 name|i
@@ -68982,7 +68959,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|getRegionsToAssign
+name|getRegionsAssigned
 argument_list|(
 name|i
 argument_list|)
@@ -71245,7 +71222,7 @@ return|return
 name|regionsOnCrashedServerBuilder_
 return|;
 block|}
-comment|// repeated .RegionInfo regions_to_assign = 4;
+comment|// repeated .RegionInfo regions_assigned = 4;
 specifier|private
 name|java
 operator|.
@@ -71269,7 +71246,7 @@ name|HBaseProtos
 operator|.
 name|RegionInfo
 argument_list|>
-name|regionsToAssign_
+name|regionsAssigned_
 init|=
 name|java
 operator|.
@@ -71282,7 +71259,7 @@ argument_list|()
 decl_stmt|;
 specifier|private
 name|void
-name|ensureRegionsToAssignIsMutable
+name|ensureRegionsAssignedIsMutable
 parameter_list|()
 block|{
 if|if
@@ -71299,7 +71276,7 @@ literal|0x00000008
 operator|)
 condition|)
 block|{
-name|regionsToAssign_
+name|regionsAssigned_
 operator|=
 operator|new
 name|java
@@ -71325,7 +71302,7 @@ operator|.
 name|RegionInfo
 argument_list|>
 argument_list|(
-name|regionsToAssign_
+name|regionsAssigned_
 argument_list|)
 expr_stmt|;
 name|bitField0_
@@ -71393,9 +71370,9 @@ name|HBaseProtos
 operator|.
 name|RegionInfoOrBuilder
 argument_list|>
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -71419,12 +71396,12 @@ name|HBaseProtos
 operator|.
 name|RegionInfo
 argument_list|>
-name|getRegionsToAssignList
+name|getRegionsAssignedList
 parameter_list|()
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
@@ -71438,35 +71415,35 @@ name|Collections
 operator|.
 name|unmodifiableList
 argument_list|(
-name|regionsToAssign_
+name|regionsAssigned_
 argument_list|)
 return|;
 block|}
 else|else
 block|{
 return|return
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|getMessageList
 argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|int
-name|getRegionsToAssignCount
+name|getRegionsAssignedCount
 parameter_list|()
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|size
 argument_list|()
@@ -71475,14 +71452,14 @@ block|}
 else|else
 block|{
 return|return
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|getCount
 argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -71499,7 +71476,7 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionInfo
-name|getRegionsToAssign
+name|getRegionsAssigned
 parameter_list|(
 name|int
 name|index
@@ -71507,13 +71484,13 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|get
 argument_list|(
@@ -71524,7 +71501,7 @@ block|}
 else|else
 block|{
 return|return
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|getMessage
 argument_list|(
@@ -71533,10 +71510,10 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
-name|setRegionsToAssign
+name|setRegionsAssigned
 parameter_list|(
 name|int
 name|index
@@ -71561,7 +71538,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
@@ -71579,10 +71556,10 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|ensureRegionsToAssignIsMutable
+name|ensureRegionsAssignedIsMutable
 argument_list|()
 expr_stmt|;
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|set
 argument_list|(
@@ -71597,7 +71574,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -71611,10 +71588,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
-name|setRegionsToAssign
+name|setRegionsAssigned
 parameter_list|(
 name|int
 name|index
@@ -71641,15 +71618,15 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|ensureRegionsToAssignIsMutable
+name|ensureRegionsAssignedIsMutable
 argument_list|()
 expr_stmt|;
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|set
 argument_list|(
@@ -71667,7 +71644,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -71684,10 +71661,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
-name|addRegionsToAssign
+name|addRegionsAssigned
 parameter_list|(
 name|org
 operator|.
@@ -71709,7 +71686,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
@@ -71727,10 +71704,10 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|ensureRegionsToAssignIsMutable
+name|ensureRegionsAssignedIsMutable
 argument_list|()
 expr_stmt|;
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|add
 argument_list|(
@@ -71743,7 +71720,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|addMessage
 argument_list|(
@@ -71755,10 +71732,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
-name|addRegionsToAssign
+name|addRegionsAssigned
 parameter_list|(
 name|int
 name|index
@@ -71783,7 +71760,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
@@ -71801,10 +71778,10 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|ensureRegionsToAssignIsMutable
+name|ensureRegionsAssignedIsMutable
 argument_list|()
 expr_stmt|;
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|add
 argument_list|(
@@ -71819,7 +71796,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|addMessage
 argument_list|(
@@ -71833,10 +71810,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
-name|addRegionsToAssign
+name|addRegionsAssigned
 parameter_list|(
 name|org
 operator|.
@@ -71860,15 +71837,15 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|ensureRegionsToAssignIsMutable
+name|ensureRegionsAssignedIsMutable
 argument_list|()
 expr_stmt|;
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|add
 argument_list|(
@@ -71884,7 +71861,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|addMessage
 argument_list|(
@@ -71899,10 +71876,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
-name|addRegionsToAssign
+name|addRegionsAssigned
 parameter_list|(
 name|int
 name|index
@@ -71929,15 +71906,15 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|ensureRegionsToAssignIsMutable
+name|ensureRegionsAssignedIsMutable
 argument_list|()
 expr_stmt|;
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|add
 argument_list|(
@@ -71955,7 +71932,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|addMessage
 argument_list|(
@@ -71972,10 +71949,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
-name|addAllRegionsToAssign
+name|addAllRegionsAssigned
 parameter_list|(
 name|java
 operator|.
@@ -72006,12 +71983,12 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|ensureRegionsToAssignIsMutable
+name|ensureRegionsAssignedIsMutable
 argument_list|()
 expr_stmt|;
 name|super
@@ -72020,7 +71997,7 @@ name|addAll
 argument_list|(
 name|values
 argument_list|,
-name|regionsToAssign_
+name|regionsAssigned_
 argument_list|)
 expr_stmt|;
 name|onChanged
@@ -72029,7 +72006,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|addAllMessages
 argument_list|(
@@ -72041,20 +72018,20 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
-name|clearRegionsToAssign
+name|clearRegionsAssigned
 parameter_list|()
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|regionsToAssign_
+name|regionsAssigned_
 operator|=
 name|java
 operator|.
@@ -72080,7 +72057,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -72090,10 +72067,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
-name|removeRegionsToAssign
+name|removeRegionsAssigned
 parameter_list|(
 name|int
 name|index
@@ -72101,15 +72078,15 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|ensureRegionsToAssignIsMutable
+name|ensureRegionsAssignedIsMutable
 argument_list|()
 expr_stmt|;
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|remove
 argument_list|(
@@ -72122,7 +72099,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|remove
 argument_list|(
@@ -72134,7 +72111,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -72153,14 +72130,14 @@ operator|.
 name|RegionInfo
 operator|.
 name|Builder
-name|getRegionsToAssignBuilder
+name|getRegionsAssignedBuilder
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|getRegionsToAssignFieldBuilder
+name|getRegionsAssignedFieldBuilder
 argument_list|()
 operator|.
 name|getBuilder
@@ -72169,7 +72146,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -72186,7 +72163,7 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionInfoOrBuilder
-name|getRegionsToAssignOrBuilder
+name|getRegionsAssignedOrBuilder
 parameter_list|(
 name|int
 name|index
@@ -72194,13 +72171,13 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|regionsToAssign_
+name|regionsAssigned_
 operator|.
 name|get
 argument_list|(
@@ -72211,7 +72188,7 @@ block|}
 else|else
 block|{
 return|return
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|getMessageOrBuilder
 argument_list|(
@@ -72220,7 +72197,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -72246,18 +72223,18 @@ name|HBaseProtos
 operator|.
 name|RegionInfoOrBuilder
 argument_list|>
-name|getRegionsToAssignOrBuilderList
+name|getRegionsAssignedOrBuilderList
 parameter_list|()
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|!=
 literal|null
 condition|)
 block|{
 return|return
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|.
 name|getMessageOrBuilderList
 argument_list|()
@@ -72274,12 +72251,12 @@ name|Collections
 operator|.
 name|unmodifiableList
 argument_list|(
-name|regionsToAssign_
+name|regionsAssigned_
 argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -72298,11 +72275,11 @@ operator|.
 name|RegionInfo
 operator|.
 name|Builder
-name|addRegionsToAssignBuilder
+name|addRegionsAssignedBuilder
 parameter_list|()
 block|{
 return|return
-name|getRegionsToAssignFieldBuilder
+name|getRegionsAssignedFieldBuilder
 argument_list|()
 operator|.
 name|addBuilder
@@ -72328,7 +72305,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -72347,14 +72324,14 @@ operator|.
 name|RegionInfo
 operator|.
 name|Builder
-name|addRegionsToAssignBuilder
+name|addRegionsAssignedBuilder
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|getRegionsToAssignFieldBuilder
+name|getRegionsAssignedFieldBuilder
 argument_list|()
 operator|.
 name|addBuilder
@@ -72382,7 +72359,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_to_assign = 4;</code>        */
+comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -72408,11 +72385,11 @@ name|RegionInfo
 operator|.
 name|Builder
 argument_list|>
-name|getRegionsToAssignBuilderList
+name|getRegionsAssignedBuilderList
 parameter_list|()
 block|{
 return|return
-name|getRegionsToAssignFieldBuilder
+name|getRegionsAssignedFieldBuilder
 argument_list|()
 operator|.
 name|getBuilderList
@@ -72478,17 +72455,17 @@ name|HBaseProtos
 operator|.
 name|RegionInfoOrBuilder
 argument_list|>
-name|getRegionsToAssignFieldBuilder
+name|getRegionsAssignedFieldBuilder
 parameter_list|()
 block|{
 if|if
 condition|(
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 operator|=
 operator|new
 name|com
@@ -72550,7 +72527,7 @@ operator|.
 name|RegionInfoOrBuilder
 argument_list|>
 argument_list|(
-name|regionsToAssign_
+name|regionsAssigned_
 argument_list|,
 operator|(
 operator|(
@@ -72569,13 +72546,13 @@ name|isClean
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|regionsToAssign_
+name|regionsAssigned_
 operator|=
 literal|null
 expr_stmt|;
 block|}
 return|return
-name|regionsToAssignBuilder_
+name|regionsAssignedBuilder_
 return|;
 block|}
 comment|// optional bool carrying_meta = 5;
@@ -73142,7 +73119,7 @@ literal|"StateData\022#\n\tuser_info\030\001 \002(\0132\020.UserInfor"
 operator|+
 literal|"mation\022\036\n\ntable_name\030\002 \002(\0132\n.TableName\022\036"
 operator|+
-literal|"\n\026skip_table_state_check\030\003 \002(\010\"\347\001\n\024Serve"
+literal|"\n\026skip_table_state_check\030\003 \002(\010\"\346\001\n\024Serve"
 operator|+
 literal|"rCrashStateData\022 \n\013server_name\030\001 \002(\0132\013.S"
 operator|+
@@ -73150,141 +73127,139 @@ literal|"erverName\022\036\n\026distributed_log_replay\030\002 \001("
 block|,
 literal|"\010\022.\n\031regions_on_crashed_server\030\003 \003(\0132\013.R"
 operator|+
-literal|"egionInfo\022&\n\021regions_to_assign\030\004 \003(\0132\013.R"
+literal|"egionInfo\022%\n\020regions_assigned\030\004 \003(\0132\013.Re"
 operator|+
-literal|"egionInfo\022\025\n\rcarrying_meta\030\005 \001(\010\022\036\n\020shou"
+literal|"gionInfo\022\025\n\rcarrying_meta\030\005 \001(\010\022\036\n\020shoul"
 operator|+
-literal|"ld_split_wal\030\006 \001(\010:\004true*\330\001\n\020CreateTable"
+literal|"d_split_wal\030\006 \001(\010:\004true*\330\001\n\020CreateTableS"
 operator|+
-literal|"State\022\036\n\032CREATE_TABLE_PRE_OPERATION\020\001\022 \n"
+literal|"tate\022\036\n\032CREATE_TABLE_PRE_OPERATION\020\001\022 \n\034"
 operator|+
-literal|"\034CREATE_TABLE_WRITE_FS_LAYOUT\020\002\022\034\n\030CREAT"
+literal|"CREATE_TABLE_WRITE_FS_LAYOUT\020\002\022\034\n\030CREATE"
 operator|+
-literal|"E_TABLE_ADD_TO_META\020\003\022\037\n\033CREATE_TABLE_AS"
+literal|"_TABLE_ADD_TO_META\020\003\022\037\n\033CREATE_TABLE_ASS"
 operator|+
-literal|"SIGN_REGIONS\020\004\022\"\n\036CREATE_TABLE_UPDATE_DE"
+literal|"IGN_REGIONS\020\004\022\"\n\036CREATE_TABLE_UPDATE_DES"
 operator|+
-literal|"SC_CACHE\020\005\022\037\n\033CREATE_TABLE_POST_OPERATIO"
+literal|"C_CACHE\020\005\022\037\n\033CREATE_TABLE_POST_OPERATION"
 operator|+
-literal|"N\020\006*\207\002\n\020ModifyTableState\022\030\n\024MODIFY_TABLE"
+literal|"\020\006*\207\002\n\020ModifyTableState\022\030\n\024MODIFY_TABLE_"
 block|,
-literal|"_PREPARE\020\001\022\036\n\032MODIFY_TABLE_PRE_OPERATION"
+literal|"PREPARE\020\001\022\036\n\032MODIFY_TABLE_PRE_OPERATION\020"
 operator|+
-literal|"\020\002\022(\n$MODIFY_TABLE_UPDATE_TABLE_DESCRIPT"
+literal|"\002\022(\n$MODIFY_TABLE_UPDATE_TABLE_DESCRIPTO"
 operator|+
-literal|"OR\020\003\022&\n\"MODIFY_TABLE_REMOVE_REPLICA_COLU"
+literal|"R\020\003\022&\n\"MODIFY_TABLE_REMOVE_REPLICA_COLUM"
 operator|+
-literal|"MN\020\004\022!\n\035MODIFY_TABLE_DELETE_FS_LAYOUT\020\005\022"
+literal|"N\020\004\022!\n\035MODIFY_TABLE_DELETE_FS_LAYOUT\020\005\022\037"
 operator|+
-literal|"\037\n\033MODIFY_TABLE_POST_OPERATION\020\006\022#\n\037MODI"
+literal|"\n\033MODIFY_TABLE_POST_OPERATION\020\006\022#\n\037MODIF"
 operator|+
-literal|"FY_TABLE_REOPEN_ALL_REGIONS\020\007*\212\002\n\022Trunca"
+literal|"Y_TABLE_REOPEN_ALL_REGIONS\020\007*\212\002\n\022Truncat"
 operator|+
-literal|"teTableState\022 \n\034TRUNCATE_TABLE_PRE_OPERA"
+literal|"eTableState\022 \n\034TRUNCATE_TABLE_PRE_OPERAT"
 operator|+
-literal|"TION\020\001\022#\n\037TRUNCATE_TABLE_REMOVE_FROM_MET"
+literal|"ION\020\001\022#\n\037TRUNCATE_TABLE_REMOVE_FROM_META"
 operator|+
-literal|"A\020\002\022\"\n\036TRUNCATE_TABLE_CLEAR_FS_LAYOUT\020\003\022"
+literal|"\020\002\022\"\n\036TRUNCATE_TABLE_CLEAR_FS_LAYOUT\020\003\022#"
 operator|+
-literal|"#\n\037TRUNCATE_TABLE_CREATE_FS_LAYOUT\020\004\022\036\n\032"
+literal|"\n\037TRUNCATE_TABLE_CREATE_FS_LAYOUT\020\004\022\036\n\032T"
 block|,
-literal|"TRUNCATE_TABLE_ADD_TO_META\020\005\022!\n\035TRUNCATE"
+literal|"RUNCATE_TABLE_ADD_TO_META\020\005\022!\n\035TRUNCATE_"
 operator|+
-literal|"_TABLE_ASSIGN_REGIONS\020\006\022!\n\035TRUNCATE_TABL"
+literal|"TABLE_ASSIGN_REGIONS\020\006\022!\n\035TRUNCATE_TABLE"
 operator|+
-literal|"E_POST_OPERATION\020\007*\337\001\n\020DeleteTableState\022"
+literal|"_POST_OPERATION\020\007*\337\001\n\020DeleteTableState\022\036"
 operator|+
-literal|"\036\n\032DELETE_TABLE_PRE_OPERATION\020\001\022!\n\035DELET"
+literal|"\n\032DELETE_TABLE_PRE_OPERATION\020\001\022!\n\035DELETE"
 operator|+
-literal|"E_TABLE_REMOVE_FROM_META\020\002\022 \n\034DELETE_TAB"
+literal|"_TABLE_REMOVE_FROM_META\020\002\022 \n\034DELETE_TABL"
 operator|+
-literal|"LE_CLEAR_FS_LAYOUT\020\003\022\"\n\036DELETE_TABLE_UPD"
+literal|"E_CLEAR_FS_LAYOUT\020\003\022\"\n\036DELETE_TABLE_UPDA"
 operator|+
-literal|"ATE_DESC_CACHE\020\004\022!\n\035DELETE_TABLE_UNASSIG"
+literal|"TE_DESC_CACHE\020\004\022!\n\035DELETE_TABLE_UNASSIGN"
 operator|+
-literal|"N_REGIONS\020\005\022\037\n\033DELETE_TABLE_POST_OPERATI"
+literal|"_REGIONS\020\005\022\037\n\033DELETE_TABLE_POST_OPERATIO"
 operator|+
-literal|"ON\020\006*\331\001\n\024AddColumnFamilyState\022\035\n\031ADD_COL"
+literal|"N\020\006*\331\001\n\024AddColumnFamilyState\022\035\n\031ADD_COLU"
 operator|+
-literal|"UMN_FAMILY_PREPARE\020\001\022#\n\037ADD_COLUMN_FAMIL"
+literal|"MN_FAMILY_PREPARE\020\001\022#\n\037ADD_COLUMN_FAMILY"
 block|,
-literal|"Y_PRE_OPERATION\020\002\022-\n)ADD_COLUMN_FAMILY_U"
+literal|"_PRE_OPERATION\020\002\022-\n)ADD_COLUMN_FAMILY_UP"
 operator|+
-literal|"PDATE_TABLE_DESCRIPTOR\020\003\022$\n ADD_COLUMN_F"
+literal|"DATE_TABLE_DESCRIPTOR\020\003\022$\n ADD_COLUMN_FA"
 operator|+
-literal|"AMILY_POST_OPERATION\020\004\022(\n$ADD_COLUMN_FAM"
+literal|"MILY_POST_OPERATION\020\004\022(\n$ADD_COLUMN_FAMI"
 operator|+
-literal|"ILY_REOPEN_ALL_REGIONS\020\005*\353\001\n\027ModifyColum"
+literal|"LY_REOPEN_ALL_REGIONS\020\005*\353\001\n\027ModifyColumn"
 operator|+
-literal|"nFamilyState\022 \n\034MODIFY_COLUMN_FAMILY_PRE"
+literal|"FamilyState\022 \n\034MODIFY_COLUMN_FAMILY_PREP"
 operator|+
-literal|"PARE\020\001\022&\n\"MODIFY_COLUMN_FAMILY_PRE_OPERA"
+literal|"ARE\020\001\022&\n\"MODIFY_COLUMN_FAMILY_PRE_OPERAT"
 operator|+
-literal|"TION\020\002\0220\n,MODIFY_COLUMN_FAMILY_UPDATE_TA"
+literal|"ION\020\002\0220\n,MODIFY_COLUMN_FAMILY_UPDATE_TAB"
 operator|+
-literal|"BLE_DESCRIPTOR\020\003\022\'\n#MODIFY_COLUMN_FAMILY"
+literal|"LE_DESCRIPTOR\020\003\022\'\n#MODIFY_COLUMN_FAMILY_"
 operator|+
-literal|"_POST_OPERATION\020\004\022+\n\'MODIFY_COLUMN_FAMIL"
+literal|"POST_OPERATION\020\004\022+\n\'MODIFY_COLUMN_FAMILY"
 operator|+
-literal|"Y_REOPEN_ALL_REGIONS\020\005*\226\002\n\027DeleteColumnF"
+literal|"_REOPEN_ALL_REGIONS\020\005*\226\002\n\027DeleteColumnFa"
 block|,
-literal|"amilyState\022 \n\034DELETE_COLUMN_FAMILY_PREPA"
+literal|"milyState\022 \n\034DELETE_COLUMN_FAMILY_PREPAR"
 operator|+
-literal|"RE\020\001\022&\n\"DELETE_COLUMN_FAMILY_PRE_OPERATI"
+literal|"E\020\001\022&\n\"DELETE_COLUMN_FAMILY_PRE_OPERATIO"
 operator|+
-literal|"ON\020\002\0220\n,DELETE_COLUMN_FAMILY_UPDATE_TABL"
+literal|"N\020\002\0220\n,DELETE_COLUMN_FAMILY_UPDATE_TABLE"
 operator|+
-literal|"E_DESCRIPTOR\020\003\022)\n%DELETE_COLUMN_FAMILY_D"
+literal|"_DESCRIPTOR\020\003\022)\n%DELETE_COLUMN_FAMILY_DE"
 operator|+
-literal|"ELETE_FS_LAYOUT\020\004\022\'\n#DELETE_COLUMN_FAMIL"
+literal|"LETE_FS_LAYOUT\020\004\022\'\n#DELETE_COLUMN_FAMILY"
 operator|+
-literal|"Y_POST_OPERATION\020\005\022+\n\'DELETE_COLUMN_FAMI"
+literal|"_POST_OPERATION\020\005\022+\n\'DELETE_COLUMN_FAMIL"
 operator|+
-literal|"LY_REOPEN_ALL_REGIONS\020\006*\350\001\n\020EnableTableS"
+literal|"Y_REOPEN_ALL_REGIONS\020\006*\350\001\n\020EnableTableSt"
 operator|+
-literal|"tate\022\030\n\024ENABLE_TABLE_PREPARE\020\001\022\036\n\032ENABLE"
+literal|"ate\022\030\n\024ENABLE_TABLE_PREPARE\020\001\022\036\n\032ENABLE_"
 operator|+
-literal|"_TABLE_PRE_OPERATION\020\002\022)\n%ENABLE_TABLE_S"
+literal|"TABLE_PRE_OPERATION\020\002\022)\n%ENABLE_TABLE_SE"
 operator|+
-literal|"ET_ENABLING_TABLE_STATE\020\003\022$\n ENABLE_TABL"
+literal|"T_ENABLING_TABLE_STATE\020\003\022$\n ENABLE_TABLE"
 block|,
-literal|"E_MARK_REGIONS_ONLINE\020\004\022(\n$ENABLE_TABLE_"
+literal|"_MARK_REGIONS_ONLINE\020\004\022(\n$ENABLE_TABLE_S"
 operator|+
-literal|"SET_ENABLED_TABLE_STATE\020\005\022\037\n\033ENABLE_TABL"
+literal|"ET_ENABLED_TABLE_STATE\020\005\022\037\n\033ENABLE_TABLE"
 operator|+
-literal|"E_POST_OPERATION\020\006*\362\001\n\021DisableTableState"
+literal|"_POST_OPERATION\020\006*\362\001\n\021DisableTableState\022"
 operator|+
-literal|"\022\031\n\025DISABLE_TABLE_PREPARE\020\001\022\037\n\033DISABLE_T"
+literal|"\031\n\025DISABLE_TABLE_PREPARE\020\001\022\037\n\033DISABLE_TA"
 operator|+
-literal|"ABLE_PRE_OPERATION\020\002\022+\n\'DISABLE_TABLE_SE"
+literal|"BLE_PRE_OPERATION\020\002\022+\n\'DISABLE_TABLE_SET"
 operator|+
-literal|"T_DISABLING_TABLE_STATE\020\003\022&\n\"DISABLE_TAB"
+literal|"_DISABLING_TABLE_STATE\020\003\022&\n\"DISABLE_TABL"
 operator|+
-literal|"LE_MARK_REGIONS_OFFLINE\020\004\022*\n&DISABLE_TAB"
+literal|"E_MARK_REGIONS_OFFLINE\020\004\022*\n&DISABLE_TABL"
 operator|+
-literal|"LE_SET_DISABLED_TABLE_STATE\020\005\022 \n\034DISABLE"
+literal|"E_SET_DISABLED_TABLE_STATE\020\005\022 \n\034DISABLE_"
 operator|+
-literal|"_TABLE_POST_OPERATION\020\006*\305\002\n\020ServerCrashS"
+literal|"TABLE_POST_OPERATION\020\006*\234\002\n\020ServerCrashSt"
 operator|+
-literal|"tate\022\026\n\022SERVER_CRASH_START\020\001\022\035\n\031SERVER_C"
+literal|"ate\022\026\n\022SERVER_CRASH_START\020\001\022\035\n\031SERVER_CR"
 block|,
-literal|"RASH_PROCESS_META\020\002\022\034\n\030SERVER_CRASH_GET_"
+literal|"ASH_PROCESS_META\020\002\022\034\n\030SERVER_CRASH_GET_R"
 operator|+
-literal|"REGIONS\020\003\022\036\n\032SERVER_CRASH_NO_SPLIT_LOGS\020"
+literal|"EGIONS\020\003\022\036\n\032SERVER_CRASH_NO_SPLIT_LOGS\020\004"
 operator|+
-literal|"\004\022\033\n\027SERVER_CRASH_SPLIT_LOGS\020\005\022#\n\037SERVER"
+literal|"\022\033\n\027SERVER_CRASH_SPLIT_LOGS\020\005\022#\n\037SERVER_"
 operator|+
-literal|"_CRASH_PREPARE_LOG_REPLAY\020\006\022\'\n#SERVER_CR"
+literal|"CRASH_PREPARE_LOG_REPLAY\020\006\022\027\n\023SERVER_CRA"
 operator|+
-literal|"ASH_CALC_REGIONS_TO_ASSIGN\020\007\022\027\n\023SERVER_C"
+literal|"SH_ASSIGN\020\010\022\037\n\033SERVER_CRASH_WAIT_ON_ASSI"
 operator|+
-literal|"RASH_ASSIGN\020\010\022\037\n\033SERVER_CRASH_WAIT_ON_AS"
+literal|"GN\020\t\022\027\n\023SERVER_CRASH_FINISH\020dBK\n*org.apa"
 operator|+
-literal|"SIGN\020\t\022\027\n\023SERVER_CRASH_FINISH\020dBK\n*org.a"
+literal|"che.hadoop.hbase.protobuf.generatedB\025Mas"
 operator|+
-literal|"pache.hadoop.hbase.protobuf.generatedB\025M"
-operator|+
-literal|"asterProcedureProtosH\001\210\001\001\240\001\001"
+literal|"terProcedureProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -73790,7 +73765,7 @@ literal|"DistributedLogReplay"
 block|,
 literal|"RegionsOnCrashedServer"
 block|,
-literal|"RegionsToAssign"
+literal|"RegionsAssigned"
 block|,
 literal|"CarryingMeta"
 block|,

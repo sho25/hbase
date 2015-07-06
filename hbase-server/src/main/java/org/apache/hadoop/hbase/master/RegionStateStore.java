@@ -940,8 +940,7 @@ operator|.
 name|getRegion
 argument_list|()
 decl_stmt|;
-comment|// update meta before checking for initialization.
-comment|// meta state stored in zk.
+comment|// Update meta before checking for initialization. Meta state stored in zk.
 if|if
 condition|(
 name|hri
@@ -1074,7 +1073,7 @@ init|=
 operator|new
 name|StringBuilder
 argument_list|(
-literal|"Updating row "
+literal|"Updating hbase:meta row "
 argument_list|)
 decl_stmt|;
 name|info
@@ -1140,7 +1139,7 @@ name|info
 operator|.
 name|append
 argument_list|(
-literal|"&sn="
+literal|", sn="
 argument_list|)
 operator|.
 name|append
@@ -1193,7 +1192,7 @@ name|info
 operator|.
 name|append
 argument_list|(
-literal|"&openSeqNum="
+literal|", openSeqNum="
 argument_list|)
 operator|.
 name|append
@@ -1205,7 +1204,7 @@ name|info
 operator|.
 name|append
 argument_list|(
-literal|"&server="
+literal|", server="
 argument_list|)
 operator|.
 name|append
