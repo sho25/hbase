@@ -9154,24 +9154,24 @@ argument_list|)
 expr_stmt|;
 comment|// Leases is not a Thread. Internally it runs a daemon thread. If it gets
 comment|// an unhandled exception, it will just exit.
+name|Threads
+operator|.
+name|setDaemonThreadRunning
+argument_list|(
 name|this
 operator|.
 name|leases
 operator|.
-name|setName
-argument_list|(
+name|getThread
+argument_list|()
+argument_list|,
 name|getName
 argument_list|()
 operator|+
 literal|".leaseChecker"
+argument_list|,
+name|uncaughtExceptionHandler
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|leases
-operator|.
-name|start
-argument_list|()
 expr_stmt|;
 if|if
 condition|(
