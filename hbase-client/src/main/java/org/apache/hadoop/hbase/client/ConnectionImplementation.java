@@ -591,6 +591,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|quotas
+operator|.
+name|ThrottlingException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|RegionServerStoppedException
@@ -1650,7 +1666,7 @@ return|return
 name|ng
 return|;
 block|}
-comment|/**    * Look for an exception we know in the remote exception:    * - hadoop.ipc wrapped exceptions    * - nested exceptions    *    * Looks for: RegionMovedException / RegionOpeningException / RegionTooBusyException    * @return null if we didn't find the exception, the exception otherwise.    */
+comment|/**    * Look for an exception we know in the remote exception:    * - hadoop.ipc wrapped exceptions    * - nested exceptions    *    * Looks for: RegionMovedException / RegionOpeningException / RegionTooBusyException /    *            ThrottlingException    * @return null if we didn't find the exception, the exception otherwise.    */
 specifier|public
 specifier|static
 name|Throwable
@@ -1706,6 +1722,10 @@ operator|||
 name|cur
 operator|instanceof
 name|RegionTooBusyException
+operator|||
+name|cur
+operator|instanceof
+name|ThrottlingException
 condition|)
 block|{
 return|return
@@ -8834,6 +8854,10 @@ operator|||
 name|cause
 operator|instanceof
 name|RegionOpeningException
+operator|||
+name|cause
+operator|instanceof
+name|ThrottlingException
 condition|)
 block|{
 comment|// We know that the region is still on this region server
