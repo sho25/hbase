@@ -2320,14 +2320,13 @@ name|DISTRIBUTED_LOG_REPLAY_KEY
 init|=
 literal|"hbase.master.distributed.log.replay"
 decl_stmt|;
-comment|/**    * Default 'distributed log replay' as true since hbase 0.99.0    */
 specifier|public
 specifier|static
 specifier|final
 name|boolean
 name|DEFAULT_DISTRIBUTED_LOG_REPLAY_CONFIG
 init|=
-literal|true
+literal|false
 decl_stmt|;
 specifier|public
 specifier|static
