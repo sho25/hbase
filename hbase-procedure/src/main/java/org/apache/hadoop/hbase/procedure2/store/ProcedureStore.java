@@ -99,6 +99,11 @@ specifier|public
 interface|interface
 name|ProcedureStoreListener
 block|{
+comment|/**      * triggered when the store sync is completed.      */
+name|void
+name|postSync
+parameter_list|()
+function_decl|;
 comment|/**      * triggered when the store is not able to write out data.      * the main process should abort.      */
 name|void
 name|abortProcess

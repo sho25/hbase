@@ -476,6 +476,15 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|postSync
+parameter_list|()
+block|{
+comment|// no-op
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
 name|abortProcess
 parameter_list|()
 block|{
