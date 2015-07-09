@@ -336,33 +336,51 @@ name|TableNotFoundException
 throws|,
 name|TableNotDisabledException
 function_decl|;
-comment|/**    * Create a table using the given table definition.    * @param desc The table definition    * @param splitKeys Starting row keys for the initial table regions.  If null    *     a single region is created.    */
+comment|/**    * Create a table using the given table definition.    * @param desc The table definition    * @param splitKeys Starting row keys for the initial table regions.  If null    * @param nonceGroup    * @param nonce    *     a single region is created.    */
 name|long
 name|createTable
 parameter_list|(
+specifier|final
 name|HTableDescriptor
 name|desc
 parameter_list|,
+specifier|final
 name|byte
 index|[]
 index|[]
 name|splitKeys
+parameter_list|,
+specifier|final
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete a table    * @param tableName The table name    * @throws IOException    */
+comment|/**    * Delete a table    * @param tableName The table name    * @param nonceGroup    * @param nonce    * @throws IOException    */
 name|long
 name|deleteTable
 parameter_list|(
 specifier|final
 name|TableName
 name|tableName
+parameter_list|,
+specifier|final
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Truncate a table    * @param tableName The table name    * @param preserveSplits True if the splits should be preserved    * @throws IOException    */
+comment|/**    * Truncate a table    * @param tableName The table name    * @param preserveSplits True if the splits should be preserved    * @param nonceGroup    * @param nonce    * @throws IOException    */
 specifier|public
 name|long
 name|truncateTable
@@ -371,13 +389,22 @@ specifier|final
 name|TableName
 name|tableName
 parameter_list|,
+specifier|final
 name|boolean
 name|preserveSplits
+parameter_list|,
+specifier|final
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify the descriptor of an existing table    * @param tableName The table name    * @param descriptor The updated table descriptor    * @throws IOException    */
+comment|/**    * Modify the descriptor of an existing table    * @param tableName The table name    * @param descriptor The updated table descriptor    * @param nonceGroup    * @param nonce    * @throws IOException    */
 name|long
 name|modifyTable
 parameter_list|(
@@ -388,33 +415,57 @@ parameter_list|,
 specifier|final
 name|HTableDescriptor
 name|descriptor
+parameter_list|,
+specifier|final
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Enable an existing table    * @param tableName The table name    * @throws IOException    */
+comment|/**    * Enable an existing table    * @param tableName The table name    * @param nonceGroup    * @param nonce    * @throws IOException    */
 name|long
 name|enableTable
 parameter_list|(
 specifier|final
 name|TableName
 name|tableName
+parameter_list|,
+specifier|final
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Disable an existing table    * @param tableName The table name    * @throws IOException    */
+comment|/**    * Disable an existing table    * @param tableName The table name    * @param nonceGroup    * @param nonce    * @throws IOException    */
 name|long
 name|disableTable
 parameter_list|(
 specifier|final
 name|TableName
 name|tableName
+parameter_list|,
+specifier|final
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Add a new column to an existing table    * @param tableName The table name    * @param column The column definition    * @throws IOException    */
+comment|/**    * Add a new column to an existing table    * @param tableName The table name    * @param column The column definition    * @param nonceGroup    * @param nonce    * @throws IOException    */
 name|void
 name|addColumn
 parameter_list|(
@@ -425,24 +476,42 @@ parameter_list|,
 specifier|final
 name|HColumnDescriptor
 name|column
+parameter_list|,
+specifier|final
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify the column descriptor of an existing column in an existing table    * @param tableName The table name    * @param descriptor The updated column definition    * @throws IOException    */
+comment|/**    * Modify the column descriptor of an existing column in an existing table    * @param tableName The table name    * @param descriptor The updated column definition    * @param nonceGroup    * @param nonce    * @throws IOException    */
 name|void
 name|modifyColumn
 parameter_list|(
+specifier|final
 name|TableName
 name|tableName
 parameter_list|,
+specifier|final
 name|HColumnDescriptor
 name|descriptor
+parameter_list|,
+specifier|final
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete a column from an existing table    * @param tableName The table name    * @param columnName The column name    * @throws IOException    */
+comment|/**    * Delete a column from an existing table    * @param tableName The table name    * @param columnName The column name    * @param nonceGroup    * @param nonce    * @throws IOException    */
 name|void
 name|deleteColumn
 parameter_list|(
@@ -454,6 +523,14 @@ specifier|final
 name|byte
 index|[]
 name|columnName
+parameter_list|,
+specifier|final
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
 parameter_list|)
 throws|throws
 name|IOException

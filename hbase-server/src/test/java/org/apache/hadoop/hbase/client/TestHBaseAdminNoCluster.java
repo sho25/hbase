@@ -457,6 +457,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -574,6 +584,11 @@ class|class
 name|TestHBaseAdminNoCluster
 block|{
 comment|/**    * Verify that PleaseHoldException gets retried.    * HBASE-8764    * @throws IOException    * @throws ZooKeeperConnectionException    * @throws MasterNotRunningException    * @throws ServiceException    */
+comment|//TODO: Clean up, with Procedure V2 and nonce to prevent the same procedure to call mulitple
+comment|// time, this test is invalid anymore. Just keep the test around for some time before
+comment|// fully removing it.
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
