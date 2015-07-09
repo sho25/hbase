@@ -8896,7 +8896,6 @@ name|now
 parameter_list|)
 block|{
 comment|// Do not create an Iterator or Tag objects unless the cell actually has tags.
-comment|// TODO: This check for tags is really expensive. We decode an int for key and value. Costs.
 if|if
 condition|(
 name|cell

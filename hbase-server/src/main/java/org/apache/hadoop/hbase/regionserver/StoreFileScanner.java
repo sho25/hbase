@@ -1458,7 +1458,7 @@ comment|// the next point when we have to consider this file again is when we
 comment|// pass the max timestamp of this file (with the same row/column).
 name|setCurrentCell
 argument_list|(
-name|KeyValueUtil
+name|CellUtil
 operator|.
 name|createFirstOnRowColTS
 argument_list|(
@@ -1494,7 +1494,7 @@ comment|// is obviously not a "real real" seek, but unlike the fake KV earlier i
 comment|// this method, we want this to be propagated to ScanQueryMatcher.
 name|setCurrentCell
 argument_list|(
-name|KeyValueUtil
+name|CellUtil
 operator|.
 name|createLastOnRowCol
 argument_list|(
@@ -1690,27 +1690,14 @@ try|try
 block|{
 try|try
 block|{
-name|KeyValue
+name|Cell
 name|seekKey
 init|=
-name|KeyValueUtil
+name|CellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
 name|key
-operator|.
-name|getRowArray
-argument_list|()
-argument_list|,
-name|key
-operator|.
-name|getRowOffset
-argument_list|()
-argument_list|,
-name|key
-operator|.
-name|getRowLength
-argument_list|()
 argument_list|)
 decl_stmt|;
 if|if

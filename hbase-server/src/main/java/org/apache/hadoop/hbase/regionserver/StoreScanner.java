@@ -3712,7 +3712,7 @@ name|boolean
 name|seekToNextRow
 parameter_list|(
 name|Cell
-name|kv
+name|c
 parameter_list|)
 throws|throws
 name|IOException
@@ -3720,11 +3720,11 @@ block|{
 return|return
 name|reseek
 argument_list|(
-name|KeyValueUtil
+name|CellUtil
 operator|.
 name|createLastOnRow
 argument_list|(
-name|kv
+name|c
 argument_list|)
 argument_list|)
 return|;

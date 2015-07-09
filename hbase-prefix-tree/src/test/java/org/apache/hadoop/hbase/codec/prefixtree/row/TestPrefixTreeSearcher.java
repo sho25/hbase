@@ -938,12 +938,12 @@ name|i
 argument_list|)
 decl_stmt|;
 comment|//nextRow
-name|KeyValue
+name|Cell
 name|inputNextRow
 init|=
-name|KeyValueUtil
+name|CellUtil
 operator|.
-name|createFirstKeyInNextRow
+name|createFirstOnNextRow
 argument_list|(
 name|kv
 argument_list|)

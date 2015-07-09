@@ -1498,10 +1498,10 @@ operator|/
 literal|2
 argument_list|)
 decl_stmt|;
-name|KeyValue
+name|Cell
 name|lastMidKv
 init|=
-name|KeyValueUtil
+name|CellUtil
 operator|.
 name|createLastOnRowCol
 argument_list|(
@@ -2279,7 +2279,7 @@ parameter_list|,
 name|boolean
 name|seekBefore
 parameter_list|,
-name|KeyValue
+name|Cell
 name|keyValue
 parameter_list|)
 block|{
