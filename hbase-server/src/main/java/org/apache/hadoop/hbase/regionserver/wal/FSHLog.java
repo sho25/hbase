@@ -8146,7 +8146,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|warn
 argument_list|(
 literal|"Could not append. Requesting close of wal"
 argument_list|,
