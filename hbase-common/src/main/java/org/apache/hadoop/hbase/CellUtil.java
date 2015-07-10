@@ -226,7 +226,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Utility methods helpful slinging {@link Cell} instances.  */
+comment|/**  * Utility methods helpful slinging {@link Cell} instances.  * Some methods below are for internal use only and are marked InterfaceAudience.Private at the  * method level.  */
 end_comment
 
 begin_class
@@ -1361,6 +1361,11 @@ name|length
 argument_list|)
 return|;
 block|}
+comment|/**    * Marked as audience Private as of 1.2.0.    * Creating a Cell with a memstoreTS/mvcc is an internal implementation detail not for    * public use.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 name|Cell
@@ -1436,6 +1441,11 @@ return|return
 name|keyValue
 return|;
 block|}
+comment|/**    * Marked as audience Private as of 1.2.0.    * Creating a Cell with tags and a memstoreTS/mvcc is an internal implementation detail not for    * public use.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 name|Cell
@@ -1517,6 +1527,11 @@ return|return
 name|keyValue
 return|;
 block|}
+comment|/**    * Marked as audience Private as of 1.2.0.    * Creating a Cell with tags is an internal implementation detail not for    * public use.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 name|Cell
@@ -4288,7 +4303,11 @@ literal|0
 operator|)
 return|;
 block|}
-comment|/**    * Sets the given seqId to the cell.    * @param cell    * @param seqId    * @throws IOException when the passed cell is not of type {@link SettableSequenceId}    */
+comment|/**    * Sets the given seqId to the cell.    * Marked as audience Private as of 1.2.0.    * Setting a Cell sequenceid is an internal implementation detail not for general public use.    * @param cell    * @param seqId    * @throws IOException when the passed cell is not of type {@link SettableSequenceId}    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 name|void

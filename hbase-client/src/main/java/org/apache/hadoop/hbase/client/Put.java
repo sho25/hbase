@@ -748,7 +748,11 @@ name|value
 argument_list|)
 return|;
 block|}
-comment|/**    * This expects that the underlying arrays won't change. It's intended    * for usage internal HBase to and for advanced client applications.    */
+comment|/**    * This expects that the underlying arrays won't change. It's intended    * for usage internal HBase to and for advanced client applications.    *<p>Marked as audience Private as of 1.2.0. {@link Tag} is an internal implementation detail    * that should not be exposed publicly.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|Put
 name|addImmutable
@@ -994,7 +998,11 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * This expects that the underlying arrays won't change. It's intended    * for usage internal HBase to and for advanced client applications.    */
+comment|/**    * This expects that the underlying arrays won't change. It's intended    * for usage internal HBase to and for advanced client applications.    *<p>Marked as audience Private as of 1.2.0. {@link Tag} is an internal implementation detail    * that should not be exposed publicly.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|Put
 name|addImmutable
@@ -1066,7 +1074,11 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * This expects that the underlying arrays won't change. It's intended    * for usage internal HBase to and for advanced client applications.    */
+comment|/**    * This expects that the underlying arrays won't change. It's intended    * for usage internal HBase to and for advanced client applications.    *<p>Marked as audience Private as of 1.2.0. {@link Tag} is an internal implementation detail    * that should not be exposed publicly.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|Put
 name|addImmutable
