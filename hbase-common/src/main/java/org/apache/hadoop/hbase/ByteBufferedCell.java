@@ -58,60 +58,70 @@ implements|implements
 name|Cell
 block|{
 comment|/**    * @return The {@link ByteBuffer} containing the row bytes.    */
+specifier|public
 specifier|abstract
 name|ByteBuffer
 name|getRowByteBuffer
 parameter_list|()
 function_decl|;
 comment|/**    * @return Position in the {@link ByteBuffer} where row bytes start    */
+specifier|public
 specifier|abstract
 name|int
 name|getRowPositionInByteBuffer
 parameter_list|()
 function_decl|;
 comment|/**    * @return The {@link ByteBuffer} containing the column family bytes.    */
+specifier|public
 specifier|abstract
 name|ByteBuffer
 name|getFamilyByteBuffer
 parameter_list|()
 function_decl|;
 comment|/**    * @return Position in the {@link ByteBuffer} where column family bytes start    */
+specifier|public
 specifier|abstract
 name|int
 name|getFamilyPositionInByteBuffer
 parameter_list|()
 function_decl|;
 comment|/**    * @return The {@link ByteBuffer} containing the column qualifier bytes.    */
+specifier|public
 specifier|abstract
 name|ByteBuffer
 name|getQualifierByteBuffer
 parameter_list|()
 function_decl|;
 comment|/**    * @return Position in the {@link ByteBuffer} where column qualifier bytes start    */
+specifier|public
 specifier|abstract
 name|int
 name|getQualifierPositionInByteBuffer
 parameter_list|()
 function_decl|;
 comment|/**    * @return The {@link ByteBuffer} containing the value bytes.    */
+specifier|public
 specifier|abstract
 name|ByteBuffer
 name|getValueByteBuffer
 parameter_list|()
 function_decl|;
 comment|/**    * @return Position in the {@link ByteBuffer} where value bytes start    */
+specifier|public
 specifier|abstract
 name|int
 name|getValuePositionInByteBuffer
 parameter_list|()
 function_decl|;
 comment|/**    * @return The {@link ByteBuffer} containing the tag bytes.    */
+specifier|public
 specifier|abstract
 name|ByteBuffer
 name|getTagsByteBuffer
 parameter_list|()
 function_decl|;
 comment|/**    * @return Position in the {@link ByteBuffer} where tag bytes start    */
+specifier|public
 specifier|abstract
 name|int
 name|getTagsPositionInByteBuffer

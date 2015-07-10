@@ -4100,6 +4100,7 @@ throw|;
 block|}
 annotation|@
 name|Override
+specifier|public
 name|ByteBuffer
 name|getRowByteBuffer
 parameter_list|()
@@ -4112,6 +4113,7 @@ return|;
 block|}
 annotation|@
 name|Override
+specifier|public
 name|int
 name|getRowPositionInByteBuffer
 parameter_list|()
@@ -4128,6 +4130,7 @@ return|;
 block|}
 annotation|@
 name|Override
+specifier|public
 name|ByteBuffer
 name|getFamilyByteBuffer
 parameter_list|()
@@ -4140,6 +4143,7 @@ return|;
 block|}
 annotation|@
 name|Override
+specifier|public
 name|int
 name|getFamilyPositionInByteBuffer
 parameter_list|()
@@ -4163,6 +4167,7 @@ return|;
 block|}
 annotation|@
 name|Override
+specifier|public
 name|ByteBuffer
 name|getQualifierByteBuffer
 parameter_list|()
@@ -4175,6 +4180,7 @@ return|;
 block|}
 annotation|@
 name|Override
+specifier|public
 name|int
 name|getQualifierPositionInByteBuffer
 parameter_list|()
@@ -4189,6 +4195,7 @@ return|;
 block|}
 annotation|@
 name|Override
+specifier|public
 name|ByteBuffer
 name|getValueByteBuffer
 parameter_list|()
@@ -4201,6 +4208,7 @@ return|;
 block|}
 annotation|@
 name|Override
+specifier|public
 name|int
 name|getValuePositionInByteBuffer
 parameter_list|()
@@ -4220,6 +4228,7 @@ return|;
 block|}
 annotation|@
 name|Override
+specifier|public
 name|ByteBuffer
 name|getTagsByteBuffer
 parameter_list|()
@@ -4232,6 +4241,7 @@ return|;
 block|}
 annotation|@
 name|Override
+specifier|public
 name|int
 name|getTagsPositionInByteBuffer
 parameter_list|()
