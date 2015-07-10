@@ -257,6 +257,24 @@ name|hbase
 operator|.
 name|procedure2
 operator|.
+name|ProcedureTestingUtility
+operator|.
+name|TestProcedure
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
 name|store
 operator|.
 name|ProcedureStore
@@ -280,28 +298,6 @@ operator|.
 name|wal
 operator|.
 name|WALProcedureStore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|store
-operator|.
-name|wal
-operator|.
-name|TestWALProcedureStore
-operator|.
-name|TestSequentialProcedure
 import|;
 end_import
 
@@ -1187,17 +1183,45 @@ name|await
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Tests proper fencing in case the current WAL store is fenced    */
 annotation|@
 name|Test
+specifier|public
+name|void
+name|testWALfencingWithoutWALRolling
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|testWALfencing
 argument_list|(
-name|timeout
-operator|=
-literal|60000
+literal|false
 argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Tests proper fencing in case the current WAL store does not receive writes until after the    * new WAL does a couple of WAL rolls.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testWALfencingWithWALRolling
 parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|testWALfencing
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|testWALfencing
+parameter_list|(
+name|boolean
+name|walRolls
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -1231,6 +1255,19 @@ operator|.
 name|getMaster
 argument_list|()
 decl_stmt|;
+comment|// cause WAL rolling after a delete in WAL:
+name|firstMaster
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setLong
+argument_list|(
+literal|"hbase.procedure.store.wal.roll.threshold"
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
 name|HMaster
 name|backupMaster3
 init|=
@@ -1335,20 +1372,44 @@ operator|.
 name|recoverLease
 argument_list|()
 expr_stmt|;
+comment|// before writing back to the WAL store, optionally do a couple of WAL rolls (which causes
+comment|// to delete the old WAL files).
+if|if
+condition|(
+name|walRolls
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Inserting into second WALProcedureStore"
+literal|"Inserting into second WALProcedureStore, causing WAL rolls"
 argument_list|)
 expr_stmt|;
-comment|// insert something to the second store then delete it, causing a WAL roll
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+literal|512
+condition|;
+name|i
+operator|++
+control|)
+block|{
+comment|// insert something to the second store then delete it, causing a WAL roll(s)
 name|Procedure
 name|proc2
 init|=
 operator|new
-name|TestSequentialProcedure
-argument_list|()
+name|TestProcedure
+argument_list|(
+name|i
+argument_list|)
 decl_stmt|;
 name|procStore2
 operator|.
@@ -1361,9 +1422,20 @@ argument_list|)
 expr_stmt|;
 name|procStore2
 operator|.
-name|rollWriterOrDie
+name|delete
+argument_list|(
+name|proc2
+operator|.
+name|getProcId
 argument_list|()
+argument_list|)
 expr_stmt|;
+comment|// delete the procedure so that the WAL is removed later
+block|}
+block|}
+comment|// Now, insert something to the first store, should fail.
+comment|// If the store does a WAL roll and continue with another logId without checking higher logIds
+comment|// it will incorrectly succeed.
 name|LOG
 operator|.
 name|info
@@ -1371,46 +1443,40 @@ argument_list|(
 literal|"Inserting into first WALProcedureStore"
 argument_list|)
 expr_stmt|;
-comment|// insert something to the first store
-name|proc2
-operator|=
-operator|new
-name|TestSequentialProcedure
-argument_list|()
-expr_stmt|;
 try|try
 block|{
 name|procStore
 operator|.
 name|insert
 argument_list|(
-name|proc2
+operator|new
+name|TestProcedure
+argument_list|(
+literal|11
+argument_list|)
 argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"expected RuntimeException 'sync aborted'"
+literal|"Inserting into Procedure Store should have failed"
 argument_list|)
 expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|RuntimeException
-name|e
+name|Exception
+name|ex
 parameter_list|)
 block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"got "
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
+literal|"Received expected exception"
+argument_list|,
+name|ex
 argument_list|)
 expr_stmt|;
 block|}

@@ -3198,13 +3198,68 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-return|return
+comment|// Create new state-log
+if|if
+condition|(
+operator|!
 name|rollWriter
 argument_list|(
 name|flushLogId
 operator|+
 literal|1
 argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"someone else has already created log "
+operator|+
+name|flushLogId
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+comment|// We have the lease on the log,
+comment|// but we should check if someone else has created new files
+if|if
+condition|(
+name|getMaxLogId
+argument_list|(
+name|getLogFiles
+argument_list|()
+argument_list|)
+operator|>
+name|flushLogId
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Someone else created new logs. Expected maxLogId< "
+operator|+
+name|flushLogId
+argument_list|)
+expr_stmt|;
+name|logs
+operator|.
+name|getLast
+argument_list|()
+operator|.
+name|removeFile
+argument_list|()
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+comment|// We have the lease on the log
+return|return
+literal|true
 return|;
 block|}
 specifier|private
