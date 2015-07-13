@@ -541,18 +541,6 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMvccVersion
-parameter_list|()
-block|{
-comment|// unused
-return|return
-literal|0
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|long
 name|getSequenceId
 parameter_list|()
 block|{
@@ -634,58 +622,6 @@ specifier|public
 name|byte
 index|[]
 name|getTagsArray
-parameter_list|()
-block|{
-comment|// unused
-return|return
-literal|null
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|byte
-index|[]
-name|getValue
-parameter_list|()
-block|{
-comment|// unused
-return|return
-literal|null
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|byte
-index|[]
-name|getFamily
-parameter_list|()
-block|{
-comment|// unused
-return|return
-literal|null
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|byte
-index|[]
-name|getQualifier
-parameter_list|()
-block|{
-comment|// unused
-return|return
-literal|null
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|byte
-index|[]
-name|getRow
 parameter_list|()
 block|{
 comment|// unused

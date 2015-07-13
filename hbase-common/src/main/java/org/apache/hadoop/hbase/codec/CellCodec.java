@@ -309,7 +309,7 @@ name|toBytes
 argument_list|(
 name|cell
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 argument_list|)
 argument_list|)

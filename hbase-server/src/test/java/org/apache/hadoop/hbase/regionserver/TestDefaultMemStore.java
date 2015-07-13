@@ -781,7 +781,17 @@ name|toString
 argument_list|(
 name|found
 operator|.
-name|getValue
+name|getValueArray
+argument_list|()
+argument_list|,
+name|found
+operator|.
+name|getValueOffset
+argument_list|()
+argument_list|,
+name|found
+operator|.
+name|getValueLength
 argument_list|()
 argument_list|)
 argument_list|,
@@ -1307,7 +1317,7 @@ name|count
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * A simple test which verifies the 3 possible states when scanning across snapshot.    * @throws IOException    * @throws CloneNotSupportedException     */
+comment|/**    * A simple test which verifies the 3 possible states when scanning across snapshot.    * @throws IOException    * @throws CloneNotSupportedException    */
 specifier|public
 name|void
 name|testScanAcrossSnapshot2
@@ -5965,7 +5975,7 @@ comment|////////////////////////////////////
 comment|// Test for periodic memstore flushes
 comment|// based on time of oldest edit
 comment|////////////////////////////////////
-comment|/**    * Tests that the timeOfOldestEdit is updated correctly for the     * various edit operations in memstore.    * @throws Exception    */
+comment|/**    * Tests that the timeOfOldestEdit is updated correctly for the    * various edit operations in memstore.    * @throws Exception    */
 specifier|public
 name|void
 name|testUpdateToTimeOfOldestEdit
@@ -6178,7 +6188,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Tests the HRegion.shouldFlush method - adds an edit in the memstore    * and checks that shouldFlush returns true, and another where it disables    * the periodic flush functionality and tests whether shouldFlush returns    * false.     * @throws Exception    */
+comment|/**    * Tests the HRegion.shouldFlush method - adds an edit in the memstore    * and checks that shouldFlush returns true, and another where it disables    * the periodic flush functionality and tests whether shouldFlush returns    * false.    * @throws Exception    */
 specifier|public
 name|void
 name|testShouldFlush

@@ -1367,10 +1367,12 @@ control|)
 block|{
 name|family
 operator|=
-name|cell
+name|CellUtil
 operator|.
-name|getFamily
-argument_list|()
+name|cloneFamily
+argument_list|(
+name|cell
+argument_list|)
 expr_stmt|;
 comment|// This is expected and the KV should not be replicated
 if|if

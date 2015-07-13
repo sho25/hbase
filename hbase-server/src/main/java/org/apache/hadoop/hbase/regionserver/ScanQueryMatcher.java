@@ -1208,7 +1208,7 @@ name|mvccVersion
 init|=
 name|cell
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 decl_stmt|;
 if|if

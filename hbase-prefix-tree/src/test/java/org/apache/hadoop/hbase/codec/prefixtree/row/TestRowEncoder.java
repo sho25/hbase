@@ -1004,12 +1004,12 @@ name|assertEquals
 argument_list|(
 name|expected
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 argument_list|,
 name|actual
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;

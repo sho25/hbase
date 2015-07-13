@@ -700,7 +700,7 @@ name|result
 argument_list|,
 name|currentCell
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;

@@ -2112,6 +2112,10 @@ init|=
 operator|new
 name|Put
 argument_list|(
+name|CellUtil
+operator|.
+name|cloneRow
+argument_list|(
 name|entry
 operator|.
 name|getEdit
@@ -2124,9 +2128,7 @@ name|get
 argument_list|(
 literal|0
 argument_list|)
-operator|.
-name|getRow
-argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 for|for

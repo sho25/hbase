@@ -2102,6 +2102,10 @@ name|Arrays
 operator|.
 name|equals
 argument_list|(
+name|CellUtil
+operator|.
+name|cloneQualifier
+argument_list|(
 name|item
 operator|.
 name|getCells
@@ -2111,9 +2115,7 @@ name|get
 argument_list|(
 literal|0
 argument_list|)
-operator|.
-name|getQualifier
-argument_list|()
+argument_list|)
 argument_list|,
 name|typeBytes
 argument_list|)

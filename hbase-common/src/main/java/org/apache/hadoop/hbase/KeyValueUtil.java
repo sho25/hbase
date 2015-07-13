@@ -474,7 +474,7 @@ name|getVIntSize
 argument_list|(
 name|kv
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -575,7 +575,7 @@ name|setSequenceId
 argument_list|(
 name|cell
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1047,7 +1047,7 @@ name|getVIntSize
 argument_list|(
 name|kv
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1068,7 +1068,7 @@ name|bb
 argument_list|,
 name|kv
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;

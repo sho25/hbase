@@ -20,30 +20,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -1697,7 +1673,7 @@ return|return
 name|fout
 return|;
 block|}
-comment|/**    * test none codecs    * @param useTags     */
+comment|/**    * test none codecs    * @param useTags    */
 name|void
 name|basicWithSomeCodec
 parameter_list|(
@@ -4361,10 +4337,12 @@ name|Arrays
 operator|.
 name|equals
 argument_list|(
-name|newKey
+name|CellUtil
 operator|.
-name|getFamily
-argument_list|()
+name|cloneFamily
+argument_list|(
+name|newKey
+argument_list|)
 argument_list|,
 name|family
 argument_list|)
@@ -4376,10 +4354,12 @@ name|Arrays
 operator|.
 name|equals
 argument_list|(
-name|newKey
+name|CellUtil
 operator|.
-name|getQualifier
-argument_list|()
+name|cloneQualifier
+argument_list|(
+name|newKey
+argument_list|)
 argument_list|,
 name|qualB
 argument_list|)

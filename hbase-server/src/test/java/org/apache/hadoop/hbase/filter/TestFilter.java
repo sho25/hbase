@@ -4747,15 +4747,17 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
+name|CellUtil
+operator|.
+name|cloneRow
+argument_list|(
 name|values
 operator|.
 name|get
 argument_list|(
 literal|0
 argument_list|)
-operator|.
-name|getRow
-argument_list|()
+argument_list|)
 argument_list|)
 operator|.
 name|startsWith
@@ -4912,7 +4914,7 @@ name|scannerCounter
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * The following filter simulates a pre-0.96 filter where filterRow() is defined while     * hasFilterRow() returns false    */
+comment|/**    * The following filter simulates a pre-0.96 filter where filterRow() is defined while    * hasFilterRow() returns false    */
 specifier|static
 class|class
 name|OldTestFilter
@@ -4973,7 +4975,7 @@ name|INCLUDE
 return|;
 block|}
 block|}
-comment|/**    * The following test is to ensure old(such as hbase0.94) filterRow() can be correctly fired in     * 0.96+ code base.      *     * See HBASE-10366    *     * @throws Exception    */
+comment|/**    * The following test is to ensure old(such as hbase0.94) filterRow() can be correctly fired in    * 0.96+ code base.    *    * See HBASE-10366    *    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
@@ -14207,10 +14209,12 @@ init|=
 operator|new
 name|Put
 argument_list|(
-name|kv
+name|CellUtil
 operator|.
-name|getRow
-argument_list|()
+name|cloneRow
+argument_list|(
+name|kv
+argument_list|)
 argument_list|)
 operator|.
 name|add
@@ -14542,10 +14546,12 @@ argument_list|(
 operator|new
 name|Put
 argument_list|(
-name|kvA
+name|CellUtil
 operator|.
-name|getRow
-argument_list|()
+name|cloneRow
+argument_list|(
+name|kvA
+argument_list|)
 argument_list|)
 operator|.
 name|add

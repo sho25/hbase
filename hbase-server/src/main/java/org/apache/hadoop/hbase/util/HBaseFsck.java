@@ -5050,10 +5050,12 @@ argument_list|()
 decl_stmt|;
 name|start
 operator|=
-name|startKv
+name|CellUtil
 operator|.
-name|getRow
-argument_list|()
+name|cloneRow
+argument_list|(
+name|startKv
+argument_list|)
 expr_stmt|;
 name|Cell
 name|endKv

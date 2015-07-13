@@ -175,6 +175,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -806,7 +820,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * IT test used to verify the deletes with visibility labels.  * The test creates three tables tablename_0, tablename_1 and tablename_2 and each table   * is associated with a unique pair of labels.  * Another common table with the name 'commontable' is created and it has the data combined   * from all these 3 tables such that there are 3 versions of every row but the visibility label   * in every row corresponds to the table from which the row originated.    * Then deletes are issued to the common table by selecting the visibility label   * associated with each of the smaller tables.   * After the delete is issued with one set of visibility labels we try to scan the common table   * with each of the visibility pairs defined for the 3 tables.    * So after the first delete is issued, a scan with the first set of visibility labels would   * return zero result whereas the scan issued with the other two sets of visibility labels   * should return all the rows corresponding to that set of visibility labels.  The above   * process of delete and scan is repeated until after the last set of visibility labels are   * used for the deletes the common table should not return any row.  *   * To use this   * ./hbase org.apache.hadoop.hbase.test.IntegrationTestBigLinkedListWithVisibility Loop 1 1 20000 /tmp 1 10000  * or   * ./hbase org.apache.hadoop.hbase.IntegrationTestsDriver -r .*IntegrationTestBigLinkedListWithVisibility.*  */
+comment|/**  * IT test used to verify the deletes with visibility labels.  * The test creates three tables tablename_0, tablename_1 and tablename_2 and each table  * is associated with a unique pair of labels.  * Another common table with the name 'commontable' is created and it has the data combined  * from all these 3 tables such that there are 3 versions of every row but the visibility label  * in every row corresponds to the table from which the row originated.  * Then deletes are issued to the common table by selecting the visibility label  * associated with each of the smaller tables.  * After the delete is issued with one set of visibility labels we try to scan the common table  * with each of the visibility pairs defined for the 3 tables.  * So after the first delete is issued, a scan with the first set of visibility labels would  * return zero result whereas the scan issued with the other two sets of visibility labels  * should return all the rows corresponding to that set of visibility labels.  The above  * process of delete and scan is repeated until after the last set of visibility labels are  * used for the deletes the common table should not return any row.  *  * To use this  * ./hbase org.apache.hadoop.hbase.test.IntegrationTestBigLinkedListWithVisibility Loop 1 1 20000 /tmp 1 10000  * or  * ./hbase org.apache.hadoop.hbase.IntegrationTestsDriver -r .*IntegrationTestBigLinkedListWithVisibility.*  */
 end_comment
 
 begin_class
@@ -2531,10 +2545,12 @@ name|delete
 operator|.
 name|deleteFamily
 argument_list|(
-name|kv
+name|CellUtil
 operator|.
-name|getFamily
-argument_list|()
+name|cloneFamily
+argument_list|(
+name|kv
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

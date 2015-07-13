@@ -1292,7 +1292,7 @@ index|]
 operator|=
 name|cell
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 expr_stmt|;
 name|mvccVersionEncoder
@@ -1301,7 +1301,7 @@ name|add
 argument_list|(
 name|cell
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1313,7 +1313,7 @@ name|getVIntSize
 argument_list|(
 name|cell
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;

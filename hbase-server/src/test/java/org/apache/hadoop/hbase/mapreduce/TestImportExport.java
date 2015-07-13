@@ -3896,10 +3896,12 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|key
+name|CellUtil
 operator|.
-name|getRow
-argument_list|()
+name|cloneRow
+argument_list|(
+name|key
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;

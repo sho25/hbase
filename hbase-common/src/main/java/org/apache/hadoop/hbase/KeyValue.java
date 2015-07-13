@@ -322,7 +322,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An HBase Key/Value. This is the fundamental HBase Type.  *<p>  * HBase applications and users should use the Cell interface and avoid directly using KeyValue  * and member functions not defined in Cell.  *<p>  * If being used client-side, the primary methods to access individual fields are {@link #getRow()},  * {@link #getFamily()}, {@link #getQualifier()}, {@link #getTimestamp()}, and {@link #getValue()}.  * These methods allocate new byte arrays and return copies. Avoid their use server-side.  *<p>  * Instances of this class are immutable. They do not implement Comparable but Comparators are  * provided. Comparators change with context, whether user table or a catalog table comparison. Its  * critical you use the appropriate comparator. There are Comparators for normal HFiles, Meta's  * Hfiles, and bloom filter keys.  *<p>  * KeyValue wraps a byte array and takes offsets and lengths into passed array at where to start  * interpreting the content as KeyValue. The KeyValue format inside a byte array is:  *<code>&lt;keylength&gt;&lt;valuelength&gt;&lt;key&gt;&lt;value&gt;</code>  * Key is further decomposed as:  *<code>&lt;rowlength&gt;&lt;row&gt;&lt;columnfamilylength&gt;  *&lt;columnfamily&gt;&lt;columnqualifier&gt;  *&lt;timestamp&gt;&lt;keytype&gt;</code>  * The<code>rowlength</code> maximum is<code>Short.MAX_SIZE</code>, column family length maximum  * is<code>Byte.MAX_SIZE</code>, and column qualifier + key length must be&lt;  *<code>Integer.MAX_SIZE</code>. The column does not contain the family/qualifier delimiter,  * {@link #COLUMN_FAMILY_DELIMITER}<br>  * KeyValue can optionally contain Tags. When it contains tags, it is added in the byte array after  * the value part. The format for this part is:<code>&lt;tagslength&gt;&lt;tagsbytes&gt;</code>.  *<code>tagslength</code> maximum is<code>Short.MAX_SIZE</code>. The<code>tagsbytes</code>  * contain one or more tags where as each tag is of the form  *<code>&lt;taglength&gt;&lt;tagtype&gt;&lt;tagbytes&gt;</code>.  *<code>tagtype</code> is one byte and  *<code>taglength</code> maximum is<code>Short.MAX_SIZE</code> and it includes 1 byte type length  * and actual tag bytes length.  */
+comment|/**  * An HBase Key/Value. This is the fundamental HBase Type.  *<p>  * HBase applications and users should use the Cell interface and avoid directly using KeyValue and  * member functions not defined in Cell.  *<p>  * If being used client-side, the primary methods to access individual fields are  * {@link #getRowArray()}, {@link #getFamilyArray()}, {@link #getQualifierArray()},  * {@link #getTimestamp()}, and {@link #getValueArray()}. These methods allocate new byte arrays  * and return copies. Avoid their use server-side.  *<p>  * Instances of this class are immutable. They do not implement Comparable but Comparators are  * provided. Comparators change with context, whether user table or a catalog table comparison. Its  * critical you use the appropriate comparator. There are Comparators for normal HFiles, Meta's  * Hfiles, and bloom filter keys.  *<p>  * KeyValue wraps a byte array and takes offsets and lengths into passed array at where to start  * interpreting the content as KeyValue. The KeyValue format inside a byte array is:  *<code>&lt;keylength&gt;&lt;valuelength&gt;&lt;key&gt;&lt;value&gt;</code> Key is further  * decomposed as:<code>&lt;rowlength&gt;&lt;row&gt;&lt;columnfamilylength&gt;  *&lt;columnfamily&gt;&lt;columnqualifier&gt;  *&lt;timestamp&gt;&lt;keytype&gt;</code> The<code>rowlength</code> maximum is  *<code>Short.MAX_SIZE</code>, column family length maximum is<code>Byte.MAX_SIZE</code>, and  * column qualifier + key length must be&lt;<code>Integer.MAX_SIZE</code>. The column does not  * contain the family/qualifier delimiter, {@link #COLUMN_FAMILY_DELIMITER}<br>  * KeyValue can optionally contain Tags. When it contains tags, it is added in the byte array after  * the value part. The format for this part is:<code>&lt;tagslength&gt;&lt;tagsbytes&gt;</code>.  *<code>tagslength</code> maximum is<code>Short.MAX_SIZE</code>. The<code>tagsbytes</code>  * contain one or more tags where as each tag is of the form  *<code>&lt;taglength&gt;&lt;tagtype&gt;&lt;tagbytes&gt;</code>.<code>tagtype</code> is one byte  * and<code>taglength</code> maximum is<code>Short.MAX_SIZE</code> and it includes 1 byte type  * length and actual tag bytes length.  */
 end_comment
 
 begin_class
@@ -977,21 +977,6 @@ argument_list|()
 return|;
 block|}
 comment|/** Here be dragons **/
-comment|// used to achieve atomic operations in the memstore.
-annotation|@
-name|Override
-specifier|public
-name|long
-name|getMvccVersion
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|getSequenceId
-argument_list|()
-return|;
-block|}
 comment|/**    * used to achieve atomic operations in the memstore.    */
 annotation|@
 name|Override
@@ -5161,7 +5146,13 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
-name|getRow
+name|getRowArray
+argument_list|()
+argument_list|,
+name|getRowOffset
+argument_list|()
+argument_list|,
+name|getRowLength
 argument_list|()
 argument_list|)
 argument_list|)
@@ -5176,7 +5167,13 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
-name|getFamily
+name|getFamilyArray
+argument_list|()
+argument_list|,
+name|getFamilyOffset
+argument_list|()
+argument_list|,
+name|getFamilyLength
 argument_list|()
 argument_list|)
 argument_list|)
@@ -5191,7 +5188,13 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
-name|getQualifier
+name|getQualifierArray
+argument_list|()
+argument_list|,
+name|getQualifierOffset
+argument_list|()
+argument_list|,
+name|getQualifierLength
 argument_list|()
 argument_list|)
 argument_list|)
@@ -6208,7 +6211,7 @@ comment|//
 comment|//  Methods that return copies of fields
 comment|//
 comment|//---------------------------------------------------------------------------
-comment|/**    * Do not use unless you have to.  Used internally for compacting and testing.    *    * Use {@link #getRow()}, {@link #getFamily()}, {@link #getQualifier()}, and    * {@link #getValue()} if accessing a KeyValue client-side.    * @return Copy of the key portion only.    */
+comment|/**    * Do not use unless you have to. Used internally for compacting and testing. Use    * {@link #getRowArray()}, {@link #getFamilyArray()}, {@link #getQualifierArray()}, and    * {@link #getValueArray()} if accessing a KeyValue client-side.    * @return Copy of the key portion only.    */
 specifier|public
 name|byte
 index|[]
@@ -6250,48 +6253,6 @@ argument_list|)
 expr_stmt|;
 return|return
 name|key
-return|;
-block|}
-comment|/**    * Returns value in a new byte array.    * Primarily for use client-side. If server-side, use    * {@link #getBuffer()} with appropriate offsets and lengths instead to    * save on allocations.    * @return Value in a new byte array.    */
-annotation|@
-name|Override
-annotation|@
-name|Deprecated
-comment|// use CellUtil.getValueArray()
-specifier|public
-name|byte
-index|[]
-name|getValue
-parameter_list|()
-block|{
-return|return
-name|CellUtil
-operator|.
-name|cloneValue
-argument_list|(
-name|this
-argument_list|)
-return|;
-block|}
-comment|/**    * Primarily for use client-side.  Returns the row of this KeyValue in a new    * byte array.<p>    *    * If server-side, use {@link #getBuffer()} with appropriate offsets and    * lengths instead.    * @return Row in a new byte array.    */
-annotation|@
-name|Override
-annotation|@
-name|Deprecated
-comment|// use CellUtil.getRowArray()
-specifier|public
-name|byte
-index|[]
-name|getRow
-parameter_list|()
-block|{
-return|return
-name|CellUtil
-operator|.
-name|cloneRow
-argument_list|(
-name|this
-argument_list|)
 return|;
 block|}
 comment|/**    *    * @return Timestamp    */
@@ -6395,48 +6356,6 @@ name|isDelete
 argument_list|(
 name|getType
 argument_list|()
-argument_list|)
-return|;
-block|}
-comment|/**    * Primarily for use client-side.  Returns the family of this KeyValue in a    * new byte array.<p>    *    * If server-side, use {@link #getBuffer()} with appropriate offsets and    * lengths instead.    * @return Returns family. Makes a copy.    */
-annotation|@
-name|Override
-annotation|@
-name|Deprecated
-comment|// use CellUtil.getFamilyArray
-specifier|public
-name|byte
-index|[]
-name|getFamily
-parameter_list|()
-block|{
-return|return
-name|CellUtil
-operator|.
-name|cloneFamily
-argument_list|(
-name|this
-argument_list|)
-return|;
-block|}
-comment|/**    * Primarily for use client-side.  Returns the column qualifier of this    * KeyValue in a new byte array.<p>    *    * If server-side, use {@link #getBuffer()} with appropriate offsets and    * lengths instead.    * Use {@link #getBuffer()} with appropriate offsets and lengths instead.    * @return Returns qualifier. Makes a copy.    */
-annotation|@
-name|Override
-annotation|@
-name|Deprecated
-comment|// use CellUtil.getQualifierArray
-specifier|public
-name|byte
-index|[]
-name|getQualifier
-parameter_list|()
-block|{
-return|return
-name|CellUtil
-operator|.
-name|cloneQualifier
-argument_list|(
-name|this
 argument_list|)
 return|;
 block|}

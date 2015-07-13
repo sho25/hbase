@@ -1485,7 +1485,7 @@ name|getVIntSize
 argument_list|(
 name|kv
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1542,7 +1542,7 @@ name|result
 argument_list|,
 name|kv
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;

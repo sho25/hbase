@@ -3385,10 +3385,8 @@ literal|0
 argument_list|,
 name|transformedQual1
 operator|.
-name|getValue
+name|getValueLength
 argument_list|()
-operator|.
-name|length
 argument_list|)
 expr_stmt|;
 comment|// Value for fam:qual2 should not be stripped:
@@ -3434,7 +3432,17 @@ name|toString
 argument_list|(
 name|transformedQual2
 operator|.
-name|getValue
+name|getValueArray
+argument_list|()
+argument_list|,
+name|transformedQual2
+operator|.
+name|getValueOffset
+argument_list|()
+argument_list|,
+name|transformedQual2
+operator|.
+name|getValueLength
 argument_list|()
 argument_list|)
 argument_list|)
