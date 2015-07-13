@@ -111,20 +111,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -366,24 +352,6 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
-name|long
-name|nonceGroup
-init|=
-name|HConstants
-operator|.
-name|NO_NONCE
-decl_stmt|;
-specifier|private
-specifier|static
-name|long
-name|nonce
-init|=
-name|HConstants
-operator|.
-name|NO_NONCE
-decl_stmt|;
-specifier|private
-specifier|static
 name|void
 name|setupConf
 parameter_list|(
@@ -481,36 +449,6 @@ name|getMasterProcedureExecutor
 argument_list|()
 argument_list|,
 literal|false
-argument_list|)
-expr_stmt|;
-name|nonceGroup
-operator|=
-name|MasterProcedureTestingUtility
-operator|.
-name|generateNonceGroup
-argument_list|(
-name|UTIL
-operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|nonce
-operator|=
-name|MasterProcedureTestingUtility
-operator|.
-name|generateNonce
-argument_list|(
-name|UTIL
-operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -679,10 +617,6 @@ name|tableName
 argument_list|,
 name|columnDescriptor
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Wait the completion
@@ -762,14 +696,6 @@ name|tableName
 argument_list|,
 name|columnDescriptor
 argument_list|)
-argument_list|,
-name|nonceGroup
-operator|+
-literal|1
-argument_list|,
-name|nonce
-operator|+
-literal|1
 argument_list|)
 decl_stmt|;
 comment|// Wait the completion
@@ -917,10 +843,6 @@ name|tableName
 argument_list|,
 name|columnDescriptor
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Wait the completion
@@ -1114,10 +1036,6 @@ name|tableName
 argument_list|,
 name|columnDescriptor
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Restart the executor and execute the step twice
@@ -1294,10 +1212,6 @@ name|tableName
 argument_list|,
 name|columnDescriptor
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Restart the executor and execute the step twice
@@ -1474,10 +1388,6 @@ name|tableName
 argument_list|,
 name|columnDescriptor
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Failing in the middle of proc

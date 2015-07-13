@@ -6628,14 +6628,6 @@ name|hri
 operator|.
 name|getTable
 argument_list|()
-argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
-argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
 argument_list|)
 expr_stmt|;
 comment|// Kill the hosting server, which doesn't have meta on it.
