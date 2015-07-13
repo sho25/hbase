@@ -1804,6 +1804,16 @@ name|env
 argument_list|)
 argument_list|,
 name|familyName
+argument_list|,
+name|oldHTableDescriptor
+operator|.
+name|getFamily
+argument_list|(
+name|familyName
+argument_list|)
+operator|.
+name|isMobEnabled
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

@@ -409,6 +409,10 @@ index|[]
 name|familyName
 decl_stmt|;
 specifier|private
+name|boolean
+name|hasMob
+decl_stmt|;
+specifier|private
 name|UserGroupInformation
 name|user
 decl_stmt|;
@@ -1422,6 +1426,19 @@ literal|"' does not exist, so it cannot be deleted"
 argument_list|)
 throw|;
 block|}
+comment|// whether mob family
+name|hasMob
+operator|=
+name|unmodifiedHTableDescriptor
+operator|.
+name|getFamily
+argument_list|(
+name|familyName
+argument_list|)
+operator|.
+name|isMobEnabled
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Action before deleting column family.    * @param env MasterProcedureEnv    * @param state the procedure state    * @throws IOException    * @throws InterruptedException    */
 specifier|private
@@ -1587,6 +1604,8 @@ name|env
 argument_list|)
 argument_list|,
 name|familyName
+argument_list|,
+name|hasMob
 argument_list|)
 expr_stmt|;
 block|}
