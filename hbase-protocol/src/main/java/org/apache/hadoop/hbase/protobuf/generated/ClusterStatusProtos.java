@@ -60,13 +60,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionInfo region_info = 1;
-comment|/**      *<code>required .RegionInfo region_info = 1;</code>      */
+comment|// required .hbase.pb.RegionInfo region_info = 1;
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 1;</code>      */
 name|boolean
 name|hasRegionInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -85,7 +85,7 @@ name|RegionInfo
 name|getRegionInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -104,13 +104,13 @@ name|RegionInfoOrBuilder
 name|getRegionInfoOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .RegionState.State state = 2;
-comment|/**      *<code>required .RegionState.State state = 2;</code>      */
+comment|// required .hbase.pb.RegionState.State state = 2;
+comment|/**      *<code>required .hbase.pb.RegionState.State state = 2;</code>      */
 name|boolean
 name|hasState
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionState.State state = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionState.State state = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -143,7 +143,7 @@ name|getStamp
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RegionState}    */
+comment|/**    * Protobuf type {@code hbase.pb.RegionState}    */
 specifier|public
 specifier|static
 specifier|final
@@ -699,7 +699,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionState_descriptor
+name|internal_static_hbase_pb_RegionState_descriptor
 return|;
 block|}
 specifier|protected
@@ -730,7 +730,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionState_fieldAccessorTable
+name|internal_static_hbase_pb_RegionState_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -868,7 +868,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code RegionState.State}      */
+comment|/**      * Protobuf enum {@code hbase.pb.RegionState.State}      */
 specifier|public
 enum|enum
 name|State
@@ -1510,13 +1510,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:RegionState.State)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.RegionState.State)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionInfo region_info = 1;
+comment|// required .hbase.pb.RegionInfo region_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -1543,7 +1543,7 @@ operator|.
 name|RegionInfo
 name|regionInfo_
 decl_stmt|;
-comment|/**      *<code>required .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegionInfo
@@ -1561,7 +1561,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -1585,7 +1585,7 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|/**      *<code>required .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -1609,7 +1609,7 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|// required .RegionState.State state = 2;
+comment|// required .hbase.pb.RegionState.State state = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -1638,7 +1638,7 @@ operator|.
 name|State
 name|state_
 decl_stmt|;
-comment|/**      *<code>required .RegionState.State state = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionState.State state = 2;</code>      */
 specifier|public
 name|boolean
 name|hasState
@@ -1656,7 +1656,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionState.State state = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionState.State state = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -3124,7 +3124,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RegionState}      */
+comment|/**      * Protobuf type {@code hbase.pb.RegionState}      */
 specifier|public
 specifier|static
 specifier|final
@@ -3190,7 +3190,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionState_descriptor
+name|internal_static_hbase_pb_RegionState_descriptor
 return|;
 block|}
 specifier|protected
@@ -3221,7 +3221,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionState_fieldAccessorTable
+name|internal_static_hbase_pb_RegionState_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -3481,7 +3481,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionState_descriptor
+name|internal_static_hbase_pb_RegionState_descriptor
 return|;
 block|}
 specifier|public
@@ -4112,7 +4112,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionInfo region_info = 1;
+comment|// required .hbase.pb.RegionInfo region_info = 1;
 specifier|private
 name|org
 operator|.
@@ -4211,7 +4211,7 @@ name|RegionInfoOrBuilder
 argument_list|>
 name|regionInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegionInfo
@@ -4229,7 +4229,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4270,7 +4270,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -4339,7 +4339,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -4403,7 +4403,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegionInfo
@@ -4528,7 +4528,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegionInfo
@@ -4587,7 +4587,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4624,7 +4624,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4665,7 +4665,7 @@ name|regionInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -4815,7 +4815,7 @@ return|return
 name|regionInfoBuilder_
 return|;
 block|}
-comment|// required .RegionState.State state = 2;
+comment|// required .hbase.pb.RegionState.State state = 2;
 specifier|private
 name|org
 operator|.
@@ -4856,7 +4856,7 @@ name|State
 operator|.
 name|OFFLINE
 decl_stmt|;
-comment|/**        *<code>required .RegionState.State state = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionState.State state = 2;</code>        */
 specifier|public
 name|boolean
 name|hasState
@@ -4874,7 +4874,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionState.State state = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionState.State state = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4900,7 +4900,7 @@ return|return
 name|state_
 return|;
 block|}
-comment|/**        *<code>required .RegionState.State state = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionState.State state = 2;</code>        */
 specifier|public
 name|Builder
 name|setState
@@ -4953,7 +4953,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionState.State state = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionState.State state = 2;</code>        */
 specifier|public
 name|Builder
 name|clearState
@@ -5080,7 +5080,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RegionState)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RegionState)
 block|}
 static|static
 block|{
@@ -5098,7 +5098,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RegionState)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RegionState)
 block|}
 specifier|public
 interface|interface
@@ -5112,13 +5112,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier spec = 1;
-comment|/**      *<code>required .RegionSpecifier spec = 1;</code>      */
+comment|// required .hbase.pb.RegionSpecifier spec = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier spec = 1;</code>      */
 name|boolean
 name|hasSpec
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier spec = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier spec = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -5137,7 +5137,7 @@ name|RegionSpecifier
 name|getSpec
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier spec = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier spec = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -5156,13 +5156,13 @@ name|RegionSpecifierOrBuilder
 name|getSpecOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .RegionState region_state = 2;
-comment|/**      *<code>required .RegionState region_state = 2;</code>      */
+comment|// required .hbase.pb.RegionState region_state = 2;
+comment|/**      *<code>required .hbase.pb.RegionState region_state = 2;</code>      */
 name|boolean
 name|hasRegionState
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionState region_state = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionState region_state = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -5181,7 +5181,7 @@ name|RegionState
 name|getRegionState
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionState region_state = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionState region_state = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -5201,7 +5201,7 @@ name|getRegionStateOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RegionInTransition}    */
+comment|/**    * Protobuf type {@code hbase.pb.RegionInTransition}    */
 specifier|public
 specifier|static
 specifier|final
@@ -5757,7 +5757,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionInTransition_descriptor
+name|internal_static_hbase_pb_RegionInTransition_descriptor
 return|;
 block|}
 specifier|protected
@@ -5788,7 +5788,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionInTransition_fieldAccessorTable
+name|internal_static_hbase_pb_RegionInTransition_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -5930,7 +5930,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier spec = 1;
+comment|// required .hbase.pb.RegionSpecifier spec = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -5957,7 +5957,7 @@ operator|.
 name|RegionSpecifier
 name|spec_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier spec = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier spec = 1;</code>      */
 specifier|public
 name|boolean
 name|hasSpec
@@ -5975,7 +5975,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier spec = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier spec = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5999,7 +5999,7 @@ return|return
 name|spec_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier spec = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier spec = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6023,7 +6023,7 @@ return|return
 name|spec_
 return|;
 block|}
-comment|// required .RegionState region_state = 2;
+comment|// required .hbase.pb.RegionState region_state = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -6050,7 +6050,7 @@ operator|.
 name|RegionState
 name|regionState_
 decl_stmt|;
-comment|/**      *<code>required .RegionState region_state = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionState region_state = 2;</code>      */
 specifier|public
 name|boolean
 name|hasRegionState
@@ -6068,7 +6068,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionState region_state = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionState region_state = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6092,7 +6092,7 @@ return|return
 name|regionState_
 return|;
 block|}
-comment|/**      *<code>required .RegionState region_state = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionState region_state = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -7405,7 +7405,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RegionInTransition}      */
+comment|/**      * Protobuf type {@code hbase.pb.RegionInTransition}      */
 specifier|public
 specifier|static
 specifier|final
@@ -7471,7 +7471,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionInTransition_descriptor
+name|internal_static_hbase_pb_RegionInTransition_descriptor
 return|;
 block|}
 specifier|protected
@@ -7502,7 +7502,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionInTransition_fieldAccessorTable
+name|internal_static_hbase_pb_RegionInTransition_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -7767,7 +7767,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionInTransition_descriptor
+name|internal_static_hbase_pb_RegionInTransition_descriptor
 return|;
 block|}
 specifier|public
@@ -8391,7 +8391,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier spec = 1;
+comment|// required .hbase.pb.RegionSpecifier spec = 1;
 specifier|private
 name|org
 operator|.
@@ -8490,7 +8490,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|specBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier spec = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier spec = 1;</code>        */
 specifier|public
 name|boolean
 name|hasSpec
@@ -8508,7 +8508,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier spec = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier spec = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -8549,7 +8549,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier spec = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier spec = 1;</code>        */
 specifier|public
 name|Builder
 name|setSpec
@@ -8618,7 +8618,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier spec = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier spec = 1;</code>        */
 specifier|public
 name|Builder
 name|setSpec
@@ -8682,7 +8682,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier spec = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier spec = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeSpec
@@ -8807,7 +8807,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier spec = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier spec = 1;</code>        */
 specifier|public
 name|Builder
 name|clearSpec
@@ -8866,7 +8866,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier spec = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier spec = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -8903,7 +8903,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier spec = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier spec = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -8944,7 +8944,7 @@ name|spec_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier spec = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier spec = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -9094,7 +9094,7 @@ return|return
 name|specBuilder_
 return|;
 block|}
-comment|// required .RegionState region_state = 2;
+comment|// required .hbase.pb.RegionState region_state = 2;
 specifier|private
 name|org
 operator|.
@@ -9193,7 +9193,7 @@ name|RegionStateOrBuilder
 argument_list|>
 name|regionStateBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionState region_state = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionState region_state = 2;</code>        */
 specifier|public
 name|boolean
 name|hasRegionState
@@ -9211,7 +9211,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionState region_state = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionState region_state = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9252,7 +9252,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionState region_state = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionState region_state = 2;</code>        */
 specifier|public
 name|Builder
 name|setRegionState
@@ -9321,7 +9321,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionState region_state = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionState region_state = 2;</code>        */
 specifier|public
 name|Builder
 name|setRegionState
@@ -9385,7 +9385,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionState region_state = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionState region_state = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeRegionState
@@ -9510,7 +9510,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionState region_state = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionState region_state = 2;</code>        */
 specifier|public
 name|Builder
 name|clearRegionState
@@ -9569,7 +9569,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionState region_state = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionState region_state = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9606,7 +9606,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionState region_state = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionState region_state = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9647,7 +9647,7 @@ name|regionState_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionState region_state = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionState region_state = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -9797,7 +9797,7 @@ return|return
 name|regionStateBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RegionInTransition)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RegionInTransition)
 block|}
 static|static
 block|{
@@ -9815,7 +9815,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RegionInTransition)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RegionInTransition)
 block|}
 specifier|public
 interface|interface
@@ -9858,7 +9858,7 @@ name|getSequenceId
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code StoreSequenceId}    *    *<pre>    **    * sequence Id of a store    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.StoreSequenceId}    *    *<pre>    **    * sequence Id of a store    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -10246,7 +10246,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_StoreSequenceId_descriptor
+name|internal_static_hbase_pb_StoreSequenceId_descriptor
 return|;
 block|}
 specifier|protected
@@ -10277,7 +10277,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_StoreSequenceId_fieldAccessorTable
+name|internal_static_hbase_pb_StoreSequenceId_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -11739,7 +11739,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code StoreSequenceId}      *      *<pre>      **      * sequence Id of a store      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.StoreSequenceId}      *      *<pre>      **      * sequence Id of a store      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -11805,7 +11805,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_StoreSequenceId_descriptor
+name|internal_static_hbase_pb_StoreSequenceId_descriptor
 return|;
 block|}
 specifier|protected
@@ -11836,7 +11836,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_StoreSequenceId_fieldAccessorTable
+name|internal_static_hbase_pb_StoreSequenceId_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -12036,7 +12036,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_StoreSequenceId_descriptor
+name|internal_static_hbase_pb_StoreSequenceId_descriptor
 return|;
 block|}
 specifier|public
@@ -12803,7 +12803,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:StoreSequenceId)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.StoreSequenceId)
 block|}
 static|static
 block|{
@@ -12821,7 +12821,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:StoreSequenceId)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.StoreSequenceId)
 block|}
 specifier|public
 interface|interface
@@ -12846,8 +12846,8 @@ name|long
 name|getLastFlushedSequenceId
 parameter_list|()
 function_decl|;
-comment|// repeated .StoreSequenceId store_sequence_id = 2;
-comment|/**      *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>      */
+comment|// repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -12873,7 +12873,7 @@ argument_list|>
 name|getStoreSequenceIdList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -12895,12 +12895,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>      */
 name|int
 name|getStoreSequenceIdCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -12928,7 +12928,7 @@ argument_list|>
 name|getStoreSequenceIdOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -12951,7 +12951,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RegionStoreSequenceIds}    *    *<pre>    **    * contains a sequence id of a region which should be the minimum of its store sequence ids and    * list of sequence ids of the region's stores    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.RegionStoreSequenceIds}    *    *<pre>    **    * contains a sequence id of a region which should be the minimum of its store sequence ids and    * list of sequence ids of the region's stores    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -13431,7 +13431,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionStoreSequenceIds_descriptor
+name|internal_static_hbase_pb_RegionStoreSequenceIds_descriptor
 return|;
 block|}
 specifier|protected
@@ -13462,7 +13462,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionStoreSequenceIds_fieldAccessorTable
+name|internal_static_hbase_pb_RegionStoreSequenceIds_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -13645,7 +13645,7 @@ return|return
 name|lastFlushedSequenceId_
 return|;
 block|}
-comment|// repeated .StoreSequenceId store_sequence_id = 2;
+comment|// repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -13679,7 +13679,7 @@ name|StoreSequenceId
 argument_list|>
 name|storeSequenceId_
 decl_stmt|;
-comment|/**      *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -13710,7 +13710,7 @@ return|return
 name|storeSequenceId_
 return|;
 block|}
-comment|/**      *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -13743,7 +13743,7 @@ return|return
 name|storeSequenceId_
 return|;
 block|}
-comment|/**      *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>      */
 specifier|public
 name|int
 name|getStoreSequenceIdCount
@@ -13756,7 +13756,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -13788,7 +13788,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -15068,7 +15068,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RegionStoreSequenceIds}      *      *<pre>      **      * contains a sequence id of a region which should be the minimum of its store sequence ids and      * list of sequence ids of the region's stores      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.RegionStoreSequenceIds}      *      *<pre>      **      * contains a sequence id of a region which should be the minimum of its store sequence ids and      * list of sequence ids of the region's stores      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -15134,7 +15134,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionStoreSequenceIds_descriptor
+name|internal_static_hbase_pb_RegionStoreSequenceIds_descriptor
 return|;
 block|}
 specifier|protected
@@ -15165,7 +15165,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionStoreSequenceIds_fieldAccessorTable
+name|internal_static_hbase_pb_RegionStoreSequenceIds_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -15384,7 +15384,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionStoreSequenceIds_descriptor
+name|internal_static_hbase_pb_RegionStoreSequenceIds_descriptor
 return|;
 block|}
 specifier|public
@@ -16205,7 +16205,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .StoreSequenceId store_sequence_id = 2;
+comment|// repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;
 specifier|private
 name|java
 operator|.
@@ -16355,7 +16355,7 @@ name|StoreSequenceIdOrBuilder
 argument_list|>
 name|storeSequenceIdBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -16412,7 +16412,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|int
 name|getStoreSequenceIdCount
@@ -16442,7 +16442,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -16493,7 +16493,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|Builder
 name|setStoreSequenceId
@@ -16571,7 +16571,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|Builder
 name|setStoreSequenceId
@@ -16644,7 +16644,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|Builder
 name|addStoreSequenceId
@@ -16715,7 +16715,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|Builder
 name|addStoreSequenceId
@@ -16793,7 +16793,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|Builder
 name|addStoreSequenceId
@@ -16859,7 +16859,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|Builder
 name|addStoreSequenceId
@@ -16932,7 +16932,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|Builder
 name|addAllStoreSequenceId
@@ -17001,7 +17001,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|Builder
 name|clearStoreSequenceId
@@ -17050,7 +17050,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|Builder
 name|removeStoreSequenceId
@@ -17094,7 +17094,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -17129,7 +17129,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -17180,7 +17180,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -17239,7 +17239,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -17288,7 +17288,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -17342,7 +17342,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_sequence_id = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_sequence_id = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -17538,7 +17538,7 @@ return|return
 name|storeSequenceIdBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RegionStoreSequenceIds)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RegionStoreSequenceIds)
 block|}
 static|static
 block|{
@@ -17556,7 +17556,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RegionStoreSequenceIds)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RegionStoreSequenceIds)
 block|}
 specifier|public
 interface|interface
@@ -17570,13 +17570,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier region_specifier = 1;
-comment|/**      *<code>required .RegionSpecifier region_specifier = 1;</code>      *      *<pre>      ** the region specifier       *</pre>      */
+comment|// required .hbase.pb.RegionSpecifier region_specifier = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_specifier = 1;</code>      *      *<pre>      ** the region specifier       *</pre>      */
 name|boolean
 name|hasRegionSpecifier
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region_specifier = 1;</code>      *      *<pre>      ** the region specifier       *</pre>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_specifier = 1;</code>      *      *<pre>      ** the region specifier       *</pre>      */
 name|org
 operator|.
 name|apache
@@ -17595,7 +17595,7 @@ name|RegionSpecifier
 name|getRegionSpecifier
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region_specifier = 1;</code>      *      *<pre>      ** the region specifier       *</pre>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_specifier = 1;</code>      *      *<pre>      ** the region specifier       *</pre>      */
 name|org
 operator|.
 name|apache
@@ -17790,8 +17790,8 @@ name|long
 name|getLastMajorCompactionTs
 parameter_list|()
 function_decl|;
-comment|// repeated .StoreSequenceId store_complete_sequence_id = 18;
-comment|/**      *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
+comment|// repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
 name|java
 operator|.
 name|util
@@ -17817,7 +17817,7 @@ argument_list|>
 name|getStoreCompleteSequenceIdList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
 name|org
 operator|.
 name|apache
@@ -17839,12 +17839,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
 name|int
 name|getStoreCompleteSequenceIdCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
 name|java
 operator|.
 name|util
@@ -17872,7 +17872,7 @@ argument_list|>
 name|getStoreCompleteSequenceIdOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
 name|org
 operator|.
 name|apache
@@ -17895,7 +17895,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RegionLoad}    */
+comment|/**    * Protobuf type {@code hbase.pb.RegionLoad}    */
 specifier|public
 specifier|static
 specifier|final
@@ -18731,7 +18731,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionLoad_descriptor
+name|internal_static_hbase_pb_RegionLoad_descriptor
 return|;
 block|}
 specifier|protected
@@ -18762,7 +18762,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionLoad_fieldAccessorTable
+name|internal_static_hbase_pb_RegionLoad_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -18904,7 +18904,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region_specifier = 1;
+comment|// required .hbase.pb.RegionSpecifier region_specifier = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -18931,7 +18931,7 @@ operator|.
 name|RegionSpecifier
 name|regionSpecifier_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier region_specifier = 1;</code>      *      *<pre>      ** the region specifier       *</pre>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_specifier = 1;</code>      *      *<pre>      ** the region specifier       *</pre>      */
 specifier|public
 name|boolean
 name|hasRegionSpecifier
@@ -18949,7 +18949,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region_specifier = 1;</code>      *      *<pre>      ** the region specifier       *</pre>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_specifier = 1;</code>      *      *<pre>      ** the region specifier       *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -18973,7 +18973,7 @@ return|return
 name|regionSpecifier_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region_specifier = 1;</code>      *      *<pre>      ** the region specifier       *</pre>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_specifier = 1;</code>      *      *<pre>      ** the region specifier       *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -19653,7 +19653,7 @@ return|return
 name|lastMajorCompactionTs_
 return|;
 block|}
-comment|// repeated .StoreSequenceId store_complete_sequence_id = 18;
+comment|// repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;
 specifier|public
 specifier|static
 specifier|final
@@ -19687,7 +19687,7 @@ name|StoreSequenceId
 argument_list|>
 name|storeCompleteSequenceId_
 decl_stmt|;
-comment|/**      *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -19718,7 +19718,7 @@ return|return
 name|storeCompleteSequenceId_
 return|;
 block|}
-comment|/**      *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -19751,7 +19751,7 @@ return|return
 name|storeCompleteSequenceId_
 return|;
 block|}
-comment|/**      *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
 specifier|public
 name|int
 name|getStoreCompleteSequenceIdCount
@@ -19764,7 +19764,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -19796,7 +19796,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>      *      *<pre>      ** the most recent sequence Id of store from cache flush       *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -23081,7 +23081,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RegionLoad}      */
+comment|/**      * Protobuf type {@code hbase.pb.RegionLoad}      */
 specifier|public
 specifier|static
 specifier|final
@@ -23147,7 +23147,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionLoad_descriptor
+name|internal_static_hbase_pb_RegionLoad_descriptor
 return|;
 block|}
 specifier|protected
@@ -23178,7 +23178,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionLoad_fieldAccessorTable
+name|internal_static_hbase_pb_RegionLoad_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -23641,7 +23641,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_RegionLoad_descriptor
+name|internal_static_hbase_pb_RegionLoad_descriptor
 return|;
 block|}
 specifier|public
@@ -25069,7 +25069,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region_specifier = 1;
+comment|// required .hbase.pb.RegionSpecifier region_specifier = 1;
 specifier|private
 name|org
 operator|.
@@ -25168,7 +25168,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionSpecifierBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
 specifier|public
 name|boolean
 name|hasRegionSpecifier
@@ -25186,7 +25186,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -25227,7 +25227,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
 specifier|public
 name|Builder
 name|setRegionSpecifier
@@ -25296,7 +25296,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
 specifier|public
 name|Builder
 name|setRegionSpecifier
@@ -25360,7 +25360,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
 specifier|public
 name|Builder
 name|mergeRegionSpecifier
@@ -25485,7 +25485,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
 specifier|public
 name|Builder
 name|clearRegionSpecifier
@@ -25544,7 +25544,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -25581,7 +25581,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -25622,7 +25622,7 @@ name|regionSpecifier_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_specifier = 1;</code>        *        *<pre>        ** the region specifier         *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -27100,7 +27100,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .StoreSequenceId store_complete_sequence_id = 18;
+comment|// repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;
 specifier|private
 name|java
 operator|.
@@ -27250,7 +27250,7 @@ name|StoreSequenceIdOrBuilder
 argument_list|>
 name|storeCompleteSequenceIdBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -27307,7 +27307,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|int
 name|getStoreCompleteSequenceIdCount
@@ -27337,7 +27337,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -27388,7 +27388,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|Builder
 name|setStoreCompleteSequenceId
@@ -27466,7 +27466,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|Builder
 name|setStoreCompleteSequenceId
@@ -27539,7 +27539,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|Builder
 name|addStoreCompleteSequenceId
@@ -27610,7 +27610,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|Builder
 name|addStoreCompleteSequenceId
@@ -27688,7 +27688,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|Builder
 name|addStoreCompleteSequenceId
@@ -27754,7 +27754,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|Builder
 name|addStoreCompleteSequenceId
@@ -27827,7 +27827,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|Builder
 name|addAllStoreCompleteSequenceId
@@ -27896,7 +27896,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|Builder
 name|clearStoreCompleteSequenceId
@@ -27945,7 +27945,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|Builder
 name|removeStoreCompleteSequenceId
@@ -27989,7 +27989,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -28024,7 +28024,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -28075,7 +28075,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -28134,7 +28134,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -28183,7 +28183,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -28237,7 +28237,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.StoreSequenceId store_complete_sequence_id = 18;</code>        *        *<pre>        ** the most recent sequence Id of store from cache flush         *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -28433,7 +28433,7 @@ return|return
 name|storeCompleteSequenceIdBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RegionLoad)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RegionLoad)
 block|}
 static|static
 block|{
@@ -28451,7 +28451,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RegionLoad)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RegionLoad)
 block|}
 specifier|public
 interface|interface
@@ -28488,7 +28488,7 @@ name|getTimeStampsOfLastAppliedOp
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ReplicationLoadSink}    */
+comment|/**    * Protobuf type {@code hbase.pb.ReplicationLoadSink}    */
 specifier|public
 specifier|static
 specifier|final
@@ -28876,7 +28876,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ReplicationLoadSink_descriptor
+name|internal_static_hbase_pb_ReplicationLoadSink_descriptor
 return|;
 block|}
 specifier|protected
@@ -28907,7 +28907,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ReplicationLoadSink_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationLoadSink_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -30348,7 +30348,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ReplicationLoadSink}      */
+comment|/**      * Protobuf type {@code hbase.pb.ReplicationLoadSink}      */
 specifier|public
 specifier|static
 specifier|final
@@ -30414,7 +30414,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ReplicationLoadSink_descriptor
+name|internal_static_hbase_pb_ReplicationLoadSink_descriptor
 return|;
 block|}
 specifier|protected
@@ -30445,7 +30445,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ReplicationLoadSink_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationLoadSink_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -30637,7 +30637,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ReplicationLoadSink_descriptor
+name|internal_static_hbase_pb_ReplicationLoadSink_descriptor
 return|;
 block|}
 specifier|public
@@ -31359,7 +31359,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ReplicationLoadSink)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ReplicationLoadSink)
 block|}
 static|static
 block|{
@@ -31377,7 +31377,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ReplicationLoadSink)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ReplicationLoadSink)
 block|}
 specifier|public
 interface|interface
@@ -31462,7 +31462,7 @@ name|getReplicationLag
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ReplicationLoadSource}    */
+comment|/**    * Protobuf type {@code hbase.pb.ReplicationLoadSource}    */
 specifier|public
 specifier|static
 specifier|final
@@ -31901,7 +31901,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ReplicationLoadSource_descriptor
+name|internal_static_hbase_pb_ReplicationLoadSource_descriptor
 return|;
 block|}
 specifier|protected
@@ -31932,7 +31932,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ReplicationLoadSource_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationLoadSource_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -34085,7 +34085,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ReplicationLoadSource}      */
+comment|/**      * Protobuf type {@code hbase.pb.ReplicationLoadSource}      */
 specifier|public
 specifier|static
 specifier|final
@@ -34151,7 +34151,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ReplicationLoadSource_descriptor
+name|internal_static_hbase_pb_ReplicationLoadSource_descriptor
 return|;
 block|}
 specifier|protected
@@ -34182,7 +34182,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ReplicationLoadSource_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationLoadSource_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -34413,7 +34413,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ReplicationLoadSource_descriptor
+name|internal_static_hbase_pb_ReplicationLoadSource_descriptor
 return|;
 block|}
 specifier|public
@@ -35764,7 +35764,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ReplicationLoadSource)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ReplicationLoadSource)
 block|}
 static|static
 block|{
@@ -35782,7 +35782,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ReplicationLoadSource)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ReplicationLoadSource)
 block|}
 specifier|public
 interface|interface
@@ -35840,8 +35840,8 @@ name|int
 name|getMaxHeapMB
 parameter_list|()
 function_decl|;
-comment|// repeated .RegionLoad region_loads = 5;
-comment|/**      *<code>repeated .RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
+comment|// repeated .hbase.pb.RegionLoad region_loads = 5;
+comment|/**      *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
 name|java
 operator|.
 name|util
@@ -35867,7 +35867,7 @@ argument_list|>
 name|getRegionLoadsList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
 name|org
 operator|.
 name|apache
@@ -35889,12 +35889,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
 name|int
 name|getRegionLoadsCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
 name|java
 operator|.
 name|util
@@ -35922,7 +35922,7 @@ argument_list|>
 name|getRegionLoadsOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
 name|org
 operator|.
 name|apache
@@ -35944,8 +35944,8 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated .Coprocessor coprocessors = 6;
-comment|/**      *<code>repeated .Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
+comment|// repeated .hbase.pb.Coprocessor coprocessors = 6;
+comment|/**      *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
 name|java
 operator|.
 name|util
@@ -35971,7 +35971,7 @@ argument_list|>
 name|getCoprocessorsList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -35993,12 +35993,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
 name|int
 name|getCoprocessorsCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
 name|java
 operator|.
 name|util
@@ -36026,7 +36026,7 @@ argument_list|>
 name|getCoprocessorsOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -36081,8 +36081,8 @@ name|int
 name|getInfoServerPort
 parameter_list|()
 function_decl|;
-comment|// repeated .ReplicationLoadSource replLoadSource = 10;
-comment|/**      *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
+comment|// repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;
+comment|/**      *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
 name|java
 operator|.
 name|util
@@ -36108,7 +36108,7 @@ argument_list|>
 name|getReplLoadSourceList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -36130,12 +36130,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
 name|int
 name|getReplLoadSourceCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
 name|java
 operator|.
 name|util
@@ -36163,7 +36163,7 @@ argument_list|>
 name|getReplLoadSourceOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -36185,13 +36185,13 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional .ReplicationLoadSink replLoadSink = 11;
-comment|/**      *<code>optional .ReplicationLoadSink replLoadSink = 11;</code>      *      *<pre>      **      * The replicationLoadSink for the replication Sink status of this region server.      *</pre>      */
+comment|// optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;
+comment|/**      *<code>optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;</code>      *      *<pre>      **      * The replicationLoadSink for the replication Sink status of this region server.      *</pre>      */
 name|boolean
 name|hasReplLoadSink
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ReplicationLoadSink replLoadSink = 11;</code>      *      *<pre>      **      * The replicationLoadSink for the replication Sink status of this region server.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;</code>      *      *<pre>      **      * The replicationLoadSink for the replication Sink status of this region server.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -36210,7 +36210,7 @@ name|ReplicationLoadSink
 name|getReplLoadSink
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ReplicationLoadSink replLoadSink = 11;</code>      *      *<pre>      **      * The replicationLoadSink for the replication Sink status of this region server.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;</code>      *      *<pre>      **      * The replicationLoadSink for the replication Sink status of this region server.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -36230,7 +36230,7 @@ name|getReplLoadSinkOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ServerLoad}    */
+comment|/**    * Protobuf type {@code hbase.pb.ServerLoad}    */
 specifier|public
 specifier|static
 specifier|final
@@ -37131,7 +37131,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ServerLoad_descriptor
+name|internal_static_hbase_pb_ServerLoad_descriptor
 return|;
 block|}
 specifier|protected
@@ -37162,7 +37162,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ServerLoad_fieldAccessorTable
+name|internal_static_hbase_pb_ServerLoad_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -37468,7 +37468,7 @@ return|return
 name|maxHeapMB_
 return|;
 block|}
-comment|// repeated .RegionLoad region_loads = 5;
+comment|// repeated .hbase.pb.RegionLoad region_loads = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -37502,7 +37502,7 @@ name|RegionLoad
 argument_list|>
 name|regionLoads_
 decl_stmt|;
-comment|/**      *<code>repeated .RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -37533,7 +37533,7 @@ return|return
 name|regionLoads_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -37566,7 +37566,7 @@ return|return
 name|regionLoads_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
 specifier|public
 name|int
 name|getRegionLoadsCount
@@ -37579,7 +37579,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -37611,7 +37611,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>      *      *<pre>      ** Information on the load of individual regions.       *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -37643,7 +37643,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated .Coprocessor coprocessors = 6;
+comment|// repeated .hbase.pb.Coprocessor coprocessors = 6;
 specifier|public
 specifier|static
 specifier|final
@@ -37677,7 +37677,7 @@ name|Coprocessor
 argument_list|>
 name|coprocessors_
 decl_stmt|;
-comment|/**      *<code>repeated .Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -37708,7 +37708,7 @@ return|return
 name|coprocessors_
 return|;
 block|}
-comment|/**      *<code>repeated .Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -37741,7 +37741,7 @@ return|return
 name|coprocessors_
 return|;
 block|}
-comment|/**      *<code>repeated .Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
 specifier|public
 name|int
 name|getCoprocessorsCount
@@ -37754,7 +37754,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -37786,7 +37786,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>      *      *<pre>      **      * Regionserver-level coprocessors, e.g., WALObserver implementations.      * Region-level coprocessors, on the other hand, are stored inside RegionLoad      * objects.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -37941,7 +37941,7 @@ return|return
 name|infoServerPort_
 return|;
 block|}
-comment|// repeated .ReplicationLoadSource replLoadSource = 10;
+comment|// repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;
 specifier|public
 specifier|static
 specifier|final
@@ -37975,7 +37975,7 @@ name|ReplicationLoadSource
 argument_list|>
 name|replLoadSource_
 decl_stmt|;
-comment|/**      *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -38006,7 +38006,7 @@ return|return
 name|replLoadSource_
 return|;
 block|}
-comment|/**      *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -38039,7 +38039,7 @@ return|return
 name|replLoadSource_
 return|;
 block|}
-comment|/**      *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
 specifier|public
 name|int
 name|getReplLoadSourceCount
@@ -38052,7 +38052,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -38084,7 +38084,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>      *      *<pre>      **      * The replicationLoadSource for the replication Source status of this region server.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -38116,7 +38116,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional .ReplicationLoadSink replLoadSink = 11;
+comment|// optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;
 specifier|public
 specifier|static
 specifier|final
@@ -38143,7 +38143,7 @@ operator|.
 name|ReplicationLoadSink
 name|replLoadSink_
 decl_stmt|;
-comment|/**      *<code>optional .ReplicationLoadSink replLoadSink = 11;</code>      *      *<pre>      **      * The replicationLoadSink for the replication Sink status of this region server.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;</code>      *      *<pre>      **      * The replicationLoadSink for the replication Sink status of this region server.      *</pre>      */
 specifier|public
 name|boolean
 name|hasReplLoadSink
@@ -38161,7 +38161,7 @@ literal|0x00000080
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .ReplicationLoadSink replLoadSink = 11;</code>      *      *<pre>      **      * The replicationLoadSink for the replication Sink status of this region server.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;</code>      *      *<pre>      **      * The replicationLoadSink for the replication Sink status of this region server.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -38185,7 +38185,7 @@ return|return
 name|replLoadSink_
 return|;
 block|}
-comment|/**      *<code>optional .ReplicationLoadSink replLoadSink = 11;</code>      *      *<pre>      **      * The replicationLoadSink for the replication Sink status of this region server.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;</code>      *      *<pre>      **      * The replicationLoadSink for the replication Sink status of this region server.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -40684,7 +40684,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ServerLoad}      */
+comment|/**      * Protobuf type {@code hbase.pb.ServerLoad}      */
 specifier|public
 specifier|static
 specifier|final
@@ -40750,7 +40750,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ServerLoad_descriptor
+name|internal_static_hbase_pb_ServerLoad_descriptor
 return|;
 block|}
 specifier|protected
@@ -40781,7 +40781,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ServerLoad_fieldAccessorTable
+name|internal_static_hbase_pb_ServerLoad_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -41205,7 +41205,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ServerLoad_descriptor
+name|internal_static_hbase_pb_ServerLoad_descriptor
 return|;
 block|}
 specifier|public
@@ -43060,7 +43060,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .RegionLoad region_loads = 5;
+comment|// repeated .hbase.pb.RegionLoad region_loads = 5;
 specifier|private
 name|java
 operator|.
@@ -43210,7 +43210,7 @@ name|RegionLoadOrBuilder
 argument_list|>
 name|regionLoadsBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -43267,7 +43267,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|int
 name|getRegionLoadsCount
@@ -43297,7 +43297,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -43348,7 +43348,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|Builder
 name|setRegionLoads
@@ -43426,7 +43426,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|Builder
 name|setRegionLoads
@@ -43499,7 +43499,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|Builder
 name|addRegionLoads
@@ -43570,7 +43570,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|Builder
 name|addRegionLoads
@@ -43648,7 +43648,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|Builder
 name|addRegionLoads
@@ -43714,7 +43714,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|Builder
 name|addRegionLoads
@@ -43787,7 +43787,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|Builder
 name|addAllRegionLoads
@@ -43856,7 +43856,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|Builder
 name|clearRegionLoads
@@ -43905,7 +43905,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|Builder
 name|removeRegionLoads
@@ -43949,7 +43949,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -43984,7 +43984,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -44035,7 +44035,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -44094,7 +44094,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -44143,7 +44143,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -44197,7 +44197,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.RegionLoad region_loads = 5;</code>        *        *<pre>        ** Information on the load of individual regions.         *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -44393,7 +44393,7 @@ return|return
 name|regionLoadsBuilder_
 return|;
 block|}
-comment|// repeated .Coprocessor coprocessors = 6;
+comment|// repeated .hbase.pb.Coprocessor coprocessors = 6;
 specifier|private
 name|java
 operator|.
@@ -44543,7 +44543,7 @@ name|CoprocessorOrBuilder
 argument_list|>
 name|coprocessorsBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -44600,7 +44600,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|int
 name|getCoprocessorsCount
@@ -44630,7 +44630,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -44681,7 +44681,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|Builder
 name|setCoprocessors
@@ -44759,7 +44759,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|Builder
 name|setCoprocessors
@@ -44832,7 +44832,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|Builder
 name|addCoprocessors
@@ -44903,7 +44903,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|Builder
 name|addCoprocessors
@@ -44981,7 +44981,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|Builder
 name|addCoprocessors
@@ -45047,7 +45047,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|Builder
 name|addCoprocessors
@@ -45120,7 +45120,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|Builder
 name|addAllCoprocessors
@@ -45189,7 +45189,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|Builder
 name|clearCoprocessors
@@ -45238,7 +45238,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|Builder
 name|removeCoprocessors
@@ -45282,7 +45282,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -45317,7 +45317,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -45368,7 +45368,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -45427,7 +45427,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -45476,7 +45476,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -45530,7 +45530,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor coprocessors = 6;</code>        *        *<pre>        **        * Regionserver-level coprocessors, e.g., WALObserver implementations.        * Region-level coprocessors, on the other hand, are stored inside RegionLoad        * objects.        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -45975,7 +45975,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .ReplicationLoadSource replLoadSource = 10;
+comment|// repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;
 specifier|private
 name|java
 operator|.
@@ -46125,7 +46125,7 @@ name|ReplicationLoadSourceOrBuilder
 argument_list|>
 name|replLoadSourceBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -46182,7 +46182,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|int
 name|getReplLoadSourceCount
@@ -46212,7 +46212,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -46263,7 +46263,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|Builder
 name|setReplLoadSource
@@ -46341,7 +46341,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|Builder
 name|setReplLoadSource
@@ -46414,7 +46414,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|Builder
 name|addReplLoadSource
@@ -46485,7 +46485,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|Builder
 name|addReplLoadSource
@@ -46563,7 +46563,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|Builder
 name|addReplLoadSource
@@ -46629,7 +46629,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|Builder
 name|addReplLoadSource
@@ -46702,7 +46702,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|Builder
 name|addAllReplLoadSource
@@ -46771,7 +46771,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|Builder
 name|clearReplLoadSource
@@ -46820,7 +46820,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|Builder
 name|removeReplLoadSource
@@ -46864,7 +46864,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -46899,7 +46899,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -46950,7 +46950,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -47009,7 +47009,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -47058,7 +47058,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -47112,7 +47112,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.ReplicationLoadSource replLoadSource = 10;</code>        *        *<pre>        **        * The replicationLoadSource for the replication Source status of this region server.        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -47308,7 +47308,7 @@ return|return
 name|replLoadSourceBuilder_
 return|;
 block|}
-comment|// optional .ReplicationLoadSink replLoadSink = 11;
+comment|// optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;
 specifier|private
 name|org
 operator|.
@@ -47407,7 +47407,7 @@ name|ReplicationLoadSinkOrBuilder
 argument_list|>
 name|replLoadSinkBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
 specifier|public
 name|boolean
 name|hasReplLoadSink
@@ -47425,7 +47425,7 @@ literal|0x00000400
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -47466,7 +47466,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
 specifier|public
 name|Builder
 name|setReplLoadSink
@@ -47535,7 +47535,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
 specifier|public
 name|Builder
 name|setReplLoadSink
@@ -47599,7 +47599,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
 specifier|public
 name|Builder
 name|mergeReplLoadSink
@@ -47724,7 +47724,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
 specifier|public
 name|Builder
 name|clearReplLoadSink
@@ -47783,7 +47783,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -47820,7 +47820,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -47861,7 +47861,7 @@ name|replLoadSink_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ReplicationLoadSink replLoadSink = 11;</code>        *        *<pre>        **        * The replicationLoadSink for the replication Sink status of this region server.        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -48011,7 +48011,7 @@ return|return
 name|replLoadSinkBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ServerLoad)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ServerLoad)
 block|}
 static|static
 block|{
@@ -48029,7 +48029,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ServerLoad)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ServerLoad)
 block|}
 specifier|public
 interface|interface
@@ -48043,13 +48043,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ServerName server = 1;
-comment|/**      *<code>required .ServerName server = 1;</code>      */
+comment|// required .hbase.pb.ServerName server = 1;
+comment|/**      *<code>required .hbase.pb.ServerName server = 1;</code>      */
 name|boolean
 name|hasServer
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerName server = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -48068,7 +48068,7 @@ name|ServerName
 name|getServer
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerName server = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -48087,13 +48087,13 @@ name|ServerNameOrBuilder
 name|getServerOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .ServerLoad server_load = 2;
-comment|/**      *<code>required .ServerLoad server_load = 2;</code>      */
+comment|// required .hbase.pb.ServerLoad server_load = 2;
+comment|/**      *<code>required .hbase.pb.ServerLoad server_load = 2;</code>      */
 name|boolean
 name|hasServerLoad
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerLoad server_load = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerLoad server_load = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -48112,7 +48112,7 @@ name|ServerLoad
 name|getServerLoad
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerLoad server_load = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerLoad server_load = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -48132,7 +48132,7 @@ name|getServerLoadOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code LiveServerInfo}    */
+comment|/**    * Protobuf type {@code hbase.pb.LiveServerInfo}    */
 specifier|public
 specifier|static
 specifier|final
@@ -48688,7 +48688,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_LiveServerInfo_descriptor
+name|internal_static_hbase_pb_LiveServerInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -48719,7 +48719,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_LiveServerInfo_fieldAccessorTable
+name|internal_static_hbase_pb_LiveServerInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -48861,7 +48861,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerName server = 1;
+comment|// required .hbase.pb.ServerName server = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -48888,7 +48888,7 @@ operator|.
 name|ServerName
 name|server_
 decl_stmt|;
-comment|/**      *<code>required .ServerName server = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server = 1;</code>      */
 specifier|public
 name|boolean
 name|hasServer
@@ -48906,7 +48906,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ServerName server = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -48930,7 +48930,7 @@ return|return
 name|server_
 return|;
 block|}
-comment|/**      *<code>required .ServerName server = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -48954,7 +48954,7 @@ return|return
 name|server_
 return|;
 block|}
-comment|// required .ServerLoad server_load = 2;
+comment|// required .hbase.pb.ServerLoad server_load = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -48981,7 +48981,7 @@ operator|.
 name|ServerLoad
 name|serverLoad_
 decl_stmt|;
-comment|/**      *<code>required .ServerLoad server_load = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerLoad server_load = 2;</code>      */
 specifier|public
 name|boolean
 name|hasServerLoad
@@ -48999,7 +48999,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ServerLoad server_load = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerLoad server_load = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -49023,7 +49023,7 @@ return|return
 name|serverLoad_
 return|;
 block|}
-comment|/**      *<code>required .ServerLoad server_load = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerLoad server_load = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -50336,7 +50336,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code LiveServerInfo}      */
+comment|/**      * Protobuf type {@code hbase.pb.LiveServerInfo}      */
 specifier|public
 specifier|static
 specifier|final
@@ -50402,7 +50402,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_LiveServerInfo_descriptor
+name|internal_static_hbase_pb_LiveServerInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -50433,7 +50433,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_LiveServerInfo_fieldAccessorTable
+name|internal_static_hbase_pb_LiveServerInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -50698,7 +50698,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_LiveServerInfo_descriptor
+name|internal_static_hbase_pb_LiveServerInfo_descriptor
 return|;
 block|}
 specifier|public
@@ -51322,7 +51322,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerName server = 1;
+comment|// required .hbase.pb.ServerName server = 1;
 specifier|private
 name|org
 operator|.
@@ -51421,7 +51421,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|serverBuilder_
 decl_stmt|;
-comment|/**        *<code>required .ServerName server = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        */
 specifier|public
 name|boolean
 name|hasServer
@@ -51439,7 +51439,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -51480,7 +51480,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        */
 specifier|public
 name|Builder
 name|setServer
@@ -51549,7 +51549,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        */
 specifier|public
 name|Builder
 name|setServer
@@ -51613,7 +51613,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeServer
@@ -51738,7 +51738,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        */
 specifier|public
 name|Builder
 name|clearServer
@@ -51797,7 +51797,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -51834,7 +51834,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -51875,7 +51875,7 @@ name|server_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -52025,7 +52025,7 @@ return|return
 name|serverBuilder_
 return|;
 block|}
-comment|// required .ServerLoad server_load = 2;
+comment|// required .hbase.pb.ServerLoad server_load = 2;
 specifier|private
 name|org
 operator|.
@@ -52124,7 +52124,7 @@ name|ServerLoadOrBuilder
 argument_list|>
 name|serverLoadBuilder_
 decl_stmt|;
-comment|/**        *<code>required .ServerLoad server_load = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerLoad server_load = 2;</code>        */
 specifier|public
 name|boolean
 name|hasServerLoad
@@ -52142,7 +52142,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ServerLoad server_load = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerLoad server_load = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -52183,7 +52183,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerLoad server_load = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerLoad server_load = 2;</code>        */
 specifier|public
 name|Builder
 name|setServerLoad
@@ -52252,7 +52252,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerLoad server_load = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerLoad server_load = 2;</code>        */
 specifier|public
 name|Builder
 name|setServerLoad
@@ -52316,7 +52316,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerLoad server_load = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerLoad server_load = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeServerLoad
@@ -52441,7 +52441,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerLoad server_load = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerLoad server_load = 2;</code>        */
 specifier|public
 name|Builder
 name|clearServerLoad
@@ -52500,7 +52500,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerLoad server_load = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerLoad server_load = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -52537,7 +52537,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .ServerLoad server_load = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerLoad server_load = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -52578,7 +52578,7 @@ name|serverLoad_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerLoad server_load = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerLoad server_load = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -52728,7 +52728,7 @@ return|return
 name|serverLoadBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:LiveServerInfo)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.LiveServerInfo)
 block|}
 static|static
 block|{
@@ -52746,7 +52746,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:LiveServerInfo)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.LiveServerInfo)
 block|}
 specifier|public
 interface|interface
@@ -52760,13 +52760,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .HBaseVersionFileContent hbase_version = 1;
-comment|/**      *<code>optional .HBaseVersionFileContent hbase_version = 1;</code>      */
+comment|// optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;
+comment|/**      *<code>optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;</code>      */
 name|boolean
 name|hasHbaseVersion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .HBaseVersionFileContent hbase_version = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -52785,7 +52785,7 @@ name|HBaseVersionFileContent
 name|getHbaseVersion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .HBaseVersionFileContent hbase_version = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -52804,8 +52804,8 @@ name|HBaseVersionFileContentOrBuilder
 name|getHbaseVersionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .LiveServerInfo live_servers = 2;
-comment|/**      *<code>repeated .LiveServerInfo live_servers = 2;</code>      */
+comment|// repeated .hbase.pb.LiveServerInfo live_servers = 2;
+comment|/**      *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -52831,7 +52831,7 @@ argument_list|>
 name|getLiveServersList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .LiveServerInfo live_servers = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -52853,12 +52853,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .LiveServerInfo live_servers = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>      */
 name|int
 name|getLiveServersCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .LiveServerInfo live_servers = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -52886,7 +52886,7 @@ argument_list|>
 name|getLiveServersOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .LiveServerInfo live_servers = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -52908,8 +52908,8 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated .ServerName dead_servers = 3;
-comment|/**      *<code>repeated .ServerName dead_servers = 3;</code>      */
+comment|// repeated .hbase.pb.ServerName dead_servers = 3;
+comment|/**      *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -52935,7 +52935,7 @@ argument_list|>
 name|getDeadServersList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ServerName dead_servers = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -52957,12 +52957,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .ServerName dead_servers = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>      */
 name|int
 name|getDeadServersCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ServerName dead_servers = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -52990,7 +52990,7 @@ argument_list|>
 name|getDeadServersOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ServerName dead_servers = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -53012,8 +53012,8 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated .RegionInTransition regions_in_transition = 4;
-comment|/**      *<code>repeated .RegionInTransition regions_in_transition = 4;</code>      */
+comment|// repeated .hbase.pb.RegionInTransition regions_in_transition = 4;
+comment|/**      *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>      */
 name|java
 operator|.
 name|util
@@ -53039,7 +53039,7 @@ argument_list|>
 name|getRegionsInTransitionList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInTransition regions_in_transition = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -53061,12 +53061,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .RegionInTransition regions_in_transition = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>      */
 name|int
 name|getRegionsInTransitionCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInTransition regions_in_transition = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>      */
 name|java
 operator|.
 name|util
@@ -53094,7 +53094,7 @@ argument_list|>
 name|getRegionsInTransitionOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInTransition regions_in_transition = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -53116,13 +53116,13 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional .ClusterId cluster_id = 5;
-comment|/**      *<code>optional .ClusterId cluster_id = 5;</code>      */
+comment|// optional .hbase.pb.ClusterId cluster_id = 5;
+comment|/**      *<code>optional .hbase.pb.ClusterId cluster_id = 5;</code>      */
 name|boolean
 name|hasClusterId
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ClusterId cluster_id = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.ClusterId cluster_id = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -53141,7 +53141,7 @@ name|ClusterId
 name|getClusterId
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ClusterId cluster_id = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.ClusterId cluster_id = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -53160,8 +53160,8 @@ name|ClusterIdOrBuilder
 name|getClusterIdOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .Coprocessor master_coprocessors = 6;
-comment|/**      *<code>repeated .Coprocessor master_coprocessors = 6;</code>      */
+comment|// repeated .hbase.pb.Coprocessor master_coprocessors = 6;
+comment|/**      *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>      */
 name|java
 operator|.
 name|util
@@ -53187,7 +53187,7 @@ argument_list|>
 name|getMasterCoprocessorsList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Coprocessor master_coprocessors = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>      */
 name|org
 operator|.
 name|apache
@@ -53209,12 +53209,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .Coprocessor master_coprocessors = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>      */
 name|int
 name|getMasterCoprocessorsCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Coprocessor master_coprocessors = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>      */
 name|java
 operator|.
 name|util
@@ -53242,7 +53242,7 @@ argument_list|>
 name|getMasterCoprocessorsOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Coprocessor master_coprocessors = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>      */
 name|org
 operator|.
 name|apache
@@ -53264,13 +53264,13 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional .ServerName master = 7;
-comment|/**      *<code>optional .ServerName master = 7;</code>      */
+comment|// optional .hbase.pb.ServerName master = 7;
+comment|/**      *<code>optional .hbase.pb.ServerName master = 7;</code>      */
 name|boolean
 name|hasMaster
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ServerName master = 7;</code>      */
+comment|/**      *<code>optional .hbase.pb.ServerName master = 7;</code>      */
 name|org
 operator|.
 name|apache
@@ -53289,7 +53289,7 @@ name|ServerName
 name|getMaster
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ServerName master = 7;</code>      */
+comment|/**      *<code>optional .hbase.pb.ServerName master = 7;</code>      */
 name|org
 operator|.
 name|apache
@@ -53308,8 +53308,8 @@ name|ServerNameOrBuilder
 name|getMasterOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .ServerName backup_masters = 8;
-comment|/**      *<code>repeated .ServerName backup_masters = 8;</code>      */
+comment|// repeated .hbase.pb.ServerName backup_masters = 8;
+comment|/**      *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>      */
 name|java
 operator|.
 name|util
@@ -53335,7 +53335,7 @@ argument_list|>
 name|getBackupMastersList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ServerName backup_masters = 8;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>      */
 name|org
 operator|.
 name|apache
@@ -53357,12 +53357,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .ServerName backup_masters = 8;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>      */
 name|int
 name|getBackupMastersCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ServerName backup_masters = 8;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>      */
 name|java
 operator|.
 name|util
@@ -53390,7 +53390,7 @@ argument_list|>
 name|getBackupMastersOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ServerName backup_masters = 8;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>      */
 name|org
 operator|.
 name|apache
@@ -53424,7 +53424,7 @@ name|getBalancerOn
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ClusterStatus}    */
+comment|/**    * Protobuf type {@code hbase.pb.ClusterStatus}    */
 specifier|public
 specifier|static
 specifier|final
@@ -54643,7 +54643,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ClusterStatus_descriptor
+name|internal_static_hbase_pb_ClusterStatus_descriptor
 return|;
 block|}
 specifier|protected
@@ -54674,7 +54674,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ClusterStatus_fieldAccessorTable
+name|internal_static_hbase_pb_ClusterStatus_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -54816,7 +54816,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .HBaseVersionFileContent hbase_version = 1;
+comment|// optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -54843,7 +54843,7 @@ operator|.
 name|HBaseVersionFileContent
 name|hbaseVersion_
 decl_stmt|;
-comment|/**      *<code>optional .HBaseVersionFileContent hbase_version = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;</code>      */
 specifier|public
 name|boolean
 name|hasHbaseVersion
@@ -54861,7 +54861,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .HBaseVersionFileContent hbase_version = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -54885,7 +54885,7 @@ return|return
 name|hbaseVersion_
 return|;
 block|}
-comment|/**      *<code>optional .HBaseVersionFileContent hbase_version = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -54909,7 +54909,7 @@ return|return
 name|hbaseVersion_
 return|;
 block|}
-comment|// repeated .LiveServerInfo live_servers = 2;
+comment|// repeated .hbase.pb.LiveServerInfo live_servers = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -54943,7 +54943,7 @@ name|LiveServerInfo
 argument_list|>
 name|liveServers_
 decl_stmt|;
-comment|/**      *<code>repeated .LiveServerInfo live_servers = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -54974,7 +54974,7 @@ return|return
 name|liveServers_
 return|;
 block|}
-comment|/**      *<code>repeated .LiveServerInfo live_servers = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -55007,7 +55007,7 @@ return|return
 name|liveServers_
 return|;
 block|}
-comment|/**      *<code>repeated .LiveServerInfo live_servers = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>      */
 specifier|public
 name|int
 name|getLiveServersCount
@@ -55020,7 +55020,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .LiveServerInfo live_servers = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -55052,7 +55052,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .LiveServerInfo live_servers = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -55084,7 +55084,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated .ServerName dead_servers = 3;
+comment|// repeated .hbase.pb.ServerName dead_servers = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -55118,7 +55118,7 @@ name|ServerName
 argument_list|>
 name|deadServers_
 decl_stmt|;
-comment|/**      *<code>repeated .ServerName dead_servers = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -55149,7 +55149,7 @@ return|return
 name|deadServers_
 return|;
 block|}
-comment|/**      *<code>repeated .ServerName dead_servers = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -55182,7 +55182,7 @@ return|return
 name|deadServers_
 return|;
 block|}
-comment|/**      *<code>repeated .ServerName dead_servers = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>      */
 specifier|public
 name|int
 name|getDeadServersCount
@@ -55195,7 +55195,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .ServerName dead_servers = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -55227,7 +55227,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .ServerName dead_servers = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -55259,7 +55259,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated .RegionInTransition regions_in_transition = 4;
+comment|// repeated .hbase.pb.RegionInTransition regions_in_transition = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -55293,7 +55293,7 @@ name|RegionInTransition
 argument_list|>
 name|regionsInTransition_
 decl_stmt|;
-comment|/**      *<code>repeated .RegionInTransition regions_in_transition = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -55324,7 +55324,7 @@ return|return
 name|regionsInTransition_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInTransition regions_in_transition = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -55357,7 +55357,7 @@ return|return
 name|regionsInTransition_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInTransition regions_in_transition = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>      */
 specifier|public
 name|int
 name|getRegionsInTransitionCount
@@ -55370,7 +55370,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInTransition regions_in_transition = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -55402,7 +55402,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInTransition regions_in_transition = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -55434,7 +55434,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional .ClusterId cluster_id = 5;
+comment|// optional .hbase.pb.ClusterId cluster_id = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -55461,7 +55461,7 @@ operator|.
 name|ClusterId
 name|clusterId_
 decl_stmt|;
-comment|/**      *<code>optional .ClusterId cluster_id = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.ClusterId cluster_id = 5;</code>      */
 specifier|public
 name|boolean
 name|hasClusterId
@@ -55479,7 +55479,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .ClusterId cluster_id = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.ClusterId cluster_id = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -55503,7 +55503,7 @@ return|return
 name|clusterId_
 return|;
 block|}
-comment|/**      *<code>optional .ClusterId cluster_id = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.ClusterId cluster_id = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -55527,7 +55527,7 @@ return|return
 name|clusterId_
 return|;
 block|}
-comment|// repeated .Coprocessor master_coprocessors = 6;
+comment|// repeated .hbase.pb.Coprocessor master_coprocessors = 6;
 specifier|public
 specifier|static
 specifier|final
@@ -55561,7 +55561,7 @@ name|Coprocessor
 argument_list|>
 name|masterCoprocessors_
 decl_stmt|;
-comment|/**      *<code>repeated .Coprocessor master_coprocessors = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>      */
 specifier|public
 name|java
 operator|.
@@ -55592,7 +55592,7 @@ return|return
 name|masterCoprocessors_
 return|;
 block|}
-comment|/**      *<code>repeated .Coprocessor master_coprocessors = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>      */
 specifier|public
 name|java
 operator|.
@@ -55625,7 +55625,7 @@ return|return
 name|masterCoprocessors_
 return|;
 block|}
-comment|/**      *<code>repeated .Coprocessor master_coprocessors = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>      */
 specifier|public
 name|int
 name|getMasterCoprocessorsCount
@@ -55638,7 +55638,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .Coprocessor master_coprocessors = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>      */
 specifier|public
 name|org
 operator|.
@@ -55670,7 +55670,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .Coprocessor master_coprocessors = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>      */
 specifier|public
 name|org
 operator|.
@@ -55702,7 +55702,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional .ServerName master = 7;
+comment|// optional .hbase.pb.ServerName master = 7;
 specifier|public
 specifier|static
 specifier|final
@@ -55729,7 +55729,7 @@ operator|.
 name|ServerName
 name|master_
 decl_stmt|;
-comment|/**      *<code>optional .ServerName master = 7;</code>      */
+comment|/**      *<code>optional .hbase.pb.ServerName master = 7;</code>      */
 specifier|public
 name|boolean
 name|hasMaster
@@ -55747,7 +55747,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .ServerName master = 7;</code>      */
+comment|/**      *<code>optional .hbase.pb.ServerName master = 7;</code>      */
 specifier|public
 name|org
 operator|.
@@ -55771,7 +55771,7 @@ return|return
 name|master_
 return|;
 block|}
-comment|/**      *<code>optional .ServerName master = 7;</code>      */
+comment|/**      *<code>optional .hbase.pb.ServerName master = 7;</code>      */
 specifier|public
 name|org
 operator|.
@@ -55795,7 +55795,7 @@ return|return
 name|master_
 return|;
 block|}
-comment|// repeated .ServerName backup_masters = 8;
+comment|// repeated .hbase.pb.ServerName backup_masters = 8;
 specifier|public
 specifier|static
 specifier|final
@@ -55829,7 +55829,7 @@ name|ServerName
 argument_list|>
 name|backupMasters_
 decl_stmt|;
-comment|/**      *<code>repeated .ServerName backup_masters = 8;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>      */
 specifier|public
 name|java
 operator|.
@@ -55860,7 +55860,7 @@ return|return
 name|backupMasters_
 return|;
 block|}
-comment|/**      *<code>repeated .ServerName backup_masters = 8;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>      */
 specifier|public
 name|java
 operator|.
@@ -55893,7 +55893,7 @@ return|return
 name|backupMasters_
 return|;
 block|}
-comment|/**      *<code>repeated .ServerName backup_masters = 8;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>      */
 specifier|public
 name|int
 name|getBackupMastersCount
@@ -55906,7 +55906,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .ServerName backup_masters = 8;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>      */
 specifier|public
 name|org
 operator|.
@@ -55938,7 +55938,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .ServerName backup_masters = 8;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>      */
 specifier|public
 name|org
 operator|.
@@ -58425,7 +58425,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ClusterStatus}      */
+comment|/**      * Protobuf type {@code hbase.pb.ClusterStatus}      */
 specifier|public
 specifier|static
 specifier|final
@@ -58491,7 +58491,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ClusterStatus_descriptor
+name|internal_static_hbase_pb_ClusterStatus_descriptor
 return|;
 block|}
 specifier|protected
@@ -58522,7 +58522,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ClusterStatus_fieldAccessorTable
+name|internal_static_hbase_pb_ClusterStatus_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -59044,7 +59044,7 @@ name|generated
 operator|.
 name|ClusterStatusProtos
 operator|.
-name|internal_static_ClusterStatus_descriptor
+name|internal_static_hbase_pb_ClusterStatus_descriptor
 return|;
 block|}
 specifier|public
@@ -60953,7 +60953,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .HBaseVersionFileContent hbase_version = 1;
+comment|// optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;
 specifier|private
 name|org
 operator|.
@@ -61052,7 +61052,7 @@ name|HBaseVersionFileContentOrBuilder
 argument_list|>
 name|hbaseVersionBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .HBaseVersionFileContent hbase_version = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;</code>        */
 specifier|public
 name|boolean
 name|hasHbaseVersion
@@ -61070,7 +61070,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .HBaseVersionFileContent hbase_version = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -61111,7 +61111,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .HBaseVersionFileContent hbase_version = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;</code>        */
 specifier|public
 name|Builder
 name|setHbaseVersion
@@ -61180,7 +61180,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .HBaseVersionFileContent hbase_version = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;</code>        */
 specifier|public
 name|Builder
 name|setHbaseVersion
@@ -61244,7 +61244,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .HBaseVersionFileContent hbase_version = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeHbaseVersion
@@ -61369,7 +61369,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .HBaseVersionFileContent hbase_version = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;</code>        */
 specifier|public
 name|Builder
 name|clearHbaseVersion
@@ -61428,7 +61428,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .HBaseVersionFileContent hbase_version = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -61465,7 +61465,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .HBaseVersionFileContent hbase_version = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -61506,7 +61506,7 @@ name|hbaseVersion_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .HBaseVersionFileContent hbase_version = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.HBaseVersionFileContent hbase_version = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -61656,7 +61656,7 @@ return|return
 name|hbaseVersionBuilder_
 return|;
 block|}
-comment|// repeated .LiveServerInfo live_servers = 2;
+comment|// repeated .hbase.pb.LiveServerInfo live_servers = 2;
 specifier|private
 name|java
 operator|.
@@ -61806,7 +61806,7 @@ name|LiveServerInfoOrBuilder
 argument_list|>
 name|liveServersBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -61863,7 +61863,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|int
 name|getLiveServersCount
@@ -61893,7 +61893,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -61944,7 +61944,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|Builder
 name|setLiveServers
@@ -62022,7 +62022,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|Builder
 name|setLiveServers
@@ -62095,7 +62095,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|Builder
 name|addLiveServers
@@ -62166,7 +62166,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|Builder
 name|addLiveServers
@@ -62244,7 +62244,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|Builder
 name|addLiveServers
@@ -62310,7 +62310,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|Builder
 name|addLiveServers
@@ -62383,7 +62383,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|Builder
 name|addAllLiveServers
@@ -62452,7 +62452,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|Builder
 name|clearLiveServers
@@ -62501,7 +62501,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|Builder
 name|removeLiveServers
@@ -62545,7 +62545,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -62580,7 +62580,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -62631,7 +62631,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -62690,7 +62690,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -62739,7 +62739,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -62793,7 +62793,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .LiveServerInfo live_servers = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.LiveServerInfo live_servers = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -62989,7 +62989,7 @@ return|return
 name|liveServersBuilder_
 return|;
 block|}
-comment|// repeated .ServerName dead_servers = 3;
+comment|// repeated .hbase.pb.ServerName dead_servers = 3;
 specifier|private
 name|java
 operator|.
@@ -63139,7 +63139,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|deadServersBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -63196,7 +63196,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|int
 name|getDeadServersCount
@@ -63226,7 +63226,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -63277,7 +63277,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|Builder
 name|setDeadServers
@@ -63355,7 +63355,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|Builder
 name|setDeadServers
@@ -63428,7 +63428,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|Builder
 name|addDeadServers
@@ -63499,7 +63499,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|Builder
 name|addDeadServers
@@ -63577,7 +63577,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|Builder
 name|addDeadServers
@@ -63643,7 +63643,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|Builder
 name|addDeadServers
@@ -63716,7 +63716,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|Builder
 name|addAllDeadServers
@@ -63785,7 +63785,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|Builder
 name|clearDeadServers
@@ -63834,7 +63834,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|Builder
 name|removeDeadServers
@@ -63878,7 +63878,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -63913,7 +63913,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -63964,7 +63964,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -64023,7 +64023,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -64072,7 +64072,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -64126,7 +64126,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName dead_servers = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName dead_servers = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -64322,7 +64322,7 @@ return|return
 name|deadServersBuilder_
 return|;
 block|}
-comment|// repeated .RegionInTransition regions_in_transition = 4;
+comment|// repeated .hbase.pb.RegionInTransition regions_in_transition = 4;
 specifier|private
 name|java
 operator|.
@@ -64472,7 +64472,7 @@ name|RegionInTransitionOrBuilder
 argument_list|>
 name|regionsInTransitionBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -64529,7 +64529,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|int
 name|getRegionsInTransitionCount
@@ -64559,7 +64559,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -64610,7 +64610,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|Builder
 name|setRegionsInTransition
@@ -64688,7 +64688,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|Builder
 name|setRegionsInTransition
@@ -64761,7 +64761,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|Builder
 name|addRegionsInTransition
@@ -64832,7 +64832,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|Builder
 name|addRegionsInTransition
@@ -64910,7 +64910,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|Builder
 name|addRegionsInTransition
@@ -64976,7 +64976,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|Builder
 name|addRegionsInTransition
@@ -65049,7 +65049,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|Builder
 name|addAllRegionsInTransition
@@ -65118,7 +65118,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|Builder
 name|clearRegionsInTransition
@@ -65167,7 +65167,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|Builder
 name|removeRegionsInTransition
@@ -65211,7 +65211,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -65246,7 +65246,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -65297,7 +65297,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -65356,7 +65356,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -65405,7 +65405,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -65459,7 +65459,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInTransition regions_in_transition = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInTransition regions_in_transition = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -65655,7 +65655,7 @@ return|return
 name|regionsInTransitionBuilder_
 return|;
 block|}
-comment|// optional .ClusterId cluster_id = 5;
+comment|// optional .hbase.pb.ClusterId cluster_id = 5;
 specifier|private
 name|org
 operator|.
@@ -65754,7 +65754,7 @@ name|ClusterIdOrBuilder
 argument_list|>
 name|clusterIdBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .ClusterId cluster_id = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.ClusterId cluster_id = 5;</code>        */
 specifier|public
 name|boolean
 name|hasClusterId
@@ -65772,7 +65772,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .ClusterId cluster_id = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.ClusterId cluster_id = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -65813,7 +65813,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ClusterId cluster_id = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.ClusterId cluster_id = 5;</code>        */
 specifier|public
 name|Builder
 name|setClusterId
@@ -65882,7 +65882,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ClusterId cluster_id = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.ClusterId cluster_id = 5;</code>        */
 specifier|public
 name|Builder
 name|setClusterId
@@ -65946,7 +65946,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ClusterId cluster_id = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.ClusterId cluster_id = 5;</code>        */
 specifier|public
 name|Builder
 name|mergeClusterId
@@ -66071,7 +66071,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ClusterId cluster_id = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.ClusterId cluster_id = 5;</code>        */
 specifier|public
 name|Builder
 name|clearClusterId
@@ -66130,7 +66130,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ClusterId cluster_id = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.ClusterId cluster_id = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -66167,7 +66167,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .ClusterId cluster_id = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.ClusterId cluster_id = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -66208,7 +66208,7 @@ name|clusterId_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ClusterId cluster_id = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.ClusterId cluster_id = 5;</code>        */
 specifier|private
 name|com
 operator|.
@@ -66358,7 +66358,7 @@ return|return
 name|clusterIdBuilder_
 return|;
 block|}
-comment|// repeated .Coprocessor master_coprocessors = 6;
+comment|// repeated .hbase.pb.Coprocessor master_coprocessors = 6;
 specifier|private
 name|java
 operator|.
@@ -66508,7 +66508,7 @@ name|CoprocessorOrBuilder
 argument_list|>
 name|masterCoprocessorsBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|java
 operator|.
@@ -66565,7 +66565,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|int
 name|getMasterCoprocessorsCount
@@ -66595,7 +66595,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -66646,7 +66646,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|Builder
 name|setMasterCoprocessors
@@ -66724,7 +66724,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|Builder
 name|setMasterCoprocessors
@@ -66797,7 +66797,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|Builder
 name|addMasterCoprocessors
@@ -66868,7 +66868,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|Builder
 name|addMasterCoprocessors
@@ -66946,7 +66946,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|Builder
 name|addMasterCoprocessors
@@ -67012,7 +67012,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|Builder
 name|addMasterCoprocessors
@@ -67085,7 +67085,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|Builder
 name|addAllMasterCoprocessors
@@ -67154,7 +67154,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|Builder
 name|clearMasterCoprocessors
@@ -67203,7 +67203,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|Builder
 name|removeMasterCoprocessors
@@ -67247,7 +67247,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -67282,7 +67282,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -67333,7 +67333,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|java
 operator|.
@@ -67392,7 +67392,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -67441,7 +67441,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -67495,7 +67495,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Coprocessor master_coprocessors = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Coprocessor master_coprocessors = 6;</code>        */
 specifier|public
 name|java
 operator|.
@@ -67691,7 +67691,7 @@ return|return
 name|masterCoprocessorsBuilder_
 return|;
 block|}
-comment|// optional .ServerName master = 7;
+comment|// optional .hbase.pb.ServerName master = 7;
 specifier|private
 name|org
 operator|.
@@ -67790,7 +67790,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|masterBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .ServerName master = 7;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName master = 7;</code>        */
 specifier|public
 name|boolean
 name|hasMaster
@@ -67808,7 +67808,7 @@ literal|0x00000040
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .ServerName master = 7;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName master = 7;</code>        */
 specifier|public
 name|org
 operator|.
@@ -67849,7 +67849,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ServerName master = 7;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName master = 7;</code>        */
 specifier|public
 name|Builder
 name|setMaster
@@ -67918,7 +67918,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName master = 7;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName master = 7;</code>        */
 specifier|public
 name|Builder
 name|setMaster
@@ -67982,7 +67982,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName master = 7;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName master = 7;</code>        */
 specifier|public
 name|Builder
 name|mergeMaster
@@ -68107,7 +68107,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName master = 7;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName master = 7;</code>        */
 specifier|public
 name|Builder
 name|clearMaster
@@ -68166,7 +68166,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName master = 7;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName master = 7;</code>        */
 specifier|public
 name|org
 operator|.
@@ -68203,7 +68203,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .ServerName master = 7;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName master = 7;</code>        */
 specifier|public
 name|org
 operator|.
@@ -68244,7 +68244,7 @@ name|master_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ServerName master = 7;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName master = 7;</code>        */
 specifier|private
 name|com
 operator|.
@@ -68394,7 +68394,7 @@ return|return
 name|masterBuilder_
 return|;
 block|}
-comment|// repeated .ServerName backup_masters = 8;
+comment|// repeated .hbase.pb.ServerName backup_masters = 8;
 specifier|private
 name|java
 operator|.
@@ -68544,7 +68544,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|backupMastersBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|java
 operator|.
@@ -68601,7 +68601,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|int
 name|getBackupMastersCount
@@ -68631,7 +68631,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|org
 operator|.
@@ -68682,7 +68682,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|Builder
 name|setBackupMasters
@@ -68760,7 +68760,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|Builder
 name|setBackupMasters
@@ -68833,7 +68833,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|Builder
 name|addBackupMasters
@@ -68904,7 +68904,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|Builder
 name|addBackupMasters
@@ -68982,7 +68982,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|Builder
 name|addBackupMasters
@@ -69048,7 +69048,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|Builder
 name|addBackupMasters
@@ -69121,7 +69121,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|Builder
 name|addAllBackupMasters
@@ -69190,7 +69190,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|Builder
 name|clearBackupMasters
@@ -69239,7 +69239,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|Builder
 name|removeBackupMasters
@@ -69283,7 +69283,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|org
 operator|.
@@ -69318,7 +69318,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|org
 operator|.
@@ -69369,7 +69369,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|java
 operator|.
@@ -69428,7 +69428,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|org
 operator|.
@@ -69477,7 +69477,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|org
 operator|.
@@ -69531,7 +69531,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName backup_masters = 8;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName backup_masters = 8;</code>        */
 specifier|public
 name|java
 operator|.
@@ -69810,7 +69810,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ClusterStatus)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ClusterStatus)
 block|}
 static|static
 block|{
@@ -69828,7 +69828,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ClusterStatus)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ClusterStatus)
 block|}
 specifier|private
 specifier|static
@@ -69841,7 +69841,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RegionState_descriptor
+name|internal_static_hbase_pb_RegionState_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -69854,7 +69854,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RegionState_fieldAccessorTable
+name|internal_static_hbase_pb_RegionState_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -69867,7 +69867,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RegionInTransition_descriptor
+name|internal_static_hbase_pb_RegionInTransition_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -69880,7 +69880,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RegionInTransition_fieldAccessorTable
+name|internal_static_hbase_pb_RegionInTransition_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -69893,7 +69893,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_StoreSequenceId_descriptor
+name|internal_static_hbase_pb_StoreSequenceId_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -69906,7 +69906,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_StoreSequenceId_fieldAccessorTable
+name|internal_static_hbase_pb_StoreSequenceId_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -69919,7 +69919,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RegionStoreSequenceIds_descriptor
+name|internal_static_hbase_pb_RegionStoreSequenceIds_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -69932,7 +69932,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RegionStoreSequenceIds_fieldAccessorTable
+name|internal_static_hbase_pb_RegionStoreSequenceIds_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -69945,7 +69945,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RegionLoad_descriptor
+name|internal_static_hbase_pb_RegionLoad_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -69958,7 +69958,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RegionLoad_fieldAccessorTable
+name|internal_static_hbase_pb_RegionLoad_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -69971,7 +69971,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ReplicationLoadSink_descriptor
+name|internal_static_hbase_pb_ReplicationLoadSink_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -69984,7 +69984,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ReplicationLoadSink_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationLoadSink_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -69997,7 +69997,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ReplicationLoadSource_descriptor
+name|internal_static_hbase_pb_ReplicationLoadSource_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -70010,7 +70010,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ReplicationLoadSource_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationLoadSource_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -70023,7 +70023,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ServerLoad_descriptor
+name|internal_static_hbase_pb_ServerLoad_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -70036,7 +70036,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ServerLoad_fieldAccessorTable
+name|internal_static_hbase_pb_ServerLoad_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -70049,7 +70049,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_LiveServerInfo_descriptor
+name|internal_static_hbase_pb_LiveServerInfo_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -70062,7 +70062,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_LiveServerInfo_fieldAccessorTable
+name|internal_static_hbase_pb_LiveServerInfo_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -70075,7 +70075,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ClusterStatus_descriptor
+name|internal_static_hbase_pb_ClusterStatus_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -70088,7 +70088,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ClusterStatus_fieldAccessorTable
+name|internal_static_hbase_pb_ClusterStatus_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -70132,123 +70132,133 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\023ClusterStatus.proto\032\013HBase.proto\032\017Clus"
+literal|"\n\023ClusterStatus.proto\022\010hbase.pb\032\013HBase.p"
 operator|+
-literal|"terId.proto\032\010FS.proto\"\307\002\n\013RegionState\022 \n"
+literal|"roto\032\017ClusterId.proto\032\010FS.proto\"\331\002\n\013Regi"
 operator|+
-literal|"\013region_info\030\001 \002(\0132\013.RegionInfo\022!\n\005state"
+literal|"onState\022)\n\013region_info\030\001 \002(\0132\024.hbase.pb."
 operator|+
-literal|"\030\002 \002(\0162\022.RegionState.State\022\r\n\005stamp\030\003 \001("
+literal|"RegionInfo\022*\n\005state\030\002 \002(\0162\033.hbase.pb.Reg"
 operator|+
-literal|"\004\"\343\001\n\005State\022\013\n\007OFFLINE\020\000\022\020\n\014PENDING_OPEN"
+literal|"ionState.State\022\r\n\005stamp\030\003 \001(\004\"\343\001\n\005State\022"
 operator|+
-literal|"\020\001\022\013\n\007OPENING\020\002\022\010\n\004OPEN\020\003\022\021\n\rPENDING_CLO"
+literal|"\013\n\007OFFLINE\020\000\022\020\n\014PENDING_OPEN\020\001\022\013\n\007OPENIN"
 operator|+
-literal|"SE\020\004\022\013\n\007CLOSING\020\005\022\n\n\006CLOSED\020\006\022\r\n\tSPLITTI"
+literal|"G\020\002\022\010\n\004OPEN\020\003\022\021\n\rPENDING_CLOSE\020\004\022\013\n\007CLOS"
 operator|+
-literal|"NG\020\007\022\t\n\005SPLIT\020\010\022\017\n\013FAILED_OPEN\020\t\022\020\n\014FAIL"
+literal|"ING\020\005\022\n\n\006CLOSED\020\006\022\r\n\tSPLITTING\020\007\022\t\n\005SPLI"
 operator|+
-literal|"ED_CLOSE\020\n\022\013\n\007MERGING\020\013\022\n\n\006MERGED\020\014\022\021\n\rS"
+literal|"T\020\010\022\017\n\013FAILED_OPEN\020\t\022\020\n\014FAILED_CLOSE\020\n\022\013"
 operator|+
-literal|"PLITTING_NEW\020\r\022\017\n\013MERGING_NEW\020\016\"X\n\022Regio"
+literal|"\n\007MERGING\020\013\022\n\n\006MERGED\020\014\022\021\n\rSPLITTING_NEW"
 block|,
-literal|"nInTransition\022\036\n\004spec\030\001 \002(\0132\020.RegionSpec"
+literal|"\020\r\022\017\n\013MERGING_NEW\020\016\"j\n\022RegionInTransitio"
 operator|+
-literal|"ifier\022\"\n\014region_state\030\002 \002(\0132\014.RegionStat"
+literal|"n\022\'\n\004spec\030\001 \002(\0132\031.hbase.pb.RegionSpecifi"
 operator|+
-literal|"e\";\n\017StoreSequenceId\022\023\n\013family_name\030\001 \002("
+literal|"er\022+\n\014region_state\030\002 \002(\0132\025.hbase.pb.Regi"
 operator|+
-literal|"\014\022\023\n\013sequence_id\030\002 \002(\004\"g\n\026RegionStoreSeq"
+literal|"onState\";\n\017StoreSequenceId\022\023\n\013family_nam"
 operator|+
-literal|"uenceIds\022 \n\030last_flushed_sequence_id\030\001 \002"
+literal|"e\030\001 \002(\014\022\023\n\013sequence_id\030\002 \002(\004\"p\n\026RegionSt"
 operator|+
-literal|"(\004\022+\n\021store_sequence_id\030\002 \003(\0132\020.StoreSeq"
+literal|"oreSequenceIds\022 \n\030last_flushed_sequence_"
 operator|+
-literal|"uenceId\"\302\004\n\nRegionLoad\022*\n\020region_specifi"
+literal|"id\030\001 \002(\004\0224\n\021store_sequence_id\030\002 \003(\0132\031.hb"
 operator|+
-literal|"er\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006stores\030\002 \001"
+literal|"ase.pb.StoreSequenceId\"\324\004\n\nRegionLoad\0223\n"
 operator|+
-literal|"(\r\022\022\n\nstorefiles\030\003 \001(\r\022\"\n\032store_uncompre"
+literal|"\020region_specifier\030\001 \002(\0132\031.hbase.pb.Regio"
 operator|+
-literal|"ssed_size_MB\030\004 \001(\r\022\031\n\021storefile_size_MB\030"
+literal|"nSpecifier\022\016\n\006stores\030\002 \001(\r\022\022\n\nstorefiles"
 block|,
-literal|"\005 \001(\r\022\030\n\020memstore_size_MB\030\006 \001(\r\022\037\n\027store"
+literal|"\030\003 \001(\r\022\"\n\032store_uncompressed_size_MB\030\004 \001"
 operator|+
-literal|"file_index_size_MB\030\007 \001(\r\022\033\n\023read_request"
+literal|"(\r\022\031\n\021storefile_size_MB\030\005 \001(\r\022\030\n\020memstor"
 operator|+
-literal|"s_count\030\010 \001(\004\022\034\n\024write_requests_count\030\t "
+literal|"e_size_MB\030\006 \001(\r\022\037\n\027storefile_index_size_"
 operator|+
-literal|"\001(\004\022\034\n\024total_compacting_KVs\030\n \001(\004\022\035\n\025cur"
+literal|"MB\030\007 \001(\r\022\033\n\023read_requests_count\030\010 \001(\004\022\034\n"
 operator|+
-literal|"rent_compacted_KVs\030\013 \001(\004\022\032\n\022root_index_s"
+literal|"\024write_requests_count\030\t \001(\004\022\034\n\024total_com"
 operator|+
-literal|"ize_KB\030\014 \001(\r\022\"\n\032total_static_index_size_"
+literal|"pacting_KVs\030\n \001(\004\022\035\n\025current_compacted_K"
 operator|+
-literal|"KB\030\r \001(\r\022\"\n\032total_static_bloom_size_KB\030\016"
+literal|"Vs\030\013 \001(\004\022\032\n\022root_index_size_KB\030\014 \001(\r\022\"\n\032"
 operator|+
-literal|" \001(\r\022\034\n\024complete_sequence_id\030\017 \001(\004\022\025\n\rda"
+literal|"total_static_index_size_KB\030\r \001(\r\022\"\n\032tota"
 operator|+
-literal|"ta_locality\030\020 \001(\002\022#\n\030last_major_compacti"
+literal|"l_static_bloom_size_KB\030\016 \001(\r\022\034\n\024complete"
 operator|+
-literal|"on_ts\030\021 \001(\004:\0010\0224\n\032store_complete_sequenc"
+literal|"_sequence_id\030\017 \001(\004\022\025\n\rdata_locality\030\020 \001("
 block|,
-literal|"e_id\030\022 \003(\0132\020.StoreSequenceId\"T\n\023Replicat"
+literal|"\002\022#\n\030last_major_compaction_ts\030\021 \001(\004:\0010\022="
 operator|+
-literal|"ionLoadSink\022\032\n\022ageOfLastAppliedOp\030\001 \002(\004\022"
+literal|"\n\032store_complete_sequence_id\030\022 \003(\0132\031.hba"
 operator|+
-literal|"!\n\031timeStampsOfLastAppliedOp\030\002 \002(\004\"\225\001\n\025R"
+literal|"se.pb.StoreSequenceId\"T\n\023ReplicationLoad"
 operator|+
-literal|"eplicationLoadSource\022\016\n\006peerID\030\001 \002(\t\022\032\n\022"
+literal|"Sink\022\032\n\022ageOfLastAppliedOp\030\001 \002(\004\022!\n\031time"
 operator|+
-literal|"ageOfLastShippedOp\030\002 \002(\004\022\026\n\016sizeOfLogQue"
+literal|"StampsOfLastAppliedOp\030\002 \002(\004\"\225\001\n\025Replicat"
 operator|+
-literal|"ue\030\003 \002(\r\022 \n\030timeStampOfLastShippedOp\030\004 \002"
+literal|"ionLoadSource\022\016\n\006peerID\030\001 \002(\t\022\032\n\022ageOfLa"
 operator|+
-literal|"(\004\022\026\n\016replicationLag\030\005 \002(\004\"\346\002\n\nServerLoa"
+literal|"stShippedOp\030\002 \002(\004\022\026\n\016sizeOfLogQueue\030\003 \002("
 operator|+
-literal|"d\022\032\n\022number_of_requests\030\001 \001(\004\022 \n\030total_n"
+literal|"\r\022 \n\030timeStampOfLastShippedOp\030\004 \002(\004\022\026\n\016r"
 operator|+
-literal|"umber_of_requests\030\002 \001(\004\022\024\n\014used_heap_MB\030"
+literal|"eplicationLag\030\005 \002(\004\"\212\003\n\nServerLoad\022\032\n\022nu"
 operator|+
-literal|"\003 \001(\r\022\023\n\013max_heap_MB\030\004 \001(\r\022!\n\014region_loa"
+literal|"mber_of_requests\030\001 \001(\004\022 \n\030total_number_o"
 block|,
-literal|"ds\030\005 \003(\0132\013.RegionLoad\022\"\n\014coprocessors\030\006 "
+literal|"f_requests\030\002 \001(\004\022\024\n\014used_heap_MB\030\003 \001(\r\022\023"
 operator|+
-literal|"\003(\0132\014.Coprocessor\022\031\n\021report_start_time\030\007"
+literal|"\n\013max_heap_MB\030\004 \001(\r\022*\n\014region_loads\030\005 \003("
 operator|+
-literal|" \001(\004\022\027\n\017report_end_time\030\010 \001(\004\022\030\n\020info_se"
+literal|"\0132\024.hbase.pb.RegionLoad\022+\n\014coprocessors\030"
 operator|+
-literal|"rver_port\030\t \001(\r\022.\n\016replLoadSource\030\n \003(\0132"
+literal|"\006 \003(\0132\025.hbase.pb.Coprocessor\022\031\n\021report_s"
 operator|+
-literal|"\026.ReplicationLoadSource\022*\n\014replLoadSink\030"
+literal|"tart_time\030\007 \001(\004\022\027\n\017report_end_time\030\010 \001(\004"
 operator|+
-literal|"\013 \001(\0132\024.ReplicationLoadSink\"O\n\016LiveServe"
+literal|"\022\030\n\020info_server_port\030\t \001(\r\0227\n\016replLoadSo"
 operator|+
-literal|"rInfo\022\033\n\006server\030\001 \002(\0132\013.ServerName\022 \n\013se"
+literal|"urce\030\n \003(\0132\037.hbase.pb.ReplicationLoadSou"
 operator|+
-literal|"rver_load\030\002 \002(\0132\013.ServerLoad\"\340\002\n\rCluster"
+literal|"rce\0223\n\014replLoadSink\030\013 \001(\0132\035.hbase.pb.Rep"
 operator|+
-literal|"Status\022/\n\rhbase_version\030\001 \001(\0132\030.HBaseVer"
+literal|"licationLoadSink\"a\n\016LiveServerInfo\022$\n\006se"
 operator|+
-literal|"sionFileContent\022%\n\014live_servers\030\002 \003(\0132\017."
+literal|"rver\030\001 \002(\0132\024.hbase.pb.ServerName\022)\n\013serv"
 block|,
-literal|"LiveServerInfo\022!\n\014dead_servers\030\003 \003(\0132\013.S"
+literal|"er_load\030\002 \002(\0132\024.hbase.pb.ServerLoad\"\250\003\n\r"
 operator|+
-literal|"erverName\0222\n\025regions_in_transition\030\004 \003(\013"
+literal|"ClusterStatus\0228\n\rhbase_version\030\001 \001(\0132!.h"
 operator|+
-literal|"2\023.RegionInTransition\022\036\n\ncluster_id\030\005 \001("
+literal|"base.pb.HBaseVersionFileContent\022.\n\014live_"
 operator|+
-literal|"\0132\n.ClusterId\022)\n\023master_coprocessors\030\006 \003"
+literal|"servers\030\002 \003(\0132\030.hbase.pb.LiveServerInfo\022"
 operator|+
-literal|"(\0132\014.Coprocessor\022\033\n\006master\030\007 \001(\0132\013.Serve"
+literal|"*\n\014dead_servers\030\003 \003(\0132\024.hbase.pb.ServerN"
 operator|+
-literal|"rName\022#\n\016backup_masters\030\010 \003(\0132\013.ServerNa"
+literal|"ame\022;\n\025regions_in_transition\030\004 \003(\0132\034.hba"
 operator|+
-literal|"me\022\023\n\013balancer_on\030\t \001(\010BF\n*org.apache.ha"
+literal|"se.pb.RegionInTransition\022\'\n\ncluster_id\030\005"
 operator|+
-literal|"doop.hbase.protobuf.generatedB\023ClusterSt"
+literal|" \001(\0132\023.hbase.pb.ClusterId\0222\n\023master_copr"
 operator|+
-literal|"atusProtosH\001\240\001\001"
+literal|"ocessors\030\006 \003(\0132\025.hbase.pb.Coprocessor\022$\n"
+operator|+
+literal|"\006master\030\007 \001(\0132\024.hbase.pb.ServerName\022,\n\016b"
+block|,
+literal|"ackup_masters\030\010 \003(\0132\024.hbase.pb.ServerNam"
+operator|+
+literal|"e\022\023\n\013balancer_on\030\t \001(\010BF\n*org.apache.had"
+operator|+
+literal|"oop.hbase.protobuf.generatedB\023ClusterSta"
+operator|+
+literal|"tusProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -70304,7 +70314,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_RegionState_descriptor
+name|internal_static_hbase_pb_RegionState_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -70317,7 +70327,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionState_fieldAccessorTable
+name|internal_static_hbase_pb_RegionState_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -70330,7 +70340,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RegionState_descriptor
+name|internal_static_hbase_pb_RegionState_descriptor
 argument_list|,
 operator|new
 name|java
@@ -70348,7 +70358,7 @@ literal|"Stamp"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionInTransition_descriptor
+name|internal_static_hbase_pb_RegionInTransition_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -70361,7 +70371,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionInTransition_fieldAccessorTable
+name|internal_static_hbase_pb_RegionInTransition_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -70374,7 +70384,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RegionInTransition_descriptor
+name|internal_static_hbase_pb_RegionInTransition_descriptor
 argument_list|,
 operator|new
 name|java
@@ -70390,7 +70400,7 @@ literal|"RegionState"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_StoreSequenceId_descriptor
+name|internal_static_hbase_pb_StoreSequenceId_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -70403,7 +70413,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_StoreSequenceId_fieldAccessorTable
+name|internal_static_hbase_pb_StoreSequenceId_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -70416,7 +70426,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_StoreSequenceId_descriptor
+name|internal_static_hbase_pb_StoreSequenceId_descriptor
 argument_list|,
 operator|new
 name|java
@@ -70432,7 +70442,7 @@ literal|"SequenceId"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionStoreSequenceIds_descriptor
+name|internal_static_hbase_pb_RegionStoreSequenceIds_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -70445,7 +70455,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionStoreSequenceIds_fieldAccessorTable
+name|internal_static_hbase_pb_RegionStoreSequenceIds_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -70458,7 +70468,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RegionStoreSequenceIds_descriptor
+name|internal_static_hbase_pb_RegionStoreSequenceIds_descriptor
 argument_list|,
 operator|new
 name|java
@@ -70474,7 +70484,7 @@ literal|"StoreSequenceId"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionLoad_descriptor
+name|internal_static_hbase_pb_RegionLoad_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -70487,7 +70497,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionLoad_fieldAccessorTable
+name|internal_static_hbase_pb_RegionLoad_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -70500,7 +70510,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RegionLoad_descriptor
+name|internal_static_hbase_pb_RegionLoad_descriptor
 argument_list|,
 operator|new
 name|java
@@ -70548,7 +70558,7 @@ literal|"StoreCompleteSequenceId"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicationLoadSink_descriptor
+name|internal_static_hbase_pb_ReplicationLoadSink_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -70561,7 +70571,7 @@ argument_list|(
 literal|5
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicationLoadSink_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationLoadSink_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -70574,7 +70584,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ReplicationLoadSink_descriptor
+name|internal_static_hbase_pb_ReplicationLoadSink_descriptor
 argument_list|,
 operator|new
 name|java
@@ -70590,7 +70600,7 @@ literal|"TimeStampsOfLastAppliedOp"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicationLoadSource_descriptor
+name|internal_static_hbase_pb_ReplicationLoadSource_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -70603,7 +70613,7 @@ argument_list|(
 literal|6
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicationLoadSource_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationLoadSource_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -70616,7 +70626,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ReplicationLoadSource_descriptor
+name|internal_static_hbase_pb_ReplicationLoadSource_descriptor
 argument_list|,
 operator|new
 name|java
@@ -70638,7 +70648,7 @@ literal|"ReplicationLag"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ServerLoad_descriptor
+name|internal_static_hbase_pb_ServerLoad_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -70651,7 +70661,7 @@ argument_list|(
 literal|7
 argument_list|)
 expr_stmt|;
-name|internal_static_ServerLoad_fieldAccessorTable
+name|internal_static_hbase_pb_ServerLoad_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -70664,7 +70674,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ServerLoad_descriptor
+name|internal_static_hbase_pb_ServerLoad_descriptor
 argument_list|,
 operator|new
 name|java
@@ -70698,7 +70708,7 @@ literal|"ReplLoadSink"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_LiveServerInfo_descriptor
+name|internal_static_hbase_pb_LiveServerInfo_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -70711,7 +70721,7 @@ argument_list|(
 literal|8
 argument_list|)
 expr_stmt|;
-name|internal_static_LiveServerInfo_fieldAccessorTable
+name|internal_static_hbase_pb_LiveServerInfo_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -70724,7 +70734,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_LiveServerInfo_descriptor
+name|internal_static_hbase_pb_LiveServerInfo_descriptor
 argument_list|,
 operator|new
 name|java
@@ -70740,7 +70750,7 @@ literal|"ServerLoad"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ClusterStatus_descriptor
+name|internal_static_hbase_pb_ClusterStatus_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -70753,7 +70763,7 @@ argument_list|(
 literal|9
 argument_list|)
 expr_stmt|;
-name|internal_static_ClusterStatus_fieldAccessorTable
+name|internal_static_hbase_pb_ClusterStatus_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -70766,7 +70776,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ClusterStatus_descriptor
+name|internal_static_hbase_pb_ClusterStatus_descriptor
 argument_list|,
 operator|new
 name|java

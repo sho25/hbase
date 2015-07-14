@@ -48,7 +48,7 @@ name|ExtensionRegistry
 name|registry
 parameter_list|)
 block|{   }
-comment|/**    * Protobuf enum {@code ScopeType}    */
+comment|/**    * Protobuf enum {@code hbase.pb.ScopeType}    */
 specifier|public
 enum|enum
 name|ScopeType
@@ -389,7 +389,7 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:ScopeType)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.ScopeType)
 block|}
 specifier|public
 interface|interface
@@ -495,7 +495,7 @@ name|getCellCodecClsNameBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code WALHeader}    */
+comment|/**    * Protobuf type {@code hbase.pb.WALHeader}    */
 specifier|public
 specifier|static
 specifier|final
@@ -934,7 +934,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_WALHeader_descriptor
+name|internal_static_hbase_pb_WALHeader_descriptor
 return|;
 block|}
 specifier|protected
@@ -965,7 +965,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_WALHeader_fieldAccessorTable
+name|internal_static_hbase_pb_WALHeader_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -3242,7 +3242,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code WALHeader}      */
+comment|/**      * Protobuf type {@code hbase.pb.WALHeader}      */
 specifier|public
 specifier|static
 specifier|final
@@ -3308,7 +3308,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_WALHeader_descriptor
+name|internal_static_hbase_pb_WALHeader_descriptor
 return|;
 block|}
 specifier|protected
@@ -3339,7 +3339,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_WALHeader_fieldAccessorTable
+name|internal_static_hbase_pb_WALHeader_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -3578,7 +3578,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_WALHeader_descriptor
+name|internal_static_hbase_pb_WALHeader_descriptor
 return|;
 block|}
 specifier|public
@@ -5143,7 +5143,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:WALHeader)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.WALHeader)
 block|}
 static|static
 block|{
@@ -5161,7 +5161,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:WALHeader)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.WALHeader)
 block|}
 specifier|public
 interface|interface
@@ -5231,8 +5231,8 @@ name|long
 name|getWriteTime
 parameter_list|()
 function_decl|;
-comment|// optional .UUID cluster_id = 5 [deprecated = true];
-comment|/**      *<code>optional .UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
+comment|// optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];
+comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
 annotation|@
 name|java
 operator|.
@@ -5243,7 +5243,7 @@ name|boolean
 name|hasClusterId
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
 annotation|@
 name|java
 operator|.
@@ -5268,7 +5268,7 @@ name|UUID
 name|getClusterId
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
 annotation|@
 name|java
 operator|.
@@ -5293,8 +5293,8 @@ name|UUIDOrBuilder
 name|getClusterIdOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .FamilyScope scopes = 6;
-comment|/**      *<code>repeated .FamilyScope scopes = 6;</code>      */
+comment|// repeated .hbase.pb.FamilyScope scopes = 6;
+comment|/**      *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>      */
 name|java
 operator|.
 name|util
@@ -5320,7 +5320,7 @@ argument_list|>
 name|getScopesList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .FamilyScope scopes = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>      */
 name|org
 operator|.
 name|apache
@@ -5342,12 +5342,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .FamilyScope scopes = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>      */
 name|int
 name|getScopesCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .FamilyScope scopes = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>      */
 name|java
 operator|.
 name|util
@@ -5375,7 +5375,7 @@ argument_list|>
 name|getScopesOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .FamilyScope scopes = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>      */
 name|org
 operator|.
 name|apache
@@ -5408,8 +5408,8 @@ name|int
 name|getFollowingKvCount
 parameter_list|()
 function_decl|;
-comment|// repeated .UUID cluster_ids = 8;
-comment|/**      *<code>repeated .UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
+comment|// repeated .hbase.pb.UUID cluster_ids = 8;
+comment|/**      *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
 name|java
 operator|.
 name|util
@@ -5435,7 +5435,7 @@ argument_list|>
 name|getClusterIdsList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -5457,12 +5457,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
 name|int
 name|getClusterIdsCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
 name|java
 operator|.
 name|util
@@ -5490,7 +5490,7 @@ argument_list|>
 name|getClusterIdsOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -5546,7 +5546,7 @@ name|getOrigSequenceNumber
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code WALKey}    *    *<pre>    *    * Protocol buffer version of WALKey; see WALKey comment, not really a key but WALEdit header    * for some KVs    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.WALKey}    *    *<pre>    *    * Protocol buffer version of WALKey; see WALKey comment, not really a key but WALEdit header    * for some KVs    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -6355,7 +6355,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_WALKey_descriptor
+name|internal_static_hbase_pb_WALKey_descriptor
 return|;
 block|}
 specifier|protected
@@ -6386,7 +6386,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_WALKey_fieldAccessorTable
+name|internal_static_hbase_pb_WALKey_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -6716,7 +6716,7 @@ return|return
 name|writeTime_
 return|;
 block|}
-comment|// optional .UUID cluster_id = 5 [deprecated = true];
+comment|// optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];
 specifier|public
 specifier|static
 specifier|final
@@ -6743,7 +6743,7 @@ operator|.
 name|UUID
 name|clusterId_
 decl_stmt|;
-comment|/**      *<code>optional .UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
 annotation|@
 name|java
 operator|.
@@ -6767,7 +6767,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
 annotation|@
 name|java
 operator|.
@@ -6797,7 +6797,7 @@ return|return
 name|clusterId_
 return|;
 block|}
-comment|/**      *<code>optional .UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
 annotation|@
 name|java
 operator|.
@@ -6827,7 +6827,7 @@ return|return
 name|clusterId_
 return|;
 block|}
-comment|// repeated .FamilyScope scopes = 6;
+comment|// repeated .hbase.pb.FamilyScope scopes = 6;
 specifier|public
 specifier|static
 specifier|final
@@ -6861,7 +6861,7 @@ name|FamilyScope
 argument_list|>
 name|scopes_
 decl_stmt|;
-comment|/**      *<code>repeated .FamilyScope scopes = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>      */
 specifier|public
 name|java
 operator|.
@@ -6892,7 +6892,7 @@ return|return
 name|scopes_
 return|;
 block|}
-comment|/**      *<code>repeated .FamilyScope scopes = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>      */
 specifier|public
 name|java
 operator|.
@@ -6925,7 +6925,7 @@ return|return
 name|scopes_
 return|;
 block|}
-comment|/**      *<code>repeated .FamilyScope scopes = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>      */
 specifier|public
 name|int
 name|getScopesCount
@@ -6938,7 +6938,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .FamilyScope scopes = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6970,7 +6970,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .FamilyScope scopes = 6;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>      */
 specifier|public
 name|org
 operator|.
@@ -7043,7 +7043,7 @@ return|return
 name|followingKvCount_
 return|;
 block|}
-comment|// repeated .UUID cluster_ids = 8;
+comment|// repeated .hbase.pb.UUID cluster_ids = 8;
 specifier|public
 specifier|static
 specifier|final
@@ -7077,7 +7077,7 @@ name|UUID
 argument_list|>
 name|clusterIds_
 decl_stmt|;
-comment|/**      *<code>repeated .UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -7108,7 +7108,7 @@ return|return
 name|clusterIds_
 return|;
 block|}
-comment|/**      *<code>repeated .UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -7141,7 +7141,7 @@ return|return
 name|clusterIds_
 return|;
 block|}
-comment|/**      *<code>repeated .UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
 specifier|public
 name|int
 name|getClusterIdsCount
@@ -7154,7 +7154,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -7186,7 +7186,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>      *      *<pre>      *      *This field contains the list of clusters that have      *consumed the change      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -9854,7 +9854,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code WALKey}      *      *<pre>      *      * Protocol buffer version of WALKey; see WALKey comment, not really a key but WALEdit header      * for some KVs      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.WALKey}      *      *<pre>      *      * Protocol buffer version of WALKey; see WALKey comment, not really a key but WALEdit header      * for some KVs      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -9920,7 +9920,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_WALKey_descriptor
+name|internal_static_hbase_pb_WALKey_descriptor
 return|;
 block|}
 specifier|protected
@@ -9951,7 +9951,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_WALKey_fieldAccessorTable
+name|internal_static_hbase_pb_WALKey_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -10365,7 +10365,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_WALKey_descriptor
+name|internal_static_hbase_pb_WALKey_descriptor
 return|;
 block|}
 specifier|public
@@ -12161,7 +12161,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .UUID cluster_id = 5 [deprecated = true];
+comment|// optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];
 specifier|private
 name|org
 operator|.
@@ -12260,7 +12260,7 @@ name|UUIDOrBuilder
 argument_list|>
 name|clusterIdBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12284,7 +12284,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12331,7 +12331,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12406,7 +12406,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12476,7 +12476,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12607,7 +12607,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12672,7 +12672,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12715,7 +12715,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12762,7 +12762,7 @@ name|clusterId_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -12912,7 +12912,7 @@ return|return
 name|clusterIdBuilder_
 return|;
 block|}
-comment|// repeated .FamilyScope scopes = 6;
+comment|// repeated .hbase.pb.FamilyScope scopes = 6;
 specifier|private
 name|java
 operator|.
@@ -13062,7 +13062,7 @@ name|FamilyScopeOrBuilder
 argument_list|>
 name|scopesBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|java
 operator|.
@@ -13119,7 +13119,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|int
 name|getScopesCount
@@ -13149,7 +13149,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -13200,7 +13200,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|Builder
 name|setScopes
@@ -13278,7 +13278,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|Builder
 name|setScopes
@@ -13351,7 +13351,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|Builder
 name|addScopes
@@ -13422,7 +13422,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|Builder
 name|addScopes
@@ -13500,7 +13500,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|Builder
 name|addScopes
@@ -13566,7 +13566,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|Builder
 name|addScopes
@@ -13639,7 +13639,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|Builder
 name|addAllScopes
@@ -13708,7 +13708,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|Builder
 name|clearScopes
@@ -13757,7 +13757,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|Builder
 name|removeScopes
@@ -13801,7 +13801,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -13836,7 +13836,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -13887,7 +13887,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|java
 operator|.
@@ -13946,7 +13946,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -13995,7 +13995,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -14049,7 +14049,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .FamilyScope scopes = 6;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FamilyScope scopes = 6;</code>        */
 specifier|public
 name|java
 operator|.
@@ -14328,7 +14328,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .UUID cluster_ids = 8;
+comment|// repeated .hbase.pb.UUID cluster_ids = 8;
 specifier|private
 name|java
 operator|.
@@ -14478,7 +14478,7 @@ name|UUIDOrBuilder
 argument_list|>
 name|clusterIdsBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -14535,7 +14535,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|int
 name|getClusterIdsCount
@@ -14565,7 +14565,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -14616,7 +14616,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|Builder
 name|setClusterIds
@@ -14694,7 +14694,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|Builder
 name|setClusterIds
@@ -14767,7 +14767,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|Builder
 name|addClusterIds
@@ -14838,7 +14838,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|Builder
 name|addClusterIds
@@ -14916,7 +14916,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|Builder
 name|addClusterIds
@@ -14982,7 +14982,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|Builder
 name|addClusterIds
@@ -15055,7 +15055,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|Builder
 name|addAllClusterIds
@@ -15124,7 +15124,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|Builder
 name|clearClusterIds
@@ -15173,7 +15173,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|Builder
 name|removeClusterIds
@@ -15217,7 +15217,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -15252,7 +15252,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -15303,7 +15303,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -15362,7 +15362,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -15411,7 +15411,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -15465,7 +15465,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.UUID cluster_ids = 8;</code>        *        *<pre>        *        *This field contains the list of clusters that have        *consumed the change        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -15910,7 +15910,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:WALKey)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.WALKey)
 block|}
 static|static
 block|{
@@ -15928,7 +15928,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:WALKey)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.WALKey)
 block|}
 specifier|public
 interface|interface
@@ -15959,13 +15959,13 @@ name|ByteString
 name|getFamily
 parameter_list|()
 function_decl|;
-comment|// required .ScopeType scope_type = 2;
-comment|/**      *<code>required .ScopeType scope_type = 2;</code>      */
+comment|// required .hbase.pb.ScopeType scope_type = 2;
+comment|/**      *<code>required .hbase.pb.ScopeType scope_type = 2;</code>      */
 name|boolean
 name|hasScopeType
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ScopeType scope_type = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.ScopeType scope_type = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -15985,7 +15985,7 @@ name|getScopeType
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code FamilyScope}    */
+comment|/**    * Protobuf type {@code hbase.pb.FamilyScope}    */
 specifier|public
 specifier|static
 specifier|final
@@ -16436,7 +16436,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_FamilyScope_descriptor
+name|internal_static_hbase_pb_FamilyScope_descriptor
 return|;
 block|}
 specifier|protected
@@ -16467,7 +16467,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_FamilyScope_fieldAccessorTable
+name|internal_static_hbase_pb_FamilyScope_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -16662,7 +16662,7 @@ return|return
 name|family_
 return|;
 block|}
-comment|// required .ScopeType scope_type = 2;
+comment|// required .hbase.pb.ScopeType scope_type = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -16689,7 +16689,7 @@ operator|.
 name|ScopeType
 name|scopeType_
 decl_stmt|;
-comment|/**      *<code>required .ScopeType scope_type = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.ScopeType scope_type = 2;</code>      */
 specifier|public
 name|boolean
 name|hasScopeType
@@ -16707,7 +16707,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ScopeType scope_type = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.ScopeType scope_type = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -17979,7 +17979,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code FamilyScope}      */
+comment|/**      * Protobuf type {@code hbase.pb.FamilyScope}      */
 specifier|public
 specifier|static
 specifier|final
@@ -18045,7 +18045,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_FamilyScope_descriptor
+name|internal_static_hbase_pb_FamilyScope_descriptor
 return|;
 block|}
 specifier|protected
@@ -18076,7 +18076,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_FamilyScope_fieldAccessorTable
+name|internal_static_hbase_pb_FamilyScope_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -18292,7 +18292,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_FamilyScope_descriptor
+name|internal_static_hbase_pb_FamilyScope_descriptor
 return|;
 block|}
 specifier|public
@@ -18976,7 +18976,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .ScopeType scope_type = 2;
+comment|// required .hbase.pb.ScopeType scope_type = 2;
 specifier|private
 name|org
 operator|.
@@ -19013,7 +19013,7 @@ name|ScopeType
 operator|.
 name|REPLICATION_SCOPE_LOCAL
 decl_stmt|;
-comment|/**        *<code>required .ScopeType scope_type = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ScopeType scope_type = 2;</code>        */
 specifier|public
 name|boolean
 name|hasScopeType
@@ -19031,7 +19031,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ScopeType scope_type = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ScopeType scope_type = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -19055,7 +19055,7 @@ return|return
 name|scopeType_
 return|;
 block|}
-comment|/**        *<code>required .ScopeType scope_type = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ScopeType scope_type = 2;</code>        */
 specifier|public
 name|Builder
 name|setScopeType
@@ -19106,7 +19106,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ScopeType scope_type = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ScopeType scope_type = 2;</code>        */
 specifier|public
 name|Builder
 name|clearScopeType
@@ -19148,7 +19148,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:FamilyScope)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.FamilyScope)
 block|}
 static|static
 block|{
@@ -19166,7 +19166,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:FamilyScope)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.FamilyScope)
 block|}
 specifier|public
 interface|interface
@@ -19371,7 +19371,7 @@ name|getRegionName
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code CompactionDescriptor}    *    *<pre>    **    * Special WAL entry to hold all related to a compaction.    * Written to WAL before completing compaction.  There is    * sufficient info in the below message to complete later    * the * compaction should we fail the WAL write.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.CompactionDescriptor}    *    *<pre>    **    * Special WAL entry to hold all related to a compaction.    * Written to WAL before completing compaction.  There is    * sufficient info in the below message to complete later    * the * compaction should we fail the WAL write.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -19960,7 +19960,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_CompactionDescriptor_descriptor
+name|internal_static_hbase_pb_CompactionDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -19991,7 +19991,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_CompactionDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_CompactionDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -22720,7 +22720,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CompactionDescriptor}      *      *<pre>      **      * Special WAL entry to hold all related to a compaction.      * Written to WAL before completing compaction.  There is      * sufficient info in the below message to complete later      * the * compaction should we fail the WAL write.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.CompactionDescriptor}      *      *<pre>      **      * Special WAL entry to hold all related to a compaction.      * Written to WAL before completing compaction.  There is      * sufficient info in the below message to complete later      * the * compaction should we fail the WAL write.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -22786,7 +22786,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_CompactionDescriptor_descriptor
+name|internal_static_hbase_pb_CompactionDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -22817,7 +22817,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_CompactionDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_CompactionDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -23122,7 +23122,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_CompactionDescriptor_descriptor
+name|internal_static_hbase_pb_CompactionDescriptor_descriptor
 return|;
 block|}
 specifier|public
@@ -25552,7 +25552,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CompactionDescriptor)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CompactionDescriptor)
 block|}
 static|static
 block|{
@@ -25570,7 +25570,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CompactionDescriptor)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CompactionDescriptor)
 block|}
 specifier|public
 interface|interface
@@ -25584,13 +25584,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .FlushDescriptor.FlushAction action = 1;
-comment|/**      *<code>required .FlushDescriptor.FlushAction action = 1;</code>      */
+comment|// required .hbase.pb.FlushDescriptor.FlushAction action = 1;
+comment|/**      *<code>required .hbase.pb.FlushDescriptor.FlushAction action = 1;</code>      */
 name|boolean
 name|hasAction
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .FlushDescriptor.FlushAction action = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.FlushDescriptor.FlushAction action = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -25656,8 +25656,8 @@ name|long
 name|getFlushSequenceNumber
 parameter_list|()
 function_decl|;
-comment|// repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;
-comment|/**      *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
+comment|// repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;
+comment|/**      *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
 name|java
 operator|.
 name|util
@@ -25685,7 +25685,7 @@ argument_list|>
 name|getStoreFlushesList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -25709,12 +25709,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
 name|int
 name|getStoreFlushesCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
 name|java
 operator|.
 name|util
@@ -25744,7 +25744,7 @@ argument_list|>
 name|getStoreFlushesOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -25786,7 +25786,7 @@ name|getRegionName
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code FlushDescriptor}    *    *<pre>    **    * Special WAL entry to hold all related to a flush.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.FlushDescriptor}    *    *<pre>    **    * Special WAL entry to hold all related to a flush.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -26405,7 +26405,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_FlushDescriptor_descriptor
+name|internal_static_hbase_pb_FlushDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -26436,7 +26436,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_FlushDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_FlushDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -26574,7 +26574,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code FlushDescriptor.FlushAction}      */
+comment|/**      * Protobuf enum {@code hbase.pb.FlushDescriptor.FlushAction}      */
 specifier|public
 enum|enum
 name|FlushAction
@@ -26963,7 +26963,7 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:FlushDescriptor.FlushAction)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.FlushDescriptor.FlushAction)
 block|}
 specifier|public
 interface|interface
@@ -27069,7 +27069,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**      * Protobuf type {@code FlushDescriptor.StoreFlushDescriptor}      */
+comment|/**      * Protobuf type {@code hbase.pb.FlushDescriptor.StoreFlushDescriptor}      */
 specifier|public
 specifier|static
 specifier|final
@@ -27532,7 +27532,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_FlushDescriptor_StoreFlushDescriptor_descriptor
+name|internal_static_hbase_pb_FlushDescriptor_StoreFlushDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -27563,7 +27563,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_FlushDescriptor_StoreFlushDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_FlushDescriptor_StoreFlushDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -29484,7 +29484,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**        * Protobuf type {@code FlushDescriptor.StoreFlushDescriptor}        */
+comment|/**        * Protobuf type {@code hbase.pb.FlushDescriptor.StoreFlushDescriptor}        */
 specifier|public
 specifier|static
 specifier|final
@@ -29552,7 +29552,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_FlushDescriptor_StoreFlushDescriptor_descriptor
+name|internal_static_hbase_pb_FlushDescriptor_StoreFlushDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -29583,7 +29583,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_FlushDescriptor_StoreFlushDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_FlushDescriptor_StoreFlushDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -29808,7 +29808,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_FlushDescriptor_StoreFlushDescriptor_descriptor
+name|internal_static_hbase_pb_FlushDescriptor_StoreFlushDescriptor_descriptor
 return|;
 block|}
 specifier|public
@@ -31280,7 +31280,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:FlushDescriptor.StoreFlushDescriptor)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.FlushDescriptor.StoreFlushDescriptor)
 block|}
 static|static
 block|{
@@ -31298,13 +31298,13 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:FlushDescriptor.StoreFlushDescriptor)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.FlushDescriptor.StoreFlushDescriptor)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .FlushDescriptor.FlushAction action = 1;
+comment|// required .hbase.pb.FlushDescriptor.FlushAction action = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -31333,7 +31333,7 @@ operator|.
 name|FlushAction
 name|action_
 decl_stmt|;
-comment|/**      *<code>required .FlushDescriptor.FlushAction action = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.FlushDescriptor.FlushAction action = 1;</code>      */
 specifier|public
 name|boolean
 name|hasAction
@@ -31351,7 +31351,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .FlushDescriptor.FlushAction action = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.FlushDescriptor.FlushAction action = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -31524,7 +31524,7 @@ return|return
 name|flushSequenceNumber_
 return|;
 block|}
-comment|// repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;
+comment|// repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -31560,7 +31560,7 @@ name|StoreFlushDescriptor
 argument_list|>
 name|storeFlushes_
 decl_stmt|;
-comment|/**      *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
 specifier|public
 name|java
 operator|.
@@ -31593,7 +31593,7 @@ return|return
 name|storeFlushes_
 return|;
 block|}
-comment|/**      *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
 specifier|public
 name|java
 operator|.
@@ -31628,7 +31628,7 @@ return|return
 name|storeFlushes_
 return|;
 block|}
-comment|/**      *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
 specifier|public
 name|int
 name|getStoreFlushesCount
@@ -31641,7 +31641,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -31675,7 +31675,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -33587,7 +33587,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code FlushDescriptor}      *      *<pre>      **      * Special WAL entry to hold all related to a flush.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.FlushDescriptor}      *      *<pre>      **      * Special WAL entry to hold all related to a flush.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -33653,7 +33653,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_FlushDescriptor_descriptor
+name|internal_static_hbase_pb_FlushDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -33684,7 +33684,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_FlushDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_FlushDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -33997,7 +33997,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_FlushDescriptor_descriptor
+name|internal_static_hbase_pb_FlushDescriptor_descriptor
 return|;
 block|}
 specifier|public
@@ -34921,7 +34921,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .FlushDescriptor.FlushAction action = 1;
+comment|// required .hbase.pb.FlushDescriptor.FlushAction action = 1;
 specifier|private
 name|org
 operator|.
@@ -34962,7 +34962,7 @@ name|FlushAction
 operator|.
 name|START_FLUSH
 decl_stmt|;
-comment|/**        *<code>required .FlushDescriptor.FlushAction action = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.FlushDescriptor.FlushAction action = 1;</code>        */
 specifier|public
 name|boolean
 name|hasAction
@@ -34980,7 +34980,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .FlushDescriptor.FlushAction action = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.FlushDescriptor.FlushAction action = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -35006,7 +35006,7 @@ return|return
 name|action_
 return|;
 block|}
-comment|/**        *<code>required .FlushDescriptor.FlushAction action = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.FlushDescriptor.FlushAction action = 1;</code>        */
 specifier|public
 name|Builder
 name|setAction
@@ -35059,7 +35059,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .FlushDescriptor.FlushAction action = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.FlushDescriptor.FlushAction action = 1;</code>        */
 specifier|public
 name|Builder
 name|clearAction
@@ -35442,7 +35442,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;
+comment|// repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;
 specifier|private
 name|java
 operator|.
@@ -35602,7 +35602,7 @@ name|StoreFlushDescriptorOrBuilder
 argument_list|>
 name|storeFlushesBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|java
 operator|.
@@ -35661,7 +35661,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|int
 name|getStoreFlushesCount
@@ -35691,7 +35691,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -35744,7 +35744,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|Builder
 name|setStoreFlushes
@@ -35824,7 +35824,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|Builder
 name|setStoreFlushes
@@ -35899,7 +35899,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|Builder
 name|addStoreFlushes
@@ -35972,7 +35972,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|Builder
 name|addStoreFlushes
@@ -36052,7 +36052,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|Builder
 name|addStoreFlushes
@@ -36120,7 +36120,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|Builder
 name|addStoreFlushes
@@ -36195,7 +36195,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|Builder
 name|addAllStoreFlushes
@@ -36266,7 +36266,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|Builder
 name|clearStoreFlushes
@@ -36315,7 +36315,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|Builder
 name|removeStoreFlushes
@@ -36359,7 +36359,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -36396,7 +36396,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -36449,7 +36449,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|java
 operator|.
@@ -36510,7 +36510,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -36563,7 +36563,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -36621,7 +36621,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.FlushDescriptor.StoreFlushDescriptor store_flushes = 5;</code>        */
 specifier|public
 name|java
 operator|.
@@ -36959,7 +36959,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:FlushDescriptor)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.FlushDescriptor)
 block|}
 static|static
 block|{
@@ -36977,7 +36977,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:FlushDescriptor)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.FlushDescriptor)
 block|}
 specifier|public
 interface|interface
@@ -37083,7 +37083,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code StoreDescriptor}    */
+comment|/**    * Protobuf type {@code hbase.pb.StoreDescriptor}    */
 specifier|public
 specifier|static
 specifier|final
@@ -37546,7 +37546,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_StoreDescriptor_descriptor
+name|internal_static_hbase_pb_StoreDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -37577,7 +37577,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_StoreDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_StoreDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -39466,7 +39466,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code StoreDescriptor}      */
+comment|/**      * Protobuf type {@code hbase.pb.StoreDescriptor}      */
 specifier|public
 specifier|static
 specifier|final
@@ -39532,7 +39532,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_StoreDescriptor_descriptor
+name|internal_static_hbase_pb_StoreDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -39563,7 +39563,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_StoreDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_StoreDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -39784,7 +39784,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_StoreDescriptor_descriptor
+name|internal_static_hbase_pb_StoreDescriptor_descriptor
 return|;
 block|}
 specifier|public
@@ -41230,7 +41230,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:StoreDescriptor)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.StoreDescriptor)
 block|}
 static|static
 block|{
@@ -41248,7 +41248,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:StoreDescriptor)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.StoreDescriptor)
 block|}
 specifier|public
 interface|interface
@@ -41262,13 +41262,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .TableName table_name = 1;
-comment|/**      *<code>required .TableName table_name = 1;</code>      */
+comment|// required .hbase.pb.TableName table_name = 1;
+comment|/**      *<code>required .hbase.pb.TableName table_name = 1;</code>      */
 name|boolean
 name|hasTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -41287,7 +41287,7 @@ name|TableName
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -41323,8 +41323,8 @@ name|ByteString
 name|getEncodedRegionName
 parameter_list|()
 function_decl|;
-comment|// repeated .StoreDescriptor stores = 3;
-comment|/**      *<code>repeated .StoreDescriptor stores = 3;</code>      */
+comment|// repeated .hbase.pb.StoreDescriptor stores = 3;
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -41350,7 +41350,7 @@ argument_list|>
 name|getStoresList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .StoreDescriptor stores = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -41372,12 +41372,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .StoreDescriptor stores = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>      */
 name|int
 name|getStoresCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .StoreDescriptor stores = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -41405,7 +41405,7 @@ argument_list|>
 name|getStoresOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .StoreDescriptor stores = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -41439,7 +41439,7 @@ name|getBulkloadSeqNum
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code BulkLoadDescriptor}    *    *<pre>    **    * Special WAL entry used for writing bulk load events to WAL    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.BulkLoadDescriptor}    *    *<pre>    **    * Special WAL entry used for writing bulk load events to WAL    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -42037,7 +42037,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_BulkLoadDescriptor_descriptor
+name|internal_static_hbase_pb_BulkLoadDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -42068,7 +42068,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_BulkLoadDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -42210,7 +42210,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .TableName table_name = 1;
+comment|// required .hbase.pb.TableName table_name = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -42237,7 +42237,7 @@ operator|.
 name|TableName
 name|tableName_
 decl_stmt|;
-comment|/**      *<code>required .TableName table_name = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 1;</code>      */
 specifier|public
 name|boolean
 name|hasTableName
@@ -42255,7 +42255,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -42279,7 +42279,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -42356,7 +42356,7 @@ return|return
 name|encodedRegionName_
 return|;
 block|}
-comment|// repeated .StoreDescriptor stores = 3;
+comment|// repeated .hbase.pb.StoreDescriptor stores = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -42390,7 +42390,7 @@ name|StoreDescriptor
 argument_list|>
 name|stores_
 decl_stmt|;
-comment|/**      *<code>repeated .StoreDescriptor stores = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -42421,7 +42421,7 @@ return|return
 name|stores_
 return|;
 block|}
-comment|/**      *<code>repeated .StoreDescriptor stores = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -42454,7 +42454,7 @@ return|return
 name|stores_
 return|;
 block|}
-comment|/**      *<code>repeated .StoreDescriptor stores = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>      */
 specifier|public
 name|int
 name|getStoresCount
@@ -42467,7 +42467,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .StoreDescriptor stores = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -42499,7 +42499,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .StoreDescriptor stores = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -44143,7 +44143,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code BulkLoadDescriptor}      *      *<pre>      **      * Special WAL entry used for writing bulk load events to WAL      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.BulkLoadDescriptor}      *      *<pre>      **      * Special WAL entry used for writing bulk load events to WAL      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -44209,7 +44209,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_BulkLoadDescriptor_descriptor
+name|internal_static_hbase_pb_BulkLoadDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -44240,7 +44240,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_BulkLoadDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -44529,7 +44529,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_BulkLoadDescriptor_descriptor
+name|internal_static_hbase_pb_BulkLoadDescriptor_descriptor
 return|;
 block|}
 specifier|public
@@ -45405,7 +45405,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .TableName table_name = 1;
+comment|// required .hbase.pb.TableName table_name = 1;
 specifier|private
 name|org
 operator|.
@@ -45504,7 +45504,7 @@ name|TableNameOrBuilder
 argument_list|>
 name|tableNameBuilder_
 decl_stmt|;
-comment|/**        *<code>required .TableName table_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|boolean
 name|hasTableName
@@ -45522,7 +45522,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -45563,7 +45563,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -45632,7 +45632,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -45696,7 +45696,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeTableName
@@ -45821,7 +45821,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|clearTableName
@@ -45880,7 +45880,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -45917,7 +45917,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -45958,7 +45958,7 @@ name|tableName_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -46236,7 +46236,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .StoreDescriptor stores = 3;
+comment|// repeated .hbase.pb.StoreDescriptor stores = 3;
 specifier|private
 name|java
 operator|.
@@ -46386,7 +46386,7 @@ name|StoreDescriptorOrBuilder
 argument_list|>
 name|storesBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -46443,7 +46443,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|int
 name|getStoresCount
@@ -46473,7 +46473,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -46524,7 +46524,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|Builder
 name|setStores
@@ -46602,7 +46602,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|Builder
 name|setStores
@@ -46675,7 +46675,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|Builder
 name|addStores
@@ -46746,7 +46746,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|Builder
 name|addStores
@@ -46824,7 +46824,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|Builder
 name|addStores
@@ -46890,7 +46890,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|Builder
 name|addStores
@@ -46963,7 +46963,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|Builder
 name|addAllStores
@@ -47032,7 +47032,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|Builder
 name|clearStores
@@ -47081,7 +47081,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|Builder
 name|removeStores
@@ -47125,7 +47125,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -47160,7 +47160,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -47211,7 +47211,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -47270,7 +47270,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -47319,7 +47319,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -47373,7 +47373,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -47652,7 +47652,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:BulkLoadDescriptor)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.BulkLoadDescriptor)
 block|}
 static|static
 block|{
@@ -47670,7 +47670,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:BulkLoadDescriptor)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.BulkLoadDescriptor)
 block|}
 specifier|public
 interface|interface
@@ -47684,13 +47684,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionEventDescriptor.EventType event_type = 1;
-comment|/**      *<code>required .RegionEventDescriptor.EventType event_type = 1;</code>      */
+comment|// required .hbase.pb.RegionEventDescriptor.EventType event_type = 1;
+comment|/**      *<code>required .hbase.pb.RegionEventDescriptor.EventType event_type = 1;</code>      */
 name|boolean
 name|hasEventType
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionEventDescriptor.EventType event_type = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionEventDescriptor.EventType event_type = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -47756,8 +47756,8 @@ name|long
 name|getLogSequenceNumber
 parameter_list|()
 function_decl|;
-comment|// repeated .StoreDescriptor stores = 5;
-comment|/**      *<code>repeated .StoreDescriptor stores = 5;</code>      */
+comment|// repeated .hbase.pb.StoreDescriptor stores = 5;
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>      */
 name|java
 operator|.
 name|util
@@ -47783,7 +47783,7 @@ argument_list|>
 name|getStoresList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .StoreDescriptor stores = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -47805,12 +47805,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .StoreDescriptor stores = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>      */
 name|int
 name|getStoresCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .StoreDescriptor stores = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>      */
 name|java
 operator|.
 name|util
@@ -47838,7 +47838,7 @@ argument_list|>
 name|getStoresOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .StoreDescriptor stores = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -47860,13 +47860,13 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional .ServerName server = 6;
-comment|/**      *<code>optional .ServerName server = 6;</code>      *      *<pre>      * Server who opened the region      *</pre>      */
+comment|// optional .hbase.pb.ServerName server = 6;
+comment|/**      *<code>optional .hbase.pb.ServerName server = 6;</code>      *      *<pre>      * Server who opened the region      *</pre>      */
 name|boolean
 name|hasServer
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ServerName server = 6;</code>      *      *<pre>      * Server who opened the region      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ServerName server = 6;</code>      *      *<pre>      * Server who opened the region      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -47885,7 +47885,7 @@ name|ServerName
 name|getServer
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ServerName server = 6;</code>      *      *<pre>      * Server who opened the region      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ServerName server = 6;</code>      *      *<pre>      * Server who opened the region      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -47922,7 +47922,7 @@ name|getRegionName
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RegionEventDescriptor}    *    *<pre>    **    * Special WAL entry to hold all related to a region event (open/close).    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.RegionEventDescriptor}    *    *<pre>    **    * Special WAL entry to hold all related to a region event (open/close).    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -48638,7 +48638,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_RegionEventDescriptor_descriptor
+name|internal_static_hbase_pb_RegionEventDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -48669,7 +48669,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_RegionEventDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_RegionEventDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -48807,7 +48807,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code RegionEventDescriptor.EventType}      */
+comment|/**      * Protobuf enum {@code hbase.pb.RegionEventDescriptor.EventType}      */
 specifier|public
 enum|enum
 name|EventType
@@ -49150,13 +49150,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:RegionEventDescriptor.EventType)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.RegionEventDescriptor.EventType)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionEventDescriptor.EventType event_type = 1;
+comment|// required .hbase.pb.RegionEventDescriptor.EventType event_type = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -49185,7 +49185,7 @@ operator|.
 name|EventType
 name|eventType_
 decl_stmt|;
-comment|/**      *<code>required .RegionEventDescriptor.EventType event_type = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionEventDescriptor.EventType event_type = 1;</code>      */
 specifier|public
 name|boolean
 name|hasEventType
@@ -49203,7 +49203,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionEventDescriptor.EventType event_type = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionEventDescriptor.EventType event_type = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -49376,7 +49376,7 @@ return|return
 name|logSequenceNumber_
 return|;
 block|}
-comment|// repeated .StoreDescriptor stores = 5;
+comment|// repeated .hbase.pb.StoreDescriptor stores = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -49410,7 +49410,7 @@ name|StoreDescriptor
 argument_list|>
 name|stores_
 decl_stmt|;
-comment|/**      *<code>repeated .StoreDescriptor stores = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>      */
 specifier|public
 name|java
 operator|.
@@ -49441,7 +49441,7 @@ return|return
 name|stores_
 return|;
 block|}
-comment|/**      *<code>repeated .StoreDescriptor stores = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>      */
 specifier|public
 name|java
 operator|.
@@ -49474,7 +49474,7 @@ return|return
 name|stores_
 return|;
 block|}
-comment|/**      *<code>repeated .StoreDescriptor stores = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>      */
 specifier|public
 name|int
 name|getStoresCount
@@ -49487,7 +49487,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .StoreDescriptor stores = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -49519,7 +49519,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .StoreDescriptor stores = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -49551,7 +49551,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional .ServerName server = 6;
+comment|// optional .hbase.pb.ServerName server = 6;
 specifier|public
 specifier|static
 specifier|final
@@ -49578,7 +49578,7 @@ operator|.
 name|ServerName
 name|server_
 decl_stmt|;
-comment|/**      *<code>optional .ServerName server = 6;</code>      *      *<pre>      * Server who opened the region      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ServerName server = 6;</code>      *      *<pre>      * Server who opened the region      *</pre>      */
 specifier|public
 name|boolean
 name|hasServer
@@ -49596,7 +49596,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .ServerName server = 6;</code>      *      *<pre>      * Server who opened the region      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ServerName server = 6;</code>      *      *<pre>      * Server who opened the region      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -49620,7 +49620,7 @@ return|return
 name|server_
 return|;
 block|}
-comment|/**      *<code>optional .ServerName server = 6;</code>      *      *<pre>      * Server who opened the region      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ServerName server = 6;</code>      *      *<pre>      * Server who opened the region      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -51689,7 +51689,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RegionEventDescriptor}      *      *<pre>      **      * Special WAL entry to hold all related to a region event (open/close).      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.RegionEventDescriptor}      *      *<pre>      **      * Special WAL entry to hold all related to a region event (open/close).      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -51755,7 +51755,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_RegionEventDescriptor_descriptor
+name|internal_static_hbase_pb_RegionEventDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -51786,7 +51786,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_RegionEventDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_RegionEventDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -52148,7 +52148,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_RegionEventDescriptor_descriptor
+name|internal_static_hbase_pb_RegionEventDescriptor_descriptor
 return|;
 block|}
 specifier|public
@@ -53154,7 +53154,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionEventDescriptor.EventType event_type = 1;
+comment|// required .hbase.pb.RegionEventDescriptor.EventType event_type = 1;
 specifier|private
 name|org
 operator|.
@@ -53195,7 +53195,7 @@ name|EventType
 operator|.
 name|REGION_OPEN
 decl_stmt|;
-comment|/**        *<code>required .RegionEventDescriptor.EventType event_type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionEventDescriptor.EventType event_type = 1;</code>        */
 specifier|public
 name|boolean
 name|hasEventType
@@ -53213,7 +53213,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionEventDescriptor.EventType event_type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionEventDescriptor.EventType event_type = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -53239,7 +53239,7 @@ return|return
 name|eventType_
 return|;
 block|}
-comment|/**        *<code>required .RegionEventDescriptor.EventType event_type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionEventDescriptor.EventType event_type = 1;</code>        */
 specifier|public
 name|Builder
 name|setEventType
@@ -53292,7 +53292,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionEventDescriptor.EventType event_type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionEventDescriptor.EventType event_type = 1;</code>        */
 specifier|public
 name|Builder
 name|clearEventType
@@ -53675,7 +53675,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .StoreDescriptor stores = 5;
+comment|// repeated .hbase.pb.StoreDescriptor stores = 5;
 specifier|private
 name|java
 operator|.
@@ -53825,7 +53825,7 @@ name|StoreDescriptorOrBuilder
 argument_list|>
 name|storesBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|java
 operator|.
@@ -53882,7 +53882,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|int
 name|getStoresCount
@@ -53912,7 +53912,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -53963,7 +53963,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|Builder
 name|setStores
@@ -54041,7 +54041,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|Builder
 name|setStores
@@ -54114,7 +54114,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|Builder
 name|addStores
@@ -54185,7 +54185,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|Builder
 name|addStores
@@ -54263,7 +54263,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|Builder
 name|addStores
@@ -54329,7 +54329,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|Builder
 name|addStores
@@ -54402,7 +54402,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|Builder
 name|addAllStores
@@ -54471,7 +54471,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|Builder
 name|clearStores
@@ -54520,7 +54520,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|Builder
 name|removeStores
@@ -54564,7 +54564,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -54599,7 +54599,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -54650,7 +54650,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|java
 operator|.
@@ -54709,7 +54709,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -54758,7 +54758,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -54812,7 +54812,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .StoreDescriptor stores = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StoreDescriptor stores = 5;</code>        */
 specifier|public
 name|java
 operator|.
@@ -55008,7 +55008,7 @@ return|return
 name|storesBuilder_
 return|;
 block|}
-comment|// optional .ServerName server = 6;
+comment|// optional .hbase.pb.ServerName server = 6;
 specifier|private
 name|org
 operator|.
@@ -55107,7 +55107,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|serverBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
 specifier|public
 name|boolean
 name|hasServer
@@ -55125,7 +55125,7 @@ literal|0x00000020
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -55166,7 +55166,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
 specifier|public
 name|Builder
 name|setServer
@@ -55235,7 +55235,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
 specifier|public
 name|Builder
 name|setServer
@@ -55299,7 +55299,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
 specifier|public
 name|Builder
 name|mergeServer
@@ -55424,7 +55424,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
 specifier|public
 name|Builder
 name|clearServer
@@ -55483,7 +55483,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -55520,7 +55520,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -55561,7 +55561,7 @@ name|server_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ServerName server = 6;</code>        *        *<pre>        * Server who opened the region        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -55839,7 +55839,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RegionEventDescriptor)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RegionEventDescriptor)
 block|}
 static|static
 block|{
@@ -55857,7 +55857,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RegionEventDescriptor)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RegionEventDescriptor)
 block|}
 specifier|public
 interface|interface
@@ -55871,7 +55871,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code WALTrailer}    *    *<pre>    **    * A trailer that is appended to the end of a properly closed WAL file.    * If missing, this is either a legacy or a corrupted WAL file.    * N.B. This trailer currently doesn't contain any information and we    * purposefully don't expose it in the WAL APIs. It's for future growth.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.WALTrailer}    *    *<pre>    **    * A trailer that is appended to the end of a properly closed WAL file.    * If missing, this is either a legacy or a corrupted WAL file.    * N.B. This trailer currently doesn't contain any information and we    * purposefully don't expose it in the WAL APIs. It's for future growth.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -56220,7 +56220,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_WALTrailer_descriptor
+name|internal_static_hbase_pb_WALTrailer_descriptor
 return|;
 block|}
 specifier|protected
@@ -56251,7 +56251,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_WALTrailer_fieldAccessorTable
+name|internal_static_hbase_pb_WALTrailer_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -57327,7 +57327,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code WALTrailer}      *      *<pre>      **      * A trailer that is appended to the end of a properly closed WAL file.      * If missing, this is either a legacy or a corrupted WAL file.      * N.B. This trailer currently doesn't contain any information and we      * purposefully don't expose it in the WAL APIs. It's for future growth.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.WALTrailer}      *      *<pre>      **      * A trailer that is appended to the end of a properly closed WAL file.      * If missing, this is either a legacy or a corrupted WAL file.      * N.B. This trailer currently doesn't contain any information and we      * purposefully don't expose it in the WAL APIs. It's for future growth.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -57393,7 +57393,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_WALTrailer_descriptor
+name|internal_static_hbase_pb_WALTrailer_descriptor
 return|;
 block|}
 specifier|protected
@@ -57424,7 +57424,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_WALTrailer_fieldAccessorTable
+name|internal_static_hbase_pb_WALTrailer_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -57590,7 +57590,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|internal_static_WALTrailer_descriptor
+name|internal_static_hbase_pb_WALTrailer_descriptor
 return|;
 block|}
 specifier|public
@@ -58022,7 +58022,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:WALTrailer)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.WALTrailer)
 block|}
 static|static
 block|{
@@ -58040,7 +58040,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:WALTrailer)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.WALTrailer)
 block|}
 specifier|private
 specifier|static
@@ -58053,7 +58053,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_WALHeader_descriptor
+name|internal_static_hbase_pb_WALHeader_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58066,7 +58066,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_WALHeader_fieldAccessorTable
+name|internal_static_hbase_pb_WALHeader_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58079,7 +58079,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_WALKey_descriptor
+name|internal_static_hbase_pb_WALKey_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58092,7 +58092,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_WALKey_fieldAccessorTable
+name|internal_static_hbase_pb_WALKey_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58105,7 +58105,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_FamilyScope_descriptor
+name|internal_static_hbase_pb_FamilyScope_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58118,7 +58118,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_FamilyScope_fieldAccessorTable
+name|internal_static_hbase_pb_FamilyScope_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58131,7 +58131,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CompactionDescriptor_descriptor
+name|internal_static_hbase_pb_CompactionDescriptor_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58144,7 +58144,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CompactionDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_CompactionDescriptor_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58157,7 +58157,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_FlushDescriptor_descriptor
+name|internal_static_hbase_pb_FlushDescriptor_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58170,7 +58170,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_FlushDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_FlushDescriptor_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58183,7 +58183,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_FlushDescriptor_StoreFlushDescriptor_descriptor
+name|internal_static_hbase_pb_FlushDescriptor_StoreFlushDescriptor_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58196,7 +58196,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_FlushDescriptor_StoreFlushDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_FlushDescriptor_StoreFlushDescriptor_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58209,7 +58209,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_StoreDescriptor_descriptor
+name|internal_static_hbase_pb_StoreDescriptor_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58222,7 +58222,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_StoreDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_StoreDescriptor_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58235,7 +58235,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_BulkLoadDescriptor_descriptor
+name|internal_static_hbase_pb_BulkLoadDescriptor_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58248,7 +58248,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_BulkLoadDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadDescriptor_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58261,7 +58261,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RegionEventDescriptor_descriptor
+name|internal_static_hbase_pb_RegionEventDescriptor_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58274,7 +58274,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RegionEventDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_RegionEventDescriptor_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58287,7 +58287,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_WALTrailer_descriptor
+name|internal_static_hbase_pb_WALTrailer_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -58300,7 +58300,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_WALTrailer_fieldAccessorTable
+name|internal_static_hbase_pb_WALTrailer_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -58344,97 +58344,101 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\tWAL.proto\032\013HBase.proto\032\014Client.proto\"\217"
+literal|"\n\tWAL.proto\022\010hbase.pb\032\013HBase.proto\032\014Clie"
 operator|+
-literal|"\001\n\tWALHeader\022\027\n\017has_compression\030\001 \001(\010\022\026\n"
+literal|"nt.proto\"\217\001\n\tWALHeader\022\027\n\017has_compressio"
 operator|+
-literal|"\016encryption_key\030\002 \001(\014\022\033\n\023has_tag_compres"
+literal|"n\030\001 \001(\010\022\026\n\016encryption_key\030\002 \001(\014\022\033\n\023has_t"
 operator|+
-literal|"sion\030\003 \001(\010\022\027\n\017writer_cls_name\030\004 \001(\t\022\033\n\023c"
+literal|"ag_compression\030\003 \001(\010\022\027\n\017writer_cls_name\030"
 operator|+
-literal|"ell_codec_cls_name\030\005 \001(\t\"\240\002\n\006WALKey\022\033\n\023e"
+literal|"\004 \001(\t\022\033\n\023cell_codec_cls_name\030\005 \001(\t\"\273\002\n\006W"
 operator|+
-literal|"ncoded_region_name\030\001 \002(\014\022\022\n\ntable_name\030\002"
+literal|"ALKey\022\033\n\023encoded_region_name\030\001 \002(\014\022\022\n\nta"
 operator|+
-literal|" \002(\014\022\033\n\023log_sequence_number\030\003 \002(\004\022\022\n\nwri"
+literal|"ble_name\030\002 \002(\014\022\033\n\023log_sequence_number\030\003 "
 operator|+
-literal|"te_time\030\004 \002(\004\022\035\n\ncluster_id\030\005 \001(\0132\005.UUID"
+literal|"\002(\004\022\022\n\nwrite_time\030\004 \002(\004\022&\n\ncluster_id\030\005 "
 operator|+
-literal|"B\002\030\001\022\034\n\006scopes\030\006 \003(\0132\014.FamilyScope\022\032\n\022fo"
+literal|"\001(\0132\016.hbase.pb.UUIDB\002\030\001\022%\n\006scopes\030\006 \003(\0132"
 operator|+
-literal|"llowing_kv_count\030\007 \001(\r\022\032\n\013cluster_ids\030\010 "
+literal|"\025.hbase.pb.FamilyScope\022\032\n\022following_kv_c"
 block|,
-literal|"\003(\0132\005.UUID\022\022\n\nnonceGroup\030\t \001(\004\022\r\n\005nonce\030"
+literal|"ount\030\007 \001(\r\022#\n\013cluster_ids\030\010 \003(\0132\016.hbase."
 operator|+
-literal|"\n \001(\004\022\034\n\024orig_sequence_number\030\013 \001(\004\"=\n\013F"
+literal|"pb.UUID\022\022\n\nnonceGroup\030\t \001(\004\022\r\n\005nonce\030\n \001"
 operator|+
-literal|"amilyScope\022\016\n\006family\030\001 \002(\014\022\036\n\nscope_type"
+literal|"(\004\022\034\n\024orig_sequence_number\030\013 \001(\004\"F\n\013Fami"
 operator|+
-literal|"\030\002 \002(\0162\n.ScopeType\"\276\001\n\024CompactionDescrip"
+literal|"lyScope\022\016\n\006family\030\001 \002(\014\022\'\n\nscope_type\030\002 "
 operator|+
-literal|"tor\022\022\n\ntable_name\030\001 \002(\014\022\033\n\023encoded_regio"
+literal|"\002(\0162\023.hbase.pb.ScopeType\"\276\001\n\024CompactionD"
 operator|+
-literal|"n_name\030\002 \002(\014\022\023\n\013family_name\030\003 \002(\014\022\030\n\020com"
+literal|"escriptor\022\022\n\ntable_name\030\001 \002(\014\022\033\n\023encoded"
 operator|+
-literal|"paction_input\030\004 \003(\t\022\031\n\021compaction_output"
+literal|"_region_name\030\002 \002(\014\022\023\n\013family_name\030\003 \002(\014\022"
 operator|+
-literal|"\030\005 \003(\t\022\026\n\016store_home_dir\030\006 \002(\t\022\023\n\013region"
+literal|"\030\n\020compaction_input\030\004 \003(\t\022\031\n\021compaction_"
 operator|+
-literal|"_name\030\007 \001(\014\"\222\003\n\017FlushDescriptor\022,\n\006actio"
+literal|"output\030\005 \003(\t\022\026\n\016store_home_dir\030\006 \002(\t\022\023\n\013"
 operator|+
-literal|"n\030\001 \002(\0162\034.FlushDescriptor.FlushAction\022\022\n"
+literal|"region_name\030\007 \001(\014\"\244\003\n\017FlushDescriptor\0225\n"
 block|,
-literal|"\ntable_name\030\002 \002(\014\022\033\n\023encoded_region_name"
+literal|"\006action\030\001 \002(\0162%.hbase.pb.FlushDescriptor"
 operator|+
-literal|"\030\003 \002(\014\022\035\n\025flush_sequence_number\030\004 \001(\004\022<\n"
+literal|".FlushAction\022\022\n\ntable_name\030\002 \002(\014\022\033\n\023enco"
 operator|+
-literal|"\rstore_flushes\030\005 \003(\0132%.FlushDescriptor.S"
+literal|"ded_region_name\030\003 \002(\014\022\035\n\025flush_sequence_"
 operator|+
-literal|"toreFlushDescriptor\022\023\n\013region_name\030\006 \001(\014"
+literal|"number\030\004 \001(\004\022E\n\rstore_flushes\030\005 \003(\0132..hb"
 operator|+
-literal|"\032Y\n\024StoreFlushDescriptor\022\023\n\013family_name\030"
+literal|"ase.pb.FlushDescriptor.StoreFlushDescrip"
 operator|+
-literal|"\001 \002(\014\022\026\n\016store_home_dir\030\002 \002(\t\022\024\n\014flush_o"
+literal|"tor\022\023\n\013region_name\030\006 \001(\014\032Y\n\024StoreFlushDe"
 operator|+
-literal|"utput\030\003 \003(\t\"S\n\013FlushAction\022\017\n\013START_FLUS"
+literal|"scriptor\022\023\n\013family_name\030\001 \002(\014\022\026\n\016store_h"
 operator|+
-literal|"H\020\000\022\020\n\014COMMIT_FLUSH\020\001\022\017\n\013ABORT_FLUSH\020\002\022\020"
+literal|"ome_dir\030\002 \002(\t\022\024\n\014flush_output\030\003 \003(\t\"S\n\013F"
 operator|+
-literal|"\n\014CANNOT_FLUSH\020\003\"R\n\017StoreDescriptor\022\023\n\013f"
+literal|"lushAction\022\017\n\013START_FLUSH\020\000\022\020\n\014COMMIT_FL"
 operator|+
-literal|"amily_name\030\001 \002(\014\022\026\n\016store_home_dir\030\002 \002(\t"
+literal|"USH\020\001\022\017\n\013ABORT_FLUSH\020\002\022\020\n\014CANNOT_FLUSH\020\003"
 block|,
-literal|"\022\022\n\nstore_file\030\003 \003(\t\"\215\001\n\022BulkLoadDescrip"
+literal|"\"R\n\017StoreDescriptor\022\023\n\013family_name\030\001 \002(\014"
 operator|+
-literal|"tor\022\036\n\ntable_name\030\001 \002(\0132\n.TableName\022\033\n\023e"
+literal|"\022\026\n\016store_home_dir\030\002 \002(\t\022\022\n\nstore_file\030\003"
 operator|+
-literal|"ncoded_region_name\030\002 \002(\014\022 \n\006stores\030\003 \003(\013"
+literal|" \003(\t\"\237\001\n\022BulkLoadDescriptor\022\'\n\ntable_nam"
 operator|+
-literal|"2\020.StoreDescriptor\022\030\n\020bulkload_seq_num\030\004"
+literal|"e\030\001 \002(\0132\023.hbase.pb.TableName\022\033\n\023encoded_"
 operator|+
-literal|" \002(\003\"\237\002\n\025RegionEventDescriptor\0224\n\nevent_"
+literal|"region_name\030\002 \002(\014\022)\n\006stores\030\003 \003(\0132\031.hbas"
 operator|+
-literal|"type\030\001 \002(\0162 .RegionEventDescriptor.Event"
+literal|"e.pb.StoreDescriptor\022\030\n\020bulkload_seq_num"
 operator|+
-literal|"Type\022\022\n\ntable_name\030\002 \002(\014\022\033\n\023encoded_regi"
+literal|"\030\004 \002(\003\"\272\002\n\025RegionEventDescriptor\022=\n\neven"
 operator|+
-literal|"on_name\030\003 \002(\014\022\033\n\023log_sequence_number\030\004 \001"
+literal|"t_type\030\001 \002(\0162).hbase.pb.RegionEventDescr"
 operator|+
-literal|"(\004\022 \n\006stores\030\005 \003(\0132\020.StoreDescriptor\022\033\n\006"
+literal|"iptor.EventType\022\022\n\ntable_name\030\002 \002(\014\022\033\n\023e"
 operator|+
-literal|"server\030\006 \001(\0132\013.ServerName\022\023\n\013region_name"
+literal|"ncoded_region_name\030\003 \002(\014\022\033\n\023log_sequence"
 block|,
-literal|"\030\007 \001(\014\".\n\tEventType\022\017\n\013REGION_OPEN\020\000\022\020\n\014"
+literal|"_number\030\004 \001(\004\022)\n\006stores\030\005 \003(\0132\031.hbase.pb"
 operator|+
-literal|"REGION_CLOSE\020\001\"\014\n\nWALTrailer*F\n\tScopeTyp"
+literal|".StoreDescriptor\022$\n\006server\030\006 \001(\0132\024.hbase"
 operator|+
-literal|"e\022\033\n\027REPLICATION_SCOPE_LOCAL\020\000\022\034\n\030REPLIC"
+literal|".pb.ServerName\022\023\n\013region_name\030\007 \001(\014\".\n\tE"
 operator|+
-literal|"ATION_SCOPE_GLOBAL\020\001B?\n*org.apache.hadoo"
+literal|"ventType\022\017\n\013REGION_OPEN\020\000\022\020\n\014REGION_CLOS"
 operator|+
-literal|"p.hbase.protobuf.generatedB\tWALProtosH\001\210"
+literal|"E\020\001\"\014\n\nWALTrailer*F\n\tScopeType\022\033\n\027REPLIC"
 operator|+
-literal|"\001\000\240\001\001"
+literal|"ATION_SCOPE_LOCAL\020\000\022\034\n\030REPLICATION_SCOPE"
+operator|+
+literal|"_GLOBAL\020\001B?\n*org.apache.hadoop.hbase.pro"
+operator|+
+literal|"tobuf.generatedB\tWALProtosH\001\210\001\000\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -58490,7 +58494,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_WALHeader_descriptor
+name|internal_static_hbase_pb_WALHeader_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -58503,7 +58507,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_WALHeader_fieldAccessorTable
+name|internal_static_hbase_pb_WALHeader_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -58516,7 +58520,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_WALHeader_descriptor
+name|internal_static_hbase_pb_WALHeader_descriptor
 argument_list|,
 operator|new
 name|java
@@ -58538,7 +58542,7 @@ literal|"CellCodecClsName"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_WALKey_descriptor
+name|internal_static_hbase_pb_WALKey_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -58551,7 +58555,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_WALKey_fieldAccessorTable
+name|internal_static_hbase_pb_WALKey_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -58564,7 +58568,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_WALKey_descriptor
+name|internal_static_hbase_pb_WALKey_descriptor
 argument_list|,
 operator|new
 name|java
@@ -58598,7 +58602,7 @@ literal|"OrigSequenceNumber"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_FamilyScope_descriptor
+name|internal_static_hbase_pb_FamilyScope_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -58611,7 +58615,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_FamilyScope_fieldAccessorTable
+name|internal_static_hbase_pb_FamilyScope_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -58624,7 +58628,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_FamilyScope_descriptor
+name|internal_static_hbase_pb_FamilyScope_descriptor
 argument_list|,
 operator|new
 name|java
@@ -58640,7 +58644,7 @@ literal|"ScopeType"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_CompactionDescriptor_descriptor
+name|internal_static_hbase_pb_CompactionDescriptor_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -58653,7 +58657,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_CompactionDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_CompactionDescriptor_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -58666,7 +58670,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CompactionDescriptor_descriptor
+name|internal_static_hbase_pb_CompactionDescriptor_descriptor
 argument_list|,
 operator|new
 name|java
@@ -58692,7 +58696,7 @@ literal|"RegionName"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_FlushDescriptor_descriptor
+name|internal_static_hbase_pb_FlushDescriptor_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -58705,7 +58709,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_FlushDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_FlushDescriptor_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -58718,7 +58722,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_FlushDescriptor_descriptor
+name|internal_static_hbase_pb_FlushDescriptor_descriptor
 argument_list|,
 operator|new
 name|java
@@ -58742,9 +58746,9 @@ literal|"RegionName"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_FlushDescriptor_StoreFlushDescriptor_descriptor
+name|internal_static_hbase_pb_FlushDescriptor_StoreFlushDescriptor_descriptor
 operator|=
-name|internal_static_FlushDescriptor_descriptor
+name|internal_static_hbase_pb_FlushDescriptor_descriptor
 operator|.
 name|getNestedTypes
 argument_list|()
@@ -58754,7 +58758,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_FlushDescriptor_StoreFlushDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_FlushDescriptor_StoreFlushDescriptor_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -58767,7 +58771,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_FlushDescriptor_StoreFlushDescriptor_descriptor
+name|internal_static_hbase_pb_FlushDescriptor_StoreFlushDescriptor_descriptor
 argument_list|,
 operator|new
 name|java
@@ -58785,7 +58789,7 @@ literal|"FlushOutput"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_StoreDescriptor_descriptor
+name|internal_static_hbase_pb_StoreDescriptor_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -58798,7 +58802,7 @@ argument_list|(
 literal|5
 argument_list|)
 expr_stmt|;
-name|internal_static_StoreDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_StoreDescriptor_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -58811,7 +58815,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_StoreDescriptor_descriptor
+name|internal_static_hbase_pb_StoreDescriptor_descriptor
 argument_list|,
 operator|new
 name|java
@@ -58829,7 +58833,7 @@ literal|"StoreFile"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_BulkLoadDescriptor_descriptor
+name|internal_static_hbase_pb_BulkLoadDescriptor_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -58842,7 +58846,7 @@ argument_list|(
 literal|6
 argument_list|)
 expr_stmt|;
-name|internal_static_BulkLoadDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadDescriptor_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -58855,7 +58859,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_BulkLoadDescriptor_descriptor
+name|internal_static_hbase_pb_BulkLoadDescriptor_descriptor
 argument_list|,
 operator|new
 name|java
@@ -58875,7 +58879,7 @@ literal|"BulkloadSeqNum"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionEventDescriptor_descriptor
+name|internal_static_hbase_pb_RegionEventDescriptor_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -58888,7 +58892,7 @@ argument_list|(
 literal|7
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionEventDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_RegionEventDescriptor_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -58901,7 +58905,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RegionEventDescriptor_descriptor
+name|internal_static_hbase_pb_RegionEventDescriptor_descriptor
 argument_list|,
 operator|new
 name|java
@@ -58927,7 +58931,7 @@ literal|"RegionName"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_WALTrailer_descriptor
+name|internal_static_hbase_pb_WALTrailer_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -58940,7 +58944,7 @@ argument_list|(
 literal|8
 argument_list|)
 expr_stmt|;
-name|internal_static_WALTrailer_fieldAccessorTable
+name|internal_static_hbase_pb_WALTrailer_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -58953,7 +58957,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_WALTrailer_descriptor
+name|internal_static_hbase_pb_WALTrailer_descriptor
 argument_list|,
 operator|new
 name|java

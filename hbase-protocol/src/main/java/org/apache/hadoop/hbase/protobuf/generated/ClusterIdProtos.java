@@ -87,7 +87,7 @@ name|getClusterIdBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ClusterId}    *    *<pre>    **    * Content of the '/hbase/hbaseid', cluster id, znode.    * Also cluster of the ${HBASE_ROOTDIR}/hbase.id file.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ClusterId}    *    *<pre>    **    * Content of the '/hbase/hbaseid', cluster id, znode.    * Also cluster of the ${HBASE_ROOTDIR}/hbase.id file.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -458,7 +458,7 @@ name|generated
 operator|.
 name|ClusterIdProtos
 operator|.
-name|internal_static_ClusterId_descriptor
+name|internal_static_hbase_pb_ClusterId_descriptor
 return|;
 block|}
 specifier|protected
@@ -489,7 +489,7 @@ name|generated
 operator|.
 name|ClusterIdProtos
 operator|.
-name|internal_static_ClusterId_fieldAccessorTable
+name|internal_static_hbase_pb_ClusterId_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -1925,7 +1925,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ClusterId}      *      *<pre>      **      * Content of the '/hbase/hbaseid', cluster id, znode.      * Also cluster of the ${HBASE_ROOTDIR}/hbase.id file.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ClusterId}      *      *<pre>      **      * Content of the '/hbase/hbaseid', cluster id, znode.      * Also cluster of the ${HBASE_ROOTDIR}/hbase.id file.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -1991,7 +1991,7 @@ name|generated
 operator|.
 name|ClusterIdProtos
 operator|.
-name|internal_static_ClusterId_descriptor
+name|internal_static_hbase_pb_ClusterId_descriptor
 return|;
 block|}
 specifier|protected
@@ -2022,7 +2022,7 @@ name|generated
 operator|.
 name|ClusterIdProtos
 operator|.
-name|internal_static_ClusterId_fieldAccessorTable
+name|internal_static_hbase_pb_ClusterId_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2201,7 +2201,7 @@ name|generated
 operator|.
 name|ClusterIdProtos
 operator|.
-name|internal_static_ClusterId_descriptor
+name|internal_static_hbase_pb_ClusterId_descriptor
 return|;
 block|}
 specifier|public
@@ -3012,7 +3012,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ClusterId)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ClusterId)
 block|}
 static|static
 block|{
@@ -3030,7 +3030,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ClusterId)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ClusterId)
 block|}
 specifier|private
 specifier|static
@@ -3043,7 +3043,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ClusterId_descriptor
+name|internal_static_hbase_pb_ClusterId_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -3056,7 +3056,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ClusterId_fieldAccessorTable
+name|internal_static_hbase_pb_ClusterId_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -3100,11 +3100,13 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\017ClusterId.proto\"\037\n\tClusterId\022\022\n\ncluste"
+literal|"\n\017ClusterId.proto\022\010hbase.pb\"\037\n\tClusterId"
 operator|+
-literal|"r_id\030\001 \002(\tBB\n*org.apache.hadoop.hbase.pr"
+literal|"\022\022\n\ncluster_id\030\001 \002(\tBB\n*org.apache.hadoo"
 operator|+
-literal|"otobuf.generatedB\017ClusterIdProtosH\001\240\001\001"
+literal|"p.hbase.protobuf.generatedB\017ClusterIdPro"
+operator|+
+literal|"tosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -3160,7 +3162,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_ClusterId_descriptor
+name|internal_static_hbase_pb_ClusterId_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -3173,7 +3175,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_ClusterId_fieldAccessorTable
+name|internal_static_hbase_pb_ClusterId_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -3186,7 +3188,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ClusterId_descriptor
+name|internal_static_hbase_pb_ClusterId_descriptor
 argument_list|,
 operator|new
 name|java

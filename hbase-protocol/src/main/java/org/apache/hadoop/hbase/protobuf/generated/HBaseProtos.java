@@ -48,7 +48,7 @@ name|ExtensionRegistry
 name|registry
 parameter_list|)
 block|{   }
-comment|/**    * Protobuf enum {@code CompareType}    *    *<pre>    * Comparison operators     *</pre>    */
+comment|/**    * Protobuf enum {@code hbase.pb.CompareType}    *    *<pre>    * Comparison operators     *</pre>    */
 specifier|public
 enum|enum
 name|CompareType
@@ -504,9 +504,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:CompareType)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.CompareType)
 block|}
-comment|/**    * Protobuf enum {@code TimeUnit}    */
+comment|/**    * Protobuf enum {@code hbase.pb.TimeUnit}    */
 specifier|public
 enum|enum
 name|TimeUnit
@@ -962,7 +962,7 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:TimeUnit)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.TimeUnit)
 block|}
 specifier|public
 interface|interface
@@ -1011,7 +1011,7 @@ name|getQualifier
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code TableName}    *    *<pre>    **    * Table Name    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.TableName}    *    *<pre>    **    * Table Name    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -1399,7 +1399,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableName_descriptor
+name|internal_static_hbase_pb_TableName_descriptor
 return|;
 block|}
 specifier|protected
@@ -1430,7 +1430,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableName_fieldAccessorTable
+name|internal_static_hbase_pb_TableName_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2913,7 +2913,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code TableName}      *      *<pre>      **      * Table Name      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.TableName}      *      *<pre>      **      * Table Name      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -2979,7 +2979,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableName_descriptor
+name|internal_static_hbase_pb_TableName_descriptor
 return|;
 block|}
 specifier|protected
@@ -3010,7 +3010,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableName_fieldAccessorTable
+name|internal_static_hbase_pb_TableName_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -3218,7 +3218,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableName_descriptor
+name|internal_static_hbase_pb_TableName_descriptor
 return|;
 block|}
 specifier|public
@@ -4030,7 +4030,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:TableName)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.TableName)
 block|}
 static|static
 block|{
@@ -4048,7 +4048,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:TableName)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.TableName)
 block|}
 specifier|public
 interface|interface
@@ -4062,13 +4062,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .TableName table_name = 1;
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|// optional .hbase.pb.TableName table_name = 1;
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 name|boolean
 name|hasTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -4087,7 +4087,7 @@ name|TableName
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -4106,8 +4106,8 @@ name|TableNameOrBuilder
 name|getTableNameOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .BytesBytesPair attributes = 2;
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|// repeated .hbase.pb.BytesBytesPair attributes = 2;
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -4133,7 +4133,7 @@ argument_list|>
 name|getAttributesList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -4155,12 +4155,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 name|int
 name|getAttributesCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -4188,7 +4188,7 @@ argument_list|>
 name|getAttributesOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -4210,8 +4210,8 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated .ColumnFamilySchema column_families = 3;
-comment|/**      *<code>repeated .ColumnFamilySchema column_families = 3;</code>      */
+comment|// repeated .hbase.pb.ColumnFamilySchema column_families = 3;
+comment|/**      *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -4237,7 +4237,7 @@ argument_list|>
 name|getColumnFamiliesList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ColumnFamilySchema column_families = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -4259,12 +4259,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .ColumnFamilySchema column_families = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>      */
 name|int
 name|getColumnFamiliesCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ColumnFamilySchema column_families = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -4292,7 +4292,7 @@ argument_list|>
 name|getColumnFamiliesOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ColumnFamilySchema column_families = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -4314,8 +4314,8 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated .NameStringPair configuration = 4;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|// repeated .hbase.pb.NameStringPair configuration = 4;
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 name|java
 operator|.
 name|util
@@ -4341,7 +4341,7 @@ argument_list|>
 name|getConfigurationList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -4363,12 +4363,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 name|int
 name|getConfigurationCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 name|java
 operator|.
 name|util
@@ -4396,7 +4396,7 @@ argument_list|>
 name|getConfigurationOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -4419,7 +4419,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code TableSchema}    *    *<pre>    **    * Table Schema    * Inspired by the rest TableSchema    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.TableSchema}    *    *<pre>    **    * Table Schema    * Inspired by the rest TableSchema    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -5201,7 +5201,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableSchema_descriptor
+name|internal_static_hbase_pb_TableSchema_descriptor
 return|;
 block|}
 specifier|protected
@@ -5232,7 +5232,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableSchema_fieldAccessorTable
+name|internal_static_hbase_pb_TableSchema_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -5374,7 +5374,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .TableName table_name = 1;
+comment|// optional .hbase.pb.TableName table_name = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -5401,7 +5401,7 @@ operator|.
 name|TableName
 name|tableName_
 decl_stmt|;
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 specifier|public
 name|boolean
 name|hasTableName
@@ -5419,7 +5419,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5443,7 +5443,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5467,7 +5467,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|// repeated .BytesBytesPair attributes = 2;
+comment|// repeated .hbase.pb.BytesBytesPair attributes = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -5501,7 +5501,7 @@ name|BytesBytesPair
 argument_list|>
 name|attributes_
 decl_stmt|;
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -5532,7 +5532,7 @@ return|return
 name|attributes_
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -5565,7 +5565,7 @@ return|return
 name|attributes_
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 specifier|public
 name|int
 name|getAttributesCount
@@ -5578,7 +5578,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5610,7 +5610,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5642,7 +5642,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated .ColumnFamilySchema column_families = 3;
+comment|// repeated .hbase.pb.ColumnFamilySchema column_families = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -5676,7 +5676,7 @@ name|ColumnFamilySchema
 argument_list|>
 name|columnFamilies_
 decl_stmt|;
-comment|/**      *<code>repeated .ColumnFamilySchema column_families = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -5707,7 +5707,7 @@ return|return
 name|columnFamilies_
 return|;
 block|}
-comment|/**      *<code>repeated .ColumnFamilySchema column_families = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -5740,7 +5740,7 @@ return|return
 name|columnFamilies_
 return|;
 block|}
-comment|/**      *<code>repeated .ColumnFamilySchema column_families = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>      */
 specifier|public
 name|int
 name|getColumnFamiliesCount
@@ -5753,7 +5753,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .ColumnFamilySchema column_families = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5785,7 +5785,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .ColumnFamilySchema column_families = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5817,7 +5817,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated .NameStringPair configuration = 4;
+comment|// repeated .hbase.pb.NameStringPair configuration = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -5851,7 +5851,7 @@ name|NameStringPair
 argument_list|>
 name|configuration_
 decl_stmt|;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -5882,7 +5882,7 @@ return|return
 name|configuration_
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -5915,7 +5915,7 @@ return|return
 name|configuration_
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 specifier|public
 name|int
 name|getConfigurationCount
@@ -5928,7 +5928,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5960,7 +5960,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -7608,7 +7608,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code TableSchema}      *      *<pre>      **      * Table Schema      * Inspired by the rest TableSchema      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.TableSchema}      *      *<pre>      **      * Table Schema      * Inspired by the rest TableSchema      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -7674,7 +7674,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableSchema_descriptor
+name|internal_static_hbase_pb_TableSchema_descriptor
 return|;
 block|}
 specifier|protected
@@ -7705,7 +7705,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableSchema_fieldAccessorTable
+name|internal_static_hbase_pb_TableSchema_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -8038,7 +8038,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableSchema_descriptor
+name|internal_static_hbase_pb_TableSchema_descriptor
 return|;
 block|}
 specifier|public
@@ -9274,7 +9274,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .TableName table_name = 1;
+comment|// optional .hbase.pb.TableName table_name = 1;
 specifier|private
 name|org
 operator|.
@@ -9373,7 +9373,7 @@ name|TableNameOrBuilder
 argument_list|>
 name|tableNameBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|boolean
 name|hasTableName
@@ -9391,7 +9391,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9432,7 +9432,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -9501,7 +9501,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -9565,7 +9565,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeTableName
@@ -9690,7 +9690,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|clearTableName
@@ -9749,7 +9749,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9786,7 +9786,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9827,7 +9827,7 @@ name|tableName_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -9977,7 +9977,7 @@ return|return
 name|tableNameBuilder_
 return|;
 block|}
-comment|// repeated .BytesBytesPair attributes = 2;
+comment|// repeated .hbase.pb.BytesBytesPair attributes = 2;
 specifier|private
 name|java
 operator|.
@@ -10127,7 +10127,7 @@ name|BytesBytesPairOrBuilder
 argument_list|>
 name|attributesBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -10184,7 +10184,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|int
 name|getAttributesCount
@@ -10214,7 +10214,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -10265,7 +10265,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|setAttributes
@@ -10343,7 +10343,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|setAttributes
@@ -10416,7 +10416,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|addAttributes
@@ -10487,7 +10487,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|addAttributes
@@ -10565,7 +10565,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|addAttributes
@@ -10631,7 +10631,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|addAttributes
@@ -10704,7 +10704,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|addAllAttributes
@@ -10773,7 +10773,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|clearAttributes
@@ -10822,7 +10822,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|removeAttributes
@@ -10866,7 +10866,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -10901,7 +10901,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -10952,7 +10952,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -11011,7 +11011,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11060,7 +11060,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11114,7 +11114,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -11310,7 +11310,7 @@ return|return
 name|attributesBuilder_
 return|;
 block|}
-comment|// repeated .ColumnFamilySchema column_families = 3;
+comment|// repeated .hbase.pb.ColumnFamilySchema column_families = 3;
 specifier|private
 name|java
 operator|.
@@ -11460,7 +11460,7 @@ name|ColumnFamilySchemaOrBuilder
 argument_list|>
 name|columnFamiliesBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -11517,7 +11517,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|int
 name|getColumnFamiliesCount
@@ -11547,7 +11547,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11598,7 +11598,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|Builder
 name|setColumnFamilies
@@ -11676,7 +11676,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|Builder
 name|setColumnFamilies
@@ -11749,7 +11749,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|Builder
 name|addColumnFamilies
@@ -11820,7 +11820,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|Builder
 name|addColumnFamilies
@@ -11898,7 +11898,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|Builder
 name|addColumnFamilies
@@ -11964,7 +11964,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|Builder
 name|addColumnFamilies
@@ -12037,7 +12037,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|Builder
 name|addAllColumnFamilies
@@ -12106,7 +12106,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|Builder
 name|clearColumnFamilies
@@ -12155,7 +12155,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|Builder
 name|removeColumnFamilies
@@ -12199,7 +12199,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12234,7 +12234,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12285,7 +12285,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -12344,7 +12344,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12393,7 +12393,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12447,7 +12447,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ColumnFamilySchema column_families = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ColumnFamilySchema column_families = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -12643,7 +12643,7 @@ return|return
 name|columnFamiliesBuilder_
 return|;
 block|}
-comment|// repeated .NameStringPair configuration = 4;
+comment|// repeated .hbase.pb.NameStringPair configuration = 4;
 specifier|private
 name|java
 operator|.
@@ -12793,7 +12793,7 @@ name|NameStringPairOrBuilder
 argument_list|>
 name|configurationBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -12850,7 +12850,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|int
 name|getConfigurationCount
@@ -12880,7 +12880,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12931,7 +12931,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|setConfiguration
@@ -13009,7 +13009,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|setConfiguration
@@ -13082,7 +13082,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -13153,7 +13153,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -13231,7 +13231,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -13297,7 +13297,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -13370,7 +13370,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|addAllConfiguration
@@ -13439,7 +13439,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|clearConfiguration
@@ -13488,7 +13488,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|removeConfiguration
@@ -13532,7 +13532,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -13567,7 +13567,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -13618,7 +13618,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -13677,7 +13677,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -13726,7 +13726,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -13780,7 +13780,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -13976,7 +13976,7 @@ return|return
 name|configurationBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:TableSchema)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.TableSchema)
 block|}
 static|static
 block|{
@@ -13994,7 +13994,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:TableSchema)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.TableSchema)
 block|}
 specifier|public
 interface|interface
@@ -14008,13 +14008,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .TableState.State state = 1;
-comment|/**      *<code>required .TableState.State state = 1;</code>      *      *<pre>      * This is the table's state.      *</pre>      */
+comment|// required .hbase.pb.TableState.State state = 1;
+comment|/**      *<code>required .hbase.pb.TableState.State state = 1;</code>      *      *<pre>      * This is the table's state.      *</pre>      */
 name|boolean
 name|hasState
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableState.State state = 1;</code>      *      *<pre>      * This is the table's state.      *</pre>      */
+comment|/**      *<code>required .hbase.pb.TableState.State state = 1;</code>      *      *<pre>      * This is the table's state.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -14036,7 +14036,7 @@ name|getState
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code TableState}    *    *<pre>    ** Denotes state of the table     *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.TableState}    *    *<pre>    ** Denotes state of the table     *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -14474,7 +14474,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableState_descriptor
+name|internal_static_hbase_pb_TableState_descriptor
 return|;
 block|}
 specifier|protected
@@ -14505,7 +14505,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableState_fieldAccessorTable
+name|internal_static_hbase_pb_TableState_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -14643,7 +14643,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code TableState.State}      *      *<pre>      * Table's current state      *</pre>      */
+comment|/**      * Protobuf enum {@code hbase.pb.TableState.State}      *      *<pre>      * Table's current state      *</pre>      */
 specifier|public
 enum|enum
 name|State
@@ -15032,13 +15032,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:TableState.State)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.TableState.State)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .TableState.State state = 1;
+comment|// required .hbase.pb.TableState.State state = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -15067,7 +15067,7 @@ operator|.
 name|State
 name|state_
 decl_stmt|;
-comment|/**      *<code>required .TableState.State state = 1;</code>      *      *<pre>      * This is the table's state.      *</pre>      */
+comment|/**      *<code>required .hbase.pb.TableState.State state = 1;</code>      *      *<pre>      * This is the table's state.      *</pre>      */
 specifier|public
 name|boolean
 name|hasState
@@ -15085,7 +15085,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .TableState.State state = 1;</code>      *      *<pre>      * This is the table's state.      *</pre>      */
+comment|/**      *<code>required .hbase.pb.TableState.State state = 1;</code>      *      *<pre>      * This is the table's state.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -16213,7 +16213,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code TableState}      *      *<pre>      ** Denotes state of the table       *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.TableState}      *      *<pre>      ** Denotes state of the table       *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -16279,7 +16279,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableState_descriptor
+name|internal_static_hbase_pb_TableState_descriptor
 return|;
 block|}
 specifier|protected
@@ -16310,7 +16310,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableState_fieldAccessorTable
+name|internal_static_hbase_pb_TableState_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -16507,7 +16507,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableState_descriptor
+name|internal_static_hbase_pb_TableState_descriptor
 return|;
 block|}
 specifier|public
@@ -17011,7 +17011,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .TableState.State state = 1;
+comment|// required .hbase.pb.TableState.State state = 1;
 specifier|private
 name|org
 operator|.
@@ -17052,7 +17052,7 @@ name|State
 operator|.
 name|ENABLED
 decl_stmt|;
-comment|/**        *<code>required .TableState.State state = 1;</code>        *        *<pre>        * This is the table's state.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.TableState.State state = 1;</code>        *        *<pre>        * This is the table's state.        *</pre>        */
 specifier|public
 name|boolean
 name|hasState
@@ -17070,7 +17070,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .TableState.State state = 1;</code>        *        *<pre>        * This is the table's state.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.TableState.State state = 1;</code>        *        *<pre>        * This is the table's state.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -17096,7 +17096,7 @@ return|return
 name|state_
 return|;
 block|}
-comment|/**        *<code>required .TableState.State state = 1;</code>        *        *<pre>        * This is the table's state.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.TableState.State state = 1;</code>        *        *<pre>        * This is the table's state.        *</pre>        */
 specifier|public
 name|Builder
 name|setState
@@ -17149,7 +17149,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableState.State state = 1;</code>        *        *<pre>        * This is the table's state.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.TableState.State state = 1;</code>        *        *<pre>        * This is the table's state.        *</pre>        */
 specifier|public
 name|Builder
 name|clearState
@@ -17193,7 +17193,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:TableState)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.TableState)
 block|}
 static|static
 block|{
@@ -17211,7 +17211,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:TableState)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.TableState)
 block|}
 specifier|public
 interface|interface
@@ -17225,13 +17225,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .TableSchema schema = 1;
-comment|/**      *<code>required .TableSchema schema = 1;</code>      */
+comment|// required .hbase.pb.TableSchema schema = 1;
+comment|/**      *<code>required .hbase.pb.TableSchema schema = 1;</code>      */
 name|boolean
 name|hasSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableSchema schema = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema schema = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -17250,7 +17250,7 @@ name|TableSchema
 name|getSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableSchema schema = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema schema = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -17270,7 +17270,7 @@ name|getSchemaOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code TableDescriptor}    *    *<pre>    ** On HDFS representation of table state.     *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.TableDescriptor}    *    *<pre>    ** On HDFS representation of table state.     *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -17725,7 +17725,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableDescriptor_descriptor
+name|internal_static_hbase_pb_TableDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -17756,7 +17756,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_TableDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -17898,7 +17898,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .TableSchema schema = 1;
+comment|// required .hbase.pb.TableSchema schema = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -17925,7 +17925,7 @@ operator|.
 name|TableSchema
 name|schema_
 decl_stmt|;
-comment|/**      *<code>required .TableSchema schema = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema schema = 1;</code>      */
 specifier|public
 name|boolean
 name|hasSchema
@@ -17943,7 +17943,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .TableSchema schema = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema schema = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -17967,7 +17967,7 @@ return|return
 name|schema_
 return|;
 block|}
-comment|/**      *<code>required .TableSchema schema = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema schema = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -19105,7 +19105,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code TableDescriptor}      *      *<pre>      ** On HDFS representation of table state.       *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.TableDescriptor}      *      *<pre>      ** On HDFS representation of table state.       *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -19171,7 +19171,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableDescriptor_descriptor
+name|internal_static_hbase_pb_TableDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -19202,7 +19202,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_TableDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -19418,7 +19418,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TableDescriptor_descriptor
+name|internal_static_hbase_pb_TableDescriptor_descriptor
 return|;
 block|}
 specifier|public
@@ -19956,7 +19956,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .TableSchema schema = 1;
+comment|// required .hbase.pb.TableSchema schema = 1;
 specifier|private
 name|org
 operator|.
@@ -20055,7 +20055,7 @@ name|TableSchemaOrBuilder
 argument_list|>
 name|schemaBuilder_
 decl_stmt|;
-comment|/**        *<code>required .TableSchema schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema schema = 1;</code>        */
 specifier|public
 name|boolean
 name|hasSchema
@@ -20073,7 +20073,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .TableSchema schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema schema = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20114,7 +20114,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableSchema schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema schema = 1;</code>        */
 specifier|public
 name|Builder
 name|setSchema
@@ -20183,7 +20183,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema schema = 1;</code>        */
 specifier|public
 name|Builder
 name|setSchema
@@ -20247,7 +20247,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema schema = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeSchema
@@ -20372,7 +20372,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema schema = 1;</code>        */
 specifier|public
 name|Builder
 name|clearSchema
@@ -20431,7 +20431,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema schema = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20468,7 +20468,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .TableSchema schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema schema = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20509,7 +20509,7 @@ name|schema_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableSchema schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema schema = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -20659,7 +20659,7 @@ return|return
 name|schemaBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:TableDescriptor)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.TableDescriptor)
 block|}
 static|static
 block|{
@@ -20677,7 +20677,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:TableDescriptor)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.TableDescriptor)
 block|}
 specifier|public
 interface|interface
@@ -20708,8 +20708,8 @@ name|ByteString
 name|getName
 parameter_list|()
 function_decl|;
-comment|// repeated .BytesBytesPair attributes = 2;
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|// repeated .hbase.pb.BytesBytesPair attributes = 2;
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -20735,7 +20735,7 @@ argument_list|>
 name|getAttributesList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -20757,12 +20757,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 name|int
 name|getAttributesCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -20790,7 +20790,7 @@ argument_list|>
 name|getAttributesOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -20812,8 +20812,8 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated .NameStringPair configuration = 3;
-comment|/**      *<code>repeated .NameStringPair configuration = 3;</code>      */
+comment|// repeated .hbase.pb.NameStringPair configuration = 3;
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -20839,7 +20839,7 @@ argument_list|>
 name|getConfigurationList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -20861,12 +20861,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>      */
 name|int
 name|getConfigurationCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -20894,7 +20894,7 @@ argument_list|>
 name|getConfigurationOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -20917,7 +20917,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ColumnFamilySchema}    *    *<pre>    **    * Column Family Schema    * Inspired by the rest ColumSchemaMessage    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ColumnFamilySchema}    *    *<pre>    **    * Column Family Schema    * Inspired by the rest ColumSchemaMessage    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -21506,7 +21506,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_ColumnFamilySchema_descriptor
+name|internal_static_hbase_pb_ColumnFamilySchema_descriptor
 return|;
 block|}
 specifier|protected
@@ -21537,7 +21537,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_ColumnFamilySchema_fieldAccessorTable
+name|internal_static_hbase_pb_ColumnFamilySchema_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -21732,7 +21732,7 @@ return|return
 name|name_
 return|;
 block|}
-comment|// repeated .BytesBytesPair attributes = 2;
+comment|// repeated .hbase.pb.BytesBytesPair attributes = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -21766,7 +21766,7 @@ name|BytesBytesPair
 argument_list|>
 name|attributes_
 decl_stmt|;
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -21797,7 +21797,7 @@ return|return
 name|attributes_
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -21830,7 +21830,7 @@ return|return
 name|attributes_
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 specifier|public
 name|int
 name|getAttributesCount
@@ -21843,7 +21843,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -21875,7 +21875,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair attributes = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -21907,7 +21907,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated .NameStringPair configuration = 3;
+comment|// repeated .hbase.pb.NameStringPair configuration = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -21941,7 +21941,7 @@ name|NameStringPair
 argument_list|>
 name|configuration_
 decl_stmt|;
-comment|/**      *<code>repeated .NameStringPair configuration = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -21972,7 +21972,7 @@ return|return
 name|configuration_
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -22005,7 +22005,7 @@ return|return
 name|configuration_
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>      */
 specifier|public
 name|int
 name|getConfigurationCount
@@ -22018,7 +22018,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -22050,7 +22050,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -23509,7 +23509,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ColumnFamilySchema}      *      *<pre>      **      * Column Family Schema      * Inspired by the rest ColumSchemaMessage      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ColumnFamilySchema}      *      *<pre>      **      * Column Family Schema      * Inspired by the rest ColumSchemaMessage      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -23575,7 +23575,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_ColumnFamilySchema_descriptor
+name|internal_static_hbase_pb_ColumnFamilySchema_descriptor
 return|;
 block|}
 specifier|protected
@@ -23606,7 +23606,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_ColumnFamilySchema_fieldAccessorTable
+name|internal_static_hbase_pb_ColumnFamilySchema_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -23872,7 +23872,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_ColumnFamilySchema_descriptor
+name|internal_static_hbase_pb_ColumnFamilySchema_descriptor
 return|;
 block|}
 specifier|public
@@ -24972,7 +24972,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .BytesBytesPair attributes = 2;
+comment|// repeated .hbase.pb.BytesBytesPair attributes = 2;
 specifier|private
 name|java
 operator|.
@@ -25122,7 +25122,7 @@ name|BytesBytesPairOrBuilder
 argument_list|>
 name|attributesBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -25179,7 +25179,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|int
 name|getAttributesCount
@@ -25209,7 +25209,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -25260,7 +25260,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|setAttributes
@@ -25338,7 +25338,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|setAttributes
@@ -25411,7 +25411,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|addAttributes
@@ -25482,7 +25482,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|addAttributes
@@ -25560,7 +25560,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|addAttributes
@@ -25626,7 +25626,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|addAttributes
@@ -25699,7 +25699,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|addAllAttributes
@@ -25768,7 +25768,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|clearAttributes
@@ -25817,7 +25817,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|Builder
 name|removeAttributes
@@ -25861,7 +25861,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -25896,7 +25896,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -25947,7 +25947,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -26006,7 +26006,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -26055,7 +26055,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -26109,7 +26109,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair attributes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair attributes = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -26305,7 +26305,7 @@ return|return
 name|attributesBuilder_
 return|;
 block|}
-comment|// repeated .NameStringPair configuration = 3;
+comment|// repeated .hbase.pb.NameStringPair configuration = 3;
 specifier|private
 name|java
 operator|.
@@ -26455,7 +26455,7 @@ name|NameStringPairOrBuilder
 argument_list|>
 name|configurationBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -26512,7 +26512,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|int
 name|getConfigurationCount
@@ -26542,7 +26542,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -26593,7 +26593,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|Builder
 name|setConfiguration
@@ -26671,7 +26671,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|Builder
 name|setConfiguration
@@ -26744,7 +26744,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -26815,7 +26815,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -26893,7 +26893,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -26959,7 +26959,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -27032,7 +27032,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|Builder
 name|addAllConfiguration
@@ -27101,7 +27101,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|Builder
 name|clearConfiguration
@@ -27150,7 +27150,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|Builder
 name|removeConfiguration
@@ -27194,7 +27194,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -27229,7 +27229,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -27280,7 +27280,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -27339,7 +27339,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -27388,7 +27388,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -27442,7 +27442,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -27638,7 +27638,7 @@ return|return
 name|configurationBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ColumnFamilySchema)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ColumnFamilySchema)
 block|}
 static|static
 block|{
@@ -27656,7 +27656,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ColumnFamilySchema)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ColumnFamilySchema)
 block|}
 specifier|public
 interface|interface
@@ -27681,13 +27681,13 @@ name|long
 name|getRegionId
 parameter_list|()
 function_decl|;
-comment|// required .TableName table_name = 2;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|// required .hbase.pb.TableName table_name = 2;
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|boolean
 name|hasTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -27706,7 +27706,7 @@ name|TableName
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -27793,7 +27793,7 @@ name|getReplicaId
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RegionInfo}    *    *<pre>    **    * Protocol buffer version of HRegionInfo.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.RegionInfo}    *    *<pre>    **    * Protocol buffer version of HRegionInfo.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -28350,7 +28350,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_RegionInfo_descriptor
+name|internal_static_hbase_pb_RegionInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -28381,7 +28381,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_RegionInfo_fieldAccessorTable
+name|internal_static_hbase_pb_RegionInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -28564,7 +28564,7 @@ return|return
 name|regionId_
 return|;
 block|}
-comment|// required .TableName table_name = 2;
+comment|// required .hbase.pb.TableName table_name = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -28591,7 +28591,7 @@ operator|.
 name|TableName
 name|tableName_
 decl_stmt|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|boolean
 name|hasTableName
@@ -28609,7 +28609,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -28633,7 +28633,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -30774,7 +30774,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RegionInfo}      *      *<pre>      **      * Protocol buffer version of HRegionInfo.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.RegionInfo}      *      *<pre>      **      * Protocol buffer version of HRegionInfo.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -30840,7 +30840,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_RegionInfo_descriptor
+name|internal_static_hbase_pb_RegionInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -30871,7 +30871,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_RegionInfo_fieldAccessorTable
+name|internal_static_hbase_pb_RegionInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -31181,7 +31181,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_RegionInfo_descriptor
+name|internal_static_hbase_pb_RegionInfo_descriptor
 return|;
 block|}
 specifier|public
@@ -32059,7 +32059,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .TableName table_name = 2;
+comment|// required .hbase.pb.TableName table_name = 2;
 specifier|private
 name|org
 operator|.
@@ -32158,7 +32158,7 @@ name|TableNameOrBuilder
 argument_list|>
 name|tableNameBuilder_
 decl_stmt|;
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|boolean
 name|hasTableName
@@ -32176,7 +32176,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -32217,7 +32217,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -32286,7 +32286,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -32350,7 +32350,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeTableName
@@ -32475,7 +32475,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|clearTableName
@@ -32534,7 +32534,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -32571,7 +32571,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -32612,7 +32612,7 @@ name|tableName_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -33267,7 +33267,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RegionInfo)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RegionInfo)
 block|}
 static|static
 block|{
@@ -33285,7 +33285,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RegionInfo)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RegionInfo)
 block|}
 specifier|public
 interface|interface
@@ -33299,8 +33299,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .ServerName favored_node = 1;
-comment|/**      *<code>repeated .ServerName favored_node = 1;</code>      */
+comment|// repeated .hbase.pb.ServerName favored_node = 1;
+comment|/**      *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -33326,7 +33326,7 @@ argument_list|>
 name|getFavoredNodeList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ServerName favored_node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -33348,12 +33348,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .ServerName favored_node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>      */
 name|int
 name|getFavoredNodeCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ServerName favored_node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -33381,7 +33381,7 @@ argument_list|>
 name|getFavoredNodeOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ServerName favored_node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -33404,7 +33404,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code FavoredNodes}    *    *<pre>    **    * Protocol buffer for favored nodes    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.FavoredNodes}    *    *<pre>    **    * Protocol buffer for favored nodes    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -33867,7 +33867,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_FavoredNodes_descriptor
+name|internal_static_hbase_pb_FavoredNodes_descriptor
 return|;
 block|}
 specifier|protected
@@ -33898,7 +33898,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_FavoredNodes_fieldAccessorTable
+name|internal_static_hbase_pb_FavoredNodes_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -34036,7 +34036,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|// repeated .ServerName favored_node = 1;
+comment|// repeated .hbase.pb.ServerName favored_node = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -34070,7 +34070,7 @@ name|ServerName
 argument_list|>
 name|favoredNode_
 decl_stmt|;
-comment|/**      *<code>repeated .ServerName favored_node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -34101,7 +34101,7 @@ return|return
 name|favoredNode_
 return|;
 block|}
-comment|/**      *<code>repeated .ServerName favored_node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -34134,7 +34134,7 @@ return|return
 name|favoredNode_
 return|;
 block|}
-comment|/**      *<code>repeated .ServerName favored_node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>      */
 specifier|public
 name|int
 name|getFavoredNodeCount
@@ -34147,7 +34147,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .ServerName favored_node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -34179,7 +34179,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .ServerName favored_node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -35320,7 +35320,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code FavoredNodes}      *      *<pre>      **      * Protocol buffer for favored nodes      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.FavoredNodes}      *      *<pre>      **      * Protocol buffer for favored nodes      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -35386,7 +35386,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_FavoredNodes_descriptor
+name|internal_static_hbase_pb_FavoredNodes_descriptor
 return|;
 block|}
 specifier|protected
@@ -35417,7 +35417,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_FavoredNodes_fieldAccessorTable
+name|internal_static_hbase_pb_FavoredNodes_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -35623,7 +35623,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_FavoredNodes_descriptor
+name|internal_static_hbase_pb_FavoredNodes_descriptor
 return|;
 block|}
 specifier|public
@@ -36298,7 +36298,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .ServerName favored_node = 1;
+comment|// repeated .hbase.pb.ServerName favored_node = 1;
 specifier|private
 name|java
 operator|.
@@ -36448,7 +36448,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|favoredNodeBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -36505,7 +36505,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|int
 name|getFavoredNodeCount
@@ -36535,7 +36535,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -36586,7 +36586,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|Builder
 name|setFavoredNode
@@ -36664,7 +36664,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|Builder
 name|setFavoredNode
@@ -36737,7 +36737,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|Builder
 name|addFavoredNode
@@ -36808,7 +36808,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|Builder
 name|addFavoredNode
@@ -36886,7 +36886,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|Builder
 name|addFavoredNode
@@ -36952,7 +36952,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|Builder
 name|addFavoredNode
@@ -37025,7 +37025,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllFavoredNode
@@ -37094,7 +37094,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|Builder
 name|clearFavoredNode
@@ -37143,7 +37143,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|Builder
 name|removeFavoredNode
@@ -37187,7 +37187,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -37222,7 +37222,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -37273,7 +37273,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -37332,7 +37332,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -37381,7 +37381,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -37435,7 +37435,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_node = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -37631,7 +37631,7 @@ return|return
 name|favoredNodeBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:FavoredNodes)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.FavoredNodes)
 block|}
 static|static
 block|{
@@ -37649,7 +37649,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:FavoredNodes)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.FavoredNodes)
 block|}
 specifier|public
 interface|interface
@@ -37663,13 +37663,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier.RegionSpecifierType type = 1;
-comment|/**      *<code>required .RegionSpecifier.RegionSpecifierType type = 1;</code>      */
+comment|// required .hbase.pb.RegionSpecifier.RegionSpecifierType type = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier.RegionSpecifierType type = 1;</code>      */
 name|boolean
 name|hasType
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier.RegionSpecifierType type = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier.RegionSpecifierType type = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -37708,7 +37708,7 @@ name|getValue
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RegionSpecifier}    *    *<pre>    **    * Container protocol buffer to specify a region.    * You can specify region by region name, or the hash    * of the region name, which is known as encoded    * region name.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.RegionSpecifier}    *    *<pre>    **    * Container protocol buffer to specify a region.    * You can specify region by region name, or the hash    * of the region name, which is known as encoded    * region name.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -38163,7 +38163,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_RegionSpecifier_descriptor
+name|internal_static_hbase_pb_RegionSpecifier_descriptor
 return|;
 block|}
 specifier|protected
@@ -38194,7 +38194,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_RegionSpecifier_fieldAccessorTable
+name|internal_static_hbase_pb_RegionSpecifier_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -38332,7 +38332,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code RegionSpecifier.RegionSpecifierType}      */
+comment|/**      * Protobuf enum {@code hbase.pb.RegionSpecifier.RegionSpecifierType}      */
 specifier|public
 enum|enum
 name|RegionSpecifierType
@@ -38675,13 +38675,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:RegionSpecifier.RegionSpecifierType)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.RegionSpecifier.RegionSpecifierType)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier.RegionSpecifierType type = 1;
+comment|// required .hbase.pb.RegionSpecifier.RegionSpecifierType type = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -38710,7 +38710,7 @@ operator|.
 name|RegionSpecifierType
 name|type_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier.RegionSpecifierType type = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier.RegionSpecifierType type = 1;</code>      */
 specifier|public
 name|boolean
 name|hasType
@@ -38728,7 +38728,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier.RegionSpecifierType type = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier.RegionSpecifierType type = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -40057,7 +40057,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RegionSpecifier}      *      *<pre>      **      * Container protocol buffer to specify a region.      * You can specify region by region name, or the hash      * of the region name, which is known as encoded      * region name.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.RegionSpecifier}      *      *<pre>      **      * Container protocol buffer to specify a region.      * You can specify region by region name, or the hash      * of the region name, which is known as encoded      * region name.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -40123,7 +40123,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_RegionSpecifier_descriptor
+name|internal_static_hbase_pb_RegionSpecifier_descriptor
 return|;
 block|}
 specifier|protected
@@ -40154,7 +40154,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_RegionSpecifier_fieldAccessorTable
+name|internal_static_hbase_pb_RegionSpecifier_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -40372,7 +40372,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_RegionSpecifier_descriptor
+name|internal_static_hbase_pb_RegionSpecifier_descriptor
 return|;
 block|}
 specifier|public
@@ -40928,7 +40928,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier.RegionSpecifierType type = 1;
+comment|// required .hbase.pb.RegionSpecifier.RegionSpecifierType type = 1;
 specifier|private
 name|org
 operator|.
@@ -40969,7 +40969,7 @@ name|RegionSpecifierType
 operator|.
 name|REGION_NAME
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier.RegionSpecifierType type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier.RegionSpecifierType type = 1;</code>        */
 specifier|public
 name|boolean
 name|hasType
@@ -40987,7 +40987,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier.RegionSpecifierType type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier.RegionSpecifierType type = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -41013,7 +41013,7 @@ return|return
 name|type_
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier.RegionSpecifierType type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier.RegionSpecifierType type = 1;</code>        */
 specifier|public
 name|Builder
 name|setType
@@ -41066,7 +41066,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier.RegionSpecifierType type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier.RegionSpecifierType type = 1;</code>        */
 specifier|public
 name|Builder
 name|clearType
@@ -41238,7 +41238,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RegionSpecifier)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RegionSpecifier)
 block|}
 static|static
 block|{
@@ -41256,7 +41256,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RegionSpecifier)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RegionSpecifier)
 block|}
 specifier|public
 interface|interface
@@ -41293,7 +41293,7 @@ name|getTo
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code TimeRange}    *    *<pre>    **    * A range of time. Both from and to are Java time    * stamp in milliseconds. If you don't specify a time    * range, it means all time.  By default, if not    * specified, from = 0, and to = Long.MAX_VALUE    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.TimeRange}    *    *<pre>    **    * A range of time. Both from and to are Java time    * stamp in milliseconds. If you don't specify a time    * range, it means all time.  By default, if not    * specified, from = 0, and to = Long.MAX_VALUE    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -41681,7 +41681,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TimeRange_descriptor
+name|internal_static_hbase_pb_TimeRange_descriptor
 return|;
 block|}
 specifier|protected
@@ -41712,7 +41712,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TimeRange_fieldAccessorTable
+name|internal_static_hbase_pb_TimeRange_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -43123,7 +43123,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code TimeRange}      *      *<pre>      **      * A range of time. Both from and to are Java time      * stamp in milliseconds. If you don't specify a time      * range, it means all time.  By default, if not      * specified, from = 0, and to = Long.MAX_VALUE      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.TimeRange}      *      *<pre>      **      * A range of time. Both from and to are Java time      * stamp in milliseconds. If you don't specify a time      * range, it means all time.  By default, if not      * specified, from = 0, and to = Long.MAX_VALUE      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -43189,7 +43189,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TimeRange_descriptor
+name|internal_static_hbase_pb_TimeRange_descriptor
 return|;
 block|}
 specifier|protected
@@ -43220,7 +43220,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TimeRange_fieldAccessorTable
+name|internal_static_hbase_pb_TimeRange_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -43412,7 +43412,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_TimeRange_descriptor
+name|internal_static_hbase_pb_TimeRange_descriptor
 return|;
 block|}
 specifier|public
@@ -44112,7 +44112,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:TimeRange)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.TimeRange)
 block|}
 static|static
 block|{
@@ -44130,7 +44130,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:TimeRange)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.TimeRange)
 block|}
 specifier|public
 interface|interface
@@ -44193,7 +44193,7 @@ name|getStartCode
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ServerName}    *    *<pre>    **    * Protocol buffer version of ServerName    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ServerName}    *    *<pre>    **    * Protocol buffer version of ServerName    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -44598,7 +44598,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_ServerName_descriptor
+name|internal_static_hbase_pb_ServerName_descriptor
 return|;
 block|}
 specifier|protected
@@ -44629,7 +44629,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_ServerName_fieldAccessorTable
+name|internal_static_hbase_pb_ServerName_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -46392,7 +46392,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ServerName}      *      *<pre>      **      * Protocol buffer version of ServerName      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ServerName}      *      *<pre>      **      * Protocol buffer version of ServerName      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -46458,7 +46458,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_ServerName_descriptor
+name|internal_static_hbase_pb_ServerName_descriptor
 return|;
 block|}
 specifier|protected
@@ -46489,7 +46489,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_ServerName_fieldAccessorTable
+name|internal_static_hbase_pb_ServerName_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -46694,7 +46694,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_ServerName_descriptor
+name|internal_static_hbase_pb_ServerName_descriptor
 return|;
 block|}
 specifier|public
@@ -47753,7 +47753,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ServerName)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ServerName)
 block|}
 static|static
 block|{
@@ -47771,7 +47771,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ServerName)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ServerName)
 block|}
 specifier|public
 interface|interface
@@ -47812,7 +47812,7 @@ name|getNameBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Coprocessor}    */
+comment|/**    * Protobuf type {@code hbase.pb.Coprocessor}    */
 specifier|public
 specifier|static
 specifier|final
@@ -48183,7 +48183,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_Coprocessor_descriptor
+name|internal_static_hbase_pb_Coprocessor_descriptor
 return|;
 block|}
 specifier|protected
@@ -48214,7 +48214,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_Coprocessor_fieldAccessorTable
+name|internal_static_hbase_pb_Coprocessor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -49650,7 +49650,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Coprocessor}      */
+comment|/**      * Protobuf type {@code hbase.pb.Coprocessor}      */
 specifier|public
 specifier|static
 specifier|final
@@ -49716,7 +49716,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_Coprocessor_descriptor
+name|internal_static_hbase_pb_Coprocessor_descriptor
 return|;
 block|}
 specifier|protected
@@ -49747,7 +49747,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_Coprocessor_fieldAccessorTable
+name|internal_static_hbase_pb_Coprocessor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -49926,7 +49926,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_Coprocessor_descriptor
+name|internal_static_hbase_pb_Coprocessor_descriptor
 return|;
 block|}
 specifier|public
@@ -50737,7 +50737,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Coprocessor)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Coprocessor)
 block|}
 static|static
 block|{
@@ -50755,7 +50755,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Coprocessor)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Coprocessor)
 block|}
 specifier|public
 interface|interface
@@ -50822,7 +50822,7 @@ name|getValueBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code NameStringPair}    */
+comment|/**    * Protobuf type {@code hbase.pb.NameStringPair}    */
 specifier|public
 specifier|static
 specifier|final
@@ -51210,7 +51210,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NameStringPair_descriptor
+name|internal_static_hbase_pb_NameStringPair_descriptor
 return|;
 block|}
 specifier|protected
@@ -51241,7 +51241,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NameStringPair_fieldAccessorTable
+name|internal_static_hbase_pb_NameStringPair_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -53032,7 +53032,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code NameStringPair}      */
+comment|/**      * Protobuf type {@code hbase.pb.NameStringPair}      */
 specifier|public
 specifier|static
 specifier|final
@@ -53098,7 +53098,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NameStringPair_descriptor
+name|internal_static_hbase_pb_NameStringPair_descriptor
 return|;
 block|}
 specifier|protected
@@ -53129,7 +53129,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NameStringPair_fieldAccessorTable
+name|internal_static_hbase_pb_NameStringPair_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -53321,7 +53321,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NameStringPair_descriptor
+name|internal_static_hbase_pb_NameStringPair_descriptor
 return|;
 block|}
 specifier|public
@@ -54491,7 +54491,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:NameStringPair)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.NameStringPair)
 block|}
 static|static
 block|{
@@ -54509,7 +54509,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:NameStringPair)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.NameStringPair)
 block|}
 specifier|public
 interface|interface
@@ -54567,7 +54567,7 @@ name|getValue
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code NameBytesPair}    */
+comment|/**    * Protobuf type {@code hbase.pb.NameBytesPair}    */
 specifier|public
 specifier|static
 specifier|final
@@ -54955,7 +54955,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NameBytesPair_descriptor
+name|internal_static_hbase_pb_NameBytesPair_descriptor
 return|;
 block|}
 specifier|protected
@@ -54986,7 +54986,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NameBytesPair_fieldAccessorTable
+name|internal_static_hbase_pb_NameBytesPair_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -56608,7 +56608,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code NameBytesPair}      */
+comment|/**      * Protobuf type {@code hbase.pb.NameBytesPair}      */
 specifier|public
 specifier|static
 specifier|final
@@ -56674,7 +56674,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NameBytesPair_descriptor
+name|internal_static_hbase_pb_NameBytesPair_descriptor
 return|;
 block|}
 specifier|protected
@@ -56705,7 +56705,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NameBytesPair_fieldAccessorTable
+name|internal_static_hbase_pb_NameBytesPair_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -56905,7 +56905,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NameBytesPair_descriptor
+name|internal_static_hbase_pb_NameBytesPair_descriptor
 return|;
 block|}
 specifier|public
@@ -57885,7 +57885,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:NameBytesPair)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.NameBytesPair)
 block|}
 static|static
 block|{
@@ -57903,7 +57903,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:NameBytesPair)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.NameBytesPair)
 block|}
 specifier|public
 interface|interface
@@ -57952,7 +57952,7 @@ name|getSecond
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code BytesBytesPair}    */
+comment|/**    * Protobuf type {@code hbase.pb.BytesBytesPair}    */
 specifier|public
 specifier|static
 specifier|final
@@ -58340,7 +58340,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_BytesBytesPair_descriptor
+name|internal_static_hbase_pb_BytesBytesPair_descriptor
 return|;
 block|}
 specifier|protected
@@ -58371,7 +58371,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_BytesBytesPair_fieldAccessorTable
+name|internal_static_hbase_pb_BytesBytesPair_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -59854,7 +59854,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code BytesBytesPair}      */
+comment|/**      * Protobuf type {@code hbase.pb.BytesBytesPair}      */
 specifier|public
 specifier|static
 specifier|final
@@ -59920,7 +59920,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_BytesBytesPair_descriptor
+name|internal_static_hbase_pb_BytesBytesPair_descriptor
 return|;
 block|}
 specifier|protected
@@ -59951,7 +59951,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_BytesBytesPair_fieldAccessorTable
+name|internal_static_hbase_pb_BytesBytesPair_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -60159,7 +60159,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_BytesBytesPair_descriptor
+name|internal_static_hbase_pb_BytesBytesPair_descriptor
 return|;
 block|}
 specifier|public
@@ -60971,7 +60971,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:BytesBytesPair)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.BytesBytesPair)
 block|}
 static|static
 block|{
@@ -60989,7 +60989,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:BytesBytesPair)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.BytesBytesPair)
 block|}
 specifier|public
 interface|interface
@@ -61041,7 +61041,7 @@ name|getValue
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code NameInt64Pair}    */
+comment|/**    * Protobuf type {@code hbase.pb.NameInt64Pair}    */
 specifier|public
 specifier|static
 specifier|final
@@ -61429,7 +61429,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NameInt64Pair_descriptor
+name|internal_static_hbase_pb_NameInt64Pair_descriptor
 return|;
 block|}
 specifier|protected
@@ -61460,7 +61460,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NameInt64Pair_fieldAccessorTable
+name|internal_static_hbase_pb_NameInt64Pair_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -63046,7 +63046,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code NameInt64Pair}      */
+comment|/**      * Protobuf type {@code hbase.pb.NameInt64Pair}      */
 specifier|public
 specifier|static
 specifier|final
@@ -63112,7 +63112,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NameInt64Pair_descriptor
+name|internal_static_hbase_pb_NameInt64Pair_descriptor
 return|;
 block|}
 specifier|protected
@@ -63143,7 +63143,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NameInt64Pair_fieldAccessorTable
+name|internal_static_hbase_pb_NameInt64Pair_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -63335,7 +63335,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NameInt64Pair_descriptor
+name|internal_static_hbase_pb_NameInt64Pair_descriptor
 return|;
 block|}
 specifier|public
@@ -64259,7 +64259,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:NameInt64Pair)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.NameInt64Pair)
 block|}
 static|static
 block|{
@@ -64277,7 +64277,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:NameInt64Pair)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.NameInt64Pair)
 block|}
 specifier|public
 interface|interface
@@ -64354,13 +64354,13 @@ name|long
 name|getCreationTime
 parameter_list|()
 function_decl|;
-comment|// optional .SnapshotDescription.Type type = 4 [default = FLUSH];
-comment|/**      *<code>optional .SnapshotDescription.Type type = 4 [default = FLUSH];</code>      */
+comment|// optional .hbase.pb.SnapshotDescription.Type type = 4 [default = FLUSH];
+comment|/**      *<code>optional .hbase.pb.SnapshotDescription.Type type = 4 [default = FLUSH];</code>      */
 name|boolean
 name|hasType
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .SnapshotDescription.Type type = 4 [default = FLUSH];</code>      */
+comment|/**      *<code>optional .hbase.pb.SnapshotDescription.Type type = 4 [default = FLUSH];</code>      */
 name|org
 operator|.
 name|apache
@@ -64419,7 +64419,7 @@ name|getOwnerBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code SnapshotDescription}    *    *<pre>    **    * Description of the snapshot to take    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.SnapshotDescription}    *    *<pre>    **    * Description of the snapshot to take    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -64942,7 +64942,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_SnapshotDescription_descriptor
+name|internal_static_hbase_pb_SnapshotDescription_descriptor
 return|;
 block|}
 specifier|protected
@@ -64973,7 +64973,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_SnapshotDescription_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotDescription_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -65111,7 +65111,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code SnapshotDescription.Type}      */
+comment|/**      * Protobuf enum {@code hbase.pb.SnapshotDescription.Type}      */
 specifier|public
 enum|enum
 name|Type
@@ -65477,7 +65477,7 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:SnapshotDescription.Type)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.SnapshotDescription.Type)
 block|}
 specifier|private
 name|int
@@ -65950,7 +65950,7 @@ return|return
 name|creationTime_
 return|;
 block|}
-comment|// optional .SnapshotDescription.Type type = 4 [default = FLUSH];
+comment|// optional .hbase.pb.SnapshotDescription.Type type = 4 [default = FLUSH];
 specifier|public
 specifier|static
 specifier|final
@@ -65979,7 +65979,7 @@ operator|.
 name|Type
 name|type_
 decl_stmt|;
-comment|/**      *<code>optional .SnapshotDescription.Type type = 4 [default = FLUSH];</code>      */
+comment|/**      *<code>optional .hbase.pb.SnapshotDescription.Type type = 4 [default = FLUSH];</code>      */
 specifier|public
 name|boolean
 name|hasType
@@ -65997,7 +65997,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .SnapshotDescription.Type type = 4 [default = FLUSH];</code>      */
+comment|/**      *<code>optional .hbase.pb.SnapshotDescription.Type type = 4 [default = FLUSH];</code>      */
 specifier|public
 name|org
 operator|.
@@ -68005,7 +68005,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code SnapshotDescription}      *      *<pre>      **      * Description of the snapshot to take      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.SnapshotDescription}      *      *<pre>      **      * Description of the snapshot to take      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -68071,7 +68071,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_SnapshotDescription_descriptor
+name|internal_static_hbase_pb_SnapshotDescription_descriptor
 return|;
 block|}
 specifier|protected
@@ -68102,7 +68102,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_SnapshotDescription_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotDescription_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -68364,7 +68364,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_SnapshotDescription_descriptor
+name|internal_static_hbase_pb_SnapshotDescription_descriptor
 return|;
 block|}
 specifier|public
@@ -69775,7 +69775,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .SnapshotDescription.Type type = 4 [default = FLUSH];
+comment|// optional .hbase.pb.SnapshotDescription.Type type = 4 [default = FLUSH];
 specifier|private
 name|org
 operator|.
@@ -69816,7 +69816,7 @@ name|Type
 operator|.
 name|FLUSH
 decl_stmt|;
-comment|/**        *<code>optional .SnapshotDescription.Type type = 4 [default = FLUSH];</code>        */
+comment|/**        *<code>optional .hbase.pb.SnapshotDescription.Type type = 4 [default = FLUSH];</code>        */
 specifier|public
 name|boolean
 name|hasType
@@ -69834,7 +69834,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .SnapshotDescription.Type type = 4 [default = FLUSH];</code>        */
+comment|/**        *<code>optional .hbase.pb.SnapshotDescription.Type type = 4 [default = FLUSH];</code>        */
 specifier|public
 name|org
 operator|.
@@ -69860,7 +69860,7 @@ return|return
 name|type_
 return|;
 block|}
-comment|/**        *<code>optional .SnapshotDescription.Type type = 4 [default = FLUSH];</code>        */
+comment|/**        *<code>optional .hbase.pb.SnapshotDescription.Type type = 4 [default = FLUSH];</code>        */
 specifier|public
 name|Builder
 name|setType
@@ -69913,7 +69913,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .SnapshotDescription.Type type = 4 [default = FLUSH];</code>        */
+comment|/**        *<code>optional .hbase.pb.SnapshotDescription.Type type = 4 [default = FLUSH];</code>        */
 specifier|public
 name|Builder
 name|clearType
@@ -70342,7 +70342,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:SnapshotDescription)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.SnapshotDescription)
 block|}
 static|static
 block|{
@@ -70360,7 +70360,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:SnapshotDescription)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.SnapshotDescription)
 block|}
 specifier|public
 interface|interface
@@ -70437,8 +70437,8 @@ name|long
 name|getCreationTime
 parameter_list|()
 function_decl|;
-comment|// repeated .NameStringPair configuration = 4;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|// repeated .hbase.pb.NameStringPair configuration = 4;
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 name|java
 operator|.
 name|util
@@ -70464,7 +70464,7 @@ argument_list|>
 name|getConfigurationList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -70486,12 +70486,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 name|int
 name|getConfigurationCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 name|java
 operator|.
 name|util
@@ -70519,7 +70519,7 @@ argument_list|>
 name|getConfigurationOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -70542,7 +70542,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ProcedureDescription}    *    *<pre>    **    * Description of the distributed procedure to take    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ProcedureDescription}    *    *<pre>    **    * Description of the distributed procedure to take    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -71056,7 +71056,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_ProcedureDescription_descriptor
+name|internal_static_hbase_pb_ProcedureDescription_descriptor
 return|;
 block|}
 specifier|protected
@@ -71087,7 +71087,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_ProcedureDescription_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureDescription_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -71696,7 +71696,7 @@ return|return
 name|creationTime_
 return|;
 block|}
-comment|// repeated .NameStringPair configuration = 4;
+comment|// repeated .hbase.pb.NameStringPair configuration = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -71730,7 +71730,7 @@ name|NameStringPair
 argument_list|>
 name|configuration_
 decl_stmt|;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -71761,7 +71761,7 @@ return|return
 name|configuration_
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -71794,7 +71794,7 @@ return|return
 name|configuration_
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 specifier|public
 name|int
 name|getConfigurationCount
@@ -71807,7 +71807,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -71839,7 +71839,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -73373,7 +73373,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ProcedureDescription}      *      *<pre>      **      * Description of the distributed procedure to take      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ProcedureDescription}      *      *<pre>      **      * Description of the distributed procedure to take      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -73439,7 +73439,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_ProcedureDescription_descriptor
+name|internal_static_hbase_pb_ProcedureDescription_descriptor
 return|;
 block|}
 specifier|protected
@@ -73470,7 +73470,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_ProcedureDescription_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureDescription_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -73715,7 +73715,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_ProcedureDescription_descriptor
+name|internal_static_hbase_pb_ProcedureDescription_descriptor
 return|;
 block|}
 specifier|public
@@ -75232,7 +75232,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .NameStringPair configuration = 4;
+comment|// repeated .hbase.pb.NameStringPair configuration = 4;
 specifier|private
 name|java
 operator|.
@@ -75382,7 +75382,7 @@ name|NameStringPairOrBuilder
 argument_list|>
 name|configurationBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -75439,7 +75439,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|int
 name|getConfigurationCount
@@ -75469,7 +75469,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -75520,7 +75520,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|setConfiguration
@@ -75598,7 +75598,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|setConfiguration
@@ -75671,7 +75671,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -75742,7 +75742,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -75820,7 +75820,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -75886,7 +75886,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -75959,7 +75959,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|addAllConfiguration
@@ -76028,7 +76028,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|clearConfiguration
@@ -76077,7 +76077,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|removeConfiguration
@@ -76121,7 +76121,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -76156,7 +76156,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -76207,7 +76207,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -76266,7 +76266,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -76315,7 +76315,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -76369,7 +76369,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -76565,7 +76565,7 @@ return|return
 name|configurationBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ProcedureDescription)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ProcedureDescription)
 block|}
 static|static
 block|{
@@ -76583,7 +76583,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ProcedureDescription)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ProcedureDescription)
 block|}
 specifier|public
 interface|interface
@@ -76597,7 +76597,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code EmptyMsg}    */
+comment|/**    * Protobuf type {@code hbase.pb.EmptyMsg}    */
 specifier|public
 specifier|static
 specifier|final
@@ -76946,7 +76946,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_EmptyMsg_descriptor
+name|internal_static_hbase_pb_EmptyMsg_descriptor
 return|;
 block|}
 specifier|protected
@@ -76977,7 +76977,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_EmptyMsg_fieldAccessorTable
+name|internal_static_hbase_pb_EmptyMsg_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -78053,7 +78053,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code EmptyMsg}      */
+comment|/**      * Protobuf type {@code hbase.pb.EmptyMsg}      */
 specifier|public
 specifier|static
 specifier|final
@@ -78119,7 +78119,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_EmptyMsg_descriptor
+name|internal_static_hbase_pb_EmptyMsg_descriptor
 return|;
 block|}
 specifier|protected
@@ -78150,7 +78150,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_EmptyMsg_fieldAccessorTable
+name|internal_static_hbase_pb_EmptyMsg_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -78316,7 +78316,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_EmptyMsg_descriptor
+name|internal_static_hbase_pb_EmptyMsg_descriptor
 return|;
 block|}
 specifier|public
@@ -78748,7 +78748,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:EmptyMsg)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.EmptyMsg)
 block|}
 static|static
 block|{
@@ -78766,7 +78766,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:EmptyMsg)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.EmptyMsg)
 block|}
 specifier|public
 interface|interface
@@ -78792,7 +78792,7 @@ name|getLongMsg
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code LongMsg}    */
+comment|/**    * Protobuf type {@code hbase.pb.LongMsg}    */
 specifier|public
 specifier|static
 specifier|final
@@ -79163,7 +79163,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_LongMsg_descriptor
+name|internal_static_hbase_pb_LongMsg_descriptor
 return|;
 block|}
 specifier|protected
@@ -79194,7 +79194,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_LongMsg_fieldAccessorTable
+name|internal_static_hbase_pb_LongMsg_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -80455,7 +80455,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code LongMsg}      */
+comment|/**      * Protobuf type {@code hbase.pb.LongMsg}      */
 specifier|public
 specifier|static
 specifier|final
@@ -80521,7 +80521,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_LongMsg_descriptor
+name|internal_static_hbase_pb_LongMsg_descriptor
 return|;
 block|}
 specifier|protected
@@ -80552,7 +80552,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_LongMsg_fieldAccessorTable
+name|internal_static_hbase_pb_LongMsg_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -80731,7 +80731,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_LongMsg_descriptor
+name|internal_static_hbase_pb_LongMsg_descriptor
 return|;
 block|}
 specifier|public
@@ -81318,7 +81318,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:LongMsg)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.LongMsg)
 block|}
 static|static
 block|{
@@ -81336,7 +81336,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:LongMsg)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.LongMsg)
 block|}
 specifier|public
 interface|interface
@@ -81362,7 +81362,7 @@ name|getDoubleMsg
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code DoubleMsg}    */
+comment|/**    * Protobuf type {@code hbase.pb.DoubleMsg}    */
 specifier|public
 specifier|static
 specifier|final
@@ -81733,7 +81733,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_DoubleMsg_descriptor
+name|internal_static_hbase_pb_DoubleMsg_descriptor
 return|;
 block|}
 specifier|protected
@@ -81764,7 +81764,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_DoubleMsg_fieldAccessorTable
+name|internal_static_hbase_pb_DoubleMsg_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -83040,7 +83040,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code DoubleMsg}      */
+comment|/**      * Protobuf type {@code hbase.pb.DoubleMsg}      */
 specifier|public
 specifier|static
 specifier|final
@@ -83106,7 +83106,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_DoubleMsg_descriptor
+name|internal_static_hbase_pb_DoubleMsg_descriptor
 return|;
 block|}
 specifier|protected
@@ -83137,7 +83137,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_DoubleMsg_fieldAccessorTable
+name|internal_static_hbase_pb_DoubleMsg_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -83316,7 +83316,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_DoubleMsg_descriptor
+name|internal_static_hbase_pb_DoubleMsg_descriptor
 return|;
 block|}
 specifier|public
@@ -83903,7 +83903,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:DoubleMsg)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.DoubleMsg)
 block|}
 static|static
 block|{
@@ -83921,7 +83921,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:DoubleMsg)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.DoubleMsg)
 block|}
 specifier|public
 interface|interface
@@ -83953,7 +83953,7 @@ name|getBigdecimalMsg
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code BigDecimalMsg}    */
+comment|/**    * Protobuf type {@code hbase.pb.BigDecimalMsg}    */
 specifier|public
 specifier|static
 specifier|final
@@ -84324,7 +84324,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_BigDecimalMsg_descriptor
+name|internal_static_hbase_pb_BigDecimalMsg_descriptor
 return|;
 block|}
 specifier|protected
@@ -84355,7 +84355,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_BigDecimalMsg_fieldAccessorTable
+name|internal_static_hbase_pb_BigDecimalMsg_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -85637,7 +85637,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code BigDecimalMsg}      */
+comment|/**      * Protobuf type {@code hbase.pb.BigDecimalMsg}      */
 specifier|public
 specifier|static
 specifier|final
@@ -85703,7 +85703,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_BigDecimalMsg_descriptor
+name|internal_static_hbase_pb_BigDecimalMsg_descriptor
 return|;
 block|}
 specifier|protected
@@ -85734,7 +85734,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_BigDecimalMsg_fieldAccessorTable
+name|internal_static_hbase_pb_BigDecimalMsg_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -85921,7 +85921,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_BigDecimalMsg_descriptor
+name|internal_static_hbase_pb_BigDecimalMsg_descriptor
 return|;
 block|}
 specifier|public
@@ -86553,7 +86553,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:BigDecimalMsg)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.BigDecimalMsg)
 block|}
 static|static
 block|{
@@ -86571,7 +86571,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:BigDecimalMsg)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.BigDecimalMsg)
 block|}
 specifier|public
 interface|interface
@@ -86608,7 +86608,7 @@ name|getMostSigBits
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code UUID}    */
+comment|/**    * Protobuf type {@code hbase.pb.UUID}    */
 specifier|public
 specifier|static
 specifier|final
@@ -86996,7 +86996,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_UUID_descriptor
+name|internal_static_hbase_pb_UUID_descriptor
 return|;
 block|}
 specifier|protected
@@ -87027,7 +87027,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_UUID_fieldAccessorTable
+name|internal_static_hbase_pb_UUID_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -88468,7 +88468,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code UUID}      */
+comment|/**      * Protobuf type {@code hbase.pb.UUID}      */
 specifier|public
 specifier|static
 specifier|final
@@ -88534,7 +88534,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_UUID_descriptor
+name|internal_static_hbase_pb_UUID_descriptor
 return|;
 block|}
 specifier|protected
@@ -88565,7 +88565,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_UUID_fieldAccessorTable
+name|internal_static_hbase_pb_UUID_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -88757,7 +88757,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_UUID_descriptor
+name|internal_static_hbase_pb_UUID_descriptor
 return|;
 block|}
 specifier|public
@@ -89479,7 +89479,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:UUID)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.UUID)
 block|}
 static|static
 block|{
@@ -89497,7 +89497,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:UUID)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.UUID)
 block|}
 specifier|public
 interface|interface
@@ -89528,8 +89528,8 @@ name|ByteString
 name|getName
 parameter_list|()
 function_decl|;
-comment|// repeated .NameStringPair configuration = 2;
-comment|/**      *<code>repeated .NameStringPair configuration = 2;</code>      */
+comment|// repeated .hbase.pb.NameStringPair configuration = 2;
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -89555,7 +89555,7 @@ argument_list|>
 name|getConfigurationList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -89577,12 +89577,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>      */
 name|int
 name|getConfigurationCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -89610,7 +89610,7 @@ argument_list|>
 name|getConfigurationOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -89633,7 +89633,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code NamespaceDescriptor}    */
+comment|/**    * Protobuf type {@code hbase.pb.NamespaceDescriptor}    */
 specifier|public
 specifier|static
 specifier|final
@@ -90113,7 +90113,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NamespaceDescriptor_descriptor
+name|internal_static_hbase_pb_NamespaceDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -90144,7 +90144,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NamespaceDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_NamespaceDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -90339,7 +90339,7 @@ return|return
 name|name_
 return|;
 block|}
-comment|// repeated .NameStringPair configuration = 2;
+comment|// repeated .hbase.pb.NameStringPair configuration = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -90373,7 +90373,7 @@ name|NameStringPair
 argument_list|>
 name|configuration_
 decl_stmt|;
-comment|/**      *<code>repeated .NameStringPair configuration = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -90404,7 +90404,7 @@ return|return
 name|configuration_
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -90437,7 +90437,7 @@ return|return
 name|configuration_
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>      */
 specifier|public
 name|int
 name|getConfigurationCount
@@ -90450,7 +90450,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -90482,7 +90482,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -91771,7 +91771,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code NamespaceDescriptor}      */
+comment|/**      * Protobuf type {@code hbase.pb.NamespaceDescriptor}      */
 specifier|public
 specifier|static
 specifier|final
@@ -91837,7 +91837,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NamespaceDescriptor_descriptor
+name|internal_static_hbase_pb_NamespaceDescriptor_descriptor
 return|;
 block|}
 specifier|protected
@@ -91868,7 +91868,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NamespaceDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_NamespaceDescriptor_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -92095,7 +92095,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_NamespaceDescriptor_descriptor
+name|internal_static_hbase_pb_NamespaceDescriptor_descriptor
 return|;
 block|}
 specifier|public
@@ -92961,7 +92961,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .NameStringPair configuration = 2;
+comment|// repeated .hbase.pb.NameStringPair configuration = 2;
 specifier|private
 name|java
 operator|.
@@ -93111,7 +93111,7 @@ name|NameStringPairOrBuilder
 argument_list|>
 name|configurationBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -93168,7 +93168,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|int
 name|getConfigurationCount
@@ -93198,7 +93198,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -93249,7 +93249,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|Builder
 name|setConfiguration
@@ -93327,7 +93327,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|Builder
 name|setConfiguration
@@ -93400,7 +93400,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -93471,7 +93471,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -93549,7 +93549,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -93615,7 +93615,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -93688,7 +93688,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|Builder
 name|addAllConfiguration
@@ -93757,7 +93757,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|Builder
 name|clearConfiguration
@@ -93806,7 +93806,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|Builder
 name|removeConfiguration
@@ -93850,7 +93850,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -93885,7 +93885,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -93936,7 +93936,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -93995,7 +93995,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -94044,7 +94044,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -94098,7 +94098,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -94294,7 +94294,7 @@ return|return
 name|configurationBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:NamespaceDescriptor)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.NamespaceDescriptor)
 block|}
 static|static
 block|{
@@ -94312,7 +94312,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:NamespaceDescriptor)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.NamespaceDescriptor)
 block|}
 specifier|public
 interface|interface
@@ -94338,7 +94338,7 @@ name|getInfoPort
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RegionServerInfo}    *    *<pre>    **    * Description of the region server info    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.RegionServerInfo}    *    *<pre>    **    * Description of the region server info    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -94709,7 +94709,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_RegionServerInfo_descriptor
+name|internal_static_hbase_pb_RegionServerInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -94740,7 +94740,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_RegionServerInfo_fieldAccessorTable
+name|internal_static_hbase_pb_RegionServerInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -95983,7 +95983,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RegionServerInfo}      *      *<pre>      **      * Description of the region server info      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.RegionServerInfo}      *      *<pre>      **      * Description of the region server info      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -96049,7 +96049,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_RegionServerInfo_descriptor
+name|internal_static_hbase_pb_RegionServerInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -96080,7 +96080,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_RegionServerInfo_fieldAccessorTable
+name|internal_static_hbase_pb_RegionServerInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -96259,7 +96259,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|internal_static_RegionServerInfo_descriptor
+name|internal_static_hbase_pb_RegionServerInfo_descriptor
 return|;
 block|}
 specifier|public
@@ -96835,7 +96835,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RegionServerInfo)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RegionServerInfo)
 block|}
 static|static
 block|{
@@ -96853,7 +96853,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RegionServerInfo)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RegionServerInfo)
 block|}
 specifier|private
 specifier|static
@@ -96866,7 +96866,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_TableName_descriptor
+name|internal_static_hbase_pb_TableName_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -96879,7 +96879,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_TableName_fieldAccessorTable
+name|internal_static_hbase_pb_TableName_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -96892,7 +96892,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_TableSchema_descriptor
+name|internal_static_hbase_pb_TableSchema_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -96905,7 +96905,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_TableSchema_fieldAccessorTable
+name|internal_static_hbase_pb_TableSchema_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -96918,7 +96918,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_TableState_descriptor
+name|internal_static_hbase_pb_TableState_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -96931,7 +96931,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_TableState_fieldAccessorTable
+name|internal_static_hbase_pb_TableState_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -96944,7 +96944,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_TableDescriptor_descriptor
+name|internal_static_hbase_pb_TableDescriptor_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -96957,7 +96957,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_TableDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_TableDescriptor_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -96970,7 +96970,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ColumnFamilySchema_descriptor
+name|internal_static_hbase_pb_ColumnFamilySchema_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -96983,7 +96983,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ColumnFamilySchema_fieldAccessorTable
+name|internal_static_hbase_pb_ColumnFamilySchema_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -96996,7 +96996,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RegionInfo_descriptor
+name|internal_static_hbase_pb_RegionInfo_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97009,7 +97009,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RegionInfo_fieldAccessorTable
+name|internal_static_hbase_pb_RegionInfo_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97022,7 +97022,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_FavoredNodes_descriptor
+name|internal_static_hbase_pb_FavoredNodes_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97035,7 +97035,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_FavoredNodes_fieldAccessorTable
+name|internal_static_hbase_pb_FavoredNodes_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97048,7 +97048,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RegionSpecifier_descriptor
+name|internal_static_hbase_pb_RegionSpecifier_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97061,7 +97061,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RegionSpecifier_fieldAccessorTable
+name|internal_static_hbase_pb_RegionSpecifier_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97074,7 +97074,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_TimeRange_descriptor
+name|internal_static_hbase_pb_TimeRange_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97087,7 +97087,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_TimeRange_fieldAccessorTable
+name|internal_static_hbase_pb_TimeRange_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97100,7 +97100,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ServerName_descriptor
+name|internal_static_hbase_pb_ServerName_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97113,7 +97113,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ServerName_fieldAccessorTable
+name|internal_static_hbase_pb_ServerName_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97126,7 +97126,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Coprocessor_descriptor
+name|internal_static_hbase_pb_Coprocessor_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97139,7 +97139,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Coprocessor_fieldAccessorTable
+name|internal_static_hbase_pb_Coprocessor_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97152,7 +97152,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_NameStringPair_descriptor
+name|internal_static_hbase_pb_NameStringPair_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97165,7 +97165,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_NameStringPair_fieldAccessorTable
+name|internal_static_hbase_pb_NameStringPair_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97178,7 +97178,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_NameBytesPair_descriptor
+name|internal_static_hbase_pb_NameBytesPair_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97191,7 +97191,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_NameBytesPair_fieldAccessorTable
+name|internal_static_hbase_pb_NameBytesPair_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97204,7 +97204,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_BytesBytesPair_descriptor
+name|internal_static_hbase_pb_BytesBytesPair_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97217,7 +97217,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_BytesBytesPair_fieldAccessorTable
+name|internal_static_hbase_pb_BytesBytesPair_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97230,7 +97230,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_NameInt64Pair_descriptor
+name|internal_static_hbase_pb_NameInt64Pair_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97243,7 +97243,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_NameInt64Pair_fieldAccessorTable
+name|internal_static_hbase_pb_NameInt64Pair_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97256,7 +97256,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_SnapshotDescription_descriptor
+name|internal_static_hbase_pb_SnapshotDescription_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97269,7 +97269,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_SnapshotDescription_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotDescription_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97282,7 +97282,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ProcedureDescription_descriptor
+name|internal_static_hbase_pb_ProcedureDescription_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97295,7 +97295,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ProcedureDescription_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureDescription_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97308,7 +97308,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_EmptyMsg_descriptor
+name|internal_static_hbase_pb_EmptyMsg_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97321,7 +97321,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_EmptyMsg_fieldAccessorTable
+name|internal_static_hbase_pb_EmptyMsg_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97334,7 +97334,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_LongMsg_descriptor
+name|internal_static_hbase_pb_LongMsg_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97347,7 +97347,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_LongMsg_fieldAccessorTable
+name|internal_static_hbase_pb_LongMsg_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97360,7 +97360,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_DoubleMsg_descriptor
+name|internal_static_hbase_pb_DoubleMsg_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97373,7 +97373,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_DoubleMsg_fieldAccessorTable
+name|internal_static_hbase_pb_DoubleMsg_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97386,7 +97386,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_BigDecimalMsg_descriptor
+name|internal_static_hbase_pb_BigDecimalMsg_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97399,7 +97399,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_BigDecimalMsg_fieldAccessorTable
+name|internal_static_hbase_pb_BigDecimalMsg_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97412,7 +97412,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_UUID_descriptor
+name|internal_static_hbase_pb_UUID_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97425,7 +97425,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_UUID_fieldAccessorTable
+name|internal_static_hbase_pb_UUID_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97438,7 +97438,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_NamespaceDescriptor_descriptor
+name|internal_static_hbase_pb_NamespaceDescriptor_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97451,7 +97451,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_NamespaceDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_NamespaceDescriptor_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97464,7 +97464,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RegionServerInfo_descriptor
+name|internal_static_hbase_pb_RegionServerInfo_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97477,7 +97477,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RegionServerInfo_fieldAccessorTable
+name|internal_static_hbase_pb_RegionServerInfo_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -97521,111 +97521,119 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\013HBase.proto\032\nCell.proto\"1\n\tTableName\022\021"
+literal|"\n\013HBase.proto\022\010hbase.pb\032\nCell.proto\"1\n\tT"
 operator|+
-literal|"\n\tnamespace\030\001 \002(\014\022\021\n\tqualifier\030\002 \002(\014\"\250\001\n"
+literal|"ableName\022\021\n\tnamespace\030\001 \002(\014\022\021\n\tqualifier"
 operator|+
-literal|"\013TableSchema\022\036\n\ntable_name\030\001 \001(\0132\n.Table"
+literal|"\030\002 \002(\014\"\314\001\n\013TableSchema\022\'\n\ntable_name\030\001 \001"
 operator|+
-literal|"Name\022#\n\nattributes\030\002 \003(\0132\017.BytesBytesPai"
+literal|"(\0132\023.hbase.pb.TableName\022,\n\nattributes\030\002 "
 operator|+
-literal|"r\022,\n\017column_families\030\003 \003(\0132\023.ColumnFamil"
+literal|"\003(\0132\030.hbase.pb.BytesBytesPair\0225\n\017column_"
 operator|+
-literal|"ySchema\022&\n\rconfiguration\030\004 \003(\0132\017.NameStr"
+literal|"families\030\003 \003(\0132\034.hbase.pb.ColumnFamilySc"
 operator|+
-literal|"ingPair\"o\n\nTableState\022 \n\005state\030\001 \002(\0162\021.T"
+literal|"hema\022/\n\rconfiguration\030\004 \003(\0132\030.hbase.pb.N"
 operator|+
-literal|"ableState.State\"?\n\005State\022\013\n\007ENABLED\020\000\022\014\n"
+literal|"ameStringPair\"x\n\nTableState\022)\n\005state\030\001 \002"
 operator|+
-literal|"\010DISABLED\020\001\022\r\n\tDISABLING\020\002\022\014\n\010ENABLING\020\003"
+literal|"(\0162\032.hbase.pb.TableState.State\"?\n\005State\022"
 operator|+
-literal|"\"/\n\017TableDescriptor\022\034\n\006schema\030\001 \002(\0132\014.Ta"
+literal|"\013\n\007ENABLED\020\000\022\014\n\010DISABLED\020\001\022\r\n\tDISABLING\020"
 block|,
-literal|"bleSchema\"o\n\022ColumnFamilySchema\022\014\n\004name\030"
+literal|"\002\022\014\n\010ENABLING\020\003\"8\n\017TableDescriptor\022%\n\006sc"
 operator|+
-literal|"\001 \002(\014\022#\n\nattributes\030\002 \003(\0132\017.BytesBytesPa"
+literal|"hema\030\001 \002(\0132\025.hbase.pb.TableSchema\"\201\001\n\022Co"
 operator|+
-literal|"ir\022&\n\rconfiguration\030\003 \003(\0132\017.NameStringPa"
+literal|"lumnFamilySchema\022\014\n\004name\030\001 \002(\014\022,\n\nattrib"
 operator|+
-literal|"ir\"\232\001\n\nRegionInfo\022\021\n\tregion_id\030\001 \002(\004\022\036\n\n"
+literal|"utes\030\002 \003(\0132\030.hbase.pb.BytesBytesPair\022/\n\r"
 operator|+
-literal|"table_name\030\002 \002(\0132\n.TableName\022\021\n\tstart_ke"
+literal|"configuration\030\003 \003(\0132\030.hbase.pb.NameStrin"
 operator|+
-literal|"y\030\003 \001(\014\022\017\n\007end_key\030\004 \001(\014\022\017\n\007offline\030\005 \001("
+literal|"gPair\"\243\001\n\nRegionInfo\022\021\n\tregion_id\030\001 \002(\004\022"
 operator|+
-literal|"\010\022\r\n\005split\030\006 \001(\010\022\025\n\nreplica_id\030\007 \001(\005:\0010\""
+literal|"\'\n\ntable_name\030\002 \002(\0132\023.hbase.pb.TableName"
 operator|+
-literal|"1\n\014FavoredNodes\022!\n\014favored_node\030\001 \003(\0132\013."
+literal|"\022\021\n\tstart_key\030\003 \001(\014\022\017\n\007end_key\030\004 \001(\014\022\017\n\007"
 operator|+
-literal|"ServerName\"\225\001\n\017RegionSpecifier\0222\n\004type\030\001"
+literal|"offline\030\005 \001(\010\022\r\n\005split\030\006 \001(\010\022\025\n\nreplica_"
 operator|+
-literal|" \002(\0162$.RegionSpecifier.RegionSpecifierTy"
+literal|"id\030\007 \001(\005:\0010\":\n\014FavoredNodes\022*\n\014favored_n"
 block|,
-literal|"pe\022\r\n\005value\030\002 \002(\014\"?\n\023RegionSpecifierType"
+literal|"ode\030\001 \003(\0132\024.hbase.pb.ServerName\"\236\001\n\017Regi"
 operator|+
-literal|"\022\017\n\013REGION_NAME\020\001\022\027\n\023ENCODED_REGION_NAME"
+literal|"onSpecifier\022;\n\004type\030\001 \002(\0162-.hbase.pb.Reg"
 operator|+
-literal|"\020\002\"%\n\tTimeRange\022\014\n\004from\030\001 \001(\004\022\n\n\002to\030\002 \001("
+literal|"ionSpecifier.RegionSpecifierType\022\r\n\005valu"
 operator|+
-literal|"\004\"A\n\nServerName\022\021\n\thost_name\030\001 \002(\t\022\014\n\004po"
+literal|"e\030\002 \002(\014\"?\n\023RegionSpecifierType\022\017\n\013REGION"
 operator|+
-literal|"rt\030\002 \001(\r\022\022\n\nstart_code\030\003 \001(\004\"\033\n\013Coproces"
+literal|"_NAME\020\001\022\027\n\023ENCODED_REGION_NAME\020\002\"%\n\tTime"
 operator|+
-literal|"sor\022\014\n\004name\030\001 \002(\t\"-\n\016NameStringPair\022\014\n\004n"
+literal|"Range\022\014\n\004from\030\001 \001(\004\022\n\n\002to\030\002 \001(\004\"A\n\nServe"
 operator|+
-literal|"ame\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\",\n\rNameBytesPai"
+literal|"rName\022\021\n\thost_name\030\001 \002(\t\022\014\n\004port\030\002 \001(\r\022\022"
 operator|+
-literal|"r\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \001(\014\"/\n\016BytesB"
+literal|"\n\nstart_code\030\003 \001(\004\"\033\n\013Coprocessor\022\014\n\004nam"
 operator|+
-literal|"ytesPair\022\r\n\005first\030\001 \002(\014\022\016\n\006second\030\002 \002(\014\""
+literal|"e\030\001 \002(\t\"-\n\016NameStringPair\022\014\n\004name\030\001 \002(\t\022"
 operator|+
-literal|",\n\rNameInt64Pair\022\014\n\004name\030\001 \001(\t\022\r\n\005value\030"
+literal|"\r\n\005value\030\002 \002(\t\",\n\rNameBytesPair\022\014\n\004name\030"
 block|,
-literal|"\002 \001(\003\"\314\001\n\023SnapshotDescription\022\014\n\004name\030\001 "
+literal|"\001 \002(\t\022\r\n\005value\030\002 \001(\014\"/\n\016BytesBytesPair\022\r"
 operator|+
-literal|"\002(\t\022\r\n\005table\030\002 \001(\t\022\030\n\rcreation_time\030\003 \001("
+literal|"\n\005first\030\001 \002(\014\022\016\n\006second\030\002 \002(\014\",\n\rNameInt"
 operator|+
-literal|"\003:\0010\022.\n\004type\030\004 \001(\0162\031.SnapshotDescription"
+literal|"64Pair\022\014\n\004name\030\001 \001(\t\022\r\n\005value\030\002 \001(\003\"\325\001\n\023"
 operator|+
-literal|".Type:\005FLUSH\022\017\n\007version\030\005 \001(\005\022\r\n\005owner\030\006"
+literal|"SnapshotDescription\022\014\n\004name\030\001 \002(\t\022\r\n\005tab"
 operator|+
-literal|" \001(\t\".\n\004Type\022\014\n\010DISABLED\020\000\022\t\n\005FLUSH\020\001\022\r\n"
+literal|"le\030\002 \001(\t\022\030\n\rcreation_time\030\003 \001(\003:\0010\0227\n\004ty"
 operator|+
-literal|"\tSKIPFLUSH\020\002\"}\n\024ProcedureDescription\022\021\n\t"
+literal|"pe\030\004 \001(\0162\".hbase.pb.SnapshotDescription."
+operator|+
+literal|"Type:\005FLUSH\022\017\n\007version\030\005 \001(\005\022\r\n\005owner\030\006 "
+operator|+
+literal|"\001(\t\".\n\004Type\022\014\n\010DISABLED\020\000\022\t\n\005FLUSH\020\001\022\r\n\t"
+operator|+
+literal|"SKIPFLUSH\020\002\"\206\001\n\024ProcedureDescription\022\021\n\t"
 operator|+
 literal|"signature\030\001 \002(\t\022\020\n\010instance\030\002 \001(\t\022\030\n\rcre"
-operator|+
-literal|"ation_time\030\003 \001(\003:\0010\022&\n\rconfiguration\030\004 \003"
-operator|+
-literal|"(\0132\017.NameStringPair\"\n\n\010EmptyMsg\"\033\n\007LongM"
-operator|+
-literal|"sg\022\020\n\010long_msg\030\001 \002(\003\"\037\n\tDoubleMsg\022\022\n\ndou"
 block|,
-literal|"ble_msg\030\001 \002(\001\"\'\n\rBigDecimalMsg\022\026\n\016bigdec"
+literal|"ation_time\030\003 \001(\003:\0010\022/\n\rconfiguration\030\004 \003"
 operator|+
-literal|"imal_msg\030\001 \002(\014\"5\n\004UUID\022\026\n\016least_sig_bits"
+literal|"(\0132\030.hbase.pb.NameStringPair\"\n\n\010EmptyMsg"
 operator|+
-literal|"\030\001 \002(\004\022\025\n\rmost_sig_bits\030\002 \002(\004\"K\n\023Namespa"
+literal|"\"\033\n\007LongMsg\022\020\n\010long_msg\030\001 \002(\003\"\037\n\tDoubleM"
 operator|+
-literal|"ceDescriptor\022\014\n\004name\030\001 \002(\014\022&\n\rconfigurat"
+literal|"sg\022\022\n\ndouble_msg\030\001 \002(\001\"\'\n\rBigDecimalMsg\022"
 operator|+
-literal|"ion\030\002 \003(\0132\017.NameStringPair\"$\n\020RegionServ"
+literal|"\026\n\016bigdecimal_msg\030\001 \002(\014\"5\n\004UUID\022\026\n\016least"
 operator|+
-literal|"erInfo\022\020\n\010infoPort\030\001 \001(\005*r\n\013CompareType\022"
+literal|"_sig_bits\030\001 \002(\004\022\025\n\rmost_sig_bits\030\002 \002(\004\"T"
 operator|+
-literal|"\010\n\004LESS\020\000\022\021\n\rLESS_OR_EQUAL\020\001\022\t\n\005EQUAL\020\002\022"
+literal|"\n\023NamespaceDescriptor\022\014\n\004name\030\001 \002(\014\022/\n\rc"
 operator|+
-literal|"\r\n\tNOT_EQUAL\020\003\022\024\n\020GREATER_OR_EQUAL\020\004\022\013\n\007"
+literal|"onfiguration\030\002 \003(\0132\030.hbase.pb.NameString"
 operator|+
-literal|"GREATER\020\005\022\t\n\005NO_OP\020\006*n\n\010TimeUnit\022\017\n\013NANO"
+literal|"Pair\"$\n\020RegionServerInfo\022\020\n\010infoPort\030\001 \001"
 operator|+
-literal|"SECONDS\020\001\022\020\n\014MICROSECONDS\020\002\022\020\n\014MILLISECO"
+literal|"(\005*r\n\013CompareType\022\010\n\004LESS\020\000\022\021\n\rLESS_OR_E"
 block|,
-literal|"NDS\020\003\022\013\n\007SECONDS\020\004\022\013\n\007MINUTES\020\005\022\t\n\005HOURS"
+literal|"QUAL\020\001\022\t\n\005EQUAL\020\002\022\r\n\tNOT_EQUAL\020\003\022\024\n\020GREA"
 operator|+
-literal|"\020\006\022\010\n\004DAYS\020\007B>\n*org.apache.hadoop.hbase."
+literal|"TER_OR_EQUAL\020\004\022\013\n\007GREATER\020\005\022\t\n\005NO_OP\020\006*n"
 operator|+
-literal|"protobuf.generatedB\013HBaseProtosH\001\240\001\001"
+literal|"\n\010TimeUnit\022\017\n\013NANOSECONDS\020\001\022\020\n\014MICROSECO"
+operator|+
+literal|"NDS\020\002\022\020\n\014MILLISECONDS\020\003\022\013\n\007SECONDS\020\004\022\013\n\007"
+operator|+
+literal|"MINUTES\020\005\022\t\n\005HOURS\020\006\022\010\n\004DAYS\020\007B>\n*org.ap"
+operator|+
+literal|"ache.hadoop.hbase.protobuf.generatedB\013HB"
+operator|+
+literal|"aseProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -97681,7 +97689,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_TableName_descriptor
+name|internal_static_hbase_pb_TableName_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -97694,7 +97702,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_TableName_fieldAccessorTable
+name|internal_static_hbase_pb_TableName_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -97707,7 +97715,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_TableName_descriptor
+name|internal_static_hbase_pb_TableName_descriptor
 argument_list|,
 operator|new
 name|java
@@ -97723,7 +97731,7 @@ literal|"Qualifier"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_TableSchema_descriptor
+name|internal_static_hbase_pb_TableSchema_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -97736,7 +97744,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_TableSchema_fieldAccessorTable
+name|internal_static_hbase_pb_TableSchema_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -97749,7 +97757,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_TableSchema_descriptor
+name|internal_static_hbase_pb_TableSchema_descriptor
 argument_list|,
 operator|new
 name|java
@@ -97769,7 +97777,7 @@ literal|"Configuration"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_TableState_descriptor
+name|internal_static_hbase_pb_TableState_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -97782,7 +97790,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_TableState_fieldAccessorTable
+name|internal_static_hbase_pb_TableState_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -97795,7 +97803,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_TableState_descriptor
+name|internal_static_hbase_pb_TableState_descriptor
 argument_list|,
 operator|new
 name|java
@@ -97809,7 +97817,7 @@ literal|"State"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_TableDescriptor_descriptor
+name|internal_static_hbase_pb_TableDescriptor_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -97822,7 +97830,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_TableDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_TableDescriptor_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -97835,7 +97843,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_TableDescriptor_descriptor
+name|internal_static_hbase_pb_TableDescriptor_descriptor
 argument_list|,
 operator|new
 name|java
@@ -97849,7 +97857,7 @@ literal|"Schema"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ColumnFamilySchema_descriptor
+name|internal_static_hbase_pb_ColumnFamilySchema_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -97862,7 +97870,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_ColumnFamilySchema_fieldAccessorTable
+name|internal_static_hbase_pb_ColumnFamilySchema_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -97875,7 +97883,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ColumnFamilySchema_descriptor
+name|internal_static_hbase_pb_ColumnFamilySchema_descriptor
 argument_list|,
 operator|new
 name|java
@@ -97893,7 +97901,7 @@ literal|"Configuration"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionInfo_descriptor
+name|internal_static_hbase_pb_RegionInfo_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -97906,7 +97914,7 @@ argument_list|(
 literal|5
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionInfo_fieldAccessorTable
+name|internal_static_hbase_pb_RegionInfo_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -97919,7 +97927,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RegionInfo_descriptor
+name|internal_static_hbase_pb_RegionInfo_descriptor
 argument_list|,
 operator|new
 name|java
@@ -97945,7 +97953,7 @@ literal|"ReplicaId"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_FavoredNodes_descriptor
+name|internal_static_hbase_pb_FavoredNodes_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -97958,7 +97966,7 @@ argument_list|(
 literal|6
 argument_list|)
 expr_stmt|;
-name|internal_static_FavoredNodes_fieldAccessorTable
+name|internal_static_hbase_pb_FavoredNodes_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -97971,7 +97979,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_FavoredNodes_descriptor
+name|internal_static_hbase_pb_FavoredNodes_descriptor
 argument_list|,
 operator|new
 name|java
@@ -97985,7 +97993,7 @@ literal|"FavoredNode"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionSpecifier_descriptor
+name|internal_static_hbase_pb_RegionSpecifier_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -97998,7 +98006,7 @@ argument_list|(
 literal|7
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionSpecifier_fieldAccessorTable
+name|internal_static_hbase_pb_RegionSpecifier_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98011,7 +98019,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RegionSpecifier_descriptor
+name|internal_static_hbase_pb_RegionSpecifier_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98027,7 +98035,7 @@ literal|"Value"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_TimeRange_descriptor
+name|internal_static_hbase_pb_TimeRange_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98040,7 +98048,7 @@ argument_list|(
 literal|8
 argument_list|)
 expr_stmt|;
-name|internal_static_TimeRange_fieldAccessorTable
+name|internal_static_hbase_pb_TimeRange_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98053,7 +98061,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_TimeRange_descriptor
+name|internal_static_hbase_pb_TimeRange_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98069,7 +98077,7 @@ literal|"To"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ServerName_descriptor
+name|internal_static_hbase_pb_ServerName_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98082,7 +98090,7 @@ argument_list|(
 literal|9
 argument_list|)
 expr_stmt|;
-name|internal_static_ServerName_fieldAccessorTable
+name|internal_static_hbase_pb_ServerName_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98095,7 +98103,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ServerName_descriptor
+name|internal_static_hbase_pb_ServerName_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98113,7 +98121,7 @@ literal|"StartCode"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_Coprocessor_descriptor
+name|internal_static_hbase_pb_Coprocessor_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98126,7 +98134,7 @@ argument_list|(
 literal|10
 argument_list|)
 expr_stmt|;
-name|internal_static_Coprocessor_fieldAccessorTable
+name|internal_static_hbase_pb_Coprocessor_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98139,7 +98147,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Coprocessor_descriptor
+name|internal_static_hbase_pb_Coprocessor_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98153,7 +98161,7 @@ literal|"Name"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_NameStringPair_descriptor
+name|internal_static_hbase_pb_NameStringPair_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98166,7 +98174,7 @@ argument_list|(
 literal|11
 argument_list|)
 expr_stmt|;
-name|internal_static_NameStringPair_fieldAccessorTable
+name|internal_static_hbase_pb_NameStringPair_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98179,7 +98187,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_NameStringPair_descriptor
+name|internal_static_hbase_pb_NameStringPair_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98195,7 +98203,7 @@ literal|"Value"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_NameBytesPair_descriptor
+name|internal_static_hbase_pb_NameBytesPair_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98208,7 +98216,7 @@ argument_list|(
 literal|12
 argument_list|)
 expr_stmt|;
-name|internal_static_NameBytesPair_fieldAccessorTable
+name|internal_static_hbase_pb_NameBytesPair_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98221,7 +98229,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_NameBytesPair_descriptor
+name|internal_static_hbase_pb_NameBytesPair_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98237,7 +98245,7 @@ literal|"Value"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_BytesBytesPair_descriptor
+name|internal_static_hbase_pb_BytesBytesPair_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98250,7 +98258,7 @@ argument_list|(
 literal|13
 argument_list|)
 expr_stmt|;
-name|internal_static_BytesBytesPair_fieldAccessorTable
+name|internal_static_hbase_pb_BytesBytesPair_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98263,7 +98271,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_BytesBytesPair_descriptor
+name|internal_static_hbase_pb_BytesBytesPair_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98279,7 +98287,7 @@ literal|"Second"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_NameInt64Pair_descriptor
+name|internal_static_hbase_pb_NameInt64Pair_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98292,7 +98300,7 @@ argument_list|(
 literal|14
 argument_list|)
 expr_stmt|;
-name|internal_static_NameInt64Pair_fieldAccessorTable
+name|internal_static_hbase_pb_NameInt64Pair_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98305,7 +98313,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_NameInt64Pair_descriptor
+name|internal_static_hbase_pb_NameInt64Pair_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98321,7 +98329,7 @@ literal|"Value"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_SnapshotDescription_descriptor
+name|internal_static_hbase_pb_SnapshotDescription_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98334,7 +98342,7 @@ argument_list|(
 literal|15
 argument_list|)
 expr_stmt|;
-name|internal_static_SnapshotDescription_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotDescription_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98347,7 +98355,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_SnapshotDescription_descriptor
+name|internal_static_hbase_pb_SnapshotDescription_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98371,7 +98379,7 @@ literal|"Owner"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ProcedureDescription_descriptor
+name|internal_static_hbase_pb_ProcedureDescription_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98384,7 +98392,7 @@ argument_list|(
 literal|16
 argument_list|)
 expr_stmt|;
-name|internal_static_ProcedureDescription_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureDescription_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98397,7 +98405,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ProcedureDescription_descriptor
+name|internal_static_hbase_pb_ProcedureDescription_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98417,7 +98425,7 @@ literal|"Configuration"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_EmptyMsg_descriptor
+name|internal_static_hbase_pb_EmptyMsg_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98430,7 +98438,7 @@ argument_list|(
 literal|17
 argument_list|)
 expr_stmt|;
-name|internal_static_EmptyMsg_fieldAccessorTable
+name|internal_static_hbase_pb_EmptyMsg_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98443,7 +98451,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_EmptyMsg_descriptor
+name|internal_static_hbase_pb_EmptyMsg_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98455,7 +98463,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_LongMsg_descriptor
+name|internal_static_hbase_pb_LongMsg_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98468,7 +98476,7 @@ argument_list|(
 literal|18
 argument_list|)
 expr_stmt|;
-name|internal_static_LongMsg_fieldAccessorTable
+name|internal_static_hbase_pb_LongMsg_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98481,7 +98489,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_LongMsg_descriptor
+name|internal_static_hbase_pb_LongMsg_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98495,7 +98503,7 @@ literal|"LongMsg"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_DoubleMsg_descriptor
+name|internal_static_hbase_pb_DoubleMsg_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98508,7 +98516,7 @@ argument_list|(
 literal|19
 argument_list|)
 expr_stmt|;
-name|internal_static_DoubleMsg_fieldAccessorTable
+name|internal_static_hbase_pb_DoubleMsg_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98521,7 +98529,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_DoubleMsg_descriptor
+name|internal_static_hbase_pb_DoubleMsg_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98535,7 +98543,7 @@ literal|"DoubleMsg"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_BigDecimalMsg_descriptor
+name|internal_static_hbase_pb_BigDecimalMsg_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98548,7 +98556,7 @@ argument_list|(
 literal|20
 argument_list|)
 expr_stmt|;
-name|internal_static_BigDecimalMsg_fieldAccessorTable
+name|internal_static_hbase_pb_BigDecimalMsg_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98561,7 +98569,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_BigDecimalMsg_descriptor
+name|internal_static_hbase_pb_BigDecimalMsg_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98575,7 +98583,7 @@ literal|"BigdecimalMsg"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_UUID_descriptor
+name|internal_static_hbase_pb_UUID_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98588,7 +98596,7 @@ argument_list|(
 literal|21
 argument_list|)
 expr_stmt|;
-name|internal_static_UUID_fieldAccessorTable
+name|internal_static_hbase_pb_UUID_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98601,7 +98609,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_UUID_descriptor
+name|internal_static_hbase_pb_UUID_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98617,7 +98625,7 @@ literal|"MostSigBits"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_NamespaceDescriptor_descriptor
+name|internal_static_hbase_pb_NamespaceDescriptor_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98630,7 +98638,7 @@ argument_list|(
 literal|22
 argument_list|)
 expr_stmt|;
-name|internal_static_NamespaceDescriptor_fieldAccessorTable
+name|internal_static_hbase_pb_NamespaceDescriptor_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98643,7 +98651,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_NamespaceDescriptor_descriptor
+name|internal_static_hbase_pb_NamespaceDescriptor_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98659,7 +98667,7 @@ literal|"Configuration"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionServerInfo_descriptor
+name|internal_static_hbase_pb_RegionServerInfo_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98672,7 +98680,7 @@ argument_list|(
 literal|23
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionServerInfo_fieldAccessorTable
+name|internal_static_hbase_pb_RegionServerInfo_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98685,7 +98693,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RegionServerInfo_descriptor
+name|internal_static_hbase_pb_RegionServerInfo_descriptor
 argument_list|,
 operator|new
 name|java

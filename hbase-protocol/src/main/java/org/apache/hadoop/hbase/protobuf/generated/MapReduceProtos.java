@@ -60,8 +60,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .NameInt64Pair metrics = 1;
-comment|/**      *<code>repeated .NameInt64Pair metrics = 1;</code>      */
+comment|// repeated .hbase.pb.NameInt64Pair metrics = 1;
+comment|/**      *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -87,7 +87,7 @@ argument_list|>
 name|getMetricsList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameInt64Pair metrics = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -109,12 +109,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .NameInt64Pair metrics = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>      */
 name|int
 name|getMetricsCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameInt64Pair metrics = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -142,7 +142,7 @@ argument_list|>
 name|getMetricsOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameInt64Pair metrics = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -165,7 +165,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ScanMetrics}    */
+comment|/**    * Protobuf type {@code hbase.pb.ScanMetrics}    */
 specifier|public
 specifier|static
 specifier|final
@@ -628,7 +628,7 @@ name|generated
 operator|.
 name|MapReduceProtos
 operator|.
-name|internal_static_ScanMetrics_descriptor
+name|internal_static_hbase_pb_ScanMetrics_descriptor
 return|;
 block|}
 specifier|protected
@@ -659,7 +659,7 @@ name|generated
 operator|.
 name|MapReduceProtos
 operator|.
-name|internal_static_ScanMetrics_fieldAccessorTable
+name|internal_static_hbase_pb_ScanMetrics_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -797,7 +797,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|// repeated .NameInt64Pair metrics = 1;
+comment|// repeated .hbase.pb.NameInt64Pair metrics = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -831,7 +831,7 @@ name|NameInt64Pair
 argument_list|>
 name|metrics_
 decl_stmt|;
-comment|/**      *<code>repeated .NameInt64Pair metrics = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -862,7 +862,7 @@ return|return
 name|metrics_
 return|;
 block|}
-comment|/**      *<code>repeated .NameInt64Pair metrics = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -895,7 +895,7 @@ return|return
 name|metrics_
 return|;
 block|}
-comment|/**      *<code>repeated .NameInt64Pair metrics = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>      */
 specifier|public
 name|int
 name|getMetricsCount
@@ -908,7 +908,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .NameInt64Pair metrics = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -940,7 +940,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .NameInt64Pair metrics = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -2044,7 +2044,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ScanMetrics}      */
+comment|/**      * Protobuf type {@code hbase.pb.ScanMetrics}      */
 specifier|public
 specifier|static
 specifier|final
@@ -2110,7 +2110,7 @@ name|generated
 operator|.
 name|MapReduceProtos
 operator|.
-name|internal_static_ScanMetrics_descriptor
+name|internal_static_hbase_pb_ScanMetrics_descriptor
 return|;
 block|}
 specifier|protected
@@ -2141,7 +2141,7 @@ name|generated
 operator|.
 name|MapReduceProtos
 operator|.
-name|internal_static_ScanMetrics_fieldAccessorTable
+name|internal_static_hbase_pb_ScanMetrics_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2347,7 +2347,7 @@ name|generated
 operator|.
 name|MapReduceProtos
 operator|.
-name|internal_static_ScanMetrics_descriptor
+name|internal_static_hbase_pb_ScanMetrics_descriptor
 return|;
 block|}
 specifier|public
@@ -2989,7 +2989,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .NameInt64Pair metrics = 1;
+comment|// repeated .hbase.pb.NameInt64Pair metrics = 1;
 specifier|private
 name|java
 operator|.
@@ -3139,7 +3139,7 @@ name|NameInt64PairOrBuilder
 argument_list|>
 name|metricsBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -3196,7 +3196,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|int
 name|getMetricsCount
@@ -3226,7 +3226,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -3277,7 +3277,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|Builder
 name|setMetrics
@@ -3355,7 +3355,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|Builder
 name|setMetrics
@@ -3428,7 +3428,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|Builder
 name|addMetrics
@@ -3499,7 +3499,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|Builder
 name|addMetrics
@@ -3577,7 +3577,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|Builder
 name|addMetrics
@@ -3643,7 +3643,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|Builder
 name|addMetrics
@@ -3716,7 +3716,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllMetrics
@@ -3785,7 +3785,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|Builder
 name|clearMetrics
@@ -3834,7 +3834,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|Builder
 name|removeMetrics
@@ -3878,7 +3878,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -3913,7 +3913,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -3964,7 +3964,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -4023,7 +4023,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4072,7 +4072,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4126,7 +4126,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameInt64Pair metrics = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -4322,7 +4322,7 @@ return|return
 name|metricsBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ScanMetrics)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ScanMetrics)
 block|}
 static|static
 block|{
@@ -4340,7 +4340,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ScanMetrics)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ScanMetrics)
 block|}
 specifier|public
 interface|interface
@@ -4402,13 +4402,13 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional .TableSchema table = 3;
-comment|/**      *<code>optional .TableSchema table = 3;</code>      */
+comment|// optional .hbase.pb.TableSchema table = 3;
+comment|/**      *<code>optional .hbase.pb.TableSchema table = 3;</code>      */
 name|boolean
 name|hasTable
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableSchema table = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema table = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -4427,7 +4427,7 @@ name|TableSchema
 name|getTable
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableSchema table = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema table = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -4446,13 +4446,13 @@ name|TableSchemaOrBuilder
 name|getTableOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .RegionInfo region = 4;
-comment|/**      *<code>optional .RegionInfo region = 4;</code>      */
+comment|// optional .hbase.pb.RegionInfo region = 4;
+comment|/**      *<code>optional .hbase.pb.RegionInfo region = 4;</code>      */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .RegionInfo region = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.RegionInfo region = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -4471,7 +4471,7 @@ name|RegionInfo
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .RegionInfo region = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.RegionInfo region = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -4491,7 +4491,7 @@ name|getRegionOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code TableSnapshotRegionSplit}    */
+comment|/**    * Protobuf type {@code hbase.pb.TableSnapshotRegionSplit}    */
 specifier|public
 specifier|static
 specifier|final
@@ -5122,7 +5122,7 @@ name|generated
 operator|.
 name|MapReduceProtos
 operator|.
-name|internal_static_TableSnapshotRegionSplit_descriptor
+name|internal_static_hbase_pb_TableSnapshotRegionSplit_descriptor
 return|;
 block|}
 specifier|protected
@@ -5153,7 +5153,7 @@ name|generated
 operator|.
 name|MapReduceProtos
 operator|.
-name|internal_static_TableSnapshotRegionSplit_fieldAccessorTable
+name|internal_static_hbase_pb_TableSnapshotRegionSplit_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -5394,7 +5394,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional .TableSchema table = 3;
+comment|// optional .hbase.pb.TableSchema table = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -5421,7 +5421,7 @@ operator|.
 name|TableSchema
 name|table_
 decl_stmt|;
-comment|/**      *<code>optional .TableSchema table = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema table = 3;</code>      */
 specifier|public
 name|boolean
 name|hasTable
@@ -5439,7 +5439,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TableSchema table = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema table = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5463,7 +5463,7 @@ return|return
 name|table_
 return|;
 block|}
-comment|/**      *<code>optional .TableSchema table = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema table = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5487,7 +5487,7 @@ return|return
 name|table_
 return|;
 block|}
-comment|// optional .RegionInfo region = 4;
+comment|// optional .hbase.pb.RegionInfo region = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -5514,7 +5514,7 @@ operator|.
 name|RegionInfo
 name|region_
 decl_stmt|;
-comment|/**      *<code>optional .RegionInfo region = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.RegionInfo region = 4;</code>      */
 specifier|public
 name|boolean
 name|hasRegion
@@ -5532,7 +5532,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .RegionInfo region = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.RegionInfo region = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5556,7 +5556,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**      *<code>optional .RegionInfo region = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.RegionInfo region = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -7006,7 +7006,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code TableSnapshotRegionSplit}      */
+comment|/**      * Protobuf type {@code hbase.pb.TableSnapshotRegionSplit}      */
 specifier|public
 specifier|static
 specifier|final
@@ -7072,7 +7072,7 @@ name|generated
 operator|.
 name|MapReduceProtos
 operator|.
-name|internal_static_TableSnapshotRegionSplit_descriptor
+name|internal_static_hbase_pb_TableSnapshotRegionSplit_descriptor
 return|;
 block|}
 specifier|protected
@@ -7103,7 +7103,7 @@ name|generated
 operator|.
 name|MapReduceProtos
 operator|.
-name|internal_static_TableSnapshotRegionSplit_fieldAccessorTable
+name|internal_static_hbase_pb_TableSnapshotRegionSplit_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -7389,7 +7389,7 @@ name|generated
 operator|.
 name|MapReduceProtos
 operator|.
-name|internal_static_TableSnapshotRegionSplit_descriptor
+name|internal_static_hbase_pb_TableSnapshotRegionSplit_descriptor
 return|;
 block|}
 specifier|public
@@ -8460,7 +8460,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .TableSchema table = 3;
+comment|// optional .hbase.pb.TableSchema table = 3;
 specifier|private
 name|org
 operator|.
@@ -8559,7 +8559,7 @@ name|TableSchemaOrBuilder
 argument_list|>
 name|tableBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TableSchema table = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table = 3;</code>        */
 specifier|public
 name|boolean
 name|hasTable
@@ -8577,7 +8577,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema table = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -8618,7 +8618,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableSchema table = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table = 3;</code>        */
 specifier|public
 name|Builder
 name|setTable
@@ -8687,7 +8687,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema table = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table = 3;</code>        */
 specifier|public
 name|Builder
 name|setTable
@@ -8751,7 +8751,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema table = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table = 3;</code>        */
 specifier|public
 name|Builder
 name|mergeTable
@@ -8876,7 +8876,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema table = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table = 3;</code>        */
 specifier|public
 name|Builder
 name|clearTable
@@ -8935,7 +8935,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema table = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -8972,7 +8972,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema table = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9013,7 +9013,7 @@ name|table_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableSchema table = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table = 3;</code>        */
 specifier|private
 name|com
 operator|.
@@ -9163,7 +9163,7 @@ return|return
 name|tableBuilder_
 return|;
 block|}
-comment|// optional .RegionInfo region = 4;
+comment|// optional .hbase.pb.RegionInfo region = 4;
 specifier|private
 name|org
 operator|.
@@ -9262,7 +9262,7 @@ name|RegionInfoOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .RegionInfo region = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionInfo region = 4;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -9280,7 +9280,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .RegionInfo region = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionInfo region = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9321,7 +9321,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .RegionInfo region = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionInfo region = 4;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -9390,7 +9390,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RegionInfo region = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionInfo region = 4;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -9454,7 +9454,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RegionInfo region = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionInfo region = 4;</code>        */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -9579,7 +9579,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RegionInfo region = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionInfo region = 4;</code>        */
 specifier|public
 name|Builder
 name|clearRegion
@@ -9638,7 +9638,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RegionInfo region = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionInfo region = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9675,7 +9675,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .RegionInfo region = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionInfo region = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9716,7 +9716,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .RegionInfo region = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionInfo region = 4;</code>        */
 specifier|private
 name|com
 operator|.
@@ -9866,7 +9866,7 @@ return|return
 name|regionBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:TableSnapshotRegionSplit)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.TableSnapshotRegionSplit)
 block|}
 static|static
 block|{
@@ -9884,7 +9884,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:TableSnapshotRegionSplit)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.TableSnapshotRegionSplit)
 block|}
 specifier|private
 specifier|static
@@ -9897,7 +9897,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ScanMetrics_descriptor
+name|internal_static_hbase_pb_ScanMetrics_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -9910,7 +9910,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ScanMetrics_fieldAccessorTable
+name|internal_static_hbase_pb_ScanMetrics_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -9923,7 +9923,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_TableSnapshotRegionSplit_descriptor
+name|internal_static_hbase_pb_TableSnapshotRegionSplit_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -9936,7 +9936,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_TableSnapshotRegionSplit_fieldAccessorTable
+name|internal_static_hbase_pb_TableSnapshotRegionSplit_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -9980,19 +9980,21 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\017MapReduce.proto\032\013HBase.proto\".\n\013ScanMe"
+literal|"\n\017MapReduce.proto\022\010hbase.pb\032\013HBase.proto"
 operator|+
-literal|"trics\022\037\n\007metrics\030\001 \003(\0132\016.NameInt64Pair\"g"
+literal|"\"7\n\013ScanMetrics\022(\n\007metrics\030\001 \003(\0132\027.hbase"
 operator|+
-literal|"\n\030TableSnapshotRegionSplit\022\021\n\tlocations\030"
+literal|".pb.NameInt64Pair\"y\n\030TableSnapshotRegion"
 operator|+
-literal|"\002 \003(\t\022\033\n\005table\030\003 \001(\0132\014.TableSchema\022\033\n\006re"
+literal|"Split\022\021\n\tlocations\030\002 \003(\t\022$\n\005table\030\003 \001(\0132"
 operator|+
-literal|"gion\030\004 \001(\0132\013.RegionInfoBB\n*org.apache.ha"
+literal|"\025.hbase.pb.TableSchema\022$\n\006region\030\004 \001(\0132\024"
 operator|+
-literal|"doop.hbase.protobuf.generatedB\017MapReduce"
+literal|".hbase.pb.RegionInfoBB\n*org.apache.hadoo"
 operator|+
-literal|"ProtosH\001\240\001\001"
+literal|"p.hbase.protobuf.generatedB\017MapReducePro"
+operator|+
+literal|"tosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -10048,7 +10050,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_ScanMetrics_descriptor
+name|internal_static_hbase_pb_ScanMetrics_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -10061,7 +10063,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_ScanMetrics_fieldAccessorTable
+name|internal_static_hbase_pb_ScanMetrics_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -10074,7 +10076,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ScanMetrics_descriptor
+name|internal_static_hbase_pb_ScanMetrics_descriptor
 argument_list|,
 operator|new
 name|java
@@ -10088,7 +10090,7 @@ literal|"Metrics"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_TableSnapshotRegionSplit_descriptor
+name|internal_static_hbase_pb_TableSnapshotRegionSplit_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -10101,7 +10103,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_TableSnapshotRegionSplit_fieldAccessorTable
+name|internal_static_hbase_pb_TableSnapshotRegionSplit_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -10114,7 +10116,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_TableSnapshotRegionSplit_descriptor
+name|internal_static_hbase_pb_TableSnapshotRegionSplit_descriptor
 argument_list|,
 operator|new
 name|java

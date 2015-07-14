@@ -60,8 +60,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .BytesBytesPair map_entry = 1;
-comment|/**      *<code>repeated .BytesBytesPair map_entry = 1;</code>      */
+comment|// repeated .hbase.pb.BytesBytesPair map_entry = 1;
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -87,7 +87,7 @@ argument_list|>
 name|getMapEntryList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair map_entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -109,12 +109,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair map_entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>      */
 name|int
 name|getMapEntryCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair map_entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -142,7 +142,7 @@ argument_list|>
 name|getMapEntryOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair map_entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -165,7 +165,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code FileInfoProto}    *    *<pre>    * Map of name/values    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.FileInfoProto}    *    *<pre>    * Map of name/values    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -628,7 +628,7 @@ name|generated
 operator|.
 name|HFileProtos
 operator|.
-name|internal_static_FileInfoProto_descriptor
+name|internal_static_hbase_pb_FileInfoProto_descriptor
 return|;
 block|}
 specifier|protected
@@ -659,7 +659,7 @@ name|generated
 operator|.
 name|HFileProtos
 operator|.
-name|internal_static_FileInfoProto_fieldAccessorTable
+name|internal_static_hbase_pb_FileInfoProto_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -797,7 +797,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|// repeated .BytesBytesPair map_entry = 1;
+comment|// repeated .hbase.pb.BytesBytesPair map_entry = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -831,7 +831,7 @@ name|BytesBytesPair
 argument_list|>
 name|mapEntry_
 decl_stmt|;
-comment|/**      *<code>repeated .BytesBytesPair map_entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -862,7 +862,7 @@ return|return
 name|mapEntry_
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair map_entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -895,7 +895,7 @@ return|return
 name|mapEntry_
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair map_entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>      */
 specifier|public
 name|int
 name|getMapEntryCount
@@ -908,7 +908,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair map_entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -940,7 +940,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair map_entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -2081,7 +2081,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code FileInfoProto}      *      *<pre>      * Map of name/values      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.FileInfoProto}      *      *<pre>      * Map of name/values      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -2147,7 +2147,7 @@ name|generated
 operator|.
 name|HFileProtos
 operator|.
-name|internal_static_FileInfoProto_descriptor
+name|internal_static_hbase_pb_FileInfoProto_descriptor
 return|;
 block|}
 specifier|protected
@@ -2178,7 +2178,7 @@ name|generated
 operator|.
 name|HFileProtos
 operator|.
-name|internal_static_FileInfoProto_fieldAccessorTable
+name|internal_static_hbase_pb_FileInfoProto_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2384,7 +2384,7 @@ name|generated
 operator|.
 name|HFileProtos
 operator|.
-name|internal_static_FileInfoProto_descriptor
+name|internal_static_hbase_pb_FileInfoProto_descriptor
 return|;
 block|}
 specifier|public
@@ -3059,7 +3059,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .BytesBytesPair map_entry = 1;
+comment|// repeated .hbase.pb.BytesBytesPair map_entry = 1;
 specifier|private
 name|java
 operator|.
@@ -3209,7 +3209,7 @@ name|BytesBytesPairOrBuilder
 argument_list|>
 name|mapEntryBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -3266,7 +3266,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|int
 name|getMapEntryCount
@@ -3296,7 +3296,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -3347,7 +3347,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|Builder
 name|setMapEntry
@@ -3425,7 +3425,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|Builder
 name|setMapEntry
@@ -3498,7 +3498,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|Builder
 name|addMapEntry
@@ -3569,7 +3569,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|Builder
 name|addMapEntry
@@ -3647,7 +3647,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|Builder
 name|addMapEntry
@@ -3713,7 +3713,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|Builder
 name|addMapEntry
@@ -3786,7 +3786,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllMapEntry
@@ -3855,7 +3855,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|Builder
 name|clearMapEntry
@@ -3904,7 +3904,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|Builder
 name|removeMapEntry
@@ -3948,7 +3948,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -3983,7 +3983,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4034,7 +4034,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -4093,7 +4093,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4142,7 +4142,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4196,7 +4196,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair map_entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair map_entry = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -4392,7 +4392,7 @@ return|return
 name|mapEntryBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:FileInfoProto)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.FileInfoProto)
 block|}
 static|static
 block|{
@@ -4410,7 +4410,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:FileInfoProto)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.FileInfoProto)
 block|}
 specifier|public
 interface|interface
@@ -4589,7 +4589,7 @@ name|getEncryptionKey
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code FileTrailerProto}    *    *<pre>    * HFile file trailer    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.FileTrailerProto}    *    *<pre>    * HFile file trailer    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -5164,7 +5164,7 @@ name|generated
 operator|.
 name|HFileProtos
 operator|.
-name|internal_static_FileTrailerProto_descriptor
+name|internal_static_hbase_pb_FileTrailerProto_descriptor
 return|;
 block|}
 specifier|protected
@@ -5195,7 +5195,7 @@ name|generated
 operator|.
 name|HFileProtos
 operator|.
-name|internal_static_FileTrailerProto_fieldAccessorTable
+name|internal_static_hbase_pb_FileTrailerProto_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -8605,7 +8605,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code FileTrailerProto}      *      *<pre>      * HFile file trailer      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.FileTrailerProto}      *      *<pre>      * HFile file trailer      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -8671,7 +8671,7 @@ name|generated
 operator|.
 name|HFileProtos
 operator|.
-name|internal_static_FileTrailerProto_descriptor
+name|internal_static_hbase_pb_FileTrailerProto_descriptor
 return|;
 block|}
 specifier|protected
@@ -8702,7 +8702,7 @@ name|generated
 operator|.
 name|HFileProtos
 operator|.
-name|internal_static_FileTrailerProto_fieldAccessorTable
+name|internal_static_hbase_pb_FileTrailerProto_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -9045,7 +9045,7 @@ name|generated
 operator|.
 name|HFileProtos
 operator|.
-name|internal_static_FileTrailerProto_descriptor
+name|internal_static_hbase_pb_FileTrailerProto_descriptor
 return|;
 block|}
 specifier|public
@@ -11378,7 +11378,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:FileTrailerProto)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.FileTrailerProto)
 block|}
 static|static
 block|{
@@ -11396,7 +11396,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:FileTrailerProto)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.FileTrailerProto)
 block|}
 specifier|private
 specifier|static
@@ -11409,7 +11409,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_FileInfoProto_descriptor
+name|internal_static_hbase_pb_FileInfoProto_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -11422,7 +11422,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_FileInfoProto_fieldAccessorTable
+name|internal_static_hbase_pb_FileInfoProto_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -11435,7 +11435,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_FileTrailerProto_descriptor
+name|internal_static_hbase_pb_FileTrailerProto_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -11448,7 +11448,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_FileTrailerProto_fieldAccessorTable
+name|internal_static_hbase_pb_FileTrailerProto_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -11492,33 +11492,35 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\013HFile.proto\032\013HBase.proto\"3\n\rFileInfoPr"
+literal|"\n\013HFile.proto\022\010hbase.pb\032\013HBase.proto\"<\n\r"
 operator|+
-literal|"oto\022\"\n\tmap_entry\030\001 \003(\0132\017.BytesBytesPair\""
+literal|"FileInfoProto\022+\n\tmap_entry\030\001 \003(\0132\030.hbase"
 operator|+
-literal|"\221\003\n\020FileTrailerProto\022\030\n\020file_info_offset"
+literal|".pb.BytesBytesPair\"\221\003\n\020FileTrailerProto\022"
 operator|+
-literal|"\030\001 \001(\004\022 \n\030load_on_open_data_offset\030\002 \001(\004"
+literal|"\030\n\020file_info_offset\030\001 \001(\004\022 \n\030load_on_ope"
 operator|+
-literal|"\022$\n\034uncompressed_data_index_size\030\003 \001(\004\022 "
+literal|"n_data_offset\030\002 \001(\004\022$\n\034uncompressed_data"
 operator|+
-literal|"\n\030total_uncompressed_bytes\030\004 \001(\004\022\030\n\020data"
+literal|"_index_size\030\003 \001(\004\022 \n\030total_uncompressed_"
 operator|+
-literal|"_index_count\030\005 \001(\r\022\030\n\020meta_index_count\030\006"
+literal|"bytes\030\004 \001(\004\022\030\n\020data_index_count\030\005 \001(\r\022\030\n"
 operator|+
-literal|" \001(\r\022\023\n\013entry_count\030\007 \001(\004\022\035\n\025num_data_in"
+literal|"\020meta_index_count\030\006 \001(\r\022\023\n\013entry_count\030\007"
 operator|+
-literal|"dex_levels\030\010 \001(\r\022\037\n\027first_data_block_off"
+literal|" \001(\004\022\035\n\025num_data_index_levels\030\010 \001(\r\022\037\n\027f"
 operator|+
-literal|"set\030\t \001(\004\022\036\n\026last_data_block_offset\030\n \001("
+literal|"irst_data_block_offset\030\t \001(\004\022\036\n\026last_dat"
 block|,
-literal|"\004\022\035\n\025comparator_class_name\030\013 \001(\t\022\031\n\021comp"
+literal|"a_block_offset\030\n \001(\004\022\035\n\025comparator_class"
 operator|+
-literal|"ression_codec\030\014 \001(\r\022\026\n\016encryption_key\030\r "
+literal|"_name\030\013 \001(\t\022\031\n\021compression_codec\030\014 \001(\r\022\026"
 operator|+
-literal|"\001(\014BA\n*org.apache.hadoop.hbase.protobuf."
+literal|"\n\016encryption_key\030\r \001(\014BA\n*org.apache.had"
 operator|+
-literal|"generatedB\013HFileProtosH\001\210\001\001\240\001\001"
+literal|"oop.hbase.protobuf.generatedB\013HFileProto"
+operator|+
+literal|"sH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -11574,7 +11576,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_FileInfoProto_descriptor
+name|internal_static_hbase_pb_FileInfoProto_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -11587,7 +11589,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_FileInfoProto_fieldAccessorTable
+name|internal_static_hbase_pb_FileInfoProto_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -11600,7 +11602,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_FileInfoProto_descriptor
+name|internal_static_hbase_pb_FileInfoProto_descriptor
 argument_list|,
 operator|new
 name|java
@@ -11614,7 +11616,7 @@ literal|"MapEntry"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_FileTrailerProto_descriptor
+name|internal_static_hbase_pb_FileTrailerProto_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -11627,7 +11629,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_FileTrailerProto_fieldAccessorTable
+name|internal_static_hbase_pb_FileTrailerProto_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -11640,7 +11642,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_FileTrailerProto_descriptor
+name|internal_static_hbase_pb_FileTrailerProto_descriptor
 argument_list|,
 operator|new
 name|java

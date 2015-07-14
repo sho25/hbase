@@ -48,7 +48,7 @@ name|ExtensionRegistry
 name|registry
 parameter_list|)
 block|{   }
-comment|/**    * Protobuf enum {@code CreateTableState}    */
+comment|/**    * Protobuf enum {@code hbase.pb.CreateTableState}    */
 specifier|public
 enum|enum
 name|CreateTableState
@@ -481,9 +481,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:CreateTableState)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.CreateTableState)
 block|}
-comment|/**    * Protobuf enum {@code ModifyTableState}    */
+comment|/**    * Protobuf enum {@code hbase.pb.ModifyTableState}    */
 specifier|public
 enum|enum
 name|ModifyTableState
@@ -939,9 +939,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:ModifyTableState)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.ModifyTableState)
 block|}
-comment|/**    * Protobuf enum {@code TruncateTableState}    */
+comment|/**    * Protobuf enum {@code hbase.pb.TruncateTableState}    */
 specifier|public
 enum|enum
 name|TruncateTableState
@@ -1397,9 +1397,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:TruncateTableState)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.TruncateTableState)
 block|}
-comment|/**    * Protobuf enum {@code DeleteTableState}    */
+comment|/**    * Protobuf enum {@code hbase.pb.DeleteTableState}    */
 specifier|public
 enum|enum
 name|DeleteTableState
@@ -1832,9 +1832,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:DeleteTableState)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.DeleteTableState)
 block|}
-comment|/**    * Protobuf enum {@code AddColumnFamilyState}    */
+comment|/**    * Protobuf enum {@code hbase.pb.AddColumnFamilyState}    */
 specifier|public
 enum|enum
 name|AddColumnFamilyState
@@ -2244,9 +2244,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:AddColumnFamilyState)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.AddColumnFamilyState)
 block|}
-comment|/**    * Protobuf enum {@code ModifyColumnFamilyState}    */
+comment|/**    * Protobuf enum {@code hbase.pb.ModifyColumnFamilyState}    */
 specifier|public
 enum|enum
 name|ModifyColumnFamilyState
@@ -2656,9 +2656,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:ModifyColumnFamilyState)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.ModifyColumnFamilyState)
 block|}
-comment|/**    * Protobuf enum {@code DeleteColumnFamilyState}    */
+comment|/**    * Protobuf enum {@code hbase.pb.DeleteColumnFamilyState}    */
 specifier|public
 enum|enum
 name|DeleteColumnFamilyState
@@ -3091,9 +3091,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:DeleteColumnFamilyState)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.DeleteColumnFamilyState)
 block|}
-comment|/**    * Protobuf enum {@code EnableTableState}    */
+comment|/**    * Protobuf enum {@code hbase.pb.EnableTableState}    */
 specifier|public
 enum|enum
 name|EnableTableState
@@ -3526,9 +3526,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:EnableTableState)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.EnableTableState)
 block|}
-comment|/**    * Protobuf enum {@code DisableTableState}    */
+comment|/**    * Protobuf enum {@code hbase.pb.DisableTableState}    */
 specifier|public
 enum|enum
 name|DisableTableState
@@ -3961,9 +3961,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:DisableTableState)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.DisableTableState)
 block|}
-comment|/**    * Protobuf enum {@code ServerCrashState}    */
+comment|/**    * Protobuf enum {@code hbase.pb.ServerCrashState}    */
 specifier|public
 enum|enum
 name|ServerCrashState
@@ -4465,7 +4465,7 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:ServerCrashState)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.ServerCrashState)
 block|}
 specifier|public
 interface|interface
@@ -4479,13 +4479,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .UserInformation user_info = 1;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|// required .hbase.pb.UserInformation user_info = 1;
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|boolean
 name|hasUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -4504,7 +4504,7 @@ name|UserInformation
 name|getUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -4523,13 +4523,13 @@ name|UserInformationOrBuilder
 name|getUserInfoOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .TableSchema table_schema = 2;
-comment|/**      *<code>required .TableSchema table_schema = 2;</code>      */
+comment|// required .hbase.pb.TableSchema table_schema = 2;
+comment|/**      *<code>required .hbase.pb.TableSchema table_schema = 2;</code>      */
 name|boolean
 name|hasTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableSchema table_schema = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema table_schema = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -4548,7 +4548,7 @@ name|TableSchema
 name|getTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableSchema table_schema = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema table_schema = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -4567,8 +4567,8 @@ name|TableSchemaOrBuilder
 name|getTableSchemaOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .RegionInfo region_info = 3;
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|// repeated .hbase.pb.RegionInfo region_info = 3;
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -4594,7 +4594,7 @@ argument_list|>
 name|getRegionInfoList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -4616,12 +4616,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 name|int
 name|getRegionInfoCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -4649,7 +4649,7 @@ argument_list|>
 name|getRegionInfoOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -4672,7 +4672,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code CreateTableStateData}    */
+comment|/**    * Protobuf type {@code hbase.pb.CreateTableStateData}    */
 specifier|public
 specifier|static
 specifier|final
@@ -5337,7 +5337,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_CreateTableStateData_descriptor
+name|internal_static_hbase_pb_CreateTableStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -5368,7 +5368,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_CreateTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_CreateTableStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -5510,7 +5510,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -5537,7 +5537,7 @@ operator|.
 name|UserInformation
 name|userInfo_
 decl_stmt|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -5555,7 +5555,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5579,7 +5579,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5603,7 +5603,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|// required .TableSchema table_schema = 2;
+comment|// required .hbase.pb.TableSchema table_schema = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -5630,7 +5630,7 @@ operator|.
 name|TableSchema
 name|tableSchema_
 decl_stmt|;
-comment|/**      *<code>required .TableSchema table_schema = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema table_schema = 2;</code>      */
 specifier|public
 name|boolean
 name|hasTableSchema
@@ -5648,7 +5648,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .TableSchema table_schema = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema table_schema = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5672,7 +5672,7 @@ return|return
 name|tableSchema_
 return|;
 block|}
-comment|/**      *<code>required .TableSchema table_schema = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema table_schema = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5696,7 +5696,7 @@ return|return
 name|tableSchema_
 return|;
 block|}
-comment|// repeated .RegionInfo region_info = 3;
+comment|// repeated .hbase.pb.RegionInfo region_info = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -5730,7 +5730,7 @@ name|RegionInfo
 argument_list|>
 name|regionInfo_
 decl_stmt|;
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -5761,7 +5761,7 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -5794,7 +5794,7 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 specifier|public
 name|int
 name|getRegionInfoCount
@@ -5807,7 +5807,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5839,7 +5839,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -7330,7 +7330,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CreateTableStateData}      */
+comment|/**      * Protobuf type {@code hbase.pb.CreateTableStateData}      */
 specifier|public
 specifier|static
 specifier|final
@@ -7396,7 +7396,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_CreateTableStateData_descriptor
+name|internal_static_hbase_pb_CreateTableStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -7427,7 +7427,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_CreateTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_CreateTableStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -7731,7 +7731,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_CreateTableStateData_descriptor
+name|internal_static_hbase_pb_CreateTableStateData_descriptor
 return|;
 block|}
 specifier|public
@@ -8589,7 +8589,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|private
 name|org
 operator|.
@@ -8688,7 +8688,7 @@ name|UserInformationOrBuilder
 argument_list|>
 name|userInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -8706,7 +8706,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -8747,7 +8747,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -8816,7 +8816,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -8880,7 +8880,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeUserInfo
@@ -9005,7 +9005,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUserInfo
@@ -9064,7 +9064,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9101,7 +9101,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9142,7 +9142,7 @@ name|userInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -9292,7 +9292,7 @@ return|return
 name|userInfoBuilder_
 return|;
 block|}
-comment|// required .TableSchema table_schema = 2;
+comment|// required .hbase.pb.TableSchema table_schema = 2;
 specifier|private
 name|org
 operator|.
@@ -9391,7 +9391,7 @@ name|TableSchemaOrBuilder
 argument_list|>
 name|tableSchemaBuilder_
 decl_stmt|;
-comment|/**        *<code>required .TableSchema table_schema = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 2;</code>        */
 specifier|public
 name|boolean
 name|hasTableSchema
@@ -9409,7 +9409,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9450,7 +9450,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableSchema
@@ -9519,7 +9519,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableSchema
@@ -9583,7 +9583,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeTableSchema
@@ -9708,7 +9708,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 2;</code>        */
 specifier|public
 name|Builder
 name|clearTableSchema
@@ -9767,7 +9767,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9804,7 +9804,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9845,7 +9845,7 @@ name|tableSchema_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -9995,7 +9995,7 @@ return|return
 name|tableSchemaBuilder_
 return|;
 block|}
-comment|// repeated .RegionInfo region_info = 3;
+comment|// repeated .hbase.pb.RegionInfo region_info = 3;
 specifier|private
 name|java
 operator|.
@@ -10145,7 +10145,7 @@ name|RegionInfoOrBuilder
 argument_list|>
 name|regionInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -10202,7 +10202,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|int
 name|getRegionInfoCount
@@ -10232,7 +10232,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -10283,7 +10283,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -10361,7 +10361,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -10434,7 +10434,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -10505,7 +10505,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -10583,7 +10583,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -10649,7 +10649,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -10722,7 +10722,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|addAllRegionInfo
@@ -10791,7 +10791,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|clearRegionInfo
@@ -10840,7 +10840,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|removeRegionInfo
@@ -10884,7 +10884,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -10919,7 +10919,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -10970,7 +10970,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -11029,7 +11029,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11078,7 +11078,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11132,7 +11132,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -11328,7 +11328,7 @@ return|return
 name|regionInfoBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CreateTableStateData)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CreateTableStateData)
 block|}
 static|static
 block|{
@@ -11346,7 +11346,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CreateTableStateData)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CreateTableStateData)
 block|}
 specifier|public
 interface|interface
@@ -11360,13 +11360,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .UserInformation user_info = 1;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|// required .hbase.pb.UserInformation user_info = 1;
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|boolean
 name|hasUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -11385,7 +11385,7 @@ name|UserInformation
 name|getUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -11404,13 +11404,13 @@ name|UserInformationOrBuilder
 name|getUserInfoOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .TableSchema unmodified_table_schema = 2;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 2;</code>      */
+comment|// optional .hbase.pb.TableSchema unmodified_table_schema = 2;
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 2;</code>      */
 name|boolean
 name|hasUnmodifiedTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -11429,7 +11429,7 @@ name|TableSchema
 name|getUnmodifiedTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -11448,13 +11448,13 @@ name|TableSchemaOrBuilder
 name|getUnmodifiedTableSchemaOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .TableSchema modified_table_schema = 3;
-comment|/**      *<code>required .TableSchema modified_table_schema = 3;</code>      */
+comment|// required .hbase.pb.TableSchema modified_table_schema = 3;
+comment|/**      *<code>required .hbase.pb.TableSchema modified_table_schema = 3;</code>      */
 name|boolean
 name|hasModifiedTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableSchema modified_table_schema = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema modified_table_schema = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -11473,7 +11473,7 @@ name|TableSchema
 name|getModifiedTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableSchema modified_table_schema = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema modified_table_schema = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -11504,7 +11504,7 @@ name|getDeleteColumnFamilyInModify
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ModifyTableStateData}    */
+comment|/**    * Protobuf type {@code hbase.pb.ModifyTableStateData}    */
 specifier|public
 specifier|static
 specifier|final
@@ -12178,7 +12178,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_ModifyTableStateData_descriptor
+name|internal_static_hbase_pb_ModifyTableStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -12209,7 +12209,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_ModifyTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_ModifyTableStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -12351,7 +12351,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -12378,7 +12378,7 @@ operator|.
 name|UserInformation
 name|userInfo_
 decl_stmt|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -12396,7 +12396,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -12420,7 +12420,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -12444,7 +12444,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|// optional .TableSchema unmodified_table_schema = 2;
+comment|// optional .hbase.pb.TableSchema unmodified_table_schema = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -12471,7 +12471,7 @@ operator|.
 name|TableSchema
 name|unmodifiedTableSchema_
 decl_stmt|;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 2;</code>      */
 specifier|public
 name|boolean
 name|hasUnmodifiedTableSchema
@@ -12489,7 +12489,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -12513,7 +12513,7 @@ return|return
 name|unmodifiedTableSchema_
 return|;
 block|}
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -12537,7 +12537,7 @@ return|return
 name|unmodifiedTableSchema_
 return|;
 block|}
-comment|// required .TableSchema modified_table_schema = 3;
+comment|// required .hbase.pb.TableSchema modified_table_schema = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -12564,7 +12564,7 @@ operator|.
 name|TableSchema
 name|modifiedTableSchema_
 decl_stmt|;
-comment|/**      *<code>required .TableSchema modified_table_schema = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema modified_table_schema = 3;</code>      */
 specifier|public
 name|boolean
 name|hasModifiedTableSchema
@@ -12582,7 +12582,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .TableSchema modified_table_schema = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema modified_table_schema = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -12606,7 +12606,7 @@ return|return
 name|modifiedTableSchema_
 return|;
 block|}
-comment|/**      *<code>required .TableSchema modified_table_schema = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema modified_table_schema = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -14266,7 +14266,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ModifyTableStateData}      */
+comment|/**      * Protobuf type {@code hbase.pb.ModifyTableStateData}      */
 specifier|public
 specifier|static
 specifier|final
@@ -14332,7 +14332,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_ModifyTableStateData_descriptor
+name|internal_static_hbase_pb_ModifyTableStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -14363,7 +14363,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_ModifyTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_ModifyTableStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -14690,7 +14690,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_ModifyTableStateData_descriptor
+name|internal_static_hbase_pb_ModifyTableStateData_descriptor
 return|;
 block|}
 specifier|public
@@ -15448,7 +15448,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|private
 name|org
 operator|.
@@ -15547,7 +15547,7 @@ name|UserInformationOrBuilder
 argument_list|>
 name|userInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -15565,7 +15565,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -15606,7 +15606,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -15675,7 +15675,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -15739,7 +15739,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeUserInfo
@@ -15864,7 +15864,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUserInfo
@@ -15923,7 +15923,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -15960,7 +15960,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -16001,7 +16001,7 @@ name|userInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -16151,7 +16151,7 @@ return|return
 name|userInfoBuilder_
 return|;
 block|}
-comment|// optional .TableSchema unmodified_table_schema = 2;
+comment|// optional .hbase.pb.TableSchema unmodified_table_schema = 2;
 specifier|private
 name|org
 operator|.
@@ -16250,7 +16250,7 @@ name|TableSchemaOrBuilder
 argument_list|>
 name|unmodifiedTableSchemaBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 2;</code>        */
 specifier|public
 name|boolean
 name|hasUnmodifiedTableSchema
@@ -16268,7 +16268,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -16309,7 +16309,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 2;</code>        */
 specifier|public
 name|Builder
 name|setUnmodifiedTableSchema
@@ -16378,7 +16378,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 2;</code>        */
 specifier|public
 name|Builder
 name|setUnmodifiedTableSchema
@@ -16442,7 +16442,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeUnmodifiedTableSchema
@@ -16567,7 +16567,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 2;</code>        */
 specifier|public
 name|Builder
 name|clearUnmodifiedTableSchema
@@ -16626,7 +16626,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -16663,7 +16663,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -16704,7 +16704,7 @@ name|unmodifiedTableSchema_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -16854,7 +16854,7 @@ return|return
 name|unmodifiedTableSchemaBuilder_
 return|;
 block|}
-comment|// required .TableSchema modified_table_schema = 3;
+comment|// required .hbase.pb.TableSchema modified_table_schema = 3;
 specifier|private
 name|org
 operator|.
@@ -16953,7 +16953,7 @@ name|TableSchemaOrBuilder
 argument_list|>
 name|modifiedTableSchemaBuilder_
 decl_stmt|;
-comment|/**        *<code>required .TableSchema modified_table_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema modified_table_schema = 3;</code>        */
 specifier|public
 name|boolean
 name|hasModifiedTableSchema
@@ -16971,7 +16971,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .TableSchema modified_table_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema modified_table_schema = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -17012,7 +17012,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableSchema modified_table_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema modified_table_schema = 3;</code>        */
 specifier|public
 name|Builder
 name|setModifiedTableSchema
@@ -17081,7 +17081,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema modified_table_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema modified_table_schema = 3;</code>        */
 specifier|public
 name|Builder
 name|setModifiedTableSchema
@@ -17145,7 +17145,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema modified_table_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema modified_table_schema = 3;</code>        */
 specifier|public
 name|Builder
 name|mergeModifiedTableSchema
@@ -17270,7 +17270,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema modified_table_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema modified_table_schema = 3;</code>        */
 specifier|public
 name|Builder
 name|clearModifiedTableSchema
@@ -17329,7 +17329,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema modified_table_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema modified_table_schema = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -17366,7 +17366,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .TableSchema modified_table_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema modified_table_schema = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -17407,7 +17407,7 @@ name|modifiedTableSchema_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableSchema modified_table_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema modified_table_schema = 3;</code>        */
 specifier|private
 name|com
 operator|.
@@ -17640,7 +17640,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ModifyTableStateData)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ModifyTableStateData)
 block|}
 static|static
 block|{
@@ -17658,7 +17658,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ModifyTableStateData)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ModifyTableStateData)
 block|}
 specifier|public
 interface|interface
@@ -17672,13 +17672,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .UserInformation user_info = 1;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|// required .hbase.pb.UserInformation user_info = 1;
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|boolean
 name|hasUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -17697,7 +17697,7 @@ name|UserInformation
 name|getUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -17727,13 +17727,13 @@ name|boolean
 name|getPreserveSplits
 parameter_list|()
 function_decl|;
-comment|// optional .TableName table_name = 3;
-comment|/**      *<code>optional .TableName table_name = 3;</code>      */
+comment|// optional .hbase.pb.TableName table_name = 3;
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 3;</code>      */
 name|boolean
 name|hasTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableName table_name = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -17752,7 +17752,7 @@ name|TableName
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableName table_name = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -17771,13 +17771,13 @@ name|TableNameOrBuilder
 name|getTableNameOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .TableSchema table_schema = 4;
-comment|/**      *<code>optional .TableSchema table_schema = 4;</code>      */
+comment|// optional .hbase.pb.TableSchema table_schema = 4;
+comment|/**      *<code>optional .hbase.pb.TableSchema table_schema = 4;</code>      */
 name|boolean
 name|hasTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableSchema table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema table_schema = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -17796,7 +17796,7 @@ name|TableSchema
 name|getTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableSchema table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema table_schema = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -17815,8 +17815,8 @@ name|TableSchemaOrBuilder
 name|getTableSchemaOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .RegionInfo region_info = 5;
-comment|/**      *<code>repeated .RegionInfo region_info = 5;</code>      */
+comment|// repeated .hbase.pb.RegionInfo region_info = 5;
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>      */
 name|java
 operator|.
 name|util
@@ -17842,7 +17842,7 @@ argument_list|>
 name|getRegionInfoList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -17864,12 +17864,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>      */
 name|int
 name|getRegionInfoCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>      */
 name|java
 operator|.
 name|util
@@ -17897,7 +17897,7 @@ argument_list|>
 name|getRegionInfoOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -17920,7 +17920,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code TruncateTableStateData}    */
+comment|/**    * Protobuf type {@code hbase.pb.TruncateTableStateData}    */
 specifier|public
 specifier|static
 specifier|final
@@ -18703,7 +18703,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_TruncateTableStateData_descriptor
+name|internal_static_hbase_pb_TruncateTableStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -18734,7 +18734,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_TruncateTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_TruncateTableStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -18876,7 +18876,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -18903,7 +18903,7 @@ operator|.
 name|UserInformation
 name|userInfo_
 decl_stmt|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -18921,7 +18921,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -18945,7 +18945,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -19010,7 +19010,7 @@ return|return
 name|preserveSplits_
 return|;
 block|}
-comment|// optional .TableName table_name = 3;
+comment|// optional .hbase.pb.TableName table_name = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -19037,7 +19037,7 @@ operator|.
 name|TableName
 name|tableName_
 decl_stmt|;
-comment|/**      *<code>optional .TableName table_name = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 3;</code>      */
 specifier|public
 name|boolean
 name|hasTableName
@@ -19055,7 +19055,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TableName table_name = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -19079,7 +19079,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|/**      *<code>optional .TableName table_name = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -19103,7 +19103,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|// optional .TableSchema table_schema = 4;
+comment|// optional .hbase.pb.TableSchema table_schema = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -19130,7 +19130,7 @@ operator|.
 name|TableSchema
 name|tableSchema_
 decl_stmt|;
-comment|/**      *<code>optional .TableSchema table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema table_schema = 4;</code>      */
 specifier|public
 name|boolean
 name|hasTableSchema
@@ -19148,7 +19148,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TableSchema table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema table_schema = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -19172,7 +19172,7 @@ return|return
 name|tableSchema_
 return|;
 block|}
-comment|/**      *<code>optional .TableSchema table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema table_schema = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -19196,7 +19196,7 @@ return|return
 name|tableSchema_
 return|;
 block|}
-comment|// repeated .RegionInfo region_info = 5;
+comment|// repeated .hbase.pb.RegionInfo region_info = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -19230,7 +19230,7 @@ name|RegionInfo
 argument_list|>
 name|regionInfo_
 decl_stmt|;
-comment|/**      *<code>repeated .RegionInfo region_info = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>      */
 specifier|public
 name|java
 operator|.
@@ -19261,7 +19261,7 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>      */
 specifier|public
 name|java
 operator|.
@@ -19294,7 +19294,7 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>      */
 specifier|public
 name|int
 name|getRegionInfoCount
@@ -19307,7 +19307,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -19339,7 +19339,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -21128,7 +21128,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code TruncateTableStateData}      */
+comment|/**      * Protobuf type {@code hbase.pb.TruncateTableStateData}      */
 specifier|public
 specifier|static
 specifier|final
@@ -21194,7 +21194,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_TruncateTableStateData_descriptor
+name|internal_static_hbase_pb_TruncateTableStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -21225,7 +21225,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_TruncateTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_TruncateTableStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -21591,7 +21591,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_TruncateTableStateData_descriptor
+name|internal_static_hbase_pb_TruncateTableStateData_descriptor
 return|;
 block|}
 specifier|public
@@ -22579,7 +22579,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|private
 name|org
 operator|.
@@ -22678,7 +22678,7 @@ name|UserInformationOrBuilder
 argument_list|>
 name|userInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -22696,7 +22696,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -22737,7 +22737,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -22806,7 +22806,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -22870,7 +22870,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeUserInfo
@@ -22995,7 +22995,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUserInfo
@@ -23054,7 +23054,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -23091,7 +23091,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -23132,7 +23132,7 @@ name|userInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -23365,7 +23365,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .TableName table_name = 3;
+comment|// optional .hbase.pb.TableName table_name = 3;
 specifier|private
 name|org
 operator|.
@@ -23464,7 +23464,7 @@ name|TableNameOrBuilder
 argument_list|>
 name|tableNameBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TableName table_name = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 3;</code>        */
 specifier|public
 name|boolean
 name|hasTableName
@@ -23482,7 +23482,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -23523,7 +23523,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableName table_name = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 3;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -23592,7 +23592,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 3;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -23656,7 +23656,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 3;</code>        */
 specifier|public
 name|Builder
 name|mergeTableName
@@ -23781,7 +23781,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 3;</code>        */
 specifier|public
 name|Builder
 name|clearTableName
@@ -23840,7 +23840,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -23877,7 +23877,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -23918,7 +23918,7 @@ name|tableName_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableName table_name = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 3;</code>        */
 specifier|private
 name|com
 operator|.
@@ -24068,7 +24068,7 @@ return|return
 name|tableNameBuilder_
 return|;
 block|}
-comment|// optional .TableSchema table_schema = 4;
+comment|// optional .hbase.pb.TableSchema table_schema = 4;
 specifier|private
 name|org
 operator|.
@@ -24167,7 +24167,7 @@ name|TableSchemaOrBuilder
 argument_list|>
 name|tableSchemaBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TableSchema table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table_schema = 4;</code>        */
 specifier|public
 name|boolean
 name|hasTableSchema
@@ -24185,7 +24185,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table_schema = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -24226,7 +24226,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableSchema table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|setTableSchema
@@ -24295,7 +24295,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|setTableSchema
@@ -24359,7 +24359,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|mergeTableSchema
@@ -24484,7 +24484,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|clearTableSchema
@@ -24543,7 +24543,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table_schema = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -24580,7 +24580,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table_schema = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -24621,7 +24621,7 @@ name|tableSchema_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableSchema table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema table_schema = 4;</code>        */
 specifier|private
 name|com
 operator|.
@@ -24771,7 +24771,7 @@ return|return
 name|tableSchemaBuilder_
 return|;
 block|}
-comment|// repeated .RegionInfo region_info = 5;
+comment|// repeated .hbase.pb.RegionInfo region_info = 5;
 specifier|private
 name|java
 operator|.
@@ -24921,7 +24921,7 @@ name|RegionInfoOrBuilder
 argument_list|>
 name|regionInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|java
 operator|.
@@ -24978,7 +24978,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|int
 name|getRegionInfoCount
@@ -25008,7 +25008,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -25059,7 +25059,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -25137,7 +25137,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -25210,7 +25210,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -25281,7 +25281,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -25359,7 +25359,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -25425,7 +25425,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -25498,7 +25498,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|Builder
 name|addAllRegionInfo
@@ -25567,7 +25567,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|Builder
 name|clearRegionInfo
@@ -25616,7 +25616,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|Builder
 name|removeRegionInfo
@@ -25660,7 +25660,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -25695,7 +25695,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -25746,7 +25746,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|java
 operator|.
@@ -25805,7 +25805,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -25854,7 +25854,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -25908,7 +25908,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 5;</code>        */
 specifier|public
 name|java
 operator|.
@@ -26104,7 +26104,7 @@ return|return
 name|regionInfoBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:TruncateTableStateData)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.TruncateTableStateData)
 block|}
 static|static
 block|{
@@ -26122,7 +26122,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:TruncateTableStateData)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.TruncateTableStateData)
 block|}
 specifier|public
 interface|interface
@@ -26136,13 +26136,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .UserInformation user_info = 1;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|// required .hbase.pb.UserInformation user_info = 1;
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|boolean
 name|hasUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -26161,7 +26161,7 @@ name|UserInformation
 name|getUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -26180,13 +26180,13 @@ name|UserInformationOrBuilder
 name|getUserInfoOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .TableName table_name = 2;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|// required .hbase.pb.TableName table_name = 2;
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|boolean
 name|hasTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -26205,7 +26205,7 @@ name|TableName
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -26224,8 +26224,8 @@ name|TableNameOrBuilder
 name|getTableNameOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .RegionInfo region_info = 3;
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|// repeated .hbase.pb.RegionInfo region_info = 3;
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -26251,7 +26251,7 @@ argument_list|>
 name|getRegionInfoList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -26273,12 +26273,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 name|int
 name|getRegionInfoCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -26306,7 +26306,7 @@ argument_list|>
 name|getRegionInfoOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -26329,7 +26329,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code DeleteTableStateData}    */
+comment|/**    * Protobuf type {@code hbase.pb.DeleteTableStateData}    */
 specifier|public
 specifier|static
 specifier|final
@@ -26994,7 +26994,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_DeleteTableStateData_descriptor
+name|internal_static_hbase_pb_DeleteTableStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -27025,7 +27025,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_DeleteTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_DeleteTableStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -27167,7 +27167,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -27194,7 +27194,7 @@ operator|.
 name|UserInformation
 name|userInfo_
 decl_stmt|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -27212,7 +27212,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -27236,7 +27236,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -27260,7 +27260,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|// required .TableName table_name = 2;
+comment|// required .hbase.pb.TableName table_name = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -27287,7 +27287,7 @@ operator|.
 name|TableName
 name|tableName_
 decl_stmt|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|boolean
 name|hasTableName
@@ -27305,7 +27305,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -27329,7 +27329,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -27353,7 +27353,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|// repeated .RegionInfo region_info = 3;
+comment|// repeated .hbase.pb.RegionInfo region_info = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -27387,7 +27387,7 @@ name|RegionInfo
 argument_list|>
 name|regionInfo_
 decl_stmt|;
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -27418,7 +27418,7 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -27451,7 +27451,7 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 specifier|public
 name|int
 name|getRegionInfoCount
@@ -27464,7 +27464,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -27496,7 +27496,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -28987,7 +28987,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code DeleteTableStateData}      */
+comment|/**      * Protobuf type {@code hbase.pb.DeleteTableStateData}      */
 specifier|public
 specifier|static
 specifier|final
@@ -29053,7 +29053,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_DeleteTableStateData_descriptor
+name|internal_static_hbase_pb_DeleteTableStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -29084,7 +29084,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_DeleteTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_DeleteTableStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -29388,7 +29388,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_DeleteTableStateData_descriptor
+name|internal_static_hbase_pb_DeleteTableStateData_descriptor
 return|;
 block|}
 specifier|public
@@ -30246,7 +30246,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|private
 name|org
 operator|.
@@ -30345,7 +30345,7 @@ name|UserInformationOrBuilder
 argument_list|>
 name|userInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -30363,7 +30363,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -30404,7 +30404,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -30473,7 +30473,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -30537,7 +30537,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeUserInfo
@@ -30662,7 +30662,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUserInfo
@@ -30721,7 +30721,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -30758,7 +30758,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -30799,7 +30799,7 @@ name|userInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -30949,7 +30949,7 @@ return|return
 name|userInfoBuilder_
 return|;
 block|}
-comment|// required .TableName table_name = 2;
+comment|// required .hbase.pb.TableName table_name = 2;
 specifier|private
 name|org
 operator|.
@@ -31048,7 +31048,7 @@ name|TableNameOrBuilder
 argument_list|>
 name|tableNameBuilder_
 decl_stmt|;
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|boolean
 name|hasTableName
@@ -31066,7 +31066,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -31107,7 +31107,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -31176,7 +31176,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -31240,7 +31240,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeTableName
@@ -31365,7 +31365,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|clearTableName
@@ -31424,7 +31424,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -31461,7 +31461,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -31502,7 +31502,7 @@ name|tableName_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -31652,7 +31652,7 @@ return|return
 name|tableNameBuilder_
 return|;
 block|}
-comment|// repeated .RegionInfo region_info = 3;
+comment|// repeated .hbase.pb.RegionInfo region_info = 3;
 specifier|private
 name|java
 operator|.
@@ -31802,7 +31802,7 @@ name|RegionInfoOrBuilder
 argument_list|>
 name|regionInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -31859,7 +31859,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|int
 name|getRegionInfoCount
@@ -31889,7 +31889,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -31940,7 +31940,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -32018,7 +32018,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -32091,7 +32091,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -32162,7 +32162,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -32240,7 +32240,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -32306,7 +32306,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -32379,7 +32379,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|addAllRegionInfo
@@ -32448,7 +32448,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|clearRegionInfo
@@ -32497,7 +32497,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|Builder
 name|removeRegionInfo
@@ -32541,7 +32541,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -32576,7 +32576,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -32627,7 +32627,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -32686,7 +32686,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -32735,7 +32735,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -32789,7 +32789,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -32985,7 +32985,7 @@ return|return
 name|regionInfoBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:DeleteTableStateData)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.DeleteTableStateData)
 block|}
 static|static
 block|{
@@ -33003,7 +33003,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:DeleteTableStateData)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.DeleteTableStateData)
 block|}
 specifier|public
 interface|interface
@@ -33017,13 +33017,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .UserInformation user_info = 1;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|// required .hbase.pb.UserInformation user_info = 1;
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|boolean
 name|hasUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -33042,7 +33042,7 @@ name|UserInformation
 name|getUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -33061,13 +33061,13 @@ name|UserInformationOrBuilder
 name|getUserInfoOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .TableName table_name = 2;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|// required .hbase.pb.TableName table_name = 2;
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|boolean
 name|hasTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -33086,7 +33086,7 @@ name|TableName
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -33105,13 +33105,13 @@ name|TableNameOrBuilder
 name|getTableNameOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .ColumnFamilySchema columnfamily_schema = 3;
-comment|/**      *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>      */
+comment|// required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;
+comment|/**      *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>      */
 name|boolean
 name|hasColumnfamilySchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -33130,7 +33130,7 @@ name|ColumnFamilySchema
 name|getColumnfamilySchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -33149,13 +33149,13 @@ name|ColumnFamilySchemaOrBuilder
 name|getColumnfamilySchemaOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .TableSchema unmodified_table_schema = 4;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|// optional .hbase.pb.TableSchema unmodified_table_schema = 4;
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 name|boolean
 name|hasUnmodifiedTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -33174,7 +33174,7 @@ name|TableSchema
 name|getUnmodifiedTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -33194,7 +33194,7 @@ name|getUnmodifiedTableSchemaOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code AddColumnFamilyStateData}    */
+comment|/**    * Protobuf type {@code hbase.pb.AddColumnFamilyStateData}    */
 specifier|public
 specifier|static
 specifier|final
@@ -33952,7 +33952,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_AddColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_AddColumnFamilyStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -33983,7 +33983,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_AddColumnFamilyStateData_fieldAccessorTable
+name|internal_static_hbase_pb_AddColumnFamilyStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -34125,7 +34125,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -34152,7 +34152,7 @@ operator|.
 name|UserInformation
 name|userInfo_
 decl_stmt|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -34170,7 +34170,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -34194,7 +34194,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -34218,7 +34218,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|// required .TableName table_name = 2;
+comment|// required .hbase.pb.TableName table_name = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -34245,7 +34245,7 @@ operator|.
 name|TableName
 name|tableName_
 decl_stmt|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|boolean
 name|hasTableName
@@ -34263,7 +34263,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -34287,7 +34287,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -34311,7 +34311,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|// required .ColumnFamilySchema columnfamily_schema = 3;
+comment|// required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -34338,7 +34338,7 @@ operator|.
 name|ColumnFamilySchema
 name|columnfamilySchema_
 decl_stmt|;
-comment|/**      *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>      */
 specifier|public
 name|boolean
 name|hasColumnfamilySchema
@@ -34356,7 +34356,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -34380,7 +34380,7 @@ return|return
 name|columnfamilySchema_
 return|;
 block|}
-comment|/**      *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -34404,7 +34404,7 @@ return|return
 name|columnfamilySchema_
 return|;
 block|}
-comment|// optional .TableSchema unmodified_table_schema = 4;
+comment|// optional .hbase.pb.TableSchema unmodified_table_schema = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -34431,7 +34431,7 @@ operator|.
 name|TableSchema
 name|unmodifiedTableSchema_
 decl_stmt|;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 specifier|public
 name|boolean
 name|hasUnmodifiedTableSchema
@@ -34449,7 +34449,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -34473,7 +34473,7 @@ return|return
 name|unmodifiedTableSchema_
 return|;
 block|}
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -36128,7 +36128,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code AddColumnFamilyStateData}      */
+comment|/**      * Protobuf type {@code hbase.pb.AddColumnFamilyStateData}      */
 specifier|public
 specifier|static
 specifier|final
@@ -36194,7 +36194,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_AddColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_AddColumnFamilyStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -36225,7 +36225,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_AddColumnFamilyStateData_fieldAccessorTable
+name|internal_static_hbase_pb_AddColumnFamilyStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -36588,7 +36588,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_AddColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_AddColumnFamilyStateData_descriptor
 return|;
 block|}
 specifier|public
@@ -37380,7 +37380,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|private
 name|org
 operator|.
@@ -37479,7 +37479,7 @@ name|UserInformationOrBuilder
 argument_list|>
 name|userInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -37497,7 +37497,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -37538,7 +37538,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -37607,7 +37607,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -37671,7 +37671,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeUserInfo
@@ -37796,7 +37796,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUserInfo
@@ -37855,7 +37855,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -37892,7 +37892,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -37933,7 +37933,7 @@ name|userInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -38083,7 +38083,7 @@ return|return
 name|userInfoBuilder_
 return|;
 block|}
-comment|// required .TableName table_name = 2;
+comment|// required .hbase.pb.TableName table_name = 2;
 specifier|private
 name|org
 operator|.
@@ -38182,7 +38182,7 @@ name|TableNameOrBuilder
 argument_list|>
 name|tableNameBuilder_
 decl_stmt|;
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|boolean
 name|hasTableName
@@ -38200,7 +38200,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -38241,7 +38241,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -38310,7 +38310,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -38374,7 +38374,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeTableName
@@ -38499,7 +38499,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|clearTableName
@@ -38558,7 +38558,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -38595,7 +38595,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -38636,7 +38636,7 @@ name|tableName_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -38786,7 +38786,7 @@ return|return
 name|tableNameBuilder_
 return|;
 block|}
-comment|// required .ColumnFamilySchema columnfamily_schema = 3;
+comment|// required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;
 specifier|private
 name|org
 operator|.
@@ -38885,7 +38885,7 @@ name|ColumnFamilySchemaOrBuilder
 argument_list|>
 name|columnfamilySchemaBuilder_
 decl_stmt|;
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|boolean
 name|hasColumnfamilySchema
@@ -38903,7 +38903,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -38944,7 +38944,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|Builder
 name|setColumnfamilySchema
@@ -39013,7 +39013,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|Builder
 name|setColumnfamilySchema
@@ -39077,7 +39077,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|Builder
 name|mergeColumnfamilySchema
@@ -39202,7 +39202,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|Builder
 name|clearColumnfamilySchema
@@ -39261,7 +39261,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -39298,7 +39298,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -39339,7 +39339,7 @@ name|columnfamilySchema_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|private
 name|com
 operator|.
@@ -39489,7 +39489,7 @@ return|return
 name|columnfamilySchemaBuilder_
 return|;
 block|}
-comment|// optional .TableSchema unmodified_table_schema = 4;
+comment|// optional .hbase.pb.TableSchema unmodified_table_schema = 4;
 specifier|private
 name|org
 operator|.
@@ -39588,7 +39588,7 @@ name|TableSchemaOrBuilder
 argument_list|>
 name|unmodifiedTableSchemaBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|boolean
 name|hasUnmodifiedTableSchema
@@ -39606,7 +39606,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -39647,7 +39647,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|setUnmodifiedTableSchema
@@ -39716,7 +39716,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|setUnmodifiedTableSchema
@@ -39780,7 +39780,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|mergeUnmodifiedTableSchema
@@ -39905,7 +39905,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|clearUnmodifiedTableSchema
@@ -39964,7 +39964,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -40001,7 +40001,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -40042,7 +40042,7 @@ name|unmodifiedTableSchema_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|private
 name|com
 operator|.
@@ -40192,7 +40192,7 @@ return|return
 name|unmodifiedTableSchemaBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:AddColumnFamilyStateData)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.AddColumnFamilyStateData)
 block|}
 static|static
 block|{
@@ -40210,7 +40210,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:AddColumnFamilyStateData)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.AddColumnFamilyStateData)
 block|}
 specifier|public
 interface|interface
@@ -40224,13 +40224,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .UserInformation user_info = 1;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|// required .hbase.pb.UserInformation user_info = 1;
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|boolean
 name|hasUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -40249,7 +40249,7 @@ name|UserInformation
 name|getUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -40268,13 +40268,13 @@ name|UserInformationOrBuilder
 name|getUserInfoOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .TableName table_name = 2;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|// required .hbase.pb.TableName table_name = 2;
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|boolean
 name|hasTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -40293,7 +40293,7 @@ name|TableName
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -40312,13 +40312,13 @@ name|TableNameOrBuilder
 name|getTableNameOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .ColumnFamilySchema columnfamily_schema = 3;
-comment|/**      *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>      */
+comment|// required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;
+comment|/**      *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>      */
 name|boolean
 name|hasColumnfamilySchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -40337,7 +40337,7 @@ name|ColumnFamilySchema
 name|getColumnfamilySchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -40356,13 +40356,13 @@ name|ColumnFamilySchemaOrBuilder
 name|getColumnfamilySchemaOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .TableSchema unmodified_table_schema = 4;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|// optional .hbase.pb.TableSchema unmodified_table_schema = 4;
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 name|boolean
 name|hasUnmodifiedTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -40381,7 +40381,7 @@ name|TableSchema
 name|getUnmodifiedTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -40401,7 +40401,7 @@ name|getUnmodifiedTableSchemaOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ModifyColumnFamilyStateData}    */
+comment|/**    * Protobuf type {@code hbase.pb.ModifyColumnFamilyStateData}    */
 specifier|public
 specifier|static
 specifier|final
@@ -41159,7 +41159,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_ModifyColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_ModifyColumnFamilyStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -41190,7 +41190,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_ModifyColumnFamilyStateData_fieldAccessorTable
+name|internal_static_hbase_pb_ModifyColumnFamilyStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -41332,7 +41332,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -41359,7 +41359,7 @@ operator|.
 name|UserInformation
 name|userInfo_
 decl_stmt|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -41377,7 +41377,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -41401,7 +41401,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -41425,7 +41425,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|// required .TableName table_name = 2;
+comment|// required .hbase.pb.TableName table_name = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -41452,7 +41452,7 @@ operator|.
 name|TableName
 name|tableName_
 decl_stmt|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|boolean
 name|hasTableName
@@ -41470,7 +41470,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -41494,7 +41494,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -41518,7 +41518,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|// required .ColumnFamilySchema columnfamily_schema = 3;
+comment|// required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -41545,7 +41545,7 @@ operator|.
 name|ColumnFamilySchema
 name|columnfamilySchema_
 decl_stmt|;
-comment|/**      *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>      */
 specifier|public
 name|boolean
 name|hasColumnfamilySchema
@@ -41563,7 +41563,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -41587,7 +41587,7 @@ return|return
 name|columnfamilySchema_
 return|;
 block|}
-comment|/**      *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -41611,7 +41611,7 @@ return|return
 name|columnfamilySchema_
 return|;
 block|}
-comment|// optional .TableSchema unmodified_table_schema = 4;
+comment|// optional .hbase.pb.TableSchema unmodified_table_schema = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -41638,7 +41638,7 @@ operator|.
 name|TableSchema
 name|unmodifiedTableSchema_
 decl_stmt|;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 specifier|public
 name|boolean
 name|hasUnmodifiedTableSchema
@@ -41656,7 +41656,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -41680,7 +41680,7 @@ return|return
 name|unmodifiedTableSchema_
 return|;
 block|}
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -43335,7 +43335,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ModifyColumnFamilyStateData}      */
+comment|/**      * Protobuf type {@code hbase.pb.ModifyColumnFamilyStateData}      */
 specifier|public
 specifier|static
 specifier|final
@@ -43401,7 +43401,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_ModifyColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_ModifyColumnFamilyStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -43432,7 +43432,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_ModifyColumnFamilyStateData_fieldAccessorTable
+name|internal_static_hbase_pb_ModifyColumnFamilyStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -43795,7 +43795,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_ModifyColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_ModifyColumnFamilyStateData_descriptor
 return|;
 block|}
 specifier|public
@@ -44587,7 +44587,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|private
 name|org
 operator|.
@@ -44686,7 +44686,7 @@ name|UserInformationOrBuilder
 argument_list|>
 name|userInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -44704,7 +44704,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -44745,7 +44745,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -44814,7 +44814,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -44878,7 +44878,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeUserInfo
@@ -45003,7 +45003,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUserInfo
@@ -45062,7 +45062,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -45099,7 +45099,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -45140,7 +45140,7 @@ name|userInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -45290,7 +45290,7 @@ return|return
 name|userInfoBuilder_
 return|;
 block|}
-comment|// required .TableName table_name = 2;
+comment|// required .hbase.pb.TableName table_name = 2;
 specifier|private
 name|org
 operator|.
@@ -45389,7 +45389,7 @@ name|TableNameOrBuilder
 argument_list|>
 name|tableNameBuilder_
 decl_stmt|;
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|boolean
 name|hasTableName
@@ -45407,7 +45407,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -45448,7 +45448,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -45517,7 +45517,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -45581,7 +45581,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeTableName
@@ -45706,7 +45706,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|clearTableName
@@ -45765,7 +45765,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -45802,7 +45802,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -45843,7 +45843,7 @@ name|tableName_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -45993,7 +45993,7 @@ return|return
 name|tableNameBuilder_
 return|;
 block|}
-comment|// required .ColumnFamilySchema columnfamily_schema = 3;
+comment|// required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;
 specifier|private
 name|org
 operator|.
@@ -46092,7 +46092,7 @@ name|ColumnFamilySchemaOrBuilder
 argument_list|>
 name|columnfamilySchemaBuilder_
 decl_stmt|;
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|boolean
 name|hasColumnfamilySchema
@@ -46110,7 +46110,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -46151,7 +46151,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|Builder
 name|setColumnfamilySchema
@@ -46220,7 +46220,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|Builder
 name|setColumnfamilySchema
@@ -46284,7 +46284,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|Builder
 name|mergeColumnfamilySchema
@@ -46409,7 +46409,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|Builder
 name|clearColumnfamilySchema
@@ -46468,7 +46468,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -46505,7 +46505,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -46546,7 +46546,7 @@ name|columnfamilySchema_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ColumnFamilySchema columnfamily_schema = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.ColumnFamilySchema columnfamily_schema = 3;</code>        */
 specifier|private
 name|com
 operator|.
@@ -46696,7 +46696,7 @@ return|return
 name|columnfamilySchemaBuilder_
 return|;
 block|}
-comment|// optional .TableSchema unmodified_table_schema = 4;
+comment|// optional .hbase.pb.TableSchema unmodified_table_schema = 4;
 specifier|private
 name|org
 operator|.
@@ -46795,7 +46795,7 @@ name|TableSchemaOrBuilder
 argument_list|>
 name|unmodifiedTableSchemaBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|boolean
 name|hasUnmodifiedTableSchema
@@ -46813,7 +46813,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -46854,7 +46854,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|setUnmodifiedTableSchema
@@ -46923,7 +46923,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|setUnmodifiedTableSchema
@@ -46987,7 +46987,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|mergeUnmodifiedTableSchema
@@ -47112,7 +47112,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|clearUnmodifiedTableSchema
@@ -47171,7 +47171,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -47208,7 +47208,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -47249,7 +47249,7 @@ name|unmodifiedTableSchema_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|private
 name|com
 operator|.
@@ -47399,7 +47399,7 @@ return|return
 name|unmodifiedTableSchemaBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ModifyColumnFamilyStateData)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ModifyColumnFamilyStateData)
 block|}
 static|static
 block|{
@@ -47417,7 +47417,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ModifyColumnFamilyStateData)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ModifyColumnFamilyStateData)
 block|}
 specifier|public
 interface|interface
@@ -47431,13 +47431,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .UserInformation user_info = 1;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|// required .hbase.pb.UserInformation user_info = 1;
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|boolean
 name|hasUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -47456,7 +47456,7 @@ name|UserInformation
 name|getUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -47475,13 +47475,13 @@ name|UserInformationOrBuilder
 name|getUserInfoOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .TableName table_name = 2;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|// required .hbase.pb.TableName table_name = 2;
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|boolean
 name|hasTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -47500,7 +47500,7 @@ name|TableName
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -47536,13 +47536,13 @@ name|ByteString
 name|getColumnfamilyName
 parameter_list|()
 function_decl|;
-comment|// optional .TableSchema unmodified_table_schema = 4;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|// optional .hbase.pb.TableSchema unmodified_table_schema = 4;
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 name|boolean
 name|hasUnmodifiedTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -47561,7 +47561,7 @@ name|TableSchema
 name|getUnmodifiedTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -47581,7 +47581,7 @@ name|getUnmodifiedTableSchemaOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code DeleteColumnFamilyStateData}    */
+comment|/**    * Protobuf type {@code hbase.pb.DeleteColumnFamilyStateData}    */
 specifier|public
 specifier|static
 specifier|final
@@ -48255,7 +48255,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_DeleteColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_DeleteColumnFamilyStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -48286,7 +48286,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_DeleteColumnFamilyStateData_fieldAccessorTable
+name|internal_static_hbase_pb_DeleteColumnFamilyStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -48428,7 +48428,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -48455,7 +48455,7 @@ operator|.
 name|UserInformation
 name|userInfo_
 decl_stmt|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -48473,7 +48473,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -48497,7 +48497,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -48521,7 +48521,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|// required .TableName table_name = 2;
+comment|// required .hbase.pb.TableName table_name = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -48548,7 +48548,7 @@ operator|.
 name|TableName
 name|tableName_
 decl_stmt|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|boolean
 name|hasTableName
@@ -48566,7 +48566,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -48590,7 +48590,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -48667,7 +48667,7 @@ return|return
 name|columnfamilyName_
 return|;
 block|}
-comment|// optional .TableSchema unmodified_table_schema = 4;
+comment|// optional .hbase.pb.TableSchema unmodified_table_schema = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -48694,7 +48694,7 @@ operator|.
 name|TableSchema
 name|unmodifiedTableSchema_
 decl_stmt|;
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 specifier|public
 name|boolean
 name|hasUnmodifiedTableSchema
@@ -48712,7 +48712,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -48736,7 +48736,7 @@ return|return
 name|unmodifiedTableSchema_
 return|;
 block|}
-comment|/**      *<code>optional .TableSchema unmodified_table_schema = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -50364,7 +50364,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code DeleteColumnFamilyStateData}      */
+comment|/**      * Protobuf type {@code hbase.pb.DeleteColumnFamilyStateData}      */
 specifier|public
 specifier|static
 specifier|final
@@ -50430,7 +50430,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_DeleteColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_DeleteColumnFamilyStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -50461,7 +50461,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_DeleteColumnFamilyStateData_fieldAccessorTable
+name|internal_static_hbase_pb_DeleteColumnFamilyStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -50796,7 +50796,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_DeleteColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_DeleteColumnFamilyStateData_descriptor
 return|;
 block|}
 specifier|public
@@ -51554,7 +51554,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|private
 name|org
 operator|.
@@ -51653,7 +51653,7 @@ name|UserInformationOrBuilder
 argument_list|>
 name|userInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -51671,7 +51671,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -51712,7 +51712,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -51781,7 +51781,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -51845,7 +51845,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeUserInfo
@@ -51970,7 +51970,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUserInfo
@@ -52029,7 +52029,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -52066,7 +52066,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -52107,7 +52107,7 @@ name|userInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -52257,7 +52257,7 @@ return|return
 name|userInfoBuilder_
 return|;
 block|}
-comment|// required .TableName table_name = 2;
+comment|// required .hbase.pb.TableName table_name = 2;
 specifier|private
 name|org
 operator|.
@@ -52356,7 +52356,7 @@ name|TableNameOrBuilder
 argument_list|>
 name|tableNameBuilder_
 decl_stmt|;
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|boolean
 name|hasTableName
@@ -52374,7 +52374,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -52415,7 +52415,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -52484,7 +52484,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -52548,7 +52548,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeTableName
@@ -52673,7 +52673,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|clearTableName
@@ -52732,7 +52732,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -52769,7 +52769,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -52810,7 +52810,7 @@ name|tableName_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -53088,7 +53088,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .TableSchema unmodified_table_schema = 4;
+comment|// optional .hbase.pb.TableSchema unmodified_table_schema = 4;
 specifier|private
 name|org
 operator|.
@@ -53187,7 +53187,7 @@ name|TableSchemaOrBuilder
 argument_list|>
 name|unmodifiedTableSchemaBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|boolean
 name|hasUnmodifiedTableSchema
@@ -53205,7 +53205,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -53246,7 +53246,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|setUnmodifiedTableSchema
@@ -53315,7 +53315,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|setUnmodifiedTableSchema
@@ -53379,7 +53379,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|mergeUnmodifiedTableSchema
@@ -53504,7 +53504,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|Builder
 name|clearUnmodifiedTableSchema
@@ -53563,7 +53563,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -53600,7 +53600,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -53641,7 +53641,7 @@ name|unmodifiedTableSchema_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableSchema unmodified_table_schema = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableSchema unmodified_table_schema = 4;</code>        */
 specifier|private
 name|com
 operator|.
@@ -53791,7 +53791,7 @@ return|return
 name|unmodifiedTableSchemaBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:DeleteColumnFamilyStateData)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.DeleteColumnFamilyStateData)
 block|}
 static|static
 block|{
@@ -53809,7 +53809,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:DeleteColumnFamilyStateData)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.DeleteColumnFamilyStateData)
 block|}
 specifier|public
 interface|interface
@@ -53823,13 +53823,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .UserInformation user_info = 1;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|// required .hbase.pb.UserInformation user_info = 1;
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|boolean
 name|hasUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -53848,7 +53848,7 @@ name|UserInformation
 name|getUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -53867,13 +53867,13 @@ name|UserInformationOrBuilder
 name|getUserInfoOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .TableName table_name = 2;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|// required .hbase.pb.TableName table_name = 2;
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|boolean
 name|hasTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -53892,7 +53892,7 @@ name|TableName
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -53923,7 +53923,7 @@ name|getSkipTableStateCheck
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code EnableTableStateData}    */
+comment|/**    * Protobuf type {@code hbase.pb.EnableTableStateData}    */
 specifier|public
 specifier|static
 specifier|final
@@ -54496,7 +54496,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_EnableTableStateData_descriptor
+name|internal_static_hbase_pb_EnableTableStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -54527,7 +54527,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_EnableTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_EnableTableStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -54669,7 +54669,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -54696,7 +54696,7 @@ operator|.
 name|UserInformation
 name|userInfo_
 decl_stmt|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -54714,7 +54714,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -54738,7 +54738,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -54762,7 +54762,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|// required .TableName table_name = 2;
+comment|// required .hbase.pb.TableName table_name = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -54789,7 +54789,7 @@ operator|.
 name|TableName
 name|tableName_
 decl_stmt|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|boolean
 name|hasTableName
@@ -54807,7 +54807,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -54831,7 +54831,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -56324,7 +56324,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code EnableTableStateData}      */
+comment|/**      * Protobuf type {@code hbase.pb.EnableTableStateData}      */
 specifier|public
 specifier|static
 specifier|final
@@ -56390,7 +56390,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_EnableTableStateData_descriptor
+name|internal_static_hbase_pb_EnableTableStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -56421,7 +56421,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_EnableTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_EnableTableStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -56699,7 +56699,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_EnableTableStateData_descriptor
+name|internal_static_hbase_pb_EnableTableStateData_descriptor
 return|;
 block|}
 specifier|public
@@ -57375,7 +57375,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|private
 name|org
 operator|.
@@ -57474,7 +57474,7 @@ name|UserInformationOrBuilder
 argument_list|>
 name|userInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -57492,7 +57492,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -57533,7 +57533,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -57602,7 +57602,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -57666,7 +57666,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeUserInfo
@@ -57791,7 +57791,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUserInfo
@@ -57850,7 +57850,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -57887,7 +57887,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -57928,7 +57928,7 @@ name|userInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -58078,7 +58078,7 @@ return|return
 name|userInfoBuilder_
 return|;
 block|}
-comment|// required .TableName table_name = 2;
+comment|// required .hbase.pb.TableName table_name = 2;
 specifier|private
 name|org
 operator|.
@@ -58177,7 +58177,7 @@ name|TableNameOrBuilder
 argument_list|>
 name|tableNameBuilder_
 decl_stmt|;
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|boolean
 name|hasTableName
@@ -58195,7 +58195,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -58236,7 +58236,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -58305,7 +58305,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -58369,7 +58369,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeTableName
@@ -58494,7 +58494,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|clearTableName
@@ -58553,7 +58553,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -58590,7 +58590,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -58631,7 +58631,7 @@ name|tableName_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -58864,7 +58864,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:EnableTableStateData)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.EnableTableStateData)
 block|}
 static|static
 block|{
@@ -58882,7 +58882,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:EnableTableStateData)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.EnableTableStateData)
 block|}
 specifier|public
 interface|interface
@@ -58896,13 +58896,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .UserInformation user_info = 1;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|// required .hbase.pb.UserInformation user_info = 1;
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|boolean
 name|hasUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -58921,7 +58921,7 @@ name|UserInformation
 name|getUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -58940,13 +58940,13 @@ name|UserInformationOrBuilder
 name|getUserInfoOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .TableName table_name = 2;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|// required .hbase.pb.TableName table_name = 2;
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|boolean
 name|hasTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -58965,7 +58965,7 @@ name|TableName
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -58996,7 +58996,7 @@ name|getSkipTableStateCheck
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code DisableTableStateData}    */
+comment|/**    * Protobuf type {@code hbase.pb.DisableTableStateData}    */
 specifier|public
 specifier|static
 specifier|final
@@ -59569,7 +59569,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_DisableTableStateData_descriptor
+name|internal_static_hbase_pb_DisableTableStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -59600,7 +59600,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_DisableTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_DisableTableStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -59742,7 +59742,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -59769,7 +59769,7 @@ operator|.
 name|UserInformation
 name|userInfo_
 decl_stmt|;
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -59787,7 +59787,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -59811,7 +59811,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|/**      *<code>required .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -59835,7 +59835,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|// required .TableName table_name = 2;
+comment|// required .hbase.pb.TableName table_name = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -59862,7 +59862,7 @@ operator|.
 name|TableName
 name|tableName_
 decl_stmt|;
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|boolean
 name|hasTableName
@@ -59880,7 +59880,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -59904,7 +59904,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|/**      *<code>required .TableName table_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -61397,7 +61397,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code DisableTableStateData}      */
+comment|/**      * Protobuf type {@code hbase.pb.DisableTableStateData}      */
 specifier|public
 specifier|static
 specifier|final
@@ -61463,7 +61463,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_DisableTableStateData_descriptor
+name|internal_static_hbase_pb_DisableTableStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -61494,7 +61494,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_DisableTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_DisableTableStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -61772,7 +61772,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_DisableTableStateData_descriptor
+name|internal_static_hbase_pb_DisableTableStateData_descriptor
 return|;
 block|}
 specifier|public
@@ -62448,7 +62448,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserInformation user_info = 1;
+comment|// required .hbase.pb.UserInformation user_info = 1;
 specifier|private
 name|org
 operator|.
@@ -62547,7 +62547,7 @@ name|UserInformationOrBuilder
 argument_list|>
 name|userInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -62565,7 +62565,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -62606,7 +62606,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -62675,7 +62675,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -62739,7 +62739,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeUserInfo
@@ -62864,7 +62864,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUserInfo
@@ -62923,7 +62923,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -62960,7 +62960,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -63001,7 +63001,7 @@ name|userInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -63151,7 +63151,7 @@ return|return
 name|userInfoBuilder_
 return|;
 block|}
-comment|// required .TableName table_name = 2;
+comment|// required .hbase.pb.TableName table_name = 2;
 specifier|private
 name|org
 operator|.
@@ -63250,7 +63250,7 @@ name|TableNameOrBuilder
 argument_list|>
 name|tableNameBuilder_
 decl_stmt|;
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|boolean
 name|hasTableName
@@ -63268,7 +63268,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -63309,7 +63309,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -63378,7 +63378,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -63442,7 +63442,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeTableName
@@ -63567,7 +63567,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|clearTableName
@@ -63626,7 +63626,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -63663,7 +63663,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -63704,7 +63704,7 @@ name|tableName_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableName table_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.TableName table_name = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -63937,7 +63937,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:DisableTableStateData)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.DisableTableStateData)
 block|}
 static|static
 block|{
@@ -63955,7 +63955,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:DisableTableStateData)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.DisableTableStateData)
 block|}
 specifier|public
 interface|interface
@@ -63969,13 +63969,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ServerName server_name = 1;
-comment|/**      *<code>required .ServerName server_name = 1;</code>      */
+comment|// required .hbase.pb.ServerName server_name = 1;
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 1;</code>      */
 name|boolean
 name|hasServerName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerName server_name = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -63994,7 +63994,7 @@ name|ServerName
 name|getServerName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerName server_name = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -64024,8 +64024,8 @@ name|boolean
 name|getDistributedLogReplay
 parameter_list|()
 function_decl|;
-comment|// repeated .RegionInfo regions_on_crashed_server = 3;
-comment|/**      *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>      */
+comment|// repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -64051,7 +64051,7 @@ argument_list|>
 name|getRegionsOnCrashedServerList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -64073,12 +64073,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>      */
 name|int
 name|getRegionsOnCrashedServerCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -64106,7 +64106,7 @@ argument_list|>
 name|getRegionsOnCrashedServerOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -64128,8 +64128,8 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated .RegionInfo regions_assigned = 4;
-comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
+comment|// repeated .hbase.pb.RegionInfo regions_assigned = 4;
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>      */
 name|java
 operator|.
 name|util
@@ -64155,7 +64155,7 @@ argument_list|>
 name|getRegionsAssignedList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -64177,12 +64177,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>      */
 name|int
 name|getRegionsAssignedCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>      */
 name|java
 operator|.
 name|util
@@ -64210,7 +64210,7 @@ argument_list|>
 name|getRegionsAssignedOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -64255,7 +64255,7 @@ name|getShouldSplitWal
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ServerCrashStateData}    */
+comment|/**    * Protobuf type {@code hbase.pb.ServerCrashStateData}    */
 specifier|public
 specifier|static
 specifier|final
@@ -64979,7 +64979,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_ServerCrashStateData_descriptor
+name|internal_static_hbase_pb_ServerCrashStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -65010,7 +65010,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_ServerCrashStateData_fieldAccessorTable
+name|internal_static_hbase_pb_ServerCrashStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -65152,7 +65152,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerName server_name = 1;
+comment|// required .hbase.pb.ServerName server_name = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -65179,7 +65179,7 @@ operator|.
 name|ServerName
 name|serverName_
 decl_stmt|;
-comment|/**      *<code>required .ServerName server_name = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 1;</code>      */
 specifier|public
 name|boolean
 name|hasServerName
@@ -65197,7 +65197,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ServerName server_name = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -65221,7 +65221,7 @@ return|return
 name|serverName_
 return|;
 block|}
-comment|/**      *<code>required .ServerName server_name = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -65286,7 +65286,7 @@ return|return
 name|distributedLogReplay_
 return|;
 block|}
-comment|// repeated .RegionInfo regions_on_crashed_server = 3;
+comment|// repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -65320,7 +65320,7 @@ name|RegionInfo
 argument_list|>
 name|regionsOnCrashedServer_
 decl_stmt|;
-comment|/**      *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -65351,7 +65351,7 @@ return|return
 name|regionsOnCrashedServer_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -65384,7 +65384,7 @@ return|return
 name|regionsOnCrashedServer_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>      */
 specifier|public
 name|int
 name|getRegionsOnCrashedServerCount
@@ -65397,7 +65397,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -65429,7 +65429,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -65461,7 +65461,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated .RegionInfo regions_assigned = 4;
+comment|// repeated .hbase.pb.RegionInfo regions_assigned = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -65495,7 +65495,7 @@ name|RegionInfo
 argument_list|>
 name|regionsAssigned_
 decl_stmt|;
-comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -65526,7 +65526,7 @@ return|return
 name|regionsAssigned_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -65559,7 +65559,7 @@ return|return
 name|regionsAssigned_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>      */
 specifier|public
 name|int
 name|getRegionsAssignedCount
@@ -65572,7 +65572,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -65604,7 +65604,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo regions_assigned = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -67544,7 +67544,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ServerCrashStateData}      */
+comment|/**      * Protobuf type {@code hbase.pb.ServerCrashStateData}      */
 specifier|public
 specifier|static
 specifier|final
@@ -67610,7 +67610,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_ServerCrashStateData_descriptor
+name|internal_static_hbase_pb_ServerCrashStateData_descriptor
 return|;
 block|}
 specifier|protected
@@ -67641,7 +67641,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_ServerCrashStateData_fieldAccessorTable
+name|internal_static_hbase_pb_ServerCrashStateData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -67974,7 +67974,7 @@ name|generated
 operator|.
 name|MasterProcedureProtos
 operator|.
-name|internal_static_ServerCrashStateData_descriptor
+name|internal_static_hbase_pb_ServerCrashStateData_descriptor
 return|;
 block|}
 specifier|public
@@ -69103,7 +69103,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerName server_name = 1;
+comment|// required .hbase.pb.ServerName server_name = 1;
 specifier|private
 name|org
 operator|.
@@ -69202,7 +69202,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|serverNameBuilder_
 decl_stmt|;
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|boolean
 name|hasServerName
@@ -69220,7 +69220,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -69261,7 +69261,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|Builder
 name|setServerName
@@ -69330,7 +69330,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|Builder
 name|setServerName
@@ -69394,7 +69394,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeServerName
@@ -69519,7 +69519,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|Builder
 name|clearServerName
@@ -69578,7 +69578,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -69615,7 +69615,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -69656,7 +69656,7 @@ name|serverName_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -69889,7 +69889,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .RegionInfo regions_on_crashed_server = 3;
+comment|// repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;
 specifier|private
 name|java
 operator|.
@@ -70039,7 +70039,7 @@ name|RegionInfoOrBuilder
 argument_list|>
 name|regionsOnCrashedServerBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -70096,7 +70096,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|int
 name|getRegionsOnCrashedServerCount
@@ -70126,7 +70126,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -70177,7 +70177,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|Builder
 name|setRegionsOnCrashedServer
@@ -70255,7 +70255,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|Builder
 name|setRegionsOnCrashedServer
@@ -70328,7 +70328,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|Builder
 name|addRegionsOnCrashedServer
@@ -70399,7 +70399,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|Builder
 name|addRegionsOnCrashedServer
@@ -70477,7 +70477,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|Builder
 name|addRegionsOnCrashedServer
@@ -70543,7 +70543,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|Builder
 name|addRegionsOnCrashedServer
@@ -70616,7 +70616,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|Builder
 name|addAllRegionsOnCrashedServer
@@ -70685,7 +70685,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|Builder
 name|clearRegionsOnCrashedServer
@@ -70734,7 +70734,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|Builder
 name|removeRegionsOnCrashedServer
@@ -70778,7 +70778,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -70813,7 +70813,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -70864,7 +70864,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -70923,7 +70923,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -70972,7 +70972,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -71026,7 +71026,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_on_crashed_server = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_on_crashed_server = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -71222,7 +71222,7 @@ return|return
 name|regionsOnCrashedServerBuilder_
 return|;
 block|}
-comment|// repeated .RegionInfo regions_assigned = 4;
+comment|// repeated .hbase.pb.RegionInfo regions_assigned = 4;
 specifier|private
 name|java
 operator|.
@@ -71372,7 +71372,7 @@ name|RegionInfoOrBuilder
 argument_list|>
 name|regionsAssignedBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -71429,7 +71429,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|int
 name|getRegionsAssignedCount
@@ -71459,7 +71459,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -71510,7 +71510,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
 name|setRegionsAssigned
@@ -71588,7 +71588,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
 name|setRegionsAssigned
@@ -71661,7 +71661,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
 name|addRegionsAssigned
@@ -71732,7 +71732,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
 name|addRegionsAssigned
@@ -71810,7 +71810,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
 name|addRegionsAssigned
@@ -71876,7 +71876,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
 name|addRegionsAssigned
@@ -71949,7 +71949,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
 name|addAllRegionsAssigned
@@ -72018,7 +72018,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
 name|clearRegionsAssigned
@@ -72067,7 +72067,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|Builder
 name|removeRegionsAssigned
@@ -72111,7 +72111,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -72146,7 +72146,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -72197,7 +72197,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -72256,7 +72256,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -72305,7 +72305,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -72359,7 +72359,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo regions_assigned = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo regions_assigned = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -72723,7 +72723,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ServerCrashStateData)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ServerCrashStateData)
 block|}
 static|static
 block|{
@@ -72741,7 +72741,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ServerCrashStateData)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ServerCrashStateData)
 block|}
 specifier|private
 specifier|static
@@ -72754,7 +72754,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CreateTableStateData_descriptor
+name|internal_static_hbase_pb_CreateTableStateData_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72767,7 +72767,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CreateTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_CreateTableStateData_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72780,7 +72780,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ModifyTableStateData_descriptor
+name|internal_static_hbase_pb_ModifyTableStateData_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72793,7 +72793,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ModifyTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_ModifyTableStateData_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72806,7 +72806,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_TruncateTableStateData_descriptor
+name|internal_static_hbase_pb_TruncateTableStateData_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72819,7 +72819,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_TruncateTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_TruncateTableStateData_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72832,7 +72832,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_DeleteTableStateData_descriptor
+name|internal_static_hbase_pb_DeleteTableStateData_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72845,7 +72845,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_DeleteTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_DeleteTableStateData_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72858,7 +72858,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_AddColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_AddColumnFamilyStateData_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72871,7 +72871,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_AddColumnFamilyStateData_fieldAccessorTable
+name|internal_static_hbase_pb_AddColumnFamilyStateData_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72884,7 +72884,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ModifyColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_ModifyColumnFamilyStateData_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72897,7 +72897,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ModifyColumnFamilyStateData_fieldAccessorTable
+name|internal_static_hbase_pb_ModifyColumnFamilyStateData_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72910,7 +72910,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_DeleteColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_DeleteColumnFamilyStateData_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72923,7 +72923,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_DeleteColumnFamilyStateData_fieldAccessorTable
+name|internal_static_hbase_pb_DeleteColumnFamilyStateData_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72936,7 +72936,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_EnableTableStateData_descriptor
+name|internal_static_hbase_pb_EnableTableStateData_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72949,7 +72949,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_EnableTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_EnableTableStateData_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72962,7 +72962,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_DisableTableStateData_descriptor
+name|internal_static_hbase_pb_DisableTableStateData_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72975,7 +72975,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_DisableTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_DisableTableStateData_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -72988,7 +72988,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ServerCrashStateData_descriptor
+name|internal_static_hbase_pb_ServerCrashStateData_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -73001,7 +73001,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ServerCrashStateData_fieldAccessorTable
+name|internal_static_hbase_pb_ServerCrashStateData_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -73045,221 +73045,235 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\025MasterProcedure.proto\032\013HBase.proto\032\tRP"
+literal|"\n\025MasterProcedure.proto\022\010hbase.pb\032\013HBase"
 operator|+
-literal|"C.proto\"\201\001\n\024CreateTableStateData\022#\n\tuser"
+literal|".proto\032\tRPC.proto\"\234\001\n\024CreateTableStateDa"
 operator|+
-literal|"_info\030\001 \002(\0132\020.UserInformation\022\"\n\014table_s"
+literal|"ta\022,\n\tuser_info\030\001 \002(\0132\031.hbase.pb.UserInf"
 operator|+
-literal|"chema\030\002 \002(\0132\014.TableSchema\022 \n\013region_info"
+literal|"ormation\022+\n\014table_schema\030\002 \002(\0132\025.hbase.p"
 operator|+
-literal|"\030\003 \003(\0132\013.RegionInfo\"\277\001\n\024ModifyTableState"
+literal|"b.TableSchema\022)\n\013region_info\030\003 \003(\0132\024.hba"
 operator|+
-literal|"Data\022#\n\tuser_info\030\001 \002(\0132\020.UserInformatio"
+literal|"se.pb.RegionInfo\"\332\001\n\024ModifyTableStateDat"
 operator|+
-literal|"n\022-\n\027unmodified_table_schema\030\002 \001(\0132\014.Tab"
+literal|"a\022,\n\tuser_info\030\001 \002(\0132\031.hbase.pb.UserInfo"
 operator|+
-literal|"leSchema\022+\n\025modified_table_schema\030\003 \002(\0132"
+literal|"rmation\0226\n\027unmodified_table_schema\030\002 \001(\013"
 operator|+
-literal|"\014.TableSchema\022&\n\036delete_column_family_in"
+literal|"2\025.hbase.pb.TableSchema\0224\n\025modified_tabl"
 operator|+
-literal|"_modify\030\004 \002(\010\"\274\001\n\026TruncateTableStateData"
+literal|"e_schema\030\003 \002(\0132\025.hbase.pb.TableSchema\022&\n"
 block|,
-literal|"\022#\n\tuser_info\030\001 \002(\0132\020.UserInformation\022\027\n"
+literal|"\036delete_column_family_in_modify\030\004 \002(\010\"\340\001"
 operator|+
-literal|"\017preserve_splits\030\002 \002(\010\022\036\n\ntable_name\030\003 \001"
+literal|"\n\026TruncateTableStateData\022,\n\tuser_info\030\001 "
 operator|+
-literal|"(\0132\n.TableName\022\"\n\014table_schema\030\004 \001(\0132\014.T"
+literal|"\002(\0132\031.hbase.pb.UserInformation\022\027\n\017preser"
 operator|+
-literal|"ableSchema\022 \n\013region_info\030\005 \003(\0132\013.Region"
+literal|"ve_splits\030\002 \002(\010\022\'\n\ntable_name\030\003 \001(\0132\023.hb"
 operator|+
-literal|"Info\"}\n\024DeleteTableStateData\022#\n\tuser_inf"
+literal|"ase.pb.TableName\022+\n\014table_schema\030\004 \001(\0132\025"
 operator|+
-literal|"o\030\001 \002(\0132\020.UserInformation\022\036\n\ntable_name\030"
+literal|".hbase.pb.TableSchema\022)\n\013region_info\030\005 \003"
 operator|+
-literal|"\002 \002(\0132\n.TableName\022 \n\013region_info\030\003 \003(\0132\013"
+literal|"(\0132\024.hbase.pb.RegionInfo\"\230\001\n\024DeleteTable"
 operator|+
-literal|".RegionInfo\"\300\001\n\030AddColumnFamilyStateData"
+literal|"StateData\022,\n\tuser_info\030\001 \002(\0132\031.hbase.pb."
 operator|+
-literal|"\022#\n\tuser_info\030\001 \002(\0132\020.UserInformation\022\036\n"
+literal|"UserInformation\022\'\n\ntable_name\030\002 \002(\0132\023.hb"
 operator|+
-literal|"\ntable_name\030\002 \002(\0132\n.TableName\0220\n\023columnf"
+literal|"ase.pb.TableName\022)\n\013region_info\030\003 \003(\0132\024."
 block|,
-literal|"amily_schema\030\003 \002(\0132\023.ColumnFamilySchema\022"
+literal|"hbase.pb.RegionInfo\"\344\001\n\030AddColumnFamilyS"
 operator|+
-literal|"-\n\027unmodified_table_schema\030\004 \001(\0132\014.Table"
+literal|"tateData\022,\n\tuser_info\030\001 \002(\0132\031.hbase.pb.U"
 operator|+
-literal|"Schema\"\303\001\n\033ModifyColumnFamilyStateData\022#"
+literal|"serInformation\022\'\n\ntable_name\030\002 \002(\0132\023.hba"
 operator|+
-literal|"\n\tuser_info\030\001 \002(\0132\020.UserInformation\022\036\n\nt"
+literal|"se.pb.TableName\0229\n\023columnfamily_schema\030\003"
 operator|+
-literal|"able_name\030\002 \002(\0132\n.TableName\0220\n\023columnfam"
+literal|" \002(\0132\034.hbase.pb.ColumnFamilySchema\0226\n\027un"
 operator|+
-literal|"ily_schema\030\003 \002(\0132\023.ColumnFamilySchema\022-\n"
+literal|"modified_table_schema\030\004 \001(\0132\025.hbase.pb.T"
 operator|+
-literal|"\027unmodified_table_schema\030\004 \001(\0132\014.TableSc"
+literal|"ableSchema\"\347\001\n\033ModifyColumnFamilyStateDa"
 operator|+
-literal|"hema\"\254\001\n\033DeleteColumnFamilyStateData\022#\n\t"
+literal|"ta\022,\n\tuser_info\030\001 \002(\0132\031.hbase.pb.UserInf"
 operator|+
-literal|"user_info\030\001 \002(\0132\020.UserInformation\022\036\n\ntab"
+literal|"ormation\022\'\n\ntable_name\030\002 \002(\0132\023.hbase.pb."
 operator|+
-literal|"le_name\030\002 \002(\0132\n.TableName\022\031\n\021columnfamil"
+literal|"TableName\0229\n\023columnfamily_schema\030\003 \002(\0132\034"
 block|,
-literal|"y_name\030\003 \002(\014\022-\n\027unmodified_table_schema\030"
+literal|".hbase.pb.ColumnFamilySchema\0226\n\027unmodifi"
 operator|+
-literal|"\004 \001(\0132\014.TableSchema\"{\n\024EnableTableStateD"
+literal|"ed_table_schema\030\004 \001(\0132\025.hbase.pb.TableSc"
 operator|+
-literal|"ata\022#\n\tuser_info\030\001 \002(\0132\020.UserInformation"
+literal|"hema\"\307\001\n\033DeleteColumnFamilyStateData\022,\n\t"
 operator|+
-literal|"\022\036\n\ntable_name\030\002 \002(\0132\n.TableName\022\036\n\026skip"
+literal|"user_info\030\001 \002(\0132\031.hbase.pb.UserInformati"
 operator|+
-literal|"_table_state_check\030\003 \002(\010\"|\n\025DisableTable"
+literal|"on\022\'\n\ntable_name\030\002 \002(\0132\023.hbase.pb.TableN"
 operator|+
-literal|"StateData\022#\n\tuser_info\030\001 \002(\0132\020.UserInfor"
+literal|"ame\022\031\n\021columnfamily_name\030\003 \002(\014\0226\n\027unmodi"
 operator|+
-literal|"mation\022\036\n\ntable_name\030\002 \002(\0132\n.TableName\022\036"
+literal|"fied_table_schema\030\004 \001(\0132\025.hbase.pb.Table"
 operator|+
-literal|"\n\026skip_table_state_check\030\003 \002(\010\"\346\001\n\024Serve"
+literal|"Schema\"\215\001\n\024EnableTableStateData\022,\n\tuser_"
 operator|+
-literal|"rCrashStateData\022 \n\013server_name\030\001 \002(\0132\013.S"
+literal|"info\030\001 \002(\0132\031.hbase.pb.UserInformation\022\'\n"
 operator|+
-literal|"erverName\022\036\n\026distributed_log_replay\030\002 \001("
+literal|"\ntable_name\030\002 \002(\0132\023.hbase.pb.TableName\022\036"
 block|,
-literal|"\010\022.\n\031regions_on_crashed_server\030\003 \003(\0132\013.R"
+literal|"\n\026skip_table_state_check\030\003 \002(\010\"\216\001\n\025Disab"
 operator|+
-literal|"egionInfo\022%\n\020regions_assigned\030\004 \003(\0132\013.Re"
+literal|"leTableStateData\022,\n\tuser_info\030\001 \002(\0132\031.hb"
 operator|+
-literal|"gionInfo\022\025\n\rcarrying_meta\030\005 \001(\010\022\036\n\020shoul"
+literal|"ase.pb.UserInformation\022\'\n\ntable_name\030\002 \002"
 operator|+
-literal|"d_split_wal\030\006 \001(\010:\004true*\330\001\n\020CreateTableS"
+literal|"(\0132\023.hbase.pb.TableName\022\036\n\026skip_table_st"
 operator|+
-literal|"tate\022\036\n\032CREATE_TABLE_PRE_OPERATION\020\001\022 \n\034"
+literal|"ate_check\030\003 \002(\010\"\201\002\n\024ServerCrashStateData"
 operator|+
-literal|"CREATE_TABLE_WRITE_FS_LAYOUT\020\002\022\034\n\030CREATE"
+literal|"\022)\n\013server_name\030\001 \002(\0132\024.hbase.pb.ServerN"
 operator|+
-literal|"_TABLE_ADD_TO_META\020\003\022\037\n\033CREATE_TABLE_ASS"
+literal|"ame\022\036\n\026distributed_log_replay\030\002 \001(\010\0227\n\031r"
 operator|+
-literal|"IGN_REGIONS\020\004\022\"\n\036CREATE_TABLE_UPDATE_DES"
+literal|"egions_on_crashed_server\030\003 \003(\0132\024.hbase.p"
 operator|+
-literal|"C_CACHE\020\005\022\037\n\033CREATE_TABLE_POST_OPERATION"
+literal|"b.RegionInfo\022.\n\020regions_assigned\030\004 \003(\0132\024"
 operator|+
-literal|"\020\006*\207\002\n\020ModifyTableState\022\030\n\024MODIFY_TABLE_"
+literal|".hbase.pb.RegionInfo\022\025\n\rcarrying_meta\030\005 "
 block|,
-literal|"PREPARE\020\001\022\036\n\032MODIFY_TABLE_PRE_OPERATION\020"
+literal|"\001(\010\022\036\n\020should_split_wal\030\006 \001(\010:\004true*\330\001\n\020"
 operator|+
-literal|"\002\022(\n$MODIFY_TABLE_UPDATE_TABLE_DESCRIPTO"
+literal|"CreateTableState\022\036\n\032CREATE_TABLE_PRE_OPE"
 operator|+
-literal|"R\020\003\022&\n\"MODIFY_TABLE_REMOVE_REPLICA_COLUM"
+literal|"RATION\020\001\022 \n\034CREATE_TABLE_WRITE_FS_LAYOUT"
 operator|+
-literal|"N\020\004\022!\n\035MODIFY_TABLE_DELETE_FS_LAYOUT\020\005\022\037"
+literal|"\020\002\022\034\n\030CREATE_TABLE_ADD_TO_META\020\003\022\037\n\033CREA"
 operator|+
-literal|"\n\033MODIFY_TABLE_POST_OPERATION\020\006\022#\n\037MODIF"
+literal|"TE_TABLE_ASSIGN_REGIONS\020\004\022\"\n\036CREATE_TABL"
 operator|+
-literal|"Y_TABLE_REOPEN_ALL_REGIONS\020\007*\212\002\n\022Truncat"
+literal|"E_UPDATE_DESC_CACHE\020\005\022\037\n\033CREATE_TABLE_PO"
 operator|+
-literal|"eTableState\022 \n\034TRUNCATE_TABLE_PRE_OPERAT"
+literal|"ST_OPERATION\020\006*\207\002\n\020ModifyTableState\022\030\n\024M"
 operator|+
-literal|"ION\020\001\022#\n\037TRUNCATE_TABLE_REMOVE_FROM_META"
+literal|"ODIFY_TABLE_PREPARE\020\001\022\036\n\032MODIFY_TABLE_PR"
 operator|+
-literal|"\020\002\022\"\n\036TRUNCATE_TABLE_CLEAR_FS_LAYOUT\020\003\022#"
+literal|"E_OPERATION\020\002\022(\n$MODIFY_TABLE_UPDATE_TAB"
 operator|+
-literal|"\n\037TRUNCATE_TABLE_CREATE_FS_LAYOUT\020\004\022\036\n\032T"
+literal|"LE_DESCRIPTOR\020\003\022&\n\"MODIFY_TABLE_REMOVE_R"
 block|,
-literal|"RUNCATE_TABLE_ADD_TO_META\020\005\022!\n\035TRUNCATE_"
+literal|"EPLICA_COLUMN\020\004\022!\n\035MODIFY_TABLE_DELETE_F"
 operator|+
-literal|"TABLE_ASSIGN_REGIONS\020\006\022!\n\035TRUNCATE_TABLE"
+literal|"S_LAYOUT\020\005\022\037\n\033MODIFY_TABLE_POST_OPERATIO"
 operator|+
-literal|"_POST_OPERATION\020\007*\337\001\n\020DeleteTableState\022\036"
+literal|"N\020\006\022#\n\037MODIFY_TABLE_REOPEN_ALL_REGIONS\020\007"
 operator|+
-literal|"\n\032DELETE_TABLE_PRE_OPERATION\020\001\022!\n\035DELETE"
+literal|"*\212\002\n\022TruncateTableState\022 \n\034TRUNCATE_TABL"
 operator|+
-literal|"_TABLE_REMOVE_FROM_META\020\002\022 \n\034DELETE_TABL"
+literal|"E_PRE_OPERATION\020\001\022#\n\037TRUNCATE_TABLE_REMO"
 operator|+
-literal|"E_CLEAR_FS_LAYOUT\020\003\022\"\n\036DELETE_TABLE_UPDA"
+literal|"VE_FROM_META\020\002\022\"\n\036TRUNCATE_TABLE_CLEAR_F"
 operator|+
-literal|"TE_DESC_CACHE\020\004\022!\n\035DELETE_TABLE_UNASSIGN"
+literal|"S_LAYOUT\020\003\022#\n\037TRUNCATE_TABLE_CREATE_FS_L"
 operator|+
-literal|"_REGIONS\020\005\022\037\n\033DELETE_TABLE_POST_OPERATIO"
+literal|"AYOUT\020\004\022\036\n\032TRUNCATE_TABLE_ADD_TO_META\020\005\022"
 operator|+
-literal|"N\020\006*\331\001\n\024AddColumnFamilyState\022\035\n\031ADD_COLU"
+literal|"!\n\035TRUNCATE_TABLE_ASSIGN_REGIONS\020\006\022!\n\035TR"
 operator|+
-literal|"MN_FAMILY_PREPARE\020\001\022#\n\037ADD_COLUMN_FAMILY"
+literal|"UNCATE_TABLE_POST_OPERATION\020\007*\337\001\n\020Delete"
 block|,
-literal|"_PRE_OPERATION\020\002\022-\n)ADD_COLUMN_FAMILY_UP"
+literal|"TableState\022\036\n\032DELETE_TABLE_PRE_OPERATION"
 operator|+
-literal|"DATE_TABLE_DESCRIPTOR\020\003\022$\n ADD_COLUMN_FA"
+literal|"\020\001\022!\n\035DELETE_TABLE_REMOVE_FROM_META\020\002\022 \n"
 operator|+
-literal|"MILY_POST_OPERATION\020\004\022(\n$ADD_COLUMN_FAMI"
+literal|"\034DELETE_TABLE_CLEAR_FS_LAYOUT\020\003\022\"\n\036DELET"
 operator|+
-literal|"LY_REOPEN_ALL_REGIONS\020\005*\353\001\n\027ModifyColumn"
+literal|"E_TABLE_UPDATE_DESC_CACHE\020\004\022!\n\035DELETE_TA"
 operator|+
-literal|"FamilyState\022 \n\034MODIFY_COLUMN_FAMILY_PREP"
+literal|"BLE_UNASSIGN_REGIONS\020\005\022\037\n\033DELETE_TABLE_P"
 operator|+
-literal|"ARE\020\001\022&\n\"MODIFY_COLUMN_FAMILY_PRE_OPERAT"
+literal|"OST_OPERATION\020\006*\331\001\n\024AddColumnFamilyState"
 operator|+
-literal|"ION\020\002\0220\n,MODIFY_COLUMN_FAMILY_UPDATE_TAB"
+literal|"\022\035\n\031ADD_COLUMN_FAMILY_PREPARE\020\001\022#\n\037ADD_C"
 operator|+
-literal|"LE_DESCRIPTOR\020\003\022\'\n#MODIFY_COLUMN_FAMILY_"
+literal|"OLUMN_FAMILY_PRE_OPERATION\020\002\022-\n)ADD_COLU"
 operator|+
-literal|"POST_OPERATION\020\004\022+\n\'MODIFY_COLUMN_FAMILY"
+literal|"MN_FAMILY_UPDATE_TABLE_DESCRIPTOR\020\003\022$\n A"
 operator|+
-literal|"_REOPEN_ALL_REGIONS\020\005*\226\002\n\027DeleteColumnFa"
+literal|"DD_COLUMN_FAMILY_POST_OPERATION\020\004\022(\n$ADD"
 block|,
-literal|"milyState\022 \n\034DELETE_COLUMN_FAMILY_PREPAR"
+literal|"_COLUMN_FAMILY_REOPEN_ALL_REGIONS\020\005*\353\001\n\027"
 operator|+
-literal|"E\020\001\022&\n\"DELETE_COLUMN_FAMILY_PRE_OPERATIO"
+literal|"ModifyColumnFamilyState\022 \n\034MODIFY_COLUMN"
 operator|+
-literal|"N\020\002\0220\n,DELETE_COLUMN_FAMILY_UPDATE_TABLE"
+literal|"_FAMILY_PREPARE\020\001\022&\n\"MODIFY_COLUMN_FAMIL"
 operator|+
-literal|"_DESCRIPTOR\020\003\022)\n%DELETE_COLUMN_FAMILY_DE"
+literal|"Y_PRE_OPERATION\020\002\0220\n,MODIFY_COLUMN_FAMIL"
 operator|+
-literal|"LETE_FS_LAYOUT\020\004\022\'\n#DELETE_COLUMN_FAMILY"
+literal|"Y_UPDATE_TABLE_DESCRIPTOR\020\003\022\'\n#MODIFY_CO"
 operator|+
-literal|"_POST_OPERATION\020\005\022+\n\'DELETE_COLUMN_FAMIL"
+literal|"LUMN_FAMILY_POST_OPERATION\020\004\022+\n\'MODIFY_C"
 operator|+
-literal|"Y_REOPEN_ALL_REGIONS\020\006*\350\001\n\020EnableTableSt"
+literal|"OLUMN_FAMILY_REOPEN_ALL_REGIONS\020\005*\226\002\n\027De"
 operator|+
-literal|"ate\022\030\n\024ENABLE_TABLE_PREPARE\020\001\022\036\n\032ENABLE_"
+literal|"leteColumnFamilyState\022 \n\034DELETE_COLUMN_F"
 operator|+
-literal|"TABLE_PRE_OPERATION\020\002\022)\n%ENABLE_TABLE_SE"
+literal|"AMILY_PREPARE\020\001\022&\n\"DELETE_COLUMN_FAMILY_"
 operator|+
-literal|"T_ENABLING_TABLE_STATE\020\003\022$\n ENABLE_TABLE"
+literal|"PRE_OPERATION\020\002\0220\n,DELETE_COLUMN_FAMILY_"
 block|,
-literal|"_MARK_REGIONS_ONLINE\020\004\022(\n$ENABLE_TABLE_S"
+literal|"UPDATE_TABLE_DESCRIPTOR\020\003\022)\n%DELETE_COLU"
 operator|+
-literal|"ET_ENABLED_TABLE_STATE\020\005\022\037\n\033ENABLE_TABLE"
+literal|"MN_FAMILY_DELETE_FS_LAYOUT\020\004\022\'\n#DELETE_C"
 operator|+
-literal|"_POST_OPERATION\020\006*\362\001\n\021DisableTableState\022"
+literal|"OLUMN_FAMILY_POST_OPERATION\020\005\022+\n\'DELETE_"
 operator|+
-literal|"\031\n\025DISABLE_TABLE_PREPARE\020\001\022\037\n\033DISABLE_TA"
+literal|"COLUMN_FAMILY_REOPEN_ALL_REGIONS\020\006*\350\001\n\020E"
 operator|+
-literal|"BLE_PRE_OPERATION\020\002\022+\n\'DISABLE_TABLE_SET"
+literal|"nableTableState\022\030\n\024ENABLE_TABLE_PREPARE\020"
 operator|+
-literal|"_DISABLING_TABLE_STATE\020\003\022&\n\"DISABLE_TABL"
+literal|"\001\022\036\n\032ENABLE_TABLE_PRE_OPERATION\020\002\022)\n%ENA"
 operator|+
-literal|"E_MARK_REGIONS_OFFLINE\020\004\022*\n&DISABLE_TABL"
+literal|"BLE_TABLE_SET_ENABLING_TABLE_STATE\020\003\022$\n "
 operator|+
-literal|"E_SET_DISABLED_TABLE_STATE\020\005\022 \n\034DISABLE_"
+literal|"ENABLE_TABLE_MARK_REGIONS_ONLINE\020\004\022(\n$EN"
 operator|+
-literal|"TABLE_POST_OPERATION\020\006*\234\002\n\020ServerCrashSt"
+literal|"ABLE_TABLE_SET_ENABLED_TABLE_STATE\020\005\022\037\n\033"
 operator|+
-literal|"ate\022\026\n\022SERVER_CRASH_START\020\001\022\035\n\031SERVER_CR"
+literal|"ENABLE_TABLE_POST_OPERATION\020\006*\362\001\n\021Disabl"
 block|,
-literal|"ASH_PROCESS_META\020\002\022\034\n\030SERVER_CRASH_GET_R"
+literal|"eTableState\022\031\n\025DISABLE_TABLE_PREPARE\020\001\022\037"
 operator|+
-literal|"EGIONS\020\003\022\036\n\032SERVER_CRASH_NO_SPLIT_LOGS\020\004"
+literal|"\n\033DISABLE_TABLE_PRE_OPERATION\020\002\022+\n\'DISAB"
 operator|+
-literal|"\022\033\n\027SERVER_CRASH_SPLIT_LOGS\020\005\022#\n\037SERVER_"
+literal|"LE_TABLE_SET_DISABLING_TABLE_STATE\020\003\022&\n\""
 operator|+
-literal|"CRASH_PREPARE_LOG_REPLAY\020\006\022\027\n\023SERVER_CRA"
+literal|"DISABLE_TABLE_MARK_REGIONS_OFFLINE\020\004\022*\n&"
 operator|+
-literal|"SH_ASSIGN\020\010\022\037\n\033SERVER_CRASH_WAIT_ON_ASSI"
+literal|"DISABLE_TABLE_SET_DISABLED_TABLE_STATE\020\005"
 operator|+
-literal|"GN\020\t\022\027\n\023SERVER_CRASH_FINISH\020dBK\n*org.apa"
+literal|"\022 \n\034DISABLE_TABLE_POST_OPERATION\020\006*\234\002\n\020S"
 operator|+
-literal|"che.hadoop.hbase.protobuf.generatedB\025Mas"
+literal|"erverCrashState\022\026\n\022SERVER_CRASH_START\020\001\022"
 operator|+
-literal|"terProcedureProtosH\001\210\001\001\240\001\001"
+literal|"\035\n\031SERVER_CRASH_PROCESS_META\020\002\022\034\n\030SERVER"
+operator|+
+literal|"_CRASH_GET_REGIONS\020\003\022\036\n\032SERVER_CRASH_NO_"
+operator|+
+literal|"SPLIT_LOGS\020\004\022\033\n\027SERVER_CRASH_SPLIT_LOGS\020"
+block|,
+literal|"\005\022#\n\037SERVER_CRASH_PREPARE_LOG_REPLAY\020\006\022\027"
+operator|+
+literal|"\n\023SERVER_CRASH_ASSIGN\020\010\022\037\n\033SERVER_CRASH_"
+operator|+
+literal|"WAIT_ON_ASSIGN\020\t\022\027\n\023SERVER_CRASH_FINISH\020"
+operator|+
+literal|"dBK\n*org.apache.hadoop.hbase.protobuf.ge"
+operator|+
+literal|"neratedB\025MasterProcedureProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -73315,7 +73329,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_CreateTableStateData_descriptor
+name|internal_static_hbase_pb_CreateTableStateData_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -73328,7 +73342,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_CreateTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_CreateTableStateData_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -73341,7 +73355,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CreateTableStateData_descriptor
+name|internal_static_hbase_pb_CreateTableStateData_descriptor
 argument_list|,
 operator|new
 name|java
@@ -73359,7 +73373,7 @@ literal|"RegionInfo"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ModifyTableStateData_descriptor
+name|internal_static_hbase_pb_ModifyTableStateData_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -73372,7 +73386,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_ModifyTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_ModifyTableStateData_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -73385,7 +73399,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ModifyTableStateData_descriptor
+name|internal_static_hbase_pb_ModifyTableStateData_descriptor
 argument_list|,
 operator|new
 name|java
@@ -73405,7 +73419,7 @@ literal|"DeleteColumnFamilyInModify"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_TruncateTableStateData_descriptor
+name|internal_static_hbase_pb_TruncateTableStateData_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -73418,7 +73432,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_TruncateTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_TruncateTableStateData_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -73431,7 +73445,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_TruncateTableStateData_descriptor
+name|internal_static_hbase_pb_TruncateTableStateData_descriptor
 argument_list|,
 operator|new
 name|java
@@ -73453,7 +73467,7 @@ literal|"RegionInfo"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_DeleteTableStateData_descriptor
+name|internal_static_hbase_pb_DeleteTableStateData_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -73466,7 +73480,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_DeleteTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_DeleteTableStateData_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -73479,7 +73493,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_DeleteTableStateData_descriptor
+name|internal_static_hbase_pb_DeleteTableStateData_descriptor
 argument_list|,
 operator|new
 name|java
@@ -73497,7 +73511,7 @@ literal|"RegionInfo"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_AddColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_AddColumnFamilyStateData_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -73510,7 +73524,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_AddColumnFamilyStateData_fieldAccessorTable
+name|internal_static_hbase_pb_AddColumnFamilyStateData_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -73523,7 +73537,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_AddColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_AddColumnFamilyStateData_descriptor
 argument_list|,
 operator|new
 name|java
@@ -73543,7 +73557,7 @@ literal|"UnmodifiedTableSchema"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ModifyColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_ModifyColumnFamilyStateData_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -73556,7 +73570,7 @@ argument_list|(
 literal|5
 argument_list|)
 expr_stmt|;
-name|internal_static_ModifyColumnFamilyStateData_fieldAccessorTable
+name|internal_static_hbase_pb_ModifyColumnFamilyStateData_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -73569,7 +73583,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ModifyColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_ModifyColumnFamilyStateData_descriptor
 argument_list|,
 operator|new
 name|java
@@ -73589,7 +73603,7 @@ literal|"UnmodifiedTableSchema"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_DeleteColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_DeleteColumnFamilyStateData_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -73602,7 +73616,7 @@ argument_list|(
 literal|6
 argument_list|)
 expr_stmt|;
-name|internal_static_DeleteColumnFamilyStateData_fieldAccessorTable
+name|internal_static_hbase_pb_DeleteColumnFamilyStateData_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -73615,7 +73629,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_DeleteColumnFamilyStateData_descriptor
+name|internal_static_hbase_pb_DeleteColumnFamilyStateData_descriptor
 argument_list|,
 operator|new
 name|java
@@ -73635,7 +73649,7 @@ literal|"UnmodifiedTableSchema"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_EnableTableStateData_descriptor
+name|internal_static_hbase_pb_EnableTableStateData_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -73648,7 +73662,7 @@ argument_list|(
 literal|7
 argument_list|)
 expr_stmt|;
-name|internal_static_EnableTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_EnableTableStateData_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -73661,7 +73675,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_EnableTableStateData_descriptor
+name|internal_static_hbase_pb_EnableTableStateData_descriptor
 argument_list|,
 operator|new
 name|java
@@ -73679,7 +73693,7 @@ literal|"SkipTableStateCheck"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_DisableTableStateData_descriptor
+name|internal_static_hbase_pb_DisableTableStateData_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -73692,7 +73706,7 @@ argument_list|(
 literal|8
 argument_list|)
 expr_stmt|;
-name|internal_static_DisableTableStateData_fieldAccessorTable
+name|internal_static_hbase_pb_DisableTableStateData_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -73705,7 +73719,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_DisableTableStateData_descriptor
+name|internal_static_hbase_pb_DisableTableStateData_descriptor
 argument_list|,
 operator|new
 name|java
@@ -73723,7 +73737,7 @@ literal|"SkipTableStateCheck"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ServerCrashStateData_descriptor
+name|internal_static_hbase_pb_ServerCrashStateData_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -73736,7 +73750,7 @@ argument_list|(
 literal|9
 argument_list|)
 expr_stmt|;
-name|internal_static_ServerCrashStateData_fieldAccessorTable
+name|internal_static_hbase_pb_ServerCrashStateData_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -73749,7 +73763,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ServerCrashStateData_descriptor
+name|internal_static_hbase_pb_ServerCrashStateData_descriptor
 argument_list|,
 operator|new
 name|java

@@ -60,7 +60,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code MultiRowMutationProcessorRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.MultiRowMutationProcessorRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -409,7 +409,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiRowMutationProcessorRequest_descriptor
+name|internal_static_hbase_pb_MultiRowMutationProcessorRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -440,7 +440,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiRowMutationProcessorRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MultiRowMutationProcessorRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -1516,7 +1516,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code MultiRowMutationProcessorRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.MultiRowMutationProcessorRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -1582,7 +1582,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiRowMutationProcessorRequest_descriptor
+name|internal_static_hbase_pb_MultiRowMutationProcessorRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -1613,7 +1613,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiRowMutationProcessorRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MultiRowMutationProcessorRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -1779,7 +1779,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiRowMutationProcessorRequest_descriptor
+name|internal_static_hbase_pb_MultiRowMutationProcessorRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -2211,7 +2211,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MultiRowMutationProcessorRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.MultiRowMutationProcessorRequest)
 block|}
 static|static
 block|{
@@ -2229,7 +2229,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MultiRowMutationProcessorRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MultiRowMutationProcessorRequest)
 block|}
 specifier|public
 interface|interface
@@ -2243,7 +2243,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code MultiRowMutationProcessorResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.MultiRowMutationProcessorResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -2592,7 +2592,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiRowMutationProcessorResponse_descriptor
+name|internal_static_hbase_pb_MultiRowMutationProcessorResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -2623,7 +2623,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiRowMutationProcessorResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MultiRowMutationProcessorResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -3699,7 +3699,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code MultiRowMutationProcessorResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.MultiRowMutationProcessorResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -3765,7 +3765,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiRowMutationProcessorResponse_descriptor
+name|internal_static_hbase_pb_MultiRowMutationProcessorResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -3796,7 +3796,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiRowMutationProcessorResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MultiRowMutationProcessorResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -3962,7 +3962,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiRowMutationProcessorResponse_descriptor
+name|internal_static_hbase_pb_MultiRowMutationProcessorResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -4394,7 +4394,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MultiRowMutationProcessorResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.MultiRowMutationProcessorResponse)
 block|}
 static|static
 block|{
@@ -4412,7 +4412,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MultiRowMutationProcessorResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MultiRowMutationProcessorResponse)
 block|}
 specifier|public
 interface|interface
@@ -4426,8 +4426,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .MutationProto mutation_request = 1;
-comment|/**      *<code>repeated .MutationProto mutation_request = 1;</code>      */
+comment|// repeated .hbase.pb.MutationProto mutation_request = 1;
+comment|/**      *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -4453,7 +4453,7 @@ argument_list|>
 name|getMutationRequestList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .MutationProto mutation_request = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -4475,12 +4475,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .MutationProto mutation_request = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>      */
 name|int
 name|getMutationRequestCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .MutationProto mutation_request = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -4508,7 +4508,7 @@ argument_list|>
 name|getMutationRequestOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .MutationProto mutation_request = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -4553,7 +4553,7 @@ name|getNonce
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code MutateRowsRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.MutateRowsRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -5050,7 +5050,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MutateRowsRequest_descriptor
+name|internal_static_hbase_pb_MutateRowsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -5081,7 +5081,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MutateRowsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MutateRowsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -5223,7 +5223,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .MutationProto mutation_request = 1;
+comment|// repeated .hbase.pb.MutationProto mutation_request = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -5257,7 +5257,7 @@ name|MutationProto
 argument_list|>
 name|mutationRequest_
 decl_stmt|;
-comment|/**      *<code>repeated .MutationProto mutation_request = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -5288,7 +5288,7 @@ return|return
 name|mutationRequest_
 return|;
 block|}
-comment|/**      *<code>repeated .MutationProto mutation_request = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -5321,7 +5321,7 @@ return|return
 name|mutationRequest_
 return|;
 block|}
-comment|/**      *<code>repeated .MutationProto mutation_request = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>      */
 specifier|public
 name|int
 name|getMutationRequestCount
@@ -5334,7 +5334,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .MutationProto mutation_request = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5366,7 +5366,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .MutationProto mutation_request = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6837,7 +6837,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code MutateRowsRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.MutateRowsRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -6903,7 +6903,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MutateRowsRequest_descriptor
+name|internal_static_hbase_pb_MutateRowsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -6934,7 +6934,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MutateRowsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MutateRowsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -7166,7 +7166,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MutateRowsRequest_descriptor
+name|internal_static_hbase_pb_MutateRowsRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -7934,7 +7934,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .MutationProto mutation_request = 1;
+comment|// repeated .hbase.pb.MutationProto mutation_request = 1;
 specifier|private
 name|java
 operator|.
@@ -8084,7 +8084,7 @@ name|MutationProtoOrBuilder
 argument_list|>
 name|mutationRequestBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -8141,7 +8141,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|int
 name|getMutationRequestCount
@@ -8171,7 +8171,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -8222,7 +8222,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|Builder
 name|setMutationRequest
@@ -8300,7 +8300,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|Builder
 name|setMutationRequest
@@ -8373,7 +8373,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|Builder
 name|addMutationRequest
@@ -8444,7 +8444,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|Builder
 name|addMutationRequest
@@ -8522,7 +8522,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|Builder
 name|addMutationRequest
@@ -8588,7 +8588,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|Builder
 name|addMutationRequest
@@ -8661,7 +8661,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllMutationRequest
@@ -8730,7 +8730,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|Builder
 name|clearMutationRequest
@@ -8779,7 +8779,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|Builder
 name|removeMutationRequest
@@ -8823,7 +8823,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -8858,7 +8858,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -8909,7 +8909,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -8968,7 +8968,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9017,7 +9017,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9071,7 +9071,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto mutation_request = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto mutation_request = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -9433,7 +9433,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MutateRowsRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.MutateRowsRequest)
 block|}
 static|static
 block|{
@@ -9451,7 +9451,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MutateRowsRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MutateRowsRequest)
 block|}
 specifier|public
 interface|interface
@@ -9465,7 +9465,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code MutateRowsResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.MutateRowsResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -9814,7 +9814,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MutateRowsResponse_descriptor
+name|internal_static_hbase_pb_MutateRowsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -9845,7 +9845,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MutateRowsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MutateRowsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -10921,7 +10921,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code MutateRowsResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.MutateRowsResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -10987,7 +10987,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MutateRowsResponse_descriptor
+name|internal_static_hbase_pb_MutateRowsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -11018,7 +11018,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MutateRowsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MutateRowsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -11184,7 +11184,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|internal_static_MutateRowsResponse_descriptor
+name|internal_static_hbase_pb_MutateRowsResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -11616,7 +11616,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MutateRowsResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.MutateRowsResponse)
 block|}
 static|static
 block|{
@@ -11634,9 +11634,9 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MutateRowsResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MutateRowsResponse)
 block|}
-comment|/**    * Protobuf service {@code MultiRowMutationService}    */
+comment|/**    * Protobuf service {@code hbase.pb.MultiRowMutationService}    */
 specifier|public
 specifier|static
 specifier|abstract
@@ -11659,7 +11659,7 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc MutateRows(.MutateRowsRequest) returns (.MutateRowsResponse);</code>        */
+comment|/**        *<code>rpc MutateRows(.hbase.pb.MutateRowsRequest) returns (.hbase.pb.MutateRowsResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -12179,7 +12179,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc MutateRows(.MutateRowsRequest) returns (.MutateRowsResponse);</code>      */
+comment|/**      *<code>rpc MutateRows(.hbase.pb.MutateRowsRequest) returns (.hbase.pb.MutateRowsResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -13118,7 +13118,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|// @@protoc_insertion_point(class_scope:MultiRowMutationService)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MultiRowMutationService)
 block|}
 specifier|private
 specifier|static
@@ -13131,7 +13131,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MultiRowMutationProcessorRequest_descriptor
+name|internal_static_hbase_pb_MultiRowMutationProcessorRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -13144,7 +13144,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MultiRowMutationProcessorRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MultiRowMutationProcessorRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -13157,7 +13157,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MultiRowMutationProcessorResponse_descriptor
+name|internal_static_hbase_pb_MultiRowMutationProcessorResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -13170,7 +13170,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MultiRowMutationProcessorResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MultiRowMutationProcessorResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -13183,7 +13183,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MutateRowsRequest_descriptor
+name|internal_static_hbase_pb_MutateRowsRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -13196,7 +13196,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MutateRowsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MutateRowsRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -13209,7 +13209,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MutateRowsResponse_descriptor
+name|internal_static_hbase_pb_MutateRowsResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -13222,7 +13222,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MutateRowsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MutateRowsResponse_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -13266,25 +13266,27 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\026MultiRowMutation.proto\032\014Client.proto\"\""
+literal|"\n\026MultiRowMutation.proto\022\010hbase.pb\032\014Clie"
 operator|+
-literal|"\n MultiRowMutationProcessorRequest\"#\n!Mu"
+literal|"nt.proto\"\"\n MultiRowMutationProcessorReq"
 operator|+
-literal|"ltiRowMutationProcessorResponse\"a\n\021Mutat"
+literal|"uest\"#\n!MultiRowMutationProcessorRespons"
 operator|+
-literal|"eRowsRequest\022(\n\020mutation_request\030\001 \003(\0132\016"
+literal|"e\"j\n\021MutateRowsRequest\0221\n\020mutation_reque"
 operator|+
-literal|".MutationProto\022\023\n\013nonce_group\030\002 \001(\004\022\r\n\005n"
+literal|"st\030\001 \003(\0132\027.hbase.pb.MutationProto\022\023\n\013non"
 operator|+
-literal|"once\030\003 \001(\004\"\024\n\022MutateRowsResponse2P\n\027Mult"
+literal|"ce_group\030\002 \001(\004\022\r\n\005nonce\030\003 \001(\004\"\024\n\022MutateR"
 operator|+
-literal|"iRowMutationService\0225\n\nMutateRows\022\022.Muta"
+literal|"owsResponse2b\n\027MultiRowMutationService\022G"
 operator|+
-literal|"teRowsRequest\032\023.MutateRowsResponseBL\n*or"
+literal|"\n\nMutateRows\022\033.hbase.pb.MutateRowsReques"
 operator|+
-literal|"g.apache.hadoop.hbase.protobuf.generated"
+literal|"t\032\034.hbase.pb.MutateRowsResponseBL\n*org.a"
 operator|+
-literal|"B\026MultiRowMutationProtosH\001\210\001\001\240\001\001"
+literal|"pache.hadoop.hbase.protobuf.generatedB\026M"
+block|,
+literal|"ultiRowMutationProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -13340,7 +13342,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_MultiRowMutationProcessorRequest_descriptor
+name|internal_static_hbase_pb_MultiRowMutationProcessorRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -13353,7 +13355,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_MultiRowMutationProcessorRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MultiRowMutationProcessorRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -13366,7 +13368,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MultiRowMutationProcessorRequest_descriptor
+name|internal_static_hbase_pb_MultiRowMutationProcessorRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -13378,7 +13380,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_MultiRowMutationProcessorResponse_descriptor
+name|internal_static_hbase_pb_MultiRowMutationProcessorResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -13391,7 +13393,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_MultiRowMutationProcessorResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MultiRowMutationProcessorResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -13404,7 +13406,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MultiRowMutationProcessorResponse_descriptor
+name|internal_static_hbase_pb_MultiRowMutationProcessorResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -13416,7 +13418,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_MutateRowsRequest_descriptor
+name|internal_static_hbase_pb_MutateRowsRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -13429,7 +13431,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_MutateRowsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MutateRowsRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -13442,7 +13444,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MutateRowsRequest_descriptor
+name|internal_static_hbase_pb_MutateRowsRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -13460,7 +13462,7 @@ literal|"Nonce"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_MutateRowsResponse_descriptor
+name|internal_static_hbase_pb_MutateRowsResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -13473,7 +13475,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_MutateRowsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MutateRowsResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -13486,7 +13488,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MutateRowsResponse_descriptor
+name|internal_static_hbase_pb_MutateRowsResponse_descriptor
 argument_list|,
 operator|new
 name|java

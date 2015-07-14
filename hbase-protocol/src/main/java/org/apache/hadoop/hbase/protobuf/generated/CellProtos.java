@@ -48,7 +48,7 @@ name|ExtensionRegistry
 name|registry
 parameter_list|)
 block|{   }
-comment|/**    * Protobuf enum {@code CellType}    *    *<pre>    **    * The type of the key in a Cell    *</pre>    */
+comment|/**    * Protobuf enum {@code hbase.pb.CellType}    *    *<pre>    **    * The type of the key in a Cell    *</pre>    */
 specifier|public
 enum|enum
 name|CellType
@@ -481,7 +481,7 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:CellType)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.CellType)
 block|}
 specifier|public
 interface|interface
@@ -557,13 +557,13 @@ name|long
 name|getTimestamp
 parameter_list|()
 function_decl|;
-comment|// optional .CellType cell_type = 5;
-comment|/**      *<code>optional .CellType cell_type = 5;</code>      */
+comment|// optional .hbase.pb.CellType cell_type = 5;
+comment|/**      *<code>optional .hbase.pb.CellType cell_type = 5;</code>      */
 name|boolean
 name|hasCellType
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .CellType cell_type = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.CellType cell_type = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -617,7 +617,7 @@ name|getTags
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Cell}    *    *<pre>    **    * Protocol buffer version of Cell.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.Cell}    *    *<pre>    **    * Protocol buffer version of Cell.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -1153,7 +1153,7 @@ name|generated
 operator|.
 name|CellProtos
 operator|.
-name|internal_static_Cell_descriptor
+name|internal_static_hbase_pb_Cell_descriptor
 return|;
 block|}
 specifier|protected
@@ -1184,7 +1184,7 @@ name|generated
 operator|.
 name|CellProtos
 operator|.
-name|internal_static_Cell_fieldAccessorTable
+name|internal_static_hbase_pb_Cell_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -1526,7 +1526,7 @@ return|return
 name|timestamp_
 return|;
 block|}
-comment|// optional .CellType cell_type = 5;
+comment|// optional .hbase.pb.CellType cell_type = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -1553,7 +1553,7 @@ operator|.
 name|CellType
 name|cellType_
 decl_stmt|;
-comment|/**      *<code>optional .CellType cell_type = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.CellType cell_type = 5;</code>      */
 specifier|public
 name|boolean
 name|hasCellType
@@ -1571,7 +1571,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .CellType cell_type = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.CellType cell_type = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -3575,7 +3575,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Cell}      *      *<pre>      **      * Protocol buffer version of Cell.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.Cell}      *      *<pre>      **      * Protocol buffer version of Cell.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -3641,7 +3641,7 @@ name|generated
 operator|.
 name|CellProtos
 operator|.
-name|internal_static_Cell_descriptor
+name|internal_static_hbase_pb_Cell_descriptor
 return|;
 block|}
 specifier|protected
@@ -3672,7 +3672,7 @@ name|generated
 operator|.
 name|CellProtos
 operator|.
-name|internal_static_Cell_fieldAccessorTable
+name|internal_static_hbase_pb_Cell_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -3985,7 +3985,7 @@ name|generated
 operator|.
 name|CellProtos
 operator|.
-name|internal_static_Cell_descriptor
+name|internal_static_hbase_pb_Cell_descriptor
 return|;
 block|}
 specifier|public
@@ -5191,7 +5191,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .CellType cell_type = 5;
+comment|// optional .hbase.pb.CellType cell_type = 5;
 specifier|private
 name|org
 operator|.
@@ -5228,7 +5228,7 @@ name|CellType
 operator|.
 name|MINIMUM
 decl_stmt|;
-comment|/**        *<code>optional .CellType cell_type = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.CellType cell_type = 5;</code>        */
 specifier|public
 name|boolean
 name|hasCellType
@@ -5246,7 +5246,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .CellType cell_type = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.CellType cell_type = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -5270,7 +5270,7 @@ return|return
 name|cellType_
 return|;
 block|}
-comment|/**        *<code>optional .CellType cell_type = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.CellType cell_type = 5;</code>        */
 specifier|public
 name|Builder
 name|setCellType
@@ -5321,7 +5321,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CellType cell_type = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.CellType cell_type = 5;</code>        */
 specifier|public
 name|Builder
 name|clearCellType
@@ -5619,7 +5619,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Cell)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Cell)
 block|}
 static|static
 block|{
@@ -5637,7 +5637,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Cell)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Cell)
 block|}
 specifier|public
 interface|interface
@@ -5713,13 +5713,13 @@ name|long
 name|getTimestamp
 parameter_list|()
 function_decl|;
-comment|// optional .CellType key_type = 5;
-comment|/**      *<code>optional .CellType key_type = 5;</code>      */
+comment|// optional .hbase.pb.CellType key_type = 5;
+comment|/**      *<code>optional .hbase.pb.CellType key_type = 5;</code>      */
 name|boolean
 name|hasKeyType
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .CellType key_type = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.CellType key_type = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -5773,7 +5773,7 @@ name|getTags
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code KeyValue}    *    *<pre>    **    * Protocol buffer version of KeyValue.    * It doesn't have those transient parameters    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.KeyValue}    *    *<pre>    **    * Protocol buffer version of KeyValue.    * It doesn't have those transient parameters    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -6309,7 +6309,7 @@ name|generated
 operator|.
 name|CellProtos
 operator|.
-name|internal_static_KeyValue_descriptor
+name|internal_static_hbase_pb_KeyValue_descriptor
 return|;
 block|}
 specifier|protected
@@ -6340,7 +6340,7 @@ name|generated
 operator|.
 name|CellProtos
 operator|.
-name|internal_static_KeyValue_fieldAccessorTable
+name|internal_static_hbase_pb_KeyValue_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -6682,7 +6682,7 @@ return|return
 name|timestamp_
 return|;
 block|}
-comment|// optional .CellType key_type = 5;
+comment|// optional .hbase.pb.CellType key_type = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -6709,7 +6709,7 @@ operator|.
 name|CellType
 name|keyType_
 decl_stmt|;
-comment|/**      *<code>optional .CellType key_type = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.CellType key_type = 5;</code>      */
 specifier|public
 name|boolean
 name|hasKeyType
@@ -6727,7 +6727,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .CellType key_type = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.CellType key_type = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -8776,7 +8776,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code KeyValue}      *      *<pre>      **      * Protocol buffer version of KeyValue.      * It doesn't have those transient parameters      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.KeyValue}      *      *<pre>      **      * Protocol buffer version of KeyValue.      * It doesn't have those transient parameters      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -8842,7 +8842,7 @@ name|generated
 operator|.
 name|CellProtos
 operator|.
-name|internal_static_KeyValue_descriptor
+name|internal_static_hbase_pb_KeyValue_descriptor
 return|;
 block|}
 specifier|protected
@@ -8873,7 +8873,7 @@ name|generated
 operator|.
 name|CellProtos
 operator|.
-name|internal_static_KeyValue_fieldAccessorTable
+name|internal_static_hbase_pb_KeyValue_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -9186,7 +9186,7 @@ name|generated
 operator|.
 name|CellProtos
 operator|.
-name|internal_static_KeyValue_descriptor
+name|internal_static_hbase_pb_KeyValue_descriptor
 return|;
 block|}
 specifier|public
@@ -10425,7 +10425,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .CellType key_type = 5;
+comment|// optional .hbase.pb.CellType key_type = 5;
 specifier|private
 name|org
 operator|.
@@ -10462,7 +10462,7 @@ name|CellType
 operator|.
 name|MINIMUM
 decl_stmt|;
-comment|/**        *<code>optional .CellType key_type = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.CellType key_type = 5;</code>        */
 specifier|public
 name|boolean
 name|hasKeyType
@@ -10480,7 +10480,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .CellType key_type = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.CellType key_type = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -10504,7 +10504,7 @@ return|return
 name|keyType_
 return|;
 block|}
-comment|/**        *<code>optional .CellType key_type = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.CellType key_type = 5;</code>        */
 specifier|public
 name|Builder
 name|setKeyType
@@ -10555,7 +10555,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CellType key_type = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.CellType key_type = 5;</code>        */
 specifier|public
 name|Builder
 name|clearKeyType
@@ -10853,7 +10853,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:KeyValue)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.KeyValue)
 block|}
 static|static
 block|{
@@ -10871,7 +10871,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:KeyValue)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.KeyValue)
 block|}
 specifier|private
 specifier|static
@@ -10884,7 +10884,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Cell_descriptor
+name|internal_static_hbase_pb_Cell_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -10897,7 +10897,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Cell_fieldAccessorTable
+name|internal_static_hbase_pb_Cell_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -10910,7 +10910,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_KeyValue_descriptor
+name|internal_static_hbase_pb_KeyValue_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -10923,7 +10923,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_KeyValue_fieldAccessorTable
+name|internal_static_hbase_pb_KeyValue_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -10967,29 +10967,29 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\nCell.proto\"\204\001\n\004Cell\022\013\n\003row\030\001 \001(\014\022\016\n\006fa"
+literal|"\n\nCell.proto\022\010hbase.pb\"\215\001\n\004Cell\022\013\n\003row\030\001"
 operator|+
-literal|"mily\030\002 \001(\014\022\021\n\tqualifier\030\003 \001(\014\022\021\n\ttimesta"
+literal|" \001(\014\022\016\n\006family\030\002 \001(\014\022\021\n\tqualifier\030\003 \001(\014\022"
 operator|+
-literal|"mp\030\004 \001(\004\022\034\n\tcell_type\030\005 \001(\0162\t.CellType\022\r"
+literal|"\021\n\ttimestamp\030\004 \001(\004\022%\n\tcell_type\030\005 \001(\0162\022."
 operator|+
-literal|"\n\005value\030\006 \001(\014\022\014\n\004tags\030\007 \001(\014\"\207\001\n\010KeyValue"
+literal|"hbase.pb.CellType\022\r\n\005value\030\006 \001(\014\022\014\n\004tags"
 operator|+
-literal|"\022\013\n\003row\030\001 \002(\014\022\016\n\006family\030\002 \002(\014\022\021\n\tqualifi"
+literal|"\030\007 \001(\014\"\220\001\n\010KeyValue\022\013\n\003row\030\001 \002(\014\022\016\n\006fami"
 operator|+
-literal|"er\030\003 \002(\014\022\021\n\ttimestamp\030\004 \001(\004\022\033\n\010key_type\030"
+literal|"ly\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\014\022\021\n\ttimestamp"
 operator|+
-literal|"\005 \001(\0162\t.CellType\022\r\n\005value\030\006 \001(\014\022\014\n\004tags\030"
+literal|"\030\004 \001(\004\022$\n\010key_type\030\005 \001(\0162\022.hbase.pb.Cell"
 operator|+
-literal|"\007 \001(\014*`\n\010CellType\022\013\n\007MINIMUM\020\000\022\007\n\003PUT\020\004\022"
+literal|"Type\022\r\n\005value\030\006 \001(\014\022\014\n\004tags\030\007 \001(\014*`\n\010Cel"
 operator|+
-literal|"\n\n\006DELETE\020\010\022\021\n\rDELETE_COLUMN\020\014\022\021\n\rDELETE"
+literal|"lType\022\013\n\007MINIMUM\020\000\022\007\n\003PUT\020\004\022\n\n\006DELETE\020\010\022"
 operator|+
-literal|"_FAMILY\020\016\022\014\n\007MAXIMUM\020\377\001B=\n*org.apache.ha"
+literal|"\021\n\rDELETE_COLUMN\020\014\022\021\n\rDELETE_FAMILY\020\016\022\014\n"
 block|,
-literal|"doop.hbase.protobuf.generatedB\nCellProto"
+literal|"\007MAXIMUM\020\377\001B=\n*org.apache.hadoop.hbase.p"
 operator|+
-literal|"sH\001\240\001\001"
+literal|"rotobuf.generatedB\nCellProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -11045,7 +11045,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_Cell_descriptor
+name|internal_static_hbase_pb_Cell_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -11058,7 +11058,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_Cell_fieldAccessorTable
+name|internal_static_hbase_pb_Cell_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -11071,7 +11071,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Cell_descriptor
+name|internal_static_hbase_pb_Cell_descriptor
 argument_list|,
 operator|new
 name|java
@@ -11097,7 +11097,7 @@ literal|"Tags"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_KeyValue_descriptor
+name|internal_static_hbase_pb_KeyValue_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -11110,7 +11110,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_KeyValue_fieldAccessorTable
+name|internal_static_hbase_pb_KeyValue_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -11123,7 +11123,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_KeyValue_descriptor
+name|internal_static_hbase_pb_KeyValue_descriptor
 argument_list|,
 operator|new
 name|java

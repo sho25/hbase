@@ -62,13 +62,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .Scan scan = 1;
-comment|/**      *<code>required .Scan scan = 1;</code>      */
+comment|// required .hbase.pb.Scan scan = 1;
+comment|/**      *<code>required .hbase.pb.Scan scan = 1;</code>      */
 name|boolean
 name|hasScan
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .Scan scan = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.Scan scan = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -87,7 +87,7 @@ name|Scan
 name|getScan
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .Scan scan = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.Scan scan = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -106,13 +106,13 @@ name|ScanOrBuilder
 name|getScanOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .BulkDeleteRequest.DeleteType deleteType = 2;
-comment|/**      *<code>required .BulkDeleteRequest.DeleteType deleteType = 2;</code>      */
+comment|// required .hbase.pb.BulkDeleteRequest.DeleteType deleteType = 2;
+comment|/**      *<code>required .hbase.pb.BulkDeleteRequest.DeleteType deleteType = 2;</code>      */
 name|boolean
 name|hasDeleteType
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .BulkDeleteRequest.DeleteType deleteType = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.BulkDeleteRequest.DeleteType deleteType = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -158,7 +158,7 @@ name|getRowBatchSize
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code BulkDeleteRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.BulkDeleteRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -737,7 +737,7 @@ name|generated
 operator|.
 name|BulkDeleteProtos
 operator|.
-name|internal_static_BulkDeleteRequest_descriptor
+name|internal_static_hbase_pb_BulkDeleteRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -770,7 +770,7 @@ name|generated
 operator|.
 name|BulkDeleteProtos
 operator|.
-name|internal_static_BulkDeleteRequest_fieldAccessorTable
+name|internal_static_hbase_pb_BulkDeleteRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -912,7 +912,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code BulkDeleteRequest.DeleteType}      */
+comment|/**      * Protobuf enum {@code hbase.pb.BulkDeleteRequest.DeleteType}      */
 specifier|public
 enum|enum
 name|DeleteType
@@ -1303,13 +1303,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:BulkDeleteRequest.DeleteType)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.BulkDeleteRequest.DeleteType)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .Scan scan = 1;
+comment|// required .hbase.pb.Scan scan = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -1336,7 +1336,7 @@ operator|.
 name|Scan
 name|scan_
 decl_stmt|;
-comment|/**      *<code>required .Scan scan = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.Scan scan = 1;</code>      */
 specifier|public
 name|boolean
 name|hasScan
@@ -1354,7 +1354,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .Scan scan = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.Scan scan = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -1378,7 +1378,7 @@ return|return
 name|scan_
 return|;
 block|}
-comment|/**      *<code>required .Scan scan = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.Scan scan = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -1402,7 +1402,7 @@ return|return
 name|scan_
 return|;
 block|}
-comment|// required .BulkDeleteRequest.DeleteType deleteType = 2;
+comment|// required .hbase.pb.BulkDeleteRequest.DeleteType deleteType = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -1433,7 +1433,7 @@ operator|.
 name|DeleteType
 name|deleteType_
 decl_stmt|;
-comment|/**      *<code>required .BulkDeleteRequest.DeleteType deleteType = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.BulkDeleteRequest.DeleteType deleteType = 2;</code>      */
 specifier|public
 name|boolean
 name|hasDeleteType
@@ -1451,7 +1451,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .BulkDeleteRequest.DeleteType deleteType = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.BulkDeleteRequest.DeleteType deleteType = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -3128,7 +3128,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code BulkDeleteRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.BulkDeleteRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -3198,7 +3198,7 @@ name|generated
 operator|.
 name|BulkDeleteProtos
 operator|.
-name|internal_static_BulkDeleteRequest_descriptor
+name|internal_static_hbase_pb_BulkDeleteRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -3231,7 +3231,7 @@ name|generated
 operator|.
 name|BulkDeleteProtos
 operator|.
-name|internal_static_BulkDeleteRequest_fieldAccessorTable
+name|internal_static_hbase_pb_BulkDeleteRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -3512,7 +3512,7 @@ name|generated
 operator|.
 name|BulkDeleteProtos
 operator|.
-name|internal_static_BulkDeleteRequest_descriptor
+name|internal_static_hbase_pb_BulkDeleteRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -4221,7 +4221,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .Scan scan = 1;
+comment|// required .hbase.pb.Scan scan = 1;
 specifier|private
 name|org
 operator|.
@@ -4320,7 +4320,7 @@ name|ScanOrBuilder
 argument_list|>
 name|scanBuilder_
 decl_stmt|;
-comment|/**        *<code>required .Scan scan = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 1;</code>        */
 specifier|public
 name|boolean
 name|hasScan
@@ -4338,7 +4338,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .Scan scan = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4379,7 +4379,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .Scan scan = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 1;</code>        */
 specifier|public
 name|Builder
 name|setScan
@@ -4448,7 +4448,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Scan scan = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 1;</code>        */
 specifier|public
 name|Builder
 name|setScan
@@ -4512,7 +4512,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Scan scan = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeScan
@@ -4637,7 +4637,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Scan scan = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 1;</code>        */
 specifier|public
 name|Builder
 name|clearScan
@@ -4696,7 +4696,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Scan scan = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4733,7 +4733,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .Scan scan = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4774,7 +4774,7 @@ name|scan_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .Scan scan = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -4924,7 +4924,7 @@ return|return
 name|scanBuilder_
 return|;
 block|}
-comment|// required .BulkDeleteRequest.DeleteType deleteType = 2;
+comment|// required .hbase.pb.BulkDeleteRequest.DeleteType deleteType = 2;
 specifier|private
 name|org
 operator|.
@@ -4969,7 +4969,7 @@ name|DeleteType
 operator|.
 name|ROW
 decl_stmt|;
-comment|/**        *<code>required .BulkDeleteRequest.DeleteType deleteType = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.BulkDeleteRequest.DeleteType deleteType = 2;</code>        */
 specifier|public
 name|boolean
 name|hasDeleteType
@@ -4987,7 +4987,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .BulkDeleteRequest.DeleteType deleteType = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.BulkDeleteRequest.DeleteType deleteType = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -5015,7 +5015,7 @@ return|return
 name|deleteType_
 return|;
 block|}
-comment|/**        *<code>required .BulkDeleteRequest.DeleteType deleteType = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.BulkDeleteRequest.DeleteType deleteType = 2;</code>        */
 specifier|public
 name|Builder
 name|setDeleteType
@@ -5070,7 +5070,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .BulkDeleteRequest.DeleteType deleteType = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.BulkDeleteRequest.DeleteType deleteType = 2;</code>        */
 specifier|public
 name|Builder
 name|clearDeleteType
@@ -5282,7 +5282,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:BulkDeleteRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.BulkDeleteRequest)
 block|}
 static|static
 block|{
@@ -5300,7 +5300,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:BulkDeleteRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.BulkDeleteRequest)
 block|}
 specifier|public
 interface|interface
@@ -5337,7 +5337,7 @@ name|getVersionsDeleted
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code BulkDeleteResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.BulkDeleteResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -5727,7 +5727,7 @@ name|generated
 operator|.
 name|BulkDeleteProtos
 operator|.
-name|internal_static_BulkDeleteResponse_descriptor
+name|internal_static_hbase_pb_BulkDeleteResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -5760,7 +5760,7 @@ name|generated
 operator|.
 name|BulkDeleteProtos
 operator|.
-name|internal_static_BulkDeleteResponse_fieldAccessorTable
+name|internal_static_hbase_pb_BulkDeleteResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -7218,7 +7218,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code BulkDeleteResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.BulkDeleteResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -7288,7 +7288,7 @@ name|generated
 operator|.
 name|BulkDeleteProtos
 operator|.
-name|internal_static_BulkDeleteResponse_descriptor
+name|internal_static_hbase_pb_BulkDeleteResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -7321,7 +7321,7 @@ name|generated
 operator|.
 name|BulkDeleteProtos
 operator|.
-name|internal_static_BulkDeleteResponse_fieldAccessorTable
+name|internal_static_hbase_pb_BulkDeleteResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -7519,7 +7519,7 @@ name|generated
 operator|.
 name|BulkDeleteProtos
 operator|.
-name|internal_static_BulkDeleteResponse_descriptor
+name|internal_static_hbase_pb_BulkDeleteResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -8256,7 +8256,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:BulkDeleteResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.BulkDeleteResponse)
 block|}
 static|static
 block|{
@@ -8274,9 +8274,9 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:BulkDeleteResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.BulkDeleteResponse)
 block|}
-comment|/**    * Protobuf service {@code BulkDeleteService}    */
+comment|/**    * Protobuf service {@code hbase.pb.BulkDeleteService}    */
 specifier|public
 specifier|static
 specifier|abstract
@@ -8299,7 +8299,7 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc delete(.BulkDeleteRequest) returns (.BulkDeleteResponse);</code>        */
+comment|/**        *<code>rpc delete(.hbase.pb.BulkDeleteRequest) returns (.hbase.pb.BulkDeleteResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -8833,7 +8833,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc delete(.BulkDeleteRequest) returns (.BulkDeleteResponse);</code>      */
+comment|/**      *<code>rpc delete(.hbase.pb.BulkDeleteRequest) returns (.hbase.pb.BulkDeleteResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -9810,7 +9810,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|// @@protoc_insertion_point(class_scope:BulkDeleteService)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.BulkDeleteService)
 block|}
 specifier|private
 specifier|static
@@ -9823,7 +9823,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_BulkDeleteRequest_descriptor
+name|internal_static_hbase_pb_BulkDeleteRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -9836,7 +9836,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_BulkDeleteRequest_fieldAccessorTable
+name|internal_static_hbase_pb_BulkDeleteRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -9849,7 +9849,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_BulkDeleteResponse_descriptor
+name|internal_static_hbase_pb_BulkDeleteResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -9862,7 +9862,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_BulkDeleteResponse_fieldAccessorTable
+name|internal_static_hbase_pb_BulkDeleteResponse_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -9906,29 +9906,31 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\020BulkDelete.proto\032\014Client.proto\"\300\001\n\021Bul"
+literal|"\n\020BulkDelete.proto\022\010hbase.pb\032\014Client.pro"
 operator|+
-literal|"kDeleteRequest\022\023\n\004scan\030\001 \002(\0132\005.Scan\0221\n\nd"
+literal|"to\"\322\001\n\021BulkDeleteRequest\022\034\n\004scan\030\001 \002(\0132\016"
 operator|+
-literal|"eleteType\030\002 \002(\0162\035.BulkDeleteRequest.Dele"
+literal|".hbase.pb.Scan\022:\n\ndeleteType\030\002 \002(\0162&.hba"
 operator|+
-literal|"teType\022\021\n\ttimestamp\030\003 \001(\004\022\024\n\014rowBatchSiz"
+literal|"se.pb.BulkDeleteRequest.DeleteType\022\021\n\tti"
 operator|+
-literal|"e\030\004 \002(\r\":\n\nDeleteType\022\007\n\003ROW\020\000\022\n\n\006FAMILY"
+literal|"mestamp\030\003 \001(\004\022\024\n\014rowBatchSize\030\004 \002(\r\":\n\nD"
 operator|+
-literal|"\020\001\022\n\n\006COLUMN\020\002\022\013\n\007VERSION\020\003\"B\n\022BulkDelet"
+literal|"eleteType\022\007\n\003ROW\020\000\022\n\n\006FAMILY\020\001\022\n\n\006COLUMN"
 operator|+
-literal|"eResponse\022\023\n\013rowsDeleted\030\001 \002(\004\022\027\n\017versio"
+literal|"\020\002\022\013\n\007VERSION\020\003\"B\n\022BulkDeleteResponse\022\023\n"
 operator|+
-literal|"nsDeleted\030\002 \001(\0042F\n\021BulkDeleteService\0221\n\006"
+literal|"\013rowsDeleted\030\001 \002(\004\022\027\n\017versionsDeleted\030\002 "
 operator|+
-literal|"delete\022\022.BulkDeleteRequest\032\023.BulkDeleteR"
+literal|"\001(\0042X\n\021BulkDeleteService\022C\n\006delete\022\033.hba"
 operator|+
-literal|"esponseBQ\n5org.apache.hadoop.hbase.copro"
+literal|"se.pb.BulkDeleteRequest\032\034.hbase.pb.BulkD"
 block|,
-literal|"cessor.example.generatedB\020BulkDeleteProt"
+literal|"eleteResponseBQ\n5org.apache.hadoop.hbase"
 operator|+
-literal|"osH\001\210\001\001\240\001\001"
+literal|".coprocessor.example.generatedB\020BulkDele"
+operator|+
+literal|"teProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -9984,7 +9986,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_BulkDeleteRequest_descriptor
+name|internal_static_hbase_pb_BulkDeleteRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -9997,7 +9999,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_BulkDeleteRequest_fieldAccessorTable
+name|internal_static_hbase_pb_BulkDeleteRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -10010,7 +10012,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_BulkDeleteRequest_descriptor
+name|internal_static_hbase_pb_BulkDeleteRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -10030,7 +10032,7 @@ literal|"RowBatchSize"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_BulkDeleteResponse_descriptor
+name|internal_static_hbase_pb_BulkDeleteResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -10043,7 +10045,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_BulkDeleteResponse_fieldAccessorTable
+name|internal_static_hbase_pb_BulkDeleteResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -10056,7 +10058,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_BulkDeleteResponse_descriptor
+name|internal_static_hbase_pb_BulkDeleteResponse_descriptor
 argument_list|,
 operator|new
 name|java

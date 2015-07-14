@@ -48,7 +48,7 @@ name|ExtensionRegistry
 name|registry
 parameter_list|)
 block|{   }
-comment|/**    * Protobuf enum {@code ProcedureState}    */
+comment|/**    * Protobuf enum {@code hbase.pb.ProcedureState}    */
 specifier|public
 enum|enum
 name|ProcedureState
@@ -481,7 +481,7 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:ProcedureState)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.ProcedureState)
 block|}
 specifier|public
 interface|interface
@@ -580,13 +580,13 @@ name|ByteString
 name|getOwnerBytes
 parameter_list|()
 function_decl|;
-comment|// required .ProcedureState state = 6;
-comment|/**      *<code>required .ProcedureState state = 6;</code>      *      *<pre>      * internal "runtime" state      *</pre>      */
+comment|// required .hbase.pb.ProcedureState state = 6;
+comment|/**      *<code>required .hbase.pb.ProcedureState state = 6;</code>      *      *<pre>      * internal "runtime" state      *</pre>      */
 name|boolean
 name|hasState
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ProcedureState state = 6;</code>      *      *<pre>      * internal "runtime" state      *</pre>      */
+comment|/**      *<code>required .hbase.pb.ProcedureState state = 6;</code>      *      *<pre>      * internal "runtime" state      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -657,13 +657,13 @@ name|int
 name|getTimeout
 parameter_list|()
 function_decl|;
-comment|// optional .ForeignExceptionMessage exception = 10;
-comment|/**      *<code>optional .ForeignExceptionMessage exception = 10;</code>      *      *<pre>      * user state/results      *</pre>      */
+comment|// optional .hbase.pb.ForeignExceptionMessage exception = 10;
+comment|/**      *<code>optional .hbase.pb.ForeignExceptionMessage exception = 10;</code>      *      *<pre>      * user state/results      *</pre>      */
 name|boolean
 name|hasException
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ForeignExceptionMessage exception = 10;</code>      *      *<pre>      * user state/results      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ForeignExceptionMessage exception = 10;</code>      *      *<pre>      * user state/results      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -682,7 +682,7 @@ name|ForeignExceptionMessage
 name|getException
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ForeignExceptionMessage exception = 10;</code>      *      *<pre>      * user state/results      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ForeignExceptionMessage exception = 10;</code>      *      *<pre>      * user state/results      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -758,7 +758,7 @@ name|getNonce
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Procedure}    *    *<pre>    **    * Procedure metadata, serialized by the ProcedureStore to be able to recover the old state.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.Procedure}    *    *<pre>    **    * Procedure metadata, serialized by the ProcedureStore to be able to recover the old state.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -1654,7 +1654,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_Procedure_descriptor
+name|internal_static_hbase_pb_Procedure_descriptor
 return|;
 block|}
 specifier|protected
@@ -1685,7 +1685,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_Procedure_fieldAccessorTable
+name|internal_static_hbase_pb_Procedure_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2376,7 +2376,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|// required .ProcedureState state = 6;
+comment|// required .hbase.pb.ProcedureState state = 6;
 specifier|public
 specifier|static
 specifier|final
@@ -2403,7 +2403,7 @@ operator|.
 name|ProcedureState
 name|state_
 decl_stmt|;
-comment|/**      *<code>required .ProcedureState state = 6;</code>      *      *<pre>      * internal "runtime" state      *</pre>      */
+comment|/**      *<code>required .hbase.pb.ProcedureState state = 6;</code>      *      *<pre>      * internal "runtime" state      *</pre>      */
 specifier|public
 name|boolean
 name|hasState
@@ -2421,7 +2421,7 @@ literal|0x00000020
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ProcedureState state = 6;</code>      *      *<pre>      * internal "runtime" state      *</pre>      */
+comment|/**      *<code>required .hbase.pb.ProcedureState state = 6;</code>      *      *<pre>      * internal "runtime" state      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -2603,7 +2603,7 @@ return|return
 name|timeout_
 return|;
 block|}
-comment|// optional .ForeignExceptionMessage exception = 10;
+comment|// optional .hbase.pb.ForeignExceptionMessage exception = 10;
 specifier|public
 specifier|static
 specifier|final
@@ -2630,7 +2630,7 @@ operator|.
 name|ForeignExceptionMessage
 name|exception_
 decl_stmt|;
-comment|/**      *<code>optional .ForeignExceptionMessage exception = 10;</code>      *      *<pre>      * user state/results      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ForeignExceptionMessage exception = 10;</code>      *      *<pre>      * user state/results      *</pre>      */
 specifier|public
 name|boolean
 name|hasException
@@ -2648,7 +2648,7 @@ literal|0x00000100
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .ForeignExceptionMessage exception = 10;</code>      *      *<pre>      * user state/results      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ForeignExceptionMessage exception = 10;</code>      *      *<pre>      * user state/results      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -2672,7 +2672,7 @@ return|return
 name|exception_
 return|;
 block|}
-comment|/**      *<code>optional .ForeignExceptionMessage exception = 10;</code>      *      *<pre>      * user state/results      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ForeignExceptionMessage exception = 10;</code>      *      *<pre>      * user state/results      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -5723,7 +5723,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Procedure}      *      *<pre>      **      * Procedure metadata, serialized by the ProcedureStore to be able to recover the old state.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.Procedure}      *      *<pre>      **      * Procedure metadata, serialized by the ProcedureStore to be able to recover the old state.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -5789,7 +5789,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_Procedure_descriptor
+name|internal_static_hbase_pb_Procedure_descriptor
 return|;
 block|}
 specifier|protected
@@ -5820,7 +5820,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_Procedure_fieldAccessorTable
+name|internal_static_hbase_pb_Procedure_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -6244,7 +6244,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_Procedure_descriptor
+name|internal_static_hbase_pb_Procedure_descriptor
 return|;
 block|}
 specifier|public
@@ -8263,7 +8263,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .ProcedureState state = 6;
+comment|// required .hbase.pb.ProcedureState state = 6;
 specifier|private
 name|org
 operator|.
@@ -8300,7 +8300,7 @@ name|ProcedureState
 operator|.
 name|INITIALIZING
 decl_stmt|;
-comment|/**        *<code>required .ProcedureState state = 6;</code>        *        *<pre>        * internal "runtime" state        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ProcedureState state = 6;</code>        *        *<pre>        * internal "runtime" state        *</pre>        */
 specifier|public
 name|boolean
 name|hasState
@@ -8318,7 +8318,7 @@ literal|0x00000020
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ProcedureState state = 6;</code>        *        *<pre>        * internal "runtime" state        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ProcedureState state = 6;</code>        *        *<pre>        * internal "runtime" state        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -8342,7 +8342,7 @@ return|return
 name|state_
 return|;
 block|}
-comment|/**        *<code>required .ProcedureState state = 6;</code>        *        *<pre>        * internal "runtime" state        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ProcedureState state = 6;</code>        *        *<pre>        * internal "runtime" state        *</pre>        */
 specifier|public
 name|Builder
 name|setState
@@ -8393,7 +8393,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ProcedureState state = 6;</code>        *        *<pre>        * internal "runtime" state        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ProcedureState state = 6;</code>        *        *<pre>        * internal "runtime" state        *</pre>        */
 specifier|public
 name|Builder
 name|clearState
@@ -8862,7 +8862,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .ForeignExceptionMessage exception = 10;
+comment|// optional .hbase.pb.ForeignExceptionMessage exception = 10;
 specifier|private
 name|org
 operator|.
@@ -8961,7 +8961,7 @@ name|ForeignExceptionMessageOrBuilder
 argument_list|>
 name|exceptionBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
 specifier|public
 name|boolean
 name|hasException
@@ -8979,7 +8979,7 @@ literal|0x00000200
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -9020,7 +9020,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
 specifier|public
 name|Builder
 name|setException
@@ -9089,7 +9089,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
 specifier|public
 name|Builder
 name|setException
@@ -9153,7 +9153,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
 specifier|public
 name|Builder
 name|mergeException
@@ -9278,7 +9278,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
 specifier|public
 name|Builder
 name|clearException
@@ -9337,7 +9337,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -9374,7 +9374,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -9415,7 +9415,7 @@ name|exception_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ForeignExceptionMessage exception = 10;</code>        *        *<pre>        * user state/results        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -9987,7 +9987,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Procedure)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Procedure)
 block|}
 static|static
 block|{
@@ -10005,7 +10005,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Procedure)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Procedure)
 block|}
 specifier|public
 interface|interface
@@ -10031,7 +10031,7 @@ name|getExecuted
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code SequentialProcedureData}    *    *<pre>    **    * SequentialProcedure data    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.SequentialProcedureData}    *    *<pre>    **    * SequentialProcedure data    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -10402,7 +10402,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_SequentialProcedureData_descriptor
+name|internal_static_hbase_pb_SequentialProcedureData_descriptor
 return|;
 block|}
 specifier|protected
@@ -10433,7 +10433,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_SequentialProcedureData_fieldAccessorTable
+name|internal_static_hbase_pb_SequentialProcedureData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -11694,7 +11694,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code SequentialProcedureData}      *      *<pre>      **      * SequentialProcedure data      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.SequentialProcedureData}      *      *<pre>      **      * SequentialProcedure data      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -11760,7 +11760,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_SequentialProcedureData_descriptor
+name|internal_static_hbase_pb_SequentialProcedureData_descriptor
 return|;
 block|}
 specifier|protected
@@ -11791,7 +11791,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_SequentialProcedureData_fieldAccessorTable
+name|internal_static_hbase_pb_SequentialProcedureData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -11970,7 +11970,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_SequentialProcedureData_descriptor
+name|internal_static_hbase_pb_SequentialProcedureData_descriptor
 return|;
 block|}
 specifier|public
@@ -12557,7 +12557,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:SequentialProcedureData)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.SequentialProcedureData)
 block|}
 static|static
 block|{
@@ -12575,7 +12575,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:SequentialProcedureData)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.SequentialProcedureData)
 block|}
 specifier|public
 interface|interface
@@ -12620,7 +12620,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code StateMachineProcedureData}    *    *<pre>    **    * StateMachineProcedure data    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.StateMachineProcedureData}    *    *<pre>    **    * StateMachineProcedure data    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -13148,7 +13148,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_StateMachineProcedureData_descriptor
+name|internal_static_hbase_pb_StateMachineProcedureData_descriptor
 return|;
 block|}
 specifier|protected
@@ -13179,7 +13179,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_StateMachineProcedureData_fieldAccessorTable
+name|internal_static_hbase_pb_StateMachineProcedureData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -14484,7 +14484,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code StateMachineProcedureData}      *      *<pre>      **      * StateMachineProcedure data      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.StateMachineProcedureData}      *      *<pre>      **      * StateMachineProcedure data      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -14550,7 +14550,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_StateMachineProcedureData_descriptor
+name|internal_static_hbase_pb_StateMachineProcedureData_descriptor
 return|;
 block|}
 specifier|protected
@@ -14581,7 +14581,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_StateMachineProcedureData_fieldAccessorTable
+name|internal_static_hbase_pb_StateMachineProcedureData_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -14767,7 +14767,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_StateMachineProcedureData_descriptor
+name|internal_static_hbase_pb_StateMachineProcedureData_descriptor
 return|;
 block|}
 specifier|public
@@ -15565,7 +15565,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:StateMachineProcedureData)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.StateMachineProcedureData)
 block|}
 static|static
 block|{
@@ -15583,7 +15583,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:StateMachineProcedureData)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.StateMachineProcedureData)
 block|}
 specifier|public
 interface|interface
@@ -15642,7 +15642,7 @@ name|getMinProcId
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ProcedureWALHeader}    *    *<pre>    **    * Procedure WAL header    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ProcedureWALHeader}    *    *<pre>    **    * Procedure WAL header    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -16064,7 +16064,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureWALHeader_descriptor
+name|internal_static_hbase_pb_ProcedureWALHeader_descriptor
 return|;
 block|}
 specifier|protected
@@ -16095,7 +16095,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureWALHeader_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureWALHeader_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -17890,7 +17890,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ProcedureWALHeader}      *      *<pre>      **      * Procedure WAL header      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ProcedureWALHeader}      *      *<pre>      **      * Procedure WAL header      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -17956,7 +17956,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureWALHeader_descriptor
+name|internal_static_hbase_pb_ProcedureWALHeader_descriptor
 return|;
 block|}
 specifier|protected
@@ -17987,7 +17987,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureWALHeader_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureWALHeader_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -18205,7 +18205,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureWALHeader_descriptor
+name|internal_static_hbase_pb_ProcedureWALHeader_descriptor
 return|;
 block|}
 specifier|public
@@ -19197,7 +19197,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ProcedureWALHeader)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ProcedureWALHeader)
 block|}
 static|static
 block|{
@@ -19215,7 +19215,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ProcedureWALHeader)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ProcedureWALHeader)
 block|}
 specifier|public
 interface|interface
@@ -19252,7 +19252,7 @@ name|getTrackerPos
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ProcedureWALTrailer}    *    *<pre>    **    * Procedure WAL trailer    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ProcedureWALTrailer}    *    *<pre>    **    * Procedure WAL trailer    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -19640,7 +19640,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureWALTrailer_descriptor
+name|internal_static_hbase_pb_ProcedureWALTrailer_descriptor
 return|;
 block|}
 specifier|protected
@@ -19671,7 +19671,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureWALTrailer_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureWALTrailer_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -21109,7 +21109,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ProcedureWALTrailer}      *      *<pre>      **      * Procedure WAL trailer      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ProcedureWALTrailer}      *      *<pre>      **      * Procedure WAL trailer      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -21175,7 +21175,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureWALTrailer_descriptor
+name|internal_static_hbase_pb_ProcedureWALTrailer_descriptor
 return|;
 block|}
 specifier|protected
@@ -21206,7 +21206,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureWALTrailer_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureWALTrailer_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -21398,7 +21398,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureWALTrailer_descriptor
+name|internal_static_hbase_pb_ProcedureWALTrailer_descriptor
 return|;
 block|}
 specifier|public
@@ -22120,7 +22120,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ProcedureWALTrailer)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ProcedureWALTrailer)
 block|}
 static|static
 block|{
@@ -22138,7 +22138,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ProcedureWALTrailer)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ProcedureWALTrailer)
 block|}
 specifier|public
 interface|interface
@@ -22152,8 +22152,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .ProcedureStoreTracker.TrackerNode node = 1;
-comment|/**      *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>      */
+comment|// repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;
+comment|/**      *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -22181,7 +22181,7 @@ argument_list|>
 name|getNodeList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -22205,12 +22205,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>      */
 name|int
 name|getNodeCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -22240,7 +22240,7 @@ argument_list|>
 name|getNodeOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -22265,7 +22265,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ProcedureStoreTracker}    */
+comment|/**    * Protobuf type {@code hbase.pb.ProcedureStoreTracker}    */
 specifier|public
 specifier|static
 specifier|final
@@ -22732,7 +22732,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureStoreTracker_descriptor
+name|internal_static_hbase_pb_ProcedureStoreTracker_descriptor
 return|;
 block|}
 specifier|protected
@@ -22763,7 +22763,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureStoreTracker_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureStoreTracker_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -22985,7 +22985,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**      * Protobuf type {@code ProcedureStoreTracker.TrackerNode}      */
+comment|/**      * Protobuf type {@code hbase.pb.ProcedureStoreTracker.TrackerNode}      */
 specifier|public
 specifier|static
 specifier|final
@@ -23704,7 +23704,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureStoreTracker_TrackerNode_descriptor
+name|internal_static_hbase_pb_ProcedureStoreTracker_TrackerNode_descriptor
 return|;
 block|}
 specifier|protected
@@ -23735,7 +23735,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureStoreTracker_TrackerNode_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureStoreTracker_TrackerNode_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -25484,7 +25484,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**        * Protobuf type {@code ProcedureStoreTracker.TrackerNode}        */
+comment|/**        * Protobuf type {@code hbase.pb.ProcedureStoreTracker.TrackerNode}        */
 specifier|public
 specifier|static
 specifier|final
@@ -25552,7 +25552,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureStoreTracker_TrackerNode_descriptor
+name|internal_static_hbase_pb_ProcedureStoreTracker_TrackerNode_descriptor
 return|;
 block|}
 specifier|protected
@@ -25583,7 +25583,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureStoreTracker_TrackerNode_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureStoreTracker_TrackerNode_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -25806,7 +25806,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureStoreTracker_TrackerNode_descriptor
+name|internal_static_hbase_pb_ProcedureStoreTracker_TrackerNode_descriptor
 return|;
 block|}
 specifier|public
@@ -27133,7 +27133,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ProcedureStoreTracker.TrackerNode)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ProcedureStoreTracker.TrackerNode)
 block|}
 static|static
 block|{
@@ -27151,9 +27151,9 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ProcedureStoreTracker.TrackerNode)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ProcedureStoreTracker.TrackerNode)
 block|}
-comment|// repeated .ProcedureStoreTracker.TrackerNode node = 1;
+comment|// repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -27189,7 +27189,7 @@ name|TrackerNode
 argument_list|>
 name|node_
 decl_stmt|;
-comment|/**      *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -27222,7 +27222,7 @@ return|return
 name|node_
 return|;
 block|}
-comment|/**      *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -27257,7 +27257,7 @@ return|return
 name|node_
 return|;
 block|}
-comment|/**      *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>      */
 specifier|public
 name|int
 name|getNodeCount
@@ -27270,7 +27270,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -27304,7 +27304,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -28447,7 +28447,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ProcedureStoreTracker}      */
+comment|/**      * Protobuf type {@code hbase.pb.ProcedureStoreTracker}      */
 specifier|public
 specifier|static
 specifier|final
@@ -28513,7 +28513,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureStoreTracker_descriptor
+name|internal_static_hbase_pb_ProcedureStoreTracker_descriptor
 return|;
 block|}
 specifier|protected
@@ -28544,7 +28544,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureStoreTracker_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureStoreTracker_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -28750,7 +28750,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureStoreTracker_descriptor
+name|internal_static_hbase_pb_ProcedureStoreTracker_descriptor
 return|;
 block|}
 specifier|public
@@ -29425,7 +29425,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .ProcedureStoreTracker.TrackerNode node = 1;
+comment|// repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;
 specifier|private
 name|java
 operator|.
@@ -29585,7 +29585,7 @@ name|TrackerNodeOrBuilder
 argument_list|>
 name|nodeBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -29644,7 +29644,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|int
 name|getNodeCount
@@ -29674,7 +29674,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -29727,7 +29727,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|Builder
 name|setNode
@@ -29807,7 +29807,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|Builder
 name|setNode
@@ -29882,7 +29882,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|Builder
 name|addNode
@@ -29955,7 +29955,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|Builder
 name|addNode
@@ -30035,7 +30035,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|Builder
 name|addNode
@@ -30103,7 +30103,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|Builder
 name|addNode
@@ -30178,7 +30178,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllNode
@@ -30249,7 +30249,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|Builder
 name|clearNode
@@ -30298,7 +30298,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|Builder
 name|removeNode
@@ -30342,7 +30342,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -30379,7 +30379,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -30432,7 +30432,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -30493,7 +30493,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -30546,7 +30546,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -30604,7 +30604,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ProcedureStoreTracker.TrackerNode node = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ProcedureStoreTracker.TrackerNode node = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -30814,7 +30814,7 @@ return|return
 name|nodeBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ProcedureStoreTracker)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ProcedureStoreTracker)
 block|}
 static|static
 block|{
@@ -30832,7 +30832,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ProcedureStoreTracker)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ProcedureStoreTracker)
 block|}
 specifier|public
 interface|interface
@@ -30846,13 +30846,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ProcedureWALEntry.Type type = 1;
-comment|/**      *<code>required .ProcedureWALEntry.Type type = 1;</code>      */
+comment|// required .hbase.pb.ProcedureWALEntry.Type type = 1;
+comment|/**      *<code>required .hbase.pb.ProcedureWALEntry.Type type = 1;</code>      */
 name|boolean
 name|hasType
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ProcedureWALEntry.Type type = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ProcedureWALEntry.Type type = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -30873,8 +30873,8 @@ name|Type
 name|getType
 parameter_list|()
 function_decl|;
-comment|// repeated .Procedure procedure = 2;
-comment|/**      *<code>repeated .Procedure procedure = 2;</code>      */
+comment|// repeated .hbase.pb.Procedure procedure = 2;
+comment|/**      *<code>repeated .hbase.pb.Procedure procedure = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -30900,7 +30900,7 @@ argument_list|>
 name|getProcedureList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Procedure procedure = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Procedure procedure = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -30922,12 +30922,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .Procedure procedure = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Procedure procedure = 2;</code>      */
 name|int
 name|getProcedureCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Procedure procedure = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Procedure procedure = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -30955,7 +30955,7 @@ argument_list|>
 name|getProcedureOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Procedure procedure = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Procedure procedure = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -30989,7 +30989,7 @@ name|getProcId
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ProcedureWALEntry}    */
+comment|/**    * Protobuf type {@code hbase.pb.ProcedureWALEntry}    */
 specifier|public
 specifier|static
 specifier|final
@@ -31553,7 +31553,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureWALEntry_descriptor
+name|internal_static_hbase_pb_ProcedureWALEntry_descriptor
 return|;
 block|}
 specifier|protected
@@ -31584,7 +31584,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureWALEntry_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureWALEntry_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -31722,7 +31722,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code ProcedureWALEntry.Type}      */
+comment|/**      * Protobuf enum {@code hbase.pb.ProcedureWALEntry.Type}      */
 specifier|public
 enum|enum
 name|Type
@@ -32157,13 +32157,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:ProcedureWALEntry.Type)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.ProcedureWALEntry.Type)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ProcedureWALEntry.Type type = 1;
+comment|// required .hbase.pb.ProcedureWALEntry.Type type = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -32192,7 +32192,7 @@ operator|.
 name|Type
 name|type_
 decl_stmt|;
-comment|/**      *<code>required .ProcedureWALEntry.Type type = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ProcedureWALEntry.Type type = 1;</code>      */
 specifier|public
 name|boolean
 name|hasType
@@ -32210,7 +32210,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ProcedureWALEntry.Type type = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ProcedureWALEntry.Type type = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -32236,7 +32236,7 @@ return|return
 name|type_
 return|;
 block|}
-comment|// repeated .Procedure procedure = 2;
+comment|// repeated .hbase.pb.Procedure procedure = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -32270,7 +32270,7 @@ name|Procedure
 argument_list|>
 name|procedure_
 decl_stmt|;
-comment|/**      *<code>repeated .Procedure procedure = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Procedure procedure = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -32301,7 +32301,7 @@ return|return
 name|procedure_
 return|;
 block|}
-comment|/**      *<code>repeated .Procedure procedure = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Procedure procedure = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -32334,7 +32334,7 @@ return|return
 name|procedure_
 return|;
 block|}
-comment|/**      *<code>repeated .Procedure procedure = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Procedure procedure = 2;</code>      */
 specifier|public
 name|int
 name|getProcedureCount
@@ -32347,7 +32347,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .Procedure procedure = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Procedure procedure = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -32379,7 +32379,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .Procedure procedure = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Procedure procedure = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -33848,7 +33848,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ProcedureWALEntry}      */
+comment|/**      * Protobuf type {@code hbase.pb.ProcedureWALEntry}      */
 specifier|public
 specifier|static
 specifier|final
@@ -33914,7 +33914,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureWALEntry_descriptor
+name|internal_static_hbase_pb_ProcedureWALEntry_descriptor
 return|;
 block|}
 specifier|protected
@@ -33945,7 +33945,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureWALEntry_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureWALEntry_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -34195,7 +34195,7 @@ name|generated
 operator|.
 name|ProcedureProtos
 operator|.
-name|internal_static_ProcedureWALEntry_descriptor
+name|internal_static_hbase_pb_ProcedureWALEntry_descriptor
 return|;
 block|}
 specifier|public
@@ -34974,7 +34974,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ProcedureWALEntry.Type type = 1;
+comment|// required .hbase.pb.ProcedureWALEntry.Type type = 1;
 specifier|private
 name|org
 operator|.
@@ -35015,7 +35015,7 @@ name|Type
 operator|.
 name|EOF
 decl_stmt|;
-comment|/**        *<code>required .ProcedureWALEntry.Type type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ProcedureWALEntry.Type type = 1;</code>        */
 specifier|public
 name|boolean
 name|hasType
@@ -35033,7 +35033,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ProcedureWALEntry.Type type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ProcedureWALEntry.Type type = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -35059,7 +35059,7 @@ return|return
 name|type_
 return|;
 block|}
-comment|/**        *<code>required .ProcedureWALEntry.Type type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ProcedureWALEntry.Type type = 1;</code>        */
 specifier|public
 name|Builder
 name|setType
@@ -35112,7 +35112,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ProcedureWALEntry.Type type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ProcedureWALEntry.Type type = 1;</code>        */
 specifier|public
 name|Builder
 name|clearType
@@ -35156,7 +35156,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .Procedure procedure = 2;
+comment|// repeated .hbase.pb.Procedure procedure = 2;
 specifier|private
 name|java
 operator|.
@@ -35306,7 +35306,7 @@ name|ProcedureOrBuilder
 argument_list|>
 name|procedureBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -35363,7 +35363,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|int
 name|getProcedureCount
@@ -35393,7 +35393,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -35444,7 +35444,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|Builder
 name|setProcedure
@@ -35522,7 +35522,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|Builder
 name|setProcedure
@@ -35595,7 +35595,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|Builder
 name|addProcedure
@@ -35666,7 +35666,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|Builder
 name|addProcedure
@@ -35744,7 +35744,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|Builder
 name|addProcedure
@@ -35810,7 +35810,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|Builder
 name|addProcedure
@@ -35883,7 +35883,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|Builder
 name|addAllProcedure
@@ -35952,7 +35952,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|Builder
 name|clearProcedure
@@ -36001,7 +36001,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|Builder
 name|removeProcedure
@@ -36045,7 +36045,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -36080,7 +36080,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -36131,7 +36131,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -36190,7 +36190,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -36239,7 +36239,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -36293,7 +36293,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Procedure procedure = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Procedure procedure = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -36572,7 +36572,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ProcedureWALEntry)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ProcedureWALEntry)
 block|}
 static|static
 block|{
@@ -36590,7 +36590,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ProcedureWALEntry)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ProcedureWALEntry)
 block|}
 specifier|private
 specifier|static
@@ -36603,7 +36603,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Procedure_descriptor
+name|internal_static_hbase_pb_Procedure_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36616,7 +36616,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Procedure_fieldAccessorTable
+name|internal_static_hbase_pb_Procedure_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36629,7 +36629,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_SequentialProcedureData_descriptor
+name|internal_static_hbase_pb_SequentialProcedureData_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36642,7 +36642,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_SequentialProcedureData_fieldAccessorTable
+name|internal_static_hbase_pb_SequentialProcedureData_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36655,7 +36655,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_StateMachineProcedureData_descriptor
+name|internal_static_hbase_pb_StateMachineProcedureData_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36668,7 +36668,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_StateMachineProcedureData_fieldAccessorTable
+name|internal_static_hbase_pb_StateMachineProcedureData_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36681,7 +36681,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ProcedureWALHeader_descriptor
+name|internal_static_hbase_pb_ProcedureWALHeader_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36694,7 +36694,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ProcedureWALHeader_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureWALHeader_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36707,7 +36707,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ProcedureWALTrailer_descriptor
+name|internal_static_hbase_pb_ProcedureWALTrailer_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36720,7 +36720,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ProcedureWALTrailer_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureWALTrailer_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36733,7 +36733,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ProcedureStoreTracker_descriptor
+name|internal_static_hbase_pb_ProcedureStoreTracker_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36746,7 +36746,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ProcedureStoreTracker_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureStoreTracker_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36759,7 +36759,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ProcedureStoreTracker_TrackerNode_descriptor
+name|internal_static_hbase_pb_ProcedureStoreTracker_TrackerNode_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36772,7 +36772,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ProcedureStoreTracker_TrackerNode_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureStoreTracker_TrackerNode_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36785,7 +36785,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ProcedureWALEntry_descriptor
+name|internal_static_hbase_pb_ProcedureWALEntry_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36798,7 +36798,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ProcedureWALEntry_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureWALEntry_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -36842,61 +36842,65 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\017Procedure.proto\032\023ErrorHandling.proto\"\271"
+literal|"\n\017Procedure.proto\022\010hbase.pb\032\023ErrorHandli"
 operator|+
-literal|"\002\n\tProcedure\022\022\n\nclass_name\030\001 \002(\t\022\021\n\tpare"
+literal|"ng.proto\"\313\002\n\tProcedure\022\022\n\nclass_name\030\001 \002"
 operator|+
-literal|"nt_id\030\002 \001(\004\022\017\n\007proc_id\030\003 \002(\004\022\022\n\nstart_ti"
+literal|"(\t\022\021\n\tparent_id\030\002 \001(\004\022\017\n\007proc_id\030\003 \002(\004\022\022"
 operator|+
-literal|"me\030\004 \002(\004\022\r\n\005owner\030\005 \001(\t\022\036\n\005state\030\006 \002(\0162\017"
+literal|"\n\nstart_time\030\004 \002(\004\022\r\n\005owner\030\005 \001(\t\022\'\n\005sta"
 operator|+
-literal|".ProcedureState\022\020\n\010stack_id\030\007 \003(\r\022\023\n\013las"
+literal|"te\030\006 \002(\0162\030.hbase.pb.ProcedureState\022\020\n\010st"
 operator|+
-literal|"t_update\030\010 \002(\004\022\017\n\007timeout\030\t \001(\r\022+\n\texcep"
+literal|"ack_id\030\007 \003(\r\022\023\n\013last_update\030\010 \002(\004\022\017\n\007tim"
 operator|+
-literal|"tion\030\n \001(\0132\030.ForeignExceptionMessage\022\016\n\006"
+literal|"eout\030\t \001(\r\0224\n\texception\030\n \001(\0132!.hbase.pb"
 operator|+
-literal|"result\030\013 \001(\014\022\022\n\nstate_data\030\014 \001(\014\022\026\n\013nonc"
+literal|".ForeignExceptionMessage\022\016\n\006result\030\013 \001(\014"
 operator|+
-literal|"e_group\030\r \001(\004:\0010\022\020\n\005nonce\030\016 \001(\004:\0010\"+\n\027Se"
+literal|"\022\022\n\nstate_data\030\014 \001(\014\022\026\n\013nonce_group\030\r \001("
 operator|+
-literal|"quentialProcedureData\022\020\n\010executed\030\001 \002(\010\""
+literal|"\004:\0010\022\020\n\005nonce\030\016 \001(\004:\0010\"+\n\027SequentialProc"
 block|,
-literal|"*\n\031StateMachineProcedureData\022\r\n\005state\030\001 "
+literal|"edureData\022\020\n\010executed\030\001 \002(\010\"*\n\031StateMach"
 operator|+
-literal|"\003(\r\"X\n\022ProcedureWALHeader\022\017\n\007version\030\001 \002"
+literal|"ineProcedureData\022\r\n\005state\030\001 \003(\r\"X\n\022Proce"
 operator|+
-literal|"(\r\022\014\n\004type\030\002 \002(\r\022\016\n\006log_id\030\003 \002(\004\022\023\n\013min_"
+literal|"dureWALHeader\022\017\n\007version\030\001 \002(\r\022\014\n\004type\030\002"
 operator|+
-literal|"proc_id\030\004 \002(\004\";\n\023ProcedureWALTrailer\022\017\n\007"
+literal|" \002(\r\022\016\n\006log_id\030\003 \002(\004\022\023\n\013min_proc_id\030\004 \002("
 operator|+
-literal|"version\030\001 \002(\r\022\023\n\013tracker_pos\030\002 \002(\004\"\214\001\n\025P"
+literal|"\004\";\n\023ProcedureWALTrailer\022\017\n\007version\030\001 \002("
 operator|+
-literal|"rocedureStoreTracker\0220\n\004node\030\001 \003(\0132\".Pro"
+literal|"\r\022\023\n\013tracker_pos\030\002 \002(\004\"\225\001\n\025ProcedureStor"
 operator|+
-literal|"cedureStoreTracker.TrackerNode\032A\n\013Tracke"
+literal|"eTracker\0229\n\004node\030\001 \003(\0132+.hbase.pb.Proced"
 operator|+
-literal|"rNode\022\020\n\010start_id\030\001 \002(\004\022\017\n\007updated\030\002 \003(\004"
+literal|"ureStoreTracker.TrackerNode\032A\n\013TrackerNo"
 operator|+
-literal|"\022\017\n\007deleted\030\003 \003(\004\"\266\001\n\021ProcedureWALEntry\022"
+literal|"de\022\020\n\010start_id\030\001 \002(\004\022\017\n\007updated\030\002 \003(\004\022\017\n"
 operator|+
-literal|"%\n\004type\030\001 \002(\0162\027.ProcedureWALEntry.Type\022\035"
+literal|"\007deleted\030\003 \003(\004\"\310\001\n\021ProcedureWALEntry\022.\n\004"
 block|,
-literal|"\n\tprocedure\030\002 \003(\0132\n.Procedure\022\017\n\007proc_id"
+literal|"type\030\001 \002(\0162 .hbase.pb.ProcedureWALEntry."
 operator|+
-literal|"\030\003 \001(\004\"J\n\004Type\022\007\n\003EOF\020\001\022\010\n\004INIT\020\002\022\n\n\006INS"
+literal|"Type\022&\n\tprocedure\030\002 \003(\0132\023.hbase.pb.Proce"
 operator|+
-literal|"ERT\020\003\022\n\n\006UPDATE\020\004\022\n\n\006DELETE\020\005\022\013\n\007COMPACT"
+literal|"dure\022\017\n\007proc_id\030\003 \001(\004\"J\n\004Type\022\007\n\003EOF\020\001\022\010"
 operator|+
-literal|"\020\006*p\n\016ProcedureState\022\020\n\014INITIALIZING\020\001\022\014"
+literal|"\n\004INIT\020\002\022\n\n\006INSERT\020\003\022\n\n\006UPDATE\020\004\022\n\n\006DELE"
 operator|+
-literal|"\n\010RUNNABLE\020\002\022\013\n\007WAITING\020\003\022\023\n\017WAITING_TIM"
+literal|"TE\020\005\022\013\n\007COMPACT\020\006*p\n\016ProcedureState\022\020\n\014I"
 operator|+
-literal|"EOUT\020\004\022\016\n\nROLLEDBACK\020\005\022\014\n\010FINISHED\020\006BE\n*"
+literal|"NITIALIZING\020\001\022\014\n\010RUNNABLE\020\002\022\013\n\007WAITING\020\003"
 operator|+
-literal|"org.apache.hadoop.hbase.protobuf.generat"
+literal|"\022\023\n\017WAITING_TIMEOUT\020\004\022\016\n\nROLLEDBACK\020\005\022\014\n"
 operator|+
-literal|"edB\017ProcedureProtosH\001\210\001\001\240\001\001"
+literal|"\010FINISHED\020\006BE\n*org.apache.hadoop.hbase.p"
+operator|+
+literal|"rotobuf.generatedB\017ProcedureProtosH\001\210\001\001\240"
+operator|+
+literal|"\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -36952,7 +36956,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_Procedure_descriptor
+name|internal_static_hbase_pb_Procedure_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -36965,7 +36969,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_Procedure_fieldAccessorTable
+name|internal_static_hbase_pb_Procedure_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -36978,7 +36982,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Procedure_descriptor
+name|internal_static_hbase_pb_Procedure_descriptor
 argument_list|,
 operator|new
 name|java
@@ -37018,7 +37022,7 @@ literal|"Nonce"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_SequentialProcedureData_descriptor
+name|internal_static_hbase_pb_SequentialProcedureData_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -37031,7 +37035,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_SequentialProcedureData_fieldAccessorTable
+name|internal_static_hbase_pb_SequentialProcedureData_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -37044,7 +37048,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_SequentialProcedureData_descriptor
+name|internal_static_hbase_pb_SequentialProcedureData_descriptor
 argument_list|,
 operator|new
 name|java
@@ -37058,7 +37062,7 @@ literal|"Executed"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_StateMachineProcedureData_descriptor
+name|internal_static_hbase_pb_StateMachineProcedureData_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -37071,7 +37075,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_StateMachineProcedureData_fieldAccessorTable
+name|internal_static_hbase_pb_StateMachineProcedureData_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -37084,7 +37088,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_StateMachineProcedureData_descriptor
+name|internal_static_hbase_pb_StateMachineProcedureData_descriptor
 argument_list|,
 operator|new
 name|java
@@ -37098,7 +37102,7 @@ literal|"State"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ProcedureWALHeader_descriptor
+name|internal_static_hbase_pb_ProcedureWALHeader_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -37111,7 +37115,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_ProcedureWALHeader_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureWALHeader_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -37124,7 +37128,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ProcedureWALHeader_descriptor
+name|internal_static_hbase_pb_ProcedureWALHeader_descriptor
 argument_list|,
 operator|new
 name|java
@@ -37144,7 +37148,7 @@ literal|"MinProcId"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ProcedureWALTrailer_descriptor
+name|internal_static_hbase_pb_ProcedureWALTrailer_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -37157,7 +37161,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_ProcedureWALTrailer_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureWALTrailer_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -37170,7 +37174,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ProcedureWALTrailer_descriptor
+name|internal_static_hbase_pb_ProcedureWALTrailer_descriptor
 argument_list|,
 operator|new
 name|java
@@ -37186,7 +37190,7 @@ literal|"TrackerPos"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ProcedureStoreTracker_descriptor
+name|internal_static_hbase_pb_ProcedureStoreTracker_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -37199,7 +37203,7 @@ argument_list|(
 literal|5
 argument_list|)
 expr_stmt|;
-name|internal_static_ProcedureStoreTracker_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureStoreTracker_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -37212,7 +37216,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ProcedureStoreTracker_descriptor
+name|internal_static_hbase_pb_ProcedureStoreTracker_descriptor
 argument_list|,
 operator|new
 name|java
@@ -37226,9 +37230,9 @@ literal|"Node"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ProcedureStoreTracker_TrackerNode_descriptor
+name|internal_static_hbase_pb_ProcedureStoreTracker_TrackerNode_descriptor
 operator|=
-name|internal_static_ProcedureStoreTracker_descriptor
+name|internal_static_hbase_pb_ProcedureStoreTracker_descriptor
 operator|.
 name|getNestedTypes
 argument_list|()
@@ -37238,7 +37242,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_ProcedureStoreTracker_TrackerNode_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureStoreTracker_TrackerNode_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -37251,7 +37255,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ProcedureStoreTracker_TrackerNode_descriptor
+name|internal_static_hbase_pb_ProcedureStoreTracker_TrackerNode_descriptor
 argument_list|,
 operator|new
 name|java
@@ -37269,7 +37273,7 @@ literal|"Deleted"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ProcedureWALEntry_descriptor
+name|internal_static_hbase_pb_ProcedureWALEntry_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -37282,7 +37286,7 @@ argument_list|(
 literal|6
 argument_list|)
 expr_stmt|;
-name|internal_static_ProcedureWALEntry_fieldAccessorTable
+name|internal_static_hbase_pb_ProcedureWALEntry_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -37295,7 +37299,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ProcedureWALEntry_descriptor
+name|internal_static_hbase_pb_ProcedureWALEntry_descriptor
 argument_list|,
 operator|new
 name|java

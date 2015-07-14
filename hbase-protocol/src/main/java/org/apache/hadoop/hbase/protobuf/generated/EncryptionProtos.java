@@ -149,7 +149,7 @@ name|getHash
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code WrappedKey}    */
+comment|/**    * Protobuf type {@code hbase.pb.WrappedKey}    */
 specifier|public
 specifier|static
 specifier|final
@@ -588,7 +588,7 @@ name|generated
 operator|.
 name|EncryptionProtos
 operator|.
-name|internal_static_WrappedKey_descriptor
+name|internal_static_hbase_pb_WrappedKey_descriptor
 return|;
 block|}
 specifier|protected
@@ -619,7 +619,7 @@ name|generated
 operator|.
 name|EncryptionProtos
 operator|.
-name|internal_static_WrappedKey_fieldAccessorTable
+name|internal_static_hbase_pb_WrappedKey_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2805,7 +2805,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code WrappedKey}      */
+comment|/**      * Protobuf type {@code hbase.pb.WrappedKey}      */
 specifier|public
 specifier|static
 specifier|final
@@ -2871,7 +2871,7 @@ name|generated
 operator|.
 name|EncryptionProtos
 operator|.
-name|internal_static_WrappedKey_descriptor
+name|internal_static_hbase_pb_WrappedKey_descriptor
 return|;
 block|}
 specifier|protected
@@ -2902,7 +2902,7 @@ name|generated
 operator|.
 name|EncryptionProtos
 operator|.
-name|internal_static_WrappedKey_fieldAccessorTable
+name|internal_static_hbase_pb_WrappedKey_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -3157,7 +3157,7 @@ name|generated
 operator|.
 name|EncryptionProtos
 operator|.
-name|internal_static_WrappedKey_descriptor
+name|internal_static_hbase_pb_WrappedKey_descriptor
 return|;
 block|}
 specifier|public
@@ -4621,7 +4621,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:WrappedKey)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.WrappedKey)
 block|}
 static|static
 block|{
@@ -4639,7 +4639,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:WrappedKey)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.WrappedKey)
 block|}
 specifier|private
 specifier|static
@@ -4652,7 +4652,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_WrappedKey_descriptor
+name|internal_static_hbase_pb_WrappedKey_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -4665,7 +4665,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_WrappedKey_fieldAccessorTable
+name|internal_static_hbase_pb_WrappedKey_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -4709,15 +4709,15 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\020Encryption.proto\"W\n\nWrappedKey\022\021\n\talgo"
+literal|"\n\020Encryption.proto\022\010hbase.pb\"W\n\nWrappedK"
 operator|+
-literal|"rithm\030\001 \002(\t\022\016\n\006length\030\002 \002(\r\022\014\n\004data\030\003 \002("
+literal|"ey\022\021\n\talgorithm\030\001 \002(\t\022\016\n\006length\030\002 \002(\r\022\014\n"
 operator|+
-literal|"\014\022\n\n\002iv\030\004 \001(\014\022\014\n\004hash\030\005 \001(\014BC\n*org.apach"
+literal|"\004data\030\003 \002(\014\022\n\n\002iv\030\004 \001(\014\022\014\n\004hash\030\005 \001(\014BC\n"
 operator|+
-literal|"e.hadoop.hbase.protobuf.generatedB\020Encry"
+literal|"*org.apache.hadoop.hbase.protobuf.genera"
 operator|+
-literal|"ptionProtosH\001\240\001\001"
+literal|"tedB\020EncryptionProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -4773,7 +4773,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_WrappedKey_descriptor
+name|internal_static_hbase_pb_WrappedKey_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -4786,7 +4786,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_WrappedKey_fieldAccessorTable
+name|internal_static_hbase_pb_WrappedKey_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -4799,7 +4799,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_WrappedKey_descriptor
+name|internal_static_hbase_pb_WrappedKey_descriptor
 argument_list|,
 operator|new
 name|java

@@ -60,13 +60,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier region = 1;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|// required .hbase.pb.RegionSpecifier region = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -85,7 +85,7 @@ name|RegionSpecifier
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -116,7 +116,7 @@ name|getCompactionState
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GetRegionInfoRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.GetRegionInfoRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -588,7 +588,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetRegionInfoRequest_descriptor
+name|internal_static_hbase_pb_GetRegionInfoRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -619,7 +619,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetRegionInfoRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetRegionInfoRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -761,7 +761,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -788,7 +788,7 @@ operator|.
 name|RegionSpecifier
 name|region_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegion
@@ -806,7 +806,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -830,7 +830,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -2133,7 +2133,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetRegionInfoRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.GetRegionInfoRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -2199,7 +2199,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetRegionInfoRequest_descriptor
+name|internal_static_hbase_pb_GetRegionInfoRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -2230,7 +2230,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetRegionInfoRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetRegionInfoRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2459,7 +2459,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetRegionInfoRequest_descriptor
+name|internal_static_hbase_pb_GetRegionInfoRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -3038,7 +3038,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|private
 name|org
 operator|.
@@ -3137,7 +3137,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -3155,7 +3155,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -3196,7 +3196,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -3265,7 +3265,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -3329,7 +3329,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -3454,7 +3454,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegion
@@ -3513,7 +3513,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -3550,7 +3550,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -3591,7 +3591,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -3824,7 +3824,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetRegionInfoRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetRegionInfoRequest)
 block|}
 static|static
 block|{
@@ -3842,7 +3842,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetRegionInfoRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetRegionInfoRequest)
 block|}
 specifier|public
 interface|interface
@@ -3856,13 +3856,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionInfo region_info = 1;
-comment|/**      *<code>required .RegionInfo region_info = 1;</code>      */
+comment|// required .hbase.pb.RegionInfo region_info = 1;
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 1;</code>      */
 name|boolean
 name|hasRegionInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -3881,7 +3881,7 @@ name|RegionInfo
 name|getRegionInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -3900,13 +3900,13 @@ name|RegionInfoOrBuilder
 name|getRegionInfoOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .GetRegionInfoResponse.CompactionState compaction_state = 2;
-comment|/**      *<code>optional .GetRegionInfoResponse.CompactionState compaction_state = 2;</code>      */
+comment|// optional .hbase.pb.GetRegionInfoResponse.CompactionState compaction_state = 2;
+comment|/**      *<code>optional .hbase.pb.GetRegionInfoResponse.CompactionState compaction_state = 2;</code>      */
 name|boolean
 name|hasCompactionState
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .GetRegionInfoResponse.CompactionState compaction_state = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.GetRegionInfoResponse.CompactionState compaction_state = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -3939,7 +3939,7 @@ name|getIsRecovering
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GetRegionInfoResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.GetRegionInfoResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -4495,7 +4495,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetRegionInfoResponse_descriptor
+name|internal_static_hbase_pb_GetRegionInfoResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -4526,7 +4526,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetRegionInfoResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetRegionInfoResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -4664,7 +4664,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code GetRegionInfoResponse.CompactionState}      */
+comment|/**      * Protobuf enum {@code hbase.pb.GetRegionInfoResponse.CompactionState}      */
 specifier|public
 enum|enum
 name|CompactionState
@@ -5053,13 +5053,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:GetRegionInfoResponse.CompactionState)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.GetRegionInfoResponse.CompactionState)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionInfo region_info = 1;
+comment|// required .hbase.pb.RegionInfo region_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -5086,7 +5086,7 @@ operator|.
 name|RegionInfo
 name|regionInfo_
 decl_stmt|;
-comment|/**      *<code>required .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegionInfo
@@ -5104,7 +5104,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5128,7 +5128,7 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|/**      *<code>required .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5152,7 +5152,7 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|// optional .GetRegionInfoResponse.CompactionState compaction_state = 2;
+comment|// optional .hbase.pb.GetRegionInfoResponse.CompactionState compaction_state = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -5181,7 +5181,7 @@ operator|.
 name|CompactionState
 name|compactionState_
 decl_stmt|;
-comment|/**      *<code>optional .GetRegionInfoResponse.CompactionState compaction_state = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.GetRegionInfoResponse.CompactionState compaction_state = 2;</code>      */
 specifier|public
 name|boolean
 name|hasCompactionState
@@ -5199,7 +5199,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .GetRegionInfoResponse.CompactionState compaction_state = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.GetRegionInfoResponse.CompactionState compaction_state = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6652,7 +6652,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetRegionInfoResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.GetRegionInfoResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -6718,7 +6718,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetRegionInfoResponse_descriptor
+name|internal_static_hbase_pb_GetRegionInfoResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -6749,7 +6749,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetRegionInfoResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetRegionInfoResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -7009,7 +7009,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetRegionInfoResponse_descriptor
+name|internal_static_hbase_pb_GetRegionInfoResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -7629,7 +7629,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionInfo region_info = 1;
+comment|// required .hbase.pb.RegionInfo region_info = 1;
 specifier|private
 name|org
 operator|.
@@ -7728,7 +7728,7 @@ name|RegionInfoOrBuilder
 argument_list|>
 name|regionInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegionInfo
@@ -7746,7 +7746,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -7787,7 +7787,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -7856,7 +7856,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -7920,7 +7920,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegionInfo
@@ -8045,7 +8045,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegionInfo
@@ -8104,7 +8104,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -8141,7 +8141,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -8182,7 +8182,7 @@ name|regionInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -8332,7 +8332,7 @@ return|return
 name|regionInfoBuilder_
 return|;
 block|}
-comment|// optional .GetRegionInfoResponse.CompactionState compaction_state = 2;
+comment|// optional .hbase.pb.GetRegionInfoResponse.CompactionState compaction_state = 2;
 specifier|private
 name|org
 operator|.
@@ -8373,7 +8373,7 @@ name|CompactionState
 operator|.
 name|NONE
 decl_stmt|;
-comment|/**        *<code>optional .GetRegionInfoResponse.CompactionState compaction_state = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GetRegionInfoResponse.CompactionState compaction_state = 2;</code>        */
 specifier|public
 name|boolean
 name|hasCompactionState
@@ -8391,7 +8391,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .GetRegionInfoResponse.CompactionState compaction_state = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GetRegionInfoResponse.CompactionState compaction_state = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -8417,7 +8417,7 @@ return|return
 name|compactionState_
 return|;
 block|}
-comment|/**        *<code>optional .GetRegionInfoResponse.CompactionState compaction_state = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GetRegionInfoResponse.CompactionState compaction_state = 2;</code>        */
 specifier|public
 name|Builder
 name|setCompactionState
@@ -8470,7 +8470,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .GetRegionInfoResponse.CompactionState compaction_state = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GetRegionInfoResponse.CompactionState compaction_state = 2;</code>        */
 specifier|public
 name|Builder
 name|clearCompactionState
@@ -8597,7 +8597,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetRegionInfoResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetRegionInfoResponse)
 block|}
 static|static
 block|{
@@ -8615,7 +8615,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetRegionInfoResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetRegionInfoResponse)
 block|}
 specifier|public
 interface|interface
@@ -8629,13 +8629,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier region = 1;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|// required .hbase.pb.RegionSpecifier region = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -8654,7 +8654,7 @@ name|RegionSpecifier
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -8712,7 +8712,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GetStoreFileRequest}    *    *<pre>    **    * Get a list of store files for a set of column families in a particular region.    * If no column family is specified, get the store files for all column families.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.GetStoreFileRequest}    *    *<pre>    **    * Get a list of store files for a set of column families in a particular region.    * If no column family is specified, get the store files for all column families.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -9248,7 +9248,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileRequest_descriptor
+name|internal_static_hbase_pb_GetStoreFileRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -9279,7 +9279,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetStoreFileRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -9421,7 +9421,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -9448,7 +9448,7 @@ operator|.
 name|RegionSpecifier
 name|region_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegion
@@ -9466,7 +9466,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -9490,7 +9490,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -10866,7 +10866,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetStoreFileRequest}      *      *<pre>      **      * Get a list of store files for a set of column families in a particular region.      * If no column family is specified, get the store files for all column families.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.GetStoreFileRequest}      *      *<pre>      **      * Get a list of store files for a set of column families in a particular region.      * If no column family is specified, get the store files for all column families.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -10932,7 +10932,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileRequest_descriptor
+name|internal_static_hbase_pb_GetStoreFileRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -10963,7 +10963,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetStoreFileRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -11199,7 +11199,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileRequest_descriptor
+name|internal_static_hbase_pb_GetStoreFileRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -11833,7 +11833,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|private
 name|org
 operator|.
@@ -11932,7 +11932,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -11950,7 +11950,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11991,7 +11991,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -12060,7 +12060,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -12124,7 +12124,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -12249,7 +12249,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegion
@@ -12308,7 +12308,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12345,7 +12345,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12386,7 +12386,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -12849,7 +12849,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetStoreFileRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetStoreFileRequest)
 block|}
 static|static
 block|{
@@ -12867,7 +12867,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetStoreFileRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetStoreFileRequest)
 block|}
 specifier|public
 interface|interface
@@ -12930,7 +12930,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GetStoreFileResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.GetStoreFileResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -13359,7 +13359,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileResponse_descriptor
+name|internal_static_hbase_pb_GetStoreFileResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -13390,7 +13390,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetStoreFileResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -14719,7 +14719,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetStoreFileResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.GetStoreFileResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -14785,7 +14785,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileResponse_descriptor
+name|internal_static_hbase_pb_GetStoreFileResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -14816,7 +14816,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetStoreFileResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -15003,7 +15003,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileResponse_descriptor
+name|internal_static_hbase_pb_GetStoreFileResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -15899,7 +15899,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetStoreFileResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetStoreFileResponse)
 block|}
 static|static
 block|{
@@ -15917,7 +15917,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetStoreFileResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetStoreFileResponse)
 block|}
 specifier|public
 interface|interface
@@ -15931,7 +15931,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code GetOnlineRegionRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.GetOnlineRegionRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -16280,7 +16280,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetOnlineRegionRequest_descriptor
+name|internal_static_hbase_pb_GetOnlineRegionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -16311,7 +16311,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetOnlineRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetOnlineRegionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -17387,7 +17387,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetOnlineRegionRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.GetOnlineRegionRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -17453,7 +17453,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetOnlineRegionRequest_descriptor
+name|internal_static_hbase_pb_GetOnlineRegionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -17484,7 +17484,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetOnlineRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetOnlineRegionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -17650,7 +17650,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetOnlineRegionRequest_descriptor
+name|internal_static_hbase_pb_GetOnlineRegionRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -18082,7 +18082,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetOnlineRegionRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetOnlineRegionRequest)
 block|}
 static|static
 block|{
@@ -18100,7 +18100,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetOnlineRegionRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetOnlineRegionRequest)
 block|}
 specifier|public
 interface|interface
@@ -18114,8 +18114,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .RegionInfo region_info = 1;
-comment|/**      *<code>repeated .RegionInfo region_info = 1;</code>      */
+comment|// repeated .hbase.pb.RegionInfo region_info = 1;
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -18141,7 +18141,7 @@ argument_list|>
 name|getRegionInfoList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -18163,12 +18163,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>      */
 name|int
 name|getRegionInfoCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -18196,7 +18196,7 @@ argument_list|>
 name|getRegionInfoOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -18219,7 +18219,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GetOnlineRegionResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.GetOnlineRegionResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -18682,7 +18682,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetOnlineRegionResponse_descriptor
+name|internal_static_hbase_pb_GetOnlineRegionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -18713,7 +18713,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetOnlineRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetOnlineRegionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -18851,7 +18851,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|// repeated .RegionInfo region_info = 1;
+comment|// repeated .hbase.pb.RegionInfo region_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -18885,7 +18885,7 @@ name|RegionInfo
 argument_list|>
 name|regionInfo_
 decl_stmt|;
-comment|/**      *<code>repeated .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -18916,7 +18916,7 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -18949,7 +18949,7 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>      */
 specifier|public
 name|int
 name|getRegionInfoCount
@@ -18962,7 +18962,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -18994,7 +18994,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .RegionInfo region_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -20135,7 +20135,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetOnlineRegionResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.GetOnlineRegionResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -20201,7 +20201,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetOnlineRegionResponse_descriptor
+name|internal_static_hbase_pb_GetOnlineRegionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -20232,7 +20232,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetOnlineRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetOnlineRegionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -20438,7 +20438,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetOnlineRegionResponse_descriptor
+name|internal_static_hbase_pb_GetOnlineRegionResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -21113,7 +21113,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .RegionInfo region_info = 1;
+comment|// repeated .hbase.pb.RegionInfo region_info = 1;
 specifier|private
 name|java
 operator|.
@@ -21263,7 +21263,7 @@ name|RegionInfoOrBuilder
 argument_list|>
 name|regionInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -21320,7 +21320,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|int
 name|getRegionInfoCount
@@ -21350,7 +21350,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -21401,7 +21401,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -21479,7 +21479,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -21552,7 +21552,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -21623,7 +21623,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -21701,7 +21701,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -21767,7 +21767,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|addRegionInfo
@@ -21840,7 +21840,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllRegionInfo
@@ -21909,7 +21909,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegionInfo
@@ -21958,7 +21958,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
 name|removeRegionInfo
@@ -22002,7 +22002,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -22037,7 +22037,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -22088,7 +22088,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -22147,7 +22147,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -22196,7 +22196,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -22250,7 +22250,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionInfo region_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -22446,7 +22446,7 @@ return|return
 name|regionInfoBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetOnlineRegionResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetOnlineRegionResponse)
 block|}
 static|static
 block|{
@@ -22464,7 +22464,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetOnlineRegionResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetOnlineRegionResponse)
 block|}
 specifier|public
 interface|interface
@@ -22478,8 +22478,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;
-comment|/**      *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
+comment|// repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;
+comment|/**      *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -22507,7 +22507,7 @@ argument_list|>
 name|getOpenInfoList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -22531,12 +22531,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
 name|int
 name|getOpenInfoCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -22566,7 +22566,7 @@ argument_list|>
 name|getOpenInfoOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -22613,7 +22613,7 @@ name|getMasterSystemTime
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code OpenRegionRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.OpenRegionRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -23114,7 +23114,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_OpenRegionRequest_descriptor
+name|internal_static_hbase_pb_OpenRegionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -23145,7 +23145,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_OpenRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_OpenRegionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -23295,13 +23295,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionInfo region = 1;
-comment|/**        *<code>required .RegionInfo region = 1;</code>        */
+comment|// required .hbase.pb.RegionInfo region = 1;
+comment|/**        *<code>required .hbase.pb.RegionInfo region = 1;</code>        */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**        *<code>required .RegionInfo region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region = 1;</code>        */
 name|org
 operator|.
 name|apache
@@ -23320,7 +23320,7 @@ name|RegionInfo
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**        *<code>required .RegionInfo region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region = 1;</code>        */
 name|org
 operator|.
 name|apache
@@ -23350,8 +23350,8 @@ name|int
 name|getVersionOfOfflineNode
 parameter_list|()
 function_decl|;
-comment|// repeated .ServerName favored_nodes = 3;
-comment|/**        *<code>repeated .ServerName favored_nodes = 3;</code>        */
+comment|// repeated .hbase.pb.ServerName favored_nodes = 3;
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>        */
 name|java
 operator|.
 name|util
@@ -23377,7 +23377,7 @@ argument_list|>
 name|getFavoredNodesList
 parameter_list|()
 function_decl|;
-comment|/**        *<code>repeated .ServerName favored_nodes = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>        */
 name|org
 operator|.
 name|apache
@@ -23399,12 +23399,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**        *<code>repeated .ServerName favored_nodes = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>        */
 name|int
 name|getFavoredNodesCount
 parameter_list|()
 function_decl|;
-comment|/**        *<code>repeated .ServerName favored_nodes = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>        */
 name|java
 operator|.
 name|util
@@ -23432,7 +23432,7 @@ argument_list|>
 name|getFavoredNodesOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**        *<code>repeated .ServerName favored_nodes = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>        */
 name|org
 operator|.
 name|apache
@@ -23466,7 +23466,7 @@ name|getOpenForDistributedLogReplay
 parameter_list|()
 function_decl|;
 block|}
-comment|/**      * Protobuf type {@code OpenRegionRequest.RegionOpenInfo}      */
+comment|/**      * Protobuf type {@code hbase.pb.OpenRegionRequest.RegionOpenInfo}      */
 specifier|public
 specifier|static
 specifier|final
@@ -24064,7 +24064,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_OpenRegionRequest_RegionOpenInfo_descriptor
+name|internal_static_hbase_pb_OpenRegionRequest_RegionOpenInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -24095,7 +24095,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_OpenRegionRequest_RegionOpenInfo_fieldAccessorTable
+name|internal_static_hbase_pb_OpenRegionRequest_RegionOpenInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -24241,7 +24241,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionInfo region = 1;
+comment|// required .hbase.pb.RegionInfo region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -24268,7 +24268,7 @@ operator|.
 name|RegionInfo
 name|region_
 decl_stmt|;
-comment|/**        *<code>required .RegionInfo region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -24286,7 +24286,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -24310,7 +24310,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -24375,7 +24375,7 @@ return|return
 name|versionOfOfflineNode_
 return|;
 block|}
-comment|// repeated .ServerName favored_nodes = 3;
+comment|// repeated .hbase.pb.ServerName favored_nodes = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -24409,7 +24409,7 @@ name|ServerName
 argument_list|>
 name|favoredNodes_
 decl_stmt|;
-comment|/**        *<code>repeated .ServerName favored_nodes = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -24440,7 +24440,7 @@ return|return
 name|favoredNodes_
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_nodes = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -24473,7 +24473,7 @@ return|return
 name|favoredNodes_
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_nodes = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>        */
 specifier|public
 name|int
 name|getFavoredNodesCount
@@ -24486,7 +24486,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_nodes = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -24518,7 +24518,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_nodes = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -26148,7 +26148,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**        * Protobuf type {@code OpenRegionRequest.RegionOpenInfo}        */
+comment|/**        * Protobuf type {@code hbase.pb.OpenRegionRequest.RegionOpenInfo}        */
 specifier|public
 specifier|static
 specifier|final
@@ -26216,7 +26216,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_OpenRegionRequest_RegionOpenInfo_descriptor
+name|internal_static_hbase_pb_OpenRegionRequest_RegionOpenInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -26247,7 +26247,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_OpenRegionRequest_RegionOpenInfo_fieldAccessorTable
+name|internal_static_hbase_pb_OpenRegionRequest_RegionOpenInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -26532,7 +26532,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_OpenRegionRequest_RegionOpenInfo_descriptor
+name|internal_static_hbase_pb_OpenRegionRequest_RegionOpenInfo_descriptor
 return|;
 block|}
 specifier|public
@@ -27412,7 +27412,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionInfo region = 1;
+comment|// required .hbase.pb.RegionInfo region = 1;
 specifier|private
 name|org
 operator|.
@@ -27511,7 +27511,7 @@ name|RegionInfoOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|boolean
 name|hasRegion
@@ -27529,7 +27529,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|org
 operator|.
@@ -27570,7 +27570,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|Builder
 name|setRegion
@@ -27639,7 +27639,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|Builder
 name|setRegion
@@ -27703,7 +27703,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -27828,7 +27828,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|Builder
 name|clearRegion
@@ -27887,7 +27887,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|org
 operator|.
@@ -27924,7 +27924,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|org
 operator|.
@@ -27965,7 +27965,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|private
 name|com
 operator|.
@@ -28198,7 +28198,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .ServerName favored_nodes = 3;
+comment|// repeated .hbase.pb.ServerName favored_nodes = 3;
 specifier|private
 name|java
 operator|.
@@ -28348,7 +28348,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|favoredNodesBuilder_
 decl_stmt|;
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|java
 operator|.
@@ -28405,7 +28405,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|int
 name|getFavoredNodesCount
@@ -28435,7 +28435,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|org
 operator|.
@@ -28486,7 +28486,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|Builder
 name|setFavoredNodes
@@ -28564,7 +28564,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|Builder
 name|setFavoredNodes
@@ -28637,7 +28637,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|Builder
 name|addFavoredNodes
@@ -28708,7 +28708,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|Builder
 name|addFavoredNodes
@@ -28786,7 +28786,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|Builder
 name|addFavoredNodes
@@ -28852,7 +28852,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|Builder
 name|addFavoredNodes
@@ -28925,7 +28925,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|Builder
 name|addAllFavoredNodes
@@ -28994,7 +28994,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|Builder
 name|clearFavoredNodes
@@ -29043,7 +29043,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|Builder
 name|removeFavoredNodes
@@ -29087,7 +29087,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|org
 operator|.
@@ -29122,7 +29122,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|org
 operator|.
@@ -29173,7 +29173,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|java
 operator|.
@@ -29232,7 +29232,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|org
 operator|.
@@ -29281,7 +29281,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|org
 operator|.
@@ -29335,7 +29335,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 3;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 3;</code>          */
 specifier|public
 name|java
 operator|.
@@ -29614,7 +29614,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:OpenRegionRequest.RegionOpenInfo)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.OpenRegionRequest.RegionOpenInfo)
 block|}
 static|static
 block|{
@@ -29632,13 +29632,13 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:OpenRegionRequest.RegionOpenInfo)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.OpenRegionRequest.RegionOpenInfo)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;
+comment|// repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -29674,7 +29674,7 @@ name|RegionOpenInfo
 argument_list|>
 name|openInfo_
 decl_stmt|;
-comment|/**      *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -29707,7 +29707,7 @@ return|return
 name|openInfo_
 return|;
 block|}
-comment|/**      *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -29742,7 +29742,7 @@ return|return
 name|openInfo_
 return|;
 block|}
-comment|/**      *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
 specifier|public
 name|int
 name|getOpenInfoCount
@@ -29755,7 +29755,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -29789,7 +29789,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -31262,7 +31262,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code OpenRegionRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.OpenRegionRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -31328,7 +31328,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_OpenRegionRequest_descriptor
+name|internal_static_hbase_pb_OpenRegionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -31359,7 +31359,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_OpenRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_OpenRegionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -31591,7 +31591,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_OpenRegionRequest_descriptor
+name|internal_static_hbase_pb_OpenRegionRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -32359,7 +32359,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;
+comment|// repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;
 specifier|private
 name|java
 operator|.
@@ -32519,7 +32519,7 @@ name|RegionOpenInfoOrBuilder
 argument_list|>
 name|openInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -32578,7 +32578,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|int
 name|getOpenInfoCount
@@ -32608,7 +32608,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -32661,7 +32661,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setOpenInfo
@@ -32741,7 +32741,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setOpenInfo
@@ -32816,7 +32816,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|Builder
 name|addOpenInfo
@@ -32889,7 +32889,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|Builder
 name|addOpenInfo
@@ -32969,7 +32969,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|Builder
 name|addOpenInfo
@@ -33037,7 +33037,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|Builder
 name|addOpenInfo
@@ -33112,7 +33112,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllOpenInfo
@@ -33183,7 +33183,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearOpenInfo
@@ -33232,7 +33232,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|Builder
 name|removeOpenInfo
@@ -33276,7 +33276,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -33313,7 +33313,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -33366,7 +33366,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -33427,7 +33427,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -33480,7 +33480,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -33538,7 +33538,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionRequest.RegionOpenInfo open_info = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -33914,7 +33914,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:OpenRegionRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.OpenRegionRequest)
 block|}
 static|static
 block|{
@@ -33932,7 +33932,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:OpenRegionRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.OpenRegionRequest)
 block|}
 specifier|public
 interface|interface
@@ -33946,8 +33946,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;
-comment|/**      *<code>repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;</code>      */
+comment|// repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;
+comment|/**      *<code>repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -33975,12 +33975,12 @@ argument_list|>
 name|getOpeningStateList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;</code>      */
 name|int
 name|getOpeningStateCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -34005,7 +34005,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code OpenRegionResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.OpenRegionResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -34684,7 +34684,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_OpenRegionResponse_descriptor
+name|internal_static_hbase_pb_OpenRegionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -34715,7 +34715,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_OpenRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_OpenRegionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -34853,7 +34853,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code OpenRegionResponse.RegionOpeningState}      */
+comment|/**      * Protobuf enum {@code hbase.pb.OpenRegionResponse.RegionOpeningState}      */
 specifier|public
 enum|enum
 name|RegionOpeningState
@@ -35219,9 +35219,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:OpenRegionResponse.RegionOpeningState)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.OpenRegionResponse.RegionOpeningState)
 block|}
-comment|// repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;
+comment|// repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -35257,7 +35257,7 @@ name|RegionOpeningState
 argument_list|>
 name|openingState_
 decl_stmt|;
-comment|/**      *<code>repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -35290,7 +35290,7 @@ return|return
 name|openingState_
 return|;
 block|}
-comment|/**      *<code>repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;</code>      */
 specifier|public
 name|int
 name|getOpeningStateCount
@@ -35303,7 +35303,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -36433,7 +36433,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code OpenRegionResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.OpenRegionResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -36499,7 +36499,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_OpenRegionResponse_descriptor
+name|internal_static_hbase_pb_OpenRegionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -36530,7 +36530,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_OpenRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_OpenRegionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -36716,7 +36716,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_OpenRegionResponse_descriptor
+name|internal_static_hbase_pb_OpenRegionResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -37253,7 +37253,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;
+comment|// repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;
 specifier|private
 name|java
 operator|.
@@ -37346,7 +37346,7 @@ literal|0x00000001
 expr_stmt|;
 block|}
 block|}
-comment|/**        *<code>repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -37388,7 +37388,7 @@ name|openingState_
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;</code>        */
 specifier|public
 name|int
 name|getOpeningStateCount
@@ -37401,7 +37401,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -37435,7 +37435,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;</code>        */
 specifier|public
 name|Builder
 name|setOpeningState
@@ -37495,7 +37495,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;</code>        */
 specifier|public
 name|Builder
 name|addOpeningState
@@ -37550,7 +37550,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllOpeningState
@@ -37603,7 +37603,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.OpenRegionResponse.RegionOpeningState opening_state = 1;</code>        */
 specifier|public
 name|Builder
 name|clearOpeningState
@@ -37636,7 +37636,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:OpenRegionResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.OpenRegionResponse)
 block|}
 static|static
 block|{
@@ -37654,7 +37654,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:OpenRegionResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.OpenRegionResponse)
 block|}
 specifier|public
 interface|interface
@@ -37668,13 +37668,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionInfo regionInfo = 1;
-comment|/**      *<code>required .RegionInfo regionInfo = 1;</code>      */
+comment|// required .hbase.pb.RegionInfo regionInfo = 1;
+comment|/**      *<code>required .hbase.pb.RegionInfo regionInfo = 1;</code>      */
 name|boolean
 name|hasRegionInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionInfo regionInfo = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo regionInfo = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -37693,7 +37693,7 @@ name|RegionInfo
 name|getRegionInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionInfo regionInfo = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo regionInfo = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -37713,7 +37713,7 @@ name|getRegionInfoOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code WarmupRegionRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.WarmupRegionRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -38168,7 +38168,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_WarmupRegionRequest_descriptor
+name|internal_static_hbase_pb_WarmupRegionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -38199,7 +38199,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_WarmupRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_WarmupRegionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -38341,7 +38341,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionInfo regionInfo = 1;
+comment|// required .hbase.pb.RegionInfo regionInfo = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -38368,7 +38368,7 @@ operator|.
 name|RegionInfo
 name|regionInfo_
 decl_stmt|;
-comment|/**      *<code>required .RegionInfo regionInfo = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo regionInfo = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegionInfo
@@ -38386,7 +38386,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionInfo regionInfo = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo regionInfo = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -38410,7 +38410,7 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|/**      *<code>required .RegionInfo regionInfo = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo regionInfo = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -39548,7 +39548,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code WarmupRegionRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.WarmupRegionRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -39614,7 +39614,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_WarmupRegionRequest_descriptor
+name|internal_static_hbase_pb_WarmupRegionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -39645,7 +39645,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_WarmupRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_WarmupRegionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -39861,7 +39861,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_WarmupRegionRequest_descriptor
+name|internal_static_hbase_pb_WarmupRegionRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -40399,7 +40399,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionInfo regionInfo = 1;
+comment|// required .hbase.pb.RegionInfo regionInfo = 1;
 specifier|private
 name|org
 operator|.
@@ -40498,7 +40498,7 @@ name|RegionInfoOrBuilder
 argument_list|>
 name|regionInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionInfo regionInfo = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo regionInfo = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegionInfo
@@ -40516,7 +40516,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo regionInfo = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo regionInfo = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -40557,7 +40557,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionInfo regionInfo = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo regionInfo = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -40626,7 +40626,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo regionInfo = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo regionInfo = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -40690,7 +40690,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo regionInfo = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo regionInfo = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegionInfo
@@ -40815,7 +40815,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo regionInfo = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo regionInfo = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegionInfo
@@ -40874,7 +40874,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo regionInfo = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo regionInfo = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -40911,7 +40911,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo regionInfo = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo regionInfo = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -40952,7 +40952,7 @@ name|regionInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionInfo regionInfo = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo regionInfo = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -41102,7 +41102,7 @@ return|return
 name|regionInfoBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:WarmupRegionRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.WarmupRegionRequest)
 block|}
 static|static
 block|{
@@ -41120,7 +41120,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:WarmupRegionRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.WarmupRegionRequest)
 block|}
 specifier|public
 interface|interface
@@ -41134,7 +41134,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code WarmupRegionResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.WarmupRegionResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -41483,7 +41483,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_WarmupRegionResponse_descriptor
+name|internal_static_hbase_pb_WarmupRegionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -41514,7 +41514,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_WarmupRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_WarmupRegionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -42590,7 +42590,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code WarmupRegionResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.WarmupRegionResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -42656,7 +42656,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_WarmupRegionResponse_descriptor
+name|internal_static_hbase_pb_WarmupRegionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -42687,7 +42687,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_WarmupRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_WarmupRegionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -42853,7 +42853,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_WarmupRegionResponse_descriptor
+name|internal_static_hbase_pb_WarmupRegionResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -43285,7 +43285,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:WarmupRegionResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.WarmupRegionResponse)
 block|}
 static|static
 block|{
@@ -43303,7 +43303,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:WarmupRegionResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.WarmupRegionResponse)
 block|}
 specifier|public
 interface|interface
@@ -43317,13 +43317,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier region = 1;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|// required .hbase.pb.RegionSpecifier region = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -43342,7 +43342,7 @@ name|RegionSpecifier
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -43383,13 +43383,13 @@ name|boolean
 name|getTransitionInZK
 parameter_list|()
 function_decl|;
-comment|// optional .ServerName destination_server = 4;
-comment|/**      *<code>optional .ServerName destination_server = 4;</code>      */
+comment|// optional .hbase.pb.ServerName destination_server = 4;
+comment|/**      *<code>optional .hbase.pb.ServerName destination_server = 4;</code>      */
 name|boolean
 name|hasDestinationServer
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ServerName destination_server = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.ServerName destination_server = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -43408,7 +43408,7 @@ name|ServerName
 name|getDestinationServer
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ServerName destination_server = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.ServerName destination_server = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -43439,7 +43439,7 @@ name|getServerStartCode
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code CloseRegionRequest}    *    *<pre>    **    * Closes the specified region and will use or not use ZK during the close    * according to the specified flag.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.CloseRegionRequest}    *    *<pre>    **    * Closes the specified region and will use or not use ZK during the close    * according to the specified flag.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -44046,7 +44046,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CloseRegionRequest_descriptor
+name|internal_static_hbase_pb_CloseRegionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -44077,7 +44077,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CloseRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CloseRegionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -44219,7 +44219,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -44246,7 +44246,7 @@ operator|.
 name|RegionSpecifier
 name|region_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegion
@@ -44264,7 +44264,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -44288,7 +44288,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -44394,7 +44394,7 @@ return|return
 name|transitionInZK_
 return|;
 block|}
-comment|// optional .ServerName destination_server = 4;
+comment|// optional .hbase.pb.ServerName destination_server = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -44421,7 +44421,7 @@ operator|.
 name|ServerName
 name|destinationServer_
 decl_stmt|;
-comment|/**      *<code>optional .ServerName destination_server = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.ServerName destination_server = 4;</code>      */
 specifier|public
 name|boolean
 name|hasDestinationServer
@@ -44439,7 +44439,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .ServerName destination_server = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.ServerName destination_server = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -44463,7 +44463,7 @@ return|return
 name|destinationServer_
 return|;
 block|}
-comment|/**      *<code>optional .ServerName destination_server = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.ServerName destination_server = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -46178,7 +46178,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CloseRegionRequest}      *      *<pre>      **      * Closes the specified region and will use or not use ZK during the close      * according to the specified flag.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.CloseRegionRequest}      *      *<pre>      **      * Closes the specified region and will use or not use ZK during the close      * according to the specified flag.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -46244,7 +46244,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CloseRegionRequest_descriptor
+name|internal_static_hbase_pb_CloseRegionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -46275,7 +46275,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CloseRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CloseRegionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -46579,7 +46579,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CloseRegionRequest_descriptor
+name|internal_static_hbase_pb_CloseRegionRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -47322,7 +47322,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|private
 name|org
 operator|.
@@ -47421,7 +47421,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -47439,7 +47439,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -47480,7 +47480,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -47549,7 +47549,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -47613,7 +47613,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -47738,7 +47738,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegion
@@ -47797,7 +47797,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -47834,7 +47834,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -47875,7 +47875,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -48193,7 +48193,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .ServerName destination_server = 4;
+comment|// optional .hbase.pb.ServerName destination_server = 4;
 specifier|private
 name|org
 operator|.
@@ -48292,7 +48292,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|destinationServerBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .ServerName destination_server = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName destination_server = 4;</code>        */
 specifier|public
 name|boolean
 name|hasDestinationServer
@@ -48310,7 +48310,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .ServerName destination_server = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName destination_server = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -48351,7 +48351,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ServerName destination_server = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName destination_server = 4;</code>        */
 specifier|public
 name|Builder
 name|setDestinationServer
@@ -48420,7 +48420,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName destination_server = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName destination_server = 4;</code>        */
 specifier|public
 name|Builder
 name|setDestinationServer
@@ -48484,7 +48484,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName destination_server = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName destination_server = 4;</code>        */
 specifier|public
 name|Builder
 name|mergeDestinationServer
@@ -48609,7 +48609,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName destination_server = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName destination_server = 4;</code>        */
 specifier|public
 name|Builder
 name|clearDestinationServer
@@ -48668,7 +48668,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName destination_server = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName destination_server = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -48705,7 +48705,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .ServerName destination_server = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName destination_server = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -48746,7 +48746,7 @@ name|destinationServer_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ServerName destination_server = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName destination_server = 4;</code>        */
 specifier|private
 name|com
 operator|.
@@ -48979,7 +48979,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CloseRegionRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CloseRegionRequest)
 block|}
 static|static
 block|{
@@ -48997,7 +48997,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CloseRegionRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CloseRegionRequest)
 block|}
 specifier|public
 interface|interface
@@ -49023,7 +49023,7 @@ name|getClosed
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code CloseRegionResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.CloseRegionResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -49394,7 +49394,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CloseRegionResponse_descriptor
+name|internal_static_hbase_pb_CloseRegionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -49425,7 +49425,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CloseRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CloseRegionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -50686,7 +50686,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CloseRegionResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.CloseRegionResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -50752,7 +50752,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CloseRegionResponse_descriptor
+name|internal_static_hbase_pb_CloseRegionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -50783,7 +50783,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CloseRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CloseRegionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -50962,7 +50962,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CloseRegionResponse_descriptor
+name|internal_static_hbase_pb_CloseRegionResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -51549,7 +51549,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CloseRegionResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CloseRegionResponse)
 block|}
 static|static
 block|{
@@ -51567,7 +51567,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CloseRegionResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CloseRegionResponse)
 block|}
 specifier|public
 interface|interface
@@ -51581,13 +51581,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier region = 1;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|// required .hbase.pb.RegionSpecifier region = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -51606,7 +51606,7 @@ name|RegionSpecifier
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -51648,7 +51648,7 @@ name|getWriteFlushWalMarker
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code FlushRegionRequest}    *    *<pre>    **    * Flushes the MemStore of the specified region.    *&lt;p&gt;    * This method is synchronous.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.FlushRegionRequest}    *    *<pre>    **    * Flushes the MemStore of the specified region.    *&lt;p&gt;    * This method is synchronous.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -52137,7 +52137,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_FlushRegionRequest_descriptor
+name|internal_static_hbase_pb_FlushRegionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -52168,7 +52168,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_FlushRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_FlushRegionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -52310,7 +52310,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -52337,7 +52337,7 @@ operator|.
 name|RegionSpecifier
 name|region_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegion
@@ -52355,7 +52355,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -52379,7 +52379,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -53847,7 +53847,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code FlushRegionRequest}      *      *<pre>      **      * Flushes the MemStore of the specified region.      *&lt;p&gt;      * This method is synchronous.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.FlushRegionRequest}      *      *<pre>      **      * Flushes the MemStore of the specified region.      *&lt;p&gt;      * This method is synchronous.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -53913,7 +53913,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_FlushRegionRequest_descriptor
+name|internal_static_hbase_pb_FlushRegionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -53944,7 +53944,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_FlushRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_FlushRegionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -54186,7 +54186,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_FlushRegionRequest_descriptor
+name|internal_static_hbase_pb_FlushRegionRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -54806,7 +54806,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|private
 name|org
 operator|.
@@ -54905,7 +54905,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -54923,7 +54923,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -54964,7 +54964,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -55033,7 +55033,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -55097,7 +55097,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -55222,7 +55222,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegion
@@ -55281,7 +55281,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -55318,7 +55318,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -55359,7 +55359,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -55675,7 +55675,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:FlushRegionRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.FlushRegionRequest)
 block|}
 static|static
 block|{
@@ -55693,7 +55693,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:FlushRegionRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.FlushRegionRequest)
 block|}
 specifier|public
 interface|interface
@@ -55741,7 +55741,7 @@ name|getWroteFlushWalMarker
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code FlushRegionResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.FlushRegionResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -56146,7 +56146,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_FlushRegionResponse_descriptor
+name|internal_static_hbase_pb_FlushRegionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -56177,7 +56177,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_FlushRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_FlushRegionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -57768,7 +57768,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code FlushRegionResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.FlushRegionResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -57834,7 +57834,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_FlushRegionResponse_descriptor
+name|internal_static_hbase_pb_FlushRegionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -57865,7 +57865,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_FlushRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_FlushRegionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -58070,7 +58070,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_FlushRegionResponse_descriptor
+name|internal_static_hbase_pb_FlushRegionResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -58905,7 +58905,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:FlushRegionResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.FlushRegionResponse)
 block|}
 static|static
 block|{
@@ -58923,7 +58923,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:FlushRegionResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.FlushRegionResponse)
 block|}
 specifier|public
 interface|interface
@@ -58937,13 +58937,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier region = 1;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|// required .hbase.pb.RegionSpecifier region = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -58962,7 +58962,7 @@ name|RegionSpecifier
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -58999,7 +58999,7 @@ name|getSplitPoint
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code SplitRegionRequest}    *    *<pre>    **    * Splits the specified region.    *&lt;p&gt;    * This method currently flushes the region and then forces a compaction which    * will then trigger a split.  The flush is done synchronously but the    * compaction is asynchronous.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.SplitRegionRequest}    *    *<pre>    **    * Splits the specified region.    *&lt;p&gt;    * This method currently flushes the region and then forces a compaction which    * will then trigger a split.  The flush is done synchronously but the    * compaction is asynchronous.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -59471,7 +59471,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_SplitRegionRequest_descriptor
+name|internal_static_hbase_pb_SplitRegionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -59502,7 +59502,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_SplitRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_SplitRegionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -59644,7 +59644,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -59671,7 +59671,7 @@ operator|.
 name|RegionSpecifier
 name|region_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegion
@@ -59689,7 +59689,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -59713,7 +59713,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -61037,7 +61037,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code SplitRegionRequest}      *      *<pre>      **      * Splits the specified region.      *&lt;p&gt;      * This method currently flushes the region and then forces a compaction which      * will then trigger a split.  The flush is done synchronously but the      * compaction is asynchronous.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.SplitRegionRequest}      *      *<pre>      **      * Splits the specified region.      *&lt;p&gt;      * This method currently flushes the region and then forces a compaction which      * will then trigger a split.  The flush is done synchronously but the      * compaction is asynchronous.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -61103,7 +61103,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_SplitRegionRequest_descriptor
+name|internal_static_hbase_pb_SplitRegionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -61134,7 +61134,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_SplitRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_SplitRegionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -61371,7 +61371,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_SplitRegionRequest_descriptor
+name|internal_static_hbase_pb_SplitRegionRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -61950,7 +61950,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|private
 name|org
 operator|.
@@ -62049,7 +62049,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -62067,7 +62067,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -62108,7 +62108,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -62177,7 +62177,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -62241,7 +62241,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -62366,7 +62366,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegion
@@ -62425,7 +62425,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -62462,7 +62462,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -62503,7 +62503,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -62781,7 +62781,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:SplitRegionRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.SplitRegionRequest)
 block|}
 static|static
 block|{
@@ -62799,7 +62799,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:SplitRegionRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.SplitRegionRequest)
 block|}
 specifier|public
 interface|interface
@@ -62813,7 +62813,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code SplitRegionResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.SplitRegionResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -63162,7 +63162,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_SplitRegionResponse_descriptor
+name|internal_static_hbase_pb_SplitRegionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -63193,7 +63193,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_SplitRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_SplitRegionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -64269,7 +64269,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code SplitRegionResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.SplitRegionResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -64335,7 +64335,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_SplitRegionResponse_descriptor
+name|internal_static_hbase_pb_SplitRegionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -64366,7 +64366,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_SplitRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_SplitRegionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -64532,7 +64532,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_SplitRegionResponse_descriptor
+name|internal_static_hbase_pb_SplitRegionResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -64964,7 +64964,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:SplitRegionResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.SplitRegionResponse)
 block|}
 static|static
 block|{
@@ -64982,7 +64982,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:SplitRegionResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.SplitRegionResponse)
 block|}
 specifier|public
 interface|interface
@@ -64996,13 +64996,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier region = 1;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|// required .hbase.pb.RegionSpecifier region = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -65021,7 +65021,7 @@ name|RegionSpecifier
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -65069,7 +65069,7 @@ name|getFamily
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code CompactRegionRequest}    *    *<pre>    **    * Compacts the specified region.  Performs a major compaction if specified.    *&lt;p&gt;    * This method is asynchronous.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.CompactRegionRequest}    *    *<pre>    **    * Compacts the specified region.  Performs a major compaction if specified.    *&lt;p&gt;    * This method is asynchronous.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -65558,7 +65558,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CompactRegionRequest_descriptor
+name|internal_static_hbase_pb_CompactRegionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -65589,7 +65589,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CompactRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CompactRegionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -65731,7 +65731,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -65758,7 +65758,7 @@ operator|.
 name|RegionSpecifier
 name|region_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegion
@@ -65776,7 +65776,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -65800,7 +65800,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -67289,7 +67289,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CompactRegionRequest}      *      *<pre>      **      * Compacts the specified region.  Performs a major compaction if specified.      *&lt;p&gt;      * This method is asynchronous.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.CompactRegionRequest}      *      *<pre>      **      * Compacts the specified region.  Performs a major compaction if specified.      *&lt;p&gt;      * This method is asynchronous.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -67355,7 +67355,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CompactRegionRequest_descriptor
+name|internal_static_hbase_pb_CompactRegionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -67386,7 +67386,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CompactRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CompactRegionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -67636,7 +67636,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CompactRegionRequest_descriptor
+name|internal_static_hbase_pb_CompactRegionRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -68256,7 +68256,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|private
 name|org
 operator|.
@@ -68355,7 +68355,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -68373,7 +68373,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -68414,7 +68414,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -68483,7 +68483,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -68547,7 +68547,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -68672,7 +68672,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegion
@@ -68731,7 +68731,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -68768,7 +68768,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -68809,7 +68809,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -69170,7 +69170,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CompactRegionRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CompactRegionRequest)
 block|}
 static|static
 block|{
@@ -69188,7 +69188,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CompactRegionRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CompactRegionRequest)
 block|}
 specifier|public
 interface|interface
@@ -69202,7 +69202,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code CompactRegionResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.CompactRegionResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -69551,7 +69551,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CompactRegionResponse_descriptor
+name|internal_static_hbase_pb_CompactRegionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -69582,7 +69582,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CompactRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CompactRegionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -70658,7 +70658,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CompactRegionResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.CompactRegionResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -70724,7 +70724,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CompactRegionResponse_descriptor
+name|internal_static_hbase_pb_CompactRegionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -70755,7 +70755,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CompactRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CompactRegionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -70921,7 +70921,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_CompactRegionResponse_descriptor
+name|internal_static_hbase_pb_CompactRegionResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -71353,7 +71353,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CompactRegionResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CompactRegionResponse)
 block|}
 static|static
 block|{
@@ -71371,7 +71371,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CompactRegionResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CompactRegionResponse)
 block|}
 specifier|public
 interface|interface
@@ -71385,8 +71385,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;
-comment|/**      *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
+comment|// repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;
+comment|/**      *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -71414,7 +71414,7 @@ argument_list|>
 name|getUpdateInfoList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -71438,12 +71438,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
 name|int
 name|getUpdateInfoCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -71473,7 +71473,7 @@ argument_list|>
 name|getUpdateInfoOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -71498,7 +71498,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code UpdateFavoredNodesRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.UpdateFavoredNodesRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -71965,7 +71965,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateFavoredNodesRequest_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -71996,7 +71996,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateFavoredNodesRequest_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -72146,13 +72146,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionInfo region = 1;
-comment|/**        *<code>required .RegionInfo region = 1;</code>        */
+comment|// required .hbase.pb.RegionInfo region = 1;
+comment|/**        *<code>required .hbase.pb.RegionInfo region = 1;</code>        */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**        *<code>required .RegionInfo region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region = 1;</code>        */
 name|org
 operator|.
 name|apache
@@ -72171,7 +72171,7 @@ name|RegionInfo
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**        *<code>required .RegionInfo region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region = 1;</code>        */
 name|org
 operator|.
 name|apache
@@ -72190,8 +72190,8 @@ name|RegionInfoOrBuilder
 name|getRegionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .ServerName favored_nodes = 2;
-comment|/**        *<code>repeated .ServerName favored_nodes = 2;</code>        */
+comment|// repeated .hbase.pb.ServerName favored_nodes = 2;
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>        */
 name|java
 operator|.
 name|util
@@ -72217,7 +72217,7 @@ argument_list|>
 name|getFavoredNodesList
 parameter_list|()
 function_decl|;
-comment|/**        *<code>repeated .ServerName favored_nodes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>        */
 name|org
 operator|.
 name|apache
@@ -72239,12 +72239,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**        *<code>repeated .ServerName favored_nodes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>        */
 name|int
 name|getFavoredNodesCount
 parameter_list|()
 function_decl|;
-comment|/**        *<code>repeated .ServerName favored_nodes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>        */
 name|java
 operator|.
 name|util
@@ -72272,7 +72272,7 @@ argument_list|>
 name|getFavoredNodesOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**        *<code>repeated .ServerName favored_nodes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>        */
 name|org
 operator|.
 name|apache
@@ -72295,7 +72295,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**      * Protobuf type {@code UpdateFavoredNodesRequest.RegionUpdateInfo}      */
+comment|/**      * Protobuf type {@code hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo}      */
 specifier|public
 specifier|static
 specifier|final
@@ -72859,7 +72859,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateFavoredNodesRequest_RegionUpdateInfo_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_RegionUpdateInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -72890,7 +72890,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateFavoredNodesRequest_RegionUpdateInfo_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_RegionUpdateInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -73036,7 +73036,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionInfo region = 1;
+comment|// required .hbase.pb.RegionInfo region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -73063,7 +73063,7 @@ operator|.
 name|RegionInfo
 name|region_
 decl_stmt|;
-comment|/**        *<code>required .RegionInfo region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -73081,7 +73081,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -73105,7 +73105,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -73129,7 +73129,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|// repeated .ServerName favored_nodes = 2;
+comment|// repeated .hbase.pb.ServerName favored_nodes = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -73163,7 +73163,7 @@ name|ServerName
 argument_list|>
 name|favoredNodes_
 decl_stmt|;
-comment|/**        *<code>repeated .ServerName favored_nodes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -73194,7 +73194,7 @@ return|return
 name|favoredNodes_
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_nodes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -73227,7 +73227,7 @@ return|return
 name|favoredNodes_
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_nodes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>        */
 specifier|public
 name|int
 name|getFavoredNodesCount
@@ -73240,7 +73240,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_nodes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -73272,7 +73272,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ServerName favored_nodes = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -74616,7 +74616,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**        * Protobuf type {@code UpdateFavoredNodesRequest.RegionUpdateInfo}        */
+comment|/**        * Protobuf type {@code hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo}        */
 specifier|public
 specifier|static
 specifier|final
@@ -74684,7 +74684,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateFavoredNodesRequest_RegionUpdateInfo_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_RegionUpdateInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -74715,7 +74715,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateFavoredNodesRequest_RegionUpdateInfo_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_RegionUpdateInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -74974,7 +74974,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateFavoredNodesRequest_RegionUpdateInfo_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_RegionUpdateInfo_descriptor
 return|;
 block|}
 specifier|public
@@ -75772,7 +75772,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionInfo region = 1;
+comment|// required .hbase.pb.RegionInfo region = 1;
 specifier|private
 name|org
 operator|.
@@ -75871,7 +75871,7 @@ name|RegionInfoOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|boolean
 name|hasRegion
@@ -75889,7 +75889,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|org
 operator|.
@@ -75930,7 +75930,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|Builder
 name|setRegion
@@ -75999,7 +75999,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|Builder
 name|setRegion
@@ -76063,7 +76063,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -76188,7 +76188,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|Builder
 name|clearRegion
@@ -76247,7 +76247,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|org
 operator|.
@@ -76284,7 +76284,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|public
 name|org
 operator|.
@@ -76325,7 +76325,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**          *<code>required .RegionInfo region = 1;</code>          */
+comment|/**          *<code>required .hbase.pb.RegionInfo region = 1;</code>          */
 specifier|private
 name|com
 operator|.
@@ -76475,7 +76475,7 @@ return|return
 name|regionBuilder_
 return|;
 block|}
-comment|// repeated .ServerName favored_nodes = 2;
+comment|// repeated .hbase.pb.ServerName favored_nodes = 2;
 specifier|private
 name|java
 operator|.
@@ -76625,7 +76625,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|favoredNodesBuilder_
 decl_stmt|;
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|java
 operator|.
@@ -76682,7 +76682,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|int
 name|getFavoredNodesCount
@@ -76712,7 +76712,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -76763,7 +76763,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|Builder
 name|setFavoredNodes
@@ -76841,7 +76841,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|Builder
 name|setFavoredNodes
@@ -76914,7 +76914,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|Builder
 name|addFavoredNodes
@@ -76985,7 +76985,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|Builder
 name|addFavoredNodes
@@ -77063,7 +77063,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|Builder
 name|addFavoredNodes
@@ -77129,7 +77129,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|Builder
 name|addFavoredNodes
@@ -77202,7 +77202,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|Builder
 name|addAllFavoredNodes
@@ -77271,7 +77271,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|Builder
 name|clearFavoredNodes
@@ -77320,7 +77320,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|Builder
 name|removeFavoredNodes
@@ -77364,7 +77364,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -77399,7 +77399,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -77450,7 +77450,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|java
 operator|.
@@ -77509,7 +77509,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -77558,7 +77558,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -77612,7 +77612,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**          *<code>repeated .ServerName favored_nodes = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.ServerName favored_nodes = 2;</code>          */
 specifier|public
 name|java
 operator|.
@@ -77808,7 +77808,7 @@ return|return
 name|favoredNodesBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:UpdateFavoredNodesRequest.RegionUpdateInfo)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo)
 block|}
 static|static
 block|{
@@ -77826,9 +77826,9 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:UpdateFavoredNodesRequest.RegionUpdateInfo)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo)
 block|}
-comment|// repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;
+comment|// repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -77864,7 +77864,7 @@ name|RegionUpdateInfo
 argument_list|>
 name|updateInfo_
 decl_stmt|;
-comment|/**      *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -77897,7 +77897,7 @@ return|return
 name|updateInfo_
 return|;
 block|}
-comment|/**      *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -77932,7 +77932,7 @@ return|return
 name|updateInfo_
 return|;
 block|}
-comment|/**      *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
 specifier|public
 name|int
 name|getUpdateInfoCount
@@ -77945,7 +77945,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -77979,7 +77979,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -79122,7 +79122,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code UpdateFavoredNodesRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.UpdateFavoredNodesRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -79188,7 +79188,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateFavoredNodesRequest_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -79219,7 +79219,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateFavoredNodesRequest_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -79425,7 +79425,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateFavoredNodesRequest_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -80100,7 +80100,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;
+comment|// repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;
 specifier|private
 name|java
 operator|.
@@ -80260,7 +80260,7 @@ name|RegionUpdateInfoOrBuilder
 argument_list|>
 name|updateInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -80319,7 +80319,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|int
 name|getUpdateInfoCount
@@ -80349,7 +80349,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -80402,7 +80402,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUpdateInfo
@@ -80482,7 +80482,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUpdateInfo
@@ -80557,7 +80557,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|Builder
 name|addUpdateInfo
@@ -80630,7 +80630,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|Builder
 name|addUpdateInfo
@@ -80710,7 +80710,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|Builder
 name|addUpdateInfo
@@ -80778,7 +80778,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|Builder
 name|addUpdateInfo
@@ -80853,7 +80853,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllUpdateInfo
@@ -80924,7 +80924,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUpdateInfo
@@ -80973,7 +80973,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|Builder
 name|removeUpdateInfo
@@ -81017,7 +81017,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -81054,7 +81054,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -81107,7 +81107,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -81168,7 +81168,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -81221,7 +81221,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -81279,7 +81279,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UpdateFavoredNodesRequest.RegionUpdateInfo update_info = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -81489,7 +81489,7 @@ return|return
 name|updateInfoBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:UpdateFavoredNodesRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.UpdateFavoredNodesRequest)
 block|}
 static|static
 block|{
@@ -81507,7 +81507,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:UpdateFavoredNodesRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.UpdateFavoredNodesRequest)
 block|}
 specifier|public
 interface|interface
@@ -81533,7 +81533,7 @@ name|getResponse
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code UpdateFavoredNodesResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.UpdateFavoredNodesResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -81904,7 +81904,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateFavoredNodesResponse_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -81935,7 +81935,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateFavoredNodesResponse_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateFavoredNodesResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -83178,7 +83178,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code UpdateFavoredNodesResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.UpdateFavoredNodesResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -83244,7 +83244,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateFavoredNodesResponse_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -83275,7 +83275,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateFavoredNodesResponse_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateFavoredNodesResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -83454,7 +83454,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateFavoredNodesResponse_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -84030,7 +84030,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:UpdateFavoredNodesResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.UpdateFavoredNodesResponse)
 block|}
 static|static
 block|{
@@ -84048,7 +84048,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:UpdateFavoredNodesResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.UpdateFavoredNodesResponse)
 block|}
 specifier|public
 interface|interface
@@ -84062,13 +84062,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier region_a = 1;
-comment|/**      *<code>required .RegionSpecifier region_a = 1;</code>      */
+comment|// required .hbase.pb.RegionSpecifier region_a = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_a = 1;</code>      */
 name|boolean
 name|hasRegionA
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region_a = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_a = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -84087,7 +84087,7 @@ name|RegionSpecifier
 name|getRegionA
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region_a = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_a = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -84106,13 +84106,13 @@ name|RegionSpecifierOrBuilder
 name|getRegionAOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .RegionSpecifier region_b = 2;
-comment|/**      *<code>required .RegionSpecifier region_b = 2;</code>      */
+comment|// required .hbase.pb.RegionSpecifier region_b = 2;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_b = 2;</code>      */
 name|boolean
 name|hasRegionB
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region_b = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_b = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -84131,7 +84131,7 @@ name|RegionSpecifier
 name|getRegionB
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region_b = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_b = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -84173,7 +84173,7 @@ name|getMasterSystemTime
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code MergeRegionsRequest}    *    *<pre>    **    * Merges the specified regions.    *&lt;p&gt;    * This method currently closes the regions and then merges them    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.MergeRegionsRequest}    *    *<pre>    **    * Merges the specified regions.    *&lt;p&gt;    * This method currently closes the regions and then merges them    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -84763,7 +84763,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_MergeRegionsRequest_descriptor
+name|internal_static_hbase_pb_MergeRegionsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -84794,7 +84794,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_MergeRegionsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MergeRegionsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -84936,7 +84936,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region_a = 1;
+comment|// required .hbase.pb.RegionSpecifier region_a = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -84963,7 +84963,7 @@ operator|.
 name|RegionSpecifier
 name|regionA_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier region_a = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_a = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegionA
@@ -84981,7 +84981,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region_a = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_a = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -85005,7 +85005,7 @@ return|return
 name|regionA_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region_a = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_a = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -85029,7 +85029,7 @@ return|return
 name|regionA_
 return|;
 block|}
-comment|// required .RegionSpecifier region_b = 2;
+comment|// required .hbase.pb.RegionSpecifier region_b = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -85056,7 +85056,7 @@ operator|.
 name|RegionSpecifier
 name|regionB_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier region_b = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_b = 2;</code>      */
 specifier|public
 name|boolean
 name|hasRegionB
@@ -85074,7 +85074,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region_b = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_b = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -85098,7 +85098,7 @@ return|return
 name|regionB_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region_b = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region_b = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -86741,7 +86741,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code MergeRegionsRequest}      *      *<pre>      **      * Merges the specified regions.      *&lt;p&gt;      * This method currently closes the regions and then merges them      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.MergeRegionsRequest}      *      *<pre>      **      * Merges the specified regions.      *&lt;p&gt;      * This method currently closes the regions and then merges them      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -86807,7 +86807,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_MergeRegionsRequest_descriptor
+name|internal_static_hbase_pb_MergeRegionsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -86838,7 +86838,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_MergeRegionsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MergeRegionsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -87129,7 +87129,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_MergeRegionsRequest_descriptor
+name|internal_static_hbase_pb_MergeRegionsRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -87835,7 +87835,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region_a = 1;
+comment|// required .hbase.pb.RegionSpecifier region_a = 1;
 specifier|private
 name|org
 operator|.
@@ -87934,7 +87934,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionABuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier region_a = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_a = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegionA
@@ -87952,7 +87952,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_a = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_a = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -87993,7 +87993,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region_a = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_a = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegionA
@@ -88062,7 +88062,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_a = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_a = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegionA
@@ -88126,7 +88126,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_a = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_a = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegionA
@@ -88251,7 +88251,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_a = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_a = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegionA
@@ -88310,7 +88310,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_a = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_a = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -88347,7 +88347,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_a = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_a = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -88388,7 +88388,7 @@ name|regionA_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region_a = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_a = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -88538,7 +88538,7 @@ return|return
 name|regionABuilder_
 return|;
 block|}
-comment|// required .RegionSpecifier region_b = 2;
+comment|// required .hbase.pb.RegionSpecifier region_b = 2;
 specifier|private
 name|org
 operator|.
@@ -88637,7 +88637,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionBBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier region_b = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_b = 2;</code>        */
 specifier|public
 name|boolean
 name|hasRegionB
@@ -88655,7 +88655,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_b = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_b = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -88696,7 +88696,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region_b = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_b = 2;</code>        */
 specifier|public
 name|Builder
 name|setRegionB
@@ -88765,7 +88765,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_b = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_b = 2;</code>        */
 specifier|public
 name|Builder
 name|setRegionB
@@ -88829,7 +88829,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_b = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_b = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeRegionB
@@ -88954,7 +88954,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_b = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_b = 2;</code>        */
 specifier|public
 name|Builder
 name|clearRegionB
@@ -89013,7 +89013,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_b = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_b = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -89050,7 +89050,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region_b = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_b = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -89091,7 +89091,7 @@ name|regionB_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region_b = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region_b = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -89407,7 +89407,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MergeRegionsRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.MergeRegionsRequest)
 block|}
 static|static
 block|{
@@ -89425,7 +89425,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MergeRegionsRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MergeRegionsRequest)
 block|}
 specifier|public
 interface|interface
@@ -89439,7 +89439,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code MergeRegionsResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.MergeRegionsResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -89788,7 +89788,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_MergeRegionsResponse_descriptor
+name|internal_static_hbase_pb_MergeRegionsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -89819,7 +89819,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_MergeRegionsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MergeRegionsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -90895,7 +90895,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code MergeRegionsResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.MergeRegionsResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -90961,7 +90961,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_MergeRegionsResponse_descriptor
+name|internal_static_hbase_pb_MergeRegionsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -90992,7 +90992,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_MergeRegionsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MergeRegionsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -91158,7 +91158,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_MergeRegionsResponse_descriptor
+name|internal_static_hbase_pb_MergeRegionsResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -91590,7 +91590,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MergeRegionsResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.MergeRegionsResponse)
 block|}
 static|static
 block|{
@@ -91608,7 +91608,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MergeRegionsResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MergeRegionsResponse)
 block|}
 specifier|public
 interface|interface
@@ -91622,13 +91622,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .WALKey key = 1;
-comment|/**      *<code>required .WALKey key = 1;</code>      */
+comment|// required .hbase.pb.WALKey key = 1;
+comment|/**      *<code>required .hbase.pb.WALKey key = 1;</code>      */
 name|boolean
 name|hasKey
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .WALKey key = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.WALKey key = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -91647,7 +91647,7 @@ name|WALKey
 name|getKey
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .WALKey key = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.WALKey key = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -91716,7 +91716,7 @@ name|getAssociatedCellCount
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code WALEntry}    *    *<pre>    * Protocol buffer version of WAL for replication    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.WALEntry}    *    *<pre>    * Protocol buffer version of WAL for replication    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -92269,7 +92269,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_WALEntry_descriptor
+name|internal_static_hbase_pb_WALEntry_descriptor
 return|;
 block|}
 specifier|protected
@@ -92300,7 +92300,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_WALEntry_fieldAccessorTable
+name|internal_static_hbase_pb_WALEntry_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -92442,7 +92442,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .WALKey key = 1;
+comment|// required .hbase.pb.WALKey key = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -92469,7 +92469,7 @@ operator|.
 name|WALKey
 name|key_
 decl_stmt|;
-comment|/**      *<code>required .WALKey key = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.WALKey key = 1;</code>      */
 specifier|public
 name|boolean
 name|hasKey
@@ -92487,7 +92487,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .WALKey key = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.WALKey key = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -92511,7 +92511,7 @@ return|return
 name|key_
 return|;
 block|}
-comment|/**      *<code>required .WALKey key = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.WALKey key = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -94049,7 +94049,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code WALEntry}      *      *<pre>      * Protocol buffer version of WAL for replication      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.WALEntry}      *      *<pre>      * Protocol buffer version of WAL for replication      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -94115,7 +94115,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_WALEntry_descriptor
+name|internal_static_hbase_pb_WALEntry_descriptor
 return|;
 block|}
 specifier|protected
@@ -94146,7 +94146,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_WALEntry_fieldAccessorTable
+name|internal_static_hbase_pb_WALEntry_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -94395,7 +94395,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_WALEntry_descriptor
+name|internal_static_hbase_pb_WALEntry_descriptor
 return|;
 block|}
 specifier|public
@@ -95070,7 +95070,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .WALKey key = 1;
+comment|// required .hbase.pb.WALKey key = 1;
 specifier|private
 name|org
 operator|.
@@ -95169,7 +95169,7 @@ name|WALKeyOrBuilder
 argument_list|>
 name|keyBuilder_
 decl_stmt|;
-comment|/**        *<code>required .WALKey key = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.WALKey key = 1;</code>        */
 specifier|public
 name|boolean
 name|hasKey
@@ -95187,7 +95187,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .WALKey key = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.WALKey key = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -95228,7 +95228,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .WALKey key = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.WALKey key = 1;</code>        */
 specifier|public
 name|Builder
 name|setKey
@@ -95297,7 +95297,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .WALKey key = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.WALKey key = 1;</code>        */
 specifier|public
 name|Builder
 name|setKey
@@ -95361,7 +95361,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .WALKey key = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.WALKey key = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeKey
@@ -95486,7 +95486,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .WALKey key = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.WALKey key = 1;</code>        */
 specifier|public
 name|Builder
 name|clearKey
@@ -95545,7 +95545,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .WALKey key = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.WALKey key = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -95582,7 +95582,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .WALKey key = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.WALKey key = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -95623,7 +95623,7 @@ name|key_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .WALKey key = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.WALKey key = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -96169,7 +96169,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:WALEntry)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.WALEntry)
 block|}
 static|static
 block|{
@@ -96187,7 +96187,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:WALEntry)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.WALEntry)
 block|}
 specifier|public
 interface|interface
@@ -96201,8 +96201,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .WALEntry entry = 1;
-comment|/**      *<code>repeated .WALEntry entry = 1;</code>      */
+comment|// repeated .hbase.pb.WALEntry entry = 1;
+comment|/**      *<code>repeated .hbase.pb.WALEntry entry = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -96228,7 +96228,7 @@ argument_list|>
 name|getEntryList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .WALEntry entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.WALEntry entry = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -96250,12 +96250,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .WALEntry entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.WALEntry entry = 1;</code>      */
 name|int
 name|getEntryCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .WALEntry entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.WALEntry entry = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -96283,7 +96283,7 @@ argument_list|>
 name|getEntryOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .WALEntry entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.WALEntry entry = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -96306,7 +96306,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ReplicateWALEntryRequest}    *    *<pre>    **    * Replicates the given entries. The guarantee is that the given entries    * will be durable on the slave cluster if this method returns without    * any exception.  hbase.replication has to be set to true for this to work.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ReplicateWALEntryRequest}    *    *<pre>    **    * Replicates the given entries. The guarantee is that the given entries    * will be durable on the slave cluster if this method returns without    * any exception.  hbase.replication has to be set to true for this to work.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -96769,7 +96769,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_ReplicateWALEntryRequest_descriptor
+name|internal_static_hbase_pb_ReplicateWALEntryRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -96800,7 +96800,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_ReplicateWALEntryRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicateWALEntryRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -96938,7 +96938,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|// repeated .WALEntry entry = 1;
+comment|// repeated .hbase.pb.WALEntry entry = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -96972,7 +96972,7 @@ name|WALEntry
 argument_list|>
 name|entry_
 decl_stmt|;
-comment|/**      *<code>repeated .WALEntry entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.WALEntry entry = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -97003,7 +97003,7 @@ return|return
 name|entry_
 return|;
 block|}
-comment|/**      *<code>repeated .WALEntry entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.WALEntry entry = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -97036,7 +97036,7 @@ return|return
 name|entry_
 return|;
 block|}
-comment|/**      *<code>repeated .WALEntry entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.WALEntry entry = 1;</code>      */
 specifier|public
 name|int
 name|getEntryCount
@@ -97049,7 +97049,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .WALEntry entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.WALEntry entry = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -97081,7 +97081,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .WALEntry entry = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.WALEntry entry = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -98222,7 +98222,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ReplicateWALEntryRequest}      *      *<pre>      **      * Replicates the given entries. The guarantee is that the given entries      * will be durable on the slave cluster if this method returns without      * any exception.  hbase.replication has to be set to true for this to work.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ReplicateWALEntryRequest}      *      *<pre>      **      * Replicates the given entries. The guarantee is that the given entries      * will be durable on the slave cluster if this method returns without      * any exception.  hbase.replication has to be set to true for this to work.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -98288,7 +98288,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_ReplicateWALEntryRequest_descriptor
+name|internal_static_hbase_pb_ReplicateWALEntryRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -98319,7 +98319,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_ReplicateWALEntryRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicateWALEntryRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -98525,7 +98525,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_ReplicateWALEntryRequest_descriptor
+name|internal_static_hbase_pb_ReplicateWALEntryRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -99200,7 +99200,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .WALEntry entry = 1;
+comment|// repeated .hbase.pb.WALEntry entry = 1;
 specifier|private
 name|java
 operator|.
@@ -99350,7 +99350,7 @@ name|WALEntryOrBuilder
 argument_list|>
 name|entryBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -99407,7 +99407,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|int
 name|getEntryCount
@@ -99437,7 +99437,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -99488,7 +99488,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|Builder
 name|setEntry
@@ -99566,7 +99566,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|Builder
 name|setEntry
@@ -99639,7 +99639,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|Builder
 name|addEntry
@@ -99710,7 +99710,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|Builder
 name|addEntry
@@ -99788,7 +99788,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|Builder
 name|addEntry
@@ -99854,7 +99854,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|Builder
 name|addEntry
@@ -99927,7 +99927,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllEntry
@@ -99996,7 +99996,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|Builder
 name|clearEntry
@@ -100045,7 +100045,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|Builder
 name|removeEntry
@@ -100089,7 +100089,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -100124,7 +100124,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -100175,7 +100175,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -100234,7 +100234,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -100283,7 +100283,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -100337,7 +100337,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .WALEntry entry = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.WALEntry entry = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -100533,7 +100533,7 @@ return|return
 name|entryBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ReplicateWALEntryRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ReplicateWALEntryRequest)
 block|}
 static|static
 block|{
@@ -100551,7 +100551,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ReplicateWALEntryRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ReplicateWALEntryRequest)
 block|}
 specifier|public
 interface|interface
@@ -100565,7 +100565,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code ReplicateWALEntryResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.ReplicateWALEntryResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -100914,7 +100914,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_ReplicateWALEntryResponse_descriptor
+name|internal_static_hbase_pb_ReplicateWALEntryResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -100945,7 +100945,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_ReplicateWALEntryResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicateWALEntryResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -102021,7 +102021,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ReplicateWALEntryResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.ReplicateWALEntryResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -102087,7 +102087,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_ReplicateWALEntryResponse_descriptor
+name|internal_static_hbase_pb_ReplicateWALEntryResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -102118,7 +102118,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_ReplicateWALEntryResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicateWALEntryResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -102284,7 +102284,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_ReplicateWALEntryResponse_descriptor
+name|internal_static_hbase_pb_ReplicateWALEntryResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -102716,7 +102716,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ReplicateWALEntryResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ReplicateWALEntryResponse)
 block|}
 static|static
 block|{
@@ -102734,7 +102734,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ReplicateWALEntryResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ReplicateWALEntryResponse)
 block|}
 specifier|public
 interface|interface
@@ -102748,7 +102748,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code RollWALWriterRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.RollWALWriterRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -103097,7 +103097,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_RollWALWriterRequest_descriptor
+name|internal_static_hbase_pb_RollWALWriterRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -103128,7 +103128,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_RollWALWriterRequest_fieldAccessorTable
+name|internal_static_hbase_pb_RollWALWriterRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -104204,7 +104204,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RollWALWriterRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.RollWALWriterRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -104270,7 +104270,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_RollWALWriterRequest_descriptor
+name|internal_static_hbase_pb_RollWALWriterRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -104301,7 +104301,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_RollWALWriterRequest_fieldAccessorTable
+name|internal_static_hbase_pb_RollWALWriterRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -104467,7 +104467,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_RollWALWriterRequest_descriptor
+name|internal_static_hbase_pb_RollWALWriterRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -104899,7 +104899,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RollWALWriterRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RollWALWriterRequest)
 block|}
 static|static
 block|{
@@ -104917,7 +104917,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RollWALWriterRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RollWALWriterRequest)
 block|}
 specifier|public
 interface|interface
@@ -104970,7 +104970,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RollWALWriterResponse}    *    *<pre>    *    * Roll request responses no longer include regions to flush    * this list will always be empty when talking to a 1.0 server    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.RollWALWriterResponse}    *    *<pre>    *    * Roll request responses no longer include regions to flush    * this list will always be empty when talking to a 1.0 server    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -105405,7 +105405,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_RollWALWriterResponse_descriptor
+name|internal_static_hbase_pb_RollWALWriterResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -105436,7 +105436,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_RollWALWriterResponse_fieldAccessorTable
+name|internal_static_hbase_pb_RollWALWriterResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -106751,7 +106751,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RollWALWriterResponse}      *      *<pre>      *      * Roll request responses no longer include regions to flush      * this list will always be empty when talking to a 1.0 server      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.RollWALWriterResponse}      *      *<pre>      *      * Roll request responses no longer include regions to flush      * this list will always be empty when talking to a 1.0 server      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -106817,7 +106817,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_RollWALWriterResponse_descriptor
+name|internal_static_hbase_pb_RollWALWriterResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -106848,7 +106848,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_RollWALWriterResponse_fieldAccessorTable
+name|internal_static_hbase_pb_RollWALWriterResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -107034,7 +107034,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_RollWALWriterResponse_descriptor
+name|internal_static_hbase_pb_RollWALWriterResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -107884,7 +107884,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RollWALWriterResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RollWALWriterResponse)
 block|}
 static|static
 block|{
@@ -107902,7 +107902,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RollWALWriterResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RollWALWriterResponse)
 block|}
 specifier|public
 interface|interface
@@ -107943,7 +107943,7 @@ name|getReasonBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code StopServerRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.StopServerRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -108314,7 +108314,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_StopServerRequest_descriptor
+name|internal_static_hbase_pb_StopServerRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -108345,7 +108345,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_StopServerRequest_fieldAccessorTable
+name|internal_static_hbase_pb_StopServerRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -109781,7 +109781,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code StopServerRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.StopServerRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -109847,7 +109847,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_StopServerRequest_descriptor
+name|internal_static_hbase_pb_StopServerRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -109878,7 +109878,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_StopServerRequest_fieldAccessorTable
+name|internal_static_hbase_pb_StopServerRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -110057,7 +110057,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_StopServerRequest_descriptor
+name|internal_static_hbase_pb_StopServerRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -110868,7 +110868,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:StopServerRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.StopServerRequest)
 block|}
 static|static
 block|{
@@ -110886,7 +110886,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:StopServerRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.StopServerRequest)
 block|}
 specifier|public
 interface|interface
@@ -110900,7 +110900,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code StopServerResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.StopServerResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -111249,7 +111249,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_StopServerResponse_descriptor
+name|internal_static_hbase_pb_StopServerResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -111280,7 +111280,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_StopServerResponse_fieldAccessorTable
+name|internal_static_hbase_pb_StopServerResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -112356,7 +112356,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code StopServerResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.StopServerResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -112422,7 +112422,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_StopServerResponse_descriptor
+name|internal_static_hbase_pb_StopServerResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -112453,7 +112453,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_StopServerResponse_fieldAccessorTable
+name|internal_static_hbase_pb_StopServerResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -112619,7 +112619,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_StopServerResponse_descriptor
+name|internal_static_hbase_pb_StopServerResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -113051,7 +113051,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:StopServerResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.StopServerResponse)
 block|}
 static|static
 block|{
@@ -113069,7 +113069,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:StopServerResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.StopServerResponse)
 block|}
 specifier|public
 interface|interface
@@ -113083,7 +113083,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code GetServerInfoRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.GetServerInfoRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -113432,7 +113432,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetServerInfoRequest_descriptor
+name|internal_static_hbase_pb_GetServerInfoRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -113463,7 +113463,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetServerInfoRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetServerInfoRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -114539,7 +114539,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetServerInfoRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.GetServerInfoRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -114605,7 +114605,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetServerInfoRequest_descriptor
+name|internal_static_hbase_pb_GetServerInfoRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -114636,7 +114636,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetServerInfoRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetServerInfoRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -114802,7 +114802,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetServerInfoRequest_descriptor
+name|internal_static_hbase_pb_GetServerInfoRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -115234,7 +115234,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetServerInfoRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetServerInfoRequest)
 block|}
 static|static
 block|{
@@ -115252,7 +115252,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetServerInfoRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetServerInfoRequest)
 block|}
 specifier|public
 interface|interface
@@ -115266,13 +115266,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ServerName server_name = 1;
-comment|/**      *<code>required .ServerName server_name = 1;</code>      */
+comment|// required .hbase.pb.ServerName server_name = 1;
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 1;</code>      */
 name|boolean
 name|hasServerName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerName server_name = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -115291,7 +115291,7 @@ name|ServerName
 name|getServerName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerName server_name = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -115322,7 +115322,7 @@ name|getWebuiPort
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ServerInfo}    */
+comment|/**    * Protobuf type {@code hbase.pb.ServerInfo}    */
 specifier|public
 specifier|static
 specifier|final
@@ -115794,7 +115794,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_ServerInfo_descriptor
+name|internal_static_hbase_pb_ServerInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -115825,7 +115825,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_ServerInfo_fieldAccessorTable
+name|internal_static_hbase_pb_ServerInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -115967,7 +115967,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerName server_name = 1;
+comment|// required .hbase.pb.ServerName server_name = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -115994,7 +115994,7 @@ operator|.
 name|ServerName
 name|serverName_
 decl_stmt|;
-comment|/**      *<code>required .ServerName server_name = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 1;</code>      */
 specifier|public
 name|boolean
 name|hasServerName
@@ -116012,7 +116012,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ServerName server_name = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -116036,7 +116036,7 @@ return|return
 name|serverName_
 return|;
 block|}
-comment|/**      *<code>required .ServerName server_name = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -117336,7 +117336,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ServerInfo}      */
+comment|/**      * Protobuf type {@code hbase.pb.ServerInfo}      */
 specifier|public
 specifier|static
 specifier|final
@@ -117402,7 +117402,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_ServerInfo_descriptor
+name|internal_static_hbase_pb_ServerInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -117433,7 +117433,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_ServerInfo_fieldAccessorTable
+name|internal_static_hbase_pb_ServerInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -117662,7 +117662,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_ServerInfo_descriptor
+name|internal_static_hbase_pb_ServerInfo_descriptor
 return|;
 block|}
 specifier|public
@@ -118241,7 +118241,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerName server_name = 1;
+comment|// required .hbase.pb.ServerName server_name = 1;
 specifier|private
 name|org
 operator|.
@@ -118340,7 +118340,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|serverNameBuilder_
 decl_stmt|;
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|boolean
 name|hasServerName
@@ -118358,7 +118358,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -118399,7 +118399,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|Builder
 name|setServerName
@@ -118468,7 +118468,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|Builder
 name|setServerName
@@ -118532,7 +118532,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeServerName
@@ -118657,7 +118657,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|Builder
 name|clearServerName
@@ -118716,7 +118716,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -118753,7 +118753,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -118794,7 +118794,7 @@ name|serverName_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerName server_name = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -119027,7 +119027,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ServerInfo)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ServerInfo)
 block|}
 static|static
 block|{
@@ -119045,7 +119045,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ServerInfo)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ServerInfo)
 block|}
 specifier|public
 interface|interface
@@ -119059,13 +119059,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ServerInfo server_info = 1;
-comment|/**      *<code>required .ServerInfo server_info = 1;</code>      */
+comment|// required .hbase.pb.ServerInfo server_info = 1;
+comment|/**      *<code>required .hbase.pb.ServerInfo server_info = 1;</code>      */
 name|boolean
 name|hasServerInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerInfo server_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerInfo server_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -119084,7 +119084,7 @@ name|ServerInfo
 name|getServerInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerInfo server_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerInfo server_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -119104,7 +119104,7 @@ name|getServerInfoOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GetServerInfoResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.GetServerInfoResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -119559,7 +119559,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetServerInfoResponse_descriptor
+name|internal_static_hbase_pb_GetServerInfoResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -119590,7 +119590,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetServerInfoResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetServerInfoResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -119732,7 +119732,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerInfo server_info = 1;
+comment|// required .hbase.pb.ServerInfo server_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -119759,7 +119759,7 @@ operator|.
 name|ServerInfo
 name|serverInfo_
 decl_stmt|;
-comment|/**      *<code>required .ServerInfo server_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerInfo server_info = 1;</code>      */
 specifier|public
 name|boolean
 name|hasServerInfo
@@ -119777,7 +119777,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ServerInfo server_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerInfo server_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -119801,7 +119801,7 @@ return|return
 name|serverInfo_
 return|;
 block|}
-comment|/**      *<code>required .ServerInfo server_info = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerInfo server_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -120939,7 +120939,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetServerInfoResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.GetServerInfoResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -121005,7 +121005,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetServerInfoResponse_descriptor
+name|internal_static_hbase_pb_GetServerInfoResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -121036,7 +121036,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetServerInfoResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetServerInfoResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -121252,7 +121252,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetServerInfoResponse_descriptor
+name|internal_static_hbase_pb_GetServerInfoResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -121790,7 +121790,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerInfo server_info = 1;
+comment|// required .hbase.pb.ServerInfo server_info = 1;
 specifier|private
 name|org
 operator|.
@@ -121889,7 +121889,7 @@ name|ServerInfoOrBuilder
 argument_list|>
 name|serverInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>required .ServerInfo server_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerInfo server_info = 1;</code>        */
 specifier|public
 name|boolean
 name|hasServerInfo
@@ -121907,7 +121907,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ServerInfo server_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerInfo server_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -121948,7 +121948,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerInfo server_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerInfo server_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setServerInfo
@@ -122017,7 +122017,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerInfo server_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerInfo server_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setServerInfo
@@ -122081,7 +122081,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerInfo server_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerInfo server_info = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeServerInfo
@@ -122206,7 +122206,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerInfo server_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerInfo server_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearServerInfo
@@ -122265,7 +122265,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerInfo server_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerInfo server_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -122302,7 +122302,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .ServerInfo server_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerInfo server_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -122343,7 +122343,7 @@ name|serverInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerInfo server_info = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerInfo server_info = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -122493,7 +122493,7 @@ return|return
 name|serverInfoBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetServerInfoResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetServerInfoResponse)
 block|}
 static|static
 block|{
@@ -122511,7 +122511,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetServerInfoResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetServerInfoResponse)
 block|}
 specifier|public
 interface|interface
@@ -122525,7 +122525,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code UpdateConfigurationRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.UpdateConfigurationRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -122874,7 +122874,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateConfigurationRequest_descriptor
+name|internal_static_hbase_pb_UpdateConfigurationRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -122905,7 +122905,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateConfigurationRequest_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateConfigurationRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -123981,7 +123981,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code UpdateConfigurationRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.UpdateConfigurationRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -124047,7 +124047,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateConfigurationRequest_descriptor
+name|internal_static_hbase_pb_UpdateConfigurationRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -124078,7 +124078,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateConfigurationRequest_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateConfigurationRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -124244,7 +124244,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateConfigurationRequest_descriptor
+name|internal_static_hbase_pb_UpdateConfigurationRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -124676,7 +124676,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:UpdateConfigurationRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.UpdateConfigurationRequest)
 block|}
 static|static
 block|{
@@ -124694,7 +124694,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:UpdateConfigurationRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.UpdateConfigurationRequest)
 block|}
 specifier|public
 interface|interface
@@ -124708,7 +124708,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code UpdateConfigurationResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.UpdateConfigurationResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -125057,7 +125057,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateConfigurationResponse_descriptor
+name|internal_static_hbase_pb_UpdateConfigurationResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -125088,7 +125088,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateConfigurationResponse_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateConfigurationResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -126164,7 +126164,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code UpdateConfigurationResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.UpdateConfigurationResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -126230,7 +126230,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateConfigurationResponse_descriptor
+name|internal_static_hbase_pb_UpdateConfigurationResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -126261,7 +126261,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateConfigurationResponse_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateConfigurationResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -126427,7 +126427,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_UpdateConfigurationResponse_descriptor
+name|internal_static_hbase_pb_UpdateConfigurationResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -126859,7 +126859,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:UpdateConfigurationResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.UpdateConfigurationResponse)
 block|}
 static|static
 block|{
@@ -126877,9 +126877,9 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:UpdateConfigurationResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.UpdateConfigurationResponse)
 block|}
-comment|/**    * Protobuf service {@code AdminService}    */
+comment|/**    * Protobuf service {@code hbase.pb.AdminService}    */
 specifier|public
 specifier|static
 specifier|abstract
@@ -126902,7 +126902,7 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc GetRegionInfo(.GetRegionInfoRequest) returns (.GetRegionInfoResponse);</code>        */
+comment|/**        *<code>rpc GetRegionInfo(.hbase.pb.GetRegionInfoRequest) returns (.hbase.pb.GetRegionInfoResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -126961,7 +126961,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetStoreFile(.GetStoreFileRequest) returns (.GetStoreFileResponse);</code>        */
+comment|/**        *<code>rpc GetStoreFile(.hbase.pb.GetStoreFileRequest) returns (.hbase.pb.GetStoreFileResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -127020,7 +127020,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetOnlineRegion(.GetOnlineRegionRequest) returns (.GetOnlineRegionResponse);</code>        */
+comment|/**        *<code>rpc GetOnlineRegion(.hbase.pb.GetOnlineRegionRequest) returns (.hbase.pb.GetOnlineRegionResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -127079,7 +127079,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc OpenRegion(.OpenRegionRequest) returns (.OpenRegionResponse);</code>        */
+comment|/**        *<code>rpc OpenRegion(.hbase.pb.OpenRegionRequest) returns (.hbase.pb.OpenRegionResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -127138,7 +127138,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc WarmupRegion(.WarmupRegionRequest) returns (.WarmupRegionResponse);</code>        */
+comment|/**        *<code>rpc WarmupRegion(.hbase.pb.WarmupRegionRequest) returns (.hbase.pb.WarmupRegionResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -127197,7 +127197,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc CloseRegion(.CloseRegionRequest) returns (.CloseRegionResponse);</code>        */
+comment|/**        *<code>rpc CloseRegion(.hbase.pb.CloseRegionRequest) returns (.hbase.pb.CloseRegionResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -127256,7 +127256,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc FlushRegion(.FlushRegionRequest) returns (.FlushRegionResponse);</code>        */
+comment|/**        *<code>rpc FlushRegion(.hbase.pb.FlushRegionRequest) returns (.hbase.pb.FlushRegionResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -127315,7 +127315,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc SplitRegion(.SplitRegionRequest) returns (.SplitRegionResponse);</code>        */
+comment|/**        *<code>rpc SplitRegion(.hbase.pb.SplitRegionRequest) returns (.hbase.pb.SplitRegionResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -127374,7 +127374,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc CompactRegion(.CompactRegionRequest) returns (.CompactRegionResponse);</code>        */
+comment|/**        *<code>rpc CompactRegion(.hbase.pb.CompactRegionRequest) returns (.hbase.pb.CompactRegionResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -127433,7 +127433,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc MergeRegions(.MergeRegionsRequest) returns (.MergeRegionsResponse);</code>        */
+comment|/**        *<code>rpc MergeRegions(.hbase.pb.MergeRegionsRequest) returns (.hbase.pb.MergeRegionsResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -127492,7 +127492,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc ReplicateWALEntry(.ReplicateWALEntryRequest) returns (.ReplicateWALEntryResponse);</code>        */
+comment|/**        *<code>rpc ReplicateWALEntry(.hbase.pb.ReplicateWALEntryRequest) returns (.hbase.pb.ReplicateWALEntryResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -127551,7 +127551,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc Replay(.ReplicateWALEntryRequest) returns (.ReplicateWALEntryResponse);</code>        */
+comment|/**        *<code>rpc Replay(.hbase.pb.ReplicateWALEntryRequest) returns (.hbase.pb.ReplicateWALEntryResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -127610,7 +127610,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc RollWALWriter(.RollWALWriterRequest) returns (.RollWALWriterResponse);</code>        */
+comment|/**        *<code>rpc RollWALWriter(.hbase.pb.RollWALWriterRequest) returns (.hbase.pb.RollWALWriterResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -127669,7 +127669,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetServerInfo(.GetServerInfoRequest) returns (.GetServerInfoResponse);</code>        */
+comment|/**        *<code>rpc GetServerInfo(.hbase.pb.GetServerInfoRequest) returns (.hbase.pb.GetServerInfoResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -127728,7 +127728,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc StopServer(.StopServerRequest) returns (.StopServerResponse);</code>        */
+comment|/**        *<code>rpc StopServer(.hbase.pb.StopServerRequest) returns (.hbase.pb.StopServerResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -127787,7 +127787,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc UpdateFavoredNodes(.UpdateFavoredNodesRequest) returns (.UpdateFavoredNodesResponse);</code>        */
+comment|/**        *<code>rpc UpdateFavoredNodes(.hbase.pb.UpdateFavoredNodesRequest) returns (.hbase.pb.UpdateFavoredNodesResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -127846,7 +127846,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc UpdateConfiguration(.UpdateConfigurationRequest) returns (.UpdateConfigurationResponse);</code>        */
+comment|/**        *<code>rpc UpdateConfiguration(.hbase.pb.UpdateConfigurationRequest) returns (.hbase.pb.UpdateConfigurationResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -130782,7 +130782,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc GetRegionInfo(.GetRegionInfoRequest) returns (.GetRegionInfoResponse);</code>      */
+comment|/**      *<code>rpc GetRegionInfo(.hbase.pb.GetRegionInfoRequest) returns (.hbase.pb.GetRegionInfoResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -130841,7 +130841,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetStoreFile(.GetStoreFileRequest) returns (.GetStoreFileResponse);</code>      */
+comment|/**      *<code>rpc GetStoreFile(.hbase.pb.GetStoreFileRequest) returns (.hbase.pb.GetStoreFileResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -130900,7 +130900,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetOnlineRegion(.GetOnlineRegionRequest) returns (.GetOnlineRegionResponse);</code>      */
+comment|/**      *<code>rpc GetOnlineRegion(.hbase.pb.GetOnlineRegionRequest) returns (.hbase.pb.GetOnlineRegionResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -130959,7 +130959,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc OpenRegion(.OpenRegionRequest) returns (.OpenRegionResponse);</code>      */
+comment|/**      *<code>rpc OpenRegion(.hbase.pb.OpenRegionRequest) returns (.hbase.pb.OpenRegionResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -131018,7 +131018,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc WarmupRegion(.WarmupRegionRequest) returns (.WarmupRegionResponse);</code>      */
+comment|/**      *<code>rpc WarmupRegion(.hbase.pb.WarmupRegionRequest) returns (.hbase.pb.WarmupRegionResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -131077,7 +131077,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc CloseRegion(.CloseRegionRequest) returns (.CloseRegionResponse);</code>      */
+comment|/**      *<code>rpc CloseRegion(.hbase.pb.CloseRegionRequest) returns (.hbase.pb.CloseRegionResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -131136,7 +131136,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc FlushRegion(.FlushRegionRequest) returns (.FlushRegionResponse);</code>      */
+comment|/**      *<code>rpc FlushRegion(.hbase.pb.FlushRegionRequest) returns (.hbase.pb.FlushRegionResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -131195,7 +131195,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc SplitRegion(.SplitRegionRequest) returns (.SplitRegionResponse);</code>      */
+comment|/**      *<code>rpc SplitRegion(.hbase.pb.SplitRegionRequest) returns (.hbase.pb.SplitRegionResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -131254,7 +131254,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc CompactRegion(.CompactRegionRequest) returns (.CompactRegionResponse);</code>      */
+comment|/**      *<code>rpc CompactRegion(.hbase.pb.CompactRegionRequest) returns (.hbase.pb.CompactRegionResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -131313,7 +131313,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc MergeRegions(.MergeRegionsRequest) returns (.MergeRegionsResponse);</code>      */
+comment|/**      *<code>rpc MergeRegions(.hbase.pb.MergeRegionsRequest) returns (.hbase.pb.MergeRegionsResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -131372,7 +131372,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc ReplicateWALEntry(.ReplicateWALEntryRequest) returns (.ReplicateWALEntryResponse);</code>      */
+comment|/**      *<code>rpc ReplicateWALEntry(.hbase.pb.ReplicateWALEntryRequest) returns (.hbase.pb.ReplicateWALEntryResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -131431,7 +131431,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc Replay(.ReplicateWALEntryRequest) returns (.ReplicateWALEntryResponse);</code>      */
+comment|/**      *<code>rpc Replay(.hbase.pb.ReplicateWALEntryRequest) returns (.hbase.pb.ReplicateWALEntryResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -131490,7 +131490,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc RollWALWriter(.RollWALWriterRequest) returns (.RollWALWriterResponse);</code>      */
+comment|/**      *<code>rpc RollWALWriter(.hbase.pb.RollWALWriterRequest) returns (.hbase.pb.RollWALWriterResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -131549,7 +131549,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetServerInfo(.GetServerInfoRequest) returns (.GetServerInfoResponse);</code>      */
+comment|/**      *<code>rpc GetServerInfo(.hbase.pb.GetServerInfoRequest) returns (.hbase.pb.GetServerInfoResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -131608,7 +131608,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc StopServer(.StopServerRequest) returns (.StopServerResponse);</code>      */
+comment|/**      *<code>rpc StopServer(.hbase.pb.StopServerRequest) returns (.hbase.pb.StopServerResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -131667,7 +131667,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc UpdateFavoredNodes(.UpdateFavoredNodesRequest) returns (.UpdateFavoredNodesResponse);</code>      */
+comment|/**      *<code>rpc UpdateFavoredNodes(.hbase.pb.UpdateFavoredNodesRequest) returns (.hbase.pb.UpdateFavoredNodesResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -131726,7 +131726,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc UpdateConfiguration(.UpdateConfigurationRequest) returns (.UpdateConfigurationResponse);</code>      */
+comment|/**      *<code>rpc UpdateConfiguration(.hbase.pb.UpdateConfigurationRequest) returns (.hbase.pb.UpdateConfigurationResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -139337,7 +139337,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|// @@protoc_insertion_point(class_scope:AdminService)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.AdminService)
 block|}
 specifier|private
 specifier|static
@@ -139350,7 +139350,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetRegionInfoRequest_descriptor
+name|internal_static_hbase_pb_GetRegionInfoRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139363,7 +139363,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetRegionInfoRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetRegionInfoRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139376,7 +139376,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetRegionInfoResponse_descriptor
+name|internal_static_hbase_pb_GetRegionInfoResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139389,7 +139389,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetRegionInfoResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetRegionInfoResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139402,7 +139402,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetStoreFileRequest_descriptor
+name|internal_static_hbase_pb_GetStoreFileRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139415,7 +139415,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetStoreFileRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetStoreFileRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139428,7 +139428,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetStoreFileResponse_descriptor
+name|internal_static_hbase_pb_GetStoreFileResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139441,7 +139441,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetStoreFileResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetStoreFileResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139454,7 +139454,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetOnlineRegionRequest_descriptor
+name|internal_static_hbase_pb_GetOnlineRegionRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139467,7 +139467,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetOnlineRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetOnlineRegionRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139480,7 +139480,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetOnlineRegionResponse_descriptor
+name|internal_static_hbase_pb_GetOnlineRegionResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139493,7 +139493,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetOnlineRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetOnlineRegionResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139506,7 +139506,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_OpenRegionRequest_descriptor
+name|internal_static_hbase_pb_OpenRegionRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139519,7 +139519,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_OpenRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_OpenRegionRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139532,7 +139532,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_OpenRegionRequest_RegionOpenInfo_descriptor
+name|internal_static_hbase_pb_OpenRegionRequest_RegionOpenInfo_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139545,7 +139545,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_OpenRegionRequest_RegionOpenInfo_fieldAccessorTable
+name|internal_static_hbase_pb_OpenRegionRequest_RegionOpenInfo_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139558,7 +139558,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_OpenRegionResponse_descriptor
+name|internal_static_hbase_pb_OpenRegionResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139571,7 +139571,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_OpenRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_OpenRegionResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139584,7 +139584,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_WarmupRegionRequest_descriptor
+name|internal_static_hbase_pb_WarmupRegionRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139597,7 +139597,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_WarmupRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_WarmupRegionRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139610,7 +139610,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_WarmupRegionResponse_descriptor
+name|internal_static_hbase_pb_WarmupRegionResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139623,7 +139623,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_WarmupRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_WarmupRegionResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139636,7 +139636,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CloseRegionRequest_descriptor
+name|internal_static_hbase_pb_CloseRegionRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139649,7 +139649,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CloseRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CloseRegionRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139662,7 +139662,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CloseRegionResponse_descriptor
+name|internal_static_hbase_pb_CloseRegionResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139675,7 +139675,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CloseRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CloseRegionResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139688,7 +139688,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_FlushRegionRequest_descriptor
+name|internal_static_hbase_pb_FlushRegionRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139701,7 +139701,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_FlushRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_FlushRegionRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139714,7 +139714,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_FlushRegionResponse_descriptor
+name|internal_static_hbase_pb_FlushRegionResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139727,7 +139727,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_FlushRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_FlushRegionResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139740,7 +139740,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_SplitRegionRequest_descriptor
+name|internal_static_hbase_pb_SplitRegionRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139753,7 +139753,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_SplitRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_SplitRegionRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139766,7 +139766,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_SplitRegionResponse_descriptor
+name|internal_static_hbase_pb_SplitRegionResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139779,7 +139779,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_SplitRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_SplitRegionResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139792,7 +139792,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CompactRegionRequest_descriptor
+name|internal_static_hbase_pb_CompactRegionRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139805,7 +139805,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CompactRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CompactRegionRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139818,7 +139818,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CompactRegionResponse_descriptor
+name|internal_static_hbase_pb_CompactRegionResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139831,7 +139831,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CompactRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CompactRegionResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139844,7 +139844,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_UpdateFavoredNodesRequest_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139857,7 +139857,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_UpdateFavoredNodesRequest_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139870,7 +139870,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_UpdateFavoredNodesRequest_RegionUpdateInfo_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_RegionUpdateInfo_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139883,7 +139883,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_UpdateFavoredNodesRequest_RegionUpdateInfo_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_RegionUpdateInfo_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139896,7 +139896,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_UpdateFavoredNodesResponse_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139909,7 +139909,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_UpdateFavoredNodesResponse_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateFavoredNodesResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139922,7 +139922,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MergeRegionsRequest_descriptor
+name|internal_static_hbase_pb_MergeRegionsRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139935,7 +139935,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MergeRegionsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MergeRegionsRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139948,7 +139948,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MergeRegionsResponse_descriptor
+name|internal_static_hbase_pb_MergeRegionsResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139961,7 +139961,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MergeRegionsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MergeRegionsResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139974,7 +139974,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_WALEntry_descriptor
+name|internal_static_hbase_pb_WALEntry_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -139987,7 +139987,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_WALEntry_fieldAccessorTable
+name|internal_static_hbase_pb_WALEntry_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140000,7 +140000,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ReplicateWALEntryRequest_descriptor
+name|internal_static_hbase_pb_ReplicateWALEntryRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140013,7 +140013,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ReplicateWALEntryRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicateWALEntryRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140026,7 +140026,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ReplicateWALEntryResponse_descriptor
+name|internal_static_hbase_pb_ReplicateWALEntryResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140039,7 +140039,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ReplicateWALEntryResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicateWALEntryResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140052,7 +140052,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RollWALWriterRequest_descriptor
+name|internal_static_hbase_pb_RollWALWriterRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140065,7 +140065,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RollWALWriterRequest_fieldAccessorTable
+name|internal_static_hbase_pb_RollWALWriterRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140078,7 +140078,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RollWALWriterResponse_descriptor
+name|internal_static_hbase_pb_RollWALWriterResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140091,7 +140091,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RollWALWriterResponse_fieldAccessorTable
+name|internal_static_hbase_pb_RollWALWriterResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140104,7 +140104,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_StopServerRequest_descriptor
+name|internal_static_hbase_pb_StopServerRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140117,7 +140117,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_StopServerRequest_fieldAccessorTable
+name|internal_static_hbase_pb_StopServerRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140130,7 +140130,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_StopServerResponse_descriptor
+name|internal_static_hbase_pb_StopServerResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140143,7 +140143,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_StopServerResponse_fieldAccessorTable
+name|internal_static_hbase_pb_StopServerResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140156,7 +140156,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetServerInfoRequest_descriptor
+name|internal_static_hbase_pb_GetServerInfoRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140169,7 +140169,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetServerInfoRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetServerInfoRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140182,7 +140182,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ServerInfo_descriptor
+name|internal_static_hbase_pb_ServerInfo_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140195,7 +140195,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ServerInfo_fieldAccessorTable
+name|internal_static_hbase_pb_ServerInfo_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140208,7 +140208,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetServerInfoResponse_descriptor
+name|internal_static_hbase_pb_GetServerInfoResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140221,7 +140221,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetServerInfoResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetServerInfoResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140234,7 +140234,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_UpdateConfigurationRequest_descriptor
+name|internal_static_hbase_pb_UpdateConfigurationRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140247,7 +140247,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_UpdateConfigurationRequest_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateConfigurationRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140260,7 +140260,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_UpdateConfigurationResponse_descriptor
+name|internal_static_hbase_pb_UpdateConfigurationResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140273,7 +140273,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_UpdateConfigurationResponse_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateConfigurationResponse_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -140317,197 +140317,225 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\013Admin.proto\032\014Client.proto\032\013HBase.proto"
+literal|"\n\013Admin.proto\022\010hbase.pb\032\014Client.proto\032\013H"
 operator|+
-literal|"\032\tWAL.proto\"R\n\024GetRegionInfoRequest\022 \n\006r"
+literal|"Base.proto\032\tWAL.proto\"[\n\024GetRegionInfoRe"
 operator|+
-literal|"egion\030\001 \002(\0132\020.RegionSpecifier\022\030\n\020compact"
+literal|"quest\022)\n\006region\030\001 \002(\0132\031.hbase.pb.RegionS"
 operator|+
-literal|"ion_state\030\002 \001(\010\"\331\001\n\025GetRegionInfoRespons"
+literal|"pecifier\022\030\n\020compaction_state\030\002 \001(\010\"\353\001\n\025G"
 operator|+
-literal|"e\022 \n\013region_info\030\001 \002(\0132\013.RegionInfo\022@\n\020c"
+literal|"etRegionInfoResponse\022)\n\013region_info\030\001 \002("
 operator|+
-literal|"ompaction_state\030\002 \001(\0162&.GetRegionInfoRes"
+literal|"\0132\024.hbase.pb.RegionInfo\022I\n\020compaction_st"
 operator|+
-literal|"ponse.CompactionState\022\024\n\014isRecovering\030\003 "
+literal|"ate\030\002 \001(\0162/.hbase.pb.GetRegionInfoRespon"
 operator|+
-literal|"\001(\010\"F\n\017CompactionState\022\010\n\004NONE\020\000\022\t\n\005MINO"
+literal|"se.CompactionState\022\024\n\014isRecovering\030\003 \001(\010"
 operator|+
-literal|"R\020\001\022\t\n\005MAJOR\020\002\022\023\n\017MAJOR_AND_MINOR\020\003\"G\n\023G"
+literal|"\"F\n\017CompactionState\022\010\n\004NONE\020\000\022\t\n\005MINOR\020\001"
 operator|+
-literal|"etStoreFileRequest\022 \n\006region\030\001 \002(\0132\020.Reg"
+literal|"\022\t\n\005MAJOR\020\002\022\023\n\017MAJOR_AND_MINOR\020\003\"P\n\023GetS"
 block|,
-literal|"ionSpecifier\022\016\n\006family\030\002 \003(\014\"*\n\024GetStore"
+literal|"toreFileRequest\022)\n\006region\030\001 \002(\0132\031.hbase."
 operator|+
-literal|"FileResponse\022\022\n\nstore_file\030\001 \003(\t\"\030\n\026GetO"
+literal|"pb.RegionSpecifier\022\016\n\006family\030\002 \003(\014\"*\n\024Ge"
 operator|+
-literal|"nlineRegionRequest\";\n\027GetOnlineRegionRes"
+literal|"tStoreFileResponse\022\022\n\nstore_file\030\001 \003(\t\"\030"
 operator|+
-literal|"ponse\022 \n\013region_info\030\001 \003(\0132\013.RegionInfo\""
+literal|"\n\026GetOnlineRegionRequest\"D\n\027GetOnlineReg"
 operator|+
-literal|"\230\002\n\021OpenRegionRequest\0224\n\topen_info\030\001 \003(\013"
+literal|"ionResponse\022)\n\013region_info\030\001 \003(\0132\024.hbase"
 operator|+
-literal|"2!.OpenRegionRequest.RegionOpenInfo\022\027\n\017s"
+literal|".pb.RegionInfo\"\263\002\n\021OpenRegionRequest\022=\n\t"
 operator|+
-literal|"erverStartCode\030\002 \001(\004\022\032\n\022master_system_ti"
+literal|"open_info\030\001 \003(\0132*.hbase.pb.OpenRegionReq"
 operator|+
-literal|"me\030\005 \001(\004\032\227\001\n\016RegionOpenInfo\022\033\n\006region\030\001 "
+literal|"uest.RegionOpenInfo\022\027\n\017serverStartCode\030\002"
 operator|+
-literal|"\002(\0132\013.RegionInfo\022\037\n\027version_of_offline_n"
+literal|" \001(\004\022\032\n\022master_system_time\030\005 \001(\004\032\251\001\n\016Reg"
 operator|+
-literal|"ode\030\002 \001(\r\022\"\n\rfavored_nodes\030\003 \003(\0132\013.Serve"
+literal|"ionOpenInfo\022$\n\006region\030\001 \002(\0132\024.hbase.pb.R"
 block|,
-literal|"rName\022#\n\033openForDistributedLogReplay\030\004 \001"
+literal|"egionInfo\022\037\n\027version_of_offline_node\030\002 \001"
 operator|+
-literal|"(\010\"\235\001\n\022OpenRegionResponse\022=\n\ropening_sta"
+literal|"(\r\022+\n\rfavored_nodes\030\003 \003(\0132\024.hbase.pb.Ser"
 operator|+
-literal|"te\030\001 \003(\0162&.OpenRegionResponse.RegionOpen"
+literal|"verName\022#\n\033openForDistributedLogReplay\030\004"
 operator|+
-literal|"ingState\"H\n\022RegionOpeningState\022\n\n\006OPENED"
+literal|" \001(\010\"\246\001\n\022OpenRegionResponse\022F\n\ropening_s"
 operator|+
-literal|"\020\000\022\022\n\016ALREADY_OPENED\020\001\022\022\n\016FAILED_OPENING"
+literal|"tate\030\001 \003(\0162/.hbase.pb.OpenRegionResponse"
 operator|+
-literal|"\020\002\"6\n\023WarmupRegionRequest\022\037\n\nregionInfo\030"
+literal|".RegionOpeningState\"H\n\022RegionOpeningStat"
 operator|+
-literal|"\001 \002(\0132\013.RegionInfo\"\026\n\024WarmupRegionRespon"
+literal|"e\022\n\n\006OPENED\020\000\022\022\n\016ALREADY_OPENED\020\001\022\022\n\016FAI"
 operator|+
-literal|"se\"\271\001\n\022CloseRegionRequest\022 \n\006region\030\001 \002("
+literal|"LED_OPENING\020\002\"?\n\023WarmupRegionRequest\022(\n\n"
 operator|+
-literal|"\0132\020.RegionSpecifier\022\037\n\027version_of_closin"
+literal|"regionInfo\030\001 \002(\0132\024.hbase.pb.RegionInfo\"\026"
 operator|+
-literal|"g_node\030\002 \001(\r\022\036\n\020transition_in_ZK\030\003 \001(\010:\004"
+literal|"\n\024WarmupRegionResponse\"\313\001\n\022CloseRegionRe"
 block|,
-literal|"true\022\'\n\022destination_server\030\004 \001(\0132\013.Serve"
+literal|"quest\022)\n\006region\030\001 \002(\0132\031.hbase.pb.RegionS"
 operator|+
-literal|"rName\022\027\n\017serverStartCode\030\005 \001(\004\"%\n\023CloseR"
+literal|"pecifier\022\037\n\027version_of_closing_node\030\002 \001("
 operator|+
-literal|"egionResponse\022\016\n\006closed\030\001 \002(\010\"p\n\022FlushRe"
+literal|"\r\022\036\n\020transition_in_ZK\030\003 \001(\010:\004true\0220\n\022des"
 operator|+
-literal|"gionRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpec"
+literal|"tination_server\030\004 \001(\0132\024.hbase.pb.ServerN"
 operator|+
-literal|"ifier\022\030\n\020if_older_than_ts\030\002 \001(\004\022\036\n\026write"
+literal|"ame\022\027\n\017serverStartCode\030\005 \001(\004\"%\n\023CloseReg"
 operator|+
-literal|"_flush_wal_marker\030\003 \001(\010\"_\n\023FlushRegionRe"
+literal|"ionResponse\022\016\n\006closed\030\001 \002(\010\"y\n\022FlushRegi"
 operator|+
-literal|"sponse\022\027\n\017last_flush_time\030\001 \002(\004\022\017\n\007flush"
+literal|"onRequest\022)\n\006region\030\001 \002(\0132\031.hbase.pb.Reg"
 operator|+
-literal|"ed\030\002 \001(\010\022\036\n\026wrote_flush_wal_marker\030\003 \001(\010"
+literal|"ionSpecifier\022\030\n\020if_older_than_ts\030\002 \001(\004\022\036"
 operator|+
-literal|"\"K\n\022SplitRegionRequest\022 \n\006region\030\001 \002(\0132\020"
+literal|"\n\026write_flush_wal_marker\030\003 \001(\010\"_\n\023FlushR"
 operator|+
-literal|".RegionSpecifier\022\023\n\013split_point\030\002 \001(\014\"\025\n"
+literal|"egionResponse\022\027\n\017last_flush_time\030\001 \002(\004\022\017"
 block|,
-literal|"\023SplitRegionResponse\"W\n\024CompactRegionReq"
+literal|"\n\007flushed\030\002 \001(\010\022\036\n\026wrote_flush_wal_marke"
 operator|+
-literal|"uest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\r"
+literal|"r\030\003 \001(\010\"T\n\022SplitRegionRequest\022)\n\006region\030"
 operator|+
-literal|"\n\005major\030\002 \001(\010\022\016\n\006family\030\003 \001(\014\"\027\n\025Compact"
+literal|"\001 \002(\0132\031.hbase.pb.RegionSpecifier\022\023\n\013spli"
 operator|+
-literal|"RegionResponse\"\262\001\n\031UpdateFavoredNodesReq"
+literal|"t_point\030\002 \001(\014\"\025\n\023SplitRegionResponse\"`\n\024"
 operator|+
-literal|"uest\022@\n\013update_info\030\001 \003(\0132+.UpdateFavore"
+literal|"CompactRegionRequest\022)\n\006region\030\001 \002(\0132\031.h"
 operator|+
-literal|"dNodesRequest.RegionUpdateInfo\032S\n\020Region"
+literal|"base.pb.RegionSpecifier\022\r\n\005major\030\002 \001(\010\022\016"
 operator|+
-literal|"UpdateInfo\022\033\n\006region\030\001 \002(\0132\013.RegionInfo\022"
+literal|"\n\006family\030\003 \001(\014\"\027\n\025CompactRegionResponse\""
 operator|+
-literal|"\"\n\rfavored_nodes\030\002 \003(\0132\013.ServerName\".\n\032U"
+literal|"\315\001\n\031UpdateFavoredNodesRequest\022I\n\013update_"
 operator|+
-literal|"pdateFavoredNodesResponse\022\020\n\010response\030\001 "
+literal|"info\030\001 \003(\01324.hbase.pb.UpdateFavoredNodes"
 operator|+
-literal|"\001(\r\"\222\001\n\023MergeRegionsRequest\022\"\n\010region_a\030"
+literal|"Request.RegionUpdateInfo\032e\n\020RegionUpdate"
 block|,
-literal|"\001 \002(\0132\020.RegionSpecifier\022\"\n\010region_b\030\002 \002("
+literal|"Info\022$\n\006region\030\001 \002(\0132\024.hbase.pb.RegionIn"
 operator|+
-literal|"\0132\020.RegionSpecifier\022\027\n\010forcible\030\003 \001(\010:\005f"
+literal|"fo\022+\n\rfavored_nodes\030\002 \003(\0132\024.hbase.pb.Ser"
 operator|+
-literal|"alse\022\032\n\022master_system_time\030\004 \001(\004\"\026\n\024Merg"
+literal|"verName\".\n\032UpdateFavoredNodesResponse\022\020\n"
 operator|+
-literal|"eRegionsResponse\"X\n\010WALEntry\022\024\n\003key\030\001 \002("
+literal|"\010response\030\001 \001(\r\"\244\001\n\023MergeRegionsRequest\022"
 operator|+
-literal|"\0132\007.WALKey\022\027\n\017key_value_bytes\030\002 \003(\014\022\035\n\025a"
+literal|"+\n\010region_a\030\001 \002(\0132\031.hbase.pb.RegionSpeci"
 operator|+
-literal|"ssociated_cell_count\030\003 \001(\005\"4\n\030ReplicateW"
+literal|"fier\022+\n\010region_b\030\002 \002(\0132\031.hbase.pb.Region"
 operator|+
-literal|"ALEntryRequest\022\030\n\005entry\030\001 \003(\0132\t.WALEntry"
+literal|"Specifier\022\027\n\010forcible\030\003 \001(\010:\005false\022\032\n\022ma"
 operator|+
-literal|"\"\033\n\031ReplicateWALEntryResponse\"\026\n\024RollWAL"
+literal|"ster_system_time\030\004 \001(\004\"\026\n\024MergeRegionsRe"
 operator|+
-literal|"WriterRequest\"0\n\025RollWALWriterResponse\022\027"
+literal|"sponse\"a\n\010WALEntry\022\035\n\003key\030\001 \002(\0132\020.hbase."
 operator|+
-literal|"\n\017region_to_flush\030\001 \003(\014\"#\n\021StopServerReq"
+literal|"pb.WALKey\022\027\n\017key_value_bytes\030\002 \003(\014\022\035\n\025as"
 block|,
-literal|"uest\022\016\n\006reason\030\001 \002(\t\"\024\n\022StopServerRespon"
+literal|"sociated_cell_count\030\003 \001(\005\"=\n\030ReplicateWA"
 operator|+
-literal|"se\"\026\n\024GetServerInfoRequest\"B\n\nServerInfo"
+literal|"LEntryRequest\022!\n\005entry\030\001 \003(\0132\022.hbase.pb."
 operator|+
-literal|"\022 \n\013server_name\030\001 \002(\0132\013.ServerName\022\022\n\nwe"
+literal|"WALEntry\"\033\n\031ReplicateWALEntryResponse\"\026\n"
 operator|+
-literal|"bui_port\030\002 \001(\r\"9\n\025GetServerInfoResponse\022"
+literal|"\024RollWALWriterRequest\"0\n\025RollWALWriterRe"
 operator|+
-literal|" \n\013server_info\030\001 \002(\0132\013.ServerInfo\"\034\n\032Upd"
+literal|"sponse\022\027\n\017region_to_flush\030\001 \003(\014\"#\n\021StopS"
 operator|+
-literal|"ateConfigurationRequest\"\035\n\033UpdateConfigu"
+literal|"erverRequest\022\016\n\006reason\030\001 \002(\t\"\024\n\022StopServ"
 operator|+
-literal|"rationResponse2\325\010\n\014AdminService\022>\n\rGetRe"
+literal|"erResponse\"\026\n\024GetServerInfoRequest\"K\n\nSe"
 operator|+
-literal|"gionInfo\022\025.GetRegionInfoRequest\032\026.GetReg"
+literal|"rverInfo\022)\n\013server_name\030\001 \002(\0132\024.hbase.pb"
 operator|+
-literal|"ionInfoResponse\022;\n\014GetStoreFile\022\024.GetSto"
+literal|".ServerName\022\022\n\nwebui_port\030\002 \001(\r\"B\n\025GetSe"
 operator|+
-literal|"reFileRequest\032\025.GetStoreFileResponse\022D\n\017"
+literal|"rverInfoResponse\022)\n\013server_info\030\001 \002(\0132\024."
 block|,
-literal|"GetOnlineRegion\022\027.GetOnlineRegionRequest"
+literal|"hbase.pb.ServerInfo\"\034\n\032UpdateConfigurati"
 operator|+
-literal|"\032\030.GetOnlineRegionResponse\0225\n\nOpenRegion"
+literal|"onRequest\"\035\n\033UpdateConfigurationResponse"
 operator|+
-literal|"\022\022.OpenRegionRequest\032\023.OpenRegionRespons"
+literal|"2\207\013\n\014AdminService\022P\n\rGetRegionInfo\022\036.hba"
 operator|+
-literal|"e\022;\n\014WarmupRegion\022\024.WarmupRegionRequest\032"
+literal|"se.pb.GetRegionInfoRequest\032\037.hbase.pb.Ge"
 operator|+
-literal|"\025.WarmupRegionResponse\0228\n\013CloseRegion\022\023."
+literal|"tRegionInfoResponse\022M\n\014GetStoreFile\022\035.hb"
 operator|+
-literal|"CloseRegionRequest\032\024.CloseRegionResponse"
+literal|"ase.pb.GetStoreFileRequest\032\036.hbase.pb.Ge"
 operator|+
-literal|"\0228\n\013FlushRegion\022\023.FlushRegionRequest\032\024.F"
+literal|"tStoreFileResponse\022V\n\017GetOnlineRegion\022 ."
 operator|+
-literal|"lushRegionResponse\0228\n\013SplitRegion\022\023.Spli"
+literal|"hbase.pb.GetOnlineRegionRequest\032!.hbase."
 operator|+
-literal|"tRegionRequest\032\024.SplitRegionResponse\022>\n\r"
+literal|"pb.GetOnlineRegionResponse\022G\n\nOpenRegion"
 operator|+
-literal|"CompactRegion\022\025.CompactRegionRequest\032\026.C"
+literal|"\022\033.hbase.pb.OpenRegionRequest\032\034.hbase.pb"
 block|,
-literal|"ompactRegionResponse\022;\n\014MergeRegions\022\024.M"
+literal|".OpenRegionResponse\022M\n\014WarmupRegion\022\035.hb"
 operator|+
-literal|"ergeRegionsRequest\032\025.MergeRegionsRespons"
+literal|"ase.pb.WarmupRegionRequest\032\036.hbase.pb.Wa"
 operator|+
-literal|"e\022J\n\021ReplicateWALEntry\022\031.ReplicateWALEnt"
+literal|"rmupRegionResponse\022J\n\013CloseRegion\022\034.hbas"
 operator|+
-literal|"ryRequest\032\032.ReplicateWALEntryResponse\022?\n"
+literal|"e.pb.CloseRegionRequest\032\035.hbase.pb.Close"
 operator|+
-literal|"\006Replay\022\031.ReplicateWALEntryRequest\032\032.Rep"
+literal|"RegionResponse\022J\n\013FlushRegion\022\034.hbase.pb"
 operator|+
-literal|"licateWALEntryResponse\022>\n\rRollWALWriter\022"
+literal|".FlushRegionRequest\032\035.hbase.pb.FlushRegi"
 operator|+
-literal|"\025.RollWALWriterRequest\032\026.RollWALWriterRe"
+literal|"onResponse\022J\n\013SplitRegion\022\034.hbase.pb.Spl"
 operator|+
-literal|"sponse\022>\n\rGetServerInfo\022\025.GetServerInfoR"
+literal|"itRegionRequest\032\035.hbase.pb.SplitRegionRe"
 operator|+
-literal|"equest\032\026.GetServerInfoResponse\0225\n\nStopSe"
+literal|"sponse\022P\n\rCompactRegion\022\036.hbase.pb.Compa"
 operator|+
-literal|"rver\022\022.StopServerRequest\032\023.StopServerRes"
+literal|"ctRegionRequest\032\037.hbase.pb.CompactRegion"
 block|,
-literal|"ponse\022M\n\022UpdateFavoredNodes\022\032.UpdateFavo"
+literal|"Response\022M\n\014MergeRegions\022\035.hbase.pb.Merg"
 operator|+
-literal|"redNodesRequest\032\033.UpdateFavoredNodesResp"
+literal|"eRegionsRequest\032\036.hbase.pb.MergeRegionsR"
 operator|+
-literal|"onse\022P\n\023UpdateConfiguration\022\033.UpdateConf"
+literal|"esponse\022\\\n\021ReplicateWALEntry\022\".hbase.pb."
 operator|+
-literal|"igurationRequest\032\034.UpdateConfigurationRe"
+literal|"ReplicateWALEntryRequest\032#.hbase.pb.Repl"
 operator|+
-literal|"sponseBA\n*org.apache.hadoop.hbase.protob"
+literal|"icateWALEntryResponse\022Q\n\006Replay\022\".hbase."
 operator|+
-literal|"uf.generatedB\013AdminProtosH\001\210\001\001\240\001\001"
+literal|"pb.ReplicateWALEntryRequest\032#.hbase.pb.R"
+operator|+
+literal|"eplicateWALEntryResponse\022P\n\rRollWALWrite"
+operator|+
+literal|"r\022\036.hbase.pb.RollWALWriterRequest\032\037.hbas"
+operator|+
+literal|"e.pb.RollWALWriterResponse\022P\n\rGetServerI"
+operator|+
+literal|"nfo\022\036.hbase.pb.GetServerInfoRequest\032\037.hb"
+block|,
+literal|"ase.pb.GetServerInfoResponse\022G\n\nStopServ"
+operator|+
+literal|"er\022\033.hbase.pb.StopServerRequest\032\034.hbase."
+operator|+
+literal|"pb.StopServerResponse\022_\n\022UpdateFavoredNo"
+operator|+
+literal|"des\022#.hbase.pb.UpdateFavoredNodesRequest"
+operator|+
+literal|"\032$.hbase.pb.UpdateFavoredNodesResponse\022b"
+operator|+
+literal|"\n\023UpdateConfiguration\022$.hbase.pb.UpdateC"
+operator|+
+literal|"onfigurationRequest\032%.hbase.pb.UpdateCon"
+operator|+
+literal|"figurationResponseBA\n*org.apache.hadoop."
+operator|+
+literal|"hbase.protobuf.generatedB\013AdminProtosH\001\210"
+operator|+
+literal|"\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -140563,7 +140591,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_GetRegionInfoRequest_descriptor
+name|internal_static_hbase_pb_GetRegionInfoRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -140576,7 +140604,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_GetRegionInfoRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetRegionInfoRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -140589,7 +140617,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetRegionInfoRequest_descriptor
+name|internal_static_hbase_pb_GetRegionInfoRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -140605,7 +140633,7 @@ literal|"CompactionState"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_GetRegionInfoResponse_descriptor
+name|internal_static_hbase_pb_GetRegionInfoResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -140618,7 +140646,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_GetRegionInfoResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetRegionInfoResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -140631,7 +140659,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetRegionInfoResponse_descriptor
+name|internal_static_hbase_pb_GetRegionInfoResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -140649,7 +140677,7 @@ literal|"IsRecovering"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_GetStoreFileRequest_descriptor
+name|internal_static_hbase_pb_GetStoreFileRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -140662,7 +140690,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_GetStoreFileRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetStoreFileRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -140675,7 +140703,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetStoreFileRequest_descriptor
+name|internal_static_hbase_pb_GetStoreFileRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -140691,7 +140719,7 @@ literal|"Family"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_GetStoreFileResponse_descriptor
+name|internal_static_hbase_pb_GetStoreFileResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -140704,7 +140732,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_GetStoreFileResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetStoreFileResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -140717,7 +140745,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetStoreFileResponse_descriptor
+name|internal_static_hbase_pb_GetStoreFileResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -140731,7 +140759,7 @@ literal|"StoreFile"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_GetOnlineRegionRequest_descriptor
+name|internal_static_hbase_pb_GetOnlineRegionRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -140744,7 +140772,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_GetOnlineRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetOnlineRegionRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -140757,7 +140785,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetOnlineRegionRequest_descriptor
+name|internal_static_hbase_pb_GetOnlineRegionRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -140769,7 +140797,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_GetOnlineRegionResponse_descriptor
+name|internal_static_hbase_pb_GetOnlineRegionResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -140782,7 +140810,7 @@ argument_list|(
 literal|5
 argument_list|)
 expr_stmt|;
-name|internal_static_GetOnlineRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetOnlineRegionResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -140795,7 +140823,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetOnlineRegionResponse_descriptor
+name|internal_static_hbase_pb_GetOnlineRegionResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -140809,7 +140837,7 @@ literal|"RegionInfo"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_OpenRegionRequest_descriptor
+name|internal_static_hbase_pb_OpenRegionRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -140822,7 +140850,7 @@ argument_list|(
 literal|6
 argument_list|)
 expr_stmt|;
-name|internal_static_OpenRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_OpenRegionRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -140835,7 +140863,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_OpenRegionRequest_descriptor
+name|internal_static_hbase_pb_OpenRegionRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -140853,9 +140881,9 @@ literal|"MasterSystemTime"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_OpenRegionRequest_RegionOpenInfo_descriptor
+name|internal_static_hbase_pb_OpenRegionRequest_RegionOpenInfo_descriptor
 operator|=
-name|internal_static_OpenRegionRequest_descriptor
+name|internal_static_hbase_pb_OpenRegionRequest_descriptor
 operator|.
 name|getNestedTypes
 argument_list|()
@@ -140865,7 +140893,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_OpenRegionRequest_RegionOpenInfo_fieldAccessorTable
+name|internal_static_hbase_pb_OpenRegionRequest_RegionOpenInfo_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -140878,7 +140906,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_OpenRegionRequest_RegionOpenInfo_descriptor
+name|internal_static_hbase_pb_OpenRegionRequest_RegionOpenInfo_descriptor
 argument_list|,
 operator|new
 name|java
@@ -140898,7 +140926,7 @@ literal|"OpenForDistributedLogReplay"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_OpenRegionResponse_descriptor
+name|internal_static_hbase_pb_OpenRegionResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -140911,7 +140939,7 @@ argument_list|(
 literal|7
 argument_list|)
 expr_stmt|;
-name|internal_static_OpenRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_OpenRegionResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -140924,7 +140952,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_OpenRegionResponse_descriptor
+name|internal_static_hbase_pb_OpenRegionResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -140938,7 +140966,7 @@ literal|"OpeningState"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_WarmupRegionRequest_descriptor
+name|internal_static_hbase_pb_WarmupRegionRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -140951,7 +140979,7 @@ argument_list|(
 literal|8
 argument_list|)
 expr_stmt|;
-name|internal_static_WarmupRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_WarmupRegionRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -140964,7 +140992,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_WarmupRegionRequest_descriptor
+name|internal_static_hbase_pb_WarmupRegionRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -140978,7 +141006,7 @@ literal|"RegionInfo"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_WarmupRegionResponse_descriptor
+name|internal_static_hbase_pb_WarmupRegionResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -140991,7 +141019,7 @@ argument_list|(
 literal|9
 argument_list|)
 expr_stmt|;
-name|internal_static_WarmupRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_WarmupRegionResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141004,7 +141032,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_WarmupRegionResponse_descriptor
+name|internal_static_hbase_pb_WarmupRegionResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141016,7 +141044,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_CloseRegionRequest_descriptor
+name|internal_static_hbase_pb_CloseRegionRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141029,7 +141057,7 @@ argument_list|(
 literal|10
 argument_list|)
 expr_stmt|;
-name|internal_static_CloseRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CloseRegionRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141042,7 +141070,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CloseRegionRequest_descriptor
+name|internal_static_hbase_pb_CloseRegionRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141064,7 +141092,7 @@ literal|"ServerStartCode"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_CloseRegionResponse_descriptor
+name|internal_static_hbase_pb_CloseRegionResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141077,7 +141105,7 @@ argument_list|(
 literal|11
 argument_list|)
 expr_stmt|;
-name|internal_static_CloseRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CloseRegionResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141090,7 +141118,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CloseRegionResponse_descriptor
+name|internal_static_hbase_pb_CloseRegionResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141104,7 +141132,7 @@ literal|"Closed"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_FlushRegionRequest_descriptor
+name|internal_static_hbase_pb_FlushRegionRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141117,7 +141145,7 @@ argument_list|(
 literal|12
 argument_list|)
 expr_stmt|;
-name|internal_static_FlushRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_FlushRegionRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141130,7 +141158,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_FlushRegionRequest_descriptor
+name|internal_static_hbase_pb_FlushRegionRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141148,7 +141176,7 @@ literal|"WriteFlushWalMarker"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_FlushRegionResponse_descriptor
+name|internal_static_hbase_pb_FlushRegionResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141161,7 +141189,7 @@ argument_list|(
 literal|13
 argument_list|)
 expr_stmt|;
-name|internal_static_FlushRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_FlushRegionResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141174,7 +141202,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_FlushRegionResponse_descriptor
+name|internal_static_hbase_pb_FlushRegionResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141192,7 +141220,7 @@ literal|"WroteFlushWalMarker"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_SplitRegionRequest_descriptor
+name|internal_static_hbase_pb_SplitRegionRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141205,7 +141233,7 @@ argument_list|(
 literal|14
 argument_list|)
 expr_stmt|;
-name|internal_static_SplitRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_SplitRegionRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141218,7 +141246,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_SplitRegionRequest_descriptor
+name|internal_static_hbase_pb_SplitRegionRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141234,7 +141262,7 @@ literal|"SplitPoint"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_SplitRegionResponse_descriptor
+name|internal_static_hbase_pb_SplitRegionResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141247,7 +141275,7 @@ argument_list|(
 literal|15
 argument_list|)
 expr_stmt|;
-name|internal_static_SplitRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_SplitRegionResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141260,7 +141288,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_SplitRegionResponse_descriptor
+name|internal_static_hbase_pb_SplitRegionResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141272,7 +141300,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_CompactRegionRequest_descriptor
+name|internal_static_hbase_pb_CompactRegionRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141285,7 +141313,7 @@ argument_list|(
 literal|16
 argument_list|)
 expr_stmt|;
-name|internal_static_CompactRegionRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CompactRegionRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141298,7 +141326,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CompactRegionRequest_descriptor
+name|internal_static_hbase_pb_CompactRegionRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141316,7 +141344,7 @@ literal|"Family"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_CompactRegionResponse_descriptor
+name|internal_static_hbase_pb_CompactRegionResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141329,7 +141357,7 @@ argument_list|(
 literal|17
 argument_list|)
 expr_stmt|;
-name|internal_static_CompactRegionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CompactRegionResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141342,7 +141370,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CompactRegionResponse_descriptor
+name|internal_static_hbase_pb_CompactRegionResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141354,7 +141382,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_UpdateFavoredNodesRequest_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141367,7 +141395,7 @@ argument_list|(
 literal|18
 argument_list|)
 expr_stmt|;
-name|internal_static_UpdateFavoredNodesRequest_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141380,7 +141408,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_UpdateFavoredNodesRequest_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141394,9 +141422,9 @@ literal|"UpdateInfo"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_UpdateFavoredNodesRequest_RegionUpdateInfo_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_RegionUpdateInfo_descriptor
 operator|=
-name|internal_static_UpdateFavoredNodesRequest_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_descriptor
 operator|.
 name|getNestedTypes
 argument_list|()
@@ -141406,7 +141434,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_UpdateFavoredNodesRequest_RegionUpdateInfo_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_RegionUpdateInfo_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141419,7 +141447,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_UpdateFavoredNodesRequest_RegionUpdateInfo_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesRequest_RegionUpdateInfo_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141435,7 +141463,7 @@ literal|"FavoredNodes"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_UpdateFavoredNodesResponse_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141448,7 +141476,7 @@ argument_list|(
 literal|19
 argument_list|)
 expr_stmt|;
-name|internal_static_UpdateFavoredNodesResponse_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateFavoredNodesResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141461,7 +141489,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_UpdateFavoredNodesResponse_descriptor
+name|internal_static_hbase_pb_UpdateFavoredNodesResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141475,7 +141503,7 @@ literal|"Response"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_MergeRegionsRequest_descriptor
+name|internal_static_hbase_pb_MergeRegionsRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141488,7 +141516,7 @@ argument_list|(
 literal|20
 argument_list|)
 expr_stmt|;
-name|internal_static_MergeRegionsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MergeRegionsRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141501,7 +141529,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MergeRegionsRequest_descriptor
+name|internal_static_hbase_pb_MergeRegionsRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141521,7 +141549,7 @@ literal|"MasterSystemTime"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_MergeRegionsResponse_descriptor
+name|internal_static_hbase_pb_MergeRegionsResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141534,7 +141562,7 @@ argument_list|(
 literal|21
 argument_list|)
 expr_stmt|;
-name|internal_static_MergeRegionsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MergeRegionsResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141547,7 +141575,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MergeRegionsResponse_descriptor
+name|internal_static_hbase_pb_MergeRegionsResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141559,7 +141587,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_WALEntry_descriptor
+name|internal_static_hbase_pb_WALEntry_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141572,7 +141600,7 @@ argument_list|(
 literal|22
 argument_list|)
 expr_stmt|;
-name|internal_static_WALEntry_fieldAccessorTable
+name|internal_static_hbase_pb_WALEntry_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141585,7 +141613,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_WALEntry_descriptor
+name|internal_static_hbase_pb_WALEntry_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141603,7 +141631,7 @@ literal|"AssociatedCellCount"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicateWALEntryRequest_descriptor
+name|internal_static_hbase_pb_ReplicateWALEntryRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141616,7 +141644,7 @@ argument_list|(
 literal|23
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicateWALEntryRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicateWALEntryRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141629,7 +141657,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ReplicateWALEntryRequest_descriptor
+name|internal_static_hbase_pb_ReplicateWALEntryRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141643,7 +141671,7 @@ literal|"Entry"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicateWALEntryResponse_descriptor
+name|internal_static_hbase_pb_ReplicateWALEntryResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141656,7 +141684,7 @@ argument_list|(
 literal|24
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicateWALEntryResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicateWALEntryResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141669,7 +141697,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ReplicateWALEntryResponse_descriptor
+name|internal_static_hbase_pb_ReplicateWALEntryResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141681,7 +141709,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_RollWALWriterRequest_descriptor
+name|internal_static_hbase_pb_RollWALWriterRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141694,7 +141722,7 @@ argument_list|(
 literal|25
 argument_list|)
 expr_stmt|;
-name|internal_static_RollWALWriterRequest_fieldAccessorTable
+name|internal_static_hbase_pb_RollWALWriterRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141707,7 +141735,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RollWALWriterRequest_descriptor
+name|internal_static_hbase_pb_RollWALWriterRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141719,7 +141747,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_RollWALWriterResponse_descriptor
+name|internal_static_hbase_pb_RollWALWriterResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141732,7 +141760,7 @@ argument_list|(
 literal|26
 argument_list|)
 expr_stmt|;
-name|internal_static_RollWALWriterResponse_fieldAccessorTable
+name|internal_static_hbase_pb_RollWALWriterResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141745,7 +141773,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RollWALWriterResponse_descriptor
+name|internal_static_hbase_pb_RollWALWriterResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141759,7 +141787,7 @@ literal|"RegionToFlush"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_StopServerRequest_descriptor
+name|internal_static_hbase_pb_StopServerRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141772,7 +141800,7 @@ argument_list|(
 literal|27
 argument_list|)
 expr_stmt|;
-name|internal_static_StopServerRequest_fieldAccessorTable
+name|internal_static_hbase_pb_StopServerRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141785,7 +141813,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_StopServerRequest_descriptor
+name|internal_static_hbase_pb_StopServerRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141799,7 +141827,7 @@ literal|"Reason"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_StopServerResponse_descriptor
+name|internal_static_hbase_pb_StopServerResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141812,7 +141840,7 @@ argument_list|(
 literal|28
 argument_list|)
 expr_stmt|;
-name|internal_static_StopServerResponse_fieldAccessorTable
+name|internal_static_hbase_pb_StopServerResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141825,7 +141853,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_StopServerResponse_descriptor
+name|internal_static_hbase_pb_StopServerResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141837,7 +141865,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_GetServerInfoRequest_descriptor
+name|internal_static_hbase_pb_GetServerInfoRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141850,7 +141878,7 @@ argument_list|(
 literal|29
 argument_list|)
 expr_stmt|;
-name|internal_static_GetServerInfoRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetServerInfoRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141863,7 +141891,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetServerInfoRequest_descriptor
+name|internal_static_hbase_pb_GetServerInfoRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141875,7 +141903,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_ServerInfo_descriptor
+name|internal_static_hbase_pb_ServerInfo_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141888,7 +141916,7 @@ argument_list|(
 literal|30
 argument_list|)
 expr_stmt|;
-name|internal_static_ServerInfo_fieldAccessorTable
+name|internal_static_hbase_pb_ServerInfo_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141901,7 +141929,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ServerInfo_descriptor
+name|internal_static_hbase_pb_ServerInfo_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141917,7 +141945,7 @@ literal|"WebuiPort"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_GetServerInfoResponse_descriptor
+name|internal_static_hbase_pb_GetServerInfoResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141930,7 +141958,7 @@ argument_list|(
 literal|31
 argument_list|)
 expr_stmt|;
-name|internal_static_GetServerInfoResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetServerInfoResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141943,7 +141971,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetServerInfoResponse_descriptor
+name|internal_static_hbase_pb_GetServerInfoResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141957,7 +141985,7 @@ literal|"ServerInfo"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_UpdateConfigurationRequest_descriptor
+name|internal_static_hbase_pb_UpdateConfigurationRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -141970,7 +141998,7 @@ argument_list|(
 literal|32
 argument_list|)
 expr_stmt|;
-name|internal_static_UpdateConfigurationRequest_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateConfigurationRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -141983,7 +142011,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_UpdateConfigurationRequest_descriptor
+name|internal_static_hbase_pb_UpdateConfigurationRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -141995,7 +142023,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_UpdateConfigurationResponse_descriptor
+name|internal_static_hbase_pb_UpdateConfigurationResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -142008,7 +142036,7 @@ argument_list|(
 literal|33
 argument_list|)
 expr_stmt|;
-name|internal_static_UpdateConfigurationResponse_fieldAccessorTable
+name|internal_static_hbase_pb_UpdateConfigurationResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -142021,7 +142049,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_UpdateConfigurationResponse_descriptor
+name|internal_static_hbase_pb_UpdateConfigurationResponse_descriptor
 argument_list|,
 operator|new
 name|java

@@ -150,7 +150,7 @@ name|getLineNumber
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code StackTraceElementMessage}    *    *<pre>    **    * Protobuf version of a java.lang.StackTraceElement    * so we can serialize exceptions.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.StackTraceElementMessage}    *    *<pre>    **    * Protobuf version of a java.lang.StackTraceElement    * so we can serialize exceptions.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -572,7 +572,7 @@ name|generated
 operator|.
 name|ErrorHandlingProtos
 operator|.
-name|internal_static_StackTraceElementMessage_descriptor
+name|internal_static_hbase_pb_StackTraceElementMessage_descriptor
 return|;
 block|}
 specifier|protected
@@ -603,7 +603,7 @@ name|generated
 operator|.
 name|ErrorHandlingProtos
 operator|.
-name|internal_static_StackTraceElementMessage_fieldAccessorTable
+name|internal_static_hbase_pb_StackTraceElementMessage_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2866,7 +2866,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code StackTraceElementMessage}      *      *<pre>      **      * Protobuf version of a java.lang.StackTraceElement      * so we can serialize exceptions.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.StackTraceElementMessage}      *      *<pre>      **      * Protobuf version of a java.lang.StackTraceElement      * so we can serialize exceptions.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -2932,7 +2932,7 @@ name|generated
 operator|.
 name|ErrorHandlingProtos
 operator|.
-name|internal_static_StackTraceElementMessage_descriptor
+name|internal_static_hbase_pb_StackTraceElementMessage_descriptor
 return|;
 block|}
 specifier|protected
@@ -2963,7 +2963,7 @@ name|generated
 operator|.
 name|ErrorHandlingProtos
 operator|.
-name|internal_static_StackTraceElementMessage_fieldAccessorTable
+name|internal_static_hbase_pb_StackTraceElementMessage_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -3181,7 +3181,7 @@ name|generated
 operator|.
 name|ErrorHandlingProtos
 operator|.
-name|internal_static_StackTraceElementMessage_descriptor
+name|internal_static_hbase_pb_StackTraceElementMessage_descriptor
 return|;
 block|}
 specifier|public
@@ -4801,7 +4801,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:StackTraceElementMessage)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.StackTraceElementMessage)
 block|}
 static|static
 block|{
@@ -4819,7 +4819,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:StackTraceElementMessage)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.StackTraceElementMessage)
 block|}
 specifier|public
 interface|interface
@@ -4902,8 +4902,8 @@ name|ByteString
 name|getErrorInfo
 parameter_list|()
 function_decl|;
-comment|// repeated .StackTraceElementMessage trace = 4;
-comment|/**      *<code>repeated .StackTraceElementMessage trace = 4;</code>      */
+comment|// repeated .hbase.pb.StackTraceElementMessage trace = 4;
+comment|/**      *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>      */
 name|java
 operator|.
 name|util
@@ -4929,7 +4929,7 @@ argument_list|>
 name|getTraceList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .StackTraceElementMessage trace = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -4951,12 +4951,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .StackTraceElementMessage trace = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>      */
 name|int
 name|getTraceCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .StackTraceElementMessage trace = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>      */
 name|java
 operator|.
 name|util
@@ -4984,7 +4984,7 @@ argument_list|>
 name|getTraceOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .StackTraceElementMessage trace = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -5007,7 +5007,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GenericExceptionMessage}    *    *<pre>    **    * Cause of a remote failure for a generic exception. Contains    * all the information for a generic exception as well as    * optional info about the error for generic info passing    * (which should be another protobuffed class).    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.GenericExceptionMessage}    *    *<pre>    **    * Cause of a remote failure for a generic exception. Contains    * all the information for a generic exception as well as    * optional info about the error for generic info passing    * (which should be another protobuffed class).    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -5521,7 +5521,7 @@ name|generated
 operator|.
 name|ErrorHandlingProtos
 operator|.
-name|internal_static_GenericExceptionMessage_descriptor
+name|internal_static_hbase_pb_GenericExceptionMessage_descriptor
 return|;
 block|}
 specifier|protected
@@ -5552,7 +5552,7 @@ name|generated
 operator|.
 name|ErrorHandlingProtos
 operator|.
-name|internal_static_GenericExceptionMessage_fieldAccessorTable
+name|internal_static_hbase_pb_GenericExceptionMessage_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -6173,7 +6173,7 @@ return|return
 name|errorInfo_
 return|;
 block|}
-comment|// repeated .StackTraceElementMessage trace = 4;
+comment|// repeated .hbase.pb.StackTraceElementMessage trace = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -6207,7 +6207,7 @@ name|StackTraceElementMessage
 argument_list|>
 name|trace_
 decl_stmt|;
-comment|/**      *<code>repeated .StackTraceElementMessage trace = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -6238,7 +6238,7 @@ return|return
 name|trace_
 return|;
 block|}
-comment|/**      *<code>repeated .StackTraceElementMessage trace = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -6271,7 +6271,7 @@ return|return
 name|trace_
 return|;
 block|}
-comment|/**      *<code>repeated .StackTraceElementMessage trace = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>      */
 specifier|public
 name|int
 name|getTraceCount
@@ -6284,7 +6284,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .StackTraceElementMessage trace = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6316,7 +6316,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .StackTraceElementMessage trace = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -7807,7 +7807,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GenericExceptionMessage}      *      *<pre>      **      * Cause of a remote failure for a generic exception. Contains      * all the information for a generic exception as well as      * optional info about the error for generic info passing      * (which should be another protobuffed class).      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.GenericExceptionMessage}      *      *<pre>      **      * Cause of a remote failure for a generic exception. Contains      * all the information for a generic exception as well as      * optional info about the error for generic info passing      * (which should be another protobuffed class).      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -7873,7 +7873,7 @@ name|generated
 operator|.
 name|ErrorHandlingProtos
 operator|.
-name|internal_static_GenericExceptionMessage_descriptor
+name|internal_static_hbase_pb_GenericExceptionMessage_descriptor
 return|;
 block|}
 specifier|protected
@@ -7904,7 +7904,7 @@ name|generated
 operator|.
 name|ErrorHandlingProtos
 operator|.
-name|internal_static_GenericExceptionMessage_fieldAccessorTable
+name|internal_static_hbase_pb_GenericExceptionMessage_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -8157,7 +8157,7 @@ name|generated
 operator|.
 name|ErrorHandlingProtos
 operator|.
-name|internal_static_GenericExceptionMessage_descriptor
+name|internal_static_hbase_pb_GenericExceptionMessage_descriptor
 return|;
 block|}
 specifier|public
@@ -9675,7 +9675,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .StackTraceElementMessage trace = 4;
+comment|// repeated .hbase.pb.StackTraceElementMessage trace = 4;
 specifier|private
 name|java
 operator|.
@@ -9825,7 +9825,7 @@ name|StackTraceElementMessageOrBuilder
 argument_list|>
 name|traceBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -9882,7 +9882,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|int
 name|getTraceCount
@@ -9912,7 +9912,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9963,7 +9963,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|Builder
 name|setTrace
@@ -10041,7 +10041,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|Builder
 name|setTrace
@@ -10114,7 +10114,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|Builder
 name|addTrace
@@ -10185,7 +10185,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|Builder
 name|addTrace
@@ -10263,7 +10263,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|Builder
 name|addTrace
@@ -10329,7 +10329,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|Builder
 name|addTrace
@@ -10402,7 +10402,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|Builder
 name|addAllTrace
@@ -10471,7 +10471,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|Builder
 name|clearTrace
@@ -10520,7 +10520,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|Builder
 name|removeTrace
@@ -10564,7 +10564,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -10599,7 +10599,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -10650,7 +10650,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -10709,7 +10709,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -10758,7 +10758,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -10812,7 +10812,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .StackTraceElementMessage trace = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.StackTraceElementMessage trace = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -11008,7 +11008,7 @@ return|return
 name|traceBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GenericExceptionMessage)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GenericExceptionMessage)
 block|}
 static|static
 block|{
@@ -11026,7 +11026,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GenericExceptionMessage)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GenericExceptionMessage)
 block|}
 specifier|public
 interface|interface
@@ -11066,13 +11066,13 @@ name|ByteString
 name|getSourceBytes
 parameter_list|()
 function_decl|;
-comment|// optional .GenericExceptionMessage generic_exception = 2;
-comment|/**      *<code>optional .GenericExceptionMessage generic_exception = 2;</code>      */
+comment|// optional .hbase.pb.GenericExceptionMessage generic_exception = 2;
+comment|/**      *<code>optional .hbase.pb.GenericExceptionMessage generic_exception = 2;</code>      */
 name|boolean
 name|hasGenericException
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .GenericExceptionMessage generic_exception = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.GenericExceptionMessage generic_exception = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -11091,7 +11091,7 @@ name|GenericExceptionMessage
 name|getGenericException
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .GenericExceptionMessage generic_exception = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.GenericExceptionMessage generic_exception = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -11111,7 +11111,7 @@ name|getGenericExceptionOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ForeignExceptionMessage}    *    *<pre>    **    * Exception sent across the wire when a remote task needs    * to notify other tasks that it failed and why    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ForeignExceptionMessage}    *    *<pre>    **    * Exception sent across the wire when a remote task needs    * to notify other tasks that it failed and why    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -11583,7 +11583,7 @@ name|generated
 operator|.
 name|ErrorHandlingProtos
 operator|.
-name|internal_static_ForeignExceptionMessage_descriptor
+name|internal_static_hbase_pb_ForeignExceptionMessage_descriptor
 return|;
 block|}
 specifier|protected
@@ -11614,7 +11614,7 @@ name|generated
 operator|.
 name|ErrorHandlingProtos
 operator|.
-name|internal_static_ForeignExceptionMessage_fieldAccessorTable
+name|internal_static_hbase_pb_ForeignExceptionMessage_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -11969,7 +11969,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional .GenericExceptionMessage generic_exception = 2;
+comment|// optional .hbase.pb.GenericExceptionMessage generic_exception = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -11996,7 +11996,7 @@ operator|.
 name|GenericExceptionMessage
 name|genericException_
 decl_stmt|;
-comment|/**      *<code>optional .GenericExceptionMessage generic_exception = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.GenericExceptionMessage generic_exception = 2;</code>      */
 specifier|public
 name|boolean
 name|hasGenericException
@@ -12014,7 +12014,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .GenericExceptionMessage generic_exception = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.GenericExceptionMessage generic_exception = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -12038,7 +12038,7 @@ return|return
 name|genericException_
 return|;
 block|}
-comment|/**      *<code>optional .GenericExceptionMessage generic_exception = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.GenericExceptionMessage generic_exception = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -13270,7 +13270,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ForeignExceptionMessage}      *      *<pre>      **      * Exception sent across the wire when a remote task needs      * to notify other tasks that it failed and why      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ForeignExceptionMessage}      *      *<pre>      **      * Exception sent across the wire when a remote task needs      * to notify other tasks that it failed and why      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -13336,7 +13336,7 @@ name|generated
 operator|.
 name|ErrorHandlingProtos
 operator|.
-name|internal_static_ForeignExceptionMessage_descriptor
+name|internal_static_hbase_pb_ForeignExceptionMessage_descriptor
 return|;
 block|}
 specifier|protected
@@ -13367,7 +13367,7 @@ name|generated
 operator|.
 name|ErrorHandlingProtos
 operator|.
-name|internal_static_ForeignExceptionMessage_fieldAccessorTable
+name|internal_static_hbase_pb_ForeignExceptionMessage_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -13596,7 +13596,7 @@ name|generated
 operator|.
 name|ErrorHandlingProtos
 operator|.
-name|internal_static_ForeignExceptionMessage_descriptor
+name|internal_static_hbase_pb_ForeignExceptionMessage_descriptor
 return|;
 block|}
 specifier|public
@@ -14457,7 +14457,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .GenericExceptionMessage generic_exception = 2;
+comment|// optional .hbase.pb.GenericExceptionMessage generic_exception = 2;
 specifier|private
 name|org
 operator|.
@@ -14556,7 +14556,7 @@ name|GenericExceptionMessageOrBuilder
 argument_list|>
 name|genericExceptionBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .GenericExceptionMessage generic_exception = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GenericExceptionMessage generic_exception = 2;</code>        */
 specifier|public
 name|boolean
 name|hasGenericException
@@ -14574,7 +14574,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .GenericExceptionMessage generic_exception = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GenericExceptionMessage generic_exception = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -14615,7 +14615,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .GenericExceptionMessage generic_exception = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GenericExceptionMessage generic_exception = 2;</code>        */
 specifier|public
 name|Builder
 name|setGenericException
@@ -14684,7 +14684,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .GenericExceptionMessage generic_exception = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GenericExceptionMessage generic_exception = 2;</code>        */
 specifier|public
 name|Builder
 name|setGenericException
@@ -14748,7 +14748,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .GenericExceptionMessage generic_exception = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GenericExceptionMessage generic_exception = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeGenericException
@@ -14873,7 +14873,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .GenericExceptionMessage generic_exception = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GenericExceptionMessage generic_exception = 2;</code>        */
 specifier|public
 name|Builder
 name|clearGenericException
@@ -14932,7 +14932,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .GenericExceptionMessage generic_exception = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GenericExceptionMessage generic_exception = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -14969,7 +14969,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .GenericExceptionMessage generic_exception = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GenericExceptionMessage generic_exception = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -15010,7 +15010,7 @@ name|genericException_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .GenericExceptionMessage generic_exception = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GenericExceptionMessage generic_exception = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -15160,7 +15160,7 @@ return|return
 name|genericExceptionBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ForeignExceptionMessage)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ForeignExceptionMessage)
 block|}
 static|static
 block|{
@@ -15178,7 +15178,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ForeignExceptionMessage)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ForeignExceptionMessage)
 block|}
 specifier|private
 specifier|static
@@ -15191,7 +15191,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_StackTraceElementMessage_descriptor
+name|internal_static_hbase_pb_StackTraceElementMessage_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -15204,7 +15204,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_StackTraceElementMessage_fieldAccessorTable
+name|internal_static_hbase_pb_StackTraceElementMessage_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -15217,7 +15217,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GenericExceptionMessage_descriptor
+name|internal_static_hbase_pb_GenericExceptionMessage_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -15230,7 +15230,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GenericExceptionMessage_fieldAccessorTable
+name|internal_static_hbase_pb_GenericExceptionMessage_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -15243,7 +15243,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ForeignExceptionMessage_descriptor
+name|internal_static_hbase_pb_ForeignExceptionMessage_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -15256,7 +15256,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ForeignExceptionMessage_fieldAccessorTable
+name|internal_static_hbase_pb_ForeignExceptionMessage_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -15300,27 +15300,29 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\023ErrorHandling.proto\"p\n\030StackTraceEleme"
+literal|"\n\023ErrorHandling.proto\022\010hbase.pb\"p\n\030Stack"
 operator|+
-literal|"ntMessage\022\027\n\017declaring_class\030\001 \001(\t\022\023\n\013me"
+literal|"TraceElementMessage\022\027\n\017declaring_class\030\001"
 operator|+
-literal|"thod_name\030\002 \001(\t\022\021\n\tfile_name\030\003 \001(\t\022\023\n\013li"
+literal|" \001(\t\022\023\n\013method_name\030\002 \001(\t\022\021\n\tfile_name\030\003"
 operator|+
-literal|"ne_number\030\004 \001(\005\"|\n\027GenericExceptionMessa"
+literal|" \001(\t\022\023\n\013line_number\030\004 \001(\005\"\205\001\n\027GenericExc"
 operator|+
-literal|"ge\022\022\n\nclass_name\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\022"
+literal|"eptionMessage\022\022\n\nclass_name\030\001 \001(\t\022\017\n\007mes"
 operator|+
-literal|"\022\n\nerror_info\030\003 \001(\014\022(\n\005trace\030\004 \003(\0132\031.Sta"
+literal|"sage\030\002 \001(\t\022\022\n\nerror_info\030\003 \001(\014\0221\n\005trace\030"
 operator|+
-literal|"ckTraceElementMessage\"^\n\027ForeignExceptio"
+literal|"\004 \003(\0132\".hbase.pb.StackTraceElementMessag"
 operator|+
-literal|"nMessage\022\016\n\006source\030\001 \001(\t\0223\n\021generic_exce"
+literal|"e\"g\n\027ForeignExceptionMessage\022\016\n\006source\030\001"
 operator|+
-literal|"ption\030\002 \001(\0132\030.GenericExceptionMessageBF\n"
+literal|" \001(\t\022<\n\021generic_exception\030\002 \001(\0132!.hbase."
 operator|+
-literal|"*org.apache.hadoop.hbase.protobuf.genera"
+literal|"pb.GenericExceptionMessageBF\n*org.apache"
 block|,
-literal|"tedB\023ErrorHandlingProtosH\001\240\001\001"
+literal|".hadoop.hbase.protobuf.generatedB\023ErrorH"
+operator|+
+literal|"andlingProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -15376,7 +15378,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_StackTraceElementMessage_descriptor
+name|internal_static_hbase_pb_StackTraceElementMessage_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -15389,7 +15391,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_StackTraceElementMessage_fieldAccessorTable
+name|internal_static_hbase_pb_StackTraceElementMessage_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -15402,7 +15404,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_StackTraceElementMessage_descriptor
+name|internal_static_hbase_pb_StackTraceElementMessage_descriptor
 argument_list|,
 operator|new
 name|java
@@ -15422,7 +15424,7 @@ literal|"LineNumber"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_GenericExceptionMessage_descriptor
+name|internal_static_hbase_pb_GenericExceptionMessage_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -15435,7 +15437,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_GenericExceptionMessage_fieldAccessorTable
+name|internal_static_hbase_pb_GenericExceptionMessage_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -15448,7 +15450,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GenericExceptionMessage_descriptor
+name|internal_static_hbase_pb_GenericExceptionMessage_descriptor
 argument_list|,
 operator|new
 name|java
@@ -15468,7 +15470,7 @@ literal|"Trace"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ForeignExceptionMessage_descriptor
+name|internal_static_hbase_pb_ForeignExceptionMessage_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -15481,7 +15483,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_ForeignExceptionMessage_fieldAccessorTable
+name|internal_static_hbase_pb_ForeignExceptionMessage_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -15494,7 +15496,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ForeignExceptionMessage_descriptor
+name|internal_static_hbase_pb_ForeignExceptionMessage_descriptor
 argument_list|,
 operator|new
 name|java

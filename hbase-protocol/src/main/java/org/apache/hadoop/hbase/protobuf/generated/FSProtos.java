@@ -87,7 +87,7 @@ name|getVersionBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code HBaseVersionFileContent}    *    *<pre>    **    * The ${HBASE_ROOTDIR}/hbase.version file content    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.HBaseVersionFileContent}    *    *<pre>    **    * The ${HBASE_ROOTDIR}/hbase.version file content    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -458,7 +458,7 @@ name|generated
 operator|.
 name|FSProtos
 operator|.
-name|internal_static_HBaseVersionFileContent_descriptor
+name|internal_static_hbase_pb_HBaseVersionFileContent_descriptor
 return|;
 block|}
 specifier|protected
@@ -489,7 +489,7 @@ name|generated
 operator|.
 name|FSProtos
 operator|.
-name|internal_static_HBaseVersionFileContent_fieldAccessorTable
+name|internal_static_hbase_pb_HBaseVersionFileContent_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -1925,7 +1925,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code HBaseVersionFileContent}      *      *<pre>      **      * The ${HBASE_ROOTDIR}/hbase.version file content      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.HBaseVersionFileContent}      *      *<pre>      **      * The ${HBASE_ROOTDIR}/hbase.version file content      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -1991,7 +1991,7 @@ name|generated
 operator|.
 name|FSProtos
 operator|.
-name|internal_static_HBaseVersionFileContent_descriptor
+name|internal_static_hbase_pb_HBaseVersionFileContent_descriptor
 return|;
 block|}
 specifier|protected
@@ -2022,7 +2022,7 @@ name|generated
 operator|.
 name|FSProtos
 operator|.
-name|internal_static_HBaseVersionFileContent_fieldAccessorTable
+name|internal_static_hbase_pb_HBaseVersionFileContent_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2201,7 +2201,7 @@ name|generated
 operator|.
 name|FSProtos
 operator|.
-name|internal_static_HBaseVersionFileContent_descriptor
+name|internal_static_hbase_pb_HBaseVersionFileContent_descriptor
 return|;
 block|}
 specifier|public
@@ -3012,7 +3012,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:HBaseVersionFileContent)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.HBaseVersionFileContent)
 block|}
 static|static
 block|{
@@ -3030,7 +3030,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:HBaseVersionFileContent)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.HBaseVersionFileContent)
 block|}
 specifier|public
 interface|interface
@@ -3061,13 +3061,13 @@ name|ByteString
 name|getSplitkey
 parameter_list|()
 function_decl|;
-comment|// required .Reference.Range range = 2;
-comment|/**      *<code>required .Reference.Range range = 2;</code>      */
+comment|// required .hbase.pb.Reference.Range range = 2;
+comment|/**      *<code>required .hbase.pb.Reference.Range range = 2;</code>      */
 name|boolean
 name|hasRange
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .Reference.Range range = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.Reference.Range range = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -3089,7 +3089,7 @@ name|getRange
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Reference}    *    *<pre>    **    * Reference file content used when we split an hfile under a region.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.Reference}    *    *<pre>    **    * Reference file content used when we split an hfile under a region.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -3544,7 +3544,7 @@ name|generated
 operator|.
 name|FSProtos
 operator|.
-name|internal_static_Reference_descriptor
+name|internal_static_hbase_pb_Reference_descriptor
 return|;
 block|}
 specifier|protected
@@ -3575,7 +3575,7 @@ name|generated
 operator|.
 name|FSProtos
 operator|.
-name|internal_static_Reference_fieldAccessorTable
+name|internal_static_hbase_pb_Reference_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -3713,7 +3713,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code Reference.Range}      */
+comment|/**      * Protobuf enum {@code hbase.pb.Reference.Range}      */
 specifier|public
 enum|enum
 name|Range
@@ -4056,7 +4056,7 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:Reference.Range)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.Reference.Range)
 block|}
 specifier|private
 name|int
@@ -4115,7 +4115,7 @@ return|return
 name|splitkey_
 return|;
 block|}
-comment|// required .Reference.Range range = 2;
+comment|// required .hbase.pb.Reference.Range range = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -4144,7 +4144,7 @@ operator|.
 name|Range
 name|range_
 decl_stmt|;
-comment|/**      *<code>required .Reference.Range range = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.Reference.Range range = 2;</code>      */
 specifier|public
 name|boolean
 name|hasRange
@@ -4162,7 +4162,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .Reference.Range range = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.Reference.Range range = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5438,7 +5438,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Reference}      *      *<pre>      **      * Reference file content used when we split an hfile under a region.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.Reference}      *      *<pre>      **      * Reference file content used when we split an hfile under a region.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -5504,7 +5504,7 @@ name|generated
 operator|.
 name|FSProtos
 operator|.
-name|internal_static_Reference_descriptor
+name|internal_static_hbase_pb_Reference_descriptor
 return|;
 block|}
 specifier|protected
@@ -5535,7 +5535,7 @@ name|generated
 operator|.
 name|FSProtos
 operator|.
-name|internal_static_Reference_fieldAccessorTable
+name|internal_static_hbase_pb_Reference_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -5753,7 +5753,7 @@ name|generated
 operator|.
 name|FSProtos
 operator|.
-name|internal_static_Reference_descriptor
+name|internal_static_hbase_pb_Reference_descriptor
 return|;
 block|}
 specifier|public
@@ -6437,7 +6437,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .Reference.Range range = 2;
+comment|// required .hbase.pb.Reference.Range range = 2;
 specifier|private
 name|org
 operator|.
@@ -6478,7 +6478,7 @@ name|Range
 operator|.
 name|TOP
 decl_stmt|;
-comment|/**        *<code>required .Reference.Range range = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Reference.Range range = 2;</code>        */
 specifier|public
 name|boolean
 name|hasRange
@@ -6496,7 +6496,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .Reference.Range range = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Reference.Range range = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -6522,7 +6522,7 @@ return|return
 name|range_
 return|;
 block|}
-comment|/**        *<code>required .Reference.Range range = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Reference.Range range = 2;</code>        */
 specifier|public
 name|Builder
 name|setRange
@@ -6575,7 +6575,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Reference.Range range = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Reference.Range range = 2;</code>        */
 specifier|public
 name|Builder
 name|clearRange
@@ -6619,7 +6619,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Reference)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Reference)
 block|}
 static|static
 block|{
@@ -6637,7 +6637,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Reference)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Reference)
 block|}
 specifier|private
 specifier|static
@@ -6650,7 +6650,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_HBaseVersionFileContent_descriptor
+name|internal_static_hbase_pb_HBaseVersionFileContent_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -6663,7 +6663,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_HBaseVersionFileContent_fieldAccessorTable
+name|internal_static_hbase_pb_HBaseVersionFileContent_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -6676,7 +6676,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Reference_descriptor
+name|internal_static_hbase_pb_Reference_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -6689,7 +6689,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Reference_fieldAccessorTable
+name|internal_static_hbase_pb_Reference_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -6733,17 +6733,17 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\010FS.proto\"*\n\027HBaseVersionFileContent\022\017\n"
+literal|"\n\010FS.proto\022\010hbase.pb\"*\n\027HBaseVersionFile"
 operator|+
-literal|"\007version\030\001 \002(\t\"\\\n\tReference\022\020\n\010splitkey\030"
+literal|"Content\022\017\n\007version\030\001 \002(\t\"e\n\tReference\022\020\n"
 operator|+
-literal|"\001 \002(\014\022\037\n\005range\030\002 \002(\0162\020.Reference.Range\"\034"
+literal|"\010splitkey\030\001 \002(\014\022(\n\005range\030\002 \002(\0162\031.hbase.p"
 operator|+
-literal|"\n\005Range\022\007\n\003TOP\020\000\022\n\n\006BOTTOM\020\001B;\n*org.apac"
+literal|"b.Reference.Range\"\034\n\005Range\022\007\n\003TOP\020\000\022\n\n\006B"
 operator|+
-literal|"he.hadoop.hbase.protobuf.generatedB\010FSPr"
+literal|"OTTOM\020\001B;\n*org.apache.hadoop.hbase.proto"
 operator|+
-literal|"otosH\001\240\001\001"
+literal|"buf.generatedB\010FSProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -6799,7 +6799,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_HBaseVersionFileContent_descriptor
+name|internal_static_hbase_pb_HBaseVersionFileContent_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -6812,7 +6812,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_HBaseVersionFileContent_fieldAccessorTable
+name|internal_static_hbase_pb_HBaseVersionFileContent_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -6825,7 +6825,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_HBaseVersionFileContent_descriptor
+name|internal_static_hbase_pb_HBaseVersionFileContent_descriptor
 argument_list|,
 operator|new
 name|java
@@ -6839,7 +6839,7 @@ literal|"Version"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_Reference_descriptor
+name|internal_static_hbase_pb_Reference_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -6852,7 +6852,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_Reference_fieldAccessorTable
+name|internal_static_hbase_pb_Reference_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -6865,7 +6865,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Reference_descriptor
+name|internal_static_hbase_pb_Reference_descriptor
 argument_list|,
 operator|new
 name|java

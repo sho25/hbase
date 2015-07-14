@@ -100,7 +100,7 @@ name|getKey
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code AuthenticationKey}    */
+comment|/**    * Protobuf type {@code hbase.pb.AuthenticationKey}    */
 specifier|public
 specifier|static
 specifier|final
@@ -505,7 +505,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_AuthenticationKey_descriptor
+name|internal_static_hbase_pb_AuthenticationKey_descriptor
 return|;
 block|}
 specifier|protected
@@ -536,7 +536,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_AuthenticationKey_fieldAccessorTable
+name|internal_static_hbase_pb_AuthenticationKey_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2175,7 +2175,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code AuthenticationKey}      */
+comment|/**      * Protobuf type {@code hbase.pb.AuthenticationKey}      */
 specifier|public
 specifier|static
 specifier|final
@@ -2241,7 +2241,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_AuthenticationKey_descriptor
+name|internal_static_hbase_pb_AuthenticationKey_descriptor
 return|;
 block|}
 specifier|protected
@@ -2272,7 +2272,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_AuthenticationKey_fieldAccessorTable
+name|internal_static_hbase_pb_AuthenticationKey_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2485,7 +2485,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_AuthenticationKey_descriptor
+name|internal_static_hbase_pb_AuthenticationKey_descriptor
 return|;
 block|}
 specifier|public
@@ -3387,7 +3387,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:AuthenticationKey)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.AuthenticationKey)
 block|}
 static|static
 block|{
@@ -3405,7 +3405,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:AuthenticationKey)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.AuthenticationKey)
 block|}
 specifier|public
 interface|interface
@@ -3419,13 +3419,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .TokenIdentifier.Kind kind = 1;
-comment|/**      *<code>required .TokenIdentifier.Kind kind = 1;</code>      */
+comment|// required .hbase.pb.TokenIdentifier.Kind kind = 1;
+comment|/**      *<code>required .hbase.pb.TokenIdentifier.Kind kind = 1;</code>      */
 name|boolean
 name|hasKind
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TokenIdentifier.Kind kind = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TokenIdentifier.Kind kind = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -3508,7 +3508,7 @@ name|getSequenceNumber
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code TokenIdentifier}    */
+comment|/**    * Protobuf type {@code hbase.pb.TokenIdentifier}    */
 specifier|public
 specifier|static
 specifier|final
@@ -4031,7 +4031,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_TokenIdentifier_descriptor
+name|internal_static_hbase_pb_TokenIdentifier_descriptor
 return|;
 block|}
 specifier|protected
@@ -4062,7 +4062,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_TokenIdentifier_fieldAccessorTable
+name|internal_static_hbase_pb_TokenIdentifier_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -4200,7 +4200,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code TokenIdentifier.Kind}      */
+comment|/**      * Protobuf enum {@code hbase.pb.TokenIdentifier.Kind}      */
 specifier|public
 enum|enum
 name|Kind
@@ -4520,13 +4520,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:TokenIdentifier.Kind)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.TokenIdentifier.Kind)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .TokenIdentifier.Kind kind = 1;
+comment|// required .hbase.pb.TokenIdentifier.Kind kind = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -4555,7 +4555,7 @@ operator|.
 name|Kind
 name|kind_
 decl_stmt|;
-comment|/**      *<code>required .TokenIdentifier.Kind kind = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TokenIdentifier.Kind kind = 1;</code>      */
 specifier|public
 name|boolean
 name|hasKind
@@ -4573,7 +4573,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .TokenIdentifier.Kind kind = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TokenIdentifier.Kind kind = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6574,7 +6574,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code TokenIdentifier}      */
+comment|/**      * Protobuf type {@code hbase.pb.TokenIdentifier}      */
 specifier|public
 specifier|static
 specifier|final
@@ -6640,7 +6640,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_TokenIdentifier_descriptor
+name|internal_static_hbase_pb_TokenIdentifier_descriptor
 return|;
 block|}
 specifier|protected
@@ -6671,7 +6671,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_TokenIdentifier_fieldAccessorTable
+name|internal_static_hbase_pb_TokenIdentifier_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -6941,7 +6941,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_TokenIdentifier_descriptor
+name|internal_static_hbase_pb_TokenIdentifier_descriptor
 return|;
 block|}
 specifier|public
@@ -7672,7 +7672,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .TokenIdentifier.Kind kind = 1;
+comment|// required .hbase.pb.TokenIdentifier.Kind kind = 1;
 specifier|private
 name|org
 operator|.
@@ -7713,7 +7713,7 @@ name|Kind
 operator|.
 name|HBASE_AUTH_TOKEN
 decl_stmt|;
-comment|/**        *<code>required .TokenIdentifier.Kind kind = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TokenIdentifier.Kind kind = 1;</code>        */
 specifier|public
 name|boolean
 name|hasKind
@@ -7731,7 +7731,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .TokenIdentifier.Kind kind = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TokenIdentifier.Kind kind = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -7757,7 +7757,7 @@ return|return
 name|kind_
 return|;
 block|}
-comment|/**        *<code>required .TokenIdentifier.Kind kind = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TokenIdentifier.Kind kind = 1;</code>        */
 specifier|public
 name|Builder
 name|setKind
@@ -7810,7 +7810,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TokenIdentifier.Kind kind = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TokenIdentifier.Kind kind = 1;</code>        */
 specifier|public
 name|Builder
 name|clearKind
@@ -8314,7 +8314,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:TokenIdentifier)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.TokenIdentifier)
 block|}
 static|static
 block|{
@@ -8332,7 +8332,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:TokenIdentifier)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.TokenIdentifier)
 block|}
 specifier|public
 interface|interface
@@ -8398,7 +8398,7 @@ name|getService
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Token}    *    *<pre>    * Serialization of the org.apache.hadoop.security.token.Token class    * Note that this is a Hadoop class, so fields may change!    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.Token}    *    *<pre>    * Serialization of the org.apache.hadoop.security.token.Token class    * Note that this is a Hadoop class, so fields may change!    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -8803,7 +8803,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_Token_descriptor
+name|internal_static_hbase_pb_Token_descriptor
 return|;
 block|}
 specifier|protected
@@ -8834,7 +8834,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_Token_fieldAccessorTable
+name|internal_static_hbase_pb_Token_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -10473,7 +10473,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Token}      *      *<pre>      * Serialization of the org.apache.hadoop.security.token.Token class      * Note that this is a Hadoop class, so fields may change!      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.Token}      *      *<pre>      * Serialization of the org.apache.hadoop.security.token.Token class      * Note that this is a Hadoop class, so fields may change!      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -10539,7 +10539,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_Token_descriptor
+name|internal_static_hbase_pb_Token_descriptor
 return|;
 block|}
 specifier|protected
@@ -10570,7 +10570,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_Token_fieldAccessorTable
+name|internal_static_hbase_pb_Token_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -10799,7 +10799,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_Token_descriptor
+name|internal_static_hbase_pb_Token_descriptor
 return|;
 block|}
 specifier|public
@@ -11758,7 +11758,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Token)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Token)
 block|}
 static|static
 block|{
@@ -11776,7 +11776,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Token)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Token)
 block|}
 specifier|public
 interface|interface
@@ -11790,7 +11790,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code GetAuthenticationTokenRequest}    *    *<pre>    * RPC request&amp; response messages    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.GetAuthenticationTokenRequest}    *    *<pre>    * RPC request&amp; response messages    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -12139,7 +12139,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_GetAuthenticationTokenRequest_descriptor
+name|internal_static_hbase_pb_GetAuthenticationTokenRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -12170,7 +12170,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_GetAuthenticationTokenRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthenticationTokenRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -13246,7 +13246,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetAuthenticationTokenRequest}      *      *<pre>      * RPC request&amp; response messages      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.GetAuthenticationTokenRequest}      *      *<pre>      * RPC request&amp; response messages      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -13312,7 +13312,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_GetAuthenticationTokenRequest_descriptor
+name|internal_static_hbase_pb_GetAuthenticationTokenRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -13343,7 +13343,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_GetAuthenticationTokenRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthenticationTokenRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -13509,7 +13509,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_GetAuthenticationTokenRequest_descriptor
+name|internal_static_hbase_pb_GetAuthenticationTokenRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -13941,7 +13941,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetAuthenticationTokenRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetAuthenticationTokenRequest)
 block|}
 static|static
 block|{
@@ -13959,7 +13959,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetAuthenticationTokenRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetAuthenticationTokenRequest)
 block|}
 specifier|public
 interface|interface
@@ -13973,13 +13973,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .Token token = 1;
-comment|/**      *<code>optional .Token token = 1;</code>      */
+comment|// optional .hbase.pb.Token token = 1;
+comment|/**      *<code>optional .hbase.pb.Token token = 1;</code>      */
 name|boolean
 name|hasToken
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Token token = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Token token = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -13998,7 +13998,7 @@ name|Token
 name|getToken
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Token token = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Token token = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -14018,7 +14018,7 @@ name|getTokenOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GetAuthenticationTokenResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.GetAuthenticationTokenResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -14473,7 +14473,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_GetAuthenticationTokenResponse_descriptor
+name|internal_static_hbase_pb_GetAuthenticationTokenResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -14504,7 +14504,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_GetAuthenticationTokenResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthenticationTokenResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -14646,7 +14646,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .Token token = 1;
+comment|// optional .hbase.pb.Token token = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -14673,7 +14673,7 @@ operator|.
 name|Token
 name|token_
 decl_stmt|;
-comment|/**      *<code>optional .Token token = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Token token = 1;</code>      */
 specifier|public
 name|boolean
 name|hasToken
@@ -14691,7 +14691,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .Token token = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Token token = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -14715,7 +14715,7 @@ return|return
 name|token_
 return|;
 block|}
-comment|/**      *<code>optional .Token token = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Token token = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -15820,7 +15820,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetAuthenticationTokenResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.GetAuthenticationTokenResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -15886,7 +15886,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_GetAuthenticationTokenResponse_descriptor
+name|internal_static_hbase_pb_GetAuthenticationTokenResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -15917,7 +15917,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_GetAuthenticationTokenResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthenticationTokenResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -16133,7 +16133,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_GetAuthenticationTokenResponse_descriptor
+name|internal_static_hbase_pb_GetAuthenticationTokenResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -16646,7 +16646,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .Token token = 1;
+comment|// optional .hbase.pb.Token token = 1;
 specifier|private
 name|org
 operator|.
@@ -16745,7 +16745,7 @@ name|TokenOrBuilder
 argument_list|>
 name|tokenBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .Token token = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Token token = 1;</code>        */
 specifier|public
 name|boolean
 name|hasToken
@@ -16763,7 +16763,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .Token token = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Token token = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -16804,7 +16804,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Token token = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Token token = 1;</code>        */
 specifier|public
 name|Builder
 name|setToken
@@ -16873,7 +16873,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Token token = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Token token = 1;</code>        */
 specifier|public
 name|Builder
 name|setToken
@@ -16937,7 +16937,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Token token = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Token token = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeToken
@@ -17062,7 +17062,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Token token = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Token token = 1;</code>        */
 specifier|public
 name|Builder
 name|clearToken
@@ -17121,7 +17121,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Token token = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Token token = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -17158,7 +17158,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .Token token = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Token token = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -17199,7 +17199,7 @@ name|token_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Token token = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Token token = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -17349,7 +17349,7 @@ return|return
 name|tokenBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetAuthenticationTokenResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetAuthenticationTokenResponse)
 block|}
 static|static
 block|{
@@ -17367,7 +17367,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetAuthenticationTokenResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetAuthenticationTokenResponse)
 block|}
 specifier|public
 interface|interface
@@ -17381,7 +17381,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code WhoAmIRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.WhoAmIRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -17730,7 +17730,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_WhoAmIRequest_descriptor
+name|internal_static_hbase_pb_WhoAmIRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -17761,7 +17761,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_WhoAmIRequest_fieldAccessorTable
+name|internal_static_hbase_pb_WhoAmIRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -18837,7 +18837,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code WhoAmIRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.WhoAmIRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -18903,7 +18903,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_WhoAmIRequest_descriptor
+name|internal_static_hbase_pb_WhoAmIRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -18934,7 +18934,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_WhoAmIRequest_fieldAccessorTable
+name|internal_static_hbase_pb_WhoAmIRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -19100,7 +19100,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_WhoAmIRequest_descriptor
+name|internal_static_hbase_pb_WhoAmIRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -19532,7 +19532,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:WhoAmIRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.WhoAmIRequest)
 block|}
 static|static
 block|{
@@ -19550,7 +19550,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:WhoAmIRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.WhoAmIRequest)
 block|}
 specifier|public
 interface|interface
@@ -19617,7 +19617,7 @@ name|getAuthMethodBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code WhoAmIResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.WhoAmIResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -20005,7 +20005,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_WhoAmIResponse_descriptor
+name|internal_static_hbase_pb_WhoAmIResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -20036,7 +20036,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_WhoAmIResponse_fieldAccessorTable
+name|internal_static_hbase_pb_WhoAmIResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -21797,7 +21797,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code WhoAmIResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.WhoAmIResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -21863,7 +21863,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_WhoAmIResponse_descriptor
+name|internal_static_hbase_pb_WhoAmIResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -21894,7 +21894,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_WhoAmIResponse_fieldAccessorTable
+name|internal_static_hbase_pb_WhoAmIResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -22086,7 +22086,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_WhoAmIResponse_descriptor
+name|internal_static_hbase_pb_WhoAmIResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -23234,7 +23234,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:WhoAmIResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.WhoAmIResponse)
 block|}
 static|static
 block|{
@@ -23252,9 +23252,9 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:WhoAmIResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.WhoAmIResponse)
 block|}
-comment|/**    * Protobuf service {@code AuthenticationService}    *    *<pre>    * RPC service    *</pre>    */
+comment|/**    * Protobuf service {@code hbase.pb.AuthenticationService}    *    *<pre>    * RPC service    *</pre>    */
 specifier|public
 specifier|static
 specifier|abstract
@@ -23277,7 +23277,7 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc GetAuthenticationToken(.GetAuthenticationTokenRequest) returns (.GetAuthenticationTokenResponse);</code>        */
+comment|/**        *<code>rpc GetAuthenticationToken(.hbase.pb.GetAuthenticationTokenRequest) returns (.hbase.pb.GetAuthenticationTokenResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -23336,7 +23336,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc WhoAmI(.WhoAmIRequest) returns (.WhoAmIResponse);</code>        */
+comment|/**        *<code>rpc WhoAmI(.hbase.pb.WhoAmIRequest) returns (.hbase.pb.WhoAmIResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -24007,7 +24007,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc GetAuthenticationToken(.GetAuthenticationTokenRequest) returns (.GetAuthenticationTokenResponse);</code>      */
+comment|/**      *<code>rpc GetAuthenticationToken(.hbase.pb.GetAuthenticationTokenRequest) returns (.hbase.pb.GetAuthenticationTokenResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -24066,7 +24066,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc WhoAmI(.WhoAmIRequest) returns (.WhoAmIResponse);</code>      */
+comment|/**      *<code>rpc WhoAmI(.hbase.pb.WhoAmIRequest) returns (.hbase.pb.WhoAmIResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -25422,7 +25422,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|// @@protoc_insertion_point(class_scope:AuthenticationService)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.AuthenticationService)
 block|}
 specifier|private
 specifier|static
@@ -25435,7 +25435,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_AuthenticationKey_descriptor
+name|internal_static_hbase_pb_AuthenticationKey_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25448,7 +25448,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_AuthenticationKey_fieldAccessorTable
+name|internal_static_hbase_pb_AuthenticationKey_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25461,7 +25461,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_TokenIdentifier_descriptor
+name|internal_static_hbase_pb_TokenIdentifier_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25474,7 +25474,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_TokenIdentifier_fieldAccessorTable
+name|internal_static_hbase_pb_TokenIdentifier_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25487,7 +25487,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Token_descriptor
+name|internal_static_hbase_pb_Token_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25500,7 +25500,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Token_fieldAccessorTable
+name|internal_static_hbase_pb_Token_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25513,7 +25513,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetAuthenticationTokenRequest_descriptor
+name|internal_static_hbase_pb_GetAuthenticationTokenRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25526,7 +25526,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetAuthenticationTokenRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthenticationTokenRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25539,7 +25539,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetAuthenticationTokenResponse_descriptor
+name|internal_static_hbase_pb_GetAuthenticationTokenResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25552,7 +25552,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetAuthenticationTokenResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthenticationTokenResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25565,7 +25565,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_WhoAmIRequest_descriptor
+name|internal_static_hbase_pb_WhoAmIRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25578,7 +25578,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_WhoAmIRequest_fieldAccessorTable
+name|internal_static_hbase_pb_WhoAmIRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25591,7 +25591,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_WhoAmIResponse_descriptor
+name|internal_static_hbase_pb_WhoAmIResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25604,7 +25604,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_WhoAmIResponse_fieldAccessorTable
+name|internal_static_hbase_pb_WhoAmIResponse_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -25648,43 +25648,47 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\024Authentication.proto\"E\n\021Authentication"
+literal|"\n\024Authentication.proto\022\010hbase.pb\"E\n\021Auth"
 operator|+
-literal|"Key\022\n\n\002id\030\001 \002(\005\022\027\n\017expiration_date\030\002 \002(\003"
+literal|"enticationKey\022\n\n\002id\030\001 \002(\005\022\027\n\017expiration_"
 operator|+
-literal|"\022\013\n\003key\030\003 \002(\014\"\274\001\n\017TokenIdentifier\022#\n\004kin"
+literal|"date\030\002 \002(\003\022\013\n\003key\030\003 \002(\014\"\305\001\n\017TokenIdentif"
 operator|+
-literal|"d\030\001 \002(\0162\025.TokenIdentifier.Kind\022\020\n\010userna"
+literal|"ier\022,\n\004kind\030\001 \002(\0162\036.hbase.pb.TokenIdenti"
 operator|+
-literal|"me\030\002 \002(\014\022\016\n\006key_id\030\003 \002(\005\022\022\n\nissue_date\030\004"
+literal|"fier.Kind\022\020\n\010username\030\002 \002(\014\022\016\n\006key_id\030\003 "
 operator|+
-literal|" \001(\003\022\027\n\017expiration_date\030\005 \001(\003\022\027\n\017sequenc"
+literal|"\002(\005\022\022\n\nissue_date\030\004 \001(\003\022\027\n\017expiration_da"
 operator|+
-literal|"e_number\030\006 \001(\003\"\034\n\004Kind\022\024\n\020HBASE_AUTH_TOK"
+literal|"te\030\005 \001(\003\022\027\n\017sequence_number\030\006 \001(\003\"\034\n\004Kin"
 operator|+
-literal|"EN\020\000\">\n\005Token\022\022\n\nidentifier\030\001 \001(\014\022\020\n\010pas"
+literal|"d\022\024\n\020HBASE_AUTH_TOKEN\020\000\">\n\005Token\022\022\n\niden"
 operator|+
-literal|"sword\030\002 \001(\014\022\017\n\007service\030\003 \001(\014\"\037\n\035GetAuthe"
+literal|"tifier\030\001 \001(\014\022\020\n\010password\030\002 \001(\014\022\017\n\007servic"
 operator|+
-literal|"nticationTokenRequest\"7\n\036GetAuthenticati"
+literal|"e\030\003 \001(\014\"\037\n\035GetAuthenticationTokenRequest"
 block|,
-literal|"onTokenResponse\022\025\n\005token\030\001 \001(\0132\006.Token\"\017"
+literal|"\"@\n\036GetAuthenticationTokenResponse\022\036\n\005to"
 operator|+
-literal|"\n\rWhoAmIRequest\"7\n\016WhoAmIResponse\022\020\n\010use"
+literal|"ken\030\001 \001(\0132\017.hbase.pb.Token\"\017\n\rWhoAmIRequ"
 operator|+
-literal|"rname\030\001 \001(\t\022\023\n\013auth_method\030\002 \001(\t2\235\001\n\025Aut"
+literal|"est\"7\n\016WhoAmIResponse\022\020\n\010username\030\001 \001(\t\022"
 operator|+
-literal|"henticationService\022Y\n\026GetAuthenticationT"
+literal|"\023\n\013auth_method\030\002 \001(\t2\301\001\n\025AuthenticationS"
 operator|+
-literal|"oken\022\036.GetAuthenticationTokenRequest\032\037.G"
+literal|"ervice\022k\n\026GetAuthenticationToken\022\'.hbase"
 operator|+
-literal|"etAuthenticationTokenResponse\022)\n\006WhoAmI\022"
+literal|".pb.GetAuthenticationTokenRequest\032(.hbas"
 operator|+
-literal|"\016.WhoAmIRequest\032\017.WhoAmIResponseBJ\n*org."
+literal|"e.pb.GetAuthenticationTokenResponse\022;\n\006W"
 operator|+
-literal|"apache.hadoop.hbase.protobuf.generatedB\024"
+literal|"hoAmI\022\027.hbase.pb.WhoAmIRequest\032\030.hbase.p"
 operator|+
-literal|"AuthenticationProtosH\001\210\001\001\240\001\001"
+literal|"b.WhoAmIResponseBJ\n*org.apache.hadoop.hb"
+operator|+
+literal|"ase.protobuf.generatedB\024AuthenticationPr"
+block|,
+literal|"otosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -25740,7 +25744,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_AuthenticationKey_descriptor
+name|internal_static_hbase_pb_AuthenticationKey_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -25753,7 +25757,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_AuthenticationKey_fieldAccessorTable
+name|internal_static_hbase_pb_AuthenticationKey_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -25766,7 +25770,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_AuthenticationKey_descriptor
+name|internal_static_hbase_pb_AuthenticationKey_descriptor
 argument_list|,
 operator|new
 name|java
@@ -25784,7 +25788,7 @@ literal|"Key"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_TokenIdentifier_descriptor
+name|internal_static_hbase_pb_TokenIdentifier_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -25797,7 +25801,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_TokenIdentifier_fieldAccessorTable
+name|internal_static_hbase_pb_TokenIdentifier_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -25810,7 +25814,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_TokenIdentifier_descriptor
+name|internal_static_hbase_pb_TokenIdentifier_descriptor
 argument_list|,
 operator|new
 name|java
@@ -25834,7 +25838,7 @@ literal|"SequenceNumber"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_Token_descriptor
+name|internal_static_hbase_pb_Token_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -25847,7 +25851,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_Token_fieldAccessorTable
+name|internal_static_hbase_pb_Token_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -25860,7 +25864,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Token_descriptor
+name|internal_static_hbase_pb_Token_descriptor
 argument_list|,
 operator|new
 name|java
@@ -25878,7 +25882,7 @@ literal|"Service"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_GetAuthenticationTokenRequest_descriptor
+name|internal_static_hbase_pb_GetAuthenticationTokenRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -25891,7 +25895,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_GetAuthenticationTokenRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthenticationTokenRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -25904,7 +25908,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetAuthenticationTokenRequest_descriptor
+name|internal_static_hbase_pb_GetAuthenticationTokenRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -25916,7 +25920,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_GetAuthenticationTokenResponse_descriptor
+name|internal_static_hbase_pb_GetAuthenticationTokenResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -25929,7 +25933,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_GetAuthenticationTokenResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthenticationTokenResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -25942,7 +25946,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetAuthenticationTokenResponse_descriptor
+name|internal_static_hbase_pb_GetAuthenticationTokenResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -25956,7 +25960,7 @@ literal|"Token"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_WhoAmIRequest_descriptor
+name|internal_static_hbase_pb_WhoAmIRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -25969,7 +25973,7 @@ argument_list|(
 literal|5
 argument_list|)
 expr_stmt|;
-name|internal_static_WhoAmIRequest_fieldAccessorTable
+name|internal_static_hbase_pb_WhoAmIRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -25982,7 +25986,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_WhoAmIRequest_descriptor
+name|internal_static_hbase_pb_WhoAmIRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -25994,7 +25998,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_WhoAmIResponse_descriptor
+name|internal_static_hbase_pb_WhoAmIResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -26007,7 +26011,7 @@ argument_list|(
 literal|6
 argument_list|)
 expr_stmt|;
-name|internal_static_WhoAmIResponse_fieldAccessorTable
+name|internal_static_hbase_pb_WhoAmIResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -26020,7 +26024,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_WhoAmIResponse_descriptor
+name|internal_static_hbase_pb_WhoAmIResponse_descriptor
 argument_list|,
 operator|new
 name|java

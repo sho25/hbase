@@ -60,13 +60,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ServerName server = 1;
-comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
+comment|// required .hbase.pb.ServerName server = 1;
+comment|/**      *<code>required .hbase.pb.ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
 name|boolean
 name|hasServer
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
+comment|/**      *<code>required .hbase.pb.ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -85,7 +85,7 @@ name|ServerName
 name|getServer
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
+comment|/**      *<code>required .hbase.pb.ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -115,13 +115,13 @@ name|int
 name|getRpcVersion
 parameter_list|()
 function_decl|;
-comment|// optional .RegionState.State state = 3;
-comment|/**      *<code>optional .RegionState.State state = 3;</code>      *      *<pre>      * State of the region transition. OPEN means fully operational 'hbase:meta'      *</pre>      */
+comment|// optional .hbase.pb.RegionState.State state = 3;
+comment|/**      *<code>optional .hbase.pb.RegionState.State state = 3;</code>      *      *<pre>      * State of the region transition. OPEN means fully operational 'hbase:meta'      *</pre>      */
 name|boolean
 name|hasState
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .RegionState.State state = 3;</code>      *      *<pre>      * State of the region transition. OPEN means fully operational 'hbase:meta'      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.RegionState.State state = 3;</code>      *      *<pre>      * State of the region transition. OPEN means fully operational 'hbase:meta'      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -143,7 +143,7 @@ name|getState
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code MetaRegionServer}    *    *<pre>    **    * Content of the meta-region-server znode.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.MetaRegionServer}    *    *<pre>    **    * Content of the meta-region-server znode.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -699,7 +699,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_MetaRegionServer_descriptor
+name|internal_static_hbase_pb_MetaRegionServer_descriptor
 return|;
 block|}
 specifier|protected
@@ -730,7 +730,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_MetaRegionServer_fieldAccessorTable
+name|internal_static_hbase_pb_MetaRegionServer_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -872,7 +872,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerName server = 1;
+comment|// required .hbase.pb.ServerName server = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -899,7 +899,7 @@ operator|.
 name|ServerName
 name|server_
 decl_stmt|;
-comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
+comment|/**      *<code>required .hbase.pb.ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
 specifier|public
 name|boolean
 name|hasServer
@@ -917,7 +917,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
+comment|/**      *<code>required .hbase.pb.ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -941,7 +941,7 @@ return|return
 name|server_
 return|;
 block|}
-comment|/**      *<code>required .ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
+comment|/**      *<code>required .hbase.pb.ServerName server = 1;</code>      *      *<pre>      * The ServerName hosting the meta region currently, or destination server,      * if meta region is in transition.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -1006,7 +1006,7 @@ return|return
 name|rpcVersion_
 return|;
 block|}
-comment|// optional .RegionState.State state = 3;
+comment|// optional .hbase.pb.RegionState.State state = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -1035,7 +1035,7 @@ operator|.
 name|State
 name|state_
 decl_stmt|;
-comment|/**      *<code>optional .RegionState.State state = 3;</code>      *      *<pre>      * State of the region transition. OPEN means fully operational 'hbase:meta'      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.RegionState.State state = 3;</code>      *      *<pre>      * State of the region transition. OPEN means fully operational 'hbase:meta'      *</pre>      */
 specifier|public
 name|boolean
 name|hasState
@@ -1053,7 +1053,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .RegionState.State state = 3;</code>      *      *<pre>      * State of the region transition. OPEN means fully operational 'hbase:meta'      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.RegionState.State state = 3;</code>      *      *<pre>      * State of the region transition. OPEN means fully operational 'hbase:meta'      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -2462,7 +2462,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code MetaRegionServer}      *      *<pre>      **      * Content of the meta-region-server znode.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.MetaRegionServer}      *      *<pre>      **      * Content of the meta-region-server znode.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -2528,7 +2528,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_MetaRegionServer_descriptor
+name|internal_static_hbase_pb_MetaRegionServer_descriptor
 return|;
 block|}
 specifier|protected
@@ -2559,7 +2559,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_MetaRegionServer_fieldAccessorTable
+name|internal_static_hbase_pb_MetaRegionServer_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2819,7 +2819,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_MetaRegionServer_descriptor
+name|internal_static_hbase_pb_MetaRegionServer_descriptor
 return|;
 block|}
 specifier|public
@@ -3439,7 +3439,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerName server = 1;
+comment|// required .hbase.pb.ServerName server = 1;
 specifier|private
 name|org
 operator|.
@@ -3538,7 +3538,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|serverBuilder_
 decl_stmt|;
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|boolean
 name|hasServer
@@ -3556,7 +3556,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -3597,7 +3597,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|Builder
 name|setServer
@@ -3666,7 +3666,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|Builder
 name|setServer
@@ -3730,7 +3730,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|Builder
 name|mergeServer
@@ -3855,7 +3855,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|Builder
 name|clearServer
@@ -3914,7 +3914,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -3951,7 +3951,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -3992,7 +3992,7 @@ name|server_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName server = 1;</code>        *        *<pre>        * The ServerName hosting the meta region currently, or destination server,        * if meta region is in transition.        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -4225,7 +4225,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .RegionState.State state = 3;
+comment|// optional .hbase.pb.RegionState.State state = 3;
 specifier|private
 name|org
 operator|.
@@ -4266,7 +4266,7 @@ name|State
 operator|.
 name|OFFLINE
 decl_stmt|;
-comment|/**        *<code>optional .RegionState.State state = 3;</code>        *        *<pre>        * State of the region transition. OPEN means fully operational 'hbase:meta'        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.RegionState.State state = 3;</code>        *        *<pre>        * State of the region transition. OPEN means fully operational 'hbase:meta'        *</pre>        */
 specifier|public
 name|boolean
 name|hasState
@@ -4284,7 +4284,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .RegionState.State state = 3;</code>        *        *<pre>        * State of the region transition. OPEN means fully operational 'hbase:meta'        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.RegionState.State state = 3;</code>        *        *<pre>        * State of the region transition. OPEN means fully operational 'hbase:meta'        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -4310,7 +4310,7 @@ return|return
 name|state_
 return|;
 block|}
-comment|/**        *<code>optional .RegionState.State state = 3;</code>        *        *<pre>        * State of the region transition. OPEN means fully operational 'hbase:meta'        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.RegionState.State state = 3;</code>        *        *<pre>        * State of the region transition. OPEN means fully operational 'hbase:meta'        *</pre>        */
 specifier|public
 name|Builder
 name|setState
@@ -4363,7 +4363,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RegionState.State state = 3;</code>        *        *<pre>        * State of the region transition. OPEN means fully operational 'hbase:meta'        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.RegionState.State state = 3;</code>        *        *<pre>        * State of the region transition. OPEN means fully operational 'hbase:meta'        *</pre>        */
 specifier|public
 name|Builder
 name|clearState
@@ -4407,7 +4407,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MetaRegionServer)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.MetaRegionServer)
 block|}
 static|static
 block|{
@@ -4425,7 +4425,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MetaRegionServer)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MetaRegionServer)
 block|}
 specifier|public
 interface|interface
@@ -4439,13 +4439,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ServerName master = 1;
-comment|/**      *<code>required .ServerName master = 1;</code>      *      *<pre>      * The ServerName of the current Master      *</pre>      */
+comment|// required .hbase.pb.ServerName master = 1;
+comment|/**      *<code>required .hbase.pb.ServerName master = 1;</code>      *      *<pre>      * The ServerName of the current Master      *</pre>      */
 name|boolean
 name|hasMaster
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerName master = 1;</code>      *      *<pre>      * The ServerName of the current Master      *</pre>      */
+comment|/**      *<code>required .hbase.pb.ServerName master = 1;</code>      *      *<pre>      * The ServerName of the current Master      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -4464,7 +4464,7 @@ name|ServerName
 name|getMaster
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerName master = 1;</code>      *      *<pre>      * The ServerName of the current Master      *</pre>      */
+comment|/**      *<code>required .hbase.pb.ServerName master = 1;</code>      *      *<pre>      * The ServerName of the current Master      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -4506,7 +4506,7 @@ name|getInfoPort
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Master}    *    *<pre>    **    * Content of the master znode.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.Master}    *    *<pre>    **    * Content of the master znode.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -4995,7 +4995,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_Master_descriptor
+name|internal_static_hbase_pb_Master_descriptor
 return|;
 block|}
 specifier|protected
@@ -5026,7 +5026,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_Master_fieldAccessorTable
+name|internal_static_hbase_pb_Master_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -5168,7 +5168,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerName master = 1;
+comment|// required .hbase.pb.ServerName master = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -5195,7 +5195,7 @@ operator|.
 name|ServerName
 name|master_
 decl_stmt|;
-comment|/**      *<code>required .ServerName master = 1;</code>      *      *<pre>      * The ServerName of the current Master      *</pre>      */
+comment|/**      *<code>required .hbase.pb.ServerName master = 1;</code>      *      *<pre>      * The ServerName of the current Master      *</pre>      */
 specifier|public
 name|boolean
 name|hasMaster
@@ -5213,7 +5213,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ServerName master = 1;</code>      *      *<pre>      * The ServerName of the current Master      *</pre>      */
+comment|/**      *<code>required .hbase.pb.ServerName master = 1;</code>      *      *<pre>      * The ServerName of the current Master      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -5237,7 +5237,7 @@ return|return
 name|master_
 return|;
 block|}
-comment|/**      *<code>required .ServerName master = 1;</code>      *      *<pre>      * The ServerName of the current Master      *</pre>      */
+comment|/**      *<code>required .hbase.pb.ServerName master = 1;</code>      *      *<pre>      * The ServerName of the current Master      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -6699,7 +6699,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Master}      *      *<pre>      **      * Content of the master znode.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.Master}      *      *<pre>      **      * Content of the master znode.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -6765,7 +6765,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_Master_descriptor
+name|internal_static_hbase_pb_Master_descriptor
 return|;
 block|}
 specifier|protected
@@ -6796,7 +6796,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_Master_fieldAccessorTable
+name|internal_static_hbase_pb_Master_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -7038,7 +7038,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_Master_descriptor
+name|internal_static_hbase_pb_Master_descriptor
 return|;
 block|}
 specifier|public
@@ -7658,7 +7658,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerName master = 1;
+comment|// required .hbase.pb.ServerName master = 1;
 specifier|private
 name|org
 operator|.
@@ -7757,7 +7757,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|masterBuilder_
 decl_stmt|;
-comment|/**        *<code>required .ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
 specifier|public
 name|boolean
 name|hasMaster
@@ -7775,7 +7775,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -7816,7 +7816,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
 specifier|public
 name|Builder
 name|setMaster
@@ -7885,7 +7885,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
 specifier|public
 name|Builder
 name|setMaster
@@ -7949,7 +7949,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
 specifier|public
 name|Builder
 name|mergeMaster
@@ -8074,7 +8074,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
 specifier|public
 name|Builder
 name|clearMaster
@@ -8133,7 +8133,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -8170,7 +8170,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -8211,7 +8211,7 @@ name|master_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
+comment|/**        *<code>required .hbase.pb.ServerName master = 1;</code>        *        *<pre>        * The ServerName of the current Master        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -8527,7 +8527,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Master)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Master)
 block|}
 static|static
 block|{
@@ -8545,7 +8545,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Master)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Master)
 block|}
 specifier|public
 interface|interface
@@ -8586,7 +8586,7 @@ name|getStartDateBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ClusterUp}    *    *<pre>    **    * Content of the '/hbase/running', cluster state, znode.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ClusterUp}    *    *<pre>    **    * Content of the '/hbase/running', cluster state, znode.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -8957,7 +8957,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ClusterUp_descriptor
+name|internal_static_hbase_pb_ClusterUp_descriptor
 return|;
 block|}
 specifier|protected
@@ -8988,7 +8988,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ClusterUp_fieldAccessorTable
+name|internal_static_hbase_pb_ClusterUp_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -10424,7 +10424,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ClusterUp}      *      *<pre>      **      * Content of the '/hbase/running', cluster state, znode.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ClusterUp}      *      *<pre>      **      * Content of the '/hbase/running', cluster state, znode.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -10490,7 +10490,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ClusterUp_descriptor
+name|internal_static_hbase_pb_ClusterUp_descriptor
 return|;
 block|}
 specifier|protected
@@ -10521,7 +10521,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ClusterUp_fieldAccessorTable
+name|internal_static_hbase_pb_ClusterUp_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -10700,7 +10700,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ClusterUp_descriptor
+name|internal_static_hbase_pb_ClusterUp_descriptor
 return|;
 block|}
 specifier|public
@@ -11511,7 +11511,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ClusterUp)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ClusterUp)
 block|}
 static|static
 block|{
@@ -11529,7 +11529,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ClusterUp)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ClusterUp)
 block|}
 specifier|public
 interface|interface
@@ -11543,13 +11543,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .SplitLogTask.State state = 1;
-comment|/**      *<code>required .SplitLogTask.State state = 1;</code>      */
+comment|// required .hbase.pb.SplitLogTask.State state = 1;
+comment|/**      *<code>required .hbase.pb.SplitLogTask.State state = 1;</code>      */
 name|boolean
 name|hasState
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .SplitLogTask.State state = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.SplitLogTask.State state = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -11570,13 +11570,13 @@ name|State
 name|getState
 parameter_list|()
 function_decl|;
-comment|// required .ServerName server_name = 2;
-comment|/**      *<code>required .ServerName server_name = 2;</code>      */
+comment|// required .hbase.pb.ServerName server_name = 2;
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 2;</code>      */
 name|boolean
 name|hasServerName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerName server_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -11595,7 +11595,7 @@ name|ServerName
 name|getServerName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ServerName server_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -11614,13 +11614,13 @@ name|ServerNameOrBuilder
 name|getServerNameOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];
-comment|/**      *<code>optional .SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>      */
+comment|// optional .hbase.pb.SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];
+comment|/**      *<code>optional .hbase.pb.SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>      */
 name|boolean
 name|hasMode
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>      */
+comment|/**      *<code>optional .hbase.pb.SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>      */
 name|org
 operator|.
 name|apache
@@ -11642,7 +11642,7 @@ name|getMode
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code SplitLogTask}    *    *<pre>    **    * WAL SplitLog directory znodes have this for content.  Used doing distributed    * WAL splitting.  Holds current state and name of server that originated split.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.SplitLogTask}    *    *<pre>    **    * WAL SplitLog directory znodes have this for content.  Used doing distributed    * WAL splitting.  Holds current state and name of server that originated split.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -12265,7 +12265,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_SplitLogTask_descriptor
+name|internal_static_hbase_pb_SplitLogTask_descriptor
 return|;
 block|}
 specifier|protected
@@ -12296,7 +12296,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_SplitLogTask_fieldAccessorTable
+name|internal_static_hbase_pb_SplitLogTask_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -12434,7 +12434,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code SplitLogTask.State}      */
+comment|/**      * Protobuf enum {@code hbase.pb.SplitLogTask.State}      */
 specifier|public
 enum|enum
 name|State
@@ -12846,9 +12846,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:SplitLogTask.State)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.SplitLogTask.State)
 block|}
-comment|/**      * Protobuf enum {@code SplitLogTask.RecoveryMode}      */
+comment|/**      * Protobuf enum {@code hbase.pb.SplitLogTask.RecoveryMode}      */
 specifier|public
 enum|enum
 name|RecoveryMode
@@ -13214,13 +13214,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:SplitLogTask.RecoveryMode)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.SplitLogTask.RecoveryMode)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .SplitLogTask.State state = 1;
+comment|// required .hbase.pb.SplitLogTask.State state = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -13249,7 +13249,7 @@ operator|.
 name|State
 name|state_
 decl_stmt|;
-comment|/**      *<code>required .SplitLogTask.State state = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.SplitLogTask.State state = 1;</code>      */
 specifier|public
 name|boolean
 name|hasState
@@ -13267,7 +13267,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .SplitLogTask.State state = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.SplitLogTask.State state = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -13293,7 +13293,7 @@ return|return
 name|state_
 return|;
 block|}
-comment|// required .ServerName server_name = 2;
+comment|// required .hbase.pb.ServerName server_name = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -13320,7 +13320,7 @@ operator|.
 name|ServerName
 name|serverName_
 decl_stmt|;
-comment|/**      *<code>required .ServerName server_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 2;</code>      */
 specifier|public
 name|boolean
 name|hasServerName
@@ -13338,7 +13338,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ServerName server_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -13362,7 +13362,7 @@ return|return
 name|serverName_
 return|;
 block|}
-comment|/**      *<code>required .ServerName server_name = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.ServerName server_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -13386,7 +13386,7 @@ return|return
 name|serverName_
 return|;
 block|}
-comment|// optional .SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];
+comment|// optional .hbase.pb.SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];
 specifier|public
 specifier|static
 specifier|final
@@ -13415,7 +13415,7 @@ operator|.
 name|RecoveryMode
 name|mode_
 decl_stmt|;
-comment|/**      *<code>optional .SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>      */
+comment|/**      *<code>optional .hbase.pb.SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>      */
 specifier|public
 name|boolean
 name|hasMode
@@ -13433,7 +13433,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>      */
+comment|/**      *<code>optional .hbase.pb.SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>      */
 specifier|public
 name|org
 operator|.
@@ -14884,7 +14884,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code SplitLogTask}      *      *<pre>      **      * WAL SplitLog directory znodes have this for content.  Used doing distributed      * WAL splitting.  Holds current state and name of server that originated split.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.SplitLogTask}      *      *<pre>      **      * WAL SplitLog directory znodes have this for content.  Used doing distributed      * WAL splitting.  Holds current state and name of server that originated split.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -14950,7 +14950,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_SplitLogTask_descriptor
+name|internal_static_hbase_pb_SplitLogTask_descriptor
 return|;
 block|}
 specifier|protected
@@ -14981,7 +14981,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_SplitLogTask_fieldAccessorTable
+name|internal_static_hbase_pb_SplitLogTask_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -15259,7 +15259,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_SplitLogTask_descriptor
+name|internal_static_hbase_pb_SplitLogTask_descriptor
 return|;
 block|}
 specifier|public
@@ -15890,7 +15890,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .SplitLogTask.State state = 1;
+comment|// required .hbase.pb.SplitLogTask.State state = 1;
 specifier|private
 name|org
 operator|.
@@ -15931,7 +15931,7 @@ name|State
 operator|.
 name|UNASSIGNED
 decl_stmt|;
-comment|/**        *<code>required .SplitLogTask.State state = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.SplitLogTask.State state = 1;</code>        */
 specifier|public
 name|boolean
 name|hasState
@@ -15949,7 +15949,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .SplitLogTask.State state = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.SplitLogTask.State state = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -15975,7 +15975,7 @@ return|return
 name|state_
 return|;
 block|}
-comment|/**        *<code>required .SplitLogTask.State state = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.SplitLogTask.State state = 1;</code>        */
 specifier|public
 name|Builder
 name|setState
@@ -16028,7 +16028,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .SplitLogTask.State state = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.SplitLogTask.State state = 1;</code>        */
 specifier|public
 name|Builder
 name|clearState
@@ -16072,7 +16072,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .ServerName server_name = 2;
+comment|// required .hbase.pb.ServerName server_name = 2;
 specifier|private
 name|org
 operator|.
@@ -16171,7 +16171,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|serverNameBuilder_
 decl_stmt|;
-comment|/**        *<code>required .ServerName server_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 2;</code>        */
 specifier|public
 name|boolean
 name|hasServerName
@@ -16189,7 +16189,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -16230,7 +16230,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerName server_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setServerName
@@ -16299,7 +16299,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setServerName
@@ -16363,7 +16363,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeServerName
@@ -16488,7 +16488,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 2;</code>        */
 specifier|public
 name|Builder
 name|clearServerName
@@ -16547,7 +16547,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -16584,7 +16584,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .ServerName server_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -16625,7 +16625,7 @@ name|serverName_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ServerName server_name = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.ServerName server_name = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -16775,7 +16775,7 @@ return|return
 name|serverNameBuilder_
 return|;
 block|}
-comment|// optional .SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];
+comment|// optional .hbase.pb.SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];
 specifier|private
 name|org
 operator|.
@@ -16816,7 +16816,7 @@ name|RecoveryMode
 operator|.
 name|UNKNOWN
 decl_stmt|;
-comment|/**        *<code>optional .SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>        */
+comment|/**        *<code>optional .hbase.pb.SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>        */
 specifier|public
 name|boolean
 name|hasMode
@@ -16834,7 +16834,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>        */
+comment|/**        *<code>optional .hbase.pb.SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>        */
 specifier|public
 name|org
 operator|.
@@ -16860,7 +16860,7 @@ return|return
 name|mode_
 return|;
 block|}
-comment|/**        *<code>optional .SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>        */
+comment|/**        *<code>optional .hbase.pb.SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>        */
 specifier|public
 name|Builder
 name|setMode
@@ -16913,7 +16913,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>        */
+comment|/**        *<code>optional .hbase.pb.SplitLogTask.RecoveryMode mode = 3 [default = UNKNOWN];</code>        */
 specifier|public
 name|Builder
 name|clearMode
@@ -16957,7 +16957,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:SplitLogTask)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.SplitLogTask)
 block|}
 static|static
 block|{
@@ -16975,7 +16975,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:SplitLogTask)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.SplitLogTask)
 block|}
 specifier|public
 interface|interface
@@ -16989,13 +16989,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .DeprecatedTableState.State state = 1 [default = ENABLED];
-comment|/**      *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
+comment|// required .hbase.pb.DeprecatedTableState.State state = 1 [default = ENABLED];
+comment|/**      *<code>required .hbase.pb.DeprecatedTableState.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
 name|boolean
 name|hasState
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
+comment|/**      *<code>required .hbase.pb.DeprecatedTableState.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -17017,7 +17017,7 @@ name|getState
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code DeprecatedTableState}    *    *<pre>    **    * The znode that holds state of table.    * Deprected, table state is stored in table descriptor on HDFS.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.DeprecatedTableState}    *    *<pre>    **    * The znode that holds state of table.    * Deprected, table state is stored in table descriptor on HDFS.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -17455,7 +17455,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_DeprecatedTableState_descriptor
+name|internal_static_hbase_pb_DeprecatedTableState_descriptor
 return|;
 block|}
 specifier|protected
@@ -17486,7 +17486,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_DeprecatedTableState_fieldAccessorTable
+name|internal_static_hbase_pb_DeprecatedTableState_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -17624,7 +17624,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code DeprecatedTableState.State}      *      *<pre>      * Table's current state      *</pre>      */
+comment|/**      * Protobuf enum {@code hbase.pb.DeprecatedTableState.State}      *      *<pre>      * Table's current state      *</pre>      */
 specifier|public
 enum|enum
 name|State
@@ -18013,13 +18013,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:DeprecatedTableState.State)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.DeprecatedTableState.State)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .DeprecatedTableState.State state = 1 [default = ENABLED];
+comment|// required .hbase.pb.DeprecatedTableState.State state = 1 [default = ENABLED];
 specifier|public
 specifier|static
 specifier|final
@@ -18048,7 +18048,7 @@ operator|.
 name|State
 name|state_
 decl_stmt|;
-comment|/**      *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
+comment|/**      *<code>required .hbase.pb.DeprecatedTableState.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
 specifier|public
 name|boolean
 name|hasState
@@ -18066,7 +18066,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
+comment|/**      *<code>required .hbase.pb.DeprecatedTableState.State state = 1 [default = ENABLED];</code>      *      *<pre>      * This is the table's state.  If no znode for a table,      * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class      * for more.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -19194,7 +19194,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code DeprecatedTableState}      *      *<pre>      **      * The znode that holds state of table.      * Deprected, table state is stored in table descriptor on HDFS.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.DeprecatedTableState}      *      *<pre>      **      * The znode that holds state of table.      * Deprected, table state is stored in table descriptor on HDFS.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -19260,7 +19260,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_DeprecatedTableState_descriptor
+name|internal_static_hbase_pb_DeprecatedTableState_descriptor
 return|;
 block|}
 specifier|protected
@@ -19291,7 +19291,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_DeprecatedTableState_fieldAccessorTable
+name|internal_static_hbase_pb_DeprecatedTableState_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -19488,7 +19488,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_DeprecatedTableState_descriptor
+name|internal_static_hbase_pb_DeprecatedTableState_descriptor
 return|;
 block|}
 specifier|public
@@ -19992,7 +19992,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .DeprecatedTableState.State state = 1 [default = ENABLED];
+comment|// required .hbase.pb.DeprecatedTableState.State state = 1 [default = ENABLED];
 specifier|private
 name|org
 operator|.
@@ -20033,7 +20033,7 @@ name|State
 operator|.
 name|ENABLED
 decl_stmt|;
-comment|/**        *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.DeprecatedTableState.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
 specifier|public
 name|boolean
 name|hasState
@@ -20051,7 +20051,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.DeprecatedTableState.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -20077,7 +20077,7 @@ return|return
 name|state_
 return|;
 block|}
-comment|/**        *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.DeprecatedTableState.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
 specifier|public
 name|Builder
 name|setState
@@ -20130,7 +20130,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .DeprecatedTableState.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
+comment|/**        *<code>required .hbase.pb.DeprecatedTableState.State state = 1 [default = ENABLED];</code>        *        *<pre>        * This is the table's state.  If no znode for a table,        * its state is presumed enabled.  See o.a.h.h.zookeeper.ZKTable class        * for more.        *</pre>        */
 specifier|public
 name|Builder
 name|clearState
@@ -20174,7 +20174,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:DeprecatedTableState)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.DeprecatedTableState)
 block|}
 static|static
 block|{
@@ -20192,7 +20192,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:DeprecatedTableState)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.DeprecatedTableState)
 block|}
 specifier|public
 interface|interface
@@ -20258,8 +20258,8 @@ name|ByteString
 name|getReplicationEndpointImplBytes
 parameter_list|()
 function_decl|;
-comment|// repeated .BytesBytesPair data = 3;
-comment|/**      *<code>repeated .BytesBytesPair data = 3;</code>      */
+comment|// repeated .hbase.pb.BytesBytesPair data = 3;
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -20285,7 +20285,7 @@ argument_list|>
 name|getDataList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair data = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -20307,12 +20307,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair data = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>      */
 name|int
 name|getDataCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair data = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -20340,7 +20340,7 @@ argument_list|>
 name|getDataOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .BytesBytesPair data = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -20362,8 +20362,8 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated .NameStringPair configuration = 4;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|// repeated .hbase.pb.NameStringPair configuration = 4;
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 name|java
 operator|.
 name|util
@@ -20389,7 +20389,7 @@ argument_list|>
 name|getConfigurationList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -20411,12 +20411,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 name|int
 name|getConfigurationCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 name|java
 operator|.
 name|util
@@ -20444,7 +20444,7 @@ argument_list|>
 name|getConfigurationOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -20467,7 +20467,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ReplicationPeer}    *    *<pre>    **    * Used by replication. Holds a replication peer key.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ReplicationPeer}    *    *<pre>    **    * Used by replication. Holds a replication peer key.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -21073,7 +21073,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationPeer_descriptor
+name|internal_static_hbase_pb_ReplicationPeer_descriptor
 return|;
 block|}
 specifier|protected
@@ -21104,7 +21104,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationPeer_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationPeer_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -21672,7 +21672,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|// repeated .BytesBytesPair data = 3;
+comment|// repeated .hbase.pb.BytesBytesPair data = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -21706,7 +21706,7 @@ name|BytesBytesPair
 argument_list|>
 name|data_
 decl_stmt|;
-comment|/**      *<code>repeated .BytesBytesPair data = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -21737,7 +21737,7 @@ return|return
 name|data_
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair data = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -21770,7 +21770,7 @@ return|return
 name|data_
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair data = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>      */
 specifier|public
 name|int
 name|getDataCount
@@ -21783,7 +21783,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair data = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -21815,7 +21815,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .BytesBytesPair data = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -21847,7 +21847,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated .NameStringPair configuration = 4;
+comment|// repeated .hbase.pb.NameStringPair configuration = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -21881,7 +21881,7 @@ name|NameStringPair
 argument_list|>
 name|configuration_
 decl_stmt|;
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -21912,7 +21912,7 @@ return|return
 name|configuration_
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -21945,7 +21945,7 @@ return|return
 name|configuration_
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 specifier|public
 name|int
 name|getConfigurationCount
@@ -21958,7 +21958,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -21990,7 +21990,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .NameStringPair configuration = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -23570,7 +23570,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ReplicationPeer}      *      *<pre>      **      * Used by replication. Holds a replication peer key.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ReplicationPeer}      *      *<pre>      **      * Used by replication. Holds a replication peer key.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -23636,7 +23636,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationPeer_descriptor
+name|internal_static_hbase_pb_ReplicationPeer_descriptor
 return|;
 block|}
 specifier|protected
@@ -23667,7 +23667,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationPeer_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationPeer_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -23938,7 +23938,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationPeer_descriptor
+name|internal_static_hbase_pb_ReplicationPeer_descriptor
 return|;
 block|}
 specifier|public
@@ -25565,7 +25565,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .BytesBytesPair data = 3;
+comment|// repeated .hbase.pb.BytesBytesPair data = 3;
 specifier|private
 name|java
 operator|.
@@ -25715,7 +25715,7 @@ name|BytesBytesPairOrBuilder
 argument_list|>
 name|dataBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -25772,7 +25772,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|int
 name|getDataCount
@@ -25802,7 +25802,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -25853,7 +25853,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|Builder
 name|setData
@@ -25931,7 +25931,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|Builder
 name|setData
@@ -26004,7 +26004,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|Builder
 name|addData
@@ -26075,7 +26075,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|Builder
 name|addData
@@ -26153,7 +26153,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|Builder
 name|addData
@@ -26219,7 +26219,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|Builder
 name|addData
@@ -26292,7 +26292,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|Builder
 name|addAllData
@@ -26361,7 +26361,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|Builder
 name|clearData
@@ -26410,7 +26410,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|Builder
 name|removeData
@@ -26454,7 +26454,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -26489,7 +26489,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -26540,7 +26540,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -26599,7 +26599,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -26648,7 +26648,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -26702,7 +26702,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .BytesBytesPair data = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BytesBytesPair data = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -26898,7 +26898,7 @@ return|return
 name|dataBuilder_
 return|;
 block|}
-comment|// repeated .NameStringPair configuration = 4;
+comment|// repeated .hbase.pb.NameStringPair configuration = 4;
 specifier|private
 name|java
 operator|.
@@ -27048,7 +27048,7 @@ name|NameStringPairOrBuilder
 argument_list|>
 name|configurationBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -27105,7 +27105,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|int
 name|getConfigurationCount
@@ -27135,7 +27135,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -27186,7 +27186,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|setConfiguration
@@ -27264,7 +27264,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|setConfiguration
@@ -27337,7 +27337,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -27408,7 +27408,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -27486,7 +27486,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -27552,7 +27552,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|addConfiguration
@@ -27625,7 +27625,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|addAllConfiguration
@@ -27694,7 +27694,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|clearConfiguration
@@ -27743,7 +27743,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|Builder
 name|removeConfiguration
@@ -27787,7 +27787,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -27822,7 +27822,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -27873,7 +27873,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -27932,7 +27932,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -27981,7 +27981,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -28035,7 +28035,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameStringPair configuration = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameStringPair configuration = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -28231,7 +28231,7 @@ return|return
 name|configurationBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ReplicationPeer)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ReplicationPeer)
 block|}
 static|static
 block|{
@@ -28249,7 +28249,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ReplicationPeer)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ReplicationPeer)
 block|}
 specifier|public
 interface|interface
@@ -28263,13 +28263,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ReplicationState.State state = 1;
-comment|/**      *<code>required .ReplicationState.State state = 1;</code>      */
+comment|// required .hbase.pb.ReplicationState.State state = 1;
+comment|/**      *<code>required .hbase.pb.ReplicationState.State state = 1;</code>      */
 name|boolean
 name|hasState
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ReplicationState.State state = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ReplicationState.State state = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -28291,7 +28291,7 @@ name|getState
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ReplicationState}    *    *<pre>    **    * Used by replication. Holds whether enabled or disabled    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ReplicationState}    *    *<pre>    **    * Used by replication. Holds whether enabled or disabled    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -28729,7 +28729,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationState_descriptor
+name|internal_static_hbase_pb_ReplicationState_descriptor
 return|;
 block|}
 specifier|protected
@@ -28760,7 +28760,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationState_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationState_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -28898,7 +28898,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code ReplicationState.State}      */
+comment|/**      * Protobuf enum {@code hbase.pb.ReplicationState.State}      */
 specifier|public
 enum|enum
 name|State
@@ -29241,13 +29241,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:ReplicationState.State)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.ReplicationState.State)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ReplicationState.State state = 1;
+comment|// required .hbase.pb.ReplicationState.State state = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -29276,7 +29276,7 @@ operator|.
 name|State
 name|state_
 decl_stmt|;
-comment|/**      *<code>required .ReplicationState.State state = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ReplicationState.State state = 1;</code>      */
 specifier|public
 name|boolean
 name|hasState
@@ -29294,7 +29294,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ReplicationState.State state = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ReplicationState.State state = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -30422,7 +30422,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ReplicationState}      *      *<pre>      **      * Used by replication. Holds whether enabled or disabled      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ReplicationState}      *      *<pre>      **      * Used by replication. Holds whether enabled or disabled      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -30488,7 +30488,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationState_descriptor
+name|internal_static_hbase_pb_ReplicationState_descriptor
 return|;
 block|}
 specifier|protected
@@ -30519,7 +30519,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationState_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationState_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -30716,7 +30716,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationState_descriptor
+name|internal_static_hbase_pb_ReplicationState_descriptor
 return|;
 block|}
 specifier|public
@@ -31220,7 +31220,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ReplicationState.State state = 1;
+comment|// required .hbase.pb.ReplicationState.State state = 1;
 specifier|private
 name|org
 operator|.
@@ -31261,7 +31261,7 @@ name|State
 operator|.
 name|ENABLED
 decl_stmt|;
-comment|/**        *<code>required .ReplicationState.State state = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ReplicationState.State state = 1;</code>        */
 specifier|public
 name|boolean
 name|hasState
@@ -31279,7 +31279,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ReplicationState.State state = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ReplicationState.State state = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -31305,7 +31305,7 @@ return|return
 name|state_
 return|;
 block|}
-comment|/**        *<code>required .ReplicationState.State state = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ReplicationState.State state = 1;</code>        */
 specifier|public
 name|Builder
 name|setState
@@ -31358,7 +31358,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ReplicationState.State state = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ReplicationState.State state = 1;</code>        */
 specifier|public
 name|Builder
 name|clearState
@@ -31402,7 +31402,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ReplicationState)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ReplicationState)
 block|}
 static|static
 block|{
@@ -31420,7 +31420,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ReplicationState)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ReplicationState)
 block|}
 specifier|public
 interface|interface
@@ -31446,7 +31446,7 @@ name|getPosition
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ReplicationHLogPosition}    *    *<pre>    **    * Used by replication. Holds the current position in an WAL file.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ReplicationHLogPosition}    *    *<pre>    **    * Used by replication. Holds the current position in an WAL file.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -31817,7 +31817,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationHLogPosition_descriptor
+name|internal_static_hbase_pb_ReplicationHLogPosition_descriptor
 return|;
 block|}
 specifier|protected
@@ -31848,7 +31848,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationHLogPosition_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationHLogPosition_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -33109,7 +33109,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ReplicationHLogPosition}      *      *<pre>      **      * Used by replication. Holds the current position in an WAL file.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ReplicationHLogPosition}      *      *<pre>      **      * Used by replication. Holds the current position in an WAL file.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -33175,7 +33175,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationHLogPosition_descriptor
+name|internal_static_hbase_pb_ReplicationHLogPosition_descriptor
 return|;
 block|}
 specifier|protected
@@ -33206,7 +33206,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationHLogPosition_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationHLogPosition_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -33385,7 +33385,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationHLogPosition_descriptor
+name|internal_static_hbase_pb_ReplicationHLogPosition_descriptor
 return|;
 block|}
 specifier|public
@@ -33972,7 +33972,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ReplicationHLogPosition)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ReplicationHLogPosition)
 block|}
 static|static
 block|{
@@ -33990,7 +33990,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ReplicationHLogPosition)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ReplicationHLogPosition)
 block|}
 specifier|public
 interface|interface
@@ -34031,7 +34031,7 @@ name|getLockOwnerBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ReplicationLock}    *    *<pre>    **    * Used by replication. Used to lock a region server during failover.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ReplicationLock}    *    *<pre>    **    * Used by replication. Used to lock a region server during failover.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -34402,7 +34402,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationLock_descriptor
+name|internal_static_hbase_pb_ReplicationLock_descriptor
 return|;
 block|}
 specifier|protected
@@ -34433,7 +34433,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationLock_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationLock_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -35869,7 +35869,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ReplicationLock}      *      *<pre>      **      * Used by replication. Used to lock a region server during failover.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ReplicationLock}      *      *<pre>      **      * Used by replication. Used to lock a region server during failover.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -35935,7 +35935,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationLock_descriptor
+name|internal_static_hbase_pb_ReplicationLock_descriptor
 return|;
 block|}
 specifier|protected
@@ -35966,7 +35966,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationLock_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationLock_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -36145,7 +36145,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_ReplicationLock_descriptor
+name|internal_static_hbase_pb_ReplicationLock_descriptor
 return|;
 block|}
 specifier|public
@@ -36956,7 +36956,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ReplicationLock)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ReplicationLock)
 block|}
 static|static
 block|{
@@ -36974,7 +36974,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ReplicationLock)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ReplicationLock)
 block|}
 specifier|public
 interface|interface
@@ -36988,13 +36988,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .TableName table_name = 1;
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|// optional .hbase.pb.TableName table_name = 1;
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 name|boolean
 name|hasTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -37013,7 +37013,7 @@ name|TableName
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -37032,13 +37032,13 @@ name|TableNameOrBuilder
 name|getTableNameOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .ServerName lock_owner = 2;
-comment|/**      *<code>optional .ServerName lock_owner = 2;</code>      */
+comment|// optional .hbase.pb.ServerName lock_owner = 2;
+comment|/**      *<code>optional .hbase.pb.ServerName lock_owner = 2;</code>      */
 name|boolean
 name|hasLockOwner
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ServerName lock_owner = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.ServerName lock_owner = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -37057,7 +37057,7 @@ name|ServerName
 name|getLockOwner
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ServerName lock_owner = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.ServerName lock_owner = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -37136,7 +37136,7 @@ name|getCreateTime
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code TableLock}    *    *<pre>    **    * Metadata associated with a table lock in zookeeper    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.TableLock}    *    *<pre>    **    * Metadata associated with a table lock in zookeeper    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -37760,7 +37760,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_TableLock_descriptor
+name|internal_static_hbase_pb_TableLock_descriptor
 return|;
 block|}
 specifier|protected
@@ -37791,7 +37791,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_TableLock_fieldAccessorTable
+name|internal_static_hbase_pb_TableLock_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -37933,7 +37933,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .TableName table_name = 1;
+comment|// optional .hbase.pb.TableName table_name = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -37960,7 +37960,7 @@ operator|.
 name|TableName
 name|tableName_
 decl_stmt|;
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 specifier|public
 name|boolean
 name|hasTableName
@@ -37978,7 +37978,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -38002,7 +38002,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -38026,7 +38026,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|// optional .ServerName lock_owner = 2;
+comment|// optional .hbase.pb.ServerName lock_owner = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -38053,7 +38053,7 @@ operator|.
 name|ServerName
 name|lockOwner_
 decl_stmt|;
-comment|/**      *<code>optional .ServerName lock_owner = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.ServerName lock_owner = 2;</code>      */
 specifier|public
 name|boolean
 name|hasLockOwner
@@ -38071,7 +38071,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .ServerName lock_owner = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.ServerName lock_owner = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -38095,7 +38095,7 @@ return|return
 name|lockOwner_
 return|;
 block|}
-comment|/**      *<code>optional .ServerName lock_owner = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.ServerName lock_owner = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -40227,7 +40227,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code TableLock}      *      *<pre>      **      * Metadata associated with a table lock in zookeeper      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.TableLock}      *      *<pre>      **      * Metadata associated with a table lock in zookeeper      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -40293,7 +40293,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_TableLock_descriptor
+name|internal_static_hbase_pb_TableLock_descriptor
 return|;
 block|}
 specifier|protected
@@ -40324,7 +40324,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_TableLock_fieldAccessorTable
+name|internal_static_hbase_pb_TableLock_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -40641,7 +40641,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_TableLock_descriptor
+name|internal_static_hbase_pb_TableLock_descriptor
 return|;
 block|}
 specifier|public
@@ -41426,7 +41426,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .TableName table_name = 1;
+comment|// optional .hbase.pb.TableName table_name = 1;
 specifier|private
 name|org
 operator|.
@@ -41525,7 +41525,7 @@ name|TableNameOrBuilder
 argument_list|>
 name|tableNameBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|boolean
 name|hasTableName
@@ -41543,7 +41543,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -41584,7 +41584,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -41653,7 +41653,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -41717,7 +41717,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeTableName
@@ -41842,7 +41842,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|clearTableName
@@ -41901,7 +41901,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -41938,7 +41938,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -41979,7 +41979,7 @@ name|tableName_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -42129,7 +42129,7 @@ return|return
 name|tableNameBuilder_
 return|;
 block|}
-comment|// optional .ServerName lock_owner = 2;
+comment|// optional .hbase.pb.ServerName lock_owner = 2;
 specifier|private
 name|org
 operator|.
@@ -42228,7 +42228,7 @@ name|ServerNameOrBuilder
 argument_list|>
 name|lockOwnerBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .ServerName lock_owner = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName lock_owner = 2;</code>        */
 specifier|public
 name|boolean
 name|hasLockOwner
@@ -42246,7 +42246,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .ServerName lock_owner = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName lock_owner = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -42287,7 +42287,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ServerName lock_owner = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName lock_owner = 2;</code>        */
 specifier|public
 name|Builder
 name|setLockOwner
@@ -42356,7 +42356,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName lock_owner = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName lock_owner = 2;</code>        */
 specifier|public
 name|Builder
 name|setLockOwner
@@ -42420,7 +42420,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName lock_owner = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName lock_owner = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeLockOwner
@@ -42545,7 +42545,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName lock_owner = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName lock_owner = 2;</code>        */
 specifier|public
 name|Builder
 name|clearLockOwner
@@ -42604,7 +42604,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ServerName lock_owner = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName lock_owner = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -42641,7 +42641,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .ServerName lock_owner = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName lock_owner = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -42682,7 +42682,7 @@ name|lockOwner_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ServerName lock_owner = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.ServerName lock_owner = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -43383,7 +43383,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:TableLock)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.TableLock)
 block|}
 static|static
 block|{
@@ -43401,7 +43401,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:TableLock)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.TableLock)
 block|}
 specifier|private
 specifier|static
@@ -43414,7 +43414,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MetaRegionServer_descriptor
+name|internal_static_hbase_pb_MetaRegionServer_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43427,7 +43427,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MetaRegionServer_fieldAccessorTable
+name|internal_static_hbase_pb_MetaRegionServer_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43440,7 +43440,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Master_descriptor
+name|internal_static_hbase_pb_Master_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43453,7 +43453,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Master_fieldAccessorTable
+name|internal_static_hbase_pb_Master_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43466,7 +43466,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ClusterUp_descriptor
+name|internal_static_hbase_pb_ClusterUp_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43479,7 +43479,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ClusterUp_fieldAccessorTable
+name|internal_static_hbase_pb_ClusterUp_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43492,7 +43492,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_SplitLogTask_descriptor
+name|internal_static_hbase_pb_SplitLogTask_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43505,7 +43505,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_SplitLogTask_fieldAccessorTable
+name|internal_static_hbase_pb_SplitLogTask_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43518,7 +43518,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_DeprecatedTableState_descriptor
+name|internal_static_hbase_pb_DeprecatedTableState_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43531,7 +43531,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_DeprecatedTableState_fieldAccessorTable
+name|internal_static_hbase_pb_DeprecatedTableState_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43544,7 +43544,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ReplicationPeer_descriptor
+name|internal_static_hbase_pb_ReplicationPeer_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43557,7 +43557,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ReplicationPeer_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationPeer_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43570,7 +43570,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ReplicationState_descriptor
+name|internal_static_hbase_pb_ReplicationState_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43583,7 +43583,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ReplicationState_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationState_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43596,7 +43596,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ReplicationHLogPosition_descriptor
+name|internal_static_hbase_pb_ReplicationHLogPosition_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43609,7 +43609,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ReplicationHLogPosition_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationHLogPosition_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43622,7 +43622,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ReplicationLock_descriptor
+name|internal_static_hbase_pb_ReplicationLock_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43635,7 +43635,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ReplicationLock_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationLock_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43648,7 +43648,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_TableLock_descriptor
+name|internal_static_hbase_pb_TableLock_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43661,7 +43661,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_TableLock_fieldAccessorTable
+name|internal_static_hbase_pb_TableLock_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -43705,67 +43705,73 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\017ZooKeeper.proto\032\013HBase.proto\032\023ClusterS"
+literal|"\n\017ZooKeeper.proto\022\010hbase.pb\032\013HBase.proto"
 operator|+
-literal|"tatus.proto\"g\n\020MetaRegionServer\022\033\n\006serve"
+literal|"\032\023ClusterStatus.proto\"y\n\020MetaRegionServe"
 operator|+
-literal|"r\030\001 \002(\0132\013.ServerName\022\023\n\013rpc_version\030\002 \001("
+literal|"r\022$\n\006server\030\001 \002(\0132\024.hbase.pb.ServerName\022"
 operator|+
-literal|"\r\022!\n\005state\030\003 \001(\0162\022.RegionState.State\"M\n\006"
+literal|"\023\n\013rpc_version\030\002 \001(\r\022*\n\005state\030\003 \001(\0162\033.hb"
 operator|+
-literal|"Master\022\033\n\006master\030\001 \002(\0132\013.ServerName\022\023\n\013r"
+literal|"ase.pb.RegionState.State\"V\n\006Master\022$\n\006ma"
 operator|+
-literal|"pc_version\030\002 \001(\r\022\021\n\tinfo_port\030\003 \001(\r\"\037\n\tC"
+literal|"ster\030\001 \002(\0132\024.hbase.pb.ServerName\022\023\n\013rpc_"
 operator|+
-literal|"lusterUp\022\022\n\nstart_date\030\001 \002(\t\"\214\002\n\014SplitLo"
+literal|"version\030\002 \001(\r\022\021\n\tinfo_port\030\003 \001(\r\"\037\n\tClus"
 operator|+
-literal|"gTask\022\"\n\005state\030\001 \002(\0162\023.SplitLogTask.Stat"
+literal|"terUp\022\022\n\nstart_date\030\001 \002(\t\"\247\002\n\014SplitLogTa"
 operator|+
-literal|"e\022 \n\013server_name\030\002 \002(\0132\013.ServerName\0221\n\004m"
+literal|"sk\022+\n\005state\030\001 \002(\0162\034.hbase.pb.SplitLogTas"
 operator|+
-literal|"ode\030\003 \001(\0162\032.SplitLogTask.RecoveryMode:\007U"
+literal|"k.State\022)\n\013server_name\030\002 \002(\0132\024.hbase.pb."
 block|,
-literal|"NKNOWN\"C\n\005State\022\016\n\nUNASSIGNED\020\000\022\t\n\005OWNED"
+literal|"ServerName\022:\n\004mode\030\003 \001(\0162#.hbase.pb.Spli"
 operator|+
-literal|"\020\001\022\014\n\010RESIGNED\020\002\022\010\n\004DONE\020\003\022\007\n\003ERR\020\004\">\n\014R"
+literal|"tLogTask.RecoveryMode:\007UNKNOWN\"C\n\005State\022"
 operator|+
-literal|"ecoveryMode\022\013\n\007UNKNOWN\020\000\022\021\n\rLOG_SPLITTIN"
+literal|"\016\n\nUNASSIGNED\020\000\022\t\n\005OWNED\020\001\022\014\n\010RESIGNED\020\002"
 operator|+
-literal|"G\020\001\022\016\n\nLOG_REPLAY\020\002\"\214\001\n\024DeprecatedTableS"
+literal|"\022\010\n\004DONE\020\003\022\007\n\003ERR\020\004\">\n\014RecoveryMode\022\013\n\007U"
 operator|+
-literal|"tate\0223\n\005state\030\001 \002(\0162\033.DeprecatedTableSta"
+literal|"NKNOWN\020\000\022\021\n\rLOG_SPLITTING\020\001\022\016\n\nLOG_REPLA"
 operator|+
-literal|"te.State:\007ENABLED\"?\n\005State\022\013\n\007ENABLED\020\000\022"
+literal|"Y\020\002\"\225\001\n\024DeprecatedTableState\022<\n\005state\030\001 "
 operator|+
-literal|"\014\n\010DISABLED\020\001\022\r\n\tDISABLING\020\002\022\014\n\010ENABLING"
+literal|"\002(\0162$.hbase.pb.DeprecatedTableState.Stat"
 operator|+
-literal|"\020\003\"\215\001\n\017ReplicationPeer\022\022\n\nclusterkey\030\001 \002"
+literal|"e:\007ENABLED\"?\n\005State\022\013\n\007ENABLED\020\000\022\014\n\010DISA"
 operator|+
-literal|"(\t\022\037\n\027replicationEndpointImpl\030\002 \001(\t\022\035\n\004d"
+literal|"BLED\020\001\022\r\n\tDISABLING\020\002\022\014\n\010ENABLING\020\003\"\237\001\n\017"
 operator|+
-literal|"ata\030\003 \003(\0132\017.BytesBytesPair\022&\n\rconfigurat"
+literal|"ReplicationPeer\022\022\n\nclusterkey\030\001 \002(\t\022\037\n\027r"
 block|,
-literal|"ion\030\004 \003(\0132\017.NameStringPair\"^\n\020Replicatio"
+literal|"eplicationEndpointImpl\030\002 \001(\t\022&\n\004data\030\003 \003"
 operator|+
-literal|"nState\022&\n\005state\030\001 \002(\0162\027.ReplicationState"
+literal|"(\0132\030.hbase.pb.BytesBytesPair\022/\n\rconfigur"
 operator|+
-literal|".State\"\"\n\005State\022\013\n\007ENABLED\020\000\022\014\n\010DISABLED"
+literal|"ation\030\004 \003(\0132\030.hbase.pb.NameStringPair\"g\n"
 operator|+
-literal|"\020\001\"+\n\027ReplicationHLogPosition\022\020\n\010positio"
+literal|"\020ReplicationState\022/\n\005state\030\001 \002(\0162 .hbase"
 operator|+
-literal|"n\030\001 \002(\003\"%\n\017ReplicationLock\022\022\n\nlock_owner"
+literal|".pb.ReplicationState.State\"\"\n\005State\022\013\n\007E"
 operator|+
-literal|"\030\001 \002(\t\"\230\001\n\tTableLock\022\036\n\ntable_name\030\001 \001(\013"
+literal|"NABLED\020\000\022\014\n\010DISABLED\020\001\"+\n\027ReplicationHLo"
 operator|+
-literal|"2\n.TableName\022\037\n\nlock_owner\030\002 \001(\0132\013.Serve"
+literal|"gPosition\022\020\n\010position\030\001 \002(\003\"%\n\017Replicati"
 operator|+
-literal|"rName\022\021\n\tthread_id\030\003 \001(\003\022\021\n\tis_shared\030\004 "
+literal|"onLock\022\022\n\nlock_owner\030\001 \002(\t\"\252\001\n\tTableLock"
 operator|+
-literal|"\001(\010\022\017\n\007purpose\030\005 \001(\t\022\023\n\013create_time\030\006 \001("
+literal|"\022\'\n\ntable_name\030\001 \001(\0132\023.hbase.pb.TableNam"
 operator|+
-literal|"\003BE\n*org.apache.hadoop.hbase.protobuf.ge"
+literal|"e\022(\n\nlock_owner\030\002 \001(\0132\024.hbase.pb.ServerN"
 block|,
-literal|"neratedB\017ZooKeeperProtosH\001\210\001\001\240\001\001"
+literal|"ame\022\021\n\tthread_id\030\003 \001(\003\022\021\n\tis_shared\030\004 \001("
+operator|+
+literal|"\010\022\017\n\007purpose\030\005 \001(\t\022\023\n\013create_time\030\006 \001(\003B"
+operator|+
+literal|"E\n*org.apache.hadoop.hbase.protobuf.gene"
+operator|+
+literal|"ratedB\017ZooKeeperProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -43821,7 +43827,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_MetaRegionServer_descriptor
+name|internal_static_hbase_pb_MetaRegionServer_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -43834,7 +43840,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_MetaRegionServer_fieldAccessorTable
+name|internal_static_hbase_pb_MetaRegionServer_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -43847,7 +43853,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MetaRegionServer_descriptor
+name|internal_static_hbase_pb_MetaRegionServer_descriptor
 argument_list|,
 operator|new
 name|java
@@ -43865,7 +43871,7 @@ literal|"State"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_Master_descriptor
+name|internal_static_hbase_pb_Master_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -43878,7 +43884,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_Master_fieldAccessorTable
+name|internal_static_hbase_pb_Master_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -43891,7 +43897,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Master_descriptor
+name|internal_static_hbase_pb_Master_descriptor
 argument_list|,
 operator|new
 name|java
@@ -43909,7 +43915,7 @@ literal|"InfoPort"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ClusterUp_descriptor
+name|internal_static_hbase_pb_ClusterUp_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -43922,7 +43928,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_ClusterUp_fieldAccessorTable
+name|internal_static_hbase_pb_ClusterUp_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -43935,7 +43941,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ClusterUp_descriptor
+name|internal_static_hbase_pb_ClusterUp_descriptor
 argument_list|,
 operator|new
 name|java
@@ -43949,7 +43955,7 @@ literal|"StartDate"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_SplitLogTask_descriptor
+name|internal_static_hbase_pb_SplitLogTask_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -43962,7 +43968,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_SplitLogTask_fieldAccessorTable
+name|internal_static_hbase_pb_SplitLogTask_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -43975,7 +43981,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_SplitLogTask_descriptor
+name|internal_static_hbase_pb_SplitLogTask_descriptor
 argument_list|,
 operator|new
 name|java
@@ -43993,7 +43999,7 @@ literal|"Mode"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_DeprecatedTableState_descriptor
+name|internal_static_hbase_pb_DeprecatedTableState_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -44006,7 +44012,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_DeprecatedTableState_fieldAccessorTable
+name|internal_static_hbase_pb_DeprecatedTableState_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -44019,7 +44025,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_DeprecatedTableState_descriptor
+name|internal_static_hbase_pb_DeprecatedTableState_descriptor
 argument_list|,
 operator|new
 name|java
@@ -44033,7 +44039,7 @@ literal|"State"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicationPeer_descriptor
+name|internal_static_hbase_pb_ReplicationPeer_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -44046,7 +44052,7 @@ argument_list|(
 literal|5
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicationPeer_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationPeer_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -44059,7 +44065,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ReplicationPeer_descriptor
+name|internal_static_hbase_pb_ReplicationPeer_descriptor
 argument_list|,
 operator|new
 name|java
@@ -44079,7 +44085,7 @@ literal|"Configuration"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicationState_descriptor
+name|internal_static_hbase_pb_ReplicationState_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -44092,7 +44098,7 @@ argument_list|(
 literal|6
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicationState_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationState_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -44105,7 +44111,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ReplicationState_descriptor
+name|internal_static_hbase_pb_ReplicationState_descriptor
 argument_list|,
 operator|new
 name|java
@@ -44119,7 +44125,7 @@ literal|"State"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicationHLogPosition_descriptor
+name|internal_static_hbase_pb_ReplicationHLogPosition_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -44132,7 +44138,7 @@ argument_list|(
 literal|7
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicationHLogPosition_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationHLogPosition_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -44145,7 +44151,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ReplicationHLogPosition_descriptor
+name|internal_static_hbase_pb_ReplicationHLogPosition_descriptor
 argument_list|,
 operator|new
 name|java
@@ -44159,7 +44165,7 @@ literal|"Position"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicationLock_descriptor
+name|internal_static_hbase_pb_ReplicationLock_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -44172,7 +44178,7 @@ argument_list|(
 literal|8
 argument_list|)
 expr_stmt|;
-name|internal_static_ReplicationLock_fieldAccessorTable
+name|internal_static_hbase_pb_ReplicationLock_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -44185,7 +44191,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ReplicationLock_descriptor
+name|internal_static_hbase_pb_ReplicationLock_descriptor
 argument_list|,
 operator|new
 name|java
@@ -44199,7 +44205,7 @@ literal|"LockOwner"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_TableLock_descriptor
+name|internal_static_hbase_pb_TableLock_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -44212,7 +44218,7 @@ argument_list|(
 literal|9
 argument_list|)
 expr_stmt|;
-name|internal_static_TableLock_fieldAccessorTable
+name|internal_static_hbase_pb_TableLock_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -44225,7 +44231,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_TableLock_descriptor
+name|internal_static_hbase_pb_TableLock_descriptor
 argument_list|,
 operator|new
 name|java

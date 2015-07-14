@@ -86,13 +86,13 @@ name|ByteString
 name|getInterpreterClassNameBytes
 parameter_list|()
 function_decl|;
-comment|// required .Scan scan = 2;
-comment|/**      *<code>required .Scan scan = 2;</code>      */
+comment|// required .hbase.pb.Scan scan = 2;
+comment|/**      *<code>required .hbase.pb.Scan scan = 2;</code>      */
 name|boolean
 name|hasScan
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .Scan scan = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.Scan scan = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -111,7 +111,7 @@ name|Scan
 name|getScan
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .Scan scan = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.Scan scan = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -148,7 +148,7 @@ name|getInterpreterSpecificBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code AggregateRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.AggregateRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -637,7 +637,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|internal_static_AggregateRequest_descriptor
+name|internal_static_hbase_pb_AggregateRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -668,7 +668,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|internal_static_AggregateRequest_fieldAccessorTable
+name|internal_static_hbase_pb_AggregateRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -1023,7 +1023,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|// required .Scan scan = 2;
+comment|// required .hbase.pb.Scan scan = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -1050,7 +1050,7 @@ operator|.
 name|Scan
 name|scan_
 decl_stmt|;
-comment|/**      *<code>required .Scan scan = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.Scan scan = 2;</code>      */
 specifier|public
 name|boolean
 name|hasScan
@@ -1068,7 +1068,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .Scan scan = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.Scan scan = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -1092,7 +1092,7 @@ return|return
 name|scan_
 return|;
 block|}
-comment|/**      *<code>required .Scan scan = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.Scan scan = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -2558,7 +2558,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code AggregateRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.AggregateRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -2624,7 +2624,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|internal_static_AggregateRequest_descriptor
+name|internal_static_hbase_pb_AggregateRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -2655,7 +2655,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|internal_static_AggregateRequest_fieldAccessorTable
+name|internal_static_hbase_pb_AggregateRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2905,7 +2905,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|internal_static_AggregateRequest_descriptor
+name|internal_static_hbase_pb_AggregateRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -3843,7 +3843,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .Scan scan = 2;
+comment|// required .hbase.pb.Scan scan = 2;
 specifier|private
 name|org
 operator|.
@@ -3942,7 +3942,7 @@ name|ScanOrBuilder
 argument_list|>
 name|scanBuilder_
 decl_stmt|;
-comment|/**        *<code>required .Scan scan = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|boolean
 name|hasScan
@@ -3960,7 +3960,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .Scan scan = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4001,7 +4001,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .Scan scan = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|Builder
 name|setScan
@@ -4070,7 +4070,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Scan scan = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|Builder
 name|setScan
@@ -4134,7 +4134,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Scan scan = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeScan
@@ -4259,7 +4259,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Scan scan = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|Builder
 name|clearScan
@@ -4318,7 +4318,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Scan scan = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4355,7 +4355,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .Scan scan = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4396,7 +4396,7 @@ name|scan_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .Scan scan = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Scan scan = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -4674,7 +4674,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:AggregateRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.AggregateRequest)
 block|}
 static|static
 block|{
@@ -4692,7 +4692,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:AggregateRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.AggregateRequest)
 block|}
 specifier|public
 interface|interface
@@ -4762,7 +4762,7 @@ name|getSecondPart
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code AggregateResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.AggregateResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -5214,7 +5214,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|internal_static_AggregateResponse_descriptor
+name|internal_static_hbase_pb_AggregateResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -5245,7 +5245,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|internal_static_AggregateResponse_fieldAccessorTable
+name|internal_static_hbase_pb_AggregateResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -6750,7 +6750,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code AggregateResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.AggregateResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -6816,7 +6816,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|internal_static_AggregateResponse_descriptor
+name|internal_static_hbase_pb_AggregateResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -6847,7 +6847,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|internal_static_AggregateResponse_fieldAccessorTable
+name|internal_static_hbase_pb_AggregateResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -7054,7 +7054,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|internal_static_AggregateResponse_descriptor
+name|internal_static_hbase_pb_AggregateResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -8084,7 +8084,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:AggregateResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.AggregateResponse)
 block|}
 static|static
 block|{
@@ -8102,9 +8102,9 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:AggregateResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.AggregateResponse)
 block|}
-comment|/**    * Protobuf service {@code AggregateService}    *    *<pre>    ** Refer to the AggregateImplementation class for an overview of the     *  AggregateService method implementations and their functionality.    *</pre>    */
+comment|/**    * Protobuf service {@code hbase.pb.AggregateService}    *    *<pre>    ** Refer to the AggregateImplementation class for an overview of the     *  AggregateService method implementations and their functionality.    *</pre>    */
 specifier|public
 specifier|static
 specifier|abstract
@@ -8127,7 +8127,7 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc GetMax(.AggregateRequest) returns (.AggregateResponse);</code>        */
+comment|/**        *<code>rpc GetMax(.hbase.pb.AggregateRequest) returns (.hbase.pb.AggregateResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -8186,7 +8186,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetMin(.AggregateRequest) returns (.AggregateResponse);</code>        */
+comment|/**        *<code>rpc GetMin(.hbase.pb.AggregateRequest) returns (.hbase.pb.AggregateResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -8245,7 +8245,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetSum(.AggregateRequest) returns (.AggregateResponse);</code>        */
+comment|/**        *<code>rpc GetSum(.hbase.pb.AggregateRequest) returns (.hbase.pb.AggregateResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -8304,7 +8304,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetRowNum(.AggregateRequest) returns (.AggregateResponse);</code>        */
+comment|/**        *<code>rpc GetRowNum(.hbase.pb.AggregateRequest) returns (.hbase.pb.AggregateResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -8363,7 +8363,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetAvg(.AggregateRequest) returns (.AggregateResponse);</code>        */
+comment|/**        *<code>rpc GetAvg(.hbase.pb.AggregateRequest) returns (.hbase.pb.AggregateResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -8422,7 +8422,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetStd(.AggregateRequest) returns (.AggregateResponse);</code>        */
+comment|/**        *<code>rpc GetStd(.hbase.pb.AggregateRequest) returns (.hbase.pb.AggregateResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -8481,7 +8481,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetMedian(.AggregateRequest) returns (.AggregateResponse);</code>        */
+comment|/**        *<code>rpc GetMedian(.hbase.pb.AggregateRequest) returns (.hbase.pb.AggregateResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -9907,7 +9907,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc GetMax(.AggregateRequest) returns (.AggregateResponse);</code>      */
+comment|/**      *<code>rpc GetMax(.hbase.pb.AggregateRequest) returns (.hbase.pb.AggregateResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -9966,7 +9966,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetMin(.AggregateRequest) returns (.AggregateResponse);</code>      */
+comment|/**      *<code>rpc GetMin(.hbase.pb.AggregateRequest) returns (.hbase.pb.AggregateResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -10025,7 +10025,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetSum(.AggregateRequest) returns (.AggregateResponse);</code>      */
+comment|/**      *<code>rpc GetSum(.hbase.pb.AggregateRequest) returns (.hbase.pb.AggregateResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -10084,7 +10084,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetRowNum(.AggregateRequest) returns (.AggregateResponse);</code>      */
+comment|/**      *<code>rpc GetRowNum(.hbase.pb.AggregateRequest) returns (.hbase.pb.AggregateResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -10143,7 +10143,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetAvg(.AggregateRequest) returns (.AggregateResponse);</code>      */
+comment|/**      *<code>rpc GetAvg(.hbase.pb.AggregateRequest) returns (.hbase.pb.AggregateResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -10202,7 +10202,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetStd(.AggregateRequest) returns (.AggregateResponse);</code>      */
+comment|/**      *<code>rpc GetStd(.hbase.pb.AggregateRequest) returns (.hbase.pb.AggregateResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -10261,7 +10261,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetMedian(.AggregateRequest) returns (.AggregateResponse);</code>      */
+comment|/**      *<code>rpc GetMedian(.hbase.pb.AggregateRequest) returns (.hbase.pb.AggregateResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -13702,7 +13702,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|// @@protoc_insertion_point(class_scope:AggregateService)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.AggregateService)
 block|}
 specifier|private
 specifier|static
@@ -13715,7 +13715,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_AggregateRequest_descriptor
+name|internal_static_hbase_pb_AggregateRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -13728,7 +13728,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_AggregateRequest_fieldAccessorTable
+name|internal_static_hbase_pb_AggregateRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -13741,7 +13741,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_AggregateResponse_descriptor
+name|internal_static_hbase_pb_AggregateResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -13754,7 +13754,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_AggregateResponse_fieldAccessorTable
+name|internal_static_hbase_pb_AggregateResponse_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -13798,39 +13798,45 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\017Aggregate.proto\032\014Client.proto\"k\n\020Aggre"
+literal|"\n\017Aggregate.proto\022\010hbase.pb\032\014Client.prot"
 operator|+
-literal|"gateRequest\022\036\n\026interpreter_class_name\030\001 "
+literal|"o\"t\n\020AggregateRequest\022\036\n\026interpreter_cla"
 operator|+
-literal|"\002(\t\022\023\n\004scan\030\002 \002(\0132\005.Scan\022\"\n\032interpreter_"
+literal|"ss_name\030\001 \002(\t\022\034\n\004scan\030\002 \002(\0132\016.hbase.pb.S"
 operator|+
-literal|"specific_bytes\030\003 \001(\014\"<\n\021AggregateRespons"
+literal|"can\022\"\n\032interpreter_specific_bytes\030\003 \001(\014\""
 operator|+
-literal|"e\022\022\n\nfirst_part\030\001 \003(\014\022\023\n\013second_part\030\002 \001"
+literal|"<\n\021AggregateResponse\022\022\n\nfirst_part\030\001 \003(\014"
 operator|+
-literal|"(\0142\357\002\n\020AggregateService\022/\n\006GetMax\022\021.Aggr"
+literal|"\022\023\n\013second_part\030\002 \001(\0142\355\003\n\020AggregateServi"
 operator|+
-literal|"egateRequest\032\022.AggregateResponse\022/\n\006GetM"
+literal|"ce\022A\n\006GetMax\022\032.hbase.pb.AggregateRequest"
 operator|+
-literal|"in\022\021.AggregateRequest\032\022.AggregateRespons"
+literal|"\032\033.hbase.pb.AggregateResponse\022A\n\006GetMin\022"
 operator|+
-literal|"e\022/\n\006GetSum\022\021.AggregateRequest\032\022.Aggrega"
+literal|"\032.hbase.pb.AggregateRequest\032\033.hbase.pb.A"
 operator|+
-literal|"teResponse\0222\n\tGetRowNum\022\021.AggregateReque"
+literal|"ggregateResponse\022A\n\006GetSum\022\032.hbase.pb.Ag"
 block|,
-literal|"st\032\022.AggregateResponse\022/\n\006GetAvg\022\021.Aggre"
+literal|"gregateRequest\032\033.hbase.pb.AggregateRespo"
 operator|+
-literal|"gateRequest\032\022.AggregateResponse\022/\n\006GetSt"
+literal|"nse\022D\n\tGetRowNum\022\032.hbase.pb.AggregateReq"
 operator|+
-literal|"d\022\021.AggregateRequest\032\022.AggregateResponse"
+literal|"uest\032\033.hbase.pb.AggregateResponse\022A\n\006Get"
 operator|+
-literal|"\0222\n\tGetMedian\022\021.AggregateRequest\032\022.Aggre"
+literal|"Avg\022\032.hbase.pb.AggregateRequest\032\033.hbase."
 operator|+
-literal|"gateResponseBE\n*org.apache.hadoop.hbase."
+literal|"pb.AggregateResponse\022A\n\006GetStd\022\032.hbase.p"
 operator|+
-literal|"protobuf.generatedB\017AggregateProtosH\001\210\001\001"
+literal|"b.AggregateRequest\032\033.hbase.pb.AggregateR"
 operator|+
-literal|"\240\001\001"
+literal|"esponse\022D\n\tGetMedian\022\032.hbase.pb.Aggregat"
+operator|+
+literal|"eRequest\032\033.hbase.pb.AggregateResponseBE\n"
+operator|+
+literal|"*org.apache.hadoop.hbase.protobuf.genera"
+operator|+
+literal|"tedB\017AggregateProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -13886,7 +13892,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_AggregateRequest_descriptor
+name|internal_static_hbase_pb_AggregateRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -13899,7 +13905,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_AggregateRequest_fieldAccessorTable
+name|internal_static_hbase_pb_AggregateRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -13912,7 +13918,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_AggregateRequest_descriptor
+name|internal_static_hbase_pb_AggregateRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -13930,7 +13936,7 @@ literal|"InterpreterSpecificBytes"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_AggregateResponse_descriptor
+name|internal_static_hbase_pb_AggregateResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -13943,7 +13949,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_AggregateResponse_fieldAccessorTable
+name|internal_static_hbase_pb_AggregateResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -13956,7 +13962,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_AggregateResponse_descriptor
+name|internal_static_hbase_pb_AggregateResponse_descriptor
 argument_list|,
 operator|new
 name|java

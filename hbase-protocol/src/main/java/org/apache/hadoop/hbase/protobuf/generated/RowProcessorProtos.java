@@ -152,7 +152,7 @@ name|getNonce
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ProcessRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.ProcessRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -591,7 +591,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_ProcessRequest_descriptor
+name|internal_static_hbase_pb_ProcessRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -622,7 +622,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_ProcessRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ProcessRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2914,7 +2914,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ProcessRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.ProcessRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -2980,7 +2980,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_ProcessRequest_descriptor
+name|internal_static_hbase_pb_ProcessRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -3011,7 +3011,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_ProcessRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ProcessRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -3250,7 +3250,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_ProcessRequest_descriptor
+name|internal_static_hbase_pb_ProcessRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -4826,7 +4826,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ProcessRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ProcessRequest)
 block|}
 static|static
 block|{
@@ -4844,7 +4844,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ProcessRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ProcessRequest)
 block|}
 specifier|public
 interface|interface
@@ -4876,7 +4876,7 @@ name|getRowProcessorResult
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ProcessResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.ProcessResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -5247,7 +5247,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_ProcessResponse_descriptor
+name|internal_static_hbase_pb_ProcessResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -5278,7 +5278,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_ProcessResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ProcessResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -6560,7 +6560,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ProcessResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.ProcessResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -6626,7 +6626,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_ProcessResponse_descriptor
+name|internal_static_hbase_pb_ProcessResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -6657,7 +6657,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_ProcessResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ProcessResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -6844,7 +6844,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_ProcessResponse_descriptor
+name|internal_static_hbase_pb_ProcessResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -7476,7 +7476,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ProcessResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ProcessResponse)
 block|}
 static|static
 block|{
@@ -7494,9 +7494,9 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ProcessResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ProcessResponse)
 block|}
-comment|/**    * Protobuf service {@code RowProcessorService}    */
+comment|/**    * Protobuf service {@code hbase.pb.RowProcessorService}    */
 specifier|public
 specifier|static
 specifier|abstract
@@ -7519,7 +7519,7 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc Process(.ProcessRequest) returns (.ProcessResponse);</code>        */
+comment|/**        *<code>rpc Process(.hbase.pb.ProcessRequest) returns (.hbase.pb.ProcessResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -8039,7 +8039,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc Process(.ProcessRequest) returns (.ProcessResponse);</code>      */
+comment|/**      *<code>rpc Process(.hbase.pb.ProcessRequest) returns (.hbase.pb.ProcessResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -8978,7 +8978,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|// @@protoc_insertion_point(class_scope:RowProcessorService)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RowProcessorService)
 block|}
 specifier|private
 specifier|static
@@ -8991,7 +8991,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ProcessRequest_descriptor
+name|internal_static_hbase_pb_ProcessRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -9004,7 +9004,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ProcessRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ProcessRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -9017,7 +9017,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ProcessResponse_descriptor
+name|internal_static_hbase_pb_ProcessResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -9030,7 +9030,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ProcessResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ProcessResponse_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -9074,25 +9074,27 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\022RowProcessor.proto\"\261\001\n\016ProcessRequest\022"
+literal|"\n\022RowProcessor.proto\022\010hbase.pb\"\261\001\n\016Proce"
 operator|+
-literal|" \n\030row_processor_class_name\030\001 \002(\t\022.\n&row"
+literal|"ssRequest\022 \n\030row_processor_class_name\030\001 "
 operator|+
-literal|"_processor_initializer_message_name\030\002 \001("
+literal|"\002(\t\022.\n&row_processor_initializer_message"
 operator|+
-literal|"\t\022)\n!row_processor_initializer_message\030\003"
+literal|"_name\030\002 \001(\t\022)\n!row_processor_initializer"
 operator|+
-literal|" \001(\014\022\023\n\013nonce_group\030\004 \001(\004\022\r\n\005nonce\030\005 \001(\004"
+literal|"_message\030\003 \001(\014\022\023\n\013nonce_group\030\004 \001(\004\022\r\n\005n"
 operator|+
-literal|"\"/\n\017ProcessResponse\022\034\n\024row_processor_res"
+literal|"once\030\005 \001(\004\"/\n\017ProcessResponse\022\034\n\024row_pro"
 operator|+
-literal|"ult\030\001 \002(\0142C\n\023RowProcessorService\022,\n\007Proc"
+literal|"cessor_result\030\001 \002(\0142U\n\023RowProcessorServi"
 operator|+
-literal|"ess\022\017.ProcessRequest\032\020.ProcessResponseBH"
+literal|"ce\022>\n\007Process\022\030.hbase.pb.ProcessRequest\032"
 operator|+
-literal|"\n*org.apache.hadoop.hbase.protobuf.gener"
+literal|"\031.hbase.pb.ProcessResponseBH\n*org.apache"
 operator|+
-literal|"atedB\022RowProcessorProtosH\001\210\001\001\240\001\001"
+literal|".hadoop.hbase.protobuf.generatedB\022RowPro"
+block|,
+literal|"cessorProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -9148,7 +9150,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_ProcessRequest_descriptor
+name|internal_static_hbase_pb_ProcessRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -9161,7 +9163,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_ProcessRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ProcessRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -9174,7 +9176,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ProcessRequest_descriptor
+name|internal_static_hbase_pb_ProcessRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -9196,7 +9198,7 @@ literal|"Nonce"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ProcessResponse_descriptor
+name|internal_static_hbase_pb_ProcessResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -9209,7 +9211,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_ProcessResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ProcessResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -9222,7 +9224,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ProcessResponse_descriptor
+name|internal_static_hbase_pb_ProcessResponse_descriptor
 argument_list|,
 operator|new
 name|java

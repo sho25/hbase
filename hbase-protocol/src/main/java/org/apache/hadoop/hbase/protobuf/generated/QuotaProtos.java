@@ -48,7 +48,7 @@ name|ExtensionRegistry
 name|registry
 parameter_list|)
 block|{   }
-comment|/**    * Protobuf enum {@code QuotaScope}    */
+comment|/**    * Protobuf enum {@code hbase.pb.QuotaScope}    */
 specifier|public
 enum|enum
 name|QuotaScope
@@ -389,9 +389,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:QuotaScope)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.QuotaScope)
 block|}
-comment|/**    * Protobuf enum {@code ThrottleType}    */
+comment|/**    * Protobuf enum {@code hbase.pb.ThrottleType}    */
 specifier|public
 enum|enum
 name|ThrottleType
@@ -824,9 +824,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:ThrottleType)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.ThrottleType)
 block|}
-comment|/**    * Protobuf enum {@code QuotaType}    */
+comment|/**    * Protobuf enum {@code hbase.pb.QuotaType}    */
 specifier|public
 enum|enum
 name|QuotaType
@@ -1144,7 +1144,7 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:QuotaType)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.QuotaType)
 block|}
 specifier|public
 interface|interface
@@ -1158,13 +1158,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .TimeUnit time_unit = 1;
-comment|/**      *<code>required .TimeUnit time_unit = 1;</code>      */
+comment|// required .hbase.pb.TimeUnit time_unit = 1;
+comment|/**      *<code>required .hbase.pb.TimeUnit time_unit = 1;</code>      */
 name|boolean
 name|hasTimeUnit
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TimeUnit time_unit = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TimeUnit time_unit = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -1205,13 +1205,13 @@ name|float
 name|getShare
 parameter_list|()
 function_decl|;
-comment|// optional .QuotaScope scope = 4 [default = MACHINE];
-comment|/**      *<code>optional .QuotaScope scope = 4 [default = MACHINE];</code>      */
+comment|// optional .hbase.pb.QuotaScope scope = 4 [default = MACHINE];
+comment|/**      *<code>optional .hbase.pb.QuotaScope scope = 4 [default = MACHINE];</code>      */
 name|boolean
 name|hasScope
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .QuotaScope scope = 4 [default = MACHINE];</code>      */
+comment|/**      *<code>optional .hbase.pb.QuotaScope scope = 4 [default = MACHINE];</code>      */
 name|org
 operator|.
 name|apache
@@ -1231,7 +1231,7 @@ name|getScope
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code TimedQuota}    */
+comment|/**    * Protobuf type {@code hbase.pb.TimedQuota}    */
 specifier|public
 specifier|static
 specifier|final
@@ -1779,7 +1779,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_TimedQuota_descriptor
+name|internal_static_hbase_pb_TimedQuota_descriptor
 return|;
 block|}
 specifier|protected
@@ -1810,7 +1810,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_TimedQuota_fieldAccessorTable
+name|internal_static_hbase_pb_TimedQuota_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -1952,7 +1952,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .TimeUnit time_unit = 1;
+comment|// required .hbase.pb.TimeUnit time_unit = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -1979,7 +1979,7 @@ operator|.
 name|TimeUnit
 name|timeUnit_
 decl_stmt|;
-comment|/**      *<code>required .TimeUnit time_unit = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TimeUnit time_unit = 1;</code>      */
 specifier|public
 name|boolean
 name|hasTimeUnit
@@ -1997,7 +1997,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .TimeUnit time_unit = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TimeUnit time_unit = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -2103,7 +2103,7 @@ return|return
 name|share_
 return|;
 block|}
-comment|// optional .QuotaScope scope = 4 [default = MACHINE];
+comment|// optional .hbase.pb.QuotaScope scope = 4 [default = MACHINE];
 specifier|public
 specifier|static
 specifier|final
@@ -2130,7 +2130,7 @@ operator|.
 name|QuotaScope
 name|scope_
 decl_stmt|;
-comment|/**      *<code>optional .QuotaScope scope = 4 [default = MACHINE];</code>      */
+comment|/**      *<code>optional .hbase.pb.QuotaScope scope = 4 [default = MACHINE];</code>      */
 specifier|public
 name|boolean
 name|hasScope
@@ -2148,7 +2148,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .QuotaScope scope = 4 [default = MACHINE];</code>      */
+comment|/**      *<code>optional .hbase.pb.QuotaScope scope = 4 [default = MACHINE];</code>      */
 specifier|public
 name|org
 operator|.
@@ -3678,7 +3678,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code TimedQuota}      */
+comment|/**      * Protobuf type {@code hbase.pb.TimedQuota}      */
 specifier|public
 specifier|static
 specifier|final
@@ -3744,7 +3744,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_TimedQuota_descriptor
+name|internal_static_hbase_pb_TimedQuota_descriptor
 return|;
 block|}
 specifier|protected
@@ -3775,7 +3775,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_TimedQuota_fieldAccessorTable
+name|internal_static_hbase_pb_TimedQuota_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -4025,7 +4025,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_TimedQuota_descriptor
+name|internal_static_hbase_pb_TimedQuota_descriptor
 return|;
 block|}
 specifier|public
@@ -4652,7 +4652,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .TimeUnit time_unit = 1;
+comment|// required .hbase.pb.TimeUnit time_unit = 1;
 specifier|private
 name|org
 operator|.
@@ -4689,7 +4689,7 @@ name|TimeUnit
 operator|.
 name|NANOSECONDS
 decl_stmt|;
-comment|/**        *<code>required .TimeUnit time_unit = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TimeUnit time_unit = 1;</code>        */
 specifier|public
 name|boolean
 name|hasTimeUnit
@@ -4707,7 +4707,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .TimeUnit time_unit = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TimeUnit time_unit = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4731,7 +4731,7 @@ return|return
 name|timeUnit_
 return|;
 block|}
-comment|/**        *<code>required .TimeUnit time_unit = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TimeUnit time_unit = 1;</code>        */
 specifier|public
 name|Builder
 name|setTimeUnit
@@ -4782,7 +4782,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TimeUnit time_unit = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TimeUnit time_unit = 1;</code>        */
 specifier|public
 name|Builder
 name|clearTimeUnit
@@ -4990,7 +4990,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .QuotaScope scope = 4 [default = MACHINE];
+comment|// optional .hbase.pb.QuotaScope scope = 4 [default = MACHINE];
 specifier|private
 name|org
 operator|.
@@ -5027,7 +5027,7 @@ name|QuotaScope
 operator|.
 name|MACHINE
 decl_stmt|;
-comment|/**        *<code>optional .QuotaScope scope = 4 [default = MACHINE];</code>        */
+comment|/**        *<code>optional .hbase.pb.QuotaScope scope = 4 [default = MACHINE];</code>        */
 specifier|public
 name|boolean
 name|hasScope
@@ -5045,7 +5045,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .QuotaScope scope = 4 [default = MACHINE];</code>        */
+comment|/**        *<code>optional .hbase.pb.QuotaScope scope = 4 [default = MACHINE];</code>        */
 specifier|public
 name|org
 operator|.
@@ -5069,7 +5069,7 @@ return|return
 name|scope_
 return|;
 block|}
-comment|/**        *<code>optional .QuotaScope scope = 4 [default = MACHINE];</code>        */
+comment|/**        *<code>optional .hbase.pb.QuotaScope scope = 4 [default = MACHINE];</code>        */
 specifier|public
 name|Builder
 name|setScope
@@ -5120,7 +5120,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .QuotaScope scope = 4 [default = MACHINE];</code>        */
+comment|/**        *<code>optional .hbase.pb.QuotaScope scope = 4 [default = MACHINE];</code>        */
 specifier|public
 name|Builder
 name|clearScope
@@ -5162,7 +5162,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:TimedQuota)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.TimedQuota)
 block|}
 static|static
 block|{
@@ -5180,7 +5180,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:TimedQuota)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.TimedQuota)
 block|}
 specifier|public
 interface|interface
@@ -5194,13 +5194,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .TimedQuota req_num = 1;
-comment|/**      *<code>optional .TimedQuota req_num = 1;</code>      */
+comment|// optional .hbase.pb.TimedQuota req_num = 1;
+comment|/**      *<code>optional .hbase.pb.TimedQuota req_num = 1;</code>      */
 name|boolean
 name|hasReqNum
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimedQuota req_num = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota req_num = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -5219,7 +5219,7 @@ name|TimedQuota
 name|getReqNum
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimedQuota req_num = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota req_num = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -5238,13 +5238,13 @@ name|TimedQuotaOrBuilder
 name|getReqNumOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .TimedQuota req_size = 2;
-comment|/**      *<code>optional .TimedQuota req_size = 2;</code>      */
+comment|// optional .hbase.pb.TimedQuota req_size = 2;
+comment|/**      *<code>optional .hbase.pb.TimedQuota req_size = 2;</code>      */
 name|boolean
 name|hasReqSize
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimedQuota req_size = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota req_size = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -5263,7 +5263,7 @@ name|TimedQuota
 name|getReqSize
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimedQuota req_size = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota req_size = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -5282,13 +5282,13 @@ name|TimedQuotaOrBuilder
 name|getReqSizeOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .TimedQuota write_num = 3;
-comment|/**      *<code>optional .TimedQuota write_num = 3;</code>      */
+comment|// optional .hbase.pb.TimedQuota write_num = 3;
+comment|/**      *<code>optional .hbase.pb.TimedQuota write_num = 3;</code>      */
 name|boolean
 name|hasWriteNum
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimedQuota write_num = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota write_num = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -5307,7 +5307,7 @@ name|TimedQuota
 name|getWriteNum
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimedQuota write_num = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota write_num = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -5326,13 +5326,13 @@ name|TimedQuotaOrBuilder
 name|getWriteNumOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .TimedQuota write_size = 4;
-comment|/**      *<code>optional .TimedQuota write_size = 4;</code>      */
+comment|// optional .hbase.pb.TimedQuota write_size = 4;
+comment|/**      *<code>optional .hbase.pb.TimedQuota write_size = 4;</code>      */
 name|boolean
 name|hasWriteSize
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimedQuota write_size = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota write_size = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -5351,7 +5351,7 @@ name|TimedQuota
 name|getWriteSize
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimedQuota write_size = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota write_size = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -5370,13 +5370,13 @@ name|TimedQuotaOrBuilder
 name|getWriteSizeOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .TimedQuota read_num = 5;
-comment|/**      *<code>optional .TimedQuota read_num = 5;</code>      */
+comment|// optional .hbase.pb.TimedQuota read_num = 5;
+comment|/**      *<code>optional .hbase.pb.TimedQuota read_num = 5;</code>      */
 name|boolean
 name|hasReadNum
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimedQuota read_num = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota read_num = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -5395,7 +5395,7 @@ name|TimedQuota
 name|getReadNum
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimedQuota read_num = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota read_num = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -5414,13 +5414,13 @@ name|TimedQuotaOrBuilder
 name|getReadNumOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .TimedQuota read_size = 6;
-comment|/**      *<code>optional .TimedQuota read_size = 6;</code>      */
+comment|// optional .hbase.pb.TimedQuota read_size = 6;
+comment|/**      *<code>optional .hbase.pb.TimedQuota read_size = 6;</code>      */
 name|boolean
 name|hasReadSize
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimedQuota read_size = 6;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota read_size = 6;</code>      */
 name|org
 operator|.
 name|apache
@@ -5439,7 +5439,7 @@ name|TimedQuota
 name|getReadSize
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimedQuota read_size = 6;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota read_size = 6;</code>      */
 name|org
 operator|.
 name|apache
@@ -5459,7 +5459,7 @@ name|getReadSizeOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Throttle}    */
+comment|/**    * Protobuf type {@code hbase.pb.Throttle}    */
 specifier|public
 specifier|static
 specifier|final
@@ -6419,7 +6419,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_Throttle_descriptor
+name|internal_static_hbase_pb_Throttle_descriptor
 return|;
 block|}
 specifier|protected
@@ -6450,7 +6450,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_Throttle_fieldAccessorTable
+name|internal_static_hbase_pb_Throttle_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -6592,7 +6592,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .TimedQuota req_num = 1;
+comment|// optional .hbase.pb.TimedQuota req_num = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -6619,7 +6619,7 @@ operator|.
 name|TimedQuota
 name|reqNum_
 decl_stmt|;
-comment|/**      *<code>optional .TimedQuota req_num = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota req_num = 1;</code>      */
 specifier|public
 name|boolean
 name|hasReqNum
@@ -6637,7 +6637,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TimedQuota req_num = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota req_num = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6661,7 +6661,7 @@ return|return
 name|reqNum_
 return|;
 block|}
-comment|/**      *<code>optional .TimedQuota req_num = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota req_num = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6685,7 +6685,7 @@ return|return
 name|reqNum_
 return|;
 block|}
-comment|// optional .TimedQuota req_size = 2;
+comment|// optional .hbase.pb.TimedQuota req_size = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -6712,7 +6712,7 @@ operator|.
 name|TimedQuota
 name|reqSize_
 decl_stmt|;
-comment|/**      *<code>optional .TimedQuota req_size = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota req_size = 2;</code>      */
 specifier|public
 name|boolean
 name|hasReqSize
@@ -6730,7 +6730,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TimedQuota req_size = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota req_size = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6754,7 +6754,7 @@ return|return
 name|reqSize_
 return|;
 block|}
-comment|/**      *<code>optional .TimedQuota req_size = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota req_size = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6778,7 +6778,7 @@ return|return
 name|reqSize_
 return|;
 block|}
-comment|// optional .TimedQuota write_num = 3;
+comment|// optional .hbase.pb.TimedQuota write_num = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -6805,7 +6805,7 @@ operator|.
 name|TimedQuota
 name|writeNum_
 decl_stmt|;
-comment|/**      *<code>optional .TimedQuota write_num = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota write_num = 3;</code>      */
 specifier|public
 name|boolean
 name|hasWriteNum
@@ -6823,7 +6823,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TimedQuota write_num = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota write_num = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6847,7 +6847,7 @@ return|return
 name|writeNum_
 return|;
 block|}
-comment|/**      *<code>optional .TimedQuota write_num = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota write_num = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6871,7 +6871,7 @@ return|return
 name|writeNum_
 return|;
 block|}
-comment|// optional .TimedQuota write_size = 4;
+comment|// optional .hbase.pb.TimedQuota write_size = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -6898,7 +6898,7 @@ operator|.
 name|TimedQuota
 name|writeSize_
 decl_stmt|;
-comment|/**      *<code>optional .TimedQuota write_size = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota write_size = 4;</code>      */
 specifier|public
 name|boolean
 name|hasWriteSize
@@ -6916,7 +6916,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TimedQuota write_size = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota write_size = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6940,7 +6940,7 @@ return|return
 name|writeSize_
 return|;
 block|}
-comment|/**      *<code>optional .TimedQuota write_size = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota write_size = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6964,7 +6964,7 @@ return|return
 name|writeSize_
 return|;
 block|}
-comment|// optional .TimedQuota read_num = 5;
+comment|// optional .hbase.pb.TimedQuota read_num = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -6991,7 +6991,7 @@ operator|.
 name|TimedQuota
 name|readNum_
 decl_stmt|;
-comment|/**      *<code>optional .TimedQuota read_num = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota read_num = 5;</code>      */
 specifier|public
 name|boolean
 name|hasReadNum
@@ -7009,7 +7009,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TimedQuota read_num = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota read_num = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -7033,7 +7033,7 @@ return|return
 name|readNum_
 return|;
 block|}
-comment|/**      *<code>optional .TimedQuota read_num = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota read_num = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -7057,7 +7057,7 @@ return|return
 name|readNum_
 return|;
 block|}
-comment|// optional .TimedQuota read_size = 6;
+comment|// optional .hbase.pb.TimedQuota read_size = 6;
 specifier|public
 specifier|static
 specifier|final
@@ -7084,7 +7084,7 @@ operator|.
 name|TimedQuota
 name|readSize_
 decl_stmt|;
-comment|/**      *<code>optional .TimedQuota read_size = 6;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota read_size = 6;</code>      */
 specifier|public
 name|boolean
 name|hasReadSize
@@ -7102,7 +7102,7 @@ literal|0x00000020
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TimedQuota read_size = 6;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota read_size = 6;</code>      */
 specifier|public
 name|org
 operator|.
@@ -7126,7 +7126,7 @@ return|return
 name|readSize_
 return|;
 block|}
-comment|/**      *<code>optional .TimedQuota read_size = 6;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota read_size = 6;</code>      */
 specifier|public
 name|org
 operator|.
@@ -9091,7 +9091,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Throttle}      */
+comment|/**      * Protobuf type {@code hbase.pb.Throttle}      */
 specifier|public
 specifier|static
 specifier|final
@@ -9157,7 +9157,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_Throttle_descriptor
+name|internal_static_hbase_pb_Throttle_descriptor
 return|;
 block|}
 specifier|protected
@@ -9188,7 +9188,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_Throttle_fieldAccessorTable
+name|internal_static_hbase_pb_Throttle_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -9649,7 +9649,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_Throttle_descriptor
+name|internal_static_hbase_pb_Throttle_descriptor
 return|;
 block|}
 specifier|public
@@ -10593,7 +10593,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .TimedQuota req_num = 1;
+comment|// optional .hbase.pb.TimedQuota req_num = 1;
 specifier|private
 name|org
 operator|.
@@ -10692,7 +10692,7 @@ name|TimedQuotaOrBuilder
 argument_list|>
 name|reqNumBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TimedQuota req_num = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_num = 1;</code>        */
 specifier|public
 name|boolean
 name|hasReqNum
@@ -10710,7 +10710,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota req_num = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_num = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -10751,7 +10751,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimedQuota req_num = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_num = 1;</code>        */
 specifier|public
 name|Builder
 name|setReqNum
@@ -10820,7 +10820,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota req_num = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_num = 1;</code>        */
 specifier|public
 name|Builder
 name|setReqNum
@@ -10884,7 +10884,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota req_num = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_num = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeReqNum
@@ -11009,7 +11009,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota req_num = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_num = 1;</code>        */
 specifier|public
 name|Builder
 name|clearReqNum
@@ -11068,7 +11068,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota req_num = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_num = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11105,7 +11105,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota req_num = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_num = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11146,7 +11146,7 @@ name|reqNum_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimedQuota req_num = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_num = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -11296,7 +11296,7 @@ return|return
 name|reqNumBuilder_
 return|;
 block|}
-comment|// optional .TimedQuota req_size = 2;
+comment|// optional .hbase.pb.TimedQuota req_size = 2;
 specifier|private
 name|org
 operator|.
@@ -11395,7 +11395,7 @@ name|TimedQuotaOrBuilder
 argument_list|>
 name|reqSizeBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TimedQuota req_size = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_size = 2;</code>        */
 specifier|public
 name|boolean
 name|hasReqSize
@@ -11413,7 +11413,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota req_size = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_size = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11454,7 +11454,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimedQuota req_size = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_size = 2;</code>        */
 specifier|public
 name|Builder
 name|setReqSize
@@ -11523,7 +11523,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota req_size = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_size = 2;</code>        */
 specifier|public
 name|Builder
 name|setReqSize
@@ -11587,7 +11587,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota req_size = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_size = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeReqSize
@@ -11712,7 +11712,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota req_size = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_size = 2;</code>        */
 specifier|public
 name|Builder
 name|clearReqSize
@@ -11771,7 +11771,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota req_size = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_size = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11808,7 +11808,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota req_size = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_size = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11849,7 +11849,7 @@ name|reqSize_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimedQuota req_size = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota req_size = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -11999,7 +11999,7 @@ return|return
 name|reqSizeBuilder_
 return|;
 block|}
-comment|// optional .TimedQuota write_num = 3;
+comment|// optional .hbase.pb.TimedQuota write_num = 3;
 specifier|private
 name|org
 operator|.
@@ -12098,7 +12098,7 @@ name|TimedQuotaOrBuilder
 argument_list|>
 name|writeNumBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TimedQuota write_num = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_num = 3;</code>        */
 specifier|public
 name|boolean
 name|hasWriteNum
@@ -12116,7 +12116,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota write_num = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_num = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12157,7 +12157,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimedQuota write_num = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_num = 3;</code>        */
 specifier|public
 name|Builder
 name|setWriteNum
@@ -12226,7 +12226,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota write_num = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_num = 3;</code>        */
 specifier|public
 name|Builder
 name|setWriteNum
@@ -12290,7 +12290,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota write_num = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_num = 3;</code>        */
 specifier|public
 name|Builder
 name|mergeWriteNum
@@ -12415,7 +12415,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota write_num = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_num = 3;</code>        */
 specifier|public
 name|Builder
 name|clearWriteNum
@@ -12474,7 +12474,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota write_num = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_num = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12511,7 +12511,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota write_num = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_num = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12552,7 +12552,7 @@ name|writeNum_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimedQuota write_num = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_num = 3;</code>        */
 specifier|private
 name|com
 operator|.
@@ -12702,7 +12702,7 @@ return|return
 name|writeNumBuilder_
 return|;
 block|}
-comment|// optional .TimedQuota write_size = 4;
+comment|// optional .hbase.pb.TimedQuota write_size = 4;
 specifier|private
 name|org
 operator|.
@@ -12801,7 +12801,7 @@ name|TimedQuotaOrBuilder
 argument_list|>
 name|writeSizeBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TimedQuota write_size = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_size = 4;</code>        */
 specifier|public
 name|boolean
 name|hasWriteSize
@@ -12819,7 +12819,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota write_size = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_size = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12860,7 +12860,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimedQuota write_size = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_size = 4;</code>        */
 specifier|public
 name|Builder
 name|setWriteSize
@@ -12929,7 +12929,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota write_size = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_size = 4;</code>        */
 specifier|public
 name|Builder
 name|setWriteSize
@@ -12993,7 +12993,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota write_size = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_size = 4;</code>        */
 specifier|public
 name|Builder
 name|mergeWriteSize
@@ -13118,7 +13118,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota write_size = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_size = 4;</code>        */
 specifier|public
 name|Builder
 name|clearWriteSize
@@ -13177,7 +13177,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota write_size = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_size = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -13214,7 +13214,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota write_size = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_size = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -13255,7 +13255,7 @@ name|writeSize_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimedQuota write_size = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota write_size = 4;</code>        */
 specifier|private
 name|com
 operator|.
@@ -13405,7 +13405,7 @@ return|return
 name|writeSizeBuilder_
 return|;
 block|}
-comment|// optional .TimedQuota read_num = 5;
+comment|// optional .hbase.pb.TimedQuota read_num = 5;
 specifier|private
 name|org
 operator|.
@@ -13504,7 +13504,7 @@ name|TimedQuotaOrBuilder
 argument_list|>
 name|readNumBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TimedQuota read_num = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_num = 5;</code>        */
 specifier|public
 name|boolean
 name|hasReadNum
@@ -13522,7 +13522,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota read_num = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_num = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -13563,7 +13563,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimedQuota read_num = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_num = 5;</code>        */
 specifier|public
 name|Builder
 name|setReadNum
@@ -13632,7 +13632,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota read_num = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_num = 5;</code>        */
 specifier|public
 name|Builder
 name|setReadNum
@@ -13696,7 +13696,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota read_num = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_num = 5;</code>        */
 specifier|public
 name|Builder
 name|mergeReadNum
@@ -13821,7 +13821,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota read_num = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_num = 5;</code>        */
 specifier|public
 name|Builder
 name|clearReadNum
@@ -13880,7 +13880,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota read_num = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_num = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -13917,7 +13917,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota read_num = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_num = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -13958,7 +13958,7 @@ name|readNum_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimedQuota read_num = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_num = 5;</code>        */
 specifier|private
 name|com
 operator|.
@@ -14108,7 +14108,7 @@ return|return
 name|readNumBuilder_
 return|;
 block|}
-comment|// optional .TimedQuota read_size = 6;
+comment|// optional .hbase.pb.TimedQuota read_size = 6;
 specifier|private
 name|org
 operator|.
@@ -14207,7 +14207,7 @@ name|TimedQuotaOrBuilder
 argument_list|>
 name|readSizeBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TimedQuota read_size = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_size = 6;</code>        */
 specifier|public
 name|boolean
 name|hasReadSize
@@ -14225,7 +14225,7 @@ literal|0x00000020
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota read_size = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_size = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -14266,7 +14266,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimedQuota read_size = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_size = 6;</code>        */
 specifier|public
 name|Builder
 name|setReadSize
@@ -14335,7 +14335,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota read_size = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_size = 6;</code>        */
 specifier|public
 name|Builder
 name|setReadSize
@@ -14399,7 +14399,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota read_size = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_size = 6;</code>        */
 specifier|public
 name|Builder
 name|mergeReadSize
@@ -14524,7 +14524,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota read_size = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_size = 6;</code>        */
 specifier|public
 name|Builder
 name|clearReadSize
@@ -14583,7 +14583,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota read_size = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_size = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -14620,7 +14620,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota read_size = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_size = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -14661,7 +14661,7 @@ name|readSize_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimedQuota read_size = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota read_size = 6;</code>        */
 specifier|private
 name|com
 operator|.
@@ -14811,7 +14811,7 @@ return|return
 name|readSizeBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Throttle)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Throttle)
 block|}
 static|static
 block|{
@@ -14829,7 +14829,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Throttle)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Throttle)
 block|}
 specifier|public
 interface|interface
@@ -14843,13 +14843,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .ThrottleType type = 1;
-comment|/**      *<code>optional .ThrottleType type = 1;</code>      */
+comment|// optional .hbase.pb.ThrottleType type = 1;
+comment|/**      *<code>optional .hbase.pb.ThrottleType type = 1;</code>      */
 name|boolean
 name|hasType
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ThrottleType type = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.ThrottleType type = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -14868,13 +14868,13 @@ name|ThrottleType
 name|getType
 parameter_list|()
 function_decl|;
-comment|// optional .TimedQuota timed_quota = 2;
-comment|/**      *<code>optional .TimedQuota timed_quota = 2;</code>      */
+comment|// optional .hbase.pb.TimedQuota timed_quota = 2;
+comment|/**      *<code>optional .hbase.pb.TimedQuota timed_quota = 2;</code>      */
 name|boolean
 name|hasTimedQuota
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimedQuota timed_quota = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota timed_quota = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -14893,7 +14893,7 @@ name|TimedQuota
 name|getTimedQuota
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimedQuota timed_quota = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota timed_quota = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -14913,7 +14913,7 @@ name|getTimedQuotaOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ThrottleRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.ThrottleRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -15448,7 +15448,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_ThrottleRequest_descriptor
+name|internal_static_hbase_pb_ThrottleRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -15479,7 +15479,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_ThrottleRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ThrottleRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -15621,7 +15621,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .ThrottleType type = 1;
+comment|// optional .hbase.pb.ThrottleType type = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -15648,7 +15648,7 @@ operator|.
 name|ThrottleType
 name|type_
 decl_stmt|;
-comment|/**      *<code>optional .ThrottleType type = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.ThrottleType type = 1;</code>      */
 specifier|public
 name|boolean
 name|hasType
@@ -15666,7 +15666,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .ThrottleType type = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.ThrottleType type = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -15690,7 +15690,7 @@ return|return
 name|type_
 return|;
 block|}
-comment|// optional .TimedQuota timed_quota = 2;
+comment|// optional .hbase.pb.TimedQuota timed_quota = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -15717,7 +15717,7 @@ operator|.
 name|TimedQuota
 name|timedQuota_
 decl_stmt|;
-comment|/**      *<code>optional .TimedQuota timed_quota = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota timed_quota = 2;</code>      */
 specifier|public
 name|boolean
 name|hasTimedQuota
@@ -15735,7 +15735,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TimedQuota timed_quota = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota timed_quota = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -15759,7 +15759,7 @@ return|return
 name|timedQuota_
 return|;
 block|}
-comment|/**      *<code>optional .TimedQuota timed_quota = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimedQuota timed_quota = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -17035,7 +17035,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ThrottleRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.ThrottleRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -17101,7 +17101,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_ThrottleRequest_descriptor
+name|internal_static_hbase_pb_ThrottleRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -17132,7 +17132,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_ThrottleRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ThrottleRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -17377,7 +17377,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_ThrottleRequest_descriptor
+name|internal_static_hbase_pb_ThrottleRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -17952,7 +17952,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .ThrottleType type = 1;
+comment|// optional .hbase.pb.ThrottleType type = 1;
 specifier|private
 name|org
 operator|.
@@ -17989,7 +17989,7 @@ name|ThrottleType
 operator|.
 name|REQUEST_NUMBER
 decl_stmt|;
-comment|/**        *<code>optional .ThrottleType type = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.ThrottleType type = 1;</code>        */
 specifier|public
 name|boolean
 name|hasType
@@ -18007,7 +18007,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .ThrottleType type = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.ThrottleType type = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -18031,7 +18031,7 @@ return|return
 name|type_
 return|;
 block|}
-comment|/**        *<code>optional .ThrottleType type = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.ThrottleType type = 1;</code>        */
 specifier|public
 name|Builder
 name|setType
@@ -18082,7 +18082,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ThrottleType type = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.ThrottleType type = 1;</code>        */
 specifier|public
 name|Builder
 name|clearType
@@ -18124,7 +18124,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .TimedQuota timed_quota = 2;
+comment|// optional .hbase.pb.TimedQuota timed_quota = 2;
 specifier|private
 name|org
 operator|.
@@ -18223,7 +18223,7 @@ name|TimedQuotaOrBuilder
 argument_list|>
 name|timedQuotaBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TimedQuota timed_quota = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota timed_quota = 2;</code>        */
 specifier|public
 name|boolean
 name|hasTimedQuota
@@ -18241,7 +18241,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota timed_quota = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota timed_quota = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -18282,7 +18282,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimedQuota timed_quota = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota timed_quota = 2;</code>        */
 specifier|public
 name|Builder
 name|setTimedQuota
@@ -18351,7 +18351,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota timed_quota = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota timed_quota = 2;</code>        */
 specifier|public
 name|Builder
 name|setTimedQuota
@@ -18415,7 +18415,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota timed_quota = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota timed_quota = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeTimedQuota
@@ -18540,7 +18540,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota timed_quota = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota timed_quota = 2;</code>        */
 specifier|public
 name|Builder
 name|clearTimedQuota
@@ -18599,7 +18599,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota timed_quota = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota timed_quota = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -18636,7 +18636,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TimedQuota timed_quota = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota timed_quota = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -18677,7 +18677,7 @@ name|timedQuota_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimedQuota timed_quota = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimedQuota timed_quota = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -18827,7 +18827,7 @@ return|return
 name|timedQuotaBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ThrottleRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ThrottleRequest)
 block|}
 static|static
 block|{
@@ -18845,7 +18845,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ThrottleRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ThrottleRequest)
 block|}
 specifier|public
 interface|interface
@@ -18870,13 +18870,13 @@ name|boolean
 name|getBypassGlobals
 parameter_list|()
 function_decl|;
-comment|// optional .Throttle throttle = 2;
-comment|/**      *<code>optional .Throttle throttle = 2;</code>      */
+comment|// optional .hbase.pb.Throttle throttle = 2;
+comment|/**      *<code>optional .hbase.pb.Throttle throttle = 2;</code>      */
 name|boolean
 name|hasThrottle
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Throttle throttle = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.Throttle throttle = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -18895,7 +18895,7 @@ name|Throttle
 name|getThrottle
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Throttle throttle = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.Throttle throttle = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -18915,7 +18915,7 @@ name|getThrottleOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Quotas}    */
+comment|/**    * Protobuf type {@code hbase.pb.Quotas}    */
 specifier|public
 specifier|static
 specifier|final
@@ -19387,7 +19387,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_Quotas_descriptor
+name|internal_static_hbase_pb_Quotas_descriptor
 return|;
 block|}
 specifier|protected
@@ -19418,7 +19418,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_Quotas_fieldAccessorTable
+name|internal_static_hbase_pb_Quotas_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -19601,7 +19601,7 @@ return|return
 name|bypassGlobals_
 return|;
 block|}
-comment|// optional .Throttle throttle = 2;
+comment|// optional .hbase.pb.Throttle throttle = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -19628,7 +19628,7 @@ operator|.
 name|Throttle
 name|throttle_
 decl_stmt|;
-comment|/**      *<code>optional .Throttle throttle = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.Throttle throttle = 2;</code>      */
 specifier|public
 name|boolean
 name|hasThrottle
@@ -19646,7 +19646,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .Throttle throttle = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.Throttle throttle = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -19670,7 +19670,7 @@ return|return
 name|throttle_
 return|;
 block|}
-comment|/**      *<code>optional .Throttle throttle = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.Throttle throttle = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -20924,7 +20924,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Quotas}      */
+comment|/**      * Protobuf type {@code hbase.pb.Quotas}      */
 specifier|public
 specifier|static
 specifier|final
@@ -20990,7 +20990,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_Quotas_descriptor
+name|internal_static_hbase_pb_Quotas_descriptor
 return|;
 block|}
 specifier|protected
@@ -21021,7 +21021,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_Quotas_fieldAccessorTable
+name|internal_static_hbase_pb_Quotas_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -21250,7 +21250,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_Quotas_descriptor
+name|internal_static_hbase_pb_Quotas_descriptor
 return|;
 block|}
 specifier|public
@@ -21908,7 +21908,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .Throttle throttle = 2;
+comment|// optional .hbase.pb.Throttle throttle = 2;
 specifier|private
 name|org
 operator|.
@@ -22007,7 +22007,7 @@ name|ThrottleOrBuilder
 argument_list|>
 name|throttleBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .Throttle throttle = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Throttle throttle = 2;</code>        */
 specifier|public
 name|boolean
 name|hasThrottle
@@ -22025,7 +22025,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .Throttle throttle = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Throttle throttle = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -22066,7 +22066,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Throttle throttle = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Throttle throttle = 2;</code>        */
 specifier|public
 name|Builder
 name|setThrottle
@@ -22135,7 +22135,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Throttle throttle = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Throttle throttle = 2;</code>        */
 specifier|public
 name|Builder
 name|setThrottle
@@ -22199,7 +22199,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Throttle throttle = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Throttle throttle = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeThrottle
@@ -22324,7 +22324,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Throttle throttle = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Throttle throttle = 2;</code>        */
 specifier|public
 name|Builder
 name|clearThrottle
@@ -22383,7 +22383,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Throttle throttle = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Throttle throttle = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -22420,7 +22420,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .Throttle throttle = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Throttle throttle = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -22461,7 +22461,7 @@ name|throttle_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Throttle throttle = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Throttle throttle = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -22611,7 +22611,7 @@ return|return
 name|throttleBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Quotas)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Quotas)
 block|}
 static|static
 block|{
@@ -22629,7 +22629,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Quotas)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Quotas)
 block|}
 specifier|public
 interface|interface
@@ -22643,7 +22643,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code QuotaUsage}    */
+comment|/**    * Protobuf type {@code hbase.pb.QuotaUsage}    */
 specifier|public
 specifier|static
 specifier|final
@@ -22992,7 +22992,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_QuotaUsage_descriptor
+name|internal_static_hbase_pb_QuotaUsage_descriptor
 return|;
 block|}
 specifier|protected
@@ -23023,7 +23023,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_QuotaUsage_fieldAccessorTable
+name|internal_static_hbase_pb_QuotaUsage_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -24099,7 +24099,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code QuotaUsage}      */
+comment|/**      * Protobuf type {@code hbase.pb.QuotaUsage}      */
 specifier|public
 specifier|static
 specifier|final
@@ -24165,7 +24165,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_QuotaUsage_descriptor
+name|internal_static_hbase_pb_QuotaUsage_descriptor
 return|;
 block|}
 specifier|protected
@@ -24196,7 +24196,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_QuotaUsage_fieldAccessorTable
+name|internal_static_hbase_pb_QuotaUsage_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -24362,7 +24362,7 @@ name|generated
 operator|.
 name|QuotaProtos
 operator|.
-name|internal_static_QuotaUsage_descriptor
+name|internal_static_hbase_pb_QuotaUsage_descriptor
 return|;
 block|}
 specifier|public
@@ -24794,7 +24794,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:QuotaUsage)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.QuotaUsage)
 block|}
 static|static
 block|{
@@ -24812,7 +24812,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:QuotaUsage)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.QuotaUsage)
 block|}
 specifier|private
 specifier|static
@@ -24825,7 +24825,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_TimedQuota_descriptor
+name|internal_static_hbase_pb_TimedQuota_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -24838,7 +24838,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_TimedQuota_fieldAccessorTable
+name|internal_static_hbase_pb_TimedQuota_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -24851,7 +24851,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Throttle_descriptor
+name|internal_static_hbase_pb_Throttle_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -24864,7 +24864,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Throttle_fieldAccessorTable
+name|internal_static_hbase_pb_Throttle_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -24877,7 +24877,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ThrottleRequest_descriptor
+name|internal_static_hbase_pb_ThrottleRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -24890,7 +24890,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ThrottleRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ThrottleRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -24903,7 +24903,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Quotas_descriptor
+name|internal_static_hbase_pb_Quotas_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -24916,7 +24916,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Quotas_fieldAccessorTable
+name|internal_static_hbase_pb_Quotas_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -24929,7 +24929,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_QuotaUsage_descriptor
+name|internal_static_hbase_pb_QuotaUsage_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -24942,7 +24942,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_QuotaUsage_fieldAccessorTable
+name|internal_static_hbase_pb_QuotaUsage_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -24986,45 +24986,49 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\013Quota.proto\032\013HBase.proto\"r\n\nTimedQuota"
+literal|"\n\013Quota.proto\022\010hbase.pb\032\013HBase.proto\"\204\001\n"
 operator|+
-literal|"\022\034\n\ttime_unit\030\001 \002(\0162\t.TimeUnit\022\022\n\nsoft_l"
+literal|"\nTimedQuota\022%\n\ttime_unit\030\001 \002(\0162\022.hbase.p"
 operator|+
-literal|"imit\030\002 \001(\004\022\r\n\005share\030\003 \001(\002\022#\n\005scope\030\004 \001(\016"
+literal|"b.TimeUnit\022\022\n\nsoft_limit\030\002 \001(\004\022\r\n\005share\030"
 operator|+
-literal|"2\013.QuotaScope:\007MACHINE\"\307\001\n\010Throttle\022\034\n\007r"
+literal|"\003 \001(\002\022,\n\005scope\030\004 \001(\0162\024.hbase.pb.QuotaSco"
 operator|+
-literal|"eq_num\030\001 \001(\0132\013.TimedQuota\022\035\n\010req_size\030\002 "
+literal|"pe:\007MACHINE\"\375\001\n\010Throttle\022%\n\007req_num\030\001 \001("
 operator|+
-literal|"\001(\0132\013.TimedQuota\022\036\n\twrite_num\030\003 \001(\0132\013.Ti"
+literal|"\0132\024.hbase.pb.TimedQuota\022&\n\010req_size\030\002 \001("
 operator|+
-literal|"medQuota\022\037\n\nwrite_size\030\004 \001(\0132\013.TimedQuot"
+literal|"\0132\024.hbase.pb.TimedQuota\022\'\n\twrite_num\030\003 \001"
 operator|+
-literal|"a\022\035\n\010read_num\030\005 \001(\0132\013.TimedQuota\022\036\n\tread"
+literal|"(\0132\024.hbase.pb.TimedQuota\022(\n\nwrite_size\030\004"
 operator|+
-literal|"_size\030\006 \001(\0132\013.TimedQuota\"P\n\017ThrottleRequ"
+literal|" \001(\0132\024.hbase.pb.TimedQuota\022&\n\010read_num\030\005"
 operator|+
-literal|"est\022\033\n\004type\030\001 \001(\0162\r.ThrottleType\022 \n\013time"
+literal|" \001(\0132\024.hbase.pb.TimedQuota\022\'\n\tread_size\030"
 block|,
-literal|"d_quota\030\002 \001(\0132\013.TimedQuota\"D\n\006Quotas\022\035\n\016"
+literal|"\006 \001(\0132\024.hbase.pb.TimedQuota\"b\n\017ThrottleR"
 operator|+
-literal|"bypass_globals\030\001 \001(\010:\005false\022\033\n\010throttle\030"
+literal|"equest\022$\n\004type\030\001 \001(\0162\026.hbase.pb.Throttle"
 operator|+
-literal|"\002 \001(\0132\t.Throttle\"\014\n\nQuotaUsage*&\n\nQuotaS"
+literal|"Type\022)\n\013timed_quota\030\002 \001(\0132\024.hbase.pb.Tim"
 operator|+
-literal|"cope\022\013\n\007CLUSTER\020\001\022\013\n\007MACHINE\020\002*v\n\014Thrott"
+literal|"edQuota\"M\n\006Quotas\022\035\n\016bypass_globals\030\001 \001("
 operator|+
-literal|"leType\022\022\n\016REQUEST_NUMBER\020\001\022\020\n\014REQUEST_SI"
+literal|"\010:\005false\022$\n\010throttle\030\002 \001(\0132\022.hbase.pb.Th"
 operator|+
-literal|"ZE\020\002\022\020\n\014WRITE_NUMBER\020\003\022\016\n\nWRITE_SIZE\020\004\022\017"
+literal|"rottle\"\014\n\nQuotaUsage*&\n\nQuotaScope\022\013\n\007CL"
 operator|+
-literal|"\n\013READ_NUMBER\020\005\022\r\n\tREAD_SIZE\020\006*\031\n\tQuotaT"
+literal|"USTER\020\001\022\013\n\007MACHINE\020\002*v\n\014ThrottleType\022\022\n\016"
 operator|+
-literal|"ype\022\014\n\010THROTTLE\020\001BA\n*org.apache.hadoop.h"
+literal|"REQUEST_NUMBER\020\001\022\020\n\014REQUEST_SIZE\020\002\022\020\n\014WR"
 operator|+
-literal|"base.protobuf.generatedB\013QuotaProtosH\001\210\001"
+literal|"ITE_NUMBER\020\003\022\016\n\nWRITE_SIZE\020\004\022\017\n\013READ_NUM"
 operator|+
-literal|"\001\240\001\001"
+literal|"BER\020\005\022\r\n\tREAD_SIZE\020\006*\031\n\tQuotaType\022\014\n\010THR"
+block|,
+literal|"OTTLE\020\001BA\n*org.apache.hadoop.hbase.proto"
+operator|+
+literal|"buf.generatedB\013QuotaProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -25080,7 +25084,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_TimedQuota_descriptor
+name|internal_static_hbase_pb_TimedQuota_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -25093,7 +25097,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_TimedQuota_fieldAccessorTable
+name|internal_static_hbase_pb_TimedQuota_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -25106,7 +25110,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_TimedQuota_descriptor
+name|internal_static_hbase_pb_TimedQuota_descriptor
 argument_list|,
 operator|new
 name|java
@@ -25126,7 +25130,7 @@ literal|"Scope"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_Throttle_descriptor
+name|internal_static_hbase_pb_Throttle_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -25139,7 +25143,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_Throttle_fieldAccessorTable
+name|internal_static_hbase_pb_Throttle_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -25152,7 +25156,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Throttle_descriptor
+name|internal_static_hbase_pb_Throttle_descriptor
 argument_list|,
 operator|new
 name|java
@@ -25176,7 +25180,7 @@ literal|"ReadSize"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ThrottleRequest_descriptor
+name|internal_static_hbase_pb_ThrottleRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -25189,7 +25193,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_ThrottleRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ThrottleRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -25202,7 +25206,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ThrottleRequest_descriptor
+name|internal_static_hbase_pb_ThrottleRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -25218,7 +25222,7 @@ literal|"TimedQuota"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_Quotas_descriptor
+name|internal_static_hbase_pb_Quotas_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -25231,7 +25235,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_Quotas_fieldAccessorTable
+name|internal_static_hbase_pb_Quotas_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -25244,7 +25248,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Quotas_descriptor
+name|internal_static_hbase_pb_Quotas_descriptor
 argument_list|,
 operator|new
 name|java
@@ -25260,7 +25264,7 @@ literal|"Throttle"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_QuotaUsage_descriptor
+name|internal_static_hbase_pb_QuotaUsage_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -25273,7 +25277,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_QuotaUsage_fieldAccessorTable
+name|internal_static_hbase_pb_QuotaUsage_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -25286,7 +25290,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_QuotaUsage_descriptor
+name|internal_static_hbase_pb_QuotaUsage_descriptor
 argument_list|,
 operator|new
 name|java

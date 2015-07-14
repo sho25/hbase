@@ -48,7 +48,7 @@ name|ExtensionRegistry
 name|registry
 parameter_list|)
 block|{   }
-comment|/**    * Protobuf enum {@code Consistency}    *    *<pre>    **    * Consistency defines the expected consistency level for an operation.    *</pre>    */
+comment|/**    * Protobuf enum {@code hbase.pb.Consistency}    *    *<pre>    **    * Consistency defines the expected consistency level for an operation.    *</pre>    */
 specifier|public
 enum|enum
 name|Consistency
@@ -389,7 +389,7 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:Consistency)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.Consistency)
 block|}
 specifier|public
 interface|interface
@@ -452,7 +452,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Authorizations}    *    *<pre>    **    * The protocol buffer version of Authorizations.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.Authorizations}    *    *<pre>    **    * The protocol buffer version of Authorizations.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -881,7 +881,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Authorizations_descriptor
+name|internal_static_hbase_pb_Authorizations_descriptor
 return|;
 block|}
 specifier|protected
@@ -912,7 +912,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Authorizations_fieldAccessorTable
+name|internal_static_hbase_pb_Authorizations_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2241,7 +2241,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Authorizations}      *      *<pre>      **      * The protocol buffer version of Authorizations.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.Authorizations}      *      *<pre>      **      * The protocol buffer version of Authorizations.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -2307,7 +2307,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Authorizations_descriptor
+name|internal_static_hbase_pb_Authorizations_descriptor
 return|;
 block|}
 specifier|protected
@@ -2338,7 +2338,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Authorizations_fieldAccessorTable
+name|internal_static_hbase_pb_Authorizations_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2525,7 +2525,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Authorizations_descriptor
+name|internal_static_hbase_pb_Authorizations_descriptor
 return|;
 block|}
 specifier|public
@@ -3421,7 +3421,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Authorizations)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Authorizations)
 block|}
 static|static
 block|{
@@ -3439,7 +3439,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Authorizations)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Authorizations)
 block|}
 specifier|public
 interface|interface
@@ -3480,7 +3480,7 @@ name|getExpressionBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code CellVisibility}    *    *<pre>    **    * The protocol buffer version of CellVisibility.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.CellVisibility}    *    *<pre>    **    * The protocol buffer version of CellVisibility.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -3851,7 +3851,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CellVisibility_descriptor
+name|internal_static_hbase_pb_CellVisibility_descriptor
 return|;
 block|}
 specifier|protected
@@ -3882,7 +3882,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CellVisibility_fieldAccessorTable
+name|internal_static_hbase_pb_CellVisibility_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -5318,7 +5318,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CellVisibility}      *      *<pre>      **      * The protocol buffer version of CellVisibility.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.CellVisibility}      *      *<pre>      **      * The protocol buffer version of CellVisibility.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -5384,7 +5384,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CellVisibility_descriptor
+name|internal_static_hbase_pb_CellVisibility_descriptor
 return|;
 block|}
 specifier|protected
@@ -5415,7 +5415,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CellVisibility_fieldAccessorTable
+name|internal_static_hbase_pb_CellVisibility_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -5594,7 +5594,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CellVisibility_descriptor
+name|internal_static_hbase_pb_CellVisibility_descriptor
 return|;
 block|}
 specifier|public
@@ -6405,7 +6405,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CellVisibility)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CellVisibility)
 block|}
 static|static
 block|{
@@ -6423,7 +6423,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CellVisibility)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CellVisibility)
 block|}
 specifier|public
 interface|interface
@@ -6493,7 +6493,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Column}    *    *<pre>    **    * Container for a list of column qualifier names of a family.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.Column}    *    *<pre>    **    * Container for a list of column qualifier names of a family.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -6945,7 +6945,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Column_descriptor
+name|internal_static_hbase_pb_Column_descriptor
 return|;
 block|}
 specifier|protected
@@ -6976,7 +6976,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Column_fieldAccessorTable
+name|internal_static_hbase_pb_Column_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -8496,7 +8496,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Column}      *      *<pre>      **      * Container for a list of column qualifier names of a family.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.Column}      *      *<pre>      **      * Container for a list of column qualifier names of a family.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -8562,7 +8562,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Column_descriptor
+name|internal_static_hbase_pb_Column_descriptor
 return|;
 block|}
 specifier|protected
@@ -8593,7 +8593,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Column_fieldAccessorTable
+name|internal_static_hbase_pb_Column_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -8800,7 +8800,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Column_descriptor
+name|internal_static_hbase_pb_Column_descriptor
 return|;
 block|}
 specifier|public
@@ -9841,7 +9841,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Column)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Column)
 block|}
 static|static
 block|{
@@ -9859,7 +9859,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Column)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Column)
 block|}
 specifier|public
 interface|interface
@@ -9890,8 +9890,8 @@ name|ByteString
 name|getRow
 parameter_list|()
 function_decl|;
-comment|// repeated .Column column = 2;
-comment|/**      *<code>repeated .Column column = 2;</code>      */
+comment|// repeated .hbase.pb.Column column = 2;
+comment|/**      *<code>repeated .hbase.pb.Column column = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -9917,7 +9917,7 @@ argument_list|>
 name|getColumnList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Column column = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -9939,12 +9939,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .Column column = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 2;</code>      */
 name|int
 name|getColumnCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Column column = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -9972,7 +9972,7 @@ argument_list|>
 name|getColumnOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Column column = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -9994,8 +9994,8 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated .NameBytesPair attribute = 3;
-comment|/**      *<code>repeated .NameBytesPair attribute = 3;</code>      */
+comment|// repeated .hbase.pb.NameBytesPair attribute = 3;
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -10021,7 +10021,7 @@ argument_list|>
 name|getAttributeList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameBytesPair attribute = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -10043,12 +10043,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .NameBytesPair attribute = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>      */
 name|int
 name|getAttributeCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameBytesPair attribute = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -10076,7 +10076,7 @@ argument_list|>
 name|getAttributeOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameBytesPair attribute = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -10098,13 +10098,13 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional .Filter filter = 4;
-comment|/**      *<code>optional .Filter filter = 4;</code>      */
+comment|// optional .hbase.pb.Filter filter = 4;
+comment|/**      *<code>optional .hbase.pb.Filter filter = 4;</code>      */
 name|boolean
 name|hasFilter
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Filter filter = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.Filter filter = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -10123,7 +10123,7 @@ name|Filter
 name|getFilter
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Filter filter = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.Filter filter = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -10142,13 +10142,13 @@ name|FilterOrBuilder
 name|getFilterOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .TimeRange time_range = 5;
-comment|/**      *<code>optional .TimeRange time_range = 5;</code>      */
+comment|// optional .hbase.pb.TimeRange time_range = 5;
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 5;</code>      */
 name|boolean
 name|hasTimeRange
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimeRange time_range = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -10167,7 +10167,7 @@ name|TimeRange
 name|getTimeRange
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimeRange time_range = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -10252,13 +10252,13 @@ name|boolean
 name|getClosestRowBefore
 parameter_list|()
 function_decl|;
-comment|// optional .Consistency consistency = 12 [default = STRONG];
-comment|/**      *<code>optional .Consistency consistency = 12 [default = STRONG];</code>      */
+comment|// optional .hbase.pb.Consistency consistency = 12 [default = STRONG];
+comment|/**      *<code>optional .hbase.pb.Consistency consistency = 12 [default = STRONG];</code>      */
 name|boolean
 name|hasConsistency
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Consistency consistency = 12 [default = STRONG];</code>      */
+comment|/**      *<code>optional .hbase.pb.Consistency consistency = 12 [default = STRONG];</code>      */
 name|org
 operator|.
 name|apache
@@ -10278,7 +10278,7 @@ name|getConsistency
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Get}    *    *<pre>    **    * The protocol buffer version of Get.    * Unless existence_only is specified, return all the requested data    * for the row that matches exactly, or the one that immediately    * precedes it if closest_row_before is specified.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.Get}    *    *<pre>    **    * The protocol buffer version of Get.    * Unless existence_only is specified, return all the requested data    * for the row that matches exactly, or the one that immediately    * precedes it if closest_row_before is specified.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -11251,7 +11251,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Get_descriptor
+name|internal_static_hbase_pb_Get_descriptor
 return|;
 block|}
 specifier|protected
@@ -11282,7 +11282,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Get_fieldAccessorTable
+name|internal_static_hbase_pb_Get_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -11477,7 +11477,7 @@ return|return
 name|row_
 return|;
 block|}
-comment|// repeated .Column column = 2;
+comment|// repeated .hbase.pb.Column column = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -11511,7 +11511,7 @@ name|Column
 argument_list|>
 name|column_
 decl_stmt|;
-comment|/**      *<code>repeated .Column column = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -11542,7 +11542,7 @@ return|return
 name|column_
 return|;
 block|}
-comment|/**      *<code>repeated .Column column = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -11575,7 +11575,7 @@ return|return
 name|column_
 return|;
 block|}
-comment|/**      *<code>repeated .Column column = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 2;</code>      */
 specifier|public
 name|int
 name|getColumnCount
@@ -11588,7 +11588,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .Column column = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -11620,7 +11620,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .Column column = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -11652,7 +11652,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated .NameBytesPair attribute = 3;
+comment|// repeated .hbase.pb.NameBytesPair attribute = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -11686,7 +11686,7 @@ name|NameBytesPair
 argument_list|>
 name|attribute_
 decl_stmt|;
-comment|/**      *<code>repeated .NameBytesPair attribute = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -11717,7 +11717,7 @@ return|return
 name|attribute_
 return|;
 block|}
-comment|/**      *<code>repeated .NameBytesPair attribute = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -11750,7 +11750,7 @@ return|return
 name|attribute_
 return|;
 block|}
-comment|/**      *<code>repeated .NameBytesPair attribute = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>      */
 specifier|public
 name|int
 name|getAttributeCount
@@ -11763,7 +11763,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .NameBytesPair attribute = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -11795,7 +11795,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .NameBytesPair attribute = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -11827,7 +11827,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional .Filter filter = 4;
+comment|// optional .hbase.pb.Filter filter = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -11854,7 +11854,7 @@ operator|.
 name|Filter
 name|filter_
 decl_stmt|;
-comment|/**      *<code>optional .Filter filter = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.Filter filter = 4;</code>      */
 specifier|public
 name|boolean
 name|hasFilter
@@ -11872,7 +11872,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .Filter filter = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.Filter filter = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -11896,7 +11896,7 @@ return|return
 name|filter_
 return|;
 block|}
-comment|/**      *<code>optional .Filter filter = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.Filter filter = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -11920,7 +11920,7 @@ return|return
 name|filter_
 return|;
 block|}
-comment|// optional .TimeRange time_range = 5;
+comment|// optional .hbase.pb.TimeRange time_range = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -11947,7 +11947,7 @@ operator|.
 name|TimeRange
 name|timeRange_
 decl_stmt|;
-comment|/**      *<code>optional .TimeRange time_range = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 5;</code>      */
 specifier|public
 name|boolean
 name|hasTimeRange
@@ -11965,7 +11965,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TimeRange time_range = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -11989,7 +11989,7 @@ return|return
 name|timeRange_
 return|;
 block|}
-comment|/**      *<code>optional .TimeRange time_range = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -12259,7 +12259,7 @@ return|return
 name|closestRowBefore_
 return|;
 block|}
-comment|// optional .Consistency consistency = 12 [default = STRONG];
+comment|// optional .hbase.pb.Consistency consistency = 12 [default = STRONG];
 specifier|public
 specifier|static
 specifier|final
@@ -12286,7 +12286,7 @@ operator|.
 name|Consistency
 name|consistency_
 decl_stmt|;
-comment|/**      *<code>optional .Consistency consistency = 12 [default = STRONG];</code>      */
+comment|/**      *<code>optional .hbase.pb.Consistency consistency = 12 [default = STRONG];</code>      */
 specifier|public
 name|boolean
 name|hasConsistency
@@ -12304,7 +12304,7 @@ literal|0x00000200
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .Consistency consistency = 12 [default = STRONG];</code>      */
+comment|/**      *<code>optional .hbase.pb.Consistency consistency = 12 [default = STRONG];</code>      */
 specifier|public
 name|org
 operator|.
@@ -14945,7 +14945,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Get}      *      *<pre>      **      * The protocol buffer version of Get.      * Unless existence_only is specified, return all the requested data      * for the row that matches exactly, or the one that immediately      * precedes it if closest_row_before is specified.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.Get}      *      *<pre>      **      * The protocol buffer version of Get.      * Unless existence_only is specified, return all the requested data      * for the row that matches exactly, or the one that immediately      * precedes it if closest_row_before is specified.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -15011,7 +15011,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Get_descriptor
+name|internal_static_hbase_pb_Get_descriptor
 return|;
 block|}
 specifier|protected
@@ -15042,7 +15042,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Get_fieldAccessorTable
+name|internal_static_hbase_pb_Get_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -15513,7 +15513,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Get_descriptor
+name|internal_static_hbase_pb_Get_descriptor
 return|;
 block|}
 specifier|public
@@ -17043,7 +17043,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .Column column = 2;
+comment|// repeated .hbase.pb.Column column = 2;
 specifier|private
 name|java
 operator|.
@@ -17193,7 +17193,7 @@ name|ColumnOrBuilder
 argument_list|>
 name|columnBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -17250,7 +17250,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|int
 name|getColumnCount
@@ -17280,7 +17280,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -17331,7 +17331,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|Builder
 name|setColumn
@@ -17409,7 +17409,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|Builder
 name|setColumn
@@ -17482,7 +17482,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|Builder
 name|addColumn
@@ -17553,7 +17553,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|Builder
 name|addColumn
@@ -17631,7 +17631,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|Builder
 name|addColumn
@@ -17697,7 +17697,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|Builder
 name|addColumn
@@ -17770,7 +17770,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|Builder
 name|addAllColumn
@@ -17839,7 +17839,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|Builder
 name|clearColumn
@@ -17888,7 +17888,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|Builder
 name|removeColumn
@@ -17932,7 +17932,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -17967,7 +17967,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -18018,7 +18018,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -18077,7 +18077,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -18126,7 +18126,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -18180,7 +18180,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -18376,7 +18376,7 @@ return|return
 name|columnBuilder_
 return|;
 block|}
-comment|// repeated .NameBytesPair attribute = 3;
+comment|// repeated .hbase.pb.NameBytesPair attribute = 3;
 specifier|private
 name|java
 operator|.
@@ -18526,7 +18526,7 @@ name|NameBytesPairOrBuilder
 argument_list|>
 name|attributeBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -18583,7 +18583,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|int
 name|getAttributeCount
@@ -18613,7 +18613,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -18664,7 +18664,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|Builder
 name|setAttribute
@@ -18742,7 +18742,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|Builder
 name|setAttribute
@@ -18815,7 +18815,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|Builder
 name|addAttribute
@@ -18886,7 +18886,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|Builder
 name|addAttribute
@@ -18964,7 +18964,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|Builder
 name|addAttribute
@@ -19030,7 +19030,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|Builder
 name|addAttribute
@@ -19103,7 +19103,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|Builder
 name|addAllAttribute
@@ -19172,7 +19172,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|Builder
 name|clearAttribute
@@ -19221,7 +19221,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|Builder
 name|removeAttribute
@@ -19265,7 +19265,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -19300,7 +19300,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -19351,7 +19351,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -19410,7 +19410,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -19459,7 +19459,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -19513,7 +19513,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -19709,7 +19709,7 @@ return|return
 name|attributeBuilder_
 return|;
 block|}
-comment|// optional .Filter filter = 4;
+comment|// optional .hbase.pb.Filter filter = 4;
 specifier|private
 name|org
 operator|.
@@ -19808,7 +19808,7 @@ name|FilterOrBuilder
 argument_list|>
 name|filterBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .Filter filter = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 4;</code>        */
 specifier|public
 name|boolean
 name|hasFilter
@@ -19826,7 +19826,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .Filter filter = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -19867,7 +19867,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Filter filter = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 4;</code>        */
 specifier|public
 name|Builder
 name|setFilter
@@ -19936,7 +19936,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Filter filter = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 4;</code>        */
 specifier|public
 name|Builder
 name|setFilter
@@ -20000,7 +20000,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Filter filter = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 4;</code>        */
 specifier|public
 name|Builder
 name|mergeFilter
@@ -20125,7 +20125,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Filter filter = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 4;</code>        */
 specifier|public
 name|Builder
 name|clearFilter
@@ -20184,7 +20184,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Filter filter = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20221,7 +20221,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .Filter filter = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20262,7 +20262,7 @@ name|filter_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Filter filter = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 4;</code>        */
 specifier|private
 name|com
 operator|.
@@ -20412,7 +20412,7 @@ return|return
 name|filterBuilder_
 return|;
 block|}
-comment|// optional .TimeRange time_range = 5;
+comment|// optional .hbase.pb.TimeRange time_range = 5;
 specifier|private
 name|org
 operator|.
@@ -20511,7 +20511,7 @@ name|TimeRangeOrBuilder
 argument_list|>
 name|timeRangeBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TimeRange time_range = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 5;</code>        */
 specifier|public
 name|boolean
 name|hasTimeRange
@@ -20529,7 +20529,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20570,7 +20570,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 5;</code>        */
 specifier|public
 name|Builder
 name|setTimeRange
@@ -20639,7 +20639,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 5;</code>        */
 specifier|public
 name|Builder
 name|setTimeRange
@@ -20703,7 +20703,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 5;</code>        */
 specifier|public
 name|Builder
 name|mergeTimeRange
@@ -20828,7 +20828,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 5;</code>        */
 specifier|public
 name|Builder
 name|clearTimeRange
@@ -20887,7 +20887,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20924,7 +20924,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20965,7 +20965,7 @@ name|timeRange_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 5;</code>        */
 specifier|private
 name|com
 operator|.
@@ -21617,7 +21617,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .Consistency consistency = 12 [default = STRONG];
+comment|// optional .hbase.pb.Consistency consistency = 12 [default = STRONG];
 specifier|private
 name|org
 operator|.
@@ -21654,7 +21654,7 @@ name|Consistency
 operator|.
 name|STRONG
 decl_stmt|;
-comment|/**        *<code>optional .Consistency consistency = 12 [default = STRONG];</code>        */
+comment|/**        *<code>optional .hbase.pb.Consistency consistency = 12 [default = STRONG];</code>        */
 specifier|public
 name|boolean
 name|hasConsistency
@@ -21672,7 +21672,7 @@ literal|0x00000800
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .Consistency consistency = 12 [default = STRONG];</code>        */
+comment|/**        *<code>optional .hbase.pb.Consistency consistency = 12 [default = STRONG];</code>        */
 specifier|public
 name|org
 operator|.
@@ -21696,7 +21696,7 @@ return|return
 name|consistency_
 return|;
 block|}
-comment|/**        *<code>optional .Consistency consistency = 12 [default = STRONG];</code>        */
+comment|/**        *<code>optional .hbase.pb.Consistency consistency = 12 [default = STRONG];</code>        */
 specifier|public
 name|Builder
 name|setConsistency
@@ -21747,7 +21747,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Consistency consistency = 12 [default = STRONG];</code>        */
+comment|/**        *<code>optional .hbase.pb.Consistency consistency = 12 [default = STRONG];</code>        */
 specifier|public
 name|Builder
 name|clearConsistency
@@ -21789,7 +21789,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Get)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Get)
 block|}
 static|static
 block|{
@@ -21807,7 +21807,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Get)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Get)
 block|}
 specifier|public
 interface|interface
@@ -21821,8 +21821,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .Cell cell = 1;
-comment|/**      *<code>repeated .Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
+comment|// repeated .hbase.pb.Cell cell = 1;
+comment|/**      *<code>repeated .hbase.pb.Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
 name|java
 operator|.
 name|util
@@ -21848,7 +21848,7 @@ argument_list|>
 name|getCellList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -21870,12 +21870,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
 name|int
 name|getCellCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
 name|java
 operator|.
 name|util
@@ -21903,7 +21903,7 @@ argument_list|>
 name|getCellOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -21970,7 +21970,7 @@ name|getPartial
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Result}    */
+comment|/**    * Protobuf type {@code hbase.pb.Result}    */
 specifier|public
 specifier|static
 specifier|final
@@ -22501,7 +22501,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Result_descriptor
+name|internal_static_hbase_pb_Result_descriptor
 return|;
 block|}
 specifier|protected
@@ -22532,7 +22532,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Result_fieldAccessorTable
+name|internal_static_hbase_pb_Result_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -22674,7 +22674,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .Cell cell = 1;
+comment|// repeated .hbase.pb.Cell cell = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -22708,7 +22708,7 @@ name|Cell
 argument_list|>
 name|cell_
 decl_stmt|;
-comment|/**      *<code>repeated .Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -22739,7 +22739,7 @@ return|return
 name|cell_
 return|;
 block|}
-comment|/**      *<code>repeated .Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -22772,7 +22772,7 @@ return|return
 name|cell_
 return|;
 block|}
-comment|/**      *<code>repeated .Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
 specifier|public
 name|int
 name|getCellCount
@@ -22785,7 +22785,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -22817,7 +22817,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Cell cell = 1;</code>      *      *<pre>      * Result includes the Cells or else it just has a count of Cells      * that are carried otherwise.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -24578,7 +24578,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Result}      */
+comment|/**      * Protobuf type {@code hbase.pb.Result}      */
 specifier|public
 specifier|static
 specifier|final
@@ -24644,7 +24644,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Result_descriptor
+name|internal_static_hbase_pb_Result_descriptor
 return|;
 block|}
 specifier|protected
@@ -24675,7 +24675,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Result_fieldAccessorTable
+name|internal_static_hbase_pb_Result_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -24933,7 +24933,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Result_descriptor
+name|internal_static_hbase_pb_Result_descriptor
 return|;
 block|}
 specifier|public
@@ -25750,7 +25750,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .Cell cell = 1;
+comment|// repeated .hbase.pb.Cell cell = 1;
 specifier|private
 name|java
 operator|.
@@ -25900,7 +25900,7 @@ name|CellOrBuilder
 argument_list|>
 name|cellBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -25957,7 +25957,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|int
 name|getCellCount
@@ -25987,7 +25987,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -26038,7 +26038,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|Builder
 name|setCell
@@ -26116,7 +26116,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|Builder
 name|setCell
@@ -26189,7 +26189,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|Builder
 name|addCell
@@ -26260,7 +26260,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|Builder
 name|addCell
@@ -26338,7 +26338,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|Builder
 name|addCell
@@ -26404,7 +26404,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|Builder
 name|addCell
@@ -26477,7 +26477,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|Builder
 name|addAllCell
@@ -26546,7 +26546,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|Builder
 name|clearCell
@@ -26595,7 +26595,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|Builder
 name|removeCell
@@ -26639,7 +26639,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -26674,7 +26674,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -26725,7 +26725,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -26784,7 +26784,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -26833,7 +26833,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -26887,7 +26887,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Cell cell = 1;</code>        *        *<pre>        * Result includes the Cells or else it just has a count of Cells        * that are carried otherwise.        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -27415,7 +27415,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Result)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Result)
 block|}
 static|static
 block|{
@@ -27433,7 +27433,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Result)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Result)
 block|}
 specifier|public
 interface|interface
@@ -27447,13 +27447,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier region = 1;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|// required .hbase.pb.RegionSpecifier region = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -27472,7 +27472,7 @@ name|RegionSpecifier
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -27491,13 +27491,13 @@ name|RegionSpecifierOrBuilder
 name|getRegionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .Get get = 2;
-comment|/**      *<code>required .Get get = 2;</code>      */
+comment|// required .hbase.pb.Get get = 2;
+comment|/**      *<code>required .hbase.pb.Get get = 2;</code>      */
 name|boolean
 name|hasGet
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .Get get = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.Get get = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -27516,7 +27516,7 @@ name|Get
 name|getGet
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .Get get = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.Get get = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -27536,7 +27536,7 @@ name|getGetOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GetRequest}    *    *<pre>    **    * The get request. Perform a single Get operation.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.GetRequest}    *    *<pre>    **    * The get request. Perform a single Get operation.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -28092,7 +28092,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_GetRequest_descriptor
+name|internal_static_hbase_pb_GetRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -28123,7 +28123,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_GetRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -28265,7 +28265,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -28292,7 +28292,7 @@ operator|.
 name|RegionSpecifier
 name|region_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegion
@@ -28310,7 +28310,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -28334,7 +28334,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -28358,7 +28358,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|// required .Get get = 2;
+comment|// required .hbase.pb.Get get = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -28385,7 +28385,7 @@ operator|.
 name|Get
 name|get_
 decl_stmt|;
-comment|/**      *<code>required .Get get = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.Get get = 2;</code>      */
 specifier|public
 name|boolean
 name|hasGet
@@ -28403,7 +28403,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .Get get = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.Get get = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -28427,7 +28427,7 @@ return|return
 name|get_
 return|;
 block|}
-comment|/**      *<code>required .Get get = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.Get get = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -29740,7 +29740,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetRequest}      *      *<pre>      **      * The get request. Perform a single Get operation.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.GetRequest}      *      *<pre>      **      * The get request. Perform a single Get operation.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -29806,7 +29806,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_GetRequest_descriptor
+name|internal_static_hbase_pb_GetRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -29837,7 +29837,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_GetRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -30102,7 +30102,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_GetRequest_descriptor
+name|internal_static_hbase_pb_GetRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -30726,7 +30726,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|private
 name|org
 operator|.
@@ -30825,7 +30825,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -30843,7 +30843,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -30884,7 +30884,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -30953,7 +30953,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -31017,7 +31017,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -31142,7 +31142,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegion
@@ -31201,7 +31201,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -31238,7 +31238,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -31279,7 +31279,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -31429,7 +31429,7 @@ return|return
 name|regionBuilder_
 return|;
 block|}
-comment|// required .Get get = 2;
+comment|// required .hbase.pb.Get get = 2;
 specifier|private
 name|org
 operator|.
@@ -31528,7 +31528,7 @@ name|GetOrBuilder
 argument_list|>
 name|getBuilder_
 decl_stmt|;
-comment|/**        *<code>required .Get get = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Get get = 2;</code>        */
 specifier|public
 name|boolean
 name|hasGet
@@ -31546,7 +31546,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .Get get = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Get get = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -31587,7 +31587,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .Get get = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Get get = 2;</code>        */
 specifier|public
 name|Builder
 name|setGet
@@ -31656,7 +31656,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Get get = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Get get = 2;</code>        */
 specifier|public
 name|Builder
 name|setGet
@@ -31720,7 +31720,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Get get = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Get get = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeGet
@@ -31845,7 +31845,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Get get = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Get get = 2;</code>        */
 specifier|public
 name|Builder
 name|clearGet
@@ -31904,7 +31904,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Get get = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Get get = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -31941,7 +31941,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .Get get = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Get get = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -31982,7 +31982,7 @@ name|get_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .Get get = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.Get get = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -32132,7 +32132,7 @@ return|return
 name|getBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetRequest)
 block|}
 static|static
 block|{
@@ -32150,7 +32150,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetRequest)
 block|}
 specifier|public
 interface|interface
@@ -32164,13 +32164,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .Result result = 1;
-comment|/**      *<code>optional .Result result = 1;</code>      */
+comment|// optional .hbase.pb.Result result = 1;
+comment|/**      *<code>optional .hbase.pb.Result result = 1;</code>      */
 name|boolean
 name|hasResult
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Result result = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Result result = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -32189,7 +32189,7 @@ name|Result
 name|getResult
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Result result = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Result result = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -32209,7 +32209,7 @@ name|getResultOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GetResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.GetResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -32664,7 +32664,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_GetResponse_descriptor
+name|internal_static_hbase_pb_GetResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -32695,7 +32695,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_GetResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -32837,7 +32837,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .Result result = 1;
+comment|// optional .hbase.pb.Result result = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -32864,7 +32864,7 @@ operator|.
 name|Result
 name|result_
 decl_stmt|;
-comment|/**      *<code>optional .Result result = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Result result = 1;</code>      */
 specifier|public
 name|boolean
 name|hasResult
@@ -32882,7 +32882,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .Result result = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Result result = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -32906,7 +32906,7 @@ return|return
 name|result_
 return|;
 block|}
-comment|/**      *<code>optional .Result result = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Result result = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -34011,7 +34011,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.GetResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -34077,7 +34077,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_GetResponse_descriptor
+name|internal_static_hbase_pb_GetResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -34108,7 +34108,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_GetResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -34324,7 +34324,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_GetResponse_descriptor
+name|internal_static_hbase_pb_GetResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -34837,7 +34837,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .Result result = 1;
+comment|// optional .hbase.pb.Result result = 1;
 specifier|private
 name|org
 operator|.
@@ -34936,7 +34936,7 @@ name|ResultOrBuilder
 argument_list|>
 name|resultBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|boolean
 name|hasResult
@@ -34954,7 +34954,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -34995,7 +34995,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|Builder
 name|setResult
@@ -35064,7 +35064,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|Builder
 name|setResult
@@ -35128,7 +35128,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeResult
@@ -35253,7 +35253,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|Builder
 name|clearResult
@@ -35312,7 +35312,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -35349,7 +35349,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -35390,7 +35390,7 @@ name|result_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -35540,7 +35540,7 @@ return|return
 name|resultBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetResponse)
 block|}
 static|static
 block|{
@@ -35558,7 +35558,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetResponse)
 block|}
 specifier|public
 interface|interface
@@ -35623,13 +35623,13 @@ name|ByteString
 name|getQualifier
 parameter_list|()
 function_decl|;
-comment|// required .CompareType compare_type = 4;
-comment|/**      *<code>required .CompareType compare_type = 4;</code>      */
+comment|// required .hbase.pb.CompareType compare_type = 4;
+comment|/**      *<code>required .hbase.pb.CompareType compare_type = 4;</code>      */
 name|boolean
 name|hasCompareType
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .CompareType compare_type = 4;</code>      */
+comment|/**      *<code>required .hbase.pb.CompareType compare_type = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -35648,13 +35648,13 @@ name|CompareType
 name|getCompareType
 parameter_list|()
 function_decl|;
-comment|// required .Comparator comparator = 5;
-comment|/**      *<code>required .Comparator comparator = 5;</code>      */
+comment|// required .hbase.pb.Comparator comparator = 5;
+comment|/**      *<code>required .hbase.pb.Comparator comparator = 5;</code>      */
 name|boolean
 name|hasComparator
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .Comparator comparator = 5;</code>      */
+comment|/**      *<code>required .hbase.pb.Comparator comparator = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -35673,7 +35673,7 @@ name|Comparator
 name|getComparator
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .Comparator comparator = 5;</code>      */
+comment|/**      *<code>required .hbase.pb.Comparator comparator = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -35693,7 +35693,7 @@ name|getComparatorOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Condition}    *    *<pre>    **    * Condition to check if the value of a given cell (row,    * family, qualifier) matches a value via a given comparator.    *    * Condition is used in check and mutate operations.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.Condition}    *    *<pre>    **    * Condition to check if the value of a given cell (row,    * family, qualifier) matches a value via a given comparator.    *    * Condition is used in check and mutate operations.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -36279,7 +36279,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Condition_descriptor
+name|internal_static_hbase_pb_Condition_descriptor
 return|;
 block|}
 specifier|protected
@@ -36310,7 +36310,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Condition_fieldAccessorTable
+name|internal_static_hbase_pb_Condition_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -36611,7 +36611,7 @@ return|return
 name|qualifier_
 return|;
 block|}
-comment|// required .CompareType compare_type = 4;
+comment|// required .hbase.pb.CompareType compare_type = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -36638,7 +36638,7 @@ operator|.
 name|CompareType
 name|compareType_
 decl_stmt|;
-comment|/**      *<code>required .CompareType compare_type = 4;</code>      */
+comment|/**      *<code>required .hbase.pb.CompareType compare_type = 4;</code>      */
 specifier|public
 name|boolean
 name|hasCompareType
@@ -36656,7 +36656,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .CompareType compare_type = 4;</code>      */
+comment|/**      *<code>required .hbase.pb.CompareType compare_type = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -36680,7 +36680,7 @@ return|return
 name|compareType_
 return|;
 block|}
-comment|// required .Comparator comparator = 5;
+comment|// required .hbase.pb.Comparator comparator = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -36707,7 +36707,7 @@ operator|.
 name|Comparator
 name|comparator_
 decl_stmt|;
-comment|/**      *<code>required .Comparator comparator = 5;</code>      */
+comment|/**      *<code>required .hbase.pb.Comparator comparator = 5;</code>      */
 specifier|public
 name|boolean
 name|hasComparator
@@ -36725,7 +36725,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .Comparator comparator = 5;</code>      */
+comment|/**      *<code>required .hbase.pb.Comparator comparator = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -36749,7 +36749,7 @@ return|return
 name|comparator_
 return|;
 block|}
-comment|/**      *<code>required .Comparator comparator = 5;</code>      */
+comment|/**      *<code>required .hbase.pb.Comparator comparator = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -38492,7 +38492,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Condition}      *      *<pre>      **      * Condition to check if the value of a given cell (row,      * family, qualifier) matches a value via a given comparator.      *      * Condition is used in check and mutate operations.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.Condition}      *      *<pre>      **      * Condition to check if the value of a given cell (row,      * family, qualifier) matches a value via a given comparator.      *      * Condition is used in check and mutate operations.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -38558,7 +38558,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Condition_descriptor
+name|internal_static_hbase_pb_Condition_descriptor
 return|;
 block|}
 specifier|protected
@@ -38589,7 +38589,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Condition_fieldAccessorTable
+name|internal_static_hbase_pb_Condition_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -38897,7 +38897,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Condition_descriptor
+name|internal_static_hbase_pb_Condition_descriptor
 return|;
 block|}
 specifier|public
@@ -40027,7 +40027,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .CompareType compare_type = 4;
+comment|// required .hbase.pb.CompareType compare_type = 4;
 specifier|private
 name|org
 operator|.
@@ -40064,7 +40064,7 @@ name|CompareType
 operator|.
 name|LESS
 decl_stmt|;
-comment|/**        *<code>required .CompareType compare_type = 4;</code>        */
+comment|/**        *<code>required .hbase.pb.CompareType compare_type = 4;</code>        */
 specifier|public
 name|boolean
 name|hasCompareType
@@ -40082,7 +40082,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .CompareType compare_type = 4;</code>        */
+comment|/**        *<code>required .hbase.pb.CompareType compare_type = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -40106,7 +40106,7 @@ return|return
 name|compareType_
 return|;
 block|}
-comment|/**        *<code>required .CompareType compare_type = 4;</code>        */
+comment|/**        *<code>required .hbase.pb.CompareType compare_type = 4;</code>        */
 specifier|public
 name|Builder
 name|setCompareType
@@ -40157,7 +40157,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .CompareType compare_type = 4;</code>        */
+comment|/**        *<code>required .hbase.pb.CompareType compare_type = 4;</code>        */
 specifier|public
 name|Builder
 name|clearCompareType
@@ -40199,7 +40199,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .Comparator comparator = 5;
+comment|// required .hbase.pb.Comparator comparator = 5;
 specifier|private
 name|org
 operator|.
@@ -40298,7 +40298,7 @@ name|ComparatorOrBuilder
 argument_list|>
 name|comparatorBuilder_
 decl_stmt|;
-comment|/**        *<code>required .Comparator comparator = 5;</code>        */
+comment|/**        *<code>required .hbase.pb.Comparator comparator = 5;</code>        */
 specifier|public
 name|boolean
 name|hasComparator
@@ -40316,7 +40316,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .Comparator comparator = 5;</code>        */
+comment|/**        *<code>required .hbase.pb.Comparator comparator = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -40357,7 +40357,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .Comparator comparator = 5;</code>        */
+comment|/**        *<code>required .hbase.pb.Comparator comparator = 5;</code>        */
 specifier|public
 name|Builder
 name|setComparator
@@ -40426,7 +40426,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Comparator comparator = 5;</code>        */
+comment|/**        *<code>required .hbase.pb.Comparator comparator = 5;</code>        */
 specifier|public
 name|Builder
 name|setComparator
@@ -40490,7 +40490,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Comparator comparator = 5;</code>        */
+comment|/**        *<code>required .hbase.pb.Comparator comparator = 5;</code>        */
 specifier|public
 name|Builder
 name|mergeComparator
@@ -40615,7 +40615,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Comparator comparator = 5;</code>        */
+comment|/**        *<code>required .hbase.pb.Comparator comparator = 5;</code>        */
 specifier|public
 name|Builder
 name|clearComparator
@@ -40674,7 +40674,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Comparator comparator = 5;</code>        */
+comment|/**        *<code>required .hbase.pb.Comparator comparator = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -40711,7 +40711,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .Comparator comparator = 5;</code>        */
+comment|/**        *<code>required .hbase.pb.Comparator comparator = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -40752,7 +40752,7 @@ name|comparator_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .Comparator comparator = 5;</code>        */
+comment|/**        *<code>required .hbase.pb.Comparator comparator = 5;</code>        */
 specifier|private
 name|com
 operator|.
@@ -40902,7 +40902,7 @@ return|return
 name|comparatorBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Condition)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Condition)
 block|}
 static|static
 block|{
@@ -40920,7 +40920,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Condition)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Condition)
 block|}
 specifier|public
 interface|interface
@@ -40951,13 +40951,13 @@ name|ByteString
 name|getRow
 parameter_list|()
 function_decl|;
-comment|// optional .MutationProto.MutationType mutate_type = 2;
-comment|/**      *<code>optional .MutationProto.MutationType mutate_type = 2;</code>      */
+comment|// optional .hbase.pb.MutationProto.MutationType mutate_type = 2;
+comment|/**      *<code>optional .hbase.pb.MutationProto.MutationType mutate_type = 2;</code>      */
 name|boolean
 name|hasMutateType
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .MutationProto.MutationType mutate_type = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.MutationProto.MutationType mutate_type = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -40978,8 +40978,8 @@ name|MutationType
 name|getMutateType
 parameter_list|()
 function_decl|;
-comment|// repeated .MutationProto.ColumnValue column_value = 3;
-comment|/**      *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>      */
+comment|// repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;
+comment|/**      *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -41007,7 +41007,7 @@ argument_list|>
 name|getColumnValueList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -41031,12 +41031,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>      */
 name|int
 name|getColumnValueCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -41066,7 +41066,7 @@ argument_list|>
 name|getColumnValueOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -41101,8 +41101,8 @@ name|long
 name|getTimestamp
 parameter_list|()
 function_decl|;
-comment|// repeated .NameBytesPair attribute = 5;
-comment|/**      *<code>repeated .NameBytesPair attribute = 5;</code>      */
+comment|// repeated .hbase.pb.NameBytesPair attribute = 5;
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>      */
 name|java
 operator|.
 name|util
@@ -41128,7 +41128,7 @@ argument_list|>
 name|getAttributeList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameBytesPair attribute = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -41150,12 +41150,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .NameBytesPair attribute = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>      */
 name|int
 name|getAttributeCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameBytesPair attribute = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>      */
 name|java
 operator|.
 name|util
@@ -41183,7 +41183,7 @@ argument_list|>
 name|getAttributeOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameBytesPair attribute = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -41205,13 +41205,13 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional .MutationProto.Durability durability = 6 [default = USE_DEFAULT];
-comment|/**      *<code>optional .MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>      */
+comment|// optional .hbase.pb.MutationProto.Durability durability = 6 [default = USE_DEFAULT];
+comment|/**      *<code>optional .hbase.pb.MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>      */
 name|boolean
 name|hasDurability
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>      */
+comment|/**      *<code>optional .hbase.pb.MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>      */
 name|org
 operator|.
 name|apache
@@ -41232,13 +41232,13 @@ name|Durability
 name|getDurability
 parameter_list|()
 function_decl|;
-comment|// optional .TimeRange time_range = 7;
-comment|/**      *<code>optional .TimeRange time_range = 7;</code>      *      *<pre>      * For some mutations, a result may be returned, in which case,      * time range can be specified for potential performance gain      *</pre>      */
+comment|// optional .hbase.pb.TimeRange time_range = 7;
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 7;</code>      *      *<pre>      * For some mutations, a result may be returned, in which case,      * time range can be specified for potential performance gain      *</pre>      */
 name|boolean
 name|hasTimeRange
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimeRange time_range = 7;</code>      *      *<pre>      * For some mutations, a result may be returned, in which case,      * time range can be specified for potential performance gain      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 7;</code>      *      *<pre>      * For some mutations, a result may be returned, in which case,      * time range can be specified for potential performance gain      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -41257,7 +41257,7 @@ name|TimeRange
 name|getTimeRange
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimeRange time_range = 7;</code>      *      *<pre>      * For some mutations, a result may be returned, in which case,      * time range can be specified for potential performance gain      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 7;</code>      *      *<pre>      * For some mutations, a result may be returned, in which case,      * time range can be specified for potential performance gain      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -41299,7 +41299,7 @@ name|getNonce
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code MutationProto}    *    *<pre>    **    * A specific mutation inside a mutate request.    * It can be an append, increment, put or delete based    * on the mutation type.  It can be fully filled in or    * only metadata present because data is being carried    * elsewhere outside of pb.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.MutationProto}    *    *<pre>    **    * A specific mutation inside a mutate request.    * It can be an append, increment, put or delete based    * on the mutation type.  It can be fully filled in or    * only metadata present because data is being carried    * elsewhere outside of pb.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -42212,7 +42212,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutationProto_descriptor
+name|internal_static_hbase_pb_MutationProto_descriptor
 return|;
 block|}
 specifier|protected
@@ -42243,7 +42243,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutationProto_fieldAccessorTable
+name|internal_static_hbase_pb_MutationProto_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -42381,7 +42381,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code MutationProto.Durability}      */
+comment|/**      * Protobuf enum {@code hbase.pb.MutationProto.Durability}      */
 specifier|public
 enum|enum
 name|Durability
@@ -42793,9 +42793,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:MutationProto.Durability)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.MutationProto.Durability)
 block|}
-comment|/**      * Protobuf enum {@code MutationProto.MutationType}      */
+comment|/**      * Protobuf enum {@code hbase.pb.MutationProto.MutationType}      */
 specifier|public
 enum|enum
 name|MutationType
@@ -43184,9 +43184,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:MutationProto.MutationType)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.MutationProto.MutationType)
 block|}
-comment|/**      * Protobuf enum {@code MutationProto.DeleteType}      */
+comment|/**      * Protobuf enum {@code hbase.pb.MutationProto.DeleteType}      */
 specifier|public
 enum|enum
 name|DeleteType
@@ -43575,7 +43575,7 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:MutationProto.DeleteType)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.MutationProto.DeleteType)
 block|}
 specifier|public
 interface|interface
@@ -43606,8 +43606,8 @@ name|ByteString
 name|getFamily
 parameter_list|()
 function_decl|;
-comment|// repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;
-comment|/**        *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
+comment|// repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
 name|java
 operator|.
 name|util
@@ -43637,7 +43637,7 @@ argument_list|>
 name|getQualifierValueList
 parameter_list|()
 function_decl|;
-comment|/**        *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
 name|org
 operator|.
 name|apache
@@ -43663,12 +43663,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**        *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
 name|int
 name|getQualifierValueCount
 parameter_list|()
 function_decl|;
-comment|/**        *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
 name|java
 operator|.
 name|util
@@ -43700,7 +43700,7 @@ argument_list|>
 name|getQualifierValueOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**        *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
 name|org
 operator|.
 name|apache
@@ -43727,7 +43727,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**      * Protobuf type {@code MutationProto.ColumnValue}      */
+comment|/**      * Protobuf type {@code hbase.pb.MutationProto.ColumnValue}      */
 specifier|public
 specifier|static
 specifier|final
@@ -44215,7 +44215,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutationProto_ColumnValue_descriptor
+name|internal_static_hbase_pb_MutationProto_ColumnValue_descriptor
 return|;
 block|}
 specifier|protected
@@ -44246,7 +44246,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutationProto_ColumnValue_fieldAccessorTable
+name|internal_static_hbase_pb_MutationProto_ColumnValue_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -44445,13 +44445,13 @@ name|long
 name|getTimestamp
 parameter_list|()
 function_decl|;
-comment|// optional .MutationProto.DeleteType delete_type = 4;
-comment|/**          *<code>optional .MutationProto.DeleteType delete_type = 4;</code>          */
+comment|// optional .hbase.pb.MutationProto.DeleteType delete_type = 4;
+comment|/**          *<code>optional .hbase.pb.MutationProto.DeleteType delete_type = 4;</code>          */
 name|boolean
 name|hasDeleteType
 parameter_list|()
 function_decl|;
-comment|/**          *<code>optional .MutationProto.DeleteType delete_type = 4;</code>          */
+comment|/**          *<code>optional .hbase.pb.MutationProto.DeleteType delete_type = 4;</code>          */
 name|org
 operator|.
 name|apache
@@ -44490,7 +44490,7 @@ name|getTags
 parameter_list|()
 function_decl|;
 block|}
-comment|/**        * Protobuf type {@code MutationProto.ColumnValue.QualifierValue}        */
+comment|/**        * Protobuf type {@code hbase.pb.MutationProto.ColumnValue.QualifierValue}        */
 specifier|public
 specifier|static
 specifier|final
@@ -44996,7 +44996,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutationProto_ColumnValue_QualifierValue_descriptor
+name|internal_static_hbase_pb_MutationProto_ColumnValue_QualifierValue_descriptor
 return|;
 block|}
 specifier|protected
@@ -45027,7 +45027,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutationProto_ColumnValue_QualifierValue_fieldAccessorTable
+name|internal_static_hbase_pb_MutationProto_ColumnValue_QualifierValue_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -45324,7 +45324,7 @@ return|return
 name|timestamp_
 return|;
 block|}
-comment|// optional .MutationProto.DeleteType delete_type = 4;
+comment|// optional .hbase.pb.MutationProto.DeleteType delete_type = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -45353,7 +45353,7 @@ operator|.
 name|DeleteType
 name|deleteType_
 decl_stmt|;
-comment|/**          *<code>optional .MutationProto.DeleteType delete_type = 4;</code>          */
+comment|/**          *<code>optional .hbase.pb.MutationProto.DeleteType delete_type = 4;</code>          */
 specifier|public
 name|boolean
 name|hasDeleteType
@@ -45371,7 +45371,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**          *<code>optional .MutationProto.DeleteType delete_type = 4;</code>          */
+comment|/**          *<code>optional .hbase.pb.MutationProto.DeleteType delete_type = 4;</code>          */
 specifier|public
 name|org
 operator|.
@@ -47116,7 +47116,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**          * Protobuf type {@code MutationProto.ColumnValue.QualifierValue}          */
+comment|/**          * Protobuf type {@code hbase.pb.MutationProto.ColumnValue.QualifierValue}          */
 specifier|public
 specifier|static
 specifier|final
@@ -47186,7 +47186,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutationProto_ColumnValue_QualifierValue_descriptor
+name|internal_static_hbase_pb_MutationProto_ColumnValue_QualifierValue_descriptor
 return|;
 block|}
 specifier|protected
@@ -47217,7 +47217,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutationProto_ColumnValue_QualifierValue_fieldAccessorTable
+name|internal_static_hbase_pb_MutationProto_ColumnValue_QualifierValue_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -47498,7 +47498,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutationProto_ColumnValue_QualifierValue_descriptor
+name|internal_static_hbase_pb_MutationProto_ColumnValue_QualifierValue_descriptor
 return|;
 block|}
 specifier|public
@@ -48546,7 +48546,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .MutationProto.DeleteType delete_type = 4;
+comment|// optional .hbase.pb.MutationProto.DeleteType delete_type = 4;
 specifier|private
 name|org
 operator|.
@@ -48587,7 +48587,7 @@ name|DeleteType
 operator|.
 name|DELETE_ONE_VERSION
 decl_stmt|;
-comment|/**            *<code>optional .MutationProto.DeleteType delete_type = 4;</code>            */
+comment|/**            *<code>optional .hbase.pb.MutationProto.DeleteType delete_type = 4;</code>            */
 specifier|public
 name|boolean
 name|hasDeleteType
@@ -48605,7 +48605,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**            *<code>optional .MutationProto.DeleteType delete_type = 4;</code>            */
+comment|/**            *<code>optional .hbase.pb.MutationProto.DeleteType delete_type = 4;</code>            */
 specifier|public
 name|org
 operator|.
@@ -48631,7 +48631,7 @@ return|return
 name|deleteType_
 return|;
 block|}
-comment|/**            *<code>optional .MutationProto.DeleteType delete_type = 4;</code>            */
+comment|/**            *<code>optional .hbase.pb.MutationProto.DeleteType delete_type = 4;</code>            */
 specifier|public
 name|Builder
 name|setDeleteType
@@ -48684,7 +48684,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**            *<code>optional .MutationProto.DeleteType delete_type = 4;</code>            */
+comment|/**            *<code>optional .hbase.pb.MutationProto.DeleteType delete_type = 4;</code>            */
 specifier|public
 name|Builder
 name|clearDeleteType
@@ -48856,7 +48856,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MutationProto.ColumnValue.QualifierValue)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.MutationProto.ColumnValue.QualifierValue)
 block|}
 static|static
 block|{
@@ -48874,7 +48874,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MutationProto.ColumnValue.QualifierValue)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MutationProto.ColumnValue.QualifierValue)
 block|}
 specifier|private
 name|int
@@ -48933,7 +48933,7 @@ return|return
 name|family_
 return|;
 block|}
-comment|// repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;
+comment|// repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -48971,7 +48971,7 @@ name|QualifierValue
 argument_list|>
 name|qualifierValue_
 decl_stmt|;
-comment|/**        *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -49006,7 +49006,7 @@ return|return
 name|qualifierValue_
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -49043,7 +49043,7 @@ return|return
 name|qualifierValue_
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
 specifier|public
 name|int
 name|getQualifierValueCount
@@ -49056,7 +49056,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -49092,7 +49092,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -50376,7 +50376,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**        * Protobuf type {@code MutationProto.ColumnValue}        */
+comment|/**        * Protobuf type {@code hbase.pb.MutationProto.ColumnValue}        */
 specifier|public
 specifier|static
 specifier|final
@@ -50444,7 +50444,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutationProto_ColumnValue_descriptor
+name|internal_static_hbase_pb_MutationProto_ColumnValue_descriptor
 return|;
 block|}
 specifier|protected
@@ -50475,7 +50475,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutationProto_ColumnValue_fieldAccessorTable
+name|internal_static_hbase_pb_MutationProto_ColumnValue_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -50706,7 +50706,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutationProto_ColumnValue_descriptor
+name|internal_static_hbase_pb_MutationProto_ColumnValue_descriptor
 return|;
 block|}
 specifier|public
@@ -51565,7 +51565,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;
+comment|// repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;
 specifier|private
 name|java
 operator|.
@@ -51735,7 +51735,7 @@ name|QualifierValueOrBuilder
 argument_list|>
 name|qualifierValueBuilder_
 decl_stmt|;
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|java
 operator|.
@@ -51796,7 +51796,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|int
 name|getQualifierValueCount
@@ -51826,7 +51826,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -51881,7 +51881,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|Builder
 name|setQualifierValue
@@ -51963,7 +51963,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|Builder
 name|setQualifierValue
@@ -52040,7 +52040,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|Builder
 name|addQualifierValue
@@ -52115,7 +52115,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|Builder
 name|addQualifierValue
@@ -52197,7 +52197,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|Builder
 name|addQualifierValue
@@ -52267,7 +52267,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|Builder
 name|addQualifierValue
@@ -52344,7 +52344,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|Builder
 name|addAllQualifierValue
@@ -52417,7 +52417,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|Builder
 name|clearQualifierValue
@@ -52466,7 +52466,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|Builder
 name|removeQualifierValue
@@ -52510,7 +52510,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -52549,7 +52549,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -52604,7 +52604,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|java
 operator|.
@@ -52667,7 +52667,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -52724,7 +52724,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -52786,7 +52786,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**          *<code>repeated .MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.MutationProto.ColumnValue.QualifierValue qualifier_value = 2;</code>          */
 specifier|public
 name|java
 operator|.
@@ -53010,7 +53010,7 @@ return|return
 name|qualifierValueBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MutationProto.ColumnValue)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.MutationProto.ColumnValue)
 block|}
 static|static
 block|{
@@ -53028,7 +53028,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MutationProto.ColumnValue)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MutationProto.ColumnValue)
 block|}
 specifier|private
 name|int
@@ -53087,7 +53087,7 @@ return|return
 name|row_
 return|;
 block|}
-comment|// optional .MutationProto.MutationType mutate_type = 2;
+comment|// optional .hbase.pb.MutationProto.MutationType mutate_type = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -53116,7 +53116,7 @@ operator|.
 name|MutationType
 name|mutateType_
 decl_stmt|;
-comment|/**      *<code>optional .MutationProto.MutationType mutate_type = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.MutationProto.MutationType mutate_type = 2;</code>      */
 specifier|public
 name|boolean
 name|hasMutateType
@@ -53134,7 +53134,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .MutationProto.MutationType mutate_type = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.MutationProto.MutationType mutate_type = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -53160,7 +53160,7 @@ return|return
 name|mutateType_
 return|;
 block|}
-comment|// repeated .MutationProto.ColumnValue column_value = 3;
+comment|// repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -53196,7 +53196,7 @@ name|ColumnValue
 argument_list|>
 name|columnValue_
 decl_stmt|;
-comment|/**      *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -53229,7 +53229,7 @@ return|return
 name|columnValue_
 return|;
 block|}
-comment|/**      *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -53264,7 +53264,7 @@ return|return
 name|columnValue_
 return|;
 block|}
-comment|/**      *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>      */
 specifier|public
 name|int
 name|getColumnValueCount
@@ -53277,7 +53277,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -53311,7 +53311,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -53386,7 +53386,7 @@ return|return
 name|timestamp_
 return|;
 block|}
-comment|// repeated .NameBytesPair attribute = 5;
+comment|// repeated .hbase.pb.NameBytesPair attribute = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -53420,7 +53420,7 @@ name|NameBytesPair
 argument_list|>
 name|attribute_
 decl_stmt|;
-comment|/**      *<code>repeated .NameBytesPair attribute = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>      */
 specifier|public
 name|java
 operator|.
@@ -53451,7 +53451,7 @@ return|return
 name|attribute_
 return|;
 block|}
-comment|/**      *<code>repeated .NameBytesPair attribute = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>      */
 specifier|public
 name|java
 operator|.
@@ -53484,7 +53484,7 @@ return|return
 name|attribute_
 return|;
 block|}
-comment|/**      *<code>repeated .NameBytesPair attribute = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>      */
 specifier|public
 name|int
 name|getAttributeCount
@@ -53497,7 +53497,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .NameBytesPair attribute = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -53529,7 +53529,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .NameBytesPair attribute = 5;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -53561,7 +53561,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional .MutationProto.Durability durability = 6 [default = USE_DEFAULT];
+comment|// optional .hbase.pb.MutationProto.Durability durability = 6 [default = USE_DEFAULT];
 specifier|public
 specifier|static
 specifier|final
@@ -53590,7 +53590,7 @@ operator|.
 name|Durability
 name|durability_
 decl_stmt|;
-comment|/**      *<code>optional .MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>      */
+comment|/**      *<code>optional .hbase.pb.MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>      */
 specifier|public
 name|boolean
 name|hasDurability
@@ -53608,7 +53608,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>      */
+comment|/**      *<code>optional .hbase.pb.MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>      */
 specifier|public
 name|org
 operator|.
@@ -53634,7 +53634,7 @@ return|return
 name|durability_
 return|;
 block|}
-comment|// optional .TimeRange time_range = 7;
+comment|// optional .hbase.pb.TimeRange time_range = 7;
 specifier|public
 specifier|static
 specifier|final
@@ -53661,7 +53661,7 @@ operator|.
 name|TimeRange
 name|timeRange_
 decl_stmt|;
-comment|/**      *<code>optional .TimeRange time_range = 7;</code>      *      *<pre>      * For some mutations, a result may be returned, in which case,      * time range can be specified for potential performance gain      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 7;</code>      *      *<pre>      * For some mutations, a result may be returned, in which case,      * time range can be specified for potential performance gain      *</pre>      */
 specifier|public
 name|boolean
 name|hasTimeRange
@@ -53679,7 +53679,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TimeRange time_range = 7;</code>      *      *<pre>      * For some mutations, a result may be returned, in which case,      * time range can be specified for potential performance gain      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 7;</code>      *      *<pre>      * For some mutations, a result may be returned, in which case,      * time range can be specified for potential performance gain      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -53703,7 +53703,7 @@ return|return
 name|timeRange_
 return|;
 block|}
-comment|/**      *<code>optional .TimeRange time_range = 7;</code>      *      *<pre>      * For some mutations, a result may be returned, in which case,      * time range can be specified for potential performance gain      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 7;</code>      *      *<pre>      * For some mutations, a result may be returned, in which case,      * time range can be specified for potential performance gain      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -56028,7 +56028,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code MutationProto}      *      *<pre>      **      * A specific mutation inside a mutate request.      * It can be an append, increment, put or delete based      * on the mutation type.  It can be fully filled in or      * only metadata present because data is being carried      * elsewhere outside of pb.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.MutationProto}      *      *<pre>      **      * A specific mutation inside a mutate request.      * It can be an append, increment, put or delete based      * on the mutation type.  It can be fully filled in or      * only metadata present because data is being carried      * elsewhere outside of pb.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -56094,7 +56094,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutationProto_descriptor
+name|internal_static_hbase_pb_MutationProto_descriptor
 return|;
 block|}
 specifier|protected
@@ -56125,7 +56125,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutationProto_fieldAccessorTable
+name|internal_static_hbase_pb_MutationProto_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -56541,7 +56541,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutationProto_descriptor
+name|internal_static_hbase_pb_MutationProto_descriptor
 return|;
 block|}
 specifier|public
@@ -57896,7 +57896,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .MutationProto.MutationType mutate_type = 2;
+comment|// optional .hbase.pb.MutationProto.MutationType mutate_type = 2;
 specifier|private
 name|org
 operator|.
@@ -57937,7 +57937,7 @@ name|MutationType
 operator|.
 name|APPEND
 decl_stmt|;
-comment|/**        *<code>optional .MutationProto.MutationType mutate_type = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto.MutationType mutate_type = 2;</code>        */
 specifier|public
 name|boolean
 name|hasMutateType
@@ -57955,7 +57955,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .MutationProto.MutationType mutate_type = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto.MutationType mutate_type = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -57981,7 +57981,7 @@ return|return
 name|mutateType_
 return|;
 block|}
-comment|/**        *<code>optional .MutationProto.MutationType mutate_type = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto.MutationType mutate_type = 2;</code>        */
 specifier|public
 name|Builder
 name|setMutateType
@@ -58034,7 +58034,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .MutationProto.MutationType mutate_type = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto.MutationType mutate_type = 2;</code>        */
 specifier|public
 name|Builder
 name|clearMutateType
@@ -58078,7 +58078,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .MutationProto.ColumnValue column_value = 3;
+comment|// repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;
 specifier|private
 name|java
 operator|.
@@ -58238,7 +58238,7 @@ name|ColumnValueOrBuilder
 argument_list|>
 name|columnValueBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -58297,7 +58297,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|int
 name|getColumnValueCount
@@ -58327,7 +58327,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -58380,7 +58380,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|Builder
 name|setColumnValue
@@ -58460,7 +58460,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|Builder
 name|setColumnValue
@@ -58535,7 +58535,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|Builder
 name|addColumnValue
@@ -58608,7 +58608,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|Builder
 name|addColumnValue
@@ -58688,7 +58688,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|Builder
 name|addColumnValue
@@ -58756,7 +58756,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|Builder
 name|addColumnValue
@@ -58831,7 +58831,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|Builder
 name|addAllColumnValue
@@ -58902,7 +58902,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|Builder
 name|clearColumnValue
@@ -58951,7 +58951,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|Builder
 name|removeColumnValue
@@ -58995,7 +58995,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -59032,7 +59032,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -59085,7 +59085,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -59146,7 +59146,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -59199,7 +59199,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -59257,7 +59257,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .MutationProto.ColumnValue column_value = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.MutationProto.ColumnValue column_value = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -59550,7 +59550,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .NameBytesPair attribute = 5;
+comment|// repeated .hbase.pb.NameBytesPair attribute = 5;
 specifier|private
 name|java
 operator|.
@@ -59700,7 +59700,7 @@ name|NameBytesPairOrBuilder
 argument_list|>
 name|attributeBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|java
 operator|.
@@ -59757,7 +59757,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|int
 name|getAttributeCount
@@ -59787,7 +59787,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -59838,7 +59838,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|Builder
 name|setAttribute
@@ -59916,7 +59916,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|Builder
 name|setAttribute
@@ -59989,7 +59989,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|Builder
 name|addAttribute
@@ -60060,7 +60060,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|Builder
 name|addAttribute
@@ -60138,7 +60138,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|Builder
 name|addAttribute
@@ -60204,7 +60204,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|Builder
 name|addAttribute
@@ -60277,7 +60277,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|Builder
 name|addAllAttribute
@@ -60346,7 +60346,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|Builder
 name|clearAttribute
@@ -60395,7 +60395,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|Builder
 name|removeAttribute
@@ -60439,7 +60439,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -60474,7 +60474,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -60525,7 +60525,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|java
 operator|.
@@ -60584,7 +60584,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -60633,7 +60633,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -60687,7 +60687,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 5;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 5;</code>        */
 specifier|public
 name|java
 operator|.
@@ -60883,7 +60883,7 @@ return|return
 name|attributeBuilder_
 return|;
 block|}
-comment|// optional .MutationProto.Durability durability = 6 [default = USE_DEFAULT];
+comment|// optional .hbase.pb.MutationProto.Durability durability = 6 [default = USE_DEFAULT];
 specifier|private
 name|org
 operator|.
@@ -60924,7 +60924,7 @@ name|Durability
 operator|.
 name|USE_DEFAULT
 decl_stmt|;
-comment|/**        *<code>optional .MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>        */
 specifier|public
 name|boolean
 name|hasDurability
@@ -60942,7 +60942,7 @@ literal|0x00000020
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>        */
 specifier|public
 name|org
 operator|.
@@ -60968,7 +60968,7 @@ return|return
 name|durability_
 return|;
 block|}
-comment|/**        *<code>optional .MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>        */
 specifier|public
 name|Builder
 name|setDurability
@@ -61021,7 +61021,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto.Durability durability = 6 [default = USE_DEFAULT];</code>        */
 specifier|public
 name|Builder
 name|clearDurability
@@ -61065,7 +61065,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .TimeRange time_range = 7;
+comment|// optional .hbase.pb.TimeRange time_range = 7;
 specifier|private
 name|org
 operator|.
@@ -61164,7 +61164,7 @@ name|TimeRangeOrBuilder
 argument_list|>
 name|timeRangeBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
 specifier|public
 name|boolean
 name|hasTimeRange
@@ -61182,7 +61182,7 @@ literal|0x00000040
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -61223,7 +61223,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
 specifier|public
 name|Builder
 name|setTimeRange
@@ -61292,7 +61292,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
 specifier|public
 name|Builder
 name|setTimeRange
@@ -61356,7 +61356,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
 specifier|public
 name|Builder
 name|mergeTimeRange
@@ -61481,7 +61481,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
 specifier|public
 name|Builder
 name|clearTimeRange
@@ -61540,7 +61540,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -61577,7 +61577,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -61618,7 +61618,7 @@ name|timeRange_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 7;</code>        *        *<pre>        * For some mutations, a result may be returned, in which case,        * time range can be specified for potential performance gain        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -61934,7 +61934,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MutationProto)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.MutationProto)
 block|}
 static|static
 block|{
@@ -61952,7 +61952,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MutationProto)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MutationProto)
 block|}
 specifier|public
 interface|interface
@@ -61966,13 +61966,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier region = 1;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|// required .hbase.pb.RegionSpecifier region = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -61991,7 +61991,7 @@ name|RegionSpecifier
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -62010,13 +62010,13 @@ name|RegionSpecifierOrBuilder
 name|getRegionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .MutationProto mutation = 2;
-comment|/**      *<code>required .MutationProto mutation = 2;</code>      */
+comment|// required .hbase.pb.MutationProto mutation = 2;
+comment|/**      *<code>required .hbase.pb.MutationProto mutation = 2;</code>      */
 name|boolean
 name|hasMutation
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .MutationProto mutation = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.MutationProto mutation = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -62035,7 +62035,7 @@ name|MutationProto
 name|getMutation
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .MutationProto mutation = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.MutationProto mutation = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -62054,13 +62054,13 @@ name|MutationProtoOrBuilder
 name|getMutationOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .Condition condition = 3;
-comment|/**      *<code>optional .Condition condition = 3;</code>      */
+comment|// optional .hbase.pb.Condition condition = 3;
+comment|/**      *<code>optional .hbase.pb.Condition condition = 3;</code>      */
 name|boolean
 name|hasCondition
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Condition condition = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.Condition condition = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -62079,7 +62079,7 @@ name|Condition
 name|getCondition
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Condition condition = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.Condition condition = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -62110,7 +62110,7 @@ name|getNonceGroup
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code MutateRequest}    *    *<pre>    **    * The mutate request. Perform a single Mutate operation.    *    * Optionally, you can specify a condition. The mutate    * will take place only if the condition is met.  Otherwise,    * the mutate will be ignored.  In the response result,    * parameter processed is used to indicate if the mutate    * actually happened.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.MutateRequest}    *    *<pre>    **    * The mutate request. Perform a single Mutate operation.    *    * Optionally, you can specify a condition. The mutate    * will take place only if the condition is met.  Otherwise,    * the mutate will be ignored.  In the response result,    * parameter processed is used to indicate if the mutate    * actually happened.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -62784,7 +62784,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutateRequest_descriptor
+name|internal_static_hbase_pb_MutateRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -62815,7 +62815,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutateRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MutateRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -62957,7 +62957,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -62984,7 +62984,7 @@ operator|.
 name|RegionSpecifier
 name|region_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegion
@@ -63002,7 +63002,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -63026,7 +63026,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -63050,7 +63050,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|// required .MutationProto mutation = 2;
+comment|// required .hbase.pb.MutationProto mutation = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -63077,7 +63077,7 @@ operator|.
 name|MutationProto
 name|mutation_
 decl_stmt|;
-comment|/**      *<code>required .MutationProto mutation = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.MutationProto mutation = 2;</code>      */
 specifier|public
 name|boolean
 name|hasMutation
@@ -63095,7 +63095,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .MutationProto mutation = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.MutationProto mutation = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -63119,7 +63119,7 @@ return|return
 name|mutation_
 return|;
 block|}
-comment|/**      *<code>required .MutationProto mutation = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.MutationProto mutation = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -63143,7 +63143,7 @@ return|return
 name|mutation_
 return|;
 block|}
-comment|// optional .Condition condition = 3;
+comment|// optional .hbase.pb.Condition condition = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -63170,7 +63170,7 @@ operator|.
 name|Condition
 name|condition_
 decl_stmt|;
-comment|/**      *<code>optional .Condition condition = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.Condition condition = 3;</code>      */
 specifier|public
 name|boolean
 name|hasCondition
@@ -63188,7 +63188,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .Condition condition = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.Condition condition = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -63212,7 +63212,7 @@ return|return
 name|condition_
 return|;
 block|}
-comment|/**      *<code>optional .Condition condition = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.Condition condition = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -64857,7 +64857,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code MutateRequest}      *      *<pre>      **      * The mutate request. Perform a single Mutate operation.      *      * Optionally, you can specify a condition. The mutate      * will take place only if the condition is met.  Otherwise,      * the mutate will be ignored.  In the response result,      * parameter processed is used to indicate if the mutate      * actually happened.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.MutateRequest}      *      *<pre>      **      * The mutate request. Perform a single Mutate operation.      *      * Optionally, you can specify a condition. The mutate      * will take place only if the condition is met.  Otherwise,      * the mutate will be ignored.  In the response result,      * parameter processed is used to indicate if the mutate      * actually happened.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -64923,7 +64923,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutateRequest_descriptor
+name|internal_static_hbase_pb_MutateRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -64954,7 +64954,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutateRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MutateRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -65281,7 +65281,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutateRequest_descriptor
+name|internal_static_hbase_pb_MutateRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -66028,7 +66028,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|private
 name|org
 operator|.
@@ -66127,7 +66127,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -66145,7 +66145,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -66186,7 +66186,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -66255,7 +66255,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -66319,7 +66319,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -66444,7 +66444,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegion
@@ -66503,7 +66503,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -66540,7 +66540,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -66581,7 +66581,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -66731,7 +66731,7 @@ return|return
 name|regionBuilder_
 return|;
 block|}
-comment|// required .MutationProto mutation = 2;
+comment|// required .hbase.pb.MutationProto mutation = 2;
 specifier|private
 name|org
 operator|.
@@ -66830,7 +66830,7 @@ name|MutationProtoOrBuilder
 argument_list|>
 name|mutationBuilder_
 decl_stmt|;
-comment|/**        *<code>required .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|boolean
 name|hasMutation
@@ -66848,7 +66848,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -66889,7 +66889,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|Builder
 name|setMutation
@@ -66958,7 +66958,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|Builder
 name|setMutation
@@ -67022,7 +67022,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeMutation
@@ -67147,7 +67147,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|Builder
 name|clearMutation
@@ -67206,7 +67206,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -67243,7 +67243,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -67284,7 +67284,7 @@ name|mutation_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -67434,7 +67434,7 @@ return|return
 name|mutationBuilder_
 return|;
 block|}
-comment|// optional .Condition condition = 3;
+comment|// optional .hbase.pb.Condition condition = 3;
 specifier|private
 name|org
 operator|.
@@ -67533,7 +67533,7 @@ name|ConditionOrBuilder
 argument_list|>
 name|conditionBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|boolean
 name|hasCondition
@@ -67551,7 +67551,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -67592,7 +67592,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|Builder
 name|setCondition
@@ -67661,7 +67661,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|Builder
 name|setCondition
@@ -67725,7 +67725,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|Builder
 name|mergeCondition
@@ -67850,7 +67850,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|Builder
 name|clearCondition
@@ -67909,7 +67909,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -67946,7 +67946,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -67987,7 +67987,7 @@ name|condition_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|private
 name|com
 operator|.
@@ -68220,7 +68220,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MutateRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.MutateRequest)
 block|}
 static|static
 block|{
@@ -68238,7 +68238,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MutateRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MutateRequest)
 block|}
 specifier|public
 interface|interface
@@ -68252,13 +68252,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .Result result = 1;
-comment|/**      *<code>optional .Result result = 1;</code>      */
+comment|// optional .hbase.pb.Result result = 1;
+comment|/**      *<code>optional .hbase.pb.Result result = 1;</code>      */
 name|boolean
 name|hasResult
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Result result = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Result result = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -68277,7 +68277,7 @@ name|Result
 name|getResult
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Result result = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Result result = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -68308,7 +68308,7 @@ name|getProcessed
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code MutateResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.MutateResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -68780,7 +68780,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutateResponse_descriptor
+name|internal_static_hbase_pb_MutateResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -68811,7 +68811,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutateResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MutateResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -68953,7 +68953,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .Result result = 1;
+comment|// optional .hbase.pb.Result result = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -68980,7 +68980,7 @@ operator|.
 name|Result
 name|result_
 decl_stmt|;
-comment|/**      *<code>optional .Result result = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Result result = 1;</code>      */
 specifier|public
 name|boolean
 name|hasResult
@@ -68998,7 +68998,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .Result result = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Result result = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -69022,7 +69022,7 @@ return|return
 name|result_
 return|;
 block|}
-comment|/**      *<code>optional .Result result = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Result result = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -70292,7 +70292,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code MutateResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.MutateResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -70358,7 +70358,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutateResponse_descriptor
+name|internal_static_hbase_pb_MutateResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -70389,7 +70389,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutateResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MutateResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -70618,7 +70618,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MutateResponse_descriptor
+name|internal_static_hbase_pb_MutateResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -71172,7 +71172,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .Result result = 1;
+comment|// optional .hbase.pb.Result result = 1;
 specifier|private
 name|org
 operator|.
@@ -71271,7 +71271,7 @@ name|ResultOrBuilder
 argument_list|>
 name|resultBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|boolean
 name|hasResult
@@ -71289,7 +71289,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -71330,7 +71330,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|Builder
 name|setResult
@@ -71399,7 +71399,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|Builder
 name|setResult
@@ -71463,7 +71463,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeResult
@@ -71588,7 +71588,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|Builder
 name|clearResult
@@ -71647,7 +71647,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -71684,7 +71684,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -71725,7 +71725,7 @@ name|result_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Result result = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -71958,7 +71958,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MutateResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.MutateResponse)
 block|}
 static|static
 block|{
@@ -71976,7 +71976,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MutateResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MutateResponse)
 block|}
 specifier|public
 interface|interface
@@ -71990,8 +71990,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .Column column = 1;
-comment|/**      *<code>repeated .Column column = 1;</code>      */
+comment|// repeated .hbase.pb.Column column = 1;
+comment|/**      *<code>repeated .hbase.pb.Column column = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -72017,7 +72017,7 @@ argument_list|>
 name|getColumnList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Column column = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -72039,12 +72039,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .Column column = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 1;</code>      */
 name|int
 name|getColumnCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Column column = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -72072,7 +72072,7 @@ argument_list|>
 name|getColumnOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Column column = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -72094,8 +72094,8 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated .NameBytesPair attribute = 2;
-comment|/**      *<code>repeated .NameBytesPair attribute = 2;</code>      */
+comment|// repeated .hbase.pb.NameBytesPair attribute = 2;
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -72121,7 +72121,7 @@ argument_list|>
 name|getAttributeList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameBytesPair attribute = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -72143,12 +72143,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .NameBytesPair attribute = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>      */
 name|int
 name|getAttributeCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameBytesPair attribute = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -72176,7 +72176,7 @@ argument_list|>
 name|getAttributeOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .NameBytesPair attribute = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -72232,13 +72232,13 @@ name|ByteString
 name|getStopRow
 parameter_list|()
 function_decl|;
-comment|// optional .Filter filter = 5;
-comment|/**      *<code>optional .Filter filter = 5;</code>      */
+comment|// optional .hbase.pb.Filter filter = 5;
+comment|/**      *<code>optional .hbase.pb.Filter filter = 5;</code>      */
 name|boolean
 name|hasFilter
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Filter filter = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.Filter filter = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -72257,7 +72257,7 @@ name|Filter
 name|getFilter
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Filter filter = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.Filter filter = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -72276,13 +72276,13 @@ name|FilterOrBuilder
 name|getFilterOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .TimeRange time_range = 6;
-comment|/**      *<code>optional .TimeRange time_range = 6;</code>      */
+comment|// optional .hbase.pb.TimeRange time_range = 6;
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 6;</code>      */
 name|boolean
 name|hasTimeRange
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimeRange time_range = 6;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 6;</code>      */
 name|org
 operator|.
 name|apache
@@ -72301,7 +72301,7 @@ name|TimeRange
 name|getTimeRange
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TimeRange time_range = 6;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 6;</code>      */
 name|org
 operator|.
 name|apache
@@ -72419,13 +72419,13 @@ name|boolean
 name|getReversed
 parameter_list|()
 function_decl|;
-comment|// optional .Consistency consistency = 16 [default = STRONG];
-comment|/**      *<code>optional .Consistency consistency = 16 [default = STRONG];</code>      */
+comment|// optional .hbase.pb.Consistency consistency = 16 [default = STRONG];
+comment|/**      *<code>optional .hbase.pb.Consistency consistency = 16 [default = STRONG];</code>      */
 name|boolean
 name|hasConsistency
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Consistency consistency = 16 [default = STRONG];</code>      */
+comment|/**      *<code>optional .hbase.pb.Consistency consistency = 16 [default = STRONG];</code>      */
 name|org
 operator|.
 name|apache
@@ -72456,7 +72456,7 @@ name|getCaching
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Scan}    *    *<pre>    **    * Instead of get from a table, you can scan it with optional filters.    * You can specify the row key range, time range, the columns/families    * to scan and so on.    *    * This scan is used the first time in a scan request. The response of    * the initial scan will return a scanner id, which should be used to    * fetch result batches later on before it is closed.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.Scan}    *    *<pre>    **    * Instead of get from a table, you can scan it with optional filters.    * You can specify the row key range, time range, the columns/families    * to scan and so on.    *    * This scan is used the first time in a scan request. The response of    * the initial scan will return a scanner id, which should be used to    * fetch result batches later on before it is closed.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -73514,7 +73514,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Scan_descriptor
+name|internal_static_hbase_pb_Scan_descriptor
 return|;
 block|}
 specifier|protected
@@ -73545,7 +73545,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Scan_fieldAccessorTable
+name|internal_static_hbase_pb_Scan_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -73687,7 +73687,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .Column column = 1;
+comment|// repeated .hbase.pb.Column column = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -73721,7 +73721,7 @@ name|Column
 argument_list|>
 name|column_
 decl_stmt|;
-comment|/**      *<code>repeated .Column column = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -73752,7 +73752,7 @@ return|return
 name|column_
 return|;
 block|}
-comment|/**      *<code>repeated .Column column = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -73785,7 +73785,7 @@ return|return
 name|column_
 return|;
 block|}
-comment|/**      *<code>repeated .Column column = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 1;</code>      */
 specifier|public
 name|int
 name|getColumnCount
@@ -73798,7 +73798,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .Column column = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -73830,7 +73830,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .Column column = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Column column = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -73862,7 +73862,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated .NameBytesPair attribute = 2;
+comment|// repeated .hbase.pb.NameBytesPair attribute = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -73896,7 +73896,7 @@ name|NameBytesPair
 argument_list|>
 name|attribute_
 decl_stmt|;
-comment|/**      *<code>repeated .NameBytesPair attribute = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -73927,7 +73927,7 @@ return|return
 name|attribute_
 return|;
 block|}
-comment|/**      *<code>repeated .NameBytesPair attribute = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -73960,7 +73960,7 @@ return|return
 name|attribute_
 return|;
 block|}
-comment|/**      *<code>repeated .NameBytesPair attribute = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>      */
 specifier|public
 name|int
 name|getAttributeCount
@@ -73973,7 +73973,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .NameBytesPair attribute = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -74005,7 +74005,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .NameBytesPair attribute = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -74143,7 +74143,7 @@ return|return
 name|stopRow_
 return|;
 block|}
-comment|// optional .Filter filter = 5;
+comment|// optional .hbase.pb.Filter filter = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -74170,7 +74170,7 @@ operator|.
 name|Filter
 name|filter_
 decl_stmt|;
-comment|/**      *<code>optional .Filter filter = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.Filter filter = 5;</code>      */
 specifier|public
 name|boolean
 name|hasFilter
@@ -74188,7 +74188,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .Filter filter = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.Filter filter = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -74212,7 +74212,7 @@ return|return
 name|filter_
 return|;
 block|}
-comment|/**      *<code>optional .Filter filter = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.Filter filter = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -74236,7 +74236,7 @@ return|return
 name|filter_
 return|;
 block|}
-comment|// optional .TimeRange time_range = 6;
+comment|// optional .hbase.pb.TimeRange time_range = 6;
 specifier|public
 specifier|static
 specifier|final
@@ -74263,7 +74263,7 @@ operator|.
 name|TimeRange
 name|timeRange_
 decl_stmt|;
-comment|/**      *<code>optional .TimeRange time_range = 6;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 6;</code>      */
 specifier|public
 name|boolean
 name|hasTimeRange
@@ -74281,7 +74281,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TimeRange time_range = 6;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 6;</code>      */
 specifier|public
 name|org
 operator|.
@@ -74305,7 +74305,7 @@ return|return
 name|timeRange_
 return|;
 block|}
-comment|/**      *<code>optional .TimeRange time_range = 6;</code>      */
+comment|/**      *<code>optional .hbase.pb.TimeRange time_range = 6;</code>      */
 specifier|public
 name|org
 operator|.
@@ -74698,7 +74698,7 @@ return|return
 name|reversed_
 return|;
 block|}
-comment|// optional .Consistency consistency = 16 [default = STRONG];
+comment|// optional .hbase.pb.Consistency consistency = 16 [default = STRONG];
 specifier|public
 specifier|static
 specifier|final
@@ -74725,7 +74725,7 @@ operator|.
 name|Consistency
 name|consistency_
 decl_stmt|;
-comment|/**      *<code>optional .Consistency consistency = 16 [default = STRONG];</code>      */
+comment|/**      *<code>optional .hbase.pb.Consistency consistency = 16 [default = STRONG];</code>      */
 specifier|public
 name|boolean
 name|hasConsistency
@@ -74743,7 +74743,7 @@ literal|0x00002000
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .Consistency consistency = 16 [default = STRONG];</code>      */
+comment|/**      *<code>optional .hbase.pb.Consistency consistency = 16 [default = STRONG];</code>      */
 specifier|public
 name|org
 operator|.
@@ -78033,7 +78033,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Scan}      *      *<pre>      **      * Instead of get from a table, you can scan it with optional filters.      * You can specify the row key range, time range, the columns/families      * to scan and so on.      *      * This scan is used the first time in a scan request. The response of      * the initial scan will return a scanner id, which should be used to      * fetch result batches later on before it is closed.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.Scan}      *      *<pre>      **      * Instead of get from a table, you can scan it with optional filters.      * You can specify the row key range, time range, the columns/families      * to scan and so on.      *      * This scan is used the first time in a scan request. The response of      * the initial scan will return a scanner id, which should be used to      * fetch result batches later on before it is closed.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -78099,7 +78099,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Scan_descriptor
+name|internal_static_hbase_pb_Scan_descriptor
 return|;
 block|}
 specifier|protected
@@ -78130,7 +78130,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Scan_fieldAccessorTable
+name|internal_static_hbase_pb_Scan_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -78674,7 +78674,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Scan_descriptor
+name|internal_static_hbase_pb_Scan_descriptor
 return|;
 block|}
 specifier|public
@@ -80270,7 +80270,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .Column column = 1;
+comment|// repeated .hbase.pb.Column column = 1;
 specifier|private
 name|java
 operator|.
@@ -80420,7 +80420,7 @@ name|ColumnOrBuilder
 argument_list|>
 name|columnBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -80477,7 +80477,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|int
 name|getColumnCount
@@ -80507,7 +80507,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -80558,7 +80558,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|Builder
 name|setColumn
@@ -80636,7 +80636,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|Builder
 name|setColumn
@@ -80709,7 +80709,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|Builder
 name|addColumn
@@ -80780,7 +80780,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|Builder
 name|addColumn
@@ -80858,7 +80858,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|Builder
 name|addColumn
@@ -80924,7 +80924,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|Builder
 name|addColumn
@@ -80997,7 +80997,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllColumn
@@ -81066,7 +81066,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|Builder
 name|clearColumn
@@ -81115,7 +81115,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|Builder
 name|removeColumn
@@ -81159,7 +81159,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -81194,7 +81194,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -81245,7 +81245,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -81304,7 +81304,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -81353,7 +81353,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -81407,7 +81407,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Column column = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Column column = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -81603,7 +81603,7 @@ return|return
 name|columnBuilder_
 return|;
 block|}
-comment|// repeated .NameBytesPair attribute = 2;
+comment|// repeated .hbase.pb.NameBytesPair attribute = 2;
 specifier|private
 name|java
 operator|.
@@ -81753,7 +81753,7 @@ name|NameBytesPairOrBuilder
 argument_list|>
 name|attributeBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -81810,7 +81810,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|int
 name|getAttributeCount
@@ -81840,7 +81840,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -81891,7 +81891,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|Builder
 name|setAttribute
@@ -81969,7 +81969,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|Builder
 name|setAttribute
@@ -82042,7 +82042,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|Builder
 name|addAttribute
@@ -82113,7 +82113,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|Builder
 name|addAttribute
@@ -82191,7 +82191,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|Builder
 name|addAttribute
@@ -82257,7 +82257,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|Builder
 name|addAttribute
@@ -82330,7 +82330,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|Builder
 name|addAllAttribute
@@ -82399,7 +82399,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|Builder
 name|clearAttribute
@@ -82448,7 +82448,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|Builder
 name|removeAttribute
@@ -82492,7 +82492,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -82527,7 +82527,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -82578,7 +82578,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -82637,7 +82637,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -82686,7 +82686,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -82740,7 +82740,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .NameBytesPair attribute = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.NameBytesPair attribute = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -83192,7 +83192,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .Filter filter = 5;
+comment|// optional .hbase.pb.Filter filter = 5;
 specifier|private
 name|org
 operator|.
@@ -83291,7 +83291,7 @@ name|FilterOrBuilder
 argument_list|>
 name|filterBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .Filter filter = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 5;</code>        */
 specifier|public
 name|boolean
 name|hasFilter
@@ -83309,7 +83309,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .Filter filter = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -83350,7 +83350,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Filter filter = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 5;</code>        */
 specifier|public
 name|Builder
 name|setFilter
@@ -83419,7 +83419,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Filter filter = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 5;</code>        */
 specifier|public
 name|Builder
 name|setFilter
@@ -83483,7 +83483,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Filter filter = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 5;</code>        */
 specifier|public
 name|Builder
 name|mergeFilter
@@ -83608,7 +83608,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Filter filter = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 5;</code>        */
 specifier|public
 name|Builder
 name|clearFilter
@@ -83667,7 +83667,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Filter filter = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -83704,7 +83704,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .Filter filter = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -83745,7 +83745,7 @@ name|filter_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Filter filter = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.Filter filter = 5;</code>        */
 specifier|private
 name|com
 operator|.
@@ -83895,7 +83895,7 @@ return|return
 name|filterBuilder_
 return|;
 block|}
-comment|// optional .TimeRange time_range = 6;
+comment|// optional .hbase.pb.TimeRange time_range = 6;
 specifier|private
 name|org
 operator|.
@@ -83994,7 +83994,7 @@ name|TimeRangeOrBuilder
 argument_list|>
 name|timeRangeBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TimeRange time_range = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 6;</code>        */
 specifier|public
 name|boolean
 name|hasTimeRange
@@ -84012,7 +84012,7 @@ literal|0x00000020
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -84053,7 +84053,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 6;</code>        */
 specifier|public
 name|Builder
 name|setTimeRange
@@ -84122,7 +84122,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 6;</code>        */
 specifier|public
 name|Builder
 name|setTimeRange
@@ -84186,7 +84186,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 6;</code>        */
 specifier|public
 name|Builder
 name|mergeTimeRange
@@ -84311,7 +84311,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 6;</code>        */
 specifier|public
 name|Builder
 name|clearTimeRange
@@ -84370,7 +84370,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -84407,7 +84407,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 6;</code>        */
 specifier|public
 name|org
 operator|.
@@ -84448,7 +84448,7 @@ name|timeRange_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TimeRange time_range = 6;</code>        */
+comment|/**        *<code>optional .hbase.pb.TimeRange time_range = 6;</code>        */
 specifier|private
 name|com
 operator|.
@@ -85349,7 +85349,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .Consistency consistency = 16 [default = STRONG];
+comment|// optional .hbase.pb.Consistency consistency = 16 [default = STRONG];
 specifier|private
 name|org
 operator|.
@@ -85386,7 +85386,7 @@ name|Consistency
 operator|.
 name|STRONG
 decl_stmt|;
-comment|/**        *<code>optional .Consistency consistency = 16 [default = STRONG];</code>        */
+comment|/**        *<code>optional .hbase.pb.Consistency consistency = 16 [default = STRONG];</code>        */
 specifier|public
 name|boolean
 name|hasConsistency
@@ -85404,7 +85404,7 @@ literal|0x00008000
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .Consistency consistency = 16 [default = STRONG];</code>        */
+comment|/**        *<code>optional .hbase.pb.Consistency consistency = 16 [default = STRONG];</code>        */
 specifier|public
 name|org
 operator|.
@@ -85428,7 +85428,7 @@ return|return
 name|consistency_
 return|;
 block|}
-comment|/**        *<code>optional .Consistency consistency = 16 [default = STRONG];</code>        */
+comment|/**        *<code>optional .hbase.pb.Consistency consistency = 16 [default = STRONG];</code>        */
 specifier|public
 name|Builder
 name|setConsistency
@@ -85479,7 +85479,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Consistency consistency = 16 [default = STRONG];</code>        */
+comment|/**        *<code>optional .hbase.pb.Consistency consistency = 16 [default = STRONG];</code>        */
 specifier|public
 name|Builder
 name|clearConsistency
@@ -85604,7 +85604,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Scan)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Scan)
 block|}
 static|static
 block|{
@@ -85622,7 +85622,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Scan)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Scan)
 block|}
 specifier|public
 interface|interface
@@ -85636,13 +85636,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .RegionSpecifier region = 1;
-comment|/**      *<code>optional .RegionSpecifier region = 1;</code>      */
+comment|// optional .hbase.pb.RegionSpecifier region = 1;
+comment|/**      *<code>optional .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -85661,7 +85661,7 @@ name|RegionSpecifier
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -85680,13 +85680,13 @@ name|RegionSpecifierOrBuilder
 name|getRegionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .Scan scan = 2;
-comment|/**      *<code>optional .Scan scan = 2;</code>      */
+comment|// optional .hbase.pb.Scan scan = 2;
+comment|/**      *<code>optional .hbase.pb.Scan scan = 2;</code>      */
 name|boolean
 name|hasScan
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Scan scan = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.Scan scan = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -85705,7 +85705,7 @@ name|Scan
 name|getScan
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Scan scan = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.Scan scan = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -85802,7 +85802,7 @@ name|getTrackScanMetrics
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ScanRequest}    *    *<pre>    **    * A scan request. Initially, it should specify a scan. Later on, you    * can use the scanner id returned to fetch result batches with a different    * scan request.    *    * The scanner will remain open if there are more results, and it's not    * asked to be closed explicitly.    *    * You can fetch the results and ask the scanner to be closed to save    * a trip if you are not interested in remaining results.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ScanRequest}    *    *<pre>    **    * A scan request. Initially, it should specify a scan. Later on, you    * can use the scanner id returned to fetch result batches with a different    * scan request.    *    * The scanner will remain open if there are more results, and it's not    * asked to be closed explicitly.    *    * You can fetch the results and ask the scanner to be closed to save    * a trip if you are not interested in remaining results.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -86477,7 +86477,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_ScanRequest_descriptor
+name|internal_static_hbase_pb_ScanRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -86508,7 +86508,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_ScanRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ScanRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -86650,7 +86650,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .RegionSpecifier region = 1;
+comment|// optional .hbase.pb.RegionSpecifier region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -86677,7 +86677,7 @@ operator|.
 name|RegionSpecifier
 name|region_
 decl_stmt|;
-comment|/**      *<code>optional .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegion
@@ -86695,7 +86695,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -86719,7 +86719,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**      *<code>optional .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -86743,7 +86743,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|// optional .Scan scan = 2;
+comment|// optional .hbase.pb.Scan scan = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -86770,7 +86770,7 @@ operator|.
 name|Scan
 name|scan_
 decl_stmt|;
-comment|/**      *<code>optional .Scan scan = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.Scan scan = 2;</code>      */
 specifier|public
 name|boolean
 name|hasScan
@@ -86788,7 +86788,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .Scan scan = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.Scan scan = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -86812,7 +86812,7 @@ return|return
 name|scan_
 return|;
 block|}
-comment|/**      *<code>optional .Scan scan = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.Scan scan = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -89261,7 +89261,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ScanRequest}      *      *<pre>      **      * A scan request. Initially, it should specify a scan. Later on, you      * can use the scanner id returned to fetch result batches with a different      * scan request.      *      * The scanner will remain open if there are more results, and it's not      * asked to be closed explicitly.      *      * You can fetch the results and ask the scanner to be closed to save      * a trip if you are not interested in remaining results.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ScanRequest}      *      *<pre>      **      * A scan request. Initially, it should specify a scan. Later on, you      * can use the scanner id returned to fetch result batches with a different      * scan request.      *      * The scanner will remain open if there are more results, and it's not      * asked to be closed explicitly.      *      * You can fetch the results and ask the scanner to be closed to save      * a trip if you are not interested in remaining results.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -89327,7 +89327,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_ScanRequest_descriptor
+name|internal_static_hbase_pb_ScanRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -89358,7 +89358,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_ScanRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ScanRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -89714,7 +89714,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_ScanRequest_descriptor
+name|internal_static_hbase_pb_ScanRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -90617,7 +90617,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .RegionSpecifier region = 1;
+comment|// optional .hbase.pb.RegionSpecifier region = 1;
 specifier|private
 name|org
 operator|.
@@ -90716,7 +90716,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -90734,7 +90734,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -90775,7 +90775,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -90844,7 +90844,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -90908,7 +90908,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -91033,7 +91033,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegion
@@ -91092,7 +91092,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -91129,7 +91129,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -91170,7 +91170,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -91320,7 +91320,7 @@ return|return
 name|regionBuilder_
 return|;
 block|}
-comment|// optional .Scan scan = 2;
+comment|// optional .hbase.pb.Scan scan = 2;
 specifier|private
 name|org
 operator|.
@@ -91419,7 +91419,7 @@ name|ScanOrBuilder
 argument_list|>
 name|scanBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .Scan scan = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|boolean
 name|hasScan
@@ -91437,7 +91437,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .Scan scan = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -91478,7 +91478,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Scan scan = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|Builder
 name|setScan
@@ -91547,7 +91547,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Scan scan = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|Builder
 name|setScan
@@ -91611,7 +91611,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Scan scan = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeScan
@@ -91736,7 +91736,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Scan scan = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|Builder
 name|clearScan
@@ -91795,7 +91795,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Scan scan = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -91832,7 +91832,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .Scan scan = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Scan scan = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -91873,7 +91873,7 @@ name|scan_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Scan scan = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Scan scan = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -92604,7 +92604,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ScanRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ScanRequest)
 block|}
 static|static
 block|{
@@ -92622,7 +92622,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ScanRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ScanRequest)
 block|}
 specifier|public
 interface|interface
@@ -92699,8 +92699,8 @@ name|int
 name|getTtl
 parameter_list|()
 function_decl|;
-comment|// repeated .Result results = 5;
-comment|/**      *<code>repeated .Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
+comment|// repeated .hbase.pb.Result results = 5;
+comment|/**      *<code>repeated .hbase.pb.Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
 name|java
 operator|.
 name|util
@@ -92726,7 +92726,7 @@ argument_list|>
 name|getResultsList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -92748,12 +92748,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
 name|int
 name|getResultsCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
 name|java
 operator|.
 name|util
@@ -92781,7 +92781,7 @@ argument_list|>
 name|getResultsOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -92866,13 +92866,13 @@ name|boolean
 name|getHeartbeatMessage
 parameter_list|()
 function_decl|;
-comment|// optional .ScanMetrics scan_metrics = 10;
-comment|/**      *<code>optional .ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+comment|// optional .hbase.pb.ScanMetrics scan_metrics = 10;
+comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
 name|boolean
 name|hasScanMetrics
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -92891,7 +92891,7 @@ name|ScanMetrics
 name|getScanMetrics
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -92911,7 +92911,7 @@ name|getScanMetricsOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ScanResponse}    *    *<pre>    **    * The scan response. If there are no more results, more_results will    * be false.  If it is not specified, it means there are more.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ScanResponse}    *    *<pre>    **    * The scan response. If there are no more results, more_results will    * be false.  If it is not specified, it means there are more.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -93925,7 +93925,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_ScanResponse_descriptor
+name|internal_static_hbase_pb_ScanResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -93956,7 +93956,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_ScanResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ScanResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -94297,7 +94297,7 @@ return|return
 name|ttl_
 return|;
 block|}
-comment|// repeated .Result results = 5;
+comment|// repeated .hbase.pb.Result results = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -94331,7 +94331,7 @@ name|Result
 argument_list|>
 name|results_
 decl_stmt|;
-comment|/**      *<code>repeated .Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -94362,7 +94362,7 @@ return|return
 name|results_
 return|;
 block|}
-comment|/**      *<code>repeated .Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -94395,7 +94395,7 @@ return|return
 name|results_
 return|;
 block|}
-comment|/**      *<code>repeated .Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
 specifier|public
 name|int
 name|getResultsCount
@@ -94408,7 +94408,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -94440,7 +94440,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
+comment|/**      *<code>repeated .hbase.pb.Result results = 5;</code>      *      *<pre>      * If cells are not carried in an accompanying cellblock, then they are pb'd here.      * This field is mutually exclusive with cells_per_result (since the Cells will      * be inside the pb'd Result)      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -94671,7 +94671,7 @@ return|return
 name|heartbeatMessage_
 return|;
 block|}
-comment|// optional .ScanMetrics scan_metrics = 10;
+comment|// optional .hbase.pb.ScanMetrics scan_metrics = 10;
 specifier|public
 specifier|static
 specifier|final
@@ -94698,7 +94698,7 @@ operator|.
 name|ScanMetrics
 name|scanMetrics_
 decl_stmt|;
-comment|/**      *<code>optional .ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
 specifier|public
 name|boolean
 name|hasScanMetrics
@@ -94716,7 +94716,7 @@ literal|0x00000040
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -94740,7 +94740,7 @@ return|return
 name|scanMetrics_
 return|;
 block|}
-comment|/**      *<code>optional .ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -96994,7 +96994,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ScanResponse}      *      *<pre>      **      * The scan response. If there are no more results, more_results will      * be false.  If it is not specified, it means there are more.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ScanResponse}      *      *<pre>      **      * The scan response. If there are no more results, more_results will      * be false.  If it is not specified, it means there are more.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -97060,7 +97060,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_ScanResponse_descriptor
+name|internal_static_hbase_pb_ScanResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -97091,7 +97091,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_ScanResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ScanResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -97464,7 +97464,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_ScanResponse_descriptor
+name|internal_static_hbase_pb_ScanResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -99126,7 +99126,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .Result results = 5;
+comment|// repeated .hbase.pb.Result results = 5;
 specifier|private
 name|java
 operator|.
@@ -99276,7 +99276,7 @@ name|ResultOrBuilder
 argument_list|>
 name|resultsBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -99333,7 +99333,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|int
 name|getResultsCount
@@ -99363,7 +99363,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -99414,7 +99414,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|Builder
 name|setResults
@@ -99492,7 +99492,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|Builder
 name|setResults
@@ -99565,7 +99565,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|Builder
 name|addResults
@@ -99636,7 +99636,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|Builder
 name|addResults
@@ -99714,7 +99714,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|Builder
 name|addResults
@@ -99780,7 +99780,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|Builder
 name|addResults
@@ -99853,7 +99853,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|Builder
 name|addAllResults
@@ -99922,7 +99922,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|Builder
 name|clearResults
@@ -99971,7 +99971,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|Builder
 name|removeResults
@@ -100015,7 +100015,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -100050,7 +100050,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -100101,7 +100101,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -100160,7 +100160,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -100209,7 +100209,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -100263,7 +100263,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
+comment|/**        *<code>repeated .hbase.pb.Result results = 5;</code>        *        *<pre>        * If cells are not carried in an accompanying cellblock, then they are pb'd here.        * This field is mutually exclusive with cells_per_result (since the Cells will        * be inside the pb'd Result)        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -100969,7 +100969,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .ScanMetrics scan_metrics = 10;
+comment|// optional .hbase.pb.ScanMetrics scan_metrics = 10;
 specifier|private
 name|org
 operator|.
@@ -101068,7 +101068,7 @@ name|ScanMetricsOrBuilder
 argument_list|>
 name|scanMetricsBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
 specifier|public
 name|boolean
 name|hasScanMetrics
@@ -101086,7 +101086,7 @@ literal|0x00000200
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -101127,7 +101127,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
 specifier|public
 name|Builder
 name|setScanMetrics
@@ -101196,7 +101196,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
 specifier|public
 name|Builder
 name|setScanMetrics
@@ -101260,7 +101260,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
 specifier|public
 name|Builder
 name|mergeScanMetrics
@@ -101385,7 +101385,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
 specifier|public
 name|Builder
 name|clearScanMetrics
@@ -101444,7 +101444,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -101481,7 +101481,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -101522,7 +101522,7 @@ name|scanMetrics_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -101672,7 +101672,7 @@ return|return
 name|scanMetricsBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ScanResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ScanResponse)
 block|}
 static|static
 block|{
@@ -101690,7 +101690,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ScanResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ScanResponse)
 block|}
 specifier|public
 interface|interface
@@ -101704,13 +101704,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier region = 1;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|// required .hbase.pb.RegionSpecifier region = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -101729,7 +101729,7 @@ name|RegionSpecifier
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -101748,8 +101748,8 @@ name|RegionSpecifierOrBuilder
 name|getRegionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;
-comment|/**      *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
+comment|// repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;
+comment|/**      *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -101777,7 +101777,7 @@ argument_list|>
 name|getFamilyPathList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -101801,12 +101801,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
 name|int
 name|getFamilyPathCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -101836,7 +101836,7 @@ argument_list|>
 name|getFamilyPathOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -101872,7 +101872,7 @@ name|getAssignSeqNum
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code BulkLoadHFileRequest}    *    *<pre>    **    * Atomically bulk load multiple HFiles (say from different column families)    * into an open region.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.BulkLoadHFileRequest}    *    *<pre>    **    * Atomically bulk load multiple HFiles (say from different column families)    * into an open region.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -102457,7 +102457,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_BulkLoadHFileRequest_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -102488,7 +102488,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_BulkLoadHFileRequest_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadHFileRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -102682,7 +102682,7 @@ name|getPathBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**      * Protobuf type {@code BulkLoadHFileRequest.FamilyPath}      */
+comment|/**      * Protobuf type {@code hbase.pb.BulkLoadHFileRequest.FamilyPath}      */
 specifier|public
 specifier|static
 specifier|final
@@ -103070,7 +103070,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_BulkLoadHFileRequest_FamilyPath_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileRequest_FamilyPath_descriptor
 return|;
 block|}
 specifier|protected
@@ -103101,7 +103101,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_BulkLoadHFileRequest_FamilyPath_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadHFileRequest_FamilyPath_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -104770,7 +104770,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**        * Protobuf type {@code BulkLoadHFileRequest.FamilyPath}        */
+comment|/**        * Protobuf type {@code hbase.pb.BulkLoadHFileRequest.FamilyPath}        */
 specifier|public
 specifier|static
 specifier|final
@@ -104838,7 +104838,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_BulkLoadHFileRequest_FamilyPath_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileRequest_FamilyPath_descriptor
 return|;
 block|}
 specifier|protected
@@ -104869,7 +104869,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_BulkLoadHFileRequest_FamilyPath_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadHFileRequest_FamilyPath_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -105073,7 +105073,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_BulkLoadHFileRequest_FamilyPath_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileRequest_FamilyPath_descriptor
 return|;
 block|}
 specifier|public
@@ -106090,7 +106090,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:BulkLoadHFileRequest.FamilyPath)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.BulkLoadHFileRequest.FamilyPath)
 block|}
 static|static
 block|{
@@ -106108,13 +106108,13 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:BulkLoadHFileRequest.FamilyPath)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.BulkLoadHFileRequest.FamilyPath)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -106141,7 +106141,7 @@ operator|.
 name|RegionSpecifier
 name|region_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegion
@@ -106159,7 +106159,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -106183,7 +106183,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -106207,7 +106207,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|// repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;
+comment|// repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -106243,7 +106243,7 @@ name|FamilyPath
 argument_list|>
 name|familyPath_
 decl_stmt|;
-comment|/**      *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -106276,7 +106276,7 @@ return|return
 name|familyPath_
 return|;
 block|}
-comment|/**      *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -106311,7 +106311,7 @@ return|return
 name|familyPath_
 return|;
 block|}
-comment|/**      *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
 specifier|public
 name|int
 name|getFamilyPathCount
@@ -106324,7 +106324,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -106358,7 +106358,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -107841,7 +107841,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code BulkLoadHFileRequest}      *      *<pre>      **      * Atomically bulk load multiple HFiles (say from different column families)      * into an open region.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.BulkLoadHFileRequest}      *      *<pre>      **      * Atomically bulk load multiple HFiles (say from different column families)      * into an open region.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -107907,7 +107907,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_BulkLoadHFileRequest_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -107938,7 +107938,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_BulkLoadHFileRequest_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadHFileRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -108206,7 +108206,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_BulkLoadHFileRequest_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -109019,7 +109019,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|private
 name|org
 operator|.
@@ -109118,7 +109118,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -109136,7 +109136,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -109177,7 +109177,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -109246,7 +109246,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -109310,7 +109310,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -109435,7 +109435,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegion
@@ -109494,7 +109494,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -109531,7 +109531,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -109572,7 +109572,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -109722,7 +109722,7 @@ return|return
 name|regionBuilder_
 return|;
 block|}
-comment|// repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;
+comment|// repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;
 specifier|private
 name|java
 operator|.
@@ -109882,7 +109882,7 @@ name|FamilyPathOrBuilder
 argument_list|>
 name|familyPathBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -109941,7 +109941,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|int
 name|getFamilyPathCount
@@ -109971,7 +109971,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -110024,7 +110024,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|Builder
 name|setFamilyPath
@@ -110104,7 +110104,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|Builder
 name|setFamilyPath
@@ -110179,7 +110179,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|Builder
 name|addFamilyPath
@@ -110252,7 +110252,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|Builder
 name|addFamilyPath
@@ -110332,7 +110332,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|Builder
 name|addFamilyPath
@@ -110400,7 +110400,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|Builder
 name|addFamilyPath
@@ -110475,7 +110475,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|Builder
 name|addAllFamilyPath
@@ -110546,7 +110546,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|Builder
 name|clearFamilyPath
@@ -110595,7 +110595,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|Builder
 name|removeFamilyPath
@@ -110639,7 +110639,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -110676,7 +110676,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -110729,7 +110729,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -110790,7 +110790,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -110843,7 +110843,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -110901,7 +110901,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.BulkLoadHFileRequest.FamilyPath family_path = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -111194,7 +111194,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:BulkLoadHFileRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.BulkLoadHFileRequest)
 block|}
 static|static
 block|{
@@ -111212,7 +111212,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:BulkLoadHFileRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.BulkLoadHFileRequest)
 block|}
 specifier|public
 interface|interface
@@ -111238,7 +111238,7 @@ name|getLoaded
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code BulkLoadHFileResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.BulkLoadHFileResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -111609,7 +111609,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_BulkLoadHFileResponse_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -111640,7 +111640,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_BulkLoadHFileResponse_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadHFileResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -112901,7 +112901,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code BulkLoadHFileResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.BulkLoadHFileResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -112967,7 +112967,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_BulkLoadHFileResponse_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -112998,7 +112998,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_BulkLoadHFileResponse_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadHFileResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -113177,7 +113177,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_BulkLoadHFileResponse_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -113764,7 +113764,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:BulkLoadHFileResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.BulkLoadHFileResponse)
 block|}
 static|static
 block|{
@@ -113782,7 +113782,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:BulkLoadHFileResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.BulkLoadHFileResponse)
 block|}
 specifier|public
 interface|interface
@@ -113883,7 +113883,7 @@ name|getRequest
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code CoprocessorServiceCall}    */
+comment|/**    * Protobuf type {@code hbase.pb.CoprocessorServiceCall}    */
 specifier|public
 specifier|static
 specifier|final
@@ -114305,7 +114305,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceCall_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceCall_descriptor
 return|;
 block|}
 specifier|protected
@@ -114336,7 +114336,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceCall_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceCall_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -116529,7 +116529,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CoprocessorServiceCall}      */
+comment|/**      * Protobuf type {@code hbase.pb.CoprocessorServiceCall}      */
 specifier|public
 specifier|static
 specifier|final
@@ -116595,7 +116595,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceCall_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceCall_descriptor
 return|;
 block|}
 specifier|protected
@@ -116626,7 +116626,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceCall_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceCall_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -116860,7 +116860,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceCall_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceCall_descriptor
 return|;
 block|}
 specifier|public
@@ -118390,7 +118390,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CoprocessorServiceCall)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CoprocessorServiceCall)
 block|}
 static|static
 block|{
@@ -118408,7 +118408,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CoprocessorServiceCall)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CoprocessorServiceCall)
 block|}
 specifier|public
 interface|interface
@@ -118422,13 +118422,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .NameBytesPair value = 1;
-comment|/**      *<code>optional .NameBytesPair value = 1;</code>      */
+comment|// optional .hbase.pb.NameBytesPair value = 1;
+comment|/**      *<code>optional .hbase.pb.NameBytesPair value = 1;</code>      */
 name|boolean
 name|hasValue
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .NameBytesPair value = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.NameBytesPair value = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -118447,7 +118447,7 @@ name|NameBytesPair
 name|getValue
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .NameBytesPair value = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.NameBytesPair value = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -118467,7 +118467,7 @@ name|getValueOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code CoprocessorServiceResult}    */
+comment|/**    * Protobuf type {@code hbase.pb.CoprocessorServiceResult}    */
 specifier|public
 specifier|static
 specifier|final
@@ -118922,7 +118922,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceResult_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceResult_descriptor
 return|;
 block|}
 specifier|protected
@@ -118953,7 +118953,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceResult_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceResult_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -119095,7 +119095,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .NameBytesPair value = 1;
+comment|// optional .hbase.pb.NameBytesPair value = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -119122,7 +119122,7 @@ operator|.
 name|NameBytesPair
 name|value_
 decl_stmt|;
-comment|/**      *<code>optional .NameBytesPair value = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.NameBytesPair value = 1;</code>      */
 specifier|public
 name|boolean
 name|hasValue
@@ -119140,7 +119140,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .NameBytesPair value = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.NameBytesPair value = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -119164,7 +119164,7 @@ return|return
 name|value_
 return|;
 block|}
-comment|/**      *<code>optional .NameBytesPair value = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.NameBytesPair value = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -120294,7 +120294,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CoprocessorServiceResult}      */
+comment|/**      * Protobuf type {@code hbase.pb.CoprocessorServiceResult}      */
 specifier|public
 specifier|static
 specifier|final
@@ -120360,7 +120360,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceResult_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceResult_descriptor
 return|;
 block|}
 specifier|protected
@@ -120391,7 +120391,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceResult_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceResult_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -120607,7 +120607,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceResult_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceResult_descriptor
 return|;
 block|}
 specifier|public
@@ -121141,7 +121141,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .NameBytesPair value = 1;
+comment|// optional .hbase.pb.NameBytesPair value = 1;
 specifier|private
 name|org
 operator|.
@@ -121240,7 +121240,7 @@ name|NameBytesPairOrBuilder
 argument_list|>
 name|valueBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .NameBytesPair value = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair value = 1;</code>        */
 specifier|public
 name|boolean
 name|hasValue
@@ -121258,7 +121258,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair value = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair value = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -121299,7 +121299,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .NameBytesPair value = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair value = 1;</code>        */
 specifier|public
 name|Builder
 name|setValue
@@ -121368,7 +121368,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair value = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair value = 1;</code>        */
 specifier|public
 name|Builder
 name|setValue
@@ -121432,7 +121432,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair value = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair value = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeValue
@@ -121557,7 +121557,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair value = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair value = 1;</code>        */
 specifier|public
 name|Builder
 name|clearValue
@@ -121616,7 +121616,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair value = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair value = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -121653,7 +121653,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair value = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair value = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -121694,7 +121694,7 @@ name|value_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .NameBytesPair value = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair value = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -121844,7 +121844,7 @@ return|return
 name|valueBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CoprocessorServiceResult)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CoprocessorServiceResult)
 block|}
 static|static
 block|{
@@ -121862,7 +121862,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CoprocessorServiceResult)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CoprocessorServiceResult)
 block|}
 specifier|public
 interface|interface
@@ -121876,13 +121876,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier region = 1;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|// required .hbase.pb.RegionSpecifier region = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -121901,7 +121901,7 @@ name|RegionSpecifier
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -121920,13 +121920,13 @@ name|RegionSpecifierOrBuilder
 name|getRegionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .CoprocessorServiceCall call = 2;
-comment|/**      *<code>required .CoprocessorServiceCall call = 2;</code>      */
+comment|// required .hbase.pb.CoprocessorServiceCall call = 2;
+comment|/**      *<code>required .hbase.pb.CoprocessorServiceCall call = 2;</code>      */
 name|boolean
 name|hasCall
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .CoprocessorServiceCall call = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.CoprocessorServiceCall call = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -121945,7 +121945,7 @@ name|CoprocessorServiceCall
 name|getCall
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .CoprocessorServiceCall call = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.CoprocessorServiceCall call = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -121965,7 +121965,7 @@ name|getCallOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code CoprocessorServiceRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.CoprocessorServiceRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -122521,7 +122521,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceRequest_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -122552,7 +122552,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -122694,7 +122694,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -122721,7 +122721,7 @@ operator|.
 name|RegionSpecifier
 name|region_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegion
@@ -122739,7 +122739,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -122763,7 +122763,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -122787,7 +122787,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|// required .CoprocessorServiceCall call = 2;
+comment|// required .hbase.pb.CoprocessorServiceCall call = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -122814,7 +122814,7 @@ operator|.
 name|CoprocessorServiceCall
 name|call_
 decl_stmt|;
-comment|/**      *<code>required .CoprocessorServiceCall call = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.CoprocessorServiceCall call = 2;</code>      */
 specifier|public
 name|boolean
 name|hasCall
@@ -122832,7 +122832,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .CoprocessorServiceCall call = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.CoprocessorServiceCall call = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -122856,7 +122856,7 @@ return|return
 name|call_
 return|;
 block|}
-comment|/**      *<code>required .CoprocessorServiceCall call = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.CoprocessorServiceCall call = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -124169,7 +124169,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CoprocessorServiceRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.CoprocessorServiceRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -124235,7 +124235,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceRequest_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -124266,7 +124266,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -124531,7 +124531,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceRequest_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -125155,7 +125155,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|private
 name|org
 operator|.
@@ -125254,7 +125254,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -125272,7 +125272,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -125313,7 +125313,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -125382,7 +125382,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -125446,7 +125446,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -125571,7 +125571,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegion
@@ -125630,7 +125630,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -125667,7 +125667,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -125708,7 +125708,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -125858,7 +125858,7 @@ return|return
 name|regionBuilder_
 return|;
 block|}
-comment|// required .CoprocessorServiceCall call = 2;
+comment|// required .hbase.pb.CoprocessorServiceCall call = 2;
 specifier|private
 name|org
 operator|.
@@ -125957,7 +125957,7 @@ name|CoprocessorServiceCallOrBuilder
 argument_list|>
 name|callBuilder_
 decl_stmt|;
-comment|/**        *<code>required .CoprocessorServiceCall call = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.CoprocessorServiceCall call = 2;</code>        */
 specifier|public
 name|boolean
 name|hasCall
@@ -125975,7 +125975,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .CoprocessorServiceCall call = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.CoprocessorServiceCall call = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -126016,7 +126016,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .CoprocessorServiceCall call = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.CoprocessorServiceCall call = 2;</code>        */
 specifier|public
 name|Builder
 name|setCall
@@ -126085,7 +126085,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .CoprocessorServiceCall call = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.CoprocessorServiceCall call = 2;</code>        */
 specifier|public
 name|Builder
 name|setCall
@@ -126149,7 +126149,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .CoprocessorServiceCall call = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.CoprocessorServiceCall call = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeCall
@@ -126274,7 +126274,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .CoprocessorServiceCall call = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.CoprocessorServiceCall call = 2;</code>        */
 specifier|public
 name|Builder
 name|clearCall
@@ -126333,7 +126333,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .CoprocessorServiceCall call = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.CoprocessorServiceCall call = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -126370,7 +126370,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .CoprocessorServiceCall call = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.CoprocessorServiceCall call = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -126411,7 +126411,7 @@ name|call_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .CoprocessorServiceCall call = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.CoprocessorServiceCall call = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -126561,7 +126561,7 @@ return|return
 name|callBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CoprocessorServiceRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CoprocessorServiceRequest)
 block|}
 static|static
 block|{
@@ -126579,7 +126579,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CoprocessorServiceRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CoprocessorServiceRequest)
 block|}
 specifier|public
 interface|interface
@@ -126593,13 +126593,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier region = 1;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|// required .hbase.pb.RegionSpecifier region = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -126618,7 +126618,7 @@ name|RegionSpecifier
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -126637,13 +126637,13 @@ name|RegionSpecifierOrBuilder
 name|getRegionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .NameBytesPair value = 2;
-comment|/**      *<code>required .NameBytesPair value = 2;</code>      */
+comment|// required .hbase.pb.NameBytesPair value = 2;
+comment|/**      *<code>required .hbase.pb.NameBytesPair value = 2;</code>      */
 name|boolean
 name|hasValue
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .NameBytesPair value = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.NameBytesPair value = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -126662,7 +126662,7 @@ name|NameBytesPair
 name|getValue
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .NameBytesPair value = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.NameBytesPair value = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -126682,7 +126682,7 @@ name|getValueOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code CoprocessorServiceResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.CoprocessorServiceResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -127238,7 +127238,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceResponse_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -127269,7 +127269,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -127411,7 +127411,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -127438,7 +127438,7 @@ operator|.
 name|RegionSpecifier
 name|region_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegion
@@ -127456,7 +127456,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -127480,7 +127480,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -127504,7 +127504,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|// required .NameBytesPair value = 2;
+comment|// required .hbase.pb.NameBytesPair value = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -127531,7 +127531,7 @@ operator|.
 name|NameBytesPair
 name|value_
 decl_stmt|;
-comment|/**      *<code>required .NameBytesPair value = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.NameBytesPair value = 2;</code>      */
 specifier|public
 name|boolean
 name|hasValue
@@ -127549,7 +127549,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .NameBytesPair value = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.NameBytesPair value = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -127573,7 +127573,7 @@ return|return
 name|value_
 return|;
 block|}
-comment|/**      *<code>required .NameBytesPair value = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.NameBytesPair value = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -128886,7 +128886,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CoprocessorServiceResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.CoprocessorServiceResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -128952,7 +128952,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceResponse_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -128983,7 +128983,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -129248,7 +129248,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_CoprocessorServiceResponse_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -129872,7 +129872,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|private
 name|org
 operator|.
@@ -129971,7 +129971,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -129989,7 +129989,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -130030,7 +130030,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -130099,7 +130099,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -130163,7 +130163,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -130288,7 +130288,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegion
@@ -130347,7 +130347,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -130384,7 +130384,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -130425,7 +130425,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -130575,7 +130575,7 @@ return|return
 name|regionBuilder_
 return|;
 block|}
-comment|// required .NameBytesPair value = 2;
+comment|// required .hbase.pb.NameBytesPair value = 2;
 specifier|private
 name|org
 operator|.
@@ -130674,7 +130674,7 @@ name|NameBytesPairOrBuilder
 argument_list|>
 name|valueBuilder_
 decl_stmt|;
-comment|/**        *<code>required .NameBytesPair value = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.NameBytesPair value = 2;</code>        */
 specifier|public
 name|boolean
 name|hasValue
@@ -130692,7 +130692,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .NameBytesPair value = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.NameBytesPair value = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -130733,7 +130733,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .NameBytesPair value = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.NameBytesPair value = 2;</code>        */
 specifier|public
 name|Builder
 name|setValue
@@ -130802,7 +130802,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .NameBytesPair value = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.NameBytesPair value = 2;</code>        */
 specifier|public
 name|Builder
 name|setValue
@@ -130866,7 +130866,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .NameBytesPair value = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.NameBytesPair value = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeValue
@@ -130991,7 +130991,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .NameBytesPair value = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.NameBytesPair value = 2;</code>        */
 specifier|public
 name|Builder
 name|clearValue
@@ -131050,7 +131050,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .NameBytesPair value = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.NameBytesPair value = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -131087,7 +131087,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .NameBytesPair value = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.NameBytesPair value = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -131128,7 +131128,7 @@ name|value_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .NameBytesPair value = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.NameBytesPair value = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -131278,7 +131278,7 @@ return|return
 name|valueBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CoprocessorServiceResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CoprocessorServiceResponse)
 block|}
 static|static
 block|{
@@ -131296,7 +131296,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CoprocessorServiceResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CoprocessorServiceResponse)
 block|}
 specifier|public
 interface|interface
@@ -131321,13 +131321,13 @@ name|int
 name|getIndex
 parameter_list|()
 function_decl|;
-comment|// optional .MutationProto mutation = 2;
-comment|/**      *<code>optional .MutationProto mutation = 2;</code>      */
+comment|// optional .hbase.pb.MutationProto mutation = 2;
+comment|/**      *<code>optional .hbase.pb.MutationProto mutation = 2;</code>      */
 name|boolean
 name|hasMutation
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .MutationProto mutation = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.MutationProto mutation = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -131346,7 +131346,7 @@ name|MutationProto
 name|getMutation
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .MutationProto mutation = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.MutationProto mutation = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -131365,13 +131365,13 @@ name|MutationProtoOrBuilder
 name|getMutationOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .Get get = 3;
-comment|/**      *<code>optional .Get get = 3;</code>      */
+comment|// optional .hbase.pb.Get get = 3;
+comment|/**      *<code>optional .hbase.pb.Get get = 3;</code>      */
 name|boolean
 name|hasGet
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Get get = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.Get get = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -131390,7 +131390,7 @@ name|Get
 name|getGet
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Get get = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.Get get = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -131409,13 +131409,13 @@ name|GetOrBuilder
 name|getGetOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .CoprocessorServiceCall service_call = 4;
-comment|/**      *<code>optional .CoprocessorServiceCall service_call = 4;</code>      */
+comment|// optional .hbase.pb.CoprocessorServiceCall service_call = 4;
+comment|/**      *<code>optional .hbase.pb.CoprocessorServiceCall service_call = 4;</code>      */
 name|boolean
 name|hasServiceCall
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .CoprocessorServiceCall service_call = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.CoprocessorServiceCall service_call = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -131434,7 +131434,7 @@ name|CoprocessorServiceCall
 name|getServiceCall
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .CoprocessorServiceCall service_call = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.CoprocessorServiceCall service_call = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -131454,7 +131454,7 @@ name|getServiceCallOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Action}    *    *<pre>    * Either a Get or a Mutation    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.Action}    *    *<pre>    * Either a Get or a Mutation    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -132128,7 +132128,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Action_descriptor
+name|internal_static_hbase_pb_Action_descriptor
 return|;
 block|}
 specifier|protected
@@ -132159,7 +132159,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Action_fieldAccessorTable
+name|internal_static_hbase_pb_Action_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -132342,7 +132342,7 @@ return|return
 name|index_
 return|;
 block|}
-comment|// optional .MutationProto mutation = 2;
+comment|// optional .hbase.pb.MutationProto mutation = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -132369,7 +132369,7 @@ operator|.
 name|MutationProto
 name|mutation_
 decl_stmt|;
-comment|/**      *<code>optional .MutationProto mutation = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.MutationProto mutation = 2;</code>      */
 specifier|public
 name|boolean
 name|hasMutation
@@ -132387,7 +132387,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .MutationProto mutation = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.MutationProto mutation = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -132411,7 +132411,7 @@ return|return
 name|mutation_
 return|;
 block|}
-comment|/**      *<code>optional .MutationProto mutation = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.MutationProto mutation = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -132435,7 +132435,7 @@ return|return
 name|mutation_
 return|;
 block|}
-comment|// optional .Get get = 3;
+comment|// optional .hbase.pb.Get get = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -132462,7 +132462,7 @@ operator|.
 name|Get
 name|get_
 decl_stmt|;
-comment|/**      *<code>optional .Get get = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.Get get = 3;</code>      */
 specifier|public
 name|boolean
 name|hasGet
@@ -132480,7 +132480,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .Get get = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.Get get = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -132504,7 +132504,7 @@ return|return
 name|get_
 return|;
 block|}
-comment|/**      *<code>optional .Get get = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.Get get = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -132528,7 +132528,7 @@ return|return
 name|get_
 return|;
 block|}
-comment|// optional .CoprocessorServiceCall service_call = 4;
+comment|// optional .hbase.pb.CoprocessorServiceCall service_call = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -132555,7 +132555,7 @@ operator|.
 name|CoprocessorServiceCall
 name|serviceCall_
 decl_stmt|;
-comment|/**      *<code>optional .CoprocessorServiceCall service_call = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.CoprocessorServiceCall service_call = 4;</code>      */
 specifier|public
 name|boolean
 name|hasServiceCall
@@ -132573,7 +132573,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .CoprocessorServiceCall service_call = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.CoprocessorServiceCall service_call = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -132597,7 +132597,7 @@ return|return
 name|serviceCall_
 return|;
 block|}
-comment|/**      *<code>optional .CoprocessorServiceCall service_call = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.CoprocessorServiceCall service_call = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -134182,7 +134182,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Action}      *      *<pre>      * Either a Get or a Mutation      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.Action}      *      *<pre>      * Either a Get or a Mutation      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -134248,7 +134248,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Action_descriptor
+name|internal_static_hbase_pb_Action_descriptor
 return|;
 block|}
 specifier|protected
@@ -134279,7 +134279,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Action_fieldAccessorTable
+name|internal_static_hbase_pb_Action_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -134606,7 +134606,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Action_descriptor
+name|internal_static_hbase_pb_Action_descriptor
 return|;
 block|}
 specifier|public
@@ -135428,7 +135428,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .MutationProto mutation = 2;
+comment|// optional .hbase.pb.MutationProto mutation = 2;
 specifier|private
 name|org
 operator|.
@@ -135527,7 +135527,7 @@ name|MutationProtoOrBuilder
 argument_list|>
 name|mutationBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|boolean
 name|hasMutation
@@ -135545,7 +135545,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -135586,7 +135586,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|Builder
 name|setMutation
@@ -135655,7 +135655,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|Builder
 name|setMutation
@@ -135719,7 +135719,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeMutation
@@ -135844,7 +135844,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|Builder
 name|clearMutation
@@ -135903,7 +135903,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -135940,7 +135940,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -135981,7 +135981,7 @@ name|mutation_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .MutationProto mutation = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.MutationProto mutation = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -136131,7 +136131,7 @@ return|return
 name|mutationBuilder_
 return|;
 block|}
-comment|// optional .Get get = 3;
+comment|// optional .hbase.pb.Get get = 3;
 specifier|private
 name|org
 operator|.
@@ -136230,7 +136230,7 @@ name|GetOrBuilder
 argument_list|>
 name|getBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .Get get = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Get get = 3;</code>        */
 specifier|public
 name|boolean
 name|hasGet
@@ -136248,7 +136248,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .Get get = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Get get = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -136289,7 +136289,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Get get = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Get get = 3;</code>        */
 specifier|public
 name|Builder
 name|setGet
@@ -136358,7 +136358,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Get get = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Get get = 3;</code>        */
 specifier|public
 name|Builder
 name|setGet
@@ -136422,7 +136422,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Get get = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Get get = 3;</code>        */
 specifier|public
 name|Builder
 name|mergeGet
@@ -136547,7 +136547,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Get get = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Get get = 3;</code>        */
 specifier|public
 name|Builder
 name|clearGet
@@ -136606,7 +136606,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Get get = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Get get = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -136643,7 +136643,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .Get get = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Get get = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -136684,7 +136684,7 @@ name|get_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Get get = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Get get = 3;</code>        */
 specifier|private
 name|com
 operator|.
@@ -136834,7 +136834,7 @@ return|return
 name|getBuilder_
 return|;
 block|}
-comment|// optional .CoprocessorServiceCall service_call = 4;
+comment|// optional .hbase.pb.CoprocessorServiceCall service_call = 4;
 specifier|private
 name|org
 operator|.
@@ -136933,7 +136933,7 @@ name|CoprocessorServiceCallOrBuilder
 argument_list|>
 name|serviceCallBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .CoprocessorServiceCall service_call = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceCall service_call = 4;</code>        */
 specifier|public
 name|boolean
 name|hasServiceCall
@@ -136951,7 +136951,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .CoprocessorServiceCall service_call = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceCall service_call = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -136992,7 +136992,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .CoprocessorServiceCall service_call = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceCall service_call = 4;</code>        */
 specifier|public
 name|Builder
 name|setServiceCall
@@ -137061,7 +137061,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CoprocessorServiceCall service_call = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceCall service_call = 4;</code>        */
 specifier|public
 name|Builder
 name|setServiceCall
@@ -137125,7 +137125,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CoprocessorServiceCall service_call = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceCall service_call = 4;</code>        */
 specifier|public
 name|Builder
 name|mergeServiceCall
@@ -137250,7 +137250,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CoprocessorServiceCall service_call = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceCall service_call = 4;</code>        */
 specifier|public
 name|Builder
 name|clearServiceCall
@@ -137309,7 +137309,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CoprocessorServiceCall service_call = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceCall service_call = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -137346,7 +137346,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .CoprocessorServiceCall service_call = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceCall service_call = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -137387,7 +137387,7 @@ name|serviceCall_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .CoprocessorServiceCall service_call = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceCall service_call = 4;</code>        */
 specifier|private
 name|com
 operator|.
@@ -137537,7 +137537,7 @@ return|return
 name|serviceCallBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Action)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Action)
 block|}
 static|static
 block|{
@@ -137555,7 +137555,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Action)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Action)
 block|}
 specifier|public
 interface|interface
@@ -137569,13 +137569,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier region = 1;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|// required .hbase.pb.RegionSpecifier region = 1;
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|boolean
 name|hasRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -137594,7 +137594,7 @@ name|RegionSpecifier
 name|getRegion
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -137624,8 +137624,8 @@ name|boolean
 name|getAtomic
 parameter_list|()
 function_decl|;
-comment|// repeated .Action action = 3;
-comment|/**      *<code>repeated .Action action = 3;</code>      */
+comment|// repeated .hbase.pb.Action action = 3;
+comment|/**      *<code>repeated .hbase.pb.Action action = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -137651,7 +137651,7 @@ argument_list|>
 name|getActionList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Action action = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Action action = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -137673,12 +137673,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .Action action = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Action action = 3;</code>      */
 name|int
 name|getActionCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Action action = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Action action = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -137706,7 +137706,7 @@ argument_list|>
 name|getActionOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Action action = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Action action = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -137729,7 +137729,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RegionAction}    *    *<pre>    **    * Actions to run against a Region.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.RegionAction}    *    *<pre>    **    * Actions to run against a Region.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -138310,7 +138310,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_RegionAction_descriptor
+name|internal_static_hbase_pb_RegionAction_descriptor
 return|;
 block|}
 specifier|protected
@@ -138341,7 +138341,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_RegionAction_fieldAccessorTable
+name|internal_static_hbase_pb_RegionAction_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -138483,7 +138483,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -138510,7 +138510,7 @@ operator|.
 name|RegionSpecifier
 name|region_
 decl_stmt|;
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|boolean
 name|hasRegion
@@ -138528,7 +138528,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -138552,7 +138552,7 @@ return|return
 name|region_
 return|;
 block|}
-comment|/**      *<code>required .RegionSpecifier region = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionSpecifier region = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -138617,7 +138617,7 @@ return|return
 name|atomic_
 return|;
 block|}
-comment|// repeated .Action action = 3;
+comment|// repeated .hbase.pb.Action action = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -138651,7 +138651,7 @@ name|Action
 argument_list|>
 name|action_
 decl_stmt|;
-comment|/**      *<code>repeated .Action action = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Action action = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -138682,7 +138682,7 @@ return|return
 name|action_
 return|;
 block|}
-comment|/**      *<code>repeated .Action action = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Action action = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -138715,7 +138715,7 @@ return|return
 name|action_
 return|;
 block|}
-comment|/**      *<code>repeated .Action action = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Action action = 3;</code>      */
 specifier|public
 name|int
 name|getActionCount
@@ -138728,7 +138728,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .Action action = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Action action = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -138760,7 +138760,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .Action action = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Action action = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -140200,7 +140200,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RegionAction}      *      *<pre>      **      * Actions to run against a Region.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.RegionAction}      *      *<pre>      **      * Actions to run against a Region.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -140266,7 +140266,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_RegionAction_descriptor
+name|internal_static_hbase_pb_RegionAction_descriptor
 return|;
 block|}
 specifier|protected
@@ -140297,7 +140297,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_RegionAction_fieldAccessorTable
+name|internal_static_hbase_pb_RegionAction_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -140565,7 +140565,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_RegionAction_descriptor
+name|internal_static_hbase_pb_RegionAction_descriptor
 return|;
 block|}
 specifier|public
@@ -141378,7 +141378,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier region = 1;
+comment|// required .hbase.pb.RegionSpecifier region = 1;
 specifier|private
 name|org
 operator|.
@@ -141477,7 +141477,7 @@ name|RegionSpecifierOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|boolean
 name|hasRegion
@@ -141495,7 +141495,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -141536,7 +141536,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -141605,7 +141605,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegion
@@ -141669,7 +141669,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeRegion
@@ -141794,7 +141794,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegion
@@ -141853,7 +141853,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -141890,7 +141890,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -141931,7 +141931,7 @@ name|region_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionSpecifier region = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionSpecifier region = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -142164,7 +142164,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .Action action = 3;
+comment|// repeated .hbase.pb.Action action = 3;
 specifier|private
 name|java
 operator|.
@@ -142314,7 +142314,7 @@ name|ActionOrBuilder
 argument_list|>
 name|actionBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -142371,7 +142371,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|int
 name|getActionCount
@@ -142401,7 +142401,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -142452,7 +142452,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|Builder
 name|setAction
@@ -142530,7 +142530,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|Builder
 name|setAction
@@ -142603,7 +142603,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|Builder
 name|addAction
@@ -142674,7 +142674,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|Builder
 name|addAction
@@ -142752,7 +142752,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|Builder
 name|addAction
@@ -142818,7 +142818,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|Builder
 name|addAction
@@ -142891,7 +142891,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|Builder
 name|addAllAction
@@ -142960,7 +142960,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|Builder
 name|clearAction
@@ -143009,7 +143009,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|Builder
 name|removeAction
@@ -143053,7 +143053,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -143088,7 +143088,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -143139,7 +143139,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -143198,7 +143198,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -143247,7 +143247,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -143301,7 +143301,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Action action = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Action action = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -143497,7 +143497,7 @@ return|return
 name|actionBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RegionAction)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RegionAction)
 block|}
 static|static
 block|{
@@ -143515,7 +143515,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RegionAction)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RegionAction)
 block|}
 specifier|public
 interface|interface
@@ -143552,7 +143552,7 @@ name|getHeapOccupancy
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RegionLoadStats}    *    *<pre>    *    * Statistics about the current load on the region    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.RegionLoadStats}    *    *<pre>    *    * Statistics about the current load on the region    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -143940,7 +143940,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_RegionLoadStats_descriptor
+name|internal_static_hbase_pb_RegionLoadStats_descriptor
 return|;
 block|}
 specifier|protected
@@ -143971,7 +143971,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_RegionLoadStats_fieldAccessorTable
+name|internal_static_hbase_pb_RegionLoadStats_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -145376,7 +145376,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RegionLoadStats}      *      *<pre>      *      * Statistics about the current load on the region      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.RegionLoadStats}      *      *<pre>      *      * Statistics about the current load on the region      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -145442,7 +145442,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_RegionLoadStats_descriptor
+name|internal_static_hbase_pb_RegionLoadStats_descriptor
 return|;
 block|}
 specifier|protected
@@ -145473,7 +145473,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_RegionLoadStats_fieldAccessorTable
+name|internal_static_hbase_pb_RegionLoadStats_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -145665,7 +145665,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_RegionLoadStats_descriptor
+name|internal_static_hbase_pb_RegionLoadStats_descriptor
 return|;
 block|}
 specifier|public
@@ -146365,7 +146365,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RegionLoadStats)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RegionLoadStats)
 block|}
 static|static
 block|{
@@ -146383,7 +146383,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RegionLoadStats)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RegionLoadStats)
 block|}
 specifier|public
 interface|interface
@@ -146408,13 +146408,13 @@ name|int
 name|getIndex
 parameter_list|()
 function_decl|;
-comment|// optional .Result result = 2;
-comment|/**      *<code>optional .Result result = 2;</code>      */
+comment|// optional .hbase.pb.Result result = 2;
+comment|/**      *<code>optional .hbase.pb.Result result = 2;</code>      */
 name|boolean
 name|hasResult
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Result result = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.Result result = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -146433,7 +146433,7 @@ name|Result
 name|getResult
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Result result = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.Result result = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -146452,13 +146452,13 @@ name|ResultOrBuilder
 name|getResultOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .NameBytesPair exception = 3;
-comment|/**      *<code>optional .NameBytesPair exception = 3;</code>      */
+comment|// optional .hbase.pb.NameBytesPair exception = 3;
+comment|/**      *<code>optional .hbase.pb.NameBytesPair exception = 3;</code>      */
 name|boolean
 name|hasException
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .NameBytesPair exception = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.NameBytesPair exception = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -146477,7 +146477,7 @@ name|NameBytesPair
 name|getException
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .NameBytesPair exception = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.NameBytesPair exception = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -146496,13 +146496,13 @@ name|NameBytesPairOrBuilder
 name|getExceptionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .CoprocessorServiceResult service_result = 4;
-comment|/**      *<code>optional .CoprocessorServiceResult service_result = 4;</code>      *      *<pre>      * result if this was a coprocessor service call      *</pre>      */
+comment|// optional .hbase.pb.CoprocessorServiceResult service_result = 4;
+comment|/**      *<code>optional .hbase.pb.CoprocessorServiceResult service_result = 4;</code>      *      *<pre>      * result if this was a coprocessor service call      *</pre>      */
 name|boolean
 name|hasServiceResult
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .CoprocessorServiceResult service_result = 4;</code>      *      *<pre>      * result if this was a coprocessor service call      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.CoprocessorServiceResult service_result = 4;</code>      *      *<pre>      * result if this was a coprocessor service call      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -146521,7 +146521,7 @@ name|CoprocessorServiceResult
 name|getServiceResult
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .CoprocessorServiceResult service_result = 4;</code>      *      *<pre>      * result if this was a coprocessor service call      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.CoprocessorServiceResult service_result = 4;</code>      *      *<pre>      * result if this was a coprocessor service call      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -146540,13 +146540,13 @@ name|CoprocessorServiceResultOrBuilder
 name|getServiceResultOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .RegionLoadStats loadStats = 5;
-comment|/**      *<code>optional .RegionLoadStats loadStats = 5;</code>      *      *<pre>      * current load on the region      *</pre>      */
+comment|// optional .hbase.pb.RegionLoadStats loadStats = 5;
+comment|/**      *<code>optional .hbase.pb.RegionLoadStats loadStats = 5;</code>      *      *<pre>      * current load on the region      *</pre>      */
 name|boolean
 name|hasLoadStats
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .RegionLoadStats loadStats = 5;</code>      *      *<pre>      * current load on the region      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.RegionLoadStats loadStats = 5;</code>      *      *<pre>      * current load on the region      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -146565,7 +146565,7 @@ name|RegionLoadStats
 name|getLoadStats
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .RegionLoadStats loadStats = 5;</code>      *      *<pre>      * current load on the region      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.RegionLoadStats loadStats = 5;</code>      *      *<pre>      * current load on the region      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -146585,7 +146585,7 @@ name|getLoadStatsOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ResultOrException}    *    *<pre>    **    * Either a Result or an Exception NameBytesPair (keyed by    * exception name whose value is the exception stringified)    * or maybe empty if no result and no exception.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ResultOrException}    *    *<pre>    **    * Either a Result or an Exception NameBytesPair (keyed by    * exception name whose value is the exception stringified)    * or maybe empty if no result and no exception.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -147360,7 +147360,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_ResultOrException_descriptor
+name|internal_static_hbase_pb_ResultOrException_descriptor
 return|;
 block|}
 specifier|protected
@@ -147391,7 +147391,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_ResultOrException_fieldAccessorTable
+name|internal_static_hbase_pb_ResultOrException_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -147574,7 +147574,7 @@ return|return
 name|index_
 return|;
 block|}
-comment|// optional .Result result = 2;
+comment|// optional .hbase.pb.Result result = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -147601,7 +147601,7 @@ operator|.
 name|Result
 name|result_
 decl_stmt|;
-comment|/**      *<code>optional .Result result = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.Result result = 2;</code>      */
 specifier|public
 name|boolean
 name|hasResult
@@ -147619,7 +147619,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .Result result = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.Result result = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -147643,7 +147643,7 @@ return|return
 name|result_
 return|;
 block|}
-comment|/**      *<code>optional .Result result = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.Result result = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -147667,7 +147667,7 @@ return|return
 name|result_
 return|;
 block|}
-comment|// optional .NameBytesPair exception = 3;
+comment|// optional .hbase.pb.NameBytesPair exception = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -147694,7 +147694,7 @@ operator|.
 name|NameBytesPair
 name|exception_
 decl_stmt|;
-comment|/**      *<code>optional .NameBytesPair exception = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.NameBytesPair exception = 3;</code>      */
 specifier|public
 name|boolean
 name|hasException
@@ -147712,7 +147712,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .NameBytesPair exception = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.NameBytesPair exception = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -147736,7 +147736,7 @@ return|return
 name|exception_
 return|;
 block|}
-comment|/**      *<code>optional .NameBytesPair exception = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.NameBytesPair exception = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -147760,7 +147760,7 @@ return|return
 name|exception_
 return|;
 block|}
-comment|// optional .CoprocessorServiceResult service_result = 4;
+comment|// optional .hbase.pb.CoprocessorServiceResult service_result = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -147787,7 +147787,7 @@ operator|.
 name|CoprocessorServiceResult
 name|serviceResult_
 decl_stmt|;
-comment|/**      *<code>optional .CoprocessorServiceResult service_result = 4;</code>      *      *<pre>      * result if this was a coprocessor service call      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.CoprocessorServiceResult service_result = 4;</code>      *      *<pre>      * result if this was a coprocessor service call      *</pre>      */
 specifier|public
 name|boolean
 name|hasServiceResult
@@ -147805,7 +147805,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .CoprocessorServiceResult service_result = 4;</code>      *      *<pre>      * result if this was a coprocessor service call      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.CoprocessorServiceResult service_result = 4;</code>      *      *<pre>      * result if this was a coprocessor service call      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -147829,7 +147829,7 @@ return|return
 name|serviceResult_
 return|;
 block|}
-comment|/**      *<code>optional .CoprocessorServiceResult service_result = 4;</code>      *      *<pre>      * result if this was a coprocessor service call      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.CoprocessorServiceResult service_result = 4;</code>      *      *<pre>      * result if this was a coprocessor service call      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -147853,7 +147853,7 @@ return|return
 name|serviceResult_
 return|;
 block|}
-comment|// optional .RegionLoadStats loadStats = 5;
+comment|// optional .hbase.pb.RegionLoadStats loadStats = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -147880,7 +147880,7 @@ operator|.
 name|RegionLoadStats
 name|loadStats_
 decl_stmt|;
-comment|/**      *<code>optional .RegionLoadStats loadStats = 5;</code>      *      *<pre>      * current load on the region      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.RegionLoadStats loadStats = 5;</code>      *      *<pre>      * current load on the region      *</pre>      */
 specifier|public
 name|boolean
 name|hasLoadStats
@@ -147898,7 +147898,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .RegionLoadStats loadStats = 5;</code>      *      *<pre>      * current load on the region      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.RegionLoadStats loadStats = 5;</code>      *      *<pre>      * current load on the region      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -147922,7 +147922,7 @@ return|return
 name|loadStats_
 return|;
 block|}
-comment|/**      *<code>optional .RegionLoadStats loadStats = 5;</code>      *      *<pre>      * current load on the region      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.RegionLoadStats loadStats = 5;</code>      *      *<pre>      * current load on the region      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -149624,7 +149624,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ResultOrException}      *      *<pre>      **      * Either a Result or an Exception NameBytesPair (keyed by      * exception name whose value is the exception stringified)      * or maybe empty if no result and no exception.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ResultOrException}      *      *<pre>      **      * Either a Result or an Exception NameBytesPair (keyed by      * exception name whose value is the exception stringified)      * or maybe empty if no result and no exception.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -149690,7 +149690,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_ResultOrException_descriptor
+name|internal_static_hbase_pb_ResultOrException_descriptor
 return|;
 block|}
 specifier|protected
@@ -149721,7 +149721,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_ResultOrException_fieldAccessorTable
+name|internal_static_hbase_pb_ResultOrException_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -150097,7 +150097,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_ResultOrException_descriptor
+name|internal_static_hbase_pb_ResultOrException_descriptor
 return|;
 block|}
 specifier|public
@@ -150959,7 +150959,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .Result result = 2;
+comment|// optional .hbase.pb.Result result = 2;
 specifier|private
 name|org
 operator|.
@@ -151058,7 +151058,7 @@ name|ResultOrBuilder
 argument_list|>
 name|resultBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .Result result = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 2;</code>        */
 specifier|public
 name|boolean
 name|hasResult
@@ -151076,7 +151076,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -151117,7 +151117,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Result result = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 2;</code>        */
 specifier|public
 name|Builder
 name|setResult
@@ -151186,7 +151186,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 2;</code>        */
 specifier|public
 name|Builder
 name|setResult
@@ -151250,7 +151250,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeResult
@@ -151375,7 +151375,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 2;</code>        */
 specifier|public
 name|Builder
 name|clearResult
@@ -151434,7 +151434,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -151471,7 +151471,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .Result result = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -151512,7 +151512,7 @@ name|result_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Result result = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Result result = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -151662,7 +151662,7 @@ return|return
 name|resultBuilder_
 return|;
 block|}
-comment|// optional .NameBytesPair exception = 3;
+comment|// optional .hbase.pb.NameBytesPair exception = 3;
 specifier|private
 name|org
 operator|.
@@ -151761,7 +151761,7 @@ name|NameBytesPairOrBuilder
 argument_list|>
 name|exceptionBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .NameBytesPair exception = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 3;</code>        */
 specifier|public
 name|boolean
 name|hasException
@@ -151779,7 +151779,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -151820,7 +151820,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 3;</code>        */
 specifier|public
 name|Builder
 name|setException
@@ -151889,7 +151889,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 3;</code>        */
 specifier|public
 name|Builder
 name|setException
@@ -151953,7 +151953,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 3;</code>        */
 specifier|public
 name|Builder
 name|mergeException
@@ -152078,7 +152078,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 3;</code>        */
 specifier|public
 name|Builder
 name|clearException
@@ -152137,7 +152137,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -152174,7 +152174,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -152215,7 +152215,7 @@ name|exception_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 3;</code>        */
 specifier|private
 name|com
 operator|.
@@ -152365,7 +152365,7 @@ return|return
 name|exceptionBuilder_
 return|;
 block|}
-comment|// optional .CoprocessorServiceResult service_result = 4;
+comment|// optional .hbase.pb.CoprocessorServiceResult service_result = 4;
 specifier|private
 name|org
 operator|.
@@ -152464,7 +152464,7 @@ name|CoprocessorServiceResultOrBuilder
 argument_list|>
 name|serviceResultBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
 specifier|public
 name|boolean
 name|hasServiceResult
@@ -152482,7 +152482,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -152523,7 +152523,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
 specifier|public
 name|Builder
 name|setServiceResult
@@ -152592,7 +152592,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
 specifier|public
 name|Builder
 name|setServiceResult
@@ -152656,7 +152656,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
 specifier|public
 name|Builder
 name|mergeServiceResult
@@ -152781,7 +152781,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
 specifier|public
 name|Builder
 name|clearServiceResult
@@ -152840,7 +152840,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -152877,7 +152877,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -152918,7 +152918,7 @@ name|serviceResult_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CoprocessorServiceResult service_result = 4;</code>        *        *<pre>        * result if this was a coprocessor service call        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -153068,7 +153068,7 @@ return|return
 name|serviceResultBuilder_
 return|;
 block|}
-comment|// optional .RegionLoadStats loadStats = 5;
+comment|// optional .hbase.pb.RegionLoadStats loadStats = 5;
 specifier|private
 name|org
 operator|.
@@ -153167,7 +153167,7 @@ name|RegionLoadStatsOrBuilder
 argument_list|>
 name|loadStatsBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
 specifier|public
 name|boolean
 name|hasLoadStats
@@ -153185,7 +153185,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -153226,7 +153226,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
 specifier|public
 name|Builder
 name|setLoadStats
@@ -153295,7 +153295,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
 specifier|public
 name|Builder
 name|setLoadStats
@@ -153359,7 +153359,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
 specifier|public
 name|Builder
 name|mergeLoadStats
@@ -153484,7 +153484,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
 specifier|public
 name|Builder
 name|clearLoadStats
@@ -153543,7 +153543,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -153580,7 +153580,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -153621,7 +153621,7 @@ name|loadStats_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.RegionLoadStats loadStats = 5;</code>        *        *<pre>        * current load on the region        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -153771,7 +153771,7 @@ return|return
 name|loadStatsBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ResultOrException)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ResultOrException)
 block|}
 static|static
 block|{
@@ -153789,7 +153789,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ResultOrException)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ResultOrException)
 block|}
 specifier|public
 interface|interface
@@ -153803,8 +153803,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .ResultOrException resultOrException = 1;
-comment|/**      *<code>repeated .ResultOrException resultOrException = 1;</code>      */
+comment|// repeated .hbase.pb.ResultOrException resultOrException = 1;
+comment|/**      *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -153830,7 +153830,7 @@ argument_list|>
 name|getResultOrExceptionList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ResultOrException resultOrException = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -153852,12 +153852,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .ResultOrException resultOrException = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>      */
 name|int
 name|getResultOrExceptionCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ResultOrException resultOrException = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -153885,7 +153885,7 @@ argument_list|>
 name|getResultOrExceptionOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .ResultOrException resultOrException = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -153907,13 +153907,13 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional .NameBytesPair exception = 2;
-comment|/**      *<code>optional .NameBytesPair exception = 2;</code>      *      *<pre>      * If the operation failed globally for this region, this exception is set      *</pre>      */
+comment|// optional .hbase.pb.NameBytesPair exception = 2;
+comment|/**      *<code>optional .hbase.pb.NameBytesPair exception = 2;</code>      *      *<pre>      * If the operation failed globally for this region, this exception is set      *</pre>      */
 name|boolean
 name|hasException
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .NameBytesPair exception = 2;</code>      *      *<pre>      * If the operation failed globally for this region, this exception is set      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.NameBytesPair exception = 2;</code>      *      *<pre>      * If the operation failed globally for this region, this exception is set      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -153932,7 +153932,7 @@ name|NameBytesPair
 name|getException
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .NameBytesPair exception = 2;</code>      *      *<pre>      * If the operation failed globally for this region, this exception is set      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.NameBytesPair exception = 2;</code>      *      *<pre>      * If the operation failed globally for this region, this exception is set      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -153952,7 +153952,7 @@ name|getExceptionOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RegionActionResult}    *    *<pre>    **    * The result of a RegionAction.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.RegionActionResult}    *    *<pre>    **    * The result of a RegionAction.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -154516,7 +154516,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_RegionActionResult_descriptor
+name|internal_static_hbase_pb_RegionActionResult_descriptor
 return|;
 block|}
 specifier|protected
@@ -154547,7 +154547,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_RegionActionResult_fieldAccessorTable
+name|internal_static_hbase_pb_RegionActionResult_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -154689,7 +154689,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .ResultOrException resultOrException = 1;
+comment|// repeated .hbase.pb.ResultOrException resultOrException = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -154723,7 +154723,7 @@ name|ResultOrException
 argument_list|>
 name|resultOrException_
 decl_stmt|;
-comment|/**      *<code>repeated .ResultOrException resultOrException = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -154754,7 +154754,7 @@ return|return
 name|resultOrException_
 return|;
 block|}
-comment|/**      *<code>repeated .ResultOrException resultOrException = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -154787,7 +154787,7 @@ return|return
 name|resultOrException_
 return|;
 block|}
-comment|/**      *<code>repeated .ResultOrException resultOrException = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>      */
 specifier|public
 name|int
 name|getResultOrExceptionCount
@@ -154800,7 +154800,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .ResultOrException resultOrException = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -154832,7 +154832,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .ResultOrException resultOrException = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -154864,7 +154864,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional .NameBytesPair exception = 2;
+comment|// optional .hbase.pb.NameBytesPair exception = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -154891,7 +154891,7 @@ operator|.
 name|NameBytesPair
 name|exception_
 decl_stmt|;
-comment|/**      *<code>optional .NameBytesPair exception = 2;</code>      *      *<pre>      * If the operation failed globally for this region, this exception is set      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.NameBytesPair exception = 2;</code>      *      *<pre>      * If the operation failed globally for this region, this exception is set      *</pre>      */
 specifier|public
 name|boolean
 name|hasException
@@ -154909,7 +154909,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .NameBytesPair exception = 2;</code>      *      *<pre>      * If the operation failed globally for this region, this exception is set      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.NameBytesPair exception = 2;</code>      *      *<pre>      * If the operation failed globally for this region, this exception is set      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -154933,7 +154933,7 @@ return|return
 name|exception_
 return|;
 block|}
-comment|/**      *<code>optional .NameBytesPair exception = 2;</code>      *      *<pre>      * If the operation failed globally for this region, this exception is set      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.NameBytesPair exception = 2;</code>      *      *<pre>      * If the operation failed globally for this region, this exception is set      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -156233,7 +156233,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RegionActionResult}      *      *<pre>      **      * The result of a RegionAction.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.RegionActionResult}      *      *<pre>      **      * The result of a RegionAction.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -156299,7 +156299,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_RegionActionResult_descriptor
+name|internal_static_hbase_pb_RegionActionResult_descriptor
 return|;
 block|}
 specifier|protected
@@ -156330,7 +156330,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_RegionActionResult_fieldAccessorTable
+name|internal_static_hbase_pb_RegionActionResult_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -156585,7 +156585,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_RegionActionResult_descriptor
+name|internal_static_hbase_pb_RegionActionResult_descriptor
 return|;
 block|}
 specifier|public
@@ -157353,7 +157353,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .ResultOrException resultOrException = 1;
+comment|// repeated .hbase.pb.ResultOrException resultOrException = 1;
 specifier|private
 name|java
 operator|.
@@ -157503,7 +157503,7 @@ name|ResultOrExceptionOrBuilder
 argument_list|>
 name|resultOrExceptionBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -157560,7 +157560,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|int
 name|getResultOrExceptionCount
@@ -157590,7 +157590,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -157641,7 +157641,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|Builder
 name|setResultOrException
@@ -157719,7 +157719,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|Builder
 name|setResultOrException
@@ -157792,7 +157792,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|Builder
 name|addResultOrException
@@ -157863,7 +157863,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|Builder
 name|addResultOrException
@@ -157941,7 +157941,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|Builder
 name|addResultOrException
@@ -158007,7 +158007,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|Builder
 name|addResultOrException
@@ -158080,7 +158080,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllResultOrException
@@ -158149,7 +158149,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|Builder
 name|clearResultOrException
@@ -158198,7 +158198,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|Builder
 name|removeResultOrException
@@ -158242,7 +158242,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -158277,7 +158277,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -158328,7 +158328,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -158387,7 +158387,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -158436,7 +158436,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -158490,7 +158490,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .ResultOrException resultOrException = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.ResultOrException resultOrException = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -158686,7 +158686,7 @@ return|return
 name|resultOrExceptionBuilder_
 return|;
 block|}
-comment|// optional .NameBytesPair exception = 2;
+comment|// optional .hbase.pb.NameBytesPair exception = 2;
 specifier|private
 name|org
 operator|.
@@ -158785,7 +158785,7 @@ name|NameBytesPairOrBuilder
 argument_list|>
 name|exceptionBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
 specifier|public
 name|boolean
 name|hasException
@@ -158803,7 +158803,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -158844,7 +158844,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
 specifier|public
 name|Builder
 name|setException
@@ -158913,7 +158913,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
 specifier|public
 name|Builder
 name|setException
@@ -158977,7 +158977,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
 specifier|public
 name|Builder
 name|mergeException
@@ -159102,7 +159102,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
 specifier|public
 name|Builder
 name|clearException
@@ -159161,7 +159161,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -159198,7 +159198,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -159239,7 +159239,7 @@ name|exception_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.NameBytesPair exception = 2;</code>        *        *<pre>        * If the operation failed globally for this region, this exception is set        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -159389,7 +159389,7 @@ return|return
 name|exceptionBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RegionActionResult)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RegionActionResult)
 block|}
 static|static
 block|{
@@ -159407,7 +159407,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RegionActionResult)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RegionActionResult)
 block|}
 specifier|public
 interface|interface
@@ -159421,8 +159421,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .RegionAction regionAction = 1;
-comment|/**      *<code>repeated .RegionAction regionAction = 1;</code>      */
+comment|// repeated .hbase.pb.RegionAction regionAction = 1;
+comment|/**      *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -159448,7 +159448,7 @@ argument_list|>
 name|getRegionActionList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionAction regionAction = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -159470,12 +159470,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .RegionAction regionAction = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>      */
 name|int
 name|getRegionActionCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionAction regionAction = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -159503,7 +159503,7 @@ argument_list|>
 name|getRegionActionOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionAction regionAction = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -159536,13 +159536,13 @@ name|long
 name|getNonceGroup
 parameter_list|()
 function_decl|;
-comment|// optional .Condition condition = 3;
-comment|/**      *<code>optional .Condition condition = 3;</code>      */
+comment|// optional .hbase.pb.Condition condition = 3;
+comment|/**      *<code>optional .hbase.pb.Condition condition = 3;</code>      */
 name|boolean
 name|hasCondition
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Condition condition = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.Condition condition = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -159561,7 +159561,7 @@ name|Condition
 name|getCondition
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Condition condition = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.Condition condition = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -159581,7 +159581,7 @@ name|getConditionOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code MultiRequest}    *    *<pre>    **    * Execute a list of actions on a given region in order.    * Nothing prevents a request to contains a set of RegionAction on the same region.    * For this reason, the matching between the MultiRequest and the MultiResponse is not    *  done by the region specifier but by keeping the order of the RegionActionResult vs.    *  the order of the RegionAction.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.MultiRequest}    *    *<pre>    **    * Execute a list of actions on a given region in order.    * Nothing prevents a request to contains a set of RegionAction on the same region.    * For this reason, the matching between the MultiRequest and the MultiResponse is not    *  done by the region specifier but by keeping the order of the RegionActionResult vs.    *  the order of the RegionAction.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -160162,7 +160162,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MultiRequest_descriptor
+name|internal_static_hbase_pb_MultiRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -160193,7 +160193,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MultiRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MultiRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -160335,7 +160335,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .RegionAction regionAction = 1;
+comment|// repeated .hbase.pb.RegionAction regionAction = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -160369,7 +160369,7 @@ name|RegionAction
 argument_list|>
 name|regionAction_
 decl_stmt|;
-comment|/**      *<code>repeated .RegionAction regionAction = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -160400,7 +160400,7 @@ return|return
 name|regionAction_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionAction regionAction = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -160433,7 +160433,7 @@ return|return
 name|regionAction_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionAction regionAction = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>      */
 specifier|public
 name|int
 name|getRegionActionCount
@@ -160446,7 +160446,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .RegionAction regionAction = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -160478,7 +160478,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .RegionAction regionAction = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -160551,7 +160551,7 @@ return|return
 name|nonceGroup_
 return|;
 block|}
-comment|// optional .Condition condition = 3;
+comment|// optional .hbase.pb.Condition condition = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -160578,7 +160578,7 @@ operator|.
 name|Condition
 name|condition_
 decl_stmt|;
-comment|/**      *<code>optional .Condition condition = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.Condition condition = 3;</code>      */
 specifier|public
 name|boolean
 name|hasCondition
@@ -160596,7 +160596,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .Condition condition = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.Condition condition = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -160620,7 +160620,7 @@ return|return
 name|condition_
 return|;
 block|}
-comment|/**      *<code>optional .Condition condition = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.Condition condition = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -162044,7 +162044,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code MultiRequest}      *      *<pre>      **      * Execute a list of actions on a given region in order.      * Nothing prevents a request to contains a set of RegionAction on the same region.      * For this reason, the matching between the MultiRequest and the MultiResponse is not      *  done by the region specifier but by keeping the order of the RegionActionResult vs.      *  the order of the RegionAction.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.MultiRequest}      *      *<pre>      **      * Execute a list of actions on a given region in order.      * Nothing prevents a request to contains a set of RegionAction on the same region.      * For this reason, the matching between the MultiRequest and the MultiResponse is not      *  done by the region specifier but by keeping the order of the RegionActionResult vs.      *  the order of the RegionAction.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -162110,7 +162110,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MultiRequest_descriptor
+name|internal_static_hbase_pb_MultiRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -162141,7 +162141,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MultiRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MultiRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -162409,7 +162409,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MultiRequest_descriptor
+name|internal_static_hbase_pb_MultiRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -163218,7 +163218,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .RegionAction regionAction = 1;
+comment|// repeated .hbase.pb.RegionAction regionAction = 1;
 specifier|private
 name|java
 operator|.
@@ -163368,7 +163368,7 @@ name|RegionActionOrBuilder
 argument_list|>
 name|regionActionBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -163425,7 +163425,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|int
 name|getRegionActionCount
@@ -163455,7 +163455,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -163506,7 +163506,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegionAction
@@ -163584,7 +163584,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegionAction
@@ -163657,7 +163657,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|Builder
 name|addRegionAction
@@ -163728,7 +163728,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|Builder
 name|addRegionAction
@@ -163806,7 +163806,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|Builder
 name|addRegionAction
@@ -163872,7 +163872,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|Builder
 name|addRegionAction
@@ -163945,7 +163945,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllRegionAction
@@ -164014,7 +164014,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegionAction
@@ -164063,7 +164063,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|Builder
 name|removeRegionAction
@@ -164107,7 +164107,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -164142,7 +164142,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -164193,7 +164193,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -164252,7 +164252,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -164301,7 +164301,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -164355,7 +164355,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionAction regionAction = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionAction regionAction = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -164634,7 +164634,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .Condition condition = 3;
+comment|// optional .hbase.pb.Condition condition = 3;
 specifier|private
 name|org
 operator|.
@@ -164733,7 +164733,7 @@ name|ConditionOrBuilder
 argument_list|>
 name|conditionBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|boolean
 name|hasCondition
@@ -164751,7 +164751,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -164792,7 +164792,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|Builder
 name|setCondition
@@ -164861,7 +164861,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|Builder
 name|setCondition
@@ -164925,7 +164925,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|Builder
 name|mergeCondition
@@ -165050,7 +165050,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|Builder
 name|clearCondition
@@ -165109,7 +165109,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -165146,7 +165146,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -165187,7 +165187,7 @@ name|condition_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .Condition condition = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.Condition condition = 3;</code>        */
 specifier|private
 name|com
 operator|.
@@ -165337,7 +165337,7 @@ return|return
 name|conditionBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MultiRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.MultiRequest)
 block|}
 static|static
 block|{
@@ -165355,7 +165355,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MultiRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MultiRequest)
 block|}
 specifier|public
 interface|interface
@@ -165369,8 +165369,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .RegionActionResult regionActionResult = 1;
-comment|/**      *<code>repeated .RegionActionResult regionActionResult = 1;</code>      */
+comment|// repeated .hbase.pb.RegionActionResult regionActionResult = 1;
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -165396,7 +165396,7 @@ argument_list|>
 name|getRegionActionResultList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionActionResult regionActionResult = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -165418,12 +165418,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .RegionActionResult regionActionResult = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>      */
 name|int
 name|getRegionActionResultCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionActionResult regionActionResult = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -165451,7 +165451,7 @@ argument_list|>
 name|getRegionActionResultOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionActionResult regionActionResult = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -165485,7 +165485,7 @@ name|getProcessed
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code MultiResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.MultiResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -165965,7 +165965,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MultiResponse_descriptor
+name|internal_static_hbase_pb_MultiResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -165996,7 +165996,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MultiResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MultiResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -166138,7 +166138,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .RegionActionResult regionActionResult = 1;
+comment|// repeated .hbase.pb.RegionActionResult regionActionResult = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -166172,7 +166172,7 @@ name|RegionActionResult
 argument_list|>
 name|regionActionResult_
 decl_stmt|;
-comment|/**      *<code>repeated .RegionActionResult regionActionResult = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -166203,7 +166203,7 @@ return|return
 name|regionActionResult_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionActionResult regionActionResult = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -166236,7 +166236,7 @@ return|return
 name|regionActionResult_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionActionResult regionActionResult = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>      */
 specifier|public
 name|int
 name|getRegionActionResultCount
@@ -166249,7 +166249,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .RegionActionResult regionActionResult = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -166281,7 +166281,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .RegionActionResult regionActionResult = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -167587,7 +167587,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code MultiResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.MultiResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -167653,7 +167653,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MultiResponse_descriptor
+name|internal_static_hbase_pb_MultiResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -167684,7 +167684,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MultiResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MultiResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -167903,7 +167903,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_MultiResponse_descriptor
+name|internal_static_hbase_pb_MultiResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -168630,7 +168630,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .RegionActionResult regionActionResult = 1;
+comment|// repeated .hbase.pb.RegionActionResult regionActionResult = 1;
 specifier|private
 name|java
 operator|.
@@ -168780,7 +168780,7 @@ name|RegionActionResultOrBuilder
 argument_list|>
 name|regionActionResultBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -168837,7 +168837,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|int
 name|getRegionActionResultCount
@@ -168867,7 +168867,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -168918,7 +168918,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegionActionResult
@@ -168996,7 +168996,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|Builder
 name|setRegionActionResult
@@ -169069,7 +169069,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|Builder
 name|addRegionActionResult
@@ -169140,7 +169140,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|Builder
 name|addRegionActionResult
@@ -169218,7 +169218,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|Builder
 name|addRegionActionResult
@@ -169284,7 +169284,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|Builder
 name|addRegionActionResult
@@ -169357,7 +169357,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllRegionActionResult
@@ -169426,7 +169426,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|Builder
 name|clearRegionActionResult
@@ -169475,7 +169475,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|Builder
 name|removeRegionActionResult
@@ -169519,7 +169519,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -169554,7 +169554,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -169605,7 +169605,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -169664,7 +169664,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -169713,7 +169713,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -169767,7 +169767,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult regionActionResult = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult regionActionResult = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -170046,7 +170046,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MultiResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.MultiResponse)
 block|}
 static|static
 block|{
@@ -170064,9 +170064,9 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MultiResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MultiResponse)
 block|}
-comment|/**    * Protobuf service {@code ClientService}    */
+comment|/**    * Protobuf service {@code hbase.pb.ClientService}    */
 specifier|public
 specifier|static
 specifier|abstract
@@ -170089,7 +170089,7 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc Get(.GetRequest) returns (.GetResponse);</code>        */
+comment|/**        *<code>rpc Get(.hbase.pb.GetRequest) returns (.hbase.pb.GetResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -170148,7 +170148,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc Mutate(.MutateRequest) returns (.MutateResponse);</code>        */
+comment|/**        *<code>rpc Mutate(.hbase.pb.MutateRequest) returns (.hbase.pb.MutateResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -170207,7 +170207,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc Scan(.ScanRequest) returns (.ScanResponse);</code>        */
+comment|/**        *<code>rpc Scan(.hbase.pb.ScanRequest) returns (.hbase.pb.ScanResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -170266,7 +170266,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc BulkLoadHFile(.BulkLoadHFileRequest) returns (.BulkLoadHFileResponse);</code>        */
+comment|/**        *<code>rpc BulkLoadHFile(.hbase.pb.BulkLoadHFileRequest) returns (.hbase.pb.BulkLoadHFileResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -170325,7 +170325,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc ExecService(.CoprocessorServiceRequest) returns (.CoprocessorServiceResponse);</code>        */
+comment|/**        *<code>rpc ExecService(.hbase.pb.CoprocessorServiceRequest) returns (.hbase.pb.CoprocessorServiceResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -170384,7 +170384,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc ExecRegionServerService(.CoprocessorServiceRequest) returns (.CoprocessorServiceResponse);</code>        */
+comment|/**        *<code>rpc ExecRegionServerService(.hbase.pb.CoprocessorServiceRequest) returns (.hbase.pb.CoprocessorServiceResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -170443,7 +170443,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc Multi(.MultiRequest) returns (.MultiResponse);</code>        */
+comment|/**        *<code>rpc Multi(.hbase.pb.MultiRequest) returns (.hbase.pb.MultiResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -171869,7 +171869,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc Get(.GetRequest) returns (.GetResponse);</code>      */
+comment|/**      *<code>rpc Get(.hbase.pb.GetRequest) returns (.hbase.pb.GetResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -171928,7 +171928,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc Mutate(.MutateRequest) returns (.MutateResponse);</code>      */
+comment|/**      *<code>rpc Mutate(.hbase.pb.MutateRequest) returns (.hbase.pb.MutateResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -171987,7 +171987,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc Scan(.ScanRequest) returns (.ScanResponse);</code>      */
+comment|/**      *<code>rpc Scan(.hbase.pb.ScanRequest) returns (.hbase.pb.ScanResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -172046,7 +172046,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc BulkLoadHFile(.BulkLoadHFileRequest) returns (.BulkLoadHFileResponse);</code>      */
+comment|/**      *<code>rpc BulkLoadHFile(.hbase.pb.BulkLoadHFileRequest) returns (.hbase.pb.BulkLoadHFileResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -172105,7 +172105,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc ExecService(.CoprocessorServiceRequest) returns (.CoprocessorServiceResponse);</code>      */
+comment|/**      *<code>rpc ExecService(.hbase.pb.CoprocessorServiceRequest) returns (.hbase.pb.CoprocessorServiceResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -172164,7 +172164,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc ExecRegionServerService(.CoprocessorServiceRequest) returns (.CoprocessorServiceResponse);</code>      */
+comment|/**      *<code>rpc ExecRegionServerService(.hbase.pb.CoprocessorServiceRequest) returns (.hbase.pb.CoprocessorServiceResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -172223,7 +172223,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc Multi(.MultiRequest) returns (.MultiResponse);</code>      */
+comment|/**      *<code>rpc Multi(.hbase.pb.MultiRequest) returns (.hbase.pb.MultiResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -175664,7 +175664,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|// @@protoc_insertion_point(class_scope:ClientService)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ClientService)
 block|}
 specifier|private
 specifier|static
@@ -175677,7 +175677,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Authorizations_descriptor
+name|internal_static_hbase_pb_Authorizations_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175690,7 +175690,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Authorizations_fieldAccessorTable
+name|internal_static_hbase_pb_Authorizations_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175703,7 +175703,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CellVisibility_descriptor
+name|internal_static_hbase_pb_CellVisibility_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175716,7 +175716,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CellVisibility_fieldAccessorTable
+name|internal_static_hbase_pb_CellVisibility_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175729,7 +175729,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Column_descriptor
+name|internal_static_hbase_pb_Column_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175742,7 +175742,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Column_fieldAccessorTable
+name|internal_static_hbase_pb_Column_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175755,7 +175755,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Get_descriptor
+name|internal_static_hbase_pb_Get_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175768,7 +175768,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Get_fieldAccessorTable
+name|internal_static_hbase_pb_Get_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175781,7 +175781,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Result_descriptor
+name|internal_static_hbase_pb_Result_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175794,7 +175794,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Result_fieldAccessorTable
+name|internal_static_hbase_pb_Result_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175807,7 +175807,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetRequest_descriptor
+name|internal_static_hbase_pb_GetRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175820,7 +175820,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175833,7 +175833,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetResponse_descriptor
+name|internal_static_hbase_pb_GetResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175846,7 +175846,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175859,7 +175859,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Condition_descriptor
+name|internal_static_hbase_pb_Condition_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175872,7 +175872,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Condition_fieldAccessorTable
+name|internal_static_hbase_pb_Condition_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175885,7 +175885,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MutationProto_descriptor
+name|internal_static_hbase_pb_MutationProto_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175898,7 +175898,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MutationProto_fieldAccessorTable
+name|internal_static_hbase_pb_MutationProto_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175911,7 +175911,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MutationProto_ColumnValue_descriptor
+name|internal_static_hbase_pb_MutationProto_ColumnValue_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175924,7 +175924,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MutationProto_ColumnValue_fieldAccessorTable
+name|internal_static_hbase_pb_MutationProto_ColumnValue_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175937,7 +175937,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MutationProto_ColumnValue_QualifierValue_descriptor
+name|internal_static_hbase_pb_MutationProto_ColumnValue_QualifierValue_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175950,7 +175950,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MutationProto_ColumnValue_QualifierValue_fieldAccessorTable
+name|internal_static_hbase_pb_MutationProto_ColumnValue_QualifierValue_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175963,7 +175963,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MutateRequest_descriptor
+name|internal_static_hbase_pb_MutateRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175976,7 +175976,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MutateRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MutateRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -175989,7 +175989,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MutateResponse_descriptor
+name|internal_static_hbase_pb_MutateResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176002,7 +176002,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MutateResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MutateResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176015,7 +176015,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Scan_descriptor
+name|internal_static_hbase_pb_Scan_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176028,7 +176028,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Scan_fieldAccessorTable
+name|internal_static_hbase_pb_Scan_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176041,7 +176041,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ScanRequest_descriptor
+name|internal_static_hbase_pb_ScanRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176054,7 +176054,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ScanRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ScanRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176067,7 +176067,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ScanResponse_descriptor
+name|internal_static_hbase_pb_ScanResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176080,7 +176080,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ScanResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ScanResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176093,7 +176093,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_BulkLoadHFileRequest_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176106,7 +176106,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_BulkLoadHFileRequest_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadHFileRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176119,7 +176119,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_BulkLoadHFileRequest_FamilyPath_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileRequest_FamilyPath_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176132,7 +176132,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_BulkLoadHFileRequest_FamilyPath_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadHFileRequest_FamilyPath_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176145,7 +176145,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_BulkLoadHFileResponse_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176158,7 +176158,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_BulkLoadHFileResponse_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadHFileResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176171,7 +176171,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CoprocessorServiceCall_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceCall_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176184,7 +176184,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CoprocessorServiceCall_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceCall_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176197,7 +176197,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CoprocessorServiceResult_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceResult_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176210,7 +176210,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CoprocessorServiceResult_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceResult_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176223,7 +176223,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CoprocessorServiceRequest_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176236,7 +176236,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CoprocessorServiceRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176249,7 +176249,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CoprocessorServiceResponse_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176262,7 +176262,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CoprocessorServiceResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176275,7 +176275,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Action_descriptor
+name|internal_static_hbase_pb_Action_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176288,7 +176288,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Action_fieldAccessorTable
+name|internal_static_hbase_pb_Action_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176301,7 +176301,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RegionAction_descriptor
+name|internal_static_hbase_pb_RegionAction_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176314,7 +176314,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RegionAction_fieldAccessorTable
+name|internal_static_hbase_pb_RegionAction_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176327,7 +176327,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RegionLoadStats_descriptor
+name|internal_static_hbase_pb_RegionLoadStats_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176340,7 +176340,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RegionLoadStats_fieldAccessorTable
+name|internal_static_hbase_pb_RegionLoadStats_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176353,7 +176353,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ResultOrException_descriptor
+name|internal_static_hbase_pb_ResultOrException_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176366,7 +176366,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ResultOrException_fieldAccessorTable
+name|internal_static_hbase_pb_ResultOrException_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176379,7 +176379,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RegionActionResult_descriptor
+name|internal_static_hbase_pb_RegionActionResult_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176392,7 +176392,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RegionActionResult_fieldAccessorTable
+name|internal_static_hbase_pb_RegionActionResult_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176405,7 +176405,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MultiRequest_descriptor
+name|internal_static_hbase_pb_MultiRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176418,7 +176418,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MultiRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MultiRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176431,7 +176431,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MultiResponse_descriptor
+name|internal_static_hbase_pb_MultiResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -176444,7 +176444,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MultiResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MultiResponse_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -176488,243 +176488,273 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\014Client.proto\032\013HBase.proto\032\014Filter.prot"
+literal|"\n\014Client.proto\022\010hbase.pb\032\013HBase.proto\032\014F"
 operator|+
-literal|"o\032\nCell.proto\032\020Comparator.proto\032\017MapRedu"
+literal|"ilter.proto\032\nCell.proto\032\020Comparator.prot"
 operator|+
-literal|"ce.proto\"\037\n\016Authorizations\022\r\n\005label\030\001 \003("
+literal|"o\032\017MapReduce.proto\"\037\n\016Authorizations\022\r\n\005"
 operator|+
-literal|"\t\"$\n\016CellVisibility\022\022\n\nexpression\030\001 \002(\t\""
+literal|"label\030\001 \003(\t\"$\n\016CellVisibility\022\022\n\nexpress"
 operator|+
-literal|"+\n\006Column\022\016\n\006family\030\001 \002(\014\022\021\n\tqualifier\030\002"
+literal|"ion\030\001 \002(\t\"+\n\006Column\022\016\n\006family\030\001 \002(\014\022\021\n\tq"
 operator|+
-literal|" \003(\014\"\324\002\n\003Get\022\013\n\003row\030\001 \002(\014\022\027\n\006column\030\002 \003("
+literal|"ualifier\030\002 \003(\014\"\201\003\n\003Get\022\013\n\003row\030\001 \002(\014\022 \n\006c"
 operator|+
-literal|"\0132\007.Column\022!\n\tattribute\030\003 \003(\0132\016.NameByte"
+literal|"olumn\030\002 \003(\0132\020.hbase.pb.Column\022*\n\tattribu"
 operator|+
-literal|"sPair\022\027\n\006filter\030\004 \001(\0132\007.Filter\022\036\n\ntime_r"
+literal|"te\030\003 \003(\0132\027.hbase.pb.NameBytesPair\022 \n\006fil"
 operator|+
-literal|"ange\030\005 \001(\0132\n.TimeRange\022\027\n\014max_versions\030\006"
+literal|"ter\030\004 \001(\0132\020.hbase.pb.Filter\022\'\n\ntime_rang"
 operator|+
-literal|" \001(\r:\0011\022\032\n\014cache_blocks\030\007 \001(\010:\004true\022\023\n\013s"
+literal|"e\030\005 \001(\0132\023.hbase.pb.TimeRange\022\027\n\014max_vers"
 block|,
-literal|"tore_limit\030\010 \001(\r\022\024\n\014store_offset\030\t \001(\r\022\035"
+literal|"ions\030\006 \001(\r:\0011\022\032\n\014cache_blocks\030\007 \001(\010:\004tru"
 operator|+
-literal|"\n\016existence_only\030\n \001(\010:\005false\022!\n\022closest"
+literal|"e\022\023\n\013store_limit\030\010 \001(\r\022\024\n\014store_offset\030\t"
 operator|+
-literal|"_row_before\030\013 \001(\010:\005false\022)\n\013consistency\030"
+literal|" \001(\r\022\035\n\016existence_only\030\n \001(\010:\005false\022!\n\022c"
 operator|+
-literal|"\014 \001(\0162\014.Consistency:\006STRONG\"z\n\006Result\022\023\n"
+literal|"losest_row_before\030\013 \001(\010:\005false\0222\n\013consis"
 operator|+
-literal|"\004cell\030\001 \003(\0132\005.Cell\022\035\n\025associated_cell_co"
+literal|"tency\030\014 \001(\0162\025.hbase.pb.Consistency:\006STRO"
 operator|+
-literal|"unt\030\002 \001(\005\022\016\n\006exists\030\003 \001(\010\022\024\n\005stale\030\004 \001(\010"
+literal|"NG\"\203\001\n\006Result\022\034\n\004cell\030\001 \003(\0132\016.hbase.pb.C"
 operator|+
-literal|":\005false\022\026\n\007partial\030\005 \001(\010:\005false\"A\n\nGetRe"
+literal|"ell\022\035\n\025associated_cell_count\030\002 \001(\005\022\016\n\006ex"
 operator|+
-literal|"quest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022"
+literal|"ists\030\003 \001(\010\022\024\n\005stale\030\004 \001(\010:\005false\022\026\n\007part"
 operator|+
-literal|"\021\n\003get\030\002 \002(\0132\004.Get\"&\n\013GetResponse\022\027\n\006res"
+literal|"ial\030\005 \001(\010:\005false\"S\n\nGetRequest\022)\n\006region"
 operator|+
-literal|"ult\030\001 \001(\0132\007.Result\"\200\001\n\tCondition\022\013\n\003row\030"
+literal|"\030\001 \002(\0132\031.hbase.pb.RegionSpecifier\022\032\n\003get"
 block|,
-literal|"\001 \002(\014\022\016\n\006family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\014"
+literal|"\030\002 \002(\0132\r.hbase.pb.Get\"/\n\013GetResponse\022 \n\006"
 operator|+
-literal|"\022\"\n\014compare_type\030\004 \002(\0162\014.CompareType\022\037\n\n"
+literal|"result\030\001 \001(\0132\020.hbase.pb.Result\"\222\001\n\tCondi"
 operator|+
-literal|"comparator\030\005 \002(\0132\013.Comparator\"\265\006\n\rMutati"
+literal|"tion\022\013\n\003row\030\001 \002(\014\022\016\n\006family\030\002 \002(\014\022\021\n\tqua"
 operator|+
-literal|"onProto\022\013\n\003row\030\001 \001(\014\0220\n\013mutate_type\030\002 \001("
+literal|"lifier\030\003 \002(\014\022+\n\014compare_type\030\004 \002(\0162\025.hba"
 operator|+
-literal|"\0162\033.MutationProto.MutationType\0220\n\014column"
+literal|"se.pb.CompareType\022(\n\ncomparator\030\005 \002(\0132\024."
 operator|+
-literal|"_value\030\003 \003(\0132\032.MutationProto.ColumnValue"
+literal|"hbase.pb.Comparator\"\364\006\n\rMutationProto\022\013\n"
 operator|+
-literal|"\022\021\n\ttimestamp\030\004 \001(\004\022!\n\tattribute\030\005 \003(\0132\016"
+literal|"\003row\030\001 \001(\014\0229\n\013mutate_type\030\002 \001(\0162$.hbase."
 operator|+
-literal|".NameBytesPair\022:\n\ndurability\030\006 \001(\0162\031.Mut"
+literal|"pb.MutationProto.MutationType\0229\n\014column_"
 operator|+
-literal|"ationProto.Durability:\013USE_DEFAULT\022\036\n\nti"
+literal|"value\030\003 \003(\0132#.hbase.pb.MutationProto.Col"
 operator|+
-literal|"me_range\030\007 \001(\0132\n.TimeRange\022\035\n\025associated"
+literal|"umnValue\022\021\n\ttimestamp\030\004 \001(\004\022*\n\tattribute"
 block|,
-literal|"_cell_count\030\010 \001(\005\022\r\n\005nonce\030\t \001(\004\032\347\001\n\013Col"
+literal|"\030\005 \003(\0132\027.hbase.pb.NameBytesPair\022C\n\ndurab"
 operator|+
-literal|"umnValue\022\016\n\006family\030\001 \002(\014\022B\n\017qualifier_va"
+literal|"ility\030\006 \001(\0162\".hbase.pb.MutationProto.Dur"
 operator|+
-literal|"lue\030\002 \003(\0132).MutationProto.ColumnValue.Qu"
+literal|"ability:\013USE_DEFAULT\022\'\n\ntime_range\030\007 \001(\013"
 operator|+
-literal|"alifierValue\032\203\001\n\016QualifierValue\022\021\n\tquali"
+literal|"2\023.hbase.pb.TimeRange\022\035\n\025associated_cell"
 operator|+
-literal|"fier\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\022\021\n\ttimestamp\030\003"
+literal|"_count\030\010 \001(\005\022\r\n\005nonce\030\t \001(\004\032\371\001\n\013ColumnVa"
 operator|+
-literal|" \001(\004\022.\n\013delete_type\030\004 \001(\0162\031.MutationProt"
+literal|"lue\022\016\n\006family\030\001 \002(\014\022K\n\017qualifier_value\030\002"
 operator|+
-literal|"o.DeleteType\022\014\n\004tags\030\005 \001(\014\"W\n\nDurability"
+literal|" \003(\01322.hbase.pb.MutationProto.ColumnValu"
 operator|+
-literal|"\022\017\n\013USE_DEFAULT\020\000\022\014\n\010SKIP_WAL\020\001\022\r\n\tASYNC"
+literal|"e.QualifierValue\032\214\001\n\016QualifierValue\022\021\n\tq"
 operator|+
-literal|"_WAL\020\002\022\014\n\010SYNC_WAL\020\003\022\r\n\tFSYNC_WAL\020\004\">\n\014M"
+literal|"ualifier\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\022\021\n\ttimesta"
 operator|+
-literal|"utationType\022\n\n\006APPEND\020\000\022\r\n\tINCREMENT\020\001\022\007"
+literal|"mp\030\003 \001(\004\0227\n\013delete_type\030\004 \001(\0162\".hbase.pb"
 block|,
-literal|"\n\003PUT\020\002\022\n\n\006DELETE\020\003\"p\n\nDeleteType\022\026\n\022DEL"
+literal|".MutationProto.DeleteType\022\014\n\004tags\030\005 \001(\014\""
 operator|+
-literal|"ETE_ONE_VERSION\020\000\022\034\n\030DELETE_MULTIPLE_VER"
+literal|"W\n\nDurability\022\017\n\013USE_DEFAULT\020\000\022\014\n\010SKIP_W"
 operator|+
-literal|"SIONS\020\001\022\021\n\rDELETE_FAMILY\020\002\022\031\n\025DELETE_FAM"
+literal|"AL\020\001\022\r\n\tASYNC_WAL\020\002\022\014\n\010SYNC_WAL\020\003\022\r\n\tFSY"
 operator|+
-literal|"ILY_VERSION\020\003\"\207\001\n\rMutateRequest\022 \n\006regio"
+literal|"NC_WAL\020\004\">\n\014MutationType\022\n\n\006APPEND\020\000\022\r\n\t"
 operator|+
-literal|"n\030\001 \002(\0132\020.RegionSpecifier\022 \n\010mutation\030\002 "
+literal|"INCREMENT\020\001\022\007\n\003PUT\020\002\022\n\n\006DELETE\020\003\"p\n\nDele"
 operator|+
-literal|"\002(\0132\016.MutationProto\022\035\n\tcondition\030\003 \001(\0132\n"
+literal|"teType\022\026\n\022DELETE_ONE_VERSION\020\000\022\034\n\030DELETE"
 operator|+
-literal|".Condition\022\023\n\013nonce_group\030\004 \001(\004\"<\n\016Mutat"
+literal|"_MULTIPLE_VERSIONS\020\001\022\021\n\rDELETE_FAMILY\020\002\022"
 operator|+
-literal|"eResponse\022\027\n\006result\030\001 \001(\0132\007.Result\022\021\n\tpr"
+literal|"\031\n\025DELETE_FAMILY_VERSION\020\003\"\242\001\n\rMutateReq"
 operator|+
-literal|"ocessed\030\002 \001(\010\"\271\003\n\004Scan\022\027\n\006column\030\001 \003(\0132\007"
+literal|"uest\022)\n\006region\030\001 \002(\0132\031.hbase.pb.RegionSp"
 operator|+
-literal|".Column\022!\n\tattribute\030\002 \003(\0132\016.NameBytesPa"
+literal|"ecifier\022)\n\010mutation\030\002 \002(\0132\027.hbase.pb.Mut"
 block|,
-literal|"ir\022\021\n\tstart_row\030\003 \001(\014\022\020\n\010stop_row\030\004 \001(\014\022"
+literal|"ationProto\022&\n\tcondition\030\003 \001(\0132\023.hbase.pb"
 operator|+
-literal|"\027\n\006filter\030\005 \001(\0132\007.Filter\022\036\n\ntime_range\030\006"
+literal|".Condition\022\023\n\013nonce_group\030\004 \001(\004\"E\n\016Mutat"
 operator|+
-literal|" \001(\0132\n.TimeRange\022\027\n\014max_versions\030\007 \001(\r:\001"
+literal|"eResponse\022 \n\006result\030\001 \001(\0132\020.hbase.pb.Res"
 operator|+
-literal|"1\022\032\n\014cache_blocks\030\010 \001(\010:\004true\022\022\n\nbatch_s"
+literal|"ult\022\021\n\tprocessed\030\002 \001(\010\"\346\003\n\004Scan\022 \n\006colum"
 operator|+
-literal|"ize\030\t \001(\r\022\027\n\017max_result_size\030\n \001(\004\022\023\n\013st"
+literal|"n\030\001 \003(\0132\020.hbase.pb.Column\022*\n\tattribute\030\002"
 operator|+
-literal|"ore_limit\030\013 \001(\r\022\024\n\014store_offset\030\014 \001(\r\022&\n"
+literal|" \003(\0132\027.hbase.pb.NameBytesPair\022\021\n\tstart_r"
 operator|+
-literal|"\036load_column_families_on_demand\030\r \001(\010\022\r\n"
+literal|"ow\030\003 \001(\014\022\020\n\010stop_row\030\004 \001(\014\022 \n\006filter\030\005 \001"
 operator|+
-literal|"\005small\030\016 \001(\010\022\027\n\010reversed\030\017 \001(\010:\005false\022)\n"
+literal|"(\0132\020.hbase.pb.Filter\022\'\n\ntime_range\030\006 \001(\013"
 operator|+
-literal|"\013consistency\030\020 \001(\0162\014.Consistency:\006STRONG"
+literal|"2\023.hbase.pb.TimeRange\022\027\n\014max_versions\030\007 "
 operator|+
-literal|"\022\017\n\007caching\030\021 \001(\r\"\376\001\n\013ScanRequest\022 \n\006reg"
+literal|"\001(\r:\0011\022\032\n\014cache_blocks\030\010 \001(\010:\004true\022\022\n\nba"
 block|,
-literal|"ion\030\001 \001(\0132\020.RegionSpecifier\022\023\n\004scan\030\002 \001("
+literal|"tch_size\030\t \001(\r\022\027\n\017max_result_size\030\n \001(\004\022"
 operator|+
-literal|"\0132\005.Scan\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016number_o"
+literal|"\023\n\013store_limit\030\013 \001(\r\022\024\n\014store_offset\030\014 \001"
 operator|+
-literal|"f_rows\030\004 \001(\r\022\025\n\rclose_scanner\030\005 \001(\010\022\025\n\rn"
+literal|"(\r\022&\n\036load_column_families_on_demand\030\r \001"
 operator|+
-literal|"ext_call_seq\030\006 \001(\004\022\037\n\027client_handles_par"
+literal|"(\010\022\r\n\005small\030\016 \001(\010\022\027\n\010reversed\030\017 \001(\010:\005fal"
 operator|+
-literal|"tials\030\007 \001(\010\022!\n\031client_handles_heartbeats"
+literal|"se\0222\n\013consistency\030\020 \001(\0162\025.hbase.pb.Consi"
 operator|+
-literal|"\030\010 \001(\010\022\032\n\022track_scan_metrics\030\t \001(\010\"\210\002\n\014S"
+literal|"stency:\006STRONG\022\017\n\007caching\030\021 \001(\r\"\220\002\n\013Scan"
 operator|+
-literal|"canResponse\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n"
+literal|"Request\022)\n\006region\030\001 \001(\0132\031.hbase.pb.Regio"
 operator|+
-literal|"\nscanner_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022"
+literal|"nSpecifier\022\034\n\004scan\030\002 \001(\0132\016.hbase.pb.Scan"
 operator|+
-literal|"\013\n\003ttl\030\004 \001(\r\022\030\n\007results\030\005 \003(\0132\007.Result\022\r"
+literal|"\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016number_of_rows\030\004"
 operator|+
-literal|"\n\005stale\030\006 \001(\010\022\037\n\027partial_flag_per_result"
+literal|" \001(\r\022\025\n\rclose_scanner\030\005 \001(\010\022\025\n\rnext_call"
 block|,
-literal|"\030\007 \003(\010\022\036\n\026more_results_in_region\030\010 \001(\010\022\031"
+literal|"_seq\030\006 \001(\004\022\037\n\027client_handles_partials\030\007 "
 operator|+
-literal|"\n\021heartbeat_message\030\t \001(\010\022\"\n\014scan_metric"
+literal|"\001(\010\022!\n\031client_handles_heartbeats\030\010 \001(\010\022\032"
 operator|+
-literal|"s\030\n \001(\0132\014.ScanMetrics\"\263\001\n\024BulkLoadHFileR"
+literal|"\n\022track_scan_metrics\030\t \001(\010\"\232\002\n\014ScanRespo"
 operator|+
-literal|"equest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier"
+literal|"nse\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n\nscanner"
 operator|+
-literal|"\0225\n\013family_path\030\002 \003(\0132 .BulkLoadHFileReq"
+literal|"_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022\013\n\003ttl\030\004"
 operator|+
-literal|"uest.FamilyPath\022\026\n\016assign_seq_num\030\003 \001(\010\032"
+literal|" \001(\r\022!\n\007results\030\005 \003(\0132\020.hbase.pb.Result\022"
 operator|+
-literal|"*\n\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 "
+literal|"\r\n\005stale\030\006 \001(\010\022\037\n\027partial_flag_per_resul"
 operator|+
-literal|"\002(\t\"\'\n\025BulkLoadHFileResponse\022\016\n\006loaded\030\001"
+literal|"t\030\007 \003(\010\022\036\n\026more_results_in_region\030\010 \001(\010\022"
 operator|+
-literal|" \002(\010\"a\n\026CoprocessorServiceCall\022\013\n\003row\030\001 "
+literal|"\031\n\021heartbeat_message\030\t \001(\010\022+\n\014scan_metri"
 operator|+
-literal|"\002(\014\022\024\n\014service_name\030\002 \002(\t\022\023\n\013method_name"
+literal|"cs\030\n \001(\0132\025.hbase.pb.ScanMetrics\"\305\001\n\024Bulk"
 block|,
-literal|"\030\003 \002(\t\022\017\n\007request\030\004 \002(\014\"9\n\030CoprocessorSe"
+literal|"LoadHFileRequest\022)\n\006region\030\001 \002(\0132\031.hbase"
 operator|+
-literal|"rviceResult\022\035\n\005value\030\001 \001(\0132\016.NameBytesPa"
+literal|".pb.RegionSpecifier\022>\n\013family_path\030\002 \003(\013"
 operator|+
-literal|"ir\"d\n\031CoprocessorServiceRequest\022 \n\006regio"
+literal|"2).hbase.pb.BulkLoadHFileRequest.FamilyP"
 operator|+
-literal|"n\030\001 \002(\0132\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132"
+literal|"ath\022\026\n\016assign_seq_num\030\003 \001(\010\032*\n\nFamilyPat"
 operator|+
-literal|"\027.CoprocessorServiceCall\"]\n\032CoprocessorS"
+literal|"h\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkL"
 operator|+
-literal|"erviceResponse\022 \n\006region\030\001 \002(\0132\020.RegionS"
+literal|"oadHFileResponse\022\016\n\006loaded\030\001 \002(\010\"a\n\026Copr"
 operator|+
-literal|"pecifier\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\""
+literal|"ocessorServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014servi"
 operator|+
-literal|"{\n\006Action\022\r\n\005index\030\001 \001(\r\022 \n\010mutation\030\002 \001"
+literal|"ce_name\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007re"
 operator|+
-literal|"(\0132\016.MutationProto\022\021\n\003get\030\003 \001(\0132\004.Get\022-\n"
+literal|"quest\030\004 \002(\014\"B\n\030CoprocessorServiceResult\022"
 operator|+
-literal|"\014service_call\030\004 \001(\0132\027.CoprocessorService"
+literal|"&\n\005value\030\001 \001(\0132\027.hbase.pb.NameBytesPair\""
 block|,
-literal|"Call\"Y\n\014RegionAction\022 \n\006region\030\001 \002(\0132\020.R"
+literal|"v\n\031CoprocessorServiceRequest\022)\n\006region\030\001"
 operator|+
-literal|"egionSpecifier\022\016\n\006atomic\030\002 \001(\010\022\027\n\006action"
+literal|" \002(\0132\031.hbase.pb.RegionSpecifier\022.\n\004call\030"
 operator|+
-literal|"\030\003 \003(\0132\007.Action\"D\n\017RegionLoadStats\022\027\n\014me"
+literal|"\002 \002(\0132 .hbase.pb.CoprocessorServiceCall\""
 operator|+
-literal|"mstoreLoad\030\001 \001(\005:\0010\022\030\n\rheapOccupancy\030\002 \001"
+literal|"o\n\032CoprocessorServiceResponse\022)\n\006region\030"
 operator|+
-literal|"(\005:\0010\"\266\001\n\021ResultOrException\022\r\n\005index\030\001 \001"
+literal|"\001 \002(\0132\031.hbase.pb.RegionSpecifier\022&\n\005valu"
 operator|+
-literal|"(\r\022\027\n\006result\030\002 \001(\0132\007.Result\022!\n\texception"
+literal|"e\030\002 \002(\0132\027.hbase.pb.NameBytesPair\"\226\001\n\006Act"
 operator|+
-literal|"\030\003 \001(\0132\016.NameBytesPair\0221\n\016service_result"
+literal|"ion\022\r\n\005index\030\001 \001(\r\022)\n\010mutation\030\002 \001(\0132\027.h"
 operator|+
-literal|"\030\004 \001(\0132\031.CoprocessorServiceResult\022#\n\tloa"
+literal|"base.pb.MutationProto\022\032\n\003get\030\003 \001(\0132\r.hba"
 operator|+
-literal|"dStats\030\005 \001(\0132\020.RegionLoadStats\"f\n\022Region"
+literal|"se.pb.Get\0226\n\014service_call\030\004 \001(\0132 .hbase."
 operator|+
-literal|"ActionResult\022-\n\021resultOrException\030\001 \003(\0132"
+literal|"pb.CoprocessorServiceCall\"k\n\014RegionActio"
 block|,
-literal|"\022.ResultOrException\022!\n\texception\030\002 \001(\0132\016"
+literal|"n\022)\n\006region\030\001 \002(\0132\031.hbase.pb.RegionSpeci"
 operator|+
-literal|".NameBytesPair\"f\n\014MultiRequest\022#\n\014region"
+literal|"fier\022\016\n\006atomic\030\002 \001(\010\022 \n\006action\030\003 \003(\0132\020.h"
 operator|+
-literal|"Action\030\001 \003(\0132\r.RegionAction\022\022\n\nnonceGrou"
+literal|"base.pb.Action\"D\n\017RegionLoadStats\022\027\n\014mem"
 operator|+
-literal|"p\030\002 \001(\004\022\035\n\tcondition\030\003 \001(\0132\n.Condition\"S"
+literal|"storeLoad\030\001 \001(\005:\0010\022\030\n\rheapOccupancy\030\002 \001("
 operator|+
-literal|"\n\rMultiResponse\022/\n\022regionActionResult\030\001 "
+literal|"\005:\0010\"\332\001\n\021ResultOrException\022\r\n\005index\030\001 \001("
 operator|+
-literal|"\003(\0132\023.RegionActionResult\022\021\n\tprocessed\030\002 "
+literal|"\r\022 \n\006result\030\002 \001(\0132\020.hbase.pb.Result\022*\n\te"
+operator|+
+literal|"xception\030\003 \001(\0132\027.hbase.pb.NameBytesPair\022"
+operator|+
+literal|":\n\016service_result\030\004 \001(\0132\".hbase.pb.Copro"
+operator|+
+literal|"cessorServiceResult\022,\n\tloadStats\030\005 \001(\0132\031"
+operator|+
+literal|".hbase.pb.RegionLoadStats\"x\n\022RegionActio"
+block|,
+literal|"nResult\0226\n\021resultOrException\030\001 \003(\0132\033.hba"
+operator|+
+literal|"se.pb.ResultOrException\022*\n\texception\030\002 \001"
+operator|+
+literal|"(\0132\027.hbase.pb.NameBytesPair\"x\n\014MultiRequ"
+operator|+
+literal|"est\022,\n\014regionAction\030\001 \003(\0132\026.hbase.pb.Reg"
+operator|+
+literal|"ionAction\022\022\n\nnonceGroup\030\002 \001(\004\022&\n\tconditi"
+operator|+
+literal|"on\030\003 \001(\0132\023.hbase.pb.Condition\"\\\n\rMultiRe"
+operator|+
+literal|"sponse\0228\n\022regionActionResult\030\001 \003(\0132\034.hba"
+operator|+
+literal|"se.pb.RegionActionResult\022\021\n\tprocessed\030\002 "
 operator|+
 literal|"\001(\010*\'\n\013Consistency\022\n\n\006STRONG\020\000\022\014\n\010TIMELI"
 operator|+
-literal|"NE\020\0012\205\003\n\rClientService\022 \n\003Get\022\013.GetReque"
-operator|+
-literal|"st\032\014.GetResponse\022)\n\006Mutate\022\016.MutateReque"
-operator|+
-literal|"st\032\017.MutateResponse\022#\n\004Scan\022\014.ScanReques"
+literal|"NE\020\0012\203\004\n\rClientService\0222\n\003Get\022\024.hbase.pb"
 block|,
-literal|"t\032\r.ScanResponse\022>\n\rBulkLoadHFile\022\025.Bulk"
+literal|".GetRequest\032\025.hbase.pb.GetResponse\022;\n\006Mu"
 operator|+
-literal|"LoadHFileRequest\032\026.BulkLoadHFileResponse"
+literal|"tate\022\027.hbase.pb.MutateRequest\032\030.hbase.pb"
 operator|+
-literal|"\022F\n\013ExecService\022\032.CoprocessorServiceRequ"
+literal|".MutateResponse\0225\n\004Scan\022\025.hbase.pb.ScanR"
 operator|+
-literal|"est\032\033.CoprocessorServiceResponse\022R\n\027Exec"
+literal|"equest\032\026.hbase.pb.ScanResponse\022P\n\rBulkLo"
 operator|+
-literal|"RegionServerService\022\032.CoprocessorService"
+literal|"adHFile\022\036.hbase.pb.BulkLoadHFileRequest\032"
 operator|+
-literal|"Request\032\033.CoprocessorServiceResponse\022&\n\005"
+literal|"\037.hbase.pb.BulkLoadHFileResponse\022X\n\013Exec"
 operator|+
-literal|"Multi\022\r.MultiRequest\032\016.MultiResponseBB\n*"
+literal|"Service\022#.hbase.pb.CoprocessorServiceReq"
 operator|+
-literal|"org.apache.hadoop.hbase.protobuf.generat"
+literal|"uest\032$.hbase.pb.CoprocessorServiceRespon"
 operator|+
-literal|"edB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|"se\022d\n\027ExecRegionServerService\022#.hbase.pb"
+operator|+
+literal|".CoprocessorServiceRequest\032$.hbase.pb.Co"
+block|,
+literal|"processorServiceResponse\0228\n\005Multi\022\026.hbas"
+operator|+
+literal|"e.pb.MultiRequest\032\027.hbase.pb.MultiRespon"
+operator|+
+literal|"seBB\n*org.apache.hadoop.hbase.protobuf.g"
+operator|+
+literal|"eneratedB\014ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -176780,7 +176810,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_Authorizations_descriptor
+name|internal_static_hbase_pb_Authorizations_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -176793,7 +176823,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_Authorizations_fieldAccessorTable
+name|internal_static_hbase_pb_Authorizations_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -176806,7 +176836,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Authorizations_descriptor
+name|internal_static_hbase_pb_Authorizations_descriptor
 argument_list|,
 operator|new
 name|java
@@ -176820,7 +176850,7 @@ literal|"Label"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_CellVisibility_descriptor
+name|internal_static_hbase_pb_CellVisibility_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -176833,7 +176863,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_CellVisibility_fieldAccessorTable
+name|internal_static_hbase_pb_CellVisibility_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -176846,7 +176876,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CellVisibility_descriptor
+name|internal_static_hbase_pb_CellVisibility_descriptor
 argument_list|,
 operator|new
 name|java
@@ -176860,7 +176890,7 @@ literal|"Expression"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_Column_descriptor
+name|internal_static_hbase_pb_Column_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -176873,7 +176903,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_Column_fieldAccessorTable
+name|internal_static_hbase_pb_Column_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -176886,7 +176916,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Column_descriptor
+name|internal_static_hbase_pb_Column_descriptor
 argument_list|,
 operator|new
 name|java
@@ -176902,7 +176932,7 @@ literal|"Qualifier"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_Get_descriptor
+name|internal_static_hbase_pb_Get_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -176915,7 +176945,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_Get_fieldAccessorTable
+name|internal_static_hbase_pb_Get_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -176928,7 +176958,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Get_descriptor
+name|internal_static_hbase_pb_Get_descriptor
 argument_list|,
 operator|new
 name|java
@@ -176964,7 +176994,7 @@ literal|"Consistency"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_Result_descriptor
+name|internal_static_hbase_pb_Result_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -176977,7 +177007,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_Result_fieldAccessorTable
+name|internal_static_hbase_pb_Result_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -176990,7 +177020,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Result_descriptor
+name|internal_static_hbase_pb_Result_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177012,7 +177042,7 @@ literal|"Partial"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_GetRequest_descriptor
+name|internal_static_hbase_pb_GetRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177025,7 +177055,7 @@ argument_list|(
 literal|5
 argument_list|)
 expr_stmt|;
-name|internal_static_GetRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177038,7 +177068,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetRequest_descriptor
+name|internal_static_hbase_pb_GetRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177054,7 +177084,7 @@ literal|"Get"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_GetResponse_descriptor
+name|internal_static_hbase_pb_GetResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177067,7 +177097,7 @@ argument_list|(
 literal|6
 argument_list|)
 expr_stmt|;
-name|internal_static_GetResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177080,7 +177110,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetResponse_descriptor
+name|internal_static_hbase_pb_GetResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177094,7 +177124,7 @@ literal|"Result"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_Condition_descriptor
+name|internal_static_hbase_pb_Condition_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177107,7 +177137,7 @@ argument_list|(
 literal|7
 argument_list|)
 expr_stmt|;
-name|internal_static_Condition_fieldAccessorTable
+name|internal_static_hbase_pb_Condition_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177120,7 +177150,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Condition_descriptor
+name|internal_static_hbase_pb_Condition_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177142,7 +177172,7 @@ literal|"Comparator"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_MutationProto_descriptor
+name|internal_static_hbase_pb_MutationProto_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177155,7 +177185,7 @@ argument_list|(
 literal|8
 argument_list|)
 expr_stmt|;
-name|internal_static_MutationProto_fieldAccessorTable
+name|internal_static_hbase_pb_MutationProto_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177168,7 +177198,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MutationProto_descriptor
+name|internal_static_hbase_pb_MutationProto_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177198,9 +177228,9 @@ literal|"Nonce"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_MutationProto_ColumnValue_descriptor
+name|internal_static_hbase_pb_MutationProto_ColumnValue_descriptor
 operator|=
-name|internal_static_MutationProto_descriptor
+name|internal_static_hbase_pb_MutationProto_descriptor
 operator|.
 name|getNestedTypes
 argument_list|()
@@ -177210,7 +177240,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_MutationProto_ColumnValue_fieldAccessorTable
+name|internal_static_hbase_pb_MutationProto_ColumnValue_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177223,7 +177253,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MutationProto_ColumnValue_descriptor
+name|internal_static_hbase_pb_MutationProto_ColumnValue_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177239,9 +177269,9 @@ literal|"QualifierValue"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_MutationProto_ColumnValue_QualifierValue_descriptor
+name|internal_static_hbase_pb_MutationProto_ColumnValue_QualifierValue_descriptor
 operator|=
-name|internal_static_MutationProto_ColumnValue_descriptor
+name|internal_static_hbase_pb_MutationProto_ColumnValue_descriptor
 operator|.
 name|getNestedTypes
 argument_list|()
@@ -177251,7 +177281,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_MutationProto_ColumnValue_QualifierValue_fieldAccessorTable
+name|internal_static_hbase_pb_MutationProto_ColumnValue_QualifierValue_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177264,7 +177294,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MutationProto_ColumnValue_QualifierValue_descriptor
+name|internal_static_hbase_pb_MutationProto_ColumnValue_QualifierValue_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177286,7 +177316,7 @@ literal|"Tags"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_MutateRequest_descriptor
+name|internal_static_hbase_pb_MutateRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177299,7 +177329,7 @@ argument_list|(
 literal|9
 argument_list|)
 expr_stmt|;
-name|internal_static_MutateRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MutateRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177312,7 +177342,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MutateRequest_descriptor
+name|internal_static_hbase_pb_MutateRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177332,7 +177362,7 @@ literal|"NonceGroup"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_MutateResponse_descriptor
+name|internal_static_hbase_pb_MutateResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177345,7 +177375,7 @@ argument_list|(
 literal|10
 argument_list|)
 expr_stmt|;
-name|internal_static_MutateResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MutateResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177358,7 +177388,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MutateResponse_descriptor
+name|internal_static_hbase_pb_MutateResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177374,7 +177404,7 @@ literal|"Processed"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_Scan_descriptor
+name|internal_static_hbase_pb_Scan_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177387,7 +177417,7 @@ argument_list|(
 literal|11
 argument_list|)
 expr_stmt|;
-name|internal_static_Scan_fieldAccessorTable
+name|internal_static_hbase_pb_Scan_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177400,7 +177430,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Scan_descriptor
+name|internal_static_hbase_pb_Scan_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177446,7 +177476,7 @@ literal|"Caching"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ScanRequest_descriptor
+name|internal_static_hbase_pb_ScanRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177459,7 +177489,7 @@ argument_list|(
 literal|12
 argument_list|)
 expr_stmt|;
-name|internal_static_ScanRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ScanRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177472,7 +177502,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ScanRequest_descriptor
+name|internal_static_hbase_pb_ScanRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177502,7 +177532,7 @@ literal|"TrackScanMetrics"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ScanResponse_descriptor
+name|internal_static_hbase_pb_ScanResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177515,7 +177545,7 @@ argument_list|(
 literal|13
 argument_list|)
 expr_stmt|;
-name|internal_static_ScanResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ScanResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177528,7 +177558,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ScanResponse_descriptor
+name|internal_static_hbase_pb_ScanResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177560,7 +177590,7 @@ literal|"ScanMetrics"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_BulkLoadHFileRequest_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177573,7 +177603,7 @@ argument_list|(
 literal|14
 argument_list|)
 expr_stmt|;
-name|internal_static_BulkLoadHFileRequest_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadHFileRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177586,7 +177616,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_BulkLoadHFileRequest_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177604,9 +177634,9 @@ literal|"AssignSeqNum"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_BulkLoadHFileRequest_FamilyPath_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileRequest_FamilyPath_descriptor
 operator|=
-name|internal_static_BulkLoadHFileRequest_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileRequest_descriptor
 operator|.
 name|getNestedTypes
 argument_list|()
@@ -177616,7 +177646,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_BulkLoadHFileRequest_FamilyPath_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadHFileRequest_FamilyPath_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177629,7 +177659,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_BulkLoadHFileRequest_FamilyPath_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileRequest_FamilyPath_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177645,7 +177675,7 @@ literal|"Path"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_BulkLoadHFileResponse_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177658,7 +177688,7 @@ argument_list|(
 literal|15
 argument_list|)
 expr_stmt|;
-name|internal_static_BulkLoadHFileResponse_fieldAccessorTable
+name|internal_static_hbase_pb_BulkLoadHFileResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177671,7 +177701,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_BulkLoadHFileResponse_descriptor
+name|internal_static_hbase_pb_BulkLoadHFileResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177685,7 +177715,7 @@ literal|"Loaded"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_CoprocessorServiceCall_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceCall_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177698,7 +177728,7 @@ argument_list|(
 literal|16
 argument_list|)
 expr_stmt|;
-name|internal_static_CoprocessorServiceCall_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceCall_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177711,7 +177741,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CoprocessorServiceCall_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceCall_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177731,7 +177761,7 @@ literal|"Request"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_CoprocessorServiceResult_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceResult_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177744,7 +177774,7 @@ argument_list|(
 literal|17
 argument_list|)
 expr_stmt|;
-name|internal_static_CoprocessorServiceResult_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceResult_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177757,7 +177787,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CoprocessorServiceResult_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceResult_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177771,7 +177801,7 @@ literal|"Value"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_CoprocessorServiceRequest_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177784,7 +177814,7 @@ argument_list|(
 literal|18
 argument_list|)
 expr_stmt|;
-name|internal_static_CoprocessorServiceRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177797,7 +177827,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CoprocessorServiceRequest_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177813,7 +177843,7 @@ literal|"Call"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_CoprocessorServiceResponse_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177826,7 +177856,7 @@ argument_list|(
 literal|19
 argument_list|)
 expr_stmt|;
-name|internal_static_CoprocessorServiceResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CoprocessorServiceResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177839,7 +177869,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CoprocessorServiceResponse_descriptor
+name|internal_static_hbase_pb_CoprocessorServiceResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177855,7 +177885,7 @@ literal|"Value"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_Action_descriptor
+name|internal_static_hbase_pb_Action_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177868,7 +177898,7 @@ argument_list|(
 literal|20
 argument_list|)
 expr_stmt|;
-name|internal_static_Action_fieldAccessorTable
+name|internal_static_hbase_pb_Action_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177881,7 +177911,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Action_descriptor
+name|internal_static_hbase_pb_Action_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177901,7 +177931,7 @@ literal|"ServiceCall"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionAction_descriptor
+name|internal_static_hbase_pb_RegionAction_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177914,7 +177944,7 @@ argument_list|(
 literal|21
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionAction_fieldAccessorTable
+name|internal_static_hbase_pb_RegionAction_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177927,7 +177957,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RegionAction_descriptor
+name|internal_static_hbase_pb_RegionAction_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177945,7 +177975,7 @@ literal|"Action"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionLoadStats_descriptor
+name|internal_static_hbase_pb_RegionLoadStats_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -177958,7 +177988,7 @@ argument_list|(
 literal|22
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionLoadStats_fieldAccessorTable
+name|internal_static_hbase_pb_RegionLoadStats_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -177971,7 +178001,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RegionLoadStats_descriptor
+name|internal_static_hbase_pb_RegionLoadStats_descriptor
 argument_list|,
 operator|new
 name|java
@@ -177987,7 +178017,7 @@ literal|"HeapOccupancy"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ResultOrException_descriptor
+name|internal_static_hbase_pb_ResultOrException_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -178000,7 +178030,7 @@ argument_list|(
 literal|23
 argument_list|)
 expr_stmt|;
-name|internal_static_ResultOrException_fieldAccessorTable
+name|internal_static_hbase_pb_ResultOrException_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -178013,7 +178043,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ResultOrException_descriptor
+name|internal_static_hbase_pb_ResultOrException_descriptor
 argument_list|,
 operator|new
 name|java
@@ -178035,7 +178065,7 @@ literal|"LoadStats"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionActionResult_descriptor
+name|internal_static_hbase_pb_RegionActionResult_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -178048,7 +178078,7 @@ argument_list|(
 literal|24
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionActionResult_fieldAccessorTable
+name|internal_static_hbase_pb_RegionActionResult_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -178061,7 +178091,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RegionActionResult_descriptor
+name|internal_static_hbase_pb_RegionActionResult_descriptor
 argument_list|,
 operator|new
 name|java
@@ -178077,7 +178107,7 @@ literal|"Exception"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_MultiRequest_descriptor
+name|internal_static_hbase_pb_MultiRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -178090,7 +178120,7 @@ argument_list|(
 literal|25
 argument_list|)
 expr_stmt|;
-name|internal_static_MultiRequest_fieldAccessorTable
+name|internal_static_hbase_pb_MultiRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -178103,7 +178133,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MultiRequest_descriptor
+name|internal_static_hbase_pb_MultiRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -178121,7 +178151,7 @@ literal|"Condition"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_MultiResponse_descriptor
+name|internal_static_hbase_pb_MultiResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -178134,7 +178164,7 @@ argument_list|(
 literal|26
 argument_list|)
 expr_stmt|;
-name|internal_static_MultiResponse_fieldAccessorTable
+name|internal_static_hbase_pb_MultiResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -178147,7 +178177,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MultiResponse_descriptor
+name|internal_static_hbase_pb_MultiResponse_descriptor
 argument_list|,
 operator|new
 name|java

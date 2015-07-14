@@ -60,13 +60,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .Permission.Type type = 1;
-comment|/**      *<code>required .Permission.Type type = 1;</code>      */
+comment|// required .hbase.pb.Permission.Type type = 1;
+comment|/**      *<code>required .hbase.pb.Permission.Type type = 1;</code>      */
 name|boolean
 name|hasType
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .Permission.Type type = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.Permission.Type type = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -87,13 +87,13 @@ name|Type
 name|getType
 parameter_list|()
 function_decl|;
-comment|// optional .GlobalPermission global_permission = 2;
-comment|/**      *<code>optional .GlobalPermission global_permission = 2;</code>      */
+comment|// optional .hbase.pb.GlobalPermission global_permission = 2;
+comment|/**      *<code>optional .hbase.pb.GlobalPermission global_permission = 2;</code>      */
 name|boolean
 name|hasGlobalPermission
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .GlobalPermission global_permission = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.GlobalPermission global_permission = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -112,7 +112,7 @@ name|GlobalPermission
 name|getGlobalPermission
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .GlobalPermission global_permission = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.GlobalPermission global_permission = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -131,13 +131,13 @@ name|GlobalPermissionOrBuilder
 name|getGlobalPermissionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .NamespacePermission namespace_permission = 3;
-comment|/**      *<code>optional .NamespacePermission namespace_permission = 3;</code>      */
+comment|// optional .hbase.pb.NamespacePermission namespace_permission = 3;
+comment|/**      *<code>optional .hbase.pb.NamespacePermission namespace_permission = 3;</code>      */
 name|boolean
 name|hasNamespacePermission
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .NamespacePermission namespace_permission = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.NamespacePermission namespace_permission = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -156,7 +156,7 @@ name|NamespacePermission
 name|getNamespacePermission
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .NamespacePermission namespace_permission = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.NamespacePermission namespace_permission = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -175,13 +175,13 @@ name|NamespacePermissionOrBuilder
 name|getNamespacePermissionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .TablePermission table_permission = 4;
-comment|/**      *<code>optional .TablePermission table_permission = 4;</code>      */
+comment|// optional .hbase.pb.TablePermission table_permission = 4;
+comment|/**      *<code>optional .hbase.pb.TablePermission table_permission = 4;</code>      */
 name|boolean
 name|hasTablePermission
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TablePermission table_permission = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TablePermission table_permission = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -200,7 +200,7 @@ name|TablePermission
 name|getTablePermission
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TablePermission table_permission = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TablePermission table_permission = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -220,7 +220,7 @@ name|getTablePermissionOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Permission}    */
+comment|/**    * Protobuf type {@code hbase.pb.Permission}    */
 specifier|public
 specifier|static
 specifier|final
@@ -961,7 +961,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_Permission_descriptor
+name|internal_static_hbase_pb_Permission_descriptor
 return|;
 block|}
 specifier|protected
@@ -992,7 +992,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_Permission_fieldAccessorTable
+name|internal_static_hbase_pb_Permission_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -1130,7 +1130,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code Permission.Action}      */
+comment|/**      * Protobuf enum {@code hbase.pb.Permission.Action}      */
 specifier|public
 enum|enum
 name|Action
@@ -1542,9 +1542,9 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:Permission.Action)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.Permission.Action)
 block|}
-comment|/**      * Protobuf enum {@code Permission.Type}      */
+comment|/**      * Protobuf enum {@code hbase.pb.Permission.Type}      */
 specifier|public
 enum|enum
 name|Type
@@ -1910,13 +1910,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:Permission.Type)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.Permission.Type)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .Permission.Type type = 1;
+comment|// required .hbase.pb.Permission.Type type = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -1945,7 +1945,7 @@ operator|.
 name|Type
 name|type_
 decl_stmt|;
-comment|/**      *<code>required .Permission.Type type = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.Permission.Type type = 1;</code>      */
 specifier|public
 name|boolean
 name|hasType
@@ -1963,7 +1963,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .Permission.Type type = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.Permission.Type type = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -1989,7 +1989,7 @@ return|return
 name|type_
 return|;
 block|}
-comment|// optional .GlobalPermission global_permission = 2;
+comment|// optional .hbase.pb.GlobalPermission global_permission = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -2016,7 +2016,7 @@ operator|.
 name|GlobalPermission
 name|globalPermission_
 decl_stmt|;
-comment|/**      *<code>optional .GlobalPermission global_permission = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.GlobalPermission global_permission = 2;</code>      */
 specifier|public
 name|boolean
 name|hasGlobalPermission
@@ -2034,7 +2034,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .GlobalPermission global_permission = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.GlobalPermission global_permission = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -2058,7 +2058,7 @@ return|return
 name|globalPermission_
 return|;
 block|}
-comment|/**      *<code>optional .GlobalPermission global_permission = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.GlobalPermission global_permission = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -2082,7 +2082,7 @@ return|return
 name|globalPermission_
 return|;
 block|}
-comment|// optional .NamespacePermission namespace_permission = 3;
+comment|// optional .hbase.pb.NamespacePermission namespace_permission = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -2109,7 +2109,7 @@ operator|.
 name|NamespacePermission
 name|namespacePermission_
 decl_stmt|;
-comment|/**      *<code>optional .NamespacePermission namespace_permission = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.NamespacePermission namespace_permission = 3;</code>      */
 specifier|public
 name|boolean
 name|hasNamespacePermission
@@ -2127,7 +2127,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .NamespacePermission namespace_permission = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.NamespacePermission namespace_permission = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -2151,7 +2151,7 @@ return|return
 name|namespacePermission_
 return|;
 block|}
-comment|/**      *<code>optional .NamespacePermission namespace_permission = 3;</code>      */
+comment|/**      *<code>optional .hbase.pb.NamespacePermission namespace_permission = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -2175,7 +2175,7 @@ return|return
 name|namespacePermission_
 return|;
 block|}
-comment|// optional .TablePermission table_permission = 4;
+comment|// optional .hbase.pb.TablePermission table_permission = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -2202,7 +2202,7 @@ operator|.
 name|TablePermission
 name|tablePermission_
 decl_stmt|;
-comment|/**      *<code>optional .TablePermission table_permission = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TablePermission table_permission = 4;</code>      */
 specifier|public
 name|boolean
 name|hasTablePermission
@@ -2220,7 +2220,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TablePermission table_permission = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TablePermission table_permission = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -2244,7 +2244,7 @@ return|return
 name|tablePermission_
 return|;
 block|}
-comment|/**      *<code>optional .TablePermission table_permission = 4;</code>      */
+comment|/**      *<code>optional .hbase.pb.TablePermission table_permission = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -3821,7 +3821,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Permission}      */
+comment|/**      * Protobuf type {@code hbase.pb.Permission}      */
 specifier|public
 specifier|static
 specifier|final
@@ -3887,7 +3887,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_Permission_descriptor
+name|internal_static_hbase_pb_Permission_descriptor
 return|;
 block|}
 specifier|protected
@@ -3918,7 +3918,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_Permission_fieldAccessorTable
+name|internal_static_hbase_pb_Permission_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -4263,7 +4263,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_Permission_descriptor
+name|internal_static_hbase_pb_Permission_descriptor
 return|;
 block|}
 specifier|public
@@ -4971,7 +4971,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .Permission.Type type = 1;
+comment|// required .hbase.pb.Permission.Type type = 1;
 specifier|private
 name|org
 operator|.
@@ -5012,7 +5012,7 @@ name|Type
 operator|.
 name|Global
 decl_stmt|;
-comment|/**        *<code>required .Permission.Type type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.Permission.Type type = 1;</code>        */
 specifier|public
 name|boolean
 name|hasType
@@ -5030,7 +5030,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .Permission.Type type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.Permission.Type type = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -5056,7 +5056,7 @@ return|return
 name|type_
 return|;
 block|}
-comment|/**        *<code>required .Permission.Type type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.Permission.Type type = 1;</code>        */
 specifier|public
 name|Builder
 name|setType
@@ -5109,7 +5109,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Permission.Type type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.Permission.Type type = 1;</code>        */
 specifier|public
 name|Builder
 name|clearType
@@ -5153,7 +5153,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .GlobalPermission global_permission = 2;
+comment|// optional .hbase.pb.GlobalPermission global_permission = 2;
 specifier|private
 name|org
 operator|.
@@ -5252,7 +5252,7 @@ name|GlobalPermissionOrBuilder
 argument_list|>
 name|globalPermissionBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .GlobalPermission global_permission = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GlobalPermission global_permission = 2;</code>        */
 specifier|public
 name|boolean
 name|hasGlobalPermission
@@ -5270,7 +5270,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .GlobalPermission global_permission = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GlobalPermission global_permission = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -5311,7 +5311,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .GlobalPermission global_permission = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GlobalPermission global_permission = 2;</code>        */
 specifier|public
 name|Builder
 name|setGlobalPermission
@@ -5380,7 +5380,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .GlobalPermission global_permission = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GlobalPermission global_permission = 2;</code>        */
 specifier|public
 name|Builder
 name|setGlobalPermission
@@ -5444,7 +5444,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .GlobalPermission global_permission = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GlobalPermission global_permission = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeGlobalPermission
@@ -5569,7 +5569,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .GlobalPermission global_permission = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GlobalPermission global_permission = 2;</code>        */
 specifier|public
 name|Builder
 name|clearGlobalPermission
@@ -5628,7 +5628,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .GlobalPermission global_permission = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GlobalPermission global_permission = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -5665,7 +5665,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .GlobalPermission global_permission = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GlobalPermission global_permission = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -5706,7 +5706,7 @@ name|globalPermission_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .GlobalPermission global_permission = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.GlobalPermission global_permission = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -5856,7 +5856,7 @@ return|return
 name|globalPermissionBuilder_
 return|;
 block|}
-comment|// optional .NamespacePermission namespace_permission = 3;
+comment|// optional .hbase.pb.NamespacePermission namespace_permission = 3;
 specifier|private
 name|org
 operator|.
@@ -5955,7 +5955,7 @@ name|NamespacePermissionOrBuilder
 argument_list|>
 name|namespacePermissionBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .NamespacePermission namespace_permission = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NamespacePermission namespace_permission = 3;</code>        */
 specifier|public
 name|boolean
 name|hasNamespacePermission
@@ -5973,7 +5973,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .NamespacePermission namespace_permission = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NamespacePermission namespace_permission = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -6014,7 +6014,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .NamespacePermission namespace_permission = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NamespacePermission namespace_permission = 3;</code>        */
 specifier|public
 name|Builder
 name|setNamespacePermission
@@ -6083,7 +6083,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NamespacePermission namespace_permission = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NamespacePermission namespace_permission = 3;</code>        */
 specifier|public
 name|Builder
 name|setNamespacePermission
@@ -6147,7 +6147,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NamespacePermission namespace_permission = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NamespacePermission namespace_permission = 3;</code>        */
 specifier|public
 name|Builder
 name|mergeNamespacePermission
@@ -6272,7 +6272,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NamespacePermission namespace_permission = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NamespacePermission namespace_permission = 3;</code>        */
 specifier|public
 name|Builder
 name|clearNamespacePermission
@@ -6331,7 +6331,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .NamespacePermission namespace_permission = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NamespacePermission namespace_permission = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -6368,7 +6368,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .NamespacePermission namespace_permission = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NamespacePermission namespace_permission = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -6409,7 +6409,7 @@ name|namespacePermission_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .NamespacePermission namespace_permission = 3;</code>        */
+comment|/**        *<code>optional .hbase.pb.NamespacePermission namespace_permission = 3;</code>        */
 specifier|private
 name|com
 operator|.
@@ -6559,7 +6559,7 @@ return|return
 name|namespacePermissionBuilder_
 return|;
 block|}
-comment|// optional .TablePermission table_permission = 4;
+comment|// optional .hbase.pb.TablePermission table_permission = 4;
 specifier|private
 name|org
 operator|.
@@ -6658,7 +6658,7 @@ name|TablePermissionOrBuilder
 argument_list|>
 name|tablePermissionBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TablePermission table_permission = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TablePermission table_permission = 4;</code>        */
 specifier|public
 name|boolean
 name|hasTablePermission
@@ -6676,7 +6676,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TablePermission table_permission = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TablePermission table_permission = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -6717,7 +6717,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TablePermission table_permission = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TablePermission table_permission = 4;</code>        */
 specifier|public
 name|Builder
 name|setTablePermission
@@ -6786,7 +6786,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TablePermission table_permission = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TablePermission table_permission = 4;</code>        */
 specifier|public
 name|Builder
 name|setTablePermission
@@ -6850,7 +6850,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TablePermission table_permission = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TablePermission table_permission = 4;</code>        */
 specifier|public
 name|Builder
 name|mergeTablePermission
@@ -6975,7 +6975,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TablePermission table_permission = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TablePermission table_permission = 4;</code>        */
 specifier|public
 name|Builder
 name|clearTablePermission
@@ -7034,7 +7034,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TablePermission table_permission = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TablePermission table_permission = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -7071,7 +7071,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TablePermission table_permission = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TablePermission table_permission = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -7112,7 +7112,7 @@ name|tablePermission_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TablePermission table_permission = 4;</code>        */
+comment|/**        *<code>optional .hbase.pb.TablePermission table_permission = 4;</code>        */
 specifier|private
 name|com
 operator|.
@@ -7262,7 +7262,7 @@ return|return
 name|tablePermissionBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Permission)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Permission)
 block|}
 static|static
 block|{
@@ -7280,7 +7280,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Permission)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Permission)
 block|}
 specifier|public
 interface|interface
@@ -7294,13 +7294,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .TableName table_name = 1;
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|// optional .hbase.pb.TableName table_name = 1;
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 name|boolean
 name|hasTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -7319,7 +7319,7 @@ name|TableName
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -7372,8 +7372,8 @@ name|ByteString
 name|getQualifier
 parameter_list|()
 function_decl|;
-comment|// repeated .Permission.Action action = 4;
-comment|/**      *<code>repeated .Permission.Action action = 4;</code>      */
+comment|// repeated .hbase.pb.Permission.Action action = 4;
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 4;</code>      */
 name|java
 operator|.
 name|util
@@ -7401,12 +7401,12 @@ argument_list|>
 name|getActionList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Permission.Action action = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 4;</code>      */
 name|int
 name|getActionCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Permission.Action action = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 4;</code>      */
 name|org
 operator|.
 name|apache
@@ -7431,7 +7431,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code TablePermission}    */
+comment|/**    * Protobuf type {@code hbase.pb.TablePermission}    */
 specifier|public
 specifier|static
 specifier|final
@@ -8245,7 +8245,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_TablePermission_descriptor
+name|internal_static_hbase_pb_TablePermission_descriptor
 return|;
 block|}
 specifier|protected
@@ -8276,7 +8276,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_TablePermission_fieldAccessorTable
+name|internal_static_hbase_pb_TablePermission_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -8418,7 +8418,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .TableName table_name = 1;
+comment|// optional .hbase.pb.TableName table_name = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -8445,7 +8445,7 @@ operator|.
 name|TableName
 name|tableName_
 decl_stmt|;
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 specifier|public
 name|boolean
 name|hasTableName
@@ -8463,7 +8463,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -8487,7 +8487,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|/**      *<code>optional .TableName table_name = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -8617,7 +8617,7 @@ return|return
 name|qualifier_
 return|;
 block|}
-comment|// repeated .Permission.Action action = 4;
+comment|// repeated .hbase.pb.Permission.Action action = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -8653,7 +8653,7 @@ name|Action
 argument_list|>
 name|action_
 decl_stmt|;
-comment|/**      *<code>repeated .Permission.Action action = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -8686,7 +8686,7 @@ return|return
 name|action_
 return|;
 block|}
-comment|/**      *<code>repeated .Permission.Action action = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 4;</code>      */
 specifier|public
 name|int
 name|getActionCount
@@ -8699,7 +8699,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .Permission.Action action = 4;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -10262,7 +10262,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code TablePermission}      */
+comment|/**      * Protobuf type {@code hbase.pb.TablePermission}      */
 specifier|public
 specifier|static
 specifier|final
@@ -10328,7 +10328,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_TablePermission_descriptor
+name|internal_static_hbase_pb_TablePermission_descriptor
 return|;
 block|}
 specifier|protected
@@ -10359,7 +10359,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_TablePermission_fieldAccessorTable
+name|internal_static_hbase_pb_TablePermission_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -10637,7 +10637,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_TablePermission_descriptor
+name|internal_static_hbase_pb_TablePermission_descriptor
 return|;
 block|}
 specifier|public
@@ -11349,7 +11349,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .TableName table_name = 1;
+comment|// optional .hbase.pb.TableName table_name = 1;
 specifier|private
 name|org
 operator|.
@@ -11448,7 +11448,7 @@ name|TableNameOrBuilder
 argument_list|>
 name|tableNameBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|boolean
 name|hasTableName
@@ -11466,7 +11466,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11507,7 +11507,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -11576,7 +11576,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -11640,7 +11640,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeTableName
@@ -11765,7 +11765,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|Builder
 name|clearTableName
@@ -11824,7 +11824,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11861,7 +11861,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11902,7 +11902,7 @@ name|tableName_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableName table_name = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -12308,7 +12308,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .Permission.Action action = 4;
+comment|// repeated .hbase.pb.Permission.Action action = 4;
 specifier|private
 name|java
 operator|.
@@ -12401,7 +12401,7 @@ literal|0x00000008
 expr_stmt|;
 block|}
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 4;</code>        */
 specifier|public
 name|java
 operator|.
@@ -12443,7 +12443,7 @@ name|action_
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 4;</code>        */
 specifier|public
 name|int
 name|getActionCount
@@ -12456,7 +12456,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 4;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12490,7 +12490,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 4;</code>        */
 specifier|public
 name|Builder
 name|setAction
@@ -12550,7 +12550,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 4;</code>        */
 specifier|public
 name|Builder
 name|addAction
@@ -12605,7 +12605,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 4;</code>        */
 specifier|public
 name|Builder
 name|addAllAction
@@ -12658,7 +12658,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 4;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 4;</code>        */
 specifier|public
 name|Builder
 name|clearAction
@@ -12691,7 +12691,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:TablePermission)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.TablePermission)
 block|}
 static|static
 block|{
@@ -12709,7 +12709,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:TablePermission)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.TablePermission)
 block|}
 specifier|public
 interface|interface
@@ -12740,8 +12740,8 @@ name|ByteString
 name|getNamespaceName
 parameter_list|()
 function_decl|;
-comment|// repeated .Permission.Action action = 2;
-comment|/**      *<code>repeated .Permission.Action action = 2;</code>      */
+comment|// repeated .hbase.pb.Permission.Action action = 2;
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -12769,12 +12769,12 @@ argument_list|>
 name|getActionList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Permission.Action action = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 2;</code>      */
 name|int
 name|getActionCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Permission.Action action = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -12799,7 +12799,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code NamespacePermission}    */
+comment|/**    * Protobuf type {@code hbase.pb.NamespacePermission}    */
 specifier|public
 specifier|static
 specifier|final
@@ -13495,7 +13495,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_NamespacePermission_descriptor
+name|internal_static_hbase_pb_NamespacePermission_descriptor
 return|;
 block|}
 specifier|protected
@@ -13526,7 +13526,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_NamespacePermission_fieldAccessorTable
+name|internal_static_hbase_pb_NamespacePermission_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -13721,7 +13721,7 @@ return|return
 name|namespaceName_
 return|;
 block|}
-comment|// repeated .Permission.Action action = 2;
+comment|// repeated .hbase.pb.Permission.Action action = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -13757,7 +13757,7 @@ name|Action
 argument_list|>
 name|action_
 decl_stmt|;
-comment|/**      *<code>repeated .Permission.Action action = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -13790,7 +13790,7 @@ return|return
 name|action_
 return|;
 block|}
-comment|/**      *<code>repeated .Permission.Action action = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 2;</code>      */
 specifier|public
 name|int
 name|getActionCount
@@ -13803,7 +13803,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .Permission.Action action = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -15066,7 +15066,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code NamespacePermission}      */
+comment|/**      * Protobuf type {@code hbase.pb.NamespacePermission}      */
 specifier|public
 specifier|static
 specifier|final
@@ -15132,7 +15132,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_NamespacePermission_descriptor
+name|internal_static_hbase_pb_NamespacePermission_descriptor
 return|;
 block|}
 specifier|protected
@@ -15163,7 +15163,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_NamespacePermission_fieldAccessorTable
+name|internal_static_hbase_pb_NamespacePermission_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -15370,7 +15370,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_NamespacePermission_descriptor
+name|internal_static_hbase_pb_NamespacePermission_descriptor
 return|;
 block|}
 specifier|public
@@ -16087,7 +16087,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .Permission.Action action = 2;
+comment|// repeated .hbase.pb.Permission.Action action = 2;
 specifier|private
 name|java
 operator|.
@@ -16180,7 +16180,7 @@ literal|0x00000002
 expr_stmt|;
 block|}
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -16222,7 +16222,7 @@ name|action_
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 2;</code>        */
 specifier|public
 name|int
 name|getActionCount
@@ -16235,7 +16235,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -16269,7 +16269,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 2;</code>        */
 specifier|public
 name|Builder
 name|setAction
@@ -16329,7 +16329,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 2;</code>        */
 specifier|public
 name|Builder
 name|addAction
@@ -16384,7 +16384,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 2;</code>        */
 specifier|public
 name|Builder
 name|addAllAction
@@ -16437,7 +16437,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 2;</code>        */
 specifier|public
 name|Builder
 name|clearAction
@@ -16470,7 +16470,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:NamespacePermission)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.NamespacePermission)
 block|}
 static|static
 block|{
@@ -16488,7 +16488,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:NamespacePermission)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.NamespacePermission)
 block|}
 specifier|public
 interface|interface
@@ -16502,8 +16502,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .Permission.Action action = 1;
-comment|/**      *<code>repeated .Permission.Action action = 1;</code>      */
+comment|// repeated .hbase.pb.Permission.Action action = 1;
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -16531,12 +16531,12 @@ argument_list|>
 name|getActionList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Permission.Action action = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 1;</code>      */
 name|int
 name|getActionCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Permission.Action action = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -16561,7 +16561,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GlobalPermission}    */
+comment|/**    * Protobuf type {@code hbase.pb.GlobalPermission}    */
 specifier|public
 specifier|static
 specifier|final
@@ -17240,7 +17240,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GlobalPermission_descriptor
+name|internal_static_hbase_pb_GlobalPermission_descriptor
 return|;
 block|}
 specifier|protected
@@ -17271,7 +17271,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GlobalPermission_fieldAccessorTable
+name|internal_static_hbase_pb_GlobalPermission_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -17409,7 +17409,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|// repeated .Permission.Action action = 1;
+comment|// repeated .hbase.pb.Permission.Action action = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -17445,7 +17445,7 @@ name|Action
 argument_list|>
 name|action_
 decl_stmt|;
-comment|/**      *<code>repeated .Permission.Action action = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -17478,7 +17478,7 @@ return|return
 name|action_
 return|;
 block|}
-comment|/**      *<code>repeated .Permission.Action action = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 1;</code>      */
 specifier|public
 name|int
 name|getActionCount
@@ -17491,7 +17491,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .Permission.Action action = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission.Action action = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -18621,7 +18621,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GlobalPermission}      */
+comment|/**      * Protobuf type {@code hbase.pb.GlobalPermission}      */
 specifier|public
 specifier|static
 specifier|final
@@ -18687,7 +18687,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GlobalPermission_descriptor
+name|internal_static_hbase_pb_GlobalPermission_descriptor
 return|;
 block|}
 specifier|protected
@@ -18718,7 +18718,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GlobalPermission_fieldAccessorTable
+name|internal_static_hbase_pb_GlobalPermission_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -18904,7 +18904,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GlobalPermission_descriptor
+name|internal_static_hbase_pb_GlobalPermission_descriptor
 return|;
 block|}
 specifier|public
@@ -19441,7 +19441,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .Permission.Action action = 1;
+comment|// repeated .hbase.pb.Permission.Action action = 1;
 specifier|private
 name|java
 operator|.
@@ -19534,7 +19534,7 @@ literal|0x00000001
 expr_stmt|;
 block|}
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -19576,7 +19576,7 @@ name|action_
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 1;</code>        */
 specifier|public
 name|int
 name|getActionCount
@@ -19589,7 +19589,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -19623,7 +19623,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 1;</code>        */
 specifier|public
 name|Builder
 name|setAction
@@ -19683,7 +19683,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 1;</code>        */
 specifier|public
 name|Builder
 name|addAction
@@ -19738,7 +19738,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllAction
@@ -19791,7 +19791,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission.Action action = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission.Action action = 1;</code>        */
 specifier|public
 name|Builder
 name|clearAction
@@ -19824,7 +19824,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GlobalPermission)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GlobalPermission)
 block|}
 static|static
 block|{
@@ -19842,7 +19842,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GlobalPermission)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GlobalPermission)
 block|}
 specifier|public
 interface|interface
@@ -19873,13 +19873,13 @@ name|ByteString
 name|getUser
 parameter_list|()
 function_decl|;
-comment|// required .Permission permission = 3;
-comment|/**      *<code>required .Permission permission = 3;</code>      */
+comment|// required .hbase.pb.Permission permission = 3;
+comment|/**      *<code>required .hbase.pb.Permission permission = 3;</code>      */
 name|boolean
 name|hasPermission
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .Permission permission = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.Permission permission = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -19898,7 +19898,7 @@ name|Permission
 name|getPermission
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .Permission permission = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.Permission permission = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -19918,7 +19918,7 @@ name|getPermissionOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code UserPermission}    */
+comment|/**    * Protobuf type {@code hbase.pb.UserPermission}    */
 specifier|public
 specifier|static
 specifier|final
@@ -20390,7 +20390,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UserPermission_descriptor
+name|internal_static_hbase_pb_UserPermission_descriptor
 return|;
 block|}
 specifier|protected
@@ -20421,7 +20421,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UserPermission_fieldAccessorTable
+name|internal_static_hbase_pb_UserPermission_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -20616,7 +20616,7 @@ return|return
 name|user_
 return|;
 block|}
-comment|// required .Permission permission = 3;
+comment|// required .hbase.pb.Permission permission = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -20643,7 +20643,7 @@ operator|.
 name|Permission
 name|permission_
 decl_stmt|;
-comment|/**      *<code>required .Permission permission = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.Permission permission = 3;</code>      */
 specifier|public
 name|boolean
 name|hasPermission
@@ -20661,7 +20661,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .Permission permission = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.Permission permission = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -20685,7 +20685,7 @@ return|return
 name|permission_
 return|;
 block|}
-comment|/**      *<code>required .Permission permission = 3;</code>      */
+comment|/**      *<code>required .hbase.pb.Permission permission = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -21971,7 +21971,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code UserPermission}      */
+comment|/**      * Protobuf type {@code hbase.pb.UserPermission}      */
 specifier|public
 specifier|static
 specifier|final
@@ -22037,7 +22037,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UserPermission_descriptor
+name|internal_static_hbase_pb_UserPermission_descriptor
 return|;
 block|}
 specifier|protected
@@ -22068,7 +22068,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UserPermission_fieldAccessorTable
+name|internal_static_hbase_pb_UserPermission_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -22305,7 +22305,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UserPermission_descriptor
+name|internal_static_hbase_pb_UserPermission_descriptor
 return|;
 block|}
 specifier|public
@@ -23023,7 +23023,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .Permission permission = 3;
+comment|// required .hbase.pb.Permission permission = 3;
 specifier|private
 name|org
 operator|.
@@ -23122,7 +23122,7 @@ name|PermissionOrBuilder
 argument_list|>
 name|permissionBuilder_
 decl_stmt|;
-comment|/**        *<code>required .Permission permission = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.Permission permission = 3;</code>        */
 specifier|public
 name|boolean
 name|hasPermission
@@ -23140,7 +23140,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .Permission permission = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.Permission permission = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -23181,7 +23181,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .Permission permission = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.Permission permission = 3;</code>        */
 specifier|public
 name|Builder
 name|setPermission
@@ -23250,7 +23250,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Permission permission = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.Permission permission = 3;</code>        */
 specifier|public
 name|Builder
 name|setPermission
@@ -23314,7 +23314,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Permission permission = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.Permission permission = 3;</code>        */
 specifier|public
 name|Builder
 name|mergePermission
@@ -23439,7 +23439,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Permission permission = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.Permission permission = 3;</code>        */
 specifier|public
 name|Builder
 name|clearPermission
@@ -23498,7 +23498,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .Permission permission = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.Permission permission = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -23535,7 +23535,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .Permission permission = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.Permission permission = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -23576,7 +23576,7 @@ name|permission_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .Permission permission = 3;</code>        */
+comment|/**        *<code>required .hbase.pb.Permission permission = 3;</code>        */
 specifier|private
 name|com
 operator|.
@@ -23726,7 +23726,7 @@ return|return
 name|permissionBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:UserPermission)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.UserPermission)
 block|}
 static|static
 block|{
@@ -23744,7 +23744,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:UserPermission)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.UserPermission)
 block|}
 specifier|public
 interface|interface
@@ -23758,8 +23758,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .UsersAndPermissions.UserPermissions user_permissions = 1;
-comment|/**      *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
+comment|// repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;
+comment|/**      *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -23787,7 +23787,7 @@ argument_list|>
 name|getUserPermissionsList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -23811,12 +23811,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
 name|int
 name|getUserPermissionsCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -23846,7 +23846,7 @@ argument_list|>
 name|getUserPermissionsOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -23871,7 +23871,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code UsersAndPermissions}    *    *<pre>    **    * Content of the /hbase/acl/&lt;table or namespace&gt; znode.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.UsersAndPermissions}    *    *<pre>    **    * Content of the /hbase/acl/&lt;table or namespace&gt; znode.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -24338,7 +24338,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UsersAndPermissions_descriptor
+name|internal_static_hbase_pb_UsersAndPermissions_descriptor
 return|;
 block|}
 specifier|protected
@@ -24369,7 +24369,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UsersAndPermissions_fieldAccessorTable
+name|internal_static_hbase_pb_UsersAndPermissions_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -24536,8 +24536,8 @@ name|ByteString
 name|getUser
 parameter_list|()
 function_decl|;
-comment|// repeated .Permission permissions = 2;
-comment|/**        *<code>repeated .Permission permissions = 2;</code>        */
+comment|// repeated .hbase.pb.Permission permissions = 2;
+comment|/**        *<code>repeated .hbase.pb.Permission permissions = 2;</code>        */
 name|java
 operator|.
 name|util
@@ -24563,7 +24563,7 @@ argument_list|>
 name|getPermissionsList
 parameter_list|()
 function_decl|;
-comment|/**        *<code>repeated .Permission permissions = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permissions = 2;</code>        */
 name|org
 operator|.
 name|apache
@@ -24585,12 +24585,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**        *<code>repeated .Permission permissions = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permissions = 2;</code>        */
 name|int
 name|getPermissionsCount
 parameter_list|()
 function_decl|;
-comment|/**        *<code>repeated .Permission permissions = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permissions = 2;</code>        */
 name|java
 operator|.
 name|util
@@ -24618,7 +24618,7 @@ argument_list|>
 name|getPermissionsOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**        *<code>repeated .Permission permissions = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permissions = 2;</code>        */
 name|org
 operator|.
 name|apache
@@ -24641,7 +24641,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**      * Protobuf type {@code UsersAndPermissions.UserPermissions}      */
+comment|/**      * Protobuf type {@code hbase.pb.UsersAndPermissions.UserPermissions}      */
 specifier|public
 specifier|static
 specifier|final
@@ -25121,7 +25121,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UsersAndPermissions_UserPermissions_descriptor
+name|internal_static_hbase_pb_UsersAndPermissions_UserPermissions_descriptor
 return|;
 block|}
 specifier|protected
@@ -25152,7 +25152,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UsersAndPermissions_UserPermissions_fieldAccessorTable
+name|internal_static_hbase_pb_UsersAndPermissions_UserPermissions_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -25351,7 +25351,7 @@ return|return
 name|user_
 return|;
 block|}
-comment|// repeated .Permission permissions = 2;
+comment|// repeated .hbase.pb.Permission permissions = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -25385,7 +25385,7 @@ name|Permission
 argument_list|>
 name|permissions_
 decl_stmt|;
-comment|/**        *<code>repeated .Permission permissions = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permissions = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -25416,7 +25416,7 @@ return|return
 name|permissions_
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permissions = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permissions = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -25449,7 +25449,7 @@ return|return
 name|permissions_
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permissions = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permissions = 2;</code>        */
 specifier|public
 name|int
 name|getPermissionsCount
@@ -25462,7 +25462,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permissions = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permissions = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -25494,7 +25494,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permissions = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permissions = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -26811,7 +26811,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**        * Protobuf type {@code UsersAndPermissions.UserPermissions}        */
+comment|/**        * Protobuf type {@code hbase.pb.UsersAndPermissions.UserPermissions}        */
 specifier|public
 specifier|static
 specifier|final
@@ -26879,7 +26879,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UsersAndPermissions_UserPermissions_descriptor
+name|internal_static_hbase_pb_UsersAndPermissions_UserPermissions_descriptor
 return|;
 block|}
 specifier|protected
@@ -26910,7 +26910,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UsersAndPermissions_UserPermissions_fieldAccessorTable
+name|internal_static_hbase_pb_UsersAndPermissions_UserPermissions_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -27141,7 +27141,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UsersAndPermissions_UserPermissions_descriptor
+name|internal_static_hbase_pb_UsersAndPermissions_UserPermissions_descriptor
 return|;
 block|}
 specifier|public
@@ -28033,7 +28033,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .Permission permissions = 2;
+comment|// repeated .hbase.pb.Permission permissions = 2;
 specifier|private
 name|java
 operator|.
@@ -28183,7 +28183,7 @@ name|PermissionOrBuilder
 argument_list|>
 name|permissionsBuilder_
 decl_stmt|;
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|java
 operator|.
@@ -28240,7 +28240,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|int
 name|getPermissionsCount
@@ -28270,7 +28270,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -28321,7 +28321,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|Builder
 name|setPermissions
@@ -28399,7 +28399,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|Builder
 name|setPermissions
@@ -28472,7 +28472,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|Builder
 name|addPermissions
@@ -28543,7 +28543,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|Builder
 name|addPermissions
@@ -28621,7 +28621,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|Builder
 name|addPermissions
@@ -28687,7 +28687,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|Builder
 name|addPermissions
@@ -28760,7 +28760,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|Builder
 name|addAllPermissions
@@ -28829,7 +28829,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|Builder
 name|clearPermissions
@@ -28878,7 +28878,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|Builder
 name|removePermissions
@@ -28922,7 +28922,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -28957,7 +28957,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -29008,7 +29008,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|java
 operator|.
@@ -29067,7 +29067,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -29116,7 +29116,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -29170,7 +29170,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**          *<code>repeated .Permission permissions = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.Permission permissions = 2;</code>          */
 specifier|public
 name|java
 operator|.
@@ -29366,7 +29366,7 @@ return|return
 name|permissionsBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:UsersAndPermissions.UserPermissions)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.UsersAndPermissions.UserPermissions)
 block|}
 static|static
 block|{
@@ -29384,9 +29384,9 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:UsersAndPermissions.UserPermissions)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.UsersAndPermissions.UserPermissions)
 block|}
-comment|// repeated .UsersAndPermissions.UserPermissions user_permissions = 1;
+comment|// repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -29422,7 +29422,7 @@ name|UserPermissions
 argument_list|>
 name|userPermissions_
 decl_stmt|;
-comment|/**      *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -29455,7 +29455,7 @@ return|return
 name|userPermissions_
 return|;
 block|}
-comment|/**      *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -29490,7 +29490,7 @@ return|return
 name|userPermissions_
 return|;
 block|}
-comment|/**      *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
 specifier|public
 name|int
 name|getUserPermissionsCount
@@ -29503,7 +29503,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -29537,7 +29537,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -30680,7 +30680,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code UsersAndPermissions}      *      *<pre>      **      * Content of the /hbase/acl/&lt;table or namespace&gt; znode.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.UsersAndPermissions}      *      *<pre>      **      * Content of the /hbase/acl/&lt;table or namespace&gt; znode.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -30746,7 +30746,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UsersAndPermissions_descriptor
+name|internal_static_hbase_pb_UsersAndPermissions_descriptor
 return|;
 block|}
 specifier|protected
@@ -30777,7 +30777,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UsersAndPermissions_fieldAccessorTable
+name|internal_static_hbase_pb_UsersAndPermissions_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -30983,7 +30983,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UsersAndPermissions_descriptor
+name|internal_static_hbase_pb_UsersAndPermissions_descriptor
 return|;
 block|}
 specifier|public
@@ -31658,7 +31658,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .UsersAndPermissions.UserPermissions user_permissions = 1;
+comment|// repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;
 specifier|private
 name|java
 operator|.
@@ -31818,7 +31818,7 @@ name|UserPermissionsOrBuilder
 argument_list|>
 name|userPermissionsBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -31877,7 +31877,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|int
 name|getUserPermissionsCount
@@ -31907,7 +31907,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -31960,7 +31960,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserPermissions
@@ -32040,7 +32040,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserPermissions
@@ -32115,7 +32115,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|Builder
 name|addUserPermissions
@@ -32188,7 +32188,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|Builder
 name|addUserPermissions
@@ -32268,7 +32268,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|Builder
 name|addUserPermissions
@@ -32336,7 +32336,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|Builder
 name|addUserPermissions
@@ -32411,7 +32411,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllUserPermissions
@@ -32482,7 +32482,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUserPermissions
@@ -32531,7 +32531,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|Builder
 name|removeUserPermissions
@@ -32575,7 +32575,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -32612,7 +32612,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -32665,7 +32665,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -32726,7 +32726,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -32779,7 +32779,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -32837,7 +32837,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UsersAndPermissions.UserPermissions user_permissions = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -33047,7 +33047,7 @@ return|return
 name|userPermissionsBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:UsersAndPermissions)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.UsersAndPermissions)
 block|}
 static|static
 block|{
@@ -33065,7 +33065,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:UsersAndPermissions)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.UsersAndPermissions)
 block|}
 specifier|public
 interface|interface
@@ -33079,13 +33079,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .UserPermission user_permission = 1;
-comment|/**      *<code>required .UserPermission user_permission = 1;</code>      */
+comment|// required .hbase.pb.UserPermission user_permission = 1;
+comment|/**      *<code>required .hbase.pb.UserPermission user_permission = 1;</code>      */
 name|boolean
 name|hasUserPermission
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserPermission user_permission = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -33104,7 +33104,7 @@ name|UserPermission
 name|getUserPermission
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserPermission user_permission = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -33124,7 +33124,7 @@ name|getUserPermissionOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GrantRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.GrantRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -33579,7 +33579,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GrantRequest_descriptor
+name|internal_static_hbase_pb_GrantRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -33610,7 +33610,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GrantRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GrantRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -33752,7 +33752,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserPermission user_permission = 1;
+comment|// required .hbase.pb.UserPermission user_permission = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -33779,7 +33779,7 @@ operator|.
 name|UserPermission
 name|userPermission_
 decl_stmt|;
-comment|/**      *<code>required .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserPermission user_permission = 1;</code>      */
 specifier|public
 name|boolean
 name|hasUserPermission
@@ -33797,7 +33797,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserPermission user_permission = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -33821,7 +33821,7 @@ return|return
 name|userPermission_
 return|;
 block|}
-comment|/**      *<code>required .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserPermission user_permission = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -34959,7 +34959,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GrantRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.GrantRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -35025,7 +35025,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GrantRequest_descriptor
+name|internal_static_hbase_pb_GrantRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -35056,7 +35056,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GrantRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GrantRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -35272,7 +35272,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GrantRequest_descriptor
+name|internal_static_hbase_pb_GrantRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -35810,7 +35810,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserPermission user_permission = 1;
+comment|// required .hbase.pb.UserPermission user_permission = 1;
 specifier|private
 name|org
 operator|.
@@ -35909,7 +35909,7 @@ name|UserPermissionOrBuilder
 argument_list|>
 name|userPermissionBuilder_
 decl_stmt|;
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|boolean
 name|hasUserPermission
@@ -35927,7 +35927,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -35968,7 +35968,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserPermission
@@ -36037,7 +36037,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserPermission
@@ -36101,7 +36101,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeUserPermission
@@ -36226,7 +36226,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUserPermission
@@ -36285,7 +36285,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -36322,7 +36322,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -36363,7 +36363,7 @@ name|userPermission_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -36513,7 +36513,7 @@ return|return
 name|userPermissionBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GrantRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GrantRequest)
 block|}
 static|static
 block|{
@@ -36531,7 +36531,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GrantRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GrantRequest)
 block|}
 specifier|public
 interface|interface
@@ -36545,7 +36545,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code GrantResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.GrantResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -36894,7 +36894,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GrantResponse_descriptor
+name|internal_static_hbase_pb_GrantResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -36925,7 +36925,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GrantResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GrantResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -38001,7 +38001,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GrantResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.GrantResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -38067,7 +38067,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GrantResponse_descriptor
+name|internal_static_hbase_pb_GrantResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -38098,7 +38098,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GrantResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GrantResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -38264,7 +38264,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GrantResponse_descriptor
+name|internal_static_hbase_pb_GrantResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -38696,7 +38696,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GrantResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GrantResponse)
 block|}
 static|static
 block|{
@@ -38714,7 +38714,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GrantResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GrantResponse)
 block|}
 specifier|public
 interface|interface
@@ -38728,13 +38728,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .UserPermission user_permission = 1;
-comment|/**      *<code>required .UserPermission user_permission = 1;</code>      */
+comment|// required .hbase.pb.UserPermission user_permission = 1;
+comment|/**      *<code>required .hbase.pb.UserPermission user_permission = 1;</code>      */
 name|boolean
 name|hasUserPermission
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserPermission user_permission = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -38753,7 +38753,7 @@ name|UserPermission
 name|getUserPermission
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserPermission user_permission = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -38773,7 +38773,7 @@ name|getUserPermissionOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RevokeRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.RevokeRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -39228,7 +39228,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_RevokeRequest_descriptor
+name|internal_static_hbase_pb_RevokeRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -39259,7 +39259,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_RevokeRequest_fieldAccessorTable
+name|internal_static_hbase_pb_RevokeRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -39401,7 +39401,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserPermission user_permission = 1;
+comment|// required .hbase.pb.UserPermission user_permission = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -39428,7 +39428,7 @@ operator|.
 name|UserPermission
 name|userPermission_
 decl_stmt|;
-comment|/**      *<code>required .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserPermission user_permission = 1;</code>      */
 specifier|public
 name|boolean
 name|hasUserPermission
@@ -39446,7 +39446,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserPermission user_permission = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -39470,7 +39470,7 @@ return|return
 name|userPermission_
 return|;
 block|}
-comment|/**      *<code>required .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.UserPermission user_permission = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -40608,7 +40608,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RevokeRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.RevokeRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -40674,7 +40674,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_RevokeRequest_descriptor
+name|internal_static_hbase_pb_RevokeRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -40705,7 +40705,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_RevokeRequest_fieldAccessorTable
+name|internal_static_hbase_pb_RevokeRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -40921,7 +40921,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_RevokeRequest_descriptor
+name|internal_static_hbase_pb_RevokeRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -41459,7 +41459,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .UserPermission user_permission = 1;
+comment|// required .hbase.pb.UserPermission user_permission = 1;
 specifier|private
 name|org
 operator|.
@@ -41558,7 +41558,7 @@ name|UserPermissionOrBuilder
 argument_list|>
 name|userPermissionBuilder_
 decl_stmt|;
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|boolean
 name|hasUserPermission
@@ -41576,7 +41576,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -41617,7 +41617,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserPermission
@@ -41686,7 +41686,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserPermission
@@ -41750,7 +41750,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeUserPermission
@@ -41875,7 +41875,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUserPermission
@@ -41934,7 +41934,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -41971,7 +41971,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -42012,7 +42012,7 @@ name|userPermission_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -42162,7 +42162,7 @@ return|return
 name|userPermissionBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RevokeRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RevokeRequest)
 block|}
 static|static
 block|{
@@ -42180,7 +42180,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RevokeRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RevokeRequest)
 block|}
 specifier|public
 interface|interface
@@ -42194,7 +42194,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code RevokeResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.RevokeResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -42543,7 +42543,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_RevokeResponse_descriptor
+name|internal_static_hbase_pb_RevokeResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -42574,7 +42574,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_RevokeResponse_fieldAccessorTable
+name|internal_static_hbase_pb_RevokeResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -43650,7 +43650,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RevokeResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.RevokeResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -43716,7 +43716,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_RevokeResponse_descriptor
+name|internal_static_hbase_pb_RevokeResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -43747,7 +43747,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_RevokeResponse_fieldAccessorTable
+name|internal_static_hbase_pb_RevokeResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -43913,7 +43913,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_RevokeResponse_descriptor
+name|internal_static_hbase_pb_RevokeResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -44345,7 +44345,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RevokeResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RevokeResponse)
 block|}
 static|static
 block|{
@@ -44363,7 +44363,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RevokeResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RevokeResponse)
 block|}
 specifier|public
 interface|interface
@@ -44377,13 +44377,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .Permission.Type type = 1;
-comment|/**      *<code>optional .Permission.Type type = 1;</code>      */
+comment|// optional .hbase.pb.Permission.Type type = 1;
+comment|/**      *<code>optional .hbase.pb.Permission.Type type = 1;</code>      */
 name|boolean
 name|hasType
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .Permission.Type type = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Permission.Type type = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -44404,13 +44404,13 @@ name|Type
 name|getType
 parameter_list|()
 function_decl|;
-comment|// optional .TableName table_name = 2;
-comment|/**      *<code>optional .TableName table_name = 2;</code>      */
+comment|// optional .hbase.pb.TableName table_name = 2;
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 2;</code>      */
 name|boolean
 name|hasTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableName table_name = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -44429,7 +44429,7 @@ name|TableName
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .TableName table_name = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -44466,7 +44466,7 @@ name|getNamespaceName
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GetUserPermissionsRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.GetUserPermissionsRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -45022,7 +45022,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GetUserPermissionsRequest_descriptor
+name|internal_static_hbase_pb_GetUserPermissionsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -45053,7 +45053,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GetUserPermissionsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetUserPermissionsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -45195,7 +45195,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .Permission.Type type = 1;
+comment|// optional .hbase.pb.Permission.Type type = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -45224,7 +45224,7 @@ operator|.
 name|Type
 name|type_
 decl_stmt|;
-comment|/**      *<code>optional .Permission.Type type = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Permission.Type type = 1;</code>      */
 specifier|public
 name|boolean
 name|hasType
@@ -45242,7 +45242,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .Permission.Type type = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.Permission.Type type = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -45268,7 +45268,7 @@ return|return
 name|type_
 return|;
 block|}
-comment|// optional .TableName table_name = 2;
+comment|// optional .hbase.pb.TableName table_name = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -45295,7 +45295,7 @@ operator|.
 name|TableName
 name|tableName_
 decl_stmt|;
-comment|/**      *<code>optional .TableName table_name = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|boolean
 name|hasTableName
@@ -45313,7 +45313,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .TableName table_name = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -45337,7 +45337,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|/**      *<code>optional .TableName table_name = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.TableName table_name = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -46801,7 +46801,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetUserPermissionsRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.GetUserPermissionsRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -46867,7 +46867,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GetUserPermissionsRequest_descriptor
+name|internal_static_hbase_pb_GetUserPermissionsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -46898,7 +46898,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GetUserPermissionsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetUserPermissionsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -47166,7 +47166,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GetUserPermissionsRequest_descriptor
+name|internal_static_hbase_pb_GetUserPermissionsRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -47782,7 +47782,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .Permission.Type type = 1;
+comment|// optional .hbase.pb.Permission.Type type = 1;
 specifier|private
 name|org
 operator|.
@@ -47823,7 +47823,7 @@ name|Type
 operator|.
 name|Global
 decl_stmt|;
-comment|/**        *<code>optional .Permission.Type type = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Permission.Type type = 1;</code>        */
 specifier|public
 name|boolean
 name|hasType
@@ -47841,7 +47841,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .Permission.Type type = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Permission.Type type = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -47867,7 +47867,7 @@ return|return
 name|type_
 return|;
 block|}
-comment|/**        *<code>optional .Permission.Type type = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Permission.Type type = 1;</code>        */
 specifier|public
 name|Builder
 name|setType
@@ -47920,7 +47920,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .Permission.Type type = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.Permission.Type type = 1;</code>        */
 specifier|public
 name|Builder
 name|clearType
@@ -47964,7 +47964,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .TableName table_name = 2;
+comment|// optional .hbase.pb.TableName table_name = 2;
 specifier|private
 name|org
 operator|.
@@ -48063,7 +48063,7 @@ name|TableNameOrBuilder
 argument_list|>
 name|tableNameBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .TableName table_name = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|boolean
 name|hasTableName
@@ -48081,7 +48081,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -48122,7 +48122,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableName table_name = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -48191,7 +48191,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|setTableName
@@ -48255,7 +48255,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeTableName
@@ -48380,7 +48380,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|Builder
 name|clearTableName
@@ -48439,7 +48439,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -48476,7 +48476,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .TableName table_name = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -48517,7 +48517,7 @@ name|tableName_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .TableName table_name = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.TableName table_name = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -48795,7 +48795,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetUserPermissionsRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetUserPermissionsRequest)
 block|}
 static|static
 block|{
@@ -48813,7 +48813,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetUserPermissionsRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetUserPermissionsRequest)
 block|}
 specifier|public
 interface|interface
@@ -48827,8 +48827,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .UserPermission user_permission = 1;
-comment|/**      *<code>repeated .UserPermission user_permission = 1;</code>      */
+comment|// repeated .hbase.pb.UserPermission user_permission = 1;
+comment|/**      *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -48854,7 +48854,7 @@ argument_list|>
 name|getUserPermissionList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -48876,12 +48876,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>      */
 name|int
 name|getUserPermissionCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -48909,7 +48909,7 @@ argument_list|>
 name|getUserPermissionOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -48932,7 +48932,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GetUserPermissionsResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.GetUserPermissionsResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -49395,7 +49395,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GetUserPermissionsResponse_descriptor
+name|internal_static_hbase_pb_GetUserPermissionsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -49426,7 +49426,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GetUserPermissionsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetUserPermissionsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -49564,7 +49564,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|// repeated .UserPermission user_permission = 1;
+comment|// repeated .hbase.pb.UserPermission user_permission = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -49598,7 +49598,7 @@ name|UserPermission
 argument_list|>
 name|userPermission_
 decl_stmt|;
-comment|/**      *<code>repeated .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -49629,7 +49629,7 @@ return|return
 name|userPermission_
 return|;
 block|}
-comment|/**      *<code>repeated .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -49662,7 +49662,7 @@ return|return
 name|userPermission_
 return|;
 block|}
-comment|/**      *<code>repeated .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>      */
 specifier|public
 name|int
 name|getUserPermissionCount
@@ -49675,7 +49675,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -49707,7 +49707,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .UserPermission user_permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -50848,7 +50848,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetUserPermissionsResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.GetUserPermissionsResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -50914,7 +50914,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GetUserPermissionsResponse_descriptor
+name|internal_static_hbase_pb_GetUserPermissionsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -50945,7 +50945,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GetUserPermissionsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetUserPermissionsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -51151,7 +51151,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_GetUserPermissionsResponse_descriptor
+name|internal_static_hbase_pb_GetUserPermissionsResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -51826,7 +51826,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .UserPermission user_permission = 1;
+comment|// repeated .hbase.pb.UserPermission user_permission = 1;
 specifier|private
 name|java
 operator|.
@@ -51976,7 +51976,7 @@ name|UserPermissionOrBuilder
 argument_list|>
 name|userPermissionBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -52033,7 +52033,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|int
 name|getUserPermissionCount
@@ -52063,7 +52063,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -52114,7 +52114,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserPermission
@@ -52192,7 +52192,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserPermission
@@ -52265,7 +52265,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|addUserPermission
@@ -52336,7 +52336,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|addUserPermission
@@ -52414,7 +52414,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|addUserPermission
@@ -52480,7 +52480,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|addUserPermission
@@ -52553,7 +52553,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllUserPermission
@@ -52622,7 +52622,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUserPermission
@@ -52671,7 +52671,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|Builder
 name|removeUserPermission
@@ -52715,7 +52715,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -52750,7 +52750,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -52801,7 +52801,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -52860,7 +52860,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -52909,7 +52909,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -52963,7 +52963,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .UserPermission user_permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserPermission user_permission = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -53159,7 +53159,7 @@ return|return
 name|userPermissionBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetUserPermissionsResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetUserPermissionsResponse)
 block|}
 static|static
 block|{
@@ -53177,7 +53177,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetUserPermissionsResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetUserPermissionsResponse)
 block|}
 specifier|public
 interface|interface
@@ -53191,8 +53191,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .Permission permission = 1;
-comment|/**      *<code>repeated .Permission permission = 1;</code>      */
+comment|// repeated .hbase.pb.Permission permission = 1;
+comment|/**      *<code>repeated .hbase.pb.Permission permission = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -53218,7 +53218,7 @@ argument_list|>
 name|getPermissionList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Permission permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission permission = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -53240,12 +53240,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .Permission permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission permission = 1;</code>      */
 name|int
 name|getPermissionCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Permission permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission permission = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -53273,7 +53273,7 @@ argument_list|>
 name|getPermissionOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .Permission permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission permission = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -53296,7 +53296,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code CheckPermissionsRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.CheckPermissionsRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -53759,7 +53759,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_CheckPermissionsRequest_descriptor
+name|internal_static_hbase_pb_CheckPermissionsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -53790,7 +53790,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_CheckPermissionsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CheckPermissionsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -53928,7 +53928,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|// repeated .Permission permission = 1;
+comment|// repeated .hbase.pb.Permission permission = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -53962,7 +53962,7 @@ name|Permission
 argument_list|>
 name|permission_
 decl_stmt|;
-comment|/**      *<code>repeated .Permission permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission permission = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -53993,7 +53993,7 @@ return|return
 name|permission_
 return|;
 block|}
-comment|/**      *<code>repeated .Permission permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission permission = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -54026,7 +54026,7 @@ return|return
 name|permission_
 return|;
 block|}
-comment|/**      *<code>repeated .Permission permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission permission = 1;</code>      */
 specifier|public
 name|int
 name|getPermissionCount
@@ -54039,7 +54039,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .Permission permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission permission = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -54071,7 +54071,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .Permission permission = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.Permission permission = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -55212,7 +55212,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CheckPermissionsRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.CheckPermissionsRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -55278,7 +55278,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_CheckPermissionsRequest_descriptor
+name|internal_static_hbase_pb_CheckPermissionsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -55309,7 +55309,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_CheckPermissionsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CheckPermissionsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -55515,7 +55515,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_CheckPermissionsRequest_descriptor
+name|internal_static_hbase_pb_CheckPermissionsRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -56190,7 +56190,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .Permission permission = 1;
+comment|// repeated .hbase.pb.Permission permission = 1;
 specifier|private
 name|java
 operator|.
@@ -56340,7 +56340,7 @@ name|PermissionOrBuilder
 argument_list|>
 name|permissionBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -56397,7 +56397,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|int
 name|getPermissionCount
@@ -56427,7 +56427,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -56478,7 +56478,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|Builder
 name|setPermission
@@ -56556,7 +56556,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|Builder
 name|setPermission
@@ -56629,7 +56629,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|Builder
 name|addPermission
@@ -56700,7 +56700,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|Builder
 name|addPermission
@@ -56778,7 +56778,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|Builder
 name|addPermission
@@ -56844,7 +56844,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|Builder
 name|addPermission
@@ -56917,7 +56917,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllPermission
@@ -56986,7 +56986,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|Builder
 name|clearPermission
@@ -57035,7 +57035,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|Builder
 name|removePermission
@@ -57079,7 +57079,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -57114,7 +57114,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -57165,7 +57165,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -57224,7 +57224,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -57273,7 +57273,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -57327,7 +57327,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .Permission permission = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.Permission permission = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -57523,7 +57523,7 @@ return|return
 name|permissionBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CheckPermissionsRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CheckPermissionsRequest)
 block|}
 static|static
 block|{
@@ -57541,7 +57541,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CheckPermissionsRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CheckPermissionsRequest)
 block|}
 specifier|public
 interface|interface
@@ -57555,7 +57555,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code CheckPermissionsResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.CheckPermissionsResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -57904,7 +57904,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_CheckPermissionsResponse_descriptor
+name|internal_static_hbase_pb_CheckPermissionsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -57935,7 +57935,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_CheckPermissionsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CheckPermissionsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -59011,7 +59011,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CheckPermissionsResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.CheckPermissionsResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -59077,7 +59077,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_CheckPermissionsResponse_descriptor
+name|internal_static_hbase_pb_CheckPermissionsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -59108,7 +59108,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_CheckPermissionsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CheckPermissionsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -59274,7 +59274,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_CheckPermissionsResponse_descriptor
+name|internal_static_hbase_pb_CheckPermissionsResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -59706,7 +59706,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CheckPermissionsResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CheckPermissionsResponse)
 block|}
 static|static
 block|{
@@ -59724,9 +59724,9 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CheckPermissionsResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CheckPermissionsResponse)
 block|}
-comment|/**    * Protobuf service {@code AccessControlService}    */
+comment|/**    * Protobuf service {@code hbase.pb.AccessControlService}    */
 specifier|public
 specifier|static
 specifier|abstract
@@ -59749,7 +59749,7 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc Grant(.GrantRequest) returns (.GrantResponse);</code>        */
+comment|/**        *<code>rpc Grant(.hbase.pb.GrantRequest) returns (.hbase.pb.GrantResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -59808,7 +59808,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc Revoke(.RevokeRequest) returns (.RevokeResponse);</code>        */
+comment|/**        *<code>rpc Revoke(.hbase.pb.RevokeRequest) returns (.hbase.pb.RevokeResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -59867,7 +59867,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetUserPermissions(.GetUserPermissionsRequest) returns (.GetUserPermissionsResponse);</code>        */
+comment|/**        *<code>rpc GetUserPermissions(.hbase.pb.GetUserPermissionsRequest) returns (.hbase.pb.GetUserPermissionsResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -59926,7 +59926,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc CheckPermissions(.CheckPermissionsRequest) returns (.CheckPermissionsResponse);</code>        */
+comment|/**        *<code>rpc CheckPermissions(.hbase.pb.CheckPermissionsRequest) returns (.hbase.pb.CheckPermissionsResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -60899,7 +60899,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc Grant(.GrantRequest) returns (.GrantResponse);</code>      */
+comment|/**      *<code>rpc Grant(.hbase.pb.GrantRequest) returns (.hbase.pb.GrantResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -60958,7 +60958,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc Revoke(.RevokeRequest) returns (.RevokeResponse);</code>      */
+comment|/**      *<code>rpc Revoke(.hbase.pb.RevokeRequest) returns (.hbase.pb.RevokeResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -61017,7 +61017,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetUserPermissions(.GetUserPermissionsRequest) returns (.GetUserPermissionsResponse);</code>      */
+comment|/**      *<code>rpc GetUserPermissions(.hbase.pb.GetUserPermissionsRequest) returns (.hbase.pb.GetUserPermissionsResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -61076,7 +61076,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc CheckPermissions(.CheckPermissionsRequest) returns (.CheckPermissionsResponse);</code>      */
+comment|/**      *<code>rpc CheckPermissions(.hbase.pb.CheckPermissionsRequest) returns (.hbase.pb.CheckPermissionsResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -63266,7 +63266,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|// @@protoc_insertion_point(class_scope:AccessControlService)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.AccessControlService)
 block|}
 specifier|private
 specifier|static
@@ -63279,7 +63279,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Permission_descriptor
+name|internal_static_hbase_pb_Permission_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63292,7 +63292,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Permission_fieldAccessorTable
+name|internal_static_hbase_pb_Permission_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63305,7 +63305,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_TablePermission_descriptor
+name|internal_static_hbase_pb_TablePermission_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63318,7 +63318,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_TablePermission_fieldAccessorTable
+name|internal_static_hbase_pb_TablePermission_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63331,7 +63331,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_NamespacePermission_descriptor
+name|internal_static_hbase_pb_NamespacePermission_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63344,7 +63344,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_NamespacePermission_fieldAccessorTable
+name|internal_static_hbase_pb_NamespacePermission_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63357,7 +63357,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GlobalPermission_descriptor
+name|internal_static_hbase_pb_GlobalPermission_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63370,7 +63370,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GlobalPermission_fieldAccessorTable
+name|internal_static_hbase_pb_GlobalPermission_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63383,7 +63383,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_UserPermission_descriptor
+name|internal_static_hbase_pb_UserPermission_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63396,7 +63396,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_UserPermission_fieldAccessorTable
+name|internal_static_hbase_pb_UserPermission_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63409,7 +63409,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_UsersAndPermissions_descriptor
+name|internal_static_hbase_pb_UsersAndPermissions_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63422,7 +63422,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_UsersAndPermissions_fieldAccessorTable
+name|internal_static_hbase_pb_UsersAndPermissions_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63435,7 +63435,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_UsersAndPermissions_UserPermissions_descriptor
+name|internal_static_hbase_pb_UsersAndPermissions_UserPermissions_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63448,7 +63448,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_UsersAndPermissions_UserPermissions_fieldAccessorTable
+name|internal_static_hbase_pb_UsersAndPermissions_UserPermissions_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63461,7 +63461,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GrantRequest_descriptor
+name|internal_static_hbase_pb_GrantRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63474,7 +63474,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GrantRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GrantRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63487,7 +63487,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GrantResponse_descriptor
+name|internal_static_hbase_pb_GrantResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63500,7 +63500,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GrantResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GrantResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63513,7 +63513,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RevokeRequest_descriptor
+name|internal_static_hbase_pb_RevokeRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63526,7 +63526,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RevokeRequest_fieldAccessorTable
+name|internal_static_hbase_pb_RevokeRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63539,7 +63539,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RevokeResponse_descriptor
+name|internal_static_hbase_pb_RevokeResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63552,7 +63552,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RevokeResponse_fieldAccessorTable
+name|internal_static_hbase_pb_RevokeResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63565,7 +63565,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetUserPermissionsRequest_descriptor
+name|internal_static_hbase_pb_GetUserPermissionsRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63578,7 +63578,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetUserPermissionsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetUserPermissionsRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63591,7 +63591,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetUserPermissionsResponse_descriptor
+name|internal_static_hbase_pb_GetUserPermissionsResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63604,7 +63604,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetUserPermissionsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetUserPermissionsResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63617,7 +63617,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CheckPermissionsRequest_descriptor
+name|internal_static_hbase_pb_CheckPermissionsRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63630,7 +63630,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CheckPermissionsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CheckPermissionsRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63643,7 +63643,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CheckPermissionsResponse_descriptor
+name|internal_static_hbase_pb_CheckPermissionsResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63656,7 +63656,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CheckPermissionsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CheckPermissionsResponse_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -63700,85 +63700,97 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\023AccessControl.proto\032\013HBase.proto\"\250\002\n\nP"
+literal|"\n\023AccessControl.proto\022\010hbase.pb\032\013HBase.p"
 operator|+
-literal|"ermission\022\036\n\004type\030\001 \002(\0162\020.Permission.Typ"
+literal|"roto\"\314\002\n\nPermission\022\'\n\004type\030\001 \002(\0162\031.hbas"
 operator|+
-literal|"e\022,\n\021global_permission\030\002 \001(\0132\021.GlobalPer"
+literal|"e.pb.Permission.Type\0225\n\021global_permissio"
 operator|+
-literal|"mission\0222\n\024namespace_permission\030\003 \001(\0132\024."
+literal|"n\030\002 \001(\0132\032.hbase.pb.GlobalPermission\022;\n\024n"
 operator|+
-literal|"NamespacePermission\022*\n\020table_permission\030"
+literal|"amespace_permission\030\003 \001(\0132\035.hbase.pb.Nam"
 operator|+
-literal|"\004 \001(\0132\020.TablePermission\">\n\006Action\022\010\n\004REA"
+literal|"espacePermission\0223\n\020table_permission\030\004 \001"
 operator|+
-literal|"D\020\000\022\t\n\005WRITE\020\001\022\010\n\004EXEC\020\002\022\n\n\006CREATE\020\003\022\t\n\005"
+literal|"(\0132\031.hbase.pb.TablePermission\">\n\006Action\022"
 operator|+
-literal|"ADMIN\020\004\",\n\004Type\022\n\n\006Global\020\001\022\r\n\tNamespace"
+literal|"\010\n\004READ\020\000\022\t\n\005WRITE\020\001\022\010\n\004EXEC\020\002\022\n\n\006CREATE"
 operator|+
-literal|"\020\002\022\t\n\005Table\020\003\"x\n\017TablePermission\022\036\n\ntabl"
+literal|"\020\003\022\t\n\005ADMIN\020\004\",\n\004Type\022\n\n\006Global\020\001\022\r\n\tNam"
 operator|+
-literal|"e_name\030\001 \001(\0132\n.TableName\022\016\n\006family\030\002 \001(\014"
+literal|"espace\020\002\022\t\n\005Table\020\003\"\212\001\n\017TablePermission\022"
 block|,
-literal|"\022\021\n\tqualifier\030\003 \001(\014\022\"\n\006action\030\004 \003(\0162\022.Pe"
+literal|"\'\n\ntable_name\030\001 \001(\0132\023.hbase.pb.TableName"
 operator|+
-literal|"rmission.Action\"Q\n\023NamespacePermission\022\026"
+literal|"\022\016\n\006family\030\002 \001(\014\022\021\n\tqualifier\030\003 \001(\014\022+\n\006a"
 operator|+
-literal|"\n\016namespace_name\030\001 \001(\014\022\"\n\006action\030\002 \003(\0162\022"
+literal|"ction\030\004 \003(\0162\033.hbase.pb.Permission.Action"
 operator|+
-literal|".Permission.Action\"6\n\020GlobalPermission\022\""
+literal|"\"Z\n\023NamespacePermission\022\026\n\016namespace_nam"
 operator|+
-literal|"\n\006action\030\001 \003(\0162\022.Permission.Action\"?\n\016Us"
+literal|"e\030\001 \001(\014\022+\n\006action\030\002 \003(\0162\033.hbase.pb.Permi"
 operator|+
-literal|"erPermission\022\014\n\004user\030\001 \002(\014\022\037\n\npermission"
+literal|"ssion.Action\"?\n\020GlobalPermission\022+\n\006acti"
 operator|+
-literal|"\030\003 \002(\0132\013.Permission\"\230\001\n\023UsersAndPermissi"
+literal|"on\030\001 \003(\0162\033.hbase.pb.Permission.Action\"H\n"
 operator|+
-literal|"ons\022>\n\020user_permissions\030\001 \003(\0132$.UsersAnd"
+literal|"\016UserPermission\022\014\n\004user\030\001 \002(\014\022(\n\npermiss"
 operator|+
-literal|"Permissions.UserPermissions\032A\n\017UserPermi"
+literal|"ion\030\003 \002(\0132\024.hbase.pb.Permission\"\252\001\n\023User"
 operator|+
-literal|"ssions\022\014\n\004user\030\001 \002(\014\022 \n\013permissions\030\002 \003("
+literal|"sAndPermissions\022G\n\020user_permissions\030\001 \003("
 block|,
-literal|"\0132\013.Permission\"8\n\014GrantRequest\022(\n\017user_p"
+literal|"\0132-.hbase.pb.UsersAndPermissions.UserPer"
 operator|+
-literal|"ermission\030\001 \002(\0132\017.UserPermission\"\017\n\rGran"
+literal|"missions\032J\n\017UserPermissions\022\014\n\004user\030\001 \002("
 operator|+
-literal|"tResponse\"9\n\rRevokeRequest\022(\n\017user_permi"
+literal|"\014\022)\n\013permissions\030\002 \003(\0132\024.hbase.pb.Permis"
 operator|+
-literal|"ssion\030\001 \002(\0132\017.UserPermission\"\020\n\016RevokeRe"
+literal|"sion\"A\n\014GrantRequest\0221\n\017user_permission\030"
 operator|+
-literal|"sponse\"s\n\031GetUserPermissionsRequest\022\036\n\004t"
+literal|"\001 \002(\0132\030.hbase.pb.UserPermission\"\017\n\rGrant"
 operator|+
-literal|"ype\030\001 \001(\0162\020.Permission.Type\022\036\n\ntable_nam"
+literal|"Response\"B\n\rRevokeRequest\0221\n\017user_permis"
 operator|+
-literal|"e\030\002 \001(\0132\n.TableName\022\026\n\016namespace_name\030\003 "
+literal|"sion\030\001 \002(\0132\030.hbase.pb.UserPermission\"\020\n\016"
 operator|+
-literal|"\001(\014\"F\n\032GetUserPermissionsResponse\022(\n\017use"
+literal|"RevokeResponse\"\205\001\n\031GetUserPermissionsReq"
 operator|+
-literal|"r_permission\030\001 \003(\0132\017.UserPermission\":\n\027C"
+literal|"uest\022\'\n\004type\030\001 \001(\0162\031.hbase.pb.Permission"
 operator|+
-literal|"heckPermissionsRequest\022\037\n\npermission\030\001 \003"
+literal|".Type\022\'\n\ntable_name\030\002 \001(\0132\023.hbase.pb.Tab"
 block|,
-literal|"(\0132\013.Permission\"\032\n\030CheckPermissionsRespo"
+literal|"leName\022\026\n\016namespace_name\030\003 \001(\014\"O\n\032GetUse"
 operator|+
-literal|"nse2\201\002\n\024AccessControlService\022&\n\005Grant\022\r."
+literal|"rPermissionsResponse\0221\n\017user_permission\030"
 operator|+
-literal|"GrantRequest\032\016.GrantResponse\022)\n\006Revoke\022\016"
+literal|"\001 \003(\0132\030.hbase.pb.UserPermission\"C\n\027Check"
 operator|+
-literal|".RevokeRequest\032\017.RevokeResponse\022M\n\022GetUs"
+literal|"PermissionsRequest\022(\n\npermission\030\001 \003(\0132\024"
 operator|+
-literal|"erPermissions\022\032.GetUserPermissionsReques"
+literal|".hbase.pb.Permission\"\032\n\030CheckPermissions"
 operator|+
-literal|"t\032\033.GetUserPermissionsResponse\022G\n\020CheckP"
+literal|"Response2\311\002\n\024AccessControlService\0228\n\005Gra"
 operator|+
-literal|"ermissions\022\030.CheckPermissionsRequest\032\031.C"
+literal|"nt\022\026.hbase.pb.GrantRequest\032\027.hbase.pb.Gr"
 operator|+
-literal|"heckPermissionsResponseBI\n*org.apache.ha"
+literal|"antResponse\022;\n\006Revoke\022\027.hbase.pb.RevokeR"
 operator|+
-literal|"doop.hbase.protobuf.generatedB\023AccessCon"
+literal|"equest\032\030.hbase.pb.RevokeResponse\022_\n\022GetU"
 operator|+
-literal|"trolProtosH\001\210\001\001\240\001\001"
+literal|"serPermissions\022#.hbase.pb.GetUserPermiss"
+block|,
+literal|"ionsRequest\032$.hbase.pb.GetUserPermission"
+operator|+
+literal|"sResponse\022Y\n\020CheckPermissions\022!.hbase.pb"
+operator|+
+literal|".CheckPermissionsRequest\032\".hbase.pb.Chec"
+operator|+
+literal|"kPermissionsResponseBI\n*org.apache.hadoo"
+operator|+
+literal|"p.hbase.protobuf.generatedB\023AccessContro"
+operator|+
+literal|"lProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -63834,7 +63846,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_Permission_descriptor
+name|internal_static_hbase_pb_Permission_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -63847,7 +63859,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_Permission_fieldAccessorTable
+name|internal_static_hbase_pb_Permission_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -63860,7 +63872,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Permission_descriptor
+name|internal_static_hbase_pb_Permission_descriptor
 argument_list|,
 operator|new
 name|java
@@ -63880,7 +63892,7 @@ literal|"TablePermission"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_TablePermission_descriptor
+name|internal_static_hbase_pb_TablePermission_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -63893,7 +63905,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_TablePermission_fieldAccessorTable
+name|internal_static_hbase_pb_TablePermission_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -63906,7 +63918,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_TablePermission_descriptor
+name|internal_static_hbase_pb_TablePermission_descriptor
 argument_list|,
 operator|new
 name|java
@@ -63926,7 +63938,7 @@ literal|"Action"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_NamespacePermission_descriptor
+name|internal_static_hbase_pb_NamespacePermission_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -63939,7 +63951,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_NamespacePermission_fieldAccessorTable
+name|internal_static_hbase_pb_NamespacePermission_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -63952,7 +63964,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_NamespacePermission_descriptor
+name|internal_static_hbase_pb_NamespacePermission_descriptor
 argument_list|,
 operator|new
 name|java
@@ -63968,7 +63980,7 @@ literal|"Action"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_GlobalPermission_descriptor
+name|internal_static_hbase_pb_GlobalPermission_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -63981,7 +63993,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_GlobalPermission_fieldAccessorTable
+name|internal_static_hbase_pb_GlobalPermission_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -63994,7 +64006,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GlobalPermission_descriptor
+name|internal_static_hbase_pb_GlobalPermission_descriptor
 argument_list|,
 operator|new
 name|java
@@ -64008,7 +64020,7 @@ literal|"Action"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_UserPermission_descriptor
+name|internal_static_hbase_pb_UserPermission_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -64021,7 +64033,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_UserPermission_fieldAccessorTable
+name|internal_static_hbase_pb_UserPermission_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -64034,7 +64046,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_UserPermission_descriptor
+name|internal_static_hbase_pb_UserPermission_descriptor
 argument_list|,
 operator|new
 name|java
@@ -64050,7 +64062,7 @@ literal|"Permission"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_UsersAndPermissions_descriptor
+name|internal_static_hbase_pb_UsersAndPermissions_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -64063,7 +64075,7 @@ argument_list|(
 literal|5
 argument_list|)
 expr_stmt|;
-name|internal_static_UsersAndPermissions_fieldAccessorTable
+name|internal_static_hbase_pb_UsersAndPermissions_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -64076,7 +64088,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_UsersAndPermissions_descriptor
+name|internal_static_hbase_pb_UsersAndPermissions_descriptor
 argument_list|,
 operator|new
 name|java
@@ -64090,9 +64102,9 @@ literal|"UserPermissions"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_UsersAndPermissions_UserPermissions_descriptor
+name|internal_static_hbase_pb_UsersAndPermissions_UserPermissions_descriptor
 operator|=
-name|internal_static_UsersAndPermissions_descriptor
+name|internal_static_hbase_pb_UsersAndPermissions_descriptor
 operator|.
 name|getNestedTypes
 argument_list|()
@@ -64102,7 +64114,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_UsersAndPermissions_UserPermissions_fieldAccessorTable
+name|internal_static_hbase_pb_UsersAndPermissions_UserPermissions_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -64115,7 +64127,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_UsersAndPermissions_UserPermissions_descriptor
+name|internal_static_hbase_pb_UsersAndPermissions_UserPermissions_descriptor
 argument_list|,
 operator|new
 name|java
@@ -64131,7 +64143,7 @@ literal|"Permissions"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_GrantRequest_descriptor
+name|internal_static_hbase_pb_GrantRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -64144,7 +64156,7 @@ argument_list|(
 literal|6
 argument_list|)
 expr_stmt|;
-name|internal_static_GrantRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GrantRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -64157,7 +64169,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GrantRequest_descriptor
+name|internal_static_hbase_pb_GrantRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -64171,7 +64183,7 @@ literal|"UserPermission"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_GrantResponse_descriptor
+name|internal_static_hbase_pb_GrantResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -64184,7 +64196,7 @@ argument_list|(
 literal|7
 argument_list|)
 expr_stmt|;
-name|internal_static_GrantResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GrantResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -64197,7 +64209,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GrantResponse_descriptor
+name|internal_static_hbase_pb_GrantResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -64209,7 +64221,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_RevokeRequest_descriptor
+name|internal_static_hbase_pb_RevokeRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -64222,7 +64234,7 @@ argument_list|(
 literal|8
 argument_list|)
 expr_stmt|;
-name|internal_static_RevokeRequest_fieldAccessorTable
+name|internal_static_hbase_pb_RevokeRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -64235,7 +64247,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RevokeRequest_descriptor
+name|internal_static_hbase_pb_RevokeRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -64249,7 +64261,7 @@ literal|"UserPermission"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_RevokeResponse_descriptor
+name|internal_static_hbase_pb_RevokeResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -64262,7 +64274,7 @@ argument_list|(
 literal|9
 argument_list|)
 expr_stmt|;
-name|internal_static_RevokeResponse_fieldAccessorTable
+name|internal_static_hbase_pb_RevokeResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -64275,7 +64287,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RevokeResponse_descriptor
+name|internal_static_hbase_pb_RevokeResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -64287,7 +64299,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_GetUserPermissionsRequest_descriptor
+name|internal_static_hbase_pb_GetUserPermissionsRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -64300,7 +64312,7 @@ argument_list|(
 literal|10
 argument_list|)
 expr_stmt|;
-name|internal_static_GetUserPermissionsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetUserPermissionsRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -64313,7 +64325,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetUserPermissionsRequest_descriptor
+name|internal_static_hbase_pb_GetUserPermissionsRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -64331,7 +64343,7 @@ literal|"NamespaceName"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_GetUserPermissionsResponse_descriptor
+name|internal_static_hbase_pb_GetUserPermissionsResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -64344,7 +64356,7 @@ argument_list|(
 literal|11
 argument_list|)
 expr_stmt|;
-name|internal_static_GetUserPermissionsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetUserPermissionsResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -64357,7 +64369,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetUserPermissionsResponse_descriptor
+name|internal_static_hbase_pb_GetUserPermissionsResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -64371,7 +64383,7 @@ literal|"UserPermission"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_CheckPermissionsRequest_descriptor
+name|internal_static_hbase_pb_CheckPermissionsRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -64384,7 +64396,7 @@ argument_list|(
 literal|12
 argument_list|)
 expr_stmt|;
-name|internal_static_CheckPermissionsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CheckPermissionsRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -64397,7 +64409,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CheckPermissionsRequest_descriptor
+name|internal_static_hbase_pb_CheckPermissionsRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -64411,7 +64423,7 @@ literal|"Permission"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_CheckPermissionsResponse_descriptor
+name|internal_static_hbase_pb_CheckPermissionsResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -64424,7 +64436,7 @@ argument_list|(
 literal|13
 argument_list|)
 expr_stmt|;
-name|internal_static_CheckPermissionsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CheckPermissionsResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -64437,7 +64449,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CheckPermissionsResponse_descriptor
+name|internal_static_hbase_pb_CheckPermissionsResponse_descriptor
 argument_list|,
 operator|new
 name|java

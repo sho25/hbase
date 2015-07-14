@@ -83,7 +83,7 @@ name|getParentId
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RPCTInfo}    *    *<pre>    *Used to pass through the information necessary to continue    *a trace after an RPC is made. All we need is the traceid     *(so we know the overarching trace this message is a part of), and    *the id of the current span when this message was sent, so we know     *what span caused the new span we will create when this message is received.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.RPCTInfo}    *    *<pre>    *Used to pass through the information necessary to continue    *a trace after an RPC is made. All we need is the traceid     *(so we know the overarching trace this message is a part of), and    *the id of the current span when this message was sent, so we know     *what span caused the new span we will create when this message is received.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -471,7 +471,7 @@ name|generated
 operator|.
 name|TracingProtos
 operator|.
-name|internal_static_RPCTInfo_descriptor
+name|internal_static_hbase_pb_RPCTInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -502,7 +502,7 @@ name|generated
 operator|.
 name|TracingProtos
 operator|.
-name|internal_static_RPCTInfo_fieldAccessorTable
+name|internal_static_hbase_pb_RPCTInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -1913,7 +1913,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RPCTInfo}      *      *<pre>      *Used to pass through the information necessary to continue      *a trace after an RPC is made. All we need is the traceid       *(so we know the overarching trace this message is a part of), and      *the id of the current span when this message was sent, so we know       *what span caused the new span we will create when this message is received.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.RPCTInfo}      *      *<pre>      *Used to pass through the information necessary to continue      *a trace after an RPC is made. All we need is the traceid       *(so we know the overarching trace this message is a part of), and      *the id of the current span when this message was sent, so we know       *what span caused the new span we will create when this message is received.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -1979,7 +1979,7 @@ name|generated
 operator|.
 name|TracingProtos
 operator|.
-name|internal_static_RPCTInfo_descriptor
+name|internal_static_hbase_pb_RPCTInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -2010,7 +2010,7 @@ name|generated
 operator|.
 name|TracingProtos
 operator|.
-name|internal_static_RPCTInfo_fieldAccessorTable
+name|internal_static_hbase_pb_RPCTInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2202,7 +2202,7 @@ name|generated
 operator|.
 name|TracingProtos
 operator|.
-name|internal_static_RPCTInfo_descriptor
+name|internal_static_hbase_pb_RPCTInfo_descriptor
 return|;
 block|}
 specifier|public
@@ -2902,7 +2902,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RPCTInfo)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RPCTInfo)
 block|}
 static|static
 block|{
@@ -2920,7 +2920,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RPCTInfo)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RPCTInfo)
 block|}
 specifier|private
 specifier|static
@@ -2933,7 +2933,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RPCTInfo_descriptor
+name|internal_static_hbase_pb_RPCTInfo_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -2946,7 +2946,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RPCTInfo_fieldAccessorTable
+name|internal_static_hbase_pb_RPCTInfo_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -2990,13 +2990,13 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\rTracing.proto\"/\n\010RPCTInfo\022\020\n\010trace_id\030"
+literal|"\n\rTracing.proto\022\010hbase.pb\"/\n\010RPCTInfo\022\020\n"
 operator|+
-literal|"\001 \001(\003\022\021\n\tparent_id\030\002 \001(\003B@\n*org.apache.h"
+literal|"\010trace_id\030\001 \001(\003\022\021\n\tparent_id\030\002 \001(\003B@\n*or"
 operator|+
-literal|"adoop.hbase.protobuf.generatedB\rTracingP"
+literal|"g.apache.hadoop.hbase.protobuf.generated"
 operator|+
-literal|"rotosH\001\240\001\001"
+literal|"B\rTracingProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -3052,7 +3052,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_RPCTInfo_descriptor
+name|internal_static_hbase_pb_RPCTInfo_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -3065,7 +3065,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_RPCTInfo_fieldAccessorTable
+name|internal_static_hbase_pb_RPCTInfo_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -3078,7 +3078,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RPCTInfo_descriptor
+name|internal_static_hbase_pb_RPCTInfo_descriptor
 argument_list|,
 operator|new
 name|java

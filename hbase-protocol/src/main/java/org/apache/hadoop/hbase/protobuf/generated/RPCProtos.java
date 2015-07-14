@@ -113,7 +113,7 @@ name|getRealUserBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code UserInformation}    *    *<pre>    * User Information proto.  Included in ConnectionHeader on connection setup    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.UserInformation}    *    *<pre>    * User Information proto.  Included in ConnectionHeader on connection setup    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -501,7 +501,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_UserInformation_descriptor
+name|internal_static_hbase_pb_UserInformation_descriptor
 return|;
 block|}
 specifier|protected
@@ -532,7 +532,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_UserInformation_fieldAccessorTable
+name|internal_static_hbase_pb_UserInformation_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2308,7 +2308,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code UserInformation}      *      *<pre>      * User Information proto.  Included in ConnectionHeader on connection setup      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.UserInformation}      *      *<pre>      * User Information proto.  Included in ConnectionHeader on connection setup      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -2374,7 +2374,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_UserInformation_descriptor
+name|internal_static_hbase_pb_UserInformation_descriptor
 return|;
 block|}
 specifier|protected
@@ -2405,7 +2405,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_UserInformation_fieldAccessorTable
+name|internal_static_hbase_pb_UserInformation_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2597,7 +2597,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_UserInformation_descriptor
+name|internal_static_hbase_pb_UserInformation_descriptor
 return|;
 block|}
 specifier|public
@@ -3756,7 +3756,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:UserInformation)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.UserInformation)
 block|}
 static|static
 block|{
@@ -3774,7 +3774,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:UserInformation)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.UserInformation)
 block|}
 specifier|public
 interface|interface
@@ -3945,7 +3945,7 @@ name|getSrcChecksumBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code VersionInfo}    *    *<pre>    * Rpc client version info proto. Included in ConnectionHeader on connection setup    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.VersionInfo}    *    *<pre>    * Rpc client version info proto. Included in ConnectionHeader on connection setup    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -4401,7 +4401,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_VersionInfo_descriptor
+name|internal_static_hbase_pb_VersionInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -4432,7 +4432,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_VersionInfo_fieldAccessorTable
+name|internal_static_hbase_pb_VersionInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -7643,7 +7643,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code VersionInfo}      *      *<pre>      * Rpc client version info proto. Included in ConnectionHeader on connection setup      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.VersionInfo}      *      *<pre>      * Rpc client version info proto. Included in ConnectionHeader on connection setup      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -7709,7 +7709,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_VersionInfo_descriptor
+name|internal_static_hbase_pb_VersionInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -7740,7 +7740,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_VersionInfo_fieldAccessorTable
+name|internal_static_hbase_pb_VersionInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -7984,7 +7984,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_VersionInfo_descriptor
+name|internal_static_hbase_pb_VersionInfo_descriptor
 return|;
 block|}
 specifier|public
@@ -10590,7 +10590,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:VersionInfo)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.VersionInfo)
 block|}
 static|static
 block|{
@@ -10608,7 +10608,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:VersionInfo)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.VersionInfo)
 block|}
 specifier|public
 interface|interface
@@ -10622,13 +10622,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .UserInformation user_info = 1;
-comment|/**      *<code>optional .UserInformation user_info = 1;</code>      */
+comment|// optional .hbase.pb.UserInformation user_info = 1;
+comment|/**      *<code>optional .hbase.pb.UserInformation user_info = 1;</code>      */
 name|boolean
 name|hasUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -10647,7 +10647,7 @@ name|UserInformation
 name|getUserInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.UserInformation user_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -10744,13 +10744,13 @@ name|ByteString
 name|getCellBlockCompressorClassBytes
 parameter_list|()
 function_decl|;
-comment|// optional .VersionInfo version_info = 5;
-comment|/**      *<code>optional .VersionInfo version_info = 5;</code>      */
+comment|// optional .hbase.pb.VersionInfo version_info = 5;
+comment|/**      *<code>optional .hbase.pb.VersionInfo version_info = 5;</code>      */
 name|boolean
 name|hasVersionInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .VersionInfo version_info = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.VersionInfo version_info = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -10769,7 +10769,7 @@ name|VersionInfo
 name|getVersionInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .VersionInfo version_info = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.VersionInfo version_info = 5;</code>      */
 name|org
 operator|.
 name|apache
@@ -10789,7 +10789,7 @@ name|getVersionInfoOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ConnectionHeader}    *    *<pre>    * This is sent on connection setup after the connection preamble is sent.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ConnectionHeader}    *    *<pre>    * This is sent on connection setup after the connection preamble is sent.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -11396,7 +11396,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_ConnectionHeader_descriptor
+name|internal_static_hbase_pb_ConnectionHeader_descriptor
 return|;
 block|}
 specifier|protected
@@ -11427,7 +11427,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_ConnectionHeader_fieldAccessorTable
+name|internal_static_hbase_pb_ConnectionHeader_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -11569,7 +11569,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .UserInformation user_info = 1;
+comment|// optional .hbase.pb.UserInformation user_info = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -11596,7 +11596,7 @@ operator|.
 name|UserInformation
 name|userInfo_
 decl_stmt|;
-comment|/**      *<code>optional .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -11614,7 +11614,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -11638,7 +11638,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|/**      *<code>optional .UserInformation user_info = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.UserInformation user_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -12301,7 +12301,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional .VersionInfo version_info = 5;
+comment|// optional .hbase.pb.VersionInfo version_info = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -12328,7 +12328,7 @@ operator|.
 name|VersionInfo
 name|versionInfo_
 decl_stmt|;
-comment|/**      *<code>optional .VersionInfo version_info = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.VersionInfo version_info = 5;</code>      */
 specifier|public
 name|boolean
 name|hasVersionInfo
@@ -12346,7 +12346,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .VersionInfo version_info = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.VersionInfo version_info = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -12370,7 +12370,7 @@ return|return
 name|versionInfo_
 return|;
 block|}
-comment|/**      *<code>optional .VersionInfo version_info = 5;</code>      */
+comment|/**      *<code>optional .hbase.pb.VersionInfo version_info = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -14048,7 +14048,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ConnectionHeader}      *      *<pre>      * This is sent on connection setup after the connection preamble is sent.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ConnectionHeader}      *      *<pre>      * This is sent on connection setup after the connection preamble is sent.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -14114,7 +14114,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_ConnectionHeader_descriptor
+name|internal_static_hbase_pb_ConnectionHeader_descriptor
 return|;
 block|}
 specifier|protected
@@ -14145,7 +14145,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_ConnectionHeader_fieldAccessorTable
+name|internal_static_hbase_pb_ConnectionHeader_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -14449,7 +14449,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_ConnectionHeader_descriptor
+name|internal_static_hbase_pb_ConnectionHeader_descriptor
 return|;
 block|}
 specifier|public
@@ -15203,7 +15203,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .UserInformation user_info = 1;
+comment|// optional .hbase.pb.UserInformation user_info = 1;
 specifier|private
 name|org
 operator|.
@@ -15302,7 +15302,7 @@ name|UserInformationOrBuilder
 argument_list|>
 name|userInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|boolean
 name|hasUserInfo
@@ -15320,7 +15320,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -15361,7 +15361,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -15430,7 +15430,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserInfo
@@ -15494,7 +15494,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeUserInfo
@@ -15619,7 +15619,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUserInfo
@@ -15678,7 +15678,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -15715,7 +15715,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -15756,7 +15756,7 @@ name|userInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .UserInformation user_info = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.UserInformation user_info = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -16812,7 +16812,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .VersionInfo version_info = 5;
+comment|// optional .hbase.pb.VersionInfo version_info = 5;
 specifier|private
 name|org
 operator|.
@@ -16911,7 +16911,7 @@ name|VersionInfoOrBuilder
 argument_list|>
 name|versionInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .VersionInfo version_info = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.VersionInfo version_info = 5;</code>        */
 specifier|public
 name|boolean
 name|hasVersionInfo
@@ -16929,7 +16929,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .VersionInfo version_info = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.VersionInfo version_info = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -16970,7 +16970,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .VersionInfo version_info = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.VersionInfo version_info = 5;</code>        */
 specifier|public
 name|Builder
 name|setVersionInfo
@@ -17039,7 +17039,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .VersionInfo version_info = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.VersionInfo version_info = 5;</code>        */
 specifier|public
 name|Builder
 name|setVersionInfo
@@ -17103,7 +17103,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .VersionInfo version_info = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.VersionInfo version_info = 5;</code>        */
 specifier|public
 name|Builder
 name|mergeVersionInfo
@@ -17228,7 +17228,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .VersionInfo version_info = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.VersionInfo version_info = 5;</code>        */
 specifier|public
 name|Builder
 name|clearVersionInfo
@@ -17287,7 +17287,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .VersionInfo version_info = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.VersionInfo version_info = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -17324,7 +17324,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .VersionInfo version_info = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.VersionInfo version_info = 5;</code>        */
 specifier|public
 name|org
 operator|.
@@ -17365,7 +17365,7 @@ name|versionInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .VersionInfo version_info = 5;</code>        */
+comment|/**        *<code>optional .hbase.pb.VersionInfo version_info = 5;</code>        */
 specifier|private
 name|com
 operator|.
@@ -17515,7 +17515,7 @@ return|return
 name|versionInfoBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ConnectionHeader)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ConnectionHeader)
 block|}
 static|static
 block|{
@@ -17533,7 +17533,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ConnectionHeader)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ConnectionHeader)
 block|}
 specifier|public
 interface|interface
@@ -17559,7 +17559,7 @@ name|getLength
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code CellBlockMeta}    *    *<pre>    * Optional Cell block Message.  Included in client RequestHeader    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.CellBlockMeta}    *    *<pre>    * Optional Cell block Message.  Included in client RequestHeader    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -17930,7 +17930,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_CellBlockMeta_descriptor
+name|internal_static_hbase_pb_CellBlockMeta_descriptor
 return|;
 block|}
 specifier|protected
@@ -17961,7 +17961,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_CellBlockMeta_fieldAccessorTable
+name|internal_static_hbase_pb_CellBlockMeta_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -19204,7 +19204,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CellBlockMeta}      *      *<pre>      * Optional Cell block Message.  Included in client RequestHeader      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.CellBlockMeta}      *      *<pre>      * Optional Cell block Message.  Included in client RequestHeader      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -19270,7 +19270,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_CellBlockMeta_descriptor
+name|internal_static_hbase_pb_CellBlockMeta_descriptor
 return|;
 block|}
 specifier|protected
@@ -19301,7 +19301,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_CellBlockMeta_fieldAccessorTable
+name|internal_static_hbase_pb_CellBlockMeta_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -19480,7 +19480,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_CellBlockMeta_descriptor
+name|internal_static_hbase_pb_CellBlockMeta_descriptor
 return|;
 block|}
 specifier|public
@@ -20056,7 +20056,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CellBlockMeta)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CellBlockMeta)
 block|}
 static|static
 block|{
@@ -20074,7 +20074,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CellBlockMeta)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CellBlockMeta)
 block|}
 specifier|public
 interface|interface
@@ -20189,7 +20189,7 @@ name|getDoNotRetry
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ExceptionResponse}    *    *<pre>    * At the RPC layer, this message is used to carry    * the server side exception to the RPC client.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.ExceptionResponse}    *    *<pre>    * At the RPC layer, this message is used to carry    * the server side exception to the RPC client.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -20628,7 +20628,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_ExceptionResponse_descriptor
+name|internal_static_hbase_pb_ExceptionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -20659,7 +20659,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_ExceptionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ExceptionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -23087,7 +23087,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ExceptionResponse}      *      *<pre>      * At the RPC layer, this message is used to carry      * the server side exception to the RPC client.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.ExceptionResponse}      *      *<pre>      * At the RPC layer, this message is used to carry      * the server side exception to the RPC client.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -23153,7 +23153,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_ExceptionResponse_descriptor
+name|internal_static_hbase_pb_ExceptionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -23184,7 +23184,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_ExceptionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ExceptionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -23415,7 +23415,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_ExceptionResponse_descriptor
+name|internal_static_hbase_pb_ExceptionResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -25159,7 +25159,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ExceptionResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ExceptionResponse)
 block|}
 static|static
 block|{
@@ -25177,7 +25177,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ExceptionResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ExceptionResponse)
 block|}
 specifier|public
 interface|interface
@@ -25202,13 +25202,13 @@ name|int
 name|getCallId
 parameter_list|()
 function_decl|;
-comment|// optional .RPCTInfo trace_info = 2;
-comment|/**      *<code>optional .RPCTInfo trace_info = 2;</code>      */
+comment|// optional .hbase.pb.RPCTInfo trace_info = 2;
+comment|/**      *<code>optional .hbase.pb.RPCTInfo trace_info = 2;</code>      */
 name|boolean
 name|hasTraceInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .RPCTInfo trace_info = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.RPCTInfo trace_info = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -25227,7 +25227,7 @@ name|RPCTInfo
 name|getTraceInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .RPCTInfo trace_info = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.RPCTInfo trace_info = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -25283,13 +25283,13 @@ name|boolean
 name|getRequestParam
 parameter_list|()
 function_decl|;
-comment|// optional .CellBlockMeta cell_block_meta = 5;
-comment|/**      *<code>optional .CellBlockMeta cell_block_meta = 5;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
+comment|// optional .hbase.pb.CellBlockMeta cell_block_meta = 5;
+comment|/**      *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 5;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
 name|boolean
 name|hasCellBlockMeta
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .CellBlockMeta cell_block_meta = 5;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 5;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -25308,7 +25308,7 @@ name|CellBlockMeta
 name|getCellBlockMeta
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .CellBlockMeta cell_block_meta = 5;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 5;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -25339,7 +25339,7 @@ name|getPriority
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RequestHeader}    *    *<pre>    * Header sent making a request.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.RequestHeader}    *    *<pre>    * Header sent making a request.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -25963,7 +25963,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_RequestHeader_descriptor
+name|internal_static_hbase_pb_RequestHeader_descriptor
 return|;
 block|}
 specifier|protected
@@ -25994,7 +25994,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_RequestHeader_fieldAccessorTable
+name|internal_static_hbase_pb_RequestHeader_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -26177,7 +26177,7 @@ return|return
 name|callId_
 return|;
 block|}
-comment|// optional .RPCTInfo trace_info = 2;
+comment|// optional .hbase.pb.RPCTInfo trace_info = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -26204,7 +26204,7 @@ operator|.
 name|RPCTInfo
 name|traceInfo_
 decl_stmt|;
-comment|/**      *<code>optional .RPCTInfo trace_info = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.RPCTInfo trace_info = 2;</code>      */
 specifier|public
 name|boolean
 name|hasTraceInfo
@@ -26222,7 +26222,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .RPCTInfo trace_info = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.RPCTInfo trace_info = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -26246,7 +26246,7 @@ return|return
 name|traceInfo_
 return|;
 block|}
-comment|/**      *<code>optional .RPCTInfo trace_info = 2;</code>      */
+comment|/**      *<code>optional .hbase.pb.RPCTInfo trace_info = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -26524,7 +26524,7 @@ return|return
 name|requestParam_
 return|;
 block|}
-comment|// optional .CellBlockMeta cell_block_meta = 5;
+comment|// optional .hbase.pb.CellBlockMeta cell_block_meta = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -26551,7 +26551,7 @@ operator|.
 name|CellBlockMeta
 name|cellBlockMeta_
 decl_stmt|;
-comment|/**      *<code>optional .CellBlockMeta cell_block_meta = 5;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 5;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
 specifier|public
 name|boolean
 name|hasCellBlockMeta
@@ -26569,7 +26569,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .CellBlockMeta cell_block_meta = 5;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 5;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -26593,7 +26593,7 @@ return|return
 name|cellBlockMeta_
 return|;
 block|}
-comment|/**      *<code>optional .CellBlockMeta cell_block_meta = 5;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 5;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -28374,7 +28374,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RequestHeader}      *      *<pre>      * Header sent making a request.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.RequestHeader}      *      *<pre>      * Header sent making a request.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -28440,7 +28440,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_RequestHeader_descriptor
+name|internal_static_hbase_pb_RequestHeader_descriptor
 return|;
 block|}
 specifier|protected
@@ -28471,7 +28471,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_RequestHeader_fieldAccessorTable
+name|internal_static_hbase_pb_RequestHeader_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -28788,7 +28788,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_RequestHeader_descriptor
+name|internal_static_hbase_pb_RequestHeader_descriptor
 return|;
 block|}
 specifier|public
@@ -29614,7 +29614,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .RPCTInfo trace_info = 2;
+comment|// optional .hbase.pb.RPCTInfo trace_info = 2;
 specifier|private
 name|org
 operator|.
@@ -29713,7 +29713,7 @@ name|RPCTInfoOrBuilder
 argument_list|>
 name|traceInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .RPCTInfo trace_info = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.RPCTInfo trace_info = 2;</code>        */
 specifier|public
 name|boolean
 name|hasTraceInfo
@@ -29731,7 +29731,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .RPCTInfo trace_info = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.RPCTInfo trace_info = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -29772,7 +29772,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .RPCTInfo trace_info = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.RPCTInfo trace_info = 2;</code>        */
 specifier|public
 name|Builder
 name|setTraceInfo
@@ -29841,7 +29841,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RPCTInfo trace_info = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.RPCTInfo trace_info = 2;</code>        */
 specifier|public
 name|Builder
 name|setTraceInfo
@@ -29905,7 +29905,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RPCTInfo trace_info = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.RPCTInfo trace_info = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeTraceInfo
@@ -30030,7 +30030,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RPCTInfo trace_info = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.RPCTInfo trace_info = 2;</code>        */
 specifier|public
 name|Builder
 name|clearTraceInfo
@@ -30089,7 +30089,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .RPCTInfo trace_info = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.RPCTInfo trace_info = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -30126,7 +30126,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .RPCTInfo trace_info = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.RPCTInfo trace_info = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -30167,7 +30167,7 @@ name|traceInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .RPCTInfo trace_info = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.RPCTInfo trace_info = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -30702,7 +30702,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .CellBlockMeta cell_block_meta = 5;
+comment|// optional .hbase.pb.CellBlockMeta cell_block_meta = 5;
 specifier|private
 name|org
 operator|.
@@ -30801,7 +30801,7 @@ name|CellBlockMetaOrBuilder
 argument_list|>
 name|cellBlockMetaBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|boolean
 name|hasCellBlockMeta
@@ -30819,7 +30819,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -30860,7 +30860,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|Builder
 name|setCellBlockMeta
@@ -30929,7 +30929,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|Builder
 name|setCellBlockMeta
@@ -30993,7 +30993,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|Builder
 name|mergeCellBlockMeta
@@ -31118,7 +31118,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|Builder
 name|clearCellBlockMeta
@@ -31177,7 +31177,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -31214,7 +31214,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -31255,7 +31255,7 @@ name|cellBlockMeta_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 5;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -31488,7 +31488,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RequestHeader)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RequestHeader)
 block|}
 static|static
 block|{
@@ -31506,7 +31506,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RequestHeader)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RequestHeader)
 block|}
 specifier|public
 interface|interface
@@ -31531,13 +31531,13 @@ name|int
 name|getCallId
 parameter_list|()
 function_decl|;
-comment|// optional .ExceptionResponse exception = 2;
-comment|/**      *<code>optional .ExceptionResponse exception = 2;</code>      *      *<pre>      * If present, then request threw an exception and no response message (else we presume one)      *</pre>      */
+comment|// optional .hbase.pb.ExceptionResponse exception = 2;
+comment|/**      *<code>optional .hbase.pb.ExceptionResponse exception = 2;</code>      *      *<pre>      * If present, then request threw an exception and no response message (else we presume one)      *</pre>      */
 name|boolean
 name|hasException
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ExceptionResponse exception = 2;</code>      *      *<pre>      * If present, then request threw an exception and no response message (else we presume one)      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ExceptionResponse exception = 2;</code>      *      *<pre>      * If present, then request threw an exception and no response message (else we presume one)      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -31556,7 +31556,7 @@ name|ExceptionResponse
 name|getException
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .ExceptionResponse exception = 2;</code>      *      *<pre>      * If present, then request threw an exception and no response message (else we presume one)      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ExceptionResponse exception = 2;</code>      *      *<pre>      * If present, then request threw an exception and no response message (else we presume one)      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -31575,13 +31575,13 @@ name|ExceptionResponseOrBuilder
 name|getExceptionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .CellBlockMeta cell_block_meta = 3;
-comment|/**      *<code>optional .CellBlockMeta cell_block_meta = 3;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
+comment|// optional .hbase.pb.CellBlockMeta cell_block_meta = 3;
+comment|/**      *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 3;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
 name|boolean
 name|hasCellBlockMeta
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .CellBlockMeta cell_block_meta = 3;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 3;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -31600,7 +31600,7 @@ name|CellBlockMeta
 name|getCellBlockMeta
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .CellBlockMeta cell_block_meta = 3;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 3;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -31620,7 +31620,7 @@ name|getCellBlockMetaOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ResponseHeader}    */
+comment|/**    * Protobuf type {@code hbase.pb.ResponseHeader}    */
 specifier|public
 specifier|static
 specifier|final
@@ -32193,7 +32193,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_ResponseHeader_descriptor
+name|internal_static_hbase_pb_ResponseHeader_descriptor
 return|;
 block|}
 specifier|protected
@@ -32224,7 +32224,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_ResponseHeader_fieldAccessorTable
+name|internal_static_hbase_pb_ResponseHeader_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -32407,7 +32407,7 @@ return|return
 name|callId_
 return|;
 block|}
-comment|// optional .ExceptionResponse exception = 2;
+comment|// optional .hbase.pb.ExceptionResponse exception = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -32434,7 +32434,7 @@ operator|.
 name|ExceptionResponse
 name|exception_
 decl_stmt|;
-comment|/**      *<code>optional .ExceptionResponse exception = 2;</code>      *      *<pre>      * If present, then request threw an exception and no response message (else we presume one)      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ExceptionResponse exception = 2;</code>      *      *<pre>      * If present, then request threw an exception and no response message (else we presume one)      *</pre>      */
 specifier|public
 name|boolean
 name|hasException
@@ -32452,7 +32452,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .ExceptionResponse exception = 2;</code>      *      *<pre>      * If present, then request threw an exception and no response message (else we presume one)      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ExceptionResponse exception = 2;</code>      *      *<pre>      * If present, then request threw an exception and no response message (else we presume one)      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -32476,7 +32476,7 @@ return|return
 name|exception_
 return|;
 block|}
-comment|/**      *<code>optional .ExceptionResponse exception = 2;</code>      *      *<pre>      * If present, then request threw an exception and no response message (else we presume one)      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ExceptionResponse exception = 2;</code>      *      *<pre>      * If present, then request threw an exception and no response message (else we presume one)      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -32500,7 +32500,7 @@ return|return
 name|exception_
 return|;
 block|}
-comment|// optional .CellBlockMeta cell_block_meta = 3;
+comment|// optional .hbase.pb.CellBlockMeta cell_block_meta = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -32527,7 +32527,7 @@ operator|.
 name|CellBlockMeta
 name|cellBlockMeta_
 decl_stmt|;
-comment|/**      *<code>optional .CellBlockMeta cell_block_meta = 3;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 3;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
 specifier|public
 name|boolean
 name|hasCellBlockMeta
@@ -32545,7 +32545,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .CellBlockMeta cell_block_meta = 3;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 3;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -32569,7 +32569,7 @@ return|return
 name|cellBlockMeta_
 return|;
 block|}
-comment|/**      *<code>optional .CellBlockMeta cell_block_meta = 3;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 3;</code>      *      *<pre>      * If present, then an encoded data block follows.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -33937,7 +33937,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ResponseHeader}      */
+comment|/**      * Protobuf type {@code hbase.pb.ResponseHeader}      */
 specifier|public
 specifier|static
 specifier|final
@@ -34003,7 +34003,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_ResponseHeader_descriptor
+name|internal_static_hbase_pb_ResponseHeader_descriptor
 return|;
 block|}
 specifier|protected
@@ -34034,7 +34034,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_ResponseHeader_fieldAccessorTable
+name|internal_static_hbase_pb_ResponseHeader_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -34312,7 +34312,7 @@ name|generated
 operator|.
 name|RPCProtos
 operator|.
-name|internal_static_ResponseHeader_descriptor
+name|internal_static_hbase_pb_ResponseHeader_descriptor
 return|;
 block|}
 specifier|public
@@ -35010,7 +35010,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .ExceptionResponse exception = 2;
+comment|// optional .hbase.pb.ExceptionResponse exception = 2;
 specifier|private
 name|org
 operator|.
@@ -35109,7 +35109,7 @@ name|ExceptionResponseOrBuilder
 argument_list|>
 name|exceptionBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
 specifier|public
 name|boolean
 name|hasException
@@ -35127,7 +35127,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -35168,7 +35168,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
 specifier|public
 name|Builder
 name|setException
@@ -35237,7 +35237,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
 specifier|public
 name|Builder
 name|setException
@@ -35301,7 +35301,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
 specifier|public
 name|Builder
 name|mergeException
@@ -35426,7 +35426,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
 specifier|public
 name|Builder
 name|clearException
@@ -35485,7 +35485,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -35522,7 +35522,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -35563,7 +35563,7 @@ name|exception_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ExceptionResponse exception = 2;</code>        *        *<pre>        * If present, then request threw an exception and no response message (else we presume one)        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -35713,7 +35713,7 @@ return|return
 name|exceptionBuilder_
 return|;
 block|}
-comment|// optional .CellBlockMeta cell_block_meta = 3;
+comment|// optional .hbase.pb.CellBlockMeta cell_block_meta = 3;
 specifier|private
 name|org
 operator|.
@@ -35812,7 +35812,7 @@ name|CellBlockMetaOrBuilder
 argument_list|>
 name|cellBlockMetaBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|boolean
 name|hasCellBlockMeta
@@ -35830,7 +35830,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -35871,7 +35871,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|Builder
 name|setCellBlockMeta
@@ -35940,7 +35940,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|Builder
 name|setCellBlockMeta
@@ -36004,7 +36004,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|Builder
 name|mergeCellBlockMeta
@@ -36129,7 +36129,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|Builder
 name|clearCellBlockMeta
@@ -36188,7 +36188,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -36225,7 +36225,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -36266,7 +36266,7 @@ name|cellBlockMeta_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.CellBlockMeta cell_block_meta = 3;</code>        *        *<pre>        * If present, then an encoded data block follows.        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -36416,7 +36416,7 @@ return|return
 name|cellBlockMetaBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ResponseHeader)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ResponseHeader)
 block|}
 static|static
 block|{
@@ -36434,7 +36434,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ResponseHeader)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ResponseHeader)
 block|}
 specifier|private
 specifier|static
@@ -36447,7 +36447,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_UserInformation_descriptor
+name|internal_static_hbase_pb_UserInformation_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36460,7 +36460,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_UserInformation_fieldAccessorTable
+name|internal_static_hbase_pb_UserInformation_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36473,7 +36473,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_VersionInfo_descriptor
+name|internal_static_hbase_pb_VersionInfo_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36486,7 +36486,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_VersionInfo_fieldAccessorTable
+name|internal_static_hbase_pb_VersionInfo_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36499,7 +36499,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ConnectionHeader_descriptor
+name|internal_static_hbase_pb_ConnectionHeader_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36512,7 +36512,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ConnectionHeader_fieldAccessorTable
+name|internal_static_hbase_pb_ConnectionHeader_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36525,7 +36525,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CellBlockMeta_descriptor
+name|internal_static_hbase_pb_CellBlockMeta_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36538,7 +36538,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CellBlockMeta_fieldAccessorTable
+name|internal_static_hbase_pb_CellBlockMeta_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36551,7 +36551,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ExceptionResponse_descriptor
+name|internal_static_hbase_pb_ExceptionResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36564,7 +36564,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ExceptionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ExceptionResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36577,7 +36577,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RequestHeader_descriptor
+name|internal_static_hbase_pb_RequestHeader_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36590,7 +36590,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RequestHeader_fieldAccessorTable
+name|internal_static_hbase_pb_RequestHeader_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36603,7 +36603,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ResponseHeader_descriptor
+name|internal_static_hbase_pb_ResponseHeader_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -36616,7 +36616,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ResponseHeader_fieldAccessorTable
+name|internal_static_hbase_pb_ResponseHeader_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -36660,51 +36660,55 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\tRPC.proto\032\rTracing.proto\032\013HBase.proto\""
+literal|"\n\tRPC.proto\022\010hbase.pb\032\rTracing.proto\032\013HB"
 operator|+
-literal|"<\n\017UserInformation\022\026\n\016effective_user\030\001 \002"
+literal|"ase.proto\"<\n\017UserInformation\022\026\n\016effectiv"
 operator|+
-literal|"(\t\022\021\n\treal_user\030\002 \001(\t\"o\n\013VersionInfo\022\017\n\007"
+literal|"e_user\030\001 \002(\t\022\021\n\treal_user\030\002 \001(\t\"o\n\013Versi"
 operator|+
-literal|"version\030\001 \002(\t\022\013\n\003url\030\002 \002(\t\022\020\n\010revision\030\003"
+literal|"onInfo\022\017\n\007version\030\001 \002(\t\022\013\n\003url\030\002 \002(\t\022\020\n\010"
 operator|+
-literal|" \002(\t\022\014\n\004user\030\004 \002(\t\022\014\n\004date\030\005 \002(\t\022\024\n\014src_"
+literal|"revision\030\003 \002(\t\022\014\n\004user\030\004 \002(\t\022\014\n\004date\030\005 \002"
 operator|+
-literal|"checksum\030\006 \002(\t\"\266\001\n\020ConnectionHeader\022#\n\tu"
+literal|"(\t\022\024\n\014src_checksum\030\006 \002(\t\"\310\001\n\020ConnectionH"
 operator|+
-literal|"ser_info\030\001 \001(\0132\020.UserInformation\022\024\n\014serv"
+literal|"eader\022,\n\tuser_info\030\001 \001(\0132\031.hbase.pb.User"
 operator|+
-literal|"ice_name\030\002 \001(\t\022\036\n\026cell_block_codec_class"
+literal|"Information\022\024\n\014service_name\030\002 \001(\t\022\036\n\026cel"
 operator|+
-literal|"\030\003 \001(\t\022#\n\033cell_block_compressor_class\030\004 "
+literal|"l_block_codec_class\030\003 \001(\t\022#\n\033cell_block_"
 operator|+
-literal|"\001(\t\022\"\n\014version_info\030\005 \001(\0132\014.VersionInfo\""
+literal|"compressor_class\030\004 \001(\t\022+\n\014version_info\030\005"
 block|,
-literal|"\037\n\rCellBlockMeta\022\016\n\006length\030\001 \001(\r\"|\n\021Exce"
+literal|" \001(\0132\025.hbase.pb.VersionInfo\"\037\n\rCellBlock"
 operator|+
-literal|"ptionResponse\022\034\n\024exception_class_name\030\001 "
+literal|"Meta\022\016\n\006length\030\001 \001(\r\"|\n\021ExceptionRespons"
 operator|+
-literal|"\001(\t\022\023\n\013stack_trace\030\002 \001(\t\022\020\n\010hostname\030\003 \001"
+literal|"e\022\034\n\024exception_class_name\030\001 \001(\t\022\023\n\013stack"
 operator|+
-literal|"(\t\022\014\n\004port\030\004 \001(\005\022\024\n\014do_not_retry\030\005 \001(\010\"\246"
+literal|"_trace\030\002 \001(\t\022\020\n\010hostname\030\003 \001(\t\022\014\n\004port\030\004"
 operator|+
-literal|"\001\n\rRequestHeader\022\017\n\007call_id\030\001 \001(\r\022\035\n\ntra"
+literal|" \001(\005\022\024\n\014do_not_retry\030\005 \001(\010\"\270\001\n\rRequestHe"
 operator|+
-literal|"ce_info\030\002 \001(\0132\t.RPCTInfo\022\023\n\013method_name\030"
+literal|"ader\022\017\n\007call_id\030\001 \001(\r\022&\n\ntrace_info\030\002 \001("
 operator|+
-literal|"\003 \001(\t\022\025\n\rrequest_param\030\004 \001(\010\022\'\n\017cell_blo"
+literal|"\0132\022.hbase.pb.RPCTInfo\022\023\n\013method_name\030\003 \001"
 operator|+
-literal|"ck_meta\030\005 \001(\0132\016.CellBlockMeta\022\020\n\010priorit"
+literal|"(\t\022\025\n\rrequest_param\030\004 \001(\010\0220\n\017cell_block_"
 operator|+
-literal|"y\030\006 \001(\r\"q\n\016ResponseHeader\022\017\n\007call_id\030\001 \001"
+literal|"meta\030\005 \001(\0132\027.hbase.pb.CellBlockMeta\022\020\n\010p"
 operator|+
-literal|"(\r\022%\n\texception\030\002 \001(\0132\022.ExceptionRespons"
+literal|"riority\030\006 \001(\r\"\203\001\n\016ResponseHeader\022\017\n\007call"
 block|,
-literal|"e\022\'\n\017cell_block_meta\030\003 \001(\0132\016.CellBlockMe"
+literal|"_id\030\001 \001(\r\022.\n\texception\030\002 \001(\0132\033.hbase.pb."
 operator|+
-literal|"taB<\n*org.apache.hadoop.hbase.protobuf.g"
+literal|"ExceptionResponse\0220\n\017cell_block_meta\030\003 \001"
 operator|+
-literal|"eneratedB\tRPCProtosH\001\240\001\001"
+literal|"(\0132\027.hbase.pb.CellBlockMetaB<\n*org.apach"
+operator|+
+literal|"e.hadoop.hbase.protobuf.generatedB\tRPCPr"
+operator|+
+literal|"otosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -36760,7 +36764,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_UserInformation_descriptor
+name|internal_static_hbase_pb_UserInformation_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -36773,7 +36777,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_UserInformation_fieldAccessorTable
+name|internal_static_hbase_pb_UserInformation_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -36786,7 +36790,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_UserInformation_descriptor
+name|internal_static_hbase_pb_UserInformation_descriptor
 argument_list|,
 operator|new
 name|java
@@ -36802,7 +36806,7 @@ literal|"RealUser"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_VersionInfo_descriptor
+name|internal_static_hbase_pb_VersionInfo_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -36815,7 +36819,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_VersionInfo_fieldAccessorTable
+name|internal_static_hbase_pb_VersionInfo_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -36828,7 +36832,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_VersionInfo_descriptor
+name|internal_static_hbase_pb_VersionInfo_descriptor
 argument_list|,
 operator|new
 name|java
@@ -36852,7 +36856,7 @@ literal|"SrcChecksum"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ConnectionHeader_descriptor
+name|internal_static_hbase_pb_ConnectionHeader_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -36865,7 +36869,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_ConnectionHeader_fieldAccessorTable
+name|internal_static_hbase_pb_ConnectionHeader_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -36878,7 +36882,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ConnectionHeader_descriptor
+name|internal_static_hbase_pb_ConnectionHeader_descriptor
 argument_list|,
 operator|new
 name|java
@@ -36900,7 +36904,7 @@ literal|"VersionInfo"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_CellBlockMeta_descriptor
+name|internal_static_hbase_pb_CellBlockMeta_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -36913,7 +36917,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_CellBlockMeta_fieldAccessorTable
+name|internal_static_hbase_pb_CellBlockMeta_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -36926,7 +36930,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CellBlockMeta_descriptor
+name|internal_static_hbase_pb_CellBlockMeta_descriptor
 argument_list|,
 operator|new
 name|java
@@ -36940,7 +36944,7 @@ literal|"Length"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ExceptionResponse_descriptor
+name|internal_static_hbase_pb_ExceptionResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -36953,7 +36957,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_ExceptionResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ExceptionResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -36966,7 +36970,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ExceptionResponse_descriptor
+name|internal_static_hbase_pb_ExceptionResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -36988,7 +36992,7 @@ literal|"DoNotRetry"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_RequestHeader_descriptor
+name|internal_static_hbase_pb_RequestHeader_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -37001,7 +37005,7 @@ argument_list|(
 literal|5
 argument_list|)
 expr_stmt|;
-name|internal_static_RequestHeader_fieldAccessorTable
+name|internal_static_hbase_pb_RequestHeader_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -37014,7 +37018,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RequestHeader_descriptor
+name|internal_static_hbase_pb_RequestHeader_descriptor
 argument_list|,
 operator|new
 name|java
@@ -37038,7 +37042,7 @@ literal|"Priority"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ResponseHeader_descriptor
+name|internal_static_hbase_pb_ResponseHeader_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -37051,7 +37055,7 @@ argument_list|(
 literal|6
 argument_list|)
 expr_stmt|;
-name|internal_static_ResponseHeader_fieldAccessorTable
+name|internal_static_hbase_pb_ResponseHeader_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -37064,7 +37068,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ResponseHeader_descriptor
+name|internal_static_hbase_pb_ResponseHeader_descriptor
 argument_list|,
 operator|new
 name|java

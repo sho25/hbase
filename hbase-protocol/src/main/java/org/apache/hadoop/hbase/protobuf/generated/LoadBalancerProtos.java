@@ -72,7 +72,7 @@ name|getBalancerOn
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code LoadBalancerState}    */
+comment|/**    * Protobuf type {@code hbase.pb.LoadBalancerState}    */
 specifier|public
 specifier|static
 specifier|final
@@ -443,7 +443,7 @@ name|generated
 operator|.
 name|LoadBalancerProtos
 operator|.
-name|internal_static_LoadBalancerState_descriptor
+name|internal_static_hbase_pb_LoadBalancerState_descriptor
 return|;
 block|}
 specifier|protected
@@ -474,7 +474,7 @@ name|generated
 operator|.
 name|LoadBalancerProtos
 operator|.
-name|internal_static_LoadBalancerState_fieldAccessorTable
+name|internal_static_hbase_pb_LoadBalancerState_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -1720,7 +1720,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code LoadBalancerState}      */
+comment|/**      * Protobuf type {@code hbase.pb.LoadBalancerState}      */
 specifier|public
 specifier|static
 specifier|final
@@ -1786,7 +1786,7 @@ name|generated
 operator|.
 name|LoadBalancerProtos
 operator|.
-name|internal_static_LoadBalancerState_descriptor
+name|internal_static_hbase_pb_LoadBalancerState_descriptor
 return|;
 block|}
 specifier|protected
@@ -1817,7 +1817,7 @@ name|generated
 operator|.
 name|LoadBalancerProtos
 operator|.
-name|internal_static_LoadBalancerState_fieldAccessorTable
+name|internal_static_hbase_pb_LoadBalancerState_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -1996,7 +1996,7 @@ name|generated
 operator|.
 name|LoadBalancerProtos
 operator|.
-name|internal_static_LoadBalancerState_descriptor
+name|internal_static_hbase_pb_LoadBalancerState_descriptor
 return|;
 block|}
 specifier|public
@@ -2572,7 +2572,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:LoadBalancerState)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.LoadBalancerState)
 block|}
 static|static
 block|{
@@ -2590,7 +2590,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:LoadBalancerState)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.LoadBalancerState)
 block|}
 specifier|private
 specifier|static
@@ -2603,7 +2603,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_LoadBalancerState_descriptor
+name|internal_static_hbase_pb_LoadBalancerState_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -2616,7 +2616,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_LoadBalancerState_fieldAccessorTable
+name|internal_static_hbase_pb_LoadBalancerState_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -2660,13 +2660,13 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\022LoadBalancer.proto\"(\n\021LoadBalancerStat"
+literal|"\n\022LoadBalancer.proto\022\010hbase.pb\"(\n\021LoadBa"
 operator|+
-literal|"e\022\023\n\013balancer_on\030\001 \001(\010BE\n*org.apache.had"
+literal|"lancerState\022\023\n\013balancer_on\030\001 \001(\010BE\n*org."
 operator|+
-literal|"oop.hbase.protobuf.generatedB\022LoadBalanc"
+literal|"apache.hadoop.hbase.protobuf.generatedB\022"
 operator|+
-literal|"erProtosH\001\240\001\001"
+literal|"LoadBalancerProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -2722,7 +2722,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_LoadBalancerState_descriptor
+name|internal_static_hbase_pb_LoadBalancerState_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -2735,7 +2735,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_LoadBalancerState_fieldAccessorTable
+name|internal_static_hbase_pb_LoadBalancerState_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -2748,7 +2748,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_LoadBalancerState_descriptor
+name|internal_static_hbase_pb_LoadBalancerState_descriptor
 argument_list|,
 operator|new
 name|java

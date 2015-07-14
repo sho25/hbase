@@ -62,7 +62,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code CountRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.CountRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -413,7 +413,7 @@ name|generated
 operator|.
 name|ExampleProtos
 operator|.
-name|internal_static_CountRequest_descriptor
+name|internal_static_hbase_pb_CountRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -446,7 +446,7 @@ name|generated
 operator|.
 name|ExampleProtos
 operator|.
-name|internal_static_CountRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CountRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -1554,7 +1554,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CountRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.CountRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -1624,7 +1624,7 @@ name|generated
 operator|.
 name|ExampleProtos
 operator|.
-name|internal_static_CountRequest_descriptor
+name|internal_static_hbase_pb_CountRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -1657,7 +1657,7 @@ name|generated
 operator|.
 name|ExampleProtos
 operator|.
-name|internal_static_CountRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CountRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -1829,7 +1829,7 @@ name|generated
 operator|.
 name|ExampleProtos
 operator|.
-name|internal_static_CountRequest_descriptor
+name|internal_static_hbase_pb_CountRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -2287,7 +2287,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CountRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CountRequest)
 block|}
 static|static
 block|{
@@ -2305,7 +2305,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CountRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CountRequest)
 block|}
 specifier|public
 interface|interface
@@ -2331,7 +2331,7 @@ name|getCount
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code CountResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.CountResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -2704,7 +2704,7 @@ name|generated
 operator|.
 name|ExampleProtos
 operator|.
-name|internal_static_CountResponse_descriptor
+name|internal_static_hbase_pb_CountResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -2737,7 +2737,7 @@ name|generated
 operator|.
 name|ExampleProtos
 operator|.
-name|internal_static_CountResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CountResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -4030,7 +4030,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code CountResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.CountResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -4100,7 +4100,7 @@ name|generated
 operator|.
 name|ExampleProtos
 operator|.
-name|internal_static_CountResponse_descriptor
+name|internal_static_hbase_pb_CountResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -4133,7 +4133,7 @@ name|generated
 operator|.
 name|ExampleProtos
 operator|.
-name|internal_static_CountResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CountResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -4318,7 +4318,7 @@ name|generated
 operator|.
 name|ExampleProtos
 operator|.
-name|internal_static_CountResponse_descriptor
+name|internal_static_hbase_pb_CountResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -4931,7 +4931,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:CountResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.CountResponse)
 block|}
 static|static
 block|{
@@ -4949,9 +4949,9 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:CountResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.CountResponse)
 block|}
-comment|/**    * Protobuf service {@code RowCountService}    */
+comment|/**    * Protobuf service {@code hbase.pb.RowCountService}    */
 specifier|public
 specifier|static
 specifier|abstract
@@ -4974,7 +4974,7 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc getRowCount(.CountRequest) returns (.CountResponse);</code>        */
+comment|/**        *<code>rpc getRowCount(.hbase.pb.CountRequest) returns (.hbase.pb.CountResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -5037,7 +5037,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc getKeyValueCount(.CountRequest) returns (.CountResponse);</code>        */
+comment|/**        *<code>rpc getKeyValueCount(.hbase.pb.CountRequest) returns (.hbase.pb.CountResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -5732,7 +5732,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc getRowCount(.CountRequest) returns (.CountResponse);</code>      */
+comment|/**      *<code>rpc getRowCount(.hbase.pb.CountRequest) returns (.hbase.pb.CountResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -5795,7 +5795,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc getKeyValueCount(.CountRequest) returns (.CountResponse);</code>      */
+comment|/**      *<code>rpc getKeyValueCount(.hbase.pb.CountRequest) returns (.hbase.pb.CountResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -7219,7 +7219,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|// @@protoc_insertion_point(class_scope:RowCountService)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RowCountService)
 block|}
 specifier|private
 specifier|static
@@ -7232,7 +7232,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CountRequest_descriptor
+name|internal_static_hbase_pb_CountRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -7245,7 +7245,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CountRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CountRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -7258,7 +7258,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_CountResponse_descriptor
+name|internal_static_hbase_pb_CountResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -7271,7 +7271,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_CountResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CountResponse_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -7315,19 +7315,21 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\016Examples.proto\"\016\n\014CountRequest\"!\n\rCoun"
+literal|"\n\016Examples.proto\022\010hbase.pb\"\016\n\014CountReque"
 operator|+
-literal|"tResponse\022\020\n\005count\030\001 \002(\003:\00102r\n\017RowCountS"
+literal|"st\"!\n\rCountResponse\022\020\n\005count\030\001 \002(\003:\00102\226\001"
 operator|+
-literal|"ervice\022,\n\013getRowCount\022\r.CountRequest\032\016.C"
+literal|"\n\017RowCountService\022>\n\013getRowCount\022\026.hbase"
 operator|+
-literal|"ountResponse\0221\n\020getKeyValueCount\022\r.Count"
+literal|".pb.CountRequest\032\027.hbase.pb.CountRespons"
 operator|+
-literal|"Request\032\016.CountResponseBN\n5org.apache.ha"
+literal|"e\022C\n\020getKeyValueCount\022\026.hbase.pb.CountRe"
 operator|+
-literal|"doop.hbase.coprocessor.example.generated"
+literal|"quest\032\027.hbase.pb.CountResponseBN\n5org.ap"
 operator|+
-literal|"B\rExampleProtosH\001\210\001\001\240\001\001"
+literal|"ache.hadoop.hbase.coprocessor.example.ge"
+operator|+
+literal|"neratedB\rExampleProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -7383,7 +7385,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_CountRequest_descriptor
+name|internal_static_hbase_pb_CountRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -7396,7 +7398,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_CountRequest_fieldAccessorTable
+name|internal_static_hbase_pb_CountRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -7409,7 +7411,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CountRequest_descriptor
+name|internal_static_hbase_pb_CountRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -7421,7 +7423,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_CountResponse_descriptor
+name|internal_static_hbase_pb_CountResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -7434,7 +7436,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_CountResponse_fieldAccessorTable
+name|internal_static_hbase_pb_CountResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -7447,7 +7449,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_CountResponse_descriptor
+name|internal_static_hbase_pb_CountResponse_descriptor
 argument_list|,
 operator|new
 name|java

@@ -60,8 +60,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .VisibilityLabel visLabel = 1;
-comment|/**      *<code>repeated .VisibilityLabel visLabel = 1;</code>      */
+comment|// repeated .hbase.pb.VisibilityLabel visLabel = 1;
+comment|/**      *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -87,7 +87,7 @@ argument_list|>
 name|getVisLabelList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .VisibilityLabel visLabel = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -109,12 +109,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .VisibilityLabel visLabel = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>      */
 name|int
 name|getVisLabelCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .VisibilityLabel visLabel = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -142,7 +142,7 @@ argument_list|>
 name|getVisLabelOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .VisibilityLabel visLabel = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -165,7 +165,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code VisibilityLabelsRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.VisibilityLabelsRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -628,7 +628,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_VisibilityLabelsRequest_descriptor
+name|internal_static_hbase_pb_VisibilityLabelsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -659,7 +659,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_VisibilityLabelsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_VisibilityLabelsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -797,7 +797,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|// repeated .VisibilityLabel visLabel = 1;
+comment|// repeated .hbase.pb.VisibilityLabel visLabel = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -831,7 +831,7 @@ name|VisibilityLabel
 argument_list|>
 name|visLabel_
 decl_stmt|;
-comment|/**      *<code>repeated .VisibilityLabel visLabel = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -862,7 +862,7 @@ return|return
 name|visLabel_
 return|;
 block|}
-comment|/**      *<code>repeated .VisibilityLabel visLabel = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -895,7 +895,7 @@ return|return
 name|visLabel_
 return|;
 block|}
-comment|/**      *<code>repeated .VisibilityLabel visLabel = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>      */
 specifier|public
 name|int
 name|getVisLabelCount
@@ -908,7 +908,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .VisibilityLabel visLabel = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -940,7 +940,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .VisibilityLabel visLabel = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -2081,7 +2081,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code VisibilityLabelsRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.VisibilityLabelsRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -2147,7 +2147,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_VisibilityLabelsRequest_descriptor
+name|internal_static_hbase_pb_VisibilityLabelsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -2178,7 +2178,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_VisibilityLabelsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_VisibilityLabelsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2384,7 +2384,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_VisibilityLabelsRequest_descriptor
+name|internal_static_hbase_pb_VisibilityLabelsRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -3059,7 +3059,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .VisibilityLabel visLabel = 1;
+comment|// repeated .hbase.pb.VisibilityLabel visLabel = 1;
 specifier|private
 name|java
 operator|.
@@ -3209,7 +3209,7 @@ name|VisibilityLabelOrBuilder
 argument_list|>
 name|visLabelBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -3266,7 +3266,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|int
 name|getVisLabelCount
@@ -3296,7 +3296,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -3347,7 +3347,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|Builder
 name|setVisLabel
@@ -3425,7 +3425,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|Builder
 name|setVisLabel
@@ -3498,7 +3498,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|Builder
 name|addVisLabel
@@ -3569,7 +3569,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|Builder
 name|addVisLabel
@@ -3647,7 +3647,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|Builder
 name|addVisLabel
@@ -3713,7 +3713,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|Builder
 name|addVisLabel
@@ -3786,7 +3786,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllVisLabel
@@ -3855,7 +3855,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|Builder
 name|clearVisLabel
@@ -3904,7 +3904,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|Builder
 name|removeVisLabel
@@ -3948,7 +3948,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -3983,7 +3983,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4034,7 +4034,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -4093,7 +4093,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4142,7 +4142,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4196,7 +4196,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .VisibilityLabel visLabel = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.VisibilityLabel visLabel = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -4392,7 +4392,7 @@ return|return
 name|visLabelBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:VisibilityLabelsRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.VisibilityLabelsRequest)
 block|}
 static|static
 block|{
@@ -4410,7 +4410,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:VisibilityLabelsRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.VisibilityLabelsRequest)
 block|}
 specifier|public
 interface|interface
@@ -4453,7 +4453,7 @@ name|getOrdinal
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code VisibilityLabel}    */
+comment|/**    * Protobuf type {@code hbase.pb.VisibilityLabel}    */
 specifier|public
 specifier|static
 specifier|final
@@ -4841,7 +4841,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_VisibilityLabel_descriptor
+name|internal_static_hbase_pb_VisibilityLabel_descriptor
 return|;
 block|}
 specifier|protected
@@ -4872,7 +4872,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_VisibilityLabel_fieldAccessorTable
+name|internal_static_hbase_pb_VisibilityLabel_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -6316,7 +6316,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code VisibilityLabel}      */
+comment|/**      * Protobuf type {@code hbase.pb.VisibilityLabel}      */
 specifier|public
 specifier|static
 specifier|final
@@ -6382,7 +6382,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_VisibilityLabel_descriptor
+name|internal_static_hbase_pb_VisibilityLabel_descriptor
 return|;
 block|}
 specifier|protected
@@ -6413,7 +6413,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_VisibilityLabel_fieldAccessorTable
+name|internal_static_hbase_pb_VisibilityLabel_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -6613,7 +6613,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_VisibilityLabel_descriptor
+name|internal_static_hbase_pb_VisibilityLabel_descriptor
 return|;
 block|}
 specifier|public
@@ -7369,7 +7369,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:VisibilityLabel)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.VisibilityLabel)
 block|}
 static|static
 block|{
@@ -7387,7 +7387,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:VisibilityLabel)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.VisibilityLabel)
 block|}
 specifier|public
 interface|interface
@@ -7401,8 +7401,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .RegionActionResult result = 1;
-comment|/**      *<code>repeated .RegionActionResult result = 1;</code>      */
+comment|// repeated .hbase.pb.RegionActionResult result = 1;
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -7428,7 +7428,7 @@ argument_list|>
 name|getResultList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionActionResult result = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -7450,12 +7450,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .RegionActionResult result = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>      */
 name|int
 name|getResultCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionActionResult result = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -7483,7 +7483,7 @@ argument_list|>
 name|getResultOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionActionResult result = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -7506,7 +7506,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code VisibilityLabelsResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.VisibilityLabelsResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -7969,7 +7969,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_VisibilityLabelsResponse_descriptor
+name|internal_static_hbase_pb_VisibilityLabelsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -8000,7 +8000,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_VisibilityLabelsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_VisibilityLabelsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -8138,7 +8138,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|// repeated .RegionActionResult result = 1;
+comment|// repeated .hbase.pb.RegionActionResult result = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -8172,7 +8172,7 @@ name|RegionActionResult
 argument_list|>
 name|result_
 decl_stmt|;
-comment|/**      *<code>repeated .RegionActionResult result = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -8203,7 +8203,7 @@ return|return
 name|result_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionActionResult result = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -8236,7 +8236,7 @@ return|return
 name|result_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionActionResult result = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>      */
 specifier|public
 name|int
 name|getResultCount
@@ -8249,7 +8249,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .RegionActionResult result = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -8281,7 +8281,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .RegionActionResult result = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -9422,7 +9422,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code VisibilityLabelsResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.VisibilityLabelsResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -9488,7 +9488,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_VisibilityLabelsResponse_descriptor
+name|internal_static_hbase_pb_VisibilityLabelsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -9519,7 +9519,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_VisibilityLabelsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_VisibilityLabelsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -9725,7 +9725,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_VisibilityLabelsResponse_descriptor
+name|internal_static_hbase_pb_VisibilityLabelsResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -10400,7 +10400,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .RegionActionResult result = 1;
+comment|// repeated .hbase.pb.RegionActionResult result = 1;
 specifier|private
 name|java
 operator|.
@@ -10550,7 +10550,7 @@ name|RegionActionResultOrBuilder
 argument_list|>
 name|resultBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -10607,7 +10607,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|int
 name|getResultCount
@@ -10637,7 +10637,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -10688,7 +10688,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|Builder
 name|setResult
@@ -10766,7 +10766,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|Builder
 name|setResult
@@ -10839,7 +10839,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|Builder
 name|addResult
@@ -10910,7 +10910,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|Builder
 name|addResult
@@ -10988,7 +10988,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|Builder
 name|addResult
@@ -11054,7 +11054,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|Builder
 name|addResult
@@ -11127,7 +11127,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllResult
@@ -11196,7 +11196,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|Builder
 name|clearResult
@@ -11245,7 +11245,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|Builder
 name|removeResult
@@ -11289,7 +11289,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11324,7 +11324,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11375,7 +11375,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -11434,7 +11434,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11483,7 +11483,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -11537,7 +11537,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionActionResult result = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.RegionActionResult result = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -11733,7 +11733,7 @@ return|return
 name|resultBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:VisibilityLabelsResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.VisibilityLabelsResponse)
 block|}
 static|static
 block|{
@@ -11751,7 +11751,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:VisibilityLabelsResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.VisibilityLabelsResponse)
 block|}
 specifier|public
 interface|interface
@@ -11821,7 +11821,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code SetAuthsRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.SetAuthsRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -12273,7 +12273,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_SetAuthsRequest_descriptor
+name|internal_static_hbase_pb_SetAuthsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -12304,7 +12304,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_SetAuthsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_SetAuthsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -13824,7 +13824,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code SetAuthsRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.SetAuthsRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -13890,7 +13890,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_SetAuthsRequest_descriptor
+name|internal_static_hbase_pb_SetAuthsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -13921,7 +13921,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_SetAuthsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_SetAuthsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -14128,7 +14128,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_SetAuthsRequest_descriptor
+name|internal_static_hbase_pb_SetAuthsRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -15169,7 +15169,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:SetAuthsRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.SetAuthsRequest)
 block|}
 static|static
 block|{
@@ -15187,7 +15187,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:SetAuthsRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.SetAuthsRequest)
 block|}
 specifier|public
 interface|interface
@@ -15249,7 +15249,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code UserAuthorizations}    */
+comment|/**    * Protobuf type {@code hbase.pb.UserAuthorizations}    */
 specifier|public
 specifier|static
 specifier|final
@@ -15794,7 +15794,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_UserAuthorizations_descriptor
+name|internal_static_hbase_pb_UserAuthorizations_descriptor
 return|;
 block|}
 specifier|protected
@@ -15825,7 +15825,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_UserAuthorizations_fieldAccessorTable
+name|internal_static_hbase_pb_UserAuthorizations_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -17335,7 +17335,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code UserAuthorizations}      */
+comment|/**      * Protobuf type {@code hbase.pb.UserAuthorizations}      */
 specifier|public
 specifier|static
 specifier|final
@@ -17401,7 +17401,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_UserAuthorizations_descriptor
+name|internal_static_hbase_pb_UserAuthorizations_descriptor
 return|;
 block|}
 specifier|protected
@@ -17432,7 +17432,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_UserAuthorizations_fieldAccessorTable
+name|internal_static_hbase_pb_UserAuthorizations_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -17639,7 +17639,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_UserAuthorizations_descriptor
+name|internal_static_hbase_pb_UserAuthorizations_descriptor
 return|;
 block|}
 specifier|public
@@ -18628,7 +18628,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:UserAuthorizations)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.UserAuthorizations)
 block|}
 static|static
 block|{
@@ -18646,7 +18646,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:UserAuthorizations)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.UserAuthorizations)
 block|}
 specifier|public
 interface|interface
@@ -18660,8 +18660,8 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .UserAuthorizations userAuths = 1;
-comment|/**      *<code>repeated .UserAuthorizations userAuths = 1;</code>      */
+comment|// repeated .hbase.pb.UserAuthorizations userAuths = 1;
+comment|/**      *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -18687,7 +18687,7 @@ argument_list|>
 name|getUserAuthsList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .UserAuthorizations userAuths = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -18709,12 +18709,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .UserAuthorizations userAuths = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>      */
 name|int
 name|getUserAuthsCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .UserAuthorizations userAuths = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>      */
 name|java
 operator|.
 name|util
@@ -18742,7 +18742,7 @@ argument_list|>
 name|getUserAuthsOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .UserAuthorizations userAuths = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -18765,7 +18765,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code MultiUserAuthorizations}    */
+comment|/**    * Protobuf type {@code hbase.pb.MultiUserAuthorizations}    */
 specifier|public
 specifier|static
 specifier|final
@@ -19228,7 +19228,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_MultiUserAuthorizations_descriptor
+name|internal_static_hbase_pb_MultiUserAuthorizations_descriptor
 return|;
 block|}
 specifier|protected
@@ -19259,7 +19259,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_MultiUserAuthorizations_fieldAccessorTable
+name|internal_static_hbase_pb_MultiUserAuthorizations_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -19397,7 +19397,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|// repeated .UserAuthorizations userAuths = 1;
+comment|// repeated .hbase.pb.UserAuthorizations userAuths = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -19431,7 +19431,7 @@ name|UserAuthorizations
 argument_list|>
 name|userAuths_
 decl_stmt|;
-comment|/**      *<code>repeated .UserAuthorizations userAuths = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -19462,7 +19462,7 @@ return|return
 name|userAuths_
 return|;
 block|}
-comment|/**      *<code>repeated .UserAuthorizations userAuths = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -19495,7 +19495,7 @@ return|return
 name|userAuths_
 return|;
 block|}
-comment|/**      *<code>repeated .UserAuthorizations userAuths = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>      */
 specifier|public
 name|int
 name|getUserAuthsCount
@@ -19508,7 +19508,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .UserAuthorizations userAuths = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -19540,7 +19540,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .UserAuthorizations userAuths = 1;</code>      */
+comment|/**      *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -20681,7 +20681,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code MultiUserAuthorizations}      */
+comment|/**      * Protobuf type {@code hbase.pb.MultiUserAuthorizations}      */
 specifier|public
 specifier|static
 specifier|final
@@ -20747,7 +20747,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_MultiUserAuthorizations_descriptor
+name|internal_static_hbase_pb_MultiUserAuthorizations_descriptor
 return|;
 block|}
 specifier|protected
@@ -20778,7 +20778,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_MultiUserAuthorizations_fieldAccessorTable
+name|internal_static_hbase_pb_MultiUserAuthorizations_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -20984,7 +20984,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_MultiUserAuthorizations_descriptor
+name|internal_static_hbase_pb_MultiUserAuthorizations_descriptor
 return|;
 block|}
 specifier|public
@@ -21659,7 +21659,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .UserAuthorizations userAuths = 1;
+comment|// repeated .hbase.pb.UserAuthorizations userAuths = 1;
 specifier|private
 name|java
 operator|.
@@ -21809,7 +21809,7 @@ name|UserAuthorizationsOrBuilder
 argument_list|>
 name|userAuthsBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -21866,7 +21866,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|int
 name|getUserAuthsCount
@@ -21896,7 +21896,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -21947,7 +21947,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserAuths
@@ -22025,7 +22025,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|Builder
 name|setUserAuths
@@ -22098,7 +22098,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|Builder
 name|addUserAuths
@@ -22169,7 +22169,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|Builder
 name|addUserAuths
@@ -22247,7 +22247,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|Builder
 name|addUserAuths
@@ -22313,7 +22313,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|Builder
 name|addUserAuths
@@ -22386,7 +22386,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|Builder
 name|addAllUserAuths
@@ -22455,7 +22455,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|Builder
 name|clearUserAuths
@@ -22504,7 +22504,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|Builder
 name|removeUserAuths
@@ -22548,7 +22548,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -22583,7 +22583,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -22634,7 +22634,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -22693,7 +22693,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -22742,7 +22742,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -22796,7 +22796,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .UserAuthorizations userAuths = 1;</code>        */
+comment|/**        *<code>repeated .hbase.pb.UserAuthorizations userAuths = 1;</code>        */
 specifier|public
 name|java
 operator|.
@@ -22992,7 +22992,7 @@ return|return
 name|userAuthsBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MultiUserAuthorizations)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.MultiUserAuthorizations)
 block|}
 static|static
 block|{
@@ -23010,7 +23010,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MultiUserAuthorizations)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.MultiUserAuthorizations)
 block|}
 specifier|public
 interface|interface
@@ -23042,7 +23042,7 @@ name|getUser
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GetAuthsRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.GetAuthsRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -23413,7 +23413,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_GetAuthsRequest_descriptor
+name|internal_static_hbase_pb_GetAuthsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -23444,7 +23444,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_GetAuthsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -24726,7 +24726,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetAuthsRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.GetAuthsRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -24792,7 +24792,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_GetAuthsRequest_descriptor
+name|internal_static_hbase_pb_GetAuthsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -24823,7 +24823,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_GetAuthsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -25010,7 +25010,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_GetAuthsRequest_descriptor
+name|internal_static_hbase_pb_GetAuthsRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -25642,7 +25642,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetAuthsRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetAuthsRequest)
 block|}
 static|static
 block|{
@@ -25660,7 +25660,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetAuthsRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetAuthsRequest)
 block|}
 specifier|public
 interface|interface
@@ -25730,7 +25730,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code GetAuthsResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.GetAuthsResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -26182,7 +26182,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_GetAuthsResponse_descriptor
+name|internal_static_hbase_pb_GetAuthsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -26213,7 +26213,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_GetAuthsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -27733,7 +27733,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code GetAuthsResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.GetAuthsResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -27799,7 +27799,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_GetAuthsResponse_descriptor
+name|internal_static_hbase_pb_GetAuthsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -27830,7 +27830,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_GetAuthsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -28037,7 +28037,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_GetAuthsResponse_descriptor
+name|internal_static_hbase_pb_GetAuthsResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -29078,7 +29078,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetAuthsResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.GetAuthsResponse)
 block|}
 static|static
 block|{
@@ -29096,7 +29096,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetAuthsResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.GetAuthsResponse)
 block|}
 specifier|public
 interface|interface
@@ -29137,7 +29137,7 @@ name|getRegexBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ListLabelsRequest}    */
+comment|/**    * Protobuf type {@code hbase.pb.ListLabelsRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -29508,7 +29508,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_ListLabelsRequest_descriptor
+name|internal_static_hbase_pb_ListLabelsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -29539,7 +29539,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_ListLabelsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ListLabelsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -30960,7 +30960,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ListLabelsRequest}      */
+comment|/**      * Protobuf type {@code hbase.pb.ListLabelsRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -31026,7 +31026,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_ListLabelsRequest_descriptor
+name|internal_static_hbase_pb_ListLabelsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -31057,7 +31057,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_ListLabelsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ListLabelsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -31236,7 +31236,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_ListLabelsRequest_descriptor
+name|internal_static_hbase_pb_ListLabelsRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -32036,7 +32036,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ListLabelsRequest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ListLabelsRequest)
 block|}
 static|static
 block|{
@@ -32054,7 +32054,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ListLabelsRequest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ListLabelsRequest)
 block|}
 specifier|public
 interface|interface
@@ -32107,7 +32107,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ListLabelsResponse}    */
+comment|/**    * Protobuf type {@code hbase.pb.ListLabelsResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -32542,7 +32542,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_ListLabelsResponse_descriptor
+name|internal_static_hbase_pb_ListLabelsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -32573,7 +32573,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_ListLabelsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ListLabelsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -33888,7 +33888,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ListLabelsResponse}      */
+comment|/**      * Protobuf type {@code hbase.pb.ListLabelsResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -33954,7 +33954,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_ListLabelsResponse_descriptor
+name|internal_static_hbase_pb_ListLabelsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -33985,7 +33985,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_ListLabelsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ListLabelsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -34171,7 +34171,7 @@ name|generated
 operator|.
 name|VisibilityLabelsProtos
 operator|.
-name|internal_static_ListLabelsResponse_descriptor
+name|internal_static_hbase_pb_ListLabelsResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -35021,7 +35021,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ListLabelsResponse)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ListLabelsResponse)
 block|}
 static|static
 block|{
@@ -35039,9 +35039,9 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ListLabelsResponse)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ListLabelsResponse)
 block|}
-comment|/**    * Protobuf service {@code VisibilityLabelsService}    */
+comment|/**    * Protobuf service {@code hbase.pb.VisibilityLabelsService}    */
 specifier|public
 specifier|static
 specifier|abstract
@@ -35064,7 +35064,7 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc addLabels(.VisibilityLabelsRequest) returns (.VisibilityLabelsResponse);</code>        */
+comment|/**        *<code>rpc addLabels(.hbase.pb.VisibilityLabelsRequest) returns (.hbase.pb.VisibilityLabelsResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -35123,7 +35123,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc setAuths(.SetAuthsRequest) returns (.VisibilityLabelsResponse);</code>        */
+comment|/**        *<code>rpc setAuths(.hbase.pb.SetAuthsRequest) returns (.hbase.pb.VisibilityLabelsResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -35182,7 +35182,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc clearAuths(.SetAuthsRequest) returns (.VisibilityLabelsResponse);</code>        */
+comment|/**        *<code>rpc clearAuths(.hbase.pb.SetAuthsRequest) returns (.hbase.pb.VisibilityLabelsResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -35241,7 +35241,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc getAuths(.GetAuthsRequest) returns (.GetAuthsResponse);</code>        */
+comment|/**        *<code>rpc getAuths(.hbase.pb.GetAuthsRequest) returns (.hbase.pb.GetAuthsResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -35300,7 +35300,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc listLabels(.ListLabelsRequest) returns (.ListLabelsResponse);</code>        */
+comment|/**        *<code>rpc listLabels(.hbase.pb.ListLabelsRequest) returns (.hbase.pb.ListLabelsResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -36424,7 +36424,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc addLabels(.VisibilityLabelsRequest) returns (.VisibilityLabelsResponse);</code>      */
+comment|/**      *<code>rpc addLabels(.hbase.pb.VisibilityLabelsRequest) returns (.hbase.pb.VisibilityLabelsResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -36483,7 +36483,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc setAuths(.SetAuthsRequest) returns (.VisibilityLabelsResponse);</code>      */
+comment|/**      *<code>rpc setAuths(.hbase.pb.SetAuthsRequest) returns (.hbase.pb.VisibilityLabelsResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -36542,7 +36542,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc clearAuths(.SetAuthsRequest) returns (.VisibilityLabelsResponse);</code>      */
+comment|/**      *<code>rpc clearAuths(.hbase.pb.SetAuthsRequest) returns (.hbase.pb.VisibilityLabelsResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -36601,7 +36601,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc getAuths(.GetAuthsRequest) returns (.GetAuthsResponse);</code>      */
+comment|/**      *<code>rpc getAuths(.hbase.pb.GetAuthsRequest) returns (.hbase.pb.GetAuthsResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -36660,7 +36660,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc listLabels(.ListLabelsRequest) returns (.ListLabelsResponse);</code>      */
+comment|/**      *<code>rpc listLabels(.hbase.pb.ListLabelsRequest) returns (.hbase.pb.ListLabelsResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -39267,7 +39267,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|// @@protoc_insertion_point(class_scope:VisibilityLabelsService)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.VisibilityLabelsService)
 block|}
 specifier|private
 specifier|static
@@ -39280,7 +39280,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_VisibilityLabelsRequest_descriptor
+name|internal_static_hbase_pb_VisibilityLabelsRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39293,7 +39293,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_VisibilityLabelsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_VisibilityLabelsRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39306,7 +39306,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_VisibilityLabel_descriptor
+name|internal_static_hbase_pb_VisibilityLabel_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39319,7 +39319,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_VisibilityLabel_fieldAccessorTable
+name|internal_static_hbase_pb_VisibilityLabel_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39332,7 +39332,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_VisibilityLabelsResponse_descriptor
+name|internal_static_hbase_pb_VisibilityLabelsResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39345,7 +39345,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_VisibilityLabelsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_VisibilityLabelsResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39358,7 +39358,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_SetAuthsRequest_descriptor
+name|internal_static_hbase_pb_SetAuthsRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39371,7 +39371,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_SetAuthsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_SetAuthsRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39384,7 +39384,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_UserAuthorizations_descriptor
+name|internal_static_hbase_pb_UserAuthorizations_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39397,7 +39397,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_UserAuthorizations_fieldAccessorTable
+name|internal_static_hbase_pb_UserAuthorizations_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39410,7 +39410,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MultiUserAuthorizations_descriptor
+name|internal_static_hbase_pb_MultiUserAuthorizations_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39423,7 +39423,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MultiUserAuthorizations_fieldAccessorTable
+name|internal_static_hbase_pb_MultiUserAuthorizations_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39436,7 +39436,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetAuthsRequest_descriptor
+name|internal_static_hbase_pb_GetAuthsRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39449,7 +39449,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetAuthsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthsRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39462,7 +39462,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetAuthsResponse_descriptor
+name|internal_static_hbase_pb_GetAuthsResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39475,7 +39475,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetAuthsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthsResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39488,7 +39488,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ListLabelsRequest_descriptor
+name|internal_static_hbase_pb_ListLabelsRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39501,7 +39501,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ListLabelsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ListLabelsRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39514,7 +39514,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ListLabelsResponse_descriptor
+name|internal_static_hbase_pb_ListLabelsResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -39527,7 +39527,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ListLabelsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ListLabelsResponse_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -39571,53 +39571,59 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\026VisibilityLabels.proto\032\014Client.proto\"="
+literal|"\n\026VisibilityLabels.proto\022\010hbase.pb\032\014Clie"
 operator|+
-literal|"\n\027VisibilityLabelsRequest\022\"\n\010visLabel\030\001 "
+literal|"nt.proto\"F\n\027VisibilityLabelsRequest\022+\n\010v"
 operator|+
-literal|"\003(\0132\020.VisibilityLabel\"1\n\017VisibilityLabel"
+literal|"isLabel\030\001 \003(\0132\031.hbase.pb.VisibilityLabel"
 operator|+
-literal|"\022\r\n\005label\030\001 \002(\014\022\017\n\007ordinal\030\002 \001(\r\"?\n\030Visi"
+literal|"\"1\n\017VisibilityLabel\022\r\n\005label\030\001 \002(\014\022\017\n\007or"
 operator|+
-literal|"bilityLabelsResponse\022#\n\006result\030\001 \003(\0132\023.R"
+literal|"dinal\030\002 \001(\r\"H\n\030VisibilityLabelsResponse\022"
 operator|+
-literal|"egionActionResult\"-\n\017SetAuthsRequest\022\014\n\004"
+literal|",\n\006result\030\001 \003(\0132\034.hbase.pb.RegionActionR"
 operator|+
-literal|"user\030\001 \002(\014\022\014\n\004auth\030\002 \003(\014\"0\n\022UserAuthoriz"
+literal|"esult\"-\n\017SetAuthsRequest\022\014\n\004user\030\001 \002(\014\022\014"
 operator|+
-literal|"ations\022\014\n\004user\030\001 \002(\014\022\014\n\004auth\030\002 \003(\r\"A\n\027Mu"
+literal|"\n\004auth\030\002 \003(\014\"0\n\022UserAuthorizations\022\014\n\004us"
 operator|+
-literal|"ltiUserAuthorizations\022&\n\tuserAuths\030\001 \003(\013"
+literal|"er\030\001 \002(\014\022\014\n\004auth\030\002 \003(\r\"J\n\027MultiUserAutho"
 operator|+
-literal|"2\023.UserAuthorizations\"\037\n\017GetAuthsRequest"
+literal|"rizations\022/\n\tuserAuths\030\001 \003(\0132\034.hbase.pb."
 block|,
-literal|"\022\014\n\004user\030\001 \002(\014\".\n\020GetAuthsResponse\022\014\n\004us"
+literal|"UserAuthorizations\"\037\n\017GetAuthsRequest\022\014\n"
 operator|+
-literal|"er\030\001 \002(\014\022\014\n\004auth\030\002 \003(\014\"\"\n\021ListLabelsRequ"
+literal|"\004user\030\001 \002(\014\".\n\020GetAuthsResponse\022\014\n\004user\030"
 operator|+
-literal|"est\022\r\n\005regex\030\001 \001(\t\"#\n\022ListLabelsResponse"
+literal|"\001 \002(\014\022\014\n\004auth\030\002 \003(\014\"\"\n\021ListLabelsRequest"
 operator|+
-literal|"\022\r\n\005label\030\001 \003(\0142\267\002\n\027VisibilityLabelsServ"
+literal|"\022\r\n\005regex\030\001 \001(\t\"#\n\022ListLabelsResponse\022\r\n"
 operator|+
-literal|"ice\022@\n\taddLabels\022\030.VisibilityLabelsReque"
+literal|"\005label\030\001 \003(\0142\221\003\n\027VisibilityLabelsService"
 operator|+
-literal|"st\032\031.VisibilityLabelsResponse\0227\n\010setAuth"
+literal|"\022R\n\taddLabels\022!.hbase.pb.VisibilityLabel"
 operator|+
-literal|"s\022\020.SetAuthsRequest\032\031.VisibilityLabelsRe"
+literal|"sRequest\032\".hbase.pb.VisibilityLabelsResp"
 operator|+
-literal|"sponse\0229\n\nclearAuths\022\020.SetAuthsRequest\032\031"
+literal|"onse\022I\n\010setAuths\022\031.hbase.pb.SetAuthsRequ"
 operator|+
-literal|".VisibilityLabelsResponse\022/\n\010getAuths\022\020."
+literal|"est\032\".hbase.pb.VisibilityLabelsResponse\022"
 operator|+
-literal|"GetAuthsRequest\032\021.GetAuthsResponse\0225\n\nli"
+literal|"K\n\nclearAuths\022\031.hbase.pb.SetAuthsRequest"
 block|,
-literal|"stLabels\022\022.ListLabelsRequest\032\023.ListLabel"
+literal|"\032\".hbase.pb.VisibilityLabelsResponse\022A\n\010"
 operator|+
-literal|"sResponseBL\n*org.apache.hadoop.hbase.pro"
+literal|"getAuths\022\031.hbase.pb.GetAuthsRequest\032\032.hb"
 operator|+
-literal|"tobuf.generatedB\026VisibilityLabelsProtosH"
+literal|"ase.pb.GetAuthsResponse\022G\n\nlistLabels\022\033."
 operator|+
-literal|"\001\210\001\001\240\001\001"
+literal|"hbase.pb.ListLabelsRequest\032\034.hbase.pb.Li"
+operator|+
+literal|"stLabelsResponseBL\n*org.apache.hadoop.hb"
+operator|+
+literal|"ase.protobuf.generatedB\026VisibilityLabels"
+operator|+
+literal|"ProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -39673,7 +39679,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_VisibilityLabelsRequest_descriptor
+name|internal_static_hbase_pb_VisibilityLabelsRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -39686,7 +39692,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_VisibilityLabelsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_VisibilityLabelsRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -39699,7 +39705,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_VisibilityLabelsRequest_descriptor
+name|internal_static_hbase_pb_VisibilityLabelsRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -39713,7 +39719,7 @@ literal|"VisLabel"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_VisibilityLabel_descriptor
+name|internal_static_hbase_pb_VisibilityLabel_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -39726,7 +39732,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_VisibilityLabel_fieldAccessorTable
+name|internal_static_hbase_pb_VisibilityLabel_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -39739,7 +39745,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_VisibilityLabel_descriptor
+name|internal_static_hbase_pb_VisibilityLabel_descriptor
 argument_list|,
 operator|new
 name|java
@@ -39755,7 +39761,7 @@ literal|"Ordinal"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_VisibilityLabelsResponse_descriptor
+name|internal_static_hbase_pb_VisibilityLabelsResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -39768,7 +39774,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_VisibilityLabelsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_VisibilityLabelsResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -39781,7 +39787,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_VisibilityLabelsResponse_descriptor
+name|internal_static_hbase_pb_VisibilityLabelsResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -39795,7 +39801,7 @@ literal|"Result"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_SetAuthsRequest_descriptor
+name|internal_static_hbase_pb_SetAuthsRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -39808,7 +39814,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_SetAuthsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_SetAuthsRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -39821,7 +39827,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_SetAuthsRequest_descriptor
+name|internal_static_hbase_pb_SetAuthsRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -39837,7 +39843,7 @@ literal|"Auth"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_UserAuthorizations_descriptor
+name|internal_static_hbase_pb_UserAuthorizations_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -39850,7 +39856,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_UserAuthorizations_fieldAccessorTable
+name|internal_static_hbase_pb_UserAuthorizations_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -39863,7 +39869,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_UserAuthorizations_descriptor
+name|internal_static_hbase_pb_UserAuthorizations_descriptor
 argument_list|,
 operator|new
 name|java
@@ -39879,7 +39885,7 @@ literal|"Auth"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_MultiUserAuthorizations_descriptor
+name|internal_static_hbase_pb_MultiUserAuthorizations_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -39892,7 +39898,7 @@ argument_list|(
 literal|5
 argument_list|)
 expr_stmt|;
-name|internal_static_MultiUserAuthorizations_fieldAccessorTable
+name|internal_static_hbase_pb_MultiUserAuthorizations_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -39905,7 +39911,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MultiUserAuthorizations_descriptor
+name|internal_static_hbase_pb_MultiUserAuthorizations_descriptor
 argument_list|,
 operator|new
 name|java
@@ -39919,7 +39925,7 @@ literal|"UserAuths"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_GetAuthsRequest_descriptor
+name|internal_static_hbase_pb_GetAuthsRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -39932,7 +39938,7 @@ argument_list|(
 literal|6
 argument_list|)
 expr_stmt|;
-name|internal_static_GetAuthsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthsRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -39945,7 +39951,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetAuthsRequest_descriptor
+name|internal_static_hbase_pb_GetAuthsRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -39959,7 +39965,7 @@ literal|"User"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_GetAuthsResponse_descriptor
+name|internal_static_hbase_pb_GetAuthsResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -39972,7 +39978,7 @@ argument_list|(
 literal|7
 argument_list|)
 expr_stmt|;
-name|internal_static_GetAuthsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_GetAuthsResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -39985,7 +39991,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetAuthsResponse_descriptor
+name|internal_static_hbase_pb_GetAuthsResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -40001,7 +40007,7 @@ literal|"Auth"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ListLabelsRequest_descriptor
+name|internal_static_hbase_pb_ListLabelsRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -40014,7 +40020,7 @@ argument_list|(
 literal|8
 argument_list|)
 expr_stmt|;
-name|internal_static_ListLabelsRequest_fieldAccessorTable
+name|internal_static_hbase_pb_ListLabelsRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -40027,7 +40033,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ListLabelsRequest_descriptor
+name|internal_static_hbase_pb_ListLabelsRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -40041,7 +40047,7 @@ literal|"Regex"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ListLabelsResponse_descriptor
+name|internal_static_hbase_pb_ListLabelsResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -40054,7 +40060,7 @@ argument_list|(
 literal|9
 argument_list|)
 expr_stmt|;
-name|internal_static_ListLabelsResponse_fieldAccessorTable
+name|internal_static_hbase_pb_ListLabelsResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -40067,7 +40073,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ListLabelsResponse_descriptor
+name|internal_static_hbase_pb_ListLabelsResponse_descriptor
 argument_list|,
 operator|new
 name|java

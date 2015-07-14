@@ -104,7 +104,7 @@ name|getSerializedComparator
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code Comparator}    */
+comment|/**    * Protobuf type {@code hbase.pb.Comparator}    */
 specifier|public
 specifier|static
 specifier|final
@@ -492,7 +492,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_Comparator_descriptor
+name|internal_static_hbase_pb_Comparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -523,7 +523,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_Comparator_fieldAccessorTable
+name|internal_static_hbase_pb_Comparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2145,7 +2145,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code Comparator}      */
+comment|/**      * Protobuf type {@code hbase.pb.Comparator}      */
 specifier|public
 specifier|static
 specifier|final
@@ -2211,7 +2211,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_Comparator_descriptor
+name|internal_static_hbase_pb_Comparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -2242,7 +2242,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_Comparator_fieldAccessorTable
+name|internal_static_hbase_pb_Comparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2442,7 +2442,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_Comparator_descriptor
+name|internal_static_hbase_pb_Comparator_descriptor
 return|;
 block|}
 specifier|public
@@ -3422,7 +3422,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Comparator)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Comparator)
 block|}
 static|static
 block|{
@@ -3440,7 +3440,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Comparator)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.Comparator)
 block|}
 specifier|public
 interface|interface
@@ -3472,7 +3472,7 @@ name|getValue
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ByteArrayComparable}    */
+comment|/**    * Protobuf type {@code hbase.pb.ByteArrayComparable}    */
 specifier|public
 specifier|static
 specifier|final
@@ -3843,7 +3843,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_ByteArrayComparable_descriptor
+name|internal_static_hbase_pb_ByteArrayComparable_descriptor
 return|;
 block|}
 specifier|protected
@@ -3874,7 +3874,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_ByteArrayComparable_fieldAccessorTable
+name|internal_static_hbase_pb_ByteArrayComparable_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -5141,7 +5141,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ByteArrayComparable}      */
+comment|/**      * Protobuf type {@code hbase.pb.ByteArrayComparable}      */
 specifier|public
 specifier|static
 specifier|final
@@ -5207,7 +5207,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_ByteArrayComparable_descriptor
+name|internal_static_hbase_pb_ByteArrayComparable_descriptor
 return|;
 block|}
 specifier|protected
@@ -5238,7 +5238,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_ByteArrayComparable_fieldAccessorTable
+name|internal_static_hbase_pb_ByteArrayComparable_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -5425,7 +5425,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_ByteArrayComparable_descriptor
+name|internal_static_hbase_pb_ByteArrayComparable_descriptor
 return|;
 block|}
 specifier|public
@@ -6046,7 +6046,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ByteArrayComparable)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ByteArrayComparable)
 block|}
 static|static
 block|{
@@ -6064,7 +6064,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ByteArrayComparable)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.ByteArrayComparable)
 block|}
 specifier|public
 interface|interface
@@ -6078,13 +6078,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ByteArrayComparable comparable = 1;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|// required .hbase.pb.ByteArrayComparable comparable = 1;
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 name|boolean
 name|hasComparable
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -6103,7 +6103,7 @@ name|ByteArrayComparable
 name|getComparable
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -6123,7 +6123,7 @@ name|getComparableOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code BinaryComparator}    */
+comment|/**    * Protobuf type {@code hbase.pb.BinaryComparator}    */
 specifier|public
 specifier|static
 specifier|final
@@ -6578,7 +6578,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_BinaryComparator_descriptor
+name|internal_static_hbase_pb_BinaryComparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -6609,7 +6609,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_BinaryComparator_fieldAccessorTable
+name|internal_static_hbase_pb_BinaryComparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -6751,7 +6751,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ByteArrayComparable comparable = 1;
+comment|// required .hbase.pb.ByteArrayComparable comparable = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -6778,7 +6778,7 @@ operator|.
 name|ByteArrayComparable
 name|comparable_
 decl_stmt|;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 specifier|public
 name|boolean
 name|hasComparable
@@ -6796,7 +6796,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6820,7 +6820,7 @@ return|return
 name|comparable_
 return|;
 block|}
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -7940,7 +7940,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code BinaryComparator}      */
+comment|/**      * Protobuf type {@code hbase.pb.BinaryComparator}      */
 specifier|public
 specifier|static
 specifier|final
@@ -8006,7 +8006,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_BinaryComparator_descriptor
+name|internal_static_hbase_pb_BinaryComparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -8037,7 +8037,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_BinaryComparator_fieldAccessorTable
+name|internal_static_hbase_pb_BinaryComparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -8253,7 +8253,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_BinaryComparator_descriptor
+name|internal_static_hbase_pb_BinaryComparator_descriptor
 return|;
 block|}
 specifier|public
@@ -8777,7 +8777,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ByteArrayComparable comparable = 1;
+comment|// required .hbase.pb.ByteArrayComparable comparable = 1;
 specifier|private
 name|org
 operator|.
@@ -8876,7 +8876,7 @@ name|ByteArrayComparableOrBuilder
 argument_list|>
 name|comparableBuilder_
 decl_stmt|;
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|boolean
 name|hasComparable
@@ -8894,7 +8894,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -8935,7 +8935,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|setComparable
@@ -9004,7 +9004,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|setComparable
@@ -9068,7 +9068,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeComparable
@@ -9193,7 +9193,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|clearComparable
@@ -9252,7 +9252,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9289,7 +9289,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -9330,7 +9330,7 @@ name|comparable_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -9480,7 +9480,7 @@ return|return
 name|comparableBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:BinaryComparator)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.BinaryComparator)
 block|}
 static|static
 block|{
@@ -9498,7 +9498,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:BinaryComparator)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.BinaryComparator)
 block|}
 specifier|public
 interface|interface
@@ -9512,13 +9512,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ByteArrayComparable comparable = 1;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|// required .hbase.pb.ByteArrayComparable comparable = 1;
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 name|boolean
 name|hasComparable
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -9537,7 +9537,7 @@ name|ByteArrayComparable
 name|getComparable
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -9557,7 +9557,7 @@ name|getComparableOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code LongComparator}    */
+comment|/**    * Protobuf type {@code hbase.pb.LongComparator}    */
 specifier|public
 specifier|static
 specifier|final
@@ -10012,7 +10012,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_LongComparator_descriptor
+name|internal_static_hbase_pb_LongComparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -10043,7 +10043,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_LongComparator_fieldAccessorTable
+name|internal_static_hbase_pb_LongComparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -10185,7 +10185,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ByteArrayComparable comparable = 1;
+comment|// required .hbase.pb.ByteArrayComparable comparable = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -10212,7 +10212,7 @@ operator|.
 name|ByteArrayComparable
 name|comparable_
 decl_stmt|;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 specifier|public
 name|boolean
 name|hasComparable
@@ -10230,7 +10230,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -10254,7 +10254,7 @@ return|return
 name|comparable_
 return|;
 block|}
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -11374,7 +11374,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code LongComparator}      */
+comment|/**      * Protobuf type {@code hbase.pb.LongComparator}      */
 specifier|public
 specifier|static
 specifier|final
@@ -11440,7 +11440,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_LongComparator_descriptor
+name|internal_static_hbase_pb_LongComparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -11471,7 +11471,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_LongComparator_fieldAccessorTable
+name|internal_static_hbase_pb_LongComparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -11687,7 +11687,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_LongComparator_descriptor
+name|internal_static_hbase_pb_LongComparator_descriptor
 return|;
 block|}
 specifier|public
@@ -12211,7 +12211,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ByteArrayComparable comparable = 1;
+comment|// required .hbase.pb.ByteArrayComparable comparable = 1;
 specifier|private
 name|org
 operator|.
@@ -12310,7 +12310,7 @@ name|ByteArrayComparableOrBuilder
 argument_list|>
 name|comparableBuilder_
 decl_stmt|;
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|boolean
 name|hasComparable
@@ -12328,7 +12328,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12369,7 +12369,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|setComparable
@@ -12438,7 +12438,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|setComparable
@@ -12502,7 +12502,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeComparable
@@ -12627,7 +12627,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|clearComparable
@@ -12686,7 +12686,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12723,7 +12723,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12764,7 +12764,7 @@ name|comparable_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -12914,7 +12914,7 @@ return|return
 name|comparableBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:LongComparator)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.LongComparator)
 block|}
 static|static
 block|{
@@ -12932,7 +12932,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:LongComparator)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.LongComparator)
 block|}
 specifier|public
 interface|interface
@@ -12946,13 +12946,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ByteArrayComparable comparable = 1;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|// required .hbase.pb.ByteArrayComparable comparable = 1;
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 name|boolean
 name|hasComparable
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -12971,7 +12971,7 @@ name|ByteArrayComparable
 name|getComparable
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -12991,7 +12991,7 @@ name|getComparableOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code BinaryPrefixComparator}    */
+comment|/**    * Protobuf type {@code hbase.pb.BinaryPrefixComparator}    */
 specifier|public
 specifier|static
 specifier|final
@@ -13446,7 +13446,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_BinaryPrefixComparator_descriptor
+name|internal_static_hbase_pb_BinaryPrefixComparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -13477,7 +13477,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_BinaryPrefixComparator_fieldAccessorTable
+name|internal_static_hbase_pb_BinaryPrefixComparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -13619,7 +13619,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ByteArrayComparable comparable = 1;
+comment|// required .hbase.pb.ByteArrayComparable comparable = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -13646,7 +13646,7 @@ operator|.
 name|ByteArrayComparable
 name|comparable_
 decl_stmt|;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 specifier|public
 name|boolean
 name|hasComparable
@@ -13664,7 +13664,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -13688,7 +13688,7 @@ return|return
 name|comparable_
 return|;
 block|}
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -14808,7 +14808,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code BinaryPrefixComparator}      */
+comment|/**      * Protobuf type {@code hbase.pb.BinaryPrefixComparator}      */
 specifier|public
 specifier|static
 specifier|final
@@ -14874,7 +14874,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_BinaryPrefixComparator_descriptor
+name|internal_static_hbase_pb_BinaryPrefixComparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -14905,7 +14905,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_BinaryPrefixComparator_fieldAccessorTable
+name|internal_static_hbase_pb_BinaryPrefixComparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -15121,7 +15121,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_BinaryPrefixComparator_descriptor
+name|internal_static_hbase_pb_BinaryPrefixComparator_descriptor
 return|;
 block|}
 specifier|public
@@ -15645,7 +15645,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ByteArrayComparable comparable = 1;
+comment|// required .hbase.pb.ByteArrayComparable comparable = 1;
 specifier|private
 name|org
 operator|.
@@ -15744,7 +15744,7 @@ name|ByteArrayComparableOrBuilder
 argument_list|>
 name|comparableBuilder_
 decl_stmt|;
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|boolean
 name|hasComparable
@@ -15762,7 +15762,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -15803,7 +15803,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|setComparable
@@ -15872,7 +15872,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|setComparable
@@ -15936,7 +15936,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeComparable
@@ -16061,7 +16061,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|clearComparable
@@ -16120,7 +16120,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -16157,7 +16157,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -16198,7 +16198,7 @@ name|comparable_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -16348,7 +16348,7 @@ return|return
 name|comparableBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:BinaryPrefixComparator)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.BinaryPrefixComparator)
 block|}
 static|static
 block|{
@@ -16366,7 +16366,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:BinaryPrefixComparator)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.BinaryPrefixComparator)
 block|}
 specifier|public
 interface|interface
@@ -16380,13 +16380,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ByteArrayComparable comparable = 1;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|// required .hbase.pb.ByteArrayComparable comparable = 1;
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 name|boolean
 name|hasComparable
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -16405,7 +16405,7 @@ name|ByteArrayComparable
 name|getComparable
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -16424,13 +16424,13 @@ name|ByteArrayComparableOrBuilder
 name|getComparableOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .BitComparator.BitwiseOp bitwise_op = 2;
-comment|/**      *<code>required .BitComparator.BitwiseOp bitwise_op = 2;</code>      */
+comment|// required .hbase.pb.BitComparator.BitwiseOp bitwise_op = 2;
+comment|/**      *<code>required .hbase.pb.BitComparator.BitwiseOp bitwise_op = 2;</code>      */
 name|boolean
 name|hasBitwiseOp
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .BitComparator.BitwiseOp bitwise_op = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.BitComparator.BitwiseOp bitwise_op = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -16452,7 +16452,7 @@ name|getBitwiseOp
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code BitComparator}    */
+comment|/**    * Protobuf type {@code hbase.pb.BitComparator}    */
 specifier|public
 specifier|static
 specifier|final
@@ -16991,7 +16991,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_BitComparator_descriptor
+name|internal_static_hbase_pb_BitComparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -17022,7 +17022,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_BitComparator_fieldAccessorTable
+name|internal_static_hbase_pb_BitComparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -17160,7 +17160,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code BitComparator.BitwiseOp}      */
+comment|/**      * Protobuf enum {@code hbase.pb.BitComparator.BitwiseOp}      */
 specifier|public
 enum|enum
 name|BitwiseOp
@@ -17526,13 +17526,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:BitComparator.BitwiseOp)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.BitComparator.BitwiseOp)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ByteArrayComparable comparable = 1;
+comment|// required .hbase.pb.ByteArrayComparable comparable = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -17559,7 +17559,7 @@ operator|.
 name|ByteArrayComparable
 name|comparable_
 decl_stmt|;
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 specifier|public
 name|boolean
 name|hasComparable
@@ -17577,7 +17577,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -17601,7 +17601,7 @@ return|return
 name|comparable_
 return|;
 block|}
-comment|/**      *<code>required .ByteArrayComparable comparable = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -17625,7 +17625,7 @@ return|return
 name|comparable_
 return|;
 block|}
-comment|// required .BitComparator.BitwiseOp bitwise_op = 2;
+comment|// required .hbase.pb.BitComparator.BitwiseOp bitwise_op = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -17654,7 +17654,7 @@ operator|.
 name|BitwiseOp
 name|bitwiseOp_
 decl_stmt|;
-comment|/**      *<code>required .BitComparator.BitwiseOp bitwise_op = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.BitComparator.BitwiseOp bitwise_op = 2;</code>      */
 specifier|public
 name|boolean
 name|hasBitwiseOp
@@ -17672,7 +17672,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .BitComparator.BitwiseOp bitwise_op = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.BitComparator.BitwiseOp bitwise_op = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -18957,7 +18957,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code BitComparator}      */
+comment|/**      * Protobuf type {@code hbase.pb.BitComparator}      */
 specifier|public
 specifier|static
 specifier|final
@@ -19023,7 +19023,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_BitComparator_descriptor
+name|internal_static_hbase_pb_BitComparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -19054,7 +19054,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_BitComparator_fieldAccessorTable
+name|internal_static_hbase_pb_BitComparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -19301,7 +19301,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_BitComparator_descriptor
+name|internal_static_hbase_pb_BitComparator_descriptor
 return|;
 block|}
 specifier|public
@@ -19877,7 +19877,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ByteArrayComparable comparable = 1;
+comment|// required .hbase.pb.ByteArrayComparable comparable = 1;
 specifier|private
 name|org
 operator|.
@@ -19976,7 +19976,7 @@ name|ByteArrayComparableOrBuilder
 argument_list|>
 name|comparableBuilder_
 decl_stmt|;
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|boolean
 name|hasComparable
@@ -19994,7 +19994,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20035,7 +20035,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|setComparable
@@ -20104,7 +20104,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|setComparable
@@ -20168,7 +20168,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeComparable
@@ -20293,7 +20293,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|Builder
 name|clearComparable
@@ -20352,7 +20352,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20389,7 +20389,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20430,7 +20430,7 @@ name|comparable_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .ByteArrayComparable comparable = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.ByteArrayComparable comparable = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -20580,7 +20580,7 @@ return|return
 name|comparableBuilder_
 return|;
 block|}
-comment|// required .BitComparator.BitwiseOp bitwise_op = 2;
+comment|// required .hbase.pb.BitComparator.BitwiseOp bitwise_op = 2;
 specifier|private
 name|org
 operator|.
@@ -20621,7 +20621,7 @@ name|BitwiseOp
 operator|.
 name|AND
 decl_stmt|;
-comment|/**        *<code>required .BitComparator.BitwiseOp bitwise_op = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.BitComparator.BitwiseOp bitwise_op = 2;</code>        */
 specifier|public
 name|boolean
 name|hasBitwiseOp
@@ -20639,7 +20639,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .BitComparator.BitwiseOp bitwise_op = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.BitComparator.BitwiseOp bitwise_op = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20665,7 +20665,7 @@ return|return
 name|bitwiseOp_
 return|;
 block|}
-comment|/**        *<code>required .BitComparator.BitwiseOp bitwise_op = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.BitComparator.BitwiseOp bitwise_op = 2;</code>        */
 specifier|public
 name|Builder
 name|setBitwiseOp
@@ -20718,7 +20718,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .BitComparator.BitwiseOp bitwise_op = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.BitComparator.BitwiseOp bitwise_op = 2;</code>        */
 specifier|public
 name|Builder
 name|clearBitwiseOp
@@ -20762,7 +20762,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:BitComparator)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.BitComparator)
 block|}
 static|static
 block|{
@@ -20780,7 +20780,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:BitComparator)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.BitComparator)
 block|}
 specifier|public
 interface|interface
@@ -20794,7 +20794,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code NullComparator}    */
+comment|/**    * Protobuf type {@code hbase.pb.NullComparator}    */
 specifier|public
 specifier|static
 specifier|final
@@ -21143,7 +21143,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_NullComparator_descriptor
+name|internal_static_hbase_pb_NullComparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -21174,7 +21174,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_NullComparator_fieldAccessorTable
+name|internal_static_hbase_pb_NullComparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -22250,7 +22250,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code NullComparator}      */
+comment|/**      * Protobuf type {@code hbase.pb.NullComparator}      */
 specifier|public
 specifier|static
 specifier|final
@@ -22316,7 +22316,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_NullComparator_descriptor
+name|internal_static_hbase_pb_NullComparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -22347,7 +22347,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_NullComparator_fieldAccessorTable
+name|internal_static_hbase_pb_NullComparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -22513,7 +22513,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_NullComparator_descriptor
+name|internal_static_hbase_pb_NullComparator_descriptor
 return|;
 block|}
 specifier|public
@@ -22945,7 +22945,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:NullComparator)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.NullComparator)
 block|}
 static|static
 block|{
@@ -22963,7 +22963,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:NullComparator)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.NullComparator)
 block|}
 specifier|public
 interface|interface
@@ -23067,7 +23067,7 @@ name|getEngineBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RegexStringComparator}    */
+comment|/**    * Protobuf type {@code hbase.pb.RegexStringComparator}    */
 specifier|public
 specifier|static
 specifier|final
@@ -23489,7 +23489,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_RegexStringComparator_descriptor
+name|internal_static_hbase_pb_RegexStringComparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -23520,7 +23520,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_RegexStringComparator_fieldAccessorTable
+name|internal_static_hbase_pb_RegexStringComparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -25828,7 +25828,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RegexStringComparator}      */
+comment|/**      * Protobuf type {@code hbase.pb.RegexStringComparator}      */
 specifier|public
 specifier|static
 specifier|final
@@ -25894,7 +25894,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_RegexStringComparator_descriptor
+name|internal_static_hbase_pb_RegexStringComparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -25925,7 +25925,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_RegexStringComparator_fieldAccessorTable
+name|internal_static_hbase_pb_RegexStringComparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -26143,7 +26143,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_RegexStringComparator_descriptor
+name|internal_static_hbase_pb_RegexStringComparator_descriptor
 return|;
 block|}
 specifier|public
@@ -27796,7 +27796,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RegexStringComparator)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RegexStringComparator)
 block|}
 static|static
 block|{
@@ -27814,7 +27814,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RegexStringComparator)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.RegexStringComparator)
 block|}
 specifier|public
 interface|interface
@@ -27855,7 +27855,7 @@ name|getSubstrBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code SubstringComparator}    */
+comment|/**    * Protobuf type {@code hbase.pb.SubstringComparator}    */
 specifier|public
 specifier|static
 specifier|final
@@ -28226,7 +28226,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_SubstringComparator_descriptor
+name|internal_static_hbase_pb_SubstringComparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -28257,7 +28257,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_SubstringComparator_fieldAccessorTable
+name|internal_static_hbase_pb_SubstringComparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -29693,7 +29693,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code SubstringComparator}      */
+comment|/**      * Protobuf type {@code hbase.pb.SubstringComparator}      */
 specifier|public
 specifier|static
 specifier|final
@@ -29759,7 +29759,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_SubstringComparator_descriptor
+name|internal_static_hbase_pb_SubstringComparator_descriptor
 return|;
 block|}
 specifier|protected
@@ -29790,7 +29790,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_SubstringComparator_fieldAccessorTable
+name|internal_static_hbase_pb_SubstringComparator_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -29969,7 +29969,7 @@ name|generated
 operator|.
 name|ComparatorProtos
 operator|.
-name|internal_static_SubstringComparator_descriptor
+name|internal_static_hbase_pb_SubstringComparator_descriptor
 return|;
 block|}
 specifier|public
@@ -30780,7 +30780,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:SubstringComparator)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.SubstringComparator)
 block|}
 static|static
 block|{
@@ -30798,7 +30798,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:SubstringComparator)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.SubstringComparator)
 block|}
 specifier|private
 specifier|static
@@ -30811,7 +30811,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Comparator_descriptor
+name|internal_static_hbase_pb_Comparator_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -30824,7 +30824,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Comparator_fieldAccessorTable
+name|internal_static_hbase_pb_Comparator_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -30837,7 +30837,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ByteArrayComparable_descriptor
+name|internal_static_hbase_pb_ByteArrayComparable_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -30850,7 +30850,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ByteArrayComparable_fieldAccessorTable
+name|internal_static_hbase_pb_ByteArrayComparable_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -30863,7 +30863,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_BinaryComparator_descriptor
+name|internal_static_hbase_pb_BinaryComparator_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -30876,7 +30876,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_BinaryComparator_fieldAccessorTable
+name|internal_static_hbase_pb_BinaryComparator_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -30889,7 +30889,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_LongComparator_descriptor
+name|internal_static_hbase_pb_LongComparator_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -30902,7 +30902,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_LongComparator_fieldAccessorTable
+name|internal_static_hbase_pb_LongComparator_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -30915,7 +30915,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_BinaryPrefixComparator_descriptor
+name|internal_static_hbase_pb_BinaryPrefixComparator_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -30928,7 +30928,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_BinaryPrefixComparator_fieldAccessorTable
+name|internal_static_hbase_pb_BinaryPrefixComparator_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -30941,7 +30941,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_BitComparator_descriptor
+name|internal_static_hbase_pb_BitComparator_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -30954,7 +30954,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_BitComparator_fieldAccessorTable
+name|internal_static_hbase_pb_BitComparator_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -30967,7 +30967,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_NullComparator_descriptor
+name|internal_static_hbase_pb_NullComparator_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -30980,7 +30980,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_NullComparator_fieldAccessorTable
+name|internal_static_hbase_pb_NullComparator_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -30993,7 +30993,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RegexStringComparator_descriptor
+name|internal_static_hbase_pb_RegexStringComparator_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -31006,7 +31006,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RegexStringComparator_fieldAccessorTable
+name|internal_static_hbase_pb_RegexStringComparator_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -31019,7 +31019,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_SubstringComparator_descriptor
+name|internal_static_hbase_pb_SubstringComparator_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -31032,7 +31032,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_SubstringComparator_fieldAccessorTable
+name|internal_static_hbase_pb_SubstringComparator_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -31076,39 +31076,43 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\020Comparator.proto\"9\n\nComparator\022\014\n\004name"
+literal|"\n\020Comparator.proto\022\010hbase.pb\"9\n\nComparat"
 operator|+
-literal|"\030\001 \002(\t\022\035\n\025serialized_comparator\030\002 \001(\014\"$\n"
+literal|"or\022\014\n\004name\030\001 \002(\t\022\035\n\025serialized_comparato"
 operator|+
-literal|"\023ByteArrayComparable\022\r\n\005value\030\001 \001(\014\"<\n\020B"
+literal|"r\030\002 \001(\014\"$\n\023ByteArrayComparable\022\r\n\005value\030"
 operator|+
-literal|"inaryComparator\022(\n\ncomparable\030\001 \002(\0132\024.By"
+literal|"\001 \001(\014\"E\n\020BinaryComparator\0221\n\ncomparable\030"
 operator|+
-literal|"teArrayComparable\":\n\016LongComparator\022(\n\nc"
+literal|"\001 \002(\0132\035.hbase.pb.ByteArrayComparable\"C\n\016"
 operator|+
-literal|"omparable\030\001 \002(\0132\024.ByteArrayComparable\"B\n"
+literal|"LongComparator\0221\n\ncomparable\030\001 \002(\0132\035.hba"
 operator|+
-literal|"\026BinaryPrefixComparator\022(\n\ncomparable\030\001 "
+literal|"se.pb.ByteArrayComparable\"K\n\026BinaryPrefi"
 operator|+
-literal|"\002(\0132\024.ByteArrayComparable\"\216\001\n\rBitCompara"
+literal|"xComparator\0221\n\ncomparable\030\001 \002(\0132\035.hbase."
 operator|+
-literal|"tor\022(\n\ncomparable\030\001 \002(\0132\024.ByteArrayCompa"
+literal|"pb.ByteArrayComparable\"\240\001\n\rBitComparator"
 operator|+
-literal|"rable\022,\n\nbitwise_op\030\002 \002(\0162\030.BitComparato"
+literal|"\0221\n\ncomparable\030\001 \002(\0132\035.hbase.pb.ByteArra"
 block|,
-literal|"r.BitwiseOp\"%\n\tBitwiseOp\022\007\n\003AND\020\001\022\006\n\002OR\020"
+literal|"yComparable\0225\n\nbitwise_op\030\002 \002(\0162!.hbase."
 operator|+
-literal|"\002\022\007\n\003XOR\020\003\"\020\n\016NullComparator\"`\n\025RegexStr"
+literal|"pb.BitComparator.BitwiseOp\"%\n\tBitwiseOp\022"
 operator|+
-literal|"ingComparator\022\017\n\007pattern\030\001 \002(\t\022\025\n\rpatter"
+literal|"\007\n\003AND\020\001\022\006\n\002OR\020\002\022\007\n\003XOR\020\003\"\020\n\016NullCompara"
 operator|+
-literal|"n_flags\030\002 \002(\005\022\017\n\007charset\030\003 \002(\t\022\016\n\006engine"
+literal|"tor\"`\n\025RegexStringComparator\022\017\n\007pattern\030"
 operator|+
-literal|"\030\004 \001(\t\"%\n\023SubstringComparator\022\016\n\006substr\030"
+literal|"\001 \002(\t\022\025\n\rpattern_flags\030\002 \002(\005\022\017\n\007charset\030"
 operator|+
-literal|"\001 \002(\tBF\n*org.apache.hadoop.hbase.protobu"
+literal|"\003 \002(\t\022\016\n\006engine\030\004 \001(\t\"%\n\023SubstringCompar"
 operator|+
-literal|"f.generatedB\020ComparatorProtosH\001\210\001\001\240\001\001"
+literal|"ator\022\016\n\006substr\030\001 \002(\tBF\n*org.apache.hadoo"
+operator|+
+literal|"p.hbase.protobuf.generatedB\020ComparatorPr"
+operator|+
+literal|"otosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -31164,7 +31168,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_Comparator_descriptor
+name|internal_static_hbase_pb_Comparator_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -31177,7 +31181,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_Comparator_fieldAccessorTable
+name|internal_static_hbase_pb_Comparator_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -31190,7 +31194,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Comparator_descriptor
+name|internal_static_hbase_pb_Comparator_descriptor
 argument_list|,
 operator|new
 name|java
@@ -31206,7 +31210,7 @@ literal|"SerializedComparator"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ByteArrayComparable_descriptor
+name|internal_static_hbase_pb_ByteArrayComparable_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -31219,7 +31223,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_ByteArrayComparable_fieldAccessorTable
+name|internal_static_hbase_pb_ByteArrayComparable_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -31232,7 +31236,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ByteArrayComparable_descriptor
+name|internal_static_hbase_pb_ByteArrayComparable_descriptor
 argument_list|,
 operator|new
 name|java
@@ -31246,7 +31250,7 @@ literal|"Value"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_BinaryComparator_descriptor
+name|internal_static_hbase_pb_BinaryComparator_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -31259,7 +31263,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_BinaryComparator_fieldAccessorTable
+name|internal_static_hbase_pb_BinaryComparator_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -31272,7 +31276,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_BinaryComparator_descriptor
+name|internal_static_hbase_pb_BinaryComparator_descriptor
 argument_list|,
 operator|new
 name|java
@@ -31286,7 +31290,7 @@ literal|"Comparable"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_LongComparator_descriptor
+name|internal_static_hbase_pb_LongComparator_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -31299,7 +31303,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_LongComparator_fieldAccessorTable
+name|internal_static_hbase_pb_LongComparator_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -31312,7 +31316,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_LongComparator_descriptor
+name|internal_static_hbase_pb_LongComparator_descriptor
 argument_list|,
 operator|new
 name|java
@@ -31326,7 +31330,7 @@ literal|"Comparable"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_BinaryPrefixComparator_descriptor
+name|internal_static_hbase_pb_BinaryPrefixComparator_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -31339,7 +31343,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_BinaryPrefixComparator_fieldAccessorTable
+name|internal_static_hbase_pb_BinaryPrefixComparator_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -31352,7 +31356,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_BinaryPrefixComparator_descriptor
+name|internal_static_hbase_pb_BinaryPrefixComparator_descriptor
 argument_list|,
 operator|new
 name|java
@@ -31366,7 +31370,7 @@ literal|"Comparable"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_BitComparator_descriptor
+name|internal_static_hbase_pb_BitComparator_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -31379,7 +31383,7 @@ argument_list|(
 literal|5
 argument_list|)
 expr_stmt|;
-name|internal_static_BitComparator_fieldAccessorTable
+name|internal_static_hbase_pb_BitComparator_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -31392,7 +31396,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_BitComparator_descriptor
+name|internal_static_hbase_pb_BitComparator_descriptor
 argument_list|,
 operator|new
 name|java
@@ -31408,7 +31412,7 @@ literal|"BitwiseOp"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_NullComparator_descriptor
+name|internal_static_hbase_pb_NullComparator_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -31421,7 +31425,7 @@ argument_list|(
 literal|6
 argument_list|)
 expr_stmt|;
-name|internal_static_NullComparator_fieldAccessorTable
+name|internal_static_hbase_pb_NullComparator_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -31434,7 +31438,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_NullComparator_descriptor
+name|internal_static_hbase_pb_NullComparator_descriptor
 argument_list|,
 operator|new
 name|java
@@ -31446,7 +31450,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_RegexStringComparator_descriptor
+name|internal_static_hbase_pb_RegexStringComparator_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -31459,7 +31463,7 @@ argument_list|(
 literal|7
 argument_list|)
 expr_stmt|;
-name|internal_static_RegexStringComparator_fieldAccessorTable
+name|internal_static_hbase_pb_RegexStringComparator_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -31472,7 +31476,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RegexStringComparator_descriptor
+name|internal_static_hbase_pb_RegexStringComparator_descriptor
 argument_list|,
 operator|new
 name|java
@@ -31492,7 +31496,7 @@ literal|"Engine"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_SubstringComparator_descriptor
+name|internal_static_hbase_pb_SubstringComparator_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -31505,7 +31509,7 @@ argument_list|(
 literal|8
 argument_list|)
 expr_stmt|;
-name|internal_static_SubstringComparator_fieldAccessorTable
+name|internal_static_hbase_pb_SubstringComparator_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -31518,7 +31522,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_SubstringComparator_descriptor
+name|internal_static_hbase_pb_SubstringComparator_descriptor
 argument_list|,
 operator|new
 name|java
