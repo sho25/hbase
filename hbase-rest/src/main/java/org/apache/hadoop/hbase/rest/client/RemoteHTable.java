@@ -1077,7 +1077,7 @@ operator|)
 name|o
 operator|)
 operator|.
-name|getRowArray
+name|getQualifierArray
 argument_list|()
 argument_list|,
 operator|(
@@ -1087,7 +1087,7 @@ operator|)
 name|o
 operator|)
 operator|.
-name|getRowOffset
+name|getQualifierOffset
 argument_list|()
 argument_list|,
 operator|(
@@ -1097,7 +1097,7 @@ operator|)
 name|o
 operator|)
 operator|.
-name|getRowLength
+name|getQualifierLength
 argument_list|()
 argument_list|)
 argument_list|)
