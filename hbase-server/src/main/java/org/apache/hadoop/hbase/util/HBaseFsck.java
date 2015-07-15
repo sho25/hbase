@@ -1956,6 +1956,22 @@ literal|false
 decl_stmt|;
 comment|// do we display the full report
 specifier|private
+specifier|static
+name|boolean
+name|useLock
+init|=
+literal|true
+decl_stmt|;
+comment|// do we use the hbck exclusivity lock
+specifier|private
+specifier|static
+name|boolean
+name|switchBalancer
+init|=
+literal|true
+decl_stmt|;
+comment|// do we turn the balancer off while running
+specifier|private
 name|long
 name|timelag
 init|=
@@ -3138,6 +3154,11 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|useLock
+condition|)
+block|{
 comment|// Check if another instance of balancer is running
 name|hbckOutFd
 operator|=
@@ -3186,6 +3207,7 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Add a shutdown hook to this thread, in case user tries to
 comment|// kill the hbck with a ctrl-c, we want to cleanup the lock so that
 comment|// it is available for further calls
@@ -3922,10 +3944,19 @@ expr_stmt|;
 name|offlineHdfsIntegrityRepair
 argument_list|()
 expr_stmt|;
-comment|// turn the balancer off
 name|boolean
 name|oldBalancer
 init|=
+literal|true
+decl_stmt|;
+comment|// turn the balancer off
+if|if
+condition|(
+name|switchBalancer
+condition|)
+block|{
+name|oldBalancer
+operator|=
 name|admin
 operator|.
 name|setBalancerRunning
@@ -3934,7 +3965,8 @@ literal|false
 argument_list|,
 literal|true
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 try|try
 block|{
 name|onlineConsistencyRepair
@@ -3942,6 +3974,11 @@ argument_list|()
 expr_stmt|;
 block|}
 finally|finally
+block|{
+if|if
+condition|(
+name|switchBalancer
+condition|)
 block|{
 name|admin
 operator|.
@@ -3952,6 +3989,7 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -21657,6 +21695,28 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+specifier|public
+specifier|static
+name|void
+name|setNoLock
+parameter_list|()
+block|{
+name|useLock
+operator|=
+literal|false
+expr_stmt|;
+block|}
+specifier|public
+specifier|static
+name|void
+name|setNoBalacerSwitch
+parameter_list|()
+block|{
+name|switchBalancer
+operator|=
+literal|false
+expr_stmt|;
+block|}
 comment|/**    * Set summary mode.    * Print only summary of the tables and status (OK or INCONSISTENT)    */
 specifier|static
 name|void
@@ -22368,6 +22428,20 @@ name|out
 operator|.
 name|println
 argument_list|(
+literal|"   -noLock Turn off using the hdfs lock file."
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"   -noBalancerSwitch Don't switch the balancer off."
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
 literal|""
 argument_list|)
 expr_stmt|;
@@ -22856,6 +22930,36 @@ argument_list|)
 condition|)
 block|{
 name|setDisplayFullReport
+argument_list|()
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|cmd
+operator|.
+name|equals
+argument_list|(
+literal|"-noLock"
+argument_list|)
+condition|)
+block|{
+name|setNoLock
+argument_list|()
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|cmd
+operator|.
+name|equals
+argument_list|(
+literal|"-noBalancerSwitch"
+argument_list|)
+condition|)
+block|{
+name|setNoBalacerSwitch
 argument_list|()
 expr_stmt|;
 block|}
