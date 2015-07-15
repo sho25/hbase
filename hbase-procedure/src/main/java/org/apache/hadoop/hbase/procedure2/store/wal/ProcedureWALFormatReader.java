@@ -423,7 +423,7 @@ argument_list|()
 condition|)
 block|{
 case|case
-name|INIT
+name|PROCEDURE_WAL_INIT
 case|:
 name|readInitEntry
 argument_list|(
@@ -432,7 +432,7 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|INSERT
+name|PROCEDURE_WAL_INSERT
 case|:
 name|readInsertEntry
 argument_list|(
@@ -441,10 +441,10 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|UPDATE
+name|PROCEDURE_WAL_UPDATE
 case|:
 case|case
-name|COMPACT
+name|PROCEDURE_WAL_COMPACT
 case|:
 name|readUpdateEntry
 argument_list|(
@@ -453,7 +453,7 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|DELETE
+name|PROCEDURE_WAL_DELETE
 case|:
 name|readDeleteEntry
 argument_list|(
@@ -462,7 +462,7 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|EOF
+name|PROCEDURE_WAL_EOF
 case|:
 name|hasMore
 operator|=

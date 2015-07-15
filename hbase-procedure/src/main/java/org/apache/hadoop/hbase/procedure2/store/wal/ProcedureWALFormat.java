@@ -587,7 +587,7 @@ name|ProcedureWALEntry
 operator|.
 name|Type
 operator|.
-name|EOF
+name|PROCEDURE_WAL_EOF
 argument_list|)
 operator|.
 name|build
@@ -904,7 +904,7 @@ name|ProcedureWALEntry
 operator|.
 name|Type
 operator|.
-name|EOF
+name|PROCEDURE_WAL_EOF
 condition|)
 block|{
 throw|throw
@@ -1089,7 +1089,7 @@ name|ProcedureWALEntry
 operator|.
 name|Type
 operator|.
-name|INIT
+name|PROCEDURE_WAL_INIT
 argument_list|,
 name|proc
 argument_list|,
@@ -1123,7 +1123,7 @@ name|ProcedureWALEntry
 operator|.
 name|Type
 operator|.
-name|INSERT
+name|PROCEDURE_WAL_INSERT
 argument_list|,
 name|proc
 argument_list|,
@@ -1153,7 +1153,7 @@ name|ProcedureWALEntry
 operator|.
 name|Type
 operator|.
-name|UPDATE
+name|PROCEDURE_WAL_UPDATE
 argument_list|,
 name|proc
 argument_list|,
@@ -1193,7 +1193,7 @@ name|ProcedureWALEntry
 operator|.
 name|Type
 operator|.
-name|DELETE
+name|PROCEDURE_WAL_DELETE
 argument_list|)
 expr_stmt|;
 name|builder

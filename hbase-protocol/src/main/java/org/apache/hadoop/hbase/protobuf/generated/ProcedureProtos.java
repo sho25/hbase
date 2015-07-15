@@ -31735,105 +31735,105 @@ name|protobuf
 operator|.
 name|ProtocolMessageEnum
 block|{
-comment|/**        *<code>EOF = 1;</code>        */
-name|EOF
+comment|/**        *<code>PROCEDURE_WAL_EOF = 1;</code>        */
+name|PROCEDURE_WAL_EOF
 argument_list|(
 literal|0
 argument_list|,
 literal|1
 argument_list|)
 block|,
-comment|/**        *<code>INIT = 2;</code>        */
-name|INIT
+comment|/**        *<code>PROCEDURE_WAL_INIT = 2;</code>        */
+name|PROCEDURE_WAL_INIT
 argument_list|(
 literal|1
 argument_list|,
 literal|2
 argument_list|)
 block|,
-comment|/**        *<code>INSERT = 3;</code>        */
-name|INSERT
+comment|/**        *<code>PROCEDURE_WAL_INSERT = 3;</code>        */
+name|PROCEDURE_WAL_INSERT
 argument_list|(
 literal|2
 argument_list|,
 literal|3
 argument_list|)
 block|,
-comment|/**        *<code>UPDATE = 4;</code>        */
-name|UPDATE
+comment|/**        *<code>PROCEDURE_WAL_UPDATE = 4;</code>        */
+name|PROCEDURE_WAL_UPDATE
 argument_list|(
 literal|3
 argument_list|,
 literal|4
 argument_list|)
 block|,
-comment|/**        *<code>DELETE = 5;</code>        */
-name|DELETE
+comment|/**        *<code>PROCEDURE_WAL_DELETE = 5;</code>        */
+name|PROCEDURE_WAL_DELETE
 argument_list|(
 literal|4
 argument_list|,
 literal|5
 argument_list|)
 block|,
-comment|/**        *<code>COMPACT = 6;</code>        */
-name|COMPACT
+comment|/**        *<code>PROCEDURE_WAL_COMPACT = 6;</code>        */
+name|PROCEDURE_WAL_COMPACT
 argument_list|(
 literal|5
 argument_list|,
 literal|6
 argument_list|)
 block|,       ;
-comment|/**        *<code>EOF = 1;</code>        */
+comment|/**        *<code>PROCEDURE_WAL_EOF = 1;</code>        */
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|EOF_VALUE
+name|PROCEDURE_WAL_EOF_VALUE
 init|=
 literal|1
 decl_stmt|;
-comment|/**        *<code>INIT = 2;</code>        */
+comment|/**        *<code>PROCEDURE_WAL_INIT = 2;</code>        */
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|INIT_VALUE
+name|PROCEDURE_WAL_INIT_VALUE
 init|=
 literal|2
 decl_stmt|;
-comment|/**        *<code>INSERT = 3;</code>        */
+comment|/**        *<code>PROCEDURE_WAL_INSERT = 3;</code>        */
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|INSERT_VALUE
+name|PROCEDURE_WAL_INSERT_VALUE
 init|=
 literal|3
 decl_stmt|;
-comment|/**        *<code>UPDATE = 4;</code>        */
+comment|/**        *<code>PROCEDURE_WAL_UPDATE = 4;</code>        */
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|UPDATE_VALUE
+name|PROCEDURE_WAL_UPDATE_VALUE
 init|=
 literal|4
 decl_stmt|;
-comment|/**        *<code>DELETE = 5;</code>        */
+comment|/**        *<code>PROCEDURE_WAL_DELETE = 5;</code>        */
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|DELETE_VALUE
+name|PROCEDURE_WAL_DELETE_VALUE
 init|=
 literal|5
 decl_stmt|;
-comment|/**        *<code>COMPACT = 6;</code>        */
+comment|/**        *<code>PROCEDURE_WAL_COMPACT = 6;</code>        */
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COMPACT_VALUE
+name|PROCEDURE_WAL_COMPACT_VALUE
 init|=
 literal|6
 decl_stmt|;
@@ -31865,37 +31865,37 @@ case|case
 literal|1
 case|:
 return|return
-name|EOF
+name|PROCEDURE_WAL_EOF
 return|;
 case|case
 literal|2
 case|:
 return|return
-name|INIT
+name|PROCEDURE_WAL_INIT
 return|;
 case|case
 literal|3
 case|:
 return|return
-name|INSERT
+name|PROCEDURE_WAL_INSERT
 return|;
 case|case
 literal|4
 case|:
 return|return
-name|UPDATE
+name|PROCEDURE_WAL_UPDATE
 return|;
 case|case
 literal|5
 case|:
 return|return
-name|DELETE
+name|PROCEDURE_WAL_DELETE
 return|;
 case|case
 literal|6
 case|:
 return|return
-name|COMPACT
+name|PROCEDURE_WAL_COMPACT
 return|;
 default|default:
 return|return
@@ -32477,7 +32477,7 @@ name|ProcedureWALEntry
 operator|.
 name|Type
 operator|.
-name|EOF
+name|PROCEDURE_WAL_EOF
 expr_stmt|;
 name|procedure_
 operator|=
@@ -34087,7 +34087,7 @@ name|ProcedureWALEntry
 operator|.
 name|Type
 operator|.
-name|EOF
+name|PROCEDURE_WAL_EOF
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -35013,7 +35013,7 @@ name|ProcedureWALEntry
 operator|.
 name|Type
 operator|.
-name|EOF
+name|PROCEDURE_WAL_EOF
 decl_stmt|;
 comment|/**        *<code>required .hbase.pb.ProcedureWALEntry.Type type = 1;</code>        */
 specifier|public
@@ -35147,7 +35147,7 @@ name|ProcedureWALEntry
 operator|.
 name|Type
 operator|.
-name|EOF
+name|PROCEDURE_WAL_EOF
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -36880,27 +36880,31 @@ literal|"ureStoreTracker.TrackerNode\032A\n\013TrackerNo"
 operator|+
 literal|"de\022\020\n\010start_id\030\001 \002(\004\022\017\n\007updated\030\002 \003(\004\022\017\n"
 operator|+
-literal|"\007deleted\030\003 \003(\004\"\310\001\n\021ProcedureWALEntry\022.\n\004"
+literal|"\007deleted\030\003 \003(\004\"\235\002\n\021ProcedureWALEntry\022.\n\004"
 block|,
 literal|"type\030\001 \002(\0162 .hbase.pb.ProcedureWALEntry."
 operator|+
 literal|"Type\022&\n\tprocedure\030\002 \003(\0132\023.hbase.pb.Proce"
 operator|+
-literal|"dure\022\017\n\007proc_id\030\003 \001(\004\"J\n\004Type\022\007\n\003EOF\020\001\022\010"
+literal|"dure\022\017\n\007proc_id\030\003 \001(\004\"\236\001\n\004Type\022\025\n\021PROCED"
 operator|+
-literal|"\n\004INIT\020\002\022\n\n\006INSERT\020\003\022\n\n\006UPDATE\020\004\022\n\n\006DELE"
+literal|"URE_WAL_EOF\020\001\022\026\n\022PROCEDURE_WAL_INIT\020\002\022\030\n"
 operator|+
-literal|"TE\020\005\022\013\n\007COMPACT\020\006*p\n\016ProcedureState\022\020\n\014I"
+literal|"\024PROCEDURE_WAL_INSERT\020\003\022\030\n\024PROCEDURE_WAL"
 operator|+
-literal|"NITIALIZING\020\001\022\014\n\010RUNNABLE\020\002\022\013\n\007WAITING\020\003"
+literal|"_UPDATE\020\004\022\030\n\024PROCEDURE_WAL_DELETE\020\005\022\031\n\025P"
 operator|+
-literal|"\022\023\n\017WAITING_TIMEOUT\020\004\022\016\n\nROLLEDBACK\020\005\022\014\n"
+literal|"ROCEDURE_WAL_COMPACT\020\006*p\n\016ProcedureState"
 operator|+
-literal|"\010FINISHED\020\006BE\n*org.apache.hadoop.hbase.p"
+literal|"\022\020\n\014INITIALIZING\020\001\022\014\n\010RUNNABLE\020\002\022\013\n\007WAIT"
 operator|+
-literal|"rotobuf.generatedB\017ProcedureProtosH\001\210\001\001\240"
+literal|"ING\020\003\022\023\n\017WAITING_TIMEOUT\020\004\022\016\n\nROLLEDBACK"
 operator|+
-literal|"\001\001"
+literal|"\020\005\022\014\n\010FINISHED\020\006BE\n*org.apache.hadoop.hb"
+block|,
+literal|"ase.protobuf.generatedB\017ProcedureProtosH"
+operator|+
+literal|"\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
