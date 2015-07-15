@@ -2079,6 +2079,42 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * List all the completed snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNameRegex The table name regular expression to match against    * @param snapshotNameRegex The snapshot name regular expression to match against    * @return - returns a List of completed SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
+name|List
+argument_list|<
+name|HBaseProtos
+operator|.
+name|SnapshotDescription
+argument_list|>
+name|listTableSnapshots
+parameter_list|(
+name|String
+name|tableNameRegex
+parameter_list|,
+name|String
+name|snapshotNameRegex
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * List all the completed snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNamePattern The compiled table name regular expression to match against    * @param snapshotNamePattern The compiled snapshot name regular expression to match against    * @return - returns a List of completed SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
+name|List
+argument_list|<
+name|HBaseProtos
+operator|.
+name|SnapshotDescription
+argument_list|>
+name|listTableSnapshots
+parameter_list|(
+name|Pattern
+name|tableNamePattern
+parameter_list|,
+name|Pattern
+name|snapshotNamePattern
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Delete an existing snapshot.    *    * @param snapshotName name of the snapshot    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|deleteSnapshot
@@ -2120,6 +2156,32 @@ parameter_list|(
 specifier|final
 name|Pattern
 name|pattern
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Delete all existing snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNameRegex The table name regular expression to match against    * @param snapshotNameRegex The snapshot name regular expression to match against    * @throws IOException if a remote or network exception occurs    */
+name|void
+name|deleteTableSnapshots
+parameter_list|(
+name|String
+name|tableNameRegex
+parameter_list|,
+name|String
+name|snapshotNameRegex
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Delete all existing snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNamePattern The compiled table name regular expression to match against    * @param snapshotNamePattern The compiled snapshot name regular expression to match against    * @throws IOException if a remote or network exception occurs    */
+name|void
+name|deleteTableSnapshots
+parameter_list|(
+name|Pattern
+name|tableNamePattern
+parameter_list|,
+name|Pattern
+name|snapshotNamePattern
 parameter_list|)
 throws|throws
 name|IOException
