@@ -442,6 +442,22 @@ name|EXTERNAL_BLOCKCACHE_CLASS_KEY
 init|=
 literal|"hbase.blockcache.external.class"
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|DROP_BEHIND_CACHE_COMPACTION_KEY
+init|=
+literal|"hbase.hfile.drop.behind.compaction"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|boolean
+name|DROP_BEHIND_CACHE_COMPACTION_DEFAULT
+init|=
+literal|true
+decl_stmt|;
 comment|/**    * Enum of all built in external block caches.    * This is used for config.    */
 specifier|private
 specifier|static
@@ -604,6 +620,11 @@ specifier|private
 name|boolean
 name|cacheDataInL1
 decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|dropBehindCompaction
+decl_stmt|;
 comment|/**    * Create a cache configuration using the specified configuration object and    * family descriptor.    * @param conf hbase configuration    * @param family column family configuration    */
 specifier|public
 name|CacheConfig
@@ -732,6 +753,15 @@ name|family
 operator|.
 name|isCacheDataInL1
 argument_list|()
+argument_list|,
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|DROP_BEHIND_CACHE_COMPACTION_KEY
+argument_list|,
+name|DROP_BEHIND_CACHE_COMPACTION_DEFAULT
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -824,6 +854,15 @@ name|HColumnDescriptor
 operator|.
 name|DEFAULT_CACHE_DATA_IN_L1
 argument_list|)
+argument_list|,
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|DROP_BEHIND_CACHE_COMPACTION_KEY
+argument_list|,
+name|DROP_BEHIND_CACHE_COMPACTION_DEFAULT
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -869,6 +908,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|cacheDataInL1
+parameter_list|,
+specifier|final
+name|boolean
+name|dropBehindCompaction
 parameter_list|)
 block|{
 name|this
@@ -930,6 +973,12 @@ operator|.
 name|cacheDataInL1
 operator|=
 name|cacheDataInL1
+expr_stmt|;
+name|this
+operator|.
+name|dropBehindCompaction
+operator|=
+name|dropBehindCompaction
 expr_stmt|;
 name|LOG
 operator|.
@@ -988,6 +1037,10 @@ argument_list|,
 name|cacheConf
 operator|.
 name|cacheDataInL1
+argument_list|,
+name|cacheConf
+operator|.
+name|dropBehindCompaction
 argument_list|)
 expr_stmt|;
 block|}
@@ -1028,6 +1081,15 @@ name|isBlockCacheEnabled
 argument_list|()
 operator|&&
 name|cacheDataOnRead
+return|;
+block|}
+specifier|public
+name|boolean
+name|shouldDropBehindCompaction
+parameter_list|()
+block|{
+return|return
+name|dropBehindCompaction
 return|;
 block|}
 comment|/**    * Should we cache a block of a particular category? We always cache    * important blocks such as index blocks, as long as the block cache is    * available.    */

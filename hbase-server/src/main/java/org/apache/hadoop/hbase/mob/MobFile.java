@@ -267,7 +267,7 @@ literal|true
 argument_list|,
 literal|false
 argument_list|,
-literal|null
+literal|false
 argument_list|,
 name|sf
 operator|.
@@ -379,7 +379,7 @@ literal|true
 argument_list|,
 literal|false
 argument_list|,
-literal|null
+literal|false
 argument_list|,
 name|readPt
 argument_list|)

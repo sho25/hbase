@@ -582,7 +582,7 @@ name|FileSystem
 name|getFileSystem
 parameter_list|()
 function_decl|;
-comment|/*    * @param maxKeyCount    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @param includeMVCCReadpoint whether we should out the MVCC readpoint    * @return Writer for a new StoreFile in the tmp dir.    */
+comment|/**    * @param maxKeyCount    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @param includeMVCCReadpoint whether we should out the MVCC readpoint    * @return Writer for a new StoreFile in the tmp dir.    */
 name|StoreFile
 operator|.
 name|Writer
@@ -604,6 +604,35 @@ name|includeMVCCReadpoint
 parameter_list|,
 name|boolean
 name|includesTags
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * @param maxKeyCount    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @param includeMVCCReadpoint whether we should out the MVCC readpoint    * @param shouldDropBehind should the writer drop caches behind writes    * @return Writer for a new StoreFile in the tmp dir.    */
+name|StoreFile
+operator|.
+name|Writer
+name|createWriterInTmp
+parameter_list|(
+name|long
+name|maxKeyCount
+parameter_list|,
+name|Compression
+operator|.
+name|Algorithm
+name|compression
+parameter_list|,
+name|boolean
+name|isCompaction
+parameter_list|,
+name|boolean
+name|includeMVCCReadpoint
+parameter_list|,
+name|boolean
+name|includesTags
+parameter_list|,
+name|boolean
+name|shouldDropBehind
 parameter_list|)
 throws|throws
 name|IOException

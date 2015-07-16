@@ -1249,6 +1249,9 @@ name|filesToCompact
 parameter_list|,
 name|long
 name|smallestReadPoint
+parameter_list|,
+name|boolean
+name|useDropBehind
 parameter_list|)
 throws|throws
 name|IOException
@@ -1260,11 +1263,17 @@ name|getScannersForStoreFiles
 argument_list|(
 name|filesToCompact
 argument_list|,
+comment|/* cache blocks = */
 literal|false
 argument_list|,
+comment|/* use pread = */
 literal|false
 argument_list|,
+comment|/* is compaction */
 literal|true
+argument_list|,
+comment|/* use Drop Behind */
+name|useDropBehind
 argument_list|,
 name|smallestReadPoint
 argument_list|)

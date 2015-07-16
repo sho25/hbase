@@ -1183,7 +1183,7 @@ name|fs
 argument_list|)
 return|;
 block|}
-comment|/**    * @return True if this is a StoreFile Reference; call after {@link #open()}    * else may get wrong answer.    */
+comment|/**    * @return True if this is a StoreFile Reference; call    * after {@link #open(boolean canUseDropBehind)} else may get wrong answer.    */
 specifier|public
 name|boolean
 name|isReference
@@ -1504,7 +1504,10 @@ comment|/**    * Opens reader on this store file.  Called by Constructor.    * @
 specifier|private
 name|Reader
 name|open
-parameter_list|()
+parameter_list|(
+name|boolean
+name|canUseDropBehind
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -1541,6 +1544,8 @@ argument_list|,
 name|this
 operator|.
 name|cacheConf
+argument_list|,
+name|canUseDropBehind
 argument_list|)
 expr_stmt|;
 comment|// Load up indices and fileinfo. This also loads Bloom filter type.
@@ -2043,11 +2048,28 @@ operator|.
 name|reader
 return|;
 block|}
-comment|/**    * @return Reader for StoreFile. creates if necessary    * @throws IOException    */
 specifier|public
 name|Reader
 name|createReader
 parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+name|createReader
+argument_list|(
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * @return Reader for StoreFile. creates if necessary    * @throws IOException    */
+specifier|public
+name|Reader
+name|createReader
+parameter_list|(
+name|boolean
+name|canUseDropBehind
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -2067,7 +2089,9 @@ operator|.
 name|reader
 operator|=
 name|open
-argument_list|()
+argument_list|(
+name|canUseDropBehind
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -2398,6 +2422,12 @@ specifier|private
 name|HFileContext
 name|fileContext
 decl_stmt|;
+specifier|private
+name|boolean
+name|shouldDropCacheBehind
+init|=
+literal|false
+decl_stmt|;
 specifier|public
 name|WriterBuilder
 parameter_list|(
@@ -2584,6 +2614,24 @@ operator|.
 name|fileContext
 operator|=
 name|fileContext
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+specifier|public
+name|WriterBuilder
+name|withShouldDropCacheBehind
+parameter_list|(
+name|boolean
+name|shouldDropCacheBehind
+parameter_list|)
+block|{
+name|this
+operator|.
+name|shouldDropCacheBehind
+operator|=
+name|shouldDropCacheBehind
 expr_stmt|;
 return|return
 name|this

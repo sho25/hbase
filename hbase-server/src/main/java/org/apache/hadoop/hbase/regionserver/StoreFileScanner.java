@@ -416,6 +416,8 @@ name|usePread
 argument_list|,
 literal|false
 argument_list|,
+literal|false
+argument_list|,
 name|readPt
 argument_list|)
 return|;
@@ -444,6 +446,9 @@ parameter_list|,
 name|boolean
 name|isCompaction
 parameter_list|,
+name|boolean
+name|useDropBehind
+parameter_list|,
 name|long
 name|readPt
 parameter_list|)
@@ -460,6 +465,8 @@ argument_list|,
 name|usePread
 argument_list|,
 name|isCompaction
+argument_list|,
+name|useDropBehind
 argument_list|,
 literal|null
 argument_list|,
@@ -490,6 +497,9 @@ name|usePread
 parameter_list|,
 name|boolean
 name|isCompaction
+parameter_list|,
+name|boolean
+name|canUseDrop
 parameter_list|,
 name|ScanQueryMatcher
 name|matcher
@@ -534,7 +544,9 @@ init|=
 name|file
 operator|.
 name|createReader
-argument_list|()
+argument_list|(
+name|canUseDrop
+argument_list|)
 decl_stmt|;
 name|StoreFileScanner
 name|scanner

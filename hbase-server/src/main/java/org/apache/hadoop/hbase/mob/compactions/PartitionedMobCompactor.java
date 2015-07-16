@@ -3399,7 +3399,7 @@ literal|true
 argument_list|,
 literal|false
 argument_list|,
-literal|null
+literal|false
 argument_list|,
 name|HConstants
 operator|.

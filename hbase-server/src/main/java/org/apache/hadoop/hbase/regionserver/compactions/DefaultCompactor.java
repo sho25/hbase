@@ -356,7 +356,7 @@ name|getBoolean
 argument_list|(
 literal|"hbase.regionserver.compaction.private.readers"
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 condition|)
 block|{
@@ -409,6 +409,16 @@ argument_list|(
 name|readersToClose
 argument_list|,
 name|smallestReadPoint
+argument_list|,
+name|store
+operator|.
+name|throttleCompaction
+argument_list|(
+name|request
+operator|.
+name|getSize
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -431,6 +441,16 @@ name|getFiles
 argument_list|()
 argument_list|,
 name|smallestReadPoint
+argument_list|,
+name|store
+operator|.
+name|throttleCompaction
+argument_list|(
+name|request
+operator|.
+name|getSize
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -588,7 +608,15 @@ name|createTmpWriter
 argument_list|(
 name|fd
 argument_list|,
-name|smallestReadPoint
+name|store
+operator|.
+name|throttleCompaction
+argument_list|(
+name|request
+operator|.
+name|getSize
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|boolean
@@ -802,7 +830,7 @@ return|return
 name|newFiles
 return|;
 block|}
-comment|/**    * Creates a writer for a new file in a temporary directory.    * @param fd The file details.    * @param smallestReadPoint The smallest mvcc readPoint across all the scanners in this region.    * @return Writer for a new StoreFile in the tmp dir.    * @throws IOException    */
+comment|/**    * Creates a writer for a new file in a temporary directory.    * @param fd The file details.    * @return Writer for a new StoreFile in the tmp dir.    * @throws IOException    */
 specifier|protected
 name|StoreFile
 operator|.
@@ -812,15 +840,14 @@ parameter_list|(
 name|FileDetails
 name|fd
 parameter_list|,
-name|long
-name|smallestReadPoint
+name|boolean
+name|shouldDropBehind
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 comment|// When all MVCC readpoints are 0, don't write them.
 comment|// See HBASE-8166, HBASE-12600, and HBASE-13389.
-comment|// make this writer with tags always because of possible new cells with tags.
 return|return
 name|store
 operator|.
@@ -834,19 +861,25 @@ name|this
 operator|.
 name|compactionCompression
 argument_list|,
+comment|/* isCompaction = */
 literal|true
 argument_list|,
+comment|/* includeMVCCReadpoint = */
 name|fd
 operator|.
 name|maxMVCCReadpoint
 operator|>
 literal|0
 argument_list|,
+comment|/* includesTags = */
 name|fd
 operator|.
 name|maxTagsLength
 operator|>
 literal|0
+argument_list|,
+comment|/* shouldDropBehind = */
+name|shouldDropBehind
 argument_list|)
 return|;
 block|}

@@ -542,7 +542,7 @@ name|getMobThreshold
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Creates a writer for a new file in a temporary directory.    * @param fd The file details.    * @param smallestReadPoint The smallest mvcc readPoint across all the scanners in this region.    * @return Writer for a new StoreFile in the tmp dir.    * @throws IOException    */
+comment|/**    * Creates a writer for a new file in a temporary directory.    * @param fd The file details.    * @param shouldDropBehind Should the writer drop behind.    * @return Writer for a new StoreFile in the tmp dir.    * @throws IOException    */
 annotation|@
 name|Override
 specifier|protected
@@ -552,8 +552,8 @@ parameter_list|(
 name|FileDetails
 name|fd
 parameter_list|,
-name|long
-name|smallestReadPoint
+name|boolean
+name|shouldDropBehind
 parameter_list|)
 throws|throws
 name|IOException
@@ -581,6 +581,8 @@ argument_list|,
 literal|true
 argument_list|,
 literal|true
+argument_list|,
+name|shouldDropBehind
 argument_list|)
 decl_stmt|;
 return|return

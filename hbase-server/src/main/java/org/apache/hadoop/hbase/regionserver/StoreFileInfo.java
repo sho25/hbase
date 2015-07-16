@@ -922,6 +922,10 @@ parameter_list|,
 specifier|final
 name|CacheConfig
 name|cacheConf
+parameter_list|,
+specifier|final
+name|boolean
+name|canUseDropBehind
 parameter_list|)
 throws|throws
 name|IOException
@@ -931,6 +935,17 @@ name|in
 decl_stmt|;
 name|FileStatus
 name|status
+decl_stmt|;
+specifier|final
+name|boolean
+name|doDropBehind
+init|=
+name|canUseDropBehind
+operator|&&
+name|cacheConf
+operator|.
+name|shouldDropBehindCompaction
+argument_list|()
 decl_stmt|;
 if|if
 condition|(
@@ -952,6 +967,8 @@ argument_list|,
 name|this
 operator|.
 name|link
+argument_list|,
+name|doDropBehind
 argument_list|)
 expr_stmt|;
 name|status
@@ -996,6 +1013,8 @@ argument_list|(
 name|fs
 argument_list|,
 name|referencePath
+argument_list|,
+name|doDropBehind
 argument_list|)
 expr_stmt|;
 name|status
@@ -1021,6 +1040,8 @@ name|this
 operator|.
 name|getPath
 argument_list|()
+argument_list|,
+name|doDropBehind
 argument_list|)
 expr_stmt|;
 name|status
