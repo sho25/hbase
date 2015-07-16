@@ -142,8 +142,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// TODO when cell is backed by DirectByteBuffer, we would need to copy row bytes to temp byte[]
-comment|// and call old method for BC.
 return|return
 name|filterRowKey
 argument_list|(

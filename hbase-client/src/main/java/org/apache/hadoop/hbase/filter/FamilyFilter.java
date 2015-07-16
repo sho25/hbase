@@ -212,7 +212,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|doCompare
+name|compareFamily
 argument_list|(
 name|this
 operator|.
@@ -223,16 +223,6 @@ operator|.
 name|comparator
 argument_list|,
 name|v
-operator|.
-name|getFamilyArray
-argument_list|()
-argument_list|,
-name|v
-operator|.
-name|getFamilyOffset
-argument_list|()
-argument_list|,
-name|familyLength
 argument_list|)
 condition|)
 block|{

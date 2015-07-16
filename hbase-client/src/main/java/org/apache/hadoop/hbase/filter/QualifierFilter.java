@@ -212,7 +212,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|doCompare
+name|compareQualifier
 argument_list|(
 name|this
 operator|.
@@ -223,16 +223,6 @@ operator|.
 name|comparator
 argument_list|,
 name|v
-operator|.
-name|getQualifierArray
-argument_list|()
-argument_list|,
-name|v
-operator|.
-name|getQualifierOffset
-argument_list|()
-argument_list|,
-name|qualifierLength
 argument_list|)
 condition|)
 block|{

@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|nio
+operator|.
+name|ByteBuffer
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -95,6 +105,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|ByteBufferUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|ByteStringer
 import|;
 end_import
@@ -128,6 +154,10 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Stable
+comment|// TODO Now we are deviating a lot from the actual Comparable<byte[]> what this implements, by
+comment|// adding special compareTo methods. We have to clean it. Deprecate this class and replace it
+comment|// with a more generic one which says it compares bytes (not necessary a byte array only)
+comment|// BytesComparable implements Comparable<Byte> will work?
 specifier|public
 specifier|abstract
 class|class
@@ -319,6 +349,56 @@ name|int
 name|length
 parameter_list|)
 function_decl|;
+comment|/**    * Special compareTo method for subclasses, to avoid copying bytes unnecessarily.    * @param value bytes to compare within a ByteBuffer    * @param offset offset into value    * @param length number of bytes to compare    * @return a negative integer, zero, or a positive integer as this object    *         is less than, equal to, or greater than the specified object.    */
+specifier|public
+name|int
+name|compareTo
+parameter_list|(
+name|ByteBuffer
+name|value
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
+parameter_list|)
+block|{
+comment|// For BC, providing a default implementation here which is doing a bytes copy to a temp byte[]
+comment|// and calling compareTo(byte[]). Make sure to override this method in subclasses to avoid
+comment|// copying bytes unnecessarily.
+name|byte
+index|[]
+name|temp
+init|=
+operator|new
+name|byte
+index|[
+name|length
+index|]
+decl_stmt|;
+name|ByteBufferUtils
+operator|.
+name|copyFromBufferToArray
+argument_list|(
+name|temp
+argument_list|,
+name|value
+argument_list|,
+name|offset
+argument_list|,
+literal|0
+argument_list|,
+name|length
+argument_list|)
+expr_stmt|;
+return|return
+name|compareTo
+argument_list|(
+name|temp
+argument_list|)
+return|;
+block|}
 block|}
 end_class
 
