@@ -43,16 +43,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|security
-operator|.
-name|SecureRandom
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -672,7 +662,7 @@ block|}
 name|salter
 operator|=
 operator|new
-name|SecureRandom
+name|Random
 argument_list|()
 expr_stmt|;
 block|}
