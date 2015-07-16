@@ -2603,6 +2603,23 @@ name|LOAD_CFS_ON_DEMAND_CONFIG_KEY
 init|=
 literal|"hbase.hregion.scan.loadColumnFamiliesOnDemand"
 decl_stmt|;
+comment|// in milliseconds
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|MAX_WAIT_FOR_SEQ_ID_KEY
+init|=
+literal|"hbase.hregion.max.wait.for.seq.id"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_MAX_WAIT_FOR_SEQ_ID
+init|=
+literal|60000
+decl_stmt|;
 comment|/**    * This is the global default value for durability. All tables/mutations not    * defining a durability or using USE_DEFAULT will default to this value.    */
 specifier|private
 specifier|static
@@ -2963,6 +2980,10 @@ name|boolean
 name|isLoadingCfsOnDemandDefault
 init|=
 literal|false
+decl_stmt|;
+specifier|private
+name|int
+name|maxWaitForSeqId
 decl_stmt|;
 specifier|private
 specifier|final
@@ -4070,6 +4091,17 @@ argument_list|(
 literal|"hbase.rowlock.wait.duration"
 argument_list|,
 name|DEFAULT_ROWLOCK_WAIT_DURATION
+argument_list|)
+expr_stmt|;
+name|maxWaitForSeqId
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|MAX_WAIT_FOR_SEQ_ID_KEY
+argument_list|,
+name|DEFAULT_MAX_WAIT_FOR_SEQ_ID
 argument_list|)
 expr_stmt|;
 name|this
@@ -11987,7 +12019,9 @@ return|return
 name|key
 operator|.
 name|getSequenceId
-argument_list|()
+argument_list|(
+name|maxWaitForSeqId
+argument_list|)
 return|;
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
@@ -34792,7 +34826,7 @@ name|ClassSize
 operator|.
 name|REFERENCE
 operator|+
-literal|2
+literal|3
 operator|*
 name|Bytes
 operator|.
