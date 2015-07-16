@@ -200,6 +200,8 @@ block|}
 comment|// This method is for strictly testing purpose only
 annotation|@
 name|VisibleForTesting
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setNextRefillTime
@@ -217,6 +219,8 @@ expr_stmt|;
 block|}
 annotation|@
 name|VisibleForTesting
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getNextRefillTime

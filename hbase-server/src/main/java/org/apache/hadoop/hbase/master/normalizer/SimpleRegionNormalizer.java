@@ -736,7 +736,7 @@ operator|.
 name|getFirst
 argument_list|()
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|" has size "

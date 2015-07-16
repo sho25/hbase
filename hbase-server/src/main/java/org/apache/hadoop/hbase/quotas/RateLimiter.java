@@ -595,37 +595,26 @@ name|amount
 argument_list|)
 return|;
 block|}
-comment|// This method is for strictly testing purpose only
+comment|// These two method are for strictly testing purpose only
 annotation|@
 name|VisibleForTesting
 specifier|public
+specifier|abstract
 name|void
 name|setNextRefillTime
 parameter_list|(
 name|long
 name|nextRefillTime
 parameter_list|)
-block|{
-name|this
-operator|.
-name|setNextRefillTime
-argument_list|(
-name|nextRefillTime
-argument_list|)
-expr_stmt|;
-block|}
+function_decl|;
+annotation|@
+name|VisibleForTesting
 specifier|public
+specifier|abstract
 name|long
 name|getNextRefillTime
 parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|getNextRefillTime
-argument_list|()
-return|;
-block|}
+function_decl|;
 block|}
 end_class
 

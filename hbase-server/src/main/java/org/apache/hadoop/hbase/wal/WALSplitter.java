@@ -6629,22 +6629,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-operator|(
-name|this
-operator|.
-name|writerThreads
-operator|==
-literal|null
-condition|?
-literal|0
-else|:
 name|this
 operator|.
 name|writerThreads
 operator|.
 name|size
 argument_list|()
-operator|)
 operator|+
 literal|" split writers finished; closing..."
 argument_list|)
