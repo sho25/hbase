@@ -11926,11 +11926,11 @@ argument_list|,
 name|se
 argument_list|)
 expr_stmt|;
+block|}
 name|rssStub
 operator|=
 literal|null
 expr_stmt|;
-block|}
 block|}
 return|return
 name|result
