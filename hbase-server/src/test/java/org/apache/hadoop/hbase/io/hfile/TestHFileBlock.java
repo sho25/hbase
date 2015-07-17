@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -504,6 +504,54 @@ operator|.
 name|encoding
 operator|.
 name|DataBlockEncoding
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|ByteBuff
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|MultiByteBuff
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|SingleByteBuff
 import|;
 end_import
 
@@ -3008,7 +3056,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|ByteBuffer
+name|ByteBuff
 name|actualBuffer
 init|=
 name|blockUnpacked
@@ -3128,7 +3176,11 @@ expr_stmt|;
 comment|// test if content matches, produce nice message
 name|assertBuffersEqual
 argument_list|(
+operator|new
+name|SingleByteBuff
+argument_list|(
 name|expectedBuffer
+argument_list|)
 argument_list|,
 name|actualBuffer
 argument_list|,
@@ -3188,7 +3240,11 @@ argument_list|()
 operator|.
 name|deserialize
 argument_list|(
+operator|new
+name|SingleByteBuff
+argument_list|(
 name|serialized
+argument_list|)
 argument_list|,
 name|reuseBuffer
 argument_list|)
@@ -3273,10 +3329,10 @@ specifier|static
 name|void
 name|assertBuffersEqual
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|expectedBuffer
 parameter_list|,
-name|ByteBuffer
+name|ByteBuff
 name|actualBuffer
 parameter_list|,
 name|Compression
@@ -3393,7 +3449,7 @@ specifier|static
 name|String
 name|nextBytesToStr
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|buf
 parameter_list|,
 name|int
@@ -4025,7 +4081,7 @@ argument_list|)
 expr_stmt|;
 comment|// b's buffer has header + data + checksum while
 comment|// expectedContents have header + data only
-name|ByteBuffer
+name|ByteBuff
 name|bufRead
 init|=
 name|b
@@ -4198,7 +4254,11 @@ name|HFileBlock
 operator|.
 name|toStringHeader
 argument_list|(
+operator|new
+name|SingleByteBuff
+argument_list|(
 name|bufExpected
+argument_list|)
 argument_list|)
 operator|+
 literal|"\nfound    header"
@@ -5421,7 +5481,7 @@ name|assertTrue
 argument_list|(
 name|HFileBlock
 operator|.
-name|BYTE_BUFFER_HEAP_SIZE
+name|MULTI_BYTE_BUFFER_HEAP_SIZE
 operator|==
 literal|64
 argument_list|)
@@ -5433,9 +5493,9 @@ name|assertTrue
 argument_list|(
 name|HFileBlock
 operator|.
-name|BYTE_BUFFER_HEAP_SIZE
+name|MULTI_BYTE_BUFFER_HEAP_SIZE
 operator|==
-literal|80
+literal|104
 argument_list|)
 expr_stmt|;
 block|}
@@ -5572,7 +5632,11 @@ name|ClassSize
 operator|.
 name|estimateBase
 argument_list|(
+operator|new
+name|MultiByteBuff
+argument_list|(
 name|buf
+argument_list|)
 operator|.
 name|getClass
 argument_list|()

@@ -382,6 +382,7 @@ name|int
 name|initval
 parameter_list|)
 function_decl|;
+comment|// TODO : a buffer based hash function would be needed.. Not adding it for now
 block|}
 end_class
 

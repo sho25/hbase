@@ -63,8 +63,24 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|ByteBuff
+import|;
+end_import
+
 begin_comment
-comment|/**  * Utility methods related to BloomFilters   */
+comment|/**  * Utility methods related to BloomFilters  */
 end_comment
 
 begin_class
@@ -640,7 +656,7 @@ parameter_list|,
 name|int
 name|length
 parameter_list|,
-name|ByteBuffer
+name|ByteBuff
 name|bloomBuf
 parameter_list|,
 name|int
@@ -742,7 +758,7 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|get
+name|checkBit
 argument_list|(
 name|hashLoc
 argument_list|,
@@ -789,7 +805,7 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|get
+name|checkBit
 argument_list|(
 name|hashLoc
 argument_list|,
@@ -810,15 +826,14 @@ literal|true
 return|;
 block|}
 comment|/**    * Check if bit at specified index is 1.    *    * @param pos index of bit    * @return true if bit at specified index is 1, false if 0.    */
-specifier|public
 specifier|static
 name|boolean
-name|get
+name|checkBit
 parameter_list|(
 name|int
 name|pos
 parameter_list|,
-name|ByteBuffer
+name|ByteBuff
 name|bloomBuf
 parameter_list|,
 name|int
@@ -841,7 +856,6 @@ operator|&
 literal|0x7
 decl_stmt|;
 comment|//pos % 8
-comment|// TODO access this via Util API which can do Unsafe access if possible(?)
 name|byte
 name|curByte
 init|=

@@ -419,6 +419,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|nio
+operator|.
+name|ByteBuff
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|ByteBufferUtils
@@ -440,7 +456,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<p>  * This class is created via reflection in DataBlockEncoding enum. Update the enum if class name or  * package changes.  *</p>  * PrefixTreeDataBlockEncoder implementation of DataBlockEncoder. This is the primary entry point  * for PrefixTree encoding and decoding. Encoding is delegated to instances of  * {@link PrefixTreeEncoder}, and decoding is delegated to instances of  * {@link org.apache.hadoop.hbase.codec.prefixtree.scanner.CellSearcher}. Encoder and decoder instances are  * created and recycled by static PtEncoderFactory and PtDecoderFactory.  */
+comment|/**  *<p>  * This class is created via reflection in DataBlockEncoding enum. Update the enum if class name or  * package changes.  *</p>  * PrefixTreeDataBlockEncoder implementation of DataBlockEncoder. This is the primary entry point  * for PrefixTree encoding and decoding. Encoding is delegated to instances of  * {@link PrefixTreeEncoder}, and decoding is delegated to instances of  * {@link org.apache.hadoop.hbase.codec.prefixtree.scanner.CellSearcher}.  * Encoder and decoder instances are  * created and recycled by static PtEncoderFactory and PtDecoderFactory.  */
 end_comment
 
 begin_class
@@ -738,7 +754,7 @@ specifier|public
 name|Cell
 name|getFirstKeyCellInBlock
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|block
 parameter_list|)
 block|{
@@ -755,6 +771,7 @@ decl_stmt|;
 try|try
 block|{
 comment|// should i includeMemstoreTS (second argument)?  i think PrefixKeyDeltaEncoder is, so i will
+comment|// TODO : Change to work with BBs
 name|searcher
 operator|=
 name|DecoderFactory
@@ -762,6 +779,19 @@ operator|.
 name|checkOut
 argument_list|(
 name|block
+operator|.
+name|asSubByteBuffer
+argument_list|(
+name|block
+operator|.
+name|limit
+argument_list|()
+operator|-
+name|block
+operator|.
+name|position
+argument_list|()
+argument_list|)
 argument_list|,
 literal|true
 argument_list|)

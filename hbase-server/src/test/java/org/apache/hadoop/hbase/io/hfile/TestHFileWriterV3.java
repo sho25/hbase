@@ -89,16 +89,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|nio
-operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -358,6 +348,22 @@ operator|.
 name|HFile
 operator|.
 name|FileInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|ByteBuff
 import|;
 end_import
 
@@ -1481,7 +1487,7 @@ name|getBlockType
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|ByteBuffer
+name|ByteBuff
 name|buf
 init|=
 name|block
@@ -1913,7 +1919,7 @@ operator|new
 name|Text
 argument_list|()
 decl_stmt|;
-name|ByteBuffer
+name|ByteBuff
 name|buf
 init|=
 name|block

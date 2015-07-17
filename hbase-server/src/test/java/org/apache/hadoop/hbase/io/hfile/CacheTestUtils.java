@@ -277,6 +277,54 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|nio
+operator|.
+name|ByteBuff
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|MultiByteBuff
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|SingleByteBuff
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|ChecksumType
@@ -791,9 +839,9 @@ name|blocks
 init|=
 name|generateHFileBlocks
 argument_list|(
-name|numBlocks
-argument_list|,
 name|blockSize
+argument_list|,
+name|numBlocks
 argument_list|)
 decl_stmt|;
 comment|// Confirm empty
@@ -1506,7 +1554,7 @@ specifier|public
 name|Cacheable
 name|deserialize
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|b
 parameter_list|)
 throws|throws
@@ -1567,7 +1615,7 @@ specifier|public
 name|Cacheable
 name|deserialize
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|b
 parameter_list|,
 name|boolean
@@ -1779,9 +1827,12 @@ block|{
 comment|// The buffer serialized size needs to match the size of BlockSize. So we
 comment|// declare our data size to be smaller than it by the serialization space
 comment|// required.
-name|ByteBuffer
+name|SingleByteBuff
 name|cachedBuffer
 init|=
+operator|new
+name|SingleByteBuff
+argument_list|(
 name|ByteBuffer
 operator|.
 name|allocate
@@ -1791,6 +1842,7 @@ operator|-
 name|HFileBlock
 operator|.
 name|EXTRA_SERIALIZATION_SPACE
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|rand

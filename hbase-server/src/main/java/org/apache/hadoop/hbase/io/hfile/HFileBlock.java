@@ -231,7 +231,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|ByteBufferInputStream
+name|FSDataInputStreamWrapper
 import|;
 end_import
 
@@ -247,7 +247,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|FSDataInputStreamWrapper
+name|ByteBuffInputStream
 import|;
 end_import
 
@@ -351,9 +351,41 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|nio
 operator|.
-name|ByteBufferUtils
+name|ByteBuff
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|MultiByteBuff
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|SingleByteBuff
 import|;
 end_import
 
@@ -501,11 +533,12 @@ operator|.
 name|HFILEBLOCK_HEADER_SIZE_NO_CHECKSUM
 index|]
 decl_stmt|;
+comment|// How to get the estimate correctly? if it is a singleBB?
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|BYTE_BUFFER_HEAP_SIZE
+name|MULTI_BYTE_BUFFER_HEAP_SIZE
 init|=
 operator|(
 name|int
@@ -513,6 +546,9 @@ operator|)
 name|ClassSize
 operator|.
 name|estimateBase
+argument_list|(
+operator|new
+name|MultiByteBuff
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -527,6 +563,7 @@ argument_list|,
 literal|0
 argument_list|,
 literal|0
+argument_list|)
 argument_list|)
 operator|.
 name|getClass
@@ -583,7 +620,7 @@ specifier|public
 name|HFileBlock
 name|deserialize
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|buf
 parameter_list|,
 name|boolean
@@ -609,7 +646,7 @@ operator|.
 name|rewind
 argument_list|()
 expr_stmt|;
-name|ByteBuffer
+name|ByteBuff
 name|newByteBuffer
 decl_stmt|;
 if|if
@@ -627,23 +664,42 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|newByteBuffer
-operator|=
-name|ByteBuffer
-operator|.
-name|allocate
-argument_list|(
+comment|// Used only in tests
+name|int
+name|len
+init|=
 name|buf
 operator|.
 name|limit
 argument_list|()
+decl_stmt|;
+name|newByteBuffer
+operator|=
+operator|new
+name|SingleByteBuff
+argument_list|(
+name|ByteBuffer
+operator|.
+name|allocate
+argument_list|(
+name|len
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|newByteBuffer
 operator|.
 name|put
 argument_list|(
+literal|0
+argument_list|,
 name|buf
+argument_list|,
+name|buf
+operator|.
+name|position
+argument_list|()
+argument_list|,
+name|len
 argument_list|)
 expr_stmt|;
 block|}
@@ -762,12 +818,13 @@ specifier|public
 name|HFileBlock
 name|deserialize
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|b
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Used only in tests
 return|return
 name|deserialize
 argument_list|(
@@ -827,7 +884,7 @@ name|onDiskDataSizeWithHeader
 decl_stmt|;
 comment|/** The in-memory representation of the hfile block */
 specifier|private
-name|ByteBuffer
+name|ByteBuff
 name|buf
 decl_stmt|;
 comment|/** Meta data that holds meta information on the hfileblock */
@@ -866,7 +923,7 @@ parameter_list|,
 name|long
 name|prevBlockOffset
 parameter_list|,
-name|ByteBuffer
+name|ByteBuff
 name|buf
 parameter_list|,
 name|boolean
@@ -943,6 +1000,62 @@ name|buf
 operator|.
 name|rewind
 argument_list|()
+expr_stmt|;
+block|}
+name|HFileBlock
+parameter_list|(
+name|BlockType
+name|blockType
+parameter_list|,
+name|int
+name|onDiskSizeWithoutHeader
+parameter_list|,
+name|int
+name|uncompressedSizeWithoutHeader
+parameter_list|,
+name|long
+name|prevBlockOffset
+parameter_list|,
+name|ByteBuffer
+name|buf
+parameter_list|,
+name|boolean
+name|fillHeader
+parameter_list|,
+name|long
+name|offset
+parameter_list|,
+name|int
+name|onDiskDataSizeWithHeader
+parameter_list|,
+name|HFileContext
+name|fileContext
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|blockType
+argument_list|,
+name|onDiskSizeWithoutHeader
+argument_list|,
+name|uncompressedSizeWithoutHeader
+argument_list|,
+name|prevBlockOffset
+argument_list|,
+operator|new
+name|SingleByteBuff
+argument_list|(
+name|buf
+argument_list|)
+argument_list|,
+name|fillHeader
+argument_list|,
+name|offset
+argument_list|,
+name|onDiskDataSizeWithHeader
+argument_list|,
+name|fileContext
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Copy constructor. Creates a shallow copy of {@code that}'s buffer.    */
@@ -1028,10 +1141,33 @@ operator|.
 name|nextBlockOnDiskSizeWithHeader
 expr_stmt|;
 block|}
-comment|/**    * Creates a block from an existing buffer starting with a header. Rewinds    * and takes ownership of the buffer. By definition of rewind, ignores the    * buffer position, but if you slice the buffer beforehand, it will rewind    * to that point. The reason this has a minorNumber and not a majorNumber is    * because majorNumbers indicate the format of a HFile whereas minorNumbers    * indicate the format inside a HFileBlock.    */
 name|HFileBlock
 parameter_list|(
 name|ByteBuffer
+name|b
+parameter_list|,
+name|boolean
+name|usesHBaseChecksum
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+argument_list|(
+operator|new
+name|SingleByteBuff
+argument_list|(
+name|b
+argument_list|)
+argument_list|,
+name|usesHBaseChecksum
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Creates a block from an existing buffer starting with a header. Rewinds    * and takes ownership of the buffer. By definition of rewind, ignores the    * buffer position, but if you slice the buffer beforehand, it will rewind    * to that point. The reason this has a minorNumber and not a majorNumber is    * because majorNumbers indicate the format of a HFile whereas minorNumbers    * indicate the format inside a HFileBlock.    */
+name|HFileBlock
+parameter_list|(
+name|ByteBuff
 name|b
 parameter_list|,
 name|boolean
@@ -1355,11 +1491,11 @@ block|}
 block|}
 comment|/**    * Returns a buffer that does not include the header or checksum.    *    * @return the buffer with header skipped and checksum omitted.    */
 specifier|public
-name|ByteBuffer
+name|ByteBuff
 name|getBufferWithoutHeader
 parameter_list|()
 block|{
-name|ByteBuffer
+name|ByteBuff
 name|dup
 init|=
 name|this
@@ -1397,13 +1533,13 @@ name|slice
 argument_list|()
 return|;
 block|}
-comment|/**    * Returns the buffer this block stores internally. The clients must not    * modify the buffer object. This method has to be public because it is    * used in {@link CompoundBloomFilter} to avoid object    *  creation on every Bloom filter lookup, but has to be used with caution.    *   Checksum data is not included in the returned buffer but header data is.    *    * @return the buffer of this block for read-only operations    */
+comment|/**    * Returns the buffer this block stores internally. The clients must not    * modify the buffer object. This method has to be public because it is used    * in {@link CompoundBloomFilter} to avoid object creation on every Bloom    * filter lookup, but has to be used with caution. Checksum data is not    * included in the returned buffer but header data is.    *    * @return the buffer of this block for read-only operations    */
 specifier|public
-name|ByteBuffer
+name|ByteBuff
 name|getBufferReadOnly
 parameter_list|()
 block|{
-name|ByteBuffer
+name|ByteBuff
 name|dup
 init|=
 name|this
@@ -1435,11 +1571,11 @@ return|;
 block|}
 comment|/**    * Returns the buffer of this block, including header data. The clients must    * not modify the buffer object. This method has to be public because it is    * used in {@link org.apache.hadoop.hbase.io.hfile.bucket.BucketCache} to avoid buffer copy.    *    * @return the buffer with header and checksum included for read-only operations    */
 specifier|public
-name|ByteBuffer
+name|ByteBuff
 name|getBufferReadOnlyWithHeader
 parameter_list|()
 block|{
-name|ByteBuffer
+name|ByteBuff
 name|dup
 init|=
 name|this
@@ -1457,11 +1593,11 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Returns a byte buffer of this block, including header data and checksum, positioned at    * the beginning of header. The underlying data array is not copied.    *    * @return the byte buffer with header and checksum included    */
-name|ByteBuffer
+name|ByteBuff
 name|getBufferWithHeader
 parameter_list|()
 block|{
-name|ByteBuffer
+name|ByteBuff
 name|dupBuf
 init|=
 name|buf
@@ -2021,7 +2157,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|ByteBuffer
+name|ByteBuff
 name|bufWithoutHeader
 init|=
 name|getBufferWithoutHeader
@@ -2214,7 +2350,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|ByteBuffer
+name|ByteBuff
 name|bufDup
 init|=
 name|getBufferReadOnly
@@ -2357,7 +2493,7 @@ operator|.
 name|getDefaultBlockDecodingContext
 argument_list|()
 decl_stmt|;
-name|ByteBuffer
+name|ByteBuff
 name|dup
 init|=
 name|this
@@ -2419,7 +2555,7 @@ comment|// Both the buffers are limited till checksum bytes and avoid the next b
 comment|// Below call to copyFromBufferToBuffer() will try positional read/write from/to buffers when
 comment|// any of the buffer is DBB. So we change the limit on a dup buffer. No copying just create
 comment|// new BB objects
-name|ByteBuffer
+name|ByteBuff
 name|inDup
 init|=
 name|this
@@ -2442,7 +2578,7 @@ name|headerSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|ByteBuffer
+name|ByteBuff
 name|outDup
 init|=
 name|unpacked
@@ -2467,18 +2603,10 @@ name|headerSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|ByteBufferUtils
-operator|.
-name|copyFromBufferToBuffer
-argument_list|(
 name|outDup
-argument_list|,
-name|inDup
-argument_list|,
-name|this
 operator|.
-name|onDiskDataSizeWithHeader
-argument_list|,
+name|put
+argument_list|(
 name|unpacked
 operator|.
 name|headerSize
@@ -2492,6 +2620,12 @@ name|unpacked
 operator|.
 name|totalChecksumBytes
 argument_list|()
+argument_list|,
+name|inDup
+argument_list|,
+name|this
+operator|.
+name|onDiskDataSizeWithHeader
 argument_list|,
 name|unpacked
 operator|.
@@ -2565,22 +2699,14 @@ argument_list|)
 decl_stmt|;
 comment|// Copy header bytes into newBuf.
 comment|// newBuf is HBB so no issue in calling array()
-name|ByteBuffer
-name|dup
-init|=
 name|buf
-operator|.
-name|duplicate
-argument_list|()
-decl_stmt|;
-name|dup
 operator|.
 name|position
 argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|dup
+name|buf
 operator|.
 name|get
 argument_list|(
@@ -2599,7 +2725,11 @@ argument_list|)
 expr_stmt|;
 name|buf
 operator|=
+operator|new
+name|SingleByteBuff
+argument_list|(
 name|newBuf
+argument_list|)
 expr_stmt|;
 comment|// set limit to exclude next block's header
 name|buf
@@ -2771,7 +2901,7 @@ name|DataInputStream
 name|getByteStream
 parameter_list|()
 block|{
-name|ByteBuffer
+name|ByteBuff
 name|dup
 init|=
 name|this
@@ -2796,7 +2926,7 @@ operator|new
 name|DataInputStream
 argument_list|(
 operator|new
-name|ByteBufferInputStream
+name|ByteBuffInputStream
 argument_list|(
 name|dup
 argument_list|)
@@ -2821,7 +2951,7 @@ name|ClassSize
 operator|.
 name|OBJECT
 operator|+
-comment|// Block type, byte buffer and meta references
+comment|// Block type, multi byte buffer and meta references
 literal|3
 operator|*
 name|ClassSize
@@ -2869,7 +2999,7 @@ operator|.
 name|capacity
 argument_list|()
 operator|+
-name|BYTE_BUFFER_HEAP_SIZE
+name|MULTI_BYTE_BUFFER_HEAP_SIZE
 argument_list|)
 expr_stmt|;
 block|}
@@ -6334,15 +6464,13 @@ name|ByteBuffer
 name|destination
 parameter_list|)
 block|{
-name|ByteBufferUtils
-operator|.
-name|copyFromBufferToBuffer
-argument_list|(
-name|destination
-argument_list|,
 name|this
 operator|.
 name|buf
+operator|.
+name|get
+argument_list|(
+name|destination
 argument_list|,
 literal|0
 argument_list|,
@@ -6677,7 +6805,7 @@ return|;
 block|}
 if|if
 condition|(
-name|ByteBufferUtils
+name|ByteBuff
 operator|.
 name|compareTo
 argument_list|(
@@ -6946,7 +7074,7 @@ specifier|static
 name|String
 name|toStringHeader
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|buf
 parameter_list|)
 throws|throws

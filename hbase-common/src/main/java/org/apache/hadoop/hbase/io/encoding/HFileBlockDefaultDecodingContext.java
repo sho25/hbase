@@ -51,16 +51,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|nio
-operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -101,7 +91,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|ByteBufferInputStream
+name|ByteBuffInputStream
 import|;
 end_import
 
@@ -221,6 +211,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|nio
+operator|.
+name|ByteBuff
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -277,10 +283,10 @@ parameter_list|,
 name|int
 name|uncompressedSizeWithoutHeader
 parameter_list|,
-name|ByteBuffer
+name|ByteBuff
 name|blockBufferWithoutHeader
 parameter_list|,
-name|ByteBuffer
+name|ByteBuff
 name|onDiskBlock
 parameter_list|)
 throws|throws
@@ -293,7 +299,7 @@ operator|new
 name|DataInputStream
 argument_list|(
 operator|new
-name|ByteBufferInputStream
+name|ByteBuffInputStream
 argument_list|(
 name|onDiskBlock
 argument_list|)

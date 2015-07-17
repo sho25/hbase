@@ -31,16 +31,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|nio
-operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -73,6 +63,22 @@ name|HFileContext
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|ByteBuff
+import|;
+end_import
+
 begin_comment
 comment|/**  * A decoding context that is created by a reader's encoder, and is shared  * across the reader's all read operations.  *  * @see HFileBlockEncodingContext for encoding  */
 end_comment
@@ -86,7 +92,7 @@ specifier|public
 interface|interface
 name|HFileBlockDecodingContext
 block|{
-comment|/**    * Perform all actions that need to be done before the encoder's real decoding process.    * Decompression needs to be done if {@link HFileContext#getCompression()} returns a valid compression    * algorithm.    *    * @param onDiskSizeWithoutHeader numBytes after block and encoding headers    * @param uncompressedSizeWithoutHeader numBytes without header required to store the block after    *          decompressing (not decoding)    * @param blockBufferWithoutHeader ByteBuffer pointed after the header but before the data    * @param onDiskBlock on disk data to be decoded    * @throws IOException    */
+comment|/**    * Perform all actions that need to be done before the encoder's real decoding    * process. Decompression needs to be done if    * {@link HFileContext#getCompression()} returns a valid compression    * algorithm.    *    * @param onDiskSizeWithoutHeader    *          numBytes after block and encoding headers    * @param uncompressedSizeWithoutHeader    *          numBytes without header required to store the block after    *          decompressing (not decoding)    * @param blockBufferWithoutHeader    *          ByteBuffer pointed after the header but before the data    * @param onDiskBlock    *          on disk data to be decoded    * @throws IOException    */
 name|void
 name|prepareDecoding
 parameter_list|(
@@ -96,10 +102,10 @@ parameter_list|,
 name|int
 name|uncompressedSizeWithoutHeader
 parameter_list|,
-name|ByteBuffer
+name|ByteBuff
 name|blockBufferWithoutHeader
 parameter_list|,
-name|ByteBuffer
+name|ByteBuff
 name|onDiskBlock
 parameter_list|)
 throws|throws

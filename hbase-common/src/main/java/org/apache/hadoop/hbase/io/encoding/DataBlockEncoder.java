@@ -121,6 +121,22 @@ name|HFileContext
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|ByteBuff
+import|;
+end_import
+
 begin_comment
 comment|/**  * Encoding of KeyValue. It aims to be fast and efficient using assumptions:  *<ul>  *<li>the KeyValues are stored sorted by key</li>  *<li>we know the structure of KeyValue</li>  *<li>the values are always iterated forward from beginning of block</li>  *<li>knowledge of Key Value format</li>  *</ul>  * It is designed to work fast enough to be feasible as in memory compression.  */
 end_comment
@@ -197,7 +213,7 @@ comment|/**    * Return first key in block as a cell. Useful for indexing. Typic
 name|Cell
 name|getFirstKeyCellInBlock
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|block
 parameter_list|)
 function_decl|;

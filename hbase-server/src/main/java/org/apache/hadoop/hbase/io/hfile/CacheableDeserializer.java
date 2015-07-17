@@ -31,11 +31,17 @@ end_import
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|nio
+name|apache
 operator|.
-name|ByteBuffer
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -49,9 +55,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
+name|nio
 operator|.
-name|InterfaceAudience
+name|ByteBuff
 import|;
 end_import
 
@@ -77,7 +83,7 @@ comment|/**    * Returns the deserialized object.    *    * @return T the deseri
 name|T
 name|deserialize
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|b
 parameter_list|)
 throws|throws
@@ -87,7 +93,7 @@ comment|/**    *     * @param b    * @param reuse true if Cacheable object can u
 name|T
 name|deserialize
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|b
 parameter_list|,
 name|boolean

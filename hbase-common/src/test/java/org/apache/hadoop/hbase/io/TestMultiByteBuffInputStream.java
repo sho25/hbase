@@ -79,6 +79,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|nio
+operator|.
+name|MultiByteBuff
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|testclassification
 operator|.
 name|IOTests
@@ -157,7 +173,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestByteBufferInputStream
+name|TestMultiByteBuffInputStream
 block|{
 annotation|@
 name|Test
@@ -251,13 +267,17 @@ argument_list|)
 decl_stmt|;
 comment|// bbis contains 19 bytes
 comment|// 1 byte, 4 bytes int, 4 bytes string, 8 bytes long and 2 bytes short
-name|ByteBufferInputStream
+name|ByteBuffInputStream
 name|bbis
 init|=
 operator|new
-name|ByteBufferInputStream
+name|ByteBuffInputStream
+argument_list|(
+operator|new
+name|MultiByteBuff
 argument_list|(
 name|bb
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -471,9 +491,13 @@ expr_stmt|;
 name|bbis
 operator|=
 operator|new
-name|ByteBufferInputStream
+name|ByteBuffInputStream
+argument_list|(
+operator|new
+name|MultiByteBuff
 argument_list|(
 name|bb
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|DataInputStream

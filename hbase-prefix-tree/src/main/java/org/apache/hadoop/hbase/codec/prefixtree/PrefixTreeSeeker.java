@@ -314,6 +314,7 @@ name|block
 operator|=
 name|fullBlockBuffer
 expr_stmt|;
+comment|// TODO : change to Bytebuff
 name|ptSearcher
 operator|=
 name|DecoderFactory

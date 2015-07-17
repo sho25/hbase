@@ -1202,9 +1202,9 @@ name|ByteBufferUtils
 operator|.
 name|copyFromBufferToBuffer
 argument_list|(
-name|dstBuffer
-argument_list|,
 name|srcBuffer
+argument_list|,
+name|dstBuffer
 argument_list|,
 name|array
 operator|.

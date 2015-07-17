@@ -369,9 +369,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|nio
 operator|.
-name|ByteBufferUtils
+name|ByteBuff
 import|;
 end_import
 
@@ -404,6 +404,22 @@ operator|.
 name|util
 operator|.
 name|ClassSize
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Pair
 import|;
 end_import
 
@@ -1488,7 +1504,7 @@ throw|;
 block|}
 comment|// Locate the entry corresponding to the given key in the non-root
 comment|// (leaf or intermediate-level) index block.
-name|ByteBuffer
+name|ByteBuff
 name|buffer
 init|=
 name|block
@@ -1746,7 +1762,7 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|ByteBuffer
+name|ByteBuff
 name|b
 init|=
 name|midLeafBlock
@@ -1767,7 +1783,7 @@ name|keyRelOffset
 init|=
 name|b
 operator|.
-name|getInt
+name|getIntStrictlyForward
 argument_list|(
 name|Bytes
 operator|.
@@ -1785,7 +1801,7 @@ name|keyLen
 init|=
 name|b
 operator|.
-name|getInt
+name|getIntStrictlyForward
 argument_list|(
 name|Bytes
 operator|.
@@ -1821,12 +1837,10 @@ name|byte
 index|[]
 name|bytes
 init|=
-name|ByteBufferUtils
+name|b
 operator|.
 name|toBytes
 argument_list|(
-name|b
-argument_list|,
 name|keyOffset
 argument_list|,
 name|keyLen
@@ -2456,7 +2470,7 @@ name|byte
 index|[]
 name|getNonRootIndexedKey
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|nonRootIndex
 parameter_list|,
 name|int
@@ -2562,12 +2576,10 @@ name|SECONDARY_INDEX_ENTRY_OVERHEAD
 decl_stmt|;
 comment|// TODO check whether we can make BB backed Cell here? So can avoid bytes copy.
 return|return
-name|ByteBufferUtils
+name|nonRootIndex
 operator|.
 name|toBytes
 argument_list|(
-name|nonRootIndex
-argument_list|,
 name|targetKeyOffset
 argument_list|,
 name|targetKeyLength
@@ -2582,7 +2594,7 @@ parameter_list|(
 name|Cell
 name|key
 parameter_list|,
-name|ByteBuffer
+name|ByteBuff
 name|nonRootIndex
 parameter_list|,
 name|CellComparator
@@ -2594,7 +2606,7 @@ name|numEntries
 init|=
 name|nonRootIndex
 operator|.
-name|getInt
+name|getIntStrictlyForward
 argument_list|(
 literal|0
 argument_list|)
@@ -2645,6 +2657,23 @@ operator|.
 name|KeyOnlyKeyValue
 argument_list|()
 decl_stmt|;
+name|Pair
+argument_list|<
+name|ByteBuffer
+argument_list|,
+name|Integer
+argument_list|>
+name|pair
+init|=
+operator|new
+name|Pair
+argument_list|<
+name|ByteBuffer
+argument_list|,
+name|Integer
+argument_list|>
+argument_list|()
+decl_stmt|;
 while|while
 condition|(
 name|low
@@ -2668,7 +2697,7 @@ name|midKeyRelOffset
 init|=
 name|nonRootIndex
 operator|.
-name|getInt
+name|getIntStrictlyForward
 argument_list|(
 name|Bytes
 operator|.
@@ -2702,7 +2731,7 @@ name|midLength
 init|=
 name|nonRootIndex
 operator|.
-name|getInt
+name|getIntStrictlyForward
 argument_list|(
 name|Bytes
 operator|.
@@ -2723,22 +2752,42 @@ comment|// we have to compare in this order, because the comparator order
 comment|// has special logic when the 'left side' is a special key.
 comment|// TODO make KeyOnlyKeyValue to be Buffer backed and avoid array() call. This has to be
 comment|// done after HBASE-12224& HBASE-12282
-comment|// TODO avaoid array call.
+comment|// TODO avoid array call.
+name|nonRootIndex
+operator|.
+name|asSubByteBuffer
+argument_list|(
+name|midKeyOffset
+argument_list|,
+name|midLength
+argument_list|,
+name|pair
+argument_list|)
+expr_stmt|;
 name|nonRootIndexKV
 operator|.
 name|setKey
 argument_list|(
-name|nonRootIndex
+name|pair
+operator|.
+name|getFirst
+argument_list|()
 operator|.
 name|array
 argument_list|()
 argument_list|,
-name|nonRootIndex
+name|pair
+operator|.
+name|getFirst
+argument_list|()
 operator|.
 name|arrayOffset
 argument_list|()
 operator|+
-name|midKeyOffset
+name|pair
+operator|.
+name|getSecond
+argument_list|()
 argument_list|,
 name|midLength
 argument_list|)
@@ -2871,7 +2920,7 @@ specifier|static
 name|int
 name|locateNonRootIndexEntry
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|nonRootBlock
 parameter_list|,
 name|Cell
@@ -2906,7 +2955,7 @@ name|numEntries
 init|=
 name|nonRootBlock
 operator|.
-name|getInt
+name|getIntStrictlyForward
 argument_list|(
 literal|0
 argument_list|)
@@ -2932,7 +2981,7 @@ name|entryRelOffset
 init|=
 name|nonRootBlock
 operator|.
-name|getInt
+name|getIntStrictlyForward
 argument_list|(
 name|Bytes
 operator|.

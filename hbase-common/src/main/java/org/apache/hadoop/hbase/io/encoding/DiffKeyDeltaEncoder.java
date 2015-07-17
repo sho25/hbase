@@ -155,6 +155,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|nio
+operator|.
+name|ByteBuff
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|ByteBufferUtils
@@ -1577,7 +1593,7 @@ specifier|public
 name|Cell
 name|getFirstKeyCellInBlock
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|block
 parameter_list|)
 block|{
@@ -1603,12 +1619,10 @@ operator|.
 name|get
 argument_list|()
 decl_stmt|;
-name|ByteBufferUtils
+name|block
 operator|.
 name|skip
 argument_list|(
-name|block
-argument_list|,
 name|familyLength
 argument_list|)
 expr_stmt|;
@@ -1623,14 +1637,15 @@ decl_stmt|;
 name|int
 name|keyLength
 init|=
-name|ByteBufferUtils
+name|ByteBuff
 operator|.
 name|readCompressedInt
 argument_list|(
 name|block
 argument_list|)
 decl_stmt|;
-name|ByteBufferUtils
+comment|// TODO : See if we can avoid these reads as the read values are not getting used
+name|ByteBuff
 operator|.
 name|readCompressedInt
 argument_list|(
@@ -1638,7 +1653,7 @@ name|block
 argument_list|)
 expr_stmt|;
 comment|// valueLength
-name|ByteBufferUtils
+name|ByteBuff
 operator|.
 name|readCompressedInt
 argument_list|(
@@ -1827,7 +1842,7 @@ decl_stmt|;
 name|long
 name|timestamp
 init|=
-name|ByteBufferUtils
+name|ByteBuff
 operator|.
 name|readLong
 argument_list|(
@@ -1889,6 +1904,7 @@ operator|.
 name|reset
 argument_list|()
 expr_stmt|;
+comment|// The result is already a BB. So always we will create a KeyOnlyKv.
 return|return
 operator|new
 name|KeyValue

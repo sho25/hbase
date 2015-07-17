@@ -41,16 +41,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|nio
-operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -90,6 +80,22 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|ByteBuff
 import|;
 end_import
 
@@ -392,7 +398,7 @@ parameter_list|,
 name|int
 name|keyLength
 parameter_list|,
-name|ByteBuffer
+name|ByteBuff
 name|bloom
 parameter_list|)
 block|{
@@ -531,7 +537,7 @@ name|ex
 argument_list|)
 throw|;
 block|}
-name|ByteBuffer
+name|ByteBuff
 name|bloomBuf
 init|=
 name|bloomBlock
@@ -611,7 +617,7 @@ parameter_list|(
 name|Cell
 name|keyCell
 parameter_list|,
-name|ByteBuffer
+name|ByteBuff
 name|bloom
 parameter_list|)
 block|{
