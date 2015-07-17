@@ -9801,12 +9801,6 @@ name|data
 operator|=
 literal|null
 expr_stmt|;
-name|this
-operator|.
-name|dataLengthBuffer
-operator|=
-literal|null
-expr_stmt|;
 if|if
 condition|(
 operator|!
