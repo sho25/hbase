@@ -554,9 +554,9 @@ name|this
 operator|.
 name|startKey
 operator|=
-name|KeyValueUtil
+name|CellUtil
 operator|.
-name|createFirstDeleteFamilyOnRow
+name|createFirstDeleteFamilyCellOnRow
 argument_list|(
 name|scan
 operator|.
