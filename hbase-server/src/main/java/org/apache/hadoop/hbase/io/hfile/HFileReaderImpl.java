@@ -6254,20 +6254,11 @@ argument_list|(
 name|newBlock
 argument_list|)
 decl_stmt|;
-comment|// TODO : Change the DBEs to work with ByteBuffs
 name|seeker
 operator|.
 name|setCurrentBuffer
 argument_list|(
 name|encodedBuffer
-operator|.
-name|asSubByteBuffer
-argument_list|(
-name|encodedBuffer
-operator|.
-name|limit
-argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|blockFetches
@@ -6575,7 +6566,7 @@ block|}
 return|return
 name|seeker
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 return|;
 block|}

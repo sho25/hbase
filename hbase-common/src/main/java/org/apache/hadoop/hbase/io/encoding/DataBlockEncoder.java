@@ -251,7 +251,7 @@ name|HFileContext
 name|meta
 parameter_list|)
 function_decl|;
-comment|/**    * An interface which enable to seek while underlying data is encoded.    *    * It works on one HFileBlock, but it is reusable. See    * {@link #setCurrentBuffer(ByteBuffer)}.    */
+comment|/**    * An interface which enable to seek while underlying data is encoded.    *    * It works on one HFileBlock, but it is reusable. See    * {@link #setCurrentBuffer(ByteBuff)}.    */
 interface|interface
 name|EncodedSeeker
 block|{
@@ -259,7 +259,7 @@ comment|/**      * Set on which buffer there will be done seeking.      * @param
 name|void
 name|setCurrentBuffer
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|buffer
 parameter_list|)
 function_decl|;
@@ -279,9 +279,9 @@ name|ByteBuffer
 name|getKeyValueBuffer
 parameter_list|()
 function_decl|;
-comment|/**      * @return the KeyValue object at the current position. Includes memstore      *         timestamp.      */
+comment|/**      * @return the Cell at the current position. Includes memstore timestamp.      */
 name|Cell
-name|getKeyValue
+name|getCell
 parameter_list|()
 function_decl|;
 comment|/** Set position to beginning of given block */

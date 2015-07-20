@@ -377,6 +377,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|nio
+operator|.
+name|SingleByteBuff
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|testclassification
 operator|.
 name|IOTests
@@ -885,7 +901,11 @@ name|seeker
 operator|.
 name|setCurrentBuffer
 argument_list|(
+operator|new
+name|SingleByteBuff
+argument_list|(
 name|readBuffer
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Seek before the first keyvalue;
@@ -921,7 +941,7 @@ literal|null
 argument_list|,
 name|seeker
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -957,7 +977,7 @@ name|assertNotNull
 argument_list|(
 name|seeker
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -980,7 +1000,7 @@ name|cloneRow
 argument_list|(
 name|seeker
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 argument_list|)
 argument_list|)
@@ -1015,7 +1035,7 @@ name|assertNotNull
 argument_list|(
 name|seeker
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1036,7 +1056,7 @@ name|cloneRow
 argument_list|(
 name|seeker
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 argument_list|)
 argument_list|)
@@ -1195,7 +1215,11 @@ name|seeker
 operator|.
 name|setCurrentBuffer
 argument_list|(
+operator|new
+name|SingleByteBuff
+argument_list|(
 name|readBuffer
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|Cell
@@ -1210,7 +1234,7 @@ name|currentKV
 init|=
 name|seeker
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 decl_stmt|;
 name|System
@@ -1682,7 +1706,11 @@ name|encodeSeeker
 operator|.
 name|setCurrentBuffer
 argument_list|(
+operator|new
+name|SingleByteBuff
+argument_list|(
 name|encodedData
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|KeyValue
@@ -1790,7 +1818,7 @@ name|compare
 argument_list|(
 name|encodeSeeker
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 argument_list|,
 name|collectionScanner
@@ -1818,7 +1846,7 @@ literal|" actual "
 operator|+
 name|encodeSeeker
 operator|.
-name|getKeyValue
+name|getCell
 argument_list|()
 operator|+
 literal|", after seeking "

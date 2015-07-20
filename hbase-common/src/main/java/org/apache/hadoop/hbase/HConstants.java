@@ -41,6 +41,16 @@ name|java
 operator|.
 name|nio
 operator|.
+name|ByteBuffer
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|nio
+operator|.
 name|charset
 operator|.
 name|Charset
@@ -1435,6 +1445,19 @@ name|byte
 index|[
 literal|0
 index|]
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|ByteBuffer
+name|EMPTY_BYTE_BUFFER
+init|=
+name|ByteBuffer
+operator|.
+name|wrap
+argument_list|(
+name|EMPTY_BYTE_ARRAY
+argument_list|)
 decl_stmt|;
 comment|/**    * Used by scanners, etc when they want to start at the beginning of a region    */
 specifier|public
