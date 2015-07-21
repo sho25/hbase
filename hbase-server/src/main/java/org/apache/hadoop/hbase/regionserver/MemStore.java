@@ -166,15 +166,6 @@ name|Cell
 name|deleteCell
 parameter_list|)
 function_decl|;
-comment|/**    * Find the key that matches<i>row</i> exactly, or the one that immediately precedes it. The    * target row key is set in state.    * @param state column/delete tracking state    */
-name|void
-name|getRowKeyAtOrBefore
-parameter_list|(
-specifier|final
-name|GetClosestRowBeforeTracker
-name|state
-parameter_list|)
-function_decl|;
 comment|/**    * Given the specs of a column, update it, first by inserting a new record,    * then removing the old one.  Since there is only 1 KeyValue involved, the memstoreTS    * will be set to 0, thus ensuring that they instantly appear to anyone. The underlying    * store will ensure that the insert/delete each are atomic. A scanner/reader will either    * get the new value, or the old value and all readers will eventually only see the new    * value after the old was removed.    *    * @param row    * @param family    * @param qualifier    * @param newValue    * @param now    * @return Timestamp    */
 name|long
 name|updateColumnValue

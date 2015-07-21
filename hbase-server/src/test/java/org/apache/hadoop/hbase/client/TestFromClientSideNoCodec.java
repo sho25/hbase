@@ -540,13 +540,6 @@ argument_list|)
 decl_stmt|;
 name|get
 operator|.
-name|setClosestRowBefore
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-name|get
-operator|.
 name|addFamily
 argument_list|(
 name|f

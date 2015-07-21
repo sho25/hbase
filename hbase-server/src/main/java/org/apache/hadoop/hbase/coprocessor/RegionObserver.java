@@ -1217,7 +1217,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This will be called before the roll back of the split region is completed     * @param ctx    * @throws IOException    */
+comment|/**    * This will be called before the roll back of the split region is completed    * @param ctx    * @throws IOException    */
 name|void
 name|preRollBackSplit
 parameter_list|(
@@ -1259,7 +1259,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the region is reported as closed to the master.    * @param c the environment provided by the region server    * @param abortRequested true if the region server is aborting    * @throws IOException     */
+comment|/**    * Called before the region is reported as closed to the master.    * @param c the environment provided by the region server    * @param abortRequested true if the region server is aborting    * @throws IOException    */
 name|void
 name|preClose
 parameter_list|(
@@ -1290,62 +1290,6 @@ parameter_list|,
 name|boolean
 name|abortRequested
 parameter_list|)
-function_decl|;
-comment|/**    * Called before a client makes a GetClosestRowBefore request.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row the row    * @param family the family    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be used if default processing    * is not bypassed.    * @throws IOException if an error occurred on the coprocessor    */
-name|void
-name|preGetClosestRowBefore
-parameter_list|(
-specifier|final
-name|ObserverContext
-argument_list|<
-name|RegionCoprocessorEnvironment
-argument_list|>
-name|c
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|row
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|family
-parameter_list|,
-specifier|final
-name|Result
-name|result
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Called after a client makes a GetClosestRowBefore request.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row the row    * @param family the desired family    * @param result the result to return to the client, modify as necessary    * @throws IOException if an error occurred on the coprocessor    */
-name|void
-name|postGetClosestRowBefore
-parameter_list|(
-specifier|final
-name|ObserverContext
-argument_list|<
-name|RegionCoprocessorEnvironment
-argument_list|>
-name|c
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|row
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|family
-parameter_list|,
-specifier|final
-name|Result
-name|result
-parameter_list|)
-throws|throws
-name|IOException
 function_decl|;
 comment|/**    * Called before the client performs a Get    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param get the Get request    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be used if default processing    * is not bypassed.    * @throws IOException if an error occurred on the coprocessor    */
 name|void
@@ -1652,7 +1596,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the completion of batch put/delete and will be called even if the batch operation    * fails    * @param ctx    * @param miniBatchOp     * @param success true if batch operation is successful otherwise false.    * @throws IOException    */
+comment|/**    * Called after the completion of batch put/delete and will be called even if the batch operation    * fails    * @param ctx    * @param miniBatchOp    * @param success true if batch operation is successful otherwise false.    * @throws IOException    */
 name|void
 name|postBatchMutateIndispensably
 parameter_list|(
@@ -1676,7 +1620,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before checkAndPut.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result     * @return the return value to return to client if bypassing default    * processing    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before checkAndPut.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result    * @return the return value to return to client if bypassing default    * processing    * @throws IOException if an error occurred on the coprocessor    */
 name|boolean
 name|preCheckAndPut
 parameter_list|(
@@ -1721,7 +1665,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before checkAndPut but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.     * Row will be locked for longer time. Trying to acquire lock on another row, within this,     * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result     * @return the return value to return to client if bypassing default    * processing    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before checkAndPut but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result    * @return the return value to return to client if bypassing default    * processing    * @throws IOException if an error occurred on the coprocessor    */
 name|boolean
 name|preCheckAndPutAfterRowLock
 parameter_list|(
@@ -1811,7 +1755,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before checkAndDelete.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result     * @return the value to return to client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before checkAndDelete.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result    * @return the value to return to client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
 name|boolean
 name|preCheckAndDelete
 parameter_list|(
@@ -1856,7 +1800,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before checkAndDelete but after acquiring rowock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.     * Row will be locked for longer time. Trying to acquire lock on another row, within this,     * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result     * @return the value to return to client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before checkAndDelete but after acquiring rowock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result    * @return the value to return to client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
 name|boolean
 name|preCheckAndDeleteAfterRowLock
 parameter_list|(
@@ -2046,7 +1990,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before Append but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.     * Row will be locked for longer time. Trying to acquire lock on another row, within this,     * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param append Append object    * @return result to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before Append but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param append Append object    * @return result to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
 name|Result
 name|preAppendAfterRowLock
 parameter_list|(
@@ -2104,7 +2048,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before Increment but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.     * Row will be locked for longer time. Trying to acquire lock on another row, within this,     * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained coprocessors    *     * @param c    *          the environment provided by the region server    * @param increment    *          increment object    * @return result to return to the client if bypassing default processing    * @throws IOException    *           if an error occurred on the coprocessor    */
+comment|/**    * Called before Increment but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained coprocessors    *    * @param c    *          the environment provided by the region server    * @param increment    *          increment object    * @return result to return to the client if bypassing default processing    * @throws IOException    *           if an error occurred on the coprocessor    */
 name|Result
 name|preIncrementAfterRowLock
 parameter_list|(
@@ -2541,7 +2485,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before creation of Reader for a store file.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *     * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader, if not {@code null}, from previous RegionObserver in the chain    * @return a Reader instance to use instead of the base reader if overriding    * default behavior, null otherwise    * @throws IOException    */
+comment|/**    * Called before creation of Reader for a store file.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *    * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader, if not {@code null}, from previous RegionObserver in the chain    * @return a Reader instance to use instead of the base reader if overriding    * default behavior, null otherwise    * @throws IOException    */
 name|StoreFile
 operator|.
 name|Reader
@@ -2585,7 +2529,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the creation of Reader for a store file.    *     * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader instance    * @return The reader to use    * @throws IOException    */
+comment|/**    * Called after the creation of Reader for a store file.    *    * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader instance    * @return The reader to use    * @throws IOException    */
 name|StoreFile
 operator|.
 name|Reader

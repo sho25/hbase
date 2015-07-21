@@ -10241,17 +10241,6 @@ name|boolean
 name|getExistenceOnly
 parameter_list|()
 function_decl|;
-comment|// optional bool closest_row_before = 11 [default = false];
-comment|/**      *<code>optional bool closest_row_before = 11 [default = false];</code>      *      *<pre>      * If the row to get doesn't exist, return the      * closest row before.      *</pre>      */
-name|boolean
-name|hasClosestRowBefore
-parameter_list|()
-function_decl|;
-comment|/**      *<code>optional bool closest_row_before = 11 [default = false];</code>      *      *<pre>      * If the row to get doesn't exist, return the      * closest row before.      *</pre>      */
-name|boolean
-name|getClosestRowBefore
-parameter_list|()
-function_decl|;
 comment|// optional .hbase.pb.Consistency consistency = 12 [default = STRONG];
 comment|/**      *<code>optional .hbase.pb.Consistency consistency = 12 [default = STRONG];</code>      */
 name|boolean
@@ -10278,7 +10267,7 @@ name|getConsistency
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code hbase.pb.Get}    *    *<pre>    **    * The protocol buffer version of Get.    * Unless existence_only is specified, return all the requested data    * for the row that matches exactly, or the one that immediately    * precedes it if closest_row_before is specified.    *</pre>    */
+comment|/**    * Protobuf type {@code hbase.pb.Get}    *    *<pre>    **    * The protocol buffer version of Get.    * Unless existence_only is specified, return all the requested data    * for the row that matches exactly.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
@@ -10999,23 +10988,6 @@ expr_stmt|;
 break|break;
 block|}
 case|case
-literal|88
-case|:
-block|{
-name|bitField0_
-operator||=
-literal|0x00000100
-expr_stmt|;
-name|closestRowBefore_
-operator|=
-name|input
-operator|.
-name|readBool
-argument_list|()
-expr_stmt|;
-break|break;
-block|}
-case|case
 literal|96
 case|:
 block|{
@@ -11086,7 +11058,7 @@ else|else
 block|{
 name|bitField0_
 operator||=
-literal|0x00000200
+literal|0x00000100
 expr_stmt|;
 name|consistency_
 operator|=
@@ -12218,47 +12190,6 @@ return|return
 name|existenceOnly_
 return|;
 block|}
-comment|// optional bool closest_row_before = 11 [default = false];
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|CLOSEST_ROW_BEFORE_FIELD_NUMBER
-init|=
-literal|11
-decl_stmt|;
-specifier|private
-name|boolean
-name|closestRowBefore_
-decl_stmt|;
-comment|/**      *<code>optional bool closest_row_before = 11 [default = false];</code>      *      *<pre>      * If the row to get doesn't exist, return the      * closest row before.      *</pre>      */
-specifier|public
-name|boolean
-name|hasClosestRowBefore
-parameter_list|()
-block|{
-return|return
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000100
-operator|)
-operator|==
-literal|0x00000100
-operator|)
-return|;
-block|}
-comment|/**      *<code>optional bool closest_row_before = 11 [default = false];</code>      *      *<pre>      * If the row to get doesn't exist, return the      * closest row before.      *</pre>      */
-specifier|public
-name|boolean
-name|getClosestRowBefore
-parameter_list|()
-block|{
-return|return
-name|closestRowBefore_
-return|;
-block|}
 comment|// optional .hbase.pb.Consistency consistency = 12 [default = STRONG];
 specifier|public
 specifier|static
@@ -12297,10 +12228,10 @@ operator|(
 operator|(
 name|bitField0_
 operator|&
-literal|0x00000200
+literal|0x00000100
 operator|)
 operator|==
-literal|0x00000200
+literal|0x00000100
 operator|)
 return|;
 block|}
@@ -12426,10 +12357,6 @@ operator|=
 literal|0
 expr_stmt|;
 name|existenceOnly_
-operator|=
-literal|false
-expr_stmt|;
-name|closestRowBefore_
 operator|=
 literal|false
 expr_stmt|;
@@ -12894,29 +12821,6 @@ condition|)
 block|{
 name|output
 operator|.
-name|writeBool
-argument_list|(
-literal|11
-argument_list|,
-name|closestRowBefore_
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000200
-operator|)
-operator|==
-literal|0x00000200
-operator|)
-condition|)
-block|{
-name|output
-operator|.
 name|writeEnum
 argument_list|(
 literal|12
@@ -13308,37 +13212,6 @@ literal|0x00000100
 operator|)
 operator|==
 literal|0x00000100
-operator|)
-condition|)
-block|{
-name|size
-operator|+=
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|CodedOutputStream
-operator|.
-name|computeBoolSize
-argument_list|(
-literal|11
-argument_list|,
-name|closestRowBefore_
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000200
-operator|)
-operator|==
-literal|0x00000200
 operator|)
 condition|)
 block|{
@@ -13837,41 +13710,6 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasClosestRowBefore
-argument_list|()
-operator|==
-name|other
-operator|.
-name|hasClosestRowBefore
-argument_list|()
-operator|)
-expr_stmt|;
-if|if
-condition|(
-name|hasClosestRowBefore
-argument_list|()
-condition|)
-block|{
-name|result
-operator|=
-name|result
-operator|&&
-operator|(
-name|getClosestRowBefore
-argument_list|()
-operator|==
-name|other
-operator|.
-name|getClosestRowBefore
-argument_list|()
-operator|)
-expr_stmt|;
-block|}
-name|result
-operator|=
-name|result
-operator|&&
-operator|(
 name|hasConsistency
 argument_list|()
 operator|==
@@ -14269,37 +14107,6 @@ operator|+
 name|hashBoolean
 argument_list|(
 name|getExistenceOnly
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|hasClosestRowBefore
-argument_list|()
-condition|)
-block|{
-name|hash
-operator|=
-operator|(
-literal|37
-operator|*
-name|hash
-operator|)
-operator|+
-name|CLOSEST_ROW_BEFORE_FIELD_NUMBER
-expr_stmt|;
-name|hash
-operator|=
-operator|(
-literal|53
-operator|*
-name|hash
-operator|)
-operator|+
-name|hashBoolean
-argument_list|(
-name|getClosestRowBefore
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -14945,7 +14752,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code hbase.pb.Get}      *      *<pre>      **      * The protocol buffer version of Get.      * Unless existence_only is specified, return all the requested data      * for the row that matches exactly, or the one that immediately      * precedes it if closest_row_before is specified.      *</pre>      */
+comment|/**      * Protobuf type {@code hbase.pb.Get}      *      *<pre>      **      * The protocol buffer version of Get.      * Unless existence_only is specified, return all the requested data      * for the row that matches exactly.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -15423,19 +15230,6 @@ operator|~
 literal|0x00000200
 operator|)
 expr_stmt|;
-name|closestRowBefore_
-operator|=
-literal|false
-expr_stmt|;
-name|bitField0_
-operator|=
-operator|(
-name|bitField0_
-operator|&
-operator|~
-literal|0x00000400
-operator|)
-expr_stmt|;
 name|consistency_
 operator|=
 name|org
@@ -15462,7 +15256,7 @@ operator|(
 name|bitField0_
 operator|&
 operator|~
-literal|0x00000800
+literal|0x00000400
 operator|)
 expr_stmt|;
 return|return
@@ -16057,30 +15851,6 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|closestRowBefore_
-operator|=
-name|closestRowBefore_
-expr_stmt|;
-if|if
-condition|(
-operator|(
-operator|(
-name|from_bitField0_
-operator|&
-literal|0x00000800
-operator|)
-operator|==
-literal|0x00000800
-operator|)
-condition|)
-block|{
-name|to_bitField0_
-operator||=
-literal|0x00000200
-expr_stmt|;
-block|}
-name|result
-operator|.
 name|consistency_
 operator|=
 name|consistency_
@@ -16629,23 +16399,6 @@ argument_list|(
 name|other
 operator|.
 name|getExistenceOnly
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|other
-operator|.
-name|hasClosestRowBefore
-argument_list|()
-condition|)
-block|{
-name|setClosestRowBefore
-argument_list|(
-name|other
-operator|.
-name|getClosestRowBefore
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -21534,89 +21287,6 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional bool closest_row_before = 11 [default = false];
-specifier|private
-name|boolean
-name|closestRowBefore_
-decl_stmt|;
-comment|/**        *<code>optional bool closest_row_before = 11 [default = false];</code>        *        *<pre>        * If the row to get doesn't exist, return the        * closest row before.        *</pre>        */
-specifier|public
-name|boolean
-name|hasClosestRowBefore
-parameter_list|()
-block|{
-return|return
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000400
-operator|)
-operator|==
-literal|0x00000400
-operator|)
-return|;
-block|}
-comment|/**        *<code>optional bool closest_row_before = 11 [default = false];</code>        *        *<pre>        * If the row to get doesn't exist, return the        * closest row before.        *</pre>        */
-specifier|public
-name|boolean
-name|getClosestRowBefore
-parameter_list|()
-block|{
-return|return
-name|closestRowBefore_
-return|;
-block|}
-comment|/**        *<code>optional bool closest_row_before = 11 [default = false];</code>        *        *<pre>        * If the row to get doesn't exist, return the        * closest row before.        *</pre>        */
-specifier|public
-name|Builder
-name|setClosestRowBefore
-parameter_list|(
-name|boolean
-name|value
-parameter_list|)
-block|{
-name|bitField0_
-operator||=
-literal|0x00000400
-expr_stmt|;
-name|closestRowBefore_
-operator|=
-name|value
-expr_stmt|;
-name|onChanged
-argument_list|()
-expr_stmt|;
-return|return
-name|this
-return|;
-block|}
-comment|/**        *<code>optional bool closest_row_before = 11 [default = false];</code>        *        *<pre>        * If the row to get doesn't exist, return the        * closest row before.        *</pre>        */
-specifier|public
-name|Builder
-name|clearClosestRowBefore
-parameter_list|()
-block|{
-name|bitField0_
-operator|=
-operator|(
-name|bitField0_
-operator|&
-operator|~
-literal|0x00000400
-operator|)
-expr_stmt|;
-name|closestRowBefore_
-operator|=
-literal|false
-expr_stmt|;
-name|onChanged
-argument_list|()
-expr_stmt|;
-return|return
-name|this
-return|;
-block|}
 comment|// optional .hbase.pb.Consistency consistency = 12 [default = STRONG];
 specifier|private
 name|org
@@ -21665,10 +21335,10 @@ operator|(
 operator|(
 name|bitField0_
 operator|&
-literal|0x00000800
+literal|0x00000400
 operator|)
 operator|==
-literal|0x00000800
+literal|0x00000400
 operator|)
 return|;
 block|}
@@ -21734,7 +21404,7 @@ throw|;
 block|}
 name|bitField0_
 operator||=
-literal|0x00000800
+literal|0x00000400
 expr_stmt|;
 name|consistency_
 operator|=
@@ -21759,7 +21429,7 @@ operator|(
 name|bitField0_
 operator|&
 operator|~
-literal|0x00000800
+literal|0x00000400
 operator|)
 expr_stmt|;
 name|consistency_
@@ -176498,7 +176168,7 @@ literal|"label\030\001 \003(\t\"$\n\016CellVisibility\022\022\n\nexpress"
 operator|+
 literal|"ion\030\001 \002(\t\"+\n\006Column\022\016\n\006family\030\001 \002(\014\022\021\n\tq"
 operator|+
-literal|"ualifier\030\002 \003(\014\"\201\003\n\003Get\022\013\n\003row\030\001 \002(\014\022 \n\006c"
+literal|"ualifier\030\002 \003(\014\"\336\002\n\003Get\022\013\n\003row\030\001 \002(\014\022 \n\006c"
 operator|+
 literal|"olumn\030\002 \003(\0132\020.hbase.pb.Column\022*\n\tattribu"
 operator|+
@@ -176512,249 +176182,247 @@ literal|"ions\030\006 \001(\r:\0011\022\032\n\014cache_blocks\030\007 \001(\010:
 operator|+
 literal|"e\022\023\n\013store_limit\030\010 \001(\r\022\024\n\014store_offset\030\t"
 operator|+
-literal|" \001(\r\022\035\n\016existence_only\030\n \001(\010:\005false\022!\n\022c"
+literal|" \001(\r\022\035\n\016existence_only\030\n \001(\010:\005false\0222\n\013c"
 operator|+
-literal|"losest_row_before\030\013 \001(\010:\005false\0222\n\013consis"
+literal|"onsistency\030\014 \001(\0162\025.hbase.pb.Consistency:"
 operator|+
-literal|"tency\030\014 \001(\0162\025.hbase.pb.Consistency:\006STRO"
+literal|"\006STRONG\"\203\001\n\006Result\022\034\n\004cell\030\001 \003(\0132\016.hbase"
 operator|+
-literal|"NG\"\203\001\n\006Result\022\034\n\004cell\030\001 \003(\0132\016.hbase.pb.C"
+literal|".pb.Cell\022\035\n\025associated_cell_count\030\002 \001(\005\022"
 operator|+
-literal|"ell\022\035\n\025associated_cell_count\030\002 \001(\005\022\016\n\006ex"
+literal|"\016\n\006exists\030\003 \001(\010\022\024\n\005stale\030\004 \001(\010:\005false\022\026\n"
 operator|+
-literal|"ists\030\003 \001(\010\022\024\n\005stale\030\004 \001(\010:\005false\022\026\n\007part"
+literal|"\007partial\030\005 \001(\010:\005false\"S\n\nGetRequest\022)\n\006r"
 operator|+
-literal|"ial\030\005 \001(\010:\005false\"S\n\nGetRequest\022)\n\006region"
+literal|"egion\030\001 \002(\0132\031.hbase.pb.RegionSpecifier\022\032"
 operator|+
-literal|"\030\001 \002(\0132\031.hbase.pb.RegionSpecifier\022\032\n\003get"
+literal|"\n\003get\030\002 \002(\0132\r.hbase.pb.Get\"/\n\013GetRespons"
 block|,
-literal|"\030\002 \002(\0132\r.hbase.pb.Get\"/\n\013GetResponse\022 \n\006"
+literal|"e\022 \n\006result\030\001 \001(\0132\020.hbase.pb.Result\"\222\001\n\t"
 operator|+
-literal|"result\030\001 \001(\0132\020.hbase.pb.Result\"\222\001\n\tCondi"
+literal|"Condition\022\013\n\003row\030\001 \002(\014\022\016\n\006family\030\002 \002(\014\022\021"
 operator|+
-literal|"tion\022\013\n\003row\030\001 \002(\014\022\016\n\006family\030\002 \002(\014\022\021\n\tqua"
+literal|"\n\tqualifier\030\003 \002(\014\022+\n\014compare_type\030\004 \002(\0162"
 operator|+
-literal|"lifier\030\003 \002(\014\022+\n\014compare_type\030\004 \002(\0162\025.hba"
+literal|"\025.hbase.pb.CompareType\022(\n\ncomparator\030\005 \002"
 operator|+
-literal|"se.pb.CompareType\022(\n\ncomparator\030\005 \002(\0132\024."
+literal|"(\0132\024.hbase.pb.Comparator\"\364\006\n\rMutationPro"
 operator|+
-literal|"hbase.pb.Comparator\"\364\006\n\rMutationProto\022\013\n"
+literal|"to\022\013\n\003row\030\001 \001(\014\0229\n\013mutate_type\030\002 \001(\0162$.h"
 operator|+
-literal|"\003row\030\001 \001(\014\0229\n\013mutate_type\030\002 \001(\0162$.hbase."
+literal|"base.pb.MutationProto.MutationType\0229\n\014co"
 operator|+
-literal|"pb.MutationProto.MutationType\0229\n\014column_"
+literal|"lumn_value\030\003 \003(\0132#.hbase.pb.MutationProt"
 operator|+
-literal|"value\030\003 \003(\0132#.hbase.pb.MutationProto.Col"
+literal|"o.ColumnValue\022\021\n\ttimestamp\030\004 \001(\004\022*\n\tattr"
 operator|+
-literal|"umnValue\022\021\n\ttimestamp\030\004 \001(\004\022*\n\tattribute"
+literal|"ibute\030\005 \003(\0132\027.hbase.pb.NameBytesPair\022C\n\n"
 block|,
-literal|"\030\005 \003(\0132\027.hbase.pb.NameBytesPair\022C\n\ndurab"
+literal|"durability\030\006 \001(\0162\".hbase.pb.MutationProt"
 operator|+
-literal|"ility\030\006 \001(\0162\".hbase.pb.MutationProto.Dur"
+literal|"o.Durability:\013USE_DEFAULT\022\'\n\ntime_range\030"
 operator|+
-literal|"ability:\013USE_DEFAULT\022\'\n\ntime_range\030\007 \001(\013"
+literal|"\007 \001(\0132\023.hbase.pb.TimeRange\022\035\n\025associated"
 operator|+
-literal|"2\023.hbase.pb.TimeRange\022\035\n\025associated_cell"
+literal|"_cell_count\030\010 \001(\005\022\r\n\005nonce\030\t \001(\004\032\371\001\n\013Col"
 operator|+
-literal|"_count\030\010 \001(\005\022\r\n\005nonce\030\t \001(\004\032\371\001\n\013ColumnVa"
+literal|"umnValue\022\016\n\006family\030\001 \002(\014\022K\n\017qualifier_va"
 operator|+
-literal|"lue\022\016\n\006family\030\001 \002(\014\022K\n\017qualifier_value\030\002"
+literal|"lue\030\002 \003(\01322.hbase.pb.MutationProto.Colum"
 operator|+
-literal|" \003(\01322.hbase.pb.MutationProto.ColumnValu"
+literal|"nValue.QualifierValue\032\214\001\n\016QualifierValue"
 operator|+
-literal|"e.QualifierValue\032\214\001\n\016QualifierValue\022\021\n\tq"
+literal|"\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\022\021\n\tti"
 operator|+
-literal|"ualifier\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\022\021\n\ttimesta"
+literal|"mestamp\030\003 \001(\004\0227\n\013delete_type\030\004 \001(\0162\".hba"
 operator|+
-literal|"mp\030\003 \001(\004\0227\n\013delete_type\030\004 \001(\0162\".hbase.pb"
+literal|"se.pb.MutationProto.DeleteType\022\014\n\004tags\030\005"
 block|,
-literal|".MutationProto.DeleteType\022\014\n\004tags\030\005 \001(\014\""
+literal|" \001(\014\"W\n\nDurability\022\017\n\013USE_DEFAULT\020\000\022\014\n\010S"
 operator|+
-literal|"W\n\nDurability\022\017\n\013USE_DEFAULT\020\000\022\014\n\010SKIP_W"
+literal|"KIP_WAL\020\001\022\r\n\tASYNC_WAL\020\002\022\014\n\010SYNC_WAL\020\003\022\r"
 operator|+
-literal|"AL\020\001\022\r\n\tASYNC_WAL\020\002\022\014\n\010SYNC_WAL\020\003\022\r\n\tFSY"
+literal|"\n\tFSYNC_WAL\020\004\">\n\014MutationType\022\n\n\006APPEND\020"
 operator|+
-literal|"NC_WAL\020\004\">\n\014MutationType\022\n\n\006APPEND\020\000\022\r\n\t"
+literal|"\000\022\r\n\tINCREMENT\020\001\022\007\n\003PUT\020\002\022\n\n\006DELETE\020\003\"p\n"
 operator|+
-literal|"INCREMENT\020\001\022\007\n\003PUT\020\002\022\n\n\006DELETE\020\003\"p\n\nDele"
+literal|"\nDeleteType\022\026\n\022DELETE_ONE_VERSION\020\000\022\034\n\030D"
 operator|+
-literal|"teType\022\026\n\022DELETE_ONE_VERSION\020\000\022\034\n\030DELETE"
+literal|"ELETE_MULTIPLE_VERSIONS\020\001\022\021\n\rDELETE_FAMI"
 operator|+
-literal|"_MULTIPLE_VERSIONS\020\001\022\021\n\rDELETE_FAMILY\020\002\022"
+literal|"LY\020\002\022\031\n\025DELETE_FAMILY_VERSION\020\003\"\242\001\n\rMuta"
 operator|+
-literal|"\031\n\025DELETE_FAMILY_VERSION\020\003\"\242\001\n\rMutateReq"
+literal|"teRequest\022)\n\006region\030\001 \002(\0132\031.hbase.pb.Reg"
 operator|+
-literal|"uest\022)\n\006region\030\001 \002(\0132\031.hbase.pb.RegionSp"
+literal|"ionSpecifier\022)\n\010mutation\030\002 \002(\0132\027.hbase.p"
 operator|+
-literal|"ecifier\022)\n\010mutation\030\002 \002(\0132\027.hbase.pb.Mut"
+literal|"b.MutationProto\022&\n\tcondition\030\003 \001(\0132\023.hba"
 block|,
-literal|"ationProto\022&\n\tcondition\030\003 \001(\0132\023.hbase.pb"
+literal|"se.pb.Condition\022\023\n\013nonce_group\030\004 \001(\004\"E\n\016"
 operator|+
-literal|".Condition\022\023\n\013nonce_group\030\004 \001(\004\"E\n\016Mutat"
+literal|"MutateResponse\022 \n\006result\030\001 \001(\0132\020.hbase.p"
 operator|+
-literal|"eResponse\022 \n\006result\030\001 \001(\0132\020.hbase.pb.Res"
+literal|"b.Result\022\021\n\tprocessed\030\002 \001(\010\"\346\003\n\004Scan\022 \n\006"
 operator|+
-literal|"ult\022\021\n\tprocessed\030\002 \001(\010\"\346\003\n\004Scan\022 \n\006colum"
+literal|"column\030\001 \003(\0132\020.hbase.pb.Column\022*\n\tattrib"
 operator|+
-literal|"n\030\001 \003(\0132\020.hbase.pb.Column\022*\n\tattribute\030\002"
+literal|"ute\030\002 \003(\0132\027.hbase.pb.NameBytesPair\022\021\n\tst"
 operator|+
-literal|" \003(\0132\027.hbase.pb.NameBytesPair\022\021\n\tstart_r"
+literal|"art_row\030\003 \001(\014\022\020\n\010stop_row\030\004 \001(\014\022 \n\006filte"
 operator|+
-literal|"ow\030\003 \001(\014\022\020\n\010stop_row\030\004 \001(\014\022 \n\006filter\030\005 \001"
+literal|"r\030\005 \001(\0132\020.hbase.pb.Filter\022\'\n\ntime_range\030"
 operator|+
-literal|"(\0132\020.hbase.pb.Filter\022\'\n\ntime_range\030\006 \001(\013"
+literal|"\006 \001(\0132\023.hbase.pb.TimeRange\022\027\n\014max_versio"
 operator|+
-literal|"2\023.hbase.pb.TimeRange\022\027\n\014max_versions\030\007 "
+literal|"ns\030\007 \001(\r:\0011\022\032\n\014cache_blocks\030\010 \001(\010:\004true\022"
 operator|+
-literal|"\001(\r:\0011\022\032\n\014cache_blocks\030\010 \001(\010:\004true\022\022\n\nba"
+literal|"\022\n\nbatch_size\030\t \001(\r\022\027\n\017max_result_size\030\n"
 block|,
-literal|"tch_size\030\t \001(\r\022\027\n\017max_result_size\030\n \001(\004\022"
+literal|" \001(\004\022\023\n\013store_limit\030\013 \001(\r\022\024\n\014store_offse"
 operator|+
-literal|"\023\n\013store_limit\030\013 \001(\r\022\024\n\014store_offset\030\014 \001"
+literal|"t\030\014 \001(\r\022&\n\036load_column_families_on_deman"
 operator|+
-literal|"(\r\022&\n\036load_column_families_on_demand\030\r \001"
+literal|"d\030\r \001(\010\022\r\n\005small\030\016 \001(\010\022\027\n\010reversed\030\017 \001(\010"
 operator|+
-literal|"(\010\022\r\n\005small\030\016 \001(\010\022\027\n\010reversed\030\017 \001(\010:\005fal"
+literal|":\005false\0222\n\013consistency\030\020 \001(\0162\025.hbase.pb."
 operator|+
-literal|"se\0222\n\013consistency\030\020 \001(\0162\025.hbase.pb.Consi"
+literal|"Consistency:\006STRONG\022\017\n\007caching\030\021 \001(\r\"\220\002\n"
 operator|+
-literal|"stency:\006STRONG\022\017\n\007caching\030\021 \001(\r\"\220\002\n\013Scan"
+literal|"\013ScanRequest\022)\n\006region\030\001 \001(\0132\031.hbase.pb."
 operator|+
-literal|"Request\022)\n\006region\030\001 \001(\0132\031.hbase.pb.Regio"
+literal|"RegionSpecifier\022\034\n\004scan\030\002 \001(\0132\016.hbase.pb"
 operator|+
-literal|"nSpecifier\022\034\n\004scan\030\002 \001(\0132\016.hbase.pb.Scan"
+literal|".Scan\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016number_of_r"
 operator|+
-literal|"\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016number_of_rows\030\004"
+literal|"ows\030\004 \001(\r\022\025\n\rclose_scanner\030\005 \001(\010\022\025\n\rnext"
 operator|+
-literal|" \001(\r\022\025\n\rclose_scanner\030\005 \001(\010\022\025\n\rnext_call"
+literal|"_call_seq\030\006 \001(\004\022\037\n\027client_handles_partia"
 block|,
-literal|"_seq\030\006 \001(\004\022\037\n\027client_handles_partials\030\007 "
+literal|"ls\030\007 \001(\010\022!\n\031client_handles_heartbeats\030\010 "
 operator|+
-literal|"\001(\010\022!\n\031client_handles_heartbeats\030\010 \001(\010\022\032"
+literal|"\001(\010\022\032\n\022track_scan_metrics\030\t \001(\010\"\232\002\n\014Scan"
 operator|+
-literal|"\n\022track_scan_metrics\030\t \001(\010\"\232\002\n\014ScanRespo"
+literal|"Response\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n\nsc"
 operator|+
-literal|"nse\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n\nscanner"
+literal|"anner_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022\013\n\003"
 operator|+
-literal|"_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022\013\n\003ttl\030\004"
+literal|"ttl\030\004 \001(\r\022!\n\007results\030\005 \003(\0132\020.hbase.pb.Re"
 operator|+
-literal|" \001(\r\022!\n\007results\030\005 \003(\0132\020.hbase.pb.Result\022"
+literal|"sult\022\r\n\005stale\030\006 \001(\010\022\037\n\027partial_flag_per_"
 operator|+
-literal|"\r\n\005stale\030\006 \001(\010\022\037\n\027partial_flag_per_resul"
+literal|"result\030\007 \003(\010\022\036\n\026more_results_in_region\030\010"
 operator|+
-literal|"t\030\007 \003(\010\022\036\n\026more_results_in_region\030\010 \001(\010\022"
+literal|" \001(\010\022\031\n\021heartbeat_message\030\t \001(\010\022+\n\014scan_"
 operator|+
-literal|"\031\n\021heartbeat_message\030\t \001(\010\022+\n\014scan_metri"
+literal|"metrics\030\n \001(\0132\025.hbase.pb.ScanMetrics\"\305\001\n"
 operator|+
-literal|"cs\030\n \001(\0132\025.hbase.pb.ScanMetrics\"\305\001\n\024Bulk"
+literal|"\024BulkLoadHFileRequest\022)\n\006region\030\001 \002(\0132\031."
 block|,
-literal|"LoadHFileRequest\022)\n\006region\030\001 \002(\0132\031.hbase"
+literal|"hbase.pb.RegionSpecifier\022>\n\013family_path\030"
 operator|+
-literal|".pb.RegionSpecifier\022>\n\013family_path\030\002 \003(\013"
+literal|"\002 \003(\0132).hbase.pb.BulkLoadHFileRequest.Fa"
 operator|+
-literal|"2).hbase.pb.BulkLoadHFileRequest.FamilyP"
+literal|"milyPath\022\026\n\016assign_seq_num\030\003 \001(\010\032*\n\nFami"
 operator|+
-literal|"ath\022\026\n\016assign_seq_num\030\003 \001(\010\032*\n\nFamilyPat"
+literal|"lyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025"
 operator|+
-literal|"h\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkL"
+literal|"BulkLoadHFileResponse\022\016\n\006loaded\030\001 \002(\010\"a\n"
 operator|+
-literal|"oadHFileResponse\022\016\n\006loaded\030\001 \002(\010\"a\n\026Copr"
+literal|"\026CoprocessorServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014"
 operator|+
-literal|"ocessorServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014servi"
+literal|"service_name\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t\022"
 operator|+
-literal|"ce_name\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007re"
+literal|"\017\n\007request\030\004 \002(\014\"B\n\030CoprocessorServiceRe"
 operator|+
-literal|"quest\030\004 \002(\014\"B\n\030CoprocessorServiceResult\022"
+literal|"sult\022&\n\005value\030\001 \001(\0132\027.hbase.pb.NameBytes"
 operator|+
-literal|"&\n\005value\030\001 \001(\0132\027.hbase.pb.NameBytesPair\""
+literal|"Pair\"v\n\031CoprocessorServiceRequest\022)\n\006reg"
 block|,
-literal|"v\n\031CoprocessorServiceRequest\022)\n\006region\030\001"
+literal|"ion\030\001 \002(\0132\031.hbase.pb.RegionSpecifier\022.\n\004"
 operator|+
-literal|" \002(\0132\031.hbase.pb.RegionSpecifier\022.\n\004call\030"
+literal|"call\030\002 \002(\0132 .hbase.pb.CoprocessorService"
 operator|+
-literal|"\002 \002(\0132 .hbase.pb.CoprocessorServiceCall\""
+literal|"Call\"o\n\032CoprocessorServiceResponse\022)\n\006re"
 operator|+
-literal|"o\n\032CoprocessorServiceResponse\022)\n\006region\030"
+literal|"gion\030\001 \002(\0132\031.hbase.pb.RegionSpecifier\022&\n"
 operator|+
-literal|"\001 \002(\0132\031.hbase.pb.RegionSpecifier\022&\n\005valu"
+literal|"\005value\030\002 \002(\0132\027.hbase.pb.NameBytesPair\"\226\001"
 operator|+
-literal|"e\030\002 \002(\0132\027.hbase.pb.NameBytesPair\"\226\001\n\006Act"
+literal|"\n\006Action\022\r\n\005index\030\001 \001(\r\022)\n\010mutation\030\002 \001("
 operator|+
-literal|"ion\022\r\n\005index\030\001 \001(\r\022)\n\010mutation\030\002 \001(\0132\027.h"
+literal|"\0132\027.hbase.pb.MutationProto\022\032\n\003get\030\003 \001(\0132"
 operator|+
-literal|"base.pb.MutationProto\022\032\n\003get\030\003 \001(\0132\r.hba"
+literal|"\r.hbase.pb.Get\0226\n\014service_call\030\004 \001(\0132 .h"
 operator|+
-literal|"se.pb.Get\0226\n\014service_call\030\004 \001(\0132 .hbase."
+literal|"base.pb.CoprocessorServiceCall\"k\n\014Region"
 operator|+
-literal|"pb.CoprocessorServiceCall\"k\n\014RegionActio"
+literal|"Action\022)\n\006region\030\001 \002(\0132\031.hbase.pb.Region"
 block|,
-literal|"n\022)\n\006region\030\001 \002(\0132\031.hbase.pb.RegionSpeci"
+literal|"Specifier\022\016\n\006atomic\030\002 \001(\010\022 \n\006action\030\003 \003("
 operator|+
-literal|"fier\022\016\n\006atomic\030\002 \001(\010\022 \n\006action\030\003 \003(\0132\020.h"
+literal|"\0132\020.hbase.pb.Action\"D\n\017RegionLoadStats\022\027"
 operator|+
-literal|"base.pb.Action\"D\n\017RegionLoadStats\022\027\n\014mem"
+literal|"\n\014memstoreLoad\030\001 \001(\005:\0010\022\030\n\rheapOccupancy"
 operator|+
-literal|"storeLoad\030\001 \001(\005:\0010\022\030\n\rheapOccupancy\030\002 \001("
+literal|"\030\002 \001(\005:\0010\"\332\001\n\021ResultOrException\022\r\n\005index"
 operator|+
-literal|"\005:\0010\"\332\001\n\021ResultOrException\022\r\n\005index\030\001 \001("
+literal|"\030\001 \001(\r\022 \n\006result\030\002 \001(\0132\020.hbase.pb.Result"
 operator|+
-literal|"\r\022 \n\006result\030\002 \001(\0132\020.hbase.pb.Result\022*\n\te"
+literal|"\022*\n\texception\030\003 \001(\0132\027.hbase.pb.NameBytes"
 operator|+
-literal|"xception\030\003 \001(\0132\027.hbase.pb.NameBytesPair\022"
+literal|"Pair\022:\n\016service_result\030\004 \001(\0132\".hbase.pb."
 operator|+
-literal|":\n\016service_result\030\004 \001(\0132\".hbase.pb.Copro"
+literal|"CoprocessorServiceResult\022,\n\tloadStats\030\005 "
 operator|+
-literal|"cessorServiceResult\022,\n\tloadStats\030\005 \001(\0132\031"
+literal|"\001(\0132\031.hbase.pb.RegionLoadStats\"x\n\022Region"
 operator|+
-literal|".hbase.pb.RegionLoadStats\"x\n\022RegionActio"
+literal|"ActionResult\0226\n\021resultOrException\030\001 \003(\0132"
 block|,
-literal|"nResult\0226\n\021resultOrException\030\001 \003(\0132\033.hba"
+literal|"\033.hbase.pb.ResultOrException\022*\n\texceptio"
 operator|+
-literal|"se.pb.ResultOrException\022*\n\texception\030\002 \001"
+literal|"n\030\002 \001(\0132\027.hbase.pb.NameBytesPair\"x\n\014Mult"
 operator|+
-literal|"(\0132\027.hbase.pb.NameBytesPair\"x\n\014MultiRequ"
+literal|"iRequest\022,\n\014regionAction\030\001 \003(\0132\026.hbase.p"
 operator|+
-literal|"est\022,\n\014regionAction\030\001 \003(\0132\026.hbase.pb.Reg"
+literal|"b.RegionAction\022\022\n\nnonceGroup\030\002 \001(\004\022&\n\tco"
 operator|+
-literal|"ionAction\022\022\n\nnonceGroup\030\002 \001(\004\022&\n\tconditi"
+literal|"ndition\030\003 \001(\0132\023.hbase.pb.Condition\"\\\n\rMu"
 operator|+
-literal|"on\030\003 \001(\0132\023.hbase.pb.Condition\"\\\n\rMultiRe"
+literal|"ltiResponse\0228\n\022regionActionResult\030\001 \003(\0132"
 operator|+
-literal|"sponse\0228\n\022regionActionResult\030\001 \003(\0132\034.hba"
+literal|"\034.hbase.pb.RegionActionResult\022\021\n\tprocess"
 operator|+
-literal|"se.pb.RegionActionResult\022\021\n\tprocessed\030\002 "
+literal|"ed\030\002 \001(\010*\'\n\013Consistency\022\n\n\006STRONG\020\000\022\014\n\010T"
 operator|+
-literal|"\001(\010*\'\n\013Consistency\022\n\n\006STRONG\020\000\022\014\n\010TIMELI"
+literal|"IMELINE\020\0012\203\004\n\rClientService\0222\n\003Get\022\024.hba"
 operator|+
-literal|"NE\020\0012\203\004\n\rClientService\0222\n\003Get\022\024.hbase.pb"
+literal|"se.pb.GetRequest\032\025.hbase.pb.GetResponse\022"
 block|,
-literal|".GetRequest\032\025.hbase.pb.GetResponse\022;\n\006Mu"
+literal|";\n\006Mutate\022\027.hbase.pb.MutateRequest\032\030.hba"
 operator|+
-literal|"tate\022\027.hbase.pb.MutateRequest\032\030.hbase.pb"
+literal|"se.pb.MutateResponse\0225\n\004Scan\022\025.hbase.pb."
 operator|+
-literal|".MutateResponse\0225\n\004Scan\022\025.hbase.pb.ScanR"
+literal|"ScanRequest\032\026.hbase.pb.ScanResponse\022P\n\rB"
 operator|+
-literal|"equest\032\026.hbase.pb.ScanResponse\022P\n\rBulkLo"
+literal|"ulkLoadHFile\022\036.hbase.pb.BulkLoadHFileReq"
 operator|+
-literal|"adHFile\022\036.hbase.pb.BulkLoadHFileRequest\032"
+literal|"uest\032\037.hbase.pb.BulkLoadHFileResponse\022X\n"
 operator|+
-literal|"\037.hbase.pb.BulkLoadHFileResponse\022X\n\013Exec"
+literal|"\013ExecService\022#.hbase.pb.CoprocessorServi"
 operator|+
-literal|"Service\022#.hbase.pb.CoprocessorServiceReq"
+literal|"ceRequest\032$.hbase.pb.CoprocessorServiceR"
 operator|+
-literal|"uest\032$.hbase.pb.CoprocessorServiceRespon"
+literal|"esponse\022d\n\027ExecRegionServerService\022#.hba"
 operator|+
-literal|"se\022d\n\027ExecRegionServerService\022#.hbase.pb"
+literal|"se.pb.CoprocessorServiceRequest\032$.hbase."
 operator|+
-literal|".CoprocessorServiceRequest\032$.hbase.pb.Co"
+literal|"pb.CoprocessorServiceResponse\0228\n\005Multi\022\026"
 block|,
-literal|"processorServiceResponse\0228\n\005Multi\022\026.hbas"
+literal|".hbase.pb.MultiRequest\032\027.hbase.pb.MultiR"
 operator|+
-literal|"e.pb.MultiRequest\032\027.hbase.pb.MultiRespon"
+literal|"esponseBB\n*org.apache.hadoop.hbase.proto"
 operator|+
-literal|"seBB\n*org.apache.hadoop.hbase.protobuf.g"
-operator|+
-literal|"eneratedB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|"buf.generatedB\014ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -176987,8 +176655,6 @@ block|,
 literal|"StoreOffset"
 block|,
 literal|"ExistenceOnly"
-block|,
-literal|"ClosestRowBefore"
 block|,
 literal|"Consistency"
 block|, }

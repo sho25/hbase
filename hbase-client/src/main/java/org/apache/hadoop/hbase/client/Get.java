@@ -515,15 +515,6 @@ operator|.
 name|isCheckExistenceOnly
 argument_list|()
 expr_stmt|;
-name|this
-operator|.
-name|closestRowBefore
-operator|=
-name|get
-operator|.
-name|isClosestRowBefore
-argument_list|()
-expr_stmt|;
 name|Map
 argument_list|<
 name|byte
@@ -691,6 +682,9 @@ return|return
 name|this
 return|;
 block|}
+comment|/**    * This will always return the default value which is false as client cannot set the value to this    * property any more.    * @deprecated since 2.0.0 and will be removed in 3.0.0    */
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|isClosestRowBefore
@@ -700,6 +694,9 @@ return|return
 name|closestRowBefore
 return|;
 block|}
+comment|/**    * This is not used any more and does nothing. Use reverse scan instead.    * @deprecated since 2.0.0 and will be removed in 3.0.0    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Get
 name|setClosestRowBefore
@@ -708,12 +705,7 @@ name|boolean
 name|closestRowBefore
 parameter_list|)
 block|{
-name|this
-operator|.
-name|closestRowBefore
-operator|=
-name|closestRowBefore
-expr_stmt|;
+comment|// do Nothing
 return|return
 name|this
 return|;

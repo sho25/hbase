@@ -2884,52 +2884,6 @@ name|level
 argument_list|)
 return|;
 block|}
-comment|/**    * Utility that creates a Scan that will do a  small scan in reverse from passed row    * looking for next closest row.    * @param row    * @param family    * @return An instance of Scan primed with passed<code>row</code> and<code>family</code> to    * scan in reverse for one row only.    */
-specifier|static
-name|Scan
-name|createGetClosestRowOrBeforeReverseScan
-parameter_list|(
-name|byte
-index|[]
-name|row
-parameter_list|)
-block|{
-comment|// Below does not work if you add in family; need to add the family qualifier that is highest
-comment|// possible family qualifier.  Do we have such a notion?  Would have to be magic.
-name|Scan
-name|scan
-init|=
-operator|new
-name|Scan
-argument_list|(
-name|row
-argument_list|)
-decl_stmt|;
-name|scan
-operator|.
-name|setSmall
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-name|scan
-operator|.
-name|setReversed
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-name|scan
-operator|.
-name|setCaching
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
-return|return
-name|scan
-return|;
-block|}
 comment|/**    * Enable collection of {@link ScanMetrics}. For advanced users.    * @param enabled Set to true to enable accumulating scan metrics    */
 specifier|public
 name|Scan

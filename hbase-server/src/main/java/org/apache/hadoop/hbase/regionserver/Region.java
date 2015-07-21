@@ -998,21 +998,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Return all the data for the row that matches<i>row</i> exactly,    * or the one that immediately preceeds it, at or immediately before    *<i>ts</i>.    * @param row    * @param family    * @return result of the operation    * @throws IOException    */
-name|Result
-name|getClosestRowBefore
-parameter_list|(
-name|byte
-index|[]
-name|row
-parameter_list|,
-name|byte
-index|[]
-name|family
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * Return an iterator that scans over the HRegion, returning the indicated    * columns and rows specified by the {@link Scan}.    *<p>    * This Iterator must be closed by the caller.    *    * @param scan configured {@link Scan}    * @return RegionScanner    * @throws IOException read exceptions    */
 name|RegionScanner
 name|getScanner
