@@ -157,6 +157,9 @@ name|additionalScanners
 parameter_list|,
 name|HRegion
 name|region
+parameter_list|,
+name|boolean
+name|copyCellsFromSharedMem
 parameter_list|)
 throws|throws
 name|IOException
@@ -170,6 +173,8 @@ argument_list|,
 name|additionalScanners
 argument_list|,
 name|region
+argument_list|,
+name|copyCellsFromSharedMem
 argument_list|)
 expr_stmt|;
 block|}

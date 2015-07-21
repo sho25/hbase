@@ -55,6 +55,26 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|Cacheable
+operator|.
+name|MemoryType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|nio
 operator|.
 name|ByteBuff
@@ -89,7 +109,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    *     * @param b    * @param reuse true if Cacheable object can use the given buffer as its    *          content    * @return T the deserialized object.    * @throws IOException    */
+comment|/**    * @param b    * @param reuse true if Cacheable object can use the given buffer as its    *          content    * @param memType the {@link MemoryType} of the buffer    * @return T the deserialized object.    * @throws IOException    */
 name|T
 name|deserialize
 parameter_list|(
@@ -98,6 +118,9 @@ name|b
 parameter_list|,
 name|boolean
 name|reuse
+parameter_list|,
+name|MemoryType
+name|memType
 parameter_list|)
 throws|throws
 name|IOException

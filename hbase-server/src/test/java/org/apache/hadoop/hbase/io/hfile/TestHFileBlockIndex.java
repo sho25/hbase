@@ -1084,6 +1084,16 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|void
+name|returnBlock
+parameter_list|(
+name|HFileBlock
+name|block
+parameter_list|)
+block|{     }
+annotation|@
+name|Override
+specifier|public
 name|HFileBlock
 name|readBlock
 parameter_list|(

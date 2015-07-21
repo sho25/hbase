@@ -1822,7 +1822,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Copies only the key part of the keybuffer by doing a deep copy and passes the    * seeker state members for taking a clone.    * Note that the value byte[] part is still pointing to the currentBuffer and the    * represented by the valueOffset and valueLength    */
+comment|/**    * Copies only the key part of the keybuffer by doing a deep copy and passes the    * seeker state members for taking a clone.    * Note that the value byte[] part is still pointing to the currentBuffer and    * represented by the valueOffset and valueLength    */
 comment|// We return this as a Cell to the upper layers of read flow and might try setting a new SeqId
 comment|// there. So this has to be an instance of SettableSequenceId.
 specifier|protected

@@ -471,22 +471,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|nio
-operator|.
-name|ByteBuff
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|protobuf
 operator|.
 name|ProtobufMagic
@@ -1408,6 +1392,14 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**      * Return the given block back to the cache, if it was obtained from cache.      * @param block Block to be returned.      */
+name|void
+name|returnBlock
+parameter_list|(
+name|HFileBlock
+name|block
+parameter_list|)
+function_decl|;
 block|}
 comment|/** An interface used by clients to open and iterate an {@link HFile}. */
 specifier|public
@@ -1442,7 +1434,7 @@ name|boolean
 name|isCompaction
 parameter_list|)
 function_decl|;
-name|ByteBuff
+name|HFileBlock
 name|getMetaBlock
 parameter_list|(
 name|String

@@ -167,17 +167,9 @@ name|heap
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * The current sub-scanner, i.e. the one that contains the next key/value    * to return to the client. This scanner is NOT included in {@link #heap}    * (but we frequently add it back to the heap and pull the new winner out).    * We maintain an invariant that the current sub-scanner has already done    * a real seek, and that current.peek() is always a real key/value (or null)    * except for the fake last-key-on-row-column supplied by the multi-column    * Bloom filter optimization, which is OK to propagate to StoreScanner. In    * order to ensure that, always use {@link #pollRealKV()} to update current.    */
-specifier|protected
-name|KeyValueScanner
-name|current
-init|=
-literal|null
-decl_stmt|;
-specifier|protected
-name|KVScannerComparator
-name|comparator
-decl_stmt|;
+comment|// Holds the scanners when a ever a eager close() happens.  All such eagerly closed
+comment|// scans are collected and when the final scanner.close() happens will perform the
+comment|// actual close.
 specifier|protected
 name|Set
 argument_list|<
@@ -191,6 +183,17 @@ argument_list|<
 name|KeyValueScanner
 argument_list|>
 argument_list|()
+decl_stmt|;
+comment|/**    * The current sub-scanner, i.e. the one that contains the next key/value    * to return to the client. This scanner is NOT included in {@link #heap}    * (but we frequently add it back to the heap and pull the new winner out).    * We maintain an invariant that the current sub-scanner has already done    * a real seek, and that current.peek() is always a real key/value (or null)    * except for the fake last-key-on-row-column supplied by the multi-column    * Bloom filter optimization, which is OK to propagate to StoreScanner. In    * order to ensure that, always use {@link #pollRealKV()} to update current.    */
+specifier|protected
+name|KeyValueScanner
+name|current
+init|=
+literal|null
+decl_stmt|;
+specifier|protected
+name|KVScannerComparator
+name|comparator
 decl_stmt|;
 comment|/**    * Constructor.  This KeyValueHeap will handle closing of passed in    * KeyValueScanners.    * @param scanners    * @param comparator    */
 specifier|public
@@ -601,6 +604,7 @@ operator|!
 name|moreCells
 condition|)
 block|{
+comment|// add the scanner that is to be closed
 name|this
 operator|.
 name|scannersForDelayedClose

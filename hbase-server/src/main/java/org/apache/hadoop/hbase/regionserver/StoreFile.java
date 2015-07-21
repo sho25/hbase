@@ -567,6 +567,24 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|HFileBlock
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -5020,6 +5038,11 @@ condition|)
 return|return
 literal|false
 return|;
+name|HFileBlock
+name|bloomBlock
+init|=
+literal|null
+decl_stmt|;
 try|try
 block|{
 name|boolean
@@ -5047,7 +5070,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|bloom
+name|bloomBlock
 operator|=
 name|reader
 operator|.
@@ -5059,6 +5082,13 @@ name|BLOOM_FILTER_DATA_KEY
 argument_list|,
 literal|true
 argument_list|)
+expr_stmt|;
+name|bloom
+operator|=
+name|bloomBlock
+operator|.
+name|getBufferWithoutHeader
+argument_list|()
 expr_stmt|;
 name|shouldCheckBloom
 operator|=
@@ -5300,6 +5330,17 @@ argument_list|)
 expr_stmt|;
 name|setGeneralBloomFilterFaulty
 argument_list|()
+expr_stmt|;
+block|}
+finally|finally
+block|{
+comment|// Return the bloom block so that its ref count can be decremented.
+name|reader
+operator|.
+name|returnBlock
+argument_list|(
+name|bloomBlock
+argument_list|)
 expr_stmt|;
 block|}
 return|return

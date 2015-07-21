@@ -169,22 +169,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
@@ -302,6 +286,22 @@ operator|.
 name|hbase
 operator|.
 name|KeyValueUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -1320,6 +1320,13 @@ literal|1
 decl_stmt|;
 name|HFileBlock
 name|block
+init|=
+literal|null
+decl_stmt|;
+name|boolean
+name|dataBlock
+init|=
+literal|false
 decl_stmt|;
 name|KeyOnlyKeyValue
 name|tmpNextIndexKV
@@ -1334,6 +1341,8 @@ while|while
 condition|(
 literal|true
 condition|)
+block|{
+try|try
 block|{
 if|if
 condition|(
@@ -1476,6 +1485,10 @@ name|isData
 argument_list|()
 condition|)
 block|{
+name|dataBlock
+operator|=
+literal|true
+expr_stmt|;
 break|break;
 block|}
 comment|// Not a data block. This must be a leaf-level or intermediate-level
@@ -1631,6 +1644,26 @@ name|tmpNextIndexKV
 expr_stmt|;
 block|}
 block|}
+finally|finally
+block|{
+if|if
+condition|(
+operator|!
+name|dataBlock
+condition|)
+block|{
+comment|// Return the block immediately if it is not the
+comment|// data block
+name|cachingBlockReader
+operator|.
+name|returnBlock
+argument_list|(
+name|block
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
 if|if
 condition|(
 name|lookupLevel
@@ -1638,6 +1671,21 @@ operator|!=
 name|searchTreeLevel
 condition|)
 block|{
+assert|assert
+name|dataBlock
+operator|==
+literal|true
+assert|;
+comment|// Though we have retrieved a data block we have found an issue
+comment|// in the retrieved data block. Hence returned the block so that
+comment|// the ref count can be decremented
+name|cachingBlockReader
+operator|.
+name|returnBlock
+argument_list|(
+name|block
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|IOException
@@ -1762,6 +1810,8 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|ByteBuff
 name|b
 init|=
@@ -1864,6 +1914,17 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|cachingBlockReader
+operator|.
+name|returnBlock
+argument_list|(
+name|midLeafBlock
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 else|else
 block|{

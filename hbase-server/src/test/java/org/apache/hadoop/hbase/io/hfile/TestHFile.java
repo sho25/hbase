@@ -2326,6 +2326,9 @@ name|i
 argument_list|,
 literal|false
 argument_list|)
+operator|.
+name|getBufferWithoutHeader
+argument_list|()
 decl_stmt|;
 name|ByteBuffer
 name|expected

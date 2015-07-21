@@ -6199,7 +6199,8 @@ argument_list|,
 name|numRegions
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta we
+comment|// should wait until they are assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tableName
@@ -6327,8 +6328,8 @@ argument_list|,
 name|splitKeys
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are
-comment|// assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta
+comment|// we should wait until they are assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|htd
@@ -6379,7 +6380,8 @@ argument_list|,
 name|splitRows
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta
+comment|// we should wait until they are assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|htd
@@ -7152,6 +7154,117 @@ operator|.
 name|addFamily
 argument_list|(
 name|hcd
+argument_list|)
+expr_stmt|;
+block|}
+name|getHBaseAdmin
+argument_list|()
+operator|.
+name|createTable
+argument_list|(
+name|desc
+argument_list|)
+expr_stmt|;
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+return|return
+operator|(
+name|HTable
+operator|)
+name|getConnection
+argument_list|()
+operator|.
+name|getTable
+argument_list|(
+name|tableName
+argument_list|)
+return|;
+block|}
+specifier|public
+name|HTable
+name|createTable
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|families
+parameter_list|,
+name|int
+name|numVersions
+parameter_list|,
+name|int
+name|blockSize
+parameter_list|,
+name|String
+name|cpName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|HTableDescriptor
+name|desc
+init|=
+operator|new
+name|HTableDescriptor
+argument_list|(
+name|tableName
+argument_list|)
+decl_stmt|;
+for|for
+control|(
+name|byte
+index|[]
+name|family
+range|:
+name|families
+control|)
+block|{
+name|HColumnDescriptor
+name|hcd
+init|=
+operator|new
+name|HColumnDescriptor
+argument_list|(
+name|family
+argument_list|)
+operator|.
+name|setMaxVersions
+argument_list|(
+name|numVersions
+argument_list|)
+operator|.
+name|setBlocksize
+argument_list|(
+name|blockSize
+argument_list|)
+decl_stmt|;
+name|desc
+operator|.
+name|addFamily
+argument_list|(
+name|hcd
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|cpName
+operator|!=
+literal|null
+condition|)
+block|{
+name|desc
+operator|.
+name|addCoprocessor
+argument_list|(
+name|cpName
 argument_list|)
 expr_stmt|;
 block|}

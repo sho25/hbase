@@ -625,6 +625,9 @@ name|buf
 parameter_list|,
 name|boolean
 name|reuse
+parameter_list|,
+name|MemoryType
+name|memType
 parameter_list|)
 throws|throws
 name|IOException
@@ -749,6 +752,8 @@ argument_list|(
 name|newByteBuffer
 argument_list|,
 name|usesChecksum
+argument_list|,
+name|memType
 argument_list|)
 decl_stmt|;
 name|hFileBlock
@@ -831,6 +836,10 @@ argument_list|(
 name|b
 argument_list|,
 literal|false
+argument_list|,
+name|MemoryType
+operator|.
+name|EXCLUSIVE
 argument_list|)
 return|;
 block|}
@@ -907,6 +916,14 @@ name|nextBlockOnDiskSizeWithHeader
 init|=
 operator|-
 literal|1
+decl_stmt|;
+specifier|private
+name|MemoryType
+name|memType
+init|=
+name|MemoryType
+operator|.
+name|EXCLUSIVE
 decl_stmt|;
 comment|/**    * Creates a new {@link HFile} block from the given fields. This constructor    * is mostly used when the block data has already been read and uncompressed,    * and is sitting in a byte buffer.    *    * @param blockType the type of this block, see {@link BlockType}    * @param onDiskSizeWithoutHeader see {@link #onDiskSizeWithoutHeader}    * @param uncompressedSizeWithoutHeader see {@link #uncompressedSizeWithoutHeader}    * @param prevBlockOffset see {@link #prevBlockOffset}    * @param buf block header ({@link HConstants#HFILEBLOCK_HEADER_SIZE} bytes) followed by    *          uncompressed data. This    * @param fillHeader when true, parse {@code buf} and override the first 4 header fields.    * @param offset the file offset the block was read from    * @param onDiskDataSizeWithHeader see {@link #onDiskDataSizeWithHeader}    * @param fileContext HFile meta data    */
 name|HFileBlock
@@ -1164,7 +1181,7 @@ name|usesHBaseChecksum
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a block from an existing buffer starting with a header. Rewinds    * and takes ownership of the buffer. By definition of rewind, ignores the    * buffer position, but if you slice the buffer beforehand, it will rewind    * to that point. The reason this has a minorNumber and not a majorNumber is    * because majorNumbers indicate the format of a HFile whereas minorNumbers    * indicate the format inside a HFileBlock.    */
+comment|/**    * Creates a block from an existing buffer starting with a header. Rewinds    * and takes ownership of the buffer. By definition of rewind, ignores the    * buffer position, but if you slice the buffer beforehand, it will rewind    * to that point.    */
 name|HFileBlock
 parameter_list|(
 name|ByteBuff
@@ -1172,6 +1189,33 @@ name|b
 parameter_list|,
 name|boolean
 name|usesHBaseChecksum
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+argument_list|(
+name|b
+argument_list|,
+name|usesHBaseChecksum
+argument_list|,
+name|MemoryType
+operator|.
+name|EXCLUSIVE
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Creates a block from an existing buffer starting with a header. Rewinds    * and takes ownership of the buffer. By definition of rewind, ignores the    * buffer position, but if you slice the buffer beforehand, it will rewind    * to that point.    */
+name|HFileBlock
+parameter_list|(
+name|ByteBuff
+name|b
+parameter_list|,
+name|boolean
+name|usesHBaseChecksum
+parameter_list|,
+name|MemoryType
+name|memType
 parameter_list|)
 throws|throws
 name|IOException
@@ -1302,6 +1346,12 @@ name|contextBuilder
 operator|.
 name|build
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|memType
+operator|=
+name|memType
 expr_stmt|;
 name|buf
 operator|=
@@ -2951,8 +3001,8 @@ name|ClassSize
 operator|.
 name|OBJECT
 operator|+
-comment|// Block type, multi byte buffer and meta references
-literal|3
+comment|// Block type, multi byte buffer, MemoryType and meta references
+literal|4
 operator|*
 name|ClassSize
 operator|.
@@ -7067,6 +7117,19 @@ return|return
 name|this
 operator|.
 name|fileContext
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|MemoryType
+name|getMemoryType
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|memType
 return|;
 block|}
 comment|/**    * Convert the contents of the block header into a human readable string.    * This is mostly helpful for debugging. This assumes that the block    * has minor version> 0.    */

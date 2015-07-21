@@ -551,6 +551,8 @@ specifier|final
 name|long
 name|cellsPerHeartbeatCheck
 decl_stmt|;
+comment|// Collects all the KVHeap that are eagerly getting closed during the
+comment|// course of a scan
 specifier|protected
 name|Set
 argument_list|<
@@ -2201,7 +2203,13 @@ name|this
 operator|.
 name|closing
 condition|)
+block|{
 return|return;
+block|}
+if|if
+condition|(
+name|withHeapClose
+condition|)
 name|this
 operator|.
 name|closing
@@ -2468,6 +2476,7 @@ operator|==
 literal|null
 condition|)
 block|{
+comment|// By this time partial close should happened because already heap is null
 name|close
 argument_list|(
 literal|false

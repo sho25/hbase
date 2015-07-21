@@ -189,20 +189,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Objects
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -237,11 +223,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|Configuration
 import|;
 end_import
 
@@ -253,9 +237,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -400,6 +386,20 @@ operator|.
 name|annotations
 operator|.
 name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Objects
 import|;
 end_import
 
@@ -4846,6 +4846,21 @@ block|{
 return|return
 literal|null
 return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|returnBlock
+parameter_list|(
+name|BlockCacheKey
+name|cacheKey
+parameter_list|,
+name|Cacheable
+name|block
+parameter_list|)
+block|{
+comment|// There is no SHARED type here. Just return
 block|}
 block|}
 end_class

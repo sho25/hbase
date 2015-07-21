@@ -45,6 +45,26 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|Cacheable
+operator|.
+name|MemoryType
+import|;
+end_import
+
 begin_comment
 comment|/**  * Block cache interface. Anything that implements the {@link Cacheable}  * interface can be put in the cache.  */
 end_comment
@@ -167,6 +187,17 @@ name|BlockCache
 index|[]
 name|getBlockCaches
 parameter_list|()
+function_decl|;
+comment|/**    * Called when the scanner using the block decides to return the block once its usage    * is over.    * This API should be called after the block is used, failing to do so may have adverse effects    * by preventing the blocks from being evicted because of which it will prevent new hot blocks    * from getting added to the block cache.  The implementation of the BlockCache will decide    * on what to be done with the block based on the memory type of the block's {@link MemoryType}.    * @param cacheKey the cache key of the block    * @param block the hfileblock to be returned    */
+name|void
+name|returnBlock
+parameter_list|(
+name|BlockCacheKey
+name|cacheKey
+parameter_list|,
+name|Cacheable
+name|block
+parameter_list|)
 function_decl|;
 block|}
 end_interface

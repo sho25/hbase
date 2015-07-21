@@ -537,6 +537,8 @@ name|ex
 argument_list|)
 throw|;
 block|}
+try|try
+block|{
 name|ByteBuff
 name|bloomBuf
 init|=
@@ -574,6 +576,18 @@ argument_list|,
 name|hashCount
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+comment|// After the use return back the block if it was served from a cache.
+name|reader
+operator|.
+name|returnBlock
+argument_list|(
+name|bloomBlock
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
