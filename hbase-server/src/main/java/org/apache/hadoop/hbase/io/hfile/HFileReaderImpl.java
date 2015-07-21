@@ -2288,12 +2288,9 @@ name|ll
 init|=
 name|blockBuffer
 operator|.
-name|getLongStrictlyForward
+name|getLongAfterPosition
 argument_list|(
-name|blockBuffer
-operator|.
-name|position
-argument_list|()
+literal|0
 argument_list|)
 decl_stmt|;
 comment|// Read top half as an int of key length and bottom int as value length
@@ -2334,11 +2331,6 @@ comment|// Move position past the key and value lengths and then beyond the key 
 name|int
 name|p
 init|=
-name|blockBuffer
-operator|.
-name|position
-argument_list|()
-operator|+
 operator|(
 name|Bytes
 operator|.
@@ -2367,7 +2359,7 @@ name|currTagsLen
 operator|=
 name|blockBuffer
 operator|.
-name|getShortStrictlyForward
+name|getShortAfterPosition
 argument_list|(
 name|p
 argument_list|)
@@ -2448,14 +2440,14 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**      * Read mvcc. Does checks to see if we even need to read the mvcc at all.      * @param position      */
+comment|/**      * Read mvcc. Does checks to see if we even need to read the mvcc at all.      * @param offsetFromPos      */
 specifier|protected
 name|void
 name|readMvccVersion
 parameter_list|(
 specifier|final
 name|int
-name|position
+name|offsetFromPos
 parameter_list|)
 block|{
 comment|// See if we even need to decode mvcc.
@@ -2493,18 +2485,17 @@ return|return;
 block|}
 name|_readMvccVersion
 argument_list|(
-name|position
+name|offsetFromPos
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Actually do the mvcc read. Does no checks.      * @param position      */
+comment|/**      * Actually do the mvcc read. Does no checks.      * @param offsetFromPos      */
 specifier|private
 name|void
 name|_readMvccVersion
 parameter_list|(
-specifier|final
 name|int
-name|position
+name|offsetFromPos
 parameter_list|)
 block|{
 comment|// This is Bytes#bytesToVint inlined so can save a few instructions in this hot method; i.e.
@@ -2515,9 +2506,9 @@ name|firstByte
 init|=
 name|blockBuffer
 operator|.
-name|getByteStrictlyForward
+name|getByteAfterPosition
 argument_list|(
-name|position
+name|offsetFromPos
 argument_list|)
 decl_stmt|;
 name|int
@@ -2551,6 +2542,9 @@ name|i
 init|=
 literal|0
 decl_stmt|;
+name|offsetFromPos
+operator|++
+expr_stmt|;
 for|for
 control|(
 name|int
@@ -2573,11 +2567,9 @@ name|b
 init|=
 name|blockBuffer
 operator|.
-name|get
+name|getByteAfterPosition
 argument_list|(
-name|position
-operator|+
-literal|1
+name|offsetFromPos
 operator|+
 name|idx
 argument_list|)
@@ -2623,26 +2615,6 @@ operator|=
 name|len
 expr_stmt|;
 block|}
-specifier|protected
-name|void
-name|readMvccVersion
-parameter_list|()
-block|{
-comment|// TODO CLEANUP!!!
-name|readMvccVersion
-argument_list|(
-name|blockBuffer
-operator|.
-name|arrayOffset
-argument_list|()
-operator|+
-name|blockBuffer
-operator|.
-name|position
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**      * Within a loaded block, seek looking for the last key that is smaller than      * (or equal to?) the key we are interested in.      * A note on the seekBefore: if you have seekBefore = true, AND the first      * key in the block = key, then you'll get thrown exceptions. The caller has      * to check for that case and load the previous block as appropriate.      * @param key      *          the key to find      * @param seekBefore      *          find the key before the given key in case of exact match.      * @return 0 in case of an exact key match, 1 in case of an inexact match,      *         -2 in case of an inexact match and furthermore, the input key      *         less than the first key of current block(e.g. using a faked index      *         key)      */
 specifier|protected
 name|int
@@ -2671,19 +2643,13 @@ operator|-
 literal|1
 decl_stmt|;
 name|int
-name|pos
-init|=
-operator|-
-literal|1
+name|offsetFromPos
 decl_stmt|;
 do|do
 block|{
-name|pos
+name|offsetFromPos
 operator|=
-name|blockBuffer
-operator|.
-name|position
-argument_list|()
+literal|0
 expr_stmt|;
 comment|// Better to ensure that we use the BB Utils here
 name|long
@@ -2691,9 +2657,9 @@ name|ll
 init|=
 name|blockBuffer
 operator|.
-name|getLongStrictlyForward
+name|getLongAfterPosition
 argument_list|(
-name|pos
+name|offsetFromPos
 argument_list|)
 decl_stmt|;
 name|klen
@@ -2785,7 +2751,7 @@ literal|" (without header)."
 argument_list|)
 throw|;
 block|}
-name|pos
+name|offsetFromPos
 operator|+=
 name|Bytes
 operator|.
@@ -2795,7 +2761,12 @@ name|blockBuffer
 operator|.
 name|asSubByteBuffer
 argument_list|(
-name|pos
+name|blockBuffer
+operator|.
+name|position
+argument_list|()
+operator|+
+name|offsetFromPos
 argument_list|,
 name|klen
 argument_list|,
@@ -2846,7 +2817,7 @@ argument_list|,
 name|keyOnlyKv
 argument_list|)
 decl_stmt|;
-name|pos
+name|offsetFromPos
 operator|+=
 name|klen
 operator|+
@@ -2872,9 +2843,9 @@ operator|(
 operator|(
 name|blockBuffer
 operator|.
-name|getByteStrictlyForward
+name|getByteAfterPosition
 argument_list|(
-name|pos
+name|offsetFromPos
 argument_list|)
 operator|&
 literal|0xff
@@ -2886,9 +2857,9 @@ operator|^
 operator|(
 name|blockBuffer
 operator|.
-name|getByteStrictlyForward
+name|getByteAfterPosition
 argument_list|(
-name|pos
+name|offsetFromPos
 operator|+
 literal|1
 argument_list|)
@@ -2944,7 +2915,7 @@ argument_list|)
 throw|;
 block|}
 comment|// add the two bytes read for the tags.
-name|pos
+name|offsetFromPos
 operator|+=
 name|tlen
 operator|+
@@ -2968,7 +2939,7 @@ block|{
 comment|// Directly read the mvcc based on current position
 name|readMvccVersion
 argument_list|(
-name|pos
+name|offsetFromPos
 argument_list|)
 expr_stmt|;
 block|}

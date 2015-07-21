@@ -277,14 +277,14 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**    * Fetches the byte at the given index. Does not change position of the underlying ByteBuffers.    * The difference for this API from {@link #get(int)} the index specified should be after    * the current position. If not throws IndexOutOfBoundsException    * @param index    * @return the byte value at the given index.    */
+comment|/**    * Fetches the byte at the given offset from current position. Does not change position    * of the underlying ByteBuffers.    *    * @param offset    * @return the byte value at the given index.    */
 specifier|public
 specifier|abstract
 name|byte
-name|getByteStrictlyForward
+name|getByteAfterPosition
 parameter_list|(
 name|int
-name|index
+name|offset
 parameter_list|)
 function_decl|;
 comment|/**    * Writes a byte to this ByteBuff at the current position and increments the position    * @param b    * @return this object    */
@@ -405,14 +405,14 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**    * Fetches the short at the given index. Does not change position of the underlying ByteBuffers.    * The difference for this API from {@link #getShort(int)} the index specified should be    * after the current position. If not throws IndexOutOfBoundsException    * @param index    * @return the short value at the given index.    */
+comment|/**    * Fetches the short value at the given offset from current position. Does not change position    * of the underlying ByteBuffers.    *    * @param offset    * @return the short value at the given index.    */
 specifier|public
 specifier|abstract
 name|short
-name|getShortStrictlyForward
+name|getShortAfterPosition
 parameter_list|(
 name|int
-name|index
+name|offset
 parameter_list|)
 function_decl|;
 comment|/**    * Returns the int value at the current position. Also advances the position by the size of int    *    * @return the int value at the current position    */
@@ -442,16 +442,14 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**    * Fetches the int at the given index. Does not change position of the underlying ByteBuffers.    * The difference for this API from {@link #getInt(int)} the index specified should be after    * the current position. If not throws IndexOutOfBoundsException    * @param index    * @return the int value at the given index.    */
-comment|// TODO: any better name here?? getIntFromSubsequentPosition? or getIntAfterCurrentPosition?
-comment|// TODO : Make this relative wrt current position? Follow on JIRA
+comment|/**    * Fetches the int value at the given offset from current position. Does not change position    * of the underlying ByteBuffers.    *    * @param offset    * @return the int value at the given index.    */
 specifier|public
 specifier|abstract
 name|int
-name|getIntStrictlyForward
+name|getIntAfterPosition
 parameter_list|(
 name|int
-name|index
+name|offset
 parameter_list|)
 function_decl|;
 comment|/**    * Returns the long value at the current position. Also advances the position by the size of long    *    * @return the long value at the current position    */
@@ -481,14 +479,14 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**    * Fetches the long at the given index. Does not change position of the underlying ByteBuffers.    * The difference for this API from {@link #getLong(int)} the index specified should be after    * the current position. If not throws IndexOutOfBoundsException    * @param index    * @return the long value at the given index.    */
+comment|/**    * Fetches the long value at the given offset from current position. Does not change position    * of the underlying ByteBuffers.    *    * @param offset    * @return the long value at the given index.    */
 specifier|public
 specifier|abstract
 name|long
-name|getLongStrictlyForward
+name|getLongAfterPosition
 parameter_list|(
 name|int
-name|index
+name|offset
 parameter_list|)
 function_decl|;
 comment|/**    * Copy the content from this ByteBuff to a byte[] based on the given offset and    * length    *    * @param offset    *          the position from where the copy should start    * @param length    *          the length upto which the copy has to be done    * @return byte[] with the copied contents from this ByteBuff.    */

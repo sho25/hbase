@@ -1775,15 +1775,17 @@ name|numDataBlocks
 init|=
 name|b
 operator|.
-name|getInt
-argument_list|()
+name|getIntAfterPosition
+argument_list|(
+literal|0
+argument_list|)
 decl_stmt|;
 name|int
 name|keyRelOffset
 init|=
 name|b
 operator|.
-name|getIntStrictlyForward
+name|getIntAfterPosition
 argument_list|(
 name|Bytes
 operator|.
@@ -1801,7 +1803,7 @@ name|keyLen
 init|=
 name|b
 operator|.
-name|getIntStrictlyForward
+name|getIntAfterPosition
 argument_list|(
 name|Bytes
 operator|.
@@ -2606,7 +2608,7 @@ name|numEntries
 init|=
 name|nonRootIndex
 operator|.
-name|getIntStrictlyForward
+name|getIntAfterPosition
 argument_list|(
 literal|0
 argument_list|)
@@ -2697,7 +2699,7 @@ name|midKeyRelOffset
 init|=
 name|nonRootIndex
 operator|.
-name|getIntStrictlyForward
+name|getIntAfterPosition
 argument_list|(
 name|Bytes
 operator|.
@@ -2731,7 +2733,7 @@ name|midLength
 init|=
 name|nonRootIndex
 operator|.
-name|getIntStrictlyForward
+name|getIntAfterPosition
 argument_list|(
 name|Bytes
 operator|.
@@ -2955,7 +2957,7 @@ name|numEntries
 init|=
 name|nonRootBlock
 operator|.
-name|getIntStrictlyForward
+name|getIntAfterPosition
 argument_list|(
 literal|0
 argument_list|)
@@ -2981,7 +2983,7 @@ name|entryRelOffset
 init|=
 name|nonRootBlock
 operator|.
-name|getIntStrictlyForward
+name|getIntAfterPosition
 argument_list|(
 name|Bytes
 operator|.

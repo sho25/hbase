@@ -3976,8 +3976,10 @@ name|n
 init|=
 name|b
 operator|.
-name|getInt
-argument_list|()
+name|getIntAfterPosition
+argument_list|(
+literal|0
+argument_list|)
 decl_stmt|;
 comment|// One int for the number of items, and n + 1 for the secondary index.
 name|int
@@ -4014,7 +4016,7 @@ name|keyRelOffset
 init|=
 name|b
 operator|.
-name|getIntStrictlyForward
+name|getIntAfterPosition
 argument_list|(
 name|Bytes
 operator|.
@@ -4032,7 +4034,7 @@ name|nextKeyRelOffset
 init|=
 name|b
 operator|.
-name|getIntStrictlyForward
+name|getIntAfterPosition
 argument_list|(
 name|Bytes
 operator|.

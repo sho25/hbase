@@ -686,27 +686,6 @@ literal|22
 argument_list|)
 argument_list|)
 expr_stmt|;
-try|try
-block|{
-comment|// This should fail because we have already move to a position
-comment|// greater than 22
-name|mbb
-operator|.
-name|getLongStrictlyForward
-argument_list|(
-literal|22
-argument_list|)
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IndexOutOfBoundsException
-name|e
-parameter_list|)
-block|{     }
 block|}
 annotation|@
 name|Test
@@ -2312,14 +2291,12 @@ argument_list|)
 expr_stmt|;
 name|mbb1
 operator|.
-name|position
-argument_list|(
-literal|0
-argument_list|)
+name|rewind
+argument_list|()
 expr_stmt|;
 name|mbb1
 operator|.
-name|getIntStrictlyForward
+name|getIntAfterPosition
 argument_list|(
 literal|4
 argument_list|)
@@ -2356,9 +2333,9 @@ name|intRes
 init|=
 name|mbb1
 operator|.
-name|getIntStrictlyForward
+name|getIntAfterPosition
 argument_list|(
-literal|8
+literal|1
 argument_list|)
 decl_stmt|;
 name|assertEquals

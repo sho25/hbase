@@ -425,7 +425,7 @@ name|keyLength
 init|=
 name|block
 operator|.
-name|getIntStrictlyForward
+name|getIntAfterPosition
 argument_list|(
 name|Bytes
 operator|.
