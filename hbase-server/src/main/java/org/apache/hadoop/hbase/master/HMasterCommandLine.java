@@ -1543,10 +1543,7 @@ name|getAdmin
 argument_list|()
 init|)
 block|{
-name|connection
-operator|.
-name|getAdmin
-argument_list|()
+name|admin
 operator|.
 name|shutdown
 argument_list|()
