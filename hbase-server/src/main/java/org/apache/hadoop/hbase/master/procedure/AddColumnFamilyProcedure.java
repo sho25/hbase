@@ -1504,6 +1504,11 @@ name|cfDescriptor
 operator|.
 name|getName
 argument_list|()
+argument_list|,
+name|cfDescriptor
+operator|.
+name|isMobEnabled
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|env

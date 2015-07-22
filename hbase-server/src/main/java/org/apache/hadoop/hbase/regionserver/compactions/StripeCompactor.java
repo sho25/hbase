@@ -933,6 +933,8 @@ name|finished
 operator|=
 name|performCompaction
 argument_list|(
+name|fd
+argument_list|,
 name|scanner
 argument_list|,
 name|mw
@@ -942,6 +944,11 @@ argument_list|,
 name|cleanSeqId
 argument_list|,
 name|throughputController
+argument_list|,
+name|request
+operator|.
+name|isMajor
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if

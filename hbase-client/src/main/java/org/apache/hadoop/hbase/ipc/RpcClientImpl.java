@@ -4954,10 +4954,12 @@ operator|.
 name|newBuilderForType
 argument_list|()
 decl_stmt|;
-name|builder
+name|ProtobufUtil
 operator|.
 name|mergeDelimitedFrom
 argument_list|(
+name|builder
+argument_list|,
 name|in
 argument_list|)
 expr_stmt|;

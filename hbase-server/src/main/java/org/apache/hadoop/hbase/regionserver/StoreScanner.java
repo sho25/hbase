@@ -644,7 +644,7 @@ operator|new
 name|ReentrantLock
 argument_list|()
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|long
 name|readPt
@@ -1580,7 +1580,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+specifier|public
 name|StoreScanner
 parameter_list|(
 specifier|final

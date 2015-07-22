@@ -96,6 +96,29 @@ name|byte
 operator|)
 literal|4
 decl_stmt|;
+comment|// mob tags
+specifier|public
+specifier|static
+specifier|final
+name|byte
+name|MOB_REFERENCE_TAG_TYPE
+init|=
+operator|(
+name|byte
+operator|)
+literal|5
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|byte
+name|MOB_TABLE_NAME_TAG_TYPE
+init|=
+operator|(
+name|byte
+operator|)
+literal|6
+decl_stmt|;
 comment|// String based tag type used in replication
 specifier|public
 specifier|static

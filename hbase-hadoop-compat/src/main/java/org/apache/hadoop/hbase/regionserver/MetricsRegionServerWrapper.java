@@ -256,6 +256,76 @@ name|long
 name|getMajorCompactedCellsSize
 parameter_list|()
 function_decl|;
+comment|/**    * Gets the number of cells moved to mob during compaction.    */
+name|long
+name|getCellsCountCompactedToMob
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the number of cells moved from mob during compaction.    */
+name|long
+name|getCellsCountCompactedFromMob
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the total amount of cells moved to mob during compaction, in bytes.    */
+name|long
+name|getCellsSizeCompactedToMob
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the total amount of cells moved from mob during compaction, in bytes.    */
+name|long
+name|getCellsSizeCompactedFromMob
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the number of the flushes in mob-enabled stores.    */
+name|long
+name|getMobFlushCount
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the number of mob cells flushed to disk.    */
+name|long
+name|getMobFlushedCellsCount
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the total amount of mob cells flushed to disk, in bytes.    */
+name|long
+name|getMobFlushedCellsSize
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the number of scanned mob cells.    */
+name|long
+name|getMobScanCellsCount
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the total amount of scanned mob cells, in bytes.    */
+name|long
+name|getMobScanCellsSize
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the count of accesses to the mob file cache.    */
+name|long
+name|getMobFileCacheAccessCount
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the count of misses to the mob file cache.    */
+name|long
+name|getMobFileCacheMissCount
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the number of items evicted from the mob file cache.    */
+name|long
+name|getMobFileCacheEvictedCount
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the count of cached mob files.    */
+name|long
+name|getMobFileCacheCount
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the hit percent to the mob file cache.    */
+name|int
+name|getMobFileCacheHitPercent
+parameter_list|()
+function_decl|;
 comment|/**    * @return Count of hedged read operations    */
 specifier|public
 name|long

@@ -535,6 +535,9 @@ specifier|final
 name|byte
 index|[]
 name|familyName
+parameter_list|,
+name|boolean
+name|hasMob
 parameter_list|)
 throws|throws
 name|IOException
@@ -613,6 +616,8 @@ argument_list|(
 name|hri
 argument_list|,
 name|familyName
+argument_list|,
+name|hasMob
 argument_list|)
 expr_stmt|;
 block|}

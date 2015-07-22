@@ -436,12 +436,18 @@ literal|", memsize="
 operator|+
 name|StringUtils
 operator|.
-name|humanReadableInt
+name|TraditionalBinaryPrefix
+operator|.
+name|long2String
 argument_list|(
 name|snapshot
 operator|.
 name|getSize
 argument_list|()
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 operator|+
 literal|", hasBloomFilter="
