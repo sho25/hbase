@@ -248,7 +248,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The default implementation for the HeapMemoryTuner. This will do statistical checks on  * number of evictions, cache misses and flushes to decide whether there should be changes  * in the heap size of memstore/block cache. During each tuner operation tuner takes a step  * which can either be INCREASE_BLOCK_CACHE_SIZE (increase block cache size),  * INCREASE_MEMSTORE_SIZE (increase memstore size) and by default it is NEUTRAL (no change).  * We say block cache is sufficient when there is no block cache eviction at all or major amount of  * memory allocated to block cache is empty, similarly we say memory allocated for memstore is  * sufficient when there is no memstore flushes because of heap pressure or major amount of  * memory allocated to memstore is empty. If both are sufficient we do nothing, if exactly one of  * them is found to be sufficient we decrease its size by<i>step</i> and increase the other by  * same amount. If none of them is sufficient we do statistical analysis on number of cache misses  * and flushes to determine tuner direction. Based on these statistics we decide the tuner  * direction. If we are not confident about which step direction to take we do nothing and wait for  * next iteration. On expectation we will be tuning for at least 22% tuner calls. The number of  * past periods to consider for statistics calculation can be specified in config by  *<i>hbase.regionserver.heapmemory.autotuner.lookup.periods</i>. Also these many initial calls to  * tuner will be ignored (cache is warming up and we leave the system to reach steady state).  * After the tuner takes a step, in next call we insure that last call was indeed helpful and did  * not do us any harm. If not then we revert the previous step. The step size is dynamic and it  * changes based on current and previous tuning direction. When last tuner step was NEUTRAL  * and current tuning step is not NEUTRAL then we assume we are restarting the tuning process and  * step size is changed to maximum allowed size which can be specified  in config by  *<i>hbase.regionserver.heapmemory.autotuner.step.max</i>. If we are reverting the previous step  * then we decrease step size to half. This decrease is similar to binary search where we try to  * reach the most desired value. The minimum step size can be specified  in config by  *<i>hbase.regionserver.heapmemory.autotuner.step.min</i>. In other cases we leave step size  * unchanged.  */
+comment|/**  * The default implementation for the HeapMemoryTuner. This will do statistical checks on  * number of evictions, cache misses and flushes to decide whether there should be changes  * in the heap size of memstore/block cache. During each tuner operation tuner takes a step  * which can either be INCREASE_BLOCK_CACHE_SIZE (increase block cache size),  * INCREASE_MEMSTORE_SIZE (increase memstore size) and by default it is NEUTRAL (no change).  * We say block cache is sufficient when there is no block cache eviction at all or major amount of  * memory allocated to block cache is empty, similarly we say memory allocated for memstore is  * sufficient when there is no memstore flushes because of heap pressure or major amount of  * memory allocated to memstore is empty. If both are sufficient we do nothing, if exactly one of  * them is found to be sufficient we decrease its size by<i>step</i> and increase the other by  * same amount. If none of them is sufficient we do statistical analysis on number of cache misses  * and flushes to determine tuner direction. Based on these statistics we decide the tuner  * direction. If we are not confident about which step direction to take we do nothing and wait for  * next iteration. On expectation we will be tuning for at least 10% tuner calls. The number of  * past periods to consider for statistics calculation can be specified in config by  *<i>hbase.regionserver.heapmemory.autotuner.lookup.periods</i>. Also these many initial calls to  * tuner will be ignored (cache is warming up and we leave the system to reach steady state).  * After the tuner takes a step, in next call we insure that last call was indeed helpful and did  * not do us any harm. If not then we revert the previous step. The step size is dynamic and it  * changes based on current and past few tuning directions and their step sizes. We maintain a  * parameter<i>decayingAvgTunerStepSize</i> which is sum of past tuner steps with  * sign(positive for increase in memstore and negative for increase in block cache). But rather  * than simple sum it is calculated by giving more priority to the recent tuning steps.  * When last few tuner steps were NETURAL then we assume we are restarting the tuning process and  * step size is updated to maximum allowed size which can be specified  in config by  *<i>hbase.regionserver.heapmemory.autotuner.step.max</i>. If in a particular tuning operation  * the step direction is opposite to what indicated by<i>decayingTunerStepSizeSum</i>  * we decrease the step size by half. Step size does not change in other tuning operations.  * When step size gets below a certain threshold then the following tuner operations are  * considered to be neutral. The minimum step size can be specified  in config by  *<i>hbase.regionserver.heapmemory.autotuner.step.min</i>.  */
 end_comment
 
 begin_class
@@ -308,9 +308,9 @@ specifier|final
 name|float
 name|DEFAULT_MAX_STEP_VALUE
 init|=
-literal|0.08f
+literal|0.04f
 decl_stmt|;
-comment|// 8%
+comment|// 4%
 comment|// Minimum step size that the tuner can take
 specifier|public
 specifier|static
@@ -318,9 +318,9 @@ specifier|final
 name|float
 name|DEFAULT_MIN_STEP_VALUE
 init|=
-literal|0.005f
+literal|0.00125f
 decl_stmt|;
-comment|// 0.5%
+comment|// 0.125%
 comment|// If current block cache size or memstore size in use is below this level relative to memory
 comment|// provided to it then corresponding component will be considered to have sufficient memory
 specifier|public
@@ -361,6 +361,16 @@ name|TunerResult
 argument_list|(
 literal|false
 argument_list|)
+decl_stmt|;
+comment|// If deviation of tuner step size gets below this value then it means past few periods were
+comment|// NEUTRAL(given that last tuner period was also NEUTRAL).
+specifier|private
+specifier|static
+specifier|final
+name|double
+name|TUNER_STEP_EPS
+init|=
+literal|1e-6
 decl_stmt|;
 specifier|private
 name|Log
@@ -456,6 +466,10 @@ specifier|private
 name|RollingStatCalculator
 name|rollingStatsForEvictions
 decl_stmt|;
+specifier|private
+name|RollingStatCalculator
+name|rollingStatsForTunerSteps
+decl_stmt|;
 comment|// Set step size to max value for tuning, this step size will adjust dynamically while tuning
 specifier|private
 name|float
@@ -470,6 +484,15 @@ init|=
 name|StepDirection
 operator|.
 name|NEUTRAL
+decl_stmt|;
+comment|//positive means memstore's size was increased
+comment|//It is not just arithmetic sum of past tuner periods. More priority is given to recent
+comment|//tuning steps.
+specifier|private
+name|double
+name|decayingTunerStepSizeSum
+init|=
+literal|0
 decl_stmt|;
 annotation|@
 name|Override
@@ -558,6 +581,13 @@ block|{
 comment|// Ignoring the first few tuner periods
 name|ignoreInitialPeriods
 operator|++
+expr_stmt|;
+name|rollingStatsForTunerSteps
+operator|.
+name|insertDataValue
+argument_list|(
+literal|0
+argument_list|)
 expr_stmt|;
 return|return
 name|NO_OP_TUNER_RESULT
@@ -837,12 +867,15 @@ operator|!
 name|isReverting
 condition|)
 block|{
-comment|// mean +- deviation/2 is considered to be normal
+comment|// mean +- deviation*0.8 is considered to be normal
 comment|// below it its consider low and above it is considered high.
 comment|// We can safely assume that the number cache misses, flushes are normally distributed over
 comment|// past periods and hence on all the above mentioned classes (normal, high and low)
-comment|// are equally likely with 33% probability each. Hence there is very good probability that
-comment|// we will not always fall in default step.
+comment|// are likely to occur with probability 56%, 22%, 22% respectively. Hence there is at
+comment|// least ~10% probability that we will not fall in NEUTRAL step.
+comment|// This optimization solution is feedback based and we revert when we
+comment|// dont find our steps helpful. Hence we want to do tuning only when we have clear
+comment|// indications because too many unnecessary tuning may affect the performance of cluster.
 if|if
 condition|(
 operator|(
@@ -859,8 +892,8 @@ name|rollingStatsForCacheMisses
 operator|.
 name|getDeviation
 argument_list|()
-operator|/
-literal|2.00
+operator|*
+literal|0.80
 operator|&&
 operator|(
 name|double
@@ -876,8 +909,8 @@ name|rollingStatsForFlushes
 operator|.
 name|getDeviation
 argument_list|()
-operator|/
-literal|2.00
+operator|*
+literal|0.80
 condition|)
 block|{
 comment|// Everything is fine no tuning required
@@ -905,8 +938,8 @@ name|rollingStatsForCacheMisses
 operator|.
 name|getDeviation
 argument_list|()
-operator|/
-literal|2.00
+operator|*
+literal|0.80
 operator|&&
 operator|(
 name|double
@@ -922,8 +955,8 @@ name|rollingStatsForFlushes
 operator|.
 name|getDeviation
 argument_list|()
-operator|/
-literal|2.00
+operator|*
+literal|0.80
 condition|)
 block|{
 comment|// more misses , increasing cache size
@@ -957,8 +990,8 @@ operator|.
 name|getDeviation
 operator|(
 operator|)
-operator|/
-literal|2.00
+operator|*
+literal|0.80
 operator|&&
 operator|(
 name|double
@@ -974,8 +1007,8 @@ name|rollingStatsForFlushes
 operator|.
 name|getDeviation
 argument_list|()
-operator|/
-literal|2.00
+operator|*
+literal|0.80
 condition|)
 block|{
 comment|// more flushes , increasing memstore size
@@ -1032,9 +1065,10 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|// Adjusting step size for tuning to get to steady state.
+comment|// Adjusting step size for tuning to get to steady state or restart from steady state.
 comment|// Even if the step size was 4% and 32 GB memory size, we will be shifting 1 GB back and forth
-comment|// per tuner operation and it can affect the performance of cluster
+comment|// per tuner operation and it can affect the performance of cluster so we keep on decreasing
+comment|// step size until everything settles.
 if|if
 condition|(
 name|prevTuneDirection
@@ -1048,9 +1082,18 @@ operator|!=
 name|StepDirection
 operator|.
 name|NEUTRAL
+operator|&&
+name|rollingStatsForTunerSteps
+operator|.
+name|getDeviation
+argument_list|()
+operator|<
+name|TUNER_STEP_EPS
 condition|)
 block|{
-comment|// Restarting the tuning from steady state.
+comment|// Restarting the tuning from steady state and setting step size to maximum.
+comment|// The deviation cannot be that low if last period was neutral and some recent periods were
+comment|// not neutral.
 name|step
 operator|=
 name|maximumStepSize
@@ -1059,18 +1102,40 @@ block|}
 elseif|else
 if|if
 condition|(
-name|prevTuneDirection
-operator|!=
+operator|(
 name|newTuneDirection
+operator|==
+name|StepDirection
+operator|.
+name|INCREASE_MEMSTORE_SIZE
+operator|&&
+name|decayingTunerStepSizeSum
+operator|<
+literal|0
+operator|)
+operator|||
+operator|(
+name|newTuneDirection
+operator|==
+name|StepDirection
+operator|.
+name|INCREASE_BLOCK_CACHE_SIZE
+operator|&&
+name|decayingTunerStepSizeSum
+operator|>
+literal|0
+operator|)
 condition|)
 block|{
-comment|// Decrease the step size to reach the steady state. Similar procedure as binary search.
+comment|// Current step is opposite of past tuner actions so decrease the step size to reach steady
+comment|// state.
 name|step
 operator|=
 name|step
 operator|/
 literal|2.00f
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|step
@@ -1078,12 +1143,17 @@ operator|<
 name|minimumStepSize
 condition|)
 block|{
-comment|// Ensure step size does not gets too small.
+comment|// If step size is too small then we do nothing.
 name|step
 operator|=
-name|minimumStepSize
+literal|0.0f
 expr_stmt|;
-block|}
+name|newTuneDirection
+operator|=
+name|StepDirection
+operator|.
+name|NEUTRAL
+expr_stmt|;
 block|}
 comment|// Increase / decrease the memstore / block cahce sizes depending on new tuner step.
 switch|switch
@@ -1112,6 +1182,31 @@ argument_list|()
 operator|-
 name|step
 expr_stmt|;
+name|rollingStatsForTunerSteps
+operator|.
+name|insertDataValue
+argument_list|(
+operator|-
+call|(
+name|int
+call|)
+argument_list|(
+name|step
+operator|*
+literal|100000
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|decayingTunerStepSizeSum
+operator|=
+operator|(
+name|decayingTunerStepSizeSum
+operator|-
+name|step
+operator|)
+operator|/
+literal|2.00f
+expr_stmt|;
 break|break;
 case|case
 name|INCREASE_MEMSTORE_SIZE
@@ -1134,6 +1229,30 @@ argument_list|()
 operator|+
 name|step
 expr_stmt|;
+name|rollingStatsForTunerSteps
+operator|.
+name|insertDataValue
+argument_list|(
+call|(
+name|int
+call|)
+argument_list|(
+name|step
+operator|*
+literal|100000
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|decayingTunerStepSizeSum
+operator|=
+operator|(
+name|decayingTunerStepSizeSum
+operator|+
+name|step
+operator|)
+operator|/
+literal|2.00f
+expr_stmt|;
 break|break;
 default|default:
 name|prevTuneDirection
@@ -1141,6 +1260,21 @@ operator|=
 name|StepDirection
 operator|.
 name|NEUTRAL
+expr_stmt|;
+name|rollingStatsForTunerSteps
+operator|.
+name|insertDataValue
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+name|decayingTunerStepSizeSum
+operator|=
+operator|(
+name|decayingTunerStepSizeSum
+operator|)
+operator|/
+literal|2.00f
 expr_stmt|;
 return|return
 name|NO_OP_TUNER_RESULT
@@ -1451,6 +1585,18 @@ expr_stmt|;
 name|this
 operator|.
 name|rollingStatsForEvictions
+operator|=
+operator|new
+name|RollingStatCalculator
+argument_list|(
+name|this
+operator|.
+name|tunerLookupPeriods
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|rollingStatsForTunerSteps
 operator|=
 operator|new
 name|RollingStatCalculator
