@@ -4801,7 +4801,7 @@ return|return
 name|r
 return|;
 block|}
-comment|/**    * Run through the regionMutation<code>rm</code> and per Mutation, do the work, and then when    * done, add an instance of a {@link ResultOrException} that corresponds to each Mutation.    * @param region    * @param actions    * @param cellScanner    * @param builder    * @param cellsToReturn  Could be null. May be allocated in this method.  This is what this    * method returns as a 'result'.    * @return Return the<code>cellScanner</code> passed    */
+comment|/**    * Run through the regionMutation<code>rm</code> and per Mutation, do the work, and then when    * done, add an instance of a {@link ResultOrException} that corresponds to each Mutation.    * @param region    * @param actions    * @param cellScanner    * @param builder    * @param cellsToReturn  Could be null. May be allocated in this method.  This is what this    * method returns as a 'result'.    * @param closeCallBack the callback to be used with multigets    * @param context the current RpcCallContext    * @return Return the<code>cellScanner</code> passed    */
 specifier|private
 name|List
 argument_list|<
@@ -4839,6 +4839,13 @@ name|cellsToReturn
 parameter_list|,
 name|long
 name|nonceGroup
+parameter_list|,
+specifier|final
+name|RegionScannersCloseCallBack
+name|closeCallBack
+parameter_list|,
+name|RpcCallContext
+name|context
 parameter_list|)
 block|{
 comment|// Gather up CONTIGUOUS Puts and Deletes in this mutations List.  Idea is that rather than do
@@ -4852,21 +4859,6 @@ operator|.
 name|Action
 argument_list|>
 name|mutations
-init|=
-literal|null
-decl_stmt|;
-name|RpcCallContext
-name|context
-init|=
-name|RpcServer
-operator|.
-name|getCurrentCall
-argument_list|()
-decl_stmt|;
-comment|// An RpcCallBack that creates a list of scanners that needs to perform callBack
-comment|// operation on completion of multiGets.
-name|RegionScannersCloseCallBack
-name|closeCallBack
 init|=
 literal|null
 decl_stmt|;
@@ -4907,29 +4899,6 @@ name|hasGet
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
-name|closeCallBack
-operator|==
-literal|null
-condition|)
-block|{
-comment|// Initialize only once
-name|closeCallBack
-operator|=
-operator|new
-name|RegionScannersCloseCallBack
-argument_list|()
-expr_stmt|;
-comment|// Set the call back here itself.
-name|context
-operator|.
-name|setCallBack
-argument_list|(
-name|closeCallBack
-argument_list|)
-expr_stmt|;
-block|}
 name|Get
 name|get
 init|=
@@ -12689,6 +12658,16 @@ name|processed
 init|=
 literal|null
 decl_stmt|;
+name|RegionScannersCloseCallBack
+name|closeCallBack
+init|=
+literal|null
+decl_stmt|;
+name|RpcCallContext
+name|context
+init|=
+literal|null
+decl_stmt|;
 for|for
 control|(
 name|RegionAction
@@ -13008,6 +12987,37 @@ block|}
 else|else
 block|{
 comment|// doNonAtomicRegionMutation manages the exception internally
+if|if
+condition|(
+name|closeCallBack
+operator|==
+literal|null
+condition|)
+block|{
+comment|// An RpcCallBack that creates a list of scanners that needs to perform callBack
+comment|// operation on completion of multiGets.
+comment|// Set this only once
+name|closeCallBack
+operator|=
+operator|new
+name|RegionScannersCloseCallBack
+argument_list|()
+expr_stmt|;
+name|context
+operator|=
+name|RpcServer
+operator|.
+name|getCurrentCall
+argument_list|()
+expr_stmt|;
+name|context
+operator|.
+name|setCallBack
+argument_list|(
+name|closeCallBack
+argument_list|)
+expr_stmt|;
+block|}
 name|cellsToReturn
 operator|=
 name|doNonAtomicRegionMutation
@@ -13025,6 +13035,10 @@ argument_list|,
 name|cellsToReturn
 argument_list|,
 name|nonceGroup
+argument_list|,
+name|closeCallBack
+argument_list|,
+name|context
 argument_list|)
 expr_stmt|;
 block|}
