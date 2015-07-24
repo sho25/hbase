@@ -332,7 +332,7 @@ return|return
 name|isDistributedCluster
 return|;
 block|}
-specifier|private
+specifier|public
 name|void
 name|createDistributedHBaseCluster
 parameter_list|()
