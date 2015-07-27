@@ -2626,9 +2626,9 @@ name|getTagsLength
 argument_list|()
 decl_stmt|;
 comment|// write total length
-name|KeyValue
+name|ByteBufferUtils
 operator|.
-name|writeInt
+name|putInt
 argument_list|(
 name|out
 argument_list|,
@@ -2649,9 +2649,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// write key length
-name|KeyValue
+name|ByteBufferUtils
 operator|.
-name|writeInt
+name|putInt
 argument_list|(
 name|out
 argument_list|,
@@ -2666,9 +2666,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// write value length
-name|KeyValue
+name|ByteBufferUtils
 operator|.
-name|writeInt
+name|putInt
 argument_list|(
 name|out
 argument_list|,

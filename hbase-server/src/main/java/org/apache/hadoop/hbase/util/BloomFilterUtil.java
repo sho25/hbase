@@ -21,16 +21,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|nio
-operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|text
 operator|.
 name|NumberFormat

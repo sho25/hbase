@@ -63,6 +63,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|ByteBufferUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Bytes
 import|;
 end_import
@@ -134,7 +150,9 @@ name|IOException
 block|{
 comment|// In KeyValueUtil#oswrite we do a Cell serialization as KeyValue. Any changes doing here, pls
 comment|// check KeyValueUtil#oswrite also and do necessary changes.
-name|writeInt
+name|ByteBufferUtils
+operator|.
+name|putInt
 argument_list|(
 name|out
 argument_list|,

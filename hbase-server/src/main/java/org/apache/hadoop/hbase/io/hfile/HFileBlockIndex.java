@@ -299,6 +299,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ByteBufferedKeyOnlyKeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -2709,15 +2723,11 @@ decl_stmt|;
 comment|// If we imagine that keys[-1] = -Infinity and
 comment|// keys[numEntries] = Infinity, then we are maintaining an invariant that
 comment|// keys[low - 1]< key< keys[high + 1] while narrowing down the range.
-name|KeyValue
-operator|.
-name|KeyOnlyKeyValue
-name|nonRootIndexKV
+name|ByteBufferedKeyOnlyKeyValue
+name|nonRootIndexkeyOnlyKV
 init|=
 operator|new
-name|KeyValue
-operator|.
-name|KeyOnlyKeyValue
+name|ByteBufferedKeyOnlyKeyValue
 argument_list|()
 decl_stmt|;
 name|Pair
@@ -2827,7 +2837,7 @@ argument_list|,
 name|pair
 argument_list|)
 expr_stmt|;
-name|nonRootIndexKV
+name|nonRootIndexkeyOnlyKV
 operator|.
 name|setKey
 argument_list|(
@@ -2835,18 +2845,7 @@ name|pair
 operator|.
 name|getFirst
 argument_list|()
-operator|.
-name|array
-argument_list|()
 argument_list|,
-name|pair
-operator|.
-name|getFirst
-argument_list|()
-operator|.
-name|arrayOffset
-argument_list|()
-operator|+
 name|pair
 operator|.
 name|getSecond
@@ -2864,7 +2863,7 @@ name|compareKeyIgnoresMvcc
 argument_list|(
 name|key
 argument_list|,
-name|nonRootIndexKV
+name|nonRootIndexkeyOnlyKV
 argument_list|)
 decl_stmt|;
 comment|// key lives above the midpoint

@@ -103,22 +103,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|nio
-operator|.
-name|SingleByteBuff
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|ByteBufferArray
@@ -276,75 +260,24 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// TODO : this allocate and copy will go away once we create BB backed cells
-name|ByteBuffer
+name|ByteBuff
 name|dstBuffer
 init|=
-name|ByteBuffer
-operator|.
-name|allocate
-argument_list|(
-name|length
-argument_list|)
-decl_stmt|;
 name|bufferArray
 operator|.
-name|getMultiple
+name|asSubByteBuff
 argument_list|(
 name|offset
 argument_list|,
-name|dstBuffer
-operator|.
-name|remaining
-argument_list|()
-argument_list|,
-name|dstBuffer
-operator|.
-name|array
-argument_list|()
-argument_list|,
-name|dstBuffer
-operator|.
-name|arrayOffset
-argument_list|()
+name|length
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// Here the buffer that is created directly refers to the buffer in the actual buckets.
 comment|// When any cell is referring to the blocks created out of these buckets then it means that
 comment|// those cells are referring to a shared memory area which if evicted by the BucketCache would
 comment|// lead to corruption of results. Hence we set the type of the buffer as SHARED_MEMORY
 comment|// so that the readers using this block are aware of this fact and do the necessary action
 comment|// to prevent eviction till the results are either consumed or copied
-if|if
-condition|(
-name|dstBuffer
-operator|.
-name|limit
-argument_list|()
-operator|!=
-name|length
-condition|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Only "
-operator|+
-name|dstBuffer
-operator|.
-name|limit
-argument_list|()
-operator|+
-literal|" bytes read, "
-operator|+
-name|length
-operator|+
-literal|" expected"
-argument_list|)
-throw|;
-block|}
-comment|// TODO : to be removed - make it conditional
 return|return
 operator|new
 name|Pair
@@ -354,11 +287,7 @@ argument_list|,
 name|MemoryType
 argument_list|>
 argument_list|(
-operator|new
-name|SingleByteBuff
-argument_list|(
 name|dstBuffer
-argument_list|)
 argument_list|,
 name|MemoryType
 operator|.

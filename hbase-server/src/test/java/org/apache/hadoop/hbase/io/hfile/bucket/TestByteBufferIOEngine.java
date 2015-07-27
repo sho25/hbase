@@ -711,10 +711,6 @@ argument_list|,
 name|offset
 argument_list|)
 expr_stmt|;
-comment|//ByteBuffer dstBuffer = ByteBuffer.allocate(blockSize);
-comment|//ioEngine.read(dstBuffer, offset);
-comment|//MultiByteBuffer read = new MultiByteBuffer(dstBuffer);
-comment|// TODO : this will get changed after HBASE-12295 goes in
 name|Pair
 argument_list|<
 name|ByteBuff
