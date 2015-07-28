@@ -231,18 +231,6 @@ name|MobUtils
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ServiceException
-import|;
-end_import
-
 begin_comment
 comment|/**  * The Class ExpiredMobFileCleanerChore for running cleaner regularly to remove the expired  * mob files.  */
 end_comment
@@ -519,7 +507,7 @@ name|info
 argument_list|(
 literal|"Fail to acquire the lock because of timeout, maybe a"
 operator|+
-literal|" MobCompactor is running"
+literal|" MobFileCompactor is running"
 argument_list|,
 name|e
 argument_list|)
@@ -527,35 +515,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|ServiceException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Fail to clean the expired mob files for the column "
-operator|+
-name|hcd
-operator|.
-name|getNameAsString
-argument_list|()
-operator|+
-literal|" in the table "
-operator|+
-name|htd
-operator|.
-name|getNameAsString
-argument_list|()
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
+name|Exception
 name|e
 parameter_list|)
 block|{

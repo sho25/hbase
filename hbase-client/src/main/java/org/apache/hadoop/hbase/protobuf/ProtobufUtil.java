@@ -17558,10 +17558,14 @@ decl_stmt|;
 if|if
 condition|(
 name|firstByte
-operator|!=
+operator|==
 operator|-
 literal|1
 condition|)
+block|{
+comment|// bail out. (was return false;)
+block|}
+else|else
 block|{
 specifier|final
 name|int

@@ -914,7 +914,6 @@ literal|"hbase.mob.sweep.job.delay"
 decl_stmt|;
 specifier|protected
 specifier|static
-specifier|final
 name|long
 name|ONE_DAY
 init|=
@@ -3008,7 +3007,6 @@ block|}
 block|}
 comment|/**    * A result with index.    */
 specifier|private
-specifier|static
 class|class
 name|IndexedResult
 implements|implements
@@ -3220,7 +3218,6 @@ block|}
 block|}
 comment|/**    * Merge sort reader.    * It merges and sort the readers in different sequence files as one where    * the results are read in order.    */
 specifier|private
-specifier|static
 class|class
 name|MergeSortReader
 block|{
