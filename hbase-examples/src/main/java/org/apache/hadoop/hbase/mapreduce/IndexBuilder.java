@@ -821,8 +821,9 @@ name|ToolRunner
 operator|.
 name|run
 argument_list|(
-operator|new
-name|Configuration
+name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 argument_list|,
 operator|new
