@@ -17896,7 +17896,12 @@ name|IllegalArgumentException
 argument_list|(
 literal|"Column family "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|columnFamily
+argument_list|)
 operator|+
 literal|" is not a mob column family"
 argument_list|)
