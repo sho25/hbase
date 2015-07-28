@@ -1808,6 +1808,15 @@ name|currentTimeMillis
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"For hints related to the following exception, please try taking a look at: "
+operator|+
+literal|"https://hbase.apache.org/book.html#trouble.client.scantimeout"
+argument_list|)
+expr_stmt|;
 name|long
 name|elapsed
 init|=
