@@ -399,6 +399,19 @@ return|return
 literal|false
 return|;
 block|}
+specifier|public
+specifier|static
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|getSuperUsers
+parameter_list|()
+block|{
+return|return
+name|superUsers
+return|;
+block|}
 block|}
 end_class
 

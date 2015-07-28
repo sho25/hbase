@@ -13254,6 +13254,46 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+comment|// Adding superusers explicitly to the result set as AccessControlLists do not store them.
+comment|// Also using acl as table name to be inline  with the results of global admin and will
+comment|// help in avoiding any leakage of information about being superusers.
+for|for
+control|(
+name|String
+name|user
+range|:
+name|Superusers
+operator|.
+name|getSuperUsers
+argument_list|()
+control|)
+block|{
+name|perms
+operator|.
+name|add
+argument_list|(
+operator|new
+name|UserPermission
+argument_list|(
+name|user
+operator|.
+name|getBytes
+argument_list|()
+argument_list|,
+name|AccessControlLists
+operator|.
+name|ACL_TABLE_NAME
+argument_list|,
+literal|null
+argument_list|,
+name|Action
+operator|.
+name|values
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 name|response
 operator|=

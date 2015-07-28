@@ -786,7 +786,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * List all the userPermissions matching the given pattern.    * @param connection The Connection instance to use    * @param tableRegex The regular expression string to match against    * @return - returns an array of UserPermissions    * @throws Throwable    */
+comment|/**    * List all the userPermissions matching the given pattern. If pattern is null, the behavior is    * dependent on whether user has global admin privileges or not. If yes, the global permissions    * along with the list of superusers would be returned. Else, no rows get returned.    * @param connection The Connection instance to use    * @param tableRegex The regular expression string to match against    * @return - returns an array of UserPermissions    * @throws Throwable    */
 specifier|public
 specifier|static
 name|List
