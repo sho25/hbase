@@ -111,6 +111,10 @@ name|long
 name|getNumCompactionsCompleted
 parameter_list|()
 function_decl|;
+name|int
+name|getRegionHashCode
+parameter_list|()
+function_decl|;
 comment|/**    * Get the time spent by coprocessors in this region.    */
 name|Map
 argument_list|<

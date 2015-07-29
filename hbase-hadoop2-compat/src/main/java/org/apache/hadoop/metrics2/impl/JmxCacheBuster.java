@@ -43,6 +43,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicReference
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -137,27 +151,6 @@ end_comment
 
 begin_class
 annotation|@
-name|edu
-operator|.
-name|umd
-operator|.
-name|cs
-operator|.
-name|findbugs
-operator|.
-name|annotations
-operator|.
-name|SuppressWarnings
-argument_list|(
-name|value
-operator|=
-literal|"LI_LAZY_INIT_STATIC"
-argument_list|,
-name|justification
-operator|=
-literal|"Yeah, its weird but its what we want"
-argument_list|)
-annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
@@ -182,19 +175,18 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
-name|Object
-name|lock
-init|=
-operator|new
-name|Object
-argument_list|()
-decl_stmt|;
-specifier|private
-specifier|static
+name|AtomicReference
+argument_list|<
 name|ScheduledFuture
+argument_list|>
 name|fut
 init|=
+operator|new
+name|AtomicReference
+argument_list|<>
+argument_list|(
 literal|null
+argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
@@ -205,6 +197,12 @@ operator|new
 name|MetricsExecutorImpl
 argument_list|()
 decl_stmt|;
+specifier|private
+name|JmxCacheBuster
+parameter_list|()
+block|{
+comment|// Static only cache.
+block|}
 comment|/**    * For JMX to forget about all previously exported metrics.    */
 specifier|public
 specifier|static
@@ -212,26 +210,49 @@ name|void
 name|clearJmxCache
 parameter_list|()
 block|{
-comment|//If there are more then 100 ms before the executor will run then everything should be merged.
-synchronized|synchronized
-init|(
-name|lock
-init|)
+name|clearJmxCache
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+specifier|static
+specifier|synchronized
+name|void
+name|clearJmxCache
+parameter_list|(
+name|boolean
+name|force
+parameter_list|)
 block|{
+comment|//If there are more then 100 ms before the executor will run then everything should be merged.
+name|ScheduledFuture
+name|future
+init|=
+name|fut
+operator|.
+name|get
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
-name|fut
+operator|!
+name|force
+operator|&&
+operator|(
+name|future
 operator|==
 literal|null
 operator|||
 operator|(
 operator|!
-name|fut
+name|future
 operator|.
 name|isDone
 argument_list|()
 operator|&&
-name|fut
+name|future
 operator|.
 name|getDelay
 argument_list|(
@@ -242,9 +263,13 @@ argument_list|)
 operator|>
 literal|100
 operator|)
+operator|)
 condition|)
+block|{
+comment|// BAIL OUT
 return|return;
-name|fut
+block|}
+name|future
 operator|=
 name|executor
 operator|.
@@ -264,7 +289,13 @@ operator|.
 name|SECONDS
 argument_list|)
 expr_stmt|;
-block|}
+name|fut
+operator|.
+name|set
+argument_list|(
+name|future
+argument_list|)
+expr_stmt|;
 block|}
 specifier|static
 class|class
@@ -279,6 +310,14 @@ name|void
 name|run
 parameter_list|()
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|trace
@@ -286,6 +325,7 @@ argument_list|(
 literal|"Clearing JMX mbean cache."
 argument_list|)
 expr_stmt|;
+block|}
 comment|// This is pretty extreme but it's the best way that
 comment|// I could find to get metrics to be removed.
 try|try

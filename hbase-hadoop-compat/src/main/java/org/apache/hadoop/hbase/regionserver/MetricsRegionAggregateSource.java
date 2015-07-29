@@ -70,6 +70,16 @@ literal|"RegionServer,sub="
 operator|+
 name|METRICS_NAME
 decl_stmt|;
+name|String
+name|NUM_REGIONS
+init|=
+literal|"numRegions"
+decl_stmt|;
+name|String
+name|NUMBER_OF_REGIONS_DESC
+init|=
+literal|"Number of regions in the metrics system"
+decl_stmt|;
 comment|/**    * Register a MetricsRegionSource as being open.    *    * @param source the source for the region being opened.    */
 name|void
 name|register

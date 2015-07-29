@@ -197,6 +197,17 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|int
+name|getRegionHashCode
+parameter_list|()
+block|{
+return|return
+literal|42
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|Map
 argument_list|<
 name|String

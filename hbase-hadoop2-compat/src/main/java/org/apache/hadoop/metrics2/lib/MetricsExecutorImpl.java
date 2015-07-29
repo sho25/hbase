@@ -98,7 +98,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *  Class to handle the ScheduledExecutorService{@link ScheduledExecutorService} used by MetricMutableQuantiles{@link MetricMutableQuantiles}  */
+comment|/**  *  Class to handle the ScheduledExecutorService{@link ScheduledExecutorService} used by  *  MetricMutableQuantiles{@link MetricMutableQuantiles}, MetricsRegionAggregateSourceImpl, and  *  JmxCacheBuster  */
 end_comment
 
 begin_class
@@ -177,6 +177,7 @@ argument_list|)
 decl_stmt|;
 block|}
 specifier|private
+specifier|final
 specifier|static
 class|class
 name|ThreadPoolExecutorThreadFactory
