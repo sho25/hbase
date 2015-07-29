@@ -272,7 +272,7 @@ name|set
 argument_list|(
 name|ProcedureManagerHost
 operator|.
-name|MASTER_PROCEUDRE_CONF_KEY
+name|MASTER_PROCEDURE_CONF_KEY
 argument_list|,
 name|SimpleMasterProcedureManager
 operator|.

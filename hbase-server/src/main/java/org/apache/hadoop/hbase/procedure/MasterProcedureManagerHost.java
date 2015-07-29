@@ -141,7 +141,7 @@ name|loadUserProcedures
 argument_list|(
 name|conf
 argument_list|,
-name|MASTER_PROCEUDRE_CONF_KEY
+name|MASTER_PROCEDURE_CONF_KEY
 argument_list|)
 expr_stmt|;
 for|for

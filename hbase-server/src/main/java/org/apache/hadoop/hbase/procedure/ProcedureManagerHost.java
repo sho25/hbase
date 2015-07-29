@@ -176,7 +176,7 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|MASTER_PROCEUDRE_CONF_KEY
+name|MASTER_PROCEDURE_CONF_KEY
 init|=
 literal|"hbase.procedure.master.classes"
 decl_stmt|;
