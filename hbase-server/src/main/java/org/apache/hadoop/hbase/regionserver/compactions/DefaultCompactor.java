@@ -839,7 +839,7 @@ argument_list|,
 name|fd
 operator|.
 name|maxMVCCReadpoint
-operator|>=
+operator|>
 literal|0
 argument_list|,
 name|fd
