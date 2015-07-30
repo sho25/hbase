@@ -5081,6 +5081,20 @@ name|uncompressTags
 operator|=
 literal|false
 expr_stmt|;
+comment|// The current key has to be reset with the previous Cell
+name|current
+operator|.
+name|setKey
+argument_list|(
+name|current
+operator|.
+name|keyBuffer
+argument_list|,
+name|current
+operator|.
+name|memstoreTS
+argument_list|)
+expr_stmt|;
 name|previous
 operator|.
 name|invalidate
