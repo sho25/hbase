@@ -231,6 +231,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|DoNotRetryIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|ImmutableBytesWritable
@@ -923,7 +937,19 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-comment|// try to handle all IOExceptions by restarting
+comment|// do not retry if the exception tells us not to do so
+if|if
+condition|(
+name|e
+operator|instanceof
+name|DoNotRetryIOException
+condition|)
+block|{
+throw|throw
+name|e
+throw|;
+block|}
+comment|// try to handle all other IOExceptions by restarting
 comment|// the scanner, if the second call fails, it will be rethrown
 name|LOG
 operator|.

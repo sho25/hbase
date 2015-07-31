@@ -1407,7 +1407,7 @@ return|return
 name|htable
 return|;
 block|}
-comment|/**    * Create a table that throws a DoNoRetryIOException on first scanner next    * call    *    * @throws IOException    */
+comment|/**    * Create a table that throws a NotServingRegionException on first scanner     * next call    *    * @throws IOException    */
 specifier|static
 name|Table
 name|createDNRIOEScannerTable
@@ -1506,11 +1506,11 @@ operator|.
 name|callRealMethod
 argument_list|()
 expr_stmt|;
-comment|// simulate UnknownScannerException
+comment|// simulate NotServingRegionException
 name|doThrow
 argument_list|(
 operator|new
-name|UnknownScannerException
+name|NotServingRegionException
 argument_list|(
 literal|"Injected simulated TimeoutException"
 argument_list|)
@@ -1673,7 +1673,7 @@ name|htable
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Run test assuming UnknownScannerException (which is a type of    * DoNotRetryIOException) using newer mapreduce api    *     * @throws InterruptedException    * @throws org.apache.hadoop.hbase.DoNotRetryIOException    */
+comment|/**    * Run test assuming NotServingRegionException using newer mapreduce api    *     * @throws InterruptedException    * @throws org.apache.hadoop.hbase.DoNotRetryIOException    */
 annotation|@
 name|Test
 specifier|public
@@ -1704,7 +1704,7 @@ name|htable
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Run test assuming UnknownScannerException (which is a type of    * DoNotRetryIOException) using newer mapreduce api    *     * @throws InterruptedException    * @throws org.apache.hadoop.hbase.DoNotRetryIOException    */
+comment|/**    * Run test assuming NotServingRegionException using newer mapreduce api    *     * @throws InterruptedException    * @throws org.apache.hadoop.hbase.NotServingRegionException    */
 annotation|@
 name|Test
 argument_list|(
@@ -1718,7 +1718,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|DoNotRetryIOException
+name|NotServingRegionException
 operator|.
 name|class
 argument_list|)
