@@ -3198,6 +3198,8 @@ name|FSUtils
 operator|.
 name|create
 argument_list|(
+name|conf
+argument_list|,
 name|fs
 argument_list|,
 name|regionInfoFile

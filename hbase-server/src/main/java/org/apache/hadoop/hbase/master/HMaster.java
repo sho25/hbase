@@ -8524,6 +8524,42 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|// check data replication factor, it can be 0(default value) when user has not explicitly
+comment|// set the value, in this case we use default replication factor set in the file system.
+if|if
+condition|(
+name|hcd
+operator|.
+name|getDFSReplication
+argument_list|()
+operator|<
+literal|0
+condition|)
+block|{
+name|String
+name|message
+init|=
+literal|"HFile Replication for column family "
+operator|+
+name|hcd
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|"  must be greater than zero."
+decl_stmt|;
+name|warnOrThrowExceptionForFailure
+argument_list|(
+name|logWarn
+argument_list|,
+name|CONF_KEY
+argument_list|,
+name|message
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
 comment|// TODO: should we check coprocessors and encryption ?
 block|}
 block|}

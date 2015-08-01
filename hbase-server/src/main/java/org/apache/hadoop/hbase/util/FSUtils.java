@@ -2084,7 +2084,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Create the specified file on the filesystem. By default, this will:    *<ol>    *<li>overwrite the file if it exists</li>    *<li>apply the umask in the configuration (if it is enabled)</li>    *<li>use the fs configured buffer size (or 4096 if not set)</li>    *<li>use the default replication</li>    *<li>use the default block size</li>    *<li>not track progress</li>    *</ol>    *    * @param fs {@link FileSystem} on which to write the file    * @param path {@link Path} to the file to write    * @param perm permissions    * @param favoredNodes    * @return output stream to the created file    * @throws IOException if the file cannot be created    */
+comment|/**    * Create the specified file on the filesystem. By default, this will:    *<ol>    *<li>overwrite the file if it exists</li>    *<li>apply the umask in the configuration (if it is enabled)</li>    *<li>use the fs configured buffer size (or 4096 if not set)</li>    *<li>use the configured column family replication or default replication if    * {@link HColumnDescriptor#DEFAULT_DFS_REPLICATION}</li>    *<li>use the default block size</li>    *<li>not track progress</li>    *</ol>    * @param conf configurations    * @param fs {@link FileSystem} on which to write the file    * @param path {@link Path} to the file to write    * @param perm permissions    * @param favoredNodes    * @return output stream to the created file    * @throws IOException if the file cannot be created    */
 end_comment
 
 begin_function
@@ -2093,6 +2093,9 @@ specifier|static
 name|FSDataOutputStream
 name|create
 parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
 name|FileSystem
 name|fs
 parameter_list|,
@@ -2138,6 +2141,32 @@ condition|)
 block|{
 comment|// Try to use the favoredNodes version via reflection to allow backwards-
 comment|// compatibility.
+name|short
+name|replication
+init|=
+name|Short
+operator|.
+name|parseShort
+argument_list|(
+name|conf
+operator|.
+name|get
+argument_list|(
+name|HColumnDescriptor
+operator|.
+name|DFS_REPLICATION
+argument_list|,
+name|String
+operator|.
+name|valueOf
+argument_list|(
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_DFS_REPLICATION
+argument_list|)
+argument_list|)
+argument_list|)
+decl_stmt|;
 try|try
 block|{
 return|return
@@ -2202,6 +2231,12 @@ argument_list|(
 name|backingFs
 argument_list|)
 argument_list|,
+name|replication
+operator|>
+literal|0
+condition|?
+name|replication
+else|:
 name|getDefaultReplication
 argument_list|(
 name|backingFs

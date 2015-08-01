@@ -44496,6 +44496,77 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
+try|try
+block|{
+name|hcd
+operator|.
+name|setDFSReplication
+argument_list|(
+operator|(
+name|short
+operator|)
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
+name|fail
+argument_list|(
+literal|"Illegal value for setDFSReplication did not throw"
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IllegalArgumentException
+name|e
+parameter_list|)
+block|{
+comment|// pass
+block|}
+comment|// set an illegal DFS replication value by hand
+name|hcd
+operator|.
+name|setValue
+argument_list|(
+name|HColumnDescriptor
+operator|.
+name|DFS_REPLICATION
+argument_list|,
+literal|"-1"
+argument_list|)
+expr_stmt|;
+name|checkTableIsIllegal
+argument_list|(
+name|htd
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+name|hcd
+operator|.
+name|setDFSReplication
+argument_list|(
+operator|(
+name|short
+operator|)
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
+name|fail
+argument_list|(
+literal|"Should throw exception if an illegal value is explicitly being set"
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IllegalArgumentException
+name|e
+parameter_list|)
+block|{
+comment|// pass
+block|}
 comment|// check the conf settings to disable sanity checks
 name|htd
 operator|.
