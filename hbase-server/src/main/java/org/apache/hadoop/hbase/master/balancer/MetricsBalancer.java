@@ -43,12 +43,23 @@ class|class
 name|MetricsBalancer
 block|{
 specifier|private
-specifier|final
 name|MetricsBalancerSource
 name|source
+init|=
+literal|null
 decl_stmt|;
 specifier|public
 name|MetricsBalancer
+parameter_list|()
+block|{
+name|initSource
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * A function to instantiate the metrics source. This function can be overridden in its     * subclasses to provide extended sources    */
+specifier|protected
+name|void
+name|initSource
 parameter_list|()
 block|{
 name|source

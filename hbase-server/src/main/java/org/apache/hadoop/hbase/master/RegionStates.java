@@ -4606,7 +4606,9 @@ argument_list|()
 operator|.
 name|getBoolean
 argument_list|(
-literal|"hbase.master.loadbalance.bytable"
+name|HConstants
+operator|.
+name|HBASE_MASTER_LOADBALANCE_BYTABLE
 argument_list|,
 literal|false
 argument_list|)
@@ -4692,7 +4694,9 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"ensemble"
+name|HConstants
+operator|.
+name|ENSEMBLE_TABLE_NAME
 argument_list|)
 argument_list|,
 name|svrToRegions

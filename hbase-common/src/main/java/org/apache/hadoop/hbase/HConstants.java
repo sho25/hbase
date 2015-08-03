@@ -417,6 +417,24 @@ name|HBASE_MASTER_LOADBALANCER_CLASS
 init|=
 literal|"hbase.master.loadbalancer.class"
 decl_stmt|;
+comment|/** Config for balancing the cluster by table */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_MASTER_LOADBALANCE_BYTABLE
+init|=
+literal|"hbase.master.loadbalance.bytable"
+decl_stmt|;
+comment|/** The name of the ensemble table */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ENSEMBLE_TABLE_NAME
+init|=
+literal|"hbase:ensemble"
+decl_stmt|;
 comment|/** Config for pluggable region normalizer */
 specifier|public
 specifier|static

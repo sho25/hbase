@@ -534,7 +534,10 @@ name|INCLUDE
 block|,
 comment|// corresponds to filter.filterRow() returning false
 name|EXCLUDE
+block|,
 comment|// corresponds to filter.filterRow() returning true
+name|INCLUDE_THIS_FAMILY
+comment|// exclude other families
 block|}
 specifier|public
 name|FilterRowRetCode

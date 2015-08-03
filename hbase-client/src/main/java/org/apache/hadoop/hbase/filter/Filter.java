@@ -229,6 +229,9 @@ name|NEXT_ROW
 block|,
 comment|/**      * Seek to next key which is given as hint by the filter.      */
 name|SEEK_NEXT_USING_HINT
+block|,
+comment|/**      * Include KeyValue and done with row, seek to next.      */
+name|INCLUDE_AND_SEEK_NEXT_ROW
 block|, }
 comment|/**    * Chance to alter the list of Cells to be submitted. Modifications to the list will carry on    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param kvs the list of Cells to be filtered    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
