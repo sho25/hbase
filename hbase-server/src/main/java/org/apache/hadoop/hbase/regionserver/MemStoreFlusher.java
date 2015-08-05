@@ -1211,7 +1211,7 @@ name|info
 argument_list|(
 literal|"Refreshing storefiles of region "
 operator|+
-name|regionToFlush
+name|bestRegionReplica
 operator|+
 literal|" due to global heap pressure. memstore size="
 operator|+
@@ -1248,7 +1248,7 @@ name|info
 argument_list|(
 literal|"Excluding secondary region "
 operator|+
-name|regionToFlush
+name|bestRegionReplica
 operator|+
 literal|" - trying to find a different region to refresh files."
 argument_list|)
