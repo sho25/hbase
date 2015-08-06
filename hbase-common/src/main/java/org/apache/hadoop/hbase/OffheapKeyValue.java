@@ -242,6 +242,9 @@ name|length
 parameter_list|,
 name|boolean
 name|hasTags
+parameter_list|,
+name|long
+name|seqId
 parameter_list|)
 block|{
 assert|assert
@@ -307,6 +310,12 @@ operator|.
 name|hasTags
 operator|=
 name|hasTags
+expr_stmt|;
+name|this
+operator|.
+name|seqId
+operator|=
+name|seqId
 expr_stmt|;
 block|}
 annotation|@

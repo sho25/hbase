@@ -460,6 +460,8 @@ name|capacity
 argument_list|()
 argument_list|,
 literal|false
+argument_list|,
+literal|0l
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -783,6 +785,8 @@ name|capacity
 argument_list|()
 argument_list|,
 literal|false
+argument_list|,
+literal|0l
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -915,6 +919,8 @@ name|capacity
 argument_list|()
 argument_list|,
 literal|false
+argument_list|,
+literal|0l
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1127,6 +1133,8 @@ name|capacity
 argument_list|()
 argument_list|,
 literal|true
+argument_list|,
+literal|0l
 argument_list|)
 decl_stmt|;
 name|assertEquals

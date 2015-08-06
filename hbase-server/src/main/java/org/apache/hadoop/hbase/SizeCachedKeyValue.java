@@ -96,6 +96,9 @@ name|offset
 parameter_list|,
 name|int
 name|length
+parameter_list|,
+name|long
+name|seqId
 parameter_list|)
 block|{
 name|super
@@ -122,6 +125,11 @@ name|super
 operator|.
 name|getKeyLength
 argument_list|()
+expr_stmt|;
+name|setSequenceId
+argument_list|(
+name|seqId
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@

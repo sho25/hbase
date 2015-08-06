@@ -110,6 +110,9 @@ name|offset
 parameter_list|,
 name|int
 name|length
+parameter_list|,
+name|long
+name|seqId
 parameter_list|)
 block|{
 name|super
@@ -119,6 +122,8 @@ argument_list|,
 name|offset
 argument_list|,
 name|length
+argument_list|,
+name|seqId
 argument_list|)
 expr_stmt|;
 block|}
