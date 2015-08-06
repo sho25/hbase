@@ -4253,9 +4253,10 @@ name|doFsck
 argument_list|(
 name|c
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 return|;
+comment|// Exclusive hbck only when fixing
 block|}
 catch|catch
 parameter_list|(

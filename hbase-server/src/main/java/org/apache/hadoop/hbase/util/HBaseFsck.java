@@ -1956,28 +1956,28 @@ literal|false
 decl_stmt|;
 comment|// do we display the full report
 specifier|private
-specifier|static
-name|boolean
-name|useLock
-init|=
-literal|true
-decl_stmt|;
-comment|// do we use the hbck exclusivity lock
-specifier|private
-specifier|static
-name|boolean
-name|switchBalancer
-init|=
-literal|true
-decl_stmt|;
-comment|// do we turn the balancer off while running
-specifier|private
 name|long
 name|timelag
 init|=
 name|DEFAULT_TIME_LAG
 decl_stmt|;
 comment|// tables whose modtime is older
+specifier|private
+specifier|static
+name|boolean
+name|forceExclusive
+init|=
+literal|false
+decl_stmt|;
+comment|// only this hbck can modify HBase
+specifier|private
+specifier|static
+name|boolean
+name|disableBalancer
+init|=
+literal|false
+decl_stmt|;
+comment|// disable load balancer to keep regions stable
 specifier|private
 name|boolean
 name|fixAssignments
@@ -3002,6 +3002,9 @@ parameter_list|()
 block|{
 if|if
 condition|(
+name|isExclusive
+argument_list|()
+operator|&&
 name|hbckLockCleanup
 operator|.
 name|compareAndSet
@@ -3156,10 +3159,11 @@ name|IOException
 block|{
 if|if
 condition|(
-name|useLock
+name|isExclusive
+argument_list|()
 condition|)
 block|{
-comment|// Check if another instance of balancer is running
+comment|// Grab the lock
 name|hbckOutFd
 operator|=
 name|checkAndMarkRunningHbck
@@ -3182,9 +3186,9 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Another instance of hbck is running, exiting this instance.[If you are sure"
+literal|"Another instance of hbck is fixing HBase, exiting this instance. "
 operator|+
-literal|" no other instance is running, delete the lock file "
+literal|"[If you are sure no other instance is running, delete the lock file "
 operator|+
 name|HBCK_LOCK_PATH
 operator|+
@@ -3947,12 +3951,12 @@ expr_stmt|;
 name|boolean
 name|oldBalancer
 init|=
-literal|true
+literal|false
 decl_stmt|;
-comment|// turn the balancer off
 if|if
 condition|(
-name|switchBalancer
+name|shouldDisableBalancer
+argument_list|()
 condition|)
 block|{
 name|oldBalancer
@@ -3975,9 +3979,15 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+comment|// Only restore the balancer if it was true when we started repairing and
+comment|// we actually disabled it. Otherwise, we might clobber another run of
+comment|// hbck that has just restored it.
 if|if
 condition|(
-name|switchBalancer
+name|shouldDisableBalancer
+argument_list|()
+operator|&&
+name|oldBalancer
 condition|)
 block|{
 name|admin
@@ -21695,27 +21705,53 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+comment|/**    * Set exclusive mode.    */
 specifier|public
 specifier|static
 name|void
-name|setNoLock
+name|setForceExclusive
 parameter_list|()
 block|{
-name|useLock
+name|forceExclusive
 operator|=
-literal|false
+literal|true
 expr_stmt|;
 block|}
+comment|/**    * Only one instance of hbck can modify HBase at a time.    */
+specifier|public
+name|boolean
+name|isExclusive
+parameter_list|()
+block|{
+return|return
+name|fixAny
+operator|||
+name|forceExclusive
+return|;
+block|}
+comment|/**    * Disable the load balancer.    */
 specifier|public
 specifier|static
 name|void
-name|setNoBalacerSwitch
+name|setDisableBalancer
 parameter_list|()
 block|{
-name|switchBalancer
+name|disableBalancer
 operator|=
-literal|false
+literal|true
 expr_stmt|;
+block|}
+comment|/**    * The balancer should be disabled if we are modifying HBase.    * It can be disabled if you want to prevent region movement from causing    * false positives.    */
+specifier|public
+name|boolean
+name|shouldDisableBalancer
+parameter_list|()
+block|{
+return|return
+name|fixAny
+operator|||
+name|disableBalancer
+return|;
 block|}
 comment|/**    * Set summary mode.    * Print only summary of the tables and status (OK or INCONSISTENT)    */
 specifier|static
@@ -22428,14 +22464,14 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"   -noLock Turn off using the hdfs lock file."
+literal|"   -exclusive Abort if another hbck is exclusive or fixing."
 argument_list|)
 expr_stmt|;
 name|out
 operator|.
 name|println
 argument_list|(
-literal|"   -noBalancerSwitch Don't switch the balancer off."
+literal|"   -disableBalancer Disable the load balancer."
 argument_list|)
 expr_stmt|;
 name|out
@@ -22940,11 +22976,11 @@ name|cmd
 operator|.
 name|equals
 argument_list|(
-literal|"-noLock"
+literal|"-exclusive"
 argument_list|)
 condition|)
 block|{
-name|setNoLock
+name|setForceExclusive
 argument_list|()
 expr_stmt|;
 block|}
@@ -22955,11 +22991,11 @@ name|cmd
 operator|.
 name|equals
 argument_list|(
-literal|"-noBalancerSwitch"
+literal|"-disableBalancer"
 argument_list|)
 condition|)
 block|{
-name|setNoBalacerSwitch
+name|setDisableBalancer
 argument_list|()
 expr_stmt|;
 block|}

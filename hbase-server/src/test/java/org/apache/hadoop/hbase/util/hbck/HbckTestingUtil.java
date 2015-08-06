@@ -307,11 +307,6 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|fsck
-operator|.
-name|connect
-argument_list|()
-expr_stmt|;
 name|HBaseFsck
 operator|.
 name|setDisplayFullReport
@@ -410,6 +405,12 @@ name|table
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Parse command line flags before connecting, to grab the lock.
+name|fsck
+operator|.
+name|connect
+argument_list|()
+expr_stmt|;
 name|fsck
 operator|.
 name|onlineHbck
