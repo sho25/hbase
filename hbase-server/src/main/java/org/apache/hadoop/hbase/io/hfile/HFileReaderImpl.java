@@ -6517,6 +6517,17 @@ condition|(
 literal|true
 condition|)
 block|{
+comment|// Check cache for block. If found return.
+if|if
+condition|(
+name|cacheConf
+operator|.
+name|shouldReadBlockFromCache
+argument_list|(
+name|expectedBlockType
+argument_list|)
+condition|)
+block|{
 if|if
 condition|(
 name|useLock
@@ -6532,15 +6543,6 @@ name|dataBlockOffset
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Check cache for block. If found return.
-if|if
-condition|(
-name|cacheConf
-operator|.
-name|isBlockCacheEnabled
-argument_list|()
-condition|)
-block|{
 comment|// Try and get the block from the block cache. If the useLock variable is true then this
 comment|// is the second time through the loop and it should not be counted as a block cache miss.
 name|HFileBlock
@@ -6670,12 +6672,19 @@ return|return
 name|cachedBlock
 return|;
 block|}
-comment|// Carry on, please load.
-block|}
 if|if
 condition|(
 operator|!
 name|useLock
+operator|&&
+name|cacheBlock
+operator|&&
+name|cacheConf
+operator|.
+name|shouldLockOnCacheMiss
+argument_list|(
+name|expectedBlockType
+argument_list|)
 condition|)
 block|{
 comment|// check cache again with lock
@@ -6684,6 +6693,8 @@ operator|=
 literal|true
 expr_stmt|;
 continue|continue;
+block|}
+comment|// Carry on, please load.
 block|}
 if|if
 condition|(
