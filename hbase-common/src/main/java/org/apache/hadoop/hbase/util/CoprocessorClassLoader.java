@@ -405,8 +405,6 @@ block|{
 comment|// Java standard library:
 literal|"com.sun."
 block|,
-literal|"launcher."
-block|,
 literal|"java."
 block|,
 literal|"javax."
@@ -428,10 +426,8 @@ literal|"org.apache.log4j"
 block|,
 literal|"com.hadoop"
 block|,
-comment|// Hadoop/HBase/ZK:
-literal|"org.apache.hadoop"
-block|,
-literal|"org.apache.zookeeper"
+comment|// HBase:
+literal|"org.apache.hadoop.hbase"
 block|,   }
 decl_stmt|;
 comment|/**    * If the resource being loaded matches any of these patterns, we will first    * attempt to load the resource with the parent ClassLoader.  Only if the    * resource is not found by the parent do we attempt to load it from the coprocessor jar.    */
