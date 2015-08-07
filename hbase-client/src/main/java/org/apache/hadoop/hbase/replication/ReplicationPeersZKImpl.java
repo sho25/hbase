@@ -415,18 +415,6 @@ name|ByteString
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
-import|;
-end_import
-
 begin_comment
 comment|/**  * This class provides an implementation of the ReplicationPeers interface using Zookeeper. The  * peers znode contains a list of all peer replication clusters and the current replication state of  * those clusters. It has one child peer znode for each peer cluster. The peer znode is named with  * the cluster id provided by the user in the HBase shell. The value of the peer znode contains the  * peers cluster key provided by the user in the HBase Shell. The cluster key contains a list of  * zookeeper quorum peers, the client port for the zookeeper quorum, and the base znode for HBase.  * For example:  *  *  /hbase/replication/peers/1 [Value: zk1.host.com,zk2.host.com,zk3.host.com:2181:/hbase]  *  /hbase/replication/peers/2 [Value: zk5.host.com,zk6.host.com,zk7.host.com:2181:/hbase]  *  * Each of these peer znodes has a child znode that indicates whether or not replication is enabled  * on that peer cluster. These peer-state znodes do not have child znodes and simply contain a  * boolean value (i.e. ENABLED or DISABLED). This value is read/maintained by the  * ReplicationPeer.PeerStateTracker class. For example:  *  * /hbase/replication/peers/1/peer-state [Value: ENABLED]  *  * Each of these peer znodes has a child znode that indicates which data will be replicated  * to the peer cluster. These peer-tableCFs znodes do not have child znodes and only have a  * table/cf list config. This value is read/maintained by the ReplicationPeer.TableCFsTracker  * class. For example:  *  * /hbase/replication/peers/1/tableCFs [Value: "table1; table2:cf1,cf3; table3:cfx,cfy"]  */
 end_comment
@@ -2687,12 +2675,12 @@ name|peer
 decl_stmt|;
 try|try
 block|{
-name|peer
-operator|=
-name|builder
+name|ProtobufUtil
 operator|.
 name|mergeFrom
 argument_list|(
+name|builder
+argument_list|,
 name|bytes
 argument_list|,
 name|pblen
@@ -2703,6 +2691,10 @@ name|length
 operator|-
 name|pblen
 argument_list|)
+expr_stmt|;
+name|peer
+operator|=
+name|builder
 operator|.
 name|build
 argument_list|()
@@ -2710,7 +2702,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|InvalidProtocolBufferException
+name|IOException
 name|e
 parameter_list|)
 block|{

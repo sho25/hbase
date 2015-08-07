@@ -4706,6 +4706,15 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
+name|ProtobufUtil
+operator|.
+name|mergeFrom
+argument_list|(
+name|scanProto
+argument_list|,
+name|scanBytes
+argument_list|)
+expr_stmt|;
 name|instance
 operator|=
 name|ProtobufUtil
@@ -4713,11 +4722,6 @@ operator|.
 name|toScan
 argument_list|(
 name|scanProto
-operator|.
-name|mergeFrom
-argument_list|(
-name|scanBytes
-argument_list|)
 operator|.
 name|build
 argument_list|()

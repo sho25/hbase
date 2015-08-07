@@ -311,18 +311,6 @@ name|NodeExistsException
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
-import|;
-end_import
-
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -826,12 +814,12 @@ name|state
 decl_stmt|;
 try|try
 block|{
-name|state
-operator|=
-name|builder
+name|ProtobufUtil
 operator|.
 name|mergeFrom
 argument_list|(
+name|builder
+argument_list|,
 name|bytes
 argument_list|,
 name|pblen
@@ -842,6 +830,10 @@ name|length
 operator|-
 name|pblen
 argument_list|)
+expr_stmt|;
+name|state
+operator|=
+name|builder
 operator|.
 name|build
 argument_list|()
@@ -855,7 +847,7 @@ return|;
 block|}
 catch|catch
 parameter_list|(
-name|InvalidProtocolBufferException
+name|IOException
 name|e
 parameter_list|)
 block|{

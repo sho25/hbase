@@ -470,10 +470,12 @@ operator|.
 name|lengthOfPBMagic
 argument_list|()
 decl_stmt|;
-name|rsInfoBuilder
+name|ProtobufUtil
 operator|.
 name|mergeFrom
 argument_list|(
+name|rsInfoBuilder
+argument_list|,
 name|data
 argument_list|,
 name|magicLen

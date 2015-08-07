@@ -305,18 +305,6 @@ name|KeeperException
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
-import|;
-end_import
-
 begin_comment
 comment|/**  * A manager for distributed table level locks.  */
 end_comment
@@ -763,7 +751,9 @@ block|{
 name|ZooKeeperProtos
 operator|.
 name|TableLock
-name|data
+operator|.
+name|Builder
+name|builder
 init|=
 name|ZooKeeperProtos
 operator|.
@@ -771,9 +761,13 @@ name|TableLock
 operator|.
 name|newBuilder
 argument_list|()
+decl_stmt|;
+name|ProtobufUtil
 operator|.
 name|mergeFrom
 argument_list|(
+name|builder
+argument_list|,
 name|bytes
 argument_list|,
 name|pblen
@@ -784,17 +778,17 @@ name|length
 operator|-
 name|pblen
 argument_list|)
+expr_stmt|;
+return|return
+name|builder
 operator|.
 name|build
 argument_list|()
-decl_stmt|;
-return|return
-name|data
 return|;
 block|}
 catch|catch
 parameter_list|(
-name|InvalidProtocolBufferException
+name|IOException
 name|ex
 parameter_list|)
 block|{

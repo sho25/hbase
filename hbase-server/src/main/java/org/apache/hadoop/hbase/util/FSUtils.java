@@ -847,18 +847,6 @@ name|Ints
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Utility methods for interacting with the underlying file system.  */
 end_comment
@@ -3209,19 +3197,14 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
-name|FSProtos
-operator|.
-name|HBaseVersionFileContent
-name|fileContent
-decl_stmt|;
 try|try
 block|{
-name|fileContent
-operator|=
-name|builder
+name|ProtobufUtil
 operator|.
 name|mergeFrom
 argument_list|(
+name|builder
+argument_list|,
 name|bytes
 argument_list|,
 name|pblen
@@ -3232,12 +3215,9 @@ name|length
 operator|-
 name|pblen
 argument_list|)
-operator|.
-name|build
-argument_list|()
 expr_stmt|;
 return|return
-name|fileContent
+name|builder
 operator|.
 name|getVersion
 argument_list|()
@@ -3245,7 +3225,7 @@ return|;
 block|}
 catch|catch
 parameter_list|(
-name|InvalidProtocolBufferException
+name|IOException
 name|e
 parameter_list|)
 block|{

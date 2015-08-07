@@ -5470,7 +5470,9 @@ throw|;
 block|}
 comment|//invoke the method
 name|Message
-name|execRequest
+operator|.
+name|Builder
+name|builderForType
 init|=
 name|service
 operator|.
@@ -5481,14 +5483,23 @@ argument_list|)
 operator|.
 name|newBuilderForType
 argument_list|()
+decl_stmt|;
+name|ProtobufUtil
 operator|.
 name|mergeFrom
 argument_list|(
+name|builderForType
+argument_list|,
 name|call
 operator|.
 name|getRequest
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|Message
+name|execRequest
+init|=
+name|builderForType
 operator|.
 name|build
 argument_list|()

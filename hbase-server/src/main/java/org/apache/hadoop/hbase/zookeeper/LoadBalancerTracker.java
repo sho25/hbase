@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -150,18 +160,6 @@ operator|.
 name|zookeeper
 operator|.
 name|KeeperException
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -434,10 +432,12 @@ operator|.
 name|lengthOfPBMagic
 argument_list|()
 decl_stmt|;
-name|builder
+name|ProtobufUtil
 operator|.
 name|mergeFrom
 argument_list|(
+name|builder
+argument_list|,
 name|pbBytes
 argument_list|,
 name|magicLen
@@ -452,7 +452,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|InvalidProtocolBufferException
+name|IOException
 name|e
 parameter_list|)
 block|{

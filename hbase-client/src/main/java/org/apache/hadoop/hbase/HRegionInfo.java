@@ -383,18 +383,6 @@ name|DataInputBuffer
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Information about a region. A region is a range of keys in the whole keyspace of a table, an  * identifier (a timestamp) for differentiating between subset ranges (after region split)  * and a replicaId for differentiating the instance for the same range and some status information  * about the region.  *  * The region has a unique name which consists of the following fields:  *<ul>  *<li> tableName   : The name of the table</li>  *<li> startKey    : The startKey for the region.</li>  *<li> regionId    : A timestamp when the region is created.</li>  *<li> replicaId   : An id starting from 0 to differentiate replicas of the same region range  * but hosted in separated servers. The same region range can be hosted in multiple locations.</li>  *<li> encodedName : An MD5 encoded string for the region name.</li>  *</ul>  *  *<br> Other than the fields in the region name, region info contains:  *<ul>  *<li> endKey      : the endKey for the region (exclusive)</li>  *<li> split       : Whether the region is split</li>  *<li> offline     : Whether the region is offline</li>  *</ul>  *  * In 0.98 or before, a list of table's regions would fully cover the total keyspace, and at any  * point in time, a row key always belongs to a single region, which is hosted in a single server.  * In 0.99+, a region can have multiple instances (called replicas), and thus a range (or row) can  * correspond to multiple HRegionInfo's. These HRI's share the same fields however except the  * replicaId field. If the replicaId is not set, it defaults to 0, which is compatible with the  * previous behavior of a range corresponding to 1 region.  */
 end_comment
@@ -3980,7 +3968,9 @@ block|{
 name|HBaseProtos
 operator|.
 name|RegionInfo
-name|ri
+operator|.
+name|Builder
+name|builder
 init|=
 name|HBaseProtos
 operator|.
@@ -3988,9 +3978,13 @@ name|RegionInfo
 operator|.
 name|newBuilder
 argument_list|()
+decl_stmt|;
+name|ProtobufUtil
 operator|.
 name|mergeFrom
 argument_list|(
+name|builder
+argument_list|,
 name|bytes
 argument_list|,
 name|pblen
@@ -4001,6 +3995,13 @@ name|len
 operator|-
 name|pblen
 argument_list|)
+expr_stmt|;
+name|HBaseProtos
+operator|.
+name|RegionInfo
+name|ri
+init|=
+name|builder
 operator|.
 name|build
 argument_list|()
@@ -4014,7 +4015,7 @@ return|;
 block|}
 catch|catch
 parameter_list|(
-name|InvalidProtocolBufferException
+name|IOException
 name|e
 parameter_list|)
 block|{
