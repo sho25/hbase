@@ -43,6 +43,18 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|KeeperException
+import|;
+end_import
+
 begin_comment
 comment|/**  * This provides an interface for clients of replication to view replication queues. These queues  * keep track of the WALs that still need to be replicated to remote clusters.  */
 end_comment
@@ -64,15 +76,17 @@ parameter_list|()
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Get a list of all region servers that have outstanding replication queues. These servers could    * be alive, dead or from a previous run of the cluster.    * @return a list of server names    */
+comment|/**    * Get a list of all region servers that have outstanding replication queues. These servers could    * be alive, dead or from a previous run of the cluster.    * @return a list of server names    * @throws KeeperException zookeeper exception    */
 name|List
 argument_list|<
 name|String
 argument_list|>
 name|getListOfReplicators
 parameter_list|()
+throws|throws
+name|KeeperException
 function_decl|;
-comment|/**    * Get a list of all WALs in the given queue on the given region server.    * @param serverName the server name of the region server that owns the queue    * @param queueId a String that identifies the queue    * @return a list of WALs, null if this region server is dead and has no outstanding queues    */
+comment|/**    * Get a list of all WALs in the given queue on the given region server.    * @param serverName the server name of the region server that owns the queue    * @param queueId a String that identifies the queue    * @return a list of WALs, null if this region server is dead and has no outstanding queues    * @throws KeeperException zookeeper exception    */
 name|List
 argument_list|<
 name|String
@@ -85,6 +99,8 @@ parameter_list|,
 name|String
 name|queueId
 parameter_list|)
+throws|throws
+name|KeeperException
 function_decl|;
 comment|/**    * Get a list of all queues for the specified region server.    * @param serverName the server name of the region server that owns the set of queues    * @return a list of queueIds, null if this region server is not a replicator.    */
 name|List
@@ -96,6 +112,15 @@ parameter_list|(
 name|String
 name|serverName
 parameter_list|)
+throws|throws
+name|KeeperException
+function_decl|;
+comment|/**    * Get the cversion of replication rs node. This can be used as optimistic locking to get a    * consistent snapshot of the replication queues.    * @return cversion of replication rs node    */
+name|int
+name|getQueuesZNodeCversion
+parameter_list|()
+throws|throws
+name|KeeperException
 function_decl|;
 block|}
 end_interface

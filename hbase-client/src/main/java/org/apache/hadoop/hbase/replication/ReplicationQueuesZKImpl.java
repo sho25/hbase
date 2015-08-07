@@ -1888,7 +1888,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// add delete op for dead rs
+comment|// add delete op for dead rs, this will update the cversion of the parent.
+comment|// The reader will make optimistic locking with this to get a consistent
+comment|// snapshot
 name|listOfOps
 operator|.
 name|add

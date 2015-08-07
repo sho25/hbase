@@ -121,6 +121,18 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|KeeperException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|Before
@@ -318,6 +330,8 @@ name|testReplicationQueuesClient
 parameter_list|()
 throws|throws
 name|ReplicationException
+throws|,
+name|KeeperException
 block|{
 name|rqc
 operator|.
