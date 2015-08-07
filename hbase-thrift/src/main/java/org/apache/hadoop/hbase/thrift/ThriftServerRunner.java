@@ -1602,11 +1602,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|public
 class|class
 name|ThriftServerRunner
@@ -5323,8 +5318,6 @@ throw|;
 block|}
 block|}
 annotation|@
-name|Deprecated
-annotation|@
 name|Override
 specifier|public
 name|List
@@ -5576,8 +5569,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-annotation|@
-name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -5847,8 +5838,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-annotation|@
-name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -8424,8 +8413,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-annotation|@
-name|Deprecated
 annotation|@
 name|Override
 specifier|public
