@@ -459,6 +459,18 @@ argument_list|()
 decl_stmt|;
 name|assertTrue
 argument_list|(
+name|t1
+operator|.
+name|getMessage
+argument_list|()
+operator|+
+literal|" - "
+operator|+
+name|t2
+operator|.
+name|getMessage
+argument_list|()
+argument_list|,
 name|t2
 operator|.
 name|getMessage
@@ -467,6 +479,18 @@ operator|.
 name|contains
 argument_list|(
 literal|"Failed resolve of "
+operator|+
+name|invalidHostname
+argument_list|)
+operator|||
+name|t2
+operator|.
+name|getMessage
+argument_list|()
+operator|.
+name|contains
+argument_list|(
+literal|"Problem binding to "
 operator|+
 name|invalidHostname
 argument_list|)
