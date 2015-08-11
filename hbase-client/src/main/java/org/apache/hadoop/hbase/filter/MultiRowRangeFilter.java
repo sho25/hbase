@@ -1192,6 +1192,17 @@ return|return
 name|ROW_BEFORE_FIRST_RANGE
 return|;
 block|}
+if|if
+condition|(
+operator|!
+name|initialized
+condition|)
+block|{
+name|initialized
+operator|=
+literal|true
+expr_stmt|;
+block|}
 return|return
 name|insertionPosition
 return|;
