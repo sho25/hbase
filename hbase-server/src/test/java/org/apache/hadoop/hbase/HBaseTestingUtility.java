@@ -1684,7 +1684,23 @@ specifier|final
 name|int
 name|DEFAULT_REGIONS_PER_SERVER
 init|=
-literal|5
+literal|3
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|PRESPLIT_TEST_TABLE_KEY
+init|=
+literal|"hbase.test.pre-split-table"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|PRESPLIT_TEST_TABLE
+init|=
+literal|true
 decl_stmt|;
 comment|/**    * Set if we were passed a zkCluster.  If so, we won't shutdown zk as    * part of general shutdown.    */
 specifier|private

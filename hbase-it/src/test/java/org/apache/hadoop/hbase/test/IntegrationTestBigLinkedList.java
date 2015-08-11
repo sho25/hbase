@@ -3147,6 +3147,23 @@ name|TINY_FAMILY_NAME
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// If we want to pre-split compute how many splits.
+if|if
+condition|(
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|HBaseTestingUtility
+operator|.
+name|PRESPLIT_TEST_TABLE_KEY
+argument_list|,
+name|HBaseTestingUtility
+operator|.
+name|PRESPLIT_TEST_TABLE
+argument_list|)
+condition|)
+block|{
 name|int
 name|numberOfServers
 init|=
@@ -3247,6 +3264,20 @@ argument_list|,
 name|splits
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+comment|// Looks like we're just letting things play out.
+comment|// Create a table with on region by default.
+comment|// This will make the splitting work hard.
+name|admin
+operator|.
+name|createTable
+argument_list|(
+name|htd
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 catch|catch
