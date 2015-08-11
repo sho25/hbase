@@ -117,7 +117,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Pair
+name|ObjectIntPair
 import|;
 end_import
 
@@ -4571,11 +4571,9 @@ parameter_list|,
 name|int
 name|length
 parameter_list|,
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 name|pair
 parameter_list|)

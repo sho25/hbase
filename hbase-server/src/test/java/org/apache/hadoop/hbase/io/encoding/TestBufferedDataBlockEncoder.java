@@ -129,7 +129,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Pair
+name|ObjectIntPair
 import|;
 end_import
 
@@ -306,11 +306,9 @@ operator|.
 name|SeekerState
 argument_list|(
 operator|new
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 argument_list|()
 argument_list|,

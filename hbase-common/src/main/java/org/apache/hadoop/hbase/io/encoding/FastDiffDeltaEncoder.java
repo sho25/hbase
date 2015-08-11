@@ -205,7 +205,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Pair
+name|ObjectIntPair
 import|;
 end_import
 
@@ -2051,11 +2051,9 @@ decl_stmt|;
 specifier|public
 name|FastDiffSeekerState
 parameter_list|(
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 name|tmpPair
 parameter_list|,

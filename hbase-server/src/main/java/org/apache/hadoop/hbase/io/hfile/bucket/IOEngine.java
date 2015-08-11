@@ -72,8 +72,24 @@ operator|.
 name|hfile
 operator|.
 name|Cacheable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|MemoryType
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|CacheableDeserializer
 import|;
 end_import
 
@@ -90,22 +106,6 @@ operator|.
 name|nio
 operator|.
 name|ByteBuff
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Pair
 import|;
 end_import
 
@@ -127,13 +127,8 @@ name|boolean
 name|isPersistent
 parameter_list|()
 function_decl|;
-comment|/**    * Transfers data from IOEngine to a byte buffer    * @param length How many bytes to be read from the offset    * @param offset The offset in the IO engine where the first byte to be read    * @return Pair of ByteBuffer where data is read and its MemoryType ({@link MemoryType})    * @throws IOException    * @throws RuntimeException when the length of the ByteBuff read is less than 'len'    */
-name|Pair
-argument_list|<
-name|ByteBuff
-argument_list|,
-name|MemoryType
-argument_list|>
+comment|/**    * Transfers data from IOEngine to a Cacheable object.    * @param length How many bytes to be read from the offset    * @param offset The offset in the IO engine where the first byte to be read    * @param deserializer The deserializer to be used to make a Cacheable from the data.    * @return Cacheable    * @throws IOException    * @throws RuntimeException when the length of the ByteBuff read is less than 'len'    */
+name|Cacheable
 name|read
 parameter_list|(
 name|long
@@ -141,6 +136,12 @@ name|offset
 parameter_list|,
 name|int
 name|length
+parameter_list|,
+name|CacheableDeserializer
+argument_list|<
+name|Cacheable
+argument_list|>
+name|deserializer
 parameter_list|)
 throws|throws
 name|IOException

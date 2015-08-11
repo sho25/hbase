@@ -171,7 +171,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Pair
+name|ObjectIntPair
 import|;
 end_import
 
@@ -1731,20 +1731,16 @@ operator|.
 name|rewind
 argument_list|()
 expr_stmt|;
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 name|p
 init|=
 operator|new
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -1788,9 +1784,6 @@ argument_list|,
 name|p
 operator|.
 name|getSecond
-argument_list|()
-operator|.
-name|intValue
 argument_list|()
 argument_list|)
 expr_stmt|;

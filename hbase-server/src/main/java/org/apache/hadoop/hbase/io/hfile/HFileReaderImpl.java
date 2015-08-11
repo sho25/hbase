@@ -603,7 +603,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Pair
+name|ObjectIntPair
 import|;
 end_import
 
@@ -2193,20 +2193,16 @@ argument_list|()
 decl_stmt|;
 comment|// A pair for reusing in blockSeek() so that we don't garbage lot of objects
 specifier|final
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 name|pair
 init|=
 operator|new
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -4446,20 +4442,16 @@ name|assertSeeked
 argument_list|()
 expr_stmt|;
 comment|// Create a new object so that this getKey is cached as firstKey, lastKey
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 name|keyPair
 init|=
 operator|new
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -4817,20 +4809,16 @@ name|assertSeeked
 argument_list|()
 expr_stmt|;
 comment|// Okie to create new Pair. Not used in hot path
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 name|valuePair
 init|=
 operator|new
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 argument_list|()
 decl_stmt|;

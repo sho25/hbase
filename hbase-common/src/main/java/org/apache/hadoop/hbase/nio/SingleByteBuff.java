@@ -71,7 +71,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Pair
+name|ObjectIntPair
 import|;
 end_import
 
@@ -329,11 +329,9 @@ parameter_list|,
 name|int
 name|length
 parameter_list|,
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 name|pair
 parameter_list|)
@@ -686,20 +684,16 @@ else|else
 block|{
 comment|// TODO we can do some optimization here? Call to asSubByteBuffer might
 comment|// create a copy.
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 name|pair
 init|=
 operator|new
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 argument_list|()
 decl_stmt|;

@@ -421,7 +421,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Pair
+name|ObjectIntPair
 import|;
 end_import
 
@@ -906,11 +906,9 @@ comment|// A temp pair object which will be reused by ByteBuff#asSubByteBuffer c
 comment|// many object creations.
 specifier|private
 specifier|final
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 name|tmpPair
 decl_stmt|;
@@ -922,11 +920,9 @@ decl_stmt|;
 specifier|public
 name|SeekerState
 parameter_list|(
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 name|tmpPair
 parameter_list|,
@@ -3496,20 +3492,16 @@ comment|// A temp pair object which will be reused by ByteBuff#asSubByteBuffer c
 comment|// many object creations.
 specifier|protected
 specifier|final
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 name|tmpPair
 init|=
 operator|new
-name|Pair
+name|ObjectIntPair
 argument_list|<
 name|ByteBuffer
-argument_list|,
-name|Integer
 argument_list|>
 argument_list|()
 decl_stmt|;
