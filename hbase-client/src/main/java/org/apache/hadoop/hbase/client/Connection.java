@@ -227,12 +227,6 @@ name|boolean
 name|isClosed
 parameter_list|()
 function_decl|;
-comment|/**    * Retrieve the metrics instance for this connection.    *    * @return a MetricsConnection instance for examining connection metrics.    */
-specifier|public
-name|MetricsConnection
-name|getConnectionMetrics
-parameter_list|()
-function_decl|;
 block|}
 end_interface
 
