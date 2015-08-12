@@ -123,7 +123,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-literal|true
+literal|false
 return|;
 block|}
 specifier|public
