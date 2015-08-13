@@ -7455,20 +7455,64 @@ name|values
 argument_list|()
 control|)
 block|{
-assert|assert
-name|abort
-operator|||
+name|long
+name|flushableSize
+init|=
 name|store
 operator|.
 name|getFlushableSize
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+operator|(
+name|abort
+operator|||
+name|flushableSize
 operator|==
 literal|0
 operator|||
 name|writestate
 operator|.
 name|readOnly
-assert|;
+operator|)
+condition|)
+block|{
+name|getRegionServerServices
+argument_list|()
+operator|.
+name|abort
+argument_list|(
+literal|"Assertion failed while closing store "
+operator|+
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" "
+operator|+
+name|store
+operator|+
+literal|". flushableSize expected=0, actual= "
+operator|+
+name|flushableSize
+operator|+
+literal|". Current memstoreSize="
+operator|+
+name|getMemstoreSize
+argument_list|()
+operator|+
+literal|". Maybe a coprocessor "
+operator|+
+literal|"operation failed and left the memstore in a partially updated state."
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
 name|completionService
 operator|.
 name|submit
