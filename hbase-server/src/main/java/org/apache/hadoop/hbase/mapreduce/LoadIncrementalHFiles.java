@@ -1415,6 +1415,49 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|visitBulkHFiles
+argument_list|(
+name|fs
+argument_list|,
+name|bulkDir
+argument_list|,
+name|visitor
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Iterate over the bulkDir hfiles.    * Skip reference, HFileLink, files starting with "_".    * Check and skip non-valid hfiles by default, or skip this validation by setting    * 'hbase.loadincremental.validate.hfile' to false.    */
+specifier|private
+specifier|static
+parameter_list|<
+name|TFamily
+parameter_list|>
+name|void
+name|visitBulkHFiles
+parameter_list|(
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|Path
+name|bulkDir
+parameter_list|,
+specifier|final
+name|BulkHFileVisitor
+argument_list|<
+name|TFamily
+argument_list|>
+name|visitor
+parameter_list|,
+specifier|final
+name|boolean
+name|validateHFile
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 if|if
 condition|(
 operator|!
@@ -1642,7 +1685,12 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
-comment|// Validate HFile Format
+comment|// Validate HFile Format if needed
+if|if
+condition|(
+name|validateHFile
+condition|)
+block|{
 try|try
 block|{
 if|if
@@ -1690,6 +1738,7 @@ literal|" was removed"
 argument_list|)
 expr_stmt|;
 continue|continue;
+block|}
 block|}
 name|visitor
 operator|.
@@ -1782,6 +1831,10 @@ parameter_list|,
 specifier|final
 name|Path
 name|hfofDir
+parameter_list|,
+specifier|final
+name|boolean
+name|validateHFile
 parameter_list|)
 throws|throws
 name|IOException
@@ -1909,6 +1962,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+argument_list|,
+name|validateHFile
 argument_list|)
 expr_stmt|;
 block|}
@@ -2118,11 +2173,47 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
+comment|/*        * Checking hfile format is a time-consuming operation, we should have an option to skip        * this step when bulkloading millions of HFiles. See HBASE-13985.        */
+name|boolean
+name|validateHFile
+init|=
+name|getConf
+argument_list|()
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.loadincremental.validate.hfile"
+argument_list|,
+literal|true
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|validateHFile
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"You are skipping HFiles validation, it might cause some data loss if files "
+operator|+
+literal|"are not correct. If you fail to read data from your table after using this "
+operator|+
+literal|"option, consider removing the files and bulkload again without this option. "
+operator|+
+literal|"See HBASE-13985"
+argument_list|)
+expr_stmt|;
+block|}
 name|discoverLoadQueue
 argument_list|(
 name|queue
 argument_list|,
 name|hfofDir
+argument_list|,
+name|validateHFile
 argument_list|)
 expr_stmt|;
 comment|// check whether there is invalid family name in HFiles to be bulkloaded
