@@ -16259,6 +16259,11 @@ name|matches
 init|=
 literal|false
 decl_stmt|;
+name|long
+name|cellTs
+init|=
+literal|0
+decl_stmt|;
 if|if
 condition|(
 name|result
@@ -16305,6 +16310,18 @@ name|matches
 operator|=
 literal|true
 expr_stmt|;
+name|cellTs
+operator|=
+name|result
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
+operator|.
+name|getTimestamp
+argument_list|()
+expr_stmt|;
 block|}
 elseif|else
 if|if
@@ -16330,6 +16347,13 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+name|cellTs
+operator|=
+name|kv
+operator|.
+name|getTimestamp
+argument_list|()
+expr_stmt|;
 name|int
 name|compareResult
 init|=
@@ -16428,6 +16452,65 @@ condition|(
 name|matches
 condition|)
 block|{
+comment|// We have acquired the row lock already. If the system clock is NOT monotonically
+comment|// non-decreasing (see HBASE-14070) we should make sure that the mutation has a
+comment|// larger timestamp than what was observed via Get. doBatchMutate already does this, but
+comment|// there is no way to pass the cellTs. See HBASE-14054.
+name|long
+name|now
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+decl_stmt|;
+name|long
+name|ts
+init|=
+name|Math
+operator|.
+name|max
+argument_list|(
+name|now
+argument_list|,
+name|cellTs
+argument_list|)
+decl_stmt|;
+comment|// ensure write is not eclipsed
+name|byte
+index|[]
+name|byteTs
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|ts
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|w
+operator|instanceof
+name|Put
+condition|)
+block|{
+name|updateCellTimestamps
+argument_list|(
+name|w
+operator|.
+name|getFamilyCellMap
+argument_list|()
+operator|.
+name|values
+argument_list|()
+argument_list|,
+name|byteTs
+argument_list|)
+expr_stmt|;
+block|}
+comment|// else delete is not needed since it already does a second get, and sets the timestamp
+comment|// from get (see prepareDeleteTimestamps).
 comment|// All edits for the given row (across all column families) must
 comment|// happen atomically.
 name|doBatchMutate
@@ -16603,6 +16686,11 @@ name|matches
 init|=
 literal|false
 decl_stmt|;
+name|long
+name|cellTs
+init|=
+literal|0
+decl_stmt|;
 if|if
 condition|(
 name|result
@@ -16649,6 +16737,18 @@ name|matches
 operator|=
 literal|true
 expr_stmt|;
+name|cellTs
+operator|=
+name|result
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
+operator|.
+name|getTimestamp
+argument_list|()
+expr_stmt|;
 block|}
 elseif|else
 if|if
@@ -16674,6 +16774,13 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+name|cellTs
+operator|=
+name|kv
+operator|.
+name|getTimestamp
+argument_list|()
+expr_stmt|;
 name|int
 name|compareResult
 init|=
@@ -16772,6 +16879,77 @@ condition|(
 name|matches
 condition|)
 block|{
+comment|// We have acquired the row lock already. If the system clock is NOT monotonically
+comment|// non-decreasing (see HBASE-14070) we should make sure that the mutation has a
+comment|// larger timestamp than what was observed via Get. doBatchMutate already does this, but
+comment|// there is no way to pass the cellTs. See HBASE-14054.
+name|long
+name|now
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+decl_stmt|;
+name|long
+name|ts
+init|=
+name|Math
+operator|.
+name|max
+argument_list|(
+name|now
+argument_list|,
+name|cellTs
+argument_list|)
+decl_stmt|;
+comment|// ensure write is not eclipsed
+name|byte
+index|[]
+name|byteTs
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|ts
+argument_list|)
+decl_stmt|;
+for|for
+control|(
+name|Mutation
+name|w
+range|:
+name|rm
+operator|.
+name|getMutations
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|w
+operator|instanceof
+name|Put
+condition|)
+block|{
+name|updateCellTimestamps
+argument_list|(
+name|w
+operator|.
+name|getFamilyCellMap
+argument_list|()
+operator|.
+name|values
+argument_list|()
+argument_list|,
+name|byteTs
+argument_list|)
+expr_stmt|;
+block|}
+comment|// else delete is not needed since it already does a second get, and sets the timestamp
+comment|// from get (see prepareDeleteTimestamps).
+block|}
 comment|// All edits for the given row (across all column families) must
 comment|// happen atomically.
 name|mutateRow
