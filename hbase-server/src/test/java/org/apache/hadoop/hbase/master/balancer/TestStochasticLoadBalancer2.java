@@ -121,7 +121,7 @@ specifier|public
 class|class
 name|TestStochasticLoadBalancer2
 extends|extends
-name|TestStochasticLoadBalancer
+name|BalancerTestBase
 block|{
 specifier|private
 specifier|static
@@ -182,6 +182,15 @@ literal|1000
 argument_list|)
 expr_stmt|;
 comment|// 90 sec
+name|conf
+operator|.
+name|setFloat
+argument_list|(
+literal|"hbase.master.balancer.stochastic.localityCost"
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
 name|TestStochasticLoadBalancer
 operator|.
 name|loadBalancer
@@ -282,6 +291,15 @@ literal|1000
 argument_list|)
 expr_stmt|;
 comment|// 90 sec
+name|conf
+operator|.
+name|setFloat
+argument_list|(
+literal|"hbase.master.balancer.stochastic.localityCost"
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
 name|loadBalancer
 operator|.
 name|setConf
@@ -371,6 +389,15 @@ literal|1000
 argument_list|)
 expr_stmt|;
 comment|// 120 sec
+name|conf
+operator|.
+name|setFloat
+argument_list|(
+literal|"hbase.master.balancer.stochastic.localityCost"
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
 name|conf
 operator|.
 name|setFloat
@@ -468,6 +495,15 @@ literal|1000
 argument_list|)
 expr_stmt|;
 comment|// 120 sec
+name|conf
+operator|.
+name|setFloat
+argument_list|(
+literal|"hbase.master.balancer.stochastic.localityCost"
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
 name|conf
 operator|.
 name|setFloat
