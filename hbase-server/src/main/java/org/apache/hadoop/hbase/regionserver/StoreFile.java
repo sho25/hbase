@@ -3759,6 +3759,7 @@ case|:
 comment|// merge(row, qualifier)
 comment|// TODO: could save one buffer copy in case of compound Bloom
 comment|// filters when this involves creating a KeyValue
+comment|// TODO : Handle while writes also
 name|bloomKeyKV
 operator|=
 name|KeyValueUtil
@@ -4847,7 +4848,7 @@ name|oldestUnexpiredTS
 return|;
 block|}
 block|}
-comment|/**      * Checks whether the given scan passes the Bloom filter (if present). Only      * checks Bloom filters for single-row or single-row-column scans. Bloom      * filter checking for multi-gets is implemented as part of the store      * scanner system (see {@link StoreFileScanner#seekExactly}) and uses      * the lower-level API {@link #passesGeneralBloomFilter(byte[], int, int, byte[],      * int, int)}.      *      * @param scan the scan specification. Used to determine the row, and to      *          check whether this is a single-row ("get") scan.      * @param columns the set of columns. Only used for row-column Bloom      *          filters.      * @return true if the scan with the given column set passes the Bloom      *         filter, or if the Bloom filter is not applicable for the scan.      *         False if the Bloom filter is applicable and the scan fails it.      */
+comment|/**      * Checks whether the given scan passes the Bloom filter (if present). Only      * checks Bloom filters for single-row or single-row-column scans. Bloom      * filter checking for multi-gets is implemented as part of the store      * scanner system (see {@link StoreFileScanner#seekExactly}) and uses      * the lower-level API {@link #passesGeneralRowBloomFilter(byte[], int, int)}      * and {@link #passesGeneralRowColBloomFilter(Cell)}.      *      * @param scan the scan specification. Used to determine the row, and to      *          check whether this is a single-row ("get") scan.      * @param columns the set of columns. Only used for row-column Bloom      *          filters.      * @return true if the scan with the given column set passes the Bloom      *         filter, or if the Bloom filter is not applicable for the scan.      *         False if the Bloom filter is applicable and the scan fails it.      */
 name|boolean
 name|passesBloomFilter
 parameter_list|(
@@ -4898,7 +4899,7 @@ case|case
 name|ROW
 case|:
 return|return
-name|passesGeneralBloomFilter
+name|passesGeneralRowBloomFilter
 argument_list|(
 name|row
 argument_list|,
@@ -4907,12 +4908,6 @@ argument_list|,
 name|row
 operator|.
 name|length
-argument_list|,
-literal|null
-argument_list|,
-literal|0
-argument_list|,
-literal|0
 argument_list|)
 return|;
 case|case
@@ -4941,8 +4936,13 @@ operator|.
 name|first
 argument_list|()
 decl_stmt|;
-return|return
-name|passesGeneralBloomFilter
+comment|// create the required fake key
+name|Cell
+name|kvKey
+init|=
+name|KeyValueUtil
+operator|.
+name|createFirstOnRow
 argument_list|(
 name|row
 argument_list|,
@@ -4952,6 +4952,14 @@ name|row
 operator|.
 name|length
 argument_list|,
+name|HConstants
+operator|.
+name|EMPTY_BYTE_ARRAY
+argument_list|,
+literal|0
+argument_list|,
+literal|0
+argument_list|,
 name|column
 argument_list|,
 literal|0
@@ -4959,6 +4967,12 @@ argument_list|,
 name|column
 operator|.
 name|length
+argument_list|)
+decl_stmt|;
+return|return
+name|passesGeneralRowColBloomFilter
+argument_list|(
+name|kvKey
 argument_list|)
 return|;
 block|}
@@ -5083,10 +5097,10 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**      * A method for checking Bloom filters. Called directly from      * StoreFileScanner in case of a multi-column query.      *      * @param row      * @param rowOffset      * @param rowLen      * @param col      * @param colOffset      * @param colLen      * @return True if passes      */
+comment|/**      * A method for checking Bloom filters. Called directly from      * StoreFileScanner in case of a multi-column query.      *      * @param row      * @param rowOffset      * @param rowLen      * @return True if passes      */
 specifier|public
 name|boolean
-name|passesGeneralBloomFilter
+name|passesGeneralRowBloomFilter
 parameter_list|(
 name|byte
 index|[]
@@ -5097,20 +5111,8 @@ name|rowOffset
 parameter_list|,
 name|int
 name|rowLen
-parameter_list|,
-name|byte
-index|[]
-name|col
-parameter_list|,
-name|int
-name|colOffset
-parameter_list|,
-name|int
-name|colLen
 parameter_list|)
 block|{
-comment|// Cache Bloom filter as a local variable in case it is set to null by
-comment|// another thread on an IO error.
 name|BloomFilter
 name|bloomFilter
 init|=
@@ -5136,37 +5138,6 @@ name|key
 init|=
 literal|null
 decl_stmt|;
-comment|// Used in ROW_COL bloom
-name|KeyValue
-name|kvKey
-init|=
-literal|null
-decl_stmt|;
-switch|switch
-condition|(
-name|bloomFilterType
-condition|)
-block|{
-case|case
-name|ROW
-case|:
-if|if
-condition|(
-name|col
-operator|!=
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Row-only Bloom filter called with "
-operator|+
-literal|"column specified"
-argument_list|)
-throw|;
-block|}
 if|if
 condition|(
 name|rowOffset
@@ -5194,43 +5165,118 @@ name|key
 operator|=
 name|row
 expr_stmt|;
-break|break;
-case|case
-name|ROWCOL
-case|:
-name|kvKey
-operator|=
-name|KeyValueUtil
-operator|.
-name|createFirstOnRow
+return|return
+name|checkGeneralBloomFilter
 argument_list|(
-name|row
+name|key
 argument_list|,
-name|rowOffset
+literal|null
 argument_list|,
-name|rowLen
-argument_list|,
-name|HConstants
-operator|.
-name|EMPTY_BYTE_ARRAY
-argument_list|,
-literal|0
-argument_list|,
-literal|0
-argument_list|,
-name|col
-argument_list|,
-name|colOffset
-argument_list|,
-name|colLen
+name|bloomFilter
 argument_list|)
-expr_stmt|;
-break|break;
-default|default:
+return|;
+block|}
+comment|/**      * A method for checking Bloom filters. Called directly from      * StoreFileScanner in case of a multi-column query.      *      * @param cell      *          the cell to check if present in BloomFilter      * @return True if passes      */
+specifier|public
+name|boolean
+name|passesGeneralRowColBloomFilter
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|)
+block|{
+name|BloomFilter
+name|bloomFilter
+init|=
+name|this
+operator|.
+name|generalBloomFilter
+decl_stmt|;
+if|if
+condition|(
+name|bloomFilter
+operator|==
+literal|null
+condition|)
+block|{
 return|return
 literal|true
 return|;
 block|}
+comment|// Used in ROW_COL bloom
+name|Cell
+name|kvKey
+init|=
+literal|null
+decl_stmt|;
+comment|// Already if the incoming key is a fake rowcol key then use it as it is
+if|if
+condition|(
+name|cell
+operator|.
+name|getTypeByte
+argument_list|()
+operator|==
+name|KeyValue
+operator|.
+name|Type
+operator|.
+name|Maximum
+operator|.
+name|getCode
+argument_list|()
+operator|&&
+name|cell
+operator|.
+name|getFamilyLength
+argument_list|()
+operator|==
+literal|0
+condition|)
+block|{
+name|kvKey
+operator|=
+name|cell
+expr_stmt|;
+block|}
+else|else
+block|{
+name|kvKey
+operator|=
+name|CellUtil
+operator|.
+name|createFirstOnRowCol
+argument_list|(
+name|cell
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|checkGeneralBloomFilter
+argument_list|(
+literal|null
+argument_list|,
+name|kvKey
+argument_list|,
+name|bloomFilter
+argument_list|)
+return|;
+block|}
+specifier|private
+name|boolean
+name|checkGeneralBloomFilter
+parameter_list|(
+name|byte
+index|[]
+name|key
+parameter_list|,
+name|Cell
+name|kvKey
+parameter_list|,
+name|BloomFilter
+name|bloomFilter
+parameter_list|)
+block|{
 comment|// Empty file
 if|if
 condition|(
@@ -5394,34 +5440,14 @@ comment|// Since a Row Delete is essentially a DeleteFamily applied to all
 comment|// columns, a file might be skipped if using row+col Bloom filter.
 comment|// In order to ensure this file is included an additional check is
 comment|// required looking only for a row bloom.
-name|KeyValue
+name|Cell
 name|rowBloomKey
 init|=
-name|KeyValueUtil
+name|CellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
-name|row
-argument_list|,
-name|rowOffset
-argument_list|,
-name|rowLen
-argument_list|,
-name|HConstants
-operator|.
-name|EMPTY_BYTE_ARRAY
-argument_list|,
-literal|0
-argument_list|,
-literal|0
-argument_list|,
-name|HConstants
-operator|.
-name|EMPTY_BYTE_ARRAY
-argument_list|,
-literal|0
-argument_list|,
-literal|0
+name|kvKey
 argument_list|)
 decl_stmt|;
 comment|// hbase:meta does not have blooms. So we need not have special interpretation
