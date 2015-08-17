@@ -18150,7 +18150,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Convert SecurityCapabilitiesResponse.Capability to SecurityCapability    * @param caps capabilities returned in the SecurityCapabilitiesResponse message    * @return the converted list of SecurityCapability elements    */
+comment|/**    * Convert SecurityCapabilitiesResponse.Capability to SecurityCapability    * @param capabilities capabilities returned in the SecurityCapabilitiesResponse message    * @return the converted list of SecurityCapability elements    */
 specifier|public
 specifier|static
 name|List
