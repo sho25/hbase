@@ -252,8 +252,6 @@ operator|.
 name|generated
 operator|.
 name|RegionServerStatusProtos
-operator|.
-name|ReportRegionStateTransitionRequest
 import|;
 end_import
 
@@ -1474,11 +1472,45 @@ return|return
 literal|true
 return|;
 block|}
+comment|// Below here are methods for master. It's a pretty brittle version of this.
+comment|// Not sure that master actually needs a read/write queue since 90% of requests to
+comment|// master are writing to status or changing the meta table.
+comment|// All other read requests are admin generated and can be processed whenever.
+comment|// However changing that would require a pretty drastic change and should be done for
+comment|// the next major release and not as a fix for HBASE-14239
 if|if
 condition|(
 name|param
 operator|instanceof
+name|RegionServerStatusProtos
+operator|.
 name|ReportRegionStateTransitionRequest
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+if|if
+condition|(
+name|param
+operator|instanceof
+name|RegionServerStatusProtos
+operator|.
+name|RegionServerStartupRequest
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+if|if
+condition|(
+name|param
+operator|instanceof
+name|RegionServerStatusProtos
+operator|.
+name|RegionServerReportRequest
 condition|)
 block|{
 return|return
