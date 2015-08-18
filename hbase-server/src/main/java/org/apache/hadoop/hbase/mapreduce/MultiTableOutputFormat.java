@@ -628,7 +628,7 @@ control|)
 block|{
 name|mutator
 operator|.
-name|flush
+name|close
 argument_list|()
 expr_stmt|;
 block|}
