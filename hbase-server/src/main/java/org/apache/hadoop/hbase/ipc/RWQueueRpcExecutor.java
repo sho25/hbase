@@ -1107,9 +1107,11 @@ name|CallRunner
 argument_list|>
 argument_list|>
 argument_list|(
-name|writeHandlersCount
+name|numWriteQueues
 operator|+
-name|readHandlersCount
+name|numReadQueues
+operator|+
+name|numScanQueues
 argument_list|)
 expr_stmt|;
 name|LOG
