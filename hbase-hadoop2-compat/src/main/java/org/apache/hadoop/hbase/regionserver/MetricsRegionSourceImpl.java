@@ -35,6 +35,20 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|atomic
+operator|.
+name|AtomicBoolean
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|locks
 operator|.
 name|Lock
@@ -252,21 +266,11 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|boolean
+name|AtomicBoolean
 name|closed
 init|=
-literal|false
-decl_stmt|;
-comment|// lock to ensure that lock and pushing metrics can't race.
-comment|// When changing or acting on the closed boolean this lock must be held.
-comment|// The write lock must be held when changing closed.
-specifier|private
-specifier|final
-name|ReadWriteLock
-name|readWriteLock
-init|=
 operator|new
-name|ReentrantReadWriteLock
+name|AtomicBoolean
 argument_list|(
 literal|false
 argument_list|)
@@ -563,32 +567,26 @@ name|void
 name|close
 parameter_list|()
 block|{
-name|Lock
-name|lock
+name|boolean
+name|wasClosed
 init|=
-name|readWriteLock
+name|closed
 operator|.
-name|writeLock
-argument_list|()
+name|getAndSet
+argument_list|(
+literal|false
+argument_list|)
 decl_stmt|;
-name|lock
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-try|try
-block|{
+comment|// Has someone else already closed this for us?
 if|if
 condition|(
-name|closed
+name|wasClosed
 condition|)
 block|{
 return|return;
 block|}
-name|closed
-operator|=
-literal|true
-expr_stmt|;
+comment|// Before removing the metrics remove this region from the aggregate region bean.
+comment|// This should mean that it's unlikely that snapshot and close happen at the same time.
 name|agg
 operator|.
 name|deregister
@@ -596,6 +594,13 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
+comment|// While it's un-likely that snapshot and close happen at the same time it's still possible.
+comment|// So grab the lock to ensure that all calls to snapshot are done before we remove the metrics
+synchronized|synchronized
+init|(
+name|this
+init|)
+block|{
 if|if
 condition|(
 name|LOG
@@ -676,19 +681,6 @@ expr_stmt|;
 name|regionWrapper
 operator|=
 literal|null
-expr_stmt|;
-name|JmxCacheBuster
-operator|.
-name|clearJmxCache
-argument_list|()
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|lock
-operator|.
-name|unlock
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -851,26 +843,36 @@ name|boolean
 name|ignored
 parameter_list|)
 block|{
-name|Lock
-name|lock
-init|=
-name|readWriteLock
-operator|.
-name|readLock
-argument_list|()
-decl_stmt|;
-comment|// Grab the read lock.
-comment|// This ensures that
-name|lock
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-try|try
-block|{
+comment|// If there is a close that started be double extra sure
+comment|// that we're not getting any locks and not putting data
+comment|// into the metrics that should be removed. So early out
+comment|// before even getting the lock.
 if|if
 condition|(
 name|closed
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
+comment|// Grab the read
+comment|// This ensures that removes of the metrics
+comment|// can't happen while we are putting them back in.
+synchronized|synchronized
+init|(
+name|this
+init|)
+block|{
+comment|// It's possible that a close happened between checking
+comment|// the closed variable and getting the lock.
+if|if
+condition|(
+name|closed
+operator|.
+name|get
+argument_list|()
 condition|)
 block|{
 return|return;
@@ -1384,14 +1386,6 @@ literal|1000
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-finally|finally
-block|{
-name|lock
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 annotation|@
