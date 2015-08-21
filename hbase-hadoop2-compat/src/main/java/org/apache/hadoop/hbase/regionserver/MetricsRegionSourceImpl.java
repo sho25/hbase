@@ -574,7 +574,7 @@ name|closed
 operator|.
 name|getAndSet
 argument_list|(
-literal|false
+literal|true
 argument_list|)
 decl_stmt|;
 comment|// Has someone else already closed this for us?
