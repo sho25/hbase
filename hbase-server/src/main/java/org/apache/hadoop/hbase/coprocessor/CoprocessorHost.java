@@ -705,7 +705,7 @@ return|return
 name|returnValue
 return|;
 block|}
-comment|/**    * Load system coprocessors. Read the class names from configuration.    * Called by constructor.    */
+comment|/**    * Load system coprocessors once only. Read the class names from configuration.    * Called by constructor.    */
 specifier|protected
 name|void
 name|loadSystemCoprocessors
@@ -777,19 +777,6 @@ name|Coprocessor
 operator|.
 name|PRIORITY_SYSTEM
 decl_stmt|;
-name|List
-argument_list|<
-name|E
-argument_list|>
-name|configured
-init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|E
-argument_list|>
-argument_list|()
-decl_stmt|;
 for|for
 control|(
 name|String
@@ -815,6 +802,18 @@ operator|!=
 literal|null
 condition|)
 block|{
+comment|// If already loaded will just continue
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Attempted duplicate loading of "
+operator|+
+name|className
+operator|+
+literal|"; skipped"
+argument_list|)
+expr_stmt|;
 continue|continue;
 block|}
 name|ClassLoader
@@ -849,7 +848,11 @@ argument_list|(
 name|className
 argument_list|)
 expr_stmt|;
-name|configured
+comment|// Add coprocessors as we go to guard against case where a coprocessor is specified twice
+comment|// in the configuration
+name|this
+operator|.
+name|coprocessors
 operator|.
 name|add
 argument_list|(
@@ -900,14 +903,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// add entire set to the collection for COW efficiency
-name|coprocessors
-operator|.
-name|addAll
-argument_list|(
-name|configured
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * Load a coprocessor implementation into the host    * @param path path to implementation jar    * @param className the main class name    * @param priority chaining priority    * @param conf configuration for coprocessor    * @throws java.io.IOException Exception    */
 specifier|public

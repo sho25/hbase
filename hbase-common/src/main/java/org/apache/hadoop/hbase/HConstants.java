@@ -2285,6 +2285,7 @@ operator|.
 name|CASE_INSENSITIVE
 argument_list|)
 decl_stmt|;
+comment|/**    * Pattern that matches a coprocessor specification. Form is:    *<code>    *&lt;coprocessor jar file location> '|'&lt<class name> ['|'&lt;priority> ['|'&lt;arguments>]]    *</code>    * ...where arguments are<code>&lt;KEY> '='&lt;VALUE> [,...]</code>    *<p>For example:<code>hdfs:///foo.jar|com.foo.FooRegionObserver|1001|arg1=1,arg2=2</code>    */
 specifier|public
 specifier|static
 specifier|final
