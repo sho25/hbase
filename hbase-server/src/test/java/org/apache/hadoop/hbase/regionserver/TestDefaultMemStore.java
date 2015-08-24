@@ -627,7 +627,7 @@ literal|"column"
 argument_list|)
 decl_stmt|;
 specifier|private
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 name|mvcc
 decl_stmt|;
 specifier|private
@@ -659,7 +659,7 @@ operator|.
 name|mvcc
 operator|=
 operator|new
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 argument_list|()
 expr_stmt|;
 name|this
@@ -1800,7 +1800,7 @@ argument_list|(
 literal|"value"
 argument_list|)
 decl_stmt|;
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 operator|.
 name|WriteEntry
 name|w
@@ -2116,7 +2116,7 @@ literal|"value2"
 argument_list|)
 decl_stmt|;
 comment|// INSERT 1: Write both columns val1
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 operator|.
 name|WriteEntry
 name|w
@@ -2470,7 +2470,7 @@ literal|"value1"
 argument_list|)
 decl_stmt|;
 comment|// INSERT 1: Write both columns val1
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 operator|.
 name|WriteEntry
 name|w
@@ -2772,7 +2772,7 @@ literal|"q1"
 argument_list|)
 decl_stmt|;
 specifier|final
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 name|mvcc
 decl_stmt|;
 specifier|final
@@ -2798,7 +2798,7 @@ parameter_list|,
 name|MemStore
 name|memstore
 parameter_list|,
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 name|mvcc
 parameter_list|,
 name|AtomicReference
@@ -2902,7 +2902,7 @@ name|i
 operator|++
 control|)
 block|{
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 operator|.
 name|WriteEntry
 name|w

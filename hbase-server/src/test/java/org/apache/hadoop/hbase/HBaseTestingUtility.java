@@ -15792,7 +15792,7 @@ name|getName
 argument_list|()
 argument_list|)
 argument_list|,
-comment|// originally MultiVersionConsistencyControl.resetThreadReadPoint() was called to set
+comment|// originally MultiVersionConcurrencyControl.resetThreadReadPoint() was called to set
 comment|// readpoint 0.
 literal|0
 argument_list|)

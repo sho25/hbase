@@ -1861,7 +1861,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 operator|.
 name|WriteEntry
 import|;
@@ -3865,11 +3865,11 @@ literal|null
 decl_stmt|;
 specifier|private
 specifier|final
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 name|mvcc
 init|=
 operator|new
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 argument_list|()
 decl_stmt|;
 comment|// Coprocessor host
@@ -6734,7 +6734,7 @@ return|;
 block|}
 block|}
 specifier|public
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 name|getMVCC
 parameter_list|()
 block|{
@@ -10312,7 +10312,7 @@ condition|)
 block|{
 comment|// Take an update lock because am about to change the sequence id and we want the sequence id
 comment|// to be at the border of the empty memstore.
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 operator|.
 name|WriteEntry
 name|w
@@ -10631,7 +10631,7 @@ comment|// Stop updates while we snapshot the memstore of all of these regions' 
 comment|// to do this for a moment.  It is quick. We also set the memstore size to zero here before we
 comment|// allow updates again so its value will represent the size of the updates received
 comment|// during flush
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 operator|.
 name|WriteEntry
 name|w
@@ -14122,7 +14122,7 @@ argument_list|(
 name|isInReplay
 argument_list|)
 decl_stmt|;
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 operator|.
 name|WriteEntry
 name|w
@@ -14857,7 +14857,7 @@ else|else
 block|{
 name|mvccNum
 operator|=
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 operator|.
 name|getPreAssignedWriteNumber
 argument_list|(
@@ -31374,7 +31374,7 @@ expr_stmt|;
 block|}
 return|return;
 block|}
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 operator|.
 name|WriteEntry
 name|writeEntry
@@ -31518,7 +31518,7 @@ expr_stmt|;
 comment|// Get a mvcc write number
 name|mvccNum
 operator|=
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 operator|.
 name|getPreAssignedWriteNumber
 argument_list|(
@@ -32600,7 +32600,7 @@ block|}
 comment|// now start my own transaction
 name|mvccNum
 operator|=
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 operator|.
 name|getPreAssignedWriteNumber
 argument_list|(
@@ -34065,7 +34065,7 @@ block|}
 comment|// now start my own transaction
 name|mvccNum
 operator|=
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 operator|.
 name|getPreAssignedWriteNumber
 argument_list|(
@@ -35368,7 +35368,7 @@ name|REENTRANT_LOCK
 operator|)
 operator|+
 comment|// lock, updatesLock
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 operator|.
 name|FIXED_SIZE
 comment|// mvcc

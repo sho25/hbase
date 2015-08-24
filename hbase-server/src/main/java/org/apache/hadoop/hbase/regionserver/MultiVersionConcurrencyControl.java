@@ -110,7 +110,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 block|{
 specifier|private
 specifier|static
@@ -154,7 +154,7 @@ argument_list|()
 decl_stmt|;
 comment|/**    * Default constructor. Initializes the memstoreRead/Write points to 0.    */
 specifier|public
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 parameter_list|()
 block|{   }
 comment|/**    * Initializes the memstoreRead/Write points appropriately.    * @param startPoint    */

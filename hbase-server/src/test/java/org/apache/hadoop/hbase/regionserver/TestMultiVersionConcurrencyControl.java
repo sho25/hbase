@@ -112,7 +112,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is a hammer test that verifies MultiVersionConsistencyControl in a  * multiple writer single reader scenario.  */
+comment|/**  * This is a hammer test that verifies MultiVersionConcurrencyControl in a  * multiple writer single reader scenario.  */
 end_comment
 
 begin_class
@@ -131,7 +131,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestMultiVersionConsistencyControl
+name|TestMultiVersionConcurrencyControl
 extends|extends
 name|TestCase
 block|{
@@ -146,7 +146,7 @@ name|AtomicBoolean
 name|finished
 decl_stmt|;
 specifier|final
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 name|mvcc
 decl_stmt|;
 specifier|final
@@ -158,7 +158,7 @@ parameter_list|(
 name|AtomicBoolean
 name|finished
 parameter_list|,
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 name|mvcc
 parameter_list|,
 name|AtomicBoolean
@@ -219,7 +219,7 @@ name|get
 argument_list|()
 condition|)
 block|{
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 operator|.
 name|WriteEntry
 name|e
@@ -329,11 +329,11 @@ throws|throws
 name|Exception
 block|{
 specifier|final
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 name|mvcc
 init|=
 operator|new
-name|MultiVersionConsistencyControl
+name|MultiVersionConcurrencyControl
 argument_list|()
 decl_stmt|;
 specifier|final
