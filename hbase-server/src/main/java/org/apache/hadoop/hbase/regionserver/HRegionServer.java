@@ -749,22 +749,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ConnectionFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|ConnectionUtils
 import|;
 end_import
@@ -4090,7 +4074,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Create a 'smarter' HConnection, one that is capable of by-passing RPC if the request is to    * the local server.  Safe to use going to local or remote server.    * Create this instance in a method can be intercepted and mocked in tests.    * @throws IOException    */
+comment|/**    * Create a 'smarter' HConnection, one that is capable of by-passing RPC if the request is to    * the local server. Safe to use going to local or remote server.    * Create this instance in a method can be intercepted and mocked in tests.    * @throws IOException    */
 annotation|@
 name|VisibleForTesting
 specifier|protected
@@ -4106,14 +4090,16 @@ comment|// and remote invocations.
 return|return
 name|ConnectionUtils
 operator|.
-name|createShortCircuitHConnection
-argument_list|(
-name|ConnectionFactory
-operator|.
-name|createConnection
+name|createShortCircuitConnection
 argument_list|(
 name|conf
-argument_list|)
+argument_list|,
+literal|null
+argument_list|,
+name|userProvider
+operator|.
+name|getCurrent
+argument_list|()
 argument_list|,
 name|serverName
 argument_list|,
