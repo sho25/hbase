@@ -736,6 +736,9 @@ operator|.
 name|startsWith
 argument_list|(
 name|hostName
+operator|.
+name|toLowerCase
+argument_list|()
 operator|+
 literal|","
 argument_list|)
