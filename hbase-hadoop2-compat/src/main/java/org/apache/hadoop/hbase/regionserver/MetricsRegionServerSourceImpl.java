@@ -302,7 +302,7 @@ name|SLOW_MUTATE_KEY
 argument_list|,
 name|SLOW_MUTATE_DESC
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|deleteHisto
@@ -326,7 +326,7 @@ name|SLOW_DELETE_KEY
 argument_list|,
 name|SLOW_DELETE_DESC
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|getHisto
@@ -350,7 +350,7 @@ name|SLOW_GET_KEY
 argument_list|,
 name|SLOW_GET_DESC
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|incrementHisto
@@ -398,7 +398,7 @@ name|SLOW_APPEND_KEY
 argument_list|,
 name|SLOW_APPEND_DESC
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|replayHisto
@@ -452,7 +452,7 @@ name|SPLIT_REQUEST_KEY
 argument_list|,
 name|SPLIT_REQUEST_DESC
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|splitSuccess
@@ -466,7 +466,7 @@ name|SPLIT_SUCCESS_KEY
 argument_list|,
 name|SPLIT_SUCCESS_DESC
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 block|}

@@ -210,22 +210,6 @@ name|void
 name|clearJmxCache
 parameter_list|()
 block|{
-name|clearJmxCache
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
-specifier|public
-specifier|static
-specifier|synchronized
-name|void
-name|clearJmxCache
-parameter_list|(
-name|boolean
-name|force
-parameter_list|)
-block|{
 comment|//If there are more then 100 ms before the executor will run then everything should be merged.
 name|ScheduledFuture
 name|future
@@ -237,9 +221,6 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-operator|!
-name|force
-operator|&&
 operator|(
 name|future
 operator|==
@@ -297,6 +278,7 @@ name|future
 argument_list|)
 expr_stmt|;
 block|}
+specifier|final
 specifier|static
 class|class
 name|JmxCacheBusterRunnable
@@ -347,6 +329,15 @@ argument_list|()
 operator|.
 name|stop
 argument_list|()
+expr_stmt|;
+comment|// Sleep some time so that the rest of the hadoop metrics
+comment|// system knows that things are done
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|500
+argument_list|)
 expr_stmt|;
 name|DefaultMetricsSystem
 operator|.
