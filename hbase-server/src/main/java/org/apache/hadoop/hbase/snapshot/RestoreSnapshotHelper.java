@@ -747,6 +747,11 @@ specifier|final
 name|FileSystem
 name|fs
 decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|createBackRefs
+decl_stmt|;
 specifier|public
 name|RestoreSnapshotHelper
 parameter_list|(
@@ -777,6 +782,62 @@ parameter_list|,
 specifier|final
 name|MonitoredTask
 name|status
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|conf
+argument_list|,
+name|fs
+argument_list|,
+name|manifest
+argument_list|,
+name|tableDescriptor
+argument_list|,
+name|rootDir
+argument_list|,
+name|monitor
+argument_list|,
+name|status
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|RestoreSnapshotHelper
+parameter_list|(
+specifier|final
+name|Configuration
+name|conf
+parameter_list|,
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|SnapshotManifest
+name|manifest
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|tableDescriptor
+parameter_list|,
+specifier|final
+name|Path
+name|rootDir
+parameter_list|,
+specifier|final
+name|ForeignExceptionDispatcher
+name|monitor
+parameter_list|,
+specifier|final
+name|MonitoredTask
+name|status
+parameter_list|,
+specifier|final
+name|boolean
+name|createBackRefs
 parameter_list|)
 block|{
 name|this
@@ -859,6 +920,12 @@ operator|.
 name|status
 operator|=
 name|status
+expr_stmt|;
+name|this
+operator|.
+name|createBackRefs
+operator|=
+name|createBackRefs
 expr_stmt|;
 block|}
 comment|/**    * Restore the on-disk table to a specified snapshot state.    * @return the set of regions touched by the restore operation    */
@@ -2571,6 +2638,8 @@ argument_list|,
 name|regionInfo
 argument_list|,
 name|storeFile
+argument_list|,
+name|createBackRefs
 argument_list|)
 expr_stmt|;
 block|}
@@ -2724,6 +2793,8 @@ argument_list|,
 name|regionInfo
 argument_list|,
 name|storeFile
+argument_list|,
+name|createBackRefs
 argument_list|)
 expr_stmt|;
 block|}
@@ -3221,6 +3292,8 @@ argument_list|,
 name|snapshotRegionInfo
 argument_list|,
 name|storeFile
+argument_list|,
+name|createBackRefs
 argument_list|)
 expr_stmt|;
 block|}
@@ -3268,7 +3341,7 @@ name|manifest
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a new {@link HFileLink} to reference the store file.    *<p>The store file in the snapshot can be a simple hfile, an HFileLink or a reference.    *<ul>    *<li>hfile: abc -> table=region-abc    *<li>reference: abc.1234 -> table=region-abc.1234    *<li>hfilelink: table=region-hfile -> table=region-hfile    *</ul>    * @param familyDir destination directory for the store file    * @param regionInfo destination region info for the table    * @param storeFile store file name (can be a Reference, HFileLink or simple HFile)    */
+comment|/**    * Create a new {@link HFileLink} to reference the store file.    *<p>The store file in the snapshot can be a simple hfile, an HFileLink or a reference.    *<ul>    *<li>hfile: abc -> table=region-abc    *<li>reference: abc.1234 -> table=region-abc.1234    *<li>hfilelink: table=region-hfile -> table=region-hfile    *</ul>    * @param familyDir destination directory for the store file    * @param regionInfo destination region info for the table    * @param createBackRef - Whether back reference should be created. Defaults to true.    * @param storeFile store file name (can be a Reference, HFileLink or simple HFile)    */
 specifier|private
 name|void
 name|restoreStoreFile
@@ -3286,6 +3359,10 @@ name|SnapshotRegionManifest
 operator|.
 name|StoreFile
 name|storeFile
+parameter_list|,
+specifier|final
+name|boolean
+name|createBackRef
 parameter_list|)
 throws|throws
 name|IOException
@@ -3319,6 +3396,8 @@ argument_list|,
 name|familyDir
 argument_list|,
 name|hfileName
+argument_list|,
+name|createBackRef
 argument_list|)
 expr_stmt|;
 block|}
@@ -3358,6 +3437,8 @@ argument_list|,
 name|regionInfo
 argument_list|,
 name|hfileName
+argument_list|,
+name|createBackRef
 argument_list|)
 expr_stmt|;
 block|}
@@ -4257,6 +4338,8 @@ operator|new
 name|ForeignExceptionDispatcher
 argument_list|()
 decl_stmt|;
+comment|// we send createBackRefs=false so that restored hfiles do not create back reference links
+comment|// in the base hbase root dir.
 name|RestoreSnapshotHelper
 name|helper
 init|=
@@ -4279,6 +4362,8 @@ argument_list|,
 name|monitor
 argument_list|,
 name|status
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|helper
