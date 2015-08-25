@@ -3673,7 +3673,9 @@ literal|": started "
 operator|+
 name|readThreads
 operator|+
-literal|" reader(s)."
+literal|" reader(s) listening on port="
+operator|+
+name|port
 argument_list|)
 expr_stmt|;
 comment|// Register accepts on the server socket with the selector.

@@ -369,13 +369,13 @@ name|toString
 parameter_list|()
 block|{
 return|return
-literal|"callId: "
+literal|"callId="
 operator|+
 name|this
 operator|.
 name|id
 operator|+
-literal|" methodName: "
+literal|", method="
 operator|+
 name|this
 operator|.
@@ -384,7 +384,13 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|" param {"
+literal|", rpcTimeout="
+operator|+
+name|this
+operator|.
+name|rpcTimeout
+operator|+
+literal|", param {"
 operator|+
 operator|(
 name|this

@@ -995,7 +995,7 @@ operator|.
 name|hashCode
 argument_list|()
 operator|+
-literal|") connection to "
+literal|") to "
 operator|+
 name|address
 operator|.
@@ -1009,7 +1009,7 @@ operator|==
 literal|null
 operator|)
 condition|?
-literal|" from an unknown user"
+literal|" from unknown user"
 else|:
 operator|(
 literal|" from "

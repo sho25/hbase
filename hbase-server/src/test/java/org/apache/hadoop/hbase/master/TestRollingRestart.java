@@ -480,17 +480,6 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-name|HConstants
-operator|.
-name|REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
-argument_list|,
-literal|40
-argument_list|)
-expr_stmt|;
 name|HBaseTestingUtility
 name|TEST_UTIL
 init|=
