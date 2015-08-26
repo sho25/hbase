@@ -4854,11 +4854,9 @@ parameter_list|)
 block|{
 comment|// We set the value inside the synchronized block, this way the next in line
 comment|//  won't even try to write
-name|shouldCloseConnection
-operator|.
-name|set
+name|markClosed
 argument_list|(
-literal|true
+name|e
 argument_list|)
 expr_stmt|;
 name|writeException
