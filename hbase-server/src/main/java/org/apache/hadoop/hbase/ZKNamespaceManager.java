@@ -950,6 +950,34 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|e
+operator|instanceof
+name|KeeperException
+operator|.
+name|NoNodeException
+condition|)
+block|{
+comment|// If the node does not exist, it could be already deleted. Continue without fail.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"The ZNode "
+operator|+
+name|zNode
+operator|+
+literal|" for namespace "
+operator|+
+name|name
+operator|+
+literal|" does not exist."
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|error
@@ -972,6 +1000,7 @@ argument_list|,
 name|e
 argument_list|)
 throw|;
+block|}
 block|}
 block|}
 specifier|private

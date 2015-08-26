@@ -307,6 +307,11 @@ name|MasterCoprocessorHost
 name|getMasterCoprocessorHost
 parameter_list|()
 function_decl|;
+comment|/**    * @return Master's instance of {@link TableNamespaceManager}    */
+name|TableNamespaceManager
+name|getTableNamespaceManager
+parameter_list|()
+function_decl|;
 comment|/**    * @return Master's instance of {@link MasterQuotaManager}    */
 name|MasterQuotaManager
 name|getMasterQuotaManager
@@ -577,35 +582,82 @@ name|boolean
 name|isInitialized
 parameter_list|()
 function_decl|;
-comment|/**    * Create a new namespace    * @param descriptor descriptor which describes the new namespace    * @throws IOException    */
+comment|/**    * Create a new namespace    * @param descriptor descriptor which describes the new namespace    * @param nonceGroup    * @param nonce    * @throws IOException    */
 specifier|public
 name|void
 name|createNamespace
 parameter_list|(
+specifier|final
 name|NamespaceDescriptor
 name|descriptor
+parameter_list|,
+specifier|final
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing namespace    * @param descriptor descriptor which updates the existing namespace    * @throws IOException    */
+comment|/**    * Create a new namespace synchronously.    * @param descriptor descriptor which describes the new namespace    * @param nonceGroup    * @param nonce    * @throws IOException    */
+specifier|public
+name|void
+name|createNamespaceSync
+parameter_list|(
+specifier|final
+name|NamespaceDescriptor
+name|descriptor
+parameter_list|,
+specifier|final
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Modify an existing namespace    * @param descriptor descriptor which updates the existing namespace    * @param nonceGroup    * @param nonce    * @throws IOException    */
 specifier|public
 name|void
 name|modifyNamespace
 parameter_list|(
+specifier|final
 name|NamespaceDescriptor
 name|descriptor
+parameter_list|,
+specifier|final
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed.    * @param name namespace name    * @throws IOException    */
+comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed.    * @param name namespace name    * @param nonceGroup    * @param nonce    * @throws IOException    */
 specifier|public
 name|void
 name|deleteNamespace
 parameter_list|(
+specifier|final
 name|String
 name|name
+parameter_list|,
+specifier|final
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
 parameter_list|)
 throws|throws
 name|IOException
