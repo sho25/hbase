@@ -4854,11 +4854,18 @@ parameter_list|)
 block|{
 comment|// We set the value inside the synchronized block, this way the next in line
 comment|//  won't even try to write
+if|if
+condition|(
 name|markClosed
 argument_list|(
 name|e
 argument_list|)
+condition|)
+block|{
+name|close
+argument_list|()
 expr_stmt|;
+block|}
 name|writeException
 operator|=
 name|e
