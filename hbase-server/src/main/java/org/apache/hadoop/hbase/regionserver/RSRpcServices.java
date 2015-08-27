@@ -5606,8 +5606,8 @@ argument_list|()
 expr_stmt|;
 block|}
 name|OperationStatus
-name|codes
 index|[]
+name|codes
 init|=
 name|region
 operator|.
@@ -6604,11 +6604,8 @@ throw|;
 block|}
 name|priority
 operator|=
-operator|new
-name|AnnotationReadingPriorityFunction
-argument_list|(
-name|this
-argument_list|)
+name|createPriority
+argument_list|()
 expr_stmt|;
 name|String
 name|name
@@ -6827,6 +6824,19 @@ argument_list|(
 name|name
 argument_list|)
 expr_stmt|;
+block|}
+specifier|protected
+name|PriorityFunction
+name|createPriority
+parameter_list|()
+block|{
+return|return
+operator|new
+name|AnnotationReadingPriorityFunction
+argument_list|(
+name|this
+argument_list|)
+return|;
 block|}
 specifier|public
 specifier|static
@@ -7186,6 +7196,9 @@ return|return
 name|priority
 return|;
 block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
 name|Configuration
 name|getConfiguration
 parameter_list|()
@@ -14091,6 +14104,22 @@ name|le
 parameter_list|)
 block|{
 comment|// No problem, ignore
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Un-able to cancel lease of scanner. It could already be closed."
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -15808,6 +15837,22 @@ name|le
 parameter_list|)
 block|{
 comment|// No problem, ignore
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Un-able to cancel lease of scanner. It could already be closed."
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
