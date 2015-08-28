@@ -2498,7 +2498,7 @@ argument_list|()
 return|;
 block|}
 name|Cell
-name|peeked
+name|cell
 init|=
 name|this
 operator|.
@@ -2509,7 +2509,7 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|peeked
+name|cell
 operator|==
 literal|null
 condition|)
@@ -2562,7 +2562,7 @@ name|CellUtil
 operator|.
 name|matchingRow
 argument_list|(
-name|peeked
+name|cell
 argument_list|,
 name|matcher
 operator|.
@@ -2580,7 +2580,7 @@ name|matcher
 operator|.
 name|setToNewRow
 argument_list|(
-name|peeked
+name|cell
 argument_list|)
 expr_stmt|;
 block|}
@@ -2598,9 +2598,6 @@ operator|.
 name|clearProgress
 argument_list|()
 expr_stmt|;
-name|Cell
-name|cell
-decl_stmt|;
 comment|// Only do a sanity-check if store and comparator are available.
 name|CellComparator
 name|comparator
@@ -2628,21 +2625,7 @@ literal|0
 decl_stmt|;
 name|LOOP
 label|:
-while|while
-condition|(
-operator|(
-name|cell
-operator|=
-name|this
-operator|.
-name|heap
-operator|.
-name|peek
-argument_list|()
-operator|)
-operator|!=
-literal|null
-condition|)
+do|do
 block|{
 comment|// Update and check the time limit based on the configured value of cellsPerTimeoutCheck
 if|if
@@ -3152,6 +3135,22 @@ argument_list|)
 throw|;
 block|}
 block|}
+do|while
+condition|(
+operator|(
+name|cell
+operator|=
+name|this
+operator|.
+name|heap
+operator|.
+name|peek
+argument_list|()
+operator|)
+operator|!=
+literal|null
+condition|)
+do|;
 if|if
 condition|(
 name|count
