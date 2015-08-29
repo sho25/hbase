@@ -6727,6 +6727,23 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+return|return
+name|balance
+argument_list|(
+literal|false
+argument_list|)
+return|;
+block|}
+specifier|public
+name|boolean
+name|balance
+parameter_list|(
+name|boolean
+name|force
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 comment|// if master not initialized, don't run balancer.
 if|if
 condition|(
@@ -6807,11 +6824,38 @@ operator|.
 name|getRegionsInTransition
 argument_list|()
 decl_stmt|;
+comment|// if hbase:meta region is in transition, result of assignment cannot be recorded
+comment|// ignore the force flag in that case
+name|boolean
+name|metaInTransition
+init|=
+name|assignmentManager
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|isMetaRegionInTransition
+argument_list|()
+decl_stmt|;
+name|String
+name|prefix
+init|=
+name|force
+operator|&&
+operator|!
+name|metaInTransition
+condition|?
+literal|"R"
+else|:
+literal|"Not r"
+decl_stmt|;
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Not running balancer because "
+name|prefix
+operator|+
+literal|"unning balancer because "
 operator|+
 name|regionsInTransition
 operator|.
@@ -6841,6 +6885,13 @@ literal|256
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|force
+operator|||
+name|metaInTransition
+condition|)
 return|return
 literal|false
 return|;

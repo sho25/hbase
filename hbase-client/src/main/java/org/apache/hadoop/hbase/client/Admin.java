@@ -1414,6 +1414,16 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Invoke the balancer.  Will run the balancer and if regions to move, it will    * go ahead and do the reassignments. If there is region in transition, force parameter of true    * would still run balancer. Can *not* run for other reasons.  Check    * logs.    * @param force whether we should force balance even if there is region in transition    * @return True if balancer ran, false otherwise.    */
+name|boolean
+name|balancer
+parameter_list|(
+name|boolean
+name|force
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Query the current state of the balancer    *    * @return true if the balancer is enabled, false otherwise.    */
 name|boolean
 name|isBalancerEnabled
