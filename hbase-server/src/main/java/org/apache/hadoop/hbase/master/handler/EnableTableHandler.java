@@ -690,9 +690,11 @@ operator|!
 name|skipTableStateCheck
 condition|)
 block|{
-if|if
-condition|(
-operator|!
+name|TableState
+operator|.
+name|State
+name|state
+init|=
 name|this
 operator|.
 name|assignmentManager
@@ -718,6 +720,12 @@ name|State
 operator|.
 name|DISABLED
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|state
+operator|!=
+literal|null
 condition|)
 block|{
 name|LOG
@@ -728,7 +736,14 @@ literal|"Table "
 operator|+
 name|tableName
 operator|+
-literal|" isn't disabled; skipping enable"
+literal|" isn't disabled;is "
+operator|+
+name|state
+operator|.
+name|name
+argument_list|()
+operator|+
+literal|"; skipping enable"
 argument_list|)
 expr_stmt|;
 throw|throw
@@ -738,6 +753,13 @@ argument_list|(
 name|this
 operator|.
 name|tableName
+operator|+
+literal|" state is "
+operator|+
+name|state
+operator|.
+name|name
+argument_list|()
 argument_list|)
 throw|;
 block|}

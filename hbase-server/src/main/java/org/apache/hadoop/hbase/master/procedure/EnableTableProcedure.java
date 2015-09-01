@@ -1508,15 +1508,22 @@ operator|.
 name|getTableStateManager
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-operator|!
+name|TableState
+operator|.
+name|State
+name|state
+init|=
 name|tsm
 operator|.
 name|getTableState
 argument_list|(
 name|tableName
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|state
 operator|.
 name|equals
 argument_list|(
@@ -1536,7 +1543,14 @@ literal|"Table "
 operator|+
 name|tableName
 operator|+
-literal|" isn't disabled; skipping enable"
+literal|" isn't disabled;is "
+operator|+
+name|state
+operator|.
+name|name
+argument_list|()
+operator|+
+literal|"; skipping enable"
 argument_list|)
 expr_stmt|;
 name|setFailure
@@ -1549,6 +1563,13 @@ argument_list|(
 name|this
 operator|.
 name|tableName
+operator|+
+literal|" state is "
+operator|+
+name|state
+operator|.
+name|name
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;

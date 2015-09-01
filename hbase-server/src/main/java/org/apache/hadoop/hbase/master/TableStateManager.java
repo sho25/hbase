@@ -383,9 +383,11 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Set table state to provided but only if table in specified states    * Caller should lock table on write.    * @param tableName table to change state for    * @param newState new state    * @param states states to check against    * @throws IOException    */
+comment|/**    * Set table state to provided but only if table in specified states    * Caller should lock table on write.    * @param tableName table to change state for    * @param newState new state    * @param states states to check against    * @return null if succeed or table state if failed    * @throws IOException    */
 specifier|public
-name|boolean
+name|TableState
+operator|.
+name|State
 name|setTableStateIfInStates
 parameter_list|(
 name|TableName
@@ -456,13 +458,16 @@ name|newState
 argument_list|)
 expr_stmt|;
 return|return
-literal|true
+literal|null
 return|;
 block|}
 else|else
 block|{
 return|return
-literal|false
+name|currentState
+operator|.
+name|getState
+argument_list|()
 return|;
 block|}
 block|}
