@@ -2273,6 +2273,26 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|boolean
+name|abortProcedure
+parameter_list|(
+specifier|final
+name|long
+name|procId
+parameter_list|,
+specifier|final
+name|boolean
+name|mayInterruptIfRunning
+parameter_list|)
+block|{
+return|return
+literal|false
+return|;
+comment|//To change body of implemented methods use File | Settings | File Templates.
+block|}
+annotation|@
+name|Override
+specifier|public
 name|List
 argument_list|<
 name|HTableDescriptor

@@ -281,16 +281,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Assert
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -345,18 +335,6 @@ name|assertTrue
 import|;
 end_import
 
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|fail
-import|;
-end_import
-
 begin_class
 annotation|@
 name|Category
@@ -397,14 +375,6 @@ name|int
 name|PROCEDURE_EXECUTOR_SLOTS
 init|=
 literal|1
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|Procedure
-name|NULL_PROC
-init|=
-literal|null
 decl_stmt|;
 specifier|private
 specifier|static

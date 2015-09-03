@@ -1713,6 +1713,39 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * abort a procedure    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return true if aborted, false if procedure already completed or does not exist    * @throws IOException    */
+name|boolean
+name|abortProcedure
+parameter_list|(
+specifier|final
+name|long
+name|procId
+parameter_list|,
+specifier|final
+name|boolean
+name|mayInterruptIfRunning
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Abort a procedure but does not block and wait for it be completely removed.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return true if aborted, false if procedure already completed or does not exist    * @throws IOException    */
+name|Future
+argument_list|<
+name|Boolean
+argument_list|>
+name|abortProcedureAsync
+parameter_list|(
+specifier|final
+name|long
+name|procId
+parameter_list|,
+specifier|final
+name|boolean
+name|mayInterruptIfRunning
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Roll the log writer. I.e. for filesystem based write ahead logs, start writing to a new file.    *    * Note that the actual rolling of the log writer is asynchronous and may not be complete when    * this method returns. As a side effect of this call, the named region server may schedule    * store flushes at the request of the wal.    *    * @param serverName The servername of the regionserver.    * @throws IOException if a remote or network exception occurs    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    */
 name|void
 name|rollWALWriter

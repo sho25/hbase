@@ -662,6 +662,20 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Abort a procedure.    * @param procId ID of the procedure    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return true if aborted, false if procedure already completed or does not exist    */
+specifier|public
+name|boolean
+name|abortProcedure
+parameter_list|(
+specifier|final
+name|long
+name|procId
+parameter_list|,
+specifier|final
+name|boolean
+name|mayInterruptIfRunning
+parameter_list|)
+function_decl|;
 comment|/**    * Get a namespace descriptor by name    * @param name name of namespace descriptor    * @return A descriptor    * @throws IOException    */
 specifier|public
 name|NamespaceDescriptor

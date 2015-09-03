@@ -6914,6 +6914,36 @@ name|Override
 specifier|public
 name|MasterProtos
 operator|.
+name|AbortProcedureResponse
+name|abortProcedure
+parameter_list|(
+name|RpcController
+name|controller
+parameter_list|,
+name|MasterProtos
+operator|.
+name|AbortProcedureRequest
+name|request
+parameter_list|)
+throws|throws
+name|ServiceException
+block|{
+return|return
+name|stub
+operator|.
+name|abortProcedure
+argument_list|(
+name|controller
+argument_list|,
+name|request
+argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|MasterProtos
+operator|.
 name|AddColumnResponse
 name|addColumn
 parameter_list|(
@@ -9741,7 +9771,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Close the connection for good, regardless of what the current value of    * {@link #refCount} is. Ideally, {@link #refCount} should be zero at this    * point, which would be the case if all of its consumers close the    * connection. However, on the off chance that someone is unable to close    * the connection, perhaps because it bailed out prematurely, the method    * below will ensure that this {@link org.apache.hadoop.hbase.client.HConnection} instance is cleaned up.    * Caveat: The JVM may take an unknown amount of time to call finalize on an    * unreachable object, so our hope is that every consumer cleans up after    * itself, like any good citizen.    */
+comment|/**    * Close the connection for good, regardless of what the current value of    * {@link #refCount} is. Ideally, {@link #refCount} should be zero at this    * point, which would be the case if all of its consumers close the    * connection. However, on the off chance that someone is unable to close    * the connection, perhaps because it bailed out prematurely, the method    * below will ensure that this {@link org.apache.hadoop.hbase.client.HConnection} instance    * is cleaned up.    * Caveat: The JVM may take an unknown amount of time to call finalize on an    * unreachable object, so our hope is that every consumer cleans up after    * itself, like any good citizen.    */
 annotation|@
 name|Override
 specifier|protected
