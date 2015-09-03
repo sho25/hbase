@@ -166,6 +166,11 @@ block|}
 comment|/**    * Test that the server is alive once started    *    * @throws Throwable on failure    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testCreatedServerIsNotAlive
@@ -187,6 +192,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testStopUnstartedServer
@@ -209,6 +219,11 @@ block|}
 comment|/**    * Test that the server is alive once started    *    * @throws Throwable on failure    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testStartedServerIsAlive
@@ -291,6 +306,11 @@ block|}
 comment|/**    * Test that the server is not alive once stopped    *    * @throws Throwable on failure    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testStoppedServerIsNotAlive
@@ -323,6 +343,11 @@ block|}
 comment|/**    * Test that the server is not alive once stopped    *    * @throws Throwable on failure    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testStoppingTwiceServerIsAllowed
@@ -362,9 +387,14 @@ name|server
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test that the server is alive once started    *     * @throws Throwable    *           on failure    */
+comment|/**    * Test that the server is alive once started    *    * @throws Throwable    *           on failure    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testWepAppContextAfterServerStop
