@@ -1607,6 +1607,7 @@ block|}
 comment|/*    * Some enums to guard against bad calls.    */
 comment|// The RoleCommand enum is used by the doRoleCommand method to guard against non-existent methods
 comment|// being invoked on a given role.
+comment|// TODO: Integrate zookeeper and hdfs related failure injections (Ref: HBASE-14261).
 specifier|private
 enum|enum
 name|RoleCommand

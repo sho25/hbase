@@ -95,6 +95,11 @@ argument_list|(
 literal|"tasktracker"
 argument_list|)
 block|,
+name|ZOOKEEPER_SERVER
+argument_list|(
+literal|"QuorumPeerMain"
+argument_list|)
+block|,
 name|HBASE_MASTER
 argument_list|(
 literal|"master"
