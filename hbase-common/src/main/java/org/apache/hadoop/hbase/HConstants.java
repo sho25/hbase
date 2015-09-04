@@ -3058,6 +3058,23 @@ name|REPLICATION_CODEC_CONF_KEY
 init|=
 literal|"hbase.replication.rpc.codec"
 decl_stmt|;
+comment|/** Maximum number of threads used by the replication source for shipping edits to the sinks */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REPLICATION_SOURCE_MAXTHREADS_KEY
+init|=
+literal|"hbase.replication.source.maxthreads"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|REPLICATION_SOURCE_MAXTHREADS_DEFAULT
+init|=
+literal|10
+decl_stmt|;
 comment|/** Config for pluggable consensus provider */
 specifier|public
 specifier|static
