@@ -1896,44 +1896,6 @@ argument_list|(
 name|REGION_NAME
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Allowing compaction to proceed"
-argument_list|)
-expr_stmt|;
-name|compactingRegion
-operator|.
-name|allowCompactions
-argument_list|()
-expr_stmt|;
-while|while
-condition|(
-name|compactingRegion
-operator|.
-name|compactCount
-operator|==
-literal|0
-condition|)
-block|{
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|1000
-argument_list|)
-expr_stmt|;
-block|}
-comment|// The server we killed stays up until the compaction that was started before it was killed completes.  In logs
-comment|// you should see the old regionserver now going down.
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Compaction finished"
-argument_list|)
-expr_stmt|;
 comment|// After compaction of old region finishes on the server that was going down, make sure that
 comment|// all the files we expect are still working when region is up in new location.
 name|FileSystem
@@ -1982,6 +1944,44 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Allowing compaction to proceed"
+argument_list|)
+expr_stmt|;
+name|compactingRegion
+operator|.
+name|allowCompactions
+argument_list|()
+expr_stmt|;
+while|while
+condition|(
+name|compactingRegion
+operator|.
+name|compactCount
+operator|==
+literal|0
+condition|)
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
+block|}
+comment|// The server we killed stays up until the compaction that was started before it was killed completes.  In logs
+comment|// you should see the old regionserver now going down.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Compaction finished"
+argument_list|)
+expr_stmt|;
 comment|// If we survive the split keep going...
 comment|// Now we make sure that the region isn't totally confused.  Load up more rows.
 name|TEST_UTIL
