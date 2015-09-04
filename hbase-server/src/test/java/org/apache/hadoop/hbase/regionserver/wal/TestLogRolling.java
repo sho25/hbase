@@ -847,7 +847,6 @@ operator|new
 name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
-comment|/**    * constructor    * @throws Exception    */
 specifier|public
 name|TestLogRolling
 parameter_list|()
@@ -3293,6 +3292,8 @@ name|getOnlineRegionsLocalContext
 argument_list|()
 control|)
 block|{
+try|try
+block|{
 name|r
 operator|.
 name|flush
@@ -3300,6 +3301,26 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+comment|// This try/catch was added by HBASE-14317. It is needed
+comment|// because this issue tightened up the semantic such that
+comment|// a failed append could not be followed by a successful
+comment|// sync. What is coming out here is a failed sync, a sync
+comment|// that used to 'pass'.
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 name|ResultScanner
 name|scanner

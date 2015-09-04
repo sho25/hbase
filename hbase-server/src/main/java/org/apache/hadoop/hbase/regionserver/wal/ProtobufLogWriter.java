@@ -1005,9 +1005,9 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|error
+name|warn
 argument_list|(
-literal|"Got IOException while writing trailer"
+literal|"Failed to write trailer, non-fatal, continuing..."
 argument_list|,
 name|ioe
 argument_list|)

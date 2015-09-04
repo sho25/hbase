@@ -1000,7 +1000,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of {@link WAL} to go against {@link FileSystem}; i.e. keep WALs in HDFS.  * Only one WAL is ever being written at a time.  When a WAL hits a configured maximum size,  * it is rolled.  This is done internal to the implementation.  *  *<p>As data is flushed from the MemStore to other on-disk structures (files sorted by  * key, hfiles), a WAL becomes obsolete. We can let go of all the log edits/entries for a given  * HRegion-sequence id.  A bunch of work in the below is done keeping account of these region  * sequence ids -- what is flushed out to hfiles, and what is yet in WAL and in memory only.  *  *<p>It is only practical to delete entire files. Thus, we delete an entire on-disk file  *<code>F</code> when all of the edits in<code>F</code> have a log-sequence-id that's older  * (smaller) than the most-recent flush.  *  *<p>To read an WAL, call {@link WALFactory#createReader(org.apache.hadoop.fs.FileSystem,  * org.apache.hadoop.fs.Path)}.  */
+comment|/**  * Implementation of {@link WAL} to go against {@link FileSystem}; i.e. keep WALs in HDFS.  * Only one WAL is ever being written at a time.  When a WAL hits a configured maximum size,  * it is rolled.  This is done internal to the implementation.  *  *<p>As data is flushed from the MemStore to other on-disk structures (files sorted by  * key, hfiles), a WAL becomes obsolete. We can let go of all the log edits/entries for a given  * HRegion-sequence id.  A bunch of work in the below is done keeping account of these region  * sequence ids -- what is flushed out to hfiles, and what is yet in WAL and in memory only.  *  *<p>It is only practical to delete entire files. Thus, we delete an entire on-disk file  *<code>F</code> when all of the edits in<code>F</code> have a log-sequence-id that's older  * (smaller) than the most-recent flush.  *  *<p>To read an WAL, call {@link WALFactory#createReader(org.apache.hadoop.fs.FileSystem,  * org.apache.hadoop.fs.Path)}.  *   *<h2>Failure Semantic</h2>  * If an exception on append or sync, roll the WAL because the current WAL is now a lame duck;  * any more appends or syncs will fail also with the same original exception. If we have made  * successful appends to the WAL and we then are unable to sync them, our current semantic is to  * return error to the client that the appends failed but also to abort the current context,  * usually the hosting server. We need to replay the WALs. TODO: Change this semantic. A roll of  * WAL may be sufficient as long as we have flagged client that the append failed. TODO:  * replication may pick up these last edits though they have been marked as failed append (Need to  * keep our own file lengths, not rely on HDFS).  */
 end_comment
 
 begin_class
@@ -1436,7 +1436,6 @@ name|AtomicInteger
 argument_list|()
 decl_stmt|;
 comment|/**    * WAL Comparator; it compares the timestamp (log filenum), present in the log file name.    * Throws an IllegalArgumentException if used to compare paths from different wals.    */
-specifier|public
 specifier|final
 name|Comparator
 argument_list|<
@@ -1886,7 +1885,7 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"wal suffix must start with '"
+literal|"WAL suffix must start with '"
 operator|+
 name|WAL_FILE_NAME_DELIMITER
 operator|+
@@ -2547,10 +2546,24 @@ name|OutputStream
 name|getOutputStream
 parameter_list|()
 block|{
-return|return
+name|FSDataOutputStream
+name|fsdos
+init|=
 name|this
 operator|.
 name|hdfs_out
+decl_stmt|;
+if|if
+condition|(
+name|fsdos
+operator|==
+literal|null
+condition|)
+return|return
+literal|null
+return|;
+return|return
+name|fsdos
 operator|.
 name|getWrappedStream
 argument_list|()
@@ -3436,6 +3449,23 @@ return|return
 name|regions
 return|;
 block|}
+comment|/**    * Used to manufacture race condition reliably. For testing only.    * @see #beforeWaitOnSafePoint()    */
+annotation|@
+name|VisibleForTesting
+specifier|protected
+name|void
+name|afterCreatingZigZagLatch
+parameter_list|()
+block|{}
+comment|/**    * @see #afterCreatingZigZagLatch()    */
+annotation|@
+name|VisibleForTesting
+specifier|protected
+name|void
+name|beforeWaitOnSafePoint
+parameter_list|()
+block|{}
+empty_stmt|;
 comment|/**    * Cleans up current writer closing it and then puts in place the passed in    *<code>nextWriter</code>.    *    * In the case of creating a new WAL, oldPath will be null.    *    * In the case of rolling over from one file to the next, none of the params will be null.    *    * In the case of closing out this FSHLog with no further use newPath, nextWriter, and    * nextHdfsOut will be null.    *    * @param oldPath may be null    * @param newPath may be null    * @param nextWriter may be null    * @param nextHdfsOut may be null    * @return the passed in<code>newPath</code>    * @throws IOException if there is a problem flushing or closing the underlying FS    */
 name|Path
 name|replaceWriter
@@ -3488,6 +3518,9 @@ operator|.
 name|attainSafePoint
 argument_list|()
 decl_stmt|;
+name|afterCreatingZigZagLatch
+argument_list|()
+expr_stmt|;
 name|TraceScope
 name|scope
 init|=
@@ -3539,6 +3572,7 @@ name|FailedSyncBeforeLogCloseException
 name|e
 parameter_list|)
 block|{
+comment|// If unflushed/unsynced entries on close, it is reason to abort.
 if|if
 condition|(
 name|isUnflushedEntries
@@ -3552,7 +3586,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed last sync but no outstanding unsync edits so falling through to close; "
+literal|"Failed sync but no outstanding unsync'd edits so falling through to close; "
 operator|+
 name|e
 operator|.
@@ -4130,7 +4164,7 @@ throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-literal|"wal file number can't be< 0"
+literal|"WAL file number can't be< 0"
 argument_list|)
 throw|;
 block|}
@@ -4237,7 +4271,7 @@ literal|"The log file "
 operator|+
 name|fileName
 operator|+
-literal|" doesn't belong to this wal. ("
+literal|" doesn't belong to this WAL. ("
 operator|+
 name|toString
 argument_list|()
@@ -4716,6 +4750,11 @@ block|}
 block|}
 block|}
 comment|/**    * @param now    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tableName    * @param clusterIds that have consumed the change    * @return New log key.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|protected
 name|WALKey
 name|makeKey
@@ -4960,6 +4999,7 @@ specifier|volatile
 name|long
 name|sequence
 decl_stmt|;
+comment|// Keep around last exception thrown. Clear on successful sync.
 specifier|private
 specifier|final
 name|BlockingQueue
@@ -5383,7 +5423,7 @@ name|nanoTime
 argument_list|()
 decl_stmt|;
 name|Throwable
-name|t
+name|lastException
 init|=
 literal|null
 decl_stmt|;
@@ -5426,12 +5466,12 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Error syncing, request close of wal "
+literal|"Error syncing, request close of WAL"
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-name|t
+name|lastException
 operator|=
 name|e
 expr_stmt|;
@@ -5451,7 +5491,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-name|t
+name|lastException
 operator|=
 name|e
 expr_stmt|;
@@ -5478,7 +5518,7 @@ name|takeSyncFuture
 argument_list|,
 name|currentSequence
 argument_list|,
-name|t
+name|lastException
 argument_list|)
 expr_stmt|;
 comment|// Can we release other syncs?
@@ -5488,20 +5528,18 @@ name|releaseSyncFutures
 argument_list|(
 name|currentSequence
 argument_list|,
-name|t
+name|lastException
 argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|t
+name|lastException
 operator|!=
 literal|null
 condition|)
-block|{
 name|requestLogRoll
 argument_list|()
 expr_stmt|;
-block|}
 else|else
 name|checkLogRoll
 argument_list|()
@@ -5704,7 +5742,7 @@ name|minTolerableReplication
 operator|+
 literal|" replicas. "
 operator|+
-literal|" Requesting close of wal. current pipeline: "
+literal|" Requesting close of WAL. current pipeline: "
 operator|+
 name|Arrays
 operator|.
@@ -7345,6 +7383,13 @@ specifier|volatile
 name|SafePointZigZagLatch
 name|zigzagLatch
 decl_stmt|;
+comment|/**      * Set if we get an exception appending or syncing so that all subsequence appends and syncs      * on this WAL fail until WAL is replaced.      */
+specifier|private
+name|Exception
+name|exception
+init|=
+literal|null
+decl_stmt|;
 comment|/**      * Object to block on while waiting on safe point.      */
 specifier|private
 specifier|final
@@ -7445,6 +7490,7 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+comment|// There could be handler-count syncFutures outstanding.
 for|for
 control|(
 name|int
@@ -7482,6 +7528,50 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
+comment|/**      * @return True if outstanding sync futures still      */
+specifier|private
+name|boolean
+name|isOutstandingSyncs
+parameter_list|()
+block|{
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|this
+operator|.
+name|syncFuturesCount
+condition|;
+name|i
+operator|++
+control|)
+block|{
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|syncFutures
+index|[
+name|i
+index|]
+operator|.
+name|isDone
+argument_list|()
+condition|)
+return|return
+literal|true
+return|;
+block|}
+return|return
+literal|false
+return|;
+block|}
 annotation|@
 name|Override
 comment|// We can set endOfBatch in the below method if at end of our this.syncFutures array
@@ -7505,7 +7595,9 @@ name|Exception
 block|{
 comment|// Appends and syncs are coming in order off the ringbuffer.  We depend on this fact.  We'll
 comment|// add appends to dfsclient as they come in.  Batching appends doesn't give any significant
-comment|// benefit on measurement.  Handler sync calls we will batch up.
+comment|// benefit on measurement.  Handler sync calls we will batch up. If we get an exception
+comment|// appending an edit, we fail all subsequent appends and syncs with the same exception until
+comment|// the WAL is reset.
 try|try
 block|{
 if|if
@@ -7573,12 +7665,31 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|append
-argument_list|(
+name|FSWALEntry
+name|entry
+init|=
 name|truck
 operator|.
 name|unloadFSWALEntryPayload
 argument_list|()
+decl_stmt|;
+comment|// If already an exception, do not try to append. Throw.
+if|if
+condition|(
+name|this
+operator|.
+name|exception
+operator|!=
+literal|null
+condition|)
+throw|throw
+name|this
+operator|.
+name|exception
+throw|;
+name|append
+argument_list|(
+name|entry
 argument_list|)
 expr_stmt|;
 block|}
@@ -7588,16 +7699,29 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+comment|// Failed append. Record the exception. Throw it from here on out til new WAL in place
+name|this
+operator|.
+name|exception
+operator|=
+operator|new
+name|DamagedWALException
+argument_list|(
+name|e
+argument_list|)
+expr_stmt|;
 comment|// If append fails, presume any pending syncs will fail too; let all waiting handlers
 comment|// know of the exception.
 name|cleanupOutstandingSyncsOnException
 argument_list|(
 name|sequence
 argument_list|,
-name|e
+name|this
+operator|.
+name|exception
 argument_list|)
 expr_stmt|;
-comment|// Return to keep processing.
+comment|// Return to keep processing events coming off the ringbuffer
 return|return;
 block|}
 finally|finally
@@ -7681,9 +7805,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Below expects that the offer 'transfers' responsibility for the outstanding syncs to the
-comment|// syncRunner. We should never get an exception in here. HBASE-11145 was because queue
-comment|// was sized exactly to the count of user handlers but we could have more if we factor in
-comment|// meta handlers doing opens and closes.
+comment|// syncRunner. We should never get an exception in here.
 name|int
 name|index
 init|=
@@ -7704,6 +7826,31 @@ operator|.
 name|length
 decl_stmt|;
 try|try
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|exception
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// Do not try to sync. If a this.exception, then we failed an append. Do not try to
+comment|// sync a failed append. Fall through to the attainSafePoint below. It is part of the
+comment|// means by which we put in place a new WAL. A new WAL is how we clean up.
+comment|// Don't throw because then we'll not get to attainSafePoint.
+name|cleanupOutstandingSyncsOnException
+argument_list|(
+name|sequence
+argument_list|,
+name|this
+operator|.
+name|exception
+argument_list|)
+expr_stmt|;
+block|}
+else|else
 block|{
 name|this
 operator|.
@@ -7726,12 +7873,14 @@ name|syncFuturesCount
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 catch|catch
 parameter_list|(
 name|Exception
 name|e
 parameter_list|)
 block|{
+comment|// Should NEVER get here.
 name|cleanupOutstandingSyncsOnException
 argument_list|(
 name|sequence
@@ -7824,10 +7973,14 @@ argument_list|()
 condition|)
 return|return;
 comment|// If here, another thread is waiting on us to get to safe point.  Don't leave it hanging.
+name|beforeWaitOnSafePoint
+argument_list|()
+expr_stmt|;
 try|try
 block|{
 comment|// Wait on outstanding syncers; wait for them to finish syncing (unless we've been
-comment|// shutdown or unless our latch has been thrown because we have been aborted).
+comment|// shutdown or unless our latch has been thrown because we have been aborted or unless
+comment|// this WAL is broken and we can't get a sync/append to complete).
 while|while
 condition|(
 operator|!
@@ -7848,6 +8001,11 @@ name|get
 argument_list|()
 operator|<
 name|currentSequence
+operator|&&
+comment|// We could be in here and all syncs are failing or failed. Check for this. Otherwise
+comment|// we'll just be stuck here for ever. In other words, ensure there syncs running.
+name|isOutstandingSyncs
+argument_list|()
 condition|)
 block|{
 synchronized|synchronized
@@ -7870,7 +8028,15 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Tell waiting thread we've attained safe point
+comment|// Tell waiting thread we've attained safe point. Can clear this.throwable if set here
+comment|// because we know that next event through the ringbuffer will be going to a new WAL
+comment|// after we do the zigzaglatch dance.
+name|this
+operator|.
+name|exception
+operator|=
+literal|null
+expr_stmt|;
 name|this
 operator|.
 name|zigzagLatch
@@ -8148,7 +8314,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Could not append. Requesting close of wal"
+literal|"Could not append. Requesting close of WAL"
 argument_list|,
 name|e
 argument_list|)

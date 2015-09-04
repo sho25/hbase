@@ -517,6 +517,7 @@ name|nonce
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @deprecated Don't use these Writables methods. Use PB instead.    */
 annotation|@
 name|Override
 annotation|@
@@ -982,6 +983,20 @@ name|e
 parameter_list|)
 block|{
 comment|// Means it's a very old key, just continue
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 try|try

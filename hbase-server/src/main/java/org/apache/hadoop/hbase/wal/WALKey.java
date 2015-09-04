@@ -221,6 +221,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|TimeoutIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseInterfaceAudience
 import|;
 end_import
@@ -1265,7 +1281,7 @@ operator|.
 name|origLogSeqNum
 return|;
 block|}
-comment|/**    * Wait for sequence number is assigned&amp; return the assigned value    * @return long the new assigned sequence number    * @throws IOException    */
+comment|/**    * Wait for sequence number to be assigned&amp; return the assigned value    * @return long the new assigned sequence number    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -1283,17 +1299,21 @@ literal|1
 argument_list|)
 return|;
 block|}
-comment|/**    * Wait for sequence number is assigned&amp; return the assigned value    * @param maxWaitForSeqId maximum duration, in milliseconds, to wait for seq number to be assigned    * @return long the new assigned sequence number    * @throws IOException    */
+comment|/**    * Wait for sequence number to be assigned&amp; return the assigned value.    * @param maxWaitForSeqId maximum time to wait in milliseconds for sequenceid    * @return long the new assigned sequence number    * @throws IOException    */
 specifier|public
 name|long
 name|getSequenceId
 parameter_list|(
-name|int
+specifier|final
+name|long
 name|maxWaitForSeqId
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// TODO: This implementation waiting on a latch is problematic because if a higher level
+comment|// determines we should stop or abort, there is not global list of all these blocked WALKeys
+comment|// waiting on a sequence id; they can't be cancelled... interrupted. See getNextSequenceId
 try|try
 block|{
 if|if
@@ -1311,8 +1331,7 @@ name|await
 argument_list|()
 expr_stmt|;
 block|}
-else|else
-block|{
+elseif|else
 if|if
 condition|(
 operator|!
@@ -1332,12 +1351,15 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|TimeoutIOException
 argument_list|(
-literal|"Timed out waiting for seq number to be assigned"
+literal|"Failed to get sequenceid after "
+operator|+
+name|maxWaitForSeqId
+operator|+
+literal|"ms; WAL system stuck or has gone away?"
 argument_list|)
 throw|;
-block|}
 block|}
 block|}
 catch|catch

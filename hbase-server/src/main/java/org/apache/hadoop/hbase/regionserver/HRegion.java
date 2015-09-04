@@ -719,6 +719,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HColumnDescriptor
 import|;
 end_import
@@ -2643,14 +2657,19 @@ name|LOAD_CFS_ON_DEMAND_CONFIG_KEY
 init|=
 literal|"hbase.hregion.scan.loadColumnFamiliesOnDemand"
 decl_stmt|;
-comment|// in milliseconds
+comment|/**    * Longest time we'll wait on a sequenceid.    * Sequenceid comes up out of the WAL subsystem. WAL subsystem can go bad or a test might use    * it without cleanup previous usage properly; generally, a WAL roll is needed.    * Key to use changing the default of 30000ms.    */
+specifier|private
+specifier|final
+name|int
+name|maxWaitForSeqId
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
 name|String
 name|MAX_WAIT_FOR_SEQ_ID_KEY
 init|=
-literal|"hbase.hregion.max.wait.for.seq.id"
+literal|"hbase.hregion.max.wait.for.sequenceid.ms"
 decl_stmt|;
 specifier|private
 specifier|static
@@ -2658,7 +2677,7 @@ specifier|final
 name|int
 name|DEFAULT_MAX_WAIT_FOR_SEQ_ID
 init|=
-literal|60000
+literal|30000
 decl_stmt|;
 comment|/**    * This is the global default value for durability. All tables/mutations not    * defining a durability or using USE_DEFAULT will default to this value.    */
 specifier|private
@@ -2712,7 +2731,7 @@ name|HConstants
 operator|.
 name|NO_SEQNUM
 decl_stmt|;
-comment|/**    * Region scoped edit sequence Id. Edits to this region are GUARANTEED to appear in the WAL    * file in this sequence id's order; i.e. edit #2 will be in the WAL after edit #1.    * Its default value is -1L. This default is used as a marker to indicate    * that the region hasn't opened yet. Once it is opened, it is set to the derived    * {@link #openSeqNum}, the largest sequence id of all hfiles opened under this Region.    *    *<p>Control of this sequence is handed off to the WAL implementation.  It is responsible    * for tagging edits with the correct sequence id since it is responsible for getting the    * edits into the WAL files. It controls updating the sequence id value.  DO NOT UPDATE IT    * OUTSIDE OF THE WAL.  The value you get will not be what you think it is.    */
+comment|/**    * Region scoped edit sequence Id. Edits to this region are GUARANTEED to appear in the WAL    * file in this sequence id's order; i.e. edit #2 will be in the WAL after edit #1.    * Its default value is -1L. This default is used as a marker to indicate    * that the region hasn't opened yet. Once it is opened, it is set to the derived    * #openSeqNum, the largest sequence id of all hfiles opened under this Region.    *    *<p>Control of this sequence is handed off to the WAL implementation.  It is responsible    * for tagging edits with the correct sequence id since it is responsible for getting the    * edits into the WAL files. It controls updating the sequence id value.  DO NOT UPDATE IT    * OUTSIDE OF THE WAL.  The value you get will not be what you think it is.    */
 specifier|private
 specifier|final
 name|AtomicLong
@@ -3020,10 +3039,6 @@ name|boolean
 name|isLoadingCfsOnDemandDefault
 init|=
 literal|false
-decl_stmt|;
-specifier|private
-name|int
-name|maxWaitForSeqId
 decl_stmt|;
 specifier|private
 specifier|final
@@ -4171,6 +4186,8 @@ argument_list|,
 name|DEFAULT_ROWLOCK_WAIT_DURATION
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|maxWaitForSeqId
 operator|=
 name|conf
@@ -10672,7 +10689,7 @@ comment|// during flush
 name|MultiVersionConcurrencyControl
 operator|.
 name|WriteEntry
-name|w
+name|writeEntry
 init|=
 literal|null
 decl_stmt|;
@@ -10864,7 +10881,7 @@ try|try
 block|{
 try|try
 block|{
-name|w
+name|writeEntry
 operator|=
 name|mvcc
 operator|.
@@ -11299,20 +11316,22 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
-name|LOG
+name|wal
 operator|.
-name|warn
+name|abortCacheFlush
 argument_list|(
-literal|"Unexpected exception while wal.sync(), ignoring. Exception: "
-operator|+
-name|StringUtils
+name|this
 operator|.
-name|stringifyException
-argument_list|(
-name|ioe
-argument_list|)
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
 argument_list|)
 expr_stmt|;
+throw|throw
+name|ioe
+throw|;
 block|}
 block|}
 comment|// wait for all in-progress transactions to commit to WAL before
@@ -11320,7 +11339,7 @@ comment|// we can start the flush. This prevents
 comment|// uncommitted transactions from being written into HFiles.
 comment|// We have to block before we start the flush, otherwise keys that
 comment|// were removed via a rollbackMemstore could be written to Hfiles.
-name|w
+name|writeEntry
 operator|.
 name|setWriteNumber
 argument_list|(
@@ -11331,11 +11350,11 @@ name|mvcc
 operator|.
 name|waitForPreviousTransactionsComplete
 argument_list|(
-name|w
+name|writeEntry
 argument_list|)
 expr_stmt|;
 comment|// set w to null to prevent mvcc.advanceMemstore from being called again inside finally block
-name|w
+name|writeEntry
 operator|=
 literal|null
 expr_stmt|;
@@ -11344,17 +11363,17 @@ finally|finally
 block|{
 if|if
 condition|(
-name|w
+name|writeEntry
 operator|!=
 literal|null
 condition|)
 block|{
-comment|// in case of failure just mark current w as complete
+comment|// in case of failure just mark current writeEntry as complete
 name|mvcc
 operator|.
 name|advanceMemstore
 argument_list|(
-name|w
+name|writeEntry
 argument_list|)
 expr_stmt|;
 block|}
@@ -12211,6 +12230,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// TODO: For review. Putting an empty edit in to get a sequenceid out will not work if the
+comment|// WAL is banjaxed... if it has gotten an exception and the WAL has not yet been rolled or
+comment|// aborted. In this case, we'll just get stuck here. For now, until HBASE-12751, just have
+comment|// a timeout. May happen in tests after we tightened the semantic via HBASE-14317.
+comment|// Also, the getSequenceId blocks on a latch. There is no global list of outstanding latches
+comment|// so if an abort or stop, there is no way to call them in.
 name|WALKey
 name|key
 init|=
@@ -12228,6 +12253,8 @@ name|key
 operator|.
 name|getSequenceId
 argument_list|(
+name|this
+operator|.
 name|maxWaitForSeqId
 argument_list|)
 return|;
@@ -14245,7 +14272,7 @@ decl_stmt|;
 name|MultiVersionConcurrencyControl
 operator|.
 name|WriteEntry
-name|w
+name|writeEntry
 init|=
 literal|null
 decl_stmt|;
@@ -14991,7 +15018,7 @@ comment|//
 comment|// ------------------------------------
 comment|// Acquire the latest mvcc number
 comment|// ----------------------------------
-name|w
+name|writeEntry
 operator|=
 name|mvcc
 operator|.
@@ -15749,7 +15776,7 @@ comment|// STEP 8. Advance mvcc. This will make this put visible to scanners and
 comment|// ------------------------------------------------------------------
 if|if
 condition|(
-name|w
+name|writeEntry
 operator|!=
 literal|null
 condition|)
@@ -15758,12 +15785,12 @@ name|mvcc
 operator|.
 name|completeMemstoreInsertWithSeqNum
 argument_list|(
-name|w
+name|writeEntry
 argument_list|,
 name|walKey
 argument_list|)
 expr_stmt|;
-name|w
+name|writeEntry
 operator|=
 literal|null
 expr_stmt|;
@@ -15895,10 +15922,24 @@ argument_list|(
 name|memstoreCells
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
-name|w
+name|writeEntry
+operator|!=
+literal|null
+condition|)
+name|mvcc
+operator|.
+name|cancelMemstoreInsert
+argument_list|(
+name|writeEntry
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|writeEntry
 operator|!=
 literal|null
 condition|)
@@ -15907,7 +15948,7 @@ name|mvcc
 operator|.
 name|completeMemstoreInsertWithSeqNum
 argument_list|(
-name|w
+name|writeEntry
 argument_list|,
 name|walKey
 argument_list|)
@@ -31988,6 +32029,9 @@ block|}
 block|}
 finally|finally
 block|{
+comment|// TODO: Make this method look like all other methods that are doing append/sync and
+comment|// memstore rollback such as append and doMiniBatchMutation. Currently it is a little
+comment|// different. Make them all share same code!
 if|if
 condition|(
 operator|!
@@ -32076,6 +32120,25 @@ name|cell
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+if|if
+condition|(
+name|writeEntry
+operator|!=
+literal|null
+condition|)
+block|{
+name|mvcc
+operator|.
+name|cancelMemstoreInsert
+argument_list|(
+name|writeEntry
+argument_list|)
+expr_stmt|;
+name|writeEntry
+operator|=
+literal|null
+expr_stmt|;
 block|}
 block|}
 comment|// 13. Roll mvcc forward
@@ -32622,7 +32685,7 @@ init|=
 literal|0
 decl_stmt|;
 name|WriteEntry
-name|w
+name|writeEntry
 init|=
 literal|null
 decl_stmt|;
@@ -32729,7 +32792,7 @@ operator|.
 name|sequenceId
 argument_list|)
 expr_stmt|;
-name|w
+name|writeEntry
 operator|=
 name|mvcc
 operator|.
@@ -33840,10 +33903,24 @@ argument_list|(
 name|memstoreCells
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
-name|w
+name|writeEntry
+operator|!=
+literal|null
+condition|)
+name|mvcc
+operator|.
+name|cancelMemstoreInsert
+argument_list|(
+name|writeEntry
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|writeEntry
 operator|!=
 literal|null
 condition|)
@@ -33852,7 +33929,7 @@ name|mvcc
 operator|.
 name|completeMemstoreInsertWithSeqNum
 argument_list|(
-name|w
+name|writeEntry
 argument_list|,
 name|walKey
 argument_list|)
@@ -34087,7 +34164,7 @@ init|=
 literal|null
 decl_stmt|;
 name|WriteEntry
-name|w
+name|writeEntry
 init|=
 literal|null
 decl_stmt|;
@@ -34194,7 +34271,7 @@ operator|.
 name|sequenceId
 argument_list|)
 expr_stmt|;
-name|w
+name|writeEntry
 operator|=
 name|mvcc
 operator|.
@@ -35248,10 +35325,24 @@ argument_list|(
 name|memstoreCells
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
-name|w
+name|writeEntry
+operator|!=
+literal|null
+condition|)
+name|mvcc
+operator|.
+name|cancelMemstoreInsert
+argument_list|(
+name|writeEntry
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|writeEntry
 operator|!=
 literal|null
 condition|)
@@ -35260,7 +35351,7 @@ name|mvcc
 operator|.
 name|completeMemstoreInsertWithSeqNum
 argument_list|(
-name|w
+name|writeEntry
 argument_list|,
 name|walKey
 argument_list|)
@@ -38251,6 +38342,11 @@ throws|throws
 name|IOException
 block|{
 comment|// we use HLogKey here instead of WALKey directly to support legacy coprocessors.
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 name|WALKey
 name|key
 init|=
@@ -38304,9 +38400,8 @@ name|WALEdit
 operator|.
 name|EMPTY_WALEDIT
 argument_list|,
-name|this
-operator|.
-name|sequenceId
+name|getSequenceId
+argument_list|()
 argument_list|,
 literal|false
 argument_list|,

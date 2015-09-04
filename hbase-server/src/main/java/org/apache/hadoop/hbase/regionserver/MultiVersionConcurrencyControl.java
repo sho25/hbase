@@ -208,10 +208,11 @@ comment|// the 1 billion is just an arbitrary big number to guard no scanner wil
 comment|// current MVCC completes. Theoretically the bump only needs to be 2 * the number of handlers
 comment|// because each handler could increment sequence num twice and max concurrent in-flight
 comment|// transactions is the number of RPC handlers.
-comment|// we can't use Long.MAX_VALUE because we still want to maintain the ordering when multiple
-comment|// changes touch same row key
+comment|// We can't use Long.MAX_VALUE because we still want to maintain the ordering when multiple
+comment|// changes touch same row key.
 comment|// If for any reason, the bumped value isn't reset due to failure situations, we'll reset
-comment|// curSeqNum to NO_WRITE_NUMBER in order NOT to advance memstore read point at all
+comment|// curSeqNum to NO_WRITE_NUMBER in order NOT to advance memstore read point at all.
+comment|// St.Ack 20150901 Where is the reset to NO_WRITE_NUMBER done?
 return|return
 name|sequenceId
 operator|.
@@ -310,6 +311,31 @@ block|}
 name|waitForPreviousTransactionsComplete
 argument_list|(
 name|e
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Cancel a write insert that failed.    * Removes the write entry without advancing read point or without interfering with write    * entries queued behind us. It is like #advanceMemstore(WriteEntry) only this method    * will move the read point to the sequence id that is in WriteEntry even if it ridiculous (see    * the trick in HRegion where we call {@link #getPreAssignedWriteNumber(AtomicLong)} just to mark    * it as for special handling).    * @param writeEntry Failed attempt at write. Does cleanup.    */
+specifier|public
+name|void
+name|cancelMemstoreInsert
+parameter_list|(
+name|WriteEntry
+name|writeEntry
+parameter_list|)
+block|{
+comment|// I'm not clear on how this voodoo all works but setting write number to -1 does NOT advance
+comment|// readpoint and gets my little writeEntry completed and removed from queue of outstanding
+comment|// events which seems right.  St.Ack 20150901.
+name|writeEntry
+operator|.
+name|setWriteNumber
+argument_list|(
+name|NO_WRITE_NUMBER
+argument_list|)
+expr_stmt|;
+name|advanceMemstore
+argument_list|(
+name|writeEntry
 argument_list|)
 expr_stmt|;
 block|}

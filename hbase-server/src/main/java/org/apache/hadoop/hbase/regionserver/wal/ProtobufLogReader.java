@@ -368,7 +368,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Protobuf based WAL has the following structure:  *<p>  *&lt;PB_WAL_MAGIC&gt;&lt;WALHeader&gt;&lt;WALEdits&gt;...&lt;WALEdits&gt;&lt;Trailer&gt;  *&lt;TrailerSize&gt;&lt;PB_WAL_COMPLETE_MAGIC&gt;  *</p>  * The Reader reads meta information (WAL Compression state, WALTrailer, etc) in  * {@link ProtobufLogReader#initReader(FSDataInputStream)}. A WALTrailer is an extensible structure  * which is appended at the end of the WAL. This is empty for now; it can contain some meta  * information such as Region level stats, etc in future.  */
+comment|/**  * A Protobuf based WAL has the following structure:  *<p>  *&lt;PB_WAL_MAGIC&gt;&lt;WALHeader&gt;&lt;WALEdits&gt;...&lt;WALEdits&gt;&lt;Trailer&gt;  *&lt;TrailerSize&gt;&lt;PB_WAL_COMPLETE_MAGIC&gt;  *</p>  * The Reader reads meta information (WAL Compression state, WALTrailer, etc) in  * ProtobufLogReader#initReader(FSDataInputStream). A WALTrailer is an extensible structure  * which is appended at the end of the WAL. This is empty for now; it can contain some meta  * information such as Region level stats, etc in future.  */
 end_comment
 
 begin_class
@@ -496,8 +496,8 @@ name|hasTagCompression
 init|=
 literal|false
 decl_stmt|;
-comment|// walEditsStopOffset is the position of the last byte to read. After reading the last WALEdit entry
-comment|// in the wal, the inputstream's position is equal to walEditsStopOffset.
+comment|// walEditsStopOffset is the position of the last byte to read. After reading the last WALEdit
+comment|// entry in the wal, the inputstream's position is equal to walEditsStopOffset.
 specifier|private
 name|long
 name|walEditsStopOffset
