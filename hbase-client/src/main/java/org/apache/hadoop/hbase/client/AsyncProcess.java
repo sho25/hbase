@@ -5219,22 +5219,19 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|RejectedExecutionException
-name|ree
+name|Throwable
+name|t
 parameter_list|)
 block|{
-comment|// This should never happen. But as the pool is provided by the end user, let's secure
-comment|//  this a little.
-name|decTaskCounters
-argument_list|(
-name|multiAction
-operator|.
-name|getRegions
-argument_list|()
-argument_list|,
-name|server
-argument_list|)
-expr_stmt|;
+if|if
+condition|(
+name|t
+operator|instanceof
+name|RejectedExecutionException
+condition|)
+block|{
+comment|// This should never happen. But as the pool is provided by the end user,
+comment|// let's secure this a little.
 name|LOG
 operator|.
 name|warn
@@ -5252,11 +5249,35 @@ operator|.
 name|getServerName
 argument_list|()
 argument_list|,
-name|ree
+name|t
 argument_list|)
 expr_stmt|;
-comment|// We're likely to fail again, but this will increment the attempt counter, so it will
-comment|//  finish.
+block|}
+else|else
+block|{
+comment|// see #HBASE-14359 for more details
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Caught unexpected exception/error: "
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+block|}
+name|decTaskCounters
+argument_list|(
+name|multiAction
+operator|.
+name|getRegions
+argument_list|()
+argument_list|,
+name|server
+argument_list|)
+expr_stmt|;
+comment|// We're likely to fail again, but this will increment the attempt counter,
+comment|// so it will finish.
 name|receiveGlobalFailure
 argument_list|(
 name|multiAction
@@ -5265,7 +5286,7 @@ name|server
 argument_list|,
 name|numAttempt
 argument_list|,
-name|ree
+name|t
 argument_list|)
 expr_stmt|;
 block|}
