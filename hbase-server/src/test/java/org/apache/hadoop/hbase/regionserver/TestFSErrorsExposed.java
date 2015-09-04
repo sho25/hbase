@@ -558,7 +558,8 @@ name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
 comment|/**    * Injects errors into the pread calls of an on-disk file, and makes    * sure those bubble up to the HFile scanner    */
-comment|// @Test
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testHFileScannerThrowsErrors
@@ -853,7 +854,8 @@ expr_stmt|;
 comment|// end of test so evictOnClose
 block|}
 comment|/**    * Injects errors into the pread calls of an on-disk file, and makes    * sure those bubble up to the StoreFileScanner    */
-comment|// @Test
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testStoreFileScannerThrowsErrors
