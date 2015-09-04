@@ -306,13 +306,14 @@ argument_list|()
 argument_list|)
 control|)
 block|{
+comment|// bin/zookeeper.sh relies on the "ZK host" string for grepping which is case sensitive.
 name|System
 operator|.
 name|out
 operator|.
 name|println
 argument_list|(
-literal|"Zk host: "
+literal|"ZK host: "
 operator|+
 name|server
 operator|.
