@@ -4034,6 +4034,17 @@ operator|.
 name|evicted
 argument_list|(
 literal|0
+argument_list|,
+name|cacheKey
+operator|!=
+literal|null
+condition|?
+name|cacheKey
+operator|.
+name|isPrimary
+argument_list|()
+else|:
+literal|true
 argument_list|)
 expr_stmt|;
 return|return
@@ -4055,6 +4066,8 @@ operator|.
 name|evicted
 argument_list|(
 literal|0
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Just assuming only one block for file here.

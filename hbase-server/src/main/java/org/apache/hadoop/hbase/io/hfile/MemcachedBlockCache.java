@@ -820,6 +820,11 @@ operator|.
 name|miss
 argument_list|(
 name|caching
+argument_list|,
+name|cacheKey
+operator|.
+name|isPrimary
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -830,6 +835,11 @@ operator|.
 name|hit
 argument_list|(
 name|caching
+argument_list|,
+name|cacheKey
+operator|.
+name|isPrimary
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

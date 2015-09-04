@@ -1644,6 +1644,17 @@ name|getFileContext
 parameter_list|()
 function_decl|;
 name|boolean
+name|isPrimaryReplicaReader
+parameter_list|()
+function_decl|;
+name|void
+name|setPrimaryReplicaReader
+parameter_list|(
+name|boolean
+name|isPrimaryReplicaReader
+parameter_list|)
+function_decl|;
+name|boolean
 name|shouldIncludeMemstoreTS
 parameter_list|()
 function_decl|;

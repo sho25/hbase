@@ -196,14 +196,29 @@ name|long
 name|getBlockCacheHitCount
 parameter_list|()
 function_decl|;
+comment|/**    * Get the count of hits to primary replica in the block cache    */
+name|long
+name|getBlockCachePrimaryHitCount
+parameter_list|()
+function_decl|;
 comment|/**    * Get the count of misses to the block cache.    */
 name|long
 name|getBlockCacheMissCount
 parameter_list|()
 function_decl|;
+comment|/**    * Get the count of misses to primary replica in the block cache.    */
+name|long
+name|getBlockCachePrimaryMissCount
+parameter_list|()
+function_decl|;
 comment|/**    * Get the number of items evicted from the block cache.    */
 name|long
 name|getBlockCacheEvictedCount
+parameter_list|()
+function_decl|;
+comment|/**    * Get the number of items evicted from primary replica in the block cache.    */
+name|long
+name|getBlockCachePrimaryEvictedCount
 parameter_list|()
 function_decl|;
 comment|/**    * Get the percent of all requests that hit the block cache.    */

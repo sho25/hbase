@@ -449,6 +449,16 @@ init|=
 literal|"Count of the hit on the block cache."
 decl_stmt|;
 name|String
+name|BLOCK_CACHE_PRIMARY_HIT_COUNT
+init|=
+literal|"blockCacheHitCountPrimary"
+decl_stmt|;
+name|String
+name|BLOCK_CACHE_PRIMARY_HIT_COUNT_DESC
+init|=
+literal|"Count of hit on primary replica in the block cache."
+decl_stmt|;
+name|String
 name|BLOCK_CACHE_MISS_COUNT
 init|=
 literal|"blockCacheMissCount"
@@ -459,6 +469,16 @@ init|=
 literal|"Number of requests for a block that missed the block cache."
 decl_stmt|;
 name|String
+name|BLOCK_CACHE_PRIMARY_MISS_COUNT
+init|=
+literal|"blockCacheMissCountPrimary"
+decl_stmt|;
+name|String
+name|BLOCK_COUNT_PRIMARY_MISS_COUNT_DESC
+init|=
+literal|"Number of requests for a block of primary replica that missed the block cache."
+decl_stmt|;
+name|String
 name|BLOCK_CACHE_EVICTION_COUNT
 init|=
 literal|"blockCacheEvictionCount"
@@ -467,6 +487,16 @@ name|String
 name|BLOCK_CACHE_EVICTION_COUNT_DESC
 init|=
 literal|"Count of the number of blocks evicted from the block cache."
+decl_stmt|;
+name|String
+name|BLOCK_CACHE_PRIMARY_EVICTION_COUNT
+init|=
+literal|"blockCacheEvictionCountPrimary"
+decl_stmt|;
+name|String
+name|BLOCK_CACHE_PRIMARY_EVICTION_COUNT_DESC
+init|=
+literal|"Count of the number of blocks evicted from primary replica in the block cache."
 decl_stmt|;
 name|String
 name|BLOCK_CACHE_HIT_PERCENT

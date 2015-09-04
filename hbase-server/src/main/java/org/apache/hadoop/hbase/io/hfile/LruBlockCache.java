@@ -1714,6 +1714,11 @@ operator|.
 name|miss
 argument_list|(
 name|caching
+argument_list|,
+name|cacheKey
+operator|.
+name|isPrimary
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// If there is another block cache then try and read there.
@@ -1786,6 +1791,11 @@ operator|.
 name|hit
 argument_list|(
 name|caching
+argument_list|,
+name|cacheKey
+operator|.
+name|isPrimary
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|cb
@@ -2004,6 +2014,14 @@ argument_list|(
 name|block
 operator|.
 name|getCachedTime
+argument_list|()
+argument_list|,
+name|block
+operator|.
+name|getCacheKey
+argument_list|()
+operator|.
+name|isPrimary
 argument_list|()
 argument_list|)
 expr_stmt|;
