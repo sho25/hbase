@@ -3915,18 +3915,51 @@ operator|.
 name|releaseSafePoint
 argument_list|()
 expr_stmt|;
-comment|// It will be null if we failed our wait on safe point above.
+comment|// syncFuture will be null if we failed our wait on safe point above. Otherwise, if
+comment|// latch was obtained successfully, the sync we threw in either trigger the latch or it
+comment|// got stamped with an exception because the WAL was damaged and we could not sync. Now
+comment|// the write pipeline has been opened up again by releasing the safe point, process the
+comment|// syncFuture we got above. This is probably a noop but it may be stale exception from
+comment|// when old WAL was in place. Catch it if so.
 if|if
 condition|(
 name|syncFuture
 operator|!=
 literal|null
 condition|)
+block|{
+try|try
+block|{
 name|blockOnSync
 argument_list|(
 name|syncFuture
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Stale sync exception"
+argument_list|,
+name|ioe
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 block|}
 finally|finally
