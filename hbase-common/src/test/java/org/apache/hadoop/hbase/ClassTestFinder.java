@@ -199,6 +199,7 @@ literal|0
 index|]
 return|;
 block|}
+comment|/** Filters both test classes and anything in the hadoop-compat modules */
 specifier|public
 specifier|static
 class|class

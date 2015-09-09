@@ -931,6 +931,7 @@ name|LinkageError
 block|{
 comment|// find classes that are:
 comment|// In the main jar
+comment|// AND are not in a hadoop-compat module
 comment|// AND are public
 comment|// NOT test classes
 comment|// AND NOT generated classes
@@ -943,8 +944,16 @@ operator|new
 name|ClassFinder
 argument_list|(
 operator|new
+name|And
+argument_list|(
+operator|new
 name|MainCodeResourcePathFilter
 argument_list|()
+argument_list|,
+operator|new
+name|TestFileNameFilter
+argument_list|()
+argument_list|)
 argument_list|,
 operator|new
 name|Not
@@ -1079,6 +1088,7 @@ name|LinkageError
 block|{
 comment|// find classes that are:
 comment|// In the main jar
+comment|// AND are not in a hadoop-compat module
 comment|// AND are public
 comment|// NOT test classes
 comment|// AND NOT generated classes
@@ -1091,8 +1101,16 @@ operator|new
 name|ClassFinder
 argument_list|(
 operator|new
+name|And
+argument_list|(
+operator|new
 name|MainCodeResourcePathFilter
 argument_list|()
+argument_list|,
+operator|new
+name|TestFileNameFilter
+argument_list|()
+argument_list|)
 argument_list|,
 operator|new
 name|Not
