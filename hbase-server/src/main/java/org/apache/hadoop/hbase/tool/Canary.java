@@ -6412,7 +6412,7 @@ name|getClass
 argument_list|(
 literal|"hbase.canary.sink.class"
 argument_list|,
-name|StdOutSink
+name|RegionServerStdOutSink
 operator|.
 name|class
 argument_list|,
