@@ -549,24 +549,6 @@ name|table
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Path
-argument_list|(
-literal|"namespaces"
-argument_list|)
-specifier|public
-name|NamespacesResource
-name|getNamespaceResource
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-return|return
-operator|new
-name|NamespacesResource
-argument_list|()
-return|;
-block|}
 block|}
 end_class
 
