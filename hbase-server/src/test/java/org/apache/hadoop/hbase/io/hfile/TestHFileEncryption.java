@@ -532,6 +532,18 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
+comment|// Disable block cache in this test.
+name|conf
+operator|.
+name|setFloat
+argument_list|(
+name|HConstants
+operator|.
+name|HFILE_BLOCK_CACHE_SIZE_KEY
+argument_list|,
+literal|0.0f
+argument_list|)
+expr_stmt|;
 name|conf
 operator|.
 name|set
@@ -1287,6 +1299,8 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
+try|try
+block|{
 name|KeyValue
 name|kv
 init|=
@@ -1318,6 +1332,9 @@ argument_list|(
 name|kv
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|writer
 operator|.
 name|close
@@ -1328,6 +1345,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 comment|// read it back in and validate correct crypto metadata
 name|HFile
 operator|.
@@ -1347,6 +1365,8 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|reader
 operator|.
 name|loadFileInfo
@@ -1418,6 +1438,15 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|reader
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -1595,6 +1624,8 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
+try|try
+block|{
 for|for
 control|(
 name|KeyValue
@@ -1611,6 +1642,9 @@ name|kv
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+finally|finally
+block|{
 name|writer
 operator|.
 name|close
@@ -1621,6 +1655,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 comment|// read it back in
 name|LOG
 operator|.
@@ -1631,6 +1666,16 @@ operator|+
 name|fileContext
 argument_list|)
 expr_stmt|;
+name|int
+name|i
+init|=
+literal|0
+decl_stmt|;
+name|HFileScanner
+name|scanner
+init|=
+literal|null
+decl_stmt|;
 name|HFile
 operator|.
 name|Reader
@@ -1649,6 +1694,8 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|reader
 operator|.
 name|loadFileInfo
@@ -1670,9 +1717,8 @@ name|getEncryptionKey
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HFileScanner
 name|scanner
-init|=
+operator|=
 name|reader
 operator|.
 name|getScanner
@@ -1681,7 +1727,7 @@ literal|false
 argument_list|,
 literal|false
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|assertTrue
 argument_list|(
 literal|"Initial seekTo failed"
@@ -1692,11 +1738,6 @@ name|seekTo
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|int
-name|i
-init|=
-literal|0
-decl_stmt|;
 do|do
 block|{
 name|Cell
@@ -1736,11 +1777,20 @@ name|next
 argument_list|()
 condition|)
 do|;
+block|}
+finally|finally
+block|{
 name|reader
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|scanner
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 name|assertEquals
 argument_list|(
 literal|"Did not read back as many KVs as written"
@@ -1778,6 +1828,8 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|scanner
 operator|=
 name|reader
@@ -1848,11 +1900,20 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+finally|finally
+block|{
+name|scanner
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|reader
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
