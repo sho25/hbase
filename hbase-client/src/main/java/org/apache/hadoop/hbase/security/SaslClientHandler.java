@@ -374,7 +374,7 @@ specifier|private
 name|Random
 name|random
 decl_stmt|;
-comment|/**    * Constructor    *    * @param ticket                   the ugi    * @param method                   auth method    * @param token                    for Sasl    * @param serverPrincipal          Server's Kerberos principal name    * @param fallbackAllowed          True if server may also fall back to less secure connection    * @param rpcProtection            Quality of protection. Integrity or privacy    * @param exceptionHandler         handler for exceptions    * @param successfulConnectHandler handler for succesful connects    * @throws java.io.IOException if handler could not be created    */
+comment|/**    * Constructor    *    * @param ticket                   the ugi    * @param method                   auth method    * @param token                    for Sasl    * @param serverPrincipal          Server's Kerberos principal name    * @param fallbackAllowed          True if server may also fall back to less secure connection    * @param rpcProtection            Quality of protection. Can be 'authentication', 'integrity' or    *                                 'privacy'.    * @param exceptionHandler         handler for exceptions    * @param successfulConnectHandler handler for succesful connects    * @throws java.io.IOException if handler could not be created    */
 specifier|public
 name|SaslClientHandler
 parameter_list|(
