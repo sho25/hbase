@@ -1890,6 +1890,12 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// replay the edits to the secondary using replay callable
+specifier|final
+name|String
+name|fakeWalGroupId
+init|=
+literal|"fakeWALGroup"
+decl_stmt|;
 name|replicator
 operator|.
 name|replicate
@@ -1906,6 +1912,11 @@ name|newArrayList
 argument_list|(
 name|entries
 argument_list|)
+argument_list|)
+operator|.
+name|setWalGroupId
+argument_list|(
+name|fakeWalGroupId
 argument_list|)
 argument_list|)
 expr_stmt|;

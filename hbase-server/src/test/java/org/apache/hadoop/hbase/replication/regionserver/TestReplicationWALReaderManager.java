@@ -337,6 +337,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -352,6 +362,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -614,6 +636,16 @@ name|AtomicLong
 argument_list|(
 literal|1
 argument_list|)
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|tn
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 annotation|@
 name|Parameters
@@ -907,7 +939,10 @@ name|conf
 argument_list|,
 name|listeners
 argument_list|,
-literal|"some server"
+name|tn
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|log

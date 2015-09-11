@@ -889,6 +889,14 @@ operator|.
 name|getEntries
 argument_list|()
 decl_stmt|;
+name|String
+name|walGroupId
+init|=
+name|replicateContext
+operator|.
+name|getWalGroupId
+argument_list|()
+decl_stmt|;
 name|int
 name|sleepMultiplier
 init|=
@@ -1342,6 +1350,8 @@ argument_list|()
 operator|.
 name|getWriteTime
 argument_list|()
+argument_list|,
+name|walGroupId
 argument_list|)
 expr_stmt|;
 return|return
@@ -1360,7 +1370,9 @@ operator|.
 name|metrics
 operator|.
 name|refreshAgeOfLastShippedOp
-argument_list|()
+argument_list|(
+name|walGroupId
+argument_list|)
 expr_stmt|;
 if|if
 condition|(

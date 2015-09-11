@@ -16295,6 +16295,23 @@ return|return
 name|max
 return|;
 block|}
+comment|/**    * For testing    * @return whether all wal roll request finished for this regionserver    */
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|boolean
+name|walRollRequestFinished
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|walRoller
+operator|.
+name|walRollFinished
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 

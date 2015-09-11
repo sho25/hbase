@@ -419,6 +419,7 @@ block|}
 end_class
 
 begin_decl_stmt
+specifier|public
 specifier|static
 specifier|final
 name|String
