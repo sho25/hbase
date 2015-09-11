@@ -1042,7 +1042,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-return|return;
+continue|continue;
 block|}
 throw|throw
 operator|new
@@ -1082,7 +1082,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-return|return;
+continue|continue;
 block|}
 throw|throw
 operator|new
