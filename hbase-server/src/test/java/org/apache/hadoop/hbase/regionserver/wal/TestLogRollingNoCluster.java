@@ -107,20 +107,6 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|FileSystem
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
 name|Path
 import|;
 end_import
@@ -346,7 +332,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test many concurrent appenders to an {@link #WAL} while rolling the log.  */
+comment|/**  * Test many concurrent appenders to an WAL while rolling the log.  */
 end_comment
 
 begin_class
@@ -411,19 +397,6 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|FileSystem
-name|fs
-init|=
-name|FileSystem
-operator|.
-name|get
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-decl_stmt|;
 name|Path
 name|dir
 init|=
