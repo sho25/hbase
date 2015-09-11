@@ -2394,7 +2394,7 @@ block|{
 return|return
 name|ByteBufferUtils
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 operator|(
 operator|(
@@ -2427,8 +2427,6 @@ name|offset
 argument_list|,
 name|length
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 return|return
@@ -2491,15 +2489,6 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|lfamlength
-operator|!=
-name|rfamlength
-condition|)
-return|return
-literal|false
-return|;
-if|if
-condition|(
 name|left
 operator|instanceof
 name|ByteBufferedCell
@@ -2512,7 +2501,7 @@ block|{
 return|return
 name|ByteBufferUtils
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 operator|(
 operator|(
@@ -2558,8 +2547,6 @@ argument_list|()
 argument_list|,
 name|rfamlength
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 if|if
@@ -2572,7 +2559,7 @@ block|{
 return|return
 name|ByteBufferUtils
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 operator|(
 operator|(
@@ -2608,8 +2595,6 @@ argument_list|()
 argument_list|,
 name|rfamlength
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 if|if
@@ -2622,7 +2607,7 @@ block|{
 return|return
 name|ByteBufferUtils
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 operator|(
 operator|(
@@ -2658,8 +2643,6 @@ argument_list|()
 argument_list|,
 name|lfamlength
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 return|return
@@ -2778,7 +2761,7 @@ block|{
 return|return
 name|ByteBufferUtils
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 operator|(
 operator|(
@@ -2811,8 +2794,6 @@ name|offset
 argument_list|,
 name|length
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 return|return
@@ -2875,15 +2856,6 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|lqlength
-operator|!=
-name|rqlength
-condition|)
-return|return
-literal|false
-return|;
-if|if
-condition|(
 name|left
 operator|instanceof
 name|ByteBufferedCell
@@ -2896,7 +2868,7 @@ block|{
 return|return
 name|ByteBufferUtils
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 operator|(
 operator|(
@@ -2942,8 +2914,6 @@ argument_list|()
 argument_list|,
 name|rqlength
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 if|if
@@ -2956,7 +2926,7 @@ block|{
 return|return
 name|ByteBufferUtils
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 operator|(
 operator|(
@@ -2992,8 +2962,6 @@ argument_list|()
 argument_list|,
 name|rqlength
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 if|if
@@ -3006,7 +2974,7 @@ block|{
 return|return
 name|ByteBufferUtils
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 operator|(
 operator|(
@@ -3042,8 +3010,6 @@ argument_list|()
 argument_list|,
 name|lqlength
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 return|return
@@ -3180,7 +3146,7 @@ block|{
 return|return
 name|ByteBufferUtils
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 operator|(
 operator|(
@@ -3213,8 +3179,6 @@ name|offset
 argument_list|,
 name|length
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 return|return
@@ -3421,15 +3385,6 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|lvlength
-operator|!=
-name|rvlength
-condition|)
-return|return
-literal|false
-return|;
-if|if
-condition|(
 name|left
 operator|instanceof
 name|ByteBufferedCell
@@ -3442,7 +3397,7 @@ block|{
 return|return
 name|ByteBufferUtils
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 operator|(
 operator|(
@@ -3488,8 +3443,6 @@ argument_list|()
 argument_list|,
 name|rvlength
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 if|if
@@ -3502,7 +3455,7 @@ block|{
 return|return
 name|ByteBufferUtils
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 operator|(
 operator|(
@@ -3538,8 +3491,6 @@ argument_list|()
 argument_list|,
 name|rvlength
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 if|if
@@ -3552,7 +3503,7 @@ block|{
 return|return
 name|ByteBufferUtils
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 operator|(
 operator|(
@@ -3588,8 +3539,6 @@ argument_list|()
 argument_list|,
 name|lvlength
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 return|return
@@ -5942,7 +5891,7 @@ block|{
 return|return
 name|ByteBufferUtils
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 operator|(
 operator|(
@@ -5988,8 +5937,6 @@ argument_list|()
 argument_list|,
 name|rrowlength
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 if|if
@@ -6002,7 +5949,7 @@ block|{
 return|return
 name|ByteBufferUtils
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 operator|(
 operator|(
@@ -6038,8 +5985,6 @@ argument_list|()
 argument_list|,
 name|rrowlength
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 if|if
@@ -6052,7 +5997,7 @@ block|{
 return|return
 name|ByteBufferUtils
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 operator|(
 operator|(
@@ -6088,8 +6033,6 @@ argument_list|()
 argument_list|,
 name|lrowlength
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 return|return

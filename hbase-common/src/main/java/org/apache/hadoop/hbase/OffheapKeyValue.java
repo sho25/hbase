@@ -199,15 +199,6 @@ name|ClassSize
 operator|.
 name|REFERENCE
 operator|+
-name|ClassSize
-operator|.
-name|align
-argument_list|(
-name|ClassSize
-operator|.
-name|BYTE_BUFFER
-argument_list|)
-operator|+
 operator|(
 literal|3
 operator|*
