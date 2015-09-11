@@ -3255,7 +3255,7 @@ name|authManager
 init|=
 name|TableAuthManager
 operator|.
-name|get
+name|getOrCreate
 argument_list|(
 name|ZKW
 argument_list|,

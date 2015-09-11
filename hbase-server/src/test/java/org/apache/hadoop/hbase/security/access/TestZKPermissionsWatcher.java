@@ -457,7 +457,7 @@ name|AUTH_A
 operator|=
 name|TableAuthManager
 operator|.
-name|get
+name|getOrCreate
 argument_list|(
 operator|new
 name|ZooKeeperWatcher
@@ -476,7 +476,7 @@ name|AUTH_B
 operator|=
 name|TableAuthManager
 operator|.
-name|get
+name|getOrCreate
 argument_list|(
 operator|new
 name|ZooKeeperWatcher

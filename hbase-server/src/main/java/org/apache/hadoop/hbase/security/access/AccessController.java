@@ -5886,7 +5886,7 @@ name|authManager
 operator|=
 name|TableAuthManager
 operator|.
-name|get
+name|getOrCreate
 argument_list|(
 name|zk
 argument_list|,
@@ -5946,7 +5946,25 @@ parameter_list|(
 name|CoprocessorEnvironment
 name|env
 parameter_list|)
-block|{    }
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|authManager
+operator|!=
+literal|null
+condition|)
+block|{
+name|TableAuthManager
+operator|.
+name|release
+argument_list|(
+name|authManager
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 annotation|@
 name|Override
 specifier|public
