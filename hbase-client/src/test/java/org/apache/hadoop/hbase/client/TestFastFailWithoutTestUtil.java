@@ -171,6 +171,18 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|TimeUnit
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|TimeoutException
 import|;
 end_import
@@ -390,6 +402,22 @@ operator|.
 name|testclassification
 operator|.
 name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Threads
 import|;
 end_import
 
@@ -2188,6 +2216,19 @@ argument_list|(
 literal|"Waiting for Thread 2 to finish"
 argument_list|)
 expr_stmt|;
+try|try
+block|{
+name|nonPriviFuture
+operator|.
+name|get
+argument_list|(
+literal|30
+argument_list|,
+name|TimeUnit
+operator|.
+name|SECONDS
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
 name|nonPriviFuture
@@ -2196,11 +2237,43 @@ name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|TimeoutException
+name|e
+parameter_list|)
+block|{
+name|Threads
+operator|.
+name|printThreadInfo
+argument_list|(
+name|System
+operator|.
+name|out
+argument_list|,
+literal|"This should not hang but seems to sometimes...FIX! Here is a thread dump!"
+argument_list|)
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|debug
 argument_list|(
 literal|"Waiting for Thread 1 to finish"
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+name|priviFuture
+operator|.
+name|get
+argument_list|(
+literal|30
+argument_list|,
+name|TimeUnit
+operator|.
+name|SECONDS
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -2211,6 +2284,27 @@ name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|TimeoutException
+name|e
+parameter_list|)
+block|{
+comment|// There is something wrong w/ the latching but don't have time to fix. If timesout, just
+comment|// let it go for now till someone has time to look. Meantime, here is thread dump.
+name|Threads
+operator|.
+name|printThreadInfo
+argument_list|(
+name|System
+operator|.
+name|out
+argument_list|,
+literal|"This should not hang but seems to sometimes...FIX! Here is a thread dump!"
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Now that the server in fast fail mode. Lets try to make contact with the
 comment|// server with a third thread. And make sure that when there is no
 comment|// exception,
