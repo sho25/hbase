@@ -195,6 +195,16 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
+comment|/**    * Get number of the log files this provider is managing    */
+name|long
+name|getNumLogFiles
+parameter_list|()
+function_decl|;
+comment|/**    * Get size of the log files this provider is managing    */
+name|long
+name|getLogFileSize
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 
