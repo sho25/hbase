@@ -3097,6 +3097,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// we won't create the hlog dir until getWAL got called, so
+comment|// make dir here when testing empty log file
+name|fs
+operator|.
+name|mkdirs
+argument_list|(
+name|WALDIR
+argument_list|)
+expr_stmt|;
 name|injectEmptyFile
 argument_list|(
 literal|".empty"
@@ -3877,9 +3886,6 @@ argument_list|(
 literal|"if skip.errors is false all files should remain in place"
 argument_list|,
 name|NUM_WRITERS
-operator|+
-literal|1
-comment|/* Factory WAL */
 argument_list|,
 name|fs
 operator|.
@@ -4219,9 +4225,6 @@ argument_list|(
 literal|"wrong number of files in the archive log"
 argument_list|,
 name|NUM_WRITERS
-operator|+
-literal|1
-comment|/* wal from factory */
 argument_list|,
 name|archivedLogs
 operator|.
@@ -5012,9 +5015,6 @@ expr_stmt|;
 name|assertEquals
 argument_list|(
 name|NUM_WRITERS
-operator|+
-literal|1
-comment|/* wal created by factory */
 argument_list|,
 name|fs
 operator|.
@@ -6255,6 +6255,15 @@ operator|.
 name|info
 argument_list|(
 literal|"testSplitLogFileEmpty"
+argument_list|)
+expr_stmt|;
+comment|// we won't create the hlog dir until getWAL got called, so
+comment|// make dir here when testing empty log file
+name|fs
+operator|.
+name|mkdirs
+argument_list|(
+name|WALDIR
 argument_list|)
 expr_stmt|;
 name|injectEmptyFile
