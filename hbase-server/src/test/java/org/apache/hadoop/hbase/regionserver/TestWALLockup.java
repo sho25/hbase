@@ -193,6 +193,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -596,6 +610,18 @@ operator|.
 name|getConfiguration
 argument_list|()
 expr_stmt|;
+comment|// Disable block cache.
+name|CONF
+operator|.
+name|setFloat
+argument_list|(
+name|HConstants
+operator|.
+name|HFILE_BLOCK_CACHE_SIZE_KEY
+argument_list|,
+literal|0f
+argument_list|)
+expr_stmt|;
 name|dir
 operator|=
 name|TEST_UTIL
@@ -799,7 +825,9 @@ argument_list|(
 literal|"COUNTDOWN"
 argument_list|)
 expr_stmt|;
-comment|// Don't countdown latch until someone waiting on it.
+comment|// Don't countdown latch until someone waiting on it otherwise, the above
+comment|// afterCreatingZigZagLatch will get to the latch and no one will ever free it and we'll
+comment|// be stuck; test won't go down
 while|while
 condition|(
 name|this
@@ -811,15 +839,13 @@ argument_list|()
 operator|<=
 literal|0
 condition|)
-block|{
 name|Threads
 operator|.
 name|sleep
 argument_list|(
-literal|10
+literal|1
 argument_list|)
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|latch

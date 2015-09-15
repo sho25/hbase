@@ -1312,8 +1312,12 @@ throws|throws
 name|IOException
 block|{
 comment|// TODO: This implementation waiting on a latch is problematic because if a higher level
-comment|// determines we should stop or abort, there is not global list of all these blocked WALKeys
-comment|// waiting on a sequence id; they can't be cancelled... interrupted. See getNextSequenceId
+comment|// determines we should stop or abort, there is no global list of all these blocked WALKeys
+comment|// waiting on a sequence id; they can't be cancelled... interrupted. See getNextSequenceId.
+comment|//
+comment|// UPDATE: I think we can remove the timeout now we are stamping all walkeys with sequenceid,
+comment|// even those that have failed (previously we were not... so they would just hang out...).
+comment|// St.Ack 20150910
 try|try
 block|{
 if|if

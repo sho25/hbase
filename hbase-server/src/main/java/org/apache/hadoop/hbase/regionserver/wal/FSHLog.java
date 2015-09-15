@@ -1282,18 +1282,6 @@ specifier|final
 name|int
 name|slowSyncNs
 decl_stmt|;
-specifier|private
-specifier|final
-specifier|static
-name|Object
-index|[]
-name|NO_ARGS
-init|=
-operator|new
-name|Object
-index|[]
-block|{}
-decl_stmt|;
 comment|// If live datanode count is lower than the default replicas value,
 comment|// RollWriter will be triggered in each sync(So the RollWriter will be
 comment|// triggered one by one in a short time). Using it as a workaround to slow
@@ -3563,12 +3551,11 @@ condition|)
 throw|throw
 name|e
 throw|;
-comment|// Else, let is pass through to the close.
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed sync but no outstanding unsync'd edits so falling through to close; "
+literal|"Failed sync-before-close but no outstanding appends; closing WAL: "
 operator|+
 name|e
 operator|.
@@ -5877,11 +5864,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unable to invoke DFSOutputStream.getNumCurrentReplicas"
+literal|"DFSOutputStream.getNumCurrentReplicas failed because of "
 operator|+
 name|e
 operator|+
-literal|" still proceeding ahead..."
+literal|", continuing..."
 argument_list|)
 expr_stmt|;
 block|}
@@ -7348,7 +7335,9 @@ comment|// Appends and syncs are coming in order off the ringbuffer.  We depend 
 comment|// add appends to dfsclient as they come in.  Batching appends doesn't give any significant
 comment|// benefit on measurement.  Handler sync calls we will batch up. If we get an exception
 comment|// appending an edit, we fail all subsequent appends and syncs with the same exception until
-comment|// the WAL is reset.
+comment|// the WAL is reset. It is important that we not short-circuit and exit early this method.
+comment|// It is important that we always go through the attainSafePoint on the end. Another thread,
+comment|// the log roller may be waiting on a signal from us here and will just hang without it.
 try|try
 block|{
 if|if
@@ -7424,7 +7413,6 @@ operator|.
 name|unloadFSWALEntryPayload
 argument_list|()
 decl_stmt|;
-comment|// If already an exception, do not try to append. Throw.
 if|if
 condition|(
 name|this
@@ -7433,11 +7421,20 @@ name|exception
 operator|!=
 literal|null
 condition|)
-throw|throw
-name|this
+block|{
+comment|// We got an exception on an earlier attempt at append. Do not let this append
+comment|// go through. Fail it but stamp the sequenceid into this append though failed.
+comment|// We need to do this to close the latch held down deep in WALKey...that is waiting
+comment|// on sequenceid assignment otherwise it will just hang out (The #append method
+comment|// called below does this also internally).
+name|entry
 operator|.
-name|exception
-throw|;
+name|stampRegionSequenceId
+argument_list|()
+expr_stmt|;
+comment|// Return to keep processing events coming off the ringbuffer
+return|return;
+block|}
 name|append
 argument_list|(
 name|entry
@@ -7450,27 +7447,12 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-comment|// Failed append. Record the exception. Throw it from here on out til new WAL in place
+comment|// Failed append. Record the exception.
 name|this
 operator|.
 name|exception
 operator|=
-operator|new
-name|DamagedWALException
-argument_list|(
 name|e
-argument_list|)
-expr_stmt|;
-comment|// If append fails, presume any pending syncs will fail too; let all waiting handlers
-comment|// know of the exception.
-name|cleanupOutstandingSyncsOnException
-argument_list|(
-name|sequence
-argument_list|,
-name|this
-operator|.
-name|exception
-argument_list|)
 expr_stmt|;
 comment|// Return to keep processing events coming off the ringbuffer
 return|return;
@@ -7500,7 +7482,7 @@ block|}
 block|}
 else|else
 block|{
-comment|// They can't both be null.  Fail all up to this!!!
+comment|// What is this if not an append or sync. Fail all up to this!!!
 name|cleanupOutstandingSyncsOnException
 argument_list|(
 name|sequence
@@ -7555,8 +7537,17 @@ name|syncFuturesCount
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Below expects that the offer 'transfers' responsibility for the outstanding syncs to the
-comment|// syncRunner. We should never get an exception in here.
+if|if
+condition|(
+name|this
+operator|.
+name|exception
+operator|==
+literal|null
+condition|)
+block|{
+comment|// Below expects that the offer 'transfers' responsibility for the outstanding syncs to
+comment|// the syncRunner. We should never get an exception in here.
 name|int
 name|index
 init|=
@@ -7577,31 +7568,6 @@ operator|.
 name|length
 decl_stmt|;
 try|try
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|exception
-operator|!=
-literal|null
-condition|)
-block|{
-comment|// Do not try to sync. If a this.exception, then we failed an append. Do not try to
-comment|// sync a failed append. Fall through to the attainSafePoint below. It is part of the
-comment|// means by which we put in place a new WAL. A new WAL is how we clean up.
-comment|// Don't throw because then we'll not get to attainSafePoint.
-name|cleanupOutstandingSyncsOnException
-argument_list|(
-name|sequence
-argument_list|,
-name|this
-operator|.
-name|exception
-argument_list|)
-expr_stmt|;
-block|}
-else|else
 block|{
 name|this
 operator|.
@@ -7624,7 +7590,6 @@ name|syncFuturesCount
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 catch|catch
 parameter_list|(
 name|Exception
@@ -7632,16 +7597,48 @@ name|e
 parameter_list|)
 block|{
 comment|// Should NEVER get here.
-name|cleanupOutstandingSyncsOnException
+name|requestLogRoll
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|exception
+operator|=
+operator|new
+name|DamagedWALException
 argument_list|(
-name|sequence
+literal|"Failed offering sync"
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-throw|throw
-name|e
-throw|;
+block|}
+block|}
+comment|// We may have picked up an exception above trying to offer sync
+if|if
+condition|(
+name|this
+operator|.
+name|exception
+operator|!=
+literal|null
+condition|)
+block|{
+name|cleanupOutstandingSyncsOnException
+argument_list|(
+name|sequence
+argument_list|,
+operator|new
+name|DamagedWALException
+argument_list|(
+literal|"On sync"
+argument_list|,
+name|this
+operator|.
+name|exception
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 name|attainSafePoint
 argument_list|(
@@ -8061,11 +8058,20 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+name|String
+name|msg
+init|=
+literal|"Append sequenceId="
+operator|+
+name|regionSequenceId
+operator|+
+literal|", requesting roll of WAL"
+decl_stmt|;
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Could not append. Requesting close of WAL"
+name|msg
 argument_list|,
 name|e
 argument_list|)
@@ -8074,7 +8080,13 @@ name|requestLogRoll
 argument_list|()
 expr_stmt|;
 throw|throw
+operator|new
+name|DamagedWALException
+argument_list|(
+name|msg
+argument_list|,
 name|e
+argument_list|)
 throw|;
 block|}
 name|numEntries
