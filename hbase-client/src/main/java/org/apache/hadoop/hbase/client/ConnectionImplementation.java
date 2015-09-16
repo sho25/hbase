@@ -2231,13 +2231,7 @@ name|getInt
 argument_list|(
 literal|"hbase.hconnection.threads.core"
 argument_list|,
-name|Runtime
-operator|.
-name|getRuntime
-argument_list|()
-operator|.
-name|availableProcessors
-argument_list|()
+literal|256
 argument_list|)
 argument_list|,
 literal|"-shared-"
@@ -2317,6 +2311,8 @@ argument_list|()
 operator|.
 name|availableProcessors
 argument_list|()
+operator|*
+literal|8
 expr_stmt|;
 block|}
 name|long
