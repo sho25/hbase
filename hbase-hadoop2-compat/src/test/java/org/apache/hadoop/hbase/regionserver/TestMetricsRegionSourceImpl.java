@@ -475,6 +475,18 @@ return|return
 literal|null
 return|;
 block|}
+comment|/**      * Always return 0 for testing      */
+annotation|@
+name|Override
+specifier|public
+name|int
+name|getReplicaId
+parameter_list|()
+block|{
+return|return
+literal|0
+return|;
+block|}
 block|}
 block|}
 end_class

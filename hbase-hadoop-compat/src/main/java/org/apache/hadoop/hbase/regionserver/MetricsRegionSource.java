@@ -81,6 +81,16 @@ name|COPROCESSOR_EXECUTION_STATISTICS_DESC
 init|=
 literal|"Statistics for coprocessor execution times"
 decl_stmt|;
+name|String
+name|REPLICA_ID
+init|=
+literal|"replicaid"
+decl_stmt|;
+name|String
+name|REPLICA_ID_DESC
+init|=
+literal|"The replica ID of a region. 0 is primary, otherwise is secondary"
+decl_stmt|;
 comment|/**    * Close the region's metrics as this region is closing.    */
 name|void
 name|close

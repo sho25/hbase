@@ -125,6 +125,11 @@ argument_list|>
 name|getCoprocessorExecutionStatistics
 parameter_list|()
 function_decl|;
+comment|/**    * Get the replica id of this region.    */
+name|int
+name|getReplicaId
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

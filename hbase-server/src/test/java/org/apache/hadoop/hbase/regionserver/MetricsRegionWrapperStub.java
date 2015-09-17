@@ -62,6 +62,38 @@ name|MetricsRegionWrapperStub
 implements|implements
 name|MetricsRegionWrapper
 block|{
+name|int
+name|replicaid
+init|=
+literal|0
+decl_stmt|;
+comment|/**    * Replica ID set to 0    */
+specifier|public
+name|MetricsRegionWrapperStub
+parameter_list|()
+block|{
+name|this
+operator|.
+name|replicaid
+operator|=
+literal|0
+expr_stmt|;
+block|}
+comment|/**    * Pass in replica ID    */
+specifier|public
+name|MetricsRegionWrapperStub
+parameter_list|(
+name|int
+name|replicaid
+parameter_list|)
+block|{
+name|this
+operator|.
+name|replicaid
+operator|=
+name|replicaid
+expr_stmt|;
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -226,6 +258,18 @@ argument_list|,
 name|DescriptiveStatistics
 argument_list|>
 argument_list|()
+return|;
+block|}
+comment|/**    * Get the replica id of this region.    */
+annotation|@
+name|Override
+specifier|public
+name|int
+name|getReplicaId
+parameter_list|()
+block|{
+return|return
+name|replicaid
 return|;
 block|}
 block|}

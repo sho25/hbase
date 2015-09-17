@@ -743,6 +743,24 @@ return|return
 name|coprocessorTimes
 return|;
 block|}
+comment|/**    * Get the replica id of this region.    */
+annotation|@
+name|Override
+specifier|public
+name|int
+name|getReplicaId
+parameter_list|()
+block|{
+return|return
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getReplicaId
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 
