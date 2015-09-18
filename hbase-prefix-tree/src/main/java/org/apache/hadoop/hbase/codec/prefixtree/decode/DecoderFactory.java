@@ -23,16 +23,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|nio
-operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -85,6 +75,22 @@ name|CellSearcher
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|ByteBuff
+import|;
+end_import
+
 begin_comment
 comment|/**  * Static wrapper class for the ArraySearcherPool.  */
 end_comment
@@ -115,30 +121,13 @@ name|PrefixTreeArraySearcher
 name|checkOut
 parameter_list|(
 specifier|final
-name|ByteBuffer
+name|ByteBuff
 name|buffer
 parameter_list|,
 name|boolean
 name|includeMvccVersion
 parameter_list|)
 block|{
-if|if
-condition|(
-name|buffer
-operator|.
-name|isDirect
-argument_list|()
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"DirectByteBuffers not supported yet"
-argument_list|)
-throw|;
-comment|// TODO implement PtByteBufferBlockScanner
-block|}
 name|PrefixTreeArraySearcher
 name|searcher
 init|=
@@ -224,7 +213,7 @@ specifier|static
 name|PrefixTreeArraySearcher
 name|ensureArraySearcherValid
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|buffer
 parameter_list|,
 name|PrefixTreeArraySearcher
@@ -285,9 +274,6 @@ argument_list|(
 name|blockMeta
 argument_list|,
 name|buffer
-operator|.
-name|array
-argument_list|()
 argument_list|,
 name|includeMvccVersion
 argument_list|)
@@ -417,9 +403,6 @@ argument_list|(
 name|blockMeta
 argument_list|,
 name|buffer
-operator|.
-name|array
-argument_list|()
 argument_list|,
 name|includeMvccVersion
 argument_list|)

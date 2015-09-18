@@ -435,6 +435,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|nio
+operator|.
+name|SingleByteBuff
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|ByteBufferUtils
@@ -545,7 +561,11 @@ init|=
 operator|new
 name|PrefixTreeBlockMeta
 argument_list|(
+operator|new
+name|SingleByteBuff
+argument_list|(
 name|sourceAsBuffer
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|sourceAsBuffer
@@ -612,7 +632,11 @@ name|DecoderFactory
 operator|.
 name|checkOut
 argument_list|(
+operator|new
+name|SingleByteBuff
+argument_list|(
 name|sourceAsBuffer
+argument_list|)
 argument_list|,
 name|includesMvcc
 argument_list|)
@@ -771,7 +795,6 @@ decl_stmt|;
 try|try
 block|{
 comment|// should i includeMemstoreTS (second argument)?  i think PrefixKeyDeltaEncoder is, so i will
-comment|// TODO : Change to work with BBs
 name|searcher
 operator|=
 name|DecoderFactory
@@ -779,19 +802,6 @@ operator|.
 name|checkOut
 argument_list|(
 name|block
-operator|.
-name|asSubByteBuffer
-argument_list|(
-name|block
-operator|.
-name|limit
-argument_list|()
-operator|-
-name|block
-operator|.
-name|position
-argument_list|()
-argument_list|)
 argument_list|,
 literal|true
 argument_list|)

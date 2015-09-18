@@ -79,6 +79,22 @@ name|ColumnNodeType
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|ByteBuff
+import|;
+end_import
+
 begin_comment
 comment|/**  * Position one of these appropriately in the data block and you can call its methods to retrieve  * the family or qualifier at the current position.  */
 end_comment
@@ -162,8 +178,7 @@ parameter_list|(
 name|PrefixTreeBlockMeta
 name|blockMeta
 parameter_list|,
-name|byte
-index|[]
+name|ByteBuff
 name|block
 parameter_list|)
 block|{
