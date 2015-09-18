@@ -961,6 +961,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Iterator
 import|;
 end_import
@@ -994,6 +1004,16 @@ operator|.
 name|util
 operator|.
 name|Random
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
 import|;
 end_import
 
@@ -1288,17 +1308,6 @@ operator|=
 name|span
 expr_stmt|;
 block|}
-block|}
-comment|/*    * This is the return value from {@link #waitForWork()} indicating whether run() method should:    * read response    * close the connection    * take no action - connection would be closed by others    */
-specifier|private
-enum|enum
-name|WaitForWorkResult
-block|{
-name|READ_RESPONSE
-block|,
-name|CALLER_SHOULD_CLOSE
-block|,
-name|CLOSED
 block|}
 comment|/** Thread that reads responses and notifies callers.  Each connection owns a    * socket connected to a remote address.  Calls are multiplexed through this    * socket: responses may be delivered out of order. */
 specifier|protected
@@ -1621,11 +1630,6 @@ name|void
 name|run
 parameter_list|()
 block|{
-name|boolean
-name|closeBySelf
-init|=
-literal|false
-decl_stmt|;
 while|while
 condition|(
 operator|!
@@ -1656,8 +1660,6 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|closeBySelf
-operator|=
 name|markClosed
 argument_list|(
 operator|new
@@ -1776,8 +1778,6 @@ argument_list|(
 name|e
 argument_list|)
 expr_stmt|;
-name|closeBySelf
-operator|=
 name|markClosed
 argument_list|(
 name|e
@@ -1788,15 +1788,6 @@ block|}
 name|cleanup
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|closeBySelf
-condition|)
-block|{
-name|close
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 comment|/**        * Cleans the call not yet sent when we finish.        */
 specifier|private
@@ -2956,10 +2947,10 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/* wait till someone signals us to start reading RPC response or      * it is idle too long, it is marked as to be closed,      * or the client is marked as not running.      *      * @return WaitForWorkResult indicating whether it is time to read response;      * if the caller should close; or otherwise      */
+comment|/* wait till someone signals us to start reading RPC response or      * it is idle too long, it is marked as to be closed,      * or the client is marked as not running.      *      * @return true if it is time to read a response; false otherwise.      */
 specifier|protected
 specifier|synchronized
-name|WaitForWorkResult
+name|boolean
 name|waitForWork
 parameter_list|()
 throws|throws
@@ -2991,9 +2982,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|WaitForWorkResult
-operator|.
-name|CLOSED
+literal|false
 return|;
 block|}
 if|if
@@ -3005,8 +2994,6 @@ name|get
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
 name|markClosed
 argument_list|(
 operator|new
@@ -3022,18 +3009,9 @@ operator|+
 literal|" pending request(s)"
 argument_list|)
 argument_list|)
-condition|)
-block|{
+expr_stmt|;
 return|return
-name|WaitForWorkResult
-operator|.
-name|CALLER_SHOULD_CLOSE
-return|;
-block|}
-return|return
-name|WaitForWorkResult
-operator|.
-name|CLOSED
+literal|false
 return|;
 block|}
 if|if
@@ -3045,10 +3023,10 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
+comment|// shouldCloseConnection can be set to true by a parallel thread here. The caller
+comment|//  will need to check anyway.
 return|return
-name|WaitForWorkResult
-operator|.
-name|READ_RESPONSE
+literal|true
 return|;
 block|}
 if|if
@@ -3065,8 +3043,6 @@ comment|// Connection is idle.
 comment|// We expect the number of calls to be zero here, but actually someone can
 comment|//  adds a call at the any moment, as there is no synchronization between this task
 comment|//  and adding new calls. It's not a big issue, but it will get an exception.
-if|if
-condition|(
 name|markClosed
 argument_list|(
 operator|new
@@ -3082,18 +3058,9 @@ operator|+
 literal|" pending request(s)"
 argument_list|)
 argument_list|)
-condition|)
-block|{
+expr_stmt|;
 return|return
-name|WaitForWorkResult
-operator|.
-name|CALLER_SHOULD_CLOSE
-return|;
-block|}
-return|return
-name|WaitForWorkResult
-operator|.
-name|CLOSED
+literal|false
 return|;
 block|}
 name|wait
@@ -3153,52 +3120,18 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|WaitForWorkResult
-name|result
-init|=
-name|WaitForWorkResult
-operator|.
-name|CALLER_SHOULD_CLOSE
-decl_stmt|;
 try|try
 block|{
-name|result
-operator|=
-name|waitForWork
-argument_list|()
-expr_stmt|;
-comment|// Wait here for work - read or close connection
 while|while
 condition|(
-name|result
-operator|==
-name|WaitForWorkResult
-operator|.
-name|READ_RESPONSE
-condition|)
-block|{
-if|if
-condition|(
-name|readResponse
-argument_list|()
-condition|)
-block|{
-comment|// shouldCloseConnection is set to true by readResponse(). Close the connection
-name|result
-operator|=
-name|WaitForWorkResult
-operator|.
-name|CALLER_SHOULD_CLOSE
-expr_stmt|;
-block|}
-else|else
-block|{
-name|result
-operator|=
 name|waitForWork
 argument_list|()
+condition|)
+block|{
+comment|// Wait here for work - read or close connection
+name|readResponse
+argument_list|()
 expr_stmt|;
-block|}
 block|}
 block|}
 catch|catch
@@ -3226,8 +3159,6 @@ literal|": interrupted while waiting for call responses"
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
 name|markClosed
 argument_list|(
 name|ExceptionUtil
@@ -3237,16 +3168,7 @@ argument_list|(
 name|t
 argument_list|)
 argument_list|)
-condition|)
-block|{
-comment|// shouldCloseConnection is set to true. Close connection
-name|result
-operator|=
-name|WaitForWorkResult
-operator|.
-name|CALLER_SHOULD_CLOSE
 expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -3275,8 +3197,6 @@ name|t
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
 name|markClosed
 argument_list|(
 operator|new
@@ -3287,30 +3207,11 @@ argument_list|,
 name|t
 argument_list|)
 argument_list|)
-condition|)
-block|{
-comment|// shouldCloseConnection is set to true. Close connection
-name|result
-operator|=
-name|WaitForWorkResult
-operator|.
-name|CALLER_SHOULD_CLOSE
 expr_stmt|;
 block|}
-block|}
-if|if
-condition|(
-name|result
-operator|==
-name|WaitForWorkResult
-operator|.
-name|CALLER_SHOULD_CLOSE
-condition|)
-block|{
 name|close
 argument_list|()
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|LOG
@@ -3846,18 +3747,14 @@ operator|+
 name|server
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
 name|markClosed
 argument_list|(
 name|e
 argument_list|)
-condition|)
-block|{
+expr_stmt|;
 name|close
 argument_list|()
 expr_stmt|;
-block|}
 throw|throw
 name|e
 throw|;
@@ -4259,18 +4156,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
 name|markClosed
 argument_list|(
 name|e
 argument_list|)
-condition|)
-block|{
+expr_stmt|;
 name|close
 argument_list|()
 expr_stmt|;
-block|}
 throw|throw
 name|e
 throw|;
@@ -4896,18 +4789,14 @@ parameter_list|)
 block|{
 comment|// We set the value inside the synchronized block, this way the next in line
 comment|//  won't even try to write
-if|if
-condition|(
 name|markClosed
 argument_list|(
 name|e
 argument_list|)
-condition|)
-block|{
+expr_stmt|;
 name|close
 argument_list|()
 expr_stmt|;
-block|}
 name|writeException
 operator|=
 name|e
@@ -4939,9 +4828,9 @@ throw|throw
 name|writeException
 throw|;
 block|}
-comment|/* Receive a response.      * Because only one receiver, so no synchronization on in.      * @return true if connection should be closed by caller      */
+comment|/* Receive a response.      * Because only one receiver, so no synchronization on in.      */
 specifier|protected
-name|boolean
+name|void
 name|readResponse
 parameter_list|()
 block|{
@@ -4952,9 +4841,7 @@ operator|.
 name|get
 argument_list|()
 condition|)
-return|return
-literal|false
-return|;
+return|return;
 name|Call
 name|call
 init|=
@@ -5056,9 +4943,7 @@ argument_list|,
 name|whatIsLeftToRead
 argument_list|)
 expr_stmt|;
-return|return
-literal|false
-return|;
+return|return;
 block|}
 if|if
 condition|(
@@ -5099,12 +4984,11 @@ name|exceptionResponse
 argument_list|)
 condition|)
 block|{
-return|return
 name|markClosed
 argument_list|(
 name|re
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 block|}
 else|else
@@ -5277,12 +5161,11 @@ block|}
 else|else
 block|{
 comment|// Treat this as a fatal condition and close this connection
-return|return
 name|markClosed
 argument_list|(
 name|e
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 block|}
 finally|finally
@@ -5293,9 +5176,6 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-return|return
-literal|false
-return|;
 block|}
 comment|/**      * @return True if the exception is a fatal connection exception.      */
 specifier|private
@@ -5394,9 +5274,9 @@ name|doNotRetry
 argument_list|)
 return|;
 block|}
-comment|/*      * @return true if shouldCloseConnection is set true by this thread; false otherwise      */
 specifier|protected
-name|boolean
+specifier|synchronized
+name|void
 name|markClosed
 parameter_list|(
 name|IOException
@@ -5414,9 +5294,8 @@ operator|new
 name|NullPointerException
 argument_list|()
 throw|;
-name|boolean
-name|ret
-init|=
+if|if
+condition|(
 name|shouldCloseConnection
 operator|.
 name|compareAndSet
@@ -5425,10 +5304,6 @@ literal|false
 argument_list|,
 literal|true
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|ret
 condition|)
 block|{
 if|if
@@ -5468,10 +5343,10 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+name|notifyAll
+argument_list|()
+expr_stmt|;
 block|}
-return|return
-name|ret
-return|;
 block|}
 comment|/**      * Cleanup the calls older than a given timeout, in milli seconds.      * @param allCalls true for all calls, false for only the calls in timeout      */
 specifier|protected
@@ -5798,6 +5673,14 @@ literal|false
 argument_list|)
 condition|)
 return|return;
+name|Set
+argument_list|<
+name|Connection
+argument_list|>
+name|connsToClose
+init|=
+literal|null
+decl_stmt|;
 comment|// wake up all connections
 synchronized|synchronized
 init|(
@@ -5850,6 +5733,46 @@ condition|)
 block|{
 if|if
 condition|(
+name|connsToClose
+operator|==
+literal|null
+condition|)
+block|{
+name|connsToClose
+operator|=
+operator|new
+name|HashSet
+argument_list|<
+name|Connection
+argument_list|>
+argument_list|()
+expr_stmt|;
+block|}
+name|connsToClose
+operator|.
+name|add
+argument_list|(
+name|conn
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+if|if
+condition|(
+name|connsToClose
+operator|!=
+literal|null
+condition|)
+block|{
+for|for
+control|(
+name|Connection
+name|conn
+range|:
+name|connsToClose
+control|)
+block|{
 name|conn
 operator|.
 name|markClosed
@@ -5860,15 +5783,12 @@ argument_list|(
 literal|"RpcClient is closing"
 argument_list|)
 argument_list|)
-condition|)
-block|{
+expr_stmt|;
 name|conn
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
-block|}
-block|}
 block|}
 block|}
 comment|// wait until all connections are closed
