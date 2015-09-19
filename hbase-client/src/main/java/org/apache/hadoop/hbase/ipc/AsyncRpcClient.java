@@ -2119,7 +2119,7 @@ name|connectionHashCode
 init|=
 name|connection
 operator|.
-name|getConnectionHashCode
+name|hashCode
 argument_list|()
 decl_stmt|;
 synchronized|synchronized
@@ -2144,8 +2144,11 @@ decl_stmt|;
 if|if
 condition|(
 name|connectionInPool
-operator|==
+operator|.
+name|equals
+argument_list|(
 name|connection
+argument_list|)
 condition|)
 block|{
 name|this
