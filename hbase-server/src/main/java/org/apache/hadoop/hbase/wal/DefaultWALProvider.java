@@ -387,6 +387,7 @@ name|IOException
 function_decl|;
 block|}
 specifier|protected
+specifier|volatile
 name|FSHLog
 name|log
 init|=
@@ -597,7 +598,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// must lock since getWAL will create hlog on fs which is time consuming
+if|if
+condition|(
+name|log
+operator|==
+literal|null
+condition|)
+block|{
+comment|// only lock when need to create wal, and need to lock since
+comment|// creating hlog on fs is time consuming
 synchronized|synchronized
 init|(
 name|walCreateLock
@@ -660,6 +669,7 @@ else|:
 literal|null
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 return|return

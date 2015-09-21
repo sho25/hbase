@@ -108,7 +108,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A WAL grouping strategy that limits the number of delegate providers (i.e. wal group) to  * "hbase.wal.regiongrouping.numgroups".  */
+comment|/**  * A WAL grouping strategy that limits the number of wal groups to  * "hbase.wal.regiongrouping.numgroups".  */
 end_comment
 
 begin_class
