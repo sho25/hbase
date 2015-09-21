@@ -1348,6 +1348,36 @@ literal|0
 condition|)
 block|{
 comment|// Empty log folder. No recovery needed
+comment|// Just delete the directory
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|status
+operator|.
+name|getPath
+argument_list|()
+argument_list|,
+literal|false
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unable to delete "
+operator|+
+name|status
+operator|.
+name|getPath
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 continue|continue;
 block|}
 specifier|final
