@@ -2144,6 +2144,10 @@ decl_stmt|;
 if|if
 condition|(
 name|connectionInPool
+operator|!=
+literal|null
+operator|&&
+name|connectionInPool
 operator|.
 name|equals
 argument_list|(
