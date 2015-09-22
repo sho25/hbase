@@ -101,6 +101,26 @@ init|=
 literal|"Number of bytes received."
 decl_stmt|;
 name|String
+name|REQUEST_SIZE_NAME
+init|=
+literal|"requestSize"
+decl_stmt|;
+name|String
+name|REQUEST_SIZE_DESC
+init|=
+literal|"Request size in bytes."
+decl_stmt|;
+name|String
+name|RESPONSE_SIZE_NAME
+init|=
+literal|"responseSize"
+decl_stmt|;
+name|String
+name|RESPONSE_SIZE_DESC
+init|=
+literal|"Response size in bytes."
+decl_stmt|;
+name|String
 name|QUEUE_CALL_TIME_NAME
 init|=
 literal|"queueCallTime"
@@ -291,6 +311,20 @@ name|void
 name|receivedBytes
 parameter_list|(
 name|int
+name|count
+parameter_list|)
+function_decl|;
+name|void
+name|sentResponse
+parameter_list|(
+name|long
+name|count
+parameter_list|)
+function_decl|;
+name|void
+name|receivedRequest
+parameter_list|(
+name|long
 name|count
 parameter_list|)
 function_decl|;
