@@ -2109,11 +2109,6 @@ block|}
 block|}
 block|}
 comment|/**    * Get the rootdir.  Make sure its wholesome and exists before returning.    * @param rd    * @param c    * @param fs    * @return hbase.rootdir (after checks for existence and bootstrapping if    * needed populating the directory with necessary bootup files).    * @throws IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|private
 name|Path
 name|checkRootDir
@@ -2559,29 +2554,6 @@ argument_list|(
 name|rd
 argument_list|,
 name|c
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-comment|// Migrate table descriptor files if necessary
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|FSTableDescriptorMigrationToSubdir
-operator|.
-name|migrateFSTableDescriptorsIfNecessary
-argument_list|(
-name|fs
-argument_list|,
-name|rd
 argument_list|)
 expr_stmt|;
 block|}
