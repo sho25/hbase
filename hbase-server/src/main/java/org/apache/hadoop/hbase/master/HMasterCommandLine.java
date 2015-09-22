@@ -1195,9 +1195,13 @@ name|loginServer
 argument_list|(
 name|conf
 argument_list|,
-literal|"hbase.zookeeper.server.keytab.file"
+name|HConstants
+operator|.
+name|ZK_SERVER_KEYTAB_FILE
 argument_list|,
-literal|"hbase.zookeeper.server.kerberos.principal"
+name|HConstants
+operator|.
+name|ZK_SERVER_KERBEROS_PRINCIPAL
 argument_list|,
 literal|null
 argument_list|)

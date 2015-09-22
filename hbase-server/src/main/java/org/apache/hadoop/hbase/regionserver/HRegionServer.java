@@ -3496,9 +3496,13 @@ name|this
 operator|.
 name|conf
 argument_list|,
-literal|"hbase.zookeeper.client.keytab.file"
+name|HConstants
+operator|.
+name|ZK_CLIENT_KEYTAB_FILE
 argument_list|,
-literal|"hbase.zookeeper.client.kerberos.principal"
+name|HConstants
+operator|.
+name|ZK_CLIENT_KERBEROS_PRINCIPAL
 argument_list|,
 name|hostName
 argument_list|)
