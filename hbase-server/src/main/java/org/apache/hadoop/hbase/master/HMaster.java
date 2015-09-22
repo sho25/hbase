@@ -707,6 +707,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|ClusterConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|RegionReplicaUtil
 import|;
 end_import
@@ -4025,9 +4041,6 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-name|setupClusterConnection
-argument_list|()
-expr_stmt|;
 comment|// Invalidate all write locks held previously
 name|this
 operator|.
@@ -4841,6 +4854,9 @@ name|IOException
 block|{
 comment|// We put this out here in a method so can do a Mockito.spy and stub it out
 comment|// w/ a mocked up ServerManager.
+name|setupClusterConnection
+argument_list|()
+expr_stmt|;
 return|return
 operator|new
 name|ServerManager
