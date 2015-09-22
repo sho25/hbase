@@ -214,14 +214,6 @@ name|PrefixFilter
 extends|extends
 name|FilterBase
 block|{
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|MAX_SKIPPED_COMPARE_ROW_NUM
-init|=
-literal|100
-decl_stmt|;
 specifier|protected
 name|byte
 index|[]
@@ -240,12 +232,6 @@ name|boolean
 name|filterRow
 init|=
 literal|true
-decl_stmt|;
-specifier|protected
-name|int
-name|skippedCompareRows
-init|=
-literal|0
 decl_stmt|;
 specifier|public
 name|PrefixFilter
@@ -311,23 +297,10 @@ operator|<
 name|prefix
 operator|.
 name|length
-operator|&&
-name|skippedCompareRows
-operator|<
-name|MAX_SKIPPED_COMPARE_ROW_NUM
 condition|)
-block|{
-operator|++
-name|skippedCompareRows
-expr_stmt|;
 return|return
 literal|true
 return|;
-block|}
-name|skippedCompareRows
-operator|=
-literal|0
-expr_stmt|;
 comment|// if they are equal, return false => pass row
 comment|// else return true, filter row
 comment|// if we are passed the prefix, set flag
