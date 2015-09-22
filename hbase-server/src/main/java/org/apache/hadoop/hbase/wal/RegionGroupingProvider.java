@@ -339,7 +339,7 @@ name|GROUP_NAME_DELIMITER
 init|=
 literal|"."
 decl_stmt|;
-comment|/**      * Given an identifier, pick a group.      * the byte[] returned for a given group must always use the same instance, since we      * will be using it as a hash key.      */
+comment|/**      * Given an identifier and a namespace, pick a group.      */
 name|String
 name|group
 parameter_list|(
@@ -347,6 +347,10 @@ specifier|final
 name|byte
 index|[]
 name|identifier
+parameter_list|,
+name|byte
+index|[]
+name|namespace
 parameter_list|)
 function_decl|;
 name|void
@@ -381,7 +385,13 @@ name|BoundedGroupingStrategy
 operator|.
 name|class
 parameter_list|)
-constructor_decl|;
+operator|,
+constructor|namespace(NamespaceGroupingStrategy.class
+block|)
+class|;
+end_class
+
+begin_decl_stmt
 specifier|final
 name|Class
 argument_list|<
@@ -391,8 +401,11 @@ name|RegionGroupingStrategy
 argument_list|>
 name|clazz
 decl_stmt|;
+end_decl_stmt
+
+begin_expr_stmt
 name|Strategies
-parameter_list|(
+argument_list|(
 name|Class
 argument_list|<
 name|?
@@ -400,38 +413,37 @@ extends|extends
 name|RegionGroupingStrategy
 argument_list|>
 name|clazz
-parameter_list|)
+argument_list|)
 block|{
 name|this
 operator|.
 name|clazz
 operator|=
 name|clazz
-expr_stmt|;
-block|}
-block|}
-end_class
+block|;     }
+end_expr_stmt
 
 begin_comment
+unit|}
 comment|/**    * instantiate a strategy from a config property.    * requires conf to have already been set (as well as anything the provider might need to read).    */
 end_comment
 
-begin_function
-name|RegionGroupingStrategy
+begin_expr_stmt
+unit|RegionGroupingStrategy
 name|getStrategy
-parameter_list|(
-specifier|final
+argument_list|(
+name|final
 name|Configuration
 name|conf
-parameter_list|,
-specifier|final
+argument_list|,
+name|final
 name|String
 name|key
-parameter_list|,
-specifier|final
+argument_list|,
+name|final
 name|String
 name|defaultValue
-parameter_list|)
+argument_list|)
 throws|throws
 name|IOException
 block|{
@@ -442,7 +454,10 @@ extends|extends
 name|RegionGroupingStrategy
 argument_list|>
 name|clazz
-decl_stmt|;
+expr_stmt|;
+end_expr_stmt
+
+begin_try
 try|try
 block|{
 name|clazz
@@ -491,6 +506,9 @@ name|class
 argument_list|)
 expr_stmt|;
 block|}
+end_try
+
+begin_expr_stmt
 name|LOG
 operator|.
 name|info
@@ -500,6 +518,9 @@ operator|+
 name|clazz
 argument_list|)
 expr_stmt|;
+end_expr_stmt
+
+begin_try
 try|try
 block|{
 specifier|final
@@ -592,11 +613,10 @@ name|exception
 argument_list|)
 throw|;
 block|}
-block|}
-end_function
+end_try
 
 begin_decl_stmt
-specifier|public
+unit|}    public
 specifier|static
 specifier|final
 name|String
@@ -1110,6 +1130,10 @@ specifier|final
 name|byte
 index|[]
 name|identifier
+parameter_list|,
+name|byte
+index|[]
+name|namespace
 parameter_list|)
 throws|throws
 name|IOException
@@ -1144,6 +1168,8 @@ operator|.
 name|group
 argument_list|(
 name|identifier
+argument_list|,
+name|namespace
 argument_list|)
 expr_stmt|;
 block|}
@@ -1372,6 +1398,11 @@ specifier|final
 name|byte
 index|[]
 name|identifier
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|namespace
 parameter_list|)
 block|{
 return|return

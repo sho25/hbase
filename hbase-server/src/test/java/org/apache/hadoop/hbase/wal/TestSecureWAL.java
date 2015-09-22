@@ -807,6 +807,14 @@ name|regioninfo
 operator|.
 name|getEncodedNameAsBytes
 argument_list|()
+argument_list|,
+name|regioninfo
+operator|.
+name|getTable
+argument_list|()
+operator|.
+name|getNamespace
+argument_list|()
 argument_list|)
 decl_stmt|;
 for|for

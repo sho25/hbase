@@ -1070,7 +1070,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * @param identifier may not be null, contents will not be altered    */
+comment|/**    * @param identifier may not be null, contents will not be altered    * @param namespace could be null, and will use default namespace if null    */
 end_comment
 
 begin_function
@@ -1082,6 +1082,11 @@ specifier|final
 name|byte
 index|[]
 name|identifier
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|namespace
 parameter_list|)
 throws|throws
 name|IOException
@@ -1092,6 +1097,8 @@ operator|.
 name|getWAL
 argument_list|(
 name|identifier
+argument_list|,
+name|namespace
 argument_list|)
 return|;
 block|}
@@ -1202,6 +1209,8 @@ operator|.
 name|getWAL
 argument_list|(
 name|identifier
+argument_list|,
+literal|null
 argument_list|)
 return|;
 block|}

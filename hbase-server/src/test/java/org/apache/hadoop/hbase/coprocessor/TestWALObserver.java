@@ -1310,6 +1310,8 @@ operator|.
 name|getWAL
 argument_list|(
 name|UNSPECIFIED_REGION
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|verifyWritesSeen
@@ -1348,6 +1350,8 @@ operator|.
 name|getWAL
 argument_list|(
 name|UNSPECIFIED_REGION
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|verifyWritesSeen
@@ -2053,6 +2057,8 @@ operator|.
 name|getWAL
 argument_list|(
 name|UNSPECIFIED_REGION
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -2621,6 +2627,8 @@ operator|.
 name|getWAL
 argument_list|(
 name|UNSPECIFIED_REGION
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 try|try
@@ -2875,6 +2883,8 @@ operator|.
 name|getWAL
 argument_list|(
 name|UNSPECIFIED_REGION
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 comment|// Put p = creatPutWith2Families(TEST_ROW);
@@ -3058,6 +3068,8 @@ operator|.
 name|getWAL
 argument_list|(
 name|UNSPECIFIED_REGION
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 empty_stmt|;
@@ -3201,6 +3213,8 @@ operator|.
 name|getWAL
 argument_list|(
 name|UNSPECIFIED_REGION
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|assertNotNull

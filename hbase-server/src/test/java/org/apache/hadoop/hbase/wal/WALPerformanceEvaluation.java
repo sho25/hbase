@@ -3598,6 +3598,14 @@ name|regionInfo
 operator|.
 name|getEncodedNameAsBytes
 argument_list|()
+argument_list|,
+name|regionInfo
+operator|.
+name|getTable
+argument_list|()
+operator|.
+name|getNamespace
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// If we haven't already, attach a listener to this wal to handle rolls and metrics.

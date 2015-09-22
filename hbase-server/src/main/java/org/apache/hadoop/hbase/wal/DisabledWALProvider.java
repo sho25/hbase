@@ -423,6 +423,10 @@ specifier|final
 name|byte
 index|[]
 name|identifier
+parameter_list|,
+name|byte
+index|[]
+name|namespace
 parameter_list|)
 throws|throws
 name|IOException

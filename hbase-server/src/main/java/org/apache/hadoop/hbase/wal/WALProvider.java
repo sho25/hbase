@@ -138,7 +138,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param identifier may not be null. contents will not be altered.    * @return a WAL for writing entries for the given region.    */
+comment|/**    * @param identifier may not be null. contents will not be altered.    * @param namespace could be null, and will use default namespace if null    * @return a WAL for writing entries for the given region.    */
 name|WAL
 name|getWAL
 parameter_list|(
@@ -146,6 +146,10 @@ specifier|final
 name|byte
 index|[]
 name|identifier
+parameter_list|,
+name|byte
+index|[]
+name|namespace
 parameter_list|)
 throws|throws
 name|IOException

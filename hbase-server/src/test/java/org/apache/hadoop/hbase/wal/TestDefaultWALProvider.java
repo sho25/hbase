@@ -1382,6 +1382,8 @@ operator|.
 name|getWAL
 argument_list|(
 name|UNSPECIFIED_REGION
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 comment|// Add a single edit and make sure that rolling won't remove the file
@@ -1767,6 +1769,8 @@ operator|.
 name|getWAL
 argument_list|(
 name|UNSPECIFIED_REGION
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -2299,6 +2303,8 @@ operator|.
 name|nextInt
 argument_list|()
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 argument_list|)
 argument_list|)
@@ -2341,6 +2347,8 @@ operator|.
 name|nextInt
 argument_list|()
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 argument_list|)
 argument_list|)

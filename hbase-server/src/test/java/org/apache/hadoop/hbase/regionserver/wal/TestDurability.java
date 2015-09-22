@@ -622,6 +622,8 @@ operator|.
 name|getWAL
 argument_list|(
 name|tableName
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|HRegion
@@ -1039,6 +1041,8 @@ operator|.
 name|getWAL
 argument_list|(
 name|tableName
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|HRegion
@@ -1517,6 +1521,8 @@ operator|.
 name|getWAL
 argument_list|(
 name|tableName
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|HRegion

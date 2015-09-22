@@ -3267,6 +3267,11 @@ name|tableName
 operator|.
 name|toBytes
 argument_list|()
+argument_list|,
+name|tableName
+operator|.
+name|getNamespace
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -7551,6 +7556,11 @@ argument_list|(
 name|tableName
 operator|.
 name|getName
+argument_list|()
+argument_list|,
+name|tableName
+operator|.
+name|getNamespace
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -32900,6 +32910,11 @@ argument_list|(
 name|tableName
 operator|.
 name|getName
+argument_list|()
+argument_list|,
+name|tableName
+operator|.
+name|getNamespace
 argument_list|()
 argument_list|)
 argument_list|)

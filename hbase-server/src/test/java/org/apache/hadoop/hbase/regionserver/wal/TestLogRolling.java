@@ -1435,6 +1435,8 @@ operator|new
 name|byte
 index|[]
 block|{}
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 try|try
