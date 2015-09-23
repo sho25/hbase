@@ -532,7 +532,7 @@ operator|new
 name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|int
@@ -540,7 +540,7 @@ name|NUM_RS
 init|=
 literal|2
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -602,7 +602,7 @@ name|NUM_RS
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 specifier|static
 name|void
 name|setupConf
@@ -696,6 +696,17 @@ name|Before
 specifier|public
 name|void
 name|setup
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+name|createTable
+argument_list|()
+expr_stmt|;
+block|}
+specifier|protected
+name|void
+name|createTable
 parameter_list|()
 throws|throws
 name|Exception

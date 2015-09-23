@@ -2616,7 +2616,7 @@ specifier|static
 class|class
 name|SnapshotMock
 block|{
-specifier|private
+specifier|protected
 specifier|final
 specifier|static
 name|String
