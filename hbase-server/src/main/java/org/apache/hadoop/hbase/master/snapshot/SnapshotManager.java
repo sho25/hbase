@@ -4829,18 +4829,6 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|logCleaners
-operator|.
-name|add
-argument_list|(
-name|SnapshotLogCleaner
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// Set cleaners conf
 name|conf
 operator|.
@@ -4894,18 +4882,6 @@ block|{
 comment|// Verify if cleaners are present
 name|snapshotEnabled
 operator|=
-name|logCleaners
-operator|.
-name|contains
-argument_list|(
-name|SnapshotLogCleaner
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-operator|&&
 name|hfileCleaners
 operator|.
 name|contains

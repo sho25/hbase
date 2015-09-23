@@ -557,6 +557,7 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|SnapshotManifest
 block|{

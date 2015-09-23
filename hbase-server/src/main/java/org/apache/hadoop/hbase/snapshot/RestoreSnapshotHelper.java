@@ -259,7 +259,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
+name|HRegionInfo
 import|;
 end_import
 
@@ -273,7 +273,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|HColumnDescriptor
 import|;
 end_import
 

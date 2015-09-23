@@ -359,6 +359,7 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|SnapshotManifestV2
 block|{
@@ -393,6 +394,10 @@ name|SNAPSHOT_MANIFEST_PREFIX
 init|=
 literal|"region-manifest."
 decl_stmt|;
+specifier|private
+name|SnapshotManifestV2
+parameter_list|()
+block|{}
 specifier|static
 class|class
 name|ManifestBuilder

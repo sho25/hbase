@@ -5145,26 +5145,6 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|conf
-operator|.
-name|set
-argument_list|(
-literal|"hbase.master.hfilecleaner.plugins"
-argument_list|,
-literal|"org.apache.hadoop.hbase.master.cleaner.HFileLinkCleaner,"
-operator|+
-literal|"org.apache.hadoop.hbase.master.snapshot.SnapshotHFileCleaner"
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|set
-argument_list|(
-literal|"hbase.master.logcleaner.plugins"
-argument_list|,
-literal|"org.apache.hadoop.hbase.master.snapshot.SnapshotLogCleaner"
-argument_list|)
-expr_stmt|;
 comment|// We need more than one data server on this test
 name|UTIL
 operator|.
