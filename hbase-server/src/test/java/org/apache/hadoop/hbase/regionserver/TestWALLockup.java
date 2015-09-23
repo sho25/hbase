@@ -30,6 +30,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -1295,10 +1307,16 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-comment|// TODO Auto-generated catch block
-name|e
+name|LOG
 operator|.
-name|printStackTrace
+name|info
+argument_list|(
+literal|"In flush"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|fail
 argument_list|()
 expr_stmt|;
 block|}
@@ -1353,6 +1371,8 @@ name|throwException
 operator|=
 literal|false
 expr_stmt|;
+try|try
+block|{
 name|region
 operator|.
 name|put
@@ -1360,6 +1380,23 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"In the put"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 finally|finally
 block|{
@@ -1390,6 +1427,8 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+try|try
+block|{
 if|if
 condition|(
 name|region
@@ -1412,6 +1451,23 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"On way out"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * @return A region on which you must call    *         {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} when done.    */

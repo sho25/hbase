@@ -2269,7 +2269,7 @@ name|HConstants
 operator|.
 name|HBASE_CLIENT_PAUSE
 argument_list|,
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 comment|// don't wait between retries.
