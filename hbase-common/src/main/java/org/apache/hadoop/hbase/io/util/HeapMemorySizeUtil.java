@@ -391,7 +391,7 @@ return|return
 name|limit
 return|;
 block|}
-comment|/**    * Retrieve configured size for global memstore lower water mark as percentage of total heap.    * @param c    * @param globalMemStorePercent    */
+comment|/**    * Retrieve configured size for global memstore lower water mark as fraction of global memstore    * size.    */
 specifier|public
 specifier|static
 name|float
@@ -399,7 +399,7 @@ name|getGlobalMemStoreLowerMark
 parameter_list|(
 specifier|final
 name|Configuration
-name|c
+name|conf
 parameter_list|,
 name|float
 name|globalMemStorePercent
@@ -408,7 +408,7 @@ block|{
 name|String
 name|lowMarkPercentStr
 init|=
-name|c
+name|conf
 operator|.
 name|get
 argument_list|(
@@ -422,19 +422,51 @@ operator|!=
 literal|null
 condition|)
 block|{
-return|return
+name|float
+name|lowMarkPercent
+init|=
 name|Float
 operator|.
 name|parseFloat
 argument_list|(
 name|lowMarkPercentStr
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|lowMarkPercent
+operator|>
+literal|1.0f
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Bad configuration value for "
+operator|+
+name|MEMSTORE_SIZE_LOWER_LIMIT_KEY
+operator|+
+literal|": "
+operator|+
+name|lowMarkPercent
+operator|+
+literal|". Using 1.0f instead."
+argument_list|)
+expr_stmt|;
+name|lowMarkPercent
+operator|=
+literal|1.0f
+expr_stmt|;
+block|}
+return|return
+name|lowMarkPercent
 return|;
 block|}
 name|String
 name|lowerWaterMarkOldValStr
 init|=
-name|c
+name|conf
 operator|.
 name|get
 argument_list|(
@@ -482,17 +514,33 @@ name|globalMemStorePercent
 expr_stmt|;
 name|LOG
 operator|.
-name|info
+name|error
 argument_list|(
-literal|"Setting globalMemStoreLimitLowMark == globalMemStoreLimit "
-operator|+
-literal|"because supplied "
+literal|"Value of "
 operator|+
 name|MEMSTORE_SIZE_LOWER_LIMIT_OLD_KEY
 operator|+
-literal|" was> "
+literal|" ("
+operator|+
+name|lowerWaterMarkOldVal
+operator|+
+literal|") is greater than global memstore limit ("
+operator|+
+name|globalMemStorePercent
+operator|+
+literal|") set by "
+operator|+
+name|MEMSTORE_SIZE_KEY
+operator|+
+literal|"/"
 operator|+
 name|MEMSTORE_SIZE_OLD_KEY
+operator|+
+literal|". Setting memstore lower limit "
+operator|+
+literal|"to "
+operator|+
+name|globalMemStorePercent
 argument_list|)
 expr_stmt|;
 block|}
