@@ -226,13 +226,8 @@ name|e
 init|=
 name|mvcc
 operator|.
-name|beginMemstoreInsertWithSeqNum
-argument_list|(
-name|startPoint
-operator|.
-name|incrementAndGet
+name|begin
 argument_list|()
-argument_list|)
 decl_stmt|;
 comment|// System.out.println("Begin write: " + e.getWriteNumber());
 comment|// 10 usec - 500usec (including 0)
@@ -278,7 +273,7 @@ try|try
 block|{
 name|mvcc
 operator|.
-name|completeMemstoreInsert
+name|completeAndWait
 argument_list|(
 name|e
 argument_list|)
@@ -382,7 +377,7 @@ name|prev
 init|=
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 decl_stmt|;
 while|while
@@ -399,7 +394,7 @@ name|newPrev
 init|=
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 decl_stmt|;
 if|if

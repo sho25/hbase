@@ -815,17 +815,8 @@ parameter_list|,
 name|WALEdit
 name|edits
 parameter_list|,
-name|AtomicLong
-name|sequenceId
-parameter_list|,
 name|boolean
 name|inMemstore
-parameter_list|,
-name|List
-argument_list|<
-name|Cell
-argument_list|>
-name|memstoreKVs
 parameter_list|)
 block|{
 if|if

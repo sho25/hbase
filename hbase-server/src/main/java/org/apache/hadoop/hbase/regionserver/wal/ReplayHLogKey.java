@@ -79,6 +79,22 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|MultiVersionConcurrencyControl
+import|;
+end_import
+
 begin_comment
 comment|/**  * An HLogKey specific to WalEdits coming from replay.  */
 end_comment
@@ -121,6 +137,9 @@ name|nonceGroup
 parameter_list|,
 name|long
 name|nonce
+parameter_list|,
+name|MultiVersionConcurrencyControl
+name|mvcc
 parameter_list|)
 block|{
 name|super
@@ -136,6 +155,8 @@ argument_list|,
 name|nonceGroup
 argument_list|,
 name|nonce
+argument_list|,
+name|mvcc
 argument_list|)
 expr_stmt|;
 block|}
@@ -169,6 +190,9 @@ name|nonceGroup
 parameter_list|,
 name|long
 name|nonce
+parameter_list|,
+name|MultiVersionConcurrencyControl
+name|mvcc
 parameter_list|)
 block|{
 name|super
@@ -186,6 +210,8 @@ argument_list|,
 name|nonceGroup
 argument_list|,
 name|nonce
+argument_list|,
+name|mvcc
 argument_list|)
 expr_stmt|;
 block|}

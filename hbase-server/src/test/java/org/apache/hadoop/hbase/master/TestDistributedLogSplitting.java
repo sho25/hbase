@@ -1361,6 +1361,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -1434,7 +1444,7 @@ literal|"false"
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Start a cluster with 2 masters and 5 regionservers
+comment|// Start a cluster with 2 masters and 6 regionservers
 specifier|static
 specifier|final
 name|int
@@ -1817,6 +1827,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"DLR is broken by HBASE-12751"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
@@ -2364,6 +2379,11 @@ expr_stmt|;
 block|}
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"DLR is broken by HBASE-12751"
+argument_list|)
+annotation|@
 name|Test
 argument_list|(
 name|timeout
@@ -2625,6 +2645,11 @@ name|nonce
 return|;
 block|}
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"DLR is broken by HBASE-12751"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
@@ -3028,6 +3053,11 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"DLR is broken by HBASE-12751"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
@@ -3457,6 +3487,11 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"DLR is broken by HBASE-12751"
+argument_list|)
+annotation|@
 name|Test
 argument_list|(
 name|timeout
@@ -3802,6 +3837,11 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"DLR is broken by HBASE-12751"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
@@ -4182,6 +4222,11 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"DLR is broken by HBASE-12751"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
@@ -4695,6 +4740,11 @@ expr_stmt|;
 block|}
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"DLR is broken by HBASE-12751"
+argument_list|)
+annotation|@
 name|Test
 argument_list|(
 name|timeout
@@ -5048,6 +5098,11 @@ expr_stmt|;
 block|}
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"DLR is broken by HBASE-12751"
+argument_list|)
+annotation|@
 name|Test
 argument_list|(
 name|timeout
@@ -5320,6 +5375,11 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"DLR is broken by HBASE-12751"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
@@ -6217,6 +6277,11 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"DLR is broken by HBASE-12751"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
@@ -7842,6 +7907,11 @@ expr_stmt|;
 block|}
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"DLR is broken by HBASE-12751"
+argument_list|)
+annotation|@
 name|Test
 argument_list|(
 name|timeout
@@ -8147,6 +8217,11 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"DLR is broken by HBASE-12751"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
@@ -8664,11 +8739,7 @@ argument_list|)
 argument_list|,
 name|e
 argument_list|,
-name|sequenceId
-argument_list|,
 literal|true
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -8822,6 +8893,11 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"DLR is broken by HBASE-12751"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
@@ -9362,11 +9438,7 @@ argument_list|)
 argument_list|,
 name|e
 argument_list|,
-name|sequenceId
-argument_list|,
 literal|true
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -10987,11 +11059,7 @@ argument_list|)
 argument_list|,
 name|e
 argument_list|,
-name|sequenceId
-argument_list|,
 literal|true
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 if|if

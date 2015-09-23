@@ -177,6 +177,14 @@ operator|)
 name|obj
 decl_stmt|;
 return|return
+operator|(
+name|hashCode
+operator|==
+name|other
+operator|.
+name|hashCode
+operator|)
+operator|&&
 name|Arrays
 operator|.
 name|equals

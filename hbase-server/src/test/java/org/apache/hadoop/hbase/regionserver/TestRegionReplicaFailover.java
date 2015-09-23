@@ -761,10 +761,7 @@ name|Boolean
 index|[]
 index|[]
 block|{
-block|{
-literal|true
-block|}
-block|,
+comment|/*{true}, Disable DLR!!! It is going to be removed*/
 block|{
 literal|false
 block|}
@@ -807,6 +804,18 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
+comment|// Up the handlers; this test needs more than usual.
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
+argument_list|,
+literal|10
+argument_list|)
+expr_stmt|;
 name|conf
 operator|.
 name|setBoolean

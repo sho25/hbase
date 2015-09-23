@@ -165,7 +165,7 @@ name|getWalKey
 parameter_list|(
 specifier|final
 name|long
-name|sequenceid
+name|time
 parameter_list|)
 block|{
 return|return
@@ -179,7 +179,9 @@ argument_list|()
 argument_list|,
 name|tableName
 argument_list|,
-name|sequenceid
+name|time
+argument_list|,
+name|mvcc
 argument_list|)
 return|;
 block|}

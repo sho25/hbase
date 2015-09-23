@@ -394,7 +394,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * WALEdit: Used in HBase's transaction log (WAL) to represent  * the collection of edits (KeyValue objects) corresponding to a  * single transaction. The class implements "Writable" interface  * for serializing/deserializing a set of KeyValue items.  *  * Previously, if a transaction contains 3 edits to c1, c2, c3 for a row R,  * the WAL would have three log entries as follows:  *  *&lt;logseq1-for-edit1&gt;:&lt;eyValue-for-edit-c1&gt;  *&lt;logseq2-for-edit2&gt;:&lt;KeyValue-for-edit-c2&gt;  *&lt;logseq3-for-edit3&gt;:&lt;KeyValue-for-edit-c3&gt;  *  * This presents problems because row level atomicity of transactions  * was not guaranteed. If we crash after few of the above appends make  * it, then recovery will restore a partial transaction.  *  * In the new world, all the edits for a given transaction are written  * out as a single record, for example:  *  *&lt;logseq#-for-entire-txn&gt;:&lt;WALEdit-for-entire-txn&gt;  *  * where, the WALEdit is serialized as:  *&lt;-1, # of edits,&lt;KeyValue&gt;,&lt;KeyValue&gt;, ...&gt;  * For example:  *&lt;-1, 3,&lt;Keyvalue-for-edit-c1&gt;,&lt;KeyValue-for-edit-c2&gt;,&lt;KeyValue-for-edit-c3&gt;&gt;  *  * The -1 marker is just a special way of being backward compatible with  * an old WAL which would have contained a single&lt;KeyValue&gt;.  *  * The deserializer for WALEdit backward compatibly detects if the record  * is an old style KeyValue or the new style WALEdit.  *  */
+comment|/**  * WALEdit: Used in HBase's transaction log (WAL) to represent  * the collection of edits (KeyValue objects) corresponding to a  * single transaction. The class implements "Writable" interface  * for serializing/deserializing a set of KeyValue items.  *  * Previously, if a transaction contains 3 edits to c1, c2, c3 for a row R,  * the WAL would have three log entries as follows:  *  *&lt;logseq1-for-edit1&gt;:&lt;eyValue-for-edit-c1&gt;  *&lt;logseq2-for-edit2&gt;:&lt;KeyValue-for-edit-c2&gt;  *&lt;logseq3-for-edit3&gt;:&lt;KeyValue-for-edit-c3&gt;  *  * This presents problems because row level atomicity of transactions  * was not guaranteed. If we crash after few of the above appends make  * it, then recovery will restore a partial transaction.  *  * In the new world, all the edits for a given transaction are written  * out as a single record, for example:  *  *&lt;logseq#-for-entire-txn&gt;:&lt;WALEdit-for-entire-txn&gt;  *  * where, the WALEdit is serialized as:  *&lt;-1, # of edits,&lt;KeyValue&gt;,&lt;KeyValue&gt;, ...&gt;  * For example:  *&lt;-1, 3,&lt;KV-for-edit-c1&gt;,&lt;KV-for-edit-c2&gt;,&lt;KV-for-edit-c3&gt;&gt;  *  * The -1 marker is just a special way of being backward compatible with  * an old WAL which would have contained a single&lt;KeyValue&gt;.  *  * The deserializer for WALEdit backward compatibly detects if the record  * is an old style KeyValue or the new style WALEdit.  *  */
 end_comment
 
 begin_class
@@ -560,6 +560,7 @@ name|WALEdit
 argument_list|()
 decl_stmt|;
 comment|// Only here for legacy writable deserialization
+comment|/**    * @deprecated Legacy    */
 annotation|@
 name|Deprecated
 specifier|private

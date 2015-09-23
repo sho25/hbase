@@ -466,7 +466,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Provides functionality to write ({@link BlockIndexWriter}) and read  * ({@link BlockIndexReader})  * single-level and multi-level block indexes.  *  * Examples of how to use the block index writer can be found in  * {@link org.apache.hadoop.hbase.io.hfile.CompoundBloomFilterWriter} and  *  {@link HFileWriterImpl}. Examples of how to use the reader can be  *  found in {@link HFileWriterImpl} and  *  {@link org.apache.hadoop.hbase.io.hfile.TestHFileBlockIndex}.  */
+comment|/**  * Provides functionality to write ({@link BlockIndexWriter}) and read  * BlockIndexReader  * single-level and multi-level block indexes.  *  * Examples of how to use the block index writer can be found in  * {@link org.apache.hadoop.hbase.io.hfile.CompoundBloomFilterWriter} and  *  {@link HFileWriterImpl}. Examples of how to use the reader can be  *  found in {@link HFileWriterImpl} and  *  {@link org.apache.hadoop.hbase.io.hfile.TestHFileBlockIndex}.  */
 end_comment
 
 begin_class

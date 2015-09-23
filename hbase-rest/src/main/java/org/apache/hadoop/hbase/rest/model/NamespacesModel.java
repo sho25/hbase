@@ -283,7 +283,7 @@ specifier|public
 name|NamespacesModel
 parameter_list|()
 block|{}
-comment|/**    * Constructor    * @param admin: the administrative API    * @throws IOException    */
+comment|/**    * Constructor    * @param admin the administrative API    * @throws IOException    */
 specifier|public
 name|NamespacesModel
 parameter_list|(

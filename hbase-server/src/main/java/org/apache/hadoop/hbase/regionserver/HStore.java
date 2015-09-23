@@ -3536,7 +3536,7 @@ operator|.
 name|getMVCC
 argument_list|()
 operator|.
-name|advanceMemstoreReadPointIfNeeded
+name|advanceTo
 argument_list|(
 name|this
 operator|.
@@ -6656,11 +6656,9 @@ argument_list|()
 argument_list|,
 name|compactionDescriptor
 argument_list|,
-name|this
-operator|.
 name|region
 operator|.
-name|getSequenceId
+name|getMVCC
 argument_list|()
 argument_list|)
 expr_stmt|;

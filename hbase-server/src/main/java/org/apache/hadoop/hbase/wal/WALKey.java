@@ -161,6 +161,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|MultiVersionConcurrencyControl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|ByteStringer
@@ -442,7 +458,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Key for an entry in the change log.  *  * The log intermingles edits to many tables and rows, so each log entry  * identifies the appropriate table and row.  Within a table and row, they're  * also sorted.  *  *<p>Some Transactional edits (START, COMMIT, ABORT) will not have an  * associated row.  *  * Note that protected members marked @InterfaceAudience.Private are only protected  * to support the legacy HLogKey class, which is in a different package.  */
+comment|/**  * A Key for an entry in the change log.  *  * The log intermingles edits to many tables and rows, so each log entry  * identifies the appropriate table and row.  Within a table and row, they're  * also sorted.  *  *<p>Some Transactional edits (START, COMMIT, ABORT) will not have an  * associated row.  *  * Note that protected members marked @InterfaceAudience.Private are only protected  * to support the legacy HLogKey class, which is in a different package.  *   *<p>  */
 end_comment
 
 begin_comment
@@ -451,6 +467,10 @@ end_comment
 
 begin_comment
 comment|//       purposes. They need to be merged into WALEntry.
+end_comment
+
+begin_comment
+comment|// TODO: Cleanup. We have logSeqNum and then WriteEntry, both are sequence id'ing. Fix.
 end_comment
 
 begin_class
@@ -489,6 +509,102 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+comment|// For internal use only.
+specifier|public
+name|MultiVersionConcurrencyControl
+name|getMvcc
+parameter_list|()
+block|{
+return|return
+name|mvcc
+return|;
+block|}
+comment|/**    * Will block until a write entry has been assigned by they WAL subsystem.    * @return A WriteEntry gotten from local WAL subsystem. Must be completed by calling    * mvcc#complete or mvcc#completeAndWait.    * @throws InterruptedIOException    * @see    * #setWriteEntry(org.apache.hadoop.hbase.regionserver.MultiVersionConcurrencyControl.WriteEntry)    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+comment|// For internal use only.
+specifier|public
+name|MultiVersionConcurrencyControl
+operator|.
+name|WriteEntry
+name|getWriteEntry
+parameter_list|()
+throws|throws
+name|InterruptedIOException
+block|{
+try|try
+block|{
+name|this
+operator|.
+name|seqNumAssignedLatch
+operator|.
+name|await
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|ie
+parameter_list|)
+block|{
+name|InterruptedIOException
+name|iie
+init|=
+operator|new
+name|InterruptedIOException
+argument_list|()
+decl_stmt|;
+name|iie
+operator|.
+name|initCause
+argument_list|(
+name|ie
+argument_list|)
+expr_stmt|;
+throw|throw
+name|iie
+throw|;
+block|}
+return|return
+name|writeEntry
+return|;
+block|}
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+comment|// For internal use only.
+specifier|public
+name|void
+name|setWriteEntry
+parameter_list|(
+name|MultiVersionConcurrencyControl
+operator|.
+name|WriteEntry
+name|writeEntry
+parameter_list|)
+block|{
+name|this
+operator|.
+name|writeEntry
+operator|=
+name|writeEntry
+expr_stmt|;
+name|this
+operator|.
+name|seqNumAssignedLatch
+operator|.
+name|countDown
+argument_list|()
+expr_stmt|;
+block|}
 comment|// should be< 0 (@see HLogKey#readFields(DataInput))
 comment|// version 2 supports WAL compression
 comment|// public members here are only public because of HLogKey
@@ -758,6 +874,17 @@ name|HConstants
 operator|.
 name|NO_NONCE
 decl_stmt|;
+specifier|private
+name|MultiVersionConcurrencyControl
+name|mvcc
+decl_stmt|;
+specifier|private
+name|MultiVersionConcurrencyControl
+operator|.
+name|WriteEntry
+name|writeEntry
+decl_stmt|;
+specifier|public
 specifier|static
 specifier|final
 name|List
@@ -817,6 +944,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|NO_NONCE
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -884,6 +1013,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|NO_NONCE
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -949,10 +1080,56 @@ argument_list|,
 name|HConstants
 operator|.
 name|NO_NONCE
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create the log key for writing to somewhere.    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *<p>Used by log splitting and snapshots.    *    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tablename   - name of table    * @param logSeqNum   - log sequence number    * @param now Time at which this edit was written.    * @param clusterIds the clusters that have consumed the change(used in Replication)    */
+specifier|public
+name|WALKey
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|encodedRegionName
+parameter_list|,
+specifier|final
+name|TableName
+name|tablename
+parameter_list|,
+specifier|final
+name|long
+name|now
+parameter_list|,
+name|MultiVersionConcurrencyControl
+name|mvcc
+parameter_list|)
+block|{
+name|init
+argument_list|(
+name|encodedRegionName
+argument_list|,
+name|tablename
+argument_list|,
+name|NO_SEQUENCE_ID
+argument_list|,
+name|now
+argument_list|,
+name|EMPTY_UUIDS
+argument_list|,
+name|HConstants
+operator|.
+name|NO_NONCE
+argument_list|,
+name|HConstants
+operator|.
+name|NO_NONCE
+argument_list|,
+name|mvcc
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Create the log key for writing to somewhere.    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *<p>Used by log splitting and snapshots.    *    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tablename         - name of table    * @param logSeqNum         - log sequence number    * @param now               Time at which this edit was written.    * @param clusterIds        the clusters that have consumed the change(used in Replication)    */
 specifier|public
 name|WALKey
 parameter_list|(
@@ -983,6 +1160,9 @@ name|nonceGroup
 parameter_list|,
 name|long
 name|nonce
+parameter_list|,
+name|MultiVersionConcurrencyControl
+name|mvcc
 parameter_list|)
 block|{
 name|init
@@ -1000,10 +1180,12 @@ argument_list|,
 name|nonceGroup
 argument_list|,
 name|nonce
+argument_list|,
+name|mvcc
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create the log key for writing to somewhere.    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tablename    * @param now Time at which this edit was written.    * @param clusterIds the clusters that have consumed the change(used in Replication)    * @param nonceGroup    * @param nonce    */
+comment|/**    * Create the log key for writing to somewhere.    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tablename    * @param now               Time at which this edit was written.    * @param clusterIds        the clusters that have consumed the change(used in Replication)    * @param nonceGroup    * @param nonce    * @param mvcc mvcc control used to generate sequence numbers and control read/write points    */
 specifier|public
 name|WALKey
 parameter_list|(
@@ -1029,8 +1211,13 @@ parameter_list|,
 name|long
 name|nonceGroup
 parameter_list|,
+specifier|final
 name|long
 name|nonce
+parameter_list|,
+specifier|final
+name|MultiVersionConcurrencyControl
+name|mvcc
 parameter_list|)
 block|{
 name|init
@@ -1048,6 +1235,8 @@ argument_list|,
 name|nonceGroup
 argument_list|,
 name|nonce
+argument_list|,
+name|mvcc
 argument_list|)
 expr_stmt|;
 block|}
@@ -1072,6 +1261,10 @@ name|nonceGroup
 parameter_list|,
 name|long
 name|nonce
+parameter_list|,
+specifier|final
+name|MultiVersionConcurrencyControl
+name|mvcc
 parameter_list|)
 block|{
 name|init
@@ -1092,6 +1285,8 @@ argument_list|,
 name|nonceGroup
 argument_list|,
 name|nonce
+argument_list|,
+name|mvcc
 argument_list|)
 expr_stmt|;
 block|}
@@ -1130,6 +1325,9 @@ name|nonceGroup
 parameter_list|,
 name|long
 name|nonce
+parameter_list|,
+name|MultiVersionConcurrencyControl
+name|mvcc
 parameter_list|)
 block|{
 name|this
@@ -1173,6 +1371,12 @@ operator|.
 name|nonce
 operator|=
 name|nonce
+expr_stmt|;
+name|this
+operator|.
+name|mvcc
+operator|=
+name|mvcc
 expr_stmt|;
 block|}
 comment|/**    * @param compressionContext Compression context to use    */
@@ -1224,7 +1428,7 @@ operator|.
 name|logSeqNum
 return|;
 block|}
-comment|/**    * Allow that the log sequence id to be set post-construction and release all waiters on assigned    * sequence number.    * Only public for org.apache.hadoop.hbase.regionserver.wal.FSWALEntry    * @param sequence    */
+comment|/**    * Allow that the log sequence id to be set post-construction    * Only public for org.apache.hadoop.hbase.regionserver.wal.FSWALEntry    * @param sequence    */
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -1243,13 +1447,6 @@ operator|.
 name|logSeqNum
 operator|=
 name|sequence
-expr_stmt|;
-name|this
-operator|.
-name|seqNumAssignedLatch
-operator|.
-name|countDown
-argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Used to set original seq Id for WALKey during wal replay    * @param seqId    */

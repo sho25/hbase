@@ -12331,6 +12331,8 @@ name|walKeyProto
 operator|.
 name|getNonce
 argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|logEntry

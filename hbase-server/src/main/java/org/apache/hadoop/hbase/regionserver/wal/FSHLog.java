@@ -187,16 +187,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|UUID
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|concurrent
 operator|.
 name|BlockingQueue
@@ -560,20 +550,6 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TableName
 import|;
 end_import
 
@@ -1000,7 +976,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of {@link WAL} to go against {@link FileSystem}; i.e. keep WALs in HDFS.  * Only one WAL is ever being written at a time.  When a WAL hits a configured maximum size,  * it is rolled.  This is done internal to the implementation.  *  *<p>As data is flushed from the MemStore to other on-disk structures (files sorted by  * key, hfiles), a WAL becomes obsolete. We can let go of all the log edits/entries for a given  * HRegion-sequence id.  A bunch of work in the below is done keeping account of these region  * sequence ids -- what is flushed out to hfiles, and what is yet in WAL and in memory only.  *  *<p>It is only practical to delete entire files. Thus, we delete an entire on-disk file  *<code>F</code> when all of the edits in<code>F</code> have a log-sequence-id that's older  * (smaller) than the most-recent flush.  *  *<p>To read an WAL, call {@link WALFactory#createReader(org.apache.hadoop.fs.FileSystem,  * org.apache.hadoop.fs.Path)}.  *   *<h2>Failure Semantic</h2>  * If an exception on append or sync, roll the WAL because the current WAL is now a lame duck;  * any more appends or syncs will fail also with the same original exception. If we have made  * successful appends to the WAL and we then are unable to sync them, our current semantic is to  * return error to the client that the appends failed but also to abort the current context,  * usually the hosting server. We need to replay the WALs. TODO: Change this semantic. A roll of  * WAL may be sufficient as long as we have flagged client that the append failed. TODO:  * replication may pick up these last edits though they have been marked as failed append (Need to  * keep our own file lengths, not rely on HDFS).  */
+comment|/**  * Implementation of {@link WAL} to go against {@link FileSystem}; i.e. keep WALs in HDFS.  * Only one WAL is ever being written at a time.  When a WAL hits a configured maximum size,  * it is rolled.  This is done internal to the implementation.  *  *<p>As data is flushed from the MemStore to other on-disk structures (files sorted by  * key, hfiles), a WAL becomes obsolete. We can let go of all the log edits/entries for a given  * HRegion-sequence id.  A bunch of work in the below is done keeping account of these region  * sequence ids -- what is flushed out to hfiles, and what is yet in WAL and in memory only.  *  *<p>It is only practical to delete entire files. Thus, we delete an entire on-disk file  *<code>F</code> when all of the edits in<code>F</code> have a log-sequence-id that's older  * (smaller) than the most-recent flush.  *  *<p>To read an WAL, call {@link WALFactory#createReader(org.apache.hadoop.fs.FileSystem,  * org.apache.hadoop.fs.Path)}.  *  *<h2>Failure Semantic</h2>  * If an exception on append or sync, roll the WAL because the current WAL is now a lame duck;  * any more appends or syncs will fail also with the same original exception. If we have made  * successful appends to the WAL and we then are unable to sync them, our current semantic is to  * return error to the client that the appends failed but also to abort the current context,  * usually the hosting server. We need to replay the WALs. TODO: Change this semantic. A roll of  * WAL may be sufficient as long as we have flagged client that the append failed. TODO:  * replication may pick up these last edits though they have been marked as failed append (Need to  * keep our own file lengths, not rely on HDFS).  */
 end_comment
 
 begin_class
@@ -1154,7 +1130,7 @@ specifier|final
 name|String
 name|logFilePrefix
 decl_stmt|;
-comment|/**    * Suffix included on generated wal file names     */
+comment|/**    * Suffix included on generated wal file names    */
 specifier|private
 specifier|final
 name|String
@@ -2682,7 +2658,7 @@ return|return
 name|oldPath
 return|;
 block|}
-comment|/**    * Tell listeners about pre log roll.    * @throws IOException     */
+comment|/**    * Tell listeners about pre log roll.    * @throws IOException    */
 specifier|private
 name|void
 name|tellListenersAboutPreLogRoll
@@ -2731,7 +2707,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Tell listeners about post log roll.    * @throws IOException     */
+comment|/**    * Tell listeners about post log roll.    * @throws IOException    */
 specifier|private
 name|void
 name|tellListenersAboutPostLogRoll
@@ -4781,63 +4757,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * @param now    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tableName    * @param clusterIds that have consumed the change    * @return New log key.    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
-specifier|protected
-name|WALKey
-name|makeKey
-parameter_list|(
-name|byte
-index|[]
-name|encodedRegionName
-parameter_list|,
-name|TableName
-name|tableName
-parameter_list|,
-name|long
-name|seqnum
-parameter_list|,
-name|long
-name|now
-parameter_list|,
-name|List
-argument_list|<
-name|UUID
-argument_list|>
-name|clusterIds
-parameter_list|,
-name|long
-name|nonceGroup
-parameter_list|,
-name|long
-name|nonce
-parameter_list|)
-block|{
-comment|// we use HLogKey here instead of WALKey directly to support legacy coprocessors.
-return|return
-operator|new
-name|HLogKey
-argument_list|(
-name|encodedRegionName
-argument_list|,
-name|tableName
-argument_list|,
-name|seqnum
-argument_list|,
-name|now
-argument_list|,
-name|clusterIds
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
-argument_list|)
-return|;
-block|}
 annotation|@
 name|edu
 operator|.
@@ -4882,19 +4801,8 @@ name|WALEdit
 name|edits
 parameter_list|,
 specifier|final
-name|AtomicLong
-name|sequenceId
-parameter_list|,
-specifier|final
 name|boolean
 name|inMemstore
-parameter_list|,
-specifier|final
-name|List
-argument_list|<
-name|Cell
-argument_list|>
-name|memstoreCells
 parameter_list|)
 throws|throws
 name|IOException
@@ -4963,8 +4871,8 @@ name|sequence
 argument_list|)
 decl_stmt|;
 comment|// Construction of FSWALEntry sets a latch.  The latch is thrown just after we stamp the
-comment|// edit with its edit/sequence id.  The below entry.getRegionSequenceId will wait on the
-comment|// latch to be thrown.  TODO: reuse FSWALEntry as we do SyncFuture rather create per append.
+comment|// edit with its edit/sequence id.
+comment|// TODO: reuse FSWALEntry as we do SyncFuture rather create per append.
 name|entry
 operator|=
 operator|new
@@ -4976,15 +4884,11 @@ name|key
 argument_list|,
 name|edits
 argument_list|,
-name|sequenceId
-argument_list|,
-name|inMemstore
-argument_list|,
 name|htd
 argument_list|,
 name|hri
 argument_list|,
-name|memstoreCells
+name|inMemstore
 argument_list|)
 expr_stmt|;
 name|truck
@@ -5040,7 +4944,7 @@ name|SyncFuture
 argument_list|>
 name|syncFutures
 decl_stmt|;
-comment|/**      * UPDATE!       * @param syncs the batch of calls to sync that arrived as this thread was starting; when done,      * we will put the result of the actual hdfs sync call as the result.      * @param sequence The sequence number on the ring buffer when this thread was set running.      * If this actual writer sync completes then all appends up this point have been      * flushed/synced/pushed to datanodes.  If we fail, then the passed in<code>syncs</code>      * futures will return the exception to their clients; some of the edits may have made it out      * to data nodes but we will report all that were part of this session as failed.      */
+comment|/**      * UPDATE!      * @param syncs the batch of calls to sync that arrived as this thread was starting; when done,      * we will put the result of the actual hdfs sync call as the result.      * @param sequence The sequence number on the ring buffer when this thread was set running.      * If this actual writer sync completes then all appends up this point have been      * flushed/synced/pushed to datanodes.  If we fail, then the passed in<code>syncs</code>      * futures will return the exception to their clients; some of the edits may have made it out      * to data nodes but we will report all that were part of this session as failed.      */
 name|SyncRunner
 parameter_list|(
 specifier|final
@@ -7221,7 +7125,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * This class is used coordinating two threads holding one thread at a    * 'safe point' while the orchestrating thread does some work that requires the first thread    * paused: e.g. holding the WAL writer while its WAL is swapped out from under it by another    * thread.    *     *<p>Thread A signals Thread B to hold when it gets to a 'safe point'.  Thread A wait until    * Thread B gets there. When the 'safe point' has been attained, Thread B signals Thread A.    * Thread B then holds at the 'safe point'.  Thread A on notification that Thread B is paused,    * goes ahead and does the work it needs to do while Thread B is holding.  When Thread A is done,    * it flags B and then Thread A and Thread B continue along on their merry way.  Pause and    * signalling 'zigzags' between the two participating threads.  We use two latches -- one the    * inverse of the other -- pausing and signaling when states are achieved.    *     *<p>To start up the drama, Thread A creates an instance of this class each time it would do    * this zigzag dance and passes it to Thread B (these classes use Latches so it is one shot    * only). Thread B notices the new instance (via reading a volatile reference or how ever) and it    * starts to work toward the 'safe point'.  Thread A calls {@link #waitSafePoint()} when it    * cannot proceed until the Thread B 'safe point' is attained. Thread A will be held inside in    * {@link #waitSafePoint()} until Thread B reaches the 'safe point'.  Once there, Thread B    * frees Thread A by calling {@link #safePointAttained()}.  Thread A now knows Thread B    * is at the 'safe point' and that it is holding there (When Thread B calls    * {@link #safePointAttained()} it blocks here until Thread A calls {@link #releaseSafePoint()}).    * Thread A proceeds to do what it needs to do while Thread B is paused.  When finished,    * it lets Thread B lose by calling {@link #releaseSafePoint()} and away go both Threads again.    */
+comment|/**    * This class is used coordinating two threads holding one thread at a    * 'safe point' while the orchestrating thread does some work that requires the first thread    * paused: e.g. holding the WAL writer while its WAL is swapped out from under it by another    * thread.    *    *<p>Thread A signals Thread B to hold when it gets to a 'safe point'.  Thread A wait until    * Thread B gets there. When the 'safe point' has been attained, Thread B signals Thread A.    * Thread B then holds at the 'safe point'.  Thread A on notification that Thread B is paused,    * goes ahead and does the work it needs to do while Thread B is holding.  When Thread A is done,    * it flags B and then Thread A and Thread B continue along on their merry way.  Pause and    * signalling 'zigzags' between the two participating threads.  We use two latches -- one the    * inverse of the other -- pausing and signaling when states are achieved.    *    *<p>To start up the drama, Thread A creates an instance of this class each time it would do    * this zigzag dance and passes it to Thread B (these classes use Latches so it is one shot    * only). Thread B notices the new instance (via reading a volatile reference or how ever) and it    * starts to work toward the 'safe point'.  Thread A calls {@link #waitSafePoint()} when it    * cannot proceed until the Thread B 'safe point' is attained. Thread A will be held inside in    * {@link #waitSafePoint()} until Thread B reaches the 'safe point'.  Once there, Thread B    * frees Thread A by calling {@link #safePointAttained()}.  Thread A now knows Thread B    * is at the 'safe point' and that it is holding there (When Thread B calls    * {@link #safePointAttained()} it blocks here until Thread A calls {@link #releaseSafePoint()}).    * Thread A proceeds to do what it needs to do while Thread B is paused.  When finished,    * it lets Thread B lose by calling {@link #releaseSafePoint()} and away go both Threads again.    */
 end_comment
 
 begin_class
@@ -7253,7 +7157,7 @@ argument_list|(
 literal|1
 argument_list|)
 decl_stmt|;
-comment|/**      * For Thread A to call when it is ready to wait on the 'safe point' to be attained.      * Thread A will be held in here until Thread B calls {@link #safePointAttained()}      * @param syncFuture We need this as barometer on outstanding syncs.  If it comes home with      * an exception, then something is up w/ our syncing.      * @throws InterruptedException      * @throws ExecutionException      * @return The passed<code>syncFuture</code>      * @throws FailedSyncBeforeLogCloseException       */
+comment|/**      * For Thread A to call when it is ready to wait on the 'safe point' to be attained.      * Thread A will be held in here until Thread B calls {@link #safePointAttained()}      * @param syncFuture We need this as barometer on outstanding syncs.  If it comes home with      * an exception, then something is up w/ our syncing.      * @throws InterruptedException      * @throws ExecutionException      * @return The passed<code>syncFuture</code>      * @throws FailedSyncBeforeLogCloseException      */
 name|SyncFuture
 name|waitSafePoint
 parameter_list|(

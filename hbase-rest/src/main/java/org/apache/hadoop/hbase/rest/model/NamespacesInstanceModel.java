@@ -271,7 +271,7 @@ specifier|public
 name|NamespacesInstanceModel
 parameter_list|()
 block|{}
-comment|/**    * Constructor to use if namespace does not exist in HBASE.    * @param namespaceName: the namespace name.    * @throws IOException    */
+comment|/**    * Constructor to use if namespace does not exist in HBASE.    * @param namespaceName the namespace name.    * @throws IOException    */
 specifier|public
 name|NamespacesInstanceModel
 parameter_list|(
@@ -289,7 +289,7 @@ name|namespaceName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param admin: the administrative API    * @param namespaceName: the namespace name.    * @throws IOException    */
+comment|/**    * Constructor    * @param admin the administrative API    * @param namespaceName the namespace name.    * @throws IOException    */
 specifier|public
 name|NamespacesInstanceModel
 parameter_list|(
@@ -365,7 +365,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add property to the namespace.    * @param key: attribute name    * @param value attribute value    */
+comment|/**    * Add property to the namespace.    * @param key attribute name    * @param value attribute value    */
 specifier|public
 name|void
 name|addProperty

@@ -996,7 +996,7 @@ name|getScanners
 argument_list|(
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1145,7 +1145,7 @@ name|getScanners
 argument_list|(
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1543,7 +1543,7 @@ name|getScanners
 argument_list|(
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1807,15 +1807,8 @@ name|w
 init|=
 name|mvcc
 operator|.
-name|beginMemstoreInsertWithSeqNum
-argument_list|(
-name|this
-operator|.
-name|startSeqNum
-operator|.
-name|incrementAndGet
+name|begin
 argument_list|()
-argument_list|)
 decl_stmt|;
 name|KeyValue
 name|kv1
@@ -1860,7 +1853,7 @@ name|getScanners
 argument_list|(
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 argument_list|)
 operator|.
@@ -1881,7 +1874,7 @@ argument_list|)
 expr_stmt|;
 name|mvcc
 operator|.
-name|completeMemstoreInsert
+name|completeAndWait
 argument_list|(
 name|w
 argument_list|)
@@ -1896,7 +1889,7 @@ name|getScanners
 argument_list|(
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 argument_list|)
 operator|.
@@ -1921,15 +1914,8 @@ name|w
 operator|=
 name|mvcc
 operator|.
-name|beginMemstoreInsertWithSeqNum
-argument_list|(
-name|this
-operator|.
-name|startSeqNum
-operator|.
-name|incrementAndGet
+name|begin
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|KeyValue
 name|kv2
@@ -1973,7 +1959,7 @@ name|getScanners
 argument_list|(
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 argument_list|)
 operator|.
@@ -1996,7 +1982,7 @@ argument_list|)
 expr_stmt|;
 name|mvcc
 operator|.
-name|completeMemstoreInsert
+name|completeAndWait
 argument_list|(
 name|w
 argument_list|)
@@ -2011,7 +1997,7 @@ name|getScanners
 argument_list|(
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 argument_list|)
 operator|.
@@ -2123,15 +2109,8 @@ name|w
 init|=
 name|mvcc
 operator|.
-name|beginMemstoreInsertWithSeqNum
-argument_list|(
-name|this
-operator|.
-name|startSeqNum
-operator|.
-name|incrementAndGet
+name|begin
 argument_list|()
-argument_list|)
 decl_stmt|;
 name|KeyValue
 name|kv11
@@ -2199,7 +2178,7 @@ argument_list|)
 expr_stmt|;
 name|mvcc
 operator|.
-name|completeMemstoreInsert
+name|completeAndWait
 argument_list|(
 name|w
 argument_list|)
@@ -2216,7 +2195,7 @@ name|getScanners
 argument_list|(
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 argument_list|)
 operator|.
@@ -2244,15 +2223,8 @@ name|w
 operator|=
 name|mvcc
 operator|.
-name|beginMemstoreInsertWithSeqNum
-argument_list|(
-name|this
-operator|.
-name|startSeqNum
-operator|.
-name|incrementAndGet
+name|begin
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|KeyValue
 name|kv21
@@ -2329,7 +2301,7 @@ name|getScanners
 argument_list|(
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 argument_list|)
 operator|.
@@ -2355,7 +2327,7 @@ expr_stmt|;
 comment|// COMPLETE INSERT 2
 name|mvcc
 operator|.
-name|completeMemstoreInsert
+name|completeAndWait
 argument_list|(
 name|w
 argument_list|)
@@ -2373,7 +2345,7 @@ name|getScanners
 argument_list|(
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 argument_list|)
 operator|.
@@ -2477,15 +2449,8 @@ name|w
 init|=
 name|mvcc
 operator|.
-name|beginMemstoreInsertWithSeqNum
-argument_list|(
-name|this
-operator|.
-name|startSeqNum
-operator|.
-name|incrementAndGet
+name|begin
 argument_list|()
-argument_list|)
 decl_stmt|;
 name|KeyValue
 name|kv11
@@ -2553,7 +2518,7 @@ argument_list|)
 expr_stmt|;
 name|mvcc
 operator|.
-name|completeMemstoreInsert
+name|completeAndWait
 argument_list|(
 name|w
 argument_list|)
@@ -2570,7 +2535,7 @@ name|getScanners
 argument_list|(
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 argument_list|)
 operator|.
@@ -2598,15 +2563,8 @@ name|w
 operator|=
 name|mvcc
 operator|.
-name|beginMemstoreInsertWithSeqNum
-argument_list|(
-name|this
-operator|.
-name|startSeqNum
-operator|.
-name|incrementAndGet
+name|begin
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|KeyValue
 name|kvDel
@@ -2660,7 +2618,7 @@ name|getScanners
 argument_list|(
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 argument_list|)
 operator|.
@@ -2686,7 +2644,7 @@ expr_stmt|;
 comment|// COMPLETE DELETE
 name|mvcc
 operator|.
-name|completeMemstoreInsert
+name|completeAndWait
 argument_list|(
 name|w
 argument_list|)
@@ -2702,7 +2660,7 @@ name|getScanners
 argument_list|(
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 argument_list|)
 operator|.
@@ -2909,15 +2867,8 @@ name|w
 init|=
 name|mvcc
 operator|.
-name|beginMemstoreInsertWithSeqNum
-argument_list|(
-name|this
-operator|.
-name|startSeqNum
-operator|.
-name|incrementAndGet
+name|begin
 argument_list|()
-argument_list|)
 decl_stmt|;
 comment|// Insert the sequence value (i)
 name|byte
@@ -2967,7 +2918,7 @@ argument_list|)
 expr_stmt|;
 name|mvcc
 operator|.
-name|completeMemstoreInsert
+name|completeAndWait
 argument_list|(
 name|w
 argument_list|)
@@ -2984,7 +2935,7 @@ name|getScanners
 argument_list|(
 name|mvcc
 operator|.
-name|memstoreReadPoint
+name|getReadPoint
 argument_list|()
 argument_list|)
 operator|.

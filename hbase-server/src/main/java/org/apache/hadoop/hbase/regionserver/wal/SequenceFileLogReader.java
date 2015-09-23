@@ -1186,6 +1186,20 @@ name|nfe
 parameter_list|)
 block|{
 comment|/* reflection failure, keep going */
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+name|nfe
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -1194,6 +1208,20 @@ name|iae
 parameter_list|)
 block|{
 comment|/* reflection failure, keep going */
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+name|iae
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -1299,6 +1327,20 @@ name|nfe
 parameter_list|)
 block|{
 comment|/* reflection failure, keep going */
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+name|nfe
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -1307,6 +1349,20 @@ name|iae
 parameter_list|)
 block|{
 comment|/* reflection failure, keep going */
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+name|iae
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(

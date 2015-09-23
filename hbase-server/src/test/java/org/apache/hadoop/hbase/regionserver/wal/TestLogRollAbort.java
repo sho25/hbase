@@ -41,15 +41,17 @@ end_import
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|util
+name|apache
 operator|.
-name|concurrent
+name|hadoop
 operator|.
-name|atomic
+name|hbase
 operator|.
-name|AtomicLong
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -63,9 +65,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|regionserver
 operator|.
-name|Table
+name|MultiVersionConcurrencyControl
 import|;
 end_import
 
@@ -318,22 +320,6 @@ operator|.
 name|client
 operator|.
 name|Admin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HTable
 import|;
 end_import
 
@@ -1244,12 +1230,11 @@ name|getNamespace
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|final
-name|AtomicLong
-name|sequenceId
+name|MultiVersionConcurrencyControl
+name|mvcc
 init|=
 operator|new
-name|AtomicLong
+name|MultiVersionConcurrencyControl
 argument_list|(
 literal|1
 argument_list|)
@@ -1350,15 +1335,13 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
+argument_list|,
+name|mvcc
 argument_list|)
 argument_list|,
 name|kvs
 argument_list|,
-name|sequenceId
-argument_list|,
 literal|true
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}

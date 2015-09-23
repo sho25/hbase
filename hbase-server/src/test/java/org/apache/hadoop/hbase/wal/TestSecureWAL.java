@@ -784,16 +784,6 @@ argument_list|,
 literal|"TestSecureWAL"
 argument_list|)
 decl_stmt|;
-specifier|final
-name|AtomicLong
-name|sequenceId
-init|=
-operator|new
-name|AtomicLong
-argument_list|(
-literal|1
-argument_list|)
-decl_stmt|;
 comment|// Write the WAL
 specifier|final
 name|WAL
@@ -887,11 +877,7 @@ argument_list|)
 argument_list|,
 name|kvs
 argument_list|,
-name|sequenceId
-argument_list|,
 literal|true
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}

@@ -325,6 +325,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|MultiVersionConcurrencyControl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|testclassification
 operator|.
 name|MediumTests
@@ -540,6 +556,10 @@ operator|new
 name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
+specifier|protected
+name|MultiVersionConcurrencyControl
+name|mvcc
+decl_stmt|;
 annotation|@
 name|Rule
 specifier|public
@@ -560,6 +580,12 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|mvcc
+operator|=
+operator|new
+name|MultiVersionConcurrencyControl
+argument_list|()
+expr_stmt|;
 name|FileStatus
 index|[]
 name|entries
@@ -1027,9 +1053,6 @@ name|htd
 parameter_list|,
 name|int
 name|times
-parameter_list|,
-name|AtomicLong
-name|sequenceId
 parameter_list|)
 throws|throws
 name|IOException
@@ -1120,11 +1143,7 @@ argument_list|)
 argument_list|,
 name|cols
 argument_list|,
-name|sequenceId
-argument_list|,
 literal|true
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -1161,6 +1180,8 @@ argument_list|,
 name|tableName
 argument_list|,
 name|timestamp
+argument_list|,
+name|mvcc
 argument_list|)
 return|;
 block|}
@@ -1397,8 +1418,6 @@ argument_list|,
 name|htd
 argument_list|,
 literal|1
-argument_list|,
-name|sequenceId
 argument_list|)
 expr_stmt|;
 name|log
@@ -1428,8 +1447,6 @@ argument_list|,
 name|htd
 argument_list|,
 literal|2
-argument_list|,
-name|sequenceId
 argument_list|)
 expr_stmt|;
 name|log
@@ -1459,8 +1476,6 @@ argument_list|,
 name|htd
 argument_list|,
 literal|1
-argument_list|,
-name|sequenceId
 argument_list|)
 expr_stmt|;
 name|addEdits
@@ -1472,8 +1487,6 @@ argument_list|,
 name|htd2
 argument_list|,
 literal|1
-argument_list|,
-name|sequenceId
 argument_list|)
 expr_stmt|;
 name|addEdits
@@ -1485,8 +1498,6 @@ argument_list|,
 name|htd
 argument_list|,
 literal|1
-argument_list|,
-name|sequenceId
 argument_list|)
 expr_stmt|;
 name|addEdits
@@ -1498,8 +1509,6 @@ argument_list|,
 name|htd2
 argument_list|,
 literal|1
-argument_list|,
-name|sequenceId
 argument_list|)
 expr_stmt|;
 name|log
@@ -1530,8 +1539,6 @@ argument_list|,
 name|htd2
 argument_list|,
 literal|1
-argument_list|,
-name|sequenceId
 argument_list|)
 expr_stmt|;
 name|log
@@ -1588,8 +1595,6 @@ argument_list|,
 name|htd2
 argument_list|,
 literal|1
-argument_list|,
-name|sequenceId
 argument_list|)
 expr_stmt|;
 name|log
@@ -1841,26 +1846,6 @@ literal|false
 argument_list|)
 expr_stmt|;
 comment|// variables to mock region sequenceIds.
-specifier|final
-name|AtomicLong
-name|sequenceId1
-init|=
-operator|new
-name|AtomicLong
-argument_list|(
-literal|1
-argument_list|)
-decl_stmt|;
-specifier|final
-name|AtomicLong
-name|sequenceId2
-init|=
-operator|new
-name|AtomicLong
-argument_list|(
-literal|1
-argument_list|)
-decl_stmt|;
 comment|// start with the testing logic: insert a waledit, and roll writer
 name|addEdits
 argument_list|(
@@ -1871,8 +1856,6 @@ argument_list|,
 name|table1
 argument_list|,
 literal|1
-argument_list|,
-name|sequenceId1
 argument_list|)
 expr_stmt|;
 name|wal
@@ -1903,8 +1886,6 @@ argument_list|,
 name|table1
 argument_list|,
 literal|1
-argument_list|,
-name|sequenceId1
 argument_list|)
 expr_stmt|;
 name|wal
@@ -1935,8 +1916,6 @@ argument_list|,
 name|table1
 argument_list|,
 literal|3
-argument_list|,
-name|sequenceId1
 argument_list|)
 expr_stmt|;
 name|flushRegion
@@ -1982,8 +1961,6 @@ argument_list|,
 name|table2
 argument_list|,
 literal|1
-argument_list|,
-name|sequenceId2
 argument_list|)
 expr_stmt|;
 name|wal
@@ -2013,8 +1990,6 @@ argument_list|,
 name|table1
 argument_list|,
 literal|2
-argument_list|,
-name|sequenceId1
 argument_list|)
 expr_stmt|;
 name|wal
@@ -2044,8 +2019,6 @@ argument_list|,
 name|table2
 argument_list|,
 literal|2
-argument_list|,
-name|sequenceId2
 argument_list|)
 expr_stmt|;
 name|flushRegion
@@ -2095,8 +2068,6 @@ argument_list|,
 name|table2
 argument_list|,
 literal|2
-argument_list|,
-name|sequenceId2
 argument_list|)
 expr_stmt|;
 name|flushRegion

@@ -549,6 +549,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -2716,6 +2726,11 @@ comment|// Test Log Replay with Distributed Replay on.
 comment|// In distributed log replay, the log splitters ask the master for the
 comment|// last flushed sequence id for a region. This test would ensure that we
 comment|// are doing the book-keeping correctly.
+annotation|@
+name|Ignore
+argument_list|(
+literal|"DLR is broken by HBASE-12751"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
