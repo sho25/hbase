@@ -93,16 +93,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|TreeSet
 import|;
 end_import
@@ -403,7 +393,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|SortedCopyOnWriteSet
+name|SortedList
 import|;
 end_import
 
@@ -560,14 +550,14 @@ name|abortable
 decl_stmt|;
 comment|/** Ordered set of loaded coprocessors with lock */
 specifier|protected
-name|SortedSet
+name|SortedList
 argument_list|<
 name|E
 argument_list|>
 name|coprocessors
 init|=
 operator|new
-name|SortedCopyOnWriteSet
+name|SortedList
 argument_list|<
 name|E
 argument_list|>
