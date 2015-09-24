@@ -17,34 +17,6 @@ name|regionserver
 package|;
 end_package
 
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|math
-operator|.
-name|stat
-operator|.
-name|descriptive
-operator|.
-name|DescriptiveStatistics
-import|;
-end_import
-
 begin_comment
 comment|/**  * Interface of class that will wrap an HRegion and export numbers so they can be  * used in MetricsRegionSource  */
 end_comment
@@ -113,16 +85,6 @@ parameter_list|()
 function_decl|;
 name|int
 name|getRegionHashCode
-parameter_list|()
-function_decl|;
-comment|/**    * Get the time spent by coprocessors in this region.    */
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|DescriptiveStatistics
-argument_list|>
-name|getCoprocessorExecutionStatistics
 parameter_list|()
 function_decl|;
 comment|/**    * Get the replica id of this region.    */
