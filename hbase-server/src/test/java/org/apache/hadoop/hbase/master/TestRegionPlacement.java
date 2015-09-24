@@ -681,6 +681,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -899,6 +909,11 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Test for unfinished feature"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
@@ -1959,6 +1974,11 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Used to test the correctness of this class.    */
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Test for unfinished feature"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
