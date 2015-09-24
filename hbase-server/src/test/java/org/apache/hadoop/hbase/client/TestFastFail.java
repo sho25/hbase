@@ -604,6 +604,11 @@ block|{
 comment|// Nothing to do.
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Can go zombie -- see HBASE-14421; FIX"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
