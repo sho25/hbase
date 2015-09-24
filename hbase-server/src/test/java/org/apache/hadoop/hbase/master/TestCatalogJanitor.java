@@ -393,6 +393,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ProcedureInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Server
 import|;
 end_import
@@ -2287,6 +2301,23 @@ parameter_list|)
 block|{
 return|return
 literal|false
+return|;
+comment|//To change body of implemented methods use File | Settings | File Templates.
+block|}
+annotation|@
+name|Override
+specifier|public
+name|List
+argument_list|<
+name|ProcedureInfo
+argument_list|>
+name|listProcedures
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+literal|null
 return|;
 comment|//To change body of implemented methods use File | Settings | File Templates.
 block|}

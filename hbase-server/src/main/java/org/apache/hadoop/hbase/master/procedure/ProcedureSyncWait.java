@@ -157,6 +157,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ProcedureInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ServerName
 import|;
 end_import
@@ -333,7 +347,7 @@ name|hbase
 operator|.
 name|procedure2
 operator|.
-name|ProcedureResult
+name|RemoteProcedureException
 import|;
 end_import
 
@@ -539,7 +553,7 @@ literal|250
 argument_list|)
 expr_stmt|;
 block|}
-name|ProcedureResult
+name|ProcedureInfo
 name|result
 init|=
 name|procExec
@@ -566,10 +580,15 @@ condition|)
 block|{
 comment|// If the procedure fails, we should always have an exception captured. Throw it.
 throw|throw
+name|RemoteProcedureException
+operator|.
+name|fromProto
+argument_list|(
 name|result
 operator|.
-name|getException
+name|getForeignExceptionMessage
 argument_list|()
+argument_list|)
 operator|.
 name|unwrapRemoteException
 argument_list|()

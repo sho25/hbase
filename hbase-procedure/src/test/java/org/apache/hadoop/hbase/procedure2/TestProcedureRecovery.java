@@ -167,6 +167,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ProcedureInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|procedure2
 operator|.
 name|store
@@ -1106,7 +1120,7 @@ argument_list|(
 name|procId
 argument_list|)
 expr_stmt|;
-name|ProcedureResult
+name|ProcedureInfo
 name|result
 init|=
 name|procExecutor
@@ -1314,7 +1328,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// The procedure is completed
-name|ProcedureResult
+name|ProcedureInfo
 name|result
 init|=
 name|procExecutor
@@ -1519,7 +1533,7 @@ name|procId
 argument_list|)
 expr_stmt|;
 comment|// The procedure is completed
-name|ProcedureResult
+name|ProcedureInfo
 name|result
 init|=
 name|procExecutor
@@ -1627,7 +1641,7 @@ operator|==
 name|procId2
 argument_list|)
 expr_stmt|;
-name|ProcedureResult
+name|ProcedureInfo
 name|result
 init|=
 name|procExecutor
@@ -2304,7 +2318,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// The procedure is completed
-name|ProcedureResult
+name|ProcedureInfo
 name|result
 init|=
 name|procExecutor
@@ -2568,7 +2582,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// The procedure is completed
-name|ProcedureResult
+name|ProcedureInfo
 name|result
 init|=
 name|procExecutor

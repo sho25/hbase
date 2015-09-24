@@ -189,6 +189,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ProcedureInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ServerName
 import|;
 end_import
@@ -1743,6 +1757,14 @@ specifier|final
 name|boolean
 name|mayInterruptIfRunning
 parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * List procedures    * @return procedure list    * @throws IOException    */
+name|ProcedureInfo
+index|[]
+name|listProcedures
+parameter_list|()
 throws|throws
 name|IOException
 function_decl|;

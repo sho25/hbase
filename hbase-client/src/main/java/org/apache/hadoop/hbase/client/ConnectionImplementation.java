@@ -6944,6 +6944,36 @@ name|Override
 specifier|public
 name|MasterProtos
 operator|.
+name|ListProceduresResponse
+name|listProcedures
+parameter_list|(
+name|RpcController
+name|controller
+parameter_list|,
+name|MasterProtos
+operator|.
+name|ListProceduresRequest
+name|request
+parameter_list|)
+throws|throws
+name|ServiceException
+block|{
+return|return
+name|stub
+operator|.
+name|listProcedures
+argument_list|(
+name|controller
+argument_list|,
+name|request
+argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|MasterProtos
+operator|.
 name|AddColumnResponse
 name|addColumn
 parameter_list|(
@@ -9209,7 +9239,7 @@ name|results
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Send the queries in parallel on the different region servers. Retries on failures.    * If the method returns it means that there is no error, and the 'results' array will    * contain no exception. On error, an exception is thrown, and the 'results' array will    * contain results and exceptions.    * @deprecated since 0.96 - Use {@link org.apache.hadoop.hbase.client.HTable#processBatchCallback} instead    */
+comment|/**    * Send the queries in parallel on the different region servers. Retries on failures.    * If the method returns it means that there is no error, and the 'results' array will    * contain no exception. On error, an exception is thrown, and the 'results' array will    * contain results and exceptions.    * @deprecated since 0.96 -    *   Use {@link org.apache.hadoop.hbase.client.HTable#processBatchCallback} instead    */
 annotation|@
 name|Override
 annotation|@
