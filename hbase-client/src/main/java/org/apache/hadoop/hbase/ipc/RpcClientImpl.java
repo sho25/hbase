@@ -4788,20 +4788,40 @@ name|e
 parameter_list|)
 block|{
 comment|// We set the value inside the synchronized block, this way the next in line
-comment|//  won't even try to write
-name|markClosed
+comment|//  won't even try to write. Otherwise we might miss a call in the calls map?
+name|shouldCloseConnection
+operator|.
+name|set
 argument_list|(
-name|e
+literal|true
 argument_list|)
-expr_stmt|;
-name|close
-argument_list|()
 expr_stmt|;
 name|writeException
 operator|=
 name|e
 expr_stmt|;
 name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+comment|// call close outside of the synchronized (outLock) to prevent deadlock - HBASE-14474
+if|if
+condition|(
+name|writeException
+operator|!=
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+name|markClosed
+argument_list|(
+name|writeException
+argument_list|)
+condition|)
+block|{
+name|close
 argument_list|()
 expr_stmt|;
 block|}
@@ -5276,7 +5296,7 @@ return|;
 block|}
 specifier|protected
 specifier|synchronized
-name|void
+name|boolean
 name|markClosed
 parameter_list|(
 name|IOException
@@ -5294,8 +5314,9 @@ operator|new
 name|NullPointerException
 argument_list|()
 throw|;
-if|if
-condition|(
+name|boolean
+name|ret
+init|=
 name|shouldCloseConnection
 operator|.
 name|compareAndSet
@@ -5304,6 +5325,10 @@ literal|false
 argument_list|,
 literal|true
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|ret
 condition|)
 block|{
 if|if
@@ -5347,6 +5372,9 @@ name|notifyAll
 argument_list|()
 expr_stmt|;
 block|}
+return|return
+name|ret
+return|;
 block|}
 comment|/**      * Cleanup the calls older than a given timeout, in milli seconds.      * @param allCalls true for all calls, false for only the calls in timeout      */
 specifier|protected
@@ -5773,6 +5801,8 @@ range|:
 name|connsToClose
 control|)
 block|{
+if|if
+condition|(
 name|conn
 operator|.
 name|markClosed
@@ -5783,12 +5813,14 @@ argument_list|(
 literal|"RpcClient is closing"
 argument_list|)
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
 name|conn
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|// wait until all connections are closed
@@ -5807,7 +5839,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|100
+literal|10
 argument_list|)
 expr_stmt|;
 block|}
