@@ -4235,7 +4235,7 @@ decl_stmt|;
 comment|// do the mob compaction
 name|admin
 operator|.
-name|compactMob
+name|compact
 argument_list|(
 name|tableName
 argument_list|,
@@ -4243,6 +4243,12 @@ name|hcd1
 operator|.
 name|getName
 argument_list|()
+argument_list|,
+name|Admin
+operator|.
+name|CompactType
+operator|.
+name|MOB
 argument_list|)
 expr_stmt|;
 name|waitUntilMobCompactionFinished
@@ -4557,7 +4563,7 @@ expr_stmt|;
 comment|// do the major mob compaction, it will force all files to compaction
 name|admin
 operator|.
-name|majorCompactMob
+name|majorCompact
 argument_list|(
 name|tableName
 argument_list|,
@@ -4565,6 +4571,12 @@ name|hcd1
 operator|.
 name|getName
 argument_list|()
+argument_list|,
+name|Admin
+operator|.
+name|CompactType
+operator|.
+name|MOB
 argument_list|)
 expr_stmt|;
 name|waitUntilMobCompactionFinished
@@ -4936,7 +4948,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|majorCompactMob
+name|majorCompact
 argument_list|(
 name|tableName
 argument_list|,
@@ -4944,6 +4956,12 @@ name|hcd1
 operator|.
 name|getName
 argument_list|()
+argument_list|,
+name|Admin
+operator|.
+name|CompactType
+operator|.
+name|MOB
 argument_list|)
 expr_stmt|;
 name|waitUntilMobCompactionFinished
@@ -5405,7 +5423,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|majorCompactMob
+name|majorCompact
 argument_list|(
 name|tableName
 argument_list|,
@@ -5413,6 +5431,12 @@ name|hcd1
 operator|.
 name|getName
 argument_list|()
+argument_list|,
+name|Admin
+operator|.
+name|CompactType
+operator|.
+name|MOB
 argument_list|)
 expr_stmt|;
 name|waitUntilMobCompactionFinished
@@ -5587,9 +5611,15 @@ name|state
 init|=
 name|admin
 operator|.
-name|getMobCompactionState
+name|getCompactionState
 argument_list|(
 name|tableName
+argument_list|,
+name|Admin
+operator|.
+name|CompactType
+operator|.
+name|MOB
 argument_list|)
 decl_stmt|;
 while|while
@@ -5617,9 +5647,15 @@ name|state
 operator|=
 name|admin
 operator|.
-name|getMobCompactionState
+name|getCompactionState
 argument_list|(
 name|tableName
+argument_list|,
+name|Admin
+operator|.
+name|CompactType
+operator|.
+name|MOB
 argument_list|)
 expr_stmt|;
 name|Thread

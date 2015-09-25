@@ -2329,22 +2329,25 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Compact the mob files in all mob-enabled column families. Asynchronous operation.    *    * @param tableName table to compact    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Compact a table. Asynchronous operation.    *    * @param tableName table to compact    * @param compactType {@link org.apache.hadoop.hbase.client.Admin.CompactType}    * @throws IOException    * @throws InterruptedException    */
 name|void
-name|compactMobs
+name|compact
 parameter_list|(
 specifier|final
 name|TableName
 name|tableName
+parameter_list|,
+name|CompactType
+name|compactType
 parameter_list|)
 throws|throws
 name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Compact the mob files in a mob-enabled column family. Asynchronous operation.    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @throws IOException if not a mob column family or if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Compact a column family within a table. Asynchronous operation.    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @param compactType {@link org.apache.hadoop.hbase.client.Admin.CompactType}    * @throws IOException if not a mob column family or if a remote or network exception occurs    * @throws InterruptedException    */
 name|void
-name|compactMob
+name|compact
 parameter_list|(
 specifier|final
 name|TableName
@@ -2354,28 +2357,34 @@ specifier|final
 name|byte
 index|[]
 name|columnFamily
+parameter_list|,
+name|CompactType
+name|compactType
 parameter_list|)
 throws|throws
 name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Major compact the mob files in all mob-enabled column family. Asynchronous operation.    *    * @param tableName table to compact    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Major compact a table. Asynchronous operation.    *    * @param tableName table to compact    * @param compactType {@link org.apache.hadoop.hbase.client.Admin.CompactType}    * @throws IOException    * @throws InterruptedException    */
 name|void
-name|majorCompactMobs
+name|majorCompact
 parameter_list|(
 specifier|final
 name|TableName
 name|tableName
+parameter_list|,
+name|CompactType
+name|compactType
 parameter_list|)
 throws|throws
 name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Major compact the mob files in a mob-enabled column family. Asynchronous operation.    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @throws IOException if not a mob column family or if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Major compact a column family within a table. Asynchronous operation.    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @param compactType {@link org.apache.hadoop.hbase.client.Admin.CompactType}    * @throws IOException if not a mob column family or if a remote or network exception occurs    * @throws InterruptedException    */
 name|void
-name|majorCompactMob
+name|majorCompact
 parameter_list|(
 specifier|final
 name|TableName
@@ -2385,23 +2394,29 @@ specifier|final
 name|byte
 index|[]
 name|columnFamily
+parameter_list|,
+name|CompactType
+name|compactType
 parameter_list|)
 throws|throws
 name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Get the current compaction state of a table. It could be in a compaction, or none.    *    * @param tableName table to examine    * @return the current compaction state    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get the current compaction state of a table. It could be in a compaction, or none.    *    * @param tableName table to examine    * @param compactType {@link org.apache.hadoop.hbase.client.Admin.CompactType}    * @return the current compaction state    * @throws IOException if a remote or network exception occurs    */
 name|AdminProtos
 operator|.
 name|GetRegionInfoResponse
 operator|.
 name|CompactionState
-name|getMobCompactionState
+name|getCompactionState
 parameter_list|(
 specifier|final
 name|TableName
 name|tableName
+parameter_list|,
+name|CompactType
+name|compactType
 parameter_list|)
 throws|throws
 name|IOException
@@ -2416,6 +2431,36 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Currently, there are only two compact types:    * {@code NORMAL} means do store files compaction;    * {@code MOB} means do mob files compaction.    * */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Unstable
+specifier|public
+enum|enum
+name|CompactType
+block|{
+name|NORMAL
+argument_list|(
+literal|0
+argument_list|)
+block|,
+name|MOB
+argument_list|(
+literal|1
+argument_list|)
+block|;
+name|CompactType
+parameter_list|(
+name|int
+name|value
+parameter_list|)
+block|{}
+block|}
 block|}
 end_interface
 
