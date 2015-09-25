@@ -4813,18 +4813,14 @@ operator|!=
 literal|null
 condition|)
 block|{
-if|if
-condition|(
 name|markClosed
 argument_list|(
 name|writeException
 argument_list|)
-condition|)
-block|{
+expr_stmt|;
 name|close
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 comment|// We added a call, and may be started the connection close. In both cases, we
 comment|//  need to notify the reader.
