@@ -1056,7 +1056,7 @@ operator|=
 operator|new
 name|ThreadPoolExecutor
 argument_list|(
-literal|1
+name|threads
 argument_list|,
 name|threads
 argument_list|,
@@ -1082,6 +1082,13 @@ name|name
 operator|+
 literal|")-flush-proc-pool"
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|executor
+operator|.
+name|allowCoreThreadTimeOut
+argument_list|(
+literal|true
 argument_list|)
 expr_stmt|;
 name|taskPool
