@@ -388,6 +388,12 @@ init|=
 literal|50
 decl_stmt|;
 comment|// number of regions in pre-split tables
+specifier|private
+name|boolean
+name|keepTableAtTheEnd
+init|=
+literal|false
+decl_stmt|;
 specifier|protected
 name|HBaseCluster
 name|cluster
@@ -558,6 +564,12 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+if|if
+condition|(
+operator|!
+name|keepTableAtTheEnd
+condition|)
+block|{
 name|Admin
 name|admin
 init|=
@@ -580,6 +592,7 @@ argument_list|(
 literal|"ittable-\\d+"
 argument_list|)
 expr_stmt|;
+block|}
 name|Connection
 name|connection
 init|=
@@ -1139,37 +1152,9 @@ name|getClass
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// TODO workaround
-comment|// when master failover happens during CREATE_TABLE, client will do RPC retry and get TableExistsException
-comment|// ignore for now till better resolution
-if|if
-condition|(
-name|e
-operator|instanceof
-name|TableExistsException
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Caught TableExistsException in action: "
-operator|+
-name|this
-operator|.
-name|getClass
-argument_list|()
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
 throw|throw
 name|e
 throw|;
-block|}
 block|}
 finally|finally
 block|{
@@ -1749,40 +1734,9 @@ name|getClass
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// TODO workaround
-comment|// when master failover happens during DELETE_TABLE, client will do RPC retry and get
-comment|// TableNotFoundException ignore for now till better resolution
-if|if
-condition|(
-name|e
-operator|instanceof
-name|TableNotFoundException
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Caught TableNotFoundException in action: "
-operator|+
-name|this
-operator|.
-name|getClass
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-block|}
-else|else
-block|{
 throw|throw
 name|e
 throw|;
-block|}
 block|}
 finally|finally
 block|{
@@ -2061,42 +2015,9 @@ name|getClass
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// TODO HBASE-13415
-comment|// loose restriction for InvalidFamilyOperationException thrown in async operations before
-comment|// HBASE-13415 completes when failover happens, multiple procids may be created from the
-comment|// same request when 1 procedure succeeds, the others would complain about family already
-comment|// exists
-if|if
-condition|(
-name|e
-operator|instanceof
-name|InvalidFamilyOperationException
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Caught InvalidFamilyOperationException in action: "
-operator|+
-name|this
-operator|.
-name|getClass
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-block|}
-else|else
-block|{
 throw|throw
 name|e
 throw|;
-block|}
 block|}
 finally|finally
 block|{
@@ -2821,42 +2742,9 @@ name|getClass
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// TODO HBASE-13415
-comment|// loose restriction for InvalidFamilyOperationException thrown in async operations before
-comment|// HBASE-13415 completes when failover happens, multiple procids may be created from the
-comment|//  same request when 1 procedure succeeds, the others would complain about family not
-comment|// exists
-if|if
-condition|(
-name|e
-operator|instanceof
-name|InvalidFamilyOperationException
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Caught InvalidFamilyOperationException in action: "
-operator|+
-name|this
-operator|.
-name|getClass
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-block|}
-else|else
-block|{
 throw|throw
 name|e
 throw|;
-block|}
 block|}
 finally|finally
 block|{
@@ -3833,6 +3721,23 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|HbckTestingUtil
+operator|.
+name|inconsistencyFound
+argument_list|(
+name|hbck
+argument_list|)
+condition|)
+block|{
+comment|// Find the inconsistency during HBCK. Leave table undropped so that
+comment|// we can check outside the test.
+name|keepTableAtTheEnd
+operator|=
+literal|true
+expr_stmt|;
+block|}
 name|HbckTestingUtil
 operator|.
 name|assertNoErrors
