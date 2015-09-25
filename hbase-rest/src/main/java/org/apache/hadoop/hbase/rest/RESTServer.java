@@ -1367,7 +1367,7 @@ name|connector
 operator|.
 name|setHeaderBufferSize
 argument_list|(
-literal|8192
+literal|65536
 argument_list|)
 expr_stmt|;
 name|server
