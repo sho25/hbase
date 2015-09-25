@@ -2954,6 +2954,15 @@ argument_list|(
 name|host
 argument_list|)
 expr_stmt|;
+name|connector
+operator|.
+name|setHeaderBufferSize
+argument_list|(
+literal|1024
+operator|*
+literal|64
+argument_list|)
+expr_stmt|;
 name|httpServer
 operator|.
 name|addConnector
