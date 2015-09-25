@@ -566,6 +566,18 @@ operator|.
 name|getConfiguration
 argument_list|()
 expr_stmt|;
+comment|// Up the handlers; this test needs more than usual.
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
+argument_list|,
+literal|10
+argument_list|)
+expr_stmt|;
 comment|// Set up superuser
 name|SecureTestUtil
 operator|.
@@ -753,6 +765,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testManageUserAuths
@@ -1187,6 +1204,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testPassiveVisibility

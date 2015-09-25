@@ -197,6 +197,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -930,6 +944,18 @@ operator|.
 name|getConfiguration
 argument_list|()
 expr_stmt|;
+comment|// Up the handlers; this test needs more than usual.
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
+argument_list|,
+literal|10
+argument_list|)
+expr_stmt|;
 comment|// Enable security
 name|enableSecurity
 argument_list|(
@@ -1281,6 +1307,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testCreateWithCorrectOwner
@@ -1565,6 +1596,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testCreateTableWithGroupPermissions
@@ -1698,6 +1734,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testACLTableAccess
@@ -3280,6 +3321,11 @@ name|AccessController
 block|{   }
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testCoprocessorLoading
@@ -3397,6 +3443,11 @@ decl_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|180000
+argument_list|)
 specifier|public
 name|void
 name|testACLZNodeDeletion

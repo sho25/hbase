@@ -486,7 +486,6 @@ name|NUM_RS
 argument_list|)
 expr_stmt|;
 block|}
-specifier|protected
 specifier|static
 name|void
 name|setupConf
@@ -495,6 +494,18 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
+comment|// Up the handlers; this test needs more than usual.
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
+argument_list|,
+literal|10
+argument_list|)
+expr_stmt|;
 comment|// enable snapshot support
 name|conf
 operator|.
