@@ -105,6 +105,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Cell
 import|;
 end_import
@@ -1241,6 +1255,21 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
+comment|// Up the handlers; this test needs more than usual.
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
+argument_list|,
+literal|10
+argument_list|)
+expr_stmt|;
 comment|// Enable security
 name|enableSecurity
 argument_list|(
