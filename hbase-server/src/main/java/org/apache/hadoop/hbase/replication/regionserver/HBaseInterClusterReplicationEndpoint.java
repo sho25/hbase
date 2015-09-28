@@ -921,6 +921,23 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|replicationSinkMgr
+operator|.
+name|getSinks
+argument_list|()
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|0
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 comment|// minimum of: configured threads, number of 100-waledit batches,
 comment|//  and number of current sinks
 name|int
