@@ -4606,7 +4606,6 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Add a table coprocessor to this table. The coprocessor    * type must be {@link org.apache.hadoop.hbase.coprocessor.RegionObserver}    * or Endpoint.    * It won't check if the class can be loaded or not.    * Whether a coprocessor is loadable or not will be determined when    * a region is opened.    * @param specStr The Coprocessor specification all in in one String formatted so matches    * {@link HConstants#CP_HTD_ATTR_VALUE_PATTERN}    * @throws IOException    */
-comment|// Pity about ugly method name. addCoprocessor(String) already taken above.
 specifier|public
 name|HTableDescriptor
 name|addCoprocessorWithSpec
