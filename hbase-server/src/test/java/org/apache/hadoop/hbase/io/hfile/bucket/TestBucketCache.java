@@ -512,7 +512,7 @@ specifier|final
 name|int
 name|NUM_THREADS
 init|=
-literal|1000
+literal|100
 decl_stmt|;
 specifier|final
 name|int
