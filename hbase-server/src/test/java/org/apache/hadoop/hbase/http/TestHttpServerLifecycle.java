@@ -67,6 +67,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -165,6 +175,11 @@ expr_stmt|;
 block|}
 comment|/**    * Test that the server is alive once started    *    * @throws Throwable on failure    */
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Hangs on occasion; see HBASE-14430"
+argument_list|)
+annotation|@
 name|Test
 argument_list|(
 name|timeout
@@ -190,6 +205,11 @@ name|server
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Hangs on occasion; see HBASE-14430"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
@@ -217,6 +237,11 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test that the server is alive once started    *    * @throws Throwable on failure    */
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Hangs on occasion; see HBASE-14430"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
@@ -305,6 +330,11 @@ expr_stmt|;
 block|}
 comment|/**    * Test that the server is not alive once stopped    *    * @throws Throwable on failure    */
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Hangs on occasion; see HBASE-14430"
+argument_list|)
+annotation|@
 name|Test
 argument_list|(
 name|timeout
@@ -341,6 +371,11 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test that the server is not alive once stopped    *    * @throws Throwable on failure    */
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Hangs on occasion; see HBASE-14430"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
@@ -388,6 +423,11 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test that the server is alive once started    *    * @throws Throwable    *           on failure    */
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Hangs on occasion; see HBASE-14430"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
