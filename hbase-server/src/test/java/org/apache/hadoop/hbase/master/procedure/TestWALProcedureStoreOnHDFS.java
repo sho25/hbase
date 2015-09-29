@@ -735,7 +735,7 @@ name|setInt
 argument_list|(
 literal|"hbase.procedure.store.wal.max.roll.retries"
 argument_list|,
-literal|5
+literal|10
 argument_list|)
 expr_stmt|;
 name|conf
@@ -744,7 +744,7 @@ name|setInt
 argument_list|(
 literal|"hbase.procedure.store.wal.sync.failure.roll.max"
 argument_list|,
-literal|5
+literal|10
 argument_list|)
 expr_stmt|;
 block|}
