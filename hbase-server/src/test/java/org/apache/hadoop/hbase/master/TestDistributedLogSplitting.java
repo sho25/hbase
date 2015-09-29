@@ -1632,6 +1632,17 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|REGION_SERVER_HIGH_PRIORITY_HANDLER_COUNT
+argument_list|,
+literal|10
+argument_list|)
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|shutdownMiniHBaseCluster
@@ -6831,6 +6842,11 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * The original intention of this test was to force an abort of a region    * server and to make sure that the failure path in the region servers is    * properly evaluated. But it is difficult to ensure that the region server    * doesn't finish the log splitting before it aborts. Also now, there is    * this code path where the master will preempt the region server when master    * detects that the region server has aborted.    * @throws Exception    */
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Disabled because flakey"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(

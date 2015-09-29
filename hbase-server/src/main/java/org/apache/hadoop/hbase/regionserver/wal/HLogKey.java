@@ -372,6 +372,8 @@ name|tablename
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|VisibleForTesting
 specifier|public
 name|HLogKey
 parameter_list|(

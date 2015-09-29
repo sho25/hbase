@@ -2785,7 +2785,7 @@ operator|.
 name|newHashMap
 argument_list|()
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|final
 name|AtomicLong
 name|memstoreSize
@@ -5666,6 +5666,8 @@ name|getRegionInfo
 argument_list|()
 argument_list|,
 name|regionOpenDesc
+argument_list|,
+name|mvcc
 argument_list|)
 expr_stmt|;
 block|}
@@ -5811,6 +5813,8 @@ name|getRegionInfo
 argument_list|()
 argument_list|,
 name|regionEventDesc
+argument_list|,
+name|mvcc
 argument_list|)
 expr_stmt|;
 comment|// Store SeqId in HDFS when a region closes
@@ -7484,6 +7488,14 @@ name|readOnly
 operator|)
 condition|)
 block|{
+if|if
+condition|(
+name|getRegionServerServices
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
 name|getRegionServerServices
 argument_list|()
 operator|.
@@ -7517,6 +7529,7 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|completionService
 operator|.
@@ -10627,13 +10640,6 @@ comment|// Stop updates while we snapshot the memstore of all of these regions' 
 comment|// to do this for a moment.  It is quick. We also set the memstore size to zero here before we
 comment|// allow updates again so its value will represent the size of the updates received
 comment|// during flush
-name|MultiVersionConcurrencyControl
-operator|.
-name|WriteEntry
-name|writeEntry
-init|=
-literal|null
-decl_stmt|;
 comment|// We have to take an update lock during snapshot, or else a write could end up in both snapshot
 comment|// and memstore (makes it difficult to do atomic rows then)
 name|status
@@ -10818,17 +10824,20 @@ name|trxId
 init|=
 literal|0
 decl_stmt|;
-try|try
-block|{
-try|try
-block|{
+name|MultiVersionConcurrencyControl
+operator|.
+name|WriteEntry
 name|writeEntry
-operator|=
+init|=
 name|mvcc
 operator|.
 name|begin
 argument_list|()
-expr_stmt|;
+decl_stmt|;
+try|try
+block|{
+try|try
+block|{
 if|if
 condition|(
 name|wal
@@ -11873,14 +11882,9 @@ argument_list|()
 operator|+
 literal|" : "
 operator|+
-literal|"Received unexpected exception trying to write ABORT_FLUSH marker to WAL:"
-operator|+
-name|StringUtils
-operator|.
-name|stringifyException
-argument_list|(
+literal|"failed writing ABORT_FLUSH marker to WAL"
+argument_list|,
 name|ex
-argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// ignore this since we will be aborting the RS with DSE.
@@ -25814,6 +25818,8 @@ name|getRegionInfo
 argument_list|()
 argument_list|,
 name|loadDescriptor
+argument_list|,
+name|mvcc
 argument_list|)
 expr_stmt|;
 block|}
@@ -37219,7 +37225,7 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Update counters for numer of puts without wal and the size of possible data loss.    * These information are exposed by the region server metrics.    */
+comment|/**    * Update counters for number of puts without wal and the size of possible data loss.    * These information are exposed by the region server metrics.    */
 specifier|private
 name|void
 name|recordMutationWithoutWal
@@ -38205,8 +38211,10 @@ name|getMVCC
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// Call append but with an empty WALEdit.  The returned seqeunce id will not be associated
+comment|// Call append but with an empty WALEdit.  The returned sequence id will not be associated
 comment|// with any edit and we can be sure it went in after all outstanding appends.
+try|try
+block|{
 name|wal
 operator|.
 name|append
@@ -38226,6 +38234,26 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+comment|// If exception, our mvcc won't get cleaned up by client, so do it here.
+name|getMVCC
+argument_list|()
+operator|.
+name|complete
+argument_list|(
+name|key
+operator|.
+name|getWriteEntry
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|key
 return|;
