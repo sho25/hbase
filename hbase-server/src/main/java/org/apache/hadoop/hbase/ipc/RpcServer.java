@@ -2207,19 +2207,6 @@ operator|=
 name|connection
 operator|.
 name|user
-operator|==
-literal|null
-condition|?
-literal|null
-else|:
-name|userProvider
-operator|.
-name|create
-argument_list|(
-name|connection
-operator|.
-name|user
-argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -3347,7 +3334,7 @@ block|{
 return|return
 name|connection
 operator|.
-name|user
+name|ugi
 return|;
 block|}
 annotation|@
@@ -6351,12 +6338,6 @@ decl_stmt|;
 name|BlockingService
 name|service
 decl_stmt|;
-specifier|protected
-name|UserGroupInformation
-name|user
-init|=
-literal|null
-decl_stmt|;
 specifier|private
 name|AuthMethod
 name|authMethod
@@ -6496,6 +6477,18 @@ init|=
 literal|null
 decl_stmt|;
 comment|// user name before auth
+specifier|protected
+name|User
+name|user
+init|=
+literal|null
+decl_stmt|;
+specifier|protected
+name|UserGroupInformation
+name|ugi
+init|=
+literal|null
+decl_stmt|;
 specifier|public
 name|Connection
 parameter_list|(
@@ -7371,7 +7364,7 @@ argument_list|(
 name|qop
 argument_list|)
 expr_stmt|;
-name|user
+name|ugi
 operator|=
 name|getAuthorizedUgi
 argument_list|(
@@ -7395,7 +7388,7 @@ name|debug
 argument_list|(
 literal|"SASL server context established. Authenticated client: "
 operator|+
-name|user
+name|ugi
 operator|+
 literal|". Negotiated QoP is "
 operator|+
@@ -7421,7 +7414,7 @@ name|info
 argument_list|(
 name|AUTH_SUCCESSFUL_FOR
 operator|+
-name|user
+name|ugi
 argument_list|)
 expr_stmt|;
 name|saslContextEstablished
@@ -8473,18 +8466,18 @@ operator|!
 name|useSasl
 condition|)
 block|{
-name|user
+name|ugi
 operator|=
 name|protocolUser
 expr_stmt|;
 if|if
 condition|(
-name|user
+name|ugi
 operator|!=
 literal|null
 condition|)
 block|{
-name|user
+name|ugi
 operator|.
 name|setAuthenticationMethod
 argument_list|(
@@ -8500,7 +8493,7 @@ block|}
 else|else
 block|{
 comment|// user is authenticated
-name|user
+name|ugi
 operator|.
 name|setAuthenticationMethod
 argument_list|(
@@ -8529,7 +8522,7 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|user
+name|ugi
 operator|.
 name|getUserName
 argument_list|()
@@ -8553,7 +8546,7 @@ name|AccessDeniedException
 argument_list|(
 literal|"Authenticated user ("
 operator|+
-name|user
+name|ugi
 operator|+
 literal|") doesn't match what the client claims to be ("
 operator|+
@@ -8571,9 +8564,9 @@ comment|// The user is the real user. Now we create a proxy user
 name|UserGroupInformation
 name|realUser
 init|=
-name|user
+name|ugi
 decl_stmt|;
-name|user
+name|ugi
 operator|=
 name|UserGroupInformation
 operator|.
@@ -8588,7 +8581,7 @@ name|realUser
 argument_list|)
 expr_stmt|;
 comment|// Now the user is a proxy user, set Authentication method Proxy.
-name|user
+name|ugi
 operator|.
 name|setAuthenticationMethod
 argument_list|(
@@ -9046,10 +9039,23 @@ argument_list|()
 operator|+
 literal|" is unauthorized for user: "
 operator|+
-name|user
+name|ugi
 argument_list|)
 throw|;
 block|}
+name|this
+operator|.
+name|user
+operator|=
+name|userProvider
+operator|.
+name|create
+argument_list|(
+name|this
+operator|.
+name|ugi
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 comment|/**      * @param buf Has the request header and the request param and optionally encoded data buffer      * all in this one array.      * @throws IOException      * @throws InterruptedException      */
@@ -9675,11 +9681,11 @@ comment|// authorize real user. doAs is allowed only for simple or kerberos
 comment|// authentication
 if|if
 condition|(
-name|user
+name|ugi
 operator|!=
 literal|null
 operator|&&
-name|user
+name|ugi
 operator|.
 name|getRealUser
 argument_list|()
@@ -9699,7 +9705,7 @@ name|ProxyUsers
 operator|.
 name|authorize
 argument_list|(
-name|user
+name|ugi
 argument_list|,
 name|this
 operator|.
@@ -9712,7 +9718,7 @@ expr_stmt|;
 block|}
 name|authorize
 argument_list|(
-name|user
+name|ugi
 argument_list|,
 name|connectionHeader
 argument_list|,

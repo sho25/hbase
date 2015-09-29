@@ -441,7 +441,7 @@ name|call
 operator|.
 name|connection
 operator|.
-name|user
+name|ugi
 decl_stmt|;
 name|RpcServer
 operator|.
