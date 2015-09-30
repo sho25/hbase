@@ -273,6 +273,13 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting to notify all observers that config changed."
+argument_list|)
+expr_stmt|;
 synchronized|synchronized
 init|(
 name|configurationObservers
