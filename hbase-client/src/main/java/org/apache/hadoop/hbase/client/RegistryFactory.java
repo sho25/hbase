@@ -56,6 +56,13 @@ specifier|final
 class|class
 name|RegistryFactory
 block|{
+specifier|static
+specifier|final
+name|String
+name|REGISTRY_IMPL_CONF_KEY
+init|=
+literal|"hbase.client.registry.impl"
+decl_stmt|;
 specifier|private
 name|RegistryFactory
 parameter_list|()
@@ -82,7 +89,7 @@ argument_list|()
 operator|.
 name|get
 argument_list|(
-literal|"hbase.client.registry.impl"
+name|REGISTRY_IMPL_CONF_KEY
 argument_list|,
 name|ZooKeeperRegistry
 operator|.
