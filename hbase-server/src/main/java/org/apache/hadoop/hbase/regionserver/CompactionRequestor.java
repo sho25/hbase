@@ -81,6 +81,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|security
+operator|.
+name|User
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Pair
@@ -165,7 +181,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param r Region to compact    * @param why Why compaction was requested -- used in debug messages    * @param pri Priority of this compaction. minHeap.&lt;=0 is critical    * @param requests custom compaction requests. Each compaction must specify the store on which it    *          is acting. Can be<tt>null</tt> in which case a compaction will be attempted on all    *          stores for the region.    * @return The created {@link CompactionRequest CompactionRequests} or an empty list if no    *         compactions were started.    * @throws IOException    */
+comment|/**    * @param r Region to compact    * @param why Why compaction was requested -- used in debug messages    * @param pri Priority of this compaction. minHeap.&lt;=0 is critical    * @param requests custom compaction requests. Each compaction must specify the store on which it    *          is acting. Can be<tt>null</tt> in which case a compaction will be attempted on all    *          stores for the region.    * @user  the effective user    * @return The created {@link CompactionRequest CompactionRequests} or an empty list if no    *         compactions were started.    * @throws IOException    */
 name|List
 argument_list|<
 name|CompactionRequest
@@ -193,11 +209,14 @@ name|Store
 argument_list|>
 argument_list|>
 name|requests
+parameter_list|,
+name|User
+name|user
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param r Region to compact    * @param s Store within region to compact    * @param why Why compaction was requested -- used in debug messages    * @param pri Priority of this compaction. minHeap.&lt;=0 is critical    * @param request custom compaction request to run. {@link Store} and {@link Region} for the    *          request must match the region and store specified here.    * @return The created {@link CompactionRequest} or<tt>null</tt> if no compaction was started    * @throws IOException    */
+comment|/**    * @param r Region to compact    * @param s Store within region to compact    * @param why Why compaction was requested -- used in debug messages    * @param pri Priority of this compaction. minHeap.&lt;=0 is critical    * @param request custom compaction request to run. {@link Store} and {@link Region} for the    *          request must match the region and store specified here.    * @param user    * @return The created {@link CompactionRequest} or<tt>null</tt> if no compaction was started    * @throws IOException    */
 name|CompactionRequest
 name|requestCompaction
 parameter_list|(
@@ -218,6 +237,9 @@ name|pri
 parameter_list|,
 name|CompactionRequest
 name|request
+parameter_list|,
+name|User
+name|user
 parameter_list|)
 throws|throws
 name|IOException

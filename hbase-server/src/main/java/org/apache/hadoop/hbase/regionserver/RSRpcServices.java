@@ -8085,6 +8085,11 @@ operator|.
 name|PRIORITY_USER
 argument_list|,
 literal|null
+argument_list|,
+name|RpcServer
+operator|.
+name|getRequestUser
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -8105,6 +8110,11 @@ operator|.
 name|PRIORITY_USER
 argument_list|,
 literal|null
+argument_list|,
+name|RpcServer
+operator|.
+name|getRequestUser
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -11403,6 +11413,11 @@ name|region
 operator|)
 operator|.
 name|checkSplit
+argument_list|()
+argument_list|,
+name|RpcServer
+operator|.
+name|getRequestUser
 argument_list|()
 argument_list|)
 expr_stmt|;

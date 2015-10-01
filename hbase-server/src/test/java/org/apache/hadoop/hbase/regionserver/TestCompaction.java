@@ -2096,6 +2096,8 @@ operator|.
 name|PRIORITY_USER
 argument_list|,
 name|request
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// wait for the latch to complete.
@@ -2305,6 +2307,8 @@ name|unmodifiableList
 argument_list|(
 name|requests
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// wait for the latch to complete.
