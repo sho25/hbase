@@ -1212,6 +1212,19 @@ init|=
 literal|"hbase.client.nonces.enabled"
 decl_stmt|;
 specifier|private
+specifier|static
+specifier|final
+name|String
+name|RESOLVE_HOSTNAME_ON_FAIL_KEY
+init|=
+literal|"hbase.resolve.hostnames.on.failure"
+decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|hostnamesCanChange
+decl_stmt|;
+specifier|private
 specifier|final
 name|long
 name|pause
@@ -1628,6 +1641,19 @@ operator|.
 name|STATUS_PUBLISHED_DEFAULT
 argument_list|)
 decl_stmt|;
+name|this
+operator|.
+name|hostnamesCanChange
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|RESOLVE_HOSTNAME_ON_FAIL_KEY
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|Class
 argument_list|<
 name|?
@@ -5974,6 +6000,8 @@ name|sn
 operator|.
 name|getPort
 argument_list|()
+argument_list|,
+name|hostnamesCanChange
 argument_list|)
 decl_stmt|;
 name|connectionLock
@@ -6354,6 +6382,10 @@ name|serverName
 operator|.
 name|getPort
 argument_list|()
+argument_list|,
+name|this
+operator|.
+name|hostnamesCanChange
 argument_list|)
 decl_stmt|;
 name|this
@@ -6517,6 +6549,10 @@ name|sn
 operator|.
 name|getPort
 argument_list|()
+argument_list|,
+name|this
+operator|.
+name|hostnamesCanChange
 argument_list|)
 decl_stmt|;
 name|this
@@ -6636,6 +6672,9 @@ name|rsHostname
 parameter_list|,
 name|int
 name|port
+parameter_list|,
+name|boolean
+name|resolveHostnames
 parameter_list|)
 block|{
 comment|// Sometimes, servers go down and they come back up with the same hostname but a different
@@ -6643,6 +6682,16 @@ comment|// IP address. Force a resolution of the rsHostname by trying to instant
 comment|// InetSocketAddress, and this way we will rightfully get a new stubKey.
 comment|// Also, include the hostname in the key so as to take care of those cases where the
 comment|// DNS name is different but IP address remains the same.
+name|String
+name|address
+init|=
+name|rsHostname
+decl_stmt|;
+if|if
+condition|(
+name|resolveHostnames
+condition|)
+block|{
 name|InetAddress
 name|i
 init|=
@@ -6656,11 +6705,6 @@ argument_list|)
 operator|.
 name|getAddress
 argument_list|()
-decl_stmt|;
-name|String
-name|address
-init|=
-name|rsHostname
 decl_stmt|;
 if|if
 condition|(
@@ -6680,6 +6724,7 @@ literal|"-"
 operator|+
 name|rsHostname
 expr_stmt|;
+block|}
 block|}
 return|return
 name|serviceName
