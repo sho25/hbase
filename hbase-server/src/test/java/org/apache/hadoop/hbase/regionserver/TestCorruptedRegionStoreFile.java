@@ -147,6 +147,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|HTable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Scan
 import|;
 end_import
@@ -435,31 +451,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertFalse
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
 name|assertTrue
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|fail
 import|;
 end_import
 
@@ -534,7 +526,7 @@ specifier|final
 name|int
 name|NUM_FILES
 init|=
-literal|25
+literal|10
 decl_stmt|;
 specifier|private
 specifier|static
@@ -596,22 +588,16 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
+comment|// Disable compaction so the store file count stays constant
 name|conf
 operator|.
 name|setLong
 argument_list|(
-literal|"hbase.hstore.compaction.min"
+literal|"hbase.hstore.compactionThreshold"
 argument_list|,
-literal|20
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setLong
-argument_list|(
-literal|"hbase.hstore.compaction.max"
-argument_list|,
-literal|39
+name|NUM_FILES
+operator|+
+literal|1
 argument_list|)
 expr_stmt|;
 name|conf
@@ -620,7 +606,9 @@ name|setLong
 argument_list|(
 literal|"hbase.hstore.blockingStoreFiles"
 argument_list|,
-literal|40
+name|NUM_FILES
+operator|*
+literal|2
 argument_list|)
 expr_stmt|;
 block|}
@@ -743,6 +731,16 @@ literal|0
 condition|)
 block|{
 comment|// flush it
+operator|(
+operator|(
+name|HTable
+operator|)
+name|table
+operator|)
+operator|.
+name|flushCommits
+argument_list|()
+expr_stmt|;
 name|UTIL
 operator|.
 name|getHBaseAdmin
@@ -872,21 +870,25 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-literal|"expected at least 1 store file"
+literal|"Expected at least "
+operator|+
+name|NUM_FILES
+operator|+
+literal|" store files"
 argument_list|,
 name|storeFiles
 operator|.
 name|size
 argument_list|()
-operator|>
-literal|0
+operator|>=
+name|NUM_FILES
 argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"store-files: "
+literal|"Store files: "
 operator|+
 name|storeFiles
 argument_list|)
