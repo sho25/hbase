@@ -686,6 +686,16 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"got interrupted exception for "
+operator|+
+name|getMemberName
+argument_list|()
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|ForeignException

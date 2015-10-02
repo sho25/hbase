@@ -687,6 +687,15 @@ operator|==
 literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Submitting procedure "
+operator|+
+name|procName
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|pool
@@ -792,6 +801,25 @@ operator|.
 name|values
 argument_list|()
 decl_stmt|;
+name|boolean
+name|isTraceEnabled
+init|=
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"received connection failure: "
+operator|+
+name|message
+argument_list|,
+name|cause
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|Procedure
@@ -810,6 +838,24 @@ block|{
 continue|continue;
 block|}
 comment|// notify the elements, if they aren't null
+if|if
+condition|(
+name|isTraceEnabled
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"connection failure - notify procedure: "
+operator|+
+name|proc
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|proc
 operator|.
 name|receive
@@ -840,6 +886,17 @@ name|ForeignException
 name|reason
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"abort procedure "
+operator|+
+name|procName
+argument_list|,
+name|reason
+argument_list|)
+expr_stmt|;
 comment|// if we know about the Procedure, notify it
 name|Procedure
 name|proc
@@ -1022,6 +1079,30 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Member '"
+operator|+
+name|member
+operator|+
+literal|"' acquired procedure '"
+operator|+
+name|procName
+operator|+
+literal|"'"
+argument_list|)
+expr_stmt|;
+block|}
 name|proc
 operator|.
 name|barrierAcquiredByMember
@@ -1079,6 +1160,30 @@ literal|"'"
 argument_list|)
 expr_stmt|;
 return|return;
+block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Member '"
+operator|+
+name|member
+operator|+
+literal|"' released procedure '"
+operator|+
+name|procName
+operator|+
+literal|"'"
+argument_list|)
+expr_stmt|;
 block|}
 name|proc
 operator|.

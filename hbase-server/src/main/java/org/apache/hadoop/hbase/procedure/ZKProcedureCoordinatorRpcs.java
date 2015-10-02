@@ -354,11 +354,18 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
+name|String
+name|msg
+init|=
+literal|"Failed while watching abort node:"
+operator|+
+name|abortNode
+decl_stmt|;
 name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to watch abort"
+name|msg
 argument_list|,
 name|e
 argument_list|)
@@ -367,9 +374,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Failed while watching abort node:"
-operator|+
-name|abortNode
+name|msg
 argument_list|,
 name|e
 argument_list|)
@@ -486,13 +491,27 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
+name|String
+name|msg
+init|=
+literal|"Failed while creating acquire node:"
+operator|+
+name|acquire
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|msg
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Failed while creating acquire node:"
-operator|+
-name|acquire
+name|msg
 argument_list|,
 name|e
 argument_list|)
@@ -636,13 +655,25 @@ name|dataFromMember
 argument_list|)
 condition|)
 block|{
+name|String
+name|msg
+init|=
+literal|"Failed to get data from finished node or data is illegally formatted: "
+operator|+
+name|znode
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Failed to get data from finished node or data is illegally formatted: "
-operator|+
-name|znode
+name|msg
 argument_list|)
 throw|;
 block|}
@@ -702,13 +733,27 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
+name|String
+name|msg
+init|=
+literal|"Failed while creating reached node:"
+operator|+
+name|reachedNode
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|msg
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Failed while creating reached node:"
-operator|+
-name|reachedNode
+name|msg
 argument_list|,
 name|e
 argument_list|)
@@ -720,13 +765,27 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
+name|String
+name|msg
+init|=
+literal|"Interrupted while creating reached node:"
+operator|+
+name|reachedNode
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|msg
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|InterruptedIOException
 argument_list|(
-literal|"Interrupted while creating reached node:"
-operator|+
-name|reachedNode
+name|msg
 argument_list|)
 throw|;
 block|}
@@ -804,13 +863,27 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
+name|String
+name|msg
+init|=
+literal|"Failed to complete reset procedure "
+operator|+
+name|procName
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|msg
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Failed to complete reset procedure "
-operator|+
-name|procName
+name|msg
 argument_list|,
 name|e
 argument_list|)

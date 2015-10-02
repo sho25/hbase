@@ -917,6 +917,13 @@ name|snapshot
 operator|.
 name|getTable
 argument_list|()
+operator|+
+literal|" type "
+operator|+
+name|snapshot
+operator|.
+name|getType
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|ForeignExceptionDispatcher

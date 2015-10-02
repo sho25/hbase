@@ -723,6 +723,13 @@ name|sendGlobalBarrierReached
 argument_list|()
 expr_stmt|;
 comment|// wait for all members to report barrier release
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Waiting for all members to 'release'"
+argument_list|)
+expr_stmt|;
 name|waitForLatch
 argument_list|(
 name|releasedBarrierLatch

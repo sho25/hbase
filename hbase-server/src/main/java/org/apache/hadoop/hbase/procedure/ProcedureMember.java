@@ -692,7 +692,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unexpected reached glabal barrier message for Sub-Procedure '"
+literal|"Unexpected reached globa barrier message for Sub-Procedure '"
 operator|+
 name|procName
 operator|+
@@ -700,6 +700,26 @@ literal|"'"
 argument_list|)
 expr_stmt|;
 return|return;
+block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"reached global barrier message for Sub-Procedure '"
+operator|+
+name|procName
+operator|+
+literal|"'"
+argument_list|)
+expr_stmt|;
 block|}
 name|subproc
 operator|.
