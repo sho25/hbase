@@ -11092,10 +11092,8 @@ argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
-name|stop
-argument_list|(
-name|msg
-argument_list|)
+name|stopMaster
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
