@@ -265,6 +265,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -736,6 +746,11 @@ name|chosenServers
 return|;
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Disabled for now until FavoredNodes gets finished as a feature"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -804,6 +819,11 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Disabled for now until FavoredNodes gets finished as a feature"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -840,6 +860,11 @@ literal|10
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Disabled for now until FavoredNodes gets finished as a feature"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
@@ -993,6 +1018,11 @@ literal|8
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Disabled for now until FavoredNodes gets finished as a feature"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
@@ -1181,6 +1211,11 @@ expr_stmt|;
 block|}
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Disabled for now until FavoredNodes gets finished as a feature"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -1307,6 +1342,11 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Disabled for now until FavoredNodes gets finished as a feature"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
@@ -1531,6 +1571,11 @@ expr_stmt|;
 block|}
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Disabled for now until FavoredNodes gets finished as a feature"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -1680,6 +1725,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Disabled for now until FavoredNodes gets finished as a feature"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
