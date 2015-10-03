@@ -742,7 +742,7 @@ operator|=
 name|master
 expr_stmt|;
 block|}
-comment|/**    * @return an unmodifiable the region assignment map    */
+comment|/**    * @return a copy of the region assignment map    */
 specifier|public
 specifier|synchronized
 name|Map
@@ -755,9 +755,13 @@ name|getRegionAssignments
 parameter_list|()
 block|{
 return|return
-name|Collections
-operator|.
-name|unmodifiableMap
+operator|new
+name|TreeMap
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|ServerName
+argument_list|>
 argument_list|(
 name|regionAssignments
 argument_list|)
