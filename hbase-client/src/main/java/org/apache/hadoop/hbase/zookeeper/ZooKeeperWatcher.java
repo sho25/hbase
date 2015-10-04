@@ -501,6 +501,11 @@ specifier|public
 name|String
 name|balancerZNode
 decl_stmt|;
+comment|// znode containing the state of region normalizer
+specifier|private
+name|String
+name|regionNormalizerZNode
+decl_stmt|;
 comment|// znode containing the lock for the tables
 specifier|public
 name|String
@@ -1541,6 +1546,24 @@ argument_list|(
 literal|"zookeeper.znode.balancer"
 argument_list|,
 literal|"balancer"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|regionNormalizerZNode
+operator|=
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|baseZNode
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"zookeeper.znode.regionNormalizer"
+argument_list|,
+literal|"normalizer"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2626,6 +2649,16 @@ return|return
 name|this
 operator|.
 name|masterAddressZNode
+return|;
+block|}
+comment|/**    * @return ZooKeeper znode for region normalizer state    */
+specifier|public
+name|String
+name|getRegionNormalizerZNode
+parameter_list|()
+block|{
+return|return
+name|regionNormalizerZNode
 return|;
 block|}
 block|}

@@ -1445,6 +1445,31 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Invoke region normalizer. Can NOT run for various reasons.  Check logs.    *    * @return True if region normalizer ran, false otherwise.    */
+name|boolean
+name|normalize
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Query the current state of the region normalizer    *    * @return true if region normalizer is enabled, false otherwise.    */
+name|boolean
+name|isNormalizerEnabled
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Turn region normalizer on or off.    *    * @return Previous normalizer value    */
+name|boolean
+name|setNormalizerRunning
+parameter_list|(
+specifier|final
+name|boolean
+name|on
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Enable/Disable the catalog janitor    *    * @param enable if true enables the catalog janitor    * @return the previous state    */
 name|boolean
 name|enableCatalogJanitor
