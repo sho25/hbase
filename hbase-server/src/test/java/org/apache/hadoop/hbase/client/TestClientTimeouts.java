@@ -800,6 +800,9 @@ name|clusterId
 parameter_list|,
 name|SocketAddress
 name|localAddr
+parameter_list|,
+name|MetricsConnection
+name|metrics
 parameter_list|)
 block|{
 name|super
@@ -809,6 +812,8 @@ argument_list|,
 name|clusterId
 argument_list|,
 name|localAddr
+argument_list|,
+name|metrics
 argument_list|)
 expr_stmt|;
 block|}

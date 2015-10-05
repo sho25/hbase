@@ -135,6 +135,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|MetricsConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -263,6 +279,12 @@ specifier|final
 name|long
 name|rpcTimeout
 decl_stmt|;
+specifier|final
+name|MetricsConnection
+operator|.
+name|CallStats
+name|callStats
+decl_stmt|;
 comment|/**    * Constructor    *    * @param eventLoop           for call    * @param connectId           connection id    * @param md                  the method descriptor    * @param param               parameters to send to Server    * @param controller          controller for response    * @param responseDefaultType the default response type    */
 specifier|public
 name|AsyncCall
@@ -286,6 +308,11 @@ name|controller
 parameter_list|,
 name|Message
 name|responseDefaultType
+parameter_list|,
+name|MetricsConnection
+operator|.
+name|CallStats
+name|callStats
 parameter_list|)
 block|{
 name|super
@@ -347,6 +374,12 @@ name|getCallTimeout
 argument_list|()
 else|:
 literal|0
+expr_stmt|;
+name|this
+operator|.
+name|callStats
+operator|=
+name|callStats
 expr_stmt|;
 block|}
 comment|/**    * Get the start time    *    * @return start time for the call    */

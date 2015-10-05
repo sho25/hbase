@@ -4695,6 +4695,11 @@ argument_list|()
 argument_list|,
 literal|0
 argument_list|)
+argument_list|,
+name|clusterConnection
+operator|.
+name|getConnectionMetrics
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|boolean

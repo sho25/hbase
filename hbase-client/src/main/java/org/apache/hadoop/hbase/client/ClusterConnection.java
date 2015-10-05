@@ -607,6 +607,12 @@ name|ClientBackoffPolicy
 name|getBackoffPolicy
 parameter_list|()
 function_decl|;
+comment|/**    * @return the MetricsConnection instance associated with this connection.    */
+specifier|public
+name|MetricsConnection
+name|getConnectionMetrics
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

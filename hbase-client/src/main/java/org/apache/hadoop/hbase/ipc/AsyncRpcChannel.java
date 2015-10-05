@@ -367,6 +367,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|MetricsConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|exceptions
 operator|.
 name|ConnectionClosingException
@@ -1756,6 +1772,11 @@ parameter_list|,
 specifier|final
 name|Message
 name|responsePrototype
+parameter_list|,
+name|MetricsConnection
+operator|.
+name|CallStats
+name|callStats
 parameter_list|)
 block|{
 specifier|final
@@ -1784,6 +1805,8 @@ argument_list|,
 name|controller
 argument_list|,
 name|responsePrototype
+argument_list|,
+name|callStats
 argument_list|)
 decl_stmt|;
 name|controller
@@ -2404,6 +2427,12 @@ name|b
 argument_list|)
 init|)
 block|{
+name|call
+operator|.
+name|callStats
+operator|.
+name|setRequestSizeBytes
+argument_list|(
 name|IPCUtil
 operator|.
 name|write
@@ -2417,6 +2446,7 @@ operator|.
 name|param
 argument_list|,
 name|cellBlock
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -3127,7 +3157,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Clean up calls.    *    * @param cleanAll true if all calls should be cleaned, false for only the timed out calls    */
+comment|/**    * Clean up calls.    */
 specifier|private
 name|void
 name|cleanupCalls

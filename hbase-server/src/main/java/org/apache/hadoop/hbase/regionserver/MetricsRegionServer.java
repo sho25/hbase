@@ -19,6 +19,20 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -137,7 +151,8 @@ operator|=
 name|serverSource
 expr_stmt|;
 block|}
-comment|// for unit-test usage
+annotation|@
+name|VisibleForTesting
 specifier|public
 name|MetricsRegionServerSource
 name|getMetricsSource
