@@ -87,6 +87,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -115,6 +125,11 @@ name|TestReplicationShell
 extends|extends
 name|AbstractTestShell
 block|{
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Disabled because hangs on occasion.. about 10% of the time"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
