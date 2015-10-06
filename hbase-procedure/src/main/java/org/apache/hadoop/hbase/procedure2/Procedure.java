@@ -1000,7 +1000,13 @@ operator|)
 argument_list|)
 return|;
 block|}
-specifier|protected
+annotation|@
+name|VisibleForTesting
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+specifier|public
 name|void
 name|setOwner
 parameter_list|(

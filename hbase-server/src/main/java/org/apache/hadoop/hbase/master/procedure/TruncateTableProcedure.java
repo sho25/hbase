@@ -456,6 +456,18 @@ operator|.
 name|getUGI
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|setOwner
+argument_list|(
+name|this
+operator|.
+name|user
+operator|.
+name|getShortUserName
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -1087,14 +1099,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|") user="
-argument_list|)
-expr_stmt|;
-name|sb
-operator|.
-name|append
-argument_list|(
-name|user
+literal|")"
 argument_list|)
 expr_stmt|;
 block|}

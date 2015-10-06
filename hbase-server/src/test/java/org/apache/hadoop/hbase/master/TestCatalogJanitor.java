@@ -2298,6 +2298,8 @@ specifier|final
 name|boolean
 name|mayInterruptIfRunning
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 literal|false

@@ -672,6 +672,18 @@ operator|.
 name|getUGI
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|setOwner
+argument_list|(
+name|this
+operator|.
+name|user
+operator|.
+name|getShortUserName
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Compatible with 1.0: We use latch to make sure that this procedure implementation is
 comment|// compatible with 1.0 asynchronized operations. We need to lock the table and check
 comment|// whether the Enable operation could be performed (table exists and offline; table state
@@ -1390,14 +1402,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|") user="
-argument_list|)
-expr_stmt|;
-name|sb
-operator|.
-name|append
-argument_list|(
-name|user
+literal|")"
 argument_list|)
 expr_stmt|;
 block|}
