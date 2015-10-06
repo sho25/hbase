@@ -1859,6 +1859,17 @@ condition|(
 name|cfgSpec
 operator|!=
 literal|null
+operator|&&
+operator|!
+name|cfgSpec
+operator|.
+name|trim
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+literal|"|"
+argument_list|)
 condition|)
 block|{
 name|cfgSpec
