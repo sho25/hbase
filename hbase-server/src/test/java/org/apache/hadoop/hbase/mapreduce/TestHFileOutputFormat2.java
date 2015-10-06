@@ -1485,6 +1485,11 @@ expr_stmt|;
 block|}
 comment|/**    * Test that {@link HFileOutputFormat2} RecordWriter amends timestamps if    * passed a keyvalue whose timestamp is {@link HConstants#LATEST_TIMESTAMP}.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-2615">HBASE-2615</a>    */
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Goes zombie too frequently; needs work. See HBASE-14563"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -1849,6 +1854,11 @@ name|context
 return|;
 block|}
 comment|/*    * Test that {@link HFileOutputFormat2} creates an HFile with TIMERANGE    * metadata used by time-restricted scans.    */
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Goes zombie too frequently; needs work. See HBASE-14563"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
@@ -2273,6 +2283,11 @@ block|}
 block|}
 comment|/**    * Run small MR job.    */
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Goes zombie too frequently; needs work. See HBASE-14563"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -2537,6 +2552,11 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Goes zombie too frequently; needs work. See HBASE-14563"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -2797,6 +2817,11 @@ name|ret
 return|;
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Goes zombie too frequently; needs work. See HBASE-14563"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -2820,6 +2845,11 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Goes zombie too frequently; needs work. See HBASE-14563"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
@@ -2845,6 +2875,11 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test for HFileOutputFormat2.LOCALITY_SENSITIVE_CONF_KEY = true    * This test could only check the correctness of original logic if LOCALITY_SENSITIVE_CONF_KEY    * is set to true. Because MiniHBaseCluster always run with single hostname (and different ports),    * it's not possible to check the region locality by comparing region locations and DN hostnames.    * When MiniHBaseCluster supports explicit hostnames parameter (just like MiniDFSCluster does),    * we could test region locality features more easily.    */
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Goes zombie too frequently; needs work. See HBASE-14563"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
@@ -3821,6 +3856,11 @@ expr_stmt|;
 block|}
 comment|/**    * Test for {@link HFileOutputFormat2#configureCompression(org.apache.hadoop.hbase.client.Table,    * Configuration)} and {@link HFileOutputFormat2#createFamilyCompressionMap    * (Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Goes zombie too frequently; needs work. See HBASE-14563"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -4203,6 +4243,11 @@ return|;
 block|}
 comment|/**    * Test for {@link HFileOutputFormat2#configureBloomType(org.apache.hadoop.hbase.client.Table,    * Configuration)} and {@link HFileOutputFormat2#createFamilyBloomTypeMap    * (Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Goes zombie too frequently; needs work. See HBASE-14563"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -4545,6 +4590,11 @@ name|familyToBloomType
 return|;
 block|}
 comment|/**    * Test for {@link HFileOutputFormat2#configureBlockSize(org.apache.hadoop.hbase.client.Table,    * Configuration)} and {@link HFileOutputFormat2#createFamilyBlockSizeMap    * (Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Goes zombie too frequently; needs work. See HBASE-14563"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
@@ -4904,6 +4954,11 @@ name|familyToBlockSize
 return|;
 block|}
 comment|/**    * Test for {@link HFileOutputFormat2#configureDataBlockEncoding(HTableDescriptor, Configuration)}    * and {@link HFileOutputFormat2#createFamilyDataBlockEncodingMap(Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Goes zombie too frequently; needs work. See HBASE-14563"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
@@ -5370,6 +5425,11 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Test that {@link HFileOutputFormat2} RecordWriter uses compression and    * bloom filter settings from the column family descriptor    */
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Goes zombie too frequently; needs work. See HBASE-14563"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
@@ -6499,6 +6559,11 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Goes zombie too frequently; needs work. See HBASE-14563"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
