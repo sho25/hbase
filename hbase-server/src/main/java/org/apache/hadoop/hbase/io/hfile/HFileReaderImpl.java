@@ -3985,7 +3985,15 @@ argument_list|)
 expr_stmt|;
 comment|// It is important that we compute and pass onDiskSize to the block
 comment|// reader so that it does not have to read the header separately to
-comment|// figure out the size.
+comment|// figure out the size.  Currently, we do not have a way to do this
+comment|// correctly in the general case however.
+comment|// TODO: See https://issues.apache.org/jira/browse/HBASE-14576
+name|int
+name|prevBlockSize
+init|=
+operator|-
+literal|1
+decl_stmt|;
 name|seekToBlock
 operator|=
 name|reader
@@ -3994,12 +4002,7 @@ name|readBlock
 argument_list|(
 name|previousBlockOffset
 argument_list|,
-name|seekToBlock
-operator|.
-name|getOffset
-argument_list|()
-operator|-
-name|previousBlockOffset
+name|prevBlockSize
 argument_list|,
 name|cacheBlocks
 argument_list|,
