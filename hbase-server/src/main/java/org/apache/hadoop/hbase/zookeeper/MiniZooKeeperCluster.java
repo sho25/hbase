@@ -337,9 +337,13 @@ specifier|private
 specifier|static
 specifier|final
 name|int
-name|CONNECTION_TIMEOUT
+name|DEFAULT_CONNECTION_TIMEOUT
 init|=
 literal|30000
+decl_stmt|;
+specifier|private
+name|int
+name|connectionTimeout
 decl_stmt|;
 specifier|private
 name|boolean
@@ -449,6 +453,21 @@ argument_list|<
 name|NIOServerCnxnFactory
 argument_list|>
 argument_list|()
+expr_stmt|;
+name|connectionTimeout
+operator|=
+name|configuration
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|ZK_SESSION_TIMEOUT
+operator|+
+literal|".localHBaseCluster"
+argument_list|,
+name|DEFAULT_CONNECTION_TIMEOUT
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Add a client port to the list.    *    * @param clientPort the specified port    */
@@ -1030,7 +1049,7 @@ name|waitForServerUp
 argument_list|(
 name|currentClientPort
 argument_list|,
-name|CONNECTION_TIMEOUT
+name|connectionTimeout
 argument_list|)
 condition|)
 block|{
@@ -1248,7 +1267,7 @@ name|waitForServerDown
 argument_list|(
 name|clientPort
 argument_list|,
-name|CONNECTION_TIMEOUT
+name|connectionTimeout
 argument_list|)
 condition|)
 block|{
@@ -1375,7 +1394,7 @@ name|waitForServerDown
 argument_list|(
 name|clientPort
 argument_list|,
-name|CONNECTION_TIMEOUT
+name|connectionTimeout
 argument_list|)
 condition|)
 block|{
@@ -1543,7 +1562,7 @@ name|waitForServerDown
 argument_list|(
 name|clientPort
 argument_list|,
-name|CONNECTION_TIMEOUT
+name|connectionTimeout
 argument_list|)
 condition|)
 block|{
