@@ -6121,6 +6121,8 @@ range|:
 name|storeFiles
 control|)
 block|{
+try|try
+block|{
 name|hdfsBlocksDistribution
 operator|.
 name|add
@@ -6133,6 +6135,23 @@ name|fs
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Error getting hdfs block distribution for "
+operator|+
+name|storeFileInfo
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 return|return
