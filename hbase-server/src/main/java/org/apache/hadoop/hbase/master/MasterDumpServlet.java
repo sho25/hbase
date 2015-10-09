@@ -469,6 +469,11 @@ argument_list|(
 name|LINE
 argument_list|)
 expr_stmt|;
+name|out
+operator|.
+name|flush
+argument_list|()
+expr_stmt|;
 name|PrintStream
 name|ps
 init|=
