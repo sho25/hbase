@@ -18063,20 +18063,20 @@ block|}
 comment|/**    * Get a protocol buffer VersionInfo    *    * @return the converted protocol buffer VersionInfo    */
 specifier|public
 specifier|static
-name|RPCProtos
+name|HBaseProtos
 operator|.
 name|VersionInfo
 name|getVersionInfo
 parameter_list|()
 block|{
-name|RPCProtos
+name|HBaseProtos
 operator|.
 name|VersionInfo
 operator|.
 name|Builder
 name|builder
 init|=
-name|RPCProtos
+name|HBaseProtos
 operator|.
 name|VersionInfo
 operator|.

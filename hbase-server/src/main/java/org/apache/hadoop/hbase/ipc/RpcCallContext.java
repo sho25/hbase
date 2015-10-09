@@ -37,9 +37,13 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|security
+name|protobuf
 operator|.
-name|User
+name|generated
+operator|.
+name|HBaseProtos
+operator|.
+name|VersionInfo
 import|;
 end_import
 
@@ -53,13 +57,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|security
 operator|.
-name|generated
-operator|.
-name|RPCProtos
-operator|.
-name|VersionInfo
+name|User
 import|;
 end_import
 

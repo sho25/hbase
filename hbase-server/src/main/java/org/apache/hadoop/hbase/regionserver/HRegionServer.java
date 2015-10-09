@@ -7580,6 +7580,16 @@ operator|-
 literal|1
 argument_list|)
 expr_stmt|;
+name|rsInfo
+operator|.
+name|setVersionInfo
+argument_list|(
+name|ProtobufUtil
+operator|.
+name|getVersionInfo
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|byte
 index|[]
 name|data

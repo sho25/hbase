@@ -145,7 +145,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|RPCProtos
+name|HBaseProtos
 operator|.
 name|VersionInfo
 import|;
