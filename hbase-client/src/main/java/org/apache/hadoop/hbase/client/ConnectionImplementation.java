@@ -1653,7 +1653,7 @@ name|getBoolean
 argument_list|(
 name|CLIENT_SIDE_METRICS_ENABLED_KEY
 argument_list|,
-literal|true
+literal|false
 argument_list|)
 condition|)
 block|{
