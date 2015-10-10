@@ -338,14 +338,6 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|int
-name|NON_EXIST_LABEL_ORDINAL
-init|=
-literal|0
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
 name|List
 argument_list|<
 name|String
@@ -980,6 +972,8 @@ return|;
 block|}
 comment|// 0 denotes not available
 return|return
+name|VisibilityConstants
+operator|.
 name|NON_EXIST_LABEL_ORDINAL
 return|;
 block|}

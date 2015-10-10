@@ -217,6 +217,15 @@ name|CLOSED_PARAN
 init|=
 literal|")"
 decl_stmt|;
+comment|/** Label ordinal value for invalid labels */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|NON_EXIST_LABEL_ORDINAL
+init|=
+literal|0
+decl_stmt|;
 block|}
 end_class
 
