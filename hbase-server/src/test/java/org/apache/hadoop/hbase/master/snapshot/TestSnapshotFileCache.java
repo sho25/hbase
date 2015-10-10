@@ -1347,6 +1347,8 @@ operator|.
 name|createSnapshotV1
 argument_list|(
 name|name
+argument_list|,
+name|name
 argument_list|)
 decl_stmt|;
 name|createAndTestSnapshot
@@ -1412,6 +1414,8 @@ name|snapshotMock
 operator|.
 name|createSnapshotV2
 argument_list|(
+name|name
+argument_list|,
 name|name
 argument_list|)
 decl_stmt|;

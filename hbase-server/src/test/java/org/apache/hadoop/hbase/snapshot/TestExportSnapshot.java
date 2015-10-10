@@ -1551,6 +1551,8 @@ operator|.
 name|createSnapshotV2
 argument_list|(
 literal|"tableWithRefsV1"
+argument_list|,
+literal|"tableWithRefsV1"
 argument_list|)
 decl_stmt|;
 name|testSnapshotWithRefsExportFileSystemState
@@ -1579,6 +1581,8 @@ name|snapshotMock
 operator|.
 name|createSnapshotV2
 argument_list|(
+literal|"tableWithRefsV2"
+argument_list|,
 literal|"tableWithRefsV2"
 argument_list|)
 expr_stmt|;

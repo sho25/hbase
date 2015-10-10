@@ -3165,6 +3165,10 @@ parameter_list|(
 specifier|final
 name|String
 name|snapshotName
+parameter_list|,
+specifier|final
+name|String
+name|tableName
 parameter_list|)
 throws|throws
 name|IOException
@@ -3173,6 +3177,8 @@ return|return
 name|createSnapshot
 argument_list|(
 name|snapshotName
+argument_list|,
+name|tableName
 argument_list|,
 name|SnapshotManifestV1
 operator|.
@@ -3187,6 +3193,10 @@ parameter_list|(
 specifier|final
 name|String
 name|snapshotName
+parameter_list|,
+specifier|final
+name|String
+name|tableName
 parameter_list|)
 throws|throws
 name|IOException
@@ -3195,6 +3205,8 @@ return|return
 name|createSnapshot
 argument_list|(
 name|snapshotName
+argument_list|,
+name|tableName
 argument_list|,
 name|SnapshotManifestV2
 operator|.
@@ -3211,6 +3223,10 @@ name|String
 name|snapshotName
 parameter_list|,
 specifier|final
+name|String
+name|tableName
+parameter_list|,
+specifier|final
 name|int
 name|version
 parameter_list|)
@@ -3222,7 +3238,7 @@ name|htd
 init|=
 name|createHtd
 argument_list|(
-name|snapshotName
+name|tableName
 argument_list|)
 decl_stmt|;
 name|RegionData
