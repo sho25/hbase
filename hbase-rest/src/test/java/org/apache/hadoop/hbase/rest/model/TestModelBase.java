@@ -591,7 +591,27 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * COMMENTED OUT FOR NOW. GIVES DIFFERENT RESULTS ON JDK7 vs JDK8   public void testToXML() throws Exception {     assertEquals(AS_XML, toXML(buildTestModel()));   }**/
+specifier|public
+name|void
+name|testToXML
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+comment|// Uses fromXML to check model because XML element ordering can be random.
+name|checkModel
+argument_list|(
+name|fromXML
+argument_list|(
+name|toXML
+argument_list|(
+name|buildTestModel
+argument_list|()
+argument_list|)
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 specifier|public
 name|void
 name|testToJSON
