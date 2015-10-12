@@ -68,7 +68,7 @@ comment|/**    * @return Position in the {@link ByteBuffer} where row bytes star
 specifier|public
 specifier|abstract
 name|int
-name|getRowPositionInByteBuffer
+name|getRowPosition
 parameter_list|()
 function_decl|;
 comment|/**    * @return The {@link ByteBuffer} containing the column family bytes.    */
@@ -82,7 +82,7 @@ comment|/**    * @return Position in the {@link ByteBuffer} where column family 
 specifier|public
 specifier|abstract
 name|int
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 parameter_list|()
 function_decl|;
 comment|/**    * @return The {@link ByteBuffer} containing the column qualifier bytes.    */
@@ -96,7 +96,7 @@ comment|/**    * @return Position in the {@link ByteBuffer} where column qualifi
 specifier|public
 specifier|abstract
 name|int
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 parameter_list|()
 function_decl|;
 comment|/**    * @return The {@link ByteBuffer} containing the value bytes.    */
@@ -110,7 +110,7 @@ comment|/**    * @return Position in the {@link ByteBuffer} where value bytes st
 specifier|public
 specifier|abstract
 name|int
-name|getValuePositionInByteBuffer
+name|getValuePosition
 parameter_list|()
 function_decl|;
 comment|/**    * @return The {@link ByteBuffer} containing the tag bytes.    */
@@ -124,7 +124,7 @@ comment|/**    * @return Position in the {@link ByteBuffer} where tag bytes star
 specifier|public
 specifier|abstract
 name|int
-name|getTagsPositionInByteBuffer
+name|getTagsPosition
 parameter_list|()
 function_decl|;
 block|}

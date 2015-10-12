@@ -337,7 +337,7 @@ operator|)
 name|firstRowCell
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|this

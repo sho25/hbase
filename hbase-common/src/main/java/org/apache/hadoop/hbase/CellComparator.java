@@ -632,7 +632,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|left
@@ -657,7 +657,7 @@ operator|)
 name|right
 operator|)
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|right
@@ -696,7 +696,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|left
@@ -752,7 +752,7 @@ operator|)
 name|right
 operator|)
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|right
@@ -864,7 +864,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|left
@@ -955,7 +955,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|left
@@ -980,7 +980,7 @@ operator|)
 name|right
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|right
@@ -1019,7 +1019,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|left
@@ -1075,7 +1075,7 @@ operator|)
 name|right
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|right
@@ -1187,7 +1187,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|left
@@ -1573,7 +1573,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|left
@@ -1598,7 +1598,7 @@ operator|)
 name|right
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|right
@@ -1637,7 +1637,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|left
@@ -1693,7 +1693,7 @@ operator|)
 name|right
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|right
@@ -1804,7 +1804,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|left
@@ -2372,7 +2372,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|cell
@@ -2446,7 +2446,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|cell
@@ -2520,7 +2520,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|cell
@@ -2594,7 +2594,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getValuePositionInByteBuffer
+name|getValuePosition
 argument_list|()
 argument_list|,
 name|cell

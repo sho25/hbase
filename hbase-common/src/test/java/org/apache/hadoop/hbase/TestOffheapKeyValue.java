@@ -479,7 +479,7 @@ argument_list|()
 argument_list|,
 name|offheapKV
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|offheapKV
@@ -504,7 +504,7 @@ argument_list|()
 argument_list|,
 name|offheapKV
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|offheapKV
@@ -529,7 +529,7 @@ argument_list|()
 argument_list|,
 name|offheapKV
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|offheapKV
@@ -554,7 +554,7 @@ argument_list|()
 argument_list|,
 name|offheapKV
 operator|.
-name|getValuePositionInByteBuffer
+name|getValuePosition
 argument_list|()
 argument_list|,
 name|offheapKV
@@ -804,7 +804,7 @@ argument_list|()
 argument_list|,
 name|offheapKV
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|offheapKV
@@ -829,7 +829,7 @@ argument_list|()
 argument_list|,
 name|offheapKV
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|offheapKV
@@ -938,7 +938,7 @@ argument_list|()
 argument_list|,
 name|offheapKV
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|offheapKV
@@ -963,7 +963,7 @@ argument_list|()
 argument_list|,
 name|offheapKV
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|offheapKV
@@ -988,7 +988,7 @@ argument_list|()
 argument_list|,
 name|offheapKV
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|offheapKV
@@ -1013,7 +1013,7 @@ argument_list|()
 argument_list|,
 name|offheapKV
 operator|.
-name|getValuePositionInByteBuffer
+name|getValuePosition
 argument_list|()
 argument_list|,
 name|offheapKV
@@ -1152,7 +1152,7 @@ argument_list|()
 argument_list|,
 name|offheapKV
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|offheapKV
@@ -1177,7 +1177,7 @@ argument_list|()
 argument_list|,
 name|offheapKV
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|offheapKV
@@ -1202,7 +1202,7 @@ argument_list|()
 argument_list|,
 name|offheapKV
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|offheapKV
@@ -1227,7 +1227,7 @@ argument_list|()
 argument_list|,
 name|offheapKV
 operator|.
-name|getValuePositionInByteBuffer
+name|getValuePosition
 argument_list|()
 argument_list|,
 name|offheapKV
@@ -1557,7 +1557,7 @@ argument_list|()
 argument_list|,
 name|offheapKeyOnlyKV
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|offheapKeyOnlyKV
@@ -1582,7 +1582,7 @@ argument_list|()
 argument_list|,
 name|offheapKeyOnlyKV
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|offheapKeyOnlyKV
@@ -1607,7 +1607,7 @@ argument_list|()
 argument_list|,
 name|offheapKeyOnlyKV
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|offheapKeyOnlyKV

@@ -637,7 +637,7 @@ argument_list|()
 argument_list|,
 name|cell
 operator|.
-name|getValuePositionInByteBuffer
+name|getValuePosition
 argument_list|()
 argument_list|,
 name|cell
@@ -2148,7 +2148,7 @@ name|getRowOffset
 parameter_list|()
 block|{
 return|return
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 return|;
 block|}
@@ -2190,7 +2190,7 @@ name|getFamilyOffset
 parameter_list|()
 block|{
 return|return
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 return|;
 block|}
@@ -2232,7 +2232,7 @@ name|getQualifierOffset
 parameter_list|()
 block|{
 return|return
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 return|;
 block|}
@@ -2368,7 +2368,7 @@ name|getTagsOffset
 parameter_list|()
 block|{
 return|return
-name|getTagsPositionInByteBuffer
+name|getTagsPosition
 argument_list|()
 return|;
 block|}
@@ -2402,7 +2402,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getRowPositionInByteBuffer
+name|getRowPosition
 parameter_list|()
 block|{
 return|return
@@ -2426,7 +2426,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 parameter_list|()
 block|{
 return|return
@@ -2450,7 +2450,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 parameter_list|()
 block|{
 return|return
@@ -2474,7 +2474,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getTagsPositionInByteBuffer
+name|getTagsPosition
 parameter_list|()
 block|{
 return|return
@@ -2498,7 +2498,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getValuePositionInByteBuffer
+name|getValuePosition
 parameter_list|()
 block|{
 return|return

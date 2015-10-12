@@ -243,7 +243,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 operator|+
 name|this
@@ -325,7 +325,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 operator|+
 name|this
@@ -430,7 +430,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 operator|+
 name|this
@@ -666,7 +666,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getRowPositionInByteBuffer
+name|getRowPosition
 parameter_list|()
 block|{
 return|return
@@ -696,7 +696,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 parameter_list|()
 block|{
 return|return
@@ -744,7 +744,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 parameter_list|()
 block|{
 name|int
@@ -785,7 +785,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getValuePositionInByteBuffer
+name|getValuePosition
 parameter_list|()
 block|{
 return|return
@@ -811,7 +811,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getTagsPositionInByteBuffer
+name|getTagsPosition
 parameter_list|()
 block|{
 return|return

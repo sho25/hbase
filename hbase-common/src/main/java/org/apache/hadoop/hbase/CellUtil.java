@@ -692,7 +692,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|destinationOffset
@@ -785,7 +785,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|destinationOffset
@@ -878,7 +878,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|destinationOffset
@@ -971,7 +971,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getValuePositionInByteBuffer
+name|getValuePosition
 argument_list|()
 argument_list|,
 name|destinationOffset
@@ -1065,7 +1065,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getTagsPositionInByteBuffer
+name|getTagsPosition
 argument_list|()
 argument_list|,
 name|destinationOffset
@@ -1144,7 +1144,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 operator|+
 name|index
@@ -2413,7 +2413,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|left
@@ -2520,7 +2520,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|lfamlength
@@ -2542,7 +2542,7 @@ operator|)
 name|right
 operator|)
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|rfamlength
@@ -2578,7 +2578,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|lfamlength
@@ -2626,7 +2626,7 @@ operator|)
 name|right
 operator|)
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|rfamlength
@@ -2780,7 +2780,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|left
@@ -2887,7 +2887,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|lqlength
@@ -2909,7 +2909,7 @@ operator|)
 name|right
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|rqlength
@@ -2945,7 +2945,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|lqlength
@@ -2993,7 +2993,7 @@ operator|)
 name|right
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|rqlength
@@ -3165,7 +3165,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|left
@@ -3416,7 +3416,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getValuePositionInByteBuffer
+name|getValuePosition
 argument_list|()
 argument_list|,
 name|lvlength
@@ -3438,7 +3438,7 @@ operator|)
 name|right
 operator|)
 operator|.
-name|getValuePositionInByteBuffer
+name|getValuePosition
 argument_list|()
 argument_list|,
 name|rvlength
@@ -3474,7 +3474,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getValuePositionInByteBuffer
+name|getValuePosition
 argument_list|()
 argument_list|,
 name|lvlength
@@ -3522,7 +3522,7 @@ operator|)
 name|right
 operator|)
 operator|.
-name|getValuePositionInByteBuffer
+name|getValuePosition
 argument_list|()
 argument_list|,
 name|rvlength
@@ -3616,7 +3616,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getValuePositionInByteBuffer
+name|getValuePosition
 argument_list|()
 argument_list|,
 name|left
@@ -5910,7 +5910,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|lrowlength
@@ -5932,7 +5932,7 @@ operator|)
 name|right
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|rrowlength
@@ -5968,7 +5968,7 @@ operator|)
 name|left
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|lrowlength
@@ -6016,7 +6016,7 @@ operator|)
 name|right
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|rrowlength
@@ -6191,7 +6191,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|)
 return|;
@@ -6252,7 +6252,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getValuePositionInByteBuffer
+name|getValuePosition
 argument_list|()
 argument_list|)
 return|;
@@ -6313,7 +6313,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getValuePositionInByteBuffer
+name|getValuePosition
 argument_list|()
 argument_list|)
 return|;
@@ -6374,7 +6374,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getValuePositionInByteBuffer
+name|getValuePosition
 argument_list|()
 argument_list|,
 name|cell
@@ -6445,7 +6445,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|cell
@@ -6515,7 +6515,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|cell
@@ -6551,7 +6551,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|cell
@@ -6721,7 +6721,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|cell
@@ -6746,7 +6746,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|cell
@@ -6850,7 +6850,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|cell
@@ -6875,7 +6875,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|cell
@@ -6900,7 +6900,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|cell
@@ -7004,7 +7004,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|cell
@@ -7074,7 +7074,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getRowPositionInByteBuffer
+name|getRowPosition
 argument_list|()
 argument_list|,
 name|cell
@@ -7099,7 +7099,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 argument_list|()
 argument_list|,
 name|cell
@@ -7124,7 +7124,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|cell
@@ -7643,7 +7643,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getRowPositionInByteBuffer
+name|getRowPosition
 parameter_list|()
 block|{
 return|return
@@ -7667,7 +7667,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 parameter_list|()
 block|{
 return|return
@@ -7691,7 +7691,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 parameter_list|()
 block|{
 return|return
@@ -7715,7 +7715,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getTagsPositionInByteBuffer
+name|getTagsPosition
 parameter_list|()
 block|{
 return|return
@@ -7739,7 +7739,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getValuePositionInByteBuffer
+name|getValuePosition
 parameter_list|()
 block|{
 return|return
@@ -7954,7 +7954,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getRowPositionInByteBuffer
+name|getRowPosition
 parameter_list|()
 block|{
 return|return
@@ -8082,7 +8082,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getRowPositionInByteBuffer
+name|getRowPosition
 parameter_list|()
 block|{
 return|return
@@ -8276,7 +8276,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 parameter_list|()
 block|{
 return|return
@@ -8313,7 +8313,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 parameter_list|()
 block|{
 return|return
@@ -9194,7 +9194,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getFamilyPositionInByteBuffer
+name|getFamilyPosition
 parameter_list|()
 block|{
 return|return
@@ -9233,7 +9233,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 parameter_list|()
 block|{
 return|return

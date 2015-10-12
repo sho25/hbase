@@ -486,7 +486,7 @@ operator|)
 name|cell
 operator|)
 operator|.
-name|getQualifierPositionInByteBuffer
+name|getQualifierPosition
 argument_list|()
 argument_list|,
 name|length
