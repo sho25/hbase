@@ -130,6 +130,9 @@ name|locker
 init|=
 operator|new
 name|KeyLocker
+argument_list|<
+name|String
+argument_list|>
 argument_list|()
 decl_stmt|;
 name|ReentrantLock
@@ -252,7 +255,42 @@ name|isHeldByCurrentThread
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// The lock object was freed once useless, so we're recreating a new one
+comment|// The lock object will be garbage-collected
+comment|// if you free its reference for a long time,
+comment|// and you will get a new one at the next time.
+name|int
+name|lock2Hash
+init|=
+name|System
+operator|.
+name|identityHashCode
+argument_list|(
+name|lock2
+argument_list|)
+decl_stmt|;
+name|lock2
+operator|=
+literal|null
+expr_stmt|;
+name|lock20
+operator|=
+literal|null
+expr_stmt|;
+name|System
+operator|.
+name|gc
+argument_list|()
+expr_stmt|;
+name|System
+operator|.
+name|gc
+argument_list|()
+expr_stmt|;
+name|System
+operator|.
+name|gc
+argument_list|()
+expr_stmt|;
 name|ReentrantLock
 name|lock200
 init|=
@@ -265,11 +303,16 @@ argument_list|)
 decl_stmt|;
 name|Assert
 operator|.
-name|assertTrue
+name|assertNotEquals
 argument_list|(
-name|lock2
-operator|!=
+name|lock2Hash
+argument_list|,
+name|System
+operator|.
+name|identityHashCode
+argument_list|(
 name|lock200
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|lock200
