@@ -140,7 +140,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Like Hadoops' ByteBufferPool only you do not specify desired size when getting a ByteBuffer.  * This pool keeps an upper bound on the count of ByteBuffers in the pool and on the maximum size  * of ByteBuffer that it will retain (Hence the pool is 'bounded' as opposed to, say,  * Hadoop's ElasticByteBuffferPool).  * If a ByteBuffer is bigger than the configured threshold, we will just let the ByteBuffer go  * rather than add it to the pool. If more ByteBuffers than the configured maximum instances,  * we will not add the passed ByteBuffer to the pool; we will just drop it  * (we will log a WARN in this case that we are at capacity).  *  *<p>The intended use case is a reservoir of bytebuffers that an RPC can reuse; buffers tend to  * achieve a particular 'run' size over time give or take a few extremes. Set TRACE level on this  * class for a couple of seconds to get reporting on how it is running when deployed.  *  *<p>This class is thread safe.  */
+comment|/**  * Like Hadoops' ByteBufferPool only you do not specify desired size when getting a ByteBuffer.  * This pool keeps an upper bound on the count of ByteBuffers in the pool and on the maximum size  * of ByteBuffer that it will retain (Hence the pool is 'bounded' as opposed to, say,  * Hadoop's ElasticByteBuffferPool).  * If a ByteBuffer is bigger than the configured threshold, we will just let the ByteBuffer go  * rather than add it to the pool. If more ByteBuffers than the configured maximum instances,  * we will not add the passed ByteBuffer to the pool; we will just drop it  * (we will log a WARN in this case that we are at capacity).  *  *<p>The intended use case is a reservoir of bytebuffers that an RPC can reuse; buffers tend to  * achieve a particular 'run' size over time give or take a few extremes. Set TRACE level on this  * class for a couple of seconds to get reporting on how it is running when deployed.  *  *<p>This pool returns off heap ByteBuffers.  *  *<p>This class is thread safe.  */
 end_comment
 
 begin_class
@@ -329,7 +329,7 @@ name|bb
 operator|=
 name|ByteBuffer
 operator|.
-name|allocate
+name|allocateDirect
 argument_list|(
 name|this
 operator|.
