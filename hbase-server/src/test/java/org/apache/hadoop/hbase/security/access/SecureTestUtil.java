@@ -1834,7 +1834,9 @@ operator|.
 name|getShortName
 argument_list|()
 operator|+
-literal|"'"
+literal|"' : "
+operator|+
+name|obj
 argument_list|)
 expr_stmt|;
 block|}
