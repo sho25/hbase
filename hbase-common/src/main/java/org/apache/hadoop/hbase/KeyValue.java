@@ -59,6 +59,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|EOFException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -10534,7 +10544,7 @@ name|existingTags
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a KeyValue reading from the raw InputStream.    * Named<code>iscreate</code> so doesn't clash with {@link #create(DataInput)}    * @param in    * @return Created KeyValue OR if we find a length of zero, we will return null which    * can be useful marking a stream as done.    * @throws IOException    * {@link Deprecated} As of 1.2. Use {@link KeyValueUtil#iscreate(InputStream, boolean)} instead.    */
+comment|/**    * Create a KeyValue reading from the raw InputStream.    * Named<code>iscreate</code> so doesn't clash with {@link #create(DataInput)}    * @param in    * @return Created KeyValue or throws an exception    * @throws IOException    * {@link Deprecated} As of 1.2. Use {@link KeyValueUtil#iscreate(InputStream, boolean)} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -10606,10 +10616,13 @@ name|bytesRead
 operator|==
 literal|0
 condition|)
-return|return
-literal|null
-return|;
-comment|// EOF at start is ok
+block|{
+throw|throw
+operator|new
+name|EOFException
+argument_list|()
+throw|;
+block|}
 throw|throw
 operator|new
 name|IOException

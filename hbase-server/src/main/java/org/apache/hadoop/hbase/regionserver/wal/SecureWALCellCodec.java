@@ -45,16 +45,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|EOFException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 import|;
 end_import
@@ -471,8 +461,6 @@ name|ivLength
 init|=
 literal|0
 decl_stmt|;
-try|try
-block|{
 name|ivLength
 operator|=
 name|StreamUtils
@@ -482,18 +470,6 @@ argument_list|(
 name|in
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|EOFException
-name|e
-parameter_list|)
-block|{
-comment|// EOF at start is OK
-return|return
-literal|null
-return|;
-block|}
 comment|// TODO: An IV length of 0 could signify an unwrapped cell, when the
 comment|// encoder supports that just read the remainder in directly
 if|if

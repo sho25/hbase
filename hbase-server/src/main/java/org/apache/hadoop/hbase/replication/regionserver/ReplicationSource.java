@@ -4364,7 +4364,7 @@ condition|(
 operator|!
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|cells
 operator|.
@@ -4381,6 +4381,15 @@ name|distinctRowKeys
 operator|++
 expr_stmt|;
 block|}
+name|lastCell
+operator|=
+name|cells
+operator|.
+name|get
+argument_list|(
+name|i
+argument_list|)
+expr_stmt|;
 block|}
 return|return
 name|distinctRowKeys
