@@ -15042,7 +15042,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * This method clones the passed<code>c</code> configuration setting a new    * user into the clone.  Use it getting new instances of FileSystem.  Only    * works for DistributedFileSystem.    * @param c Initial configuration    * @param differentiatingSuffix Suffix to differentiate this user from others.    * @return A new configuration instance with a different user set into it.    * @throws IOException    */
+comment|/**    * This method clones the passed<code>c</code> configuration setting a new    * user into the clone.  Use it getting new instances of FileSystem.  Only    * works for DistributedFileSystem w/o Kerberos.    * @param c Initial configuration    * @param differentiatingSuffix Suffix to differentiate this user from others.    * @return A new configuration instance with a different user set into it.    * @throws IOException    */
 end_comment
 
 begin_function
@@ -15080,6 +15080,13 @@ name|currentfs
 operator|instanceof
 name|DistributedFileSystem
 operator|)
+operator|||
+name|User
+operator|.
+name|isHBaseSecurityEnabled
+argument_list|(
+name|c
+argument_list|)
 condition|)
 block|{
 return|return
