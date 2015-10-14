@@ -222,7 +222,7 @@ return|return
 name|lock
 return|;
 block|}
-comment|/**    * Acquire locks for a set of keys. The keys will be    * sorted internally to avoid possible deadlock.    *    * @throw ClassCastException if the given {@code keys}    *    contains elements that are not mutually comparable    */
+comment|/**    * Acquire locks for a set of keys. The keys will be    * sorted internally to avoid possible deadlock.    *    * @throws ClassCastException if the given {@code keys}    *    contains elements that are not mutually comparable    */
 specifier|public
 name|Map
 argument_list|<
