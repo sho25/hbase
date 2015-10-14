@@ -273,18 +273,14 @@ name|boolean
 name|shouldSplit
 parameter_list|()
 block|{
-if|if
-condition|(
+name|boolean
+name|force
+init|=
 name|region
 operator|.
 name|shouldForceSplit
 argument_list|()
-condition|)
-block|{
-return|return
-literal|true
-return|;
-block|}
+decl_stmt|;
 name|boolean
 name|foundABigStore
 init|=
@@ -380,6 +376,8 @@ block|}
 block|}
 return|return
 name|foundABigStore
+operator||
+name|force
 return|;
 block|}
 comment|/**    * @return Count of regions on this server that share the table this.region    * belongs to    */
