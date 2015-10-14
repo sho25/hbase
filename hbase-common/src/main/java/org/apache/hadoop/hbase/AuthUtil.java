@@ -137,7 +137,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Strings
+name|DNS
 import|;
 end_import
 
@@ -149,9 +149,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|net
+name|hbase
 operator|.
-name|DNS
+name|util
+operator|.
+name|Strings
 import|;
 end_import
 
