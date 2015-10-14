@@ -669,7 +669,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -741,7 +741,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -885,7 +885,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -957,7 +957,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -1100,7 +1100,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -1123,7 +1123,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -2003,7 +2003,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -2025,7 +2025,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -2460,7 +2460,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -2800,7 +2800,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -3398,7 +3398,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|120000
 argument_list|)
 specifier|public
 name|void
