@@ -1157,11 +1157,6 @@ argument_list|(
 name|r
 argument_list|)
 expr_stmt|;
-name|callsCt
-operator|.
-name|incrementAndGet
-argument_list|()
-expr_stmt|;
 return|return
 name|r
 return|;
@@ -3968,7 +3963,7 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-literal|2
+literal|1
 argument_list|,
 name|ap
 operator|.
@@ -6343,7 +6338,7 @@ literal|0
 argument_list|,
 literal|0
 argument_list|,
-literal|1
+literal|0
 argument_list|)
 decl_stmt|;
 name|ap
@@ -6436,7 +6431,7 @@ literal|1000
 argument_list|,
 literal|1000
 argument_list|,
-literal|1
+literal|0
 argument_list|)
 decl_stmt|;
 name|ap
@@ -6531,7 +6526,7 @@ literal|1000
 argument_list|,
 literal|0
 argument_list|,
-literal|1
+literal|0
 argument_list|)
 decl_stmt|;
 name|ap
@@ -6732,7 +6727,7 @@ expr_stmt|;
 if|if
 condition|(
 name|retries
-operator|>
+operator|>=
 literal|0
 condition|)
 block|{

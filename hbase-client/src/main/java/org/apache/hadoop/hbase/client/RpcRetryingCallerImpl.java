@@ -281,8 +281,9 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|int
-name|retries
+name|maxAttempts
 decl_stmt|;
+comment|// how many times to try
 specifier|private
 specifier|final
 name|AtomicBoolean
@@ -355,9 +356,11 @@ name|pause
 expr_stmt|;
 name|this
 operator|.
-name|retries
+name|maxAttempts
 operator|=
 name|retries
+operator|+
+literal|1
 expr_stmt|;
 name|this
 operator|.
@@ -622,9 +625,9 @@ literal|"Call exception, tries="
 operator|+
 name|tries
 operator|+
-literal|", retries="
+literal|", maxAttempts="
 operator|+
-name|retries
+name|maxAttempts
 operator|+
 literal|", started="
 operator|+
@@ -680,7 +683,7 @@ name|throwable
 argument_list|(
 name|t
 argument_list|,
-name|retries
+name|maxAttempts
 operator|!=
 literal|1
 argument_list|)
@@ -717,7 +720,7 @@ if|if
 condition|(
 name|tries
 operator|>=
-name|retries
+name|maxAttempts
 operator|-
 literal|1
 condition|)
@@ -869,9 +872,9 @@ literal|"Interrupted after "
 operator|+
 name|tries
 operator|+
-literal|" tries  on "
+literal|" tries while maxAttempts="
 operator|+
-name|retries
+name|maxAttempts
 argument_list|)
 throw|;
 block|}
@@ -1160,9 +1163,9 @@ literal|", pause="
 operator|+
 name|pause
 operator|+
-literal|", retries="
+literal|", maxAttempts="
 operator|+
-name|retries
+name|maxAttempts
 operator|+
 literal|'}'
 return|;

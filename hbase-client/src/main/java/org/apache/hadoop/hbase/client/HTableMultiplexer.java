@@ -506,7 +506,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|int
-name|retryNum
+name|maxAttempts
 decl_stmt|;
 specifier|private
 specifier|final
@@ -566,9 +566,10 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+comment|// how many times we could try in total, one more than retry number
 name|this
 operator|.
-name|retryNum
+name|maxAttempts
 operator|=
 name|conf
 operator|.
@@ -582,6 +583,8 @@ name|HConstants
 operator|.
 name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
 argument_list|)
+operator|+
+literal|1
 expr_stmt|;
 name|this
 operator|.
@@ -702,7 +705,7 @@ name|put
 argument_list|,
 name|this
 operator|.
-name|retryNum
+name|maxAttempts
 argument_list|)
 return|;
 block|}
@@ -763,7 +766,7 @@ name|put
 argument_list|,
 name|this
 operator|.
-name|retryNum
+name|maxAttempts
 argument_list|)
 expr_stmt|;
 if|if
@@ -855,12 +858,12 @@ name|Put
 name|put
 parameter_list|,
 name|int
-name|retry
+name|maxAttempts
 parameter_list|)
 block|{
 if|if
 condition|(
-name|retry
+name|maxAttempts
 operator|<=
 literal|0
 condition|)
@@ -930,7 +933,7 @@ argument_list|()
 argument_list|,
 name|put
 argument_list|,
-name|retry
+name|maxAttempts
 argument_list|)
 decl_stmt|;
 return|return
@@ -1678,7 +1681,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|int
-name|retryCount
+name|maxAttempCount
 decl_stmt|;
 specifier|public
 name|PutStatus
@@ -1690,7 +1693,7 @@ name|Put
 name|put
 parameter_list|,
 name|int
-name|retryCount
+name|maxAttempCount
 parameter_list|)
 block|{
 name|this
@@ -1707,9 +1710,9 @@ name|put
 expr_stmt|;
 name|this
 operator|.
-name|retryCount
+name|maxAttempCount
 operator|=
-name|retryCount
+name|maxAttempCount
 expr_stmt|;
 block|}
 block|}
@@ -2167,7 +2170,7 @@ name|retryCount
 init|=
 name|ps
 operator|.
-name|retryCount
+name|maxAttempCount
 operator|-
 literal|1
 decl_stmt|;
@@ -2241,7 +2244,7 @@ name|flushPeriod
 argument_list|,
 name|multiplexer
 operator|.
-name|retryNum
+name|maxAttempts
 operator|-
 name|retryCount
 operator|-

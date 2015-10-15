@@ -1175,6 +1175,7 @@ operator|.
 name|DEFAULT_HBASE_CLIENT_PAUSE
 argument_list|)
 expr_stmt|;
+comment|// how many times we could try in total, one more than retry number
 name|this
 operator|.
 name|numTries
@@ -1191,6 +1192,8 @@ name|HConstants
 operator|.
 name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
 argument_list|)
+operator|+
+literal|1
 expr_stmt|;
 name|this
 operator|.
@@ -5841,7 +5844,7 @@ name|canRetry
 init|=
 name|errorsByServer
 operator|.
-name|canRetryMore
+name|canTryMore
 argument_list|(
 name|numAttempt
 argument_list|)
@@ -6639,7 +6642,7 @@ name|canRetry
 operator|=
 name|errorsByServer
 operator|.
-name|canRetryMore
+name|canTryMore
 argument_list|(
 name|numAttempt
 argument_list|)
@@ -6930,7 +6933,7 @@ name|canRetry
 operator|=
 name|errorsByServer
 operator|.
-name|canRetryMore
+name|canTryMore
 argument_list|(
 name|numAttempt
 argument_list|)

@@ -263,7 +263,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a new RetriesExhaustedException from the list of prior failures.    * @param numTries    * @param exceptions List of exceptions that failed before giving up    */
+comment|/**    * Create a new RetriesExhaustedException from the list of prior failures.    * @param numRetries How many times we have retried, one less than total attempts    * @param exceptions List of exceptions that failed before giving up    */
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -273,7 +273,7 @@ name|RetriesExhaustedException
 parameter_list|(
 specifier|final
 name|int
-name|numTries
+name|numRetries
 parameter_list|,
 specifier|final
 name|List
@@ -287,7 +287,7 @@ name|super
 argument_list|(
 name|getMessage
 argument_list|(
-name|numTries
+name|numRetries
 argument_list|,
 name|exceptions
 argument_list|)
@@ -368,8 +368,6 @@ operator|.
 name|append
 argument_list|(
 name|numTries
-operator|+
-literal|1
 argument_list|)
 expr_stmt|;
 name|buffer
@@ -419,7 +417,7 @@ name|getMessage
 parameter_list|(
 specifier|final
 name|int
-name|numTries
+name|numRetries
 parameter_list|,
 specifier|final
 name|List
@@ -442,7 +440,7 @@ name|buffer
 operator|.
 name|append
 argument_list|(
-name|numTries
+name|numRetries
 operator|+
 literal|1
 argument_list|)

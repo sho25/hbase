@@ -1501,6 +1501,7 @@ operator|.
 name|DEFAULT_USE_META_REPLICAS
 argument_list|)
 expr_stmt|;
+comment|// how many times to try, one more than max *retry* time
 name|this
 operator|.
 name|numTries
@@ -1509,6 +1510,8 @@ name|tableConfig
 operator|.
 name|getRetriesNumber
 argument_list|()
+operator|+
+literal|1
 expr_stmt|;
 name|this
 operator|.
@@ -4675,7 +4678,7 @@ argument_list|)
 expr_stmt|;
 block|}
 name|int
-name|localNumRetries
+name|maxAttempts
 init|=
 operator|(
 name|retry
@@ -4702,7 +4705,7 @@ if|if
 condition|(
 name|tries
 operator|>=
-name|localNumRetries
+name|maxAttempts
 condition|)
 block|{
 throw|throw
@@ -4724,7 +4727,7 @@ name|tableName
 operator|+
 literal|" after "
 operator|+
-name|localNumRetries
+name|tries
 operator|+
 literal|" tries."
 argument_list|)
@@ -5157,7 +5160,7 @@ if|if
 condition|(
 name|tries
 operator|<
-name|localNumRetries
+name|maxAttempts
 operator|-
 literal|1
 condition|)
@@ -5188,7 +5191,7 @@ name|tries
 operator|+
 literal|" of "
 operator|+
-name|localNumRetries
+name|maxAttempts
 operator|+
 literal|" failed; retrying after sleep of "
 operator|+
@@ -5674,13 +5677,15 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|int
-name|maxRetries
+name|maxTries
 decl_stmt|;
+comment|// max number to try
 specifier|private
 specifier|final
 name|long
 name|startTrackingTime
 decl_stmt|;
+comment|/**      * Constructor      * @param timeout how long to wait before timeout, in unit of millisecond      * @param maxTries how many times to try      */
 specifier|public
 name|ServerErrorTracker
 parameter_list|(
@@ -5688,14 +5693,14 @@ name|long
 name|timeout
 parameter_list|,
 name|int
-name|maxRetries
+name|maxTries
 parameter_list|)
 block|{
 name|this
 operator|.
-name|maxRetries
+name|maxTries
 operator|=
-name|maxRetries
+name|maxTries
 expr_stmt|;
 name|this
 operator|.
@@ -5720,22 +5725,22 @@ name|getTime
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * We stop to retry when we have exhausted BOTH the number of retries and the time allocated.      */
+comment|/**      * We stop to retry when we have exhausted BOTH the number of tries and the time allocated.      * @param numAttempt how many times we have tried by now      */
 name|boolean
-name|canRetryMore
+name|canTryMore
 parameter_list|(
 name|int
-name|numRetry
+name|numAttempt
 parameter_list|)
 block|{
 comment|// If there is a single try we must not take into account the time.
 return|return
-name|numRetry
+name|numAttempt
 operator|<
-name|maxRetries
+name|maxTries
 operator|||
 operator|(
-name|maxRetries
+name|maxTries
 operator|>
 literal|1
 operator|&&

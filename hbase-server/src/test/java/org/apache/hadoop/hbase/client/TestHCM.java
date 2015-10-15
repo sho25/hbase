@@ -3137,6 +3137,7 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// try only once w/o any retry
 name|c2
 operator|.
 name|setInt
@@ -3145,7 +3146,7 @@ name|HConstants
 operator|.
 name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
-literal|1
+literal|0
 argument_list|)
 expr_stmt|;
 name|c2
@@ -3601,6 +3602,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// test with no retry, or client cache will get updated after the first failure
 name|conf
 operator|.
 name|setInt
@@ -3609,7 +3611,7 @@ name|HConstants
 operator|.
 name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
-literal|1
+literal|0
 argument_list|)
 expr_stmt|;
 name|Connection
@@ -6819,7 +6821,7 @@ name|assertTrue
 argument_list|(
 name|tracker
 operator|.
-name|canRetryMore
+name|canTryMore
 argument_list|(
 literal|1
 argument_list|)
@@ -6859,7 +6861,7 @@ name|assertFalse
 argument_list|(
 name|tracker
 operator|.
-name|canRetryMore
+name|canTryMore
 argument_list|(
 literal|1
 argument_list|)

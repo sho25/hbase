@@ -1520,7 +1520,7 @@ name|HConstants
 operator|.
 name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
-literal|1
+literal|0
 argument_list|)
 expr_stmt|;
 try|try
