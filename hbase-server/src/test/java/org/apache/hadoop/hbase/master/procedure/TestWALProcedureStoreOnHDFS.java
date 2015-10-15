@@ -1510,8 +1510,20 @@ operator|>
 literal|50
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Returning early... We ran enough of this test"
+argument_list|,
+name|re
+argument_list|)
+expr_stmt|;
 return|return;
 block|}
+throw|throw
+name|re
+throw|;
 block|}
 name|waitForNumReplicas
 argument_list|(
