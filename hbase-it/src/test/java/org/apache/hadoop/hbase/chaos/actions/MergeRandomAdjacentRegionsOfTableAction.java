@@ -292,6 +292,17 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Don't try the merge if we're stopping
+if|if
+condition|(
+name|context
+operator|.
+name|isStopping
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
 try|try
 block|{
 name|admin

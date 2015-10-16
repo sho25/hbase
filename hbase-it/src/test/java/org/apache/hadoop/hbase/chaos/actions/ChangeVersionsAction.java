@@ -248,6 +248,17 @@ name|versions
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Don't try the modify if we're stopping
+if|if
+condition|(
+name|context
+operator|.
+name|isStopping
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
 name|LOG
 operator|.
 name|debug

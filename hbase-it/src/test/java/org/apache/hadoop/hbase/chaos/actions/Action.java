@@ -1470,6 +1470,18 @@ range|:
 name|victimRegions
 control|)
 block|{
+comment|// Don't keep moving regions if we're
+comment|// trying to stop the monkey.
+if|if
+condition|(
+name|context
+operator|.
+name|isStopping
+argument_list|()
+condition|)
+block|{
+break|break;
+block|}
 name|int
 name|targetIx
 init|=
@@ -1628,6 +1640,15 @@ name|util
 operator|.
 name|getHBaseClusterInterface
 argument_list|()
+return|;
+block|}
+specifier|public
+name|boolean
+name|isStopping
+parameter_list|()
+block|{
+return|return
+literal|false
 return|;
 block|}
 block|}

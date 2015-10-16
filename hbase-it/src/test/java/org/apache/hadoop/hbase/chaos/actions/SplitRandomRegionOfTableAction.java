@@ -237,6 +237,17 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+comment|// Don't try the split if we're stopping
+if|if
+condition|(
+name|context
+operator|.
+name|isStopping
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
 name|HRegionInfo
 name|region
 init|=

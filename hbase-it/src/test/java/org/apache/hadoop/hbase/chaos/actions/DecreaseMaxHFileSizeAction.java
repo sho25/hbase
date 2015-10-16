@@ -289,6 +289,17 @@ argument_list|(
 name|newValue
 argument_list|)
 expr_stmt|;
+comment|// Don't try the modify if we're stopping
+if|if
+condition|(
+name|context
+operator|.
+name|isStopping
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
 comment|// modify the table.
 name|admin
 operator|.

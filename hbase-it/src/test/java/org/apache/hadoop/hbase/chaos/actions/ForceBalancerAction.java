@@ -39,6 +39,17 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// Don't try the flush if we're stopping
+if|if
+condition|(
+name|context
+operator|.
+name|isStopping
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
 name|LOG
 operator|.
 name|info

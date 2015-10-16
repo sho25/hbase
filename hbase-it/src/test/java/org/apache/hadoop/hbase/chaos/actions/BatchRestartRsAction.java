@@ -25,7 +25,27 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
 import|;
 end_import
 
@@ -144,6 +164,19 @@ argument_list|,
 name|ratio
 argument_list|)
 decl_stmt|;
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|killedServers
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|ServerName
+argument_list|>
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|ServerName
@@ -152,6 +185,18 @@ range|:
 name|selectedServers
 control|)
 block|{
+comment|// Don't keep killing servers if we're
+comment|// trying to stop the monkey.
+if|if
+condition|(
+name|context
+operator|.
+name|isStopping
+argument_list|()
+condition|)
+block|{
+break|break;
+block|}
 name|LOG
 operator|.
 name|info
@@ -168,13 +213,20 @@ argument_list|(
 name|server
 argument_list|)
 expr_stmt|;
+name|killedServers
+operator|.
+name|add
+argument_list|(
+name|server
+argument_list|)
+expr_stmt|;
 block|}
 for|for
 control|(
 name|ServerName
 name|server
 range|:
-name|selectedServers
+name|killedServers
 control|)
 block|{
 name|cluster
@@ -195,7 +247,7 @@ name|info
 argument_list|(
 literal|"Killed "
 operator|+
-name|selectedServers
+name|killedServers
 operator|.
 name|size
 argument_list|()
@@ -221,7 +273,7 @@ control|(
 name|ServerName
 name|server
 range|:
-name|selectedServers
+name|killedServers
 control|)
 block|{
 name|LOG
@@ -257,7 +309,7 @@ control|(
 name|ServerName
 name|server
 range|:
-name|selectedServers
+name|killedServers
 control|)
 block|{
 name|cluster
@@ -286,7 +338,7 @@ name|info
 argument_list|(
 literal|"Started "
 operator|+
-name|selectedServers
+name|killedServers
 operator|.
 name|size
 argument_list|()

@@ -300,6 +300,7 @@ decl_stmt|;
 comment|// loop while there are servers to be killed or dead servers to be restarted
 while|while
 condition|(
+operator|(
 operator|!
 name|serversToBeKilled
 operator|.
@@ -310,6 +311,13 @@ operator|!
 name|deadServers
 operator|.
 name|isEmpty
+argument_list|()
+operator|)
+operator|&&
+operator|!
+name|context
+operator|.
+name|isStopping
 argument_list|()
 condition|)
 block|{

@@ -162,6 +162,17 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 decl_stmt|;
+comment|// Don't try the truncate if we're stopping
+if|if
+condition|(
+name|context
+operator|.
+name|isStopping
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
 name|boolean
 name|preserveSplits
 init|=

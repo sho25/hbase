@@ -135,6 +135,17 @@ argument_list|,
 literal|1000
 argument_list|)
 expr_stmt|;
+comment|// Don't try the kill if we're stopping
+if|if
+condition|(
+name|context
+operator|.
+name|isStopping
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
 name|killMaster
 argument_list|(
 name|server
@@ -174,6 +185,17 @@ argument_list|,
 literal|1000
 argument_list|)
 expr_stmt|;
+comment|// Don't try the kill if we're stopping
+if|if
+condition|(
+name|context
+operator|.
+name|isStopping
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
 name|killRs
 argument_list|(
 name|server
@@ -213,6 +235,17 @@ argument_list|,
 literal|1000
 argument_list|)
 expr_stmt|;
+comment|// Don't try the kill if we're stopping
+if|if
+condition|(
+name|context
+operator|.
+name|isStopping
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
 name|killZKNode
 argument_list|(
 name|server
@@ -252,6 +285,17 @@ argument_list|,
 literal|1000
 argument_list|)
 expr_stmt|;
+comment|// Don't try the kill if we're stopping
+if|if
+condition|(
+name|context
+operator|.
+name|isStopping
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
 name|killDataNode
 argument_list|(
 name|server

@@ -374,6 +374,17 @@ range|:
 name|regions
 control|)
 block|{
+comment|// Don't try the move if we're stopping
+if|if
+condition|(
+name|context
+operator|.
+name|isStopping
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
 try|try
 block|{
 name|String
