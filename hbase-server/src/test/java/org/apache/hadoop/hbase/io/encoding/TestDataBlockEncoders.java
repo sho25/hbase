@@ -153,6 +153,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CategoryBasedTimeout
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Cell
 import|;
 end_import
@@ -453,6 +467,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -468,6 +492,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestRule
 import|;
 end_import
 
@@ -509,6 +545,18 @@ name|Parameters
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|mortbay
+operator|.
+name|log
+operator|.
+name|Log
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test all of the data block encoding algorithms for correctness. Most of the  * class generate data which will test different branches in code.  */
 end_comment
@@ -538,6 +586,34 @@ specifier|public
 class|class
 name|TestDataBlockEncoders
 block|{
+annotation|@
+name|Rule
+specifier|public
+specifier|final
+name|TestRule
+name|timeout
+init|=
+name|CategoryBasedTimeout
+operator|.
+name|builder
+argument_list|()
+operator|.
+name|withTimeout
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+argument_list|)
+operator|.
+name|withLookingForStuckThread
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 specifier|private
 specifier|static
 name|int
@@ -550,7 +626,7 @@ specifier|static
 name|int
 name|NUM_RANDOM_SEEKS
 init|=
-literal|10000
+literal|1000
 decl_stmt|;
 specifier|private
 specifier|static
@@ -1263,6 +1339,15 @@ name|values
 argument_list|()
 control|)
 block|{
+name|Log
+operator|.
+name|info
+argument_list|(
+literal|"Encoding: "
+operator|+
+name|encoding
+argument_list|)
+expr_stmt|;
 comment|// Off heap block data support not added for PREFIX_TREE DBE yet.
 comment|// TODO remove this once support is added. HBASE-12298
 if|if
@@ -1295,6 +1380,15 @@ condition|)
 block|{
 continue|continue;
 block|}
+name|Log
+operator|.
+name|info
+argument_list|(
+literal|"Encoder: "
+operator|+
+name|encoder
+argument_list|)
+expr_stmt|;
 name|ByteBuffer
 name|encodedBuffer
 init|=
@@ -1394,6 +1488,13 @@ name|seeker
 argument_list|)
 expr_stmt|;
 block|}
+name|Log
+operator|.
+name|info
+argument_list|(
+literal|"Testing it!"
+argument_list|)
+expr_stmt|;
 comment|// test it!
 comment|// try a few random seeks
 for|for
@@ -1489,6 +1590,13 @@ expr_stmt|;
 block|}
 block|}
 comment|// check edge cases
+name|Log
+operator|.
+name|info
+argument_list|(
+literal|"Checking edge cases"
+argument_list|)
+expr_stmt|;
 name|checkSeekingConsistency
 argument_list|(
 name|encodedSeekers
@@ -1572,6 +1680,13 @@ name|lastMidKv
 argument_list|)
 expr_stmt|;
 block|}
+name|Log
+operator|.
+name|info
+argument_list|(
+literal|"Done"
+argument_list|)
+expr_stmt|;
 block|}
 specifier|static
 name|ByteBuffer
