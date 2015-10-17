@@ -365,6 +365,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -753,6 +763,11 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Verify that adding data to the cloned table will not affect the original, and vice-versa when    * it is taken as an online snapshot.    */
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Flakey. Fix"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
