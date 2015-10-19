@@ -9209,6 +9209,11 @@ argument_list|,
 name|forcible
 argument_list|,
 name|masterSystemTime
+argument_list|,
+name|RpcServer
+operator|.
+name|getRequestUser
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return

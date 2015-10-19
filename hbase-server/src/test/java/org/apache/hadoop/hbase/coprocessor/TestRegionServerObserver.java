@@ -1233,6 +1233,8 @@ argument_list|,
 name|this
 operator|.
 name|mergedRegion
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
