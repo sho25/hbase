@@ -569,6 +569,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -1403,6 +1413,11 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Needs work"
+argument_list|)
+annotation|@
 name|Test
 argument_list|(
 name|timeout
@@ -1446,7 +1461,15 @@ specifier|public
 name|void
 name|abortProcess
 parameter_list|()
-block|{       }
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Aborted!!!!"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 argument_list|)
 expr_stmt|;
@@ -1546,7 +1569,21 @@ name|contains
 argument_list|(
 literal|"sync aborted"
 argument_list|)
-operator|&&
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"i="
+operator|+
+name|i
+argument_list|,
+name|re
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
 name|i
 operator|>
 literal|50
@@ -1556,12 +1593,17 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Returning early... We ran enough of this test"
+literal|"Returning early... i="
+operator|+
+name|i
+operator|+
+literal|"...We ran enough of this test"
 argument_list|,
 name|re
 argument_list|)
 expr_stmt|;
 return|return;
+block|}
 block|}
 throw|throw
 name|re
