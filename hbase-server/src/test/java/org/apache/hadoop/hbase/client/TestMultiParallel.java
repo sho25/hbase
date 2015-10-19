@@ -397,6 +397,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -963,6 +973,11 @@ argument_list|)
 return|;
 block|}
 comment|/**    * This is for testing the active number of threads that were used while    * doing a batch operation. It inserts one row per region via the batch    * operation, and then checks the number of active threads.    * For HBASE-3553    * @throws IOException    * @throws InterruptedException    * @throws NoSuchFieldException    * @throws SecurityException    */
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Nice bug flakey... expected 5 but was 4.."
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
