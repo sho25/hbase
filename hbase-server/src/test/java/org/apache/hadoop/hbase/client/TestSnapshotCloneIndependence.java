@@ -922,6 +922,11 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Flakey test"
+argument_list|)
+annotation|@
 name|Test
 argument_list|(
 name|timeout
