@@ -7228,6 +7228,22 @@ operator|.
 name|memType
 return|;
 block|}
+comment|/**    * @return true if this block is backed by a shared memory area(such as that of a BucketCache).    */
+specifier|public
+name|boolean
+name|usesSharedMemory
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|memType
+operator|==
+name|MemoryType
+operator|.
+name|SHARED
+return|;
+block|}
 comment|/**    * Convert the contents of the block header into a human readable string.    * This is mostly helpful for debugging. This assumes that the block    * has minor version> 0.    */
 specifier|static
 name|String

@@ -2350,6 +2350,7 @@ condition|)
 block|{
 return|return;
 block|}
+comment|// We don't have to keep ref to EXCLUSIVE type of block
 if|if
 condition|(
 name|this
@@ -2357,6 +2358,13 @@ operator|.
 name|curBlock
 operator|!=
 literal|null
+operator|&&
+name|this
+operator|.
+name|curBlock
+operator|.
+name|usesSharedMemory
+argument_list|()
 condition|)
 block|{
 name|prevBlocks
@@ -2380,6 +2388,7 @@ name|void
 name|reset
 parameter_list|()
 block|{
+comment|// We don't have to keep ref to EXCLUSIVE type of block
 if|if
 condition|(
 name|this
@@ -2387,6 +2396,13 @@ operator|.
 name|curBlock
 operator|!=
 literal|null
+operator|&&
+name|this
+operator|.
+name|curBlock
+operator|.
+name|usesSharedMemory
+argument_list|()
 condition|)
 block|{
 name|this
