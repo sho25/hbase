@@ -9542,7 +9542,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|addColumn
 parameter_list|(
 specifier|final
@@ -9598,7 +9598,10 @@ name|columnDescriptor
 argument_list|)
 condition|)
 block|{
-return|return;
+return|return
+operator|-
+literal|1
+return|;
 block|}
 block|}
 comment|// Execute the operation synchronously - wait for the operation to complete before continuing.
@@ -9655,11 +9658,14 @@ name|columnDescriptor
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|procId
+return|;
 block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|modifyColumn
 parameter_list|(
 specifier|final
@@ -9715,7 +9721,10 @@ name|descriptor
 argument_list|)
 condition|)
 block|{
-return|return;
+return|return
+operator|-
+literal|1
+return|;
 block|}
 block|}
 name|LOG
@@ -9784,11 +9793,14 @@ name|descriptor
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|procId
+return|;
 block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|deleteColumn
 parameter_list|(
 specifier|final
@@ -9833,7 +9845,10 @@ name|columnName
 argument_list|)
 condition|)
 block|{
-return|return;
+return|return
+operator|-
+literal|1
+return|;
 block|}
 block|}
 name|LOG
@@ -9907,6 +9922,9 @@ name|columnName
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|procId
+return|;
 block|}
 annotation|@
 name|Override

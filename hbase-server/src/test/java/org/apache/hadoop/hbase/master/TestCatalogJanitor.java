@@ -2502,7 +2502,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|addColumn
 parameter_list|(
 specifier|final
@@ -2523,11 +2523,16 @@ name|nonce
 parameter_list|)
 throws|throws
 name|IOException
-block|{ }
+block|{
+return|return
+operator|-
+literal|1
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|modifyColumn
 parameter_list|(
 specifier|final
@@ -2548,11 +2553,16 @@ name|nonce
 parameter_list|)
 throws|throws
 name|IOException
-block|{ }
+block|{
+return|return
+operator|-
+literal|1
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|deleteColumn
 parameter_list|(
 specifier|final
@@ -2574,7 +2584,12 @@ name|nonce
 parameter_list|)
 throws|throws
 name|IOException
-block|{ }
+block|{
+return|return
+operator|-
+literal|1
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public

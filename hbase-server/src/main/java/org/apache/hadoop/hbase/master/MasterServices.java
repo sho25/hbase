@@ -485,7 +485,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Add a new column to an existing table    * @param tableName The table name    * @param column The column definition    * @param nonceGroup    * @param nonce    * @throws IOException    */
-name|void
+name|long
 name|addColumn
 parameter_list|(
 specifier|final
@@ -508,7 +508,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Modify the column descriptor of an existing column in an existing table    * @param tableName The table name    * @param descriptor The updated column definition    * @param nonceGroup    * @param nonce    * @throws IOException    */
-name|void
+name|long
 name|modifyColumn
 parameter_list|(
 specifier|final
@@ -531,7 +531,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Delete a column from an existing table    * @param tableName The table name    * @param columnName The column name    * @param nonceGroup    * @param nonce    * @throws IOException    */
-name|void
+name|long
 name|deleteColumn
 parameter_list|(
 specifier|final
