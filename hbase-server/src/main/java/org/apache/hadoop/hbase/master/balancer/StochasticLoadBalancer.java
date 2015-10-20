@@ -4683,9 +4683,16 @@ name|scale
 argument_list|(
 literal|0
 argument_list|,
+name|Math
+operator|.
+name|min
+argument_list|(
 name|cluster
 operator|.
 name|numRegions
+argument_list|,
+name|maxMoves
+argument_list|)
 argument_list|,
 name|moveCost
 argument_list|)
