@@ -1128,17 +1128,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testMobFamilyDelete"
-argument_list|)
-decl_stmt|;
 name|TableName
 name|tn
 init|=
@@ -1146,7 +1135,7 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|tableName
+literal|"testMobFamilyDelete"
 argument_list|)
 decl_stmt|;
 name|HTableDescriptor
@@ -1478,7 +1467,7 @@ name|TEST_UTIL
 operator|.
 name|deleteTable
 argument_list|(
-name|tableName
+name|tn
 argument_list|)
 expr_stmt|;
 block|}

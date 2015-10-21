@@ -1329,9 +1329,6 @@ argument_list|(
 name|util
 argument_list|,
 name|table
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|,
 name|cf
 argument_list|,
