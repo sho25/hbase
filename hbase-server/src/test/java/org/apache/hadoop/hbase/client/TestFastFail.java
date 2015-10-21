@@ -522,7 +522,7 @@ specifier|static
 name|int
 name|SLAVES
 init|=
-literal|3
+literal|1
 decl_stmt|;
 specifier|private
 specifier|static
@@ -1312,17 +1312,6 @@ operator|.
 name|await
 argument_list|()
 expr_stmt|;
-name|ClusterStatus
-name|status
-init|=
-name|TEST_UTIL
-operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getClusterStatus
-argument_list|()
-decl_stmt|;
 comment|// Kill a regionserver
 name|TEST_UTIL
 operator|.
@@ -1370,16 +1359,14 @@ operator|*
 name|SLEEPTIME
 argument_list|)
 expr_stmt|;
-comment|// Restore the cluster
+comment|// Start a RS in the cluster
 name|TEST_UTIL
 operator|.
 name|getHBaseCluster
 argument_list|()
 operator|.
-name|restoreClusterStatus
-argument_list|(
-name|status
-argument_list|)
+name|startRegionServer
+argument_list|()
 expr_stmt|;
 name|int
 name|numThreadsReturnedFalse
@@ -1569,7 +1556,41 @@ name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|/* 'should' is not worthy of an assert. Disabling because randomly this seems to randomly      * not but true. St.Ack 20151012      *     assertTrue(         "There should be atleast one thread that retried instead of failing",         MyPreemptiveFastFailInterceptor.numBraveSouls.get()> 0);     assertTrue(         "There should be atleast one PreemptiveFastFail exception,"             + " otherwise, the test makes little sense."             + "numPreemptiveFastFailExceptions: "             + numPreemptiveFastFailExceptions.get(),         numPreemptiveFastFailExceptions.get()> 0);     */
+name|assertTrue
+argument_list|(
+literal|"There will be atleast one thread that retried instead of failing"
+argument_list|,
+name|MyPreemptiveFastFailInterceptor
+operator|.
+name|numBraveSouls
+operator|.
+name|get
+argument_list|()
+operator|>
+literal|0
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"There will be atleast one PreemptiveFastFail exception,"
+operator|+
+literal|" otherwise, the test makes little sense."
+operator|+
+literal|"numPreemptiveFastFailExceptions: "
+operator|+
+name|numPreemptiveFastFailExceptions
+operator|.
+name|get
+argument_list|()
+argument_list|,
+name|numPreemptiveFastFailExceptions
+operator|.
+name|get
+argument_list|()
+operator|>
+literal|0
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
 literal|"Only few thread should ideally be waiting for the dead "
