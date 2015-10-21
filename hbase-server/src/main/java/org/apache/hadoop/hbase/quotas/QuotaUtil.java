@@ -1037,7 +1037,7 @@ condition|)
 block|{
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|QUOTA_FAMILY_INFO
 argument_list|,

@@ -1437,7 +1437,7 @@ block|}
 decl_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|famAndQf
 index|[

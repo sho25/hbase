@@ -7040,7 +7040,7 @@ condition|)
 block|{
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|famAndQf
 index|[
@@ -7055,7 +7055,7 @@ else|else
 block|{
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|famAndQf
 index|[
@@ -7742,7 +7742,7 @@ condition|)
 block|{
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|famAndQf
 index|[
@@ -7757,7 +7757,7 @@ else|else
 block|{
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|famAndQf
 index|[
@@ -8178,7 +8178,7 @@ condition|)
 block|{
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|famAndQf
 index|[
@@ -8193,7 +8193,7 @@ else|else
 block|{
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|famAndQf
 index|[

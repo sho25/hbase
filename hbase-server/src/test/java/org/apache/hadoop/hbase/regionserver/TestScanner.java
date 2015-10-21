@@ -3074,7 +3074,7 @@ decl_stmt|;
 comment|/* delete column1 of firstRow */
 name|dc
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|fam1
 argument_list|,

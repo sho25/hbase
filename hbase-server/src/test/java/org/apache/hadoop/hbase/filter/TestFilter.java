@@ -1469,7 +1469,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILIES
 index|[
@@ -1484,7 +1484,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILIES
 index|[
@@ -1527,7 +1527,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILIES
 index|[
@@ -1542,7 +1542,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILIES
 index|[
@@ -1593,7 +1593,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILIES
 index|[
@@ -1605,7 +1605,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILIES
 index|[
@@ -1648,7 +1648,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILIES
 index|[
@@ -1660,7 +1660,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILIES
 index|[

@@ -1607,7 +1607,7 @@ argument_list|)
 condition|)
 name|out
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|column
 operator|.
@@ -1628,7 +1628,7 @@ expr_stmt|;
 else|else
 name|out
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|column
 operator|.
@@ -1670,7 +1670,7 @@ argument_list|)
 condition|)
 name|out
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|column
 operator|.
@@ -1686,7 +1686,7 @@ expr_stmt|;
 else|else
 name|out
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|column
 operator|.
@@ -1713,7 +1713,7 @@ condition|)
 block|{
 name|out
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|column
 operator|.
@@ -1731,7 +1731,7 @@ else|else
 block|{
 name|out
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|column
 operator|.

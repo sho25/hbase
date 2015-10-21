@@ -1057,7 +1057,7 @@ condition|)
 block|{
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|LABELS_TABLE_FAMILY
 argument_list|,

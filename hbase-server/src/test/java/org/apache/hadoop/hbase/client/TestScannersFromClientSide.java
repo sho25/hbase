@@ -840,7 +840,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|FAMILY
 argument_list|,

@@ -236,7 +236,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,

@@ -1795,7 +1795,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -2226,7 +2226,7 @@ argument_list|)
 decl_stmt|;
 name|del
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -2920,7 +2920,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -6805,7 +6805,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILIES
 index|[
@@ -7150,7 +7150,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILIES
 index|[
@@ -7495,7 +7495,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|FAMILIES
 index|[
@@ -8625,7 +8625,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -8785,7 +8785,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -8960,7 +8960,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -11308,7 +11308,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -11322,7 +11322,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -13762,7 +13762,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteFamilyVersion
+name|addFamilyVersion
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -13775,7 +13775,7 @@ expr_stmt|;
 comment|// delete version '2000'
 name|delete
 operator|.
-name|deleteFamilyVersion
+name|addFamilyVersion
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -14195,11 +14195,11 @@ name|ROW
 argument_list|)
 expr_stmt|;
 comment|// delete version<= 2000 of all columns
-comment|// note: deleteFamily must be the first since it will mask
+comment|// note: addFamily must be the first since it will mask
 comment|// the subsequent other type deletes!
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -14212,7 +14212,7 @@ expr_stmt|;
 comment|// delete version '4000' of all columns
 name|delete
 operator|.
-name|deleteFamilyVersion
+name|addFamilyVersion
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -14225,7 +14225,7 @@ expr_stmt|;
 comment|// delete version<= 3000 of column 0
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -14243,7 +14243,7 @@ expr_stmt|;
 comment|// delete version<= 5000 of column 2
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -14261,7 +14261,7 @@ expr_stmt|;
 comment|// delete version 5000 of column 4
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -14301,7 +14301,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteFamilyVersion
+name|addFamilyVersion
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -14314,7 +14314,7 @@ expr_stmt|;
 comment|// delete version '2000'
 name|delete
 operator|.
-name|deleteFamilyVersion
+name|addFamilyVersion
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -14998,7 +14998,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|FAMILIES
 index|[
@@ -15329,7 +15329,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -15552,7 +15552,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -15580,7 +15580,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILIES
 index|[
@@ -16257,7 +16257,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|FAMILIES
 index|[
@@ -16285,7 +16285,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILIES
 index|[
@@ -16315,7 +16315,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -16327,7 +16327,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -16339,7 +16339,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -16940,7 +16940,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|FAMILIES
 index|[
@@ -17612,7 +17612,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|FAMILIES
 index|[
@@ -29568,7 +29568,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -29582,7 +29582,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -35981,7 +35981,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -40319,7 +40319,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -44008,7 +44008,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -47090,7 +47090,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -47202,7 +47202,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -47453,7 +47453,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|FAMILIES
 index|[
@@ -47715,7 +47715,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -47848,7 +47848,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -47876,7 +47876,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILIES
 index|[
@@ -48391,7 +48391,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|FAMILIES
 index|[
@@ -48419,7 +48419,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILIES
 index|[
@@ -48449,7 +48449,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -48461,7 +48461,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -48473,7 +48473,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -48810,7 +48810,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|FAMILIES
 index|[

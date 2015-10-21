@@ -1216,7 +1216,7 @@ condition|)
 block|{
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|CellUtil
 operator|.
@@ -1298,7 +1298,7 @@ comment|// Every call to deleteColumns() will add a new KV to the familymap whic
 comment|// get written to the memstore as part of delete().
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|column
 operator|.
@@ -1350,7 +1350,7 @@ control|)
 block|{
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|CellUtil
 operator|.
@@ -1434,7 +1434,7 @@ condition|)
 block|{
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|column
 operator|.

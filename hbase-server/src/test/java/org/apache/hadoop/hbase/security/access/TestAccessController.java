@@ -6352,7 +6352,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|TEST_FAMILY
 argument_list|)
@@ -6522,7 +6522,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|TEST_FAMILY
 argument_list|)
@@ -8747,14 +8747,14 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|family1
 argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|family2
 argument_list|)
@@ -8823,7 +8823,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|family1
 argument_list|)
@@ -8892,7 +8892,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|family2
 argument_list|)
@@ -10020,7 +10020,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|family1
 argument_list|,

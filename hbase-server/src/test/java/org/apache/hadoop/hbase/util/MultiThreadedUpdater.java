@@ -1542,7 +1542,7 @@ comment|// Delete all versions since a put
 comment|// could be called multiple times if CM is used
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|cf
 argument_list|,

@@ -2473,7 +2473,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|TEST_FAMILY1
 argument_list|,
@@ -2482,7 +2482,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|TEST_FAMILY1
 argument_list|,
@@ -2592,7 +2592,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|TEST_FAMILY1
 argument_list|)
@@ -3648,7 +3648,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|TEST_FAMILY1
 argument_list|,
@@ -3729,7 +3729,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|TEST_FAMILY1
 argument_list|,
@@ -4357,7 +4357,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|TEST_FAMILY1
 argument_list|,
@@ -4368,7 +4368,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|TEST_FAMILY1
 argument_list|,
@@ -4377,7 +4377,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteFamilyVersion
+name|addFamilyVersion
 argument_list|(
 name|TEST_FAMILY2
 argument_list|,
@@ -6547,7 +6547,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|TEST_FAMILY1
 argument_list|,

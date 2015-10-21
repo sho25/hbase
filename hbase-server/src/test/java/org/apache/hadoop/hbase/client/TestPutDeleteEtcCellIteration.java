@@ -588,7 +588,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|bytes
 argument_list|,

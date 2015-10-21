@@ -1978,7 +1978,7 @@ argument_list|)
 decl_stmt|;
 name|deleteOneReplicaLocation
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|HConstants
 operator|.
@@ -1994,7 +1994,7 @@ argument_list|)
 expr_stmt|;
 name|deleteOneReplicaLocation
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|HConstants
 operator|.
@@ -2010,7 +2010,7 @@ argument_list|)
 expr_stmt|;
 name|deleteOneReplicaLocation
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|HConstants
 operator|.

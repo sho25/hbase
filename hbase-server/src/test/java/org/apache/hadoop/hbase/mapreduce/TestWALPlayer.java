@@ -823,7 +823,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILY
 argument_list|,

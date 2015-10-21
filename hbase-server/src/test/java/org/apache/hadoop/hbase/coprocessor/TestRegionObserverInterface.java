@@ -1487,7 +1487,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|A
 argument_list|,
@@ -1496,7 +1496,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|B
 argument_list|,
@@ -1505,7 +1505,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|C
 argument_list|,
@@ -1767,7 +1767,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|A
 argument_list|,
@@ -1776,7 +1776,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|B
 argument_list|,
@@ -1785,7 +1785,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|C
 argument_list|,

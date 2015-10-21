@@ -1332,7 +1332,7 @@ condition|)
 block|{
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILY_BYTES
 argument_list|,

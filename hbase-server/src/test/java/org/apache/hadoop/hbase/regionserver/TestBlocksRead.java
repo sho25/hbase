@@ -1350,7 +1350,7 @@ argument_list|)
 decl_stmt|;
 name|del
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|Bytes
 operator|.
@@ -1366,7 +1366,7 @@ argument_list|)
 expr_stmt|;
 name|del
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|Bytes
 operator|.
@@ -1382,7 +1382,7 @@ argument_list|)
 expr_stmt|;
 name|del
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|Bytes
 operator|.

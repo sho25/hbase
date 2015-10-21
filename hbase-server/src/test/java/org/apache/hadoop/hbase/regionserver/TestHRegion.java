@@ -10530,7 +10530,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -12757,7 +12757,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -12859,7 +12859,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -12868,7 +12868,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -13183,7 +13183,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|fam1
 argument_list|)
@@ -13397,7 +13397,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -14826,7 +14826,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -14835,7 +14835,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|fam2
 argument_list|,
@@ -14844,7 +14844,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -14981,7 +14981,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|fam2
 argument_list|)
@@ -15292,7 +15292,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -15301,7 +15301,7 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -15903,7 +15903,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|fam
 argument_list|,
@@ -17032,7 +17032,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|fam1
 argument_list|)
@@ -17246,7 +17246,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|fam1
 argument_list|,
@@ -17263,7 +17263,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testDeleteFamily_PostInsert
+name|testaddFamily_PostInsert
 parameter_list|()
 throws|throws
 name|IOException
@@ -17281,7 +17281,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|fam1
 argument_list|)

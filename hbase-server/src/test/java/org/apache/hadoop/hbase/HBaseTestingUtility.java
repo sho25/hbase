@@ -9656,7 +9656,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|f
 argument_list|)
@@ -15974,7 +15974,7 @@ condition|)
 block|{
 name|del
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|cf
 argument_list|,
@@ -15988,7 +15988,7 @@ else|else
 block|{
 name|del
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|cf
 argument_list|,

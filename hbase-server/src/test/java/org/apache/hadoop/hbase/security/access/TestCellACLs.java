@@ -2403,7 +2403,7 @@ argument_list|(
 name|TEST_ROW
 argument_list|)
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|TEST_FAMILY
 argument_list|)

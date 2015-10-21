@@ -2515,7 +2515,7 @@ argument_list|)
 decl_stmt|;
 name|del
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|cf
 argument_list|,

@@ -2665,7 +2665,7 @@ condition|)
 block|{
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|split
 index|[
@@ -2691,7 +2691,7 @@ condition|)
 block|{
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|split
 index|[
@@ -2754,7 +2754,7 @@ condition|)
 block|{
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|split
 index|[
@@ -2775,7 +2775,7 @@ condition|)
 block|{
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|split
 index|[
@@ -3842,7 +3842,7 @@ condition|)
 block|{
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|parts
 index|[
@@ -3887,7 +3887,7 @@ block|{
 comment|// The case of empty qualifier.
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|parts
 index|[
@@ -3978,7 +3978,7 @@ return|;
 block|}
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|parts
 index|[

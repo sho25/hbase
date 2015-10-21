@@ -1513,7 +1513,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|Bytes
 operator|.

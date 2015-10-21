@@ -709,7 +709,7 @@ decl_stmt|;
 comment|/* delete all timestamps in the column */
 name|dc
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|fam2
 argument_list|,
@@ -742,7 +742,7 @@ argument_list|)
 decl_stmt|;
 name|dc
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|fam2
 argument_list|,
@@ -778,7 +778,7 @@ argument_list|)
 decl_stmt|;
 name|deleteCF
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|fam2
 argument_list|)
@@ -809,7 +809,7 @@ argument_list|)
 decl_stmt|;
 name|deleteVersion
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|fam2
 argument_list|,
@@ -847,7 +847,7 @@ argument_list|)
 decl_stmt|;
 name|deleteVersion
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|fam2
 argument_list|,

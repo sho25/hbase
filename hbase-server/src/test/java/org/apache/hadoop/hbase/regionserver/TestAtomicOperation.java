@@ -2849,7 +2849,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|fam1
 argument_list|,
@@ -2888,7 +2888,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|fam1
 argument_list|,
@@ -3376,7 +3376,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|fam1
 argument_list|,
@@ -3415,7 +3415,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|fam1
 argument_list|,

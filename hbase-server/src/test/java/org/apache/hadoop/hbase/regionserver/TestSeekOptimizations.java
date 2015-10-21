@@ -2051,7 +2051,7 @@ parameter_list|)
 block|{
 name|del
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILY_BYTES
 argument_list|,
@@ -2142,7 +2142,7 @@ parameter_list|)
 block|{
 name|del
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILY_BYTES
 argument_list|,

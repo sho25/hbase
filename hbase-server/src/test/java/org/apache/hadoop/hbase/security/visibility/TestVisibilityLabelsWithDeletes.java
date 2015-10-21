@@ -1589,7 +1589,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteFamilyVersion
+name|addFamilyVersion
 argument_list|(
 name|fam
 argument_list|,
@@ -14706,7 +14706,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteFamilyVersion
+name|addFamilyVersion
 argument_list|(
 name|fam
 argument_list|,
@@ -14745,7 +14745,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteFamilyVersion
+name|addFamilyVersion
 argument_list|(
 name|fam
 argument_list|,
@@ -15197,7 +15197,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteFamilyVersion
+name|addFamilyVersion
 argument_list|(
 name|fam
 argument_list|,
@@ -16003,7 +16003,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteFamilyVersion
+name|addFamilyVersion
 argument_list|(
 name|fam
 argument_list|,
@@ -22245,7 +22245,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteFamilyVersion
+name|addFamilyVersion
 argument_list|(
 name|fam
 argument_list|,

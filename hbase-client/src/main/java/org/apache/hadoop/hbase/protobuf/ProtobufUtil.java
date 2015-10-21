@@ -5153,7 +5153,7 @@ condition|)
 block|{
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -5175,7 +5175,7 @@ condition|)
 block|{
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|family
 argument_list|,
@@ -5197,7 +5197,7 @@ condition|)
 block|{
 name|delete
 operator|.
-name|deleteFamilyVersion
+name|addFamilyVersion
 argument_list|(
 name|family
 argument_list|,
@@ -5209,7 +5209,7 @@ else|else
 block|{
 name|delete
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|family
 argument_list|,

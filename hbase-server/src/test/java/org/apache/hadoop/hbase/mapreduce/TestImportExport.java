@@ -2242,7 +2242,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILYA
 argument_list|,

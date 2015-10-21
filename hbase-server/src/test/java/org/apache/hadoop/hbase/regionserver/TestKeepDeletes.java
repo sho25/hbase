@@ -1273,7 +1273,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|c0
 argument_list|,
@@ -1570,7 +1570,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|c0
 argument_list|,
@@ -2042,7 +2042,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|c0
 argument_list|,
@@ -2074,7 +2074,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|c0
 argument_list|,
@@ -2646,7 +2646,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|c0
 argument_list|,
@@ -2674,7 +2674,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|c0
 argument_list|)
@@ -2698,7 +2698,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|c0
 argument_list|,
@@ -2728,7 +2728,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|c0
 argument_list|,
@@ -2949,7 +2949,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|c0
 argument_list|,
@@ -2977,7 +2977,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|c0
 argument_list|,
@@ -3003,7 +3003,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|c0
 argument_list|,
@@ -3033,7 +3033,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|c0
 argument_list|,
@@ -3310,7 +3310,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|c0
 argument_list|,
@@ -3338,7 +3338,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|c0
 argument_list|,
@@ -3364,7 +3364,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|c0
 argument_list|,
@@ -3394,7 +3394,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|c0
 argument_list|,
@@ -3930,7 +3930,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|c0
 argument_list|,
@@ -3962,7 +3962,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|c1
 argument_list|,
@@ -3992,7 +3992,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|c0
 argument_list|,
@@ -4023,7 +4023,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteFamily
+name|addFamily
 argument_list|(
 name|c1
 argument_list|,
@@ -4465,7 +4465,7 @@ decl_stmt|;
 comment|// test corner case (Put and Delete have same TS)
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|c0
 argument_list|,
@@ -4495,7 +4495,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|c0
 argument_list|,
@@ -4527,7 +4527,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|c0
 argument_list|,
@@ -5358,7 +5358,7 @@ argument_list|)
 expr_stmt|;
 name|d
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|c0
 argument_list|,
