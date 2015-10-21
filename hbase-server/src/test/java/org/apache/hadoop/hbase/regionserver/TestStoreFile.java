@@ -1340,6 +1340,13 @@ argument_list|(
 name|kv
 argument_list|)
 decl_stmt|;
+name|hsf
+operator|.
+name|closeReader
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 comment|// Make a reference
 name|HRegionInfo
 name|splitHri
@@ -2145,6 +2152,11 @@ operator|.
 name|NONE
 argument_list|)
 decl_stmt|;
+name|f
+operator|.
+name|createReader
+argument_list|()
+expr_stmt|;
 name|Path
 name|pathA
 init|=
@@ -2183,6 +2195,13 @@ literal|false
 argument_list|)
 decl_stmt|;
 comment|// bottom
+name|f
+operator|.
+name|closeReader
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 comment|// OK test the thing
 name|FSUtils
 operator|.

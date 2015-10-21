@@ -2467,9 +2467,6 @@ name|lastKey
 init|=
 name|f
 operator|.
-name|createReader
-argument_list|()
-operator|.
 name|getLastKey
 argument_list|()
 decl_stmt|;
@@ -2488,9 +2485,6 @@ block|}
 if|if
 condition|(
 name|f
-operator|.
-name|getReader
-argument_list|()
 operator|.
 name|getComparator
 argument_list|()
@@ -2528,9 +2522,6 @@ name|firstKey
 init|=
 name|f
 operator|.
-name|createReader
-argument_list|()
-operator|.
 name|getFirstKey
 argument_list|()
 decl_stmt|;
@@ -2549,9 +2540,6 @@ block|}
 if|if
 condition|(
 name|f
-operator|.
-name|getReader
-argument_list|()
 operator|.
 name|getComparator
 argument_list|()
