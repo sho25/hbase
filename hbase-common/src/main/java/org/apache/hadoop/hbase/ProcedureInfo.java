@@ -939,7 +939,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Check if the user is this procedure's owner    * @param owner the owner field of the procedure    * @param user the user    * @return true if the user is the owner of the procedure,    *   false otherwise or the owner is unknown.    */
+comment|/**    * Check if the user is this procedure's owner    * @param procInfo the procedure to check    * @param user the user    * @return true if the user is the owner of the procedure,    *   false otherwise or the owner is unknown.    */
 annotation|@
 name|InterfaceAudience
 operator|.

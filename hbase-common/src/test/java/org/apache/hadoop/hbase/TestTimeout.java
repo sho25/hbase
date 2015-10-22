@@ -87,18 +87,6 @@ name|TestRule
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|rules
-operator|.
-name|Timeout
-import|;
-end_import
-
 begin_class
 annotation|@
 name|Category

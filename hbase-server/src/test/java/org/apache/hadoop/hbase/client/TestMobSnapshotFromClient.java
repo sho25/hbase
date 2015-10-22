@@ -147,20 +147,6 @@ name|Category
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Lists
-import|;
-end_import
-
 begin_comment
 comment|/**  * Test create/using/deleting snapshots from the client  *<p>  * This is an end-to-end test for the snapshot utility  */
 end_comment

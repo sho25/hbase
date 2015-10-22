@@ -181,7 +181,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param r Region to compact    * @param why Why compaction was requested -- used in debug messages    * @param pri Priority of this compaction. minHeap.&lt;=0 is critical    * @param requests custom compaction requests. Each compaction must specify the store on which it    *          is acting. Can be<tt>null</tt> in which case a compaction will be attempted on all    *          stores for the region.    * @user  the effective user    * @return The created {@link CompactionRequest CompactionRequests} or an empty list if no    *         compactions were started.    * @throws IOException    */
+comment|/**    * @param r Region to compact    * @param why Why compaction was requested -- used in debug messages    * @param pri Priority of this compaction. minHeap.&lt;=0 is critical    * @param requests custom compaction requests. Each compaction must specify the store on which it    *          is acting. Can be<tt>null</tt> in which case a compaction will be attempted on all    *          stores for the region.    * @param user  the effective user    * @return The created {@link CompactionRequest CompactionRequests} or an empty list if no    *         compactions were started.    * @throws IOException    */
 name|List
 argument_list|<
 name|CompactionRequest

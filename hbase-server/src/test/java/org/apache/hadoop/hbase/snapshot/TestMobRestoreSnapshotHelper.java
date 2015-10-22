@@ -133,16 +133,6 @@ name|Category
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|mockito
-operator|.
-name|Mockito
-import|;
-end_import
-
 begin_comment
 comment|/**  * Test the restore/clone operation from a file-system point of view.  */
 end_comment
