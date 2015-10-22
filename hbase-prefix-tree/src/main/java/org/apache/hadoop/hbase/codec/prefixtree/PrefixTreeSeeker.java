@@ -422,26 +422,6 @@ comment|/**    * currently must do deep copy into new array    */
 annotation|@
 name|Override
 specifier|public
-name|ByteBuffer
-name|getKeyValueBuffer
-parameter_list|()
-block|{
-return|return
-name|KeyValueUtil
-operator|.
-name|copyToNewByteBuffer
-argument_list|(
-name|ptSearcher
-operator|.
-name|current
-argument_list|()
-argument_list|)
-return|;
-block|}
-comment|/**    * currently must do deep copy into new array    */
-annotation|@
-name|Override
-specifier|public
 name|Cell
 name|getCell
 parameter_list|()

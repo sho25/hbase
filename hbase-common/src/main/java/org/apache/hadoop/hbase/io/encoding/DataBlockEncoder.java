@@ -273,12 +273,6 @@ name|ByteBuffer
 name|getValueShallowCopy
 parameter_list|()
 function_decl|;
-comment|//TODO : to be removed - currently used in testcases only
-comment|/** @return a key value buffer with the position set at the beginning of the buffer */
-name|ByteBuffer
-name|getKeyValueBuffer
-parameter_list|()
-function_decl|;
 comment|/**      * @return the Cell at the current position. Includes memstore timestamp.      */
 name|Cell
 name|getCell
