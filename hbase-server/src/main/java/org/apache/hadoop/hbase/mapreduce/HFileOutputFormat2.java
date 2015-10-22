@@ -1518,6 +1518,13 @@ argument_list|(
 name|OUTPUT_TABLE_NAME_CONF_KEY
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|tableName
+operator|!=
+literal|null
+condition|)
+block|{
 try|try
 init|(
 name|Connection
@@ -1529,7 +1536,7 @@ name|createConnection
 argument_list|(
 name|conf
 argument_list|)
-init|;                    RegionLocator locator =                      connection.getRegionLocator(TableName.valueOf(tableName)
+init|;                      RegionLocator locator =                        connection.getRegionLocator(TableName.valueOf(tableName)
 block|)
 block|)
 block|{
@@ -1569,6 +1576,7 @@ name|loc
 operator|=
 literal|null
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
