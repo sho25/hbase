@@ -508,6 +508,16 @@ condition|(
 name|fact
 operator|==
 literal|null
+operator|&&
+name|factoryName
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|factoryName
+operator|.
+name|isEmpty
+argument_list|()
 condition|)
 block|{
 name|Class
@@ -526,6 +536,13 @@ argument_list|(
 name|factoryName
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|klass
+operator|!=
+literal|null
+condition|)
+block|{
 name|fact
 operator|=
 operator|(
@@ -539,9 +556,10 @@ name|klass
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 catch|catch
 parameter_list|(
-name|ClassNotFoundException
+name|Exception
 name|e
 parameter_list|)
 block|{
@@ -556,6 +574,9 @@ operator|+
 literal|" could not load it by class name"
 argument_list|)
 expr_stmt|;
+return|return
+literal|null
+return|;
 block|}
 block|}
 return|return
