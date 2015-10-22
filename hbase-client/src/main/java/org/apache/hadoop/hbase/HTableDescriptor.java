@@ -1331,7 +1331,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Construct a table descriptor specifying a TableName object    * @param name Table name.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-174">HADOOP-1581 HBASE: (HBASE-174) Un-openable tablename bug</a>    */
+comment|/**    * Construct a table descriptor specifying a TableName object    * @param name Table name.    * @see<a href="HADOOP-1581">HADOOP-1581 HBASE: Un-openable tablename bug</a>    */
 specifier|public
 name|HTableDescriptor
 parameter_list|(
@@ -1349,7 +1349,7 @@ name|name
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct a table descriptor specifying a byte array table name    * @param name Table name.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-174">HADOOP-1581 (HBASE-174) HBASE: Un-openable tablename bug</a>    */
+comment|/**    * Construct a table descriptor specifying a byte array table name    * @param name Table name.    * @see<a href="HADOOP-1581">HADOOP-1581 HBASE: Un-openable tablename bug</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1372,7 +1372,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct a table descriptor specifying a String table name    * @param name Table name.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-174">HADOOP-1581 (HBASE-174) HBASE: Un-openable tablename bug</a>    */
+comment|/**    * Construct a table descriptor specifying a String table name    * @param name Table name.    * @see<a href="HADOOP-1581">HADOOP-1581 HBASE: Un-openable tablename bug</a>    */
 annotation|@
 name|Deprecated
 specifier|public
