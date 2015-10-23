@@ -942,7 +942,7 @@ name|setInt
 argument_list|(
 literal|"hbase.hstore.compaction.min"
 argument_list|,
-literal|3
+literal|2
 argument_list|)
 expr_stmt|;
 name|conf
@@ -1931,7 +1931,22 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-comment|// load the table (creates 4 hfiles)
+comment|// load the table (creates at least 4 hfiles)
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+literal|5
+condition|;
+name|i
+operator|++
+control|)
+block|{
 name|UTIL
 operator|.
 name|loadTable
@@ -1956,24 +1971,7 @@ argument_list|(
 name|TABLE_NAME
 argument_list|)
 expr_stmt|;
-comment|// Put some more data into the table so for sure we get more storefiles.
-name|UTIL
-operator|.
-name|loadTable
-argument_list|(
-name|UTIL
-operator|.
-name|getConnection
-argument_list|()
-operator|.
-name|getTable
-argument_list|(
-name|TABLE_NAME
-argument_list|)
-argument_list|,
-name|TEST_FAM
-argument_list|)
-expr_stmt|;
+block|}
 comment|// disable the table so we can take a snapshot
 name|admin
 operator|.
@@ -2099,7 +2097,7 @@ operator|.
 name|compactStores
 argument_list|()
 expr_stmt|;
-comment|// min is 3 so will compact and archive
+comment|// min is 2 so will compact and archive
 block|}
 name|LOG
 operator|.
