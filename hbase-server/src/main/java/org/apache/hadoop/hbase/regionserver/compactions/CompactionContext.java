@@ -85,6 +85,22 @@ name|StoreFile
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|User
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class holds all "physical" details necessary to run a compaction,  * and abstracts away the details specific to a particular compaction.  * It also has compaction request with all the logical details.  * Hence, this class is basically the compaction.  */
 end_comment
@@ -177,6 +193,23 @@ name|compact
 parameter_list|(
 name|CompactionThroughputController
 name|throughputController
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+specifier|public
+specifier|abstract
+name|List
+argument_list|<
+name|Path
+argument_list|>
+name|compact
+parameter_list|(
+name|CompactionThroughputController
+name|throughputController
+parameter_list|,
+name|User
+name|user
 parameter_list|)
 throws|throws
 name|IOException
