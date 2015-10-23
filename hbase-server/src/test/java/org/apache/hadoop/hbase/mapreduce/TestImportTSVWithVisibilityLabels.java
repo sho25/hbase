@@ -1084,11 +1084,6 @@ expr_stmt|;
 name|createLabels
 argument_list|()
 expr_stmt|;
-name|util
-operator|.
-name|startMiniMapReduceCluster
-argument_list|()
-expr_stmt|;
 block|}
 specifier|private
 specifier|static
@@ -1215,11 +1210,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|util
-operator|.
-name|shutdownMiniMapReduceCluster
-argument_list|()
-expr_stmt|;
 name|util
 operator|.
 name|shutdownMiniCluster

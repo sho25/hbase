@@ -433,11 +433,6 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|startMiniMapReduceCluster
-argument_list|()
-expr_stmt|;
 block|}
 annotation|@
 name|AfterClass
@@ -449,11 +444,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|TEST_UTIL
-operator|.
-name|shutdownMiniMapReduceCluster
-argument_list|()
-expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|shutdownMiniCluster

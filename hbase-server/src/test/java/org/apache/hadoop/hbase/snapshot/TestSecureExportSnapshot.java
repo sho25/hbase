@@ -216,11 +216,6 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|startMiniMapReduceCluster
-argument_list|()
-expr_stmt|;
 comment|// Wait for the ACL table to become available
 name|TEST_UTIL
 operator|.
