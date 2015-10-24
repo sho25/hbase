@@ -859,12 +859,22 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|Configuration
+name|conf
+init|=
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|()
+decl_stmt|;
 name|ScanInfo
 name|scanInfo
 init|=
 operator|new
 name|ScanInfo
 argument_list|(
+name|conf
+argument_list|,
 literal|null
 argument_list|,
 literal|0
@@ -3547,6 +3557,14 @@ expr_stmt|;
 block|}
 block|}
 comment|//starting from each row, validate results should contain the starting row
+name|Configuration
+name|conf
+init|=
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -3568,6 +3586,8 @@ init|=
 operator|new
 name|ScanInfo
 argument_list|(
+name|conf
+argument_list|,
 name|FAMILY
 argument_list|,
 literal|0

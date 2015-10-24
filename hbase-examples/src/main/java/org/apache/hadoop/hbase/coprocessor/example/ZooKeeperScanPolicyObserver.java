@@ -958,6 +958,11 @@ return|return
 operator|new
 name|ScanInfo
 argument_list|(
+name|oldSI
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
 name|store
 operator|.
 name|getFamily

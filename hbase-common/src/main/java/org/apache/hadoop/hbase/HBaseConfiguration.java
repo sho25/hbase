@@ -203,7 +203,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Instantinating HBaseConfiguration() is deprecated. Please use    * HBaseConfiguration#create() to construct a plain Configuration    * @deprecated Please use create() instead.    */
+comment|/**    * Instantiating HBaseConfiguration() is deprecated. Please use    * HBaseConfiguration#create() to construct a plain Configuration    * @deprecated Please use create() instead.    */
 annotation|@
 name|Deprecated
 specifier|public

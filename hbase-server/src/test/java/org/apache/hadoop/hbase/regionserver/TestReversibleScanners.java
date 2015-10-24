@@ -2003,6 +2003,11 @@ init|=
 operator|new
 name|ScanInfo
 argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
 name|FAMILYNAME
 argument_list|,
 literal|0

@@ -1507,6 +1507,11 @@ name|ScanInfo
 argument_list|(
 name|old
 operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|old
+operator|.
 name|getFamily
 argument_list|()
 argument_list|,

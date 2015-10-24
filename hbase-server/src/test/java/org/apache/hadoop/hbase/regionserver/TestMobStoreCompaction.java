@@ -3060,6 +3060,8 @@ init|=
 operator|new
 name|ScanInfo
 argument_list|(
+name|copyOfConf
+argument_list|,
 name|hcd
 argument_list|,
 name|ttl

@@ -2540,6 +2540,8 @@ init|=
 operator|new
 name|ScanInfo
 argument_list|(
+name|conf
+argument_list|,
 name|hcd
 argument_list|,
 name|ttl

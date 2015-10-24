@@ -1673,6 +1673,8 @@ operator|=
 operator|new
 name|ScanInfo
 argument_list|(
+name|conf
+argument_list|,
 name|family
 argument_list|,
 name|ttl

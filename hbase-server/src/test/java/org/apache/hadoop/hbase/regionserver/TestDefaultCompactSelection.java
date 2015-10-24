@@ -2442,6 +2442,11 @@ name|ScanInfo
 argument_list|(
 name|oldScanInfo
 operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|oldScanInfo
+operator|.
 name|getFamily
 argument_list|()
 argument_list|,

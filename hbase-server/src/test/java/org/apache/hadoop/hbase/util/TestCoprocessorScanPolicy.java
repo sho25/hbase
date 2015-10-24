@@ -1910,6 +1910,11 @@ init|=
 operator|new
 name|ScanInfo
 argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
 name|family
 operator|.
 name|getName
@@ -2097,6 +2102,11 @@ init|=
 operator|new
 name|ScanInfo
 argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
 name|family
 operator|.
 name|getName
@@ -2290,6 +2300,11 @@ init|=
 operator|new
 name|ScanInfo
 argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
 name|family
 operator|.
 name|getName
