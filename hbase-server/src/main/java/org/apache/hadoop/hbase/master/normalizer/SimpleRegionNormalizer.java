@@ -206,6 +206,14 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|static
+specifier|final
+name|int
+name|MIN_REGION_COUNT
+init|=
+literal|3
+decl_stmt|;
+specifier|private
 name|MasterServices
 name|masterServices
 decl_stmt|;
@@ -301,9 +309,23 @@ operator|.
 name|size
 argument_list|()
 operator|<
-literal|3
+name|MIN_REGION_COUNT
 condition|)
 block|{
+name|int
+name|nrRegions
+init|=
+name|tableRegions
+operator|==
+literal|null
+condition|?
+literal|0
+else|:
+name|tableRegions
+operator|.
+name|size
+argument_list|()
+decl_stmt|;
 name|LOG
 operator|.
 name|debug
@@ -314,14 +336,15 @@ name|table
 operator|+
 literal|" has "
 operator|+
-name|tableRegions
-operator|.
-name|size
-argument_list|()
+name|nrRegions
 operator|+
 literal|" regions, required min number"
 operator|+
-literal|" of regions for normalizer to run is 3, not running normalizer"
+literal|" of regions for normalizer to run is "
+operator|+
+name|MIN_REGION_COUNT
+operator|+
+literal|", not running normalizer"
 argument_list|)
 expr_stmt|;
 return|return
@@ -378,14 +401,6 @@ operator|new
 name|Pair
 argument_list|<>
 argument_list|()
-decl_stmt|;
-name|Pair
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|Long
-argument_list|>
-name|smallestNeighborOfSmallestRegion
 decl_stmt|;
 name|int
 name|smallestRegionIndex
@@ -508,12 +523,6 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-name|long
-name|rightNeighborSize
-init|=
-operator|-
-literal|1
-decl_stmt|;
 if|if
 condition|(
 name|smallestRegionIndex
@@ -536,6 +545,12 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|long
+name|rightNeighborSize
+init|=
+operator|-
+literal|1
+decl_stmt|;
 if|if
 condition|(
 name|smallestRegionIndex
@@ -563,6 +578,14 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|Pair
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|Long
+argument_list|>
+name|smallestNeighborOfSmallestRegion
+decl_stmt|;
 if|if
 condition|(
 name|leftNeighborSize
@@ -766,7 +789,6 @@ else|else
 block|{
 if|if
 condition|(
-operator|(
 name|smallestRegion
 operator|.
 name|getSecond
@@ -778,7 +800,6 @@ name|getSecond
 argument_list|()
 operator|<
 name|avgRegionSize
-operator|)
 condition|)
 block|{
 name|LOG
@@ -803,7 +824,7 @@ operator|.
 name|getSecond
 argument_list|()
 operator|+
-literal|", less than half the avg size, merging them"
+literal|", less than the avg size, merging them"
 argument_list|)
 expr_stmt|;
 return|return
