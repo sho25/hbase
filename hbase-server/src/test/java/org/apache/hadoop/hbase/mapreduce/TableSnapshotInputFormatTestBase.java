@@ -989,6 +989,11 @@ block|{
 name|setupCluster
 argument_list|()
 expr_stmt|;
+name|util
+operator|.
+name|startMiniMapReduceCluster
+argument_list|()
+expr_stmt|;
 try|try
 block|{
 name|Path
@@ -1031,6 +1036,11 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+name|util
+operator|.
+name|shutdownMiniMapReduceCluster
+argument_list|()
+expr_stmt|;
 name|tearDownCluster
 argument_list|()
 expr_stmt|;

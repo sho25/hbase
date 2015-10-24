@@ -1239,6 +1239,11 @@ name|InterruptedException
 throws|,
 name|ClassNotFoundException
 block|{
+name|UTIL
+operator|.
+name|startMiniMapReduceCluster
+argument_list|()
+expr_stmt|;
 name|Job
 name|job
 init|=
@@ -1351,6 +1356,11 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+name|UTIL
+operator|.
+name|shutdownMiniMapReduceCluster
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|job

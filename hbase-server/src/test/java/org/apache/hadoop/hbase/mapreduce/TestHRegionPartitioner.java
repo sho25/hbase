@@ -222,6 +222,11 @@ operator|.
 name|startMiniCluster
 argument_list|()
 expr_stmt|;
+name|UTIL
+operator|.
+name|startMiniMapReduceCluster
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|AfterClass
@@ -233,6 +238,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|UTIL
+operator|.
+name|shutdownMiniMapReduceCluster
+argument_list|()
+expr_stmt|;
 name|UTIL
 operator|.
 name|shutdownMiniCluster
