@@ -101,6 +101,54 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|ResultScanner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Scan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Durability
 import|;
 end_import
@@ -121,6 +169,16 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+import|;
+end_import
+
 begin_comment
 comment|/**  * Tests user specifiable time stamps putting, getting and scanning.  Also  * tests same in presence of deletes.  Test cores are written so can be  * run against an HRegion and against an HTable: i.e. both local and remote.  */
 end_comment
@@ -129,8 +187,6 @@ begin_class
 specifier|public
 class|class
 name|TimestampTestBase
-extends|extends
-name|HBaseTestCase
 block|{
 specifier|private
 specifier|static
@@ -198,6 +254,16 @@ argument_list|(
 literal|"row"
 argument_list|)
 decl_stmt|;
+interface|interface
+name|FlushCache
+block|{
+name|void
+name|flushcache
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+block|}
 comment|/*    * Run test that delete works according to description in<a    * href="https://issues.apache.org/jira/browse/HADOOP-1784">hadoop-1784</a>.    * @param incommon    * @param flusher    * @throws IOException    */
 specifier|public
 specifier|static
@@ -205,8 +271,8 @@ name|void
 name|doTestDelete
 parameter_list|(
 specifier|final
-name|Incommon
-name|incommon
+name|Table
+name|table
 parameter_list|,
 name|FlushCache
 name|flusher
@@ -217,34 +283,34 @@ block|{
 comment|// Add values at various timestamps (Values are timestampes as bytes).
 name|put
 argument_list|(
-name|incommon
+name|table
 argument_list|,
 name|T0
 argument_list|)
 expr_stmt|;
 name|put
 argument_list|(
-name|incommon
+name|table
 argument_list|,
 name|T1
 argument_list|)
 expr_stmt|;
 name|put
 argument_list|(
-name|incommon
+name|table
 argument_list|,
 name|T2
 argument_list|)
 expr_stmt|;
 name|put
 argument_list|(
-name|incommon
+name|table
 argument_list|)
 expr_stmt|;
 comment|// Verify that returned versions match passed timestamps.
 name|assertVersions
 argument_list|(
-name|incommon
+name|table
 argument_list|,
 operator|new
 name|long
@@ -260,18 +326,16 @@ name|T1
 block|}
 argument_list|)
 expr_stmt|;
-comment|// If I delete w/o specifying a timestamp, this means I'm deleting the
-comment|// latest.
+comment|// If I delete w/o specifying a timestamp, this means I'm deleting the latest.
 name|delete
 argument_list|(
-name|incommon
+name|table
 argument_list|)
 expr_stmt|;
-comment|// Verify that I get back T2 through T1 -- that the latest version has
-comment|// been deleted.
+comment|// Verify that I get back T2 through T1 -- that the latest version has been deleted.
 name|assertVersions
 argument_list|(
-name|incommon
+name|table
 argument_list|,
 operator|new
 name|long
@@ -293,7 +357,7 @@ argument_list|()
 expr_stmt|;
 name|assertVersions
 argument_list|(
-name|incommon
+name|table
 argument_list|,
 operator|new
 name|long
@@ -310,12 +374,12 @@ expr_stmt|;
 comment|// Now add, back a latest so I can test remove other than the latest.
 name|put
 argument_list|(
-name|incommon
+name|table
 argument_list|)
 expr_stmt|;
 name|assertVersions
 argument_list|(
-name|incommon
+name|table
 argument_list|,
 operator|new
 name|long
@@ -333,14 +397,14 @@ argument_list|)
 expr_stmt|;
 name|delete
 argument_list|(
-name|incommon
+name|table
 argument_list|,
 name|T2
 argument_list|)
 expr_stmt|;
 name|assertVersions
 argument_list|(
-name|incommon
+name|table
 argument_list|,
 operator|new
 name|long
@@ -364,7 +428,7 @@ argument_list|()
 expr_stmt|;
 name|assertVersions
 argument_list|(
-name|incommon
+name|table
 argument_list|,
 operator|new
 name|long
@@ -381,25 +445,24 @@ block|}
 argument_list|)
 expr_stmt|;
 comment|// Now try deleting all from T2 back inclusive (We first need to add T2
-comment|// back into the mix and to make things a little interesting, delete and
-comment|// then readd T1.
+comment|// back into the mix and to make things a little interesting, delete and then readd T1.
 name|put
 argument_list|(
-name|incommon
+name|table
 argument_list|,
 name|T2
 argument_list|)
 expr_stmt|;
 name|delete
 argument_list|(
-name|incommon
+name|table
 argument_list|,
 name|T1
 argument_list|)
 expr_stmt|;
 name|put
 argument_list|(
-name|incommon
+name|table
 argument_list|,
 name|T1
 argument_list|)
@@ -415,7 +478,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumns
+name|addColumns
 argument_list|(
 name|FAMILY_NAME
 argument_list|,
@@ -424,19 +487,17 @@ argument_list|,
 name|T2
 argument_list|)
 expr_stmt|;
-name|incommon
+name|table
 operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// Should only be current value in set.  Assert this is so
 name|assertOnlyLatest
 argument_list|(
-name|incommon
+name|table
 argument_list|,
 name|HConstants
 operator|.
@@ -451,7 +512,7 @@ argument_list|()
 expr_stmt|;
 name|assertOnlyLatest
 argument_list|(
-name|incommon
+name|table
 argument_list|,
 name|HConstants
 operator|.
@@ -465,7 +526,7 @@ name|void
 name|assertOnlyLatest
 parameter_list|(
 specifier|final
-name|Incommon
+name|Table
 name|incommon
 parameter_list|,
 specifier|final
@@ -514,6 +575,8 @@ argument_list|(
 name|get
 argument_list|)
 decl_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -545,6 +608,8 @@ index|]
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|time
@@ -560,7 +625,7 @@ name|void
 name|assertVersions
 parameter_list|(
 specifier|final
-name|Incommon
+name|Table
 name|incommon
 parameter_list|,
 specifier|final
@@ -627,6 +692,8 @@ argument_list|(
 name|bytes
 argument_list|)
 decl_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|tss
@@ -684,6 +751,8 @@ operator|.
 name|rawCells
 argument_list|()
 decl_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -729,6 +798,8 @@ index|]
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|tss
@@ -806,6 +877,8 @@ operator|.
 name|rawCells
 argument_list|()
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -855,6 +928,8 @@ index|]
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|tss
@@ -885,7 +960,7 @@ name|void
 name|doTestTimestampScanning
 parameter_list|(
 specifier|final
-name|Incommon
+name|Table
 name|incommon
 parameter_list|,
 specifier|final
@@ -933,6 +1008,8 @@ name|LATEST_TIMESTAMP
 argument_list|)
 decl_stmt|;
 comment|// Assert I get same count when I scan at each timestamp.
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|count
@@ -945,6 +1022,8 @@ name|T0
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|count
@@ -963,6 +1042,8 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|count
@@ -975,6 +1056,8 @@ name|T0
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|count
@@ -995,7 +1078,7 @@ name|int
 name|assertScanContentTimestamp
 parameter_list|(
 specifier|final
-name|Incommon
+name|Table
 name|in
 parameter_list|,
 specifier|final
@@ -1005,25 +1088,41 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|ScannerIncommon
+name|Scan
+name|scan
+init|=
+operator|new
+name|Scan
+argument_list|(
+name|HConstants
+operator|.
+name|EMPTY_START_ROW
+argument_list|)
+decl_stmt|;
+name|scan
+operator|.
+name|addFamily
+argument_list|(
+name|FAMILY_NAME
+argument_list|)
+expr_stmt|;
+name|scan
+operator|.
+name|setTimeRange
+argument_list|(
+literal|0
+argument_list|,
+name|ts
+argument_list|)
+expr_stmt|;
+name|ResultScanner
 name|scanner
 init|=
 name|in
 operator|.
 name|getScanner
 argument_list|(
-name|COLUMNS
-index|[
-literal|0
-index|]
-argument_list|,
-literal|null
-argument_list|,
-name|HConstants
-operator|.
-name|EMPTY_START_ROW
-argument_list|,
-name|ts
+name|scan
 argument_list|)
 decl_stmt|;
 name|int
@@ -1066,7 +1165,7 @@ name|void
 name|put
 parameter_list|(
 specifier|final
-name|Incommon
+name|Table
 name|loader
 parameter_list|,
 specifier|final
@@ -1097,7 +1196,7 @@ name|void
 name|put
 parameter_list|(
 specifier|final
-name|Incommon
+name|Table
 name|loader
 parameter_list|)
 throws|throws
@@ -1132,7 +1231,7 @@ name|void
 name|put
 parameter_list|(
 specifier|final
-name|Incommon
+name|Table
 name|loader
 parameter_list|,
 specifier|final
@@ -1169,7 +1268,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY_NAME
 argument_list|,
@@ -1192,7 +1291,7 @@ name|void
 name|delete
 parameter_list|(
 specifier|final
-name|Incommon
+name|Table
 name|loader
 parameter_list|)
 throws|throws
@@ -1212,7 +1311,7 @@ name|void
 name|delete
 parameter_list|(
 specifier|final
-name|Incommon
+name|Table
 name|loader
 parameter_list|,
 specifier|final
@@ -1241,7 +1340,7 @@ name|void
 name|delete
 parameter_list|(
 specifier|final
-name|Incommon
+name|Table
 name|loader
 parameter_list|,
 specifier|final
@@ -1267,7 +1366,7 @@ name|void
 name|delete
 parameter_list|(
 specifier|final
-name|Incommon
+name|Table
 name|loader
 parameter_list|,
 specifier|final
@@ -1307,7 +1406,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|deleteColumn
+name|addColumn
 argument_list|(
 name|FAMILY_NAME
 argument_list|,
@@ -1321,8 +1420,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -1332,7 +1429,7 @@ name|Result
 name|get
 parameter_list|(
 specifier|final
-name|Incommon
+name|Table
 name|loader
 parameter_list|)
 throws|throws
