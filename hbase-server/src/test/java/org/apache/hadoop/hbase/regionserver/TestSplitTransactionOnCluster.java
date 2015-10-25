@@ -3456,7 +3456,7 @@ name|i
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 literal|"col"
 operator|.
@@ -3581,7 +3581,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 literal|"col"
 operator|.
@@ -3619,7 +3619,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 literal|"col"
 operator|.
@@ -3657,7 +3657,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 literal|"col"
 operator|.
@@ -5183,7 +5183,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -5229,7 +5229,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -5275,7 +5275,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -5321,7 +5321,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -6682,7 +6682,7 @@ argument_list|)
 decl_stmt|;
 name|p1
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -7357,7 +7357,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -7385,7 +7385,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.

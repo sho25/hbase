@@ -7134,7 +7134,7 @@ throw|;
 block|}
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|DUMMY_BYTES_1
 argument_list|,

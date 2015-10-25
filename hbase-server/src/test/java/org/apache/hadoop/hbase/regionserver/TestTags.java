@@ -951,7 +951,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -1026,7 +1026,7 @@ argument_list|)
 decl_stmt|;
 name|put1
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -1083,7 +1083,7 @@ argument_list|)
 decl_stmt|;
 name|put2
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -1396,7 +1396,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -1457,7 +1457,7 @@ argument_list|)
 decl_stmt|;
 name|put1
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -1513,7 +1513,7 @@ argument_list|)
 decl_stmt|;
 name|put2
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -1996,7 +1996,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -2060,7 +2060,7 @@ argument_list|)
 decl_stmt|;
 name|put1
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -2118,7 +2118,7 @@ argument_list|)
 expr_stmt|;
 name|put1
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -2174,7 +2174,7 @@ argument_list|)
 decl_stmt|;
 name|put2
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -2213,7 +2213,7 @@ argument_list|)
 expr_stmt|;
 name|put2
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -2768,7 +2768,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|f
 argument_list|,
@@ -3163,7 +3163,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|f
 argument_list|,
@@ -3374,7 +3374,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|f
 argument_list|,
@@ -3725,7 +3725,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|f
 argument_list|,

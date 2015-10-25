@@ -597,9 +597,15 @@ operator|.
 name|SKIP_WAL
 argument_list|)
 expr_stmt|;
+name|long
+name|ts1
+init|=
+operator|++
+name|ts
+decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|COLUMNS
 index|[
@@ -615,8 +621,7 @@ index|]
 argument_list|,
 name|b
 argument_list|,
-operator|++
-name|ts
+name|ts1
 argument_list|,
 name|b
 argument_list|)

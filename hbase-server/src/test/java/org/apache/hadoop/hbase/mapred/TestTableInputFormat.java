@@ -928,7 +928,7 @@ control|)
 block|{
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -970,7 +970,7 @@ control|)
 block|{
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,

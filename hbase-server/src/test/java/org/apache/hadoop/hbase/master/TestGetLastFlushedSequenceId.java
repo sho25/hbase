@@ -495,7 +495,7 @@ literal|"k"
 argument_list|)
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,

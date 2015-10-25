@@ -1402,7 +1402,7 @@ argument_list|(
 name|row4
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|famName
 argument_list|,
@@ -2422,7 +2422,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,

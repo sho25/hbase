@@ -946,7 +946,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|famName
 argument_list|,
@@ -987,7 +987,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|noRepfamName
 argument_list|,
@@ -1045,7 +1045,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|famName
 argument_list|,
@@ -1086,7 +1086,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|noRepfamName
 argument_list|,
@@ -1734,7 +1734,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|famName
 argument_list|,
@@ -1775,7 +1775,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|noRepfamName
 argument_list|,
@@ -1834,7 +1834,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|famName
 argument_list|,
@@ -1875,7 +1875,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|noRepfamName
 argument_list|,

@@ -1549,7 +1549,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|familyName
 argument_list|,

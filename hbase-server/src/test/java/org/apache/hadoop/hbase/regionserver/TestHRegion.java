@@ -2900,7 +2900,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|COLUMN_FAMILY_BYTES
 argument_list|,
@@ -2935,7 +2935,7 @@ expr_stmt|;
 comment|// Second put something in current memstore
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|COLUMN_FAMILY_BYTES
 argument_list|,
@@ -3186,7 +3186,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|COLUMN_FAMILY_BYTES
 argument_list|,
@@ -3482,7 +3482,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|COLUMN_FAMILY_BYTES
 argument_list|,
@@ -4586,7 +4586,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -4870,7 +4870,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -4911,7 +4911,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -6969,7 +6969,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -7757,7 +7757,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -8978,7 +8978,7 @@ expr_stmt|;
 comment|// have to skip mocked wal
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -10963,7 +10963,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -10984,7 +10984,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -11005,7 +11005,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -11026,7 +11026,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -11052,7 +11052,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -11156,7 +11156,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cfwithcolon
 argument_list|,
@@ -11375,7 +11375,7 @@ index|[
 name|i
 index|]
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf
 argument_list|,
@@ -11463,7 +11463,7 @@ index|[
 literal|5
 index|]
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -11721,7 +11721,7 @@ index|[
 name|i
 index|]
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf
 argument_list|,
@@ -11736,7 +11736,7 @@ index|[
 literal|5
 index|]
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -12409,7 +12409,7 @@ index|[
 name|i
 index|]
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf
 argument_list|,
@@ -12617,7 +12617,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -12671,7 +12671,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -12806,7 +12806,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -12958,7 +12958,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -13119,7 +13119,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -13333,7 +13333,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -13582,7 +13582,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -13681,7 +13681,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -13807,7 +13807,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -13932,7 +13932,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -14225,7 +14225,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -14479,7 +14479,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -14721,7 +14721,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -14754,7 +14754,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -14765,7 +14765,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam2
 argument_list|,
@@ -14776,7 +14776,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam2
 argument_list|,
@@ -14787,7 +14787,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam2
 argument_list|,
@@ -14798,7 +14798,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -15218,12 +15218,15 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
 name|qual
 argument_list|,
+operator|(
+name|long
+operator|)
 literal|1
 argument_list|,
 name|value
@@ -15231,12 +15234,15 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
 name|qual
 argument_list|,
+operator|(
+name|long
+operator|)
 literal|2
 argument_list|,
 name|value
@@ -15802,7 +15808,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -15833,7 +15839,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -15864,7 +15870,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -16027,7 +16033,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -16116,7 +16122,7 @@ argument_list|(
 name|row
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -16259,7 +16265,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -16507,7 +16513,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -16624,7 +16630,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -16820,7 +16826,7 @@ argument_list|(
 name|row
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -16851,7 +16857,7 @@ argument_list|(
 name|row
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -17050,7 +17056,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam2
 argument_list|,
@@ -17076,7 +17082,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -17087,7 +17093,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam2
 argument_list|,
@@ -17349,7 +17355,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -17384,7 +17390,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -18187,7 +18193,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -18198,7 +18204,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -18209,7 +18215,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -18220,7 +18226,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -18231,7 +18237,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -19511,7 +19517,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -19522,7 +19528,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam2
 argument_list|,
@@ -19533,7 +19539,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam3
 argument_list|,
@@ -19544,7 +19550,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam4
 argument_list|,
@@ -19992,7 +19998,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -20009,7 +20015,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam2
 argument_list|,
@@ -20026,7 +20032,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam3
 argument_list|,
@@ -20043,7 +20049,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam4
 argument_list|,
@@ -20075,7 +20081,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -20092,7 +20098,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam2
 argument_list|,
@@ -20109,7 +20115,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam3
 argument_list|,
@@ -20126,7 +20132,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam4
 argument_list|,
@@ -23115,7 +23121,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -23146,7 +23152,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -23177,7 +23183,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -23208,7 +23214,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -23239,7 +23245,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -24103,7 +24109,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf_essential
 argument_list|,
@@ -24119,7 +24125,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf_joined
 argument_list|,
@@ -24150,7 +24156,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf_essential
 argument_list|,
@@ -24166,7 +24172,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf_joined
 argument_list|,
@@ -24182,7 +24188,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf_alpha
 argument_list|,
@@ -24213,7 +24219,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf_essential
 argument_list|,
@@ -24224,7 +24230,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf_joined
 argument_list|,
@@ -24569,7 +24575,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf_first
 argument_list|,
@@ -24592,7 +24598,7 @@ condition|)
 block|{
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf_first
 argument_list|,
@@ -24608,7 +24614,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf_second
 argument_list|,
@@ -24624,7 +24630,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf_second
 argument_list|,
@@ -26500,7 +26506,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -27562,7 +27568,7 @@ control|)
 block|{
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -28521,7 +28527,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -28589,7 +28595,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -28966,16 +28972,21 @@ operator|.
 name|SKIP_WAL
 argument_list|)
 expr_stmt|;
+name|long
+name|ts
+init|=
+name|version
+operator|++
+decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
 name|qf1
 argument_list|,
-name|version
-operator|++
+name|ts
 argument_list|,
 name|val1
 argument_list|)
@@ -29332,7 +29343,7 @@ control|)
 block|{
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -29617,12 +29628,15 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|familyName
 argument_list|,
 name|col
 argument_list|,
+operator|(
+name|long
+operator|)
 literal|1
 argument_list|,
 name|Bytes
@@ -29873,12 +29887,15 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
 name|col
 argument_list|,
+operator|(
+name|long
+operator|)
 literal|1
 argument_list|,
 name|Bytes
@@ -29891,12 +29908,15 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam2
 argument_list|,
 name|col
 argument_list|,
+operator|(
+name|long
+operator|)
 literal|1
 argument_list|,
 name|Bytes
@@ -31844,7 +31864,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -32040,7 +32060,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -33098,7 +33118,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -34484,7 +34504,7 @@ control|)
 block|{
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -35067,7 +35087,7 @@ name|toBytes
 argument_list|()
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -35140,7 +35160,7 @@ name|toBytes
 argument_list|()
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -41391,7 +41411,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf1
 argument_list|,
@@ -41437,7 +41457,7 @@ argument_list|)
 decl_stmt|;
 name|put2
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf1
 argument_list|,
@@ -41524,7 +41544,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf1
 argument_list|,
@@ -41592,7 +41612,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf1
 argument_list|,
@@ -42618,7 +42638,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam
 argument_list|,
@@ -42873,7 +42893,7 @@ literal|"a"
 argument_list|)
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -43695,7 +43715,7 @@ literal|"a"
 argument_list|)
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -45397,7 +45417,7 @@ argument_list|(
 name|row
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -45478,7 +45498,7 @@ argument_list|(
 name|row
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -45855,7 +45875,7 @@ argument_list|(
 name|row
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,

@@ -847,7 +847,7 @@ argument_list|)
 decl_stmt|;
 name|puta
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,
@@ -874,7 +874,7 @@ argument_list|)
 decl_stmt|;
 name|putb
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,
@@ -901,7 +901,7 @@ argument_list|)
 decl_stmt|;
 name|putc
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,
@@ -1435,7 +1435,7 @@ argument_list|(
 name|ROW_D
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,
@@ -1497,7 +1497,7 @@ argument_list|(
 name|ROW_D
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,
@@ -1512,7 +1512,7 @@ argument_list|(
 name|ROW_E
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,
@@ -1638,7 +1638,7 @@ argument_list|(
 name|ROW_C
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,
@@ -1772,7 +1772,7 @@ argument_list|(
 name|ROW_A
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,
@@ -2329,7 +2329,7 @@ argument_list|(
 name|ROW_A
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,

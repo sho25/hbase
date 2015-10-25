@@ -789,7 +789,7 @@ decl_stmt|;
 comment|// add in an entry for each stamp, with 2 as a "good" value
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -811,7 +811,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -833,7 +833,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -856,7 +856,7 @@ comment|// with one 2 will be accepted(since the corresponding ts entry
 comment|// has a matching value
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -878,7 +878,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -920,7 +920,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -943,7 +943,7 @@ expr_stmt|;
 comment|// there is no corresponding timestamp for this so it should never pass
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -963,7 +963,7 @@ expr_stmt|;
 comment|// if we reverse the qualifiers this one should pass
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -983,7 +983,7 @@ expr_stmt|;
 comment|// should pass
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[

@@ -1344,7 +1344,7 @@ control|)
 block|{
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -1406,7 +1406,7 @@ control|)
 block|{
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -1469,7 +1469,7 @@ control|)
 block|{
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -1531,7 +1531,7 @@ control|)
 block|{
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[

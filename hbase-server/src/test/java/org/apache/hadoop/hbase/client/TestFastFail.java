@@ -826,7 +826,7 @@ decl_stmt|;
 comment|// value is the same as the row key
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,

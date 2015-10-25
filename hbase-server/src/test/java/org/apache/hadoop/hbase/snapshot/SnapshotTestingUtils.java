@@ -4390,7 +4390,7 @@ control|)
 block|{
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,

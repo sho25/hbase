@@ -578,7 +578,7 @@ decl_stmt|;
 comment|// Use the rowId as the column qualifier
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 literal|"F"
 operator|.

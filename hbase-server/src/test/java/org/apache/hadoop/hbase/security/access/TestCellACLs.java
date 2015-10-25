@@ -1334,7 +1334,7 @@ argument_list|(
 name|TEST_ROW
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,
@@ -1373,7 +1373,7 @@ argument_list|(
 name|TEST_ROW
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,
@@ -1416,7 +1416,7 @@ argument_list|(
 name|TEST_ROW
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,
@@ -1425,7 +1425,7 @@ argument_list|,
 name|ZERO
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,
@@ -2682,7 +2682,7 @@ argument_list|(
 name|TEST_ROW
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,

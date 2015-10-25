@@ -268,7 +268,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to perform Put operations for a single row.  *<p>  * To perform a Put, instantiate a Put object with the row to insert to and  * for eachumn to be inserted, execute {@link #add(byte[], byte[], byte[]) add} or  * {@link #add(byte[], byte[], long, byte[]) add} if setting the timestamp.  */
+comment|/**  * Used to perform Put operations for a single row.  *<p>  * To perform a Put, instantiate a Put object with the row to insert to and  * for eachumn to be inserted, execute {@link #addColumn(byte[], byte[], byte[]) add} or  * {@link #addColumn(byte[], byte[], long, byte[]) add} if setting the timestamp.  */
 end_comment
 
 begin_class
@@ -651,37 +651,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Add the specified column and value to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param value column value    * @return this    * @deprecated Since 1.0.0. Use {@link #addColumn(byte[], byte[], byte[])}    */
-annotation|@
-name|Deprecated
-specifier|public
-name|Put
-name|add
-parameter_list|(
-name|byte
-index|[]
-name|family
-parameter_list|,
-name|byte
-index|[]
-name|qualifier
-parameter_list|,
-name|byte
-index|[]
-name|value
-parameter_list|)
-block|{
-return|return
-name|addColumn
-argument_list|(
-name|family
-argument_list|,
-name|qualifier
-argument_list|,
-name|value
-argument_list|)
-return|;
-block|}
 comment|/**    * Add the specified column and value to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param value column value    * @return this    */
 specifier|public
 name|Put
@@ -715,7 +684,7 @@ name|value
 argument_list|)
 return|;
 block|}
-comment|/**    * See {@link #add(byte[], byte[], byte[])}. This version expects    * that the underlying arrays won't change. It's intended    * for usage internal HBase to and for advanced client applications.    */
+comment|/**    * See {@link #addColumn(byte[], byte[], byte[])}. This version expects    * that the underlying arrays won't change. It's intended    * for usage internal HBase to and for advanced client applications.    */
 specifier|public
 name|Put
 name|addImmutable
@@ -788,42 +757,6 @@ argument_list|,
 name|value
 argument_list|,
 name|tag
-argument_list|)
-return|;
-block|}
-comment|/**    * Add the specified column and value, with the specified timestamp as    * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param ts version timestamp    * @param value column value    * @return this    * @deprecated Since 1.0.0. Use {@link #addColumn(byte[], byte[], long, byte[])}    */
-annotation|@
-name|Deprecated
-specifier|public
-name|Put
-name|add
-parameter_list|(
-name|byte
-index|[]
-name|family
-parameter_list|,
-name|byte
-index|[]
-name|qualifier
-parameter_list|,
-name|long
-name|ts
-parameter_list|,
-name|byte
-index|[]
-name|value
-parameter_list|)
-block|{
-return|return
-name|addColumn
-argument_list|(
-name|family
-argument_list|,
-name|qualifier
-argument_list|,
-name|ts
-argument_list|,
-name|value
 argument_list|)
 return|;
 block|}
@@ -915,7 +848,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * See {@link #add(byte[], byte[], long, byte[])}. This version expects    * that the underlying arrays won't change. It's intended    * for usage internal HBase to and for advanced client applications.    */
+comment|/**    * See {@link #addColumn(byte[], byte[], long, byte[])}. This version expects    * that the underlying arrays won't change. It's intended    * for usage internal HBase to and for advanced client applications.    */
 specifier|public
 name|Put
 name|addImmutable
@@ -1163,40 +1096,6 @@ argument_list|)
 expr_stmt|;
 return|return
 name|this
-return|;
-block|}
-comment|/**    * Add the specified column and value, with the specified timestamp as    * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param ts version timestamp    * @param value column value    * @return this    * @deprecated Since 1.0.0. Use {@link Put#addColumn(byte[], ByteBuffer, long, ByteBuffer)}    */
-annotation|@
-name|Deprecated
-specifier|public
-name|Put
-name|add
-parameter_list|(
-name|byte
-index|[]
-name|family
-parameter_list|,
-name|ByteBuffer
-name|qualifier
-parameter_list|,
-name|long
-name|ts
-parameter_list|,
-name|ByteBuffer
-name|value
-parameter_list|)
-block|{
-return|return
-name|addColumn
-argument_list|(
-name|family
-argument_list|,
-name|qualifier
-argument_list|,
-name|ts
-argument_list|,
-name|value
-argument_list|)
 return|;
 block|}
 comment|/**    * Add the specified column and value, with the specified timestamp as    * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param ts version timestamp    * @param value column value    * @return this    */
@@ -1287,7 +1186,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * See {@link #add(byte[], ByteBuffer, long, ByteBuffer)}. This version expects    * that the underlying arrays won't change. It's intended    * for usage internal HBase to and for advanced client applications.    */
+comment|/**    * See {@link #addColumn(byte[], ByteBuffer, long, ByteBuffer)}. This version expects    * that the underlying arrays won't change. It's intended    * for usage internal HBase to and for advanced client applications.    */
 specifier|public
 name|Put
 name|addImmutable

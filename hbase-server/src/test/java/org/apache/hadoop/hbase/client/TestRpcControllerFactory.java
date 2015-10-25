@@ -735,7 +735,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,
@@ -811,7 +811,7 @@ argument_list|)
 decl_stmt|;
 name|p2
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,

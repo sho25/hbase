@@ -899,7 +899,7 @@ name|i
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.

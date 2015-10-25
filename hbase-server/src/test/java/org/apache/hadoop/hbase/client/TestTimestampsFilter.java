@@ -999,7 +999,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -1010,6 +1010,9 @@ argument_list|(
 literal|"column0"
 argument_list|)
 argument_list|,
+operator|(
+name|long
+operator|)
 literal|3
 argument_list|,
 name|Bytes
@@ -1022,7 +1025,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -1033,6 +1036,9 @@ argument_list|(
 literal|"column1"
 argument_list|)
 argument_list|,
+operator|(
+name|long
+operator|)
 literal|3
 argument_list|,
 name|Bytes
@@ -1045,7 +1051,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -1056,6 +1062,9 @@ argument_list|(
 literal|"column2"
 argument_list|)
 argument_list|,
+operator|(
+name|long
+operator|)
 literal|1
 argument_list|,
 name|Bytes
@@ -1068,7 +1077,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -1079,6 +1088,9 @@ argument_list|(
 literal|"column2"
 argument_list|)
 argument_list|,
+operator|(
+name|long
+operator|)
 literal|2
 argument_list|,
 name|Bytes
@@ -1091,7 +1103,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -1102,6 +1114,9 @@ argument_list|(
 literal|"column2"
 argument_list|)
 argument_list|,
+operator|(
+name|long
+operator|)
 literal|3
 argument_list|,
 name|Bytes
@@ -1114,7 +1129,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -1125,6 +1140,9 @@ argument_list|(
 literal|"column3"
 argument_list|)
 argument_list|,
+operator|(
+name|long
+operator|)
 literal|2
 argument_list|,
 name|Bytes
@@ -1137,7 +1155,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -1148,6 +1166,9 @@ argument_list|(
 literal|"column4"
 argument_list|)
 argument_list|,
+operator|(
+name|long
+operator|)
 literal|1
 argument_list|,
 name|Bytes
@@ -1160,7 +1181,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -1171,6 +1192,9 @@ argument_list|(
 literal|"column4"
 argument_list|)
 argument_list|,
+operator|(
+name|long
+operator|)
 literal|2
 argument_list|,
 name|Bytes
@@ -1183,7 +1207,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -1194,6 +1218,9 @@ argument_list|(
 literal|"column4"
 argument_list|)
 argument_list|,
+operator|(
+name|long
+operator|)
 literal|3
 argument_list|,
 name|Bytes
@@ -2400,7 +2427,7 @@ control|)
 block|{
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf
 argument_list|,

@@ -1290,7 +1290,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAM
 argument_list|,
@@ -1309,7 +1309,7 @@ expr_stmt|;
 comment|// B, C are friends of A
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAM
 argument_list|,
@@ -1330,7 +1330,7 @@ expr_stmt|;
 comment|// D, E, F are friends of B
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAM
 argument_list|,
@@ -1366,7 +1366,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAM
 argument_list|,
@@ -1377,7 +1377,7 @@ argument_list|)
 expr_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAM
 argument_list|,

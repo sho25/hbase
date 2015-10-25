@@ -393,9 +393,10 @@ name|f
 range|:
 name|fs
 control|)
+block|{
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|f
 argument_list|,
@@ -404,6 +405,7 @@ argument_list|,
 name|f
 argument_list|)
 expr_stmt|;
+block|}
 name|ht
 operator|.
 name|put

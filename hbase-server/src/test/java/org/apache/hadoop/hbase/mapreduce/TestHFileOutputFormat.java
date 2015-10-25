@@ -6419,7 +6419,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[

@@ -1219,7 +1219,7 @@ control|)
 block|{
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -1283,7 +1283,7 @@ control|)
 block|{
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -1358,7 +1358,7 @@ control|)
 block|{
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -1422,7 +1422,7 @@ control|)
 block|{
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -1750,7 +1750,7 @@ control|)
 block|{
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -1814,7 +1814,7 @@ control|)
 block|{
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -1889,7 +1889,7 @@ control|)
 block|{
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -1953,7 +1953,7 @@ control|)
 block|{
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -13394,7 +13394,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -13674,7 +13674,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -16642,7 +16642,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[
@@ -18645,7 +18645,7 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILIES
 index|[

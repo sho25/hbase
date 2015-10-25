@@ -749,7 +749,7 @@ literal|"testrow"
 argument_list|)
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|hcd
 operator|.

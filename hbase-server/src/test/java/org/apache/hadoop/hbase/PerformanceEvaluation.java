@@ -7848,7 +7848,7 @@ else|else
 block|{
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY_NAME
 argument_list|,
@@ -8392,7 +8392,7 @@ else|else
 block|{
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY_NAME
 argument_list|,

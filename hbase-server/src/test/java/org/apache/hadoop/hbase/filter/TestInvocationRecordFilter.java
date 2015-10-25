@@ -546,7 +546,7 @@ block|{
 comment|// puts 0, 2, 4, 6 and 8
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY_NAME_BYTES
 argument_list|,
@@ -559,6 +559,9 @@ operator|+
 name|i
 argument_list|)
 argument_list|,
+operator|(
+name|long
+operator|)
 name|i
 argument_list|,
 name|Bytes

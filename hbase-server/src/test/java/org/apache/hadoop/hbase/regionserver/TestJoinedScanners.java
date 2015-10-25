@@ -920,7 +920,7 @@ condition|)
 block|{
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf_essential
 argument_list|,
@@ -934,7 +934,7 @@ else|else
 block|{
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf_essential
 argument_list|,
@@ -946,7 +946,7 @@ expr_stmt|;
 block|}
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf_joined
 argument_list|,

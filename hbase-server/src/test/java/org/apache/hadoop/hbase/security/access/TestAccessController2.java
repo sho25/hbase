@@ -2319,7 +2319,7 @@ argument_list|(
 name|TEST_ROW
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|AccessControlLists
 operator|.

@@ -300,7 +300,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|bytes
 argument_list|,
@@ -435,7 +435,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|bytes
 argument_list|,
@@ -503,7 +503,7 @@ literal|3
 condition|)
 name|p
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|bytes
 argument_list|,

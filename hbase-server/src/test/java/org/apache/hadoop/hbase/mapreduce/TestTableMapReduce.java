@@ -497,7 +497,7 @@ argument_list|)
 decl_stmt|;
 name|outval
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|OUTPUT_FAMILY
 argument_list|,

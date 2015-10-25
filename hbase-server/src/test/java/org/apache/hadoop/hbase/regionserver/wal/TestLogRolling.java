@@ -1810,7 +1810,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|HConstants
 operator|.
@@ -1845,7 +1845,7 @@ argument_list|)
 decl_stmt|;
 name|tmpPut
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|HConstants
 operator|.
@@ -3955,7 +3955,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|HConstants
 operator|.

@@ -8259,7 +8259,7 @@ literal|",,1361911384013.810e28f59a57da91c66"
 argument_list|)
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|HConstants
 operator|.
@@ -8295,7 +8295,7 @@ literal|",,1361911384013.810e28f59a57da91c66"
 argument_list|)
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|HConstants
 operator|.

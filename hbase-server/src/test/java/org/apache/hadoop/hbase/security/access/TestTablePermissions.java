@@ -2006,7 +2006,7 @@ literal|"row1"
 argument_list|)
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,
@@ -2036,7 +2036,7 @@ literal|"row2"
 argument_list|)
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,
