@@ -2515,7 +2515,7 @@ name|addAll
 argument_list|(
 name|initial
 operator|.
-name|getBackupMasters
+name|getServers
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2525,7 +2525,7 @@ name|addAll
 argument_list|(
 name|current
 operator|.
-name|getBackupMasters
+name|getServers
 argument_list|()
 argument_list|)
 expr_stmt|;
