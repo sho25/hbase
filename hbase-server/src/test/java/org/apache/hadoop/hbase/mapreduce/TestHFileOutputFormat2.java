@@ -3123,11 +3123,6 @@ name|regionNum
 argument_list|)
 expr_stmt|;
 comment|// Generate the bulk load files
-name|util
-operator|.
-name|startMiniMapReduceCluster
-argument_list|()
-expr_stmt|;
 name|runIncrementalPELoad
 argument_list|(
 name|conf
@@ -3690,11 +3685,6 @@ name|deleteTable
 argument_list|(
 name|TABLE_NAME
 argument_list|)
-expr_stmt|;
-name|util
-operator|.
-name|shutdownMiniMapReduceCluster
-argument_list|()
 expr_stmt|;
 name|util
 operator|.
@@ -6315,11 +6305,6 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|util
-operator|.
-name|startMiniMapReduceCluster
-argument_list|()
-expr_stmt|;
 for|for
 control|(
 name|int
@@ -6547,11 +6532,6 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|util
-operator|.
-name|shutdownMiniMapReduceCluster
-argument_list|()
-expr_stmt|;
 name|util
 operator|.
 name|shutdownMiniCluster
@@ -6846,11 +6826,6 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|util
-operator|.
-name|startMiniMapReduceCluster
-argument_list|()
-expr_stmt|;
 name|RegionLocator
 name|regionLocator
 init|=
@@ -7055,11 +7030,6 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|util
-operator|.
-name|shutdownMiniMapReduceCluster
-argument_list|()
-expr_stmt|;
 name|util
 operator|.
 name|shutdownMiniCluster
