@@ -9254,6 +9254,12 @@ argument_list|(
 name|CALL_QUEUE_TOO_BIG_EXCEPTION
 argument_list|)
 expr_stmt|;
+name|InetSocketAddress
+name|address
+init|=
+name|getListenerAddress
+argument_list|()
+decl_stmt|;
 name|setupResponse
 argument_list|(
 name|responseBuffer
@@ -9264,8 +9270,15 @@ name|CALL_QUEUE_TOO_BIG_EXCEPTION
 argument_list|,
 literal|"Call queue is full on "
 operator|+
-name|getListenerAddress
-argument_list|()
+operator|(
+name|address
+operator|!=
+literal|null
+condition|?
+name|address
+else|:
+literal|"(channel closed)"
+operator|)
 operator|+
 literal|", is hbase.ipc.server.max.callqueue.size too small?"
 argument_list|)
@@ -9459,11 +9472,24 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
-name|String
-name|msg
+name|InetSocketAddress
+name|address
 init|=
 name|getListenerAddress
 argument_list|()
+decl_stmt|;
+name|String
+name|msg
+init|=
+operator|(
+name|address
+operator|!=
+literal|null
+condition|?
+name|address
+else|:
+literal|"(channel closed)"
+operator|)
 operator|+
 literal|" is unable to read call parameter from client "
 operator|+
@@ -11692,7 +11718,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Return the socket (ip+port) on which the RPC server is listening to.    * @return the socket (ip+port) on which the RPC server is listening to.    */
+comment|/**    * Return the socket (ip+port) on which the RPC server is listening to. May return null if    * the listener channel is closed.    * @return the socket (ip+port) on which the RPC server is listening to, or null if this    * information cannot be determined    */
 annotation|@
 name|Override
 specifier|public
@@ -11701,6 +11727,17 @@ name|InetSocketAddress
 name|getListenerAddress
 parameter_list|()
 block|{
+if|if
+condition|(
+name|listener
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 return|return
 name|listener
 operator|.

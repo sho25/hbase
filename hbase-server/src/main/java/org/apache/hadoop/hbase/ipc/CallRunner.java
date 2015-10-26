@@ -21,6 +21,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|InetSocketAddress
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|nio
 operator|.
 name|channels
@@ -520,16 +530,29 @@ name|isStarted
 argument_list|()
 condition|)
 block|{
+name|InetSocketAddress
+name|address
+init|=
+name|rpcServer
+operator|.
+name|getListenerAddress
+argument_list|()
+decl_stmt|;
 throw|throw
 operator|new
 name|ServerNotRunningYetException
 argument_list|(
 literal|"Server "
 operator|+
-name|rpcServer
-operator|.
-name|getListenerAddress
-argument_list|()
+operator|(
+name|address
+operator|!=
+literal|null
+condition|?
+name|address
+else|:
+literal|"(channel closed)"
+operator|)
 operator|+
 literal|" is not running yet"
 argument_list|)
@@ -856,6 +879,14 @@ name|ClosedChannelException
 name|cce
 parameter_list|)
 block|{
+name|InetSocketAddress
+name|address
+init|=
+name|rpcServer
+operator|.
+name|getListenerAddress
+argument_list|()
+decl_stmt|;
 name|RpcServer
 operator|.
 name|LOG
@@ -874,14 +905,17 @@ literal|": caught a ClosedChannelException, "
 operator|+
 literal|"this means that the server "
 operator|+
-name|rpcServer
-operator|.
-name|getListenerAddress
-argument_list|()
+operator|(
+name|address
+operator|!=
+literal|null
+condition|?
+name|address
+else|:
+literal|"(channel closed)"
+operator|)
 operator|+
-literal|" was processing a "
-operator|+
-literal|"request but the client went away. The error message was: "
+literal|" was processing a request but the client went away. The error message was: "
 operator|+
 name|cce
 operator|.

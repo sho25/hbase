@@ -1203,6 +1203,21 @@ operator|.
 name|getListenerAddress
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|address
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Listener channel is closed"
+argument_list|)
+throw|;
+block|}
 name|MethodDescriptor
 name|md
 init|=
@@ -1413,6 +1428,21 @@ operator|.
 name|getListenerAddress
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|address
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Listener channel is closed"
+argument_list|)
+throw|;
+block|}
 name|MethodDescriptor
 name|md
 init|=
@@ -1850,6 +1880,21 @@ operator|.
 name|getListenerAddress
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|address
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Listener channel is closed"
+argument_list|)
+throw|;
+block|}
 name|long
 name|startTime
 init|=

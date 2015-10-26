@@ -6792,6 +6792,29 @@ argument_list|,
 name|DEFAULT_REGION_SERVER_RPC_MINIMUM_SCAN_TIME_LIMIT_DELTA
 argument_list|)
 expr_stmt|;
+name|InetSocketAddress
+name|address
+init|=
+name|rpcServer
+operator|.
+name|getListenerAddress
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|address
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Listener channel is closed"
+argument_list|)
+throw|;
+block|}
 comment|// Set our address, however we need the final port that was given to rpcServer
 name|isa
 operator|=
@@ -6803,10 +6826,7 @@ operator|.
 name|getHostName
 argument_list|()
 argument_list|,
-name|rpcServer
-operator|.
-name|getListenerAddress
-argument_list|()
+name|address
 operator|.
 name|getPort
 argument_list|()
