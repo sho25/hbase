@@ -130,7 +130,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<a href="http://www.mapr.com">MapR</a> implementation.  */
+comment|/**  *<a href="http://www.mapr.com/">MapR</a> implementation.  */
 end_comment
 
 begin_class
