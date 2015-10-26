@@ -2704,8 +2704,9 @@ specifier|public
 name|Timeout
 name|timeout
 init|=
-operator|new
 name|Timeout
+operator|.
+name|millis
 argument_list|(
 literal|10000
 argument_list|)
@@ -4826,6 +4827,9 @@ operator|.
 name|mutator
 operator|.
 name|currentWriteBufferSize
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 try|try
@@ -4871,6 +4875,9 @@ operator|.
 name|mutator
 operator|.
 name|currentWriteBufferSize
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// The table should have sent one request, maybe after multiple attempts
@@ -5115,7 +5122,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*   @Test   public void testWithNoClearOnFail() throws IOException {     HTable ht = new HTable();     ht.ap = new MyAsyncProcess(createHConnection(), conf, true);     ht.setAutoFlushTo(false);      Put p = createPut(1, false);     ht.put(p);     Assert.assertEquals(0, ht.writeAsyncBuffer.size());      try {       ht.flushCommits();     } catch (RetriesExhaustedWithDetailsException expected) {     }     Assert.assertEquals(1, ht.writeAsyncBuffer.size());      try {       ht.close();     } catch (RetriesExhaustedWithDetailsException expected) {     }     Assert.assertEquals(1, ht.writeAsyncBuffer.size());   }   */
 annotation|@
 name|Test
 specifier|public
