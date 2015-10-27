@@ -752,6 +752,13 @@ operator|.
 name|isSmall
 argument_list|()
 expr_stmt|;
+name|allowPartialResults
+operator|=
+name|scan
+operator|.
+name|getAllowPartialResults
+argument_list|()
+expr_stmt|;
 name|TimeRange
 name|ctr
 init|=
