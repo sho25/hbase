@@ -91,22 +91,6 @@ name|TimeUnit
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|CallRunner
-import|;
-end_import
-
 begin_comment
 comment|/**  * A very simple {@code }RpcScheduler} that serves incoming requests in order.  *  * This can be used for HMaster, where no prioritization is needed.  */
 end_comment
@@ -270,6 +254,16 @@ name|void
 name|run
 parameter_list|()
 block|{
+name|task
+operator|.
+name|setStatus
+argument_list|(
+name|RpcServer
+operator|.
+name|getStatus
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|task
 operator|.
 name|run
