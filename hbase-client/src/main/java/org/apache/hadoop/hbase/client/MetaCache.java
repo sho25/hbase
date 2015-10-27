@@ -57,18 +57,6 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|ConcurrentHashMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
 name|ConcurrentMap
 import|;
 end_import
@@ -81,7 +69,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|ConcurrentSkipListMap
+name|ConcurrentNavigableMap
 import|;
 end_import
 
@@ -93,7 +81,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|ConcurrentSkipListSet
+name|CopyOnWriteArraySet
 import|;
 end_import
 
@@ -235,6 +223,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|types
+operator|.
+name|CopyOnWriteArrayMap
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -276,7 +280,7 @@ name|ConcurrentMap
 argument_list|<
 name|TableName
 argument_list|,
-name|ConcurrentSkipListMap
+name|ConcurrentNavigableMap
 argument_list|<
 name|byte
 index|[]
@@ -287,18 +291,8 @@ argument_list|>
 name|cachedRegionLocations
 init|=
 operator|new
-name|ConcurrentHashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|ConcurrentSkipListMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|RegionLocations
-argument_list|>
-argument_list|>
+name|CopyOnWriteArrayMap
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// The presence of a server in the map implies it's likely that there is an
@@ -315,10 +309,8 @@ argument_list|>
 name|cachedServers
 init|=
 operator|new
-name|ConcurrentSkipListSet
-argument_list|<
-name|ServerName
-argument_list|>
+name|CopyOnWriteArraySet
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -340,7 +332,7 @@ operator|=
 name|metrics
 expr_stmt|;
 block|}
-comment|/**    * Search the cache for a location that fits our table and row key.    * Return null if no suitable region is located.    *    *    * @param tableName    * @param row    * @return Null or region location found in cache.    */
+comment|/**    * Search the cache for a location that fits our table and row key.    * Return null if no suitable region is located.    *    * @return Null or region location found in cache.    */
 specifier|public
 name|RegionLocations
 name|getCachedLocation
@@ -355,7 +347,7 @@ index|[]
 name|row
 parameter_list|)
 block|{
-name|ConcurrentSkipListMap
+name|ConcurrentNavigableMap
 argument_list|<
 name|byte
 index|[]
@@ -921,7 +913,7 @@ block|}
 block|}
 comment|/**    * @param tableName    * @return Map of cached locations for passed<code>tableName</code>    */
 specifier|private
-name|ConcurrentSkipListMap
+name|ConcurrentNavigableMap
 argument_list|<
 name|byte
 index|[]
@@ -936,7 +928,7 @@ name|tableName
 parameter_list|)
 block|{
 comment|// find the map of cached locations for this table
-name|ConcurrentSkipListMap
+name|ConcurrentNavigableMap
 argument_list|<
 name|byte
 index|[]
@@ -967,20 +959,15 @@ block|{
 name|result
 operator|=
 operator|new
-name|ConcurrentSkipListMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|RegionLocations
-argument_list|>
+name|CopyOnWriteArrayMap
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 expr_stmt|;
-name|ConcurrentSkipListMap
+name|ConcurrentNavigableMap
 argument_list|<
 name|byte
 index|[]

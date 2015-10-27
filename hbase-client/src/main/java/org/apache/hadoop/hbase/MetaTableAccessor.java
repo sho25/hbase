@@ -4755,6 +4755,10 @@ index|[]
 argument_list|>
 name|serverMap
 init|=
+literal|null
+decl_stmt|;
+name|serverMap
+operator|=
 name|infoMap
 operator|.
 name|tailMap
@@ -4763,7 +4767,7 @@ name|serverColumn
 argument_list|,
 literal|false
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|serverMap
