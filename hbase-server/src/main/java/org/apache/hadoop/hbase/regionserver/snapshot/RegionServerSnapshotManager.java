@@ -650,13 +650,15 @@ name|SNAPSHOT_TIMEOUT_MILLIS_KEY
 init|=
 literal|"hbase.snapshot.region.timeout"
 decl_stmt|;
-comment|/** Keep threads alive in request pool for max of 60 seconds */
+comment|/** Keep threads alive in request pool for max of 300 seconds */
 specifier|public
 specifier|static
 specifier|final
 name|long
 name|SNAPSHOT_TIMEOUT_MILLIS_DEFAULT
 init|=
+literal|5
+operator|*
 literal|60000
 decl_stmt|;
 comment|/** Conf key for millis between checks to see if snapshot completed or if there are errors*/

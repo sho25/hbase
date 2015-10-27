@@ -353,7 +353,7 @@ name|MASTER_SNAPSHOT_TIMEOUT_MILLIS
 init|=
 literal|"hbase.snapshot.master.timeout.millis"
 decl_stmt|;
-comment|/** By default, wait 60 seconds for a snapshot to complete */
+comment|/** By default, wait 300 seconds for a snapshot to complete */
 specifier|public
 specifier|static
 specifier|final
@@ -361,6 +361,32 @@ name|long
 name|DEFAULT_MAX_WAIT_TIME
 init|=
 literal|60000
+operator|*
+literal|5
+decl_stmt|;
+comment|/**    * By default, check to see if the snapshot is complete (ms)    * @deprecated Use {@link #DEFAULT_MAX_WAIT_TIME} instead.    * */
+annotation|@
+name|Deprecated
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SNAPSHOT_TIMEOUT_MILLIS_DEFAULT
+init|=
+literal|60000
+operator|*
+literal|5
+decl_stmt|;
+comment|/**    * Conf key for # of ms elapsed before injecting a snapshot timeout error when waiting for    * completion.    * @deprecated Use {@link #MASTER_SNAPSHOT_TIMEOUT_MILLIS} instead.    */
+annotation|@
+name|Deprecated
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SNAPSHOT_TIMEOUT_MILLIS_KEY
+init|=
+literal|"hbase.snapshot.master.timeoutMillis"
 decl_stmt|;
 specifier|private
 name|SnapshotDescriptionUtils
@@ -404,6 +430,10 @@ name|MASTER_SNAPSHOT_TIMEOUT_MILLIS
 expr_stmt|;
 block|}
 return|return
+name|Math
+operator|.
+name|max
+argument_list|(
 name|conf
 operator|.
 name|getLong
@@ -411,6 +441,16 @@ argument_list|(
 name|confKey
 argument_list|,
 name|defaultMaxWaitTime
+argument_list|)
+argument_list|,
+name|conf
+operator|.
+name|getLong
+argument_list|(
+name|SNAPSHOT_TIMEOUT_MILLIS_KEY
+argument_list|,
+name|defaultMaxWaitTime
+argument_list|)
 argument_list|)
 return|;
 block|}
