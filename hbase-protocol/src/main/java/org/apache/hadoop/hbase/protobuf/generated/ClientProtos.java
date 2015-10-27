@@ -72125,6 +72125,17 @@ name|int
 name|getCaching
 parameter_list|()
 function_decl|;
+comment|// optional bool allow_partial_results = 18;
+comment|/**      *<code>optional bool allow_partial_results = 18;</code>      */
+name|boolean
+name|hasAllowPartialResults
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool allow_partial_results = 18;</code>      */
+name|boolean
+name|getAllowPartialResults
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code hbase.pb.Scan}    *    *<pre>    **    * Instead of get from a table, you can scan it with optional filters.    * You can specify the row key range, time range, the columns/families    * to scan and so on.    *    * This scan is used the first time in a scan request. The response of    * the initial scan will return a scanner id, which should be used to    * fetch result batches later on before it is closed.    *</pre>    */
 specifier|public
@@ -73024,6 +73035,23 @@ operator|=
 name|input
 operator|.
 name|readUInt32
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|144
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00008000
+expr_stmt|;
+name|allowPartialResults_
+operator|=
+name|input
+operator|.
+name|readBool
 argument_list|()
 expr_stmt|;
 break|break;
@@ -74478,6 +74506,47 @@ return|return
 name|caching_
 return|;
 block|}
+comment|// optional bool allow_partial_results = 18;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|ALLOW_PARTIAL_RESULTS_FIELD_NUMBER
+init|=
+literal|18
+decl_stmt|;
+specifier|private
+name|boolean
+name|allowPartialResults_
+decl_stmt|;
+comment|/**      *<code>optional bool allow_partial_results = 18;</code>      */
+specifier|public
+name|boolean
+name|hasAllowPartialResults
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00008000
+operator|)
+operator|==
+literal|0x00008000
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool allow_partial_results = 18;</code>      */
+specifier|public
+name|boolean
+name|getAllowPartialResults
+parameter_list|()
+block|{
+return|return
+name|allowPartialResults_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -74630,6 +74699,10 @@ expr_stmt|;
 name|caching_
 operator|=
 literal|0
+expr_stmt|;
+name|allowPartialResults_
+operator|=
+literal|false
 expr_stmt|;
 block|}
 specifier|private
@@ -75203,6 +75276,29 @@ argument_list|(
 literal|17
 argument_list|,
 name|caching_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00008000
+operator|)
+operator|==
+literal|0x00008000
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|18
+argument_list|,
+name|allowPartialResults_
 argument_list|)
 expr_stmt|;
 block|}
@@ -75793,6 +75889,37 @@ argument_list|(
 literal|17
 argument_list|,
 name|caching_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00008000
+operator|)
+operator|==
+literal|0x00008000
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|18
+argument_list|,
+name|allowPartialResults_
 argument_list|)
 expr_stmt|;
 block|}
@@ -76515,6 +76642,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasAllowPartialResults
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasAllowPartialResults
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasAllowPartialResults
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getAllowPartialResults
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getAllowPartialResults
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -77091,6 +77253,37 @@ operator|)
 operator|+
 name|getCaching
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasAllowPartialResults
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|ALLOW_PARTIAL_RESULTS_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getAllowPartialResults
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -78296,6 +78489,19 @@ operator|~
 literal|0x00010000
 operator|)
 expr_stmt|;
+name|allowPartialResults_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00020000
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -79036,6 +79242,30 @@ name|caching_
 operator|=
 name|caching_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00020000
+operator|)
+operator|==
+literal|0x00020000
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00008000
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|allowPartialResults_
+operator|=
+name|allowPartialResults_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -79699,6 +79929,23 @@ argument_list|(
 name|other
 operator|.
 name|getCaching
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasAllowPartialResults
+argument_list|()
+condition|)
+block|{
+name|setAllowPartialResults
+argument_list|(
+name|other
+operator|.
+name|getAllowPartialResults
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -85266,6 +85513,89 @@ expr_stmt|;
 name|caching_
 operator|=
 literal|0
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional bool allow_partial_results = 18;
+specifier|private
+name|boolean
+name|allowPartialResults_
+decl_stmt|;
+comment|/**        *<code>optional bool allow_partial_results = 18;</code>        */
+specifier|public
+name|boolean
+name|hasAllowPartialResults
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00020000
+operator|)
+operator|==
+literal|0x00020000
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool allow_partial_results = 18;</code>        */
+specifier|public
+name|boolean
+name|getAllowPartialResults
+parameter_list|()
+block|{
+return|return
+name|allowPartialResults_
+return|;
+block|}
+comment|/**        *<code>optional bool allow_partial_results = 18;</code>        */
+specifier|public
+name|Builder
+name|setAllowPartialResults
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00020000
+expr_stmt|;
+name|allowPartialResults_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool allow_partial_results = 18;</code>        */
+specifier|public
+name|Builder
+name|clearAllowPartialResults
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00020000
+operator|)
+expr_stmt|;
+name|allowPartialResults_
+operator|=
+literal|false
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -176262,7 +176592,7 @@ literal|"se.pb.Condition\022\023\n\013nonce_group\030\004 \001(\004\"E\n\016"
 operator|+
 literal|"MutateResponse\022 \n\006result\030\001 \001(\0132\020.hbase.p"
 operator|+
-literal|"b.Result\022\021\n\tprocessed\030\002 \001(\010\"\346\003\n\004Scan\022 \n\006"
+literal|"b.Result\022\021\n\tprocessed\030\002 \001(\010\"\205\004\n\004Scan\022 \n\006"
 operator|+
 literal|"column\030\001 \003(\0132\020.hbase.pb.Column\022*\n\tattrib"
 operator|+
@@ -176286,143 +176616,145 @@ literal|"d\030\r \001(\010\022\r\n\005small\030\016 \001(\010\022\027\n\010rever
 operator|+
 literal|":\005false\0222\n\013consistency\030\020 \001(\0162\025.hbase.pb."
 operator|+
-literal|"Consistency:\006STRONG\022\017\n\007caching\030\021 \001(\r\"\220\002\n"
+literal|"Consistency:\006STRONG\022\017\n\007caching\030\021 \001(\r\022\035\n\025"
 operator|+
-literal|"\013ScanRequest\022)\n\006region\030\001 \001(\0132\031.hbase.pb."
+literal|"allow_partial_results\030\022 \001(\010\"\220\002\n\013ScanRequ"
 operator|+
-literal|"RegionSpecifier\022\034\n\004scan\030\002 \001(\0132\016.hbase.pb"
+literal|"est\022)\n\006region\030\001 \001(\0132\031.hbase.pb.RegionSpe"
 operator|+
-literal|".Scan\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016number_of_r"
+literal|"cifier\022\034\n\004scan\030\002 \001(\0132\016.hbase.pb.Scan\022\022\n\n"
 operator|+
-literal|"ows\030\004 \001(\r\022\025\n\rclose_scanner\030\005 \001(\010\022\025\n\rnext"
+literal|"scanner_id\030\003 \001(\004\022\026\n\016number_of_rows\030\004 \001(\r"
 operator|+
-literal|"_call_seq\030\006 \001(\004\022\037\n\027client_handles_partia"
+literal|"\022\025\n\rclose_scanner\030\005 \001(\010\022\025\n\rnext_call_seq"
 block|,
-literal|"ls\030\007 \001(\010\022!\n\031client_handles_heartbeats\030\010 "
+literal|"\030\006 \001(\004\022\037\n\027client_handles_partials\030\007 \001(\010\022"
 operator|+
-literal|"\001(\010\022\032\n\022track_scan_metrics\030\t \001(\010\"\232\002\n\014Scan"
+literal|"!\n\031client_handles_heartbeats\030\010 \001(\010\022\032\n\022tr"
 operator|+
-literal|"Response\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n\nsc"
+literal|"ack_scan_metrics\030\t \001(\010\"\232\002\n\014ScanResponse\022"
 operator|+
-literal|"anner_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022\013\n\003"
+literal|"\030\n\020cells_per_result\030\001 \003(\r\022\022\n\nscanner_id\030"
 operator|+
-literal|"ttl\030\004 \001(\r\022!\n\007results\030\005 \003(\0132\020.hbase.pb.Re"
+literal|"\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r"
 operator|+
-literal|"sult\022\r\n\005stale\030\006 \001(\010\022\037\n\027partial_flag_per_"
+literal|"\022!\n\007results\030\005 \003(\0132\020.hbase.pb.Result\022\r\n\005s"
 operator|+
-literal|"result\030\007 \003(\010\022\036\n\026more_results_in_region\030\010"
+literal|"tale\030\006 \001(\010\022\037\n\027partial_flag_per_result\030\007 "
 operator|+
-literal|" \001(\010\022\031\n\021heartbeat_message\030\t \001(\010\022+\n\014scan_"
+literal|"\003(\010\022\036\n\026more_results_in_region\030\010 \001(\010\022\031\n\021h"
 operator|+
-literal|"metrics\030\n \001(\0132\025.hbase.pb.ScanMetrics\"\305\001\n"
+literal|"eartbeat_message\030\t \001(\010\022+\n\014scan_metrics\030\n"
 operator|+
-literal|"\024BulkLoadHFileRequest\022)\n\006region\030\001 \002(\0132\031."
+literal|" \001(\0132\025.hbase.pb.ScanMetrics\"\305\001\n\024BulkLoad"
 block|,
-literal|"hbase.pb.RegionSpecifier\022>\n\013family_path\030"
+literal|"HFileRequest\022)\n\006region\030\001 \002(\0132\031.hbase.pb."
 operator|+
-literal|"\002 \003(\0132).hbase.pb.BulkLoadHFileRequest.Fa"
+literal|"RegionSpecifier\022>\n\013family_path\030\002 \003(\0132).h"
 operator|+
-literal|"milyPath\022\026\n\016assign_seq_num\030\003 \001(\010\032*\n\nFami"
+literal|"base.pb.BulkLoadHFileRequest.FamilyPath\022"
 operator|+
-literal|"lyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025"
+literal|"\026\n\016assign_seq_num\030\003 \001(\010\032*\n\nFamilyPath\022\016\n"
 operator|+
-literal|"BulkLoadHFileResponse\022\016\n\006loaded\030\001 \002(\010\"a\n"
+literal|"\006family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadH"
 operator|+
-literal|"\026CoprocessorServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014"
+literal|"FileResponse\022\016\n\006loaded\030\001 \002(\010\"a\n\026Coproces"
 operator|+
-literal|"service_name\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t\022"
+literal|"sorServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service_n"
 operator|+
-literal|"\017\n\007request\030\004 \002(\014\"B\n\030CoprocessorServiceRe"
+literal|"ame\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007reques"
 operator|+
-literal|"sult\022&\n\005value\030\001 \001(\0132\027.hbase.pb.NameBytes"
+literal|"t\030\004 \002(\014\"B\n\030CoprocessorServiceResult\022&\n\005v"
 operator|+
-literal|"Pair\"v\n\031CoprocessorServiceRequest\022)\n\006reg"
+literal|"alue\030\001 \001(\0132\027.hbase.pb.NameBytesPair\"v\n\031C"
 block|,
-literal|"ion\030\001 \002(\0132\031.hbase.pb.RegionSpecifier\022.\n\004"
+literal|"oprocessorServiceRequest\022)\n\006region\030\001 \002(\013"
 operator|+
-literal|"call\030\002 \002(\0132 .hbase.pb.CoprocessorService"
+literal|"2\031.hbase.pb.RegionSpecifier\022.\n\004call\030\002 \002("
 operator|+
-literal|"Call\"o\n\032CoprocessorServiceResponse\022)\n\006re"
+literal|"\0132 .hbase.pb.CoprocessorServiceCall\"o\n\032C"
 operator|+
-literal|"gion\030\001 \002(\0132\031.hbase.pb.RegionSpecifier\022&\n"
+literal|"oprocessorServiceResponse\022)\n\006region\030\001 \002("
 operator|+
-literal|"\005value\030\002 \002(\0132\027.hbase.pb.NameBytesPair\"\226\001"
+literal|"\0132\031.hbase.pb.RegionSpecifier\022&\n\005value\030\002 "
 operator|+
-literal|"\n\006Action\022\r\n\005index\030\001 \001(\r\022)\n\010mutation\030\002 \001("
+literal|"\002(\0132\027.hbase.pb.NameBytesPair\"\226\001\n\006Action\022"
 operator|+
-literal|"\0132\027.hbase.pb.MutationProto\022\032\n\003get\030\003 \001(\0132"
+literal|"\r\n\005index\030\001 \001(\r\022)\n\010mutation\030\002 \001(\0132\027.hbase"
 operator|+
-literal|"\r.hbase.pb.Get\0226\n\014service_call\030\004 \001(\0132 .h"
+literal|".pb.MutationProto\022\032\n\003get\030\003 \001(\0132\r.hbase.p"
 operator|+
-literal|"base.pb.CoprocessorServiceCall\"k\n\014Region"
+literal|"b.Get\0226\n\014service_call\030\004 \001(\0132 .hbase.pb.C"
 operator|+
-literal|"Action\022)\n\006region\030\001 \002(\0132\031.hbase.pb.Region"
+literal|"oprocessorServiceCall\"k\n\014RegionAction\022)\n"
 block|,
-literal|"Specifier\022\016\n\006atomic\030\002 \001(\010\022 \n\006action\030\003 \003("
+literal|"\006region\030\001 \002(\0132\031.hbase.pb.RegionSpecifier"
 operator|+
-literal|"\0132\020.hbase.pb.Action\"D\n\017RegionLoadStats\022\027"
+literal|"\022\016\n\006atomic\030\002 \001(\010\022 \n\006action\030\003 \003(\0132\020.hbase"
 operator|+
-literal|"\n\014memstoreLoad\030\001 \001(\005:\0010\022\030\n\rheapOccupancy"
+literal|".pb.Action\"D\n\017RegionLoadStats\022\027\n\014memstor"
 operator|+
-literal|"\030\002 \001(\005:\0010\"\332\001\n\021ResultOrException\022\r\n\005index"
+literal|"eLoad\030\001 \001(\005:\0010\022\030\n\rheapOccupancy\030\002 \001(\005:\0010"
 operator|+
-literal|"\030\001 \001(\r\022 \n\006result\030\002 \001(\0132\020.hbase.pb.Result"
+literal|"\"\332\001\n\021ResultOrException\022\r\n\005index\030\001 \001(\r\022 \n"
 operator|+
-literal|"\022*\n\texception\030\003 \001(\0132\027.hbase.pb.NameBytes"
+literal|"\006result\030\002 \001(\0132\020.hbase.pb.Result\022*\n\texcep"
 operator|+
-literal|"Pair\022:\n\016service_result\030\004 \001(\0132\".hbase.pb."
+literal|"tion\030\003 \001(\0132\027.hbase.pb.NameBytesPair\022:\n\016s"
 operator|+
-literal|"CoprocessorServiceResult\022,\n\tloadStats\030\005 "
+literal|"ervice_result\030\004 \001(\0132\".hbase.pb.Coprocess"
 operator|+
-literal|"\001(\0132\031.hbase.pb.RegionLoadStats\"x\n\022Region"
+literal|"orServiceResult\022,\n\tloadStats\030\005 \001(\0132\031.hba"
 operator|+
-literal|"ActionResult\0226\n\021resultOrException\030\001 \003(\0132"
+literal|"se.pb.RegionLoadStats\"x\n\022RegionActionRes"
 block|,
-literal|"\033.hbase.pb.ResultOrException\022*\n\texceptio"
+literal|"ult\0226\n\021resultOrException\030\001 \003(\0132\033.hbase.p"
 operator|+
-literal|"n\030\002 \001(\0132\027.hbase.pb.NameBytesPair\"x\n\014Mult"
+literal|"b.ResultOrException\022*\n\texception\030\002 \001(\0132\027"
 operator|+
-literal|"iRequest\022,\n\014regionAction\030\001 \003(\0132\026.hbase.p"
+literal|".hbase.pb.NameBytesPair\"x\n\014MultiRequest\022"
 operator|+
-literal|"b.RegionAction\022\022\n\nnonceGroup\030\002 \001(\004\022&\n\tco"
+literal|",\n\014regionAction\030\001 \003(\0132\026.hbase.pb.RegionA"
 operator|+
-literal|"ndition\030\003 \001(\0132\023.hbase.pb.Condition\"\\\n\rMu"
+literal|"ction\022\022\n\nnonceGroup\030\002 \001(\004\022&\n\tcondition\030\003"
 operator|+
-literal|"ltiResponse\0228\n\022regionActionResult\030\001 \003(\0132"
+literal|" \001(\0132\023.hbase.pb.Condition\"\\\n\rMultiRespon"
 operator|+
-literal|"\034.hbase.pb.RegionActionResult\022\021\n\tprocess"
+literal|"se\0228\n\022regionActionResult\030\001 \003(\0132\034.hbase.p"
 operator|+
-literal|"ed\030\002 \001(\010*\'\n\013Consistency\022\n\n\006STRONG\020\000\022\014\n\010T"
+literal|"b.RegionActionResult\022\021\n\tprocessed\030\002 \001(\010*"
 operator|+
-literal|"IMELINE\020\0012\203\004\n\rClientService\0222\n\003Get\022\024.hba"
+literal|"\'\n\013Consistency\022\n\n\006STRONG\020\000\022\014\n\010TIMELINE\020\001"
 operator|+
-literal|"se.pb.GetRequest\032\025.hbase.pb.GetResponse\022"
+literal|"2\203\004\n\rClientService\0222\n\003Get\022\024.hbase.pb.Get"
 block|,
-literal|";\n\006Mutate\022\027.hbase.pb.MutateRequest\032\030.hba"
+literal|"Request\032\025.hbase.pb.GetResponse\022;\n\006Mutate"
 operator|+
-literal|"se.pb.MutateResponse\0225\n\004Scan\022\025.hbase.pb."
+literal|"\022\027.hbase.pb.MutateRequest\032\030.hbase.pb.Mut"
 operator|+
-literal|"ScanRequest\032\026.hbase.pb.ScanResponse\022P\n\rB"
+literal|"ateResponse\0225\n\004Scan\022\025.hbase.pb.ScanReque"
 operator|+
-literal|"ulkLoadHFile\022\036.hbase.pb.BulkLoadHFileReq"
+literal|"st\032\026.hbase.pb.ScanResponse\022P\n\rBulkLoadHF"
 operator|+
-literal|"uest\032\037.hbase.pb.BulkLoadHFileResponse\022X\n"
+literal|"ile\022\036.hbase.pb.BulkLoadHFileRequest\032\037.hb"
 operator|+
-literal|"\013ExecService\022#.hbase.pb.CoprocessorServi"
+literal|"ase.pb.BulkLoadHFileResponse\022X\n\013ExecServ"
 operator|+
-literal|"ceRequest\032$.hbase.pb.CoprocessorServiceR"
+literal|"ice\022#.hbase.pb.CoprocessorServiceRequest"
 operator|+
-literal|"esponse\022d\n\027ExecRegionServerService\022#.hba"
+literal|"\032$.hbase.pb.CoprocessorServiceResponse\022d"
 operator|+
-literal|"se.pb.CoprocessorServiceRequest\032$.hbase."
+literal|"\n\027ExecRegionServerService\022#.hbase.pb.Cop"
 operator|+
-literal|"pb.CoprocessorServiceResponse\0228\n\005Multi\022\026"
+literal|"rocessorServiceRequest\032$.hbase.pb.Coproc"
 block|,
-literal|".hbase.pb.MultiRequest\032\027.hbase.pb.MultiR"
+literal|"essorServiceResponse\0228\n\005Multi\022\026.hbase.pb"
 operator|+
-literal|"esponseBB\n*org.apache.hadoop.hbase.proto"
+literal|".MultiRequest\032\027.hbase.pb.MultiResponseBB"
 operator|+
-literal|"buf.generatedB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|"\n*org.apache.hadoop.hbase.protobuf.gener"
+operator|+
+literal|"atedB\014ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -177139,6 +177471,8 @@ block|,
 literal|"Consistency"
 block|,
 literal|"Caching"
+block|,
+literal|"AllowPartialResults"
 block|, }
 argument_list|)
 expr_stmt|;
