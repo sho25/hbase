@@ -6393,7 +6393,7 @@ throws|throws
 name|Exception
 block|{
 comment|// write an edit in the META and ensure the shouldFlush (that the periodic memstore
-comment|// flusher invokes) returns true after META_CACHE_FLUSH_INTERVAL (even though
+comment|// flusher invokes) returns true after SYSTEM_CACHE_FLUSH_INTERVAL (even though
 comment|// the MEMSTORE_PERIODIC_FLUSH_INTERVAL is set to a higher value)
 name|Configuration
 name|conf
@@ -6412,7 +6412,7 @@ name|MEMSTORE_PERIODIC_FLUSH_INTERVAL
 argument_list|,
 name|HRegion
 operator|.
-name|META_CACHE_FLUSH_INTERVAL
+name|SYSTEM_CACHE_FLUSH_INTERVAL
 operator|*
 literal|10
 argument_list|)
@@ -6642,7 +6642,7 @@ argument_list|()
 operator|+
 name|HRegion
 operator|.
-name|META_CACHE_FLUSH_INTERVAL
+name|SYSTEM_CACHE_FLUSH_INTERVAL
 operator|+
 literal|1
 argument_list|)

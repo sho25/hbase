@@ -6894,11 +6894,12 @@ name|DEFAULT_CACHE_FLUSH_INTERVAL
 init|=
 literal|3600000
 decl_stmt|;
+comment|/** Default interval for System tables memstore flush */
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|META_CACHE_FLUSH_INTERVAL
+name|SYSTEM_CACHE_FLUSH_INTERVAL
 init|=
 literal|300000
 decl_stmt|;
@@ -10083,7 +10084,7 @@ condition|(
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaRegion
+name|isSystemTable
 argument_list|()
 operator|&&
 name|getRegionInfo
@@ -10099,7 +10100,7 @@ condition|)
 block|{
 name|modifiedFlushCheckInterval
 operator|=
-name|META_CACHE_FLUSH_INTERVAL
+name|SYSTEM_CACHE_FLUSH_INTERVAL
 expr_stmt|;
 block|}
 if|if
