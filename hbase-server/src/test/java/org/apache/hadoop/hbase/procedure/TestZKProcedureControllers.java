@@ -2299,13 +2299,15 @@ parameter_list|)
 block|{
 comment|//    verify(member, Mockito.times(cohortSize)).submitSubprocedure(Mockito.eq(operationName),
 comment|//      (byte[]) Mockito.argThat(new ArrayEquals(data)));
+name|Mockito
+operator|.
 name|verify
 argument_list|(
 name|member
 argument_list|,
 name|Mockito
 operator|.
-name|times
+name|atLeast
 argument_list|(
 name|cohortSize
 argument_list|)
