@@ -9291,6 +9291,8 @@ argument_list|(
 name|compaction
 argument_list|,
 name|throughputController
+argument_list|,
+name|user
 argument_list|)
 expr_stmt|;
 block|}
