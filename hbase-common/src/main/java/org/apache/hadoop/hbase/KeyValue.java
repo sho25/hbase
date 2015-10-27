@@ -1256,7 +1256,7 @@ name|Maximum
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructs KeyValue structure filled with null value.    * @param row - row key (arbitrary byte array)    * @param family family name    * @param qualifier column qualifier    */
+comment|/**    * Constructs KeyValue structure as a put filled with specified values and    * LATEST_TIMESTAMP.    * @param row - row key (arbitrary byte array)    * @param family family name    * @param qualifier column qualifier    */
 specifier|public
 name|KeyValue
 parameter_list|(
