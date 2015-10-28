@@ -2214,7 +2214,7 @@ name|IOException
 block|{
 if|if
 condition|(
-name|HRegionInfo
+name|MetaTableAccessor
 operator|.
 name|getHRegionInfo
 argument_list|(

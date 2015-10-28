@@ -18137,7 +18137,7 @@ name|HRegionInfo
 argument_list|>
 name|daughters
 init|=
-name|HRegionInfo
+name|MetaTableAccessor
 operator|.
 name|getDaughterRegions
 argument_list|(
@@ -18317,7 +18317,7 @@ name|HRegionInfo
 argument_list|>
 name|mergeRegions
 init|=
-name|HRegionInfo
+name|MetaTableAccessor
 operator|.
 name|getMergeRegions
 argument_list|(

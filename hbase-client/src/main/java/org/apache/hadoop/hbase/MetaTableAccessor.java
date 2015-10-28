@@ -1390,6 +1390,7 @@ name|Exception
 name|parseEx
 parameter_list|)
 block|{
+empty_stmt|;
 comment|// Ignore. This is used with tableName passed as regionName.
 block|}
 name|Get
@@ -4349,7 +4350,12 @@ end_comment
 begin_function
 annotation|@
 name|Nullable
-specifier|private
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+comment|// for use by HMaster#getTableRegionRow which is used for testing only
+specifier|public
 specifier|static
 name|ServerName
 name|getServerName
@@ -4461,6 +4467,8 @@ condition|)
 return|return
 literal|null
 return|;
+try|try
+block|{
 return|return
 name|ServerName
 operator|.
@@ -4489,6 +4497,32 @@ argument_list|()
 argument_list|)
 argument_list|)
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|IllegalArgumentException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Ignoring invalid region for server "
+operator|+
+name|hostAndPort
+operator|+
+literal|"; cell="
+operator|+
+name|cell
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
 block|}
 end_function
 
@@ -5796,45 +5830,6 @@ return|;
 block|}
 block|}
 end_class
-
-begin_comment
-comment|/**    * Count regions in<code>hbase:meta</code> for passed table.    * @param c Configuration object    * @param tableName table name to count regions for    * @return Count or regions in table<code>tableName</code>    * @throws IOException    */
-end_comment
-
-begin_function
-annotation|@
-name|Deprecated
-specifier|public
-specifier|static
-name|int
-name|getRegionCount
-parameter_list|(
-specifier|final
-name|Configuration
-name|c
-parameter_list|,
-specifier|final
-name|String
-name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|getRegionCount
-argument_list|(
-name|c
-argument_list|,
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
-name|tableName
-argument_list|)
-argument_list|)
-return|;
-block|}
-end_function
 
 begin_comment
 comment|/**    * Count regions in<code>hbase:meta</code> for passed table.    * @param c Configuration object    * @param tableName table name to count regions for    * @return Count or regions in table<code>tableName</code>    * @throws IOException    */

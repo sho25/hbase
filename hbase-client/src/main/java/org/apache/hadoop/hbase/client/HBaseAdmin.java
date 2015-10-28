@@ -9757,6 +9757,7 @@ break|break;
 case|case
 name|NORMAL
 case|:
+default|default:
 name|ZooKeeperWatcher
 name|zookeeper
 init|=
@@ -12255,7 +12256,7 @@ block|{
 name|HRegionInfo
 name|info
 init|=
-name|HRegionInfo
+name|MetaTableAccessor
 operator|.
 name|getHRegionInfo
 argument_list|(
@@ -18675,6 +18676,7 @@ break|break;
 case|case
 name|NORMAL
 case|:
+default|default:
 name|ZooKeeperWatcher
 name|zookeeper
 init|=

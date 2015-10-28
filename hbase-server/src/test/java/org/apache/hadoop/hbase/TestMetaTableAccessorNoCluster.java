@@ -573,7 +573,7 @@ name|IOException
 block|{
 name|assertNull
 argument_list|(
-name|HRegionInfo
+name|MetaTableAccessor
 operator|.
 name|getHRegionInfo
 argument_list|(
@@ -608,7 +608,7 @@ argument_list|)
 decl_stmt|;
 name|assertNull
 argument_list|(
-name|HRegionInfo
+name|MetaTableAccessor
 operator|.
 name|getHRegionInfo
 argument_list|(
@@ -657,7 +657,7 @@ argument_list|)
 expr_stmt|;
 name|assertNull
 argument_list|(
-name|HRegionInfo
+name|MetaTableAccessor
 operator|.
 name|getHRegionInfo
 argument_list|(
@@ -690,7 +690,7 @@ expr_stmt|;
 name|HRegionInfo
 name|hri
 init|=
-name|HRegionInfo
+name|MetaTableAccessor
 operator|.
 name|getHRegionInfo
 argument_list|(
@@ -743,7 +743,7 @@ argument_list|)
 expr_stmt|;
 name|hri
 operator|=
-name|HRegionInfo
+name|MetaTableAccessor
 operator|.
 name|getHRegionInfo
 argument_list|(

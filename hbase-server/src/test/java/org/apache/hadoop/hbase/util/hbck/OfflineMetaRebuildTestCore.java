@@ -1771,7 +1771,7 @@ block|{
 name|HRegionInfo
 name|info
 init|=
-name|HRegionInfo
+name|MetaTableAccessor
 operator|.
 name|getHRegionInfo
 argument_list|(

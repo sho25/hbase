@@ -1406,7 +1406,7 @@ block|}
 name|HRegionInfo
 name|region
 init|=
-name|HRegionInfo
+name|MetaTableAccessor
 operator|.
 name|getHRegionInfo
 argument_list|(
@@ -1604,7 +1604,7 @@ block|}
 name|HRegionInfo
 name|region
 init|=
-name|HRegionInfo
+name|MetaTableAccessor
 operator|.
 name|getHRegionInfo
 argument_list|(

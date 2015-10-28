@@ -449,7 +449,7 @@ specifier|final
 name|Server
 name|server
 decl_stmt|;
-comment|/**    * Returns the {@link ServerName} from catalog table {@link Result}    * where the region is transitioning. It should be the same as    * {@link HRegionInfo#getServerName(Result)} if the server is at OPEN state.    * @param r Result to pull the transitioning server name from    * @return A ServerName instance or {@link HRegionInfo#getServerName(Result)}    * if necessary fields not found or empty.    */
+comment|/**    * Returns the {@link ServerName} from catalog table {@link Result}    * where the region is transitioning. It should be the same as    * {@link MetaTableAccessor#getServerName(Result,int)} if the server is at OPEN state.    * @param r Result to pull the transitioning server name from    * @return A ServerName instance or {@link MetaTableAccessor#getServerName(Result,int)}    * if necessary fields not found or empty.    */
 specifier|static
 name|ServerName
 name|getRegionServer
