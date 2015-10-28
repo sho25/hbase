@@ -487,6 +487,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -1019,6 +1029,11 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test snapshotting a table that is online without flushing    * @throws Exception    */
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Flakey test"
+argument_list|)
 annotation|@
 name|Test
 argument_list|(
