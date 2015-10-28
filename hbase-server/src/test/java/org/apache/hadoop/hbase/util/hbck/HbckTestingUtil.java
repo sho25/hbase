@@ -246,6 +246,8 @@ name|fix
 argument_list|,
 name|fix
 argument_list|,
+name|fix
+argument_list|,
 name|table
 argument_list|)
 return|;
@@ -287,6 +289,9 @@ name|fixEmptyMetaRegionInfo
 parameter_list|,
 name|boolean
 name|fixTableLocks
+parameter_list|,
+name|Boolean
+name|fixReplication
 parameter_list|,
 name|TableName
 name|table
@@ -388,6 +393,13 @@ operator|.
 name|setFixTableLocks
 argument_list|(
 name|fixTableLocks
+argument_list|)
+expr_stmt|;
+name|fsck
+operator|.
+name|setFixReplication
+argument_list|(
+name|fixReplication
 argument_list|)
 expr_stmt|;
 if|if
