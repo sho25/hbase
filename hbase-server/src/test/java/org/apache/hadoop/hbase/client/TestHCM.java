@@ -641,7 +641,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|LargeTests
 import|;
 end_import
 
@@ -834,7 +834,7 @@ annotation|@
 name|Category
 argument_list|(
 block|{
-name|MediumTests
+name|LargeTests
 operator|.
 name|class
 block|}
@@ -1154,11 +1154,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testClusterConnection
@@ -1508,11 +1503,6 @@ block|}
 comment|/**    * Naive test to check that HConnection#getAdmin returns a properly constructed HBaseAdmin object    * @throws IOException Unable to construct admin    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testAdminFactory
@@ -1991,11 +1981,6 @@ block|}
 comment|/**    * Test that we can handle connection close: it will trigger a retry, but the calls will    *  finish.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testConnectionCloseAllowsInterrupt
@@ -2011,11 +1996,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testConnectionNotAllowsInterrupt
@@ -2032,11 +2012,6 @@ block|}
 comment|/**    * Test that an operation can fail if we read the global operation timeout, even if the    * individual timeout is fine. We do that with:    * - client side: an operation timeout of 30 seconds    * - server side: we sleep 20 second at each attempt. The first work fails, the second one    * succeeds. But the client won't wait that much, because 20 + 20> 30, so the client    * timeouted when the server answers.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testOperationTimeout
@@ -2744,11 +2719,6 @@ block|}
 comment|/**    * Test that connection can become idle without breaking everything.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testConnectionIdle
@@ -3058,11 +3028,6 @@ block|}
 comment|/**      * Test that the connection to the dead server is cut immediately when we receive the      *  notification.      * @throws Exception      */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testConnectionCut
@@ -3566,11 +3531,6 @@ block|}
 comment|/**    * Test that when we delete a location using the first row of a region    * that we really delete it.    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testRegionCaching
@@ -4880,11 +4840,6 @@ block|}
 comment|/**    * Test that Connection or Pool are not closed when managed externally    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testConnectionManagement
@@ -5007,11 +4962,6 @@ block|}
 comment|/**    * Test that stale cache updates don't override newer cached values.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testCacheSeqNums
@@ -5392,11 +5342,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testClosing
@@ -5504,11 +5449,6 @@ block|}
 comment|/**    * Trivial test to verify that nobody messes with    * {@link ConnectionFactory#createConnection(Configuration)}    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testCreateConnection
@@ -5569,11 +5509,6 @@ block|}
 comment|/**    * This test checks that one can connect to the cluster with only the    *  ZooKeeper quorum set. Other stuff like master address will be read    *  from ZK by the client.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testConnection
@@ -5757,11 +5692,6 @@ return|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testMulti
@@ -6943,11 +6873,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testConnectionRideOverClusterRestart
