@@ -143551,6 +143551,17 @@ name|int
 name|getHeapOccupancy
 parameter_list|()
 function_decl|;
+comment|// optional int32 compactionPressure = 3 [default = 0];
+comment|/**      *<code>optional int32 compactionPressure = 3 [default = 0];</code>      *      *<pre>      * Compaction pressure. Guaranteed to be positive, between 0 and 100.      *</pre>      */
+name|boolean
+name|hasCompactionPressure
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional int32 compactionPressure = 3 [default = 0];</code>      *      *<pre>      * Compaction pressure. Guaranteed to be positive, between 0 and 100.      *</pre>      */
+name|int
+name|getCompactionPressure
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code hbase.pb.RegionLoadStats}    *    *<pre>    *    * Statistics about the current load on the region    *</pre>    */
 specifier|public
@@ -143830,6 +143841,23 @@ operator||=
 literal|0x00000002
 expr_stmt|;
 name|heapOccupancy_
+operator|=
+name|input
+operator|.
+name|readInt32
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|24
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|compactionPressure_
 operator|=
 name|input
 operator|.
@@ -144195,6 +144223,47 @@ return|return
 name|heapOccupancy_
 return|;
 block|}
+comment|// optional int32 compactionPressure = 3 [default = 0];
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|COMPACTIONPRESSURE_FIELD_NUMBER
+init|=
+literal|3
+decl_stmt|;
+specifier|private
+name|int
+name|compactionPressure_
+decl_stmt|;
+comment|/**      *<code>optional int32 compactionPressure = 3 [default = 0];</code>      *      *<pre>      * Compaction pressure. Guaranteed to be positive, between 0 and 100.      *</pre>      */
+specifier|public
+name|boolean
+name|hasCompactionPressure
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional int32 compactionPressure = 3 [default = 0];</code>      *      *<pre>      * Compaction pressure. Guaranteed to be positive, between 0 and 100.      *</pre>      */
+specifier|public
+name|int
+name|getCompactionPressure
+parameter_list|()
+block|{
+return|return
+name|compactionPressure_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -144205,6 +144274,10 @@ operator|=
 literal|0
 expr_stmt|;
 name|heapOccupancy_
+operator|=
+literal|0
+expr_stmt|;
+name|compactionPressure_
 operator|=
 literal|0
 expr_stmt|;
@@ -144316,6 +144389,29 @@ name|heapOccupancy_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeInt32
+argument_list|(
+literal|3
+argument_list|,
+name|compactionPressure_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -144415,6 +144511,37 @@ argument_list|(
 literal|2
 argument_list|,
 name|heapOccupancy_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeInt32Size
+argument_list|(
+literal|3
+argument_list|,
+name|compactionPressure_
 argument_list|)
 expr_stmt|;
 block|}
@@ -144648,6 +144775,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasCompactionPressure
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasCompactionPressure
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasCompactionPressure
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getCompactionPressure
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getCompactionPressure
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -144763,6 +144925,34 @@ name|hash
 operator|)
 operator|+
 name|getHeapOccupancy
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasCompactionPressure
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|COMPACTIONPRESSURE_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|getCompactionPressure
 argument_list|()
 expr_stmt|;
 block|}
@@ -145617,6 +145807,19 @@ operator|~
 literal|0x00000002
 operator|)
 expr_stmt|;
+name|compactionPressure_
+operator|=
+literal|0
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -145881,6 +146084,30 @@ name|heapOccupancy_
 operator|=
 name|heapOccupancy_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|compactionPressure_
+operator|=
+name|compactionPressure_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -146045,6 +146272,23 @@ argument_list|(
 name|other
 operator|.
 name|getHeapOccupancy
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasCompactionPressure
+argument_list|()
+condition|)
+block|{
+name|setCompactionPressure
+argument_list|(
+name|other
+operator|.
+name|getCompactionPressure
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -146355,6 +146599,89 @@ literal|0x00000002
 operator|)
 expr_stmt|;
 name|heapOccupancy_
+operator|=
+literal|0
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional int32 compactionPressure = 3 [default = 0];
+specifier|private
+name|int
+name|compactionPressure_
+decl_stmt|;
+comment|/**        *<code>optional int32 compactionPressure = 3 [default = 0];</code>        *        *<pre>        * Compaction pressure. Guaranteed to be positive, between 0 and 100.        *</pre>        */
+specifier|public
+name|boolean
+name|hasCompactionPressure
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional int32 compactionPressure = 3 [default = 0];</code>        *        *<pre>        * Compaction pressure. Guaranteed to be positive, between 0 and 100.        *</pre>        */
+specifier|public
+name|int
+name|getCompactionPressure
+parameter_list|()
+block|{
+return|return
+name|compactionPressure_
+return|;
+block|}
+comment|/**        *<code>optional int32 compactionPressure = 3 [default = 0];</code>        *        *<pre>        * Compaction pressure. Guaranteed to be positive, between 0 and 100.        *</pre>        */
+specifier|public
+name|Builder
+name|setCompactionPressure
+parameter_list|(
+name|int
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|compactionPressure_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional int32 compactionPressure = 3 [default = 0];</code>        *        *<pre>        * Compaction pressure. Guaranteed to be positive, between 0 and 100.        *</pre>        */
+specifier|public
+name|Builder
+name|clearCompactionPressure
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
+name|compactionPressure_
 operator|=
 literal|0
 expr_stmt|;
@@ -176692,69 +177019,71 @@ literal|"\006region\030\001 \002(\0132\031.hbase.pb.RegionSpecifier"
 operator|+
 literal|"\022\016\n\006atomic\030\002 \001(\010\022 \n\006action\030\003 \003(\0132\020.hbase"
 operator|+
-literal|".pb.Action\"D\n\017RegionLoadStats\022\027\n\014memstor"
+literal|".pb.Action\"c\n\017RegionLoadStats\022\027\n\014memstor"
 operator|+
 literal|"eLoad\030\001 \001(\005:\0010\022\030\n\rheapOccupancy\030\002 \001(\005:\0010"
 operator|+
-literal|"\"\332\001\n\021ResultOrException\022\r\n\005index\030\001 \001(\r\022 \n"
+literal|"\022\035\n\022compactionPressure\030\003 \001(\005:\0010\"\332\001\n\021Resu"
 operator|+
-literal|"\006result\030\002 \001(\0132\020.hbase.pb.Result\022*\n\texcep"
+literal|"ltOrException\022\r\n\005index\030\001 \001(\r\022 \n\006result\030\002"
 operator|+
-literal|"tion\030\003 \001(\0132\027.hbase.pb.NameBytesPair\022:\n\016s"
+literal|" \001(\0132\020.hbase.pb.Result\022*\n\texception\030\003 \001("
 operator|+
-literal|"ervice_result\030\004 \001(\0132\".hbase.pb.Coprocess"
+literal|"\0132\027.hbase.pb.NameBytesPair\022:\n\016service_re"
 operator|+
-literal|"orServiceResult\022,\n\tloadStats\030\005 \001(\0132\031.hba"
+literal|"sult\030\004 \001(\0132\".hbase.pb.CoprocessorService"
 operator|+
-literal|"se.pb.RegionLoadStats\"x\n\022RegionActionRes"
+literal|"Result\022,\n\tloadStats\030\005 \001(\0132\031.hbase.pb.Reg"
 block|,
-literal|"ult\0226\n\021resultOrException\030\001 \003(\0132\033.hbase.p"
+literal|"ionLoadStats\"x\n\022RegionActionResult\0226\n\021re"
 operator|+
-literal|"b.ResultOrException\022*\n\texception\030\002 \001(\0132\027"
+literal|"sultOrException\030\001 \003(\0132\033.hbase.pb.ResultO"
 operator|+
-literal|".hbase.pb.NameBytesPair\"x\n\014MultiRequest\022"
+literal|"rException\022*\n\texception\030\002 \001(\0132\027.hbase.pb"
 operator|+
-literal|",\n\014regionAction\030\001 \003(\0132\026.hbase.pb.RegionA"
+literal|".NameBytesPair\"x\n\014MultiRequest\022,\n\014region"
 operator|+
-literal|"ction\022\022\n\nnonceGroup\030\002 \001(\004\022&\n\tcondition\030\003"
+literal|"Action\030\001 \003(\0132\026.hbase.pb.RegionAction\022\022\n\n"
 operator|+
-literal|" \001(\0132\023.hbase.pb.Condition\"\\\n\rMultiRespon"
+literal|"nonceGroup\030\002 \001(\004\022&\n\tcondition\030\003 \001(\0132\023.hb"
 operator|+
-literal|"se\0228\n\022regionActionResult\030\001 \003(\0132\034.hbase.p"
+literal|"ase.pb.Condition\"\\\n\rMultiResponse\0228\n\022reg"
 operator|+
-literal|"b.RegionActionResult\022\021\n\tprocessed\030\002 \001(\010*"
+literal|"ionActionResult\030\001 \003(\0132\034.hbase.pb.RegionA"
 operator|+
-literal|"\'\n\013Consistency\022\n\n\006STRONG\020\000\022\014\n\010TIMELINE\020\001"
+literal|"ctionResult\022\021\n\tprocessed\030\002 \001(\010*\'\n\013Consis"
 operator|+
-literal|"2\203\004\n\rClientService\0222\n\003Get\022\024.hbase.pb.Get"
+literal|"tency\022\n\n\006STRONG\020\000\022\014\n\010TIMELINE\020\0012\203\004\n\rClie"
 block|,
-literal|"Request\032\025.hbase.pb.GetResponse\022;\n\006Mutate"
+literal|"ntService\0222\n\003Get\022\024.hbase.pb.GetRequest\032\025"
 operator|+
-literal|"\022\027.hbase.pb.MutateRequest\032\030.hbase.pb.Mut"
+literal|".hbase.pb.GetResponse\022;\n\006Mutate\022\027.hbase."
 operator|+
-literal|"ateResponse\0225\n\004Scan\022\025.hbase.pb.ScanReque"
+literal|"pb.MutateRequest\032\030.hbase.pb.MutateRespon"
 operator|+
-literal|"st\032\026.hbase.pb.ScanResponse\022P\n\rBulkLoadHF"
+literal|"se\0225\n\004Scan\022\025.hbase.pb.ScanRequest\032\026.hbas"
 operator|+
-literal|"ile\022\036.hbase.pb.BulkLoadHFileRequest\032\037.hb"
+literal|"e.pb.ScanResponse\022P\n\rBulkLoadHFile\022\036.hba"
 operator|+
-literal|"ase.pb.BulkLoadHFileResponse\022X\n\013ExecServ"
+literal|"se.pb.BulkLoadHFileRequest\032\037.hbase.pb.Bu"
 operator|+
-literal|"ice\022#.hbase.pb.CoprocessorServiceRequest"
+literal|"lkLoadHFileResponse\022X\n\013ExecService\022#.hba"
 operator|+
-literal|"\032$.hbase.pb.CoprocessorServiceResponse\022d"
+literal|"se.pb.CoprocessorServiceRequest\032$.hbase."
 operator|+
-literal|"\n\027ExecRegionServerService\022#.hbase.pb.Cop"
+literal|"pb.CoprocessorServiceResponse\022d\n\027ExecReg"
 operator|+
-literal|"rocessorServiceRequest\032$.hbase.pb.Coproc"
+literal|"ionServerService\022#.hbase.pb.CoprocessorS"
 block|,
-literal|"essorServiceResponse\0228\n\005Multi\022\026.hbase.pb"
+literal|"erviceRequest\032$.hbase.pb.CoprocessorServ"
 operator|+
-literal|".MultiRequest\032\027.hbase.pb.MultiResponseBB"
+literal|"iceResponse\0228\n\005Multi\022\026.hbase.pb.MultiReq"
 operator|+
-literal|"\n*org.apache.hadoop.hbase.protobuf.gener"
+literal|"uest\032\027.hbase.pb.MultiResponseBB\n*org.apa"
 operator|+
-literal|"atedB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|"che.hadoop.hbase.protobuf.generatedB\014Cli"
+operator|+
+literal|"entProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -178014,6 +178343,8 @@ block|{
 literal|"MemstoreLoad"
 block|,
 literal|"HeapOccupancy"
+block|,
+literal|"CompactionPressure"
 block|, }
 argument_list|)
 expr_stmt|;

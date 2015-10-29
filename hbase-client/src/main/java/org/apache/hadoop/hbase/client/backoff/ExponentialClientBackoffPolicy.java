@@ -339,6 +339,17 @@ argument_list|()
 operator|/
 literal|100.0f
 decl_stmt|;
+comment|// Factor in compaction pressure, 1.0 means heavy compaction pressure
+name|float
+name|compactionPressure
+init|=
+name|regionStats
+operator|.
+name|getCompactionPressure
+argument_list|()
+operator|/
+literal|100.0f
+decl_stmt|;
 if|if
 condition|(
 name|heapOccupancy
@@ -383,6 +394,17 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|percent
+operator|=
+name|Math
+operator|.
+name|max
+argument_list|(
+name|percent
+argument_list|,
+name|compactionPressure
+argument_list|)
+expr_stmt|;
 comment|// square the percent as a value less than 1. Closer we move to 100 percent,
 comment|// the percent moves to 1, but squaring causes the exponential curve
 name|double
