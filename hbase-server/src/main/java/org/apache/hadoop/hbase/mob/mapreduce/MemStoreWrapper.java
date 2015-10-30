@@ -1084,13 +1084,13 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Adds a KeyValue into the memstore.    * @param kv The KeyValue to be added.    * @throws IOException    */
+comment|/**    * Adds a Cell into the memstore.    * @param cell The Cell to be added.    * @throws IOException    */
 specifier|public
 name|void
 name|addToMemstore
 parameter_list|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|)
 throws|throws
 name|IOException
@@ -1099,7 +1099,7 @@ name|memstore
 operator|.
 name|add
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 expr_stmt|;
 comment|// flush the memstore if it's full.

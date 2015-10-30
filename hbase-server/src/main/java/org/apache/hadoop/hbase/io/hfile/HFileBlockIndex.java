@@ -285,20 +285,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ByteBufferedKeyOnlyKeyValue
 import|;
 end_import
@@ -1560,40 +1546,17 @@ condition|)
 block|{
 comment|// This has to be changed
 comment|// For now change this to key value
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|key
-argument_list|)
-decl_stmt|;
 throw|throw
 operator|new
 name|IOException
 argument_list|(
 literal|"The key "
 operator|+
-name|Bytes
+name|CellUtil
 operator|.
-name|toStringBinary
+name|getCellKeyAsString
 argument_list|(
-name|kv
-operator|.
-name|getKey
-argument_list|()
-argument_list|,
-name|kv
-operator|.
-name|getKeyOffset
-argument_list|()
-argument_list|,
-name|kv
-operator|.
-name|getKeyLength
-argument_list|()
+name|key
 argument_list|)
 operator|+
 literal|" is before the"
