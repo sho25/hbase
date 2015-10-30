@@ -1862,9 +1862,6 @@ operator|)
 literal|null
 argument_list|)
 argument_list|)
-operator|.
-name|getFirst
-argument_list|()
 decl_stmt|;
 name|size
 operator|=
@@ -4640,9 +4637,6 @@ name|newValue
 argument_list|)
 argument_list|)
 argument_list|)
-operator|.
-name|getFirst
-argument_list|()
 expr_stmt|;
 name|size
 operator|+=
@@ -4679,9 +4673,6 @@ name|newValue
 argument_list|)
 argument_list|)
 argument_list|)
-operator|.
-name|getFirst
-argument_list|()
 expr_stmt|;
 name|size
 operator|+=
@@ -4718,9 +4709,6 @@ name|newValue
 argument_list|)
 argument_list|)
 argument_list|)
-operator|.
-name|getFirst
-argument_list|()
 expr_stmt|;
 name|size
 operator|+=
@@ -4757,9 +4745,6 @@ name|newValue
 argument_list|)
 argument_list|)
 argument_list|)
-operator|.
-name|getFirst
-argument_list|()
 expr_stmt|;
 name|size
 operator|+=
@@ -4796,9 +4781,6 @@ name|newValue
 argument_list|)
 argument_list|)
 argument_list|)
-operator|.
-name|getFirst
-argument_list|()
 expr_stmt|;
 for|for
 control|(

@@ -73,22 +73,6 @@ name|HeapSize
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Pair
-import|;
-end_import
-
 begin_comment
 comment|/**  * The MemStore holds in-memory modifications to the Store. Modifications are {@link Cell}s.  *<p>  * The MemStore functions should not be called in parallel. Callers should hold write and read  * locks. This is done in {@link HStore}.  *</p>  */
 end_comment
@@ -129,13 +113,8 @@ name|long
 name|getSnapshotSize
 parameter_list|()
 function_decl|;
-comment|/**    * Write an update    * @param cell    * @return approximate size of the passed KV and the newly added KV which maybe different from the    *         passed in KV.    */
-name|Pair
-argument_list|<
-name|Long
-argument_list|,
-name|Cell
-argument_list|>
+comment|/**    * Write an update    * @param cell    * @return approximate size of the passed cell.    */
+name|long
 name|add
 parameter_list|(
 specifier|final
