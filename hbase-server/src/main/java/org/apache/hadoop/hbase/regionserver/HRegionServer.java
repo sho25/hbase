@@ -4876,6 +4876,15 @@ operator|.
 name|compactSplitThread
 argument_list|)
 expr_stmt|;
+name|configurationManager
+operator|.
+name|registerObserver
+argument_list|(
+name|this
+operator|.
+name|rpcServices
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * The HRegionServer sticks in this loop until closed.    */
 annotation|@

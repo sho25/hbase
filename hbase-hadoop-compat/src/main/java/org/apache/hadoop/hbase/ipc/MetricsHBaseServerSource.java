@@ -81,6 +81,16 @@ init|=
 literal|"Number of authentication failures."
 decl_stmt|;
 name|String
+name|AUTHENTICATION_FALLBACKS_NAME
+init|=
+literal|"authenticationFallbacks"
+decl_stmt|;
+name|String
+name|AUTHENTICATION_FALLBACKS_DESC
+init|=
+literal|"Number of fallbacks to insecure authentication."
+decl_stmt|;
+name|String
 name|SENT_BYTES_NAME
 init|=
 literal|"sentBytes"
@@ -269,6 +279,10 @@ parameter_list|()
 function_decl|;
 name|void
 name|authenticationFailure
+parameter_list|()
+function_decl|;
+name|void
+name|authenticationFallback
 parameter_list|()
 function_decl|;
 name|void

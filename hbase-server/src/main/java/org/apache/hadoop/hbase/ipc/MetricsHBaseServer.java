@@ -220,6 +220,16 @@ argument_list|()
 expr_stmt|;
 block|}
 name|void
+name|authenticationFallback
+parameter_list|()
+block|{
+name|source
+operator|.
+name|authenticationFallback
+argument_list|()
+expr_stmt|;
+block|}
+name|void
 name|sentBytes
 parameter_list|(
 name|long
