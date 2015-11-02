@@ -20,30 +20,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -71,11 +47,25 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|commons
 operator|.
-name|hbase
+name|logging
 operator|.
-name|CategoryBasedTimeout
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
 import|;
 end_import
 
@@ -111,7 +101,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MasterTests
+name|SmallTests
 import|;
 end_import
 
@@ -127,7 +117,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|MasterTests
 import|;
 end_import
 
@@ -137,7 +127,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Rule
+name|Assert
 import|;
 end_import
 
@@ -166,14 +156,50 @@ import|;
 end_import
 
 begin_import
-import|import
+import|import static
 name|org
 operator|.
 name|junit
 operator|.
-name|rules
+name|Assert
 operator|.
-name|TestRule
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
 import|;
 end_import
 
@@ -186,7 +212,7 @@ name|MasterTests
 operator|.
 name|class
 block|,
-name|MediumTests
+name|SmallTests
 operator|.
 name|class
 block|}
@@ -195,33 +221,20 @@ specifier|public
 class|class
 name|TestTimeoutBlockingQueue
 block|{
-annotation|@
-name|Rule
-specifier|public
+specifier|private
+specifier|static
 specifier|final
-name|TestRule
-name|timeout
+name|Log
+name|LOG
 init|=
-name|CategoryBasedTimeout
+name|LogFactory
 operator|.
-name|builder
-argument_list|()
-operator|.
-name|withTimeout
+name|getLog
 argument_list|(
-name|this
+name|TestTimeoutBlockingQueue
 operator|.
-name|getClass
-argument_list|()
+name|class
 argument_list|)
-operator|.
-name|withLookingForStuckThread
-argument_list|(
-literal|true
-argument_list|)
-operator|.
-name|build
-argument_list|()
 decl_stmt|;
 specifier|static
 class|class
