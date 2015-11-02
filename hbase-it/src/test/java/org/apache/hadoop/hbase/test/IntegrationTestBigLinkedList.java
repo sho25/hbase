@@ -3147,6 +3147,46 @@ name|TINY_FAMILY_NAME
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// if -DuseMob=true force all data through mob path.
+if|if
+condition|(
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"useMob"
+argument_list|,
+literal|false
+argument_list|)
+condition|)
+block|{
+for|for
+control|(
+name|HColumnDescriptor
+name|hcd
+range|:
+name|htd
+operator|.
+name|getColumnFamilies
+argument_list|()
+control|)
+block|{
+name|hcd
+operator|.
+name|setMobEnabled
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|hcd
+operator|.
+name|setMobThreshold
+argument_list|(
+literal|4
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|// If we want to pre-split compute how many splits.
 if|if
 condition|(
@@ -10017,6 +10057,96 @@ operator|.
 name|println
 argument_list|(
 literal|" search     Search for missing keys."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|""
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"General options:"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" -D"
+operator|+
+name|TABLE_NAME_KEY
+operator|+
+literal|"=<tableName>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"    Run using the<tableName> as the tablename.  Defaults to "
+operator|+
+name|DEFAULT_TABLE_NAME
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" -D"
+operator|+
+name|HBaseTestingUtility
+operator|.
+name|REGIONS_PER_SERVER_KEY
+operator|+
+literal|"=<# regions>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"    Create table with presplit regions per server.  Defaults to "
+operator|+
+name|HBaseTestingUtility
+operator|.
+name|DEFAULT_REGIONS_PER_SERVER
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" -DuseMob=<true|false>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"    Create table so that the mob read/write path is forced.  "
+operator|+
+literal|"Defaults to false"
 argument_list|)
 expr_stmt|;
 name|System
