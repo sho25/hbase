@@ -153,6 +153,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseTestingUtility
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -182,6 +196,20 @@ operator|.
 name|hbase
 operator|.
 name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Waiter
 import|;
 end_import
 
@@ -469,6 +497,16 @@ specifier|public
 class|class
 name|TestHeapMemoryManager
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|HBaseTestingUtility
+name|UTIL
+init|=
+operator|new
+name|HBaseTestingUtility
+argument_list|()
+decl_stmt|;
 specifier|private
 name|long
 name|maxHeapSize
@@ -1047,6 +1085,7 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+comment|// Allow the tuner to run once and do necessary memory up
 name|Thread
 operator|.
 name|sleep
@@ -1054,7 +1093,6 @@ argument_list|(
 literal|1500
 argument_list|)
 expr_stmt|;
-comment|// Allow the tuner to run once and do necessary memory up
 comment|// No changes should be made by tuner as we already have lot of empty space
 name|assertEquals
 argument_list|(
@@ -1284,6 +1322,7 @@ argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
+comment|// Allow the tuner to run once and do necessary memory up
 name|Thread
 operator|.
 name|sleep
@@ -1291,7 +1330,6 @@ argument_list|(
 literal|1500
 argument_list|)
 expr_stmt|;
-comment|// Allow the tuner to run once and do necessary memory up
 comment|// No changes should be made by tuner as we already have lot of empty space
 name|assertEquals
 argument_list|(
@@ -1553,14 +1591,16 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-name|Thread
-operator|.
-name|sleep
+comment|// Allow the tuner to run once and do necessary memory up
+name|waitForTune
 argument_list|(
-literal|1500
+name|memStoreFlusher
+argument_list|,
+name|memStoreFlusher
+operator|.
+name|memstoreSize
 argument_list|)
 expr_stmt|;
-comment|// Allow the tuner to run once and do necessary memory up
 name|assertHeapSpaceDelta
 argument_list|(
 name|DefaultHeapMemoryTuner
@@ -1629,11 +1669,14 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-name|Thread
-operator|.
-name|sleep
+comment|// Allow the tuner to run once and do necessary memory up
+name|waitForTune
 argument_list|(
-literal|1500
+name|memStoreFlusher
+argument_list|,
+name|memStoreFlusher
+operator|.
+name|memstoreSize
 argument_list|)
 expr_stmt|;
 name|assertHeapSpaceDelta
@@ -1886,14 +1929,16 @@ argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
-name|Thread
-operator|.
-name|sleep
+comment|// Allow the tuner to run once and do necessary memory up
+name|waitForTune
 argument_list|(
-literal|1500
+name|memStoreFlusher
+argument_list|,
+name|memStoreFlusher
+operator|.
+name|memstoreSize
 argument_list|)
 expr_stmt|;
-comment|// Allow the tuner to run once and do necessary memory up
 name|assertHeapSpaceDelta
 argument_list|(
 operator|-
@@ -1943,11 +1988,14 @@ argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
-name|Thread
-operator|.
-name|sleep
+comment|// Allow the tuner to run once and do necessary memory up
+name|waitForTune
 argument_list|(
-literal|1500
+name|memStoreFlusher
+argument_list|,
+name|memStoreFlusher
+operator|.
+name|memstoreSize
 argument_list|)
 expr_stmt|;
 name|assertHeapSpaceDelta
@@ -2235,6 +2283,7 @@ argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
+comment|// Allow the tuner to run once and do necessary memory up
 name|Thread
 operator|.
 name|sleep
@@ -2242,7 +2291,6 @@ argument_list|(
 literal|1500
 argument_list|)
 expr_stmt|;
-comment|// Allow the tuner to run once and do necessary memory up
 comment|// No changes should happen as there is undefined increase in flushes and evictions
 name|assertEquals
 argument_list|(
@@ -2298,11 +2346,14 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-name|Thread
-operator|.
-name|sleep
+comment|// Allow the tuner to run once and do necessary memory up
+name|waitForTune
 argument_list|(
-literal|1500
+name|memStoreFlusher
+argument_list|,
+name|memStoreFlusher
+operator|.
+name|memstoreSize
 argument_list|)
 expr_stmt|;
 name|assertHeapSpaceDelta
@@ -2597,6 +2648,7 @@ argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
+comment|// Allow the tuner to run once and do necessary memory up
 name|Thread
 operator|.
 name|sleep
@@ -2604,7 +2656,6 @@ argument_list|(
 literal|1500
 argument_list|)
 expr_stmt|;
-comment|// Allow the tuner to run once and do necessary memory up
 comment|// No changes should happen as there is undefined increase in flushes and evictions
 name|assertEquals
 argument_list|(
@@ -2670,6 +2721,7 @@ argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
+comment|// Allow the tuner to run once and do necessary memory up
 name|Thread
 operator|.
 name|sleep
@@ -2891,14 +2943,16 @@ name|blockCacheSize
 operator|=
 literal|0.02f
 expr_stmt|;
-name|Thread
-operator|.
-name|sleep
+comment|// Allow the tuner to run once and do necessary memory up
+name|waitForTune
 argument_list|(
-literal|1500
+name|memStoreFlusher
+argument_list|,
+name|memStoreFlusher
+operator|.
+name|memstoreSize
 argument_list|)
 expr_stmt|;
-comment|// Allow the tuner to run once and do necessary memory up
 name|assertHeapSpace
 argument_list|(
 literal|0.78f
@@ -2932,14 +2986,16 @@ name|memstoreSize
 operator|=
 literal|0.05f
 expr_stmt|;
-name|Thread
-operator|.
-name|sleep
+comment|// Allow the tuner to run once and do necessary memory up
+name|waitForTune
 argument_list|(
-literal|1500
+name|memStoreFlusher
+argument_list|,
+name|memStoreFlusher
+operator|.
+name|memstoreSize
 argument_list|)
 expr_stmt|;
-comment|// Allow the tuner to run once and do necessary memory up
 name|assertHeapSpace
 argument_list|(
 literal|0.75f
@@ -3368,6 +3424,7 @@ name|blockCacheSize
 operator|=
 literal|0.3f
 expr_stmt|;
+comment|// Allow the tuner to run once and do necessary memory up
 name|Thread
 operator|.
 name|sleep
@@ -3695,6 +3752,7 @@ name|blockCacheSize
 operator|=
 literal|0.4f
 expr_stmt|;
+comment|// Allow the tuner to run once and do necessary memory up
 name|Thread
 operator|.
 name|sleep
@@ -3734,11 +3792,14 @@ name|blockCacheSize
 operator|=
 literal|0.5f
 expr_stmt|;
-name|Thread
-operator|.
-name|sleep
+comment|// Allow the tuner to run once and do necessary memory up
+name|waitForTune
 argument_list|(
-literal|1500
+name|memStoreFlusher
+argument_list|,
+name|memStoreFlusher
+operator|.
+name|memstoreSize
 argument_list|)
 expr_stmt|;
 name|assertHeapSpace
@@ -3825,7 +3886,7 @@ comment|// Tolerable error
 name|double
 name|error
 init|=
-literal|0.999
+literal|0.95
 decl_stmt|;
 if|if
 condition|(
@@ -3904,6 +3965,58 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+specifier|private
+name|void
+name|waitForTune
+parameter_list|(
+specifier|final
+name|MemstoreFlusherStub
+name|memStoreFlusher
+parameter_list|,
+specifier|final
+name|long
+name|oldMemstoreHeapSize
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+comment|// Allow the tuner to run once and do necessary memory up
+name|UTIL
+operator|.
+name|waitFor
+argument_list|(
+literal|10000
+argument_list|,
+operator|new
+name|Waiter
+operator|.
+name|Predicate
+argument_list|<
+name|Exception
+argument_list|>
+argument_list|()
+block|{
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|evaluate
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+return|return
+name|oldMemstoreHeapSize
+operator|!=
+name|memStoreFlusher
+operator|.
+name|memstoreSize
+return|;
+block|}
+block|}
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 specifier|static
