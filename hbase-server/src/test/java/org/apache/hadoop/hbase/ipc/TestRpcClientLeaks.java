@@ -18,6 +18,34 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|fam1
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -54,20 +82,6 @@ operator|.
 name|util
 operator|.
 name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Lists
 import|;
 end_import
 
@@ -110,6 +124,20 @@ operator|.
 name|conf
 operator|.
 name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CategoryBasedTimeout
 import|;
 end_import
 
@@ -279,7 +307,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|MediumTests
 import|;
 end_import
 
@@ -366,30 +394,28 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseTestingUtility
-operator|.
-name|fam1
-import|;
-end_import
-
-begin_import
-import|import static
+import|import
 name|org
 operator|.
 name|junit
 operator|.
-name|Assert
+name|rules
 operator|.
-name|*
+name|TestRule
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Lists
 import|;
 end_import
 
@@ -397,7 +423,7 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 argument_list|)
@@ -405,6 +431,34 @@ specifier|public
 class|class
 name|TestRpcClientLeaks
 block|{
+annotation|@
+name|Rule
+specifier|public
+specifier|final
+name|TestRule
+name|timeout
+init|=
+name|CategoryBasedTimeout
+operator|.
+name|builder
+argument_list|()
+operator|.
+name|withTimeout
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+argument_list|)
+operator|.
+name|withLookingForStuckThread
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 specifier|public
 specifier|static
 class|class
