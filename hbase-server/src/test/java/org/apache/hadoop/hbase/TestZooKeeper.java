@@ -961,7 +961,7 @@ name|c
 argument_list|)
 return|;
 block|}
-comment|/**    * See HBASE-1232 and http://wiki.apache.org/hadoop/ZooKeeper/FAQ#4.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * See HBASE-1232 and http://hbase.apache.org/book.html#trouble.zookeeper.    * @throws IOException    * @throws InterruptedException    */
 comment|// fails frequently, disabled for now, see HBASE-6406
 comment|//@Test
 specifier|public

@@ -12236,7 +12236,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Expire a ZooKeeper session as recommended in ZooKeeper documentation    * http://wiki.apache.org/hadoop/ZooKeeper/FAQ#A4    * There are issues when doing this:    * [1] http://www.mail-archive.com/dev@zookeeper.apache.org/msg01942.html    * [2] https://issues.apache.org/jira/browse/ZOOKEEPER-1105    *    * @param nodeZK - the ZK watcher to expire    * @param checkStatus - true to check if we can create an HTable with the    *                    current configuration.    */
+comment|/**    * Expire a ZooKeeper session as recommended in ZooKeeper documentation    * http://hbase.apache.org/book.html#trouble.zookeeper    * There are issues when doing this:    * [1] http://www.mail-archive.com/dev@zookeeper.apache.org/msg01942.html    * [2] https://issues.apache.org/jira/browse/ZOOKEEPER-1105    *    * @param nodeZK - the ZK watcher to expire    * @param checkStatus - true to check if we can create an HTable with the    *                    current configuration.    */
 end_comment
 
 begin_function
