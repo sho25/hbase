@@ -44,7 +44,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Callable&lt;T&gt; that will be retried.  If {@link #call(int)} invocation throws exceptions,  * we will call {@link #throwable(Throwable, boolean)} with whatever the exception was.  * @param<T>  */
+comment|/**  * A Callable&lt;T&gt; that will be retried.  If {@link #call(int)} invocation throws exceptions,  * we will call {@link #throwable(Throwable, boolean)} with whatever the exception was.  * @param<T> result class from executing<tt>this</tt>  */
 end_comment
 
 begin_interface

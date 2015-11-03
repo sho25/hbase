@@ -43,6 +43,10 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_comment
+comment|/**  * Helper callable for internal use when you just want to override a single method of a {@link  * RetryingCallable}. By default, this just delegates all {@link RetryingCallable} methods to the  * specified delegate.  * @param<T> Result class from calls to the delegate {@link RetryingCallable}  * @param<D> Type of the delegate class  */
+end_comment
+
 begin_class
 annotation|@
 name|InterfaceAudience
