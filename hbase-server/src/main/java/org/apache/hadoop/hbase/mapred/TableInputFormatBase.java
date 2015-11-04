@@ -153,22 +153,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|RegionLocator
 import|;
 end_import
@@ -1037,22 +1021,6 @@ operator|=
 name|inputColumns
 expr_stmt|;
 block|}
-comment|/**    * Allows subclasses to get the {@link HTable}.    * @deprecated use {@link #getTable()}    */
-annotation|@
-name|Deprecated
-specifier|protected
-name|HTable
-name|getHTable
-parameter_list|()
-block|{
-return|return
-operator|(
-name|HTable
-operator|)
-name|getTable
-argument_list|()
-return|;
-block|}
 comment|/**    * Allows subclasses to get the {@link Table}.    */
 specifier|protected
 name|Table
@@ -1079,24 +1047,6 @@ name|this
 operator|.
 name|table
 return|;
-block|}
-comment|/**    * Allows subclasses to set the {@link HTable}.    *    * @param table to get the data from    * @deprecated use {@link #initializeTable(Connection,TableName)}    */
-annotation|@
-name|Deprecated
-specifier|protected
-name|void
-name|setHTable
-parameter_list|(
-name|HTable
-name|table
-parameter_list|)
-block|{
-name|this
-operator|.
-name|table
-operator|=
-name|table
-expr_stmt|;
 block|}
 comment|/**    * Allows subclasses to set the {@link TableRecordReader}.    *    * @param tableRecordReader    *                to provide other {@link TableRecordReader} implementations.    */
 specifier|protected

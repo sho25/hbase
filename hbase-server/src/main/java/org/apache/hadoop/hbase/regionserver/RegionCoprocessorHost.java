@@ -6688,7 +6688,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * @return true if default behavior should be bypassed, false otherwise    * @deprecated use {@link #preWALRestore(HRegionInfo, WALKey, WALEdit)}    */
+comment|/**    * @return true if default behavior should be bypassed, false otherwise    * @deprecated use {@link #preWALRestore(HRegionInfo, WALKey, WALEdit)}; as of 2.0, remove in 3.0    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -6855,7 +6855,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated use {@link #postWALRestore(HRegionInfo, WALKey, WALEdit)}    */
+comment|/**    * @deprecated use {@link #postWALRestore(HRegionInfo, WALKey, WALEdit)}; as of 2.0, remove in 3.0    */
 annotation|@
 name|Deprecated
 specifier|public

@@ -286,7 +286,7 @@ specifier|public
 class|class
 name|CodecPerformance
 block|{
-comment|/** @deprecated LOG variable would be made private. */
+comment|/** @deprecated LOG variable would be made private. since 1.2, remove in 3.0 */
 annotation|@
 name|Deprecated
 specifier|public

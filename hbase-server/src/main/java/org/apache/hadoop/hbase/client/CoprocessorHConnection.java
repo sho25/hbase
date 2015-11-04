@@ -274,27 +274,6 @@ specifier|final
 name|HRegionServer
 name|server
 decl_stmt|;
-comment|/**    * Legacy constructor    * @param delegate    * @param server    * @throws IOException if we cannot create the connection    * @deprecated delegate is not used    */
-annotation|@
-name|Deprecated
-specifier|public
-name|CoprocessorHConnection
-parameter_list|(
-name|ClusterConnection
-name|delegate
-parameter_list|,
-name|HRegionServer
-name|server
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|this
-argument_list|(
-name|server
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Constructor that uses server configuration    * @param server    * @throws IOException if we cannot create the connection    */
 specifier|public
 name|CoprocessorHConnection

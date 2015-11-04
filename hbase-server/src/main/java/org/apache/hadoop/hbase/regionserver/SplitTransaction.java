@@ -263,7 +263,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Run the transaction.    * @param server Hosting server instance.  Can be null when testing.    * @param services Used to online/offline regions.    * @throws IOException If thrown, transaction failed.    *          Call {@link #rollback(Server, RegionServerServices)}    * @return Regions created    * @throws IOException    * @see #rollback(Server, RegionServerServices)    * @deprecated use #execute(Server, RegionServerServices, User)    */
+comment|/**    * Run the transaction.    * @param server Hosting server instance.  Can be null when testing.    * @param services Used to online/offline regions.    * @throws IOException If thrown, transaction failed.    *          Call {@link #rollback(Server, RegionServerServices)}    * @return Regions created    * @throws IOException    * @see #rollback(Server, RegionServerServices)    * @deprecated use #execute(Server, RegionServerServices, User);  as of 1.0.2, remove in 3.0    */
 annotation|@
 name|Deprecated
 name|PairOfSameType
@@ -300,7 +300,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Roll back a failed transaction    * @param server Hosting server instance (May be null when testing).    * @param services    * @throws IOException If thrown, rollback failed.  Take drastic action.    * @return True if we successfully rolled back, false if we got to the point    * of no return and so now need to abort the server to minimize damage.    * @deprecated use #rollback(Server, RegionServerServices, User)    */
+comment|/**    * Roll back a failed transaction    * @param server Hosting server instance (May be null when testing).    * @param services    * @throws IOException If thrown, rollback failed.  Take drastic action.    * @return True if we successfully rolled back, false if we got to the point    * of no return and so now need to abort the server to minimize damage.    * @deprecated use #rollback(Server, RegionServerServices, User); as of 1.0.2, remove in 3.0    */
 annotation|@
 name|Deprecated
 name|boolean

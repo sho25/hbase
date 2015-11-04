@@ -118,7 +118,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Emits sorted KeyValues.  * Reads in all KeyValues from passed Iterator, sorts them, then emits  * KeyValues in sorted order.  If lots of columns per row, it will use lots of  * memory sorting.  * @see HFileOutputFormat  */
+comment|/**  * Emits sorted KeyValues.  * Reads in all KeyValues from passed Iterator, sorts them, then emits  * KeyValues in sorted order.  If lots of columns per row, it will use lots of  * memory sorting.  * @see HFileOutputFormat2  */
 end_comment
 
 begin_class

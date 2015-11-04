@@ -196,7 +196,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Emits sorted Puts.  * Reads in all Puts from passed Iterator, sorts them, then emits  * Puts in sorted order.  If lots of columns per row, it will use lots of  * memory sorting.  * @see HFileOutputFormat  * @see KeyValueSortReducer  */
+comment|/**  * Emits sorted Puts.  * Reads in all Puts from passed Iterator, sorts them, then emits  * Puts in sorted order.  If lots of columns per row, it will use lots of  * memory sorting.  * @see HFileOutputFormat2  * @see KeyValueSortReducer  */
 end_comment
 
 begin_class

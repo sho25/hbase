@@ -245,7 +245,7 @@ argument_list|<
 name|TableSplit
 argument_list|>
 block|{
-comment|/** @deprecated LOG variable would be made private. */
+comment|/** @deprecated LOG variable would be made private. fix in hbase 3.0 */
 annotation|@
 name|Deprecated
 specifier|public

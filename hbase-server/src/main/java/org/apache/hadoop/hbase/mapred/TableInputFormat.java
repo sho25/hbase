@@ -471,7 +471,7 @@ block|}
 comment|// connected to table?
 if|if
 condition|(
-name|getHTable
+name|getTable
 argument_list|()
 operator|==
 literal|null

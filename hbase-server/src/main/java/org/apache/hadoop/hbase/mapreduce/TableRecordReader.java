@@ -219,25 +219,6 @@ name|firstRow
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the HBase table.    *    * @param htable  The table to scan.    * @deprecated Use setTable() instead.    */
-annotation|@
-name|Deprecated
-specifier|public
-name|void
-name|setHTable
-parameter_list|(
-name|Table
-name|htable
-parameter_list|)
-block|{
-name|this
-operator|.
-name|setTable
-argument_list|(
-name|htable
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * @param table the {@link Table} to scan.    */
 specifier|public
 name|void

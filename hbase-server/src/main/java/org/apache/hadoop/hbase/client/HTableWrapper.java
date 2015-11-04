@@ -647,7 +647,7 @@ name|gets
 argument_list|)
 return|;
 block|}
-comment|/**    * @deprecated Use {@link #existsAll(java.util.List)}  instead.    */
+comment|/**    * @deprecated Use {@link #existsAll(java.util.List)}  instead. since 2.0.  remove in 3.0    */
 annotation|@
 name|Deprecated
 specifier|public
