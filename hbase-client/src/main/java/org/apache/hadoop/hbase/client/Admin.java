@@ -1009,7 +1009,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the status of alter command - indicates how many regions have received the updated schema    * Asynchronous operation.    *    * @param tableName name of the table to get the status of    * @return Pair indicating the number of regions updated Pair.getFirst() is the regions that are    * yet to be updated Pair.getSecond() is the total number of regions of the table    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get the status of alter command - indicates how many regions have received the updated schema    * Asynchronous operation.    *    * @param tableName name of the table to get the status of    * @return Pair indicating the number of regions updated Pair.getFirst() is the regions that are    * yet to be updated Pair.getSecond() is the total number of regions of the table    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use {@link #getAlterStatus(TableName)}    *     instead.    */
+annotation|@
+name|Deprecated
 name|Pair
 argument_list|<
 name|Integer
@@ -1895,7 +1897,7 @@ name|SnapshotCreationException
 throws|,
 name|IllegalArgumentException
 function_decl|;
-comment|/**    * public void snapshot(final String snapshotName, Create a timestamp consistent snapshot for the    * given table. final byte[] tableName) throws IOException, Snapshots are considered unique based    * on<b>the name of the snapshot</b>. Attempts to take a snapshot with the same name (even a    * different type or with different parameters) will fail with a {@link SnapshotCreationException}    * indicating the duplicate naming. Snapshot names follow the same naming constraints as tables in    * HBase.    *    * @param snapshotName name of the snapshot to be created    * @param tableName name of the table for which snapshot is created    * @throws IOException if a remote or network exception occurs    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
+comment|/**    * Create a timestamp consistent snapshot for the given table. Snapshots are considered unique    * based on<b>the name of the snapshot</b>. Attempts to take a snapshot with the same name (even    * different type or with different parameters) will fail with a {@link SnapshotCreationException}    * indicating the duplicate naming. Snapshot names follow the same naming constraints as tables in    * HBase.    *    * @param snapshotName name of the snapshot to be created    * @param tableName name of the table for which snapshot is created    * @throws IOException if a remote or network exception occurs    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
 name|void
 name|snapshot
 parameter_list|(

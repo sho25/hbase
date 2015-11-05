@@ -2886,7 +2886,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|Admin
+name|HBaseAdmin
 name|createTable
 parameter_list|(
 name|TableName
@@ -2895,7 +2895,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Admin
+name|HBaseAdmin
 name|admin
 init|=
 name|TEST_UTIL
