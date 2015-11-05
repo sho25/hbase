@@ -2084,7 +2084,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Setup a clean table with a certain region_replica count    *    * It will set tbl which needs to be closed after test    *    * @param tableName    * @param replicaCount    * @throws Exception    */
+comment|/**    * Setup a clean table with a certain region_replica count    *    * It will set tbl which needs to be closed after test    *    * @throws Exception    */
 name|void
 name|setupTableWithRegionReplica
 parameter_list|(
@@ -2218,7 +2218,7 @@ name|puts
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Setup a clean table with a mob-enabled column.    *    * @param tableName The name of a table to be created.    * @throws Exception    */
+comment|/**    * Setup a clean table with a mob-enabled column.    *    * @param tablename The name of a table to be created.    * @throws Exception    */
 name|void
 name|setupMobTable
 parameter_list|(
@@ -2461,7 +2461,7 @@ argument_list|>
 name|getDeployedHRIs
 parameter_list|(
 specifier|final
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|)
 throws|throws

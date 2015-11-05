@@ -149,7 +149,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
+name|Admin
 import|;
 end_import
 
@@ -579,7 +579,7 @@ argument_list|,
 name|family
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -830,7 +830,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 comment|// there should be some data files
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -857,9 +857,6 @@ operator|.
 name|compact
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|family
 argument_list|)
@@ -872,9 +869,6 @@ operator|.
 name|compact
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -891,9 +885,6 @@ operator|.
 name|majorCompact
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|family
 argument_list|)
@@ -906,9 +897,6 @@ operator|.
 name|majorCompact
 argument_list|(
 name|table
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

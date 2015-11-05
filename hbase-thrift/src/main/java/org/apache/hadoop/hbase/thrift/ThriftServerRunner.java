@@ -635,22 +635,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Increment
 import|;
 end_import
@@ -4806,6 +4790,8 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|// ThriftServerRunner.compact should be deprecated and replaced with methods specific to
+comment|// table and region.
 annotation|@
 name|Override
 specifier|public
@@ -4820,18 +4806,12 @@ name|IOError
 block|{
 try|try
 block|{
-comment|// TODO: HBaseAdmin.compact(byte[]) deprecated and not trivial to replace here.
-comment|// ThriftServerRunner.compact should be deprecated and replaced with methods specific to
-comment|// table and region.
-operator|(
-operator|(
-name|HBaseAdmin
-operator|)
+try|try
+block|{
 name|getAdmin
 argument_list|()
-operator|)
 operator|.
-name|compact
+name|compactRegion
 argument_list|(
 name|getBytes
 argument_list|(
@@ -4839,6 +4819,31 @@ name|tableNameOrRegionName
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IllegalArgumentException
+name|e
+parameter_list|)
+block|{
+comment|// Invalid region, try table
+name|getAdmin
+argument_list|()
+operator|.
+name|compact
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|getBytes
+argument_list|(
+name|tableNameOrRegionName
+argument_list|)
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -4872,6 +4877,8 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|// ThriftServerRunner.majorCompact should be deprecated and replaced with methods specific
+comment|// to table and region.
 annotation|@
 name|Override
 specifier|public
@@ -4886,18 +4893,12 @@ name|IOError
 block|{
 try|try
 block|{
-comment|// TODO: HBaseAdmin.majorCompact(byte[]) deprecated and not trivial to replace here.
-comment|// ThriftServerRunner.majorCompact should be deprecated and replaced with methods specific
-comment|// to table and region.
-operator|(
-operator|(
-name|HBaseAdmin
-operator|)
+try|try
+block|{
 name|getAdmin
 argument_list|()
-operator|)
 operator|.
-name|majorCompact
+name|compactRegion
 argument_list|(
 name|getBytes
 argument_list|(
@@ -4905,6 +4906,31 @@ name|tableNameOrRegionName
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IllegalArgumentException
+name|e
+parameter_list|)
+block|{
+comment|// Invalid region, try table
+name|getAdmin
+argument_list|()
+operator|.
+name|compact
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|getBytes
+argument_list|(
+name|tableNameOrRegionName
+argument_list|)
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(

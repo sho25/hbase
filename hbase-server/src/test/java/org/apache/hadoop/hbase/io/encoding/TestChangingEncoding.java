@@ -1481,7 +1481,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL

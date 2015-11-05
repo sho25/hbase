@@ -9050,7 +9050,7 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 operator|.
-name|split
+name|splitRegion
 argument_list|(
 name|regions
 operator|.

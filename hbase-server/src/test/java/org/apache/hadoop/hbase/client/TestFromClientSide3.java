@@ -928,19 +928,14 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
-name|String
-name|tableName
-init|=
-literal|"testAdvancedConfigOverride"
-decl_stmt|;
 name|TableName
-name|TABLE
+name|tableName
 init|=
 name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|tableName
+literal|"testAdvancedConfigOverride"
 argument_list|)
 decl_stmt|;
 name|Table
@@ -950,14 +945,14 @@ name|TEST_UTIL
 operator|.
 name|createTable
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|,
 name|FAMILY
 argument_list|,
 literal|10
 argument_list|)
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -993,6 +988,9 @@ argument_list|)
 decl_stmt|;
 name|performMultiplePutAndFlush
 argument_list|(
+operator|(
+name|HBaseAdmin
+operator|)
 name|admin
 argument_list|,
 name|hTable
@@ -1018,7 +1016,7 @@ argument_list|()
 operator|.
 name|getRegionLocator
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|)
 init|)
 block|{
@@ -1088,10 +1086,7 @@ name|admin
 operator|.
 name|compact
 argument_list|(
-name|TABLE
-operator|.
-name|getName
-argument_list|()
+name|tableName
 argument_list|)
 expr_stmt|;
 comment|// poll wait for the compactions to happen
@@ -1248,7 +1243,7 @@ name|admin
 operator|.
 name|modifyTable
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|,
 name|htd
 argument_list|)
@@ -1272,7 +1267,7 @@ name|admin
 operator|.
 name|getAlterStatus
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|)
 operator|)
 operator|&&
@@ -1314,6 +1309,9 @@ expr_stmt|;
 comment|// Create 3 more store files.
 name|performMultiplePutAndFlush
 argument_list|(
+operator|(
+name|HBaseAdmin
+operator|)
 name|admin
 argument_list|,
 name|hTable
@@ -1332,10 +1330,7 @@ name|admin
 operator|.
 name|compact
 argument_list|(
-name|TABLE
-operator|.
-name|getName
-argument_list|()
+name|tableName
 argument_list|)
 expr_stmt|;
 comment|// This time, the compaction request should not happen
@@ -1452,7 +1447,7 @@ name|admin
 operator|.
 name|modifyTable
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|,
 name|htd
 argument_list|)
@@ -1468,7 +1463,7 @@ name|admin
 operator|.
 name|getAlterStatus
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|)
 operator|)
 operator|&&
@@ -1512,10 +1507,7 @@ name|admin
 operator|.
 name|compact
 argument_list|(
-name|TABLE
-operator|.
-name|getName
-argument_list|()
+name|tableName
 argument_list|)
 expr_stmt|;
 comment|// poll wait for the compactions to happen
@@ -1687,7 +1679,7 @@ name|admin
 operator|.
 name|modifyTable
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|,
 name|htd
 argument_list|)
@@ -1703,7 +1695,7 @@ name|admin
 operator|.
 name|getAlterStatus
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|)
 operator|)
 operator|&&

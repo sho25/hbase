@@ -255,7 +255,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Delete
+name|Admin
 import|;
 end_import
 
@@ -271,7 +271,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
+name|Delete
 import|;
 end_import
 
@@ -699,7 +699,7 @@ name|getMaster
 argument_list|()
 decl_stmt|;
 specifier|final
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -1086,7 +1086,7 @@ literal|"testDeleteForSureClearsAllTableRowsFromMeta"
 argument_list|)
 decl_stmt|;
 specifier|final
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -1461,43 +1461,6 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|createTable
-argument_list|(
-name|testUtil
-argument_list|,
-name|testUtil
-operator|.
-name|getHBaseAdmin
-argument_list|()
-argument_list|,
-name|htd
-argument_list|,
-name|splitKeys
-argument_list|)
-expr_stmt|;
-block|}
-specifier|public
-specifier|static
-name|void
-name|createTable
-parameter_list|(
-name|HBaseTestingUtility
-name|testUtil
-parameter_list|,
-name|HBaseAdmin
-name|admin
-parameter_list|,
-name|HTableDescriptor
-name|htd
-parameter_list|,
-name|byte
-index|[]
-index|[]
-name|splitKeys
-parameter_list|)
-throws|throws
-name|Exception
-block|{
 comment|// NOTE: We need a latch because admin is not sync,
 comment|// so the postOp coprocessor method may be called after the admin operation returned.
 name|MasterSyncObserver
@@ -1537,6 +1500,14 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+name|Admin
+name|admin
+init|=
+name|testUtil
+operator|.
+name|getHBaseAdmin
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|splitKeys
@@ -1602,36 +1573,6 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|deleteTable
-argument_list|(
-name|testUtil
-argument_list|,
-name|testUtil
-operator|.
-name|getHBaseAdmin
-argument_list|()
-argument_list|,
-name|tableName
-argument_list|)
-expr_stmt|;
-block|}
-specifier|public
-specifier|static
-name|void
-name|deleteTable
-parameter_list|(
-name|HBaseTestingUtility
-name|testUtil
-parameter_list|,
-name|HBaseAdmin
-name|admin
-parameter_list|,
-name|TableName
-name|tableName
-parameter_list|)
-throws|throws
-name|Exception
-block|{
 comment|// NOTE: We need a latch because admin is not sync,
 comment|// so the postOp coprocessor method may be called after the admin operation returned.
 name|MasterSyncObserver
@@ -1671,6 +1612,14 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+name|Admin
+name|admin
+init|=
+name|testUtil
+operator|.
+name|getHBaseAdmin
+argument_list|()
+decl_stmt|;
 try|try
 block|{
 name|admin

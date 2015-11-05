@@ -1358,9 +1358,6 @@ name|findDeployedHSI
 argument_list|(
 name|getDeployedHRIs
 argument_list|(
-operator|(
-name|HBaseAdmin
-operator|)
 name|admin
 argument_list|)
 argument_list|,
