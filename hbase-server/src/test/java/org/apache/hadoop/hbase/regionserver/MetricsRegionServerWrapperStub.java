@@ -258,7 +258,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|int
+name|double
 name|getPercentFileLocal
 parameter_list|()
 block|{
@@ -269,7 +269,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|int
+name|double
 name|getPercentFileLocalSecondaryRegions
 parameter_list|()
 block|{
@@ -434,7 +434,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|int
+name|double
 name|getBlockCacheHitCachingPercent
 parameter_list|()
 block|{
@@ -740,7 +740,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|int
+name|double
 name|getMobFileCacheHitPercent
 parameter_list|()
 block|{

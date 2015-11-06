@@ -144,12 +144,12 @@ name|getDataInMemoryWithoutWAL
 parameter_list|()
 function_decl|;
 comment|/**    * Get the percent of HFiles' that are local.    */
-name|int
+name|double
 name|getPercentFileLocal
 parameter_list|()
 function_decl|;
 comment|/**    * Get the percent of HFiles' that are local for secondary region replicas.    */
-name|int
+name|double
 name|getPercentFileLocalSecondaryRegions
 parameter_list|()
 function_decl|;
@@ -227,7 +227,7 @@ name|getBlockCacheHitPercent
 parameter_list|()
 function_decl|;
 comment|/**    * Get the percent of requests with the block cache turned on that hit the block cache.    */
-name|int
+name|double
 name|getBlockCacheHitCachingPercent
 parameter_list|()
 function_decl|;
@@ -337,24 +337,21 @@ name|getMobFileCacheCount
 parameter_list|()
 function_decl|;
 comment|/**    * Gets the hit percent to the mob file cache.    */
-name|int
+name|double
 name|getMobFileCacheHitPercent
 parameter_list|()
 function_decl|;
 comment|/**    * @return Count of hedged read operations    */
-specifier|public
 name|long
 name|getHedgedReadOps
 parameter_list|()
 function_decl|;
 comment|/**    * @return Count of times a hedged read beat out the primary read.    */
-specifier|public
 name|long
 name|getHedgedReadWins
 parameter_list|()
 function_decl|;
 comment|/**    * @return Count of requests blocked because the memstore size is larger than blockingMemStoreSize    */
-specifier|public
 name|long
 name|getBlockedRequestsCount
 parameter_list|()
