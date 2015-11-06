@@ -4677,6 +4677,7 @@ block|{
 return|return
 literal|null
 return|;
+comment|// This test is not inteded to run with stock Chaos Monkey
 block|}
 annotation|@
 name|Override
@@ -4691,6 +4692,7 @@ block|{
 return|return
 literal|null
 return|;
+comment|// This test is not inteded to run with stock Chaos Monkey
 block|}
 specifier|public
 specifier|static

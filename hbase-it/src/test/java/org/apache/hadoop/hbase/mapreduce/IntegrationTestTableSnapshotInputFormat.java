@@ -747,7 +747,7 @@ return|;
 block|}
 annotation|@
 name|Override
-comment|// CM is not intended to be run with this test
+comment|// Chaos Monkey is not intended to be run with this test
 specifier|public
 name|TableName
 name|getTablename
@@ -759,6 +759,7 @@ return|;
 block|}
 annotation|@
 name|Override
+comment|// Chaos Monkey is not inteded to be run with this test
 specifier|protected
 name|Set
 argument_list|<
