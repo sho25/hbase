@@ -16130,6 +16130,10 @@ name|port
 argument_list|)
 condition|)
 block|{
+name|port
+operator|=
+literal|0
+expr_stmt|;
 continue|continue;
 block|}
 name|takenRandomPorts
