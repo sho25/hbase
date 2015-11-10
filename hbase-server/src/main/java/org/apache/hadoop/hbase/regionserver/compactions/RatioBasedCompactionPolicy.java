@@ -579,6 +579,8 @@ operator|=
 name|skipLargeFiles
 argument_list|(
 name|candidateSelection
+argument_list|,
+name|mayUseOffPeak
 argument_list|)
 expr_stmt|;
 name|isAllFiles
@@ -760,6 +762,9 @@ argument_list|<
 name|StoreFile
 argument_list|>
 name|candidates
+parameter_list|,
+name|boolean
+name|mayUseOffpeak
 parameter_list|)
 block|{
 name|int
@@ -804,7 +809,9 @@ operator|>
 name|comConf
 operator|.
 name|getMaxCompactSize
-argument_list|()
+argument_list|(
+name|mayUseOffpeak
+argument_list|)
 operator|)
 condition|)
 block|{

@@ -471,7 +471,9 @@ operator|>
 name|comConf
 operator|.
 name|getMaxCompactSize
-argument_list|()
+argument_list|(
+name|mayUseOffPeak
+argument_list|)
 condition|)
 block|{
 continue|continue;
