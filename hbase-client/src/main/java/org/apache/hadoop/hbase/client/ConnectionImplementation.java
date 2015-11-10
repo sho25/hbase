@@ -1388,10 +1388,6 @@ specifier|final
 name|MetricsConnection
 name|metrics
 decl_stmt|;
-specifier|private
-name|int
-name|refCount
-decl_stmt|;
 specifier|protected
 name|User
 name|user
@@ -10033,32 +10029,6 @@ name|getCurrentNrHRS
 argument_list|()
 return|;
 block|}
-comment|/**    * Increment this client's reference count.    */
-name|void
-name|incCount
-parameter_list|()
-block|{
-operator|++
-name|refCount
-expr_stmt|;
-block|}
-comment|/**    * Decrement this client's reference count.    */
-name|void
-name|decCount
-parameter_list|()
-block|{
-if|if
-condition|(
-name|refCount
-operator|>
-literal|0
-condition|)
-block|{
-operator|--
-name|refCount
-expr_stmt|;
-block|}
-block|}
 annotation|@
 name|Override
 specifier|public
@@ -10141,7 +10111,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Close the connection for good, regardless of what the current value of    * {@link #refCount} is. Ideally, {@link #refCount} should be zero at this    * point, which would be the case if all of its consumers close the    * connection. However, on the off chance that someone is unable to close    * the connection, perhaps because it bailed out prematurely, the method    * below will ensure that this {@link org.apache.hadoop.hbase.client.HConnection} instance    * is cleaned up.    * Caveat: The JVM may take an unknown amount of time to call finalize on an    * unreachable object, so our hope is that every consumer cleans up after    * itself, like any good citizen.    */
+comment|/**    * Close the connection for good. On the off chance that someone is unable to close    * the connection, perhaps because it bailed out prematurely, the method    * below will ensure that this instance is cleaned up.    * Caveat: The JVM may take an unknown amount of time to call finalize on an    * unreachable object, so our hope is that every consumer cleans up after    * itself, like any good citizen.    */
 annotation|@
 name|Override
 specifier|protected
@@ -10155,11 +10125,6 @@ name|super
 operator|.
 name|finalize
 argument_list|()
-expr_stmt|;
-comment|// Pretend as if we are about to release the last remaining reference
-name|refCount
-operator|=
-literal|1
 expr_stmt|;
 name|close
 argument_list|()
