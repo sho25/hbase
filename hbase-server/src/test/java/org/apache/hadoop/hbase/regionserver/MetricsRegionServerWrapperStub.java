@@ -446,6 +446,17 @@ annotation|@
 name|Override
 specifier|public
 name|long
+name|getBlockCacheFailedInsertions
+parameter_list|()
+block|{
+return|return
+literal|36
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
 name|getUpdatesBlockedTime
 parameter_list|()
 block|{

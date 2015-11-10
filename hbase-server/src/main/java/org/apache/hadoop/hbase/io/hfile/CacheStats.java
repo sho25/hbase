@@ -217,6 +217,18 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+comment|/** The total number of blocks that were not inserted. */
+specifier|private
+specifier|final
+name|AtomicLong
+name|failedInserts
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
 comment|/** The number of metrics periods to include in window */
 specifier|private
 specifier|final
@@ -607,6 +619,18 @@ block|}
 block|}
 specifier|public
 name|long
+name|failInsert
+parameter_list|()
+block|{
+return|return
+name|failedInserts
+operator|.
+name|incrementAndGet
+argument_list|()
+return|;
+block|}
+specifier|public
+name|long
 name|getRequestCount
 parameter_list|()
 block|{
@@ -844,6 +868,18 @@ operator|)
 name|getEvictionCount
 argument_list|()
 operator|)
+return|;
+block|}
+specifier|public
+name|long
+name|getFailedInserts
+parameter_list|()
+block|{
+return|return
+name|failedInserts
+operator|.
+name|get
+argument_list|()
 return|;
 block|}
 specifier|public

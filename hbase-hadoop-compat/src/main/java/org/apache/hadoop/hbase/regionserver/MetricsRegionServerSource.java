@@ -519,6 +519,18 @@ init|=
 literal|"The percent of the time that requests with the cache turned on hit the cache."
 decl_stmt|;
 name|String
+name|BLOCK_CACHE_FAILED_INSERTION_COUNT
+init|=
+literal|"blockCacheFailedInsertionCount"
+decl_stmt|;
+name|String
+name|BLOCK_CACHE_FAILED_INSERTION_COUNT_DESC
+init|=
+literal|"Number of times that a block cache "
+operator|+
+literal|"insertion failed. Usually due to size restrictions."
+decl_stmt|;
+name|String
 name|RS_START_TIME_NAME
 init|=
 literal|"regionServerStartTime"

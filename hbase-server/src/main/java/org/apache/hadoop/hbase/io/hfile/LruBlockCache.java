@@ -573,6 +573,26 @@ literal|60
 operator|*
 literal|5
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|LRU_MAX_BLOCK_SIZE
+init|=
+literal|"hbase.lru.max.block.size"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_MAX_BLOCK_SIZE
+init|=
+literal|16L
+operator|*
+literal|1024L
+operator|*
+literal|1024L
+decl_stmt|;
 comment|/** Concurrent map (the cache) */
 specifier|private
 specifier|final
@@ -595,6 +615,11 @@ name|ReentrantLock
 argument_list|(
 literal|true
 argument_list|)
+decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|maxBlockSize
 decl_stmt|;
 comment|/** Volatile boolean to track if we are in an eviction process or not */
 specifier|private
@@ -788,6 +813,8 @@ argument_list|,
 name|DEFAULT_MEMORY_FACTOR
 argument_list|,
 literal|false
+argument_list|,
+name|DEFAULT_MAX_BLOCK_SIZE
 argument_list|)
 expr_stmt|;
 block|}
@@ -886,6 +913,15 @@ name|LRU_IN_MEMORY_FORCE_MODE_CONFIG_NAME
 argument_list|,
 name|DEFAULT_IN_MEMORY_FORCE_MODE
 argument_list|)
+argument_list|,
+name|conf
+operator|.
+name|getLong
+argument_list|(
+name|LRU_MAX_BLOCK_SIZE
+argument_list|,
+name|DEFAULT_MAX_BLOCK_SIZE
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -953,8 +989,17 @@ name|memoryFactor
 parameter_list|,
 name|boolean
 name|forceInMemory
+parameter_list|,
+name|long
+name|maxBlockSize
 parameter_list|)
 block|{
+name|this
+operator|.
+name|maxBlockSize
+operator|=
+name|maxBlockSize
+expr_stmt|;
 if|if
 condition|(
 name|singleFactor
@@ -1264,6 +1309,64 @@ name|boolean
 name|cacheDataInL1
 parameter_list|)
 block|{
+if|if
+condition|(
+name|buf
+operator|.
+name|heapSize
+argument_list|()
+operator|>
+name|maxBlockSize
+condition|)
+block|{
+comment|// If there are a lot of blocks that are too
+comment|// big this can make the logs way too noisy.
+comment|// So we log 2%
+if|if
+condition|(
+name|stats
+operator|.
+name|failInsert
+argument_list|()
+operator|%
+literal|50
+operator|==
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Trying to cache too large a block "
+operator|+
+name|cacheKey
+operator|.
+name|getHfileName
+argument_list|()
+operator|+
+literal|" @ "
+operator|+
+name|cacheKey
+operator|.
+name|getOffset
+argument_list|()
+operator|+
+literal|" is "
+operator|+
+name|buf
+operator|.
+name|heapSize
+argument_list|()
+operator|+
+literal|" which is larger than "
+operator|+
+name|maxBlockSize
+argument_list|)
+expr_stmt|;
+block|}
+return|return;
+block|}
 name|LruCachedBlock
 name|cb
 init|=
@@ -3824,7 +3927,7 @@ name|SIZEOF_LONG
 operator|)
 operator|+
 operator|(
-literal|9
+literal|10
 operator|*
 name|ClassSize
 operator|.
@@ -3839,9 +3942,13 @@ operator|.
 name|SIZEOF_FLOAT
 operator|)
 operator|+
+operator|(
+literal|2
+operator|*
 name|Bytes
 operator|.
 name|SIZEOF_BOOLEAN
+operator|)
 operator|+
 name|ClassSize
 operator|.

@@ -231,6 +231,11 @@ name|double
 name|getBlockCacheHitCachingPercent
 parameter_list|()
 function_decl|;
+comment|/**    * Number of cache insertions that failed.    */
+name|long
+name|getBlockCacheFailedInsertions
+parameter_list|()
+function_decl|;
 comment|/**    * Force a re-computation of the metrics.    */
 name|void
 name|forceRecompute

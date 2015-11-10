@@ -986,17 +986,6 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-specifier|private
-specifier|final
-name|AtomicLong
-name|failedBlockAdditions
-init|=
-operator|new
-name|AtomicLong
-argument_list|(
-literal|0
-argument_list|)
-decl_stmt|;
 comment|/** Cache access count (sequential ID) */
 specifier|private
 specifier|final
@@ -2028,9 +2017,9 @@ argument_list|(
 name|cacheKey
 argument_list|)
 expr_stmt|;
-name|failedBlockAdditions
+name|cacheStats
 operator|.
-name|incrementAndGet
+name|failInsert
 argument_list|()
 expr_stmt|;
 block|}
@@ -3034,7 +3023,9 @@ name|info
 argument_list|(
 literal|"failedBlockAdditions="
 operator|+
-name|getFailedBlockAdditions
+name|cacheStats
+operator|.
+name|getFailedInserts
 argument_list|()
 operator|+
 literal|", "
@@ -3233,20 +3224,6 @@ operator|.
 name|reset
 argument_list|()
 expr_stmt|;
-block|}
-specifier|public
-name|long
-name|getFailedBlockAdditions
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|failedBlockAdditions
-operator|.
-name|get
-argument_list|()
-return|;
 block|}
 specifier|public
 name|long

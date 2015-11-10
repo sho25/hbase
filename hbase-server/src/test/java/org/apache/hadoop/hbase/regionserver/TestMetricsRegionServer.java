@@ -600,6 +600,17 @@ name|HELPER
 operator|.
 name|assertCounter
 argument_list|(
+literal|"blockCacheFailedInsertionCount"
+argument_list|,
+literal|36
+argument_list|,
+name|serverSource
+argument_list|)
+expr_stmt|;
+name|HELPER
+operator|.
+name|assertCounter
+argument_list|(
 literal|"updatesBlockedTime"
 argument_list|,
 literal|419
