@@ -3966,15 +3966,15 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Remove log: "
+literal|"Removing log="
 operator|+
 name|log
 argument_list|)
@@ -3992,39 +3992,25 @@ argument_list|(
 name|log
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Remove log: "
-operator|+
-name|log
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Removed logs: "
-operator|+
-name|logs
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
-name|logs
+name|LOG
 operator|.
-name|size
+name|isDebugEnabled
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 name|LOG
 operator|.
-name|error
+name|info
 argument_list|(
-literal|"Expected at least one log"
+literal|"Removed log="
+operator|+
+name|log
+operator|+
+literal|" activeLogs="
+operator|+
+name|logs
 argument_list|)
 expr_stmt|;
 block|}
