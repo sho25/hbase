@@ -3606,6 +3606,38 @@ literal|"' option will be ignored.\n"
 operator|+
 literal|"\n"
 operator|+
+literal|"Other special columns that can be specified are "
+operator|+
+name|TsvParser
+operator|.
+name|CELL_TTL_COLUMN_SPEC
+operator|+
+literal|" and "
+operator|+
+name|TsvParser
+operator|.
+name|CELL_VISIBILITY_COLUMN_SPEC
+operator|+
+literal|".\n"
+operator|+
+name|TsvParser
+operator|.
+name|CELL_TTL_COLUMN_SPEC
+operator|+
+literal|" designates that this column will be used "
+operator|+
+literal|"as a Cell's Time To Live (TTL) attribute.\n"
+operator|+
+name|TsvParser
+operator|.
+name|CELL_VISIBILITY_COLUMN_SPEC
+operator|+
+literal|" designates that this column contains the "
+operator|+
+literal|"visibility label expression.\n"
+operator|+
+literal|"\n"
+operator|+
 name|TsvParser
 operator|.
 name|ATTRIBUTES_COLUMN_SPEC
