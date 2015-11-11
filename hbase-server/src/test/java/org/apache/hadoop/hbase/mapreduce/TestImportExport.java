@@ -1296,6 +1296,8 @@ name|EXPORT_TABLE
 init|=
 literal|"exportSimpleCase"
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -1314,7 +1316,9 @@ name|FAMILYA
 argument_list|,
 literal|3
 argument_list|)
-decl_stmt|;
+init|;
+init|)
+block|{
 name|Put
 name|p
 init|=
@@ -1432,6 +1436,7 @@ argument_list|(
 name|p
 argument_list|)
 expr_stmt|;
+block|}
 name|String
 index|[]
 name|args
@@ -1462,8 +1467,11 @@ name|IMPORT_TABLE
 init|=
 literal|"importTableSimpleCase"
 decl_stmt|;
+try|try
+init|(
+name|Table
 name|t
-operator|=
+init|=
 name|UTIL
 operator|.
 name|createTable
@@ -1479,7 +1487,9 @@ name|FAMILYB
 argument_list|,
 literal|3
 argument_list|)
-expr_stmt|;
+init|;
+init|)
+block|{
 name|args
 operator|=
 operator|new
@@ -1579,6 +1589,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Test export hbase:meta table    *    * @throws Exception    */
 annotation|@
@@ -1756,6 +1767,8 @@ name|IMPORT_TABLE
 init|=
 name|name
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -1779,7 +1792,9 @@ argument_list|)
 argument_list|,
 literal|3
 argument_list|)
-decl_stmt|;
+init|;
+init|)
+block|{
 name|String
 index|[]
 name|args
@@ -1803,7 +1818,7 @@ name|args
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|/* exportedTableIn94Format contains 5 rows      ROW         COLUMN+CELL      r1          column=f1:c1, timestamp=1383766761171, value=val1      r2          column=f1:c1, timestamp=1383766771642, value=val2      r3          column=f1:c1, timestamp=1383766777615, value=val3      r4          column=f1:c1, timestamp=1383766785146, value=val4      r5          column=f1:c1, timestamp=1383766791506, value=val5      */
+comment|/* exportedTableIn94Format contains 5 rows       ROW         COLUMN+CELL       r1          column=f1:c1, timestamp=1383766761171, value=val1       r2          column=f1:c1, timestamp=1383766771642, value=val2       r3          column=f1:c1, timestamp=1383766777615, value=val3       r4          column=f1:c1, timestamp=1383766785146, value=val4       r5          column=f1:c1, timestamp=1383766791506, value=val5       */
 name|assertEquals
 argument_list|(
 literal|5
@@ -1816,11 +1831,7 @@ name|t
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|t
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 comment|/**    * Test export scanner batching    */
 annotation|@
@@ -1877,6 +1888,8 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -1892,7 +1905,9 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|)
-decl_stmt|;
+init|;
+init|)
+block|{
 name|Put
 name|p
 init|=
@@ -2040,11 +2055,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|t
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -2107,6 +2118,8 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -2122,7 +2135,9 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|)
-decl_stmt|;
+init|;
+init|)
+block|{
 name|Put
 name|p
 init|=
@@ -2260,6 +2275,7 @@ argument_list|(
 name|d
 argument_list|)
 expr_stmt|;
+block|}
 name|String
 index|[]
 name|args
@@ -2344,13 +2360,11 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|Table
 name|t
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-name|t
-operator|=
+init|=
 name|UTIL
 operator|.
 name|getConnection
@@ -2363,7 +2377,9 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|)
-expr_stmt|;
+init|;
+init|)
+block|{
 name|args
 operator|=
 operator|new
@@ -2528,11 +2544,7 @@ name|getTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|t
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -4242,6 +4254,8 @@ name|exportTableName
 init|=
 literal|"exporttestDurability"
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|exportTable
 init|=
@@ -4260,7 +4274,9 @@ name|FAMILYA
 argument_list|,
 literal|3
 argument_list|)
-decl_stmt|;
+init|;
+init|)
+block|{
 comment|// Insert some data
 name|Put
 name|put
@@ -4686,6 +4702,7 @@ operator|==
 literal|2
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * This listens to the {@link #visitLogEntryBeforeWrite(HTableDescriptor, WALKey, WALEdit)} to    * identify that an entry is written to the Write Ahead Log for the given table.    */
 specifier|private
