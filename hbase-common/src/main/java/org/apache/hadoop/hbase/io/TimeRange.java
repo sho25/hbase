@@ -158,7 +158,7 @@ name|minStamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Represents interval [minStamp, maxStamp)    * @param minStamp the minimum timestamp, inclusive    * @param maxStamp the maximum timestamp, exclusive    * @throws IOException    */
+comment|/**    * Represents interval [minStamp, maxStamp)    * @param minStamp the minimum timestamp, inclusive    * @param maxStamp the maximum timestamp, exclusive    * @throws IllegalArgumentException    */
 specifier|public
 name|TimeRange
 parameter_list|(
@@ -168,8 +168,6 @@ parameter_list|,
 name|long
 name|maxStamp
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -205,7 +203,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|IllegalArgumentException
 argument_list|(
 literal|"maxStamp is smaller than minStamp"
 argument_list|)

@@ -29,16 +29,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|SortedSet
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -216,12 +206,8 @@ parameter_list|(
 name|Scan
 name|scan
 parameter_list|,
-name|SortedSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
-name|columns
+name|Store
+name|store
 parameter_list|,
 name|long
 name|oldestUnexpiredTS

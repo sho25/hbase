@@ -1960,7 +1960,7 @@ name|shouldUseScanner
 argument_list|(
 name|scan
 argument_list|,
-name|columns
+name|store
 argument_list|,
 name|expiredTimestampCutoff
 argument_list|)

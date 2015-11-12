@@ -1666,7 +1666,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// Static stuff used by various HFile v2 unit tests
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|String

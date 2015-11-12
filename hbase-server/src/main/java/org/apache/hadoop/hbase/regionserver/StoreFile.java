@@ -359,6 +359,22 @@ name|hbase
 operator|.
 name|io
 operator|.
+name|TimeRange
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
 name|hfile
 operator|.
 name|BlockType
@@ -4930,12 +4946,12 @@ name|evictOnClose
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Check if this storeFile may contain keys within the TimeRange that      * have not expired (i.e. not older than oldestUnexpiredTS).      * @param scan the current scan      * @param oldestUnexpiredTS the oldest timestamp that is not expired, as      *          determined by the column family's TTL      * @return false if queried keys definitely don't exist in this StoreFile      */
+comment|/**      * Check if this storeFile may contain keys within the TimeRange that      * have not expired (i.e. not older than oldestUnexpiredTS).      * @param timeRange the timeRange to restrict      * @param oldestUnexpiredTS the oldest timestamp that is not expired, as      *          determined by the column family's TTL      * @return false if queried keys definitely don't exist in this StoreFile      */
 name|boolean
 name|passesTimerangeFilter
 parameter_list|(
-name|Scan
-name|scan
+name|TimeRange
+name|timeRange
 parameter_list|,
 name|long
 name|oldestUnexpiredTS
@@ -4959,10 +4975,7 @@ name|timeRangeTracker
 operator|.
 name|includesTimeRange
 argument_list|(
-name|scan
-operator|.
-name|getTimeRange
-argument_list|()
+name|timeRange
 argument_list|)
 operator|&&
 name|timeRangeTracker

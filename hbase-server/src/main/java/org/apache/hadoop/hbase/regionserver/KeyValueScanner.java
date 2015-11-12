@@ -29,16 +29,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|SortedSet
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -140,19 +130,15 @@ name|void
 name|close
 parameter_list|()
 function_decl|;
-comment|/**    * Allows to filter out scanners (both StoreFile and memstore) that we don't    * want to use based on criteria such as Bloom filters and timestamp ranges.    * @param scan the scan that we are selecting scanners for    * @param columns the set of columns in the current column family, or null if    *          not specified by the scan    * @param oldestUnexpiredTS the oldest timestamp we are interested in for    *          this query, based on TTL    * @return true if the scanner should be included in the query    */
+comment|/**    * Allows to filter out scanners (both StoreFile and memstore) that we don't    * want to use based on criteria such as Bloom filters and timestamp ranges.    * @param scan the scan that we are selecting scanners for    * @param store the store we are performing the scan on.    * @param oldestUnexpiredTS the oldest timestamp we are interested in for    *          this query, based on TTL    * @return true if the scanner should be included in the query    */
 name|boolean
 name|shouldUseScanner
 parameter_list|(
 name|Scan
 name|scan
 parameter_list|,
-name|SortedSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
-name|columns
+name|Store
+name|store
 parameter_list|,
 name|long
 name|oldestUnexpiredTS
