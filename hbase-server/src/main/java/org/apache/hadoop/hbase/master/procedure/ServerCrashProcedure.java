@@ -624,6 +624,13 @@ specifier|private
 name|ServerName
 name|serverName
 decl_stmt|;
+comment|/**    * Whether DeadServer knows that we are processing it.    */
+specifier|private
+name|boolean
+name|notifiedDeadServer
+init|=
+literal|false
+decl_stmt|;
 comment|/**    * Regions that were on the crashed server.    */
 specifier|private
 name|Set
@@ -868,6 +875,32 @@ name|throwProcedureYieldException
 argument_list|(
 literal|"Waiting on master failover to complete"
 argument_list|)
+expr_stmt|;
+block|}
+comment|// HBASE-14802
+comment|// If we have not yet notified that we are processing a dead server, we should do now.
+if|if
+condition|(
+operator|!
+name|notifiedDeadServer
+condition|)
+block|{
+name|services
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|getDeadServers
+argument_list|()
+operator|.
+name|notifyServer
+argument_list|(
+name|serverName
+argument_list|)
+expr_stmt|;
+name|notifiedDeadServer
+operator|=
+literal|true
 expr_stmt|;
 block|}
 try|try
