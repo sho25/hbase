@@ -151,6 +151,13 @@ name|completed
 init|=
 literal|null
 decl_stmt|;
+specifier|private
+specifier|volatile
+name|boolean
+name|cancelled
+init|=
+literal|false
+decl_stmt|;
 class|class
 name|QueueingFuture
 parameter_list|<
@@ -186,6 +193,8 @@ specifier|private
 specifier|volatile
 name|boolean
 name|cancelled
+init|=
+literal|false
 decl_stmt|;
 specifier|private
 specifier|final
@@ -300,6 +309,12 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+synchronized|synchronized
+init|(
+name|tasks
+init|)
+block|{
+comment|// If this wasn't canceled then store the result.
 if|if
 condition|(
 operator|!
@@ -322,17 +337,14 @@ name|QueueingFuture
 operator|.
 name|this
 expr_stmt|;
-synchronized|synchronized
-init|(
-name|tasks
-init|)
-block|{
+block|}
+comment|// Notify just in case there was someone waiting and this was canceled.
+comment|// That shouldn't happen but better safe than sorry.
 name|tasks
 operator|.
 name|notify
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 block|}
 block|}
@@ -657,6 +669,9 @@ condition|(
 name|completed
 operator|==
 literal|null
+operator|&&
+operator|!
+name|cancelled
 condition|)
 name|tasks
 operator|.
@@ -694,6 +709,9 @@ condition|(
 name|completed
 operator|==
 literal|null
+operator|&&
+operator|!
+name|cancelled
 condition|)
 name|unit
 operator|.
@@ -714,6 +732,17 @@ name|void
 name|cancelAll
 parameter_list|()
 block|{
+comment|// Grab the lock on tasks so that cancelled is visible everywhere
+synchronized|synchronized
+init|(
+name|tasks
+init|)
+block|{
+name|cancelled
+operator|=
+literal|true
+expr_stmt|;
+block|}
 for|for
 control|(
 name|QueueingFuture
