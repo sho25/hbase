@@ -365,6 +365,7 @@ argument_list|>
 name|getStorefiles
 parameter_list|()
 block|{
+comment|// TODO: I can return a null list of StoreFiles? That'll mess up clients. St.Ack 20151111
 return|return
 name|storefiles
 return|;
