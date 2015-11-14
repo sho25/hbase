@@ -30,18 +30,6 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|fail
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -130,6 +118,20 @@ operator|.
 name|fs
 operator|.
 name|Path
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CellScanner
 import|;
 end_import
 
@@ -660,7 +662,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|30000
+literal|15000
 argument_list|)
 specifier|public
 name|void
@@ -1181,6 +1183,32 @@ operator|new
 name|WALEdit
 argument_list|()
 decl_stmt|;
+name|CellScanner
+name|CellScanner
+init|=
+name|put
+operator|.
+name|cellScanner
+argument_list|()
+decl_stmt|;
+name|assertTrue
+argument_list|(
+name|CellScanner
+operator|.
+name|advance
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|edit
+operator|.
+name|add
+argument_list|(
+name|CellScanner
+operator|.
+name|current
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Put something in memstore and out in the WAL. Do a big number of appends so we push
 comment|// out other side of the ringbuffer. If small numbers, stuff doesn't make it to WAL
 for|for
@@ -1198,6 +1226,29 @@ name|i
 operator|++
 control|)
 block|{
+name|region
+operator|.
+name|put
+argument_list|(
+name|put
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Set it so we start throwing exceptions.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"SET throwing of exception on append"
+argument_list|)
+expr_stmt|;
+name|dodgyWAL
+operator|.
+name|throwException
+operator|=
+literal|true
+expr_stmt|;
+comment|// This append provokes a WAL roll request
 name|dodgyWAL
 operator|.
 name|append
@@ -1216,31 +1267,23 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-block|}
-comment|// Set it so we start throwing exceptions.
+comment|// Now wait until the dodgy WAL is latched.
+while|while
+condition|(
 name|dodgyWAL
 operator|.
-name|throwException
-operator|=
-literal|true
-expr_stmt|;
-comment|// This append provokes a WAL roll.
-name|dodgyWAL
+name|latch
 operator|.
-name|append
-argument_list|(
-name|htd
-argument_list|,
-name|region
-operator|.
-name|getRegionInfo
+name|getCount
 argument_list|()
-argument_list|,
-name|key
-argument_list|,
-name|edit
-argument_list|,
-literal|true
+operator|<=
+literal|0
+condition|)
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+literal|1
 argument_list|)
 expr_stmt|;
 name|boolean
@@ -1283,7 +1326,7 @@ init|=
 operator|new
 name|Thread
 argument_list|(
-literal|"flusher"
+literal|"Flusher"
 argument_list|)
 block|{
 specifier|public
@@ -1293,6 +1336,29 @@ parameter_list|()
 block|{
 try|try
 block|{
+if|if
+condition|(
+name|region
+operator|.
+name|getMemstoreSize
+argument_list|()
+operator|<=
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"memstore size="
+operator|+
+name|region
+operator|.
+name|getMemstoreSize
+argument_list|()
+argument_list|)
+throw|;
+block|}
 name|region
 operator|.
 name|flush
@@ -1307,6 +1373,8 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+comment|// Can fail trying to flush in middle of a roll. Not a failure. Will succeed later
+comment|// when roll completes.
 name|LOG
 operator|.
 name|info
@@ -1316,10 +1384,14 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Exiting"
+argument_list|)
+expr_stmt|;
 block|}
 empty_stmt|;
 block|}
@@ -1336,15 +1408,17 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-comment|// Wait till it gets into flushing. It will get stuck on getSequenceId. Then proceed.
+comment|// Wait until
 while|while
 condition|(
-operator|!
-name|region
+name|dodgyWAL
 operator|.
-name|writestate
+name|latch
 operator|.
-name|flushing
+name|getCount
+argument_list|()
+operator|>
+literal|0
 condition|)
 name|Threads
 operator|.
