@@ -262,13 +262,6 @@ name|numProcessing
 init|=
 literal|0
 decl_stmt|;
-comment|/**    * Whether a dead server is being processed currently.    */
-specifier|private
-name|boolean
-name|processing
-init|=
-literal|false
-decl_stmt|;
 comment|/**    * A dead server that comes back alive has a different start code. The new start code should be    *  greater than the old one, but we don't take this into account in this method.    *    * @param newServerName Servername as either<code>host:port</code> or    *<code>host,port,startcode</code>.    * @return true if this server was dead before and coming back alive again    */
 specifier|public
 specifier|synchronized
@@ -364,7 +357,9 @@ name|areDeadServersInProgress
 parameter_list|()
 block|{
 return|return
-name|processing
+name|numProcessing
+operator|!=
+literal|0
 return|;
 block|}
 specifier|public
@@ -418,9 +413,10 @@ name|ServerName
 name|sn
 parameter_list|)
 block|{
-name|processing
-operator|=
-literal|true
+name|this
+operator|.
+name|numProcessing
+operator|++
 expr_stmt|;
 if|if
 condition|(
@@ -447,42 +443,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Notify that we started processing this dead server.    * @param sn ServerName for the dead server.    */
-specifier|public
-specifier|synchronized
-name|void
-name|notifyServer
-parameter_list|(
-name|ServerName
-name|sn
-parameter_list|)
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Started processing "
-operator|+
-name|sn
-argument_list|)
-expr_stmt|;
-block|}
-name|processing
-operator|=
-literal|true
-expr_stmt|;
-name|numProcessing
-operator|++
-expr_stmt|;
-block|}
 specifier|public
 specifier|synchronized
 name|void
@@ -492,9 +452,6 @@ name|ServerName
 name|sn
 parameter_list|)
 block|{
-name|numProcessing
-operator|--
-expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -512,51 +469,16 @@ name|sn
 operator|+
 literal|"; numProcessing="
 operator|+
-name|numProcessing
-argument_list|)
-expr_stmt|;
-assert|assert
-name|numProcessing
-operator|>=
-literal|0
-operator|:
-literal|"Number of dead servers in processing should always be non-negative"
-assert|;
-if|if
-condition|(
-name|numProcessing
-operator|<
-literal|0
-condition|)
-block|{
-name|LOG
+name|this
 operator|.
-name|error
-argument_list|(
-literal|"Number of dead servers in processing = "
-operator|+
 name|numProcessing
-operator|+
-literal|". Something went wrong, this should always be non-negative."
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|numProcessing
-operator|=
-literal|0
+operator|--
 expr_stmt|;
-block|}
-if|if
-condition|(
-name|numProcessing
-operator|==
-literal|0
-condition|)
-block|{
-name|processing
-operator|=
-literal|false
-expr_stmt|;
-block|}
 block|}
 specifier|public
 specifier|synchronized
