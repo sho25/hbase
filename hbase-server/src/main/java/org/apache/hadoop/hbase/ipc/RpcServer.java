@@ -9786,10 +9786,9 @@ name|totalRequestSize
 argument_list|,
 name|traceInfo
 argument_list|,
-name|RpcServer
+name|this
 operator|.
-name|getRemoteIp
-argument_list|()
+name|addr
 argument_list|)
 decl_stmt|;
 name|scheduler
