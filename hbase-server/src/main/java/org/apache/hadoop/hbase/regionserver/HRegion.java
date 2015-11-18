@@ -14755,9 +14755,6 @@ argument_list|,
 name|ioe
 argument_list|)
 expr_stmt|;
-throw|throw
-name|ioe
-throw|;
 block|}
 if|if
 condition|(
@@ -14767,23 +14764,13 @@ literal|null
 condition|)
 block|{
 comment|// We failed to grab another lock
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Failed getting lock in batch put, row="
-operator|+
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
-name|mutation
-operator|.
-name|getRow
-argument_list|()
-argument_list|)
-argument_list|)
-throw|;
+assert|assert
+literal|false
+operator|:
+literal|"Should never fail to get lock when blocking"
+assert|;
+break|break;
+comment|// stop acquiring more rows for this batch
 block|}
 else|else
 block|{
@@ -24410,8 +24397,6 @@ argument_list|)
 return|;
 block|}
 comment|/**    *    * Get a row lock for the specified row. All locks are reentrant.    *    * Before calling this function make sure that a region operation has already been    * started (the calling thread has already acquired the region-close-guard lock).    * @param row The row actions will be performed against    * @param readLock is the lock reader or writer. True indicates that a non-exlcusive    *                 lock is requested    */
-annotation|@
-name|Override
 specifier|public
 name|RowLock
 name|getRowLock
