@@ -2275,6 +2275,22 @@ argument_list|,
 name|retry
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|retry
+condition|)
+block|{
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"mapreduce.map.maxattempts"
+argument_list|,
+literal|3
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Export Snapshot
 name|Path
 name|sourceDir
