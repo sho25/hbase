@@ -392,6 +392,15 @@ name|OUTPUT_TABLE
 init|=
 literal|"hbase.mapred.outputtable"
 decl_stmt|;
+comment|/**    * Prefix for configuration property overrides to apply in {@link #setConf(Configuration)}.    * For keys matching this prefix, the prefix is stripped, and the value is set in the    * configuration with the resulting key, ie. the entry "hbase.mapred.output.key1 = value1"    * would be set in the configuration as "key1 = value1".  Use this to set properties    * which should only be applied to the {@code TableOutputFormat} configuration and not the    * input configuration.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|OUTPUT_CONF_PREFIX
+init|=
+literal|"hbase.mapred.output."
+decl_stmt|;
 comment|/**    * Optional job parameter to specify a peer cluster.    * Used specifying remote cluster when copying between hbase clusters (the    * source is picked up from<code>hbase-site.xml</code>).    * @see TableMapReduceUtil#initTableReducerJob(String, Class, org.apache.hadoop.mapreduce.Job, Class, String, String, String)    */
 specifier|public
 specifier|static
@@ -399,7 +408,9 @@ specifier|final
 name|String
 name|QUORUM_ADDRESS
 init|=
-literal|"hbase.mapred.output.quorum"
+name|OUTPUT_CONF_PREFIX
+operator|+
+literal|"quorum"
 decl_stmt|;
 comment|/** Optional job parameter to specify peer cluster's ZK client port */
 specifier|public
@@ -408,7 +419,9 @@ specifier|final
 name|String
 name|QUORUM_PORT
 init|=
-literal|"hbase.mapred.output.quorum.port"
+name|OUTPUT_CONF_PREFIX
+operator|+
+literal|"quorum.port"
 decl_stmt|;
 comment|/** Optional specification of the rs class name of the peer cluster */
 specifier|public
@@ -417,7 +430,9 @@ specifier|final
 name|String
 name|REGION_SERVER_CLASS
 init|=
-literal|"hbase.mapred.output.rs.class"
+name|OUTPUT_CONF_PREFIX
+operator|+
+literal|"rs.class"
 decl_stmt|;
 comment|/** Optional specification of the rs impl name of the peer cluster */
 specifier|public
@@ -426,7 +441,9 @@ specifier|final
 name|String
 name|REGION_SERVER_IMPL
 init|=
-literal|"hbase.mapred.output.rs.impl"
+name|OUTPUT_CONF_PREFIX
+operator|+
+literal|"rs.impl"
 decl_stmt|;
 comment|/** The configuration. */
 specifier|private
@@ -848,6 +865,30 @@ name|e
 argument_list|)
 throw|;
 block|}
+comment|// finally apply any remaining "hbase.mapred.output." configuration overrides
+name|Configuration
+name|outputOverrides
+init|=
+name|HBaseConfiguration
+operator|.
+name|subset
+argument_list|(
+name|otherConf
+argument_list|,
+name|OUTPUT_CONF_PREFIX
+argument_list|)
+decl_stmt|;
+name|HBaseConfiguration
+operator|.
+name|merge
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|,
+name|outputOverrides
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class
