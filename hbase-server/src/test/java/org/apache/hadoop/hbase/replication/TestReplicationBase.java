@@ -484,23 +484,17 @@ argument_list|,
 literal|"/1"
 argument_list|)
 expr_stmt|;
-comment|// smaller log roll size to trigger more events
-name|conf1
-operator|.
-name|setFloat
-argument_list|(
-literal|"hbase.regionserver.logroll.multiplier"
-argument_list|,
-literal|0.0003f
-argument_list|)
-expr_stmt|;
+comment|// We don't want too many edits per batch sent to the ReplicationEndpoint to trigger
+comment|// sufficient number of events. But we don't want to go too low because
+comment|// HBaseInterClusterReplicationEndpoint partitions entries into batches and we want
+comment|// more than one batch sent to the peer cluster for better testing.
 name|conf1
 operator|.
 name|setInt
 argument_list|(
 literal|"replication.source.size.capacity"
 argument_list|,
-literal|10240
+literal|102400
 argument_list|)
 expr_stmt|;
 name|conf1
@@ -615,6 +609,15 @@ argument_list|(
 literal|"replication.source.maxretriesmultiplier"
 argument_list|,
 literal|10
+argument_list|)
+expr_stmt|;
+name|conf1
+operator|.
+name|setFloat
+argument_list|(
+literal|"replication.source.ratio"
+argument_list|,
+literal|1.0f
 argument_list|)
 expr_stmt|;
 name|utility1
@@ -803,11 +806,13 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
+comment|// Have a bunch of slave servers, because inter-cluster shipping logic uses number of sinks
+comment|// as a component in deciding maximum number of parallel batches to send to the peer cluster.
 name|utility2
 operator|.
 name|startMiniCluster
 argument_list|(
-literal|2
+literal|4
 argument_list|)
 expr_stmt|;
 name|HTableDescriptor

@@ -534,6 +534,17 @@ operator|.
 name|getMiniHBaseCluster
 argument_list|()
 decl_stmt|;
+name|int
+name|numRS
+init|=
+name|peerCluster
+operator|.
+name|getRegionServerThreads
+argument_list|()
+operator|.
+name|size
+argument_list|()
+decl_stmt|;
 name|doPutTest
 argument_list|(
 name|Bytes
@@ -575,6 +586,8 @@ expr_stmt|;
 comment|// Sanity check
 name|assertEquals
 argument_list|(
+name|numRS
+operator|-
 literal|1
 argument_list|,
 name|peerCluster
@@ -604,7 +617,7 @@ expr_stmt|;
 comment|// Sanity check
 name|assertEquals
 argument_list|(
-literal|2
+name|numRS
 argument_list|,
 name|peerCluster
 operator|.
