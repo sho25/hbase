@@ -436,6 +436,14 @@ name|DEFAULT_REPLICA_ID
 init|=
 literal|0
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|INVALID_REGION_NAME_FORMAT_MESSAGE
+init|=
+literal|"Invalid regionName format"
+decl_stmt|;
 comment|/**    * Does region name contain its encoded name?    * @param regionName region name    * @return boolean indicating if this a new format region    *         name which contains its encoded name.    */
 specifier|private
 specifier|static
@@ -2085,7 +2093,9 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Invalid regionName format: "
+name|INVALID_REGION_NAME_FORMAT_MESSAGE
+operator|+
+literal|": "
 operator|+
 name|Bytes
 operator|.
@@ -2288,7 +2298,9 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Invalid regionName format: "
+name|INVALID_REGION_NAME_FORMAT_MESSAGE
+operator|+
+literal|": "
 operator|+
 name|Bytes
 operator|.

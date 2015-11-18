@@ -1503,19 +1503,19 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Merge two regions. Asynchronous operation.    *    * @param encodedNameOfRegionA encoded name of region a    * @param encodedNameOfRegionB encoded name of region b    * @param forcible true if do a compulsory merge, otherwise we will only merge two adjacent    * regions    * @throws IOException    */
+comment|/**    * Merge two regions. Asynchronous operation.    *    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible true if do a compulsory merge, otherwise we will only merge two adjacent    * regions    * @throws IOException    */
 name|void
 name|mergeRegions
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|encodedNameOfRegionA
+name|nameOfRegionA
 parameter_list|,
 specifier|final
 name|byte
 index|[]
-name|encodedNameOfRegionB
+name|nameOfRegionB
 parameter_list|,
 specifier|final
 name|boolean
