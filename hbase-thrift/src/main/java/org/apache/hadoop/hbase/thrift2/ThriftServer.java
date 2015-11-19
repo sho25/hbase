@@ -1781,9 +1781,15 @@ operator|>
 literal|0
 condition|)
 block|{
+comment|// Could support the min& max threads, avoiding to preserve existing functionality.
 name|serverArgs
 operator|.
+name|minWorkerThreads
+argument_list|(
 name|workerThreads
+argument_list|)
+operator|.
+name|maxWorkerThreads
 argument_list|(
 name|workerThreads
 argument_list|)
@@ -1794,10 +1800,7 @@ name|executorService
 init|=
 name|createExecutor
 argument_list|(
-name|serverArgs
-operator|.
-name|getWorkerThreads
-argument_list|()
+name|workerThreads
 argument_list|,
 name|metrics
 argument_list|)
