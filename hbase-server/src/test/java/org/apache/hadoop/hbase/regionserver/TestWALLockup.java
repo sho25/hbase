@@ -53,6 +53,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|TimeUnit
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -662,7 +674,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|15000
+literal|20000
 argument_list|)
 specifier|public
 name|void
@@ -749,13 +761,35 @@ argument_list|(
 literal|"LATCHED"
 argument_list|)
 expr_stmt|;
+comment|// So, timing can have it that the test can run and the bad flush below happens
+comment|// before we get here. In this case, we'll be stuck waiting on this latch but there
+comment|// is nothing in the WAL pipeline to get us to the below beforeWaitOnSafePoint...
+comment|// because all WALs have rolled. In this case, just give up on test.
+if|if
+condition|(
+operator|!
 name|this
 operator|.
 name|latch
 operator|.
 name|await
-argument_list|()
+argument_list|(
+literal|5
+argument_list|,
+name|TimeUnit
+operator|.
+name|SECONDS
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"GIVE UP! Failed waiting on latch...Test is ABORTED!"
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -1265,25 +1299,6 @@ argument_list|,
 name|edit
 argument_list|,
 literal|true
-argument_list|)
-expr_stmt|;
-comment|// Now wait until the dodgy WAL is latched.
-while|while
-condition|(
-name|dodgyWAL
-operator|.
-name|latch
-operator|.
-name|getCount
-argument_list|()
-operator|<=
-literal|0
-condition|)
-name|Threads
-operator|.
-name|sleep
-argument_list|(
-literal|1
 argument_list|)
 expr_stmt|;
 name|boolean

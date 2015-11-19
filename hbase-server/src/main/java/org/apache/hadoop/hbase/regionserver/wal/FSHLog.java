@@ -7434,6 +7434,16 @@ comment|// Return to keep processing.
 return|return;
 block|}
 comment|// TODO: Check size and if big go ahead and call a sync if we have enough data.
+comment|// This is a sync. If existing exception, fall through. Else look to see if batch.
+if|if
+condition|(
+name|this
+operator|.
+name|exception
+operator|==
+literal|null
+condition|)
+block|{
 comment|// If not a batch, return to consume more events from the ring buffer before proceeding;
 comment|// we want to get up a batch of syncs and appends before we go do a filesystem sync.
 if|if
@@ -7448,40 +7458,6 @@ operator|<=
 literal|0
 condition|)
 return|return;
-comment|// Now we have a batch.
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Sequence="
-operator|+
-name|sequence
-operator|+
-literal|", syncCount="
-operator|+
-name|this
-operator|.
-name|syncFuturesCount
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|this
-operator|.
-name|exception
-operator|==
-literal|null
-condition|)
-block|{
 comment|// Below expects that the offer 'transfers' responsibility for the outstanding syncs to
 comment|// the syncRunner. We should never get an exception in here.
 name|this
@@ -7565,6 +7541,16 @@ name|cleanupOutstandingSyncsOnException
 argument_list|(
 name|sequence
 argument_list|,
+name|this
+operator|.
+name|exception
+operator|instanceof
+name|DamagedWALException
+condition|?
+name|this
+operator|.
+name|exception
+else|:
 operator|new
 name|DamagedWALException
 argument_list|(
