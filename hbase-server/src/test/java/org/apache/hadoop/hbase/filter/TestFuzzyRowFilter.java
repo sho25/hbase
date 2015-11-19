@@ -1976,10 +1976,6 @@ block|,
 literal|1
 block|,
 literal|2
-block|,
-literal|0
-block|,
-literal|0
 block|}
 argument_list|)
 expr_stmt|;
@@ -2112,8 +2108,6 @@ block|,
 literal|0
 block|,
 literal|2
-block|,
-literal|0
 block|}
 argument_list|)
 expr_stmt|;
@@ -2176,10 +2170,6 @@ operator|)
 literal|129
 block|,
 literal|1
-block|,
-literal|0
-block|,
-literal|0
 block|}
 argument_list|)
 expr_stmt|;
@@ -2857,10 +2847,6 @@ block|{
 literal|1
 block|,
 literal|1
-block|,
-literal|0
-block|,
-literal|0
 block|}
 argument_list|)
 expr_stmt|;
