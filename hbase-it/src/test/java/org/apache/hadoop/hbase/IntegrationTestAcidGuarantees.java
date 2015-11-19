@@ -444,9 +444,9 @@ name|runTestAtomicity
 argument_list|(
 literal|20000
 argument_list|,
-literal|5
+literal|4
 argument_list|,
-literal|5
+literal|4
 argument_list|,
 literal|0
 argument_list|,
@@ -469,11 +469,11 @@ name|runTestAtomicity
 argument_list|(
 literal|20000
 argument_list|,
-literal|5
+literal|3
 argument_list|,
 literal|0
 argument_list|,
-literal|5
+literal|2
 argument_list|,
 literal|3
 argument_list|)
@@ -494,7 +494,7 @@ name|runTestAtomicity
 argument_list|(
 literal|20000
 argument_list|,
-literal|5
+literal|4
 argument_list|,
 literal|2
 argument_list|,
