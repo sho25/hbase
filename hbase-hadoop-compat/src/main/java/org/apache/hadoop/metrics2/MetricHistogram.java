@@ -56,6 +56,11 @@ init|=
 literal|"_75th_percentile"
 decl_stmt|;
 name|String
+name|NINETIETH_PERCENTILE_METRIC_NAME
+init|=
+literal|"_90th_percentile"
+decl_stmt|;
+name|String
 name|NINETY_FIFTH_PERCENTILE_METRIC_NAME
 init|=
 literal|"_95th_percentile"

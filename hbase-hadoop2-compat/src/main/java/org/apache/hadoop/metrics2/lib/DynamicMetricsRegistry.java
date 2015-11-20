@@ -276,6 +276,8 @@ literal|"_median"
 block|,
 literal|"_75th_percentile"
 block|,
+literal|"_90th_percentile"
+block|,
 literal|"_95th_percentile"
 block|,
 literal|"_99th_percentile"
