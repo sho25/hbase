@@ -499,6 +499,16 @@ name|getNumDeadRegionServers
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|1
+argument_list|,
+name|info
+operator|.
+name|getNumWALFiles
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class

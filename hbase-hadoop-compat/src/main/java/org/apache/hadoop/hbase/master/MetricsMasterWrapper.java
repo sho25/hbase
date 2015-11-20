@@ -87,6 +87,11 @@ name|int
 name|getNumDeadRegionServers
 parameter_list|()
 function_decl|;
+comment|/**    * Get the number of master WAL files.    */
+name|long
+name|getNumWALFiles
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

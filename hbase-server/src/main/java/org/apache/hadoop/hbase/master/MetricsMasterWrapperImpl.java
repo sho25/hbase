@@ -429,6 +429,20 @@ name|isActiveMaster
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getNumWALFiles
+parameter_list|()
+block|{
+return|return
+name|master
+operator|.
+name|getNumWALFiles
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 

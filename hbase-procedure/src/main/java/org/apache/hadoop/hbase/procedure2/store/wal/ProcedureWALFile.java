@@ -590,9 +590,15 @@ parameter_list|()
 block|{
 return|return
 name|logStatus
+operator|!=
+literal|null
+condition|?
+name|logStatus
 operator|.
 name|getLen
 argument_list|()
+else|:
+literal|0
 return|;
 block|}
 specifier|public
