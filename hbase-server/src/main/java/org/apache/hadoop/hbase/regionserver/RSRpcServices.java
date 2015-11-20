@@ -11108,6 +11108,9 @@ name|ServiceException
 block|{
 try|try
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|regionServer
@@ -11117,9 +11120,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|checkOpen
-argument_list|()
-expr_stmt|;
 name|requestCount
 operator|.
 name|increment
@@ -11184,7 +11184,6 @@ argument_list|,
 name|cellScanner
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 name|ReplicateWALEntryResponse
 operator|.
@@ -11194,6 +11193,17 @@ operator|.
 name|build
 argument_list|()
 return|;
+block|}
+else|else
+block|{
+throw|throw
+operator|new
+name|ServiceException
+argument_list|(
+literal|"Replication services are not initialized yet"
+argument_list|)
+throw|;
+block|}
 block|}
 catch|catch
 parameter_list|(
