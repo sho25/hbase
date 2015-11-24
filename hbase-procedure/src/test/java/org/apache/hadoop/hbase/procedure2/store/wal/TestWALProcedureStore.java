@@ -638,6 +638,15 @@ operator|.
 name|recoverLease
 argument_list|()
 expr_stmt|;
+name|procStore
+operator|.
+name|load
+argument_list|(
+operator|new
+name|LoadCounter
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|After
@@ -2839,6 +2848,9 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
 name|fs
 operator|.
 name|rename
@@ -2850,7 +2862,16 @@ operator|.
 name|getPath
 argument_list|()
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to rename"
+argument_list|)
+throw|;
+block|}
 block|}
 specifier|private
 name|void
