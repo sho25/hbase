@@ -233,7 +233,8 @@ operator|new
 name|AtomicLong
 argument_list|()
 decl_stmt|;
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|static
 name|int
 name|toCountOfBuffers
@@ -249,7 +250,8 @@ operator|)
 name|state
 return|;
 block|}
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|static
 name|int
 name|toTotalCapacity
@@ -269,7 +271,8 @@ literal|32
 argument_list|)
 return|;
 block|}
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|static
 name|long
 name|toState
@@ -291,10 +294,11 @@ operator|<<
 literal|32
 operator|)
 operator||
-name|totalCapacity
+name|countOfBuffers
 return|;
 block|}
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|static
 name|long
 name|subtractOneBufferFromState
