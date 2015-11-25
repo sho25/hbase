@@ -14764,11 +14764,6 @@ literal|null
 condition|)
 block|{
 comment|// We failed to grab another lock
-assert|assert
-literal|false
-operator|:
-literal|"Should never fail to get lock when blocking"
-assert|;
 break|break;
 comment|// stop acquiring more rows for this batch
 block|}
