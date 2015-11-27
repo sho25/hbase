@@ -7204,6 +7204,15 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// block waiting for the lock for closing
+name|lock
+operator|.
+name|writeLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|closing
@@ -7219,15 +7228,6 @@ name|setStatus
 argument_list|(
 literal|"Disabling writes for close"
 argument_list|)
-expr_stmt|;
-comment|// block waiting for the lock for closing
-name|lock
-operator|.
-name|writeLock
-argument_list|()
-operator|.
-name|lock
-argument_list|()
 expr_stmt|;
 try|try
 block|{
