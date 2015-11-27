@@ -1023,7 +1023,7 @@ name|BlockingInterface
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**    * List of region servers<ServerName> that should not get any more new    * regions.    */
+comment|/** List of region servers that should not get any more new regions. */
 specifier|private
 specifier|final
 name|ArrayList

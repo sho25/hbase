@@ -3227,7 +3227,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * @return A Multimap<startkey, LoadQueueItem> that groups LQI by likely    * bulk load region targets.    */
+comment|/**    * @return A map that groups LQI by likely bulk load region targets.    */
 specifier|private
 name|Multimap
 argument_list|<

@@ -25060,7 +25060,7 @@ literal|'}'
 return|;
 block|}
 block|}
-comment|/**    * Determines whether multiple column families are present    * Precondition: familyPaths is not null    *    * @param familyPaths List of Pair<byte[] column family, String hfilePath>    */
+comment|/**    * Determines whether multiple column families are present    * Precondition: familyPaths is not null    *    * @param familyPaths List of (column family, hfilePath)    */
 specifier|private
 specifier|static
 name|boolean
@@ -28330,7 +28330,7 @@ operator|||
 name|matchAfterSeek
 return|;
 block|}
-comment|/**      * This function is to maintain backward compatibility for 0.94 filters. HBASE-6429 combines      * both filterRow& filterRow(List<KeyValue> kvs) functions. While 0.94 code or older, it may      * not implement hasFilterRow as HBase-6429 expects because 0.94 hasFilterRow() only returns      * true when filterRow(List<KeyValue> kvs) is overridden not the filterRow(). Therefore, the      * filterRow() will be skipped.      */
+comment|/**      * This function is to maintain backward compatibility for 0.94 filters. HBASE-6429 combines      * both filterRow& filterRow({@code List<KeyValue> kvs}) functions. While 0.94 code or older,      * it may not implement hasFilterRow as HBase-6429 expects because 0.94 hasFilterRow() only      * returns true when filterRow({@code List<KeyValue> kvs}) is overridden not the filterRow().      * Therefore, the filterRow() will be skipped.      */
 specifier|private
 name|boolean
 name|filterRow
@@ -32876,7 +32876,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @param cell    * @param tags    * @return The passed-in List<Tag> but with the tags from<code>cell</code> added.    */
+comment|/**    * @return The passed-in {@code tags} but with the tags from {@code cell} added.    */
 specifier|private
 specifier|static
 name|List
@@ -32976,7 +32976,7 @@ return|return
 name|newTags
 return|;
 block|}
-comment|/**    * Run a Get against passed in<code>store</code> on passed<code>row</code>, etc.    * @param store    * @param row    * @param family    * @param tr    * @return Get result.    * @throws IOException    */
+comment|/**    * Run a Get against passed in<code>store</code> on passed<code>row</code>, etc.    * @return Get result.    */
 specifier|private
 name|List
 argument_list|<

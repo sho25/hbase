@@ -3698,7 +3698,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * This repair method requires the cluster to be online since it contacts    * region servers and the masters.  It makes each region's state in HDFS, in    * hbase:meta, and deployments consistent.    *    * @return If&gt; 0 , number of errors detected, if&lt; 0 there was an unrecoverable    * error.  If 0, we have a clean hbase.    */
+comment|/**    * This repair method requires the cluster to be online since it contacts    * region servers and the masters.  It makes each region's state in HDFS, in    * hbase:meta, and deployments consistent.    *    * @return If> 0 , number of errors detected, if&lt; 0 there was an unrecoverable    *     error.  If 0, we have a clean hbase.    */
 specifier|public
 name|int
 name|onlineConsistencyRepair
@@ -8075,7 +8075,7 @@ name|hi
 argument_list|)
 return|;
 block|}
-comment|/**    * Sideline a region dir (instead of deleting it)    *    * @param parentDir if specified, the region will be sidelined to    * folder like .../parentDir/<table name>/<region name>. The purpose    * is to group together similar regions sidelined, for example, those    * regions should be bulk loaded back later on. If null, it is ignored.    */
+comment|/**    * Sideline a region dir (instead of deleting it)    *    * @param parentDir if specified, the region will be sidelined to folder like    *     {@literal .../parentDir/<table name>/<region name>}. The purpose is to group together    *     similar regions sidelined, for example, those regions should be bulk loaded back later    *     on. If NULL, it is ignored.    */
 name|Path
 name|sidelineRegionDir
 parameter_list|(

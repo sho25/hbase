@@ -355,7 +355,7 @@ operator|+
 literal|")"
 argument_list|)
 decl_stmt|;
-comment|/**    * Regex that will work for straight reference names (<hfile>.<parentEncRegion>)    * and hfilelink reference names (<table>=<region>-<hfile>.<parentEncRegion>)    * If reference, then the regex has more than just one group.    * Group 1, hfile/hfilelink pattern, is this file's id.    * Group 2 '(.+)' is the reference's parent region name.    */
+comment|/**    * Regex that will work for straight reference names ({@code<hfile>.<parentEncRegion>})    * and hfilelink reference names ({@code<table>=<region>-<hfile>.<parentEncRegion>})    * If reference, then the regex has more than just one group.    * Group 1, hfile/hfilelink pattern, is this file's id.    * Group 2 '(.+)' is the reference's parent region name.    */
 specifier|private
 specifier|static
 specifier|final

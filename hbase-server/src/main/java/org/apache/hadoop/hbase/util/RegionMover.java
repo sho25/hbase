@@ -790,7 +790,7 @@ name|HConstants
 operator|.
 name|DEFAULT_REGIONSERVER_PORT
 decl_stmt|;
-comment|/**      * Hostname to unload regions from or load regions to Valid format:<hostname> or      *<hostname:port>      * @param hostname      */
+comment|/**      * @param hostname Hostname to unload regions from or load regions to. Can be either hostname      *     or hostname:port.      */
 specifier|public
 name|RegionMoverBuilder
 parameter_list|(
@@ -908,7 +908,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      * Set the max number of threads that will be used to move regions      * @param threads      * @return RegionMoverBuilder object      */
+comment|/**      * Set the max number of threads that will be used to move regions      */
 specifier|public
 name|RegionMoverBuilder
 name|maxthreads
@@ -927,7 +927,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      * Path of file containing hostnames to be excluded during region movement Exclude file should      * have<host:port> per line.Port is mandatory here as we can have many RS running on a single      * host      * @param excludefile      * @return RegionMoverBuilder object      */
+comment|/**      * Path of file containing hostnames to be excluded during region movement. Exclude file should      * have 'host:port' per line. Port is mandatory here as we can have many RS running on a single      * host.      */
 specifier|public
 name|RegionMoverBuilder
 name|excludeFile
@@ -4035,7 +4035,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create an Arraylst of servers listed in exclude file    * @param excludeFile    * @return ArrayList of servers to be excluded in format<hostname:port>    * @throws IOException    */
+comment|/**    * @return List of servers from the exclude file in format 'hostname:port'.    */
 specifier|private
 name|ArrayList
 argument_list|<

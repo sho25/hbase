@@ -4351,7 +4351,7 @@ name|cacheEnabled
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Flush the entries in ramCache to IOEngine and add bucket entry to backingMap.      * Process all that are passed in even if failure being sure to remove from ramCache else we'll      * never undo the references and we'll OOME.      * @param entries Presumes list passed in here will be processed by this invocation only. No      * interference expected.      * @throws InterruptedException      */
+comment|/**      * Flush the entries in ramCache to IOEngine and add bucket entry to backingMap.      * Process all that are passed in even if failure being sure to remove from ramCache else we'll      * never undo the references and we'll OOME.      * @param entries Presumes list passed in here will be processed by this invocation only. No      *   interference expected.      * @throws InterruptedException      */
 annotation|@
 name|VisibleForTesting
 name|void
@@ -4872,7 +4872,7 @@ block|}
 return|return;
 block|}
 block|}
-comment|/**    * Blocks until elements available in<code>q</code> then tries to grab as many as possible    * before returning.    * @param recepticle Where to stash the elements taken from queue. We clear before we use it    * just in case.    * @param q The queue to take from.    * @return<code>receptical laden with elements taken from the queue or empty if none found.    */
+comment|/**    * Blocks until elements available in {@code q} then tries to grab as many as possible    * before returning.    * @param receptacle Where to stash the elements taken from queue. We clear before we use it    *     just in case.    * @param q The queue to take from.    * @return {@code receptacle} laden with elements taken from the queue or empty if none found.    */
 annotation|@
 name|VisibleForTesting
 specifier|static
@@ -4894,19 +4894,19 @@ name|List
 argument_list|<
 name|RAMQueueEntry
 argument_list|>
-name|receptical
+name|receptacle
 parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
 comment|// Clear sets all entries to null and sets size to 0. We retain allocations. Presume it
 comment|// ok even if list grew to accommodate thousands.
-name|receptical
+name|receptacle
 operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-name|receptical
+name|receptacle
 operator|.
 name|add
 argument_list|(
@@ -4920,11 +4920,11 @@ name|q
 operator|.
 name|drainTo
 argument_list|(
-name|receptical
+name|receptacle
 argument_list|)
 expr_stmt|;
 return|return
-name|receptical
+name|receptacle
 return|;
 block|}
 specifier|private

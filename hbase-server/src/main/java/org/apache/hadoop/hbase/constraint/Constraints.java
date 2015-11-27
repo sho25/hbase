@@ -563,7 +563,7 @@ operator|!=
 literal|null
 return|;
 block|}
-comment|/**    * Get the kv {@link Entry} in the descriptor for the specified class    *     * @param desc    *          {@link HTableDescriptor} to read    * @param clazz    *          to search for    * @return the {@link Pair} of<key, value> in the table, if that class is    *         present.<tt>null</tt> otherwise.    */
+comment|/**    * Get the kv {@link Entry} in the descriptor for the specified class    *     * @param desc {@link HTableDescriptor} to read    * @param clazz To search for    * @return The {@link Pair} of {@literal<key, value>} in the table, if that class is    *         present. {@code NULL} otherwise.    */
 specifier|private
 specifier|static
 name|Pair

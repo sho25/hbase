@@ -171,10 +171,7 @@ name|length
 init|=
 literal|0
 decl_stmt|;
-comment|// The special tag will write the length of each tag and that will be
-comment|// followed by the type and then the actual tag.
-comment|// So every time the length part is parsed we need to add + 1 byte to it to
-comment|// get the type and then get the actual tag.
+comment|/**    * The special tag will write the length of each tag and that will be    * followed by the type and then the actual tag.    * So every time the length part is parsed we need to add + 1 byte to it to    * get the type and then get the actual tag.    */
 specifier|public
 name|Tag
 parameter_list|(
@@ -198,7 +195,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param tagType    * @param tag    */
+comment|/**    * Format for a tag :    * {@code<length of tag - 2 bytes><type code - 1 byte><tag>} tag length is serialized    * using 2 bytes only but as this will be unsigned, we can have max tag length of    * (Short.MAX_SIZE * 2) +1. It includes 1 byte type length and actual tag bytes length.    */
 specifier|public
 name|Tag
 parameter_list|(
@@ -210,7 +207,6 @@ index|[]
 name|tag
 parameter_list|)
 block|{
-comment|/**      * Format for a tag :<length of tag - 2 bytes><type code - 1 byte><tag> taglength is serialized      * using 2 bytes only but as this will be unsigned, we can have max taglength of      * (Short.MAX_SIZE * 2) +1. It includes 1 byte type length and actual tag bytes length.      */
 name|int
 name|tagLength
 init|=
@@ -302,7 +298,7 @@ operator|=
 name|tagType
 expr_stmt|;
 block|}
-comment|/**    * Creates a Tag from the specified byte array and offset. Presumes    *<code>bytes</code> content starting at<code>offset</code> is formatted as    * a Tag blob.    * The bytes to include the tag type, tag length and actual tag bytes.    * @param bytes    *          byte array    * @param offset    *          offset to start of Tag    */
+comment|/**    * Creates a Tag from the specified byte array and offset. Presumes    *<code>bytes</code> content starting at<code>offset</code> is formatted as    * a Tag blob.    * The bytes to include the tag type, tag length and actual tag bytes.    * @param offset offset to start of Tag    */
 specifier|public
 name|Tag
 parameter_list|(
@@ -357,7 +353,7 @@ name|TAG_LENGTH_SIZE
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a Tag from the specified byte array, starting at offset, and for length    *<code>length</code>. Presumes<code>bytes</code> content starting at<code>offset</code> is    * formatted as a Tag blob.    * @param bytes    *          byte array    * @param offset    *          offset to start of the Tag    * @param length    *          length of the Tag    */
+comment|/**    * Creates a Tag from the specified byte array, starting at offset, and for length    *<code>length</code>. Presumes<code>bytes</code> content starting at<code>offset</code> is    * formatted as a Tag blob.    */
 specifier|public
 name|Tag
 parameter_list|(

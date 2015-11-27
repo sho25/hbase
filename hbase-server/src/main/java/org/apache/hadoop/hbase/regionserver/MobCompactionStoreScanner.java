@@ -70,7 +70,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Scanner scans the MOB Store. Coalesce KeyValue stream into List<KeyValue>  * for a single row. It's only used in the compaction of mob-enabled columns.  * It outputs the normal cells and delete markers when outputDeleteMarkers is set as true.  */
+comment|/**  * Scanner scans the MOB Store. Coalesce KeyValue stream into {@code List<KeyValue>}  * for a single row. It's only used in the compaction of mob-enabled columns.  * It outputs the normal cells and delete markers when outputDeleteMarkers is set as true.  */
 end_comment
 
 begin_class

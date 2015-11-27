@@ -523,7 +523,7 @@ return|return
 name|mvcc
 return|;
 block|}
-comment|/**    * Will block until a write entry has been assigned by they WAL subsystem.    * @return A WriteEntry gotten from local WAL subsystem. Must be completed by calling    * mvcc#complete or mvcc#completeAndWait.    * @throws InterruptedIOException    * @see    * #setWriteEntry(org.apache.hadoop.hbase.regionserver.MultiVersionConcurrencyControl.WriteEntry)    */
+comment|/**    * Will block until a write entry has been assigned by they WAL subsystem.    * @return A WriteEntry gotten from local WAL subsystem. Must be completed by calling    *     {@link MultiVersionConcurrencyControl#complete(MultiVersionConcurrencyControl.WriteEntry)}    *     or    *     {@link MultiVersionConcurrencyControl#complete(MultiVersionConcurrencyControl.WriteEntry)}    * @see {@link #setWriteEntry(MultiVersionConcurrencyControl.WriteEntry)}    */
 annotation|@
 name|InterfaceAudience
 operator|.

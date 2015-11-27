@@ -5543,7 +5543,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**   * @see {@link #buildRollWALWriterRequest()   */
+comment|/**   * @see {@link #buildRollWALWriterRequest()}   */
 specifier|private
 specifier|static
 name|RollWALWriterRequest

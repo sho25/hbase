@@ -178,7 +178,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Thread that walks over the filesystem, and computes the mappings  *<Region -> BestHost> and<Region -> Map<HostName, fractional-locality-of-region>>  *  */
+comment|/**  * Thread that walks over the filesystem, and computes the mappings  * Region -> BestHost and Region -> {@code Map<HostName, fractional-locality-of-region>}  *  */
 end_comment
 
 begin_class

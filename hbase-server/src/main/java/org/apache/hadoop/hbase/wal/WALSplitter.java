@@ -8698,7 +8698,7 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/**      * Map key -> value layout      *<servername>:<table name> -> Queue<Row>      */
+comment|/**      * Map key -> value layout      * {@literal<servername>:<table name> -> Queue<Row>}      */
 specifier|private
 name|Map
 argument_list|<
@@ -11572,7 +11572,7 @@ name|String
 name|loc
 parameter_list|)
 block|{
-comment|/**        * location key is in format<server name:port>#<table name>        */
+comment|/**        * location key is in format {@literal<server name:port>#<table name>}        */
 name|String
 index|[]
 name|splits

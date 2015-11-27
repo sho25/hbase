@@ -4199,7 +4199,7 @@ name|e
 throw|;
 block|}
 block|}
-comment|/**      * Write the RPC header:<MAGIC WORD -- 'HBas'><ONEBYTE_VERSION><ONEBYTE_AUTH_TYPE>      */
+comment|/**      * Write the RPC header: {@code<MAGIC WORD -- 'HBas'><ONEBYTE_VERSION><ONEBYTE_AUTH_TYPE>}      */
 specifier|private
 name|void
 name|writeConnectionHeaderPreamble

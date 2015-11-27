@@ -854,7 +854,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * This class encapsulates an object as well as a weak reference to a proxy    * that passes through calls to that object. In art form:    *<code>    *     Proxy<------------------    *       |                       \    *       v                        \    * PassthroughInvocationHandler   |  weak reference    *       |                       /    * MonitoredTaskImpl            /     *       |                     /    * StatAndWeakRefProxy  ------/    *    * Since we only return the Proxy to the creator of the MonitorableStatus,    * this means that they can leak that object, and we'll detect it    * since our weak reference will go null. But, we still have the actual    * object, so we can log it and display it as a leaked (incomplete) action.    */
+comment|/**    * This class encapsulates an object as well as a weak reference to a proxy    * that passes through calls to that object. In art form:    *<pre>    *     Proxy<------------------    *       |                       \    *       v                        \    * PassthroughInvocationHandler   |  weak reference    *       |                       /    * MonitoredTaskImpl            /     *       |                     /    * StatAndWeakRefProxy  ------/    *</pre>    * Since we only return the Proxy to the creator of the MonitorableStatus,    * this means that they can leak that object, and we'll detect it    * since our weak reference will go null. But, we still have the actual    * object, so we can log it and display it as a leaked (incomplete) action.    */
 end_comment
 
 begin_class

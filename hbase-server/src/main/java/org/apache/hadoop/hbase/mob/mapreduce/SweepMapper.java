@@ -214,7 +214,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The mapper of a sweep job.  * Takes the rows from the table and their results and map to<filename:Text, mobValue:KeyValue>  * where mobValue is the actual cell in HBase.  */
+comment|/**  * The mapper of a sweep job.  * Takes the rows from the table and their results and map to {@literal<filename:Text,  * mobValue:KeyValue>} where mobValue is the actual cell in HBase.  */
 end_comment
 
 begin_class

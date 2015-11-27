@@ -1460,7 +1460,7 @@ return|return
 name|max
 return|;
 block|}
-comment|/**    * Check if this storefile was created by bulk load.    * When a hfile is bulk loaded into HBase, we append    * '_SeqId_<id-when-loaded>' to the hfile name, unless    * "hbase.mapreduce.bulkload.assign.sequenceNumbers" is    * explicitly turned off.    * If "hbase.mapreduce.bulkload.assign.sequenceNumbers"    * is turned off, fall back to BULKLOAD_TIME_KEY.    * @return true if this storefile was created by bulk load.    */
+comment|/**    * Check if this storefile was created by bulk load.    * When a hfile is bulk loaded into HBase, we append    * {@code '_SeqId_<id-when-loaded>'} to the hfile name, unless    * "hbase.mapreduce.bulkload.assign.sequenceNumbers" is    * explicitly turned off.    * If "hbase.mapreduce.bulkload.assign.sequenceNumbers"    * is turned off, fall back to BULKLOAD_TIME_KEY.    * @return true if this storefile was created by bulk load.    */
 name|boolean
 name|isBulkLoadResult
 parameter_list|()

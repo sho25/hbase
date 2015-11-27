@@ -238,7 +238,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Parse dead server names from znode string servername can contain "-" such as    * "ip-10-46-221-101.ec2.internal", so we need skip some "-" during parsing for the following    * cases: 2-ip-10-46-221-101.ec2.internal,52170,1364333181125-<server name>-...    */
+comment|/**    * Parse dead server names from znode string servername can contain "-" such as    * "ip-10-46-221-101.ec2.internal", so we need skip some "-" during parsing for the following    * cases: 2-ip-10-46-221-101.ec2.internal,52170,1364333181125-&lt;server name>-...    */
 specifier|private
 specifier|static
 name|void

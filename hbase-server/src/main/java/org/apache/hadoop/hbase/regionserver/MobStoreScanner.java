@@ -110,7 +110,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Scanner scans both the memstore and the MOB Store. Coalesce KeyValue stream into List<KeyValue>  * for a single row.  *  */
+comment|/**  * Scanner scans both the memstore and the MOB Store. Coalesce KeyValue stream into  * {@code List<KeyValue>} for a single row.  */
 end_comment
 
 begin_class

@@ -700,7 +700,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * @return Map<byte[], TimeRange> a map of column families to time ranges    */
+comment|/**    * @return A map of column families to time ranges    */
 specifier|public
 name|Map
 argument_list|<
