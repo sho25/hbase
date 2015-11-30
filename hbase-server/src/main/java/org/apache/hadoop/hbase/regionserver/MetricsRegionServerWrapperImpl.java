@@ -2202,6 +2202,8 @@ name|void
 name|run
 parameter_list|()
 block|{
+try|try
+block|{
 name|initBlockCache
 argument_list|()
 expr_stmt|;
@@ -3053,6 +3055,23 @@ name|blockedRequestsCount
 operator|=
 name|tempBlockedRequestsCount
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Caught exception! Will suppress and retry."
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 annotation|@
