@@ -3504,7 +3504,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|deleteColumnFamily
+name|deleteColumn
 argument_list|(
 name|tableName
 argument_list|,

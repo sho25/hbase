@@ -603,7 +603,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|modifyColumnFamily
+name|modifyColumn
 argument_list|(
 name|tableName
 argument_list|,

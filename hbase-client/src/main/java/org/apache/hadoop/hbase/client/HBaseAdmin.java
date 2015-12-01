@@ -2777,8 +2777,6 @@ parameter_list|(
 name|ClusterConnection
 name|connection
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.
@@ -2953,6 +2951,7 @@ operator|.
 name|aborted
 return|;
 block|}
+comment|/**    * Abort a procedure    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return true if aborted, false if procedure already completed or does not exist    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -3067,6 +3066,7 @@ throw|;
 block|}
 block|}
 block|}
+comment|/**    * Abort a procedure but does not block and wait for it be completely removed.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return true if aborted, false if procedure already completed or does not exist    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -3265,6 +3265,26 @@ return|return
 name|connection
 return|;
 block|}
+comment|/** @return - true if the master server is running. Throws an exception    *  otherwise.    * @throws ZooKeeperConnectionException    * @throws MasterNotRunningException    * @deprecated this has been deprecated without a replacement    */
+annotation|@
+name|Deprecated
+specifier|public
+name|boolean
+name|isMasterRunning
+parameter_list|()
+throws|throws
+name|MasterNotRunningException
+throws|,
+name|ZooKeeperConnectionException
+block|{
+return|return
+name|connection
+operator|.
+name|isMasterRunning
+argument_list|()
+return|;
+block|}
+comment|/**    * @param tableName Table to check.    * @return True if table exists already.    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -3317,6 +3337,53 @@ argument_list|)
 return|;
 block|}
 block|}
+argument_list|)
+return|;
+block|}
+specifier|public
+name|boolean
+name|tableExists
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|tableExists
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+return|;
+block|}
+specifier|public
+name|boolean
+name|tableExists
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|tableExists
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
 argument_list|)
 return|;
 block|}
@@ -3495,6 +3562,167 @@ name|regex
 argument_list|)
 argument_list|,
 name|includeSysTables
+argument_list|)
+return|;
+block|}
+comment|/**    * List all of the names of userspace tables.    * @return String[] table names    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link Admin#listTableNames()} instead    */
+annotation|@
+name|Deprecated
+specifier|public
+name|String
+index|[]
+name|getTableNames
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|TableName
+index|[]
+name|tableNames
+init|=
+name|listTableNames
+argument_list|()
+decl_stmt|;
+name|String
+index|[]
+name|result
+init|=
+operator|new
+name|String
+index|[
+name|tableNames
+operator|.
+name|length
+index|]
+decl_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|tableNames
+operator|.
+name|length
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|result
+index|[
+name|i
+index|]
+operator|=
+name|tableNames
+index|[
+name|i
+index|]
+operator|.
+name|getNameAsString
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+name|result
+return|;
+block|}
+comment|/**    * List all of the names of userspace tables matching the given regular expression.    * @param pattern The regular expression to match against    * @return String[] table names    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link Admin#listTableNames(Pattern)} instead.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|String
+index|[]
+name|getTableNames
+parameter_list|(
+name|Pattern
+name|pattern
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|TableName
+index|[]
+name|tableNames
+init|=
+name|listTableNames
+argument_list|(
+name|pattern
+argument_list|)
+decl_stmt|;
+name|String
+index|[]
+name|result
+init|=
+operator|new
+name|String
+index|[
+name|tableNames
+operator|.
+name|length
+index|]
+decl_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|tableNames
+operator|.
+name|length
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|result
+index|[
+name|i
+index|]
+operator|=
+name|tableNames
+index|[
+name|i
+index|]
+operator|.
+name|getNameAsString
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+name|result
+return|;
+block|}
+comment|/**    * List all of the names of userspace tables matching the given regular expression.    * @param regex The regular expression to match against    * @return String[] table names    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link Admin#listTableNames(Pattern)} instead.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|String
+index|[]
+name|getTableNames
+parameter_list|(
+name|String
+name|regex
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|getTableNames
+argument_list|(
+name|Pattern
+operator|.
+name|compile
+argument_list|(
+name|regex
+argument_list|)
 argument_list|)
 return|;
 block|}
@@ -3681,6 +3909,7 @@ name|includeSysTables
 argument_list|)
 return|;
 block|}
+comment|/**    * Method for getting the tableDescriptor    * @param tableName as a byte []    * @return the tableDescriptor    * @throws TableNotFoundException    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -3692,6 +3921,8 @@ name|TableName
 name|tableName
 parameter_list|)
 throws|throws
+name|TableNotFoundException
+throws|,
 name|IOException
 block|{
 return|return
@@ -3726,6 +3957,8 @@ name|int
 name|operationTimeout
 parameter_list|)
 throws|throws
+name|TableNotFoundException
+throws|,
 name|IOException
 block|{
 if|if
@@ -3849,6 +4082,32 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
+specifier|public
+name|HTableDescriptor
+name|getTableDescriptor
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|TableNotFoundException
+throws|,
+name|IOException
+block|{
+return|return
+name|getTableDescriptor
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+return|;
+block|}
 specifier|private
 name|long
 name|getPauseTime
@@ -3897,6 +4156,7 @@ name|triesCount
 index|]
 return|;
 block|}
+comment|/**    * Creates a new table.    * Synchronous operation.    *    * @param desc table descriptor for table    *    * @throws IllegalArgumentException if the table name is reserved    * @throws MasterNotRunningException if master is not running    * @throws TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -3917,6 +4177,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Creates a new table with the specified number of regions.  The start key    * specified will become the end key of the first region of the table, and    * the end key specified will become the start key of the last region of the    * table (the first region has a null start key and the last region has a    * null end key).    *    * BigInteger math will be used to divide the key range specified into    * enough segments to make the required number of total regions.    *    * Synchronous operation.    *    * @param desc table descriptor for table    * @param startKey beginning of key range    * @param endKey end of key range    * @param numRegions the total number of regions to create    *    * @throws IllegalArgumentException if the table name is reserved    * @throws MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -4051,6 +4312,7 @@ name|splitKeys
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Creates a new table with an initial set of empty regions defined by the    * specified split keys.  The total number of regions created will be the    * number of split keys plus one. Synchronous operation.    * Note : Avoid passing empty split key.    *    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    *    * @throws IllegalArgumentException if the table name is reserved, if the split keys    * are repeated and if the split key has empty byte array.    * @throws MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -4168,6 +4430,7 @@ throw|;
 block|}
 block|}
 block|}
+comment|/**    * Creates a new table but does not block and wait for it to come online.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IllegalArgumentException Bad table name, if the split keys    *    are repeated and if the split key has empty byte array.    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
 annotation|@
 name|Override
 specifier|public
@@ -4536,6 +4799,52 @@ literal|null
 return|;
 block|}
 block|}
+specifier|public
+name|void
+name|deleteTable
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|deleteTable
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|deleteTable
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|deleteTable
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Deletes a table.    * Synchronous operation.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -4643,6 +4952,7 @@ throw|;
 block|}
 block|}
 block|}
+comment|/**    * Deletes the table but does not block and wait for it be completely removed.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async delete. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
 annotation|@
 name|Override
 specifier|public
@@ -4863,6 +5173,7 @@ argument_list|)
 return|;
 block|}
 block|}
+comment|/**    * Deletes tables matching the passed in pattern and wait on completion.    *    * Warning: Use this method carefully, there is no prompting and the effect is    * immediate. Consider using {@link #listTables(java.lang.String)} and    * {@link #deleteTable(byte[])}    *    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be deleted    * @throws IOException    * @see #deleteTables(java.util.regex.Pattern)    * @see #deleteTable(java.lang.String)    */
 annotation|@
 name|Override
 specifier|public
@@ -4888,7 +5199,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Delete tables matching the passed in pattern and wait on completion.    *    * Warning: Use this method carefully, there is no prompting and the effect is    * immediate. Consider using {@link #listTables(java.util.regex.Pattern) } and    * {@link #deleteTable(TableName)}    *    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be deleted    * @throws IOException    */
+comment|/**    * Delete tables matching the passed in pattern and wait on completion.    *    * Warning: Use this method carefully, there is no prompting and the effect is    * immediate. Consider using {@link #listTables(java.util.regex.Pattern) } and    * {@link #deleteTable(byte[])}    *    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be deleted    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -4982,6 +5293,7 @@ index|]
 argument_list|)
 return|;
 block|}
+comment|/**    * Truncate a table. Synchronous operation.    * @param tableName name of table to truncate    * @param preserveSplits True if the splits should be preserved    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -5099,6 +5411,7 @@ throw|;
 block|}
 block|}
 block|}
+comment|/**    * Truncate the table but does not block and wait for it be completely enabled. You can use    * Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete. Asynchronous    * operation.    * @param tableName name of table to delete    * @param preserveSplits true if the splits should be preserved    * @throws IOException if a remote or network exception occurs    * @return the result of the async truncate. You can use Future.get(long, TimeUnit) to wait on the    *         operation to complete.    */
 annotation|@
 name|Override
 specifier|public
@@ -5439,6 +5752,7 @@ return|return
 name|splits
 return|;
 block|}
+comment|/**    * Enable a table.  May timeout.  Use {@link #enableTableAsync(byte[])}    * and {@link #isTableEnabled(byte[])} instead.    * The table has to be in disabled state for it to be enabled.    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs    * There could be couple types of IOException    * TableNotFoundException means the table doesn't exist.    * TableNotDisabledException means the table isn't in disabled state.    * @see #isTableEnabled(byte[])    * @see #disableTable(byte[])    * @see #enableTableAsync(byte[])    */
 annotation|@
 name|Override
 specifier|public
@@ -5545,6 +5859,51 @@ argument_list|)
 throw|;
 block|}
 block|}
+block|}
+specifier|public
+name|void
+name|enableTable
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|enableTable
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|enableTable
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|enableTable
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Wait for the table to be enabled and available    * If enabling the table exceeds the retry period, an exception is thrown.    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs or    *    table is not enabled after the retries period.    */
 specifier|private
@@ -5732,6 +6091,52 @@ argument_list|)
 throw|;
 block|}
 block|}
+specifier|public
+name|void
+name|enableTableAsync
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|enableTable
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|enableTableAsync
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|enableTableAsync
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Enable the table but does not block and wait for it be completely enabled.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async enable. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
 annotation|@
 name|Override
 specifier|public
@@ -5928,6 +6333,7 @@ literal|null
 return|;
 block|}
 block|}
+comment|/**    * Enable tables matching the passed in pattern and wait on completion.    *    * Warning: Use this method carefully, there is no prompting and the effect is    * immediate. Consider using {@link #listTables(java.lang.String)} and    * {@link #enableTable(byte[])}    *    * @param regex The regular expression to match table names against    * @throws IOException    * @see #enableTables(java.util.regex.Pattern)    * @see #enableTable(java.lang.String)    */
 annotation|@
 name|Override
 specifier|public
@@ -5953,6 +6359,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+comment|/**    * Enable tables matching the passed in pattern and wait on completion.    *    * Warning: Use this method carefully, there is no prompting and the effect is    * immediate. Consider using {@link #listTables(java.util.regex.Pattern) } and    * {@link #enableTable(byte[])}    *    * @param pattern The pattern to match table names against    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -6058,6 +6465,52 @@ index|]
 argument_list|)
 return|;
 block|}
+specifier|public
+name|void
+name|disableTableAsync
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|disableTableAsync
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|disableTableAsync
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|disableTableAsync
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Disable table and wait on completion.  May timeout eventually.  Use    * {@link #disableTableAsync(byte[])} and {@link #isTableDisabled(String)}    * instead.    * The table has to be in enabled state for it to be disabled.    * @param tableName    * @throws IOException    * There could be couple types of IOException    * TableNotFoundException means the table doesn't exist.    * TableNotEnabledException means the table isn't in enabled state.    */
 annotation|@
 name|Override
 specifier|public
@@ -6165,6 +6618,52 @@ throw|;
 block|}
 block|}
 block|}
+specifier|public
+name|void
+name|disableTable
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|disableTable
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|disableTable
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|disableTable
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Disable the table but does not block and wait for it be completely disabled.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async disable. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
 annotation|@
 name|Override
 specifier|public
@@ -6342,6 +6841,7 @@ specifier|protected
 name|Void
 name|waitOperationResult
 parameter_list|(
+specifier|final
 name|long
 name|deadlineTs
 parameter_list|)
@@ -6360,6 +6860,7 @@ literal|null
 return|;
 block|}
 block|}
+comment|/**    * Disable tables matching the passed in pattern and wait on completion.    *    * Warning: Use this method carefully, there is no prompting and the effect is    * immediate. Consider using {@link #listTables(java.lang.String)} and    * {@link #disableTable(byte[])}    *    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be disabled    * @throws IOException    * @see #disableTables(java.util.regex.Pattern)    * @see #disableTable(java.lang.String)    */
 annotation|@
 name|Override
 specifier|public
@@ -6385,6 +6886,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+comment|/**    * Disable tables matching the passed in pattern and wait on completion.    *    * Warning: Use this method carefully, there is no prompting and the effect is    * immediate. Consider using {@link #listTables(java.util.regex.Pattern) } and    * {@link #disableTable(byte[])}    *    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be disabled    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -6490,6 +6992,36 @@ index|]
 argument_list|)
 return|;
 block|}
+comment|/*    * Checks whether table exists. If not, throws TableNotFoundException    * @param tableName    */
+specifier|private
+name|void
+name|checkTableExistence
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+operator|!
+name|tableExists
+argument_list|(
+name|tableName
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|TableNotFoundException
+argument_list|(
+name|tableName
+argument_list|)
+throw|;
+block|}
+block|}
+comment|/**    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -6503,7 +7035,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkTableExists
+name|checkTableExistence
 argument_list|(
 name|tableName
 argument_list|)
@@ -6577,6 +7109,52 @@ block|}
 argument_list|)
 return|;
 block|}
+specifier|public
+name|boolean
+name|isTableEnabled
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|isTableEnabled
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+return|;
+block|}
+specifier|public
+name|boolean
+name|isTableEnabled
+parameter_list|(
+name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|isTableEnabled
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+return|;
+block|}
+comment|/**    * @param tableName name of table to check    * @return true if table is off-line    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -6589,7 +7167,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkTableExists
+name|checkTableExistence
 argument_list|(
 name|tableName
 argument_list|)
@@ -6603,6 +7181,52 @@ name|tableName
 argument_list|)
 return|;
 block|}
+specifier|public
+name|boolean
+name|isTableDisabled
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|isTableDisabled
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+return|;
+block|}
+specifier|public
+name|boolean
+name|isTableDisabled
+parameter_list|(
+name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|isTableDisabled
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+return|;
+block|}
+comment|/**    * @param tableName name of table to check    * @return true if all regions of the table are available    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -6624,6 +7248,52 @@ name|tableName
 argument_list|)
 return|;
 block|}
+specifier|public
+name|boolean
+name|isTableAvailable
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|isTableAvailable
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+return|;
+block|}
+specifier|public
+name|boolean
+name|isTableAvailable
+parameter_list|(
+name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|isTableAvailable
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+return|;
+block|}
+comment|/**    * Use this api to check if the table has been created with the specified number of    * splitkeys which was used while creating the given table.    * Note : If this api is used after a table's region gets splitted, the api may return    * false.    * @param tableName    *          name of table to check    * @param splitKeys    *          keys to check if the table has been created with all split keys    * @throws IOException    *           if a remote or network excpetion occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -6652,6 +7322,66 @@ name|splitKeys
 argument_list|)
 return|;
 block|}
+specifier|public
+name|boolean
+name|isTableAvailable
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|splitKeys
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|isTableAvailable
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|splitKeys
+argument_list|)
+return|;
+block|}
+specifier|public
+name|boolean
+name|isTableAvailable
+parameter_list|(
+name|String
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|splitKeys
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|isTableAvailable
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|splitKeys
+argument_list|)
+return|;
+block|}
+comment|/**    * Get the status of alter command - indicates how many regions have received    * the updated schema Asynchronous operation.    *    * @param tableName TableName instance    * @return Pair indicating the number of regions updated Pair.getFirst() is the    *         regions that are yet to be updated Pair.getSecond() is the total number    *         of regions of the table    * @throws IOException    *           if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -6737,17 +7467,31 @@ name|pair
 init|=
 operator|new
 name|Pair
-argument_list|<>
+argument_list|<
+name|Integer
+argument_list|,
+name|Integer
+argument_list|>
+argument_list|(
+name|Integer
+operator|.
+name|valueOf
 argument_list|(
 name|ret
 operator|.
 name|getYetToUpdateRegions
 argument_list|()
+argument_list|)
 argument_list|,
+name|Integer
+operator|.
+name|valueOf
+argument_list|(
 name|ret
 operator|.
 name|getTotalRegions
 argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 return|return
@@ -6758,6 +7502,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * Get the status of alter command - indicates how many regions have received    * the updated schema Asynchronous operation.    *    * @param tableName    *          name of the table to get the status of    * @return Pair indicating the number of regions updated Pair.getFirst() is the    *         regions that are yet to be updated Pair.getSecond() is the total number    *         of regions of the table    * @throws IOException    *           if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -6789,7 +7534,68 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * {@inheritDoc}    * @deprecated Since 2.0. Will be removed in 3.0. Use    *     {@link #addColumnFamily(TableName, HColumnDescriptor)} instead.    */
+comment|/**    * Add a column family to an existing table.    * Asynchronous operation.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #addColumnFamily(TableName, HColumnDescriptor)}.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|void
+name|addColumn
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|HColumnDescriptor
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|addColumnFamily
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|columnFamily
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Add a column family to an existing table.    * Asynchronous operation.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #addColumnFamily(TableName, HColumnDescriptor)}.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|void
+name|addColumn
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|,
+name|HColumnDescriptor
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|addColumnFamily
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|columnFamily
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Add a column family to an existing table.    * Asynchronous operation.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #addColumnFamily(TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Override
 annotation|@
@@ -6973,7 +7779,80 @@ literal|"ADD_COLUMN_FAMILY"
 return|;
 block|}
 block|}
-comment|/**    * {@inheritDoc}    * @deprecated Since 2.0. Will be removed in 3.0. Use    *     {@link #deleteColumnFamily(TableName, byte[])} instead.    */
+comment|/**    * Delete a column family from a table.    * Asynchronous operation.    *    * @param tableName name of table    * @param columnFamily name of column family to be deleted    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #deleteColumnFamily(TableName, byte[])}.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|void
+name|deleteColumn
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+specifier|final
+name|String
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|deleteColumnFamily
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|columnFamily
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Delete a column family from a table.    * Asynchronous operation.    *    * @param tableName name of table    * @param columnFamily name of column family to be deleted    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #deleteColumnFamily(TableName, byte[])}.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|void
+name|deleteColumn
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|,
+specifier|final
+name|String
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|deleteColumnFamily
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|columnFamily
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Delete a column family from a table.    * Asynchronous operation.    *    * @param tableName name of table    * @param columnFamily name of column family to be deleted    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #deleteColumnFamily(TableName, byte[])}.    */
 annotation|@
 name|Override
 annotation|@
@@ -7161,7 +8040,68 @@ literal|"DELETE_COLUMN_FAMILY"
 return|;
 block|}
 block|}
-comment|/**    * {@inheritDoc}    * @deprecated As of 2.0. Will be removed in 3.0. Use    *     {@link #modifyColumnFamily(TableName, HColumnDescriptor)} instead.    */
+comment|/**    * Modify an existing column family on a table.    * Asynchronous operation.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #modifyColumnFamily(TableName, HColumnDescriptor)}.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|void
+name|modifyColumn
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|,
+name|HColumnDescriptor
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|modifyColumnFamily
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|columnFamily
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Modify an existing column family on a table.    * Asynchronous operation.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #modifyColumnFamily(TableName, HColumnDescriptor)}.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|void
+name|modifyColumn
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|HColumnDescriptor
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|modifyColumnFamily
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|columnFamily
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Modify an existing column family on a table.    * Asynchronous operation.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #modifyColumnFamily(TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Override
 annotation|@
@@ -7347,6 +8287,7 @@ literal|"MODIFY_COLUMN_FAMILY"
 return|;
 block|}
 block|}
+comment|/**    * Close a region. For expert-admins.  Runs close on the regionserver.  The    * master will not be informed of the close.    * @param regionname region name to close    * @param serverName If supplied, we'll use this location rather than    * the one currently in<code>hbase:meta</code>    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -7377,6 +8318,7 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Close a region.  For expert-admins  Runs close on the regionserver.  The    * master will not be informed of the close.    * @param regionname region name to close    * @param serverName The servername of the regionserver.  If passed null we    * will use servername found in the hbase:meta table. A server name    * is made of host, port and startcode.  Here is an example:    *<code> host187.example.com,60020,1289493121758</code>    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -7546,6 +8488,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * For expert-admins. Runs close on the regionserver. Closes a region based on    * the encoded region name. The region server name is mandatory. If the    * servername is provided then based on the online regions in the specified    * regionserver the specified region will be closed. The master will not be    * informed of the close. Note that the regionname is the encoded regionname.    *    * @param encodedRegionName    *          The encoded region name; i.e. the hash that makes up the region    *          name suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>    *          , then the encoded region name is:    *<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param serverName    *          The servername of the regionserver. A server name is made of host,    *          port and startcode. This is mandatory. Here is an example:    *<code> host187.example.com,60020,1289493121758</code>    * @return true if the region was closed, false if not.    * @throws IOException    *           if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -7688,6 +8631,7 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/**    * Close a region.  For expert-admins  Runs close on the regionserver.  The    * master will not be informed of the close.    * @param sn    * @param hri    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -7735,6 +8679,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Get all the online regions on a region server.    */
 annotation|@
 name|Override
 specifier|public
@@ -7774,6 +8719,7 @@ name|admin
 argument_list|)
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -7834,6 +8780,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -7906,76 +8853,19 @@ argument_list|)
 argument_list|)
 throw|;
 block|}
-name|HRegionInfo
-name|hRegionInfo
-init|=
-name|regionServerPair
-operator|.
-name|getFirst
-argument_list|()
-decl_stmt|;
-name|ServerName
-name|serverName
-init|=
+name|flush
+argument_list|(
 name|regionServerPair
 operator|.
 name|getSecond
 argument_list|()
-decl_stmt|;
-name|AdminService
+argument_list|,
+name|regionServerPair
 operator|.
-name|BlockingInterface
-name|admin
-init|=
-name|this
-operator|.
-name|connection
-operator|.
-name|getAdmin
-argument_list|(
-name|serverName
-argument_list|)
-decl_stmt|;
-name|FlushRegionRequest
-name|request
-init|=
-name|RequestConverter
-operator|.
-name|buildFlushRegionRequest
-argument_list|(
-name|hRegionInfo
-operator|.
-name|getRegionName
+name|getFirst
 argument_list|()
 argument_list|)
-decl_stmt|;
-try|try
-block|{
-name|admin
-operator|.
-name|flushRegion
-argument_list|(
-literal|null
-argument_list|,
-name|request
-argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|ServiceException
-name|se
-parameter_list|)
-block|{
-throw|throw
-name|ProtobufUtil
-operator|.
-name|getRemoteException
-argument_list|(
-name|se
-argument_list|)
-throw|;
-block|}
 block|}
 specifier|private
 name|void
@@ -8075,6 +8965,7 @@ name|NORMAL
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -8205,6 +9096,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -8232,6 +9124,7 @@ name|NORMAL
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -8289,6 +9182,7 @@ name|NORMAL
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -8758,6 +9652,7 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/**    * Move the region<code>r</code> to<code>dest</code>.    * @param encodedRegionName The encoded region name; i.e. the hash that makes    * up the region name suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    * then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param destServerName The servername of the destination regionserver.  If    * passed the empty byte array we'll assign to a random server.  A server name    * is made of host, port and startcode.  Here is an example:    *<code> host187.example.com,60020,1289493121758</code>    * @throws UnknownRegionException Thrown if we can't find a region named    *<code>encodedRegionName</code>    */
 annotation|@
 name|Override
 specifier|public
@@ -8860,6 +9755,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param regionName    *          Region name to assign.    * @throws MasterNotRunningException    * @throws ZooKeeperConnectionException    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -8939,6 +9835,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Unassign a region from current hosting regionserver.  Region will then be    * assigned to a regionserver chosen at random.  Region could be reassigned    * back to the same server.  Use {@link #move(byte[], byte[])} if you want    * to control the region movement.    * @param regionName Region to unassign. Will clear any existing RegionPlan    * if one found.    * @param force If true, force unassign (Will remove region from    * regions-in-transition too if present. If results in double assignment    * use hbck -fix to resolve. To be used by experts).    * @throws MasterNotRunningException    * @throws ZooKeeperConnectionException    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -9024,6 +9921,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Offline specified region from master's in-memory state. It will not attempt to reassign the    * region as in unassign. This API can be used when a region not served by any region server and    * still online as per Master's in memory state. If this API is incorrectly used on active region    * then master will loose track of that region.    *    * This is a special method that should be used by experts or hbck.    *    * @param regionName    *          Region to offline.    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -9084,6 +9982,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Turn the load balancer on or off.    * @param on If true, enable balancer. If false, disable balancer.    * @param synchronous If true, it waits until current balance() call, if outstanding, to return.    * @return Previous balancer value    */
 annotation|@
 name|Override
 specifier|public
@@ -9156,6 +10055,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * Invoke the balancer.  Will run the balancer and if regions to move, it will    * go ahead and do the reassignments.  Can NOT run for various reasons.  Check    * logs.    * @return True if balancer ran, false otherwise.    */
 annotation|@
 name|Override
 specifier|public
@@ -9274,6 +10174,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * Query the state of the balancer from the Master. It's not a guarantee that the balancer is    * actually running this very moment, but that it will run.    *    * @return True if the balancer is enabled, false otherwise.    */
 annotation|@
 name|Override
 specifier|public
@@ -9329,6 +10230,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * Invoke region normalizer. Can NOT run for various reasons.  Check logs.    *    * @return True if region normalizer ran, false otherwise.    */
 annotation|@
 name|Override
 specifier|public
@@ -9384,8 +10286,7 @@ block|}
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Query the current state of the region normalizer    *    * @return true if region normalizer is enabled, false otherwise.    */
 specifier|public
 name|boolean
 name|isNormalizerEnabled
@@ -9439,8 +10340,7 @@ block|}
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Turn region normalizer on or off.    *    * @return Previous normalizer value    */
 specifier|public
 name|boolean
 name|setNormalizerRunning
@@ -9505,6 +10405,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * Enable/Disable the catalog janitor    * @param enable if true enables the catalog janitor    * @return the previous state    * @throws MasterNotRunningException    */
 annotation|@
 name|Override
 specifier|public
@@ -9566,6 +10467,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * Ask for a scan of the catalog table    * @return the number of entries cleaned    * @throws MasterNotRunningException    */
 annotation|@
 name|Override
 specifier|public
@@ -9621,6 +10523,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * Query on the catalog janitor state (Enabled/Disabled?)    * @throws org.apache.hadoop.hbase.MasterNotRunningException    */
 annotation|@
 name|Override
 specifier|public
@@ -9944,6 +10847,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -9965,6 +10869,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -10189,6 +11094,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -10398,6 +11304,7 @@ name|splitPoint
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Modify an existing table, more IRB friendly version. Asynchronous operation.    * This means that it may be a while before your schema change is updated across all of the    * table. You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify. You can use Future.get(long, TimeUnit) to wait on the    *     operation to complete.    */
 annotation|@
 name|Override
 specifier|public
@@ -10645,7 +11552,64 @@ name|result
 return|;
 block|}
 block|}
-comment|/**    * @param regionName Name of a region.    * @return a pair of HRegionInfo and ServerName if<code>regionName</code> is    *  a verified region name (we call {@link    *  MetaTableAccessor#getRegionLocation(HConnection, byte[])}    *  else null.    * Throw IllegalArgumentException if<code>regionName</code> is null.    * @throws IOException    */
+specifier|public
+name|void
+name|modifyTable
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|htd
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|modifyTable
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|htd
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|modifyTable
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|htd
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|modifyTable
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|htd
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * @param regionName Name of a region.    * @return a pair of HRegionInfo and ServerName if<code>regionName</code> is    *  a verified region name (we call {@link    *  MetaTableAccessor#getRegion(HConnection, byte[])}    *  else null.    * Throw IllegalArgumentException if<code>regionName</code> is null.    * @throws IOException    */
 name|Pair
 argument_list|<
 name|HRegionInfo
@@ -11094,6 +12058,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * Shuts down the HBase cluster    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -11151,6 +12116,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Shuts down the current HBase master only.    * Does not shutdown the cluster.    * @see #shutdown()    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -11208,6 +12174,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Stop the designated regionserver    * @param hostnamePort Hostname and port delimited by a<code>:</code> as in    *<code>example.org:1234</code>    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -11310,6 +12277,7 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/**    * @return cluster status    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -11375,6 +12343,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * @return Configuration used by the instance.    */
 annotation|@
 name|Override
 specifier|public
@@ -11388,6 +12357,7 @@ operator|.
 name|conf
 return|;
 block|}
+comment|/**    * Create a new namespace    * @param descriptor descriptor which describes the new namespace    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -11458,6 +12428,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Modify an existing namespace    * @param descriptor descriptor which describes the new namespace    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -11528,6 +12499,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed.    * @param name namespace name    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -11593,6 +12565,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Get a namespace descriptor by name    * @param name name of namespace descriptor    * @return A descriptor    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -11665,6 +12638,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * List available namespace descriptors    * @return List of descriptors    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -11785,6 +12759,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * List procedures    * @return procedure list    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -11905,6 +12880,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * Get list of table descriptors by namespace    * @param name namespace name    * @return A descriptor    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -12032,6 +13008,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * Get list of table names by namespace    * @param name namespace name    * @return The list of table names in the namespace    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -12344,6 +13321,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * get the regions of a given table.    *    * @param tableName the name of the table    * @return Ordered list of {@link HRegionInfo}.    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -12443,6 +13421,33 @@ return|return
 name|regions
 return|;
 block|}
+specifier|public
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|getTableRegions
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|getTableRegions
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -12453,6 +13458,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Get tableDescriptors    * @param tableNames List of table names    * @return HTD[] the tableDescriptor    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -12596,6 +13602,7 @@ index|]
 return|;
 block|}
 block|}
+comment|/**    * Get tableDescriptors    * @param names List of table names    * @return HTD[] the tableDescriptor    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -12889,6 +13896,7 @@ literal|null
 return|;
 block|}
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -12913,6 +13921,7 @@ name|NORMAL
 argument_list|)
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -13062,6 +14071,7 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/**    * Take a snapshot for the given table. If the table is enabled, a FLUSH-type snapshot will be    * taken. If the table is disabled, an offline snapshot is taken.    *<p>    * Snapshots are considered unique based on<b>the name of the snapshot</b>. Attempts to take a    * snapshot with the same name (even a different type or with different parameters) will fail with    * a {@link SnapshotCreationException} indicating the duplicate naming.    *<p>    * Snapshot names follow the same naming constraints as tables in HBase. See    * {@link org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}.    * @param snapshotName name of the snapshot to be created    * @param tableName name of the table for which snapshot is created    * @throws IOException if a remote or network exception occurs    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
 annotation|@
 name|Override
 specifier|public
@@ -13097,6 +14107,93 @@ name|FLUSH
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|void
+name|snapshot
+parameter_list|(
+specifier|final
+name|String
+name|snapshotName
+parameter_list|,
+specifier|final
+name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|SnapshotCreationException
+throws|,
+name|IllegalArgumentException
+block|{
+name|snapshot
+argument_list|(
+name|snapshotName
+argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|SnapshotDescription
+operator|.
+name|Type
+operator|.
+name|FLUSH
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Create snapshot for the given table of given flush type.    *<p>    * Snapshots are considered unique based on<b>the name of the snapshot</b>. Attempts to take a    * snapshot with the same name (even a different type or with different parameters) will fail with    * a {@link SnapshotCreationException} indicating the duplicate naming.    *<p>    * Snapshot names follow the same naming constraints as tables in HBase.    * @param snapshotName name of the snapshot to be created    * @param tableName name of the table for which snapshot is created    * @param flushType if the snapshot should be taken without flush memstore first    * @throws IOException if a remote or network exception occurs    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
+specifier|public
+name|void
+name|snapshot
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|snapshotName
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+specifier|final
+name|SnapshotDescription
+operator|.
+name|Type
+name|flushType
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|SnapshotCreationException
+throws|,
+name|IllegalArgumentException
+block|{
+name|snapshot
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|snapshotName
+argument_list|)
+argument_list|,
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|flushType
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    public void snapshot(final String snapshotName,     * Create a timestamp consistent snapshot for the given table.                         final byte[] tableName) throws IOException,     *<p>     * Snapshots are considered unique based on<b>the name of the snapshot</b>. Attempts to take a     * snapshot with the same name (even a different type or with different parameters) will fail     * with a {@link SnapshotCreationException} indicating the duplicate naming.     *<p>     * Snapshot names follow the same naming constraints as tables in HBase.     * @param snapshotName name of the snapshot to be created     * @param tableName name of the table for which snapshot is created     * @throws IOException if a remote or network exception occurs     * @throws SnapshotCreationException if snapshot creation failed     * @throws IllegalArgumentException if the snapshot request is formatted incorrectly     */
 annotation|@
 name|Override
 specifier|public
@@ -13138,6 +14235,52 @@ name|FLUSH
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|void
+name|snapshot
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|snapshotName
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|SnapshotCreationException
+throws|,
+name|IllegalArgumentException
+block|{
+name|snapshot
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|snapshotName
+argument_list|)
+argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|SnapshotDescription
+operator|.
+name|Type
+operator|.
+name|FLUSH
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Create typed snapshot of the table.    *<p>    * Snapshots are considered unique based on<b>the name of the snapshot</b>. Attempts to take a    * snapshot with the same name (even a different type or with different parameters) will fail with    * a {@link SnapshotCreationException} indicating the duplicate naming.    *<p>    * Snapshot names follow the same naming constraints as tables in HBase. See    * {@link org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}.    *<p>    * @param snapshotName name to give the snapshot on the filesystem. Must be unique from all other    *          snapshots stored on the cluster    * @param tableName name of the table to snapshot    * @param type type of snapshot to take    * @throws IOException we fail to reach the master    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
 annotation|@
 name|Override
 specifier|public
@@ -13207,6 +14350,86 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|void
+name|snapshot
+parameter_list|(
+specifier|final
+name|String
+name|snapshotName
+parameter_list|,
+specifier|final
+name|String
+name|tableName
+parameter_list|,
+name|SnapshotDescription
+operator|.
+name|Type
+name|type
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|SnapshotCreationException
+throws|,
+name|IllegalArgumentException
+block|{
+name|snapshot
+argument_list|(
+name|snapshotName
+argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|type
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|snapshot
+parameter_list|(
+specifier|final
+name|String
+name|snapshotName
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|SnapshotDescription
+operator|.
+name|Type
+name|type
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|SnapshotCreationException
+throws|,
+name|IllegalArgumentException
+block|{
+name|snapshot
+argument_list|(
+name|snapshotName
+argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|type
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Take a snapshot and wait for the server to complete that snapshot (blocking).    *<p>    * Only a single snapshot should be taken at a time for an instance of HBase, or results may be    * undefined (you can tell multiple HBase clusters to snapshot at the same time, but only one at a    * time for a single cluster).    *<p>    * Snapshots are considered unique based on<b>the name of the snapshot</b>. Attempts to take a    * snapshot with the same name (even a different type or with different parameters) will fail with    * a {@link SnapshotCreationException} indicating the duplicate naming.    *<p>    * Snapshot names follow the same naming constraints as tables in HBase. See    * {@link org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}.    *<p>    * You should probably use {@link #snapshot(String, String)} or {@link #snapshot(byte[], byte[])}    * unless you are sure about the type of snapshot that you want to take.    * @param snapshot snapshot to take    * @throws IOException or we lose contact with the master.    * @throws SnapshotCreationException if snapshot failed to be taken    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
 annotation|@
 name|Override
 specifier|public
@@ -13480,6 +14703,7 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/**    * Take a snapshot without waiting for the server to complete that snapshot (asynchronous)    *<p>    * Only a single snapshot should be taken at a time, or results may be undefined.    * @param snapshot snapshot to take    * @return response from the server indicating the max time to wait for the snapshot    * @throws IOException if the snapshot did not succeed or we lose contact with the master.    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
 annotation|@
 name|Override
 specifier|public
@@ -13559,6 +14783,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * Check the current state of the passed snapshot.    *<p>    * There are three possible states:    *<ol>    *<li>running - returns<tt>false</tt></li>    *<li>finished - returns<tt>true</tt></li>    *<li>finished with error - throws the exception that caused the snapshot to fail</li>    *</ol>    *<p>    * The cluster only knows about the most recent snapshot. Therefore, if another snapshot has been    * run/started since the snapshot your are checking, you will recieve an    * {@link UnknownSnapshotException}.    * @param snapshot description of the snapshot to check    * @return<tt>true</tt> if the snapshot is completed,<tt>false</tt> if the snapshot is still    *         running    * @throws IOException if we have a network issue    * @throws HBaseSnapshotException if the snapshot failed    * @throws UnknownSnapshotException if the requested snapshot is unknown    */
 annotation|@
 name|Override
 specifier|public
@@ -13630,6 +14855,7 @@ name|getDone
 argument_list|()
 return|;
 block|}
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled)    * If the "hbase.snapshot.restore.take.failsafe.snapshot" configuration property    * is set to true, a snapshot of the current table is taken    * before executing the restore operation.    * In case of restore failure, the failsafe snapshot will be restored.    * If the restore completes without problem the failsafe snapshot is deleted.    *    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
 annotation|@
 name|Override
 specifier|public
@@ -13657,6 +14883,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled)    * If the "hbase.snapshot.restore.take.failsafe.snapshot" configuration property    * is set to true, a snapshot of the current table is taken    * before executing the restore operation.    * In case of restore failure, the failsafe snapshot will be restored.    * If the restore completes without problem the failsafe snapshot is deleted.    *    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
 annotation|@
 name|Override
 specifier|public
@@ -13692,6 +14919,7 @@ name|takeFailSafeSnapshot
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled)    * If 'takeFailSafeSnapshot' is set to true, a snapshot of the current table is taken    * before executing the restore operation.    * In case of restore failure, the failsafe snapshot will be restored.    * If the restore completes without problem the failsafe snapshot is deleted.    *    * The failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    *    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot true if the failsafe snapshot should be taken    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
 annotation|@
 name|Override
 specifier|public
@@ -13725,6 +14953,7 @@ name|takeFailSafeSnapshot
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled)    * If 'takeFailSafeSnapshot' is set to true, a snapshot of the current table is taken    * before executing the restore operation.    * In case of restore failure, the failsafe snapshot will be restored.    * If the restore completes without problem the failsafe snapshot is deleted.    *    * The failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    *    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot true if the failsafe snapshot should be taken    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
 annotation|@
 name|Override
 specifier|public
@@ -14079,6 +15308,47 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * Create a new table by cloning the snapshot content.    *    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
+specifier|public
+name|void
+name|cloneSnapshot
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|snapshotName
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|TableExistsException
+throws|,
+name|RestoreSnapshotException
+block|{
+name|cloneSnapshot
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|snapshotName
+argument_list|)
+argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Create a new table by cloning the snapshot content.    *    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
 annotation|@
 name|Override
 specifier|public
@@ -14114,6 +15384,42 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Create a new table by cloning the snapshot content.    *    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
+specifier|public
+name|void
+name|cloneSnapshot
+parameter_list|(
+specifier|final
+name|String
+name|snapshotName
+parameter_list|,
+specifier|final
+name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|TableExistsException
+throws|,
+name|RestoreSnapshotException
+throws|,
+name|InterruptedException
+block|{
+name|cloneSnapshot
+argument_list|(
+name|snapshotName
+argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Create a new table by cloning the snapshot content.    *    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
 annotation|@
 name|Override
 specifier|public
@@ -14164,6 +15470,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Execute a distributed procedure on a cluster synchronously with return data    *    * @param signature A distributed procedure is uniquely identified    * by its signature (default the root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    * @return data returned after procedure execution. null if no return data.    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -14340,6 +15647,7 @@ else|:
 literal|null
 return|;
 block|}
+comment|/**    * Execute a distributed procedure on a cluster.    *    * @param signature A distributed procedure is uniquely identified    * by its signature (default the root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -14692,6 +16000,7 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/**    * Check the current state of the specified procedure.    *<p>    * There are three possible states:    *<ol>    *<li>running - returns<tt>false</tt></li>    *<li>finished - returns<tt>true</tt></li>    *<li>finished with error - throws the exception that caused the procedure to fail</li>    *</ol>    *<p>    *    * @param signature The signature that uniquely identifies a procedure    * @param instance The instance name of the procedure    * @param props Property/Value pairs of properties passing to the procedure    * @return true if the specified procedure is finished successfully, false if it is still running    * @throws IOException if the specified procedure finished with error    */
 annotation|@
 name|Override
 specifier|public
@@ -15170,6 +16479,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * List completed snapshots.    * @return a list of snapshot descriptors for completed snapshots    * @throws IOException if a network error occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -15237,6 +16547,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * List all the completed snapshots matching the given regular expression.    *    * @param regex The regular expression to match against    * @return - returns a List of SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -15264,6 +16575,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+comment|/**    * List all the completed snapshots matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @return - returns a List of SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -15338,6 +16650,7 @@ return|return
 name|matched
 return|;
 block|}
+comment|/**    * List all the completed snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNameRegex The table name regular expression to match against    * @param snapshotNameRegex The snapshot name regular expression to match against    * @return returns a List of completed SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -15375,6 +16688,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+comment|/**    * List all the completed snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNamePattern The compiled table name regular expression to match against    * @param snapshotNamePattern The compiled snapshot name regular expression to match against    * @return returns a List of completed SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -15478,6 +16792,7 @@ return|return
 name|tableSnapshots
 return|;
 block|}
+comment|/**    * Delete an existing snapshot.    * @param snapshotName name of the snapshot    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -15503,6 +16818,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Delete an existing snapshot.    * @param snapshotName name of the snapshot    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -15593,6 +16909,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Delete existing snapshots whose names match the pattern passed.    * @param regex The regular expression to match against    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -15617,6 +16934,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Delete existing snapshots whose names match the pattern passed.    * @param pattern pattern for names of the snapshot to match    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -15753,6 +17071,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Delete all existing snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNameRegex The table name regular expression to match against    * @param snapshotNameRegex The snapshot name regular expression to match against    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -15786,6 +17105,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Delete all existing snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNamePattern The compiled table name regular expression to match against    * @param snapshotNamePattern The compiled snapshot name regular expression to match against    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -15865,6 +17185,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * Apply the new quota settings.    *    * @param quota the quota settings    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -15926,6 +17247,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Return a Quota Scanner to list the quotas based on the filter.    *    * @param filter the quota settings filter    * @return the quota scanner    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -16045,6 +17367,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance    * connected to the active master.    *    *<p>    * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published    * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:    *</p>    *    *<div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myAdmin.coprocessorService();    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *    * @return A MasterCoprocessorRpcChannel instance    */
 annotation|@
 name|Override
 specifier|public
@@ -16103,6 +17426,7 @@ literal|true
 return|;
 block|}
 block|}
+comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance    * connected to the passed region server.    *    *<p>    * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published    * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:    *</p>    *    *<div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myAdmin.coprocessorService(serverName);    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *    * @param sn the server name to which the endpoint call is made    * @return A RegionServerCoprocessorRpcChannel instance    */
 annotation|@
 name|Override
 specifier|public

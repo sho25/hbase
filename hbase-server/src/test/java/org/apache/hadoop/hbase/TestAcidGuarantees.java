@@ -642,7 +642,7 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 operator|.
-name|modifyColumnFamily
+name|modifyColumn
 argument_list|(
 name|TABLE_NAME
 argument_list|,
