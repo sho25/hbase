@@ -10385,12 +10385,7 @@ name|region
 argument_list|,
 name|htd
 argument_list|,
-name|regionServer
-operator|.
-name|getWAL
-argument_list|(
-name|region
-argument_list|)
+literal|null
 argument_list|,
 name|regionServer
 operator|.

@@ -314,6 +314,19 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Releases the dependency of this region to the WAL previously obtained from    * {@link #getWAL(HRegionInfo)}.    */
+name|void
+name|releaseWAL
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
+name|WAL
+name|wal
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * @return Implementation of {@link CompactionRequestor} or null.    */
 name|CompactionRequestor
 name|getCompactionRequester

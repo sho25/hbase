@@ -236,15 +236,19 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|RegionServerServices
 name|rsServices
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|HRegionInfo
 name|regionInfo
+decl_stmt|;
+specifier|protected
+name|HRegion
+name|region
 decl_stmt|;
 comment|// If true, the hosting server is aborting.  Region close process is different
 comment|// when we are aborting.
@@ -405,9 +409,8 @@ name|getEncodedName
 argument_list|()
 decl_stmt|;
 comment|// Check that this region is being served here
-name|HRegion
 name|region
-init|=
+operator|=
 operator|(
 name|HRegion
 operator|)
@@ -417,7 +420,7 @@ name|getFromOnlineRegions
 argument_list|(
 name|encodedRegionName
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|region
@@ -469,6 +472,16 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 return|return;
+block|}
+if|if
+condition|(
+operator|!
+name|abort
+condition|)
+block|{
+name|releaseWALIfNeeded
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 catch|catch
@@ -567,6 +580,15 @@ name|FALSE
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+specifier|protected
+name|void
+name|releaseWALIfNeeded
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+comment|// release the WAL if needed. Only meta does this for now.
 block|}
 block|}
 end_class
