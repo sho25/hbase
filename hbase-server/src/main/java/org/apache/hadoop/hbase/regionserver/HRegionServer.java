@@ -3848,6 +3848,8 @@ argument_list|()
 operator|.
 name|toString
 argument_list|()
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 if|if
@@ -8499,17 +8501,21 @@ specifier|static
 name|int
 name|RANGE_OF_DELAY
 init|=
-literal|20000
+literal|5
+operator|*
+literal|60
+operator|*
+literal|1000
 decl_stmt|;
-comment|//millisec
+comment|// 5 min in milliseconds
 specifier|final
 specifier|static
 name|int
 name|MIN_DELAY_TIME
 init|=
-literal|3000
+literal|0
 decl_stmt|;
-comment|//millisec
+comment|// millisec
 specifier|public
 name|PeriodicMemstoreFlusher
 parameter_list|(

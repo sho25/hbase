@@ -1336,6 +1336,8 @@ argument_list|(
 literal|"testChoreServiceConstruction_custom"
 argument_list|,
 name|corePoolSize
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 try|try
@@ -1399,6 +1401,8 @@ literal|"testChoreServiceConstruction_invalid"
 argument_list|,
 operator|-
 literal|10
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 try|try
@@ -1788,6 +1792,8 @@ argument_list|(
 literal|"testCorePoolIncrease"
 argument_list|,
 name|initialCorePoolSize
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 try|try
@@ -2004,6 +2010,8 @@ argument_list|(
 literal|"testCorePoolDecrease"
 argument_list|,
 name|initialCorePoolSize
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 specifier|final
