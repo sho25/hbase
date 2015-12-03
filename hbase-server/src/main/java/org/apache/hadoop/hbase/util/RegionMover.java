@@ -1928,8 +1928,6 @@ operator|+
 name|hostname
 operator|+
 literal|" is not up yet, waiting"
-argument_list|,
-name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -1997,7 +1995,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Moving"
+literal|"Moving "
 operator|+
 name|regionsToMove
 operator|.
@@ -3094,7 +3092,7 @@ operator|.
 name|getEncodedName
 argument_list|()
 operator|+
-literal|"from "
+literal|" from "
 operator|+
 name|sourceServer
 operator|+
@@ -3412,7 +3410,7 @@ operator|.
 name|getEncodedName
 argument_list|()
 operator|+
-literal|"from "
+literal|" from "
 operator|+
 name|sourceServer
 operator|+
@@ -3990,7 +3988,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Exclude master from list of RSs to move regions to    * @param regionServers    * @param admin    * @throws Exception    */
+comment|/**    * Exclude master from list of RSs to move regions to    * @param regionServers    * @param admin    * @throws IOException    */
 specifier|private
 name|void
 name|stripMaster
@@ -4005,12 +4003,11 @@ name|Admin
 name|admin
 parameter_list|)
 throws|throws
-name|Exception
+name|IOException
 block|{
-name|stripServer
-argument_list|(
-name|regionServers
-argument_list|,
+name|String
+name|masterHostname
+init|=
 name|admin
 operator|.
 name|getClusterStatus
@@ -4021,7 +4018,10 @@ argument_list|()
 operator|.
 name|getHostname
 argument_list|()
-argument_list|,
+decl_stmt|;
+name|int
+name|masterPort
+init|=
 name|admin
 operator|.
 name|getClusterStatus
@@ -4032,8 +4032,35 @@ argument_list|()
 operator|.
 name|getPort
 argument_list|()
+decl_stmt|;
+try|try
+block|{
+name|stripServer
+argument_list|(
+name|regionServers
+argument_list|,
+name|masterHostname
+argument_list|,
+name|masterPort
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Could not remove master from list of RS"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * @return List of servers from the exclude file in format 'hostname:port'.    */
 specifier|private
@@ -4954,7 +4981,9 @@ name|this
 operator|.
 name|addRequiredOptWithArg
 argument_list|(
-literal|"l"
+literal|"o"
+argument_list|,
+literal|"operation"
 argument_list|,
 literal|"Expected: load/unload"
 argument_list|)
@@ -5002,11 +5031,15 @@ name|addOptNoArg
 argument_list|(
 literal|"n"
 argument_list|,
-literal|"noAck"
+literal|"noack"
 argument_list|,
-literal|"Enable Ack mode(default: true) which checks if region is online on target RegionServer -- "
+literal|"Turn on No-Ack mode(default: false) which won't check if region is online on target "
 operator|+
-literal|"Upon disabling,in case a region is stuck, it'll move on anyways"
+literal|"RegionServer, hence best effort. This is more performant in unloading and loading "
+operator|+
+literal|"but might lead to region being unavailable for some time till master reassigns it "
+operator|+
+literal|"in case the move failed"
 argument_list|)
 expr_stmt|;
 name|this
@@ -5179,7 +5212,7 @@ name|cmd
 operator|.
 name|getOptionValue
 argument_list|(
-literal|"l"
+literal|"o"
 argument_list|)
 operator|.
 name|toLowerCase
@@ -5195,6 +5228,9 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|boolean
+name|success
+decl_stmt|;
 name|RegionMover
 name|rm
 init|=
@@ -5213,6 +5249,8 @@ literal|"load"
 argument_list|)
 condition|)
 block|{
+name|success
+operator|=
 name|rm
 operator|.
 name|load
@@ -5230,6 +5268,8 @@ literal|"unload"
 argument_list|)
 condition|)
 block|{
+name|success
+operator|=
 name|rm
 operator|.
 name|unload
@@ -5241,16 +5281,19 @@ block|{
 name|printUsage
 argument_list|()
 expr_stmt|;
-name|System
-operator|.
-name|exit
-argument_list|(
-literal|1
-argument_list|)
+name|success
+operator|=
+literal|false
 expr_stmt|;
 block|}
 return|return
+operator|(
+name|success
+condition|?
 literal|0
+else|:
+literal|1
+operator|)
 return|;
 block|}
 specifier|public
