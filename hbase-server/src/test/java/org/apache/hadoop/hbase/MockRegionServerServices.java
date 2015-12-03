@@ -1389,21 +1389,6 @@ return|return
 literal|0
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|releaseWAL
-parameter_list|(
-name|HRegionInfo
-name|regionInfo
-parameter_list|,
-name|WAL
-name|wal
-parameter_list|)
-throws|throws
-name|IOException
-block|{   }
 block|}
 end_class
 

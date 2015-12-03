@@ -1216,67 +1216,6 @@ return|;
 block|}
 end_function
 
-begin_comment
-comment|/**    * Closes the meta WAL and meta WALProvider    */
-end_comment
-
-begin_function
-specifier|public
-name|void
-name|closeMetaWAL
-parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|identifier
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-comment|// NOTE: this assumes single META region. The close of WAL does not do ref-counting for the
-comment|// number of regions depending on the meta WAL
-name|WALProvider
-name|metaProvider
-init|=
-name|this
-operator|.
-name|metaProvider
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|metaProvider
-operator|!=
-literal|null
-condition|)
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|metaProvider
-operator|.
-name|compareAndSet
-argument_list|(
-name|metaProvider
-argument_list|,
-literal|null
-argument_list|)
-condition|)
-block|{
-comment|// close the metaProvider
-name|metaProvider
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-block|}
-end_function
-
 begin_function
 specifier|public
 name|Reader
