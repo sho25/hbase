@@ -1188,6 +1188,23 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|reader
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|reader
+operator|.
+name|decrementRefCount
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    *    * @param s    * @param k    * @return false if not found or if k is after the end.    * @throws IOException    */
 specifier|public

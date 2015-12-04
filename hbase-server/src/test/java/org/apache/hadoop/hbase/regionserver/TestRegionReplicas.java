@@ -437,6 +437,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|compactions
+operator|.
+name|CompactedHFilesDischarger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -1711,6 +1729,14 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+name|HRegion
+name|primaryRegion
+init|=
+operator|(
+name|HRegion
+operator|)
+name|region
+decl_stmt|;
 comment|// ensure that chore is run
 name|LOG
 operator|.
@@ -1903,7 +1929,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-comment|// ensure that we are see the 3 store files
+comment|// ensure that we see the 3 store files
 name|Assert
 operator|.
 name|assertEquals
@@ -1992,11 +2018,12 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// ensure that we see the compacted file only
+comment|// This will be 4 until the cleaner chore runs
 name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-literal|1
+literal|4
 argument_list|,
 name|secondaryRegion
 operator|.
@@ -2986,6 +3013,27 @@ operator|.
 name|getStorefilesCount
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|CompactedHFilesDischarger
+name|cleaner
+init|=
+operator|new
+name|CompactedHFilesDischarger
+argument_list|(
+literal|100
+argument_list|,
+literal|null
+argument_list|,
+operator|(
+name|HRegion
+operator|)
+name|primaryRegion
+argument_list|)
+decl_stmt|;
+name|cleaner
+operator|.
+name|chore
+argument_list|()
 expr_stmt|;
 comment|// scan all the hfiles on the secondary.
 comment|// since there are no read on the secondary when we ask locations to

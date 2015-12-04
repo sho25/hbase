@@ -344,6 +344,17 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|boolean
+name|isCompactedAway
+parameter_list|()
+block|{
+return|return
+literal|false
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|byte
 index|[]
 name|getMetadataValue

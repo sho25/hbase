@@ -101,20 +101,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|locks
-operator|.
-name|ReentrantLock
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -638,13 +624,13 @@ name|scanUsePread
 init|=
 literal|false
 decl_stmt|;
+comment|// Indicates whether there was flush during the course of the scan
 specifier|protected
-name|ReentrantLock
-name|lock
+specifier|volatile
+name|boolean
+name|flushed
 init|=
-operator|new
-name|ReentrantLock
-argument_list|()
+literal|false
 decl_stmt|;
 specifier|protected
 specifier|final
@@ -1986,13 +1972,9 @@ name|Cell
 name|peek
 parameter_list|()
 block|{
-name|lock
-operator|.
-name|lock
+name|checkResetHeap
 argument_list|()
 expr_stmt|;
-try|try
-block|{
 if|if
 condition|(
 name|this
@@ -2016,15 +1998,6 @@ operator|.
 name|peek
 argument_list|()
 return|;
-block|}
-finally|finally
-block|{
-name|lock
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 annotation|@
 name|Override
@@ -2062,13 +2035,6 @@ parameter_list|(
 name|boolean
 name|withHeapClose
 parameter_list|)
-block|{
-name|lock
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-try|try
 block|{
 if|if
 condition|(
@@ -2198,15 +2164,6 @@ literal|null
 expr_stmt|;
 comment|// If both are null, we are closed.
 block|}
-finally|finally
-block|{
-name|lock
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
-block|}
-block|}
 annotation|@
 name|Override
 specifier|public
@@ -2219,13 +2176,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|lock
-operator|.
-name|lock
+name|checkResetHeap
 argument_list|()
 expr_stmt|;
-try|try
-block|{
 comment|// reset matcher state, in case that underlying store changed
 name|checkReseek
 argument_list|()
@@ -2240,15 +2193,6 @@ argument_list|(
 name|key
 argument_list|)
 return|;
-block|}
-finally|finally
-block|{
-name|lock
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 annotation|@
 name|Override
@@ -2296,13 +2240,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|lock
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-try|try
-block|{
 if|if
 condition|(
 name|scannerContext
@@ -2318,6 +2255,9 @@ literal|"Scanner context cannot be null"
 argument_list|)
 throw|;
 block|}
+name|checkResetHeap
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|checkReseek
@@ -3066,15 +3006,6 @@ name|hasMoreValues
 argument_list|()
 return|;
 block|}
-finally|finally
-block|{
-name|lock
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
-block|}
-block|}
 comment|/*    * See if we should actually SEEK or rather just SKIP to the next Cell.    * (see HBASE-13109)    */
 specifier|private
 name|ScanQueryMatcher
@@ -3223,12 +3154,16 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|lock
-operator|.
-name|lock
-argument_list|()
+name|flushed
+operator|=
+literal|true
 expr_stmt|;
-try|try
+comment|// Let the next() call handle re-creating and seeking
+block|}
+specifier|protected
+name|void
+name|nullifyCurrentHeap
+parameter_list|()
 block|{
 if|if
 condition|(
@@ -3258,6 +3193,8 @@ name|lastTop
 operator|=
 name|this
 operator|.
+name|heap
+operator|.
 name|peek
 argument_list|()
 expr_stmt|;
@@ -3282,16 +3219,6 @@ operator|=
 literal|null
 expr_stmt|;
 comment|// the re-seeks could be slow (access HDFS) free up memory ASAP
-comment|// Let the next() call handle re-creating and seeking
-block|}
-finally|finally
-block|{
-name|lock
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 comment|/**    * @return true if top of heap has changed (and KeyValueHeap has to try the    *         next KV)    * @throws IOException    */
 specifier|protected
@@ -3631,16 +3558,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|lock
-operator|.
-name|lock
+name|checkResetHeap
 argument_list|()
 expr_stmt|;
-try|try
-block|{
-comment|//Heap will not be null, if this is called from next() which.
-comment|//If called from RegionScanner.reseek(...) make sure the scanner
-comment|//stack is reset if needed.
+comment|// Heap will not be null, if this is called from next() which.
+comment|// If called from RegionScanner.reseek(...) make sure the scanner
+comment|// stack is reset if needed.
 name|checkReseek
 argument_list|()
 expr_stmt|;
@@ -3673,12 +3596,34 @@ name|kv
 argument_list|)
 return|;
 block|}
-finally|finally
+specifier|protected
+name|void
+name|checkResetHeap
+parameter_list|()
 block|{
-name|lock
-operator|.
-name|unlock
+comment|// check the var without any lock. Suppose even if we see the old
+comment|// value here still it is ok to continue because we will not be resetting
+comment|// the heap but will continue with the referenced memstore's snapshot. For compactions
+comment|// any way we don't need the updateReaders at all to happen as we still continue with
+comment|// the older files
+if|if
+condition|(
+name|flushed
+condition|)
+block|{
+comment|// If the 'flushed' is found to be true then there is a need to ensure
+comment|// that the current scanner updates the heap that it has and then proceed
+comment|// with the scan and ensure to reset the flushed inside the lock
+comment|// One thing can be sure that the same store scanner cannot be in reseek and
+comment|// next at the same time ie. within the same store scanner it is always single
+comment|// threaded
+name|nullifyCurrentHeap
 argument_list|()
+expr_stmt|;
+comment|// reset the flag
+name|flushed
+operator|=
+literal|false
 expr_stmt|;
 block|}
 block|}
@@ -3989,13 +3934,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|lock
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-try|try
-block|{
 for|for
 control|(
 name|KeyValueHeap
@@ -4034,15 +3972,6 @@ operator|.
 name|heap
 operator|.
 name|shipped
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-finally|finally
-block|{
-name|lock
-operator|.
-name|unlock
 argument_list|()
 expr_stmt|;
 block|}

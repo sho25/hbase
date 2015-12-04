@@ -152,7 +152,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Adds compaction results into the structure.    * @param compactedFiles The input files for the compaction.    * @param results The resulting files for the compaction.    */
+comment|/**    * Adds only the new compaction results into the structure.    * @param compactedFiles The input files for the compaction.    * @param results The resulting files for the compaction.    */
 name|void
 name|addCompactionResults
 parameter_list|(
@@ -171,6 +171,19 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Remove the compacted files    * @param compactedFiles the list of compacted files    * @throws IOException    */
+name|void
+name|removeCompactedFiles
+parameter_list|(
+name|Collection
+argument_list|<
+name|StoreFile
+argument_list|>
+name|compactedFiles
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Clears all the files currently in use and returns them.    * @return The files previously in use.    */
 name|ImmutableCollection
 argument_list|<
@@ -179,12 +192,28 @@ argument_list|>
 name|clearFiles
 parameter_list|()
 function_decl|;
+comment|/**    * Clears all the compacted files and returns them. This method is expected to be    * accessed single threaded.    * @return The files compacted previously.    */
+name|Collection
+argument_list|<
+name|StoreFile
+argument_list|>
+name|clearCompactedFiles
+parameter_list|()
+function_decl|;
 comment|/**    * Gets the snapshot of the store files currently in use. Can be used for things like metrics    * and checks; should not assume anything about relations between store files in the list.    * @return The list of StoreFiles.    */
 name|Collection
 argument_list|<
 name|StoreFile
 argument_list|>
 name|getStorefiles
+parameter_list|()
+function_decl|;
+comment|/**    * List of compacted files inside this store that needs to be excluded in reads    * because further new reads will be using only the newly created files out of compaction.    * These compacted files will be deleted/cleared once all the existing readers on these    * compacted files are done.    * @return the list of compacted files    */
+name|Collection
+argument_list|<
+name|StoreFile
+argument_list|>
+name|getCompactedfiles
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the number of files currently in use.    * @return The number of files.    */

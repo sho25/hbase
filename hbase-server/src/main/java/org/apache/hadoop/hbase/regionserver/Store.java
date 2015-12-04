@@ -1004,6 +1004,13 @@ name|boolean
 name|isPrimaryReplicaStore
 parameter_list|()
 function_decl|;
+comment|/**    * Closes and archives the compacted files under this store    */
+name|void
+name|closeAndArchiveCompactedFiles
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 
