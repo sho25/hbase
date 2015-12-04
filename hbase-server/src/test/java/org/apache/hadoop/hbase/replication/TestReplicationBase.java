@@ -837,7 +837,7 @@ name|fam
 operator|.
 name|setMaxVersions
 argument_list|(
-literal|3
+literal|100
 argument_list|)
 expr_stmt|;
 name|fam
