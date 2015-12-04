@@ -184,6 +184,10 @@ name|void
 name|incrementLowReplicationLogRoll
 parameter_list|()
 function_decl|;
+name|long
+name|getSlowAppendCount
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

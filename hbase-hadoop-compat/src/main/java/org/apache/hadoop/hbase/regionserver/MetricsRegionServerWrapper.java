@@ -62,18 +62,21 @@ name|getNumStores
 parameter_list|()
 function_decl|;
 comment|/**    * Get the number of WAL files of this region server.    */
-specifier|public
 name|long
 name|getNumWALFiles
 parameter_list|()
 function_decl|;
 comment|/**    * Get the size of WAL files of this region server.    */
-specifier|public
 name|long
 name|getWALFileSize
 parameter_list|()
 function_decl|;
-comment|/**    * Get the number of store files hosted on this region server.    */
+comment|/**    * Get the number of WAL files with slow appends for this region server.    */
+name|long
+name|getNumWALSlowAppend
+parameter_list|()
+function_decl|;
+comment|/**      * Get the number of store files hosted on this region server.      */
 name|long
 name|getNumStoreFiles
 parameter_list|()

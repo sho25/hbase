@@ -390,6 +390,20 @@ name|incr
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getSlowAppendCount
+parameter_list|()
+block|{
+return|return
+name|slowAppendCount
+operator|.
+name|value
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 
