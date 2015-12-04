@@ -173,20 +173,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MetaTableAccessor
 import|;
 end_import
@@ -2112,46 +2098,10 @@ literal|"' archived!"
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Archive the mob data if there is a mob-enabled column
-name|HTableDescriptor
-name|htd
-init|=
-name|env
-operator|.
-name|getMasterServices
-argument_list|()
-operator|.
-name|getTableDescriptors
-argument_list|()
-operator|.
-name|get
-argument_list|(
-name|tableName
-argument_list|)
-decl_stmt|;
-name|boolean
-name|hasMob
-init|=
-name|MobUtils
-operator|.
-name|hasMobColumns
-argument_list|(
-name|htd
-argument_list|)
-decl_stmt|;
+comment|// Archive mob data
 name|Path
 name|mobTableDir
 init|=
-literal|null
-decl_stmt|;
-if|if
-condition|(
-name|hasMob
-condition|)
-block|{
-comment|// Archive mob data
-name|mobTableDir
-operator|=
 name|FSUtils
 operator|.
 name|getTableDir
@@ -2171,7 +2121,7 @@ argument_list|)
 argument_list|,
 name|tableName
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|Path
 name|regionDir
 init|=
@@ -2218,7 +2168,6 @@ name|regionDir
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 comment|// Delete table directory from FS (temp directory)
 if|if
 condition|(
@@ -2253,8 +2202,6 @@ block|}
 comment|// Delete the table directory where the mob files are saved
 if|if
 condition|(
-name|hasMob
-operator|&&
 name|mobTableDir
 operator|!=
 literal|null
