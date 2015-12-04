@@ -780,9 +780,9 @@ block|{
 name|FileSystem
 name|fs
 init|=
-name|FileSystem
+name|p
 operator|.
-name|get
+name|getFileSystem
 argument_list|(
 name|conf
 argument_list|)
