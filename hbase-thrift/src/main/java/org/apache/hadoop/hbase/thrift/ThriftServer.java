@@ -379,6 +379,14 @@ specifier|private
 name|InfoServer
 name|infoServer
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|READ_TIMEOUT_OPTION
+init|=
+literal|"readTimeout"
+decl_stmt|;
 comment|//
 comment|// Main program and support routines
 comment|//
@@ -747,6 +755,23 @@ argument_list|)
 expr_stmt|;
 name|options
 operator|.
+name|addOption
+argument_list|(
+literal|"t"
+argument_list|,
+name|READ_TIMEOUT_OPTION
+argument_list|,
+literal|true
+argument_list|,
+literal|"Amount of time in milliseconds before a server thread will timeout "
+operator|+
+literal|"waiting for client to send data on a connected socket. Currently, "
+operator|+
+literal|"only applies to TBoundedThreadPoolServer"
+argument_list|)
+expr_stmt|;
+name|options
+operator|.
 name|addOptionGroup
 argument_list|(
 name|ImplType
@@ -1048,6 +1073,19 @@ argument_list|,
 name|TBoundedThreadPoolServer
 operator|.
 name|THREAD_KEEP_ALIVE_TIME_SEC_CONF_KEY
+argument_list|)
+expr_stmt|;
+name|optionToConf
+argument_list|(
+name|cmd
+argument_list|,
+name|READ_TIMEOUT_OPTION
+argument_list|,
+name|conf
+argument_list|,
+name|ThriftServerRunner
+operator|.
+name|THRIFT_SERVER_SOCKET_READ_TIMEOUT_KEY
 argument_list|)
 expr_stmt|;
 comment|// Set general thrift server options

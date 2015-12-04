@@ -1721,6 +1721,23 @@ name|THRIFT_SSL_KEYSTORE_KEYPASSWORD
 init|=
 literal|"hbase.thrift.ssl.keystore.keypassword"
 decl_stmt|;
+comment|/**    * Amount of time in milliseconds before a server thread will timeout    * waiting for client to send data on a connected socket. Currently,    * applies only to TBoundedThreadPoolServer    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|THRIFT_SERVER_SOCKET_READ_TIMEOUT_KEY
+init|=
+literal|"hbase.thrift.server.socket.read.timeout"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|THRIFT_SERVER_SOCKET_READ_TIMEOUT_DEFAULT
+init|=
+literal|60000
+decl_stmt|;
 comment|/**    * Thrift quality of protection configuration key. Valid values can be:    * auth-conf: authentication, integrity and confidentiality checking    * auth-int: authentication and integrity checking    * auth: authentication only    *    * This is used to authenticate the callers and support impersonation.    * The thrift server and the HBase cluster must run in secure mode.    */
 specifier|static
 specifier|final
@@ -3900,6 +3917,18 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
+name|int
+name|readTimeout
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|THRIFT_SERVER_SOCKET_READ_TIMEOUT_KEY
+argument_list|,
+name|THRIFT_SERVER_SOCKET_READ_TIMEOUT_DEFAULT
+argument_list|)
+decl_stmt|;
 name|TServerTransport
 name|serverTransport
 init|=
@@ -3926,6 +3955,11 @@ operator|.
 name|backlog
 argument_list|(
 name|backlog
+argument_list|)
+operator|.
+name|clientTimeout
+argument_list|(
+name|readTimeout
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -3987,7 +4021,11 @@ argument_list|(
 name|listenPort
 argument_list|)
 operator|+
-literal|"; "
+literal|" with readTimeout "
+operator|+
+name|readTimeout
+operator|+
+literal|"ms; "
 operator|+
 name|serverArgs
 argument_list|)
