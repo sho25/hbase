@@ -57,6 +57,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|security
 operator|.
 name|Key
@@ -119,7 +129,39 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HColumnDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|crypto
+operator|.
+name|Encryption
 import|;
 end_import
 
@@ -251,6 +293,9 @@ specifier|public
 class|class
 name|TestEncryptionUtil
 block|{
+comment|// There does not seem to be a ready way to test either getKeyFromBytesOrMasterKey
+comment|// or createEncryptionContext, and the existing code under MobUtils appeared to be
+comment|// untested.  Not ideal!
 annotation|@
 name|Test
 specifier|public
