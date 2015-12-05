@@ -358,6 +358,12 @@ decl_stmt|;
 name|long
 name|delay
 init|=
+name|spreadTime
+operator|<=
+literal|0
+condition|?
+name|baseDelay
+else|:
 name|baseDelay
 operator|+
 name|ThreadLocalRandom
