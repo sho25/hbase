@@ -1067,6 +1067,15 @@ argument_list|,
 name|value
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Exception while comparing row : "
+operator|+
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 name|currentCompareRowInPeerTable
 operator|=
