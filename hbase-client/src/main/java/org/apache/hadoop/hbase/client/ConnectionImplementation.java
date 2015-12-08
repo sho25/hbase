@@ -235,6 +235,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|MultiActionResultTooLarge
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|RegionLocations
 import|;
 end_import
@@ -250,6 +264,20 @@ operator|.
 name|hbase
 operator|.
 name|RegionTooBusyException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|RetryImmediatelyException
 import|;
 end_import
 
@@ -1989,6 +2017,10 @@ operator|||
 name|cur
 operator|instanceof
 name|ThrottlingException
+operator|||
+name|cur
+operator|instanceof
+name|RetryImmediatelyException
 condition|)
 block|{
 return|return
@@ -9320,6 +9352,10 @@ operator|||
 name|cause
 operator|instanceof
 name|ThrottlingException
+operator|||
+name|cause
+operator|instanceof
+name|MultiActionResultTooLarge
 condition|)
 block|{
 comment|// We know that the region is still on this region server

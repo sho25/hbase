@@ -265,6 +265,18 @@ name|EXCEPTIONS_NSRE_NAME
 init|=
 literal|"exceptions.NotServingRegionException"
 decl_stmt|;
+name|String
+name|EXCEPTIONS_MULTI_TOO_LARGE_NAME
+init|=
+literal|"exceptions.multiResponseTooLarge"
+decl_stmt|;
+name|String
+name|EXCEPTIONS_MULTI_TOO_LARGE_DESC
+init|=
+literal|"A response to a multi request was too large and the "
+operator|+
+literal|"rest of the requests will have to be retried."
+decl_stmt|;
 name|void
 name|authorizationSuccess
 parameter_list|()
@@ -312,6 +324,10 @@ parameter_list|()
 function_decl|;
 name|void
 name|tooBusyException
+parameter_list|()
+function_decl|;
+name|void
+name|multiActionTooLargeException
 parameter_list|()
 function_decl|;
 name|void

@@ -265,6 +265,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|RetryImmediatelyException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -598,7 +612,7 @@ throws|throws
 name|InterruptedIOException
 function_decl|;
 block|}
-comment|/** Return value from a submit that didn't contain any requests. */
+comment|/**    * Return value from a submit that didn't contain any requests.    */
 specifier|private
 specifier|static
 specifier|final
@@ -678,7 +692,7 @@ name|waitUntilDone
 parameter_list|()
 throws|throws
 name|InterruptedIOException
-block|{}
+block|{     }
 block|}
 decl_stmt|;
 comment|/** Sync point for calls to multiple replicas for the same user request (Get).    * Created and put in the results array (we assume replica calls require results) when    * the replica calls are launched. See results for details of this process.    * POJO, all fields are public. To modify them, the object itself is locked. */
@@ -1418,9 +1432,11 @@ name|pool
 operator|!=
 literal|null
 condition|)
+block|{
 return|return
 name|pool
 return|;
+block|}
 if|if
 condition|(
 name|this
@@ -1429,11 +1445,13 @@ name|pool
 operator|!=
 literal|null
 condition|)
+block|{
 return|return
 name|this
 operator|.
 name|pool
 return|;
+block|}
 throw|throw
 operator|new
 name|RuntimeException
@@ -1721,6 +1739,7 @@ name|r
 operator|==
 literal|null
 condition|)
+block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
@@ -1732,6 +1751,7 @@ operator|+
 literal|", row cannot be null"
 argument_list|)
 throw|;
+block|}
 comment|// Make sure we get 0-s replica.
 name|RegionLocations
 name|locs
@@ -3894,7 +3914,7 @@ operator|-
 literal|1
 argument_list|)
 decl_stmt|;
-comment|/** The lock controls access to results. It is only held when populating results where      * there might be several callers (eventual consistency gets). For other requests,      * there's one unique call going on per result index. */
+comment|/**      * The lock controls access to results. It is only held when populating results where      * there might be several callers (eventual consistency gets). For other requests,      * there's one unique call going on per result index.      */
 specifier|private
 specifier|final
 name|Object
@@ -3904,14 +3924,14 @@ operator|new
 name|Object
 argument_list|()
 decl_stmt|;
-comment|/** Result array.  Null if results are not needed. Otherwise, each index corresponds to      * the action index in initial actions submitted. For most request types, has null-s for      * requests that are not done, and result/exception for those that are done.      * For eventual-consistency gets, initially the same applies; at some point, replica calls      * might be started, and ReplicaResultState is put at the corresponding indices. The      * returning calls check the type to detect when this is the case. After all calls are done,      * ReplicaResultState-s are replaced with results for the user. */
+comment|/**      * Result array.  Null if results are not needed. Otherwise, each index corresponds to      * the action index in initial actions submitted. For most request types, has null-s for      * requests that are not done, and result/exception for those that are done.      * For eventual-consistency gets, initially the same applies; at some point, replica calls      * might be started, and ReplicaResultState is put at the corresponding indices. The      * returning calls check the type to detect when this is the case. After all calls are done,      * ReplicaResultState-s are replaced with results for the user.      */
 specifier|private
 specifier|final
 name|Object
 index|[]
 name|results
 decl_stmt|;
-comment|/** Indices of replica gets in results. If null, all or no actions are replica-gets. */
+comment|/**      * Indices of replica gets in results. If null, all or no actions are replica-gets.      */
 specifier|private
 specifier|final
 name|int
@@ -4022,6 +4042,7 @@ operator|.
 name|size
 argument_list|()
 condition|)
+block|{
 throw|throw
 operator|new
 name|AssertionError
@@ -4029,6 +4050,7 @@ argument_list|(
 literal|"results.length"
 argument_list|)
 throw|;
+block|}
 name|this
 operator|.
 name|results
@@ -6210,11 +6232,34 @@ comment|// We have something to replay. We're going to sleep a little before.
 comment|// We have two contradicting needs here:
 comment|//  1) We want to get the new location after having slept, as it may change.
 comment|//  2) We want to take into account the location when calculating the sleep time.
+comment|//  3) If all this is just because the response needed to be chunked try again FAST.
 comment|// It should be possible to have some heuristics to take the right decision. Short term,
 comment|//  we go for one.
+name|boolean
+name|retryImmediately
+init|=
+name|throwable
+operator|instanceof
+name|RetryImmediatelyException
+decl_stmt|;
+name|int
+name|nextAttemptNumber
+init|=
+name|retryImmediately
+condition|?
+name|numAttempt
+else|:
+name|numAttempt
+operator|+
+literal|1
+decl_stmt|;
 name|long
 name|backOffTime
 init|=
+name|retryImmediately
+condition|?
+literal|0
+else|:
 name|errorsByServer
 operator|.
 name|calculateBackoffTime
@@ -6269,6 +6314,13 @@ expr_stmt|;
 block|}
 try|try
 block|{
+if|if
+condition|(
+name|backOffTime
+operator|>
+literal|0
+condition|)
+block|{
 name|Thread
 operator|.
 name|sleep
@@ -6276,6 +6328,7 @@ argument_list|(
 name|backOffTime
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -6319,9 +6372,7 @@ name|groupAndSendMultiAction
 argument_list|(
 name|toReplay
 argument_list|,
-name|numAttempt
-operator|+
-literal|1
+name|nextAttemptNumber
 argument_list|)
 expr_stmt|;
 block|}
@@ -6666,6 +6717,15 @@ operator|.
 name|getAction
 argument_list|()
 decl_stmt|;
+name|throwable
+operator|=
+name|ConnectionImplementation
+operator|.
+name|findException
+argument_list|(
+name|result
+argument_list|)
+expr_stmt|;
 comment|// Register corresponding failures once per server/once per region.
 if|if
 condition|(
@@ -7599,8 +7659,10 @@ name|callCount
 operator|==
 literal|0
 condition|)
+block|{
 return|return;
 comment|// someone already set the result
+block|}
 name|state
 operator|.
 name|callCount

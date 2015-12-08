@@ -37,6 +37,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -64,6 +80,10 @@ import|;
 end_import
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 interface|interface
 name|RpcCallContext
@@ -77,7 +97,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * If the client connected and specified a codec to use, then we will use this codec making    * cellblocks to return.  If the client did not specify a codec, we assume it does not support    * cellblocks and will return all content protobuf'd (though it makes our serving slower).    * We need to ask this question per call because a server could be hosting both clients that    * support cellblocks while fielding requests from clients that do not.    * @return True if the client supports cellblocks, else return all content in pb    */
 name|boolean
-name|isClientCellBlockSupport
+name|isClientCellBlockSupported
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the user credentials associated with the current RPC request or    *<code>null</code> if no credentials were provided.    * @return A User    */
@@ -106,6 +126,23 @@ name|setCallBack
 parameter_list|(
 name|RpcCallback
 name|callback
+parameter_list|)
+function_decl|;
+name|boolean
+name|isRetryImmediatelySupported
+parameter_list|()
+function_decl|;
+comment|/**    * The size of response cells that have been accumulated so far.    * This along with the corresponding increment call is used to ensure that multi's or    * scans dont get too excessively large    */
+name|long
+name|getResponseCellSize
+parameter_list|()
+function_decl|;
+comment|/**    * Add on the given amount to the retained cell size.    *    * This is not thread safe and not synchronized at all. If this is used by more than one thread    * then everything will break. Since this is called for every row synchronization would be too    * onerous.    */
+name|void
+name|incrementResponseCellSize
+parameter_list|(
+name|long
+name|cellSize
 parameter_list|)
 function_decl|;
 block|}
