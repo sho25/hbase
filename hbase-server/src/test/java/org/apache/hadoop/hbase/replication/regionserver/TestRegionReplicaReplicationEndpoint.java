@@ -533,7 +533,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZKUtil
+name|ZKConfig
 import|;
 end_import
 
@@ -994,7 +994,7 @@ operator|.
 name|getClusterKey
 argument_list|()
 argument_list|,
-name|ZKUtil
+name|ZKConfig
 operator|.
 name|getZooKeeperClusterKey
 argument_list|(
@@ -1185,7 +1185,7 @@ operator|.
 name|getClusterKey
 argument_list|()
 argument_list|,
-name|ZKUtil
+name|ZKConfig
 operator|.
 name|getZooKeeperClusterKey
 argument_list|(

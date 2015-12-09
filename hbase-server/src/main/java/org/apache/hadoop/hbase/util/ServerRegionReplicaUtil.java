@@ -243,7 +243,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZKUtil
+name|ZKConfig
 import|;
 end_import
 
@@ -591,7 +591,7 @@ name|peerConfig
 operator|.
 name|setClusterKey
 argument_list|(
-name|ZKUtil
+name|ZKConfig
 operator|.
 name|getZooKeeperClusterKey
 argument_list|(

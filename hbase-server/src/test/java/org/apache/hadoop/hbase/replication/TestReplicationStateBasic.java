@@ -113,7 +113,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZKUtil
+name|ZKConfig
 import|;
 end_import
 
@@ -1258,7 +1258,7 @@ name|assertEquals
 argument_list|(
 name|KEY_ONE
 argument_list|,
-name|ZKUtil
+name|ZKConfig
 operator|.
 name|getZooKeeperClusterKey
 argument_list|(
