@@ -530,7 +530,7 @@ operator|.
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|QUEUE_CALL_TIME_NAME
 argument_list|,
@@ -546,7 +546,7 @@ operator|.
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|PROCESS_CALL_TIME_NAME
 argument_list|,
@@ -562,7 +562,7 @@ operator|.
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|TOTAL_CALL_TIME_NAME
 argument_list|,
@@ -578,7 +578,7 @@ operator|.
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newSizeHistogram
 argument_list|(
 name|REQUEST_SIZE_NAME
 argument_list|,
@@ -594,7 +594,7 @@ operator|.
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newSizeHistogram
 argument_list|(
 name|RESPONSE_SIZE_NAME
 argument_list|,

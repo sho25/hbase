@@ -456,7 +456,7 @@ name|regionGet
 operator|=
 name|registry
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|regionGetKey
 argument_list|)
@@ -473,7 +473,7 @@ name|regionScanNext
 operator|=
 name|registry
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|regionScanNextKey
 argument_list|)

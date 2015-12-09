@@ -184,7 +184,7 @@ operator|.
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|APPEND_TIME
 argument_list|,
@@ -198,7 +198,7 @@ operator|.
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newSizeHistogram
 argument_list|(
 name|APPEND_SIZE
 argument_list|,
@@ -244,7 +244,7 @@ operator|.
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|SYNC_TIME
 argument_list|,

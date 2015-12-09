@@ -206,7 +206,7 @@ name|assignTimeHisto
 operator|=
 name|metricsRegistry
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|ASSIGN_TIME_NAME
 argument_list|)
@@ -215,7 +215,7 @@ name|bulkAssignTimeHisto
 operator|=
 name|metricsRegistry
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|BULK_ASSIGN_TIME_NAME
 argument_list|)

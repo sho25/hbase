@@ -286,7 +286,7 @@ operator|=
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|MUTATE_KEY
 argument_list|)
@@ -310,7 +310,7 @@ operator|=
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|DELETE_KEY
 argument_list|)
@@ -334,7 +334,7 @@ operator|=
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|GET_KEY
 argument_list|)
@@ -358,7 +358,7 @@ operator|=
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|INCREMENT_KEY
 argument_list|)
@@ -382,7 +382,7 @@ operator|=
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|APPEND_KEY
 argument_list|)
@@ -406,7 +406,7 @@ operator|=
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|REPLAY_KEY
 argument_list|)
@@ -416,7 +416,7 @@ operator|=
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|SCAN_NEXT_KEY
 argument_list|)
@@ -426,7 +426,7 @@ operator|=
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|SPLIT_KEY
 argument_list|)
@@ -436,7 +436,7 @@ operator|=
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|FLUSH_KEY
 argument_list|)

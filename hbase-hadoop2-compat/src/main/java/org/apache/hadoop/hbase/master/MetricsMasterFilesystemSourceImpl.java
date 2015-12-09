@@ -149,7 +149,7 @@ name|splitSizeHisto
 operator|=
 name|metricsRegistry
 operator|.
-name|newHistogram
+name|newSizeHistogram
 argument_list|(
 name|SPLIT_SIZE_NAME
 argument_list|,
@@ -160,7 +160,7 @@ name|splitTimeHisto
 operator|=
 name|metricsRegistry
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|SPLIT_TIME_NAME
 argument_list|,
@@ -171,7 +171,7 @@ name|metaSplitTimeHisto
 operator|=
 name|metricsRegistry
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|META_SPLIT_TIME_NAME
 argument_list|,
@@ -182,7 +182,7 @@ name|metaSplitSizeHisto
 operator|=
 name|metricsRegistry
 operator|.
-name|newHistogram
+name|newSizeHistogram
 argument_list|(
 name|META_SPLIT_SIZE_NAME
 argument_list|,

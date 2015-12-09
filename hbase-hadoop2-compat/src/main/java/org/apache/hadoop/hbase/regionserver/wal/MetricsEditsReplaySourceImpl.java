@@ -200,7 +200,7 @@ name|replayTimeHisto
 operator|=
 name|metricsRegistry
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|REPLAY_TIME_NAME
 argument_list|,
@@ -211,7 +211,7 @@ name|replayBatchSizeHisto
 operator|=
 name|metricsRegistry
 operator|.
-name|newHistogram
+name|newSizeHistogram
 argument_list|(
 name|REPLAY_BATCH_SIZE_NAME
 argument_list|,
@@ -222,7 +222,7 @@ name|replayDataSizeHisto
 operator|=
 name|metricsRegistry
 operator|.
-name|newHistogram
+name|newSizeHistogram
 argument_list|(
 name|REPLAY_DATA_SIZE_NAME
 argument_list|,

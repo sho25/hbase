@@ -145,7 +145,7 @@ name|snapshotTimeHisto
 operator|=
 name|metricsRegistry
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|SNAPSHOT_TIME_NAME
 argument_list|,
@@ -156,7 +156,7 @@ name|snapshotCloneTimeHisto
 operator|=
 name|metricsRegistry
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|SNAPSHOT_CLONE_TIME_NAME
 argument_list|,
@@ -167,7 +167,7 @@ name|snapshotRestoreTimeHisto
 operator|=
 name|metricsRegistry
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|SNAPSHOT_RESTORE_TIME_NAME
 argument_list|,

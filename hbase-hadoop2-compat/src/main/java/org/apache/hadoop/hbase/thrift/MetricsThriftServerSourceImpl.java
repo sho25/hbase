@@ -167,7 +167,7 @@ operator|=
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|BATCH_GET_KEY
 argument_list|)
@@ -177,7 +177,7 @@ operator|=
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|BATCH_MUTATE_KEY
 argument_list|)
@@ -187,7 +187,7 @@ operator|=
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|TIME_IN_QUEUE_KEY
 argument_list|)
@@ -197,7 +197,7 @@ operator|=
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|THRIFT_CALL_KEY
 argument_list|)
@@ -207,7 +207,7 @@ operator|=
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|newHistogram
+name|newTimeHistogram
 argument_list|(
 name|SLOW_THRIFT_CALL_KEY
 argument_list|)

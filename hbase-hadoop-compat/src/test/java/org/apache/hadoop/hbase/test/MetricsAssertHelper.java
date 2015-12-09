@@ -198,6 +198,17 @@ name|BaseSource
 name|source
 parameter_list|)
 function_decl|;
+comment|/**    * Check if a dynamic counter exists.    *    * @param name   name of the counter.    * @param source The BaseSource{@link BaseSource} that will provide the tags,    *               gauges, and counters.    * @return boolean true id counter metric exists.    */
+name|boolean
+name|checkCounterExists
+parameter_list|(
+name|String
+name|name
+parameter_list|,
+name|BaseSource
+name|source
+parameter_list|)
+function_decl|;
 comment|/**    * Get the value of a gauge as a double.    *    * @param name   name of the gauge.    * @param source The BaseSource{@link BaseSource} that will provide the tags,    *               gauges, and counters.    * @return double value of the gauge.    */
 name|double
 name|getGaugeDouble
