@@ -178,6 +178,31 @@ name|batchSize
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Convience method to change metrics when a batch of operations are applied.    *    * @param batchSize total number of mutations that are applied/replicated    * @param hfileSize total number of hfiles that are applied/replicated    */
+specifier|public
+name|void
+name|applyBatch
+parameter_list|(
+name|long
+name|batchSize
+parameter_list|,
+name|long
+name|hfileSize
+parameter_list|)
+block|{
+name|applyBatch
+argument_list|(
+name|batchSize
+argument_list|)
+expr_stmt|;
+name|mss
+operator|.
+name|incrAppliedHFiles
+argument_list|(
+name|hfileSize
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Get the Age of Last Applied Op    * @return ageOfLastAppliedOp    */
 specifier|public
 name|long

@@ -127,7 +127,7 @@ parameter_list|()
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Add a new remote slave cluster for replication.    * @param peerId a short that identifies the cluster    * @param peerConfig configuration for the replication slave cluster    * @param tableCFs the table and column-family list which will be replicated for this peer or null    * for all table and column families    */
+comment|/**    * Add a new remote slave cluster for replication.    * @param peerId a short that identifies the cluster    * @param peerConfig configuration for the replication slave cluster    * @param tableCFs the table and column-family list which will be replicated for this peer or null    *          for all table and column families    */
 name|void
 name|addPeer
 parameter_list|(

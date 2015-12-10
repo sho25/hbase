@@ -64,7 +64,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This provides an interface for maintaining a region server's replication queues. These queues  * keep track of the WALs that still need to be replicated to remote clusters.  */
+comment|/**  * This provides an interface for maintaining a region server's replication queues. These queues  * keep track of the WALs and HFile references (if hbase.replication.bulkload.enabled is enabled)  * that still need to be replicated to remote clusters.  */
 end_comment
 
 begin_interface
@@ -199,6 +199,46 @@ name|isThisOurZnode
 parameter_list|(
 name|String
 name|znode
+parameter_list|)
+function_decl|;
+comment|/**    * Add a peer to hfile reference queue if peer does not exist.    * @param peerId peer cluster id to be added    * @throws ReplicationException if fails to add a peer id to hfile reference queue    */
+name|void
+name|addPeerToHFileRefs
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
+comment|/**    * Add new hfile references to the queue.    * @param peerId peer cluster id to which the hfiles need to be replicated    * @param files list of hfile references to be added    * @throws ReplicationException if fails to add a hfile reference    */
+name|void
+name|addHFileRefs
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|files
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
+comment|/**    * Remove hfile references from the queue.    * @param peerId peer cluster id from which this hfile references needs to be removed    * @param files list of hfile references to be removed    */
+name|void
+name|removeHFileRefs
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|files
 parameter_list|)
 function_decl|;
 block|}

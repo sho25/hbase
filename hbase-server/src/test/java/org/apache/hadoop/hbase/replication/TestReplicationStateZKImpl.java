@@ -482,6 +482,17 @@ operator|.
 name|getConfiguration
 argument_list|()
 expr_stmt|;
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|REPLICATION_BULKLOAD_ENABLE_KEY
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|zkw
 operator|=
 name|HBaseTestingUtility

@@ -195,7 +195,7 @@ name|WALEdit
 name|logEdit
 parameter_list|)
 function_decl|;
-comment|/**    *    * @param htd    * @param logKey    * @param logEdit    * TODO: Retire this in favor of {@link #visitLogEntryBeforeWrite(HRegionInfo, WALKey, WALEdit)}    * It only exists to get scope when replicating.  Scope should be in the WALKey and not need    * us passing in a<code>htd</code>.    */
+comment|/**    * @param htd    * @param logKey    * @param logEdit TODO: Retire this in favor of    *          {@link #visitLogEntryBeforeWrite(HRegionInfo, WALKey, WALEdit)} It only exists to get    *          scope when replicating. Scope should be in the WALKey and not need us passing in a    *<code>htd</code>.    * @throws IOException If failed to parse the WALEdit    */
 name|void
 name|visitLogEntryBeforeWrite
 parameter_list|(
@@ -208,6 +208,8 @@ parameter_list|,
 name|WALEdit
 name|logEdit
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * For notification post append to the writer.  Used by metrics system at least.    * TODO: Combine this with above.    * @param entryLen approx length of cells in this append.    * @param elapsedTimeMillis elapsed time in milliseconds.    */
 name|void
@@ -349,7 +351,9 @@ parameter_list|,
 name|WALEdit
 name|logEdit
 parameter_list|)
-block|{}
+throws|throws
+name|IOException
+block|{     }
 annotation|@
 name|Override
 specifier|public

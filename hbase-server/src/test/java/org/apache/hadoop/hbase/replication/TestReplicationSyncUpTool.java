@@ -422,7 +422,7 @@ argument_list|(
 literal|"t2_syncup"
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|byte
@@ -450,7 +450,7 @@ argument_list|(
 literal|"q1"
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|byte
@@ -476,7 +476,7 @@ name|t2_syncupSource
 decl_stmt|,
 name|t2_syncupTarget
 decl_stmt|;
-specifier|private
+specifier|protected
 name|Table
 name|ht1Source
 decl_stmt|,
@@ -701,7 +701,7 @@ name|mimicSyncUpAfterPut
 argument_list|()
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 name|void
 name|setupReplication
 parameter_list|()
@@ -2168,7 +2168,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|private
+specifier|protected
 name|void
 name|syncUp
 parameter_list|(

@@ -2411,6 +2411,36 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|// In case of Replication for bulk load files, hfiles are already copied in staging directory
+if|if
+condition|(
+name|p
+operator|.
+name|equals
+argument_list|(
+name|stageP
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|p
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" is already available in staging directory. Skipping copy or rename."
+argument_list|)
+expr_stmt|;
+return|return
+name|stageP
+operator|.
+name|toString
+argument_list|()
+return|;
+block|}
 if|if
 condition|(
 name|srcFs
@@ -2676,6 +2706,32 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|// In case of Replication for bulk load files, hfiles are not renamed by end point during
+comment|// prepare stage, so no need of rename here again
+if|if
+condition|(
+name|p
+operator|.
+name|equals
+argument_list|(
+name|stageP
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|p
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" is already available in source directory. Skipping rename."
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|LOG
 operator|.
 name|debug

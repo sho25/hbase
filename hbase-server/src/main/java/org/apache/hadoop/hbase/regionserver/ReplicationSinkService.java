@@ -102,7 +102,7 @@ name|ReplicationSinkService
 extends|extends
 name|ReplicationService
 block|{
-comment|/**    * Carry on the list of log entries down to the sink    * @param entries list of WALEntries to replicate    * @param cells Cells that the WALEntries refer to (if cells is non-null)    * @throws IOException    */
+comment|/**    * Carry on the list of log entries down to the sink    * @param entries list of WALEntries to replicate    * @param cells Cells that the WALEntries refer to (if cells is non-null)    * @param replicationClusterId Id which will uniquely identify source cluster FS client    *          configurations in the replication configuration directory    * @param sourceBaseNamespaceDirPath Path that point to the source cluster base namespace    *          directory required for replicating hfiles    * @param sourceHFileArchiveDirPath Path that point to the source cluster hfile archive directory    * @throws IOException    */
 name|void
 name|replicateLogEntries
 parameter_list|(
@@ -114,6 +114,15 @@ name|entries
 parameter_list|,
 name|CellScanner
 name|cells
+parameter_list|,
+name|String
+name|replicationClusterId
+parameter_list|,
+name|String
+name|sourceBaseNamespaceDirPath
+parameter_list|,
+name|String
+name|sourceHFileArchiveDirPath
 parameter_list|)
 throws|throws
 name|IOException

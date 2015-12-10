@@ -2200,6 +2200,49 @@ name|REPLICATION_SERVICE_CLASSNAME_DEFAULT
 init|=
 literal|"org.apache.hadoop.hbase.replication.regionserver.Replication"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REPLICATION_BULKLOAD_ENABLE_KEY
+init|=
+literal|"hbase.replication.bulkload.enabled"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|REPLICATION_BULKLOAD_ENABLE_DEFAULT
+init|=
+literal|false
+decl_stmt|;
+comment|/** Replication cluster id of source cluster which uniquely identifies itself with peer cluster */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REPLICATION_CLUSTER_ID
+init|=
+literal|"hbase.replication.cluster.id"
+decl_stmt|;
+comment|/**    * Directory where the source cluster file system client configuration are placed which is used by    * sink cluster to copy HFiles from source cluster file system    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REPLICATION_CONF_DIR
+init|=
+literal|"hbase.replication.conf.dir"
+decl_stmt|;
+comment|/** Maximum time to retry for a failed bulk load request */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|BULKLOAD_MAX_RETRIES_NUMBER
+init|=
+literal|"hbase.bulkload.retries.number"
+decl_stmt|;
 comment|/** HBCK special code name used as server name when manipulating ZK nodes */
 specifier|public
 specifier|static
