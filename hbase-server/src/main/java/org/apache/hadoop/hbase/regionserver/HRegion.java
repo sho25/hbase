@@ -38614,6 +38614,17 @@ operator|.
 name|COMPARATOR
 return|;
 block|}
+specifier|public
+name|long
+name|getMemstoreFlushSize
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|memstoreFlushSize
+return|;
+block|}
 block|}
 end_class
 

@@ -148,11 +148,19 @@ name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND
 init|=
 literal|"hbase.hregion.percolumnfamilyflush.size.lower.bound"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND_MIN
+init|=
+literal|"hbase.hregion.percolumnfamilyflush.size.lower.bound.min"
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
 name|long
-name|DEFAULT_HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND
+name|DEFAULT_HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND_MIN
 init|=
 literal|1024
 operator|*
@@ -163,6 +171,9 @@ decl_stmt|;
 specifier|private
 name|long
 name|flushSizeLowerBound
+init|=
+operator|-
+literal|1
 decl_stmt|;
 annotation|@
 name|Override
@@ -181,9 +192,69 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
+name|int
+name|familyNumber
+init|=
+name|region
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|getFamilies
+argument_list|()
+operator|.
+name|size
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|familyNumber
+operator|<=
+literal|1
+condition|)
+block|{
+comment|// No need to parse and set flush size lower bound if only one family
+comment|// Family number might also be zero in some of our unit test case
+return|return;
+block|}
+comment|// For multiple families, lower bound is the "average flush size" by default
+comment|// unless setting in configuration is larger.
 name|long
 name|flushSizeLowerBound
+init|=
+name|region
+operator|.
+name|getMemstoreFlushSize
+argument_list|()
+operator|/
+name|familyNumber
 decl_stmt|;
+name|long
+name|minimumLowerBound
+init|=
+name|getConf
+argument_list|()
+operator|.
+name|getLong
+argument_list|(
+name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND_MIN
+argument_list|,
+name|DEFAULT_HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND_MIN
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|minimumLowerBound
+operator|>
+name|flushSizeLowerBound
+condition|)
+block|{
+name|flushSizeLowerBound
+operator|=
+name|minimumLowerBound
+expr_stmt|;
+block|}
+comment|// use the setting in table description if any
 name|String
 name|flushedSizeLowerBoundString
 init|=
@@ -204,18 +275,6 @@ operator|==
 literal|null
 condition|)
 block|{
-name|flushSizeLowerBound
-operator|=
-name|getConf
-argument_list|()
-operator|.
-name|getLong
-argument_list|(
-name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND
-argument_list|,
-name|DEFAULT_HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -228,9 +287,21 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
+literal|"No "
+operator|+
 name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND
 operator|+
-literal|" is not specified, use global config("
+literal|" set in description of table "
+operator|+
+name|region
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|getTableName
+argument_list|()
+operator|+
+literal|", use config ("
 operator|+
 name|flushSizeLowerBound
 operator|+
@@ -259,18 +330,7 @@ name|NumberFormatException
 name|nfe
 parameter_list|)
 block|{
-name|flushSizeLowerBound
-operator|=
-name|getConf
-argument_list|()
-operator|.
-name|getLong
-argument_list|(
-name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND
-argument_list|,
-name|DEFAULT_HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND
-argument_list|)
-expr_stmt|;
+comment|// fall back for fault setting
 name|LOG
 operator|.
 name|warn
@@ -297,7 +357,7 @@ literal|". "
 operator|+
 name|nfe
 operator|+
-literal|", use global config("
+literal|", use config ("
 operator|+
 name|flushSizeLowerBound
 operator|+
@@ -400,6 +460,33 @@ argument_list|>
 name|selectStoresToFlush
 parameter_list|()
 block|{
+comment|// no need to select stores if only one family
+if|if
+condition|(
+name|region
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|getFamilies
+argument_list|()
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|1
+condition|)
+block|{
+return|return
+name|region
+operator|.
+name|stores
+operator|.
+name|values
+argument_list|()
+return|;
+block|}
+comment|// start selection
 name|Collection
 argument_list|<
 name|Store

@@ -1148,7 +1148,7 @@ name|setLong
 argument_list|(
 name|FlushLargeStoresPolicy
 operator|.
-name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND
+name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND_MIN
 argument_list|,
 literal|100
 operator|*
@@ -2319,7 +2319,7 @@ name|setLong
 argument_list|(
 name|FlushLargeStoresPolicy
 operator|.
-name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND
+name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND_MIN
 argument_list|,
 literal|10000
 argument_list|)
@@ -2898,7 +2898,7 @@ name|setLong
 argument_list|(
 name|FlushLargeStoresPolicy
 operator|.
-name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND
+name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND_MIN
 argument_list|,
 name|cfFlushSizeLowerBound
 argument_list|)
@@ -3663,19 +3663,6 @@ argument_list|)
 expr_stmt|;
 name|conf
 operator|.
-name|setLong
-argument_list|(
-name|FlushLargeStoresPolicy
-operator|.
-name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND
-argument_list|,
-literal|400
-operator|*
-literal|1024
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
 name|setInt
 argument_list|(
 name|HStore
@@ -3954,6 +3941,18 @@ name|class
 operator|.
 name|getName
 argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// default value of per-cf flush lower bound is too big, set to a small enough value
+name|conf
+operator|.
+name|setLong
+argument_list|(
+name|FlushLargeStoresPolicy
+operator|.
+name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND_MIN
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 try|try
