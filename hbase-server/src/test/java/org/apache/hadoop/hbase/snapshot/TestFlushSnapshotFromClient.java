@@ -964,11 +964,6 @@ expr_stmt|;
 block|}
 comment|/**    * Test snapshotting a table that is online without flushing    * @throws Exception    */
 annotation|@
-name|Ignore
-argument_list|(
-literal|"Flakey test"
-argument_list|)
-annotation|@
 name|Test
 argument_list|(
 name|timeout
@@ -1019,6 +1014,13 @@ argument_list|(
 name|table
 argument_list|,
 name|TEST_FAM
+argument_list|)
+expr_stmt|;
+name|UTIL
+operator|.
+name|flush
+argument_list|(
+name|TABLE_NAME
 argument_list|)
 expr_stmt|;
 name|LOG
