@@ -101,6 +101,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|locks
+operator|.
+name|ReentrantLock
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -632,6 +646,47 @@ name|flushed
 init|=
 literal|false
 decl_stmt|;
+comment|// generally we get one file from a flush
+specifier|protected
+name|List
+argument_list|<
+name|StoreFile
+argument_list|>
+name|flushedStoreFiles
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|StoreFile
+argument_list|>
+argument_list|(
+literal|1
+argument_list|)
+decl_stmt|;
+comment|// The current list of scanners
+specifier|protected
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|currentScanners
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+argument_list|()
+decl_stmt|;
+comment|// flush update lock
+specifier|private
+name|ReentrantLock
+name|flushLock
+init|=
+operator|new
+name|ReentrantLock
+argument_list|()
+decl_stmt|;
 specifier|protected
 specifier|final
 name|long
@@ -882,6 +937,29 @@ expr_stmt|;
 block|}
 block|}
 block|}
+specifier|protected
+name|void
+name|addCurrentScanners
+parameter_list|(
+name|List
+argument_list|<
+name|?
+extends|extends
+name|KeyValueScanner
+argument_list|>
+name|scanners
+parameter_list|)
+block|{
+name|this
+operator|.
+name|currentScanners
+operator|.
+name|addAll
+argument_list|(
+name|scanners
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Opens a scanner across memstore, snapshot, and all StoreFiles. Assumes we    * are not in a compaction.    *    * @param store who we scan    * @param scan the spec    * @param columns which columns we are scanning    * @throws IOException    */
 specifier|public
 name|StoreScanner
@@ -1038,6 +1116,11 @@ name|scan
 operator|.
 name|getRowOffsetPerColumnFamily
 argument_list|()
+expr_stmt|;
+name|addCurrentScanners
+argument_list|(
+name|scanners
+argument_list|)
 expr_stmt|;
 comment|// Combine all seeked scanners with a heap
 name|resetKVHeap
@@ -1328,6 +1411,11 @@ argument_list|,
 name|parallelSeekEnabled
 argument_list|)
 expr_stmt|;
+name|addCurrentScanners
+argument_list|(
+name|scanners
+argument_list|)
+expr_stmt|;
 comment|// Combine all seeked scanners with a heap
 name|resetKVHeap
 argument_list|(
@@ -1563,6 +1651,11 @@ argument_list|,
 literal|false
 argument_list|,
 name|parallelSeekEnabled
+argument_list|)
+expr_stmt|;
+name|addCurrentScanners
+argument_list|(
+name|scanners
 argument_list|)
 expr_stmt|;
 name|resetKVHeap
@@ -1972,7 +2065,7 @@ name|Cell
 name|peek
 parameter_list|()
 block|{
-name|checkResetHeap
+name|checkFlushed
 argument_list|()
 expr_stmt|;
 if|if
@@ -2119,6 +2212,13 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
+name|currentScanners
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
 name|heap
 operator|=
 literal|null
@@ -2150,6 +2250,13 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
+name|currentScanners
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
 name|heap
 operator|=
 literal|null
@@ -2176,12 +2283,17 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkResetHeap
+name|boolean
+name|flushed
+init|=
+name|checkFlushed
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 comment|// reset matcher state, in case that underlying store changed
 name|checkReseek
-argument_list|()
+argument_list|(
+name|flushed
+argument_list|)
 expr_stmt|;
 return|return
 name|this
@@ -2255,13 +2367,18 @@ literal|"Scanner context cannot be null"
 argument_list|)
 throw|;
 block|}
-name|checkResetHeap
+name|boolean
+name|flushed
+init|=
+name|checkFlushed
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|checkReseek
-argument_list|()
+argument_list|(
+name|flushed
+argument_list|)
 condition|)
 block|{
 return|return
@@ -3150,7 +3267,13 @@ name|Override
 specifier|public
 name|void
 name|updateReaders
-parameter_list|()
+parameter_list|(
+name|List
+argument_list|<
+name|StoreFile
+argument_list|>
+name|sfs
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -3158,83 +3281,45 @@ name|flushed
 operator|=
 literal|true
 expr_stmt|;
-comment|// Let the next() call handle re-creating and seeking
-block|}
-specifier|protected
-name|void
-name|nullifyCurrentHeap
-parameter_list|()
-block|{
-if|if
-condition|(
-name|this
+name|flushLock
 operator|.
-name|closing
-condition|)
-return|return;
-comment|// All public synchronized API calls will call 'checkReseek' which will cause
-comment|// the scanner stack to reseek if this.heap==null&& this.lastTop != null.
-comment|// But if two calls to updateReaders() happen without a 'next' or 'peek' then we
-comment|// will end up calling this.peek() which would cause a reseek in the middle of a updateReaders
-comment|// which is NOT what we want, not to mention could cause an NPE. So we early out here.
-if|if
-condition|(
-name|this
-operator|.
-name|heap
-operator|==
-literal|null
-condition|)
-return|return;
-comment|// this could be null.
-name|this
-operator|.
-name|lastTop
-operator|=
-name|this
-operator|.
-name|heap
-operator|.
-name|peek
+name|lock
 argument_list|()
 expr_stmt|;
-comment|//DebugPrint.println("SS updateReaders, topKey = " + lastTop);
-comment|// close scanners to old obsolete Store files
-name|this
+try|try
+block|{
+name|flushedStoreFiles
 operator|.
-name|heapsForDelayedClose
-operator|.
-name|add
+name|addAll
 argument_list|(
-name|this
-operator|.
-name|heap
+name|sfs
 argument_list|)
 expr_stmt|;
-comment|// Don't close now. Delay it till StoreScanner#close
-name|this
-operator|.
-name|heap
-operator|=
-literal|null
-expr_stmt|;
-comment|// the re-seeks could be slow (access HDFS) free up memory ASAP
 block|}
-comment|/**    * @return true if top of heap has changed (and KeyValueHeap has to try the    *         next KV)    * @throws IOException    */
+finally|finally
+block|{
+name|flushLock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+comment|// Let the next() call handle re-creating and seeking
+block|}
+comment|/**    * @param flushed indicates if there was a flush    * @return true if top of heap has changed (and KeyValueHeap has to try the    *         next KV)    * @throws IOException    */
 specifier|protected
 name|boolean
 name|checkReseek
-parameter_list|()
+parameter_list|(
+name|boolean
+name|flushed
+parameter_list|)
 throws|throws
 name|IOException
 block|{
 if|if
 condition|(
-name|this
-operator|.
-name|heap
-operator|==
-literal|null
+name|flushed
 operator|&&
 name|this
 operator|.
@@ -3339,32 +3424,89 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|heap
-operator|!=
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"StoreScanner.reseek run on an existing heap!"
-argument_list|)
-throw|;
-block|}
-comment|/* When we have the scan object, should we not pass it to getScanners()      * to get a limited set of scanners? We did so in the constructor and we      * could have done it now by storing the scan object from the constructor */
+comment|/* When we have the scan object, should we not pass it to getScanners()      * to get a limited set of scanners? We did so in the constructor and we      * could have done it now by storing the scan object from the constructor      */
+specifier|final
+name|boolean
+name|isCompaction
+init|=
+literal|false
+decl_stmt|;
+name|boolean
+name|usePread
+init|=
+name|get
+operator|||
+name|scanUsePread
+decl_stmt|;
 name|List
 argument_list|<
 name|KeyValueScanner
 argument_list|>
 name|scanners
 init|=
-name|getScannersNoCompaction
-argument_list|()
+literal|null
 decl_stmt|;
-comment|// Seek all scanners to the initial key
+try|try
+block|{
+name|flushLock
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+name|scanners
+operator|=
+name|selectScannersFrom
+argument_list|(
+name|store
+operator|.
+name|getScanners
+argument_list|(
+name|flushedStoreFiles
+argument_list|,
+name|cacheBlocks
+argument_list|,
+name|get
+argument_list|,
+name|usePread
+argument_list|,
+name|isCompaction
+argument_list|,
+name|matcher
+argument_list|,
+name|scan
+operator|.
+name|getStartRow
+argument_list|()
+argument_list|,
+name|scan
+operator|.
+name|getStopRow
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|readPt
+argument_list|,
+literal|true
+argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// Clear the current set of flushed store files so that they don't get added again
+name|flushedStoreFiles
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
+finally|finally
+block|{
+name|flushLock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+comment|// Seek the new scanners to the last key
 name|seekScanners
 argument_list|(
 name|scanners
@@ -3376,10 +3518,61 @@ argument_list|,
 name|parallelSeekEnabled
 argument_list|)
 expr_stmt|;
+comment|// remove the older memstore scanner
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|currentScanners
+operator|.
+name|size
+argument_list|()
+condition|;
+name|i
+operator|++
+control|)
+block|{
+if|if
+condition|(
+operator|!
+name|currentScanners
+operator|.
+name|get
+argument_list|(
+name|i
+argument_list|)
+operator|.
+name|isFileScanner
+argument_list|()
+condition|)
+block|{
+name|currentScanners
+operator|.
+name|remove
+argument_list|(
+name|i
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+block|}
+comment|// add the newly created scanners on the flushed files and the current active memstore scanner
+name|addCurrentScanners
+argument_list|(
+name|scanners
+argument_list|)
+expr_stmt|;
 comment|// Combine all seeked scanners with a heap
 name|resetKVHeap
 argument_list|(
-name|scanners
+name|this
+operator|.
+name|currentScanners
 argument_list|,
 name|store
 operator|.
@@ -3558,14 +3751,19 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkResetHeap
+name|boolean
+name|flushed
+init|=
+name|checkFlushed
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 comment|// Heap will not be null, if this is called from next() which.
 comment|// If called from RegionScanner.reseek(...) make sure the scanner
 comment|// stack is reset if needed.
 name|checkReseek
-argument_list|()
+argument_list|(
+name|flushed
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -3597,8 +3795,8 @@ argument_list|)
 return|;
 block|}
 specifier|protected
-name|void
-name|checkResetHeap
+name|boolean
+name|checkFlushed
 parameter_list|()
 block|{
 comment|// check the var without any lock. Suppose even if we see the old
@@ -3611,21 +3809,46 @@ condition|(
 name|flushed
 condition|)
 block|{
-comment|// If the 'flushed' is found to be true then there is a need to ensure
-comment|// that the current scanner updates the heap that it has and then proceed
-comment|// with the scan and ensure to reset the flushed inside the lock
-comment|// One thing can be sure that the same store scanner cannot be in reseek and
-comment|// next at the same time ie. within the same store scanner it is always single
-comment|// threaded
-name|nullifyCurrentHeap
+comment|// If there is a flush and the current scan is notified on the flush ensure that the
+comment|// scan's heap gets reset and we do a seek on the newly flushed file.
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|closing
+condition|)
+block|{
+name|this
+operator|.
+name|lastTop
+operator|=
+name|this
+operator|.
+name|heap
+operator|.
+name|peek
 argument_list|()
 expr_stmt|;
+block|}
+else|else
+block|{
+return|return
+literal|false
+return|;
+block|}
 comment|// reset the flag
 name|flushed
 operator|=
 literal|false
 expr_stmt|;
+return|return
+literal|true
+return|;
 block|}
+return|return
+literal|false
+return|;
 block|}
 annotation|@
 name|Override

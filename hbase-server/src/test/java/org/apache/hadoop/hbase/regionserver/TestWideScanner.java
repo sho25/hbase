@@ -914,7 +914,14 @@ decl_stmt|;
 name|ss
 operator|.
 name|updateReaders
+argument_list|(
+operator|new
+name|ArrayList
+argument_list|<
+name|StoreFile
+argument_list|>
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 block|}

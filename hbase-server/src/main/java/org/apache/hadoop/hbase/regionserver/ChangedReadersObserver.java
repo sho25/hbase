@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -59,7 +69,13 @@ block|{
 comment|/**    * Notify observers.    * @throws IOException e    */
 name|void
 name|updateReaders
-parameter_list|()
+parameter_list|(
+name|List
+argument_list|<
+name|StoreFile
+argument_list|>
+name|sfs
+parameter_list|)
 throws|throws
 name|IOException
 function_decl|;

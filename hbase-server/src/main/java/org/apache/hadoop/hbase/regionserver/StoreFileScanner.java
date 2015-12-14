@@ -288,6 +288,12 @@ literal|null
 decl_stmt|;
 specifier|private
 name|boolean
+name|closed
+init|=
+literal|false
+decl_stmt|;
+specifier|private
+name|boolean
 name|realSeekDone
 decl_stmt|;
 specifier|private
@@ -1177,6 +1183,11 @@ name|void
 name|close
 parameter_list|()
 block|{
+if|if
+condition|(
+name|closed
+condition|)
+return|return;
 name|cur
 operator|=
 literal|null
@@ -1205,6 +1216,10 @@ name|decrementRefCount
 argument_list|()
 expr_stmt|;
 block|}
+name|closed
+operator|=
+literal|true
+expr_stmt|;
 block|}
 comment|/**    *    * @param s    * @param k    * @return false if not found or if k is after the end.    * @throws IOException    */
 specifier|public
