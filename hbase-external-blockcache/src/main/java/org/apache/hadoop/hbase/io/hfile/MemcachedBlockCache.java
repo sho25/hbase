@@ -404,10 +404,26 @@ decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
+name|String
+name|MEMCACHED_OPTIMIZE_KEY
+init|=
+literal|"hbase.cache.memcached.spy.optimze"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
 name|long
 name|MEMCACHED_DEFAULT_TIMEOUT
 init|=
 literal|500
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|MEMCACHED_OPTIMIZE_DEFAULT
+init|=
+literal|false
 decl_stmt|;
 specifier|private
 specifier|final
@@ -476,6 +492,18 @@ operator|+
 name|MEMCACHED_DEFAULT_TIMEOUT
 argument_list|)
 decl_stmt|;
+name|boolean
+name|optimize
+init|=
+name|c
+operator|.
+name|getBoolean
+argument_list|(
+name|MEMCACHED_OPTIMIZE_KEY
+argument_list|,
+name|MEMCACHED_OPTIMIZE_DEFAULT
+argument_list|)
+decl_stmt|;
 name|ConnectionFactoryBuilder
 name|builder
 init|=
@@ -503,10 +531,8 @@ argument_list|)
 operator|.
 name|setShouldOptimize
 argument_list|(
-literal|true
+name|optimize
 argument_list|)
-comment|// When regions move lots of reads happen together
-comment|// So combining them into single requests is nice.
 operator|.
 name|setDaemon
 argument_list|(
@@ -531,8 +557,7 @@ operator|*
 literal|1024
 argument_list|)
 decl_stmt|;
-comment|// 4 times larger than the
-comment|// default block just in case
+comment|// Much larger just in case
 comment|// Assume only the localhost is serving memecached.
 comment|// A la mcrouter or co-locating memcached with split regionservers.
 comment|//
