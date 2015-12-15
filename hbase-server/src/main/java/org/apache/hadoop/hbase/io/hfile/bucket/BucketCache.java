@@ -2174,6 +2174,11 @@ name|key
 operator|.
 name|isPrimary
 argument_list|()
+argument_list|,
+name|key
+operator|.
+name|getBlockType
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2344,6 +2349,11 @@ name|key
 operator|.
 name|isPrimary
 argument_list|()
+argument_list|,
+name|key
+operator|.
+name|getBlockType
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|cacheStats
@@ -2456,6 +2466,11 @@ argument_list|,
 name|key
 operator|.
 name|isPrimary
+argument_list|()
+argument_list|,
+name|key
+operator|.
+name|getBlockType
 argument_list|()
 argument_list|)
 expr_stmt|;

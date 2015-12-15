@@ -850,6 +850,11 @@ name|cacheKey
 operator|.
 name|isPrimary
 argument_list|()
+argument_list|,
+name|cacheKey
+operator|.
+name|getBlockType
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -864,6 +869,11 @@ argument_list|,
 name|cacheKey
 operator|.
 name|isPrimary
+argument_list|()
+argument_list|,
+name|cacheKey
+operator|.
+name|getBlockType
 argument_list|()
 argument_list|)
 expr_stmt|;

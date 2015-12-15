@@ -125,6 +125,11 @@ name|offset
 decl_stmt|;
 specifier|private
 specifier|final
+name|BlockType
+name|blockType
+decl_stmt|;
+specifier|private
+specifier|final
 name|boolean
 name|isPrimaryReplicaBlock
 decl_stmt|;
@@ -146,6 +151,10 @@ argument_list|,
 name|offset
 argument_list|,
 literal|true
+argument_list|,
+name|BlockType
+operator|.
+name|DATA
 argument_list|)
 expr_stmt|;
 block|}
@@ -160,6 +169,9 @@ name|offset
 parameter_list|,
 name|boolean
 name|isPrimaryReplica
+parameter_list|,
+name|BlockType
+name|blockType
 parameter_list|)
 block|{
 name|this
@@ -179,6 +191,12 @@ operator|.
 name|offset
 operator|=
 name|offset
+expr_stmt|;
+name|this
+operator|.
+name|blockType
+operator|=
+name|blockType
 expr_stmt|;
 block|}
 annotation|@
@@ -314,6 +332,11 @@ operator|.
 name|REFERENCE
 operator|+
 comment|// this.hfileName
+name|ClassSize
+operator|.
+name|REFERENCE
+operator|+
+comment|// this.blockType
 name|Bytes
 operator|.
 name|SIZEOF_LONG
@@ -375,6 +398,15 @@ parameter_list|()
 block|{
 return|return
 name|offset
+return|;
+block|}
+specifier|public
+name|BlockType
+name|getBlockType
+parameter_list|()
+block|{
+return|return
+name|blockType
 return|;
 block|}
 block|}

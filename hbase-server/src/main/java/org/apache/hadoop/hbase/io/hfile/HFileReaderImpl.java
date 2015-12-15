@@ -1904,6 +1904,11 @@ name|this
 operator|.
 name|isPrimaryReplicaReader
 argument_list|()
+argument_list|,
+name|block
+operator|.
+name|getBlockType
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|blockCache
@@ -6568,6 +6573,10 @@ name|this
 operator|.
 name|isPrimaryReplicaReader
 argument_list|()
+argument_list|,
+name|BlockType
+operator|.
+name|META
 argument_list|)
 decl_stmt|;
 name|cacheBlock
@@ -6803,6 +6812,8 @@ name|this
 operator|.
 name|isPrimaryReplicaReader
 argument_list|()
+argument_list|,
+name|expectedBlockType
 argument_list|)
 decl_stmt|;
 name|boolean

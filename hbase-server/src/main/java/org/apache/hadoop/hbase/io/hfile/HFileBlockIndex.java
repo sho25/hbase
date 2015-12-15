@@ -4106,6 +4106,13 @@ argument_list|(
 name|nameForCaching
 argument_list|,
 name|beginOffset
+argument_list|,
+literal|true
+argument_list|,
+name|blockForCaching
+operator|.
+name|getBlockType
+argument_list|()
 argument_list|)
 argument_list|,
 name|blockForCaching

@@ -1812,6 +1812,7 @@ name|repeat
 operator|&&
 name|updateCacheMetrics
 condition|)
+block|{
 name|stats
 operator|.
 name|miss
@@ -1822,8 +1823,14 @@ name|cacheKey
 operator|.
 name|isPrimary
 argument_list|()
+argument_list|,
+name|cacheKey
+operator|.
+name|getBlockType
+argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// If there is another block cache then try and read there.
 comment|// However if this is a retry ( second time in double checked locking )
 comment|// And it's already a miss then the l2 will also be a miss.
@@ -1898,6 +1905,11 @@ argument_list|,
 name|cacheKey
 operator|.
 name|isPrimary
+argument_list|()
+argument_list|,
+name|cacheKey
+operator|.
+name|getBlockType
 argument_list|()
 argument_list|)
 expr_stmt|;
