@@ -2065,9 +2065,6 @@ name|Cell
 name|peek
 parameter_list|()
 block|{
-name|checkFlushed
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|this
@@ -3824,8 +3821,6 @@ operator|.
 name|lastTop
 operator|=
 name|this
-operator|.
-name|heap
 operator|.
 name|peek
 argument_list|()
