@@ -477,13 +477,6 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
-name|super
-operator|.
-name|handleException
-argument_list|(
-name|t
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|t
@@ -495,7 +488,17 @@ operator|instanceof
 name|InterruptedException
 condition|)
 block|{
-comment|// ignore
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Caught throwable while processing event "
+operator|+
+name|eventType
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
 block|}
 elseif|else
 if|if

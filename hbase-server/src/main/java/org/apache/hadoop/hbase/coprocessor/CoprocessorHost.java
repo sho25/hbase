@@ -640,9 +640,19 @@ argument_list|>
 name|getLoadedCoprocessors
 parameter_list|()
 block|{
-return|return
+synchronized|synchronized
+init|(
 name|coprocessorNames
+init|)
+block|{
+return|return
+operator|new
+name|HashSet
+argument_list|(
+name|coprocessorNames
+argument_list|)
 return|;
+block|}
 block|}
 comment|/**    * Used to create a parameter to the HServerLoad constructor so that    * HServerLoad can provide information about the coprocessors loaded by this    * regionserver.    * (HBASE-4070: Improve region server metrics to report loaded coprocessors    * to master).    */
 specifier|public
@@ -1690,6 +1700,8 @@ argument_list|<
 name|CoprocessorEnvironment
 argument_list|>
 block|{
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compare
@@ -2163,6 +2175,11 @@ literal|")"
 argument_list|)
 expr_stmt|;
 block|}
+synchronized|synchronized
+init|(
+name|openTables
+init|)
+block|{
 comment|// clean up any table references
 for|for
 control|(
@@ -2206,6 +2223,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
