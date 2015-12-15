@@ -21,11 +21,9 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
-operator|.
-name|core
 operator|.
 name|Histogram
 import|;
@@ -35,13 +33,11 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
 operator|.
-name|stats
-operator|.
-name|Sample
+name|Reservoir
 import|;
 end_import
 
@@ -49,11 +45,9 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
-operator|.
-name|stats
 operator|.
 name|Snapshot
 import|;
@@ -108,13 +102,13 @@ argument_list|(
 literal|"#0.00"
 argument_list|)
 decl_stmt|;
-comment|/**    * Create a new {@link com.yammer.metrics.core.Histogram} instance. These constructors are    * not public in 2.2.0, so we use reflection to find them.    */
+comment|/**    * Create a new {@link com.codahale.metrics.Histogram} instance. These constructors are    * not public in 2.2.0, so we use reflection to find them.    */
 specifier|public
 specifier|static
 name|Histogram
 name|newHistogram
 parameter_list|(
-name|Sample
+name|Reservoir
 name|sample
 parameter_list|)
 block|{
@@ -132,7 +126,7 @@ name|class
 operator|.
 name|getDeclaredConstructor
 argument_list|(
-name|Sample
+name|Reservoir
 operator|.
 name|class
 argument_list|)
@@ -197,9 +191,9 @@ name|DOUBLE_FORMAT
 operator|.
 name|format
 argument_list|(
-name|hist
+name|sn
 operator|.
-name|mean
+name|getMean
 argument_list|()
 argument_list|)
 operator|+
@@ -209,9 +203,9 @@ name|DOUBLE_FORMAT
 operator|.
 name|format
 argument_list|(
-name|hist
+name|sn
 operator|.
-name|min
+name|getMin
 argument_list|()
 argument_list|)
 operator|+
@@ -221,9 +215,9 @@ name|DOUBLE_FORMAT
 operator|.
 name|format
 argument_list|(
-name|hist
+name|sn
 operator|.
-name|max
+name|getMax
 argument_list|()
 argument_list|)
 operator|+
@@ -233,9 +227,9 @@ name|DOUBLE_FORMAT
 operator|.
 name|format
 argument_list|(
-name|hist
+name|sn
 operator|.
-name|stdDev
+name|getStdDev
 argument_list|()
 argument_list|)
 operator|+
@@ -290,9 +284,9 @@ name|DOUBLE_FORMAT
 operator|.
 name|format
 argument_list|(
-name|hist
+name|sn
 operator|.
-name|mean
+name|getMean
 argument_list|()
 argument_list|)
 operator|+
@@ -302,9 +296,9 @@ name|DOUBLE_FORMAT
 operator|.
 name|format
 argument_list|(
-name|hist
+name|sn
 operator|.
-name|min
+name|getMin
 argument_list|()
 argument_list|)
 operator|+
@@ -314,9 +308,9 @@ name|DOUBLE_FORMAT
 operator|.
 name|format
 argument_list|(
-name|hist
+name|sn
 operator|.
-name|max
+name|getMax
 argument_list|()
 argument_list|)
 operator|+
@@ -326,9 +320,9 @@ name|DOUBLE_FORMAT
 operator|.
 name|format
 argument_list|(
-name|hist
+name|sn
 operator|.
-name|stdDev
+name|getStdDev
 argument_list|()
 argument_list|)
 operator|+

@@ -107,13 +107,11 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
 operator|.
-name|stats
-operator|.
-name|ExponentiallyDecayingSample
+name|ExponentiallyDecayingReservoir
 import|;
 end_import
 
@@ -121,13 +119,11 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
 operator|.
-name|stats
-operator|.
-name|Sample
+name|Reservoir
 import|;
 end_import
 
@@ -135,11 +131,9 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
-operator|.
-name|stats
 operator|.
 name|Snapshot
 import|;
@@ -192,8 +186,8 @@ name|desc
 decl_stmt|;
 specifier|private
 specifier|final
-name|Sample
-name|sample
+name|Reservoir
+name|reservoir
 decl_stmt|;
 specifier|private
 specifier|final
@@ -268,10 +262,10 @@ argument_list|(
 name|description
 argument_list|)
 expr_stmt|;
-name|sample
+name|reservoir
 operator|=
 operator|new
-name|ExponentiallyDecayingSample
+name|ExponentiallyDecayingReservoir
 argument_list|(
 name|DEFAULT_SAMPLE_SIZE
 argument_list|,
@@ -328,7 +322,7 @@ operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
-name|sample
+name|reservoir
 operator|.
 name|update
 argument_list|(
@@ -575,7 +569,7 @@ specifier|final
 name|Snapshot
 name|s
 init|=
-name|sample
+name|reservoir
 operator|.
 name|getSnapshot
 argument_list|()

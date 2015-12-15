@@ -53,11 +53,9 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
-operator|.
-name|core
 operator|.
 name|Histogram
 import|;
@@ -67,13 +65,25 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
 operator|.
-name|core
+name|MetricRegistry
+import|;
+end_import
+
+begin_import
+import|import static
+name|com
 operator|.
-name|MetricsRegistry
+name|codahale
+operator|.
+name|metrics
+operator|.
+name|MetricRegistry
+operator|.
+name|name
 import|;
 end_import
 
@@ -94,11 +104,11 @@ comment|/**    * Needed making histograms.    */
 specifier|private
 specifier|static
 specifier|final
-name|MetricsRegistry
+name|MetricRegistry
 name|METRICS
 init|=
 operator|new
-name|MetricsRegistry
+name|MetricRegistry
 argument_list|()
 decl_stmt|;
 comment|/** Sliding window statistics. The number of metric periods to include in    * sliding window hit ratio calculations.    */
@@ -387,7 +397,9 @@ name|ageAtEviction
 operator|=
 name|METRICS
 operator|.
-name|newHistogram
+name|histogram
+argument_list|(
+name|name
 argument_list|(
 name|CacheStats
 operator|.
@@ -396,6 +408,7 @@ argument_list|,
 name|name
 operator|+
 literal|".ageAtEviction"
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

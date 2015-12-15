@@ -844,7 +844,7 @@ name|t
 operator|.
 name|callTimer
 operator|.
-name|count
+name|getCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -862,7 +862,7 @@ name|t
 operator|.
 name|reqHist
 operator|.
-name|count
+name|getCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -880,7 +880,7 @@ name|t
 operator|.
 name|respHist
 operator|.
-name|count
+name|getCount
 argument_list|()
 argument_list|)
 expr_stmt|;

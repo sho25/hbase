@@ -1035,11 +1035,9 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
-operator|.
-name|core
 operator|.
 name|Histogram
 import|;
@@ -1049,11 +1047,9 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
-operator|.
-name|stats
 operator|.
 name|Snapshot
 import|;
@@ -1063,13 +1059,11 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
 operator|.
-name|stats
-operator|.
-name|UniformSample
+name|UniformReservoir
 import|;
 end_import
 
@@ -5730,7 +5724,7 @@ operator|.
 name|newHistogram
 argument_list|(
 operator|new
-name|UniformSample
+name|UniformReservoir
 argument_list|(
 literal|1024
 operator|*
@@ -5745,7 +5739,7 @@ operator|.
 name|newHistogram
 argument_list|(
 operator|new
-name|UniformSample
+name|UniformReservoir
 argument_list|(
 literal|1024
 operator|*
@@ -6077,7 +6071,7 @@ literal|" latency log (microseconds), on "
 operator|+
 name|latency
 operator|.
-name|count
+name|getCount
 argument_list|()
 operator|+
 literal|" measures"
@@ -6108,7 +6102,7 @@ literal|" valueSize after "
 operator|+
 name|valueSize
 operator|.
-name|count
+name|getCount
 argument_list|()
 operator|+
 literal|" measures"
@@ -6149,9 +6143,9 @@ name|testName
 operator|+
 literal|" Min      = "
 operator|+
-name|h
+name|sn
 operator|.
-name|min
+name|getMin
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -6163,9 +6157,9 @@ name|testName
 operator|+
 literal|" Avg      = "
 operator|+
-name|h
+name|sn
 operator|.
-name|mean
+name|getMean
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -6177,9 +6171,9 @@ name|testName
 operator|+
 literal|" StdDev   = "
 operator|+
-name|h
+name|sn
 operator|.
-name|stdDev
+name|getStdDev
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -6293,9 +6287,9 @@ name|testName
 operator|+
 literal|" Max      = "
 operator|+
-name|h
+name|sn
 operator|.
-name|max
+name|getMax
 argument_list|()
 argument_list|)
 expr_stmt|;

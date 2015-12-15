@@ -175,11 +175,9 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
-operator|.
-name|core
 operator|.
 name|Histogram
 import|;
@@ -189,13 +187,11 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
 operator|.
-name|core
-operator|.
-name|MetricsRegistry
+name|MetricRegistry
 import|;
 end_import
 
@@ -203,13 +199,25 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
 operator|.
-name|stats
-operator|.
 name|Snapshot
+import|;
+end_import
+
+begin_import
+import|import static
+name|com
+operator|.
+name|codahale
+operator|.
+name|metrics
+operator|.
+name|MetricRegistry
+operator|.
+name|name
 import|;
 end_import
 
@@ -230,11 +238,11 @@ comment|/**    * Needed making histograms.    */
 specifier|private
 specifier|static
 specifier|final
-name|MetricsRegistry
+name|MetricRegistry
 name|METRICS
 init|=
 operator|new
-name|MetricsRegistry
+name|MetricRegistry
 argument_list|()
 decl_stmt|;
 comment|/**    * Needed generating JSON.    */
@@ -790,13 +798,16 @@ name|age
 init|=
 name|METRICS
 operator|.
-name|newHistogram
+name|histogram
+argument_list|(
+name|name
 argument_list|(
 name|CachedBlocksByFile
 operator|.
 name|class
 argument_list|,
 literal|"age"
+argument_list|)
 argument_list|)
 decl_stmt|;
 comment|/**      * @param cb      * @return True if full.... if we won't be adding any more.      */
@@ -1046,8 +1057,6 @@ block|{
 name|Snapshot
 name|snapshot
 init|=
-name|this
-operator|.
 name|age
 operator|.
 name|getSnapshot
@@ -1060,8 +1069,6 @@ name|count
 operator|+
 literal|", dataBlockCount="
 operator|+
-name|this
-operator|.
 name|dataBlockCount
 operator|+
 literal|", size="
@@ -1075,38 +1082,30 @@ argument_list|()
 operator|+
 literal|", mean age="
 operator|+
-name|this
+name|snapshot
 operator|.
-name|age
-operator|.
-name|mean
+name|getMean
 argument_list|()
 operator|+
 literal|", stddev age="
 operator|+
-name|this
+name|snapshot
 operator|.
-name|age
-operator|.
-name|stdDev
+name|getStdDev
 argument_list|()
 operator|+
 literal|", min age="
 operator|+
-name|this
+name|snapshot
 operator|.
-name|age
-operator|.
-name|min
+name|getMin
 argument_list|()
 operator|+
 literal|", max age="
 operator|+
-name|this
+name|snapshot
 operator|.
-name|age
-operator|.
-name|max
+name|getMax
 argument_list|()
 operator|+
 literal|", 95th percentile age="

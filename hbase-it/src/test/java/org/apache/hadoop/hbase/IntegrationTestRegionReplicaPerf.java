@@ -47,11 +47,9 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
-operator|.
-name|core
 operator|.
 name|Histogram
 import|;
@@ -554,7 +552,7 @@ literal|""
 operator|+
 literal|3
 decl_stmt|;
-comment|/** Extract a descriptive statistic from a {@link com.yammer.metrics.core.Histogram}. */
+comment|/** Extract a descriptive statistic from a {@link com.codahale.metrics.Histogram}. */
 specifier|private
 enum|enum
 name|Stat
@@ -573,7 +571,10 @@ block|{
 return|return
 name|hist
 operator|.
-name|stdDev
+name|getSnapshot
+argument_list|()
+operator|.
+name|getStdDev
 argument_list|()
 return|;
 block|}

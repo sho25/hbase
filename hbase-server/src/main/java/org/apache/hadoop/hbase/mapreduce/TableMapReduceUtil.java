@@ -33,13 +33,11 @@ begin_import
 import|import
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
 operator|.
-name|core
-operator|.
-name|MetricsRegistry
+name|MetricRegistry
 import|;
 end_import
 
@@ -1520,7 +1518,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|MetricsRegistry
+name|MetricRegistry
 operator|.
 name|class
 argument_list|)
@@ -3062,13 +3060,11 @@ name|class
 argument_list|,
 name|com
 operator|.
-name|yammer
+name|codahale
 operator|.
 name|metrics
 operator|.
-name|core
-operator|.
-name|MetricsRegistry
+name|MetricRegistry
 operator|.
 name|class
 argument_list|)

@@ -1080,7 +1080,10 @@ name|rsStats
 operator|.
 name|heapOccupancyHist
 operator|.
-name|mean
+name|getSnapshot
+argument_list|()
+operator|.
+name|getMean
 argument_list|()
 argument_list|,
 operator|(
@@ -1100,7 +1103,10 @@ name|rsStats
 operator|.
 name|memstoreLoadHist
 operator|.
-name|mean
+name|getSnapshot
+argument_list|()
+operator|.
+name|getMean
 argument_list|()
 argument_list|,
 operator|(
@@ -1132,7 +1138,7 @@ name|runnerStats
 operator|.
 name|delayRunners
 operator|.
-name|count
+name|getCount
 argument_list|()
 argument_list|,
 literal|1
@@ -1144,7 +1150,7 @@ name|runnerStats
 operator|.
 name|normalRunners
 operator|.
-name|count
+name|getCount
 argument_list|()
 argument_list|,
 literal|1
@@ -1158,7 +1164,10 @@ name|runnerStats
 operator|.
 name|delayIntevalHist
 operator|.
-name|mean
+name|getSnapshot
+argument_list|()
+operator|.
+name|getMean
 argument_list|()
 argument_list|,
 operator|(
