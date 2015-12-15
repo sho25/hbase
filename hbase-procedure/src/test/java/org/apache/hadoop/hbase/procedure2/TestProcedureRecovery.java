@@ -1689,7 +1689,7 @@ name|Procedure
 name|proc
 init|=
 operator|new
-name|TestMultiStepProcedure
+name|TestSingleStepProcedure
 argument_list|()
 decl_stmt|;
 name|long
@@ -1733,7 +1733,7 @@ name|Procedure
 name|proc2
 init|=
 operator|new
-name|TestMultiStepProcedure
+name|TestSingleStepProcedure
 argument_list|()
 decl_stmt|;
 name|long
