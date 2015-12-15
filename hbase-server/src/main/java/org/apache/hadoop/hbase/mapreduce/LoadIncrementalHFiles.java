@@ -2112,7 +2112,7 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|"is not currently available."
+literal|" is not currently available."
 argument_list|)
 throw|;
 block|}
