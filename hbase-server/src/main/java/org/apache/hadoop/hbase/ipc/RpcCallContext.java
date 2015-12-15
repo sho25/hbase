@@ -145,6 +145,17 @@ name|long
 name|cellSize
 parameter_list|)
 function_decl|;
+name|long
+name|getResponseBlockSize
+parameter_list|()
+function_decl|;
+name|void
+name|incrementResponseBlockSize
+parameter_list|(
+name|long
+name|blockSize
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 
