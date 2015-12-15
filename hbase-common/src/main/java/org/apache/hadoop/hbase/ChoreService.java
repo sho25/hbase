@@ -1036,6 +1036,7 @@ expr_stmt|;
 block|}
 comment|/**    * shutdown the service. Any chores that are scheduled for execution will be cancelled. Any chores    * in the middle of execution will be interrupted and shutdown. This service will be unusable    * after this method has been called (i.e. future scheduling attempts will fail).    */
 specifier|public
+specifier|synchronized
 name|void
 name|shutdown
 parameter_list|()
