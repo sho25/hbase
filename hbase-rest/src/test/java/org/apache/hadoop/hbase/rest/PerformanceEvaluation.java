@@ -7742,7 +7742,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Options:"
+literal|"General Options:"
 argument_list|)
 expr_stmt|;
 name|System
@@ -7763,6 +7763,22 @@ operator|.
 name|println
 argument_list|(
 literal|" rows            Rows each client runs. Default: One million"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|()
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Table Creation / Write Tests:"
 argument_list|)
 expr_stmt|;
 name|System
@@ -7820,17 +7836,6 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" inmemory        Tries to keep the HFiles of the CF inmemory as far as "
-operator|+
-literal|"possible.  Not guaranteed that reads are always served from inmemory.  Default: false"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
 literal|" usetags         Writes tags along with KVs.  Use with HFile V3. "
 operator|+
 literal|"Default : false"
@@ -7845,6 +7850,33 @@ argument_list|(
 literal|" numoftags        Specify the no of tags that would be needed. "
 operator|+
 literal|"This works only if usetags is true."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|()
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Read Tests:"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" inmemory        Tries to keep the HFiles of the CF inmemory as far as "
+operator|+
+literal|"possible.  Not guaranteed that reads are always served from inmemory.  Default: false"
 argument_list|)
 expr_stmt|;
 name|System

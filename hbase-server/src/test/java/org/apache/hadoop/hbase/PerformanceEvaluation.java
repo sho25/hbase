@@ -10375,7 +10375,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Options:"
+literal|"General Options:"
 argument_list|)
 expr_stmt|;
 name|System
@@ -10387,6 +10387,122 @@ argument_list|(
 literal|" nomapred        Run multiple clients using threads "
 operator|+
 literal|"(rather than use mapreduce)"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" oneCon          all the threads share the same connection. Default: False"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" sampleRate      Execute test on a sample of total "
+operator|+
+literal|"rows. Only supported by randomRead. Default: 1.0"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" period          Report every 'period' rows: "
+operator|+
+literal|"Default: opts.perClientRunRows / 10"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" cycles          How many times to cycle the test. Defaults: 1."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" traceRate       Enable HTrace spans. Initiate tracing every N rows. "
+operator|+
+literal|"Default: 0"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" latency         Set to report operation latencies. Default: False"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" measureAfter    Start to measure the latency once 'measureAfter'"
+operator|+
+literal|" rows have been treated. Default: 0"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" valueSize       Pass value size to use: Default: 1024"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" valueRandom     Set if we should vary value size between 0 and "
+operator|+
+literal|"'valueSize'; set on read for stats on size: Default: Not set."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|()
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Table Creation / Write Tests:"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" table           Alternate table name. Default: 'TestTable'"
 argument_list|)
 expr_stmt|;
 name|System
@@ -10415,48 +10531,6 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" sampleRate      Execute test on a sample of total "
-operator|+
-literal|"rows. Only supported by randomRead. Default: 1.0"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|" traceRate       Enable HTrace spans. Initiate tracing every N rows. "
-operator|+
-literal|"Default: 0"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|" table           Alternate table name. Default: 'TestTable'"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|" multiGet        If>0, when doing RandomRead, perform multiple gets "
-operator|+
-literal|"instead of single gets. Default: 0"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
 literal|" compress        Compression type to use (GZ, LZO, ...). Default: 'NONE'"
 argument_list|)
 expr_stmt|;
@@ -10469,6 +10543,17 @@ argument_list|(
 literal|" flushCommits    Used to determine if the test should flush the table. "
 operator|+
 literal|"Default: false"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" valueZipf       Set if we should vary value size between 0 and "
+operator|+
+literal|"'valueSize' in zipf form: Default: Not set."
 argument_list|)
 expr_stmt|;
 name|System
@@ -10495,31 +10580,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" oneCon          all the threads share the same connection. Default: False"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
 literal|" presplit        Create presplit table. Recommended for accurate perf "
 operator|+
 literal|"analysis (see guide).  Default: disabled"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|" inmemory        Tries to keep the HFiles of the CF "
-operator|+
-literal|"inmemory as far as possible. Not guaranteed that reads are always served "
-operator|+
-literal|"from memory.  Default: false"
 argument_list|)
 expr_stmt|;
 name|System
@@ -10550,6 +10613,40 @@ name|err
 operator|.
 name|println
 argument_list|(
+literal|" splitPolicy     Specify a custom RegionSplitPolicy for the table."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" columns         Columns to write per row. Default: 1"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|()
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Read Tests:"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
 literal|" filterAll       Helps to filter out all the rows on the server side"
 operator|+
 literal|" there by not returning any thing back to the client.  Helps to check the server side"
@@ -10563,7 +10660,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" latency         Set to report operation latencies. Default: False"
+literal|" multiGet        Batch gets together into groups of N. Only supported "
+operator|+
+literal|"by randomRead. Default: disabled"
 argument_list|)
 expr_stmt|;
 name|System
@@ -10572,9 +10671,11 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" measureAfter    Start to measure the latency once 'measureAfter'"
+literal|" inmemory        Tries to keep the HFiles of the CF "
 operator|+
-literal|" rows have been treated. Default: 0"
+literal|"inmemory as far as possible. Not guaranteed that reads are always served "
+operator|+
+literal|"from memory.  Default: false"
 argument_list|)
 expr_stmt|;
 name|System
@@ -10602,59 +10703,6 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" valueSize       Pass value size to use: Default: 1024"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|" valueRandom     Set if we should vary value size between 0 and "
-operator|+
-literal|"'valueSize'; set on read for stats on size: Default: Not set."
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|" valueZipf       Set if we should vary value size between 0 and "
-operator|+
-literal|"'valueSize' in zipf form: Default: Not set."
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|" period          Report every 'period' rows: "
-operator|+
-literal|"Default: opts.perClientRunRows / 10"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|" multiGet        Batch gets together into groups of N. Only supported "
-operator|+
-literal|"by randomRead. Default: disabled"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
 literal|" addColumns      Adds columns to scans/gets explicitly. Default: true"
 argument_list|)
 expr_stmt|;
@@ -10673,34 +10721,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" cycles          How many times to cycle the test. Defaults: 1."
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|" splitPolicy     Specify a custom RegionSplitPolicy for the table."
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
 literal|" randomSleep     Do a random sleep before each get between 0 and entered value. Defaults: 0"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|" columns         Columns to write per row. Default: 1"
 argument_list|)
 expr_stmt|;
 name|System
