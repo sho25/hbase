@@ -25,7 +25,31 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -56,6 +80,34 @@ operator|.
 name|util
 operator|.
 name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
 import|;
 end_import
 
@@ -343,18 +395,6 @@ name|Category
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|mortbay
-operator|.
-name|log
-operator|.
-name|Log
-import|;
-end_import
-
 begin_comment
 comment|/**  * Tests that need to spin up a cluster testing an {@link HRegion}.  Use  * {@link TestHRegion} if you don't need a cluster, if you can test w/ a  * standalone {@link HRegion}.  */
 end_comment
@@ -377,6 +417,21 @@ specifier|public
 class|class
 name|TestHRegionOnCluster
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|TestHRegionOnCluster
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -517,7 +572,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Put data: r1->v1
-name|Log
+name|LOG
 operator|.
 name|info
 argument_list|(
@@ -664,7 +719,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Log
+name|LOG
 operator|.
 name|info
 argument_list|(
@@ -732,7 +787,7 @@ name|originServerNum
 condition|)
 do|;
 comment|// Put data: r2->v2
-name|Log
+name|LOG
 operator|.
 name|info
 argument_list|(
@@ -765,7 +820,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Move region to origin server
-name|Log
+name|LOG
 operator|.
 name|info
 argument_list|(
@@ -833,7 +888,7 @@ name|targetServerNum
 condition|)
 do|;
 comment|// Put data: r3->v3
-name|Log
+name|LOG
 operator|.
 name|info
 argument_list|(
@@ -856,7 +911,7 @@ literal|3
 argument_list|)
 expr_stmt|;
 comment|// Kill target server
-name|Log
+name|LOG
 operator|.
 name|info
 argument_list|(
@@ -907,7 +962,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Kill origin server
-name|Log
+name|LOG
 operator|.
 name|info
 argument_list|(
@@ -938,7 +993,7 @@ name|join
 argument_list|()
 expr_stmt|;
 comment|// Put data: r4->v4
-name|Log
+name|LOG
 operator|.
 name|info
 argument_list|(
