@@ -2561,13 +2561,13 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Prepare a collection of {@link LoadQueueItem} from list of source hfiles contained in the    * passed directory and validates whether the prepared queue has all the valid table column    * families in it.    * @param hfilesDir directory containing list of hfiles to be loaded into the table    * @param table table to which hfiles should be loaded    * @param queue queue which needs to be loaded into the table    * @throws IOException If any I/O or network error occurred    */
+comment|/**    * Prepare a collection of {@link LoadQueueItem} from list of source hfiles contained in the    * passed directory and validates whether the prepared queue has all the valid table column    * families in it.    * @param hfilesDir directory containing list of hfiles to be loaded into the table    * @param table table to which hfiles should be loaded    * @param queue queue which needs to be loaded into the table    * @param validateHFile if true hfiles will be validated for its format    * @throws IOException If any I/O or network error occurred    */
 specifier|public
 name|void
 name|prepareHFileQueue
 parameter_list|(
 name|Path
-name|hfofDir
+name|hfilesDir
 parameter_list|,
 name|Table
 name|table
@@ -2588,7 +2588,7 @@ name|discoverLoadQueue
 argument_list|(
 name|queue
 argument_list|,
-name|hfofDir
+name|hfilesDir
 argument_list|,
 name|validateHFile
 argument_list|)
