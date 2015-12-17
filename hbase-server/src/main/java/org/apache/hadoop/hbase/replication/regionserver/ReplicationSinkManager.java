@@ -71,6 +71,20 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -388,6 +402,7 @@ expr_stmt|;
 block|}
 comment|/**    * Get a randomly-chosen replication sink to replicate to.    *    * @return a replication sink to replicate to    */
 specifier|public
+specifier|synchronized
 name|SinkPeer
 name|getReplicationSink
 parameter_list|()
@@ -473,6 +488,7 @@ return|;
 block|}
 comment|/**    * Report a {@code SinkPeer} as being bad (i.e. an attempt to replicate to it    * failed). If a single SinkPeer is reported as bad more than    * replication.bad.sink.threshold times, it will be removed    * from the pool of potential replication targets.    *    * @param sinkPeer    *          The SinkPeer that had a failed replication attempt on it    */
 specifier|public
+specifier|synchronized
 name|void
 name|reportBadSink
 parameter_list|(
@@ -552,6 +568,7 @@ block|}
 block|}
 comment|/**    * Report that a {@code SinkPeer} successfully replicated a chunk of data.    *    * @param sinkPeer    *          The SinkPeer that had a failed replication attempt on it    */
 specifier|public
+specifier|synchronized
 name|void
 name|reportSinkSuccess
 parameter_list|(
@@ -570,6 +587,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Refresh the list of sinks.    */
+specifier|public
+specifier|synchronized
 name|void
 name|chooseSinks
 parameter_list|()
@@ -636,15 +656,36 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
-name|List
-argument_list|<
-name|ServerName
-argument_list|>
-name|getSinks
+specifier|public
+specifier|synchronized
+name|int
+name|getNumSinks
 parameter_list|()
 block|{
 return|return
 name|sinks
+operator|.
+name|size
+argument_list|()
+return|;
+block|}
+annotation|@
+name|VisibleForTesting
+specifier|protected
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|getSinksForTesting
+parameter_list|()
+block|{
+return|return
+name|Collections
+operator|.
+name|unmodifiableList
+argument_list|(
+name|sinks
+argument_list|)
 return|;
 block|}
 comment|/**    * Wraps a replication region server sink to provide the ability to identify    * it.    */
