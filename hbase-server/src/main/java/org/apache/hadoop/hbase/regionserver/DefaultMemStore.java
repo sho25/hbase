@@ -1158,12 +1158,17 @@ comment|// mutation, the TagRewriteCell.getTagsLength() is a cheaper call. We do
 comment|// parse the byte[] to identify the tags length.
 if|if
 condition|(
+operator|!
+name|tagsPresent
+operator|&&
+operator|(
 name|e
 operator|.
 name|getTagsLength
 argument_list|()
 operator|>
 literal|0
+operator|)
 condition|)
 block|{
 name|tagsPresent
