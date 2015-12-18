@@ -2380,6 +2380,11 @@ name|response
 operator|.
 name|getResult
 argument_list|()
+argument_list|,
+name|controller
+operator|.
+name|cellScanner
+argument_list|()
 argument_list|)
 return|;
 block|}
