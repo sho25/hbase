@@ -533,7 +533,6 @@ name|boolean
 name|isReplay
 decl_stmt|;
 specifier|private
-specifier|final
 name|ArrayList
 argument_list|<
 name|Cell
@@ -759,6 +758,29 @@ block|{
 return|return
 name|cells
 return|;
+block|}
+comment|/**    * This is not thread safe.    * This will change the WALEdit and shouldn't be used unless you are sure that nothing    * else depends on the contents being immutable.    *    * @param cells the list of cells that this WALEdit now contains.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+specifier|public
+name|void
+name|setCells
+parameter_list|(
+name|ArrayList
+argument_list|<
+name|Cell
+argument_list|>
+name|cells
+parameter_list|)
+block|{
+name|this
+operator|.
+name|cells
+operator|=
+name|cells
+expr_stmt|;
 block|}
 specifier|public
 name|NavigableMap
