@@ -164,6 +164,10 @@ specifier|private
 name|MetricsHBaseServerSource
 name|source
 decl_stmt|;
+specifier|private
+name|MetricsHBaseServerWrapper
+name|serverWrapper
+decl_stmt|;
 specifier|public
 name|MetricsHBaseServer
 parameter_list|(
@@ -174,6 +178,10 @@ name|MetricsHBaseServerWrapper
 name|wrapper
 parameter_list|)
 block|{
+name|serverWrapper
+operator|=
+name|wrapper
+expr_stmt|;
 name|source
 operator|=
 name|CompatibilitySingletonFactory
@@ -475,6 +483,15 @@ parameter_list|()
 block|{
 return|return
 name|source
+return|;
+block|}
+specifier|public
+name|MetricsHBaseServerWrapper
+name|getHBaseServerWrapper
+parameter_list|()
+block|{
+return|return
+name|serverWrapper
 return|;
 block|}
 block|}
