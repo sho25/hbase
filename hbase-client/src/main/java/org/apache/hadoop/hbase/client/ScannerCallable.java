@@ -571,6 +571,12 @@ name|closed
 init|=
 literal|false
 decl_stmt|;
+specifier|protected
+name|boolean
+name|renew
+init|=
+literal|false
+decl_stmt|;
 specifier|private
 name|Scan
 name|scan
@@ -1128,6 +1134,8 @@ operator|.
 name|scanMetrics
 operator|!=
 literal|null
+argument_list|,
+name|renew
 argument_list|)
 expr_stmt|;
 name|ScanResponse
@@ -2039,6 +2047,22 @@ operator|.
 name|closed
 operator|=
 literal|true
+expr_stmt|;
+block|}
+comment|/**    * Indicate whether we make a call only to renew the lease, but without affected the scanner in    * any other way.    * @param val true if only the lease should be renewed    */
+specifier|public
+name|void
+name|setRenew
+parameter_list|(
+name|boolean
+name|val
+parameter_list|)
+block|{
+name|this
+operator|.
+name|renew
+operator|=
+name|val
 expr_stmt|;
 block|}
 comment|/**    * @return the HRegionInfo for the current region    */

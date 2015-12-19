@@ -3495,6 +3495,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|trackMetrics
+parameter_list|,
+specifier|final
+name|boolean
+name|renew
 parameter_list|)
 block|{
 name|ScanRequest
@@ -3554,6 +3558,13 @@ operator|.
 name|setTrackScanMetrics
 argument_list|(
 name|trackMetrics
+argument_list|)
+expr_stmt|;
+name|builder
+operator|.
+name|setRenew
+argument_list|(
+name|renew
 argument_list|)
 expr_stmt|;
 return|return

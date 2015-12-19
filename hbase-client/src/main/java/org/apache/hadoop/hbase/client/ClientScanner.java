@@ -3224,9 +3224,9 @@ block|{
 comment|// do not return any rows, do not advance the scanner
 name|callable
 operator|.
-name|setCaching
+name|setRenew
 argument_list|(
-literal|0
+literal|true
 argument_list|)
 expr_stmt|;
 try|try
@@ -3259,11 +3259,9 @@ finally|finally
 block|{
 name|callable
 operator|.
-name|setCaching
+name|setRenew
 argument_list|(
-name|this
-operator|.
-name|caching
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
