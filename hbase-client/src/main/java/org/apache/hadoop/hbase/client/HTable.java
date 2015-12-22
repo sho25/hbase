@@ -922,6 +922,18 @@ literal|1
 expr_stmt|;
 comment|// is there a better default?
 block|}
+name|int
+name|corePoolSize
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.htable.threads.coresize"
+argument_list|,
+literal|1
+argument_list|)
+decl_stmt|;
 name|long
 name|keepAliveTime
 init|=
@@ -944,7 +956,7 @@ init|=
 operator|new
 name|ThreadPoolExecutor
 argument_list|(
-literal|1
+name|corePoolSize
 argument_list|,
 name|maxThreads
 argument_list|,

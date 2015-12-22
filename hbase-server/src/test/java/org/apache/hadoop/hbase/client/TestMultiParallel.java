@@ -974,11 +974,6 @@ return|;
 block|}
 comment|/**    * This is for testing the active number of threads that were used while    * doing a batch operation. It inserts one row per region via the batch    * operation, and then checks the number of active threads.    * For HBASE-3553    * @throws IOException    * @throws InterruptedException    * @throws NoSuchFieldException    * @throws SecurityException    */
 annotation|@
-name|Ignore
-argument_list|(
-literal|"Nice bug flakey... expected 5 but was 4.."
-argument_list|)
-annotation|@
 name|Test
 argument_list|(
 name|timeout
@@ -992,6 +987,20 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setLong
+argument_list|(
+literal|"hbase.htable.threads.coresize"
+argument_list|,
+name|slaves
+operator|+
+literal|1
+argument_list|)
+expr_stmt|;
 try|try
 init|(
 name|Connection
