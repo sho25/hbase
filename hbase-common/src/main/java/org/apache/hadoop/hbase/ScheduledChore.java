@@ -639,7 +639,6 @@ argument_list|()
 return|;
 block|}
 specifier|private
-specifier|synchronized
 name|double
 name|getMaximumAllowedTimeBetweenRuns
 parameter_list|()
@@ -788,7 +787,6 @@ literal|null
 expr_stmt|;
 block|}
 specifier|public
-specifier|synchronized
 name|String
 name|getName
 parameter_list|()
@@ -798,7 +796,6 @@ name|name
 return|;
 block|}
 specifier|public
-specifier|synchronized
 name|Stoppable
 name|getStopper
 parameter_list|()
@@ -808,7 +805,6 @@ name|stopper
 return|;
 block|}
 specifier|public
-specifier|synchronized
 name|int
 name|getPeriod
 parameter_list|()
@@ -818,7 +814,6 @@ name|period
 return|;
 block|}
 specifier|public
-specifier|synchronized
 name|long
 name|getInitialDelay
 parameter_list|()
@@ -828,8 +823,6 @@ name|initialDelay
 return|;
 block|}
 specifier|public
-specifier|final
-specifier|synchronized
 name|TimeUnit
 name|getTimeUnit
 parameter_list|()
