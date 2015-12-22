@@ -1067,7 +1067,7 @@ name|cached
 operator|.
 name|get
 argument_list|(
-name|walCacheLock
+name|group
 argument_list|)
 decl_stmt|;
 if|if
