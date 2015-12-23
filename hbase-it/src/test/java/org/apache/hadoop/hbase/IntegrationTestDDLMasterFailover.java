@@ -390,7 +390,7 @@ decl_stmt|;
 comment|// number of regions in pre-split tables
 specifier|private
 name|boolean
-name|keepTableAtTheEnd
+name|keepObjectsAtTheEnd
 init|=
 literal|false
 decl_stmt|;
@@ -584,7 +584,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|keepTableAtTheEnd
+name|keepObjectsAtTheEnd
 condition|)
 block|{
 name|Admin
@@ -592,7 +592,7 @@ name|admin
 init|=
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 name|admin
@@ -609,6 +609,60 @@ argument_list|(
 literal|"ittable-\\d+"
 argument_list|)
 expr_stmt|;
+name|NamespaceDescriptor
+index|[]
+name|nsds
+init|=
+name|admin
+operator|.
+name|listNamespaceDescriptors
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|NamespaceDescriptor
+name|nsd
+range|:
+name|nsds
+control|)
+block|{
+if|if
+condition|(
+name|nsd
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|matches
+argument_list|(
+literal|"itnamespace\\d+"
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Removing namespace="
+operator|+
+name|nsd
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|admin
+operator|.
+name|deleteNamespace
+argument_list|(
+name|nsd
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 name|enabledTables
 operator|.
@@ -4625,9 +4679,9 @@ name|hbck
 argument_list|)
 condition|)
 block|{
-comment|// Find the inconsistency during HBCK. Leave table undropped so that
+comment|// Find the inconsistency during HBCK. Leave table and namespace undropped so that
 comment|// we can check outside the test.
-name|keepTableAtTheEnd
+name|keepObjectsAtTheEnd
 operator|=
 literal|true
 expr_stmt|;
