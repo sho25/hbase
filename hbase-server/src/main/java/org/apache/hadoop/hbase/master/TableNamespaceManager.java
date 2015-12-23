@@ -869,7 +869,6 @@ name|nsTable
 return|;
 block|}
 specifier|private
-specifier|synchronized
 name|boolean
 name|acquireSharedLock
 parameter_list|()
@@ -916,7 +915,6 @@ throw|;
 block|}
 block|}
 specifier|public
-specifier|synchronized
 name|void
 name|releaseSharedLock
 parameter_list|()
@@ -931,7 +929,6 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|public
-specifier|synchronized
 name|boolean
 name|acquireExclusiveLock
 parameter_list|()
@@ -966,7 +963,6 @@ return|;
 block|}
 block|}
 specifier|public
-specifier|synchronized
 name|void
 name|releaseExclusiveLock
 parameter_list|()
