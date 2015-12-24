@@ -15129,6 +15129,15 @@ name|getRenew
 argument_list|()
 condition|)
 block|{
+name|rsh
+operator|=
+name|scanners
+operator|.
+name|get
+argument_list|(
+name|scannerName
+argument_list|)
+expr_stmt|;
 name|lease
 operator|=
 name|regionServer
@@ -15146,12 +15155,9 @@ name|lease
 operator|!=
 literal|null
 operator|&&
-name|scanners
-operator|.
-name|containsKey
-argument_list|(
-name|scannerName
-argument_list|)
+name|rsh
+operator|!=
+literal|null
 condition|)
 block|{
 name|regionServer
@@ -15162,6 +15168,12 @@ name|addLease
 argument_list|(
 name|lease
 argument_list|)
+expr_stmt|;
+comment|// Increment the nextCallSeq value which is the next expected from client.
+name|rsh
+operator|.
+name|incNextCallSeq
+argument_list|()
 expr_stmt|;
 block|}
 return|return
