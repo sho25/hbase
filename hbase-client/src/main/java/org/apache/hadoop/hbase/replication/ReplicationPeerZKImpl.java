@@ -394,7 +394,7 @@ specifier|private
 name|TableCFsTracker
 name|tableCFsTracker
 decl_stmt|;
-comment|/**    * Constructor that takes all the objects required to communicate with the    * specified peer, except for the region server addresses.    * @param conf configuration object to this peer    * @param id string representation of this peer's identifier    * @param peerConfig configuration for the replication peer    */
+comment|/**    * Constructor that takes all the objects required to communicate with the specified peer, except    * for the region server addresses.    * @param conf configuration object to this peer    * @param id string representation of this peer's identifier    * @param peerConfig configuration for the replication peer    */
 specifier|public
 name|ReplicationPeerZKImpl
 parameter_list|(
@@ -427,6 +427,58 @@ operator|.
 name|id
 operator|=
 name|id
+expr_stmt|;
+block|}
+comment|/**    * Constructor that takes all the objects required to communicate with the specified peer, except    * for the region server addresses.    * @param conf configuration object to this peer    * @param id string representation of this peer's identifier    * @param peerConfig configuration for the replication peer    * @param tableCFs table-cf configuration for this peer    */
+specifier|public
+name|ReplicationPeerZKImpl
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
+name|String
+name|id
+parameter_list|,
+name|ReplicationPeerConfig
+name|peerConfig
+parameter_list|,
+name|Map
+argument_list|<
+name|TableName
+argument_list|,
+name|List
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+name|tableCFs
+parameter_list|)
+throws|throws
+name|ReplicationException
+block|{
+name|this
+operator|.
+name|conf
+operator|=
+name|conf
+expr_stmt|;
+name|this
+operator|.
+name|peerConfig
+operator|=
+name|peerConfig
+expr_stmt|;
+name|this
+operator|.
+name|id
+operator|=
+name|id
+expr_stmt|;
+name|this
+operator|.
+name|tableCFs
+operator|=
+name|tableCFs
 expr_stmt|;
 block|}
 comment|/**    * start a state tracker to check whether this peer is enabled or not    *    * @param zookeeper zk watcher for the local cluster    * @param peerStateNode path to zk node which stores peer state    * @throws KeeperException    */
