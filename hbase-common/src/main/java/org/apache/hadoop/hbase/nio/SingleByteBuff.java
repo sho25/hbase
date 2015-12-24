@@ -129,6 +129,17 @@ operator|.
 name|isAvailable
 argument_list|()
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|boolean
+name|UNSAFE_UNALIGNED
+init|=
+name|UnsafeAccess
+operator|.
+name|unaligned
+argument_list|()
+decl_stmt|;
 comment|// Underlying BB
 specifier|private
 specifier|final
@@ -1021,7 +1032,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|UNSAFE_AVAIL
+name|UNSAFE_UNALIGNED
 condition|)
 block|{
 return|return
@@ -1125,7 +1136,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|UNSAFE_AVAIL
+name|UNSAFE_UNALIGNED
 condition|)
 block|{
 return|return
@@ -1229,7 +1240,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|UNSAFE_AVAIL
+name|UNSAFE_UNALIGNED
 condition|)
 block|{
 return|return

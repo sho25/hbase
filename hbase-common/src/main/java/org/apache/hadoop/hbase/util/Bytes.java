@@ -2993,7 +2993,7 @@ if|if
 condition|(
 name|UnsafeAccess
 operator|.
-name|isAvailable
+name|unaligned
 argument_list|()
 condition|)
 block|{
@@ -3176,7 +3176,7 @@ if|if
 condition|(
 name|UnsafeAccess
 operator|.
-name|isAvailable
+name|unaligned
 argument_list|()
 condition|)
 block|{
@@ -3661,7 +3661,7 @@ if|if
 condition|(
 name|UnsafeAccess
 operator|.
-name|isAvailable
+name|unaligned
 argument_list|()
 condition|)
 block|{
@@ -3947,7 +3947,7 @@ if|if
 condition|(
 name|UnsafeAccess
 operator|.
-name|isAvailable
+name|unaligned
 argument_list|()
 condition|)
 block|{
@@ -4193,7 +4193,7 @@ if|if
 condition|(
 name|UnsafeAccess
 operator|.
-name|isAvailable
+name|unaligned
 argument_list|()
 condition|)
 block|{
@@ -4317,7 +4317,7 @@ if|if
 condition|(
 name|UnsafeAccess
 operator|.
-name|isAvailable
+name|unaligned
 argument_list|()
 condition|)
 block|{
@@ -5625,7 +5625,7 @@ if|if
 condition|(
 name|UnsafeAccess
 operator|.
-name|isAvailable
+name|unaligned
 argument_list|()
 condition|)
 block|{

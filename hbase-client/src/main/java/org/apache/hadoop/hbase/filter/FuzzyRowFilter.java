@@ -509,7 +509,7 @@ if|if
 condition|(
 name|UnsafeAccess
 operator|.
-name|isAvailable
+name|unaligned
 argument_list|()
 operator|==
 literal|false
@@ -587,7 +587,7 @@ if|if
 condition|(
 name|UnsafeAccess
 operator|.
-name|isAvailable
+name|unaligned
 argument_list|()
 operator|==
 literal|false
@@ -1863,7 +1863,7 @@ if|if
 condition|(
 name|UnsafeAccess
 operator|.
-name|isAvailable
+name|unaligned
 argument_list|()
 operator|==
 literal|false
