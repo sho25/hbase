@@ -162,6 +162,8 @@ comment|/** Whether tags are to be included in the Read/Write **/
 specifier|private
 name|boolean
 name|includesTags
+init|=
+literal|false
 decl_stmt|;
 comment|/** Compression algorithm used **/
 specifier|private
