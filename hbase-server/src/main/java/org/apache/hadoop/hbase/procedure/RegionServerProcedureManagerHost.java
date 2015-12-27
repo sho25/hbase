@@ -121,18 +121,6 @@ name|RegionServerSnapshotManager
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Provides the globally barriered procedure framework and environment  * for region server oriented operations.   * {@link org.apache.hadoop.hbase.regionserver.HRegionServer} interacts  * with the loaded procedure manager through this class.  */
 end_comment
@@ -170,7 +158,7 @@ name|RegionServerServices
 name|rss
 parameter_list|)
 throws|throws
-name|KeeperException
+name|IOException
 block|{
 for|for
 control|(

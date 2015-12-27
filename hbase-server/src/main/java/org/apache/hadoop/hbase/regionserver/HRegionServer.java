@@ -4548,7 +4548,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|KeeperException
+name|IOException
 name|e
 parameter_list|)
 block|{
@@ -4556,7 +4556,7 @@ name|this
 operator|.
 name|abort
 argument_list|(
-literal|"Failed to reach zk cluster when creating procedure handler."
+literal|"Failed to reach coordination cluster when creating procedure handler."
 argument_list|,
 name|e
 argument_list|)

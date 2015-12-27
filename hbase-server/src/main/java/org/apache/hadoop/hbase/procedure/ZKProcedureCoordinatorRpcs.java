@@ -255,7 +255,7 @@ name|String
 name|coordName
 parameter_list|)
 throws|throws
-name|KeeperException
+name|IOException
 block|{
 name|this
 operator|.

@@ -190,7 +190,7 @@ class|class
 name|HConstants
 block|{
 comment|// NOTICE!!!! Please do not add a constants here, unless they are referenced by a lot of classes.
-comment|//Bytes.UTF8_ENCODING should be updated if this changed
+comment|// Bytes.UTF8_ENCODING should be updated if this changed
 comment|/** When we encode strings, we always specify UTF8 encoding */
 specifier|public
 specifier|static
@@ -200,7 +200,7 @@ name|UTF8_ENCODING
 init|=
 literal|"UTF-8"
 decl_stmt|;
-comment|//Bytes.UTF8_CHARSET should be updated if this changed
+comment|// Bytes.UTF8_CHARSET should be updated if this changed
 comment|/** When we encode strings, we always specify UTF8 encoding */
 specifier|public
 specifier|static
@@ -236,7 +236,7 @@ init|=
 operator|-
 literal|2
 decl_stmt|;
-comment|/*      * Name of directory that holds recovered edits written by the wal log      * splitting code, one per region      */
+comment|/*    * Name of directory that holds recovered edits written by the wal log splitting code, one per    * region    */
 specifier|public
 specifier|static
 specifier|final
@@ -294,7 +294,7 @@ name|Bytes
 operator|.
 name|SIZEOF_LONG
 decl_stmt|;
-comment|/** The size of a version 2 HFile block header, minor version 1.    * There is a 1 byte checksum type, followed by a 4 byte bytesPerChecksum    * followed by another 4 byte value to store sizeofDataOnDisk.    */
+comment|/**    * The size of a version 2 HFile block header, minor version 1. There is a 1 byte checksum type,    * followed by a 4 byte bytesPerChecksum followed by another 4 byte value to store    * sizeofDataOnDisk.    */
 specifier|public
 specifier|static
 specifier|final
@@ -327,7 +327,7 @@ index|[
 name|HFILEBLOCK_HEADER_SIZE
 index|]
 decl_stmt|;
-comment|//End HFileBlockConstants.
+comment|// End HFileBlockConstants.
 comment|/**    * Status codes used for return values of bulk operations.    */
 annotation|@
 name|InterfaceAudience
@@ -387,7 +387,7 @@ name|VERSION_FILE_NAME
 init|=
 literal|"hbase.version"
 decl_stmt|;
-comment|/**    * Current version of file system.    * Version 4 supports only one kind of bloom filter.    * Version 5 changes versions in catalog table regions.    * Version 6 enables blockcaching on catalog tables.    * Version 7 introduces hfile -- hbase 0.19 to 0.20..    * Version 8 introduces namespace    */
+comment|/**    * Current version of file system. Version 4 supports only one kind of bloom filter. Version 5    * changes versions in catalog table regions. Version 6 enables blockcaching on catalog tables.    * Version 7 introduces hfile -- hbase 0.19 to 0.20.. Version 8 introduces namespace    */
 comment|// public static final String FILE_SYSTEM_VERSION = "6";
 specifier|public
 specifier|static
@@ -398,7 +398,7 @@ init|=
 literal|"8"
 decl_stmt|;
 comment|// Configuration parameters
-comment|//TODO: Is having HBase homed on port 60k OK?
+comment|// TODO: Is having HBase homed on port 60k OK?
 comment|/** Cluster is in distributed mode or not */
 specifier|public
 specifier|static
@@ -572,7 +572,7 @@ operator|.
 name|length
 argument_list|()
 decl_stmt|;
-comment|/**    * The ZK client port key in the ZK properties map. The name reflects the    * fact that this is not an HBase configuration key.    */
+comment|/**    * The ZK client port key in the ZK properties map. The name reflects the fact that this is not an    * HBase configuration key.    */
 specifier|public
 specifier|static
 specifier|final
@@ -636,7 +636,7 @@ name|DEFAULT_ZOOKEEPER_ZNODE_PARENT
 init|=
 literal|"/hbase"
 decl_stmt|;
-comment|/**    * Parameter name for the limit on concurrent client-side zookeeper    * connections    */
+comment|/**    * Parameter name for the limit on concurrent client-side zookeeper connections    */
 specifier|public
 specifier|static
 specifier|final
@@ -952,7 +952,7 @@ name|MIGRATION_NAME
 init|=
 literal|".migration"
 decl_stmt|;
-comment|/**    * The directory from which co-processor/custom filter jars can be loaded    * dynamically by the region servers. This value can be overridden by the    * hbase.dynamic.jars.dir config.    */
+comment|/**    * The directory from which co-processor/custom filter jars can be loaded dynamically by the    * region servers. This value can be overridden by the hbase.dynamic.jars.dir config.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1016,7 +1016,7 @@ literal|1024
 operator|*
 literal|1024L
 decl_stmt|;
-comment|/**    * The max number of threads used for opening and closing stores or store    * files in parallel    */
+comment|/**    * The max number of threads used for opening and closing stores or store files in parallel    */
 specifier|public
 specifier|static
 specifier|final
@@ -1025,7 +1025,7 @@ name|HSTORE_OPEN_AND_CLOSE_THREADS_MAX
 init|=
 literal|"hbase.hstore.open.and.close.threads.max"
 decl_stmt|;
-comment|/**    * The default number for the max number of threads used for opening and    * closing stores or store files in parallel    */
+comment|/**    * The default number for the max number of threads used for opening and closing stores or store    * files in parallel    */
 specifier|public
 specifier|static
 specifier|final
@@ -1034,7 +1034,7 @@ name|DEFAULT_HSTORE_OPEN_AND_CLOSE_THREADS_MAX
 init|=
 literal|1
 decl_stmt|;
-comment|/**    * Block updates if memstore has hbase.hregion.memstore.block.multiplier    * times hbase.hregion.memstore.flush.size bytes.  Useful preventing    * runaway memstore during spikes in update traffic.    */
+comment|/**    * Block updates if memstore has hbase.hregion.memstore.block.multiplier times    * hbase.hregion.memstore.flush.size bytes. Useful preventing runaway memstore during spikes in    * update traffic.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1178,7 +1178,7 @@ name|META_ROW_DELIMITER
 init|=
 literal|','
 decl_stmt|;
-comment|/** The catalog family as a string*/
+comment|/** The catalog family as a string */
 specifier|public
 specifier|static
 specifier|final
@@ -1321,7 +1321,7 @@ argument_list|(
 name|STATE_QUALIFIER_STR
 argument_list|)
 decl_stmt|;
-comment|/**    * The serverName column qualifier. Its the server where the region is    * transitioning on, while column server is the server where the region is    * opened on. They are the same when the region is in state OPEN.    */
+comment|/**    * The serverName column qualifier. Its the server where the region is transitioning on, while    * column server is the server where the region is opened on. They are the same when the region is    * in state OPEN.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1404,7 +1404,7 @@ argument_list|(
 literal|"mergeB"
 argument_list|)
 decl_stmt|;
-comment|/** The catalog family as a string*/
+comment|/** The catalog family as a string */
 specifier|public
 specifier|static
 specifier|final
@@ -1443,7 +1443,7 @@ argument_list|(
 literal|"state"
 argument_list|)
 decl_stmt|;
-comment|/**    * The meta table version column qualifier.    * We keep current version of the meta table in this column in<code>-ROOT-</code>    * table: i.e. in the 'info:v' column.    */
+comment|/**    * The meta table version column qualifier. We keep current version of the meta table in this    * column in<code>-ROOT-</code> table: i.e. in the 'info:v' column.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1458,7 +1458,7 @@ argument_list|(
 literal|"v"
 argument_list|)
 decl_stmt|;
-comment|/**    * The current version of the meta table.    * - pre-hbase 0.92.  There is no META_VERSION column in the root table    * in this case. The meta has HTableDescriptor serialized into the HRegionInfo;    * - version 0 is 0.92 and 0.94. Meta data has serialized HRegionInfo's using    * Writable serialization, and HRegionInfo's does not contain HTableDescriptors.    * - version 1 for 0.96+ keeps HRegionInfo data structures, but changes the    * byte[] serialization from Writables to Protobuf.    * See HRegionInfo.VERSION    */
+comment|/**    * The current version of the meta table. - pre-hbase 0.92. There is no META_VERSION column in the    * root table in this case. The meta has HTableDescriptor serialized into the HRegionInfo; -    * version 0 is 0.92 and 0.94. Meta data has serialized HRegionInfo's using Writable    * serialization, and HRegionInfo's does not contain HTableDescriptors. - version 1 for 0.96+    * keeps HRegionInfo data structures, but changes the byte[] serialization from Writables to    * Protobuf. See HRegionInfo.VERSION    */
 specifier|public
 specifier|static
 specifier|final
@@ -1515,7 +1515,7 @@ name|EMPTY_END_ROW
 init|=
 name|EMPTY_START_ROW
 decl_stmt|;
-comment|/**     * Used by scanners and others when they're trying to detect the end of a     * table     */
+comment|/**    * Used by scanners and others when they're trying to detect the end of a table    */
 specifier|public
 specifier|static
 specifier|final
@@ -1536,7 +1536,7 @@ name|Short
 operator|.
 name|MAX_VALUE
 decl_stmt|;
-comment|/**    * Timestamp to use when we want to refer to the latest cell.    * This is the timestamp sent by clients when no timestamp is specified on    * commit.    */
+comment|/**    * Timestamp to use when we want to refer to the latest cell. This is the timestamp sent by    * clients when no timestamp is specified on commit.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1635,7 +1635,7 @@ operator|(
 name|byte
 operator|)
 name|LATEST_TIMESTAMP
-block|,   }
+block|}
 decl_stmt|;
 comment|/**    * Define for 'return-all-versions'.    */
 specifier|public
@@ -1649,7 +1649,7 @@ operator|.
 name|MAX_VALUE
 decl_stmt|;
 comment|/**    * Unlimited time-to-live.    */
-comment|//  public static final int FOREVER = -1;
+comment|// public static final int FOREVER = -1;
 specifier|public
 specifier|static
 specifier|final
@@ -1704,10 +1704,10 @@ name|MINUTE_IN_SECONDS
 init|=
 literal|60
 decl_stmt|;
-comment|//TODO: although the following are referenced widely to format strings for
-comment|//      the shell. They really aren't a part of the public API. It would be
-comment|//      nice if we could put them somewhere where they did not need to be
-comment|//      public. They could have package visibility
+comment|// TODO: although the following are referenced widely to format strings for
+comment|// the shell. They really aren't a part of the public API. It would be
+comment|// nice if we could put them somewhere where they did not need to be
+comment|// public. They could have package visibility
 specifier|public
 specifier|static
 specifier|final
@@ -1748,7 +1748,7 @@ name|CONFIGURATION
 init|=
 literal|"CONFIGURATION"
 decl_stmt|;
-comment|/**    * Retrying we multiply hbase.client.pause setting by what we have in this array until we    * run out of array items.  Retries beyond this use the last number in the array.  So, for    * example, if hbase.client.pause is 1 second, and maximum retries count    * hbase.client.retries.number is 10, we will retry at the following intervals:    * 1, 2, 3, 5, 10, 20, 40, 100, 100, 100.    * With 100ms, a back-off of 200 means 20s    */
+comment|/**    * Retrying we multiply hbase.client.pause setting by what we have in this array until we run out    * of array items. Retries beyond this use the last number in the array. So, for example, if    * hbase.client.pause is 1 second, and maximum retries count hbase.client.retries.number is 10, we    * will retry at the following intervals: 1, 2, 3, 5, 10, 20, 40, 100, 100, 100. With 100ms, a    * back-off of 200 means 20s    */
 specifier|public
 specifier|static
 specifier|final
@@ -1814,7 +1814,7 @@ name|TABLE_SET_HTD
 block|,
 name|TABLE_SPLIT
 block|}
-comment|/**    * Scope tag for locally scoped data.    * This data will not be replicated.    */
+comment|/**    * Scope tag for locally scoped data. This data will not be replicated.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1823,7 +1823,7 @@ name|REPLICATION_SCOPE_LOCAL
 init|=
 literal|0
 decl_stmt|;
-comment|/**    * Scope tag for globally scoped data.    * This data will be replicated to all peers.    */
+comment|/**    * Scope tag for globally scoped data. This data will be replicated to all peers.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1832,7 +1832,7 @@ name|REPLICATION_SCOPE_GLOBAL
 init|=
 literal|1
 decl_stmt|;
-comment|/**    * Default cluster ID, cannot be used to identify a cluster so a key with    * this value means it wasn't meant for replication.    */
+comment|/**    * Default cluster ID, cannot be used to identify a cluster so a key with this value means it    * wasn't meant for replication.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1865,7 +1865,7 @@ name|HBASE_SERVER_SCANNER_MAX_RESULT_SIZE_KEY
 init|=
 literal|"hbase.server.scanner.max.result.size"
 decl_stmt|;
-comment|/**    * Maximum number of bytes returned when calling a scanner's next method.    * Note that when a single row is larger than this limit the row is still    * returned completely.    *    * The default value is 2MB.    */
+comment|/**    * Maximum number of bytes returned when calling a scanner's next method. Note that when a single    * row is larger than this limit the row is still returned completely. The default value is 2MB.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1878,7 +1878,7 @@ literal|1024
 operator|*
 literal|1024
 decl_stmt|;
-comment|/**    * Maximum number of bytes returned when calling a scanner's next method.    * Note that when a single row is larger than this limit the row is still    * returned completely.    * Safety setting to protect the region server.    *    * The default value is 100MB. (a client would rarely request larger chunks on purpose)    */
+comment|/**    * Maximum number of bytes returned when calling a scanner's next method. Note that when a single    * row is larger than this limit the row is still returned completely. Safety setting to protect    * the region server. The default value is 100MB. (a client would rarely request larger chunks on    * purpose)    */
 specifier|public
 specifier|static
 specifier|final
@@ -1891,7 +1891,7 @@ literal|1024
 operator|*
 literal|1024
 decl_stmt|;
-comment|/**    * Parameter name for client pause value, used mostly as value to wait    * before running a retry of a failed get, region lookup, etc.    */
+comment|/**    * Parameter name for client pause value, used mostly as value to wait before running a retry of a    * failed get, region lookup, etc.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1927,7 +1927,7 @@ name|DEFAULT_HBASE_CLIENT_MAX_TOTAL_TASKS
 init|=
 literal|100
 decl_stmt|;
-comment|/**    * The maximum number of concurrent connections the client will maintain to a single    * RegionServer.    */
+comment|/**    * The maximum number of concurrent connections the client will maintain to a single RegionServer.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1945,7 +1945,7 @@ name|DEFAULT_HBASE_CLIENT_MAX_PERSERVER_TASKS
 init|=
 literal|2
 decl_stmt|;
-comment|/**    * The maximum number of concurrent connections the client will maintain to a single    * Region.    */
+comment|/**    * The maximum number of concurrent connections the client will maintain to a single Region.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1963,7 +1963,7 @@ name|DEFAULT_HBASE_CLIENT_MAX_PERREGION_TASKS
 init|=
 literal|1
 decl_stmt|;
-comment|/**    * Parameter name for server pause value, used mostly as value to wait before    * running a retry of a failed operation.    */
+comment|/**    * Parameter name for server pause value, used mostly as value to wait before running a retry of a    * failed operation.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1981,7 +1981,7 @@ name|DEFAULT_HBASE_SERVER_PAUSE
 init|=
 literal|1000
 decl_stmt|;
-comment|/**    * Parameter name for maximum retries, used as maximum for all retryable    * operations such as fetching of the root region from root region server,    * getting a cell's value, starting a row update, etc.    */
+comment|/**    * Parameter name for maximum retries, used as maximum for all retryable operations such as    * fetching of the root region from root region server, getting a cell's value, starting a row    * update, etc.    */
 specifier|public
 specifier|static
 specifier|final
@@ -2019,7 +2019,7 @@ name|Integer
 operator|.
 name|MAX_VALUE
 decl_stmt|;
-comment|/**    * Parameter name for number of rows that will be fetched when calling next on    * a scanner if it is not served from memory. Higher caching values will    * enable faster scanners but will eat up more memory and some calls of next    * may take longer and longer times when the cache is empty.    */
+comment|/**    * Parameter name for number of rows that will be fetched when calling next on a scanner if it is    * not served from memory. Higher caching values will enable faster scanners but will eat up more    * memory and some calls of next may take longer and longer times when the cache is empty.    */
 specifier|public
 specifier|static
 specifier|final
@@ -2397,7 +2397,7 @@ name|LOCALHOST
 init|=
 literal|"localhost"
 decl_stmt|;
-comment|/**    * If this parameter is set to true, then hbase will read    * data and then verify checksums. Checksum verification    * inside hdfs will be switched off.  However, if the hbase-checksum    * verification fails, then it will switch back to using    * hdfs checksums for verifiying data that is being read from storage.    *    * If this parameter is set to false, then hbase will not    * verify any checksums, instead it will depend on checksum verification    * being done in the hdfs client.    */
+comment|/**    * If this parameter is set to true, then hbase will read data and then verify checksums. Checksum    * verification inside hdfs will be switched off. However, if the hbase-checksum verification    * fails, then it will switch back to using hdfs checksums for verifiying data that is being read    * from storage. If this parameter is set to false, then hbase will not verify any checksums,    * instead it will depend on checksum verification being done in the hdfs client.    */
 specifier|public
 specifier|static
 specifier|final
@@ -2463,7 +2463,7 @@ name|DEFAULT_REGION_SERVER_HANDLER_COUNT
 init|=
 literal|30
 decl_stmt|;
-comment|/*    * REGION_SERVER_HANDLER_ABORT_ON_ERROR_PERCENT:    * -1  => Disable aborting    * 0   => Abort if even a single handler has died    * 0.x => Abort only when this percent of handlers have died    * 1   => Abort only all of the handers have died    */
+comment|/*    * REGION_SERVER_HANDLER_ABORT_ON_ERROR_PERCENT: -1 => Disable aborting 0 => Abort if even a    * single handler has died 0.x => Abort only when this percent of handlers have died 1 => Abort    * only all of the handers have died    */
 specifier|public
 specifier|static
 specifier|final
@@ -2480,7 +2480,7 @@ name|DEFAULT_REGION_SERVER_HANDLER_ABORT_ON_ERROR_PERCENT
 init|=
 literal|0.5
 decl_stmt|;
-comment|//High priority handlers to deal with admin requests and system table operation requests
+comment|// High priority handlers to deal with admin requests and system table operation requests
 specifier|public
 specifier|static
 specifier|final
@@ -2571,7 +2571,7 @@ name|DEFAULT_META_REPLICA_NUM
 init|=
 literal|1
 decl_stmt|;
-comment|/**    * The name of the configuration parameter that specifies    * the number of bytes in a newly created checksum chunk.    */
+comment|/**    * The name of the configuration parameter that specifies the number of bytes in a newly created    * checksum chunk.    */
 specifier|public
 specifier|static
 specifier|final
@@ -2580,7 +2580,7 @@ name|BYTES_PER_CHECKSUM
 init|=
 literal|"hbase.hstore.bytes.per.checksum"
 decl_stmt|;
-comment|/**    * The name of the configuration parameter that specifies    * the name of an algorithm that is used to compute checksums    * for newly created blocks.    */
+comment|/**    * The name of the configuration parameter that specifies the name of an algorithm that is used to    * compute checksums for newly created blocks.    */
 specifier|public
 specifier|static
 specifier|final
@@ -2616,7 +2616,7 @@ name|ENABLE_WAL_COMPRESSION
 init|=
 literal|"hbase.regionserver.wal.enablecompression"
 decl_stmt|;
-comment|/** Configuration name of WAL storage policy    * Valid values are:    *  NONE: no preference in destination of block replicas    *  ONE_SSD: place only one block replica in SSD and the remaining in default storage    *  and ALL_SSD: place all block replicas on SSD    *    * See http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html*/
+comment|/**    * Configuration name of WAL storage policy Valid values are: NONE: no preference in destination    * of block replicas ONE_SSD: place only one block replica in SSD and the remaining in default    * storage and ALL_SSD: place all block replicas on SSD See    * http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html    */
 specifier|public
 specifier|static
 specifier|final
@@ -2650,7 +2650,7 @@ name|LOAD_BALANCER_SLOP_KEY
 init|=
 literal|"hbase.regions.slop"
 decl_stmt|;
-comment|/**    * The byte array represents for NO_NEXT_INDEXED_KEY;    * The actual value is irrelevant because this is always compared by reference.    */
+comment|/**    * The byte array represents for NO_NEXT_INDEXED_KEY; The actual value is irrelevant because this    * is always compared by reference.    */
 specifier|public
 specifier|static
 specifier|final
@@ -2670,7 +2670,7 @@ name|DELIMITER
 init|=
 literal|','
 decl_stmt|;
-comment|/**    * QOS attributes: these attributes are used to demarcate RPC call processing    * by different set of handlers. For example, HIGH_QOS tagged methods are    * handled by high priority handlers.    */
+comment|/**    * QOS attributes: these attributes are used to demarcate RPC call processing by different set of    * handlers. For example, HIGH_QOS tagged methods are handled by high priority handlers.    */
 comment|// normal_QOS< QOS_threshold< replication_QOS< replay_QOS< admin_QOS< high_QOS
 specifier|public
 specifier|static
@@ -2737,7 +2737,7 @@ name|HFILE_ARCHIVE_DIRECTORY
 init|=
 literal|"archive"
 decl_stmt|;
-comment|/**    * Name of the directory to store all snapshots. See SnapshotDescriptionUtils for    * remaining snapshot constants; this is here to keep HConstants dependencies at a minimum and    * uni-directional.    */
+comment|/**    * Name of the directory to store all snapshots. See SnapshotDescriptionUtils for remaining    * snapshot constants; this is here to keep HConstants dependencies at a minimum and    * uni-directional.    */
 specifier|public
 specifier|static
 specifier|final
@@ -2908,7 +2908,7 @@ name|DEFAULT_HEALTH_FAILURE_THRESHOLD
 init|=
 literal|3
 decl_stmt|;
-comment|/**    * Setting to activate, or not, the publication of the status by the master. Default    *  notification is by a multicast message.    */
+comment|/**    * Setting to activate, or not, the publication of the status by the master. Default notification    * is by a multicast message.    */
 specifier|public
 specifier|static
 specifier|final
@@ -2925,7 +2925,7 @@ name|STATUS_PUBLISHED_DEFAULT
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * IP to use for the multicast status messages between the master and the clients.    * The default address is chosen as one among others within the ones suitable for multicast    * messages.    */
+comment|/**    * IP to use for the multicast status messages between the master and the clients. The default    * address is chosen as one among others within the ones suitable for multicast messages.    */
 specifier|public
 specifier|static
 specifier|final
@@ -2942,7 +2942,7 @@ name|DEFAULT_STATUS_MULTICAST_ADDRESS
 init|=
 literal|"226.1.1.3"
 decl_stmt|;
-comment|/**    * The address to use for binding the local socket for receiving multicast. Defaults to    * 0.0.0.0.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-9961">HBASE-9961</a>    */
+comment|/**    * The address to use for binding the local socket for receiving multicast. Defaults to 0.0.0.0.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-9961">HBASE-9961</a>    */
 specifier|public
 specifier|static
 specifier|final
@@ -3141,7 +3141,7 @@ comment|// TODO moving these bucket cache implementation specific configs to thi
 comment|// encapsulation. But as these has to be referred from hbase-common and bucket cache
 comment|// sits in hbase-server, there were no other go! Can we move the cache implementation to
 comment|// hbase-common?
-comment|/**    * Current ioengine options in include: heap, offheap and file:PATH (where PATH is the path    * to the file that will host the file-based cache.  See BucketCache#getIOEngineFromName() for    * list of supported ioengine options.    *<p>Set this option and a non-zero {@link #BUCKET_CACHE_SIZE_KEY} to enable bucket cache.    */
+comment|/**    * Current ioengine options in include: heap, offheap and file:PATH (where PATH is the path to the    * file that will host the file-based cache. See BucketCache#getIOEngineFromName() for list of    * supported ioengine options.    *<p>    * Set this option and a non-zero {@link #BUCKET_CACHE_SIZE_KEY} to enable bucket cache.    */
 specifier|public
 specifier|static
 specifier|final
@@ -3150,7 +3150,7 @@ name|BUCKET_CACHE_IOENGINE_KEY
 init|=
 literal|"hbase.bucketcache.ioengine"
 decl_stmt|;
-comment|/**    * When using bucket cache, this is a float that EITHER represents a percentage of total heap    * memory size to give to the cache (if&lt; 1.0) OR, it is the capacity in    * megabytes of the cache.    */
+comment|/**    * When using bucket cache, this is a float that EITHER represents a percentage of total heap    * memory size to give to the cache (if&lt; 1.0) OR, it is the capacity in megabytes of the    * cache.    */
 specifier|public
 specifier|static
 specifier|final
@@ -3217,7 +3217,7 @@ name|HBASE_CLIENT_FAST_FAIL_INTERCEPTOR_IMPL
 init|=
 literal|"hbase.client.fast.fail.interceptor.impl"
 decl_stmt|;
-comment|/** Config key for if the server should send backpressure and if the client should listen to    * that backpressure from the server */
+comment|/**    * Config key for if the server should send backpressure and if the client should listen to that    * backpressure from the server    */
 specifier|public
 specifier|static
 specifier|final
@@ -3266,7 +3266,7 @@ name|DEFAULT_HEAP_OCCUPANCY_HIGH_WATERMARK
 init|=
 literal|0.98f
 decl_stmt|;
-comment|/**    * The max number of threads used for splitting storefiles in parallel during    * the region split process.    */
+comment|/**    * The max number of threads used for splitting storefiles in parallel during the region split    * process.    */
 specifier|public
 specifier|static
 specifier|final
@@ -3348,6 +3348,44 @@ name|String
 name|ZK_SERVER_KERBEROS_PRINCIPAL
 init|=
 literal|"hbase.zookeeper.server.kerberos.principal"
+decl_stmt|;
+comment|/**    * Backup/Restore constants    */
+specifier|public
+specifier|final
+specifier|static
+name|String
+name|BACKUP_ENABLE_KEY
+init|=
+literal|"hbase.backup.enable"
+decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|boolean
+name|BACKUP_ENABLE_DEFAULT
+init|=
+literal|true
+decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|String
+name|BACKUP_SYSTEM_TTL_KEY
+init|=
+literal|"hbase.backup.system.ttl"
+decl_stmt|;
+comment|// Default TTL = 1 year
+specifier|public
+specifier|final
+specifier|static
+name|int
+name|BACKUP_SYSTEM_TTL_DEFAULT
+init|=
+literal|365
+operator|*
+literal|24
+operator|*
+literal|3600
 decl_stmt|;
 specifier|private
 name|HConstants
