@@ -1795,7 +1795,7 @@ name|RegionServerServices
 name|rss
 parameter_list|)
 throws|throws
-name|IOException
+name|KeeperException
 block|{
 name|this
 operator|.

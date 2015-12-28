@@ -251,9 +251,7 @@ name|String
 name|procType
 parameter_list|)
 throws|throws
-name|IOException
-block|{
-try|try
+name|KeeperException
 block|{
 name|this
 operator|.
@@ -459,22 +457,6 @@ block|}
 block|}
 block|}
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-name|e
-parameter_list|)
-block|{
-comment|// TODO Auto-generated catch block
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-name|e
-argument_list|)
-throw|;
-block|}
 block|}
 specifier|public
 name|ZKProcedureUtil

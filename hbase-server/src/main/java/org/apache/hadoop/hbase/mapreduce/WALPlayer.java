@@ -653,10 +653,6 @@ name|JOB_NAME_CONF_KEY
 init|=
 literal|"mapreduce.job.name"
 decl_stmt|;
-specifier|public
-name|WALPlayer
-parameter_list|()
-block|{   }
 specifier|protected
 name|WALPlayer
 parameter_list|(
@@ -761,9 +757,7 @@ argument_list|(
 name|kv
 argument_list|)
 condition|)
-block|{
 continue|continue;
-block|}
 name|context
 operator|.
 name|write
@@ -1005,9 +999,7 @@ argument_list|(
 name|cell
 argument_list|)
 condition|)
-block|{
 continue|continue;
-block|}
 comment|// Allow a subclass filter out this cell.
 if|if
 condition|(
@@ -1057,7 +1049,6 @@ name|put
 operator|!=
 literal|null
 condition|)
-block|{
 name|context
 operator|.
 name|write
@@ -1067,14 +1058,12 @@ argument_list|,
 name|put
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|del
 operator|!=
 literal|null
 condition|)
-block|{
 name|context
 operator|.
 name|write
@@ -1084,7 +1073,6 @@ argument_list|,
 name|del
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|CellUtil
@@ -1167,7 +1155,6 @@ name|put
 operator|!=
 literal|null
 condition|)
-block|{
 name|context
 operator|.
 name|write
@@ -1177,14 +1164,12 @@ argument_list|,
 name|put
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|del
 operator|!=
 literal|null
 condition|)
-block|{
 name|context
 operator|.
 name|write
@@ -1194,7 +1179,6 @@ argument_list|,
 name|del
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 catch|catch
@@ -1210,7 +1194,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**      * Filter cell      * @param cell cell      * @return Return true if we are to emit this cell.      */
+comment|/**      * @param cell      * @return Return true if we are to emit this cell.      */
 specifier|protected
 name|boolean
 name|filter
@@ -1267,6 +1251,20 @@ argument_list|(
 name|TABLES_KEY
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|tablesToUse
+operator|==
+literal|null
+operator|&&
+name|tableMap
+operator|==
+literal|null
+condition|)
+block|{
+comment|// Then user wants all tables.
+block|}
+elseif|else
 if|if
 condition|(
 name|tablesToUse
@@ -1370,9 +1368,7 @@ literal|null
 operator|==
 name|val
 condition|)
-block|{
 return|return;
-block|}
 name|long
 name|ms
 decl_stmt|;
@@ -1839,7 +1835,7 @@ return|return
 name|job
 return|;
 block|}
-comment|/**    * Print usage    * @param errorMsg Error message.  Can be null.    */
+comment|/*    * @param errorMsg Error message.  Can be null.    */
 specifier|private
 name|void
 name|usage
@@ -1912,9 +1908,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"(Careful, even -ROOT- and hbase:meta entries will be imported"
-operator|+
-literal|" in that case.)"
+literal|"(Careful, even -ROOT- and hbase:meta entries will be imported in that case.)"
 argument_list|)
 expr_stmt|;
 name|System

@@ -1509,11 +1509,9 @@ name|t1
 operator|==
 name|t2
 condition|)
-block|{
 return|return
 literal|0
 return|;
-block|}
 return|return
 operator|(
 name|t1
@@ -1659,7 +1657,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Constructor.    *    * @param fs filesystem handle    * @param root path for stored and archived wals    * @param logDir dir where wals are stored    * @param conf configuration to use    * @throws IOException exception    */
+comment|/**    * Constructor.    *    * @param fs filesystem handle    * @param root path for stored and archived wals    * @param logDir dir where wals are stored    * @param conf configuration to use    * @throws IOException    */
 specifier|public
 name|FSHLog
 parameter_list|(
@@ -1706,7 +1704,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create an edit log at the given directory location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * WAL object is started up.    *    * @param fs filesystem handle    * @param rootDir path to where logs and oldlogs    * @param logDir dir where wals are stored    * @param archiveDir dir where wals are archived    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter()}.    * @param failIfWALExists If true IOException will be thrown if files related to this wal    *     already exist.    * @param prefix should always be hostname and port in distributed env and    *     it will be URL encoded before being used.    *     If prefix is null, "wal" will be used    * @param suffix will be url encoded. null is treated as empty. non-empty must start with    *     {@link DefaultWALProvider#WAL_FILE_NAME_DELIMITER}    * @throws IOException exception    */
+comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * WAL object is started up.    *    * @param fs filesystem handle    * @param rootDir path to where logs and oldlogs    * @param logDir dir where wals are stored    * @param archiveDir dir where wals are archived    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter()}.    * @param failIfWALExists If true IOException will be thrown if files related to this wal    *        already exist.    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "wal" will be used    * @param suffix will be url encoded. null is treated as empty. non-empty must start with    *        {@link DefaultWALProvider#WAL_FILE_NAME_DELIMITER}    * @throws IOException    */
 specifier|public
 name|FSHLog
 parameter_list|(
@@ -2668,11 +2666,9 @@ name|fsdos
 operator|==
 literal|null
 condition|)
-block|{
 return|return
 literal|null
 return|;
-block|}
 return|return
 name|fsdos
 operator|.
@@ -2793,7 +2789,7 @@ return|return
 name|oldPath
 return|;
 block|}
-comment|/**    * Tell listeners about pre log roll.    * @throws IOException exception    */
+comment|/**    * Tell listeners about pre log roll.    * @throws IOException    */
 specifier|private
 name|void
 name|tellListenersAboutPreLogRoll
@@ -2842,7 +2838,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Tell listeners about post log roll.    * @throws IOException exception    */
+comment|/**    * Tell listeners about post log roll.    * @throws IOException    */
 specifier|private
 name|void
 name|tellListenersAboutPostLogRoll
@@ -2891,7 +2887,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Run a sync after opening to set up the pipeline.    * @param nextWriter next writer    */
+comment|/**    * Run a sync after opening to set up the pipeline.    * @param nextWriter    * @param startTimeNanos    */
 specifier|private
 name|void
 name|preemptiveSync
@@ -2993,11 +2989,9 @@ operator|<=
 literal|0
 operator|)
 condition|)
-block|{
 return|return
 literal|null
 return|;
-block|}
 name|byte
 index|[]
 index|[]
@@ -3226,7 +3220,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Archive old logs. A WAL is eligible for archiving if all its WALEdits have been flushed.    * @throws IOException exception    */
+comment|/**    * Archive old logs. A WAL is eligible for archiving if all its WALEdits have been flushed.    * @throws IOException    */
 specifier|private
 name|void
 name|cleanOldLogs
@@ -3310,7 +3304,6 @@ name|logsToArchive
 operator|==
 literal|null
 condition|)
-block|{
 name|logsToArchive
 operator|=
 operator|new
@@ -3320,7 +3313,6 @@ name|Path
 argument_list|>
 argument_list|()
 expr_stmt|;
-block|}
 name|logsToArchive
 operator|.
 name|add
@@ -3335,7 +3327,6 @@ operator|.
 name|isTraceEnabled
 argument_list|()
 condition|)
-block|{
 name|LOG
 operator|.
 name|trace
@@ -3345,7 +3336,6 @@ operator|+
 name|log
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 if|if
@@ -3510,7 +3500,6 @@ name|i
 operator|>
 literal|0
 condition|)
-block|{
 name|sb
 operator|.
 name|append
@@ -3518,7 +3507,6 @@ argument_list|(
 literal|", "
 argument_list|)
 expr_stmt|;
-block|}
 name|sb
 operator|.
 name|append
@@ -3697,11 +3685,9 @@ condition|(
 name|isUnflushedEntries
 argument_list|()
 condition|)
-block|{
 throw|throw
 name|e
 throw|;
-block|}
 name|LOG
 operator|.
 name|warn
@@ -4069,7 +4055,6 @@ operator|.
 name|isTraceEnabled
 argument_list|()
 condition|)
-block|{
 name|LOG
 operator|.
 name|trace
@@ -4079,7 +4064,6 @@ argument_list|,
 name|ioe
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 block|}
@@ -4360,19 +4344,6 @@ operator|.
 name|get
 argument_list|()
 argument_list|)
-return|;
-block|}
-comment|/**    * To support old API compatibility    * @return current file number (timestamp)    */
-specifier|public
-name|long
-name|getFilenum
-parameter_list|()
-block|{
-return|return
-name|filenum
-operator|.
-name|get
-argument_list|()
 return|;
 block|}
 annotation|@

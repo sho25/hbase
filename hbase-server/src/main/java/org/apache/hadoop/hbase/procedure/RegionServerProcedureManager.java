@@ -117,7 +117,7 @@ name|RegionServerServices
 name|rss
 parameter_list|)
 throws|throws
-name|IOException
+name|KeeperException
 function_decl|;
 comment|/**    * Start accepting procedure requests.    */
 specifier|public
