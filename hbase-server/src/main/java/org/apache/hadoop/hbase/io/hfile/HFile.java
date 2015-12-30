@@ -901,7 +901,6 @@ block|}
 comment|/**    * This variety of ways to construct writers is used throughout the code, and    * we want to be able to swap writer implementations.    */
 specifier|public
 specifier|static
-specifier|abstract
 class|class
 name|WriterFactory
 block|{
@@ -1242,9 +1241,12 @@ expr_stmt|;
 block|}
 block|}
 return|return
-name|createWriter
+operator|new
+name|HFileWriterImpl
 argument_list|(
-name|fs
+name|conf
+argument_list|,
+name|cacheConf
 argument_list|,
 name|path
 argument_list|,
@@ -1256,29 +1258,6 @@ name|fileContext
 argument_list|)
 return|;
 block|}
-specifier|protected
-specifier|abstract
-name|Writer
-name|createWriter
-parameter_list|(
-name|FileSystem
-name|fs
-parameter_list|,
-name|Path
-name|path
-parameter_list|,
-name|FSDataOutputStream
-name|ostream
-parameter_list|,
-name|CellComparator
-name|comparator
-parameter_list|,
-name|HFileContext
-name|fileContext
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 block|}
 comment|/** The configuration key for HFile version to use for new files */
 specifier|public
@@ -1413,7 +1392,9 @@ literal|3
 case|:
 return|return
 operator|new
-name|HFileWriterFactory
+name|HFile
+operator|.
+name|WriterFactory
 argument_list|(
 name|conf
 argument_list|,

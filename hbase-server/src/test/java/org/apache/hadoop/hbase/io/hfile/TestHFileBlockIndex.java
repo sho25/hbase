@@ -1777,7 +1777,7 @@ init|=
 operator|new
 name|KeyValue
 argument_list|(
-name|TestHFileWriterV2
+name|RandomKeyValueUtil
 operator|.
 name|randomOrderedKey
 argument_list|(
@@ -2171,7 +2171,7 @@ name|byte
 index|[]
 name|k
 init|=
-name|TestHFileWriterV2
+name|RandomKeyValueUtil
 operator|.
 name|randomOrderedKey
 argument_list|(
@@ -3030,7 +3030,7 @@ name|byte
 index|[]
 name|k
 init|=
-name|TestHFileWriterV2
+name|RandomKeyValueUtil
 operator|.
 name|randomOrderedKey
 argument_list|(
@@ -3487,7 +3487,7 @@ name|byte
 index|[]
 name|row
 init|=
-name|TestHFileWriterV2
+name|RandomKeyValueUtil
 operator|.
 name|randomOrderedKey
 argument_list|(
@@ -3514,7 +3514,7 @@ operator|.
 name|currentTime
 argument_list|()
 argument_list|,
-name|TestHFileWriterV2
+name|RandomKeyValueUtil
 operator|.
 name|randomValue
 argument_list|(

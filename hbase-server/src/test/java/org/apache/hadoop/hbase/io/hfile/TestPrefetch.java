@@ -696,7 +696,7 @@ name|byte
 index|[]
 name|k
 init|=
-name|TestHFileWriterV2
+name|RandomKeyValueUtil
 operator|.
 name|randomOrderedKey
 argument_list|(
@@ -709,7 +709,7 @@ name|byte
 index|[]
 name|v
 init|=
-name|TestHFileWriterV2
+name|RandomKeyValueUtil
 operator|.
 name|randomValue
 argument_list|(

@@ -308,7 +308,9 @@ name|Writer
 name|hfw
 init|=
 operator|new
-name|HFileWriterFactory
+name|HFile
+operator|.
+name|WriterFactory
 argument_list|(
 name|conf
 argument_list|,

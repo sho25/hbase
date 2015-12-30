@@ -848,7 +848,9 @@ name|Writer
 name|writer
 init|=
 operator|new
-name|HFileWriterFactory
+name|HFile
+operator|.
+name|WriterFactory
 argument_list|(
 name|conf
 argument_list|,
@@ -925,7 +927,7 @@ name|byte
 index|[]
 name|keyBytes
 init|=
-name|TestHFileWriterV2
+name|RandomKeyValueUtil
 operator|.
 name|randomOrderedKey
 argument_list|(
@@ -939,7 +941,7 @@ name|byte
 index|[]
 name|valueBytes
 init|=
-name|TestHFileWriterV2
+name|RandomKeyValueUtil
 operator|.
 name|randomValue
 argument_list|(
@@ -1230,7 +1232,7 @@ argument_list|,
 name|meta
 argument_list|)
 decl_stmt|;
-comment|// Comparator class name is stored in the trailer in version 2.
+comment|// Comparator class name is stored in the trailer in version 3.
 name|CellComparator
 name|comparator
 init|=
