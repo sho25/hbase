@@ -43,6 +43,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -79,6 +93,26 @@ name|MasterServices
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|normalizer
+operator|.
+name|NormalizationPlan
+operator|.
+name|PlanType
+import|;
+end_import
+
 begin_comment
 comment|/**  * Performs "normalization" of regions on the cluster, making sure that suboptimal  * choice of split keys doesn't leave cluster in a situation when some regions are  * substantially larger than others for considerable amount of time.  *  * Users who want to use this feature could either use default {@link SimpleRegionNormalizer}  * or plug in their own implementation. Please note that overly aggressive normalization rules  * (attempting to make all regions perfectly equal in size) could potentially lead to  * "split/merge storms".  */
 end_comment
@@ -109,6 +143,27 @@ name|table
 parameter_list|)
 throws|throws
 name|HBaseIOException
+function_decl|;
+comment|/**    * Notification for the case where plan couldn't be executed due to constraint violation, such as    * namespace quota    * @param hri the region which is involved in the plan    * @param type type of plan    */
+name|void
+name|planSkipped
+parameter_list|(
+name|HRegionInfo
+name|hri
+parameter_list|,
+name|PlanType
+name|type
+parameter_list|)
+function_decl|;
+comment|/**    * @param type type of plan for which skipped count is to be returned    * @return the count of plans of specified type which were skipped    */
+name|long
+name|getSkippedCount
+parameter_list|(
+name|NormalizationPlan
+operator|.
+name|PlanType
+name|type
+parameter_list|)
 function_decl|;
 block|}
 end_interface

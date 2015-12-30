@@ -205,6 +205,24 @@ name|hbase
 operator|.
 name|master
 operator|.
+name|normalizer
+operator|.
+name|RegionNormalizer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
 name|procedure
 operator|.
 name|MasterProcedureEnv
@@ -329,6 +347,11 @@ function_decl|;
 comment|/**    * @return Master's instance of {@link MasterQuotaManager}    */
 name|MasterQuotaManager
 name|getMasterQuotaManager
+parameter_list|()
+function_decl|;
+comment|/**    * @return Master's instance of {@link RegionNormalizer}    */
+name|RegionNormalizer
+name|getRegionNormalizer
 parameter_list|()
 function_decl|;
 comment|/**    * @return Master's instance of {@link ProcedureExecutor}    */

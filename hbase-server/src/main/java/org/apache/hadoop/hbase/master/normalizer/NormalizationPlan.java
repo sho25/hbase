@@ -64,6 +64,15 @@ specifier|public
 interface|interface
 name|NormalizationPlan
 block|{
+enum|enum
+name|PlanType
+block|{
+name|SPLIT
+block|,
+name|MERGE
+block|,
+name|NONE
+block|}
 comment|/**    * Executes normalization plan on cluster (does actual splitting/merging work).    * @param admin instance of Admin    */
 name|void
 name|execute
@@ -71,6 +80,11 @@ parameter_list|(
 name|Admin
 name|admin
 parameter_list|)
+function_decl|;
+comment|/**    * @return the type of this plan    */
+name|PlanType
+name|getType
+parameter_list|()
 function_decl|;
 block|}
 end_interface

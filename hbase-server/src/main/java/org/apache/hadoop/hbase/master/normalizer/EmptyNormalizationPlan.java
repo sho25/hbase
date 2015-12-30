@@ -51,6 +51,26 @@ name|Admin
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|normalizer
+operator|.
+name|NormalizationPlan
+operator|.
+name|PlanType
+import|;
+end_import
+
 begin_comment
 comment|/**  * Plan which signifies that no normalization is required,  * or normalization of this table isn't allowed, this is singleton.  */
 end_comment
@@ -103,6 +123,19 @@ name|Admin
 name|admin
 parameter_list|)
 block|{   }
+annotation|@
+name|Override
+specifier|public
+name|PlanType
+name|getType
+parameter_list|()
+block|{
+return|return
+name|PlanType
+operator|.
+name|NONE
+return|;
+block|}
 block|}
 end_class
 
