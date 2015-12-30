@@ -4660,16 +4660,47 @@ return|;
 block|}
 else|else
 block|{
-return|return
+comment|// Better to do a copy here instead of holding on to this BB so that
+comment|// we could release the blocks referring to this key. This key is specifically used
+comment|// in HalfStoreFileReader to get the firstkey and lastkey by creating a new scanner
+comment|// every time. So holding onto the BB (incase of DBB) is not advised here.
+name|byte
+index|[]
+name|key
+init|=
 operator|new
-name|ByteBufferedKeyOnlyKeyValue
+name|byte
+index|[
+name|currKeyLen
+index|]
+decl_stmt|;
+name|ByteBufferUtils
+operator|.
+name|copyFromBufferToArray
 argument_list|(
+name|key
+argument_list|,
 name|keyBuf
 argument_list|,
 name|keyPair
 operator|.
 name|getSecond
 argument_list|()
+argument_list|,
+literal|0
+argument_list|,
+name|currKeyLen
+argument_list|)
+expr_stmt|;
+return|return
+operator|new
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+argument_list|(
+name|key
+argument_list|,
+literal|0
 argument_list|,
 name|currKeyLen
 argument_list|)
