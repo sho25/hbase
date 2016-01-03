@@ -1408,12 +1408,6 @@ literal|null
 return|;
 block|}
 block|}
-annotation|@
-name|Override
-name|void
-name|initNamespace
-parameter_list|()
-block|{       }
 block|}
 decl_stmt|;
 name|master
@@ -1823,12 +1817,6 @@ literal|null
 return|;
 block|}
 block|}
-annotation|@
-name|Override
-name|void
-name|initNamespace
-parameter_list|()
-block|{       }
 block|}
 decl_stmt|;
 name|master

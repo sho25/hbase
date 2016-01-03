@@ -1466,6 +1466,9 @@ operator|.
 name|getMasterServices
 argument_list|()
 operator|.
+name|getClusterSchema
+argument_list|()
+operator|.
 name|getTableNamespaceManager
 argument_list|()
 return|;
