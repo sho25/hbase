@@ -314,7 +314,7 @@ name|initialize
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Gets an instance of NamespaceTableAndRegionInfo associated with namespace.    * @param name The name of the namespace    * @return An instance of NamespaceTableAndRegionInfo.    */
+comment|/**    * Gets an instance of NamespaceTableAndRegionInfo associated with namespace.    * @param The name of the namespace    * @return An instance of NamespaceTableAndRegionInfo.    */
 specifier|public
 name|NamespaceTableAndRegionInfo
 name|getState
@@ -603,10 +603,7 @@ name|this
 operator|.
 name|master
 operator|.
-name|getClusterSchema
-argument_list|()
-operator|.
-name|getNamespace
+name|getNamespaceDescriptor
 argument_list|(
 name|namespaceAsString
 argument_list|)
@@ -982,10 +979,7 @@ name|this
 operator|.
 name|master
 operator|.
-name|getClusterSchema
-argument_list|()
-operator|.
-name|getNamespaces
+name|listNamespaceDescriptors
 argument_list|()
 decl_stmt|;
 for|for

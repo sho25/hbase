@@ -100,7 +100,7 @@ name|INTERMEDIATE
 block|,
 name|END
 block|}
-comment|/**    * Constructor    * @param tagLine The tagLine is added to the logs. Must not be null.    */
+comment|/**    * Constructor    * @param tagLine - the tagLine is added to the logs. Must be be null.    */
 specifier|public
 name|ResourceChecker
 parameter_list|(

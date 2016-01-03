@@ -213,20 +213,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|NamespaceExistException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|PleaseHoldException
 import|;
 end_import
@@ -6681,7 +6667,7 @@ name|toProtoNamespaceDescriptor
 argument_list|(
 name|master
 operator|.
-name|getNamespace
+name|getNamespaceDescriptor
 argument_list|(
 name|request
 operator|.
@@ -8084,7 +8070,7 @@ name|ns
 range|:
 name|master
 operator|.
-name|getNamespaces
+name|listNamespaceDescriptors
 argument_list|()
 control|)
 block|{
@@ -8991,7 +8977,7 @@ operator|.
 name|checkSnapshotSupport
 argument_list|()
 expr_stmt|;
-comment|// Ensure namespace exists. Will throw exception if non-known NS.
+comment|// ensure namespace exists
 name|TableName
 name|dstTable
 init|=
@@ -9010,7 +8996,7 @@ argument_list|)
 decl_stmt|;
 name|master
 operator|.
-name|getNamespace
+name|getNamespaceDescriptor
 argument_list|(
 name|dstTable
 operator|.
