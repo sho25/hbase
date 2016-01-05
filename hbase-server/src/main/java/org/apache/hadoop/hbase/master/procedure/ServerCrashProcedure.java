@@ -3714,7 +3714,7 @@ operator|.
 name|getMasterServices
 argument_list|()
 operator|.
-name|getConnection
+name|getClusterConnection
 argument_list|()
 decl_stmt|;
 comment|// Is hbase:meta location good yet?

@@ -2238,7 +2238,7 @@ name|admin
 operator|.
 name|listTableDescriptorsByNamespace
 argument_list|(
-literal|"non_existing_namespace"
+literal|"non_existant_namespace"
 argument_list|)
 expr_stmt|;
 return|return

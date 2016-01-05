@@ -1637,7 +1637,7 @@ name|Configuration
 name|getConfiguration
 parameter_list|()
 function_decl|;
-comment|/**    * Create a new namespace    *    * @param descriptor descriptor which describes the new namespace    * @throws IOException    */
+comment|/**    * Create a new namespace. Blocks until namespace has been successfully created or an exception    * is thrown.    *    * @param descriptor descriptor which describes the new namespace    */
 name|void
 name|createNamespace
 parameter_list|(
@@ -1648,7 +1648,21 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing namespace    *    * @param descriptor descriptor which describes the new namespace    * @throws IOException    */
+comment|/**    * Create a new namespace    *    * @param descriptor descriptor which describes the new namespace    * @return the result of the async create namespace operation. Use Future.get(long, TimeUnit) to    *  wait on the operation to complete.    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|createNamespaceAsync
+parameter_list|(
+specifier|final
+name|NamespaceDescriptor
+name|descriptor
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Modify an existing namespace.  Blocks until namespace has been successfully modified or an    * exception is thrown.    *    * @param descriptor descriptor which describes the new namespace    */
 name|void
 name|modifyNamespace
 parameter_list|(
@@ -1659,7 +1673,21 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed.    *    * @param name namespace name    * @throws IOException    */
+comment|/**    * Modify an existing namespace    *    * @param descriptor descriptor which describes the new namespace    * @return the result of the async modify namespace operation. Use Future.get(long, TimeUnit) to    *  wait on the operation to complete.    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|modifyNamespaceAsync
+parameter_list|(
+specifier|final
+name|NamespaceDescriptor
+name|descriptor
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed.    * Blocks until namespace has been successfully deleted or an    * exception is thrown.    *    * @param name namespace name    */
 name|void
 name|deleteNamespace
 parameter_list|(
@@ -1670,7 +1698,21 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get a namespace descriptor by name    *    * @param name name of namespace descriptor    * @return A descriptor    * @throws IOException    */
+comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed.    *    * @param name namespace name    * @return the result of the async delete namespace operation. Use Future.get(long, TimeUnit) to    *  wait on the operation to complete.    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|deleteNamespaceAsync
+parameter_list|(
+specifier|final
+name|String
+name|name
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Get a namespace descriptor by name    *    * @param name name of namespace descriptor    * @return A descriptor    */
 name|NamespaceDescriptor
 name|getNamespaceDescriptor
 parameter_list|(
@@ -1681,7 +1723,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List available namespace descriptors    *    * @return List of descriptors    * @throws IOException    */
+comment|/**    * List available namespace descriptors    *    * @return List of descriptors    */
 name|NamespaceDescriptor
 index|[]
 name|listNamespaceDescriptors

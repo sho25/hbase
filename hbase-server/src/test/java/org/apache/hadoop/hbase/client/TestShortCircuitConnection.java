@@ -444,7 +444,7 @@ name|connection
 init|=
 name|regionServer
 operator|.
-name|getConnection
+name|getClusterConnection
 argument_list|()
 decl_stmt|;
 name|HTableInterface

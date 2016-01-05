@@ -1356,14 +1356,6 @@ operator|new
 name|Object
 argument_list|()
 decl_stmt|;
-specifier|private
-name|long
-name|keepZooKeeperWatcherAliveUntil
-init|=
-name|Long
-operator|.
-name|MAX_VALUE
-decl_stmt|;
 comment|// thread executor shared by all HTableInterface instances created
 comment|// by this connection
 specifier|private
@@ -2502,7 +2494,7 @@ argument_list|,
 literal|256
 argument_list|)
 argument_list|,
-literal|"-shared-"
+literal|"-shared"
 argument_list|,
 literal|null
 argument_list|)
@@ -2878,7 +2870,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @return The cluster registry implementation to use.    * @throws java.io.IOException    */
+comment|/**    * @return The cluster registry implementation to use.    */
 specifier|private
 name|Registry
 name|setupRegistry
@@ -3089,7 +3081,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @return true if the master is running, throws an exception otherwise    * @throws org.apache.hadoop.hbase.MasterNotRunningException - if the master is not running    * @throws org.apache.hadoop.hbase.ZooKeeperConnectionException    * @deprecated this has been deprecated without a replacement    */
+comment|/**    * @return true if the master is running, throws an exception otherwise    * @throws org.apache.hadoop.hbase.MasterNotRunningException - if the master is not running    * @deprecated this has been deprecated without a replacement    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -5339,7 +5331,7 @@ name|location
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Search the cache for a location that fits our table and row key.    * Return null if no suitable region is located.    *    * @param tableName    * @param row    * @return Null or region location found in cache.    */
+comment|/**    * Search the cache for a location that fits our table and row key.    * Return null if no suitable region is located.    * @return Null or region location found in cache.    */
 name|RegionLocations
 name|getCachedLocation
 parameter_list|(
@@ -5964,7 +5956,7 @@ name|String
 name|getServiceName
 parameter_list|()
 function_decl|;
-comment|/**      * Make stub and cache it internal so can be used later doing the isMasterRunning call.      * @param channel      */
+comment|/**      * Make stub and cache it internal so can be used later doing the isMasterRunning call.      */
 specifier|protected
 specifier|abstract
 name|Object
@@ -5975,7 +5967,7 @@ name|BlockingRpcChannel
 name|channel
 parameter_list|)
 function_decl|;
-comment|/**      * Once setup, check it works by doing isMasterRunning check.      * @throws com.google.protobuf.ServiceException      */
+comment|/**      * Once setup, check it works by doing isMasterRunning check.      */
 specifier|protected
 specifier|abstract
 name|void
@@ -5984,7 +5976,7 @@ parameter_list|()
 throws|throws
 name|ServiceException
 function_decl|;
-comment|/**      * Create a stub. Try once only.  It is not typed because there is no common type to      * protobuf services nor their interfaces.  Let the caller do appropriate casting.      * @return A stub for master services.      * @throws java.io.IOException      * @throws org.apache.zookeeper.KeeperException      * @throws com.google.protobuf.ServiceException      */
+comment|/**      * Create a stub. Try once only.  It is not typed because there is no common type to      * protobuf services nor their interfaces.  Let the caller do appropriate casting.      * @return A stub for master services.      */
 specifier|private
 name|Object
 name|makeStubNoRetries
@@ -6862,25 +6854,6 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-specifier|private
-name|boolean
-name|canCloseZKW
-init|=
-literal|true
-decl_stmt|;
-comment|// keepAlive time, in ms. No reason to make it configurable.
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|keepAlive
-init|=
-literal|5
-operator|*
-literal|60
-operator|*
-literal|1000
-decl_stmt|;
 comment|/**    * Retrieve a shared ZooKeeperWatcher. You must close it it once you've have finished with it.    * @return The shared instance. Never returns null.    */
 name|ZooKeeperKeepAliveConnection
 name|getKeepAliveZooKeeperWatcher
@@ -6943,12 +6916,6 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|keepZooKeeperWatcherAliveUntil
-operator|=
-name|Long
-operator|.
-name|MAX_VALUE
-expr_stmt|;
 return|return
 name|keepAliveZookeeper
 return|;
@@ -6970,29 +6937,6 @@ literal|null
 condition|)
 block|{
 return|return;
-block|}
-if|if
-condition|(
-name|keepAliveZookeeperUserCount
-operator|.
-name|addAndGet
-argument_list|(
-operator|-
-literal|1
-argument_list|)
-operator|<=
-literal|0
-condition|)
-block|{
-name|keepZooKeeperWatcherAliveUntil
-operator|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-operator|+
-name|keepAlive
-expr_stmt|;
 block|}
 block|}
 specifier|private
@@ -9159,7 +9103,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Update the location with the new value (if the exception is a RegionMovedException)    * or delete it from the cache. Does nothing if we can be sure from the exception that    * the location is still accurate, or if the cache has already been updated.    * @param exception an object (to simplify user code) on which we will try to find a nested    *                  or wrapped or both RegionMovedException    * @param source server that is the source of the location update.    */
+comment|/**    * Update the location with the new value (if the exception is a RegionMovedException)    * or delete it from the cache. Does nothing if we can be sure from the exception that    * the location is still accurate, or if the cache has already been updated.    * @param exception an object (to simplify user code) on which we will try to find a nested    *  or wrapped or both RegionMovedException    * @param source server that is the source of the location update.    */
 annotation|@
 name|Override
 specifier|public
@@ -9491,7 +9435,7 @@ name|source
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated since 0.96 - Use {@link org.apache.hadoop.hbase.client.HTableInterface#batch} instead    */
+comment|/**    * @deprecated since 0.96 Use {@link org.apache.hadoop.hbase.client.HTableInterface#batch} instead    */
 annotation|@
 name|Override
 annotation|@
@@ -9611,7 +9555,7 @@ name|results
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Send the queries in parallel on the different region servers. Retries on failures.    * If the method returns it means that there is no error, and the 'results' array will    * contain no exception. On error, an exception is thrown, and the 'results' array will    * contain results and exceptions.    * @deprecated since 0.96 -    *   Use {@link org.apache.hadoop.hbase.client.HTable#processBatchCallback} instead    */
+comment|/**    * Send the queries in parallel on the different region servers. Retries on failures.    * If the method returns it means that there is no error, and the 'results' array will    * contain no exception. On error, an exception is thrown, and the 'results' array will    * contain results and exceptions.    * @deprecated since 0.96    *  Use {@link org.apache.hadoop.hbase.client.HTable#processBatchCallback} instead    */
 annotation|@
 name|Override
 annotation|@
@@ -10384,7 +10328,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @deprecated Use {@link org.apache.hadoop.hbase.client.Admin#getTableDescriptorsByTableName(java.util.List)} instead    */
+comment|/**    * @deprecated Use {@link    *  org.apache.hadoop.hbase.client.Admin#getTableDescriptorsByTableName(java.util.List)} instead    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -10481,7 +10425,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @deprecated Use {@link org.apache.hadoop.hbase.client.Admin#getTableDescriptorsByTableName(java.util.List)} instead    */
+comment|/**    * @deprecated Use    *  {@link org.apache.hadoop.hbase.client.Admin#getTableDescriptorsByTableName(java.util.List)}    *  instead    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -10557,7 +10501,7 @@ return|return
 name|nonceGenerator
 return|;
 block|}
-comment|/**    * Connects to the master to get the table descriptor.    * @param tableName table name    * @throws java.io.IOException if the connection to master fails or if the table    *  is not found.    * @deprecated Use {@link org.apache.hadoop.hbase.client.Admin#getTableDescriptor(org.apache.hadoop.hbase.TableName)} instead    */
+comment|/**    * Connects to the master to get the table descriptor.    * @param tableName table name    * @throws java.io.IOException if the connection to master fails or if the table    *  is not found.    * @deprecated Use {@link    *  org.apache.hadoop.hbase.client.Admin#getTableDescriptor(org.apache.hadoop.hbase.TableName)}    *  instead    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -10682,7 +10626,7 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
-comment|/**    * @deprecated Use {@link org.apache.hadoop.hbase.client.Admin#getTableDescriptor(org.apache.hadoop.hbase.TableName)} instead    */
+comment|/**    * @deprecated Use {@link    *  org.apache.hadoop.hbase.client.Admin#getTableDescriptor(org.apache.hadoop.hbase.TableName)}    *  instead    */
 annotation|@
 name|Deprecated
 annotation|@

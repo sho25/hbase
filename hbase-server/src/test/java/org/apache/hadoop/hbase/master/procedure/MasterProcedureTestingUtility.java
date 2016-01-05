@@ -3059,7 +3059,7 @@ block|{
 return|return
 name|master
 operator|.
-name|getConnection
+name|getClusterConnection
 argument_list|()
 operator|.
 name|getNonceGenerator
@@ -3082,7 +3082,7 @@ block|{
 return|return
 name|master
 operator|.
-name|getConnection
+name|getClusterConnection
 argument_list|()
 operator|.
 name|getNonceGenerator

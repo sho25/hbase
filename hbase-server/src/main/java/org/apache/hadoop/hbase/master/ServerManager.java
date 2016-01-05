@@ -1219,7 +1219,7 @@ name|connect
 condition|?
 name|master
 operator|.
-name|getConnection
+name|getClusterConnection
 argument_list|()
 else|:
 literal|null

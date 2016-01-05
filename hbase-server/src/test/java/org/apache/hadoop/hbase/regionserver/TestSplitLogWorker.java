@@ -875,6 +875,18 @@ return|return
 literal|null
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|ClusterConnection
+name|getClusterConnection
+parameter_list|()
+block|{
+comment|// TODO Auto-generated method stub
+return|return
+literal|null
+return|;
+block|}
 block|}
 specifier|private
 name|void

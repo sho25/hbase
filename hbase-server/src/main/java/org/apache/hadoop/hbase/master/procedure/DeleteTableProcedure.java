@@ -263,7 +263,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
+name|Connection
 import|;
 end_import
 
@@ -2256,7 +2256,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|ClusterConnection
+name|Connection
 name|connection
 init|=
 name|env

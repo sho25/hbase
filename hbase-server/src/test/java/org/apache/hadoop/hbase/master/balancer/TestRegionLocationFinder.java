@@ -129,20 +129,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MiniHBaseCluster
 import|;
 end_import
@@ -203,7 +189,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
+name|HRegionServer
 import|;
 end_import
 
@@ -219,23 +205,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
+name|Region
 import|;
 end_import
 
@@ -268,6 +238,22 @@ operator|.
 name|testclassification
 operator|.
 name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 

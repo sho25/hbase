@@ -87,6 +87,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Connection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|zookeeper
 operator|.
 name|MetaTableLocator
@@ -145,9 +161,14 @@ name|ZooKeeperWatcher
 name|getZooKeeper
 parameter_list|()
 function_decl|;
-comment|/**    * Returns a reference to the servers' cluster connection.    *    * Important note: this method returns a reference to Connection which is managed    * by Server itself, so callers must NOT attempt to close connection obtained.    */
-name|ClusterConnection
+comment|/**    * Returns a reference to the servers' connection.    *    * Important note: this method returns a reference to Connection which is managed    * by Server itself, so callers must NOT attempt to close connection obtained.    */
+name|Connection
 name|getConnection
+parameter_list|()
+function_decl|;
+comment|/**    * Returns a reference to the servers' cluster connection. Prefer {@link #getConnection()}.    *    * Important note: this method returns a reference to Connection which is managed    * by Server itself, so callers must NOT attempt to close connection obtained.    */
+name|ClusterConnection
+name|getClusterConnection
 parameter_list|()
 function_decl|;
 comment|/**    * Returns instance of {@link org.apache.hadoop.hbase.zookeeper.MetaTableLocator}    * running inside this server. This MetaServerLocator is started and stopped by server, clients    * shouldn't manage it's lifecycle.    * @return instance of {@link MetaTableLocator} associated with this server.    */
