@@ -1540,6 +1540,18 @@ name|Cell
 name|right
 parameter_list|)
 block|{
+comment|// left and right can be exactly the same at the beginning of a row
+if|if
+condition|(
+name|left
+operator|==
+name|right
+condition|)
+block|{
+return|return
+literal|0
+return|;
+block|}
 if|if
 condition|(
 name|left
