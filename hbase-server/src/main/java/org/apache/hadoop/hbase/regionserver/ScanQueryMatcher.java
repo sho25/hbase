@@ -1057,6 +1057,13 @@ operator|.
 name|DONE_SCAN
 return|;
 block|}
+if|if
+condition|(
+name|curCell
+operator|!=
+literal|null
+condition|)
+block|{
 name|int
 name|ret
 init|=
@@ -1142,6 +1149,16 @@ name|DONE
 return|;
 block|}
 block|}
+block|}
+else|else
+block|{
+comment|// Since the curCell is null it means we are already sure that we have moved over to the next row
+return|return
+name|MatchCode
+operator|.
+name|DONE
+return|;
+block|}
 comment|// optimize case.
 if|if
 condition|(
@@ -1149,11 +1166,13 @@ name|this
 operator|.
 name|stickyNextRow
 condition|)
+block|{
 return|return
 name|MatchCode
 operator|.
 name|SEEK_NEXT_ROW
 return|;
+block|}
 if|if
 condition|(
 name|this
