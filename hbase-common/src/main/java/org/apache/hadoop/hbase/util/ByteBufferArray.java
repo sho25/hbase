@@ -1061,6 +1061,24 @@ operator|%
 name|bufferSize
 argument_list|)
 decl_stmt|;
+comment|// Last buffer in the array is a dummy one with 0 capacity. Avoid sending back that
+if|if
+condition|(
+name|endBuffer
+operator|==
+name|this
+operator|.
+name|bufferCount
+condition|)
+block|{
+name|endBuffer
+operator|--
+expr_stmt|;
+name|endBufferOffset
+operator|=
+name|bufferSize
+expr_stmt|;
+block|}
 assert|assert
 name|startBuffer
 operator|>=
