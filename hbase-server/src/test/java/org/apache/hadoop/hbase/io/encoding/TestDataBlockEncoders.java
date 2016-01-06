@@ -335,6 +335,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ArrayBackedTag
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|codec
 operator|.
 name|prefixtree
@@ -1012,7 +1026,7 @@ name|Tag
 index|[]
 block|{
 operator|new
-name|Tag
+name|ArrayBackedTag
 argument_list|(
 operator|(
 name|byte
@@ -1047,7 +1061,7 @@ name|Tag
 index|[]
 block|{
 operator|new
-name|Tag
+name|ArrayBackedTag
 argument_list|(
 operator|(
 name|byte
@@ -1183,7 +1197,7 @@ name|Tag
 index|[]
 block|{
 operator|new
-name|Tag
+name|ArrayBackedTag
 argument_list|(
 operator|(
 name|byte
@@ -1218,7 +1232,7 @@ name|Tag
 index|[]
 block|{
 operator|new
-name|Tag
+name|ArrayBackedTag
 argument_list|(
 operator|(
 name|byte
@@ -2902,7 +2916,7 @@ name|Tag
 index|[]
 block|{
 operator|new
-name|Tag
+name|ArrayBackedTag
 argument_list|(
 operator|(
 name|byte
@@ -2937,7 +2951,7 @@ name|Tag
 index|[]
 block|{
 operator|new
-name|Tag
+name|ArrayBackedTag
 argument_list|(
 operator|(
 name|byte

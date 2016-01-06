@@ -517,6 +517,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TagUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -9215,17 +9229,6 @@ name|long
 name|now
 parameter_list|)
 block|{
-comment|// Do not create an Iterator or Tag objects unless the cell actually has tags.
-if|if
-condition|(
-name|cell
-operator|.
-name|getTagsLength
-argument_list|()
-operator|>
-literal|0
-condition|)
-block|{
 comment|// Look for a TTL tag first. Use it instead of the family setting if
 comment|// found. If a cell has multiple TTLs, resolve the conflict by using the
 comment|// first tag encountered.
@@ -9240,19 +9243,6 @@ operator|.
 name|tagsIterator
 argument_list|(
 name|cell
-operator|.
-name|getTagsArray
-argument_list|()
-argument_list|,
-name|cell
-operator|.
-name|getTagsOffset
-argument_list|()
-argument_list|,
-name|cell
-operator|.
-name|getTagsLength
-argument_list|()
 argument_list|)
 decl_stmt|;
 while|while
@@ -9296,7 +9286,7 @@ decl_stmt|;
 assert|assert
 name|t
 operator|.
-name|getTagLength
+name|getValueLength
 argument_list|()
 operator|==
 name|Bytes
@@ -9306,24 +9296,11 @@ assert|;
 name|long
 name|ttl
 init|=
-name|Bytes
+name|TagUtil
 operator|.
-name|toLong
+name|getValueAsLong
 argument_list|(
 name|t
-operator|.
-name|getBuffer
-argument_list|()
-argument_list|,
-name|t
-operator|.
-name|getTagOffset
-argument_list|()
-argument_list|,
-name|t
-operator|.
-name|getTagLength
-argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -9342,7 +9319,6 @@ block|}
 comment|// Per cell TTLs cannot extend lifetime beyond family settings, so
 comment|// fall through to check that
 break|break;
-block|}
 block|}
 block|}
 return|return

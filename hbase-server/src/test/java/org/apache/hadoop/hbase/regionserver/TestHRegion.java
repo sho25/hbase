@@ -1001,7 +1001,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Tag
+name|ArrayBackedTag
 import|;
 end_import
 
@@ -45506,12 +45506,12 @@ operator|.
 name|EMPTY_BYTE_ARRAY
 argument_list|,
 operator|new
-name|Tag
+name|ArrayBackedTag
 index|[]
 block|{
 comment|// TTL tags specify ts in milliseconds
 operator|new
-name|Tag
+name|ArrayBackedTag
 argument_list|(
 name|TagType
 operator|.
@@ -45587,12 +45587,12 @@ operator|.
 name|EMPTY_BYTE_ARRAY
 argument_list|,
 operator|new
-name|Tag
+name|ArrayBackedTag
 index|[]
 block|{
 comment|// TTL tags specify ts in milliseconds
 operator|new
-name|Tag
+name|ArrayBackedTag
 argument_list|(
 name|TagType
 operator|.

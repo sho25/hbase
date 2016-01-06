@@ -97,6 +97,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Tag
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|testclassification
 operator|.
 name|RegionServerTests
@@ -129,7 +143,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Tag
+name|ArrayBackedTag
 import|;
 end_import
 
@@ -823,7 +837,7 @@ operator|.
 name|add
 argument_list|(
 operator|new
-name|Tag
+name|ArrayBackedTag
 argument_list|(
 operator|(
 name|byte

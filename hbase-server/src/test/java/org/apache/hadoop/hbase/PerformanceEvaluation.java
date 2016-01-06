@@ -7783,7 +7783,7 @@ name|Tag
 name|t
 init|=
 operator|new
-name|Tag
+name|ArrayBackedTag
 argument_list|(
 operator|(
 name|byte
@@ -8327,7 +8327,7 @@ name|Tag
 name|t
 init|=
 operator|new
-name|Tag
+name|ArrayBackedTag
 argument_list|(
 operator|(
 name|byte
