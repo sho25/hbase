@@ -1008,6 +1008,22 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Return an iterator that scans over the HRegion, returning the indicated columns and rows    * specified by the {@link Scan}. The scanner will also include the additional scanners passed    * along with the scanners for the specified Scan instance. Should be careful with the usage to    * pass additional scanners only within this Region    *<p>    * This Iterator must be closed by the caller.    *    * @param scan configured {@link Scan}    * @param additionalScanners Any additional scanners to be used    * @return RegionScanner    * @throws IOException read exceptions    */
+name|RegionScanner
+name|getScanner
+parameter_list|(
+name|Scan
+name|scan
+parameter_list|,
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|additionalScanners
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/** The comparator to be used with the region */
 name|CellComparator
 name|getCellCompartor
