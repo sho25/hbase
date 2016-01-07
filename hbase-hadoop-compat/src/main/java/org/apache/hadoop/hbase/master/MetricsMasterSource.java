@@ -127,6 +127,16 @@ init|=
 literal|"isActiveMaster"
 decl_stmt|;
 name|String
+name|SPLIT_PLAN_COUNT_NAME
+init|=
+literal|"splitPlanCount"
+decl_stmt|;
+name|String
+name|MERGE_PLAN_COUNT_NAME
+init|=
+literal|"mergePlanCount"
+decl_stmt|;
+name|String
 name|CLUSTER_REQUESTS_NAME
 init|=
 literal|"clusterRequests"
@@ -185,6 +195,16 @@ name|String
 name|IS_ACTIVE_MASTER_DESC
 init|=
 literal|"Is Active Master"
+decl_stmt|;
+name|String
+name|SPLIT_PLAN_COUNT_DESC
+init|=
+literal|"Number of Region Split Plans executed"
+decl_stmt|;
+name|String
+name|MERGE_PLAN_COUNT_DESC
+init|=
+literal|"Number of Region Merge Plans executed"
 decl_stmt|;
 comment|/**    * Increment the number of requests the cluster has seen.    *    * @param inc Ammount to increment the total by.    */
 name|void

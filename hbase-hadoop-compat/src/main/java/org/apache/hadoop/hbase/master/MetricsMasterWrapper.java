@@ -92,6 +92,16 @@ name|long
 name|getNumWALFiles
 parameter_list|()
 function_decl|;
+comment|/**    * Get the number of region split plans executed.    */
+name|long
+name|getSplitPlanCount
+parameter_list|()
+function_decl|;
+comment|/**    * Get the number of region merge plans executed.    */
+name|long
+name|getMergePlanCount
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 
