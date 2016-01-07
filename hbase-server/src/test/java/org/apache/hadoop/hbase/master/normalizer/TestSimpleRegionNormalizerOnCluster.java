@@ -235,8 +235,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
 name|normalizer
 operator|.
 name|NormalizationPlan
@@ -970,9 +968,9 @@ argument_list|)
 decl_stmt|;
 name|htd
 operator|.
-name|setNormalizationEnabled
+name|setNormalizationMode
 argument_list|(
-literal|true
+literal|"MS"
 argument_list|)
 expr_stmt|;
 name|admin
@@ -1392,9 +1390,9 @@ argument_list|)
 decl_stmt|;
 name|htd
 operator|.
-name|setNormalizationEnabled
+name|setNormalizationMode
 argument_list|(
-literal|true
+literal|"MS"
 argument_list|)
 expr_stmt|;
 name|admin

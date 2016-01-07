@@ -159,7 +159,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
+name|normalizer
+operator|.
+name|NormalizationPlan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
 operator|.
 name|normalizer
 operator|.
@@ -276,8 +290,6 @@ init|=
 operator|new
 name|long
 index|[
-name|NormalizationPlan
-operator|.
 name|PlanType
 operator|.
 name|values
@@ -446,7 +458,7 @@ argument_list|()
 index|]
 return|;
 block|}
-comment|/**    * Computes next most "urgent" normalization action on the table.    * Action may be either a split, or a merge, or no action.    *    * @param table table to normalize    * @return normalization plan to execute    */
+comment|/**    * Computes next most "urgent" normalization action on the table.    * Action may be either a split, or a merge, or no action.    *    * @param table table to normalize    * @param types desired types of NormalizationPlan    * @return normalization plan to execute    */
 annotation|@
 name|Override
 specifier|public
@@ -455,6 +467,12 @@ name|computePlanForTable
 parameter_list|(
 name|TableName
 name|table
+parameter_list|,
+name|List
+argument_list|<
+name|PlanType
+argument_list|>
+name|types
 parameter_list|)
 throws|throws
 name|HBaseIOException
@@ -755,6 +773,15 @@ comment|// now; if the largest region is>2 times large than average, we split it
 comment|// is more high priority normalization action than merge.
 if|if
 condition|(
+name|types
+operator|.
+name|contains
+argument_list|(
+name|PlanType
+operator|.
+name|SPLIT
+argument_list|)
+operator|&&
 name|largestRegion
 operator|.
 name|getSecond
@@ -928,6 +955,15 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|types
+operator|.
+name|contains
+argument_list|(
+name|PlanType
+operator|.
+name|MERGE
+argument_list|)
+operator|&&
 name|candidateRegion
 operator|.
 name|getSecond

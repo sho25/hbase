@@ -103,13 +103,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
 name|normalizer
 operator|.
 name|NormalizationPlan
-operator|.
-name|PlanType
 import|;
 end_import
 

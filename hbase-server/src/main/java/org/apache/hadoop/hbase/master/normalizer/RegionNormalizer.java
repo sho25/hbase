@@ -21,6 +21,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -103,7 +113,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
+name|normalizer
+operator|.
+name|NormalizationPlan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
 operator|.
 name|normalizer
 operator|.
@@ -134,12 +158,18 @@ name|MasterServices
 name|masterServices
 parameter_list|)
 function_decl|;
-comment|/**    * Computes next optimal normalization plan.    * @param table table to normalize    * @return Next (perhaps most urgent) normalization action to perform    */
+comment|/**    * Computes next optimal normalization plan.    * @param table table to normalize    * @param types desired types of NormalizationPlan    * @return Next (perhaps most urgent) normalization action to perform    */
 name|NormalizationPlan
 name|computePlanForTable
 parameter_list|(
 name|TableName
 name|table
+parameter_list|,
+name|List
+argument_list|<
+name|PlanType
+argument_list|>
+name|types
 parameter_list|)
 throws|throws
 name|HBaseIOException
