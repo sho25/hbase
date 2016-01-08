@@ -158,8 +158,11 @@ name|MasterServices
 name|masterServices
 parameter_list|)
 function_decl|;
-comment|/**    * Computes next optimal normalization plan.    * @param table table to normalize    * @param types desired types of NormalizationPlan    * @return Next (perhaps most urgent) normalization action to perform    */
+comment|/**    * Computes next optimal normalization plan.    * @param table table to normalize    * @param types desired types of NormalizationPlan    * @return normalization actions to perform. Null if no action to take    */
+name|List
+argument_list|<
 name|NormalizationPlan
+argument_list|>
 name|computePlanForTable
 parameter_list|(
 name|TableName
