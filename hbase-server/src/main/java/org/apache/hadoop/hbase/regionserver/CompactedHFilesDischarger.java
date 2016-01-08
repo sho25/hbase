@@ -14,10 +14,18 @@ operator|.
 name|hbase
 operator|.
 name|regionserver
-operator|.
-name|compactions
 package|;
 end_package
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
 
 begin_import
 import|import
@@ -58,6 +66,20 @@ operator|.
 name|hbase
 operator|.
 name|ScheduledChore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Server
 import|;
 end_import
 
@@ -101,6 +123,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|executor
+operator|.
+name|EventType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|Region
@@ -119,7 +157,37 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|RegionServerServices
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|Store
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
 import|;
 end_import
 
@@ -154,10 +222,19 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|Region
-name|region
+name|RegionServerServices
+name|regionServerServices
 decl_stmt|;
-comment|/**    * @param period the period of time to sleep between each run    * @param stopper the stopper    * @param region the store to identify the family name    */
+comment|// Default is to use executor
+annotation|@
+name|VisibleForTesting
+specifier|private
+name|boolean
+name|useExecutor
+init|=
+literal|true
+decl_stmt|;
+comment|/**    * @param period the period of time to sleep between each run    * @param stopper the stopper    * @param regionServerServices the region server that starts this chore    */
 specifier|public
 name|CompactedHFilesDischarger
 parameter_list|(
@@ -170,8 +247,8 @@ name|Stoppable
 name|stopper
 parameter_list|,
 specifier|final
-name|Region
-name|region
+name|RegionServerServices
+name|regionServerServices
 parameter_list|)
 block|{
 comment|// Need to add the config classes
@@ -186,9 +263,48 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|region
+name|regionServerServices
 operator|=
-name|region
+name|regionServerServices
+expr_stmt|;
+block|}
+comment|/**    * @param period the period of time to sleep between each run    * @param stopper the stopper    * @param regionServerServices the region server that starts this chore    * @param useExecutor true if to use the region server's executor service, false otherwise    */
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|CompactedHFilesDischarger
+parameter_list|(
+specifier|final
+name|int
+name|period
+parameter_list|,
+specifier|final
+name|Stoppable
+name|stopper
+parameter_list|,
+specifier|final
+name|RegionServerServices
+name|regionServerServices
+parameter_list|,
+name|boolean
+name|useExecutor
+parameter_list|)
+block|{
+comment|// Need to add the config classes
+name|this
+argument_list|(
+name|period
+argument_list|,
+name|stopper
+argument_list|,
+name|regionServerServices
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|useExecutor
+operator|=
+name|useExecutor
 expr_stmt|;
 block|}
 annotation|@
@@ -197,6 +313,32 @@ specifier|public
 name|void
 name|chore
 parameter_list|()
+block|{
+name|List
+argument_list|<
+name|Region
+argument_list|>
+name|onlineRegions
+init|=
+name|regionServerServices
+operator|.
+name|getOnlineRegions
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|onlineRegions
+operator|!=
+literal|null
+condition|)
+block|{
+for|for
+control|(
+name|Region
+name|region
+range|:
+name|onlineRegions
+control|)
 block|{
 if|if
 condition|(
@@ -212,8 +354,6 @@ name|trace
 argument_list|(
 literal|"Started the compacted hfiles cleaner for the region "
 operator|+
-name|this
-operator|.
 name|region
 operator|.
 name|getRegionInfo
@@ -234,11 +374,57 @@ control|)
 block|{
 try|try
 block|{
+if|if
+condition|(
+name|useExecutor
+operator|&&
+name|regionServerServices
+operator|!=
+literal|null
+condition|)
+block|{
+name|CompactedHFilesDischargeHandler
+name|handler
+init|=
+operator|new
+name|CompactedHFilesDischargeHandler
+argument_list|(
+operator|(
+name|Server
+operator|)
+name|regionServerServices
+argument_list|,
+name|EventType
+operator|.
+name|RS_COMPACTED_FILES_DISCHARGER
+argument_list|,
+operator|(
+name|HStore
+operator|)
+name|store
+argument_list|)
+decl_stmt|;
+name|regionServerServices
+operator|.
+name|getExecutorService
+argument_list|()
+operator|.
+name|submit
+argument_list|(
+name|handler
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// call synchronously if the RegionServerServices are not
+comment|// available
 name|store
 operator|.
 name|closeAndArchiveCompactedFiles
 argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|LOG
@@ -253,8 +439,6 @@ name|trace
 argument_list|(
 literal|"Completed archiving the compacted files for the region "
 operator|+
-name|this
-operator|.
 name|region
 operator|.
 name|getRegionInfo
@@ -280,17 +464,19 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Exception while trying to close and archive the comapcted store files of the store  "
+literal|"Exception while trying to close and archive the comapcted store "
+operator|+
+literal|"files of the store  "
 operator|+
 name|store
 operator|.
 name|getColumnFamilyName
 argument_list|()
 operator|+
-literal|" in the region "
+literal|" in the"
 operator|+
-name|this
-operator|.
+literal|" region "
+operator|+
 name|region
 operator|.
 name|getRegionInfo
@@ -315,14 +501,14 @@ name|trace
 argument_list|(
 literal|"Completed the compacted hfiles cleaner for the region "
 operator|+
-name|this
-operator|.
 name|region
 operator|.
 name|getRegionInfo
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+block|}
 block|}
 block|}
 block|}

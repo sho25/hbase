@@ -191,6 +191,14 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**     * Get all online regions in this RS.     * @return List of online Region     */
+name|List
+argument_list|<
+name|Region
+argument_list|>
+name|getOnlineRegions
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

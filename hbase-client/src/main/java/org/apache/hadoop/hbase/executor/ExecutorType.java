@@ -127,6 +127,11 @@ name|RS_REGION_REPLICA_FLUSH_OPS
 argument_list|(
 literal|28
 argument_list|)
+block|,
+name|RS_COMPACTED_FILES_DISCHARGER
+argument_list|(
+literal|29
+argument_list|)
 block|;
 name|ExecutorType
 parameter_list|(

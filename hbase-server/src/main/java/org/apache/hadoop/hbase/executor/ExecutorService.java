@@ -235,6 +235,20 @@ name|google
 operator|.
 name|common
 operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
 name|collect
 operator|.
 name|Lists
@@ -345,6 +359,9 @@ name|servername
 expr_stmt|;
 block|}
 comment|/**    * Start an executor service with a given name. If there was a service already    * started with the same name, this throws a RuntimeException.    * @param name Name of the service to start.    */
+annotation|@
+name|VisibleForTesting
+specifier|public
 name|void
 name|startExecutorService
 parameter_list|(

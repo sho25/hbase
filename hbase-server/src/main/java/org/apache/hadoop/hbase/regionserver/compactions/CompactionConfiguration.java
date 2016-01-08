@@ -215,6 +215,14 @@ name|HBASE_HSTORE_MIN_LOCALITY_TO_SKIP_MAJOR_COMPACT
 init|=
 literal|"hbase.hstore.min.locality.to.skip.major.compact"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_HFILE_COMPACTION_DISCHARGER_THREAD_COUNT
+init|=
+literal|"hbase.hfile.compaction.discharger.thread.count"
+decl_stmt|;
 name|Configuration
 name|conf
 decl_stmt|;

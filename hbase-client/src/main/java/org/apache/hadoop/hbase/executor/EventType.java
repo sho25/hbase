@@ -390,6 +390,16 @@ name|ExecutorType
 operator|.
 name|RS_REGION_REPLICA_FLUSH_OPS
 argument_list|)
+block|,
+comment|/**    * RS compacted files discharger<br>    *    * RS_COMPACTED_FILES_DISCHARGER    */
+name|RS_COMPACTED_FILES_DISCHARGER
+argument_list|(
+literal|83
+argument_list|,
+name|ExecutorType
+operator|.
+name|RS_COMPACTED_FILES_DISCHARGER
+argument_list|)
 block|;
 specifier|private
 specifier|final
