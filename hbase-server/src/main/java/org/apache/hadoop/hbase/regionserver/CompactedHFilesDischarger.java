@@ -314,6 +314,15 @@ name|void
 name|chore
 parameter_list|()
 block|{
+comment|// Noop if rss is null. This will never happen in a normal condition except for cases
+comment|// when the test case is not spinning up a cluster
+if|if
+condition|(
+name|regionServerServices
+operator|==
+literal|null
+condition|)
+return|return;
 name|List
 argument_list|<
 name|Region
