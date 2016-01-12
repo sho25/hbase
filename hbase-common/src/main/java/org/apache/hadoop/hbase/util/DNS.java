@@ -64,6 +64,27 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"REC_CATCH_EXCEPTION"
+argument_list|,
+name|justification
+operator|=
+literal|"If exception, presume HAS_NEW_DNS_GET_DEFAULT_HOST_API false"
+argument_list|)
 specifier|public
 specifier|final
 class|class
@@ -129,6 +150,7 @@ name|HAS_NEW_DNS_GET_DEFAULT_HOST_API
 operator|=
 literal|false
 expr_stmt|;
+comment|// FindBugs: Causes REC_CATCH_EXCEPTION. Suppressed
 block|}
 block|}
 specifier|private

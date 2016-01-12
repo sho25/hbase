@@ -306,7 +306,10 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// FindBugs: Making synchronized to avoid IS2_INCONSISTENT_SYNC complaints about
+comment|// remoteDirFs and jarModifiedTime being part synchronized protected.
 specifier|private
+specifier|synchronized
 name|void
 name|initTempDir
 parameter_list|(

@@ -728,13 +728,30 @@ operator|instanceof
 name|ByteBufferedCell
 condition|)
 block|{
+comment|// Notice how we flip the order of the compare here. We used to negate the return value but
+comment|// see what FindBugs says
+comment|// http://findbugs.sourceforge.net/bugDescriptions.html#RV_NEGATING_RESULT_OF_COMPARETO
+comment|// It suggest flipping the order to get same effect and 'safer'.
 return|return
-operator|-
-operator|(
 name|ByteBufferUtils
 operator|.
 name|compareTo
 argument_list|(
+name|left
+operator|.
+name|getFamilyArray
+argument_list|()
+argument_list|,
+name|left
+operator|.
+name|getFamilyOffset
+argument_list|()
+argument_list|,
+name|left
+operator|.
+name|getFamilyLength
+argument_list|()
+argument_list|,
 operator|(
 operator|(
 name|ByteBufferedCell
@@ -759,23 +776,7 @@ name|right
 operator|.
 name|getFamilyLength
 argument_list|()
-argument_list|,
-name|left
-operator|.
-name|getFamilyArray
-argument_list|()
-argument_list|,
-name|left
-operator|.
-name|getFamilyOffset
-argument_list|()
-argument_list|,
-name|left
-operator|.
-name|getFamilyLength
-argument_list|()
 argument_list|)
-operator|)
 return|;
 block|}
 return|return
@@ -1051,13 +1052,30 @@ operator|instanceof
 name|ByteBufferedCell
 condition|)
 block|{
+comment|// Notice how we flip the order of the compare here. We used to negate the return value but
+comment|// see what FindBugs says
+comment|// http://findbugs.sourceforge.net/bugDescriptions.html#RV_NEGATING_RESULT_OF_COMPARETO
+comment|// It suggest flipping the order to get same effect and 'safer'.
 return|return
-operator|-
-operator|(
 name|ByteBufferUtils
 operator|.
 name|compareTo
 argument_list|(
+name|left
+operator|.
+name|getQualifierArray
+argument_list|()
+argument_list|,
+name|left
+operator|.
+name|getQualifierOffset
+argument_list|()
+argument_list|,
+name|left
+operator|.
+name|getQualifierLength
+argument_list|()
+argument_list|,
 operator|(
 operator|(
 name|ByteBufferedCell
@@ -1082,23 +1100,7 @@ name|right
 operator|.
 name|getQualifierLength
 argument_list|()
-argument_list|,
-name|left
-operator|.
-name|getQualifierArray
-argument_list|()
-argument_list|,
-name|left
-operator|.
-name|getQualifierOffset
-argument_list|()
-argument_list|,
-name|left
-operator|.
-name|getQualifierLength
-argument_list|()
 argument_list|)
-operator|)
 return|;
 block|}
 return|return
@@ -1681,13 +1683,30 @@ operator|instanceof
 name|ByteBufferedCell
 condition|)
 block|{
+comment|// Notice how we flip the order of the compare here. We used to negate the return value but
+comment|// see what FindBugs says
+comment|// http://findbugs.sourceforge.net/bugDescriptions.html#RV_NEGATING_RESULT_OF_COMPARETO
+comment|// It suggest flipping the order to get same effect and 'safer'.
 return|return
-operator|-
-operator|(
 name|ByteBufferUtils
 operator|.
 name|compareTo
 argument_list|(
+name|left
+operator|.
+name|getRowArray
+argument_list|()
+argument_list|,
+name|left
+operator|.
+name|getRowOffset
+argument_list|()
+argument_list|,
+name|left
+operator|.
+name|getRowLength
+argument_list|()
+argument_list|,
 operator|(
 operator|(
 name|ByteBufferedCell
@@ -1712,23 +1731,7 @@ name|right
 operator|.
 name|getRowLength
 argument_list|()
-argument_list|,
-name|left
-operator|.
-name|getRowArray
-argument_list|()
-argument_list|,
-name|left
-operator|.
-name|getRowOffset
-argument_list|()
-argument_list|,
-name|left
-operator|.
-name|getRowLength
-argument_list|()
 argument_list|)
-operator|)
 return|;
 block|}
 return|return

@@ -172,6 +172,27 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"REC_CATCH_EXCEPTION"
+argument_list|,
+name|justification
+operator|=
+literal|"If exception, presume unaligned"
+argument_list|)
 specifier|public
 specifier|final
 class|class
@@ -391,6 +412,7 @@ name|unaligned
 operator|=
 literal|false
 expr_stmt|;
+comment|// FindBugs: Causes REC_CATCH_EXCEPTION. Suppressed.
 block|}
 block|}
 else|else

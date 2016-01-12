@@ -142,8 +142,6 @@ name|ByteBufferedCell
 implements|implements
 name|HeapSize
 implements|,
-name|Cloneable
-implements|,
 name|SettableSequenceId
 implements|,
 name|Streamable

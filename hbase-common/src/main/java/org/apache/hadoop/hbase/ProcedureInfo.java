@@ -195,6 +195,8 @@ name|Evolving
 specifier|public
 class|class
 name|ProcedureInfo
+implements|implements
+name|Cloneable
 block|{
 specifier|private
 specifier|final
@@ -352,6 +354,27 @@ operator|=
 name|result
 expr_stmt|;
 block|}
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"CN_IDIOM_NO_SUPER_CALL"
+argument_list|,
+name|justification
+operator|=
+literal|"Intentional; calling super class clone doesn't make sense here."
+argument_list|)
 specifier|public
 name|ProcedureInfo
 name|clone
