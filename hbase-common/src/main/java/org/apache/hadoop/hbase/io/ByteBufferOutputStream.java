@@ -173,6 +173,8 @@ class|class
 name|ByteBufferOutputStream
 extends|extends
 name|OutputStream
+implements|implements
+name|ByteBufferSupportOutputStream
 block|{
 comment|// Borrowed from openJDK:
 comment|// http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8-b132/java/util/ArrayList.java#221

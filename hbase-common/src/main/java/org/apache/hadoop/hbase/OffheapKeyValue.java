@@ -1039,7 +1039,7 @@ argument_list|)
 expr_stmt|;
 name|ByteBufferUtils
 operator|.
-name|writeByteBuffer
+name|copyBufferToStream
 argument_list|(
 name|out
 argument_list|,
