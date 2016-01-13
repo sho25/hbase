@@ -12,8 +12,6 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
-operator|.
-name|quotas
 package|;
 end_package
 
@@ -24,20 +22,6 @@ operator|.
 name|io
 operator|.
 name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HRegionInfo
 import|;
 end_import
 
