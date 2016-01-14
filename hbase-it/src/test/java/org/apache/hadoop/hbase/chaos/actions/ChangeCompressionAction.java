@@ -117,6 +117,22 @@ name|Algorithm
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|compress
+operator|.
+name|Compressor
+import|;
+end_import
+
 begin_comment
 comment|/**  * Action that changes the compression algorithm on a column family from a list of tables.  */
 end_comment
@@ -251,9 +267,16 @@ argument_list|()
 decl_stmt|;
 comment|// Since not every compression algorithm is supported,
 comment|// let's use the same algorithm for all column families.
+comment|// If an unsupported compression algorithm is chosen, pick a different one.
+comment|// This is to work around the issue that modifyTable() does not throw remote
+comment|// exception.
 name|Algorithm
 name|algo
-init|=
+decl_stmt|;
+do|do
+block|{
+name|algo
+operator|=
 name|possibleAlgos
 index|[
 name|random
@@ -265,7 +288,51 @@ operator|.
 name|length
 argument_list|)
 index|]
+expr_stmt|;
+try|try
+block|{
+name|Compressor
+name|c
+init|=
+name|algo
+operator|.
+name|getCompressor
+argument_list|()
 decl_stmt|;
+comment|// call returnCompressor() to release the Compressor
+name|algo
+operator|.
+name|returnCompressor
+argument_list|(
+name|c
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Performing action: Changing compression algorithms to "
+operator|+
+name|algo
+operator|+
+literal|" is not supported, pick another one"
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+do|while
+condition|(
+literal|true
+condition|)
+do|;
 name|LOG
 operator|.
 name|debug
