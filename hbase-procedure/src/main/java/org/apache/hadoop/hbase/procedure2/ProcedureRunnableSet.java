@@ -98,8 +98,8 @@ name|Procedure
 name|proc
 parameter_list|)
 function_decl|;
-comment|/**    * Fetch one Procedure from the queue    * @return the Procedure ID to execute, or null if nothing present.    */
-name|Long
+comment|/**    * Fetch one Procedure from the queue    * @return the Procedure to execute, or null if nothing present.    */
+name|Procedure
 name|poll
 parameter_list|()
 function_decl|;

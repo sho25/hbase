@@ -1223,6 +1223,26 @@ name|master
 operator|.
 name|procedure
 operator|.
+name|MasterProcedureScheduler
+operator|.
+name|ProcedureEvent
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|procedure
+operator|.
 name|ModifyColumnFamilyProcedure
 import|;
 end_import
@@ -2543,11 +2563,16 @@ literal|false
 decl_stmt|;
 comment|// flag set after we complete initialization once active,
 comment|// it is not private since it's used in unit tests
-specifier|volatile
-name|boolean
+specifier|private
+specifier|final
+name|ProcedureEvent
 name|initialized
 init|=
-literal|false
+operator|new
+name|ProcedureEvent
+argument_list|(
+literal|"master initialized"
+argument_list|)
 decl_stmt|;
 comment|// flag set after master services are started,
 comment|// initialization may have not completed yet.
@@ -2559,11 +2584,15 @@ literal|false
 decl_stmt|;
 comment|// flag set after we complete assignMeta.
 specifier|private
-specifier|volatile
-name|boolean
+specifier|final
+name|ProcedureEvent
 name|serverCrashProcessingEnabled
 init|=
-literal|false
+operator|new
+name|ProcedureEvent
+argument_list|(
+literal|"server crash processing"
+argument_list|)
 decl_stmt|;
 name|LoadBalancer
 name|balancer
@@ -4687,9 +4716,10 @@ name|balancer
 argument_list|)
 expr_stmt|;
 comment|// Set master as 'initialized'.
-name|initialized
-operator|=
+name|setInitialized
+argument_list|(
 literal|true
+argument_list|)
 expr_stmt|;
 comment|// assign the meta replicas
 name|Set
@@ -5704,12 +5734,14 @@ comment|// stuck here waiting forever if waitForMeta is specified.
 if|if
 condition|(
 operator|!
-name|serverCrashProcessingEnabled
+name|isServerCrashProcessingEnabled
+argument_list|()
 condition|)
 block|{
-name|serverCrashProcessingEnabled
-operator|=
+name|setServerCrashProcessingEnabled
+argument_list|(
 literal|true
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -6860,9 +6892,8 @@ comment|// if master not initialized, don't run balancer.
 if|if
 condition|(
 operator|!
-name|this
-operator|.
-name|initialized
+name|isInitialized
+argument_list|()
 condition|)
 block|{
 name|LOG
@@ -7408,9 +7439,8 @@ block|{
 if|if
 condition|(
 operator|!
-name|this
-operator|.
-name|initialized
+name|isInitialized
+argument_list|()
 condition|)
 block|{
 name|LOG
@@ -11982,6 +12012,41 @@ parameter_list|()
 block|{
 return|return
 name|initialized
+operator|.
+name|isReady
+argument_list|()
+return|;
+block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|void
+name|setInitialized
+parameter_list|(
+name|boolean
+name|isInitialized
+parameter_list|)
+block|{
+name|procedureExecutor
+operator|.
+name|getEnvironment
+argument_list|()
+operator|.
+name|setEventReady
+argument_list|(
+name|initialized
+argument_list|,
+name|isInitialized
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|ProcedureEvent
+name|getInitializedEvent
+parameter_list|()
+block|{
+return|return
+name|initialized
 return|;
 block|}
 comment|/**    * ServerCrashProcessingEnabled is set false before completing assignMeta to prevent processing    * of crashed servers.    * @return true if assignMeta has completed;    */
@@ -11993,9 +12058,10 @@ name|isServerCrashProcessingEnabled
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
 name|serverCrashProcessingEnabled
+operator|.
+name|isReady
+argument_list|()
 return|;
 block|}
 annotation|@
@@ -12009,12 +12075,27 @@ name|boolean
 name|b
 parameter_list|)
 block|{
-name|this
+name|procedureExecutor
 operator|.
+name|getEnvironment
+argument_list|()
+operator|.
+name|setEventReady
+argument_list|(
 name|serverCrashProcessingEnabled
-operator|=
+argument_list|,
 name|b
+argument_list|)
 expr_stmt|;
+block|}
+specifier|public
+name|ProcedureEvent
+name|getServerCrashProcessingEnabledEvent
+parameter_list|()
+block|{
+return|return
+name|serverCrashProcessingEnabled
+return|;
 block|}
 comment|/**    * Report whether this master has started initialization and is about to do meta region assignment    * @return true if master is in initialization&amp; about to assign hbase:meta regions    */
 specifier|public

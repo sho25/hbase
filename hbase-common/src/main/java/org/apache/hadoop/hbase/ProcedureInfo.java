@@ -917,12 +917,8 @@ literal|1
 argument_list|,
 name|procProto
 operator|.
-name|getState
+name|hasException
 argument_list|()
-operator|==
-name|ProcedureState
-operator|.
-name|ROLLEDBACK
 condition|?
 name|procProto
 operator|.
@@ -943,12 +939,8 @@ argument_list|()
 argument_list|,
 name|procProto
 operator|.
-name|getState
+name|hasResult
 argument_list|()
-operator|==
-name|ProcedureState
-operator|.
-name|FINISHED
 condition|?
 name|procProto
 operator|.

@@ -969,9 +969,10 @@ try|try
 block|{
 name|m
 operator|.
-name|initialized
-operator|=
+name|setInitialized
+argument_list|(
 literal|false
+argument_list|)
 expr_stmt|;
 comment|// fake it, set back later
 name|HRegionInfo
@@ -1017,9 +1018,10 @@ finally|finally
 block|{
 name|m
 operator|.
-name|initialized
-operator|=
+name|setInitialized
+argument_list|(
 literal|true
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -1225,9 +1227,10 @@ argument_list|)
 decl_stmt|;
 name|master
 operator|.
-name|initialized
-operator|=
+name|setInitialized
+argument_list|(
 literal|false
+argument_list|)
 expr_stmt|;
 comment|// fake it, set back later
 name|admin
@@ -1279,9 +1282,10 @@ finally|finally
 block|{
 name|master
 operator|.
-name|initialized
-operator|=
+name|setInitialized
+argument_list|(
 literal|true
+argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.

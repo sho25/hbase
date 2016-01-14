@@ -120,14 +120,14 @@ specifier|private
 specifier|final
 name|Deque
 argument_list|<
-name|Long
+name|Procedure
 argument_list|>
 name|runnables
 init|=
 operator|new
 name|ArrayDeque
 argument_list|<
-name|Long
+name|Procedure
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -173,9 +173,6 @@ operator|.
 name|addFirst
 argument_list|(
 name|proc
-operator|.
-name|getProcId
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|waitCond
@@ -216,9 +213,6 @@ operator|.
 name|addLast
 argument_list|(
 name|proc
-operator|.
-name|getProcId
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|waitCond
@@ -271,7 +265,7 @@ argument_list|(
 literal|"WA_AWAIT_NOT_IN_LOOP"
 argument_list|)
 specifier|public
-name|Long
+name|Procedure
 name|poll
 parameter_list|()
 block|{

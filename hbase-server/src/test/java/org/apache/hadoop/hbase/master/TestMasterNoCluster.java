@@ -1906,7 +1906,8 @@ condition|(
 operator|!
 name|master
 operator|.
-name|initialized
+name|isInitialized
+argument_list|()
 condition|)
 name|Threads
 operator|.

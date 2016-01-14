@@ -82,6 +82,13 @@ specifier|public
 interface|interface
 name|ServerProcedureInterface
 block|{
+specifier|public
+enum|enum
+name|ServerOperationType
+block|{
+name|CRASH_HANDLER
+block|}
+empty_stmt|;
 comment|/**    * @return Name of this server instance.    */
 name|ServerName
 name|getServerName
@@ -90,6 +97,11 @@ function_decl|;
 comment|/**    * @return True if this server has an hbase:meta table region.    */
 name|boolean
 name|hasMetaTableRegion
+parameter_list|()
+function_decl|;
+comment|/**    * Given an operation type we can take decisions about what to do with pending operations.    * e.g. if we get a crash handler and we have some assignment operation pending    * we can abort those operations.    * @return the operation type that the procedure is executing.    */
+name|ServerOperationType
+name|getServerOperationType
 parameter_list|()
 function_decl|;
 block|}

@@ -998,11 +998,12 @@ parameter_list|)
 block|{
 if|if
 condition|(
-operator|!
 name|env
 operator|.
-name|isInitialized
-argument_list|()
+name|waitInitialized
+argument_list|(
+name|this
+argument_list|)
 condition|)
 return|return
 literal|false
