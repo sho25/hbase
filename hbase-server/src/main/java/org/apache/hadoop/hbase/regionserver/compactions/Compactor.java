@@ -1925,6 +1925,9 @@ decl_stmt|;
 name|long
 name|shippedCallSizeLimit
 init|=
+operator|(
+name|long
+operator|)
 name|minFilesToCompact
 operator|*
 name|HConstants
