@@ -535,6 +535,7 @@ block|}
 annotation|@
 name|VisibleForTesting
 specifier|protected
+specifier|static
 specifier|final
 class|class
 name|CallTracker
