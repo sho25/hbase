@@ -264,10 +264,18 @@ name|length
 expr_stmt|;
 block|}
 return|return
+operator|-
+operator|(
 name|ByteBufferUtils
 operator|.
 name|compareTo
 argument_list|(
+name|value
+argument_list|,
+name|offset
+argument_list|,
+name|length
+argument_list|,
 name|this
 operator|.
 name|value
@@ -279,13 +287,8 @@ operator|.
 name|value
 operator|.
 name|length
-argument_list|,
-name|value
-argument_list|,
-name|offset
-argument_list|,
-name|length
 argument_list|)
+operator|)
 return|;
 block|}
 comment|/**    * @return The comparator serialized using pb    */

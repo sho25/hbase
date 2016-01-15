@@ -3372,6 +3372,10 @@ operator|.
 name|setTrackScanMetrics
 argument_list|(
 name|scan
+operator|!=
+literal|null
+operator|&&
+name|scan
 operator|.
 name|isScanMetricsEnabled
 argument_list|()

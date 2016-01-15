@@ -179,27 +179,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * This builds the implementation of {@link RetryingCallerInterceptor} that we    * specify in the conf and returns the same.    *     * To use {@link PreemptiveFastFailInterceptor}, set HBASE_CLIENT_ENABLE_FAST_FAIL_MODE to true.    * HBASE_CLIENT_FAST_FAIL_INTERCEPTOR_IMPL is defaulted to {@link PreemptiveFastFailInterceptor}    *     * @return The factory build method which creates the    *         {@link RetryingCallerInterceptor} object according to the    *         configuration.    */
-annotation|@
-name|edu
-operator|.
-name|umd
-operator|.
-name|cs
-operator|.
-name|findbugs
-operator|.
-name|annotations
-operator|.
-name|SuppressWarnings
-argument_list|(
-name|value
-operator|=
-literal|"REC_CATCH_EXCEPTION"
-argument_list|,
-name|justification
-operator|=
-literal|"Convert thrown exception to unchecked"
-argument_list|)
 specifier|public
 name|RetryingCallerInterceptor
 name|build
