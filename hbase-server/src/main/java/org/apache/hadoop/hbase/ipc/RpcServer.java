@@ -7139,9 +7139,10 @@ name|SaslUtil
 operator|.
 name|SASL_DEFAULT_REALM
 argument_list|,
-name|SaslUtil
+name|HBaseSaslRpcServer
 operator|.
-name|SASL_PROPS
+name|getSaslProps
+argument_list|()
 argument_list|,
 operator|new
 name|SaslDigestCallbackHandler
@@ -7264,9 +7265,10 @@ index|[
 literal|1
 index|]
 argument_list|,
-name|SaslUtil
+name|HBaseSaslRpcServer
 operator|.
-name|SASL_PROPS
+name|getSaslProps
+argument_list|()
 argument_list|,
 operator|new
 name|SaslGssCallbackHandler

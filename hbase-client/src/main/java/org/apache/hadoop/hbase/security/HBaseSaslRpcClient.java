@@ -89,6 +89,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
 name|javax
 operator|.
 name|security
@@ -401,6 +411,16 @@ specifier|final
 name|boolean
 name|fallbackAllowed
 decl_stmt|;
+specifier|protected
+specifier|final
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|String
+argument_list|>
+name|saslProps
+decl_stmt|;
 comment|/**    * Create a HBaseSaslRpcClient for an authentication method    *    * @param method    *          the requested authentication method    * @param token    *          token to use if needed by the authentication method    * @param serverPrincipal    *          the server principal that we are trying to set the connection up to    * @param fallbackAllowed    *          does the client allow fallback to simple authentication    * @throws IOException    */
 specifier|public
 name|HBaseSaslRpcClient
@@ -472,6 +492,8 @@ name|fallbackAllowed
 operator|=
 name|fallbackAllowed
 expr_stmt|;
+name|saslProps
+operator|=
 name|SaslUtil
 operator|.
 name|initSaslProperties
@@ -708,9 +730,7 @@ literal|null
 argument_list|,
 name|saslDefaultRealm
 argument_list|,
-name|SaslUtil
-operator|.
-name|SASL_PROPS
+name|saslProps
 argument_list|,
 name|saslClientCallbackHandler
 argument_list|)
@@ -746,9 +766,7 @@ name|userFirstPart
 argument_list|,
 name|userSecondPart
 argument_list|,
-name|SaslUtil
-operator|.
-name|SASL_PROPS
+name|saslProps
 argument_list|,
 literal|null
 argument_list|)

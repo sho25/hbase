@@ -293,6 +293,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Random
 import|;
 end_import
@@ -345,6 +355,16 @@ name|saslClient
 decl_stmt|;
 specifier|private
 specifier|final
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|String
+argument_list|>
+name|saslProps
+decl_stmt|;
+specifier|private
+specifier|final
 name|SaslExceptionHandler
 name|exceptionHandler
 decl_stmt|;
@@ -374,7 +394,7 @@ specifier|private
 name|Random
 name|random
 decl_stmt|;
-comment|/**    * Constructor    *    * @param ticket                   the ugi    * @param method                   auth method    * @param token                    for Sasl    * @param serverPrincipal          Server's Kerberos principal name    * @param fallbackAllowed          True if server may also fall back to less secure connection    * @param rpcProtection            Quality of protection. Can be 'authentication', 'integrity' or    *                                 'privacy'.    * @param exceptionHandler         handler for exceptions    * @param successfulConnectHandler handler for succesful connects    * @throws java.io.IOException if handler could not be created    */
+comment|/**    * @param ticket                   the ugi    * @param method                   auth method    * @param token                    for Sasl    * @param serverPrincipal          Server's Kerberos principal name    * @param fallbackAllowed          True if server may also fall back to less secure connection    * @param rpcProtection            Quality of protection. Can be 'authentication', 'integrity' or    *                                 'privacy'.    * @throws java.io.IOException if handler could not be created    */
 specifier|public
 name|SaslClientHandler
 parameter_list|(
@@ -434,6 +454,8 @@ name|successfulConnectHandler
 operator|=
 name|successfulConnectHandler
 expr_stmt|;
+name|saslProps
+operator|=
 name|SaslUtil
 operator|.
 name|initSaslProperties
@@ -642,7 +664,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Create a Digest Sasl client    *    * @param mechanismNames            names of mechanisms    * @param saslDefaultRealm          default realm for sasl    * @param saslClientCallbackHandler handler for the client    * @return new SaslClient    * @throws java.io.IOException if creation went wrong    */
+comment|/**    * Create a Digest Sasl client    */
 specifier|protected
 name|SaslClient
 name|createDigestSaslClient
@@ -673,15 +695,13 @@ literal|null
 argument_list|,
 name|saslDefaultRealm
 argument_list|,
-name|SaslUtil
-operator|.
-name|SASL_PROPS
+name|saslProps
 argument_list|,
 name|saslClientCallbackHandler
 argument_list|)
 return|;
 block|}
-comment|/**    * Create Kerberos client    *    * @param mechanismNames names of mechanisms    * @param userFirstPart  first part of username    * @param userSecondPart second part of username    * @return new SaslClient    * @throws java.io.IOException if fails    */
+comment|/**    * Create Kerberos client    *    * @param userFirstPart  first part of username    * @param userSecondPart second part of username    */
 specifier|protected
 name|SaslClient
 name|createKerberosSaslClient
@@ -712,9 +732,7 @@ name|userFirstPart
 argument_list|,
 name|userSecondPart
 argument_list|,
-name|SaslUtil
-operator|.
-name|SASL_PROPS
+name|saslProps
 argument_list|,
 literal|null
 argument_list|)
@@ -1306,7 +1324,6 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * Write SASL token    * @param ctx to write to    * @param saslToken to write    */
 specifier|private
 name|void
 name|writeSaslToken
@@ -1409,7 +1426,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get the read status    *    * @param inStream to read    * @throws org.apache.hadoop.ipc.RemoteException if status was not success    */
+comment|/**    * Get the read status    */
 specifier|private
 specifier|static
 name|void
@@ -1756,7 +1773,7 @@ specifier|public
 interface|interface
 name|SaslExceptionHandler
 block|{
-comment|/**      * Handle the exception      *      * @param retryCount current retry count      * @param random     to create new backoff with      * @param cause      of fail      */
+comment|/**      * Handle the exception      *      * @param retryCount current retry count      * @param random     to create new backoff with      */
 specifier|public
 name|void
 name|handle
