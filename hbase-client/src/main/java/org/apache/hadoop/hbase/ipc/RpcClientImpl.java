@@ -2425,6 +2425,7 @@ expr_stmt|;
 block|}
 block|}
 specifier|private
+specifier|synchronized
 name|UserInformation
 name|getUserInfo
 parameter_list|(
@@ -4251,6 +4252,11 @@ name|HConstants
 operator|.
 name|RPC_CURRENT_VERSION
 expr_stmt|;
+synchronized|synchronized
+init|(
+name|this
+init|)
+block|{
 name|preamble
 index|[
 name|rpcHeaderLen
@@ -4262,6 +4268,7 @@ name|authMethod
 operator|.
 name|code
 expr_stmt|;
+block|}
 name|outStream
 operator|.
 name|write
@@ -4559,6 +4566,27 @@ expr_stmt|;
 block|}
 block|}
 comment|/**      * Initiates a call by sending the parameter to the remote server.      * Note: this is not called from the Connection thread, but by other      * threads.      * @see #readResponse()      */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"IS2_INCONSISTENT_SYNC"
+argument_list|,
+name|justification
+operator|=
+literal|"Findbugs is misinterpreting locking missing fact that this.outLock is held"
+argument_list|)
 specifier|private
 name|void
 name|writeRequest
@@ -4851,15 +4879,9 @@ expr_stmt|;
 block|}
 comment|// We added a call, and may be started the connection close. In both cases, we
 comment|//  need to notify the reader.
-synchronized|synchronized
-init|(
-name|this
-init|)
-block|{
-name|notifyAll
+name|doNotify
 argument_list|()
 expr_stmt|;
-block|}
 comment|// Now that we notified, we can rethrow the exception if any. Otherwise we're good.
 if|if
 condition|(
@@ -4870,6 +4892,40 @@ condition|)
 throw|throw
 name|writeException
 throw|;
+block|}
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"NN_NAKED_NOTIFY"
+argument_list|,
+name|justification
+operator|=
+literal|"Presume notifyAll is because we are closing/shutting down"
+argument_list|)
+specifier|private
+specifier|synchronized
+name|void
+name|doNotify
+parameter_list|()
+block|{
+comment|// Make a separate method so can do synchronize and add findbugs annotation; only one
+comment|// annotation at at time in source 1.7.
+name|notifyAll
+argument_list|()
+expr_stmt|;
+comment|// Findbugs: NN_NAKED_NOTIFY
 block|}
 comment|/* Receive a response.      * Because only one receiver, so no synchronization on in.      */
 specifier|protected
