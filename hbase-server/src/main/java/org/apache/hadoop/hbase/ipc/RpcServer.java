@@ -2315,6 +2315,10 @@ operator|.
 name|cellBlock
 operator|!=
 literal|null
+operator|&&
+name|reservoir
+operator|!=
+literal|null
 condition|)
 block|{
 comment|// Return buffer to reservoir now we are done with it.
