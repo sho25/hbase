@@ -12839,6 +12839,12 @@ operator|&&
 name|call
 operator|.
 name|connection
+operator|!=
+literal|null
+operator|&&
+name|call
+operator|.
+name|connection
 operator|.
 name|socket
 operator|!=
