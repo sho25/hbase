@@ -2285,6 +2285,12 @@ operator|.
 name|user
 operator|=
 name|connection
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+name|connection
 operator|.
 name|user
 expr_stmt|;
