@@ -88,6 +88,29 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"IS2_INCONSISTENT_SYNC"
+argument_list|,
+name|justification
+operator|=
+literal|"FindBugs seems confused; says limit and tlimit "
+operator|+
+literal|"are mostly synchronized...but to me it looks like they are totally synchronized"
+argument_list|)
 specifier|public
 specifier|abstract
 class|class
@@ -152,6 +175,7 @@ parameter_list|)
 function_decl|;
 comment|/**    * Set the RateLimiter max available resources and refill period.    * @param limit The max value available resource units can be refilled to.    * @param timeUnit Timeunit factor for translating to ms.    */
 specifier|public
+specifier|synchronized
 name|void
 name|set
 parameter_list|(
@@ -268,7 +292,8 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|limit
+name|getLimit
+argument_list|()
 operator|==
 name|Long
 operator|.
@@ -286,15 +311,18 @@ name|rateLimiter
 operator|+
 literal|"(avail="
 operator|+
-name|avail
+name|getAvailable
+argument_list|()
 operator|+
 literal|" limit="
 operator|+
-name|limit
+name|getLimit
+argument_list|()
 operator|+
 literal|" tunit="
 operator|+
-name|tunit
+name|getTimeUnitInMillis
+argument_list|()
 operator|+
 literal|")"
 return|;
@@ -360,7 +388,8 @@ name|isBypass
 parameter_list|()
 block|{
 return|return
-name|limit
+name|getLimit
+argument_list|()
 operator|==
 name|Long
 operator|.
@@ -388,6 +417,7 @@ name|avail
 return|;
 block|}
 specifier|protected
+specifier|synchronized
 name|long
 name|getTimeUnitInMillis
 parameter_list|()
@@ -587,7 +617,8 @@ literal|0
 else|:
 name|getWaitInterval
 argument_list|(
-name|limit
+name|getLimit
+argument_list|()
 argument_list|,
 name|avail
 argument_list|,

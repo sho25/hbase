@@ -2205,6 +2205,11 @@ name|labelsRegion
 operator|=
 literal|true
 expr_stmt|;
+synchronized|synchronized
+init|(
+name|this
+init|)
+block|{
 name|this
 operator|.
 name|accessControllerAvailable
@@ -2224,6 +2229,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Defer the init of VisibilityLabelService on labels region until it is in recovering state.
 if|if
 condition|(

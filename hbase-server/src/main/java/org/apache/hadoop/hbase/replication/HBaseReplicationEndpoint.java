@@ -266,6 +266,27 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"MT_CORRECTNESS"
+argument_list|,
+name|justification
+operator|=
+literal|"Thinks zkw needs to be synchronized access but should be fine as is."
+argument_list|)
 specifier|public
 specifier|abstract
 class|class
@@ -296,6 +317,7 @@ name|zkw
 init|=
 literal|null
 decl_stmt|;
+comment|// FindBugs: MT_CORRECTNESS
 specifier|private
 name|List
 argument_list|<
@@ -313,7 +335,6 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|private
-specifier|volatile
 name|long
 name|lastRegionServerUpdate
 decl_stmt|;
@@ -754,6 +775,7 @@ return|;
 block|}
 comment|/**    * Set the list of region servers for that peer    * @param regionServers list of addresses for the region servers    */
 specifier|public
+specifier|synchronized
 name|void
 name|setRegionServers
 parameter_list|(

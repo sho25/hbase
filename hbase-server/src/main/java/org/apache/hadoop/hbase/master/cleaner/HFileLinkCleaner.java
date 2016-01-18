@@ -516,6 +516,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|setConf
 parameter_list|(

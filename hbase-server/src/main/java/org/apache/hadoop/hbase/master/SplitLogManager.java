@@ -3252,8 +3252,14 @@ name|status
 decl_stmt|;
 specifier|public
 specifier|volatile
-name|int
+name|AtomicInteger
 name|incarnation
+init|=
+operator|new
+name|AtomicInteger
+argument_list|(
+literal|0
+argument_list|)
 decl_stmt|;
 specifier|public
 specifier|final
@@ -3315,10 +3321,6 @@ specifier|public
 name|Task
 parameter_list|()
 block|{
-name|incarnation
-operator|=
-literal|0
-expr_stmt|;
 name|last_version
 operator|=
 operator|-

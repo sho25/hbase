@@ -296,6 +296,27 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * If required, update the current TimestampRange to include timestamp    * @param timestamp the timestamp value to include    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"MT_CORRECTNESS"
+argument_list|,
+name|justification
+operator|=
+literal|"Intentional"
+argument_list|)
 name|void
 name|includeTimestamp
 parameter_list|(

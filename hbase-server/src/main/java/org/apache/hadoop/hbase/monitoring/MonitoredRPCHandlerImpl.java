@@ -286,6 +286,7 @@ return|;
 block|}
 comment|/**    * Produces a string representation of the method currently being serviced    * by this Handler.    * @return a string representing the method call without parameters    */
 specifier|public
+specifier|synchronized
 name|String
 name|getRPC
 parameter_list|()
@@ -470,6 +471,7 @@ return|;
 block|}
 comment|/**    * Indicates to the client whether this task is monitoring a currently active     * RPC call to a database command. (as defined by     * o.a.h.h.client.Operation)    * @return true if the monitored handler is currently servicing an RPC call    * to a database command.    */
 specifier|public
+specifier|synchronized
 name|boolean
 name|isOperationRunning
 parameter_list|()
@@ -606,6 +608,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|markComplete
 parameter_list|(

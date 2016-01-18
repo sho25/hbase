@@ -4199,16 +4199,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-name|String
-name|snapshotName
-init|=
-name|conf
-operator|.
-name|get
-argument_list|(
-name|CONF_SNAPSHOT_NAME
-argument_list|)
-decl_stmt|;
 name|Path
 name|snapshotDir
 init|=

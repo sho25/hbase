@@ -650,11 +650,15 @@ operator|new
 name|Object
 argument_list|()
 decl_stmt|;
-specifier|volatile
-name|int
+specifier|private
+name|AtomicInteger
 name|taskReadySeq
 init|=
+operator|new
+name|AtomicInteger
+argument_list|(
 literal|0
+argument_list|)
 decl_stmt|;
 specifier|private
 specifier|volatile
@@ -785,8 +789,12 @@ init|(
 name|taskReadyLock
 init|)
 block|{
+name|this
+operator|.
 name|taskReadySeq
-operator|++
+operator|.
+name|incrementAndGet
+argument_list|()
 expr_stmt|;
 name|taskReadyLock
 operator|.
@@ -2117,7 +2125,7 @@ return|return
 name|FAILED_TO_OWN_TASK
 return|;
 block|}
-comment|/**    * Wait for tasks to become available at /hbase/splitlog zknode. Grab a task one at a time. This    * policy puts an upper-limit on the number of simultaneous log splitting that could be happening    * in a cluster.    *<p>    * Synchronization using {@link #taskReadyLock} ensures that it will try to grab every task that    * has been put up    * @throws InterruptedException    */
+comment|/**    * Wait for tasks to become available at /hbase/splitlog zknode. Grab a task one at a time. This    * policy puts an upper-limit on the number of simultaneous log splitting that could be happening    * in a cluster.    *<p>    * Synchronization using<code>taskReadyLock</code> ensures that it will try to grab every task    * that has been put up    * @throws InterruptedException    */
 annotation|@
 name|Override
 specifier|public
@@ -2137,6 +2145,9 @@ name|int
 name|seq_start
 init|=
 name|taskReadySeq
+operator|.
+name|get
+argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
@@ -2355,6 +2366,9 @@ condition|(
 name|seq_start
 operator|==
 name|taskReadySeq
+operator|.
+name|get
+argument_list|()
 condition|)
 block|{
 name|taskReadyLock
@@ -2766,6 +2780,9 @@ parameter_list|()
 block|{
 return|return
 name|taskReadySeq
+operator|.
+name|get
+argument_list|()
 return|;
 block|}
 annotation|@

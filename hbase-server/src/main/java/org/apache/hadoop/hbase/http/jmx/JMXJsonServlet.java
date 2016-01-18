@@ -307,6 +307,27 @@ block|}
 comment|/**    * Process a GET request for the specified resource.    *     * @param request    *          The servlet request we are processing    * @param response    *          The servlet response we are creating    */
 annotation|@
 name|Override
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
+argument_list|,
+name|justification
+operator|=
+literal|"TODO: See HBASE-15122"
+argument_list|)
 specifier|public
 name|void
 name|doGet

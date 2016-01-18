@@ -1032,6 +1032,27 @@ block|}
 comment|/**    * Execute the core common portions of taking a snapshot. The {@link #snapshotRegions(List)}    * call should get implemented for each snapshot flavor.    */
 annotation|@
 name|Override
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"REC_CATCH_EXCEPTION"
+argument_list|,
+name|justification
+operator|=
+literal|"Intentional"
+argument_list|)
 specifier|public
 name|void
 name|process
@@ -1374,6 +1395,7 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+comment|// FindBugs: REC_CATCH_EXCEPTION
 name|status
 operator|.
 name|abort

@@ -2407,6 +2407,27 @@ throw|;
 block|}
 block|}
 block|}
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"DLS_DEAD_LOCAL_STORE"
+argument_list|,
+name|justification
+operator|=
+literal|"FB is wrong; its size is read"
+argument_list|)
 specifier|private
 name|void
 name|unloadRegions
@@ -2448,6 +2469,7 @@ name|HRegionInfo
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|// FindBugs: DLS_DEAD_LOCAL_STORE
 name|regionsToMove
 operator|=
 name|getRegions
@@ -3306,6 +3328,7 @@ block|}
 block|}
 comment|/**    * Move Regions without Acknowledging.Usefule in case of RS shutdown as we might want to shut the    * RS down anyways and not abort on a stuck region. Improves movement performance    */
 specifier|private
+specifier|static
 class|class
 name|MoveWithoutAck
 implements|implements
@@ -4147,6 +4170,8 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|line
+operator|=
 name|line
 operator|.
 name|trim

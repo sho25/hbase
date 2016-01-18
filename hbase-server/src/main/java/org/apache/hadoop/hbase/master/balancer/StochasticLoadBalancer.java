@@ -481,6 +481,27 @@ name|HBaseInterfaceAudience
 operator|.
 name|CONFIG
 argument_list|)
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"IS2_INCONSISTENT_SYNC"
+argument_list|,
+name|justification
+operator|=
+literal|"Complaint is about costFunctions not being synchronized; not end of the world"
+argument_list|)
 specifier|public
 class|class
 name|StochasticLoadBalancer
@@ -625,6 +646,7 @@ name|CostFunction
 index|[]
 name|costFunctions
 decl_stmt|;
+comment|// FindBugs: Wants this protected; IS2_INCONSISTENT_SYNC
 comment|// to save and report costs to JMX
 specifier|private
 name|Double

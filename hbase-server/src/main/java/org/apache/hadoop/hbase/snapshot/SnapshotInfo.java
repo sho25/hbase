@@ -1355,6 +1355,27 @@ name|snapshotManifest
 decl_stmt|;
 annotation|@
 name|Override
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"REC_CATCH_EXCEPTION"
+argument_list|,
+name|justification
+operator|=
+literal|"Intentional"
+argument_list|)
 specifier|public
 name|int
 name|run
@@ -1640,6 +1661,7 @@ block|{
 name|printUsageAndExit
 argument_list|()
 expr_stmt|;
+comment|// FindBugs: REC_CATCH_EXCEPTION
 block|}
 block|}
 comment|// List Available Snapshots

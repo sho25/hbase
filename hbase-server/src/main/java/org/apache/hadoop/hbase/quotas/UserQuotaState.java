@@ -152,6 +152,29 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"IS2_INCONSISTENT_SYNC"
+argument_list|,
+name|justification
+operator|=
+literal|"FindBugs seems confused; says bypassGlobals, namepaceLimiters, and "
+operator|+
+literal|"tableLimiters are mostly synchronized...but to me it looks like they are totally synchronized"
+argument_list|)
 specifier|public
 class|class
 name|UserQuotaState
@@ -449,6 +472,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|setQuotas
 parameter_list|(
@@ -474,6 +498,7 @@ expr_stmt|;
 block|}
 comment|/**    * Add the quota information of the specified table.    * (This operation is part of the QuotaState setup)    */
 specifier|public
+specifier|synchronized
 name|void
 name|setQuotas
 parameter_list|(

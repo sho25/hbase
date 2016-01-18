@@ -2316,6 +2316,9 @@ argument_list|,
 name|task
 operator|.
 name|incarnation
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertEquals

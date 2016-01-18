@@ -10303,6 +10303,27 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"AT_OPERATION_SEQUENCE_ON_CONCURRENT_ABSTRACTION"
+argument_list|,
+name|justification
+operator|=
+literal|"Worth fixing but not the end of the world."
+argument_list|)
 specifier|private
 name|String
 name|onRegionFailedOpen
@@ -10370,6 +10391,7 @@ operator|.
 name|getEncodedName
 argument_list|()
 decl_stmt|;
+comment|// FindBugs: AT_OPERATION_SEQUENCE_ON_CONCURRENT_ABSTRACTION Worth fixing!!!
 name|AtomicInteger
 name|failedOpenCount
 init|=

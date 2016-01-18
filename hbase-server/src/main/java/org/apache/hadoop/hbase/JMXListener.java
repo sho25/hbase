@@ -301,7 +301,7 @@ comment|/**    * workaround for HBASE-11146    * master and regionserver are in 
 specifier|private
 specifier|static
 name|JMXConnectorServer
-name|jmxCS
+name|JMX_CS
 init|=
 literal|null
 decl_stmt|;
@@ -653,7 +653,29 @@ decl_stmt|;
 try|try
 block|{
 comment|// Start the JMXListener with the connection string
-name|jmxCS
+synchronized|synchronized
+init|(
+name|JMXListener
+operator|.
+name|class
+init|)
+block|{
+if|if
+condition|(
+name|JMX_CS
+operator|!=
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Started by another thread?"
+argument_list|)
+throw|;
+block|}
+name|JMX_CS
 operator|=
 name|JMXConnectorServerFactory
 operator|.
@@ -666,11 +688,12 @@ argument_list|,
 name|mbs
 argument_list|)
 expr_stmt|;
-name|jmxCS
+name|JMX_CS
 operator|.
 name|start
 argument_list|()
 expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -712,12 +735,12 @@ init|)
 block|{
 if|if
 condition|(
-name|jmxCS
+name|JMX_CS
 operator|!=
 literal|null
 condition|)
 block|{
-name|jmxCS
+name|JMX_CS
 operator|.
 name|stop
 argument_list|()
@@ -729,7 +752,7 @@ argument_list|(
 literal|"ConnectorServer stopped!"
 argument_list|)
 expr_stmt|;
-name|jmxCS
+name|JMX_CS
 operator|=
 literal|null
 expr_stmt|;
@@ -891,7 +914,7 @@ init|)
 block|{
 if|if
 condition|(
-name|jmxCS
+name|JMX_CS
 operator|!=
 literal|null
 condition|)

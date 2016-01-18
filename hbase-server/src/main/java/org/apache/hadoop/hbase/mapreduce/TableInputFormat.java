@@ -513,6 +513,27 @@ block|}
 comment|/**    * Sets the configuration. This is used to set the details for the table to    * be scanned.    *    * @param configuration  The configuration to set.    * @see org.apache.hadoop.conf.Configurable#setConf(    *   org.apache.hadoop.conf.Configuration)    */
 annotation|@
 name|Override
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"REC_CATCH_EXCEPTION"
+argument_list|,
+name|justification
+operator|=
+literal|"Intentional"
+argument_list|)
 specifier|public
 name|void
 name|setConf

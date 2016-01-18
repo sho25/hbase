@@ -1614,6 +1614,27 @@ specifier|private
 name|RegionServerServices
 name|regionServerServices
 decl_stmt|;
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"BC_UNCONFIRMED_CAST"
+argument_list|,
+name|justification
+operator|=
+literal|"Intentional; FB has trouble detecting isAssignableFrom"
+argument_list|)
 specifier|public
 name|RegionServerEnvironment
 parameter_list|(
@@ -1701,6 +1722,7 @@ name|c
 argument_list|)
 condition|)
 block|{
+comment|// FindBugs: BC_UNCONFIRMED_CAST
 name|this
 operator|.
 name|regionServerServices

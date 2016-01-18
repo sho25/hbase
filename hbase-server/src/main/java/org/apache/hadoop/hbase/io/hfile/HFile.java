@@ -1666,6 +1666,27 @@ parameter_list|()
 function_decl|;
 block|}
 comment|/**    * Method returns the reader given the specified arguments.    * TODO This is a bad abstraction.  See HBASE-6635.    *    * @param path hfile's path    * @param fsdis stream of path's file    * @param size max size of the trailer.    * @param cacheConf Cache configuation values, cannot be null.    * @param hfs    * @return an appropriate instance of HFileReader    * @throws IOException If file is invalid, will throw CorruptHFileException flavored IOException    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"SF_SWITCH_FALLTHROUGH"
+argument_list|,
+name|justification
+operator|=
+literal|"Intentional"
+argument_list|)
 specifier|private
 specifier|static
 name|Reader
@@ -1746,7 +1767,7 @@ argument_list|(
 literal|"Opening HFile v2 with v3 reader"
 argument_list|)
 expr_stmt|;
-comment|// Fall through.
+comment|// Fall through. FindBugs: SF_SWITCH_FALLTHROUGH
 case|case
 literal|3
 case|:

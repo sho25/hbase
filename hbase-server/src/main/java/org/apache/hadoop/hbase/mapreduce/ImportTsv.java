@@ -823,7 +823,7 @@ comment|/**    * If table didn't exist and was created in dry-run mode, this fla
 specifier|private
 specifier|static
 name|boolean
-name|dryRunTableCreated
+name|DRY_RUN_TABLE_CREATED
 decl_stmt|;
 specifier|public
 specifier|static
@@ -2633,10 +2633,18 @@ argument_list|(
 literal|"Dry run: Table will be deleted at end of dry run."
 argument_list|)
 expr_stmt|;
-name|dryRunTableCreated
+synchronized|synchronized
+init|(
+name|ImportTsv
+operator|.
+name|class
+init|)
+block|{
+name|DRY_RUN_TABLE_CREATED
 operator|=
 literal|true
 expr_stmt|;
+block|}
 block|}
 block|}
 else|else
@@ -2680,7 +2688,7 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-init|;                 RegionLocator regionLocator = connection.getRegionLocator(tableName)
+init|;               RegionLocator regionLocator = connection.getRegionLocator(tableName)
 block|)
 block|{
 name|boolean
@@ -3354,7 +3362,7 @@ name|error
 argument_list|(
 name|format
 argument_list|(
-literal|"***Dry run: Failed to delete table '%s'.***\n%s"
+literal|"***Dry run: Failed to delete table '%s'.***%n%s"
 argument_list|,
 name|tableName
 argument_list|,
@@ -3592,7 +3600,9 @@ name|TsvParser
 operator|.
 name|TIMESTAMPKEY_COLUMN_SPEC
 operator|+
-literal|" is optional.\n"
+literal|" is optional."
+operator|+
+literal|"\n"
 operator|+
 literal|"You must specify at most one column as timestamp key for each imported record.\n"
 operator|+
@@ -4051,10 +4061,18 @@ argument_list|,
 name|timstamp
 argument_list|)
 expr_stmt|;
-name|dryRunTableCreated
+synchronized|synchronized
+init|(
+name|ImportTsv
+operator|.
+name|class
+init|)
+block|{
+name|DRY_RUN_TABLE_CREATED
 operator|=
 literal|false
 expr_stmt|;
+block|}
 name|Job
 name|job
 init|=
@@ -4076,9 +4094,26 @@ argument_list|(
 literal|true
 argument_list|)
 decl_stmt|;
+name|boolean
+name|delete
+init|=
+literal|false
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|ImportTsv
+operator|.
+name|class
+init|)
+block|{
+name|delete
+operator|=
+name|DRY_RUN_TABLE_CREATED
+expr_stmt|;
+block|}
 if|if
 condition|(
-name|dryRunTableCreated
+name|delete
 condition|)
 block|{
 name|deleteTable

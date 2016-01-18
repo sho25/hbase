@@ -1215,6 +1215,9 @@ operator|(
 name|task
 operator|.
 name|incarnation
+operator|.
+name|get
+argument_list|()
 operator|==
 literal|0
 operator|)
@@ -1476,7 +1479,9 @@ expr_stmt|;
 name|task
 operator|.
 name|incarnation
-operator|++
+operator|.
+name|incrementAndGet
+argument_list|()
 expr_stmt|;
 name|boolean
 name|result

@@ -2154,6 +2154,27 @@ specifier|private
 name|boolean
 name|retryImmediatelySupported
 decl_stmt|;
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"NP_NULL_ON_SOME_PATH"
+argument_list|,
+name|justification
+operator|=
+literal|"Can't figure why this complaint is happening... see below"
+argument_list|)
 name|Call
 parameter_list|(
 name|int
@@ -2294,6 +2315,7 @@ name|connection
 operator|.
 name|user
 expr_stmt|;
+comment|// FindBugs: NP_NULL_ON_SOME_PATH
 name|this
 operator|.
 name|remoteAddress
@@ -2305,11 +2327,38 @@ operator|.
 name|retryImmediatelySupported
 operator|=
 name|connection
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+name|connection
 operator|.
 name|retryImmediatelySupported
 expr_stmt|;
 block|}
 comment|/**      * Call is done. Execution happened and we returned results to client. It is now safe to      * cleanup.      */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"IS2_INCONSISTENT_SYNC"
+argument_list|,
+name|justification
+operator|=
+literal|"Presume the lock on processing request held by caller is protection enough"
+argument_list|)
 name|void
 name|done
 parameter_list|()
@@ -3548,6 +3597,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|setCallBack
 parameter_list|(
@@ -4338,6 +4388,29 @@ block|}
 block|}
 annotation|@
 name|Override
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"IS2_INCONSISTENT_SYNC"
+argument_list|,
+name|justification
+operator|=
+literal|"selector access is not synchronized; seems fine but concerned changing "
+operator|+
+literal|"it will have per impact"
+argument_list|)
 specifier|public
 name|void
 name|run
@@ -6604,9 +6677,7 @@ name|Call
 argument_list|(
 name|SASL_CALLID
 argument_list|,
-name|this
-operator|.
-name|service
+literal|null
 argument_list|,
 literal|null
 argument_list|,
@@ -11098,6 +11169,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|refreshAuthManager
 parameter_list|(
@@ -12193,6 +12265,7 @@ expr_stmt|;
 block|}
 comment|/**    * Authorize the incoming client connection.    *    * @param user client user    * @param connection incoming connection    * @param addr InetAddress of incoming connection    * @throws org.apache.hadoop.security.authorize.AuthorizationException    *         when the client isn't authorized to talk the protocol    */
 specifier|public
+specifier|synchronized
 name|void
 name|authorize
 parameter_list|(

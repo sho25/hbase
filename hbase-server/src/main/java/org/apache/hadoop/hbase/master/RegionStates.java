@@ -1898,25 +1898,6 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Onlined "
-operator|+
-name|hri
-operator|.
-name|getShortNameToLog
-argument_list|()
-operator|+
-literal|" on "
-operator|+
-name|serverName
-argument_list|)
-expr_stmt|;
-block|}
 name|addToServerHoldings
 argument_list|(
 name|serverName

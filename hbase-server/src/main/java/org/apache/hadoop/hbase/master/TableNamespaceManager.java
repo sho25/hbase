@@ -546,6 +546,29 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"IS2_INCONSISTENT_SYNC"
+argument_list|,
+name|justification
+operator|=
+literal|"TODO: synchronize access on nsTable but it is done in tiers above and this "
+operator|+
+literal|"class is going away/shrinking"
+argument_list|)
 specifier|public
 class|class
 name|TableNamespaceManager
@@ -579,6 +602,7 @@ name|nsTable
 init|=
 literal|null
 decl_stmt|;
+comment|// FindBugs: IS2_INCONSISTENT_SYNC TODO: Access is not synchronized
 specifier|private
 name|ZKNamespaceManager
 name|zkNamespaceManager

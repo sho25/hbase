@@ -971,6 +971,7 @@ name|pool
 decl_stmt|;
 comment|/**    * Skips the entries which has original seqId. Only entries persisted via distributed log replay    * have their original seq Id fields set.    */
 specifier|private
+specifier|static
 class|class
 name|SkipReplayedEditsFilter
 extends|extends

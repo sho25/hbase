@@ -81,6 +81,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicInteger
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -2158,9 +2172,14 @@ name|currMemstoreTS
 decl_stmt|;
 comment|// Updated but never read?
 specifier|protected
-specifier|volatile
-name|int
+name|AtomicInteger
 name|blockFetches
+init|=
+operator|new
+name|AtomicInteger
+argument_list|(
+literal|0
+argument_list|)
 decl_stmt|;
 specifier|protected
 specifier|final
@@ -3995,6 +4014,27 @@ literal|true
 return|;
 block|}
 comment|/**      * Scans blocks in the "scanned" section of the {@link HFile} until the next      * data block is found.      *      * @return the next block, or null if there are no more data blocks      * @throws IOException      */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"NP_NULL_ON_SOME_PATH"
+argument_list|,
+name|justification
+operator|=
+literal|"Yeah, unnecessary null check; could do w/ clean up"
+argument_list|)
 specifier|protected
 name|HFileBlock
 name|readNextDataBlock
@@ -4040,9 +4080,11 @@ argument_list|()
 operator|>=
 name|lastDataBlockOffset
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 if|if
 condition|(
 name|block
@@ -4116,6 +4158,7 @@ name|isData
 argument_list|()
 condition|)
 block|{
+comment|// Findbugs: NP_NULL_ON_SOME_PATH
 comment|// Whatever block we read we will be returning it unless
 comment|// it is a datablock. Just in case the blocks are non data blocks
 name|reader
@@ -5720,7 +5763,9 @@ name|readKeyValueLen
 argument_list|()
 expr_stmt|;
 name|blockFetches
-operator|++
+operator|.
+name|incrementAndGet
+argument_list|()
 expr_stmt|;
 comment|// Reset the next indexed key
 name|this
@@ -7524,7 +7569,9 @@ name|encodedBuffer
 argument_list|)
 expr_stmt|;
 name|blockFetches
-operator|++
+operator|.
+name|incrementAndGet
+argument_list|()
 expr_stmt|;
 comment|// Reset the next indexed key
 name|this

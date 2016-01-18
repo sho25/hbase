@@ -292,7 +292,7 @@ comment|// Static reference to the MemStoreChunkPool
 specifier|private
 specifier|static
 name|MemStoreChunkPool
-name|globalInstance
+name|GLOBAL_INSTANCE
 decl_stmt|;
 comment|/** Boolean whether we have disabled the memstore chunk pool entirely. */
 specifier|static
@@ -773,6 +773,27 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @param conf    * @return the global MemStoreChunkPool instance    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"DC_DOUBLECHECK"
+argument_list|,
+name|justification
+operator|=
+literal|"Intentional"
+argument_list|)
 specifier|static
 name|MemStoreChunkPool
 name|getPool
@@ -783,12 +804,12 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|globalInstance
+name|GLOBAL_INSTANCE
 operator|!=
 literal|null
 condition|)
 return|return
-name|globalInstance
+name|GLOBAL_INSTANCE
 return|;
 synchronized|synchronized
 init|(
@@ -806,12 +827,12 @@ literal|null
 return|;
 if|if
 condition|(
-name|globalInstance
+name|GLOBAL_INSTANCE
 operator|!=
 literal|null
 condition|)
 return|return
-name|globalInstance
+name|GLOBAL_INSTANCE
 return|;
 name|float
 name|poolSizePercentage
@@ -987,7 +1008,7 @@ operator|+
 name|initialCount
 argument_list|)
 expr_stmt|;
-name|globalInstance
+name|GLOBAL_INSTANCE
 operator|=
 operator|new
 name|MemStoreChunkPool
@@ -1002,7 +1023,7 @@ name|initialCount
 argument_list|)
 expr_stmt|;
 return|return
-name|globalInstance
+name|GLOBAL_INSTANCE
 return|;
 block|}
 block|}

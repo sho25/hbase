@@ -1893,14 +1893,14 @@ name|scanner
 else|:
 literal|null
 decl_stmt|;
-name|int
+name|long
 name|minFilesToCompact
 init|=
 name|Math
 operator|.
 name|max
 argument_list|(
-literal|2
+literal|2L
 argument_list|,
 name|conf
 operator|.

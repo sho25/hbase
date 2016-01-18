@@ -578,6 +578,7 @@ block|}
 comment|//--------------------------------------------------------------------------
 comment|/**    * Get the currently available memory for this LRU in bytes.    * This is (maxAllowed - currentlyUsed).    *    * @return currently available bytes    */
 specifier|public
+specifier|synchronized
 name|long
 name|getMemFree
 parameter_list|()
@@ -606,7 +607,8 @@ return|return
 operator|(
 name|memTotal
 operator|-
-name|memFree
+name|getMemFree
+argument_list|()
 operator|)
 return|;
 comment|// FindBugs IS2_INCONSISTENT_SYNC
@@ -623,6 +625,7 @@ return|;
 block|}
 comment|/**    * Get the number of misses to the map.  This is the number of times    * a call to get() returns null.    *    * @return number of misses    */
 specifier|public
+specifier|synchronized
 name|long
 name|getMissCount
 parameter_list|()
@@ -655,7 +658,8 @@ call|)
 argument_list|(
 name|hitCount
 operator|+
-name|missCount
+name|getMissCount
+argument_list|()
 argument_list|)
 operator|)
 argument_list|)
@@ -723,7 +727,8 @@ return|return
 operator|(
 name|memTotal
 operator|-
-name|memFree
+name|getMemFree
+argument_list|()
 operator|)
 return|;
 block|}
@@ -2604,6 +2609,27 @@ name|entryList
 return|;
 block|}
 comment|/**    * Debugging function that returns a Set of all entries in the hash table.    *    * @return Set of entries in hash    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"IS2_INCONSISTENT_SYNC"
+argument_list|,
+name|justification
+operator|=
+literal|"Unused debugging function that reads only"
+argument_list|)
 specifier|public
 name|Set
 argument_list|<

@@ -1026,6 +1026,27 @@ literal|0
 return|;
 block|}
 block|}
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"REC_CATCH_EXCEPTION"
+argument_list|,
+name|justification
+operator|=
+literal|"Don't understand why FB is complaining about this one. We do throw exception"
+argument_list|)
 specifier|private
 class|class
 name|MapRunner
@@ -1329,6 +1350,7 @@ name|Exception
 name|ee
 parameter_list|)
 block|{
+comment|// FindBugs: REC_CATCH_EXCEPTION
 comment|// rethrow as IOE
 throw|throw
 operator|new

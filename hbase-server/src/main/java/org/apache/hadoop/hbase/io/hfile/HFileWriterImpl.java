@@ -1549,10 +1549,6 @@ comment|// trying to do this optimization.
 if|if
 condition|(
 name|comparator
-operator|!=
-literal|null
-operator|&&
-name|comparator
 operator|instanceof
 name|MetaCellComparator
 condition|)

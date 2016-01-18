@@ -98,6 +98,29 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"IS2_INCONSISTENT_SYNC"
+argument_list|,
+name|justification
+operator|=
+literal|"FindBugs seems confused; says globalLimiter and lastUpdate "
+operator|+
+literal|"are mostly synchronized...but to me it looks like they are totally synchronized"
+argument_list|)
 specifier|public
 class|class
 name|QuotaState
@@ -261,6 +284,7 @@ return|;
 block|}
 comment|/**    * Setup the global quota information.    * (This operation is part of the QuotaState setup)    */
 specifier|public
+specifier|synchronized
 name|void
 name|setQuotas
 parameter_list|(

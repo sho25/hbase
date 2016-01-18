@@ -102,6 +102,27 @@ comment|/**  * Simple sorted list implementation that uses {@link java.util.Arra
 end_comment
 
 begin_class
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"UG_SYNC_SET_UNSYNC_GET"
+argument_list|,
+name|justification
+operator|=
+literal|"TODO: synchronization in here needs review!!!"
+argument_list|)
 specifier|public
 class|class
 name|SortedList
@@ -218,6 +239,7 @@ argument_list|>
 name|get
 parameter_list|()
 block|{
+comment|// FindBugs: UG_SYNC_SET_UNSYNC_GET complaint. Fix!!
 return|return
 name|list
 return|;
@@ -729,6 +751,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|E
 name|get
 parameter_list|(

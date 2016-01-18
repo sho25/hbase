@@ -284,6 +284,27 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"EQ_DOESNT_OVERRIDE_EQUALS"
+argument_list|,
+name|justification
+operator|=
+literal|"To be fixed but warning suppressed for now"
+argument_list|)
 specifier|public
 class|class
 name|HFileLink
