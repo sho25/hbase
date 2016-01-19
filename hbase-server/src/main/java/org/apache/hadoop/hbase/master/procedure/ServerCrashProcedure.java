@@ -2737,6 +2737,8 @@ argument_list|()
 operator|.
 name|tryAcquireServerExclusiveLock
 argument_list|(
+name|this
+argument_list|,
 name|getServerName
 argument_list|()
 argument_list|)
@@ -2760,6 +2762,8 @@ argument_list|()
 operator|.
 name|releaseServerExclusiveLock
 argument_list|(
+name|this
+argument_list|,
 name|getServerName
 argument_list|()
 argument_list|)

@@ -1527,10 +1527,10 @@ argument_list|()
 operator|.
 name|tryAcquireTableExclusiveLock
 argument_list|(
+name|this
+argument_list|,
 name|getTableName
 argument_list|()
-argument_list|,
-literal|"create table"
 argument_list|)
 return|;
 block|}
@@ -1552,6 +1552,8 @@ argument_list|()
 operator|.
 name|releaseTableExclusiveLock
 argument_list|(
+name|this
+argument_list|,
 name|getTableName
 argument_list|()
 argument_list|)

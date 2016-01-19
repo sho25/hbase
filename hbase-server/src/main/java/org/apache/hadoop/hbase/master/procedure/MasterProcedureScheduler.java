@@ -3349,6 +3349,19 @@ annotation|@
 name|Override
 specifier|public
 name|Procedure
+name|peek
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|()
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|Procedure
 name|poll
 parameter_list|()
 block|{
@@ -3388,18 +3401,18 @@ block|}
 comment|// ============================================================================
 comment|//  Table Locking Helpers
 comment|// ============================================================================
-comment|/**    * Try to acquire the exclusive lock on the specified table.    * other operations in the table-queue will be executed after the lock is released.    * @param table Table to lock    * @param purpose Human readable reason for locking the table    * @return true if we were able to acquire the lock on the table, otherwise false.    */
+comment|/**    * Try to acquire the exclusive lock on the specified table.    * other operations in the table-queue will be executed after the lock is released.    * @param procedure the procedure trying to acquire the lock    * @param table Table to lock    * @return true if we were able to acquire the lock on the table, otherwise false.    */
 specifier|public
 name|boolean
 name|tryAcquireTableExclusiveLock
 parameter_list|(
 specifier|final
-name|TableName
-name|table
+name|Procedure
+name|procedure
 parameter_list|,
 specifier|final
-name|String
-name|purpose
+name|TableName
+name|table
 parameter_list|)
 block|{
 name|schedLock
@@ -3437,7 +3450,12 @@ operator|!
 name|queue
 operator|.
 name|tryExclusiveLock
+argument_list|(
+name|procedure
+operator|.
+name|getProcId
 argument_list|()
+argument_list|)
 condition|)
 block|{
 name|queue
@@ -3479,7 +3497,10 @@ name|tryZkExclusiveLock
 argument_list|(
 name|lockManager
 argument_list|,
-name|purpose
+name|procedure
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -3523,11 +3544,15 @@ return|return
 name|hasXLock
 return|;
 block|}
-comment|/**    * Release the exclusive lock taken with tryAcquireTableWrite()    * @param table the name of the table that has the exclusive lock    */
+comment|/**    * Release the exclusive lock taken with tryAcquireTableWrite()    * @param procedure the procedure releasing the lock    * @param table the name of the table that has the exclusive lock    */
 specifier|public
 name|void
 name|releaseTableExclusiveLock
 parameter_list|(
+specifier|final
+name|Procedure
+name|procedure
+parameter_list|,
 specifier|final
 name|TableName
 name|table
@@ -3590,18 +3615,42 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Try to acquire the shared lock on the specified table.    * other "read" operations in the table-queue may be executed concurrently,    * @param table Table to lock    * @param purpose Human readable reason for locking the table    * @return true if we were able to acquire the lock on the table, otherwise false.    */
+comment|/**    * Try to acquire the shared lock on the specified table.    * other "read" operations in the table-queue may be executed concurrently,    * @param procedure the procedure trying to acquire the lock    * @param table Table to lock    * @return true if we were able to acquire the lock on the table, otherwise false.    */
 specifier|public
 name|boolean
 name|tryAcquireTableSharedLock
 parameter_list|(
 specifier|final
-name|TableName
-name|table
+name|Procedure
+name|procedure
 parameter_list|,
 specifier|final
-name|String
-name|purpose
+name|TableName
+name|table
+parameter_list|)
+block|{
+return|return
+name|tryAcquireTableQueueSharedLock
+argument_list|(
+name|procedure
+argument_list|,
+name|table
+argument_list|)
+operator|!=
+literal|null
+return|;
+block|}
+specifier|private
+name|TableQueue
+name|tryAcquireTableQueueSharedLock
+parameter_list|(
+specifier|final
+name|Procedure
+name|procedure
+parameter_list|,
+specifier|final
+name|TableName
+name|table
 parameter_list|)
 block|{
 name|schedLock
@@ -3630,7 +3679,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-literal|false
+literal|null
 return|;
 block|}
 if|if
@@ -3656,7 +3705,7 @@ name|unlock
 argument_list|()
 expr_stmt|;
 return|return
-literal|false
+literal|null
 return|;
 block|}
 name|schedLock
@@ -3665,22 +3714,20 @@ name|unlock
 argument_list|()
 expr_stmt|;
 comment|// Zk lock is expensive...
-name|boolean
-name|hasXLock
-init|=
+if|if
+condition|(
+operator|!
 name|queue
 operator|.
 name|tryZkSharedLock
 argument_list|(
 name|lockManager
 argument_list|,
-name|purpose
+name|procedure
+operator|.
+name|toString
+argument_list|()
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-operator|!
-name|hasXLock
 condition|)
 block|{
 name|schedLock
@@ -3706,39 +3753,37 @@ operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
-block|}
 return|return
-name|hasXLock
+literal|null
 return|;
 block|}
-comment|/**    * Release the shared lock taken with tryAcquireTableRead()    * @param table the name of the table that has the shared lock    */
+return|return
+name|queue
+return|;
+block|}
+comment|/**    * Release the shared lock taken with tryAcquireTableRead()    * @param procedure the procedure releasing the lock    * @param table the name of the table that has the shared lock    */
 specifier|public
 name|void
 name|releaseTableSharedLock
 parameter_list|(
 specifier|final
+name|Procedure
+name|procedure
+parameter_list|,
+specifier|final
 name|TableName
 name|table
 parameter_list|)
 block|{
-name|schedLock
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
+specifier|final
 name|TableQueue
 name|queue
 init|=
-name|getTableQueue
+name|getTableQueueWithLock
 argument_list|(
 name|table
 argument_list|)
 decl_stmt|;
-name|schedLock
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
 comment|// Zk lock is expensive...
 name|queue
 operator|.
@@ -3820,8 +3865,10 @@ argument_list|()
 operator|&&
 name|queue
 operator|.
-name|acquireDeleteLock
-argument_list|()
+name|tryExclusiveLock
+argument_list|(
+literal|0
+argument_list|)
 condition|)
 block|{
 comment|// remove the table from the run-queue and the map
@@ -3900,11 +3947,15 @@ block|}
 comment|// ============================================================================
 comment|//  Namespace Locking Helpers
 comment|// ============================================================================
-comment|/**    * Try to acquire the exclusive lock on the specified namespace.    * @see #releaseNamespaceExclusiveLock(String)    * @param nsName Namespace to lock    * @return true if we were able to acquire the lock on the namespace, otherwise false.    */
+comment|/**    * Try to acquire the exclusive lock on the specified namespace.    * @see #releaseNamespaceExclusiveLock(Procedure,String)    * @param procedure the procedure trying to acquire the lock    * @param nsName Namespace to lock    * @return true if we were able to acquire the lock on the namespace, otherwise false.    */
 specifier|public
 name|boolean
 name|tryAcquireNamespaceExclusiveLock
 parameter_list|(
+specifier|final
+name|Procedure
+name|procedure
+parameter_list|,
 specifier|final
 name|String
 name|nsName
@@ -3952,7 +4003,12 @@ init|=
 name|nsQueue
 operator|.
 name|tryExclusiveLock
+argument_list|(
+name|procedure
+operator|.
+name|getProcId
 argument_list|()
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -3979,11 +4035,15 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Release the exclusive lock    * @see #tryAcquireNamespaceExclusiveLock(String)    * @param nsName the namespace that has the exclusive lock    */
+comment|/**    * Release the exclusive lock    * @see #tryAcquireNamespaceExclusiveLock(Procedure,String)    * @param procedure the procedure releasing the lock    * @param nsName the namespace that has the exclusive lock    */
 specifier|public
 name|void
 name|releaseNamespaceExclusiveLock
 parameter_list|(
+specifier|final
+name|Procedure
+name|procedure
+parameter_list|,
 specifier|final
 name|String
 name|nsName
@@ -4037,11 +4097,15 @@ block|}
 comment|// ============================================================================
 comment|//  Server Locking Helpers
 comment|// ============================================================================
-comment|/**    * Try to acquire the exclusive lock on the specified server.    * @see #releaseServerExclusiveLock(ServerName)    * @param serverName Server to lock    * @return true if we were able to acquire the lock on the server, otherwise false.    */
+comment|/**    * Try to acquire the exclusive lock on the specified server.    * @see #releaseServerExclusiveLock(Procedure,ServerName)    * @param procedure the procedure trying to acquire the lock    * @param serverName Server to lock    * @return true if we were able to acquire the lock on the server, otherwise false.    */
 specifier|public
 name|boolean
 name|tryAcquireServerExclusiveLock
 parameter_list|(
+specifier|final
+name|Procedure
+name|procedure
+parameter_list|,
 specifier|final
 name|ServerName
 name|serverName
@@ -4067,7 +4131,12 @@ condition|(
 name|queue
 operator|.
 name|tryExclusiveLock
+argument_list|(
+name|procedure
+operator|.
+name|getProcId
 argument_list|()
+argument_list|)
 condition|)
 block|{
 name|removeFromRunQueue
@@ -4094,11 +4163,15 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Release the exclusive lock    * @see #tryAcquireServerExclusiveLock(ServerName)    * @param serverName the server that has the exclusive lock    */
+comment|/**    * Release the exclusive lock    * @see #tryAcquireServerExclusiveLock(Procedure,ServerName)    * @param procedure the procedure releasing the lock    * @param serverName the server that has the exclusive lock    */
 specifier|public
 name|void
 name|releaseServerExclusiveLock
 parameter_list|(
+specifier|final
+name|Procedure
+name|procedure
+parameter_list|,
 specifier|final
 name|ServerName
 name|serverName
@@ -4141,11 +4214,15 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Try to acquire the shared lock on the specified server.    * @see #releaseServerSharedLock(ServerName)    * @param serverName Server to lock    * @return true if we were able to acquire the lock on the server, otherwise false.    */
+comment|/**    * Try to acquire the shared lock on the specified server.    * @see #releaseServerSharedLock(Procedure,ServerName)    * @param procedure the procedure releasing the lock    * @param serverName Server to lock    * @return true if we were able to acquire the lock on the server, otherwise false.    */
 specifier|public
 name|boolean
 name|tryAcquireServerSharedLock
 parameter_list|(
+specifier|final
+name|Procedure
+name|procedure
+parameter_list|,
 specifier|final
 name|ServerName
 name|serverName
@@ -4161,11 +4238,15 @@ name|trySharedLock
 argument_list|()
 return|;
 block|}
-comment|/**    * Release the shared lock taken    * @see #tryAcquireServerSharedLock(ServerName)    * @param serverName the server that has the shared lock    */
+comment|/**    * Release the shared lock taken    * @see #tryAcquireServerSharedLock(Procedure,ServerName)    * @param procedure the procedure releasing the lock    * @param serverName the server that has the shared lock    */
 specifier|public
 name|void
 name|releaseServerSharedLock
 parameter_list|(
+specifier|final
+name|Procedure
+name|procedure
+parameter_list|,
 specifier|final
 name|ServerName
 name|serverName
@@ -4216,6 +4297,10 @@ parameter_list|(
 name|Procedure
 name|proc
 parameter_list|)
+function_decl|;
+name|Procedure
+name|peek
+parameter_list|()
 function_decl|;
 name|Procedure
 name|poll
@@ -4291,10 +4376,12 @@ init|=
 literal|false
 decl_stmt|;
 specifier|private
-name|boolean
-name|exclusiveLock
+name|long
+name|exclusiveLockProcIdOwner
 init|=
-literal|false
+name|Long
+operator|.
+name|MIN_VALUE
 decl_stmt|;
 specifier|private
 name|int
@@ -4434,7 +4521,11 @@ block|{
 return|return
 name|this
 operator|.
-name|exclusiveLock
+name|exclusiveLockProcIdOwner
+operator|!=
+name|Long
+operator|.
+name|MIN_VALUE
 return|;
 block|}
 specifier|public
@@ -4484,8 +4575,18 @@ specifier|public
 specifier|synchronized
 name|boolean
 name|tryExclusiveLock
-parameter_list|()
+parameter_list|(
+name|long
+name|procIdOwner
+parameter_list|)
 block|{
+assert|assert
+name|procIdOwner
+operator|!=
+name|Long
+operator|.
+name|MIN_VALUE
+assert|;
 if|if
 condition|(
 name|isLocked
@@ -4494,9 +4595,9 @@ condition|)
 return|return
 literal|false
 return|;
-name|exclusiveLock
+name|exclusiveLockProcIdOwner
 operator|=
-literal|true
+name|procIdOwner
 expr_stmt|;
 return|return
 literal|true
@@ -4508,21 +4609,12 @@ name|void
 name|releaseExclusiveLock
 parameter_list|()
 block|{
-name|exclusiveLock
+name|exclusiveLockProcIdOwner
 operator|=
-literal|false
+name|Long
+operator|.
+name|MIN_VALUE
 expr_stmt|;
-block|}
-specifier|public
-specifier|synchronized
-name|boolean
-name|acquireDeleteLock
-parameter_list|()
-block|{
-return|return
-name|tryExclusiveLock
-argument_list|()
-return|;
 block|}
 comment|// This should go away when we have the new AM and its events
 comment|// and we move xlock to the lock-event-queue.
@@ -4534,7 +4626,8 @@ parameter_list|()
 block|{
 return|return
 operator|!
-name|exclusiveLock
+name|hasExclusiveLock
+argument_list|()
 operator|&&
 operator|!
 name|isEmpty
@@ -4740,6 +4833,18 @@ argument_list|(
 name|proc
 argument_list|)
 expr_stmt|;
+block|}
+specifier|public
+name|Procedure
+name|peek
+parameter_list|()
+block|{
+return|return
+name|runnables
+operator|.
+name|peek
+argument_list|()
+return|;
 block|}
 annotation|@
 name|Override

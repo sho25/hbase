@@ -922,9 +922,9 @@ argument_list|()
 operator|.
 name|tryAcquireTableExclusiveLock
 argument_list|(
-name|tableName
+name|this
 argument_list|,
-literal|"add family"
+name|tableName
 argument_list|)
 return|;
 block|}
@@ -946,6 +946,8 @@ argument_list|()
 operator|.
 name|releaseTableExclusiveLock
 argument_list|(
+name|this
+argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;

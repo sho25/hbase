@@ -1099,6 +1099,8 @@ argument_list|()
 operator|.
 name|tryAcquireNamespaceExclusiveLock
 argument_list|(
+name|this
+argument_list|,
 name|getNamespaceName
 argument_list|()
 argument_list|)
@@ -1122,6 +1124,8 @@ argument_list|()
 operator|.
 name|releaseNamespaceExclusiveLock
 argument_list|(
+name|this
+argument_list|,
 name|getNamespaceName
 argument_list|()
 argument_list|)
