@@ -13,6 +13,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
 name|normalizer
 package|;
 end_package

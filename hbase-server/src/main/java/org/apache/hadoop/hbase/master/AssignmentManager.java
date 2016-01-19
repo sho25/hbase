@@ -763,6 +763,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
 name|normalizer
 operator|.
 name|NormalizationPlan
