@@ -1793,6 +1793,10 @@ argument_list|,
 name|this
 operator|.
 name|clusterId
+argument_list|,
+name|this
+operator|.
+name|metrics
 argument_list|)
 expr_stmt|;
 comment|// Do we publish the status?
