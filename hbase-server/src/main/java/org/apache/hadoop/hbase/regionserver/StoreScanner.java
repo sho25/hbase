@@ -2053,6 +2053,14 @@ name|kvs
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
+name|kvs
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 return|return
 name|scanners
@@ -2704,6 +2712,12 @@ name|cell
 argument_list|)
 condition|)
 block|{
+name|close
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+comment|// Do all cleanup except heap.close()
 return|return
 name|scannerContext
 operator|.
@@ -2826,6 +2840,12 @@ name|cell
 argument_list|)
 condition|)
 block|{
+name|close
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+comment|// Do all cleanup except heap.close()
 return|return
 name|scannerContext
 operator|.
@@ -2978,6 +2998,12 @@ name|cell
 argument_list|)
 condition|)
 block|{
+name|close
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+comment|// Do all cleanup except heap.close()
 return|return
 name|scannerContext
 operator|.
