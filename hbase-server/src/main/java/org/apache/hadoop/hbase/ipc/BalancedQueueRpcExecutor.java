@@ -478,7 +478,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|boolean
 name|dispatch
 parameter_list|(
 specifier|final
@@ -496,6 +496,7 @@ operator|.
 name|getNextQueue
 argument_list|()
 decl_stmt|;
+return|return
 name|queues
 operator|.
 name|get
@@ -503,11 +504,11 @@ argument_list|(
 name|queueIndex
 argument_list|)
 operator|.
-name|put
+name|offer
 argument_list|(
 name|callTask
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 annotation|@
 name|Override

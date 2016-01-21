@@ -443,6 +443,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|ClientExceptionsUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|RpcControllerFactory
@@ -6055,7 +6071,6 @@ argument_list|()
 decl_stmt|;
 comment|// Do not use the exception for updating cache because it might be coming from
 comment|// any of the regions in the MultiAction.
-comment|// TODO: depending on type of exception we might not want to update cache at all?
 if|if
 condition|(
 name|tableName
@@ -6073,7 +6088,16 @@ name|regionName
 argument_list|,
 name|row
 argument_list|,
+name|ClientExceptionsUtil
+operator|.
+name|isMetaClearingException
+argument_list|(
+name|t
+argument_list|)
+condition|?
 literal|null
+else|:
+name|t
 argument_list|,
 name|server
 argument_list|)
@@ -6719,7 +6743,7 @@ argument_list|()
 decl_stmt|;
 name|throwable
 operator|=
-name|ConnectionImplementation
+name|ClientExceptionsUtil
 operator|.
 name|findException
 argument_list|(

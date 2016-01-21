@@ -1292,7 +1292,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|boolean
 name|dispatch
 parameter_list|(
 specifier|final
@@ -1382,6 +1382,7 @@ name|getNextQueue
 argument_list|()
 expr_stmt|;
 block|}
+return|return
 name|queues
 operator|.
 name|get
@@ -1389,11 +1390,11 @@ argument_list|(
 name|queueIndex
 argument_list|)
 operator|.
-name|put
+name|offer
 argument_list|(
 name|callTask
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 specifier|private
 name|boolean

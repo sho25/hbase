@@ -468,7 +468,7 @@ function_decl|;
 comment|/** Add the request to the executor queue */
 specifier|public
 specifier|abstract
-name|void
+name|boolean
 name|dispatch
 parameter_list|(
 specifier|final

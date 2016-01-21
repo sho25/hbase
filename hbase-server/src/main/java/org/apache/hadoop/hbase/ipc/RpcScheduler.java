@@ -152,7 +152,7 @@ function_decl|;
 comment|/**    * Dispatches an RPC request asynchronously. An implementation is free to choose to process the    * request immediately or delay it for later processing.    *    * @param task the request to be dispatched    */
 specifier|public
 specifier|abstract
-name|void
+name|boolean
 name|dispatch
 parameter_list|(
 name|CallRunner
