@@ -2915,7 +2915,7 @@ name|batchSize
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add HBase and its dependencies (only) to the job configuration.    *<p>    * This is intended as a low-level API, facilitating code reuse between this    * class and its mapred counterpart. It also of use to extenral tools that    * need to build a MapReduce job that interacts with HBase but want    * fine-grained control over the jars shipped to the cluster.    *</p>    * @param conf The Configuration object to extend with dependencies.    * @see org.apache.hadoop.hbase.mapred.TableMapReduceUtil    * @see<a href="https://issues.apache.org/jira/browse/PIG-3285">PIG-3285</a>    */
+comment|/**    * Add HBase and its dependencies (only) to the job configuration.    *<p>    * This is intended as a low-level API, facilitating code reuse between this    * class and its mapred counterpart. It also of use to external tools that    * need to build a MapReduce job that interacts with HBase but want    * fine-grained control over the jars shipped to the cluster.    *</p>    * @param conf The Configuration object to extend with dependencies.    * @see org.apache.hadoop.hbase.mapred.TableMapReduceUtil    * @see<a href="https://issues.apache.org/jira/browse/PIG-3285">PIG-3285</a>    */
 specifier|public
 specifier|static
 name|void
@@ -2927,6 +2927,44 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// PrefixTreeCodec is part of the hbase-prefix-tree module. If not included in MR jobs jar
+comment|// dependencies, MR jobs that write encoded hfiles will fail.
+comment|// We used reflection here so to prevent a circular module dependency.
+comment|// TODO - if we extract the MR into a module, make it depend on hbase-prefix-tree.
+name|Class
+name|prefixTreeCodecClass
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|prefixTreeCodecClass
+operator|=
+name|Class
+operator|.
+name|forName
+argument_list|(
+literal|"org.apache.hadoop.hbase.code.prefixtree.PrefixTreeCodec"
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|ClassNotFoundException
+name|e
+parameter_list|)
+block|{
+comment|// this will show up in unit tests but should not show in real deployments
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"The hbase-prefix-tree module jar containing PrefixTreeCodec is not present."
+operator|+
+literal|"  Continuing without it."
+argument_list|)
+expr_stmt|;
+block|}
 name|addDependencyJars
 argument_list|(
 name|conf
@@ -3005,6 +3043,9 @@ operator|.
 name|class
 argument_list|,
 comment|// hbase-server
+name|prefixTreeCodecClass
+argument_list|,
+comment|//  hbase-prefix-tree (if null will be skipped)
 comment|// pull necessary dependencies
 name|org
 operator|.
