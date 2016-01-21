@@ -263,6 +263,22 @@ name|EnvironmentEdgeManager
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|LeaseNotRecoveredException
+import|;
+end_import
+
 begin_comment
 comment|// imports for things that haven't moved from regionserver.wal yet.
 end_comment
@@ -1702,10 +1718,20 @@ name|iioe
 throw|;
 block|}
 block|}
+throw|throw
+operator|new
+name|LeaseNotRecoveredException
+argument_list|(
+name|e
+argument_list|)
+throw|;
 block|}
+else|else
+block|{
 throw|throw
 name|e
 throw|;
+block|}
 block|}
 block|}
 block|}
