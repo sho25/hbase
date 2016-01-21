@@ -4589,7 +4589,10 @@ name|currentRegionBoundariesInformation
 operator|.
 name|storesFirstKey
 operator|=
+name|keyOnly
+argument_list|(
 name|storeFirstKey
+argument_list|)
 expr_stmt|;
 name|currentRegionBoundariesInformation
 operator|.
