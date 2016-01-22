@@ -462,7 +462,7 @@ name|boolean
 name|cacheBlocks
 decl_stmt|;
 specifier|protected
-name|int
+name|long
 name|countPerRow
 init|=
 literal|0
