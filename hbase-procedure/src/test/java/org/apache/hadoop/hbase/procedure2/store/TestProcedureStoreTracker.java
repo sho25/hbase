@@ -1335,7 +1335,7 @@ expr_stmt|;
 block|}
 name|tracker
 operator|.
-name|clear
+name|reset
 argument_list|()
 expr_stmt|;
 block|}
@@ -1464,7 +1464,7 @@ expr_stmt|;
 block|}
 name|tracker
 operator|.
-name|clear
+name|reset
 argument_list|()
 expr_stmt|;
 block|}

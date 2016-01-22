@@ -394,13 +394,6 @@ extends|extends
 name|ProcedureLoader
 block|{
 name|void
-name|removeLog
-parameter_list|(
-name|ProcedureWALFile
-name|log
-parameter_list|)
-function_decl|;
-name|void
 name|markCorruptedWAL
 parameter_list|(
 name|ProcedureWALFile
