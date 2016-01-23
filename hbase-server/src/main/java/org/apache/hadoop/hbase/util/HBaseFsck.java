@@ -5286,7 +5286,7 @@ operator|+
 literal|")"
 argument_list|)
 expr_stmt|;
-comment|// create new region on hdfs.  move data into place.
+comment|// create new region on hdfs. move data into place.
 name|HRegionInfo
 name|hri
 init|=
@@ -5303,10 +5303,21 @@ operator|.
 name|getFirst
 argument_list|()
 argument_list|,
+name|Bytes
+operator|.
+name|add
+argument_list|(
 name|orphanRegionRange
 operator|.
 name|getSecond
 argument_list|()
+argument_list|,
+operator|new
+name|byte
+index|[
+literal|1
+index|]
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|LOG

@@ -9461,7 +9461,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * This creates and fixes a bad table with a missing region -- hole in meta    * and data present but .regioinfino missing (an orphan hdfs region)in the fs.    */
+comment|/**    * This creates and fixes a bad table with a missing region -- hole in meta    * and data present but .regioninfo missing (an orphan hdfs region)in the fs.    */
 annotation|@
 name|Test
 argument_list|(
