@@ -608,28 +608,7 @@ index|[
 literal|1
 index|]
 expr_stmt|;
-block|}
-if|if
-condition|(
-name|startTime
-operator|<
-name|endTime
-condition|)
-block|{
-name|printUsage
-argument_list|(
-literal|"--endtime="
-operator|+
-name|endTime
-operator|+
-literal|" needs to be greater than --starttime="
-operator|+
-name|startTime
-argument_list|)
-expr_stmt|;
-return|return
-literal|null
-return|;
+continue|continue;
 block|}
 if|if
 condition|(
@@ -741,8 +720,6 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
-else|else
-block|{
 comment|// if no switch, assume column names
 name|sb
 operator|.
@@ -762,6 +739,27 @@ literal|" "
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|endTime
+operator|<
+name|startTime
+condition|)
+block|{
+name|printUsage
+argument_list|(
+literal|"--endtime="
+operator|+
+name|endTime
+operator|+
+literal|" needs to be greater than --starttime="
+operator|+
+name|startTime
+argument_list|)
+expr_stmt|;
+return|return
+literal|null
+return|;
 block|}
 name|Job
 name|job
