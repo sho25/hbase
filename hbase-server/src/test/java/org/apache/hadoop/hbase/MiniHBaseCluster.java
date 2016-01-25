@@ -605,13 +605,6 @@ init|=
 literal|null
 decl_stmt|;
 specifier|public
-specifier|static
-name|boolean
-name|TEST_SKIP_CLOSE
-init|=
-literal|false
-decl_stmt|;
-specifier|public
 name|MiniHBaseClusterRegionServer
 parameter_list|(
 name|Configuration
@@ -787,6 +780,8 @@ name|kill
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|abort
