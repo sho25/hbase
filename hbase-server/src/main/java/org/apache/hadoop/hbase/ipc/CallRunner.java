@@ -715,23 +715,7 @@ literal|true
 expr_stmt|;
 block|}
 block|}
-comment|// Set the response for undelayed calls and delayed calls with
-comment|// undelayed responses.
-if|if
-condition|(
-operator|!
-name|call
-operator|.
-name|isDelayed
-argument_list|()
-operator|||
-operator|!
-name|call
-operator|.
-name|isReturnValueDelayed
-argument_list|()
-condition|)
-block|{
+comment|// Set the response
 name|Message
 name|param
 init|=
@@ -773,7 +757,6 @@ argument_list|,
 name|error
 argument_list|)
 expr_stmt|;
-block|}
 name|call
 operator|.
 name|sendResponseIfReady

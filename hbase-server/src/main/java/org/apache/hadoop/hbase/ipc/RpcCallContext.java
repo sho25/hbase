@@ -87,8 +87,6 @@ name|Private
 specifier|public
 interface|interface
 name|RpcCallContext
-extends|extends
-name|Delayable
 block|{
 comment|/**    * Check if the caller who made this IPC call has disconnected.    * If called from outside the context of IPC, this does nothing.    * @return&lt; 0 if the caller is still connected. The time in ms    *  since the disconnection otherwise    */
 name|long
