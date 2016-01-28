@@ -384,23 +384,17 @@ argument_list|(
 name|cell
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
 name|map
 operator|.
 name|add
 argument_list|(
 name|kv
 argument_list|)
-expr_stmt|;
-block|}
-block|}
-for|for
-control|(
-name|KeyValue
-name|kv
-range|:
-name|map
-control|)
+condition|)
 block|{
+comment|// don't count duplicated kv into size
 name|curSize
 operator|+=
 name|kv
@@ -408,6 +402,8 @@ operator|.
 name|heapSize
 argument_list|()
 expr_stmt|;
+block|}
+block|}
 block|}
 block|}
 name|context
