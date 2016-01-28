@@ -265,6 +265,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|User
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -581,7 +597,7 @@ name|Service
 name|instance
 parameter_list|)
 function_decl|;
-comment|/**    * Merge two regions. The real implementation is on the regionserver, master    * just move the regions together and send MERGE RPC to regionserver    * @param region_a region to merge    * @param region_b region to merge    * @param forcible true if do a compulsory merge, otherwise we will only merge    *          two adjacent regions    * @throws IOException    */
+comment|/**    * Merge two regions. The real implementation is on the regionserver, master    * just move the regions together and send MERGE RPC to regionserver    * @param region_a region to merge    * @param region_b region to merge    * @param forcible true if do a compulsory merge, otherwise we will only merge    *          two adjacent regions    * @param user effective user    * @throws IOException    */
 name|void
 name|dispatchMergingRegions
 parameter_list|(
@@ -596,6 +612,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|forcible
+parameter_list|,
+specifier|final
+name|User
+name|user
 parameter_list|)
 throws|throws
 name|IOException
@@ -660,7 +680,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param table    * @return the timestamp of the last successful major compaction for the passed table,    * or 0 if no HFile resulting from a major compaction exists    * @throws IOException    */
+comment|/**    * @param table the table for which last successful major compaction time is queried    * @return the timestamp of the last successful major compaction for the passed table,    * or 0 if no HFile resulting from a major compaction exists    * @throws IOException    */
 specifier|public
 name|long
 name|getLastMajorCompactionTimestamp
