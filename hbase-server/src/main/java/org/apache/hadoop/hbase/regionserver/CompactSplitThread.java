@@ -299,9 +299,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|compactions
+name|throttle
 operator|.
-name|CompactionThroughputController
+name|CompactionThroughputControllerFactory
 import|;
 end_import
 
@@ -317,9 +317,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|compactions
+name|throttle
 operator|.
-name|CompactionThroughputControllerFactory
+name|ThroughputController
 import|;
 end_import
 
@@ -591,7 +591,7 @@ name|mergePool
 decl_stmt|;
 specifier|private
 specifier|volatile
-name|CompactionThroughputController
+name|ThroughputController
 name|compactionThroughputController
 decl_stmt|;
 comment|/**    * Splitting should not take place if the total number of regions exceed this.    * This is not a hard limit to the number of regions but it is a guideline to    * stop splitting after number of online regions is greater than this.    */
@@ -4017,7 +4017,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|CompactionThroughputController
+name|ThroughputController
 name|old
 init|=
 name|this
@@ -4147,7 +4147,7 @@ block|}
 annotation|@
 name|VisibleForTesting
 specifier|public
-name|CompactionThroughputController
+name|ThroughputController
 name|getCompactionThroughputController
 parameter_list|()
 block|{

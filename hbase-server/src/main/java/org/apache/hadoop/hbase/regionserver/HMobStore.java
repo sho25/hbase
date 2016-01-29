@@ -621,9 +621,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|compactions
+name|throttle
 operator|.
-name|CompactionThroughputController
+name|ThroughputController
 import|;
 end_import
 
@@ -2596,7 +2596,7 @@ parameter_list|(
 name|CompactionContext
 name|compaction
 parameter_list|,
-name|CompactionThroughputController
+name|ThroughputController
 name|throughputController
 parameter_list|)
 throws|throws

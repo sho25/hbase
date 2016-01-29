@@ -15,7 +15,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|compactions
+name|throttle
 package|;
 end_package
 
@@ -80,7 +80,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A utility that constrains the total throughput of one or more simultaneous flows (compactions) by  * sleeping when necessary.  */
+comment|/**  * A utility that constrains the total throughput of one or more simultaneous flows by  * sleeping when necessary.  */
 end_comment
 
 begin_interface
@@ -95,7 +95,7 @@ name|CONFIG
 argument_list|)
 specifier|public
 interface|interface
-name|CompactionThroughputController
+name|ThroughputController
 extends|extends
 name|Stoppable
 block|{
@@ -107,20 +107,20 @@ name|RegionServerServices
 name|server
 parameter_list|)
 function_decl|;
-comment|/**    * Start a compaction.    */
+comment|/**    * Start the throughput controller.    */
 name|void
 name|start
 parameter_list|(
 name|String
-name|compactionName
+name|name
 parameter_list|)
 function_decl|;
-comment|/**    * Control the compaction throughput. Will sleep if too fast.    * @return the actual sleep time.    */
+comment|/**    * Control the throughput. Will sleep if too fast.    * @return the actual sleep time.    */
 name|long
 name|control
 parameter_list|(
 name|String
-name|compactionName
+name|name
 parameter_list|,
 name|long
 name|size
@@ -128,12 +128,12 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 function_decl|;
-comment|/**    * Finish a compaction. Should call this method in a finally block.    */
+comment|/**    * Finish the controller. Should call this method in a finally block.    */
 name|void
 name|finish
 parameter_list|(
 name|String
-name|compactionName
+name|name
 parameter_list|)
 function_decl|;
 block|}

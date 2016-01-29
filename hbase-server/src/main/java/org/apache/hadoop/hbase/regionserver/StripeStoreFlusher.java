@@ -207,6 +207,24 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|throttle
+operator|.
+name|ThroughputController
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -323,6 +341,9 @@ name|cacheFlushSeqNum
 parameter_list|,
 name|MonitoredTask
 name|status
+parameter_list|,
+name|ThroughputController
+name|throughputController
 parameter_list|)
 throws|throws
 name|IOException
@@ -485,6 +506,8 @@ argument_list|,
 name|mw
 argument_list|,
 name|smallestReadPoint
+argument_list|,
+name|throughputController
 argument_list|)
 expr_stmt|;
 name|result

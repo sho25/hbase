@@ -979,9 +979,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|compactions
+name|throttle
 operator|.
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 import|;
 end_import
 
@@ -2157,7 +2157,7 @@ name|cc
 argument_list|,
 name|store
 argument_list|,
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 operator|.
 name|INSTANCE
 argument_list|)

@@ -419,7 +419,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionThroughputController
+name|DefaultCompactor
 import|;
 end_import
 
@@ -435,9 +435,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|compactions
+name|throttle
 operator|.
-name|DefaultCompactor
+name|ThroughputController
 import|;
 end_import
 
@@ -743,7 +743,7 @@ parameter_list|,
 name|boolean
 name|cleanSeqId
 parameter_list|,
-name|CompactionThroughputController
+name|ThroughputController
 name|throughputController
 parameter_list|,
 name|boolean

@@ -15,7 +15,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|compactions
+name|throttle
 package|;
 end_package
 
@@ -65,10 +65,6 @@ name|RegionServerServices
 import|;
 end_import
 
-begin_comment
-comment|/**  * A dummy CompactionThroughputController that does nothing.  */
-end_comment
-
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -81,18 +77,18 @@ name|CONFIG
 argument_list|)
 specifier|public
 class|class
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 implements|implements
-name|CompactionThroughputController
+name|ThroughputController
 block|{
 specifier|public
 specifier|static
 specifier|final
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 name|INSTANCE
 init|=
 operator|new
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 argument_list|()
 decl_stmt|;
 annotation|@
@@ -145,7 +141,6 @@ name|compactionName
 parameter_list|)
 block|{   }
 specifier|private
-specifier|volatile
 name|boolean
 name|stopped
 decl_stmt|;
@@ -183,7 +178,7 @@ name|toString
 parameter_list|()
 block|{
 return|return
-literal|"NoLimitCompactionThroughputController"
+literal|"NoLimitThroughputController"
 return|;
 block|}
 block|}

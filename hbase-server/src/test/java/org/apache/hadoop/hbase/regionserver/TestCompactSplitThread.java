@@ -101,7 +101,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|compactions
+name|throttle
 operator|.
 name|CompactionThroughputControllerFactory
 import|;
@@ -119,9 +119,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|compactions
+name|throttle
 operator|.
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 import|;
 end_import
 

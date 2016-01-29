@@ -241,6 +241,42 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|throttle
+operator|.
+name|NoLimitThroughputController
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|throttle
+operator|.
+name|ThroughputController
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|User
@@ -248,7 +284,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Compact passed set of files. Create an instance and then call  * {@link #compact(CompactionRequest, CompactionThroughputController, User)}  */
+comment|/**  * Compact passed set of files. Create an instance and then call  * {@link #compact(CompactionRequest, ThroughputController, User)}  */
 end_comment
 
 begin_class
@@ -309,7 +345,7 @@ specifier|final
 name|CompactionRequest
 name|request
 parameter_list|,
-name|CompactionThroughputController
+name|ThroughputController
 name|throughputController
 parameter_list|,
 name|User
@@ -906,7 +942,7 @@ name|shouldDropBehind
 argument_list|)
 return|;
 block|}
-comment|/**    * Compact a list of files for testing. Creates a fake {@link CompactionRequest} to pass to    * {@link #compact(CompactionRequest, CompactionThroughputController, User)};    * @param filesToCompact the files to compact. These are used as the compactionSelection for    *          the generated {@link CompactionRequest}.    * @param isMajor true to major compact (prune all deletes, max versions, etc)    * @return Product of compaction or an empty list if all cells expired or deleted and nothing \    *         made it through the compaction.    * @throws IOException    */
+comment|/**    * Compact a list of files for testing. Creates a fake {@link CompactionRequest} to pass to    * {@link #compact(CompactionRequest, ThroughputController, User)};    * @param filesToCompact the files to compact. These are used as the compactionSelection for    *          the generated {@link CompactionRequest}.    * @param isMajor true to major compact (prune all deletes, max versions, etc)    * @return Product of compaction or an empty list if all cells expired or deleted and nothing \    *         made it through the compaction.    * @throws IOException    */
 specifier|public
 name|List
 argument_list|<
@@ -952,7 +988,7 @@ name|compact
 argument_list|(
 name|cr
 argument_list|,
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 operator|.
 name|INSTANCE
 argument_list|,

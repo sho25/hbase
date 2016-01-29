@@ -243,6 +243,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|throttle
+operator|.
+name|ThroughputController
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|wal
 operator|.
 name|WAL
@@ -646,6 +664,16 @@ function_decl|;
 comment|/**    * @return the max compaction pressure of all stores on this regionserver. The value should be    *         greater than or equal to 0.0, and any value greater than 1.0 means we enter the    *         emergency state that some stores have too many store files.    * @see org.apache.hadoop.hbase.regionserver.Store#getCompactionPressure()    */
 name|double
 name|getCompactionPressure
+parameter_list|()
+function_decl|;
+comment|/**    * @return the controller to avoid flush too fast    */
+name|ThroughputController
+name|getFlushThroughputController
+parameter_list|()
+function_decl|;
+comment|/**    * @return the flush pressure of all stores on this regionserver. The value should be greater than    *         or equal to 0.0, and any value greater than 1.0 means we enter the emergency state that    *         global memstore size already exceeds lower limit.    */
+name|double
+name|getFlushPressure
 parameter_list|()
 function_decl|;
 block|}

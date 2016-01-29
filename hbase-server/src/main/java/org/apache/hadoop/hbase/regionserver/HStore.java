@@ -845,24 +845,6 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionThroughputController
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|compactions
-operator|.
 name|DefaultCompactor
 import|;
 end_import
@@ -882,6 +864,24 @@ operator|.
 name|compactions
 operator|.
 name|OffPeakHours
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|throttle
+operator|.
+name|ThroughputController
 import|;
 end_import
 
@@ -4591,7 +4591,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Snapshot this stores memstore. Call before running    * {@link #flushCache(long, MemStoreSnapshot, MonitoredTask)}    *  so it has some work to do.    */
+comment|/**    * Snapshot this stores memstore. Call before running    * {@link #flushCache(long, MemStoreSnapshot, MonitoredTask, ThroughputController)}    *  so it has some work to do.    */
 name|void
 name|snapshot
 parameter_list|()
@@ -4630,7 +4630,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Write out current snapshot.  Presumes {@link #snapshot()} has been called previously.    * @param logCacheFlushId flush sequence number    * @param snapshot    * @param status    * @return The path name of the tmp file to which the store was flushed    * @throws IOException    */
+comment|/**    * Write out current snapshot. Presumes {@link #snapshot()} has been called previously.    * @param logCacheFlushId flush sequence number    * @param snapshot    * @param status    * @param throughputController    * @return The path name of the tmp file to which the store was flushed    * @throws IOException if exception occurs during process    */
 specifier|protected
 name|List
 argument_list|<
@@ -4647,6 +4647,9 @@ name|snapshot
 parameter_list|,
 name|MonitoredTask
 name|status
+parameter_list|,
+name|ThroughputController
+name|throughputController
 parameter_list|)
 throws|throws
 name|IOException
@@ -4701,6 +4704,8 @@ argument_list|,
 name|logCacheFlushId
 argument_list|,
 name|status
+argument_list|,
+name|throughputController
 argument_list|)
 decl_stmt|;
 name|Path
@@ -5934,7 +5939,7 @@ parameter_list|(
 name|CompactionContext
 name|compaction
 parameter_list|,
-name|CompactionThroughputController
+name|ThroughputController
 name|throughputController
 parameter_list|)
 throws|throws
@@ -5963,7 +5968,7 @@ parameter_list|(
 name|CompactionContext
 name|compaction
 parameter_list|,
-name|CompactionThroughputController
+name|ThroughputController
 name|throughputController
 parameter_list|,
 name|User
@@ -10304,6 +10309,28 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|RegionServerServices
+name|rsService
+init|=
+name|region
+operator|.
+name|getRegionServerServices
+argument_list|()
+decl_stmt|;
+name|ThroughputController
+name|throughputController
+init|=
+name|rsService
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+name|rsService
+operator|.
+name|getFlushThroughputController
+argument_list|()
+decl_stmt|;
 name|tempFiles
 operator|=
 name|HStore
@@ -10317,6 +10344,8 @@ argument_list|,
 name|snapshot
 argument_list|,
 name|status
+argument_list|,
+name|throughputController
 argument_list|)
 expr_stmt|;
 block|}

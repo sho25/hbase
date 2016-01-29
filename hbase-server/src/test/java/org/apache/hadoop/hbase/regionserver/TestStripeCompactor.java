@@ -475,7 +475,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|NoLimitCompactionThroughputController
+name|StripeCompactor
 import|;
 end_import
 
@@ -491,9 +491,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|compactions
+name|throttle
 operator|.
-name|StripeCompactor
+name|NoLimitThroughputController
 import|;
 end_import
 
@@ -1313,7 +1313,7 @@ name|majorFrom
 argument_list|,
 name|majorTo
 argument_list|,
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 operator|.
 name|INSTANCE
 argument_list|)
@@ -1766,7 +1766,7 @@ literal|null
 argument_list|,
 literal|null
 argument_list|,
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 operator|.
 name|INSTANCE
 argument_list|)

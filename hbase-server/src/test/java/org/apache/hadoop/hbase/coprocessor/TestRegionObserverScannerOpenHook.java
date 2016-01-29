@@ -595,9 +595,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|compactions
+name|throttle
 operator|.
-name|CompactionThroughputController
+name|ThroughputController
 import|;
 end_import
 
@@ -614,22 +614,6 @@ operator|.
 name|security
 operator|.
 name|User
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|wal
-operator|.
-name|WAL
 import|;
 end_import
 
@@ -678,6 +662,22 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WAL
 import|;
 end_import
 
@@ -1689,7 +1689,7 @@ parameter_list|,
 name|Store
 name|store
 parameter_list|,
-name|CompactionThroughputController
+name|ThroughputController
 name|throughputController
 parameter_list|)
 throws|throws
@@ -1734,7 +1734,7 @@ parameter_list|,
 name|Store
 name|store
 parameter_list|,
-name|CompactionThroughputController
+name|ThroughputController
 name|throughputController
 parameter_list|,
 name|User

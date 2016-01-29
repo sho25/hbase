@@ -83,22 +83,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
@@ -144,6 +128,22 @@ operator|.
 name|hbase
 operator|.
 name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -231,9 +231,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|compactions
+name|throttle
 operator|.
-name|CompactionThroughputController
+name|ThroughputController
 import|;
 end_import
 
@@ -641,7 +641,7 @@ name|Path
 argument_list|>
 name|compact
 parameter_list|(
-name|CompactionThroughputController
+name|ThroughputController
 name|throughputController
 parameter_list|)
 throws|throws
@@ -684,7 +684,7 @@ name|Path
 argument_list|>
 name|compact
 parameter_list|(
-name|CompactionThroughputController
+name|ThroughputController
 name|throughputController
 parameter_list|,
 name|User

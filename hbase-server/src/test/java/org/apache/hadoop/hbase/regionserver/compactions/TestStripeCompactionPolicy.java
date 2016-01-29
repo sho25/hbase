@@ -689,6 +689,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|throttle
+operator|.
+name|NoLimitThroughputController
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|User
@@ -2183,7 +2201,7 @@ name|execute
 argument_list|(
 name|sc
 argument_list|,
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 operator|.
 name|INSTANCE
 argument_list|,
@@ -2236,7 +2254,7 @@ argument_list|)
 argument_list|,
 name|any
 argument_list|(
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 operator|.
 name|class
 argument_list|)
@@ -4292,7 +4310,7 @@ name|execute
 argument_list|(
 name|sc
 argument_list|,
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 operator|.
 name|INSTANCE
 argument_list|,
@@ -4606,7 +4624,7 @@ name|execute
 argument_list|(
 name|sc
 argument_list|,
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 operator|.
 name|INSTANCE
 argument_list|,
@@ -4779,7 +4797,7 @@ argument_list|)
 argument_list|,
 name|any
 argument_list|(
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 operator|.
 name|class
 argument_list|)
@@ -4895,7 +4913,7 @@ name|execute
 argument_list|(
 name|sc
 argument_list|,
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 operator|.
 name|INSTANCE
 argument_list|,
@@ -4978,7 +4996,7 @@ argument_list|)
 argument_list|,
 name|any
 argument_list|(
-name|NoLimitCompactionThroughputController
+name|NoLimitThroughputController
 operator|.
 name|class
 argument_list|)
