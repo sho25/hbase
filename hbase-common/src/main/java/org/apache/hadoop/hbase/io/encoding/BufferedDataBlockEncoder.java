@@ -5007,25 +5007,16 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|// TODO : Make Dictionary interface to work with BBs and then change the corresponding
-comment|// compress tags code to work with BB
-name|tagCompressionContext
+comment|// Not passing tagsLength considering that parsing of the tagsLength is not costly
+name|CellUtil
 operator|.
 name|compressTags
 argument_list|(
 name|out
 argument_list|,
 name|cell
-operator|.
-name|getTagsArray
-argument_list|()
 argument_list|,
-name|cell
-operator|.
-name|getTagsOffset
-argument_list|()
-argument_list|,
-name|tagsLength
+name|tagCompressionContext
 argument_list|)
 expr_stmt|;
 block|}

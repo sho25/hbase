@@ -21,6 +21,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|nio
+operator|.
+name|ByteBuffer
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -76,6 +86,20 @@ name|findEntry
 parameter_list|(
 name|byte
 index|[]
+name|data
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
+parameter_list|)
+function_decl|;
+comment|/**    * Finds the index of an entry.    * If no entry found, we add it.    * @param data the ByteBuffer that we're looking up    * @param offset Offset into<code>data</code> to add to Dictionary.    * @param length Length beyond<code>offset</code> that comprises entry; must be&gt; 0.    * @return the index of the entry, or {@link #NOT_IN_DICTIONARY} if not found    */
+name|short
+name|findEntry
+parameter_list|(
+name|ByteBuffer
 name|data
 parameter_list|,
 name|int
