@@ -928,7 +928,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"ps aux | grep proc_%s | grep -v grep | tr -s ' ' | cut -d ' ' -f2"
+literal|"ps ux | grep proc_%s | grep -v grep | tr -s ' ' | cut -d ' ' -f2"
 argument_list|,
 name|service
 argument_list|)
@@ -1370,7 +1370,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"ps aux | grep %s | grep -v grep | tr -s ' ' | cut -d ' ' -f2"
+literal|"ps ux | grep %s | grep -v grep | tr -s ' ' | cut -d ' ' -f2"
 argument_list|,
 name|service
 argument_list|)
