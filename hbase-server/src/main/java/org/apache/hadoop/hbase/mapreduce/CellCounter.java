@@ -636,6 +636,19 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|values
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|values
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
 for|for
 control|(
 name|Cell
@@ -931,6 +944,7 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}

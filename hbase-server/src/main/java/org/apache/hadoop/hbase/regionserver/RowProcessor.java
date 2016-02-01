@@ -166,7 +166,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Defines the procedure to atomically perform multiple scans and mutations  * on a HRegion.  *  * This is invoked by HRegion#processRowsWithLocks().  * This class performs scans and generates mutations and WAL edits.  * The locks and MVCC will be handled by HRegion.  *  * The RowProcessor user code could have data that needs to be   * sent across for proper initialization at the server side. The generic type   * parameter S is the type of the request data sent to the server.  * The generic type parameter T is the return type of RowProcessor.getResult().  */
+comment|/**  * Defines the procedure to atomically perform multiple scans and mutations  * on a HRegion.  *  * This is invoked by {@link Region#processRowsWithLocks(RowProcessor)}.  * This class performs scans and generates mutations and WAL edits.  * The locks and MVCC will be handled by HRegion.  *  * The RowProcessor user code could have data that needs to be   * sent across for proper initialization at the server side. The generic type   * parameter S is the type of the request data sent to the server.  * The generic type parameter T is the return type of RowProcessor.getResult().  */
 end_comment
 
 begin_interface
@@ -250,7 +250,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * The hook to be executed after the process() but before applying the Mutations to region. Also    * by the time this hook is been called, mvcc transaction is started.    * @param region    * @param walEdit the output WAL edits to apply to write ahead log    * @throws IOException    */
+comment|/**    * The hook to be executed after the process() but before applying the Mutations to region. Also    * by the time this hook is called, mvcc transaction have started.    * @param walEdit the output WAL edits to apply to write ahead log    */
 name|void
 name|preBatchMutate
 parameter_list|(
@@ -263,7 +263,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * The hook to be executed after the process() and applying the Mutations to region. The    * difference of this one with {@link #postProcess(HRegion, WALEdit, boolean)} is this hook will    * be executed before the mvcc transaction completion.    * @param region    * @throws IOException    */
+comment|/**    * The hook to be executed after the process() and applying the Mutations to region. The    * difference of this one with {@link #postProcess(HRegion, WALEdit, boolean)} is this hook will    * be executed before the mvcc transaction completion.    */
 name|void
 name|postBatchMutate
 parameter_list|(

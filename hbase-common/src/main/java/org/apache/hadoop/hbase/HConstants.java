@@ -2641,17 +2641,6 @@ name|LOAD_BALANCER_SLOP_KEY
 init|=
 literal|"hbase.regions.slop"
 decl_stmt|;
-comment|/**    * The byte array represents for NO_NEXT_INDEXED_KEY;    * The actual value is irrelevant because this is always compared by reference.    */
-specifier|public
-specifier|static
-specifier|final
-name|Cell
-name|NO_NEXT_INDEXED_KEY
-init|=
-operator|new
-name|KeyValue
-argument_list|()
-decl_stmt|;
 comment|/** delimiter used between portions of a region name */
 specifier|public
 specifier|static

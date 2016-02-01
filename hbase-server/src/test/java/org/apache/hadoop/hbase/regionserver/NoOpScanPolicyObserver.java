@@ -462,7 +462,7 @@ name|targetCols
 argument_list|,
 name|r
 operator|.
-name|getReadpoint
+name|getReadPoint
 argument_list|(
 name|scan
 operator|.
@@ -487,7 +487,7 @@ name|targetCols
 argument_list|,
 name|r
 operator|.
-name|getReadpoint
+name|getReadPoint
 argument_list|(
 name|scan
 operator|.

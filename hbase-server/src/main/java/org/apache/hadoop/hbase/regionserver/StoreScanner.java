@@ -1311,7 +1311,7 @@ operator|.
 name|getHRegion
 argument_list|()
 operator|.
-name|getReadpoint
+name|getReadPoint
 argument_list|(
 name|IsolationLevel
 operator|.
@@ -3200,7 +3200,7 @@ literal|null
 operator|&&
 name|nextIndexedKey
 operator|!=
-name|HConstants
+name|KeyValueScanner
 operator|.
 name|NO_NEXT_INDEXED_KEY
 operator|&&
@@ -3255,7 +3255,7 @@ literal|null
 operator|&&
 name|nextIndexedKey
 operator|!=
-name|HConstants
+name|KeyValueScanner
 operator|.
 name|NO_NEXT_INDEXED_KEY
 operator|&&

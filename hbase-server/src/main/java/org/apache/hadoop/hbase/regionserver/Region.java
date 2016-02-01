@@ -676,6 +676,16 @@ parameter_list|()
 function_decl|;
 comment|/** @return readpoint considering given IsolationLevel */
 name|long
+name|getReadPoint
+parameter_list|(
+name|IsolationLevel
+name|isolationLevel
+parameter_list|)
+function_decl|;
+comment|/**    * @return readpoint considering given IsolationLevel    * @deprecated Since 1.2.0. Use {@link #getReadPoint(IsolationLevel)} instead.    */
+annotation|@
+name|Deprecated
+name|long
 name|getReadpoint
 parameter_list|(
 name|IsolationLevel
@@ -758,7 +768,7 @@ function_decl|;
 comment|///////////////////////////////////////////////////////////////////////////
 comment|// Locking
 comment|// Region read locks
-comment|/**    * Operation enum is used in {@link Region#startRegionOperation} to provide context for    * various checks before any region operation begins.    */
+comment|/**    * Operation enum is used in {@link Region#startRegionOperation} and elsewhere to provide    * context for various checks.    */
 enum|enum
 name|Operation
 block|{
@@ -900,7 +910,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically checks if a row/family/qualifier value matches the expected val    * If it does, it performs the row mutations.  If the passed value is null, t    * is for the lack of column (ie: non-existence)    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp the comparison operator    * @param comparator    * @param mutation    * @param writeToWAL    * @return true if mutation was applied, false otherwise    * @throws IOException    */
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected value and if it does,    * it performs the mutation. If the passed value is null, the lack of column value    * (ie: non-existence) is used. See checkAndRowMutate to do many checkAndPuts at a time on a    * single row.    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp the comparison operator    * @param comparator    * @param mutation    * @param writeToWAL    * @return true if mutation was applied, false otherwise    * @throws IOException    */
 name|boolean
 name|checkAndMutate
 parameter_list|(
@@ -931,7 +941,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically checks if a row/family/qualifier value matches the expected val    * If it does, it performs the row mutations.  If the passed value is null, t    * is for the lack of column (ie: non-existence)    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp the comparison operator    * @param comparator    * @param mutations    * @param writeToWAL    * @return true if mutation was applied, false otherwise    * @throws IOException    */
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected values and if it does,    * it performs the row mutations. If the passed value is null, the lack of column value    * (ie: non-existence) is used. Use to do many mutations on a single row. Use checkAndMutate    * to do one checkAndMutate at a time.    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp the comparison operator    * @param comparator    * @param mutations    * @param writeToWAL    * @return true if mutations were applied, false otherwise    * @throws IOException    */
 name|boolean
 name|checkAndRowMutate
 parameter_list|(

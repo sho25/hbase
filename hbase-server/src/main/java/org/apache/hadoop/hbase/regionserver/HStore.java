@@ -6674,10 +6674,15 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|// Fix reaching into Region to get the maxWaitForSeqId.
+comment|// Does this method belong in Region altogether given it is making so many references up there?
+comment|// Could be Region#writeCompactionMarker(compactionDescriptor);
 name|WALUtil
 operator|.
 name|writeCompactionMarker
 argument_list|(
+name|this
+operator|.
 name|region
 operator|.
 name|getWAL
@@ -6699,6 +6704,8 @@ argument_list|()
 argument_list|,
 name|compactionDescriptor
 argument_list|,
+name|this
+operator|.
 name|region
 operator|.
 name|getMVCC

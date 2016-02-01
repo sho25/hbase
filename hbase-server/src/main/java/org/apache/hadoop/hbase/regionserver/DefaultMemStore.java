@@ -1982,7 +1982,7 @@ literal|1L
 argument_list|)
 return|;
 block|}
-comment|/**    * Update or insert the specified KeyValues.    *<p>    * For each KeyValue, insert into MemStore.  This will atomically upsert the    * value for that row/family/qualifier.  If a KeyValue did already exist,    * it will then be removed.    *<p>    * Currently the memstoreTS is kept at 0 so as each insert happens, it will    * be immediately visible.  May want to change this so it is atomic across    * all KeyValues.    *<p>    * This is called under row lock, so Get operations will still see updates    * atomically.  Scans will only see each KeyValue update as atomic.    *    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @return change in memstore size    */
+comment|/**    * Update or insert the specified KeyValues.    *<p>    * For each KeyValue, insert into MemStore.  This will atomically upsert the    * value for that row/family/qualifier.  If a KeyValue did already exist,    * it will then be removed.    *<p>    * This is called under row lock, so Get operations will still see updates    * atomically.  Scans will only see each KeyValue update as atomic.    *    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @return change in memstore size    */
 annotation|@
 name|Override
 specifier|public
@@ -2026,7 +2026,7 @@ return|return
 name|size
 return|;
 block|}
-comment|/**    * Inserts the specified KeyValue into MemStore and deletes any existing    * versions of the same row/family/qualifier as the specified KeyValue.    *<p>    * First, the specified KeyValue is inserted into the Memstore.    *<p>    * If there are any existing KeyValues in this MemStore with the same row,    * family, and qualifier, they are removed.    *<p>    * Callers must hold the read lock.    *    * @param cell    * @return change in size of MemStore    */
+comment|/**    * Inserts the specified KeyValue into MemStore and deletes any existing    * versions of the same row/family/qualifier as the specified KeyValue.    *<p>    * First, the specified KeyValue is inserted into the Memstore.    *<p>    * If there are any existing KeyValues in this MemStore with the same row,    * family, and qualifier, they are removed.    *<p>    * Callers must hold the read lock.    * @param readpoint Smallest outstanding readpoint; below which we can remove duplicate Cells.    * @return change in size of MemStore    */
 specifier|private
 name|long
 name|upsert
@@ -2131,7 +2131,7 @@ operator|.
 name|iterator
 argument_list|()
 decl_stmt|;
-comment|// versions visible to oldest scanner
+comment|// Versions visible to oldest scanner.
 name|int
 name|versionsVisible
 init|=

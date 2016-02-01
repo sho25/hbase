@@ -2375,7 +2375,7 @@ operator|.
 name|getHRegion
 argument_list|()
 operator|.
-name|getReadpoint
+name|getReadPoint
 argument_list|(
 name|IsolationLevel
 operator|.

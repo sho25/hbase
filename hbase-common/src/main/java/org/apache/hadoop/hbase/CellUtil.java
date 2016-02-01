@@ -4522,6 +4522,8 @@ literal|0
 condition|)
 block|{
 return|return
+name|TagUtil
+operator|.
 name|EMPTY_TAGS_ITR
 return|;
 block|}
@@ -7325,7 +7327,7 @@ name|getTypeByte
 argument_list|()
 return|;
 block|}
-comment|/**    * Compares the row of two keyvalues for equality    *     * @param left    * @param right    * @return True if rows match.    */
+comment|/**    * Compares the row of two keyvalues for equality    *    * @param left    * @param right    * @return True if rows match.    */
 specifier|public
 specifier|static
 name|boolean

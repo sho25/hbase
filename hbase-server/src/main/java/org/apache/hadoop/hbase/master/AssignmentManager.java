@@ -8399,6 +8399,7 @@ expr_stmt|;
 break|break;
 default|default:
 comment|// No process for other states
+break|break;
 block|}
 block|}
 block|}

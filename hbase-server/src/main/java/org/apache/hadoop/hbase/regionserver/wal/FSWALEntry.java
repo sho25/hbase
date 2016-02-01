@@ -525,7 +525,7 @@ operator|.
 name|sequence
 return|;
 block|}
-comment|/**    * Here is where a WAL edit gets its sequenceid.    * @return The sequenceid we stamped on this edit.    * @throws IOException    */
+comment|/**    * Here is where a WAL edit gets its sequenceid.    * SIDE-EFFECT is our stamping the sequenceid into every Cell AND setting the sequenceid into the    * MVCC WriteEntry!!!!    * @return The sequenceid we stamped on this edit.    * @throws IOException    */
 name|long
 name|stampRegionSequenceId
 parameter_list|()

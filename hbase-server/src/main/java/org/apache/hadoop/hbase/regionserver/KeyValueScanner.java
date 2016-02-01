@@ -67,6 +67,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Scan
@@ -88,6 +102,17 @@ name|KeyValueScanner
 extends|extends
 name|Shipper
 block|{
+comment|/**    * The byte array represents for NO_NEXT_INDEXED_KEY;    * The actual value is irrelevant because this is always compared by reference.    */
+specifier|public
+specifier|static
+specifier|final
+name|Cell
+name|NO_NEXT_INDEXED_KEY
+init|=
+operator|new
+name|KeyValue
+argument_list|()
+decl_stmt|;
 comment|/**    * Look at the next Cell in this scanner, but do not iterate scanner.    * @return the next Cell    */
 name|Cell
 name|peek
