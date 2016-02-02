@@ -1226,6 +1226,13 @@ literal|true
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"CatalogJanitor already running"
+argument_list|)
+expr_stmt|;
 return|return
 literal|0
 return|;
