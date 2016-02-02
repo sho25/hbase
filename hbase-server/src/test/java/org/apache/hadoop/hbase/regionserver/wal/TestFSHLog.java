@@ -2798,8 +2798,10 @@ name|currentSequenceId
 init|=
 name|region
 operator|.
-name|getSequenceId
-argument_list|()
+name|getReadPoint
+argument_list|(
+literal|null
+argument_list|)
 decl_stmt|;
 comment|// Now release the appends
 name|goslow
@@ -2826,8 +2828,10 @@ name|currentSequenceId
 operator|>=
 name|region
 operator|.
-name|getSequenceId
-argument_list|()
+name|getReadPoint
+argument_list|(
+literal|null
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

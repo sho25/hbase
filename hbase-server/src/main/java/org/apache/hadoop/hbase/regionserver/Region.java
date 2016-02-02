@@ -674,7 +674,7 @@ name|boolean
 name|isLoadingCfsOnDemandDefault
 parameter_list|()
 function_decl|;
-comment|/** @return readpoint considering given IsolationLevel */
+comment|/** @return readpoint considering given IsolationLevel; pass null for default*/
 name|long
 name|getReadPoint
 parameter_list|(

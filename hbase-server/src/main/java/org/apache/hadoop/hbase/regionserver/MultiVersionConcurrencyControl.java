@@ -480,7 +480,7 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Mark the {@link WriteEntry} as complete and advance the read point as much as possible.    * Call this even if the write has FAILED (AFTER backing out the write transaction    * changes completely) so we can clean up the outstanding transaction.    *    * How much is the read point advanced?    *     * Let S be the set of all write numbers that are completed. Set the read point to the highest    * numbered write of S.    *    * @param writeEntry    *    * @return true if e is visible to MVCC readers (that is, readpoint>= e.writeNumber)    */
+comment|/**    * Mark the {@link WriteEntry} as complete and advance the read point as much as possible.    * Call this even if the write has FAILED (AFTER backing out the write transaction    * changes completely) so we can clean up the outstanding transaction.    *    * How much is the read point advanced?    *    * Let S be the set of all write numbers that are completed. Set the read point to the highest    * numbered write of S.    *    * @param writeEntry    *    * @return true if e is visible to MVCC readers (that is, readpoint>= e.writeNumber)    */
 specifier|public
 name|boolean
 name|complete

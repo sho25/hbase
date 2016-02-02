@@ -23,16 +23,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|List
@@ -222,8 +212,6 @@ specifier|public
 name|long
 name|getSequenceId
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 return|return
 name|this

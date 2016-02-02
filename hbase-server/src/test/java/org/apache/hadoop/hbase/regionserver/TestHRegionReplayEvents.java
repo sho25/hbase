@@ -21,11 +21,125 @@ begin_import
 import|import static
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|TestHRegion
+operator|.
+name|assertGet
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|TestHRegion
+operator|.
+name|putData
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|TestHRegion
+operator|.
+name|verifyData
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
 import|;
 end_import
 
@@ -110,24 +224,6 @@ operator|.
 name|Mockito
 operator|.
 name|when
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|TestHRegion
-operator|.
-name|*
 import|;
 end_import
 
@@ -254,20 +350,6 @@ operator|.
 name|fs
 operator|.
 name|FSDataOutputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
-name|FileSystem
 import|;
 end_import
 
@@ -641,27 +723,7 @@ name|WALProtos
 operator|.
 name|FlushDescriptor
 operator|.
-name|StoreFlushDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|WALProtos
-operator|.
-name|RegionEventDescriptor
+name|FlushAction
 import|;
 end_import
 
@@ -683,7 +745,27 @@ name|WALProtos
 operator|.
 name|FlushDescriptor
 operator|.
-name|FlushAction
+name|StoreFlushDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|WALProtos
+operator|.
+name|RegionEventDescriptor
 import|;
 end_import
 
@@ -1141,11 +1223,6 @@ name|String
 name|dir
 decl_stmt|;
 specifier|private
-specifier|static
-name|FileSystem
-name|FILESYSTEM
-decl_stmt|;
-specifier|private
 name|byte
 index|[]
 index|[]
@@ -1285,13 +1362,6 @@ operator|=
 name|HBaseTestingUtility
 operator|.
 name|createLocalHTU
-argument_list|()
-expr_stmt|;
-name|FILESYSTEM
-operator|=
-name|TEST_UTIL
-operator|.
-name|getTestFileSystem
 argument_list|()
 expr_stmt|;
 name|CONF
@@ -2093,16 +2163,13 @@ argument_list|(
 literal|"-- Replaying flush start in secondary"
 argument_list|)
 expr_stmt|;
-name|PrepareFlushResult
-name|result
-init|=
 name|secondaryRegion
 operator|.
 name|replayWALFlushStartMarker
 argument_list|(
 name|flushDesc
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 block|}
 elseif|else
 if|if
@@ -2331,7 +2398,7 @@ throws|,
 name|IOException
 block|{
 return|return
-name|wals
+name|WALFactory
 operator|.
 name|createReader
 argument_list|(
@@ -4754,8 +4821,10 @@ argument_list|()
 operator|<=
 name|secondaryRegion
 operator|.
-name|getSequenceId
-argument_list|()
+name|getReadPoint
+argument_list|(
+literal|null
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -6422,8 +6491,10 @@ name|origSeqId
 argument_list|,
 name|region
 operator|.
-name|getSequenceId
-argument_list|()
+name|getReadPoint
+argument_list|(
+literal|null
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// replay an entry that is smaller than current read point
@@ -6486,11 +6557,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Tests that a region opened in secondary mode would not write region open / close    * events to its WAL.    * @throws IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 annotation|@
 name|Test
 specifier|public
@@ -7235,6 +7301,29 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+comment|// I seem to need to push more edits through so the WAL flushes on local fs. This was not
+comment|// needed before HBASE-15028. Not sure whats up. I can see that we have not flushed if I
+comment|// look at the WAL if I pause the test here and then use WALPrettyPrinter to look at content..
+comment|// Doing same check before HBASE-15028 I can see all edits flushed to the WAL. Somethings up
+comment|// but can't figure it... and this is only test that seems to suffer this flush issue.
+comment|// St.Ack 20160201
+name|putData
+argument_list|(
+name|primaryRegion
+argument_list|,
+name|Durability
+operator|.
+name|SYNC_WAL
+argument_list|,
+literal|0
+argument_list|,
+literal|100
+argument_list|,
+name|cq
+argument_list|,
+name|families
+argument_list|)
+expr_stmt|;
 name|reader
 operator|=
 name|createWALReaderForPrimary
@@ -7255,6 +7344,13 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|entry
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|entry

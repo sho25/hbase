@@ -143,7 +143,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|test
+name|testIncrementInstance
 parameter_list|()
 block|{
 specifier|final

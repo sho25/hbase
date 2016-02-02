@@ -6840,6 +6840,10 @@ block|{
 if|if
 condition|(
 name|isolationLevel
+operator|!=
+literal|null
+operator|&&
+name|isolationLevel
 operator|==
 name|IsolationLevel
 operator|.

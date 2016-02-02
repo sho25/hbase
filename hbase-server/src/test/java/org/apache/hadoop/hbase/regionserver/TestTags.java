@@ -4199,6 +4199,7 @@ name|BaseRegionObserver
 block|{
 specifier|public
 specifier|static
+specifier|volatile
 name|boolean
 name|checkTagPresence
 init|=

@@ -266,7 +266,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Key for an entry in the change log.  *  * The log intermingles edits to many tables and rows, so each log entry  * identifies the appropriate table and row.  Within a table and row, they're  * also sorted.  *  *<p>Some Transactional edits (START, COMMIT, ABORT) will not have an  * associated row.  * @deprecated use WALKey.  as of 2.0.  Remove in 3.0  */
+comment|/**  * A Key for an entry in the change log.  *  * The log intermingles edits to many tables and rows, so each log entry  * identifies the appropriate table and row.  Within a table and row, they're  * also sorted.  *  *<p>Some Transactional edits (START, COMMIT, ABORT) will not have an  * associated row.  * @deprecated use WALKey. Deprecated as of 1.0 (HBASE-12522). Remove in 2.0  */
 end_comment
 
 begin_class

@@ -6067,8 +6067,10 @@ name|lastestSeqNumber
 init|=
 name|region
 operator|.
-name|getSequenceId
-argument_list|()
+name|getReadPoint
+argument_list|(
+literal|null
+argument_list|)
 decl_stmt|;
 comment|// get the current seq no
 name|wal
