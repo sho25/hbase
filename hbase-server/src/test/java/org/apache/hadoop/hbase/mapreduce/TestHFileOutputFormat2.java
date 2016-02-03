@@ -2687,7 +2687,9 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"hbase.fs.tmp.dir"
+name|HConstants
+operator|.
+name|TEMPORARY_FS_DIRECTORY_KEY
 argument_list|,
 name|util
 operator|.
