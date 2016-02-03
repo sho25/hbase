@@ -5710,6 +5710,15 @@ operator|.
 name|getRegionInfo
 argument_list|()
 decl_stmt|;
+comment|// Disable CatalogJanitor to prevent it from cleaning up the parent region
+comment|// after split.
+name|admin
+operator|.
+name|enableCatalogJanitor
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 comment|// do a regular split
 name|byte
 index|[]
@@ -6134,6 +6143,13 @@ block|}
 block|}
 finally|finally
 block|{
+name|admin
+operator|.
+name|enableCatalogJanitor
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 name|meta
 operator|.
 name|close
