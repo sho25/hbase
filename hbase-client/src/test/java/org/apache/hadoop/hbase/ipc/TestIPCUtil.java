@@ -645,16 +645,6 @@ argument_list|,
 name|compressor
 argument_list|,
 name|bb
-operator|.
-name|array
-argument_list|()
-argument_list|,
-literal|0
-argument_list|,
-name|bb
-operator|.
-name|limit
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|int

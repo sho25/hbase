@@ -4738,13 +4738,16 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Only pass priority if there one.  Let zero be same as no priority.
+comment|// Only pass priority if there is one set.
 if|if
 condition|(
 name|priority
 operator|!=
-literal|0
+name|PayloadCarryingRpcController
+operator|.
+name|PRIORITY_UNSET
 condition|)
+block|{
 name|builder
 operator|.
 name|setPriority
@@ -4752,6 +4755,7 @@ argument_list|(
 name|priority
 argument_list|)
 expr_stmt|;
+block|}
 name|RequestHeader
 name|header
 init|=

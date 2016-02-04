@@ -130,16 +130,21 @@ name|TimeLimitedRpcController
 implements|implements
 name|CellScannable
 block|{
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|PRIORITY_UNSET
+init|=
+operator|-
+literal|1
+decl_stmt|;
 comment|/**    * Priority to set on this request.  Set it here in controller so available composing the    * request.  This is the ordained way of setting priorities going forward.  We will be    * undoing the old annotation-based mechanism.    */
-comment|// Currently only multi call makes use of this.  Eventually this should be only way to set
-comment|// priority.
 specifier|private
 name|int
 name|priority
 init|=
-name|HConstants
-operator|.
-name|NORMAL_QOS
+name|PRIORITY_UNSET
 decl_stmt|;
 comment|/**    * They are optionally set on construction, cleared after we make the call, and then optionally    * set on response with the result. We use this lowest common denominator access to Cells because    * sometimes the scanner is backed by a List of Cells and other times, it is backed by an    * encoded block that implements CellScanner.    */
 specifier|private
@@ -204,6 +209,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @return One-shot cell scanner (you cannot back it up and restart)    */
+annotation|@
+name|Override
 specifier|public
 name|CellScanner
 name|cellScanner

@@ -261,8 +261,9 @@ argument_list|(
 literal|1
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|public
 specifier|static
+specifier|final
 name|UncaughtExceptionHandler
 name|LOGGING_EXCEPTION_HANDLER
 init|=

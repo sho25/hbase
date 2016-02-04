@@ -2283,7 +2283,9 @@ operator|.
 name|getPriority
 argument_list|()
 operator|!=
-literal|0
+name|PayloadCarryingRpcController
+operator|.
+name|PRIORITY_UNSET
 condition|)
 block|{
 name|requestHeaderBuilder
@@ -3414,6 +3416,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run

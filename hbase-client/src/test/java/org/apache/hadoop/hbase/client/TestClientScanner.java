@@ -3342,7 +3342,11 @@ name|clusterConn
 argument_list|,
 name|rpcFactory
 argument_list|,
-name|controllerFactory
+operator|new
+name|RpcControllerFactory
+argument_list|(
+name|conf
+argument_list|)
 argument_list|,
 name|pool
 argument_list|,
