@@ -5257,9 +5257,17 @@ name|i
 index|]
 expr_stmt|;
 block|}
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Lowest locality region server with non zero regions is "
 operator|+
@@ -5279,6 +5287,7 @@ name|lowestLocalityServerIndex
 index|]
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|lowestLocalityServerIndex
 return|;
@@ -5403,6 +5412,14 @@ name|j
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -5423,6 +5440,7 @@ operator|+
 literal|" regions"
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|regionsPerServer
 index|[
