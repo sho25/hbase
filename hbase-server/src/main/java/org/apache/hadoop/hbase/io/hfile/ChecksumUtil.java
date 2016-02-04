@@ -115,20 +115,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|fs
-operator|.
-name|Path
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|util
@@ -301,8 +287,8 @@ specifier|static
 name|boolean
 name|validateBlockChecksum
 parameter_list|(
-name|Path
-name|path
+name|String
+name|pathName
 parameter_list|,
 name|HFileBlock
 name|block
@@ -438,10 +424,7 @@ argument_list|()
 operator|+
 literal|" file ="
 operator|+
-name|path
-operator|.
-name|toString
-argument_list|()
+name|pathName
 operator|+
 literal|" header size = "
 operator|+
@@ -485,10 +468,7 @@ operator|-
 name|sizeWithHeader
 argument_list|)
 argument_list|,
-name|path
-operator|.
-name|toString
-argument_list|()
+name|pathName
 argument_list|,
 literal|0
 argument_list|)

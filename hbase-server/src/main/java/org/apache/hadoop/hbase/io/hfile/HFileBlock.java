@@ -4900,11 +4900,6 @@ specifier|protected
 name|HFileSystem
 name|hfs
 decl_stmt|;
-comment|/** The path (if any) where this data is coming from */
-specifier|protected
-name|Path
-name|path
-decl_stmt|;
 specifier|private
 specifier|final
 name|Lock
@@ -4928,6 +4923,11 @@ decl_stmt|;
 specifier|protected
 name|HFileContext
 name|fileContext
+decl_stmt|;
+comment|// Cache the fileName
+specifier|protected
+name|String
+name|pathName
 decl_stmt|;
 specifier|public
 name|FSReaderImpl
@@ -4962,12 +4962,23 @@ name|hfs
 operator|=
 name|hfs
 expr_stmt|;
+if|if
+condition|(
+name|path
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
-name|path
+name|pathName
 operator|=
 name|path
+operator|.
+name|toString
+argument_list|()
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|fileContext
@@ -5508,7 +5519,7 @@ name|warn
 argument_list|(
 literal|"HBase checksum verification failed for file "
 operator|+
-name|path
+name|pathName
 operator|+
 literal|" at offset "
 operator|+
@@ -5532,7 +5543,7 @@ name|msg
 init|=
 literal|"HBase checksum verification failed for file "
 operator|+
-name|path
+name|pathName
 operator|+
 literal|" at offset "
 operator|+
@@ -5625,7 +5636,7 @@ name|warn
 argument_list|(
 literal|"HDFS checksum verification suceeded for file "
 operator|+
-name|path
+name|pathName
 operator|+
 literal|" at offset "
 operator|+
@@ -5655,7 +5666,7 @@ literal|"readBlockData failed, possibly due to "
 operator|+
 literal|"checksum verification failed for file "
 operator|+
-name|path
+name|pathName
 operator|+
 literal|" at offset "
 operator|+
@@ -6450,7 +6461,7 @@ name|ChecksumUtil
 operator|.
 name|validateBlockChecksum
 argument_list|(
-name|path
+name|pathName
 argument_list|,
 name|block
 argument_list|,
@@ -6489,7 +6500,7 @@ name|hfs
 operator|+
 literal|", path="
 operator|+
-name|path
+name|pathName
 operator|+
 literal|", fileContext="
 operator|+
