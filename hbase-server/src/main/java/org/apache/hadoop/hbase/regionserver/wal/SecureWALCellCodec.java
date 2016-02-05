@@ -177,7 +177,7 @@ name|hbase
 operator|.
 name|codec
 operator|.
-name|KeyValueCodec
+name|KeyValueCodecWithTags
 import|;
 end_import
 
@@ -362,7 +362,7 @@ specifier|static
 class|class
 name|EncryptedKvDecoder
 extends|extends
-name|KeyValueCodec
+name|KeyValueCodecWithTags
 operator|.
 name|KeyValueDecoder
 block|{
@@ -822,7 +822,7 @@ specifier|static
 class|class
 name|EncryptedKvEncoder
 extends|extends
-name|KeyValueCodec
+name|KeyValueCodecWithTags
 operator|.
 name|KeyValueEncoder
 block|{

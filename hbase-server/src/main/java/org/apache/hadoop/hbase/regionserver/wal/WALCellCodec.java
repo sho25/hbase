@@ -205,7 +205,7 @@ name|hbase
 operator|.
 name|codec
 operator|.
-name|KeyValueCodec
+name|KeyValueCodecWithTags
 import|;
 end_import
 
@@ -1937,7 +1937,7 @@ literal|null
 operator|)
 condition|?
 operator|new
-name|KeyValueCodec
+name|KeyValueCodecWithTags
 operator|.
 name|KeyValueDecoder
 argument_list|(
