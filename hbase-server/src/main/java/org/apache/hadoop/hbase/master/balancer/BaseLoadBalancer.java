@@ -5422,7 +5422,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|" Lowest locality region index is "
 operator|+
