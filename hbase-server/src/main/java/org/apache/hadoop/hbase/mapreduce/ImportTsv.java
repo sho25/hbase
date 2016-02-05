@@ -743,6 +743,14 @@ specifier|public
 specifier|final
 specifier|static
 name|String
+name|SKIP_EMPTY_COLUMNS
+init|=
+literal|"importtsv.skip.empty.columns"
+decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|String
 name|COLUMNS_CONF_KEY
 init|=
 literal|"importtsv.columns"
@@ -3699,6 +3707,12 @@ operator|+
 name|LOG_BAD_LINES_CONF_KEY
 operator|+
 literal|"=true - logs invalid lines to stderr\n"
+operator|+
+literal|"  -D"
+operator|+
+name|SKIP_EMPTY_COLUMNS
+operator|+
+literal|"=false - If true then skip empty columns in bulk import\n"
 operator|+
 literal|"  '-D"
 operator|+
