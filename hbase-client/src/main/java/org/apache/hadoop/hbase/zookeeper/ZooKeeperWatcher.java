@@ -1296,7 +1296,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"permissions for '%s' are not correct: have %0x, want %0x"
+literal|"permissions for '%s' are not correct: have 0x%x, want 0x%x"
 argument_list|,
 name|id
 argument_list|,
@@ -1354,7 +1354,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"permissions for '%s' are not correct: have %0x, want %0x"
+literal|"permissions for '%s' are not correct: have 0x%x, want 0x%x"
 argument_list|,
 name|id
 argument_list|,
@@ -1458,12 +1458,9 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"permissions for '%s' are not correct: have %0x, want %0x"
+literal|"permissions for '%s' are not correct: have 0x%x, want 0x%x"
 argument_list|,
 name|id
-operator|.
-name|toString
-argument_list|()
 argument_list|,
 name|perms
 argument_list|,
@@ -1637,7 +1634,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"superuser '%s' does not have correct permissions: have %0x, want %0x"
+literal|"superuser '%s' does not have correct permissions: have 0x%x, want 0x%x"
 argument_list|,
 name|acl
 operator|.
