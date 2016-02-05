@@ -712,6 +712,11 @@ name|long
 name|i
 parameter_list|)
 function_decl|;
+comment|/** @return filtered read requests count for this region */
+name|long
+name|getFilteredReadRequestsCount
+parameter_list|()
+function_decl|;
 comment|/** @return write request count for this region */
 name|long
 name|getWriteRequestsCount

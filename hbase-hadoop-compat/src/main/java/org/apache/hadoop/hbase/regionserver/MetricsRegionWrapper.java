@@ -66,6 +66,11 @@ name|long
 name|getReadRequestCount
 parameter_list|()
 function_decl|;
+comment|/**    * Get the total number of filtered read requests that have been issued against this region    */
+name|long
+name|getFilteredReadRequestCount
+parameter_list|()
+function_decl|;
 comment|/**    * Get the total number of mutations that have been issued against this region.    */
 name|long
 name|getWriteRequestCount

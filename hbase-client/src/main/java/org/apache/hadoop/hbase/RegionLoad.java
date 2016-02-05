@@ -294,6 +294,19 @@ name|getReadRequestsCount
 argument_list|()
 return|;
 block|}
+comment|/**    * @return the number of filtered read requests made to region    */
+specifier|public
+name|long
+name|getFilteredReadRequestsCount
+parameter_list|()
+block|{
+return|return
+name|regionLoadPB
+operator|.
+name|getFilteredReadRequestsCount
+argument_list|()
+return|;
+block|}
 comment|/**    * @return the number of write requests made to region    */
 specifier|public
 name|long

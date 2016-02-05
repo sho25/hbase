@@ -269,6 +269,16 @@ init|=
 literal|"Number of read requests this region server has answered."
 decl_stmt|;
 name|String
+name|FILTERED_READ_REQUEST_COUNT
+init|=
+literal|"filteredReadRequestCount"
+decl_stmt|;
+name|String
+name|FILTERED_READ_REQUEST_COUNT_DESC
+init|=
+literal|"Number of filtered read requests this region server has answered."
+decl_stmt|;
+name|String
 name|WRITE_REQUEST_COUNT
 init|=
 literal|"writeRequestCount"

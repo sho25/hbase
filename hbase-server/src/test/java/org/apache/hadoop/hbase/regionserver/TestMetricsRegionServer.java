@@ -380,6 +380,17 @@ name|HELPER
 operator|.
 name|assertCounter
 argument_list|(
+literal|"filteredReadRequestCount"
+argument_list|,
+literal|1997
+argument_list|,
+name|serverSource
+argument_list|)
+expr_stmt|;
+name|HELPER
+operator|.
+name|assertCounter
+argument_list|(
 literal|"writeRequestCount"
 argument_list|,
 literal|707

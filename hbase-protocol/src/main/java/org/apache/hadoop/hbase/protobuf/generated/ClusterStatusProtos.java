@@ -17894,6 +17894,17 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
+comment|// optional uint64 filtered_read_requests_count = 19;
+comment|/**      *<code>optional uint64 filtered_read_requests_count = 19;</code>      *      *<pre>      ** the current total filtered read requests made to region       *</pre>      */
+name|boolean
+name|hasFilteredReadRequestsCount
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional uint64 filtered_read_requests_count = 19;</code>      *      *<pre>      ** the current total filtered read requests made to region       *</pre>      */
+name|long
+name|getFilteredReadRequestsCount
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code hbase.pb.RegionLoad}    */
 specifier|public
@@ -18599,6 +18610,23 @@ argument_list|,
 name|extensionRegistry
 argument_list|)
 argument_list|)
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|152
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00020000
+expr_stmt|;
+name|filteredReadRequestsCount_
+operator|=
+name|input
+operator|.
+name|readUInt64
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -19828,6 +19856,47 @@ name|index
 argument_list|)
 return|;
 block|}
+comment|// optional uint64 filtered_read_requests_count = 19;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|FILTERED_READ_REQUESTS_COUNT_FIELD_NUMBER
+init|=
+literal|19
+decl_stmt|;
+specifier|private
+name|long
+name|filteredReadRequestsCount_
+decl_stmt|;
+comment|/**      *<code>optional uint64 filtered_read_requests_count = 19;</code>      *      *<pre>      ** the current total filtered read requests made to region       *</pre>      */
+specifier|public
+name|boolean
+name|hasFilteredReadRequestsCount
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00020000
+operator|)
+operator|==
+literal|0x00020000
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional uint64 filtered_read_requests_count = 19;</code>      *      *<pre>      ** the current total filtered read requests made to region       *</pre>      */
+specifier|public
+name|long
+name|getFilteredReadRequestsCount
+parameter_list|()
+block|{
+return|return
+name|filteredReadRequestsCount_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -19928,6 +19997,10 @@ name|Collections
 operator|.
 name|emptyList
 argument_list|()
+expr_stmt|;
+name|filteredReadRequestsCount_
+operator|=
+literal|0L
 expr_stmt|;
 block|}
 specifier|private
@@ -20482,6 +20555,29 @@ name|get
 argument_list|(
 name|i
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00020000
+operator|)
+operator|==
+literal|0x00020000
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt64
+argument_list|(
+literal|19
+argument_list|,
+name|filteredReadRequestsCount_
 argument_list|)
 expr_stmt|;
 block|}
@@ -21090,6 +21186,37 @@ name|get
 argument_list|(
 name|i
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00020000
+operator|)
+operator|==
+literal|0x00020000
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt64Size
+argument_list|(
+literal|19
+argument_list|,
+name|filteredReadRequestsCount_
 argument_list|)
 expr_stmt|;
 block|}
@@ -21874,6 +22001,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasFilteredReadRequestsCount
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasFilteredReadRequestsCount
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasFilteredReadRequestsCount
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getFilteredReadRequestsCount
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getFilteredReadRequestsCount
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -22469,6 +22631,37 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasFilteredReadRequestsCount
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|FILTERED_READ_REQUESTS_COUNT_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getFilteredReadRequestsCount
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -23593,6 +23786,19 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+name|filteredReadRequestsCount_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00040000
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -24299,6 +24505,30 @@ name|build
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00040000
+operator|)
+operator|==
+literal|0x00040000
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00020000
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|filteredReadRequestsCount_
+operator|=
+name|filteredReadRequestsCount_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -24860,6 +25090,23 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasFilteredReadRequestsCount
+argument_list|()
+condition|)
+block|{
+name|setFilteredReadRequestsCount
+argument_list|(
+name|other
+operator|.
+name|getFilteredReadRequestsCount
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 name|this
 operator|.
@@ -28431,6 +28678,89 @@ expr_stmt|;
 block|}
 return|return
 name|storeCompleteSequenceIdBuilder_
+return|;
+block|}
+comment|// optional uint64 filtered_read_requests_count = 19;
+specifier|private
+name|long
+name|filteredReadRequestsCount_
+decl_stmt|;
+comment|/**        *<code>optional uint64 filtered_read_requests_count = 19;</code>        *        *<pre>        ** the current total filtered read requests made to region         *</pre>        */
+specifier|public
+name|boolean
+name|hasFilteredReadRequestsCount
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00040000
+operator|)
+operator|==
+literal|0x00040000
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional uint64 filtered_read_requests_count = 19;</code>        *        *<pre>        ** the current total filtered read requests made to region         *</pre>        */
+specifier|public
+name|long
+name|getFilteredReadRequestsCount
+parameter_list|()
+block|{
+return|return
+name|filteredReadRequestsCount_
+return|;
+block|}
+comment|/**        *<code>optional uint64 filtered_read_requests_count = 19;</code>        *        *<pre>        ** the current total filtered read requests made to region         *</pre>        */
+specifier|public
+name|Builder
+name|setFilteredReadRequestsCount
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00040000
+expr_stmt|;
+name|filteredReadRequestsCount_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional uint64 filtered_read_requests_count = 19;</code>        *        *<pre>        ** the current total filtered read requests made to region         *</pre>        */
+specifier|public
+name|Builder
+name|clearFilteredReadRequestsCount
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00040000
+operator|)
+expr_stmt|;
+name|filteredReadRequestsCount_
+operator|=
+literal|0L
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
 return|;
 block|}
 comment|// @@protoc_insertion_point(builder_scope:hbase.pb.RegionLoad)
@@ -70166,7 +70496,7 @@ literal|"oreSequenceIds\022 \n\030last_flushed_sequence_"
 operator|+
 literal|"id\030\001 \002(\004\0224\n\021store_sequence_id\030\002 \003(\0132\031.hb"
 operator|+
-literal|"ase.pb.StoreSequenceId\"\324\004\n\nRegionLoad\0223\n"
+literal|"ase.pb.StoreSequenceId\"\372\004\n\nRegionLoad\0223\n"
 operator|+
 literal|"\020region_specifier\030\001 \002(\0132\031.hbase.pb.Regio"
 operator|+
@@ -70196,69 +70526,71 @@ literal|"\002\022#\n\030last_major_compaction_ts\030\021 \001(\004:\0010\022="
 operator|+
 literal|"\n\032store_complete_sequence_id\030\022 \003(\0132\031.hba"
 operator|+
-literal|"se.pb.StoreSequenceId\"T\n\023ReplicationLoad"
+literal|"se.pb.StoreSequenceId\022$\n\034filtered_read_r"
 operator|+
-literal|"Sink\022\032\n\022ageOfLastAppliedOp\030\001 \002(\004\022!\n\031time"
+literal|"equests_count\030\023 \001(\004\"T\n\023ReplicationLoadSi"
 operator|+
-literal|"StampsOfLastAppliedOp\030\002 \002(\004\"\225\001\n\025Replicat"
+literal|"nk\022\032\n\022ageOfLastAppliedOp\030\001 \002(\004\022!\n\031timeSt"
 operator|+
-literal|"ionLoadSource\022\016\n\006peerID\030\001 \002(\t\022\032\n\022ageOfLa"
+literal|"ampsOfLastAppliedOp\030\002 \002(\004\"\225\001\n\025Replicatio"
 operator|+
-literal|"stShippedOp\030\002 \002(\004\022\026\n\016sizeOfLogQueue\030\003 \002("
+literal|"nLoadSource\022\016\n\006peerID\030\001 \002(\t\022\032\n\022ageOfLast"
 operator|+
-literal|"\r\022 \n\030timeStampOfLastShippedOp\030\004 \002(\004\022\026\n\016r"
+literal|"ShippedOp\030\002 \002(\004\022\026\n\016sizeOfLogQueue\030\003 \002(\r\022"
 operator|+
-literal|"eplicationLag\030\005 \002(\004\"\212\003\n\nServerLoad\022\032\n\022nu"
+literal|" \n\030timeStampOfLastShippedOp\030\004 \002(\004\022\026\n\016rep"
 operator|+
-literal|"mber_of_requests\030\001 \001(\004\022 \n\030total_number_o"
+literal|"licationLag\030\005 \002(\004\"\212\003\n\nServerLoad\022\032\n\022numb"
 block|,
-literal|"f_requests\030\002 \001(\004\022\024\n\014used_heap_MB\030\003 \001(\r\022\023"
+literal|"er_of_requests\030\001 \001(\004\022 \n\030total_number_of_"
 operator|+
-literal|"\n\013max_heap_MB\030\004 \001(\r\022*\n\014region_loads\030\005 \003("
+literal|"requests\030\002 \001(\004\022\024\n\014used_heap_MB\030\003 \001(\r\022\023\n\013"
 operator|+
-literal|"\0132\024.hbase.pb.RegionLoad\022+\n\014coprocessors\030"
+literal|"max_heap_MB\030\004 \001(\r\022*\n\014region_loads\030\005 \003(\0132"
 operator|+
-literal|"\006 \003(\0132\025.hbase.pb.Coprocessor\022\031\n\021report_s"
+literal|"\024.hbase.pb.RegionLoad\022+\n\014coprocessors\030\006 "
 operator|+
-literal|"tart_time\030\007 \001(\004\022\027\n\017report_end_time\030\010 \001(\004"
+literal|"\003(\0132\025.hbase.pb.Coprocessor\022\031\n\021report_sta"
 operator|+
-literal|"\022\030\n\020info_server_port\030\t \001(\r\0227\n\016replLoadSo"
+literal|"rt_time\030\007 \001(\004\022\027\n\017report_end_time\030\010 \001(\004\022\030"
 operator|+
-literal|"urce\030\n \003(\0132\037.hbase.pb.ReplicationLoadSou"
+literal|"\n\020info_server_port\030\t \001(\r\0227\n\016replLoadSour"
 operator|+
-literal|"rce\0223\n\014replLoadSink\030\013 \001(\0132\035.hbase.pb.Rep"
+literal|"ce\030\n \003(\0132\037.hbase.pb.ReplicationLoadSourc"
 operator|+
-literal|"licationLoadSink\"a\n\016LiveServerInfo\022$\n\006se"
+literal|"e\0223\n\014replLoadSink\030\013 \001(\0132\035.hbase.pb.Repli"
 operator|+
-literal|"rver\030\001 \002(\0132\024.hbase.pb.ServerName\022)\n\013serv"
+literal|"cationLoadSink\"a\n\016LiveServerInfo\022$\n\006serv"
 block|,
-literal|"er_load\030\002 \002(\0132\024.hbase.pb.ServerLoad\"\250\003\n\r"
+literal|"er\030\001 \002(\0132\024.hbase.pb.ServerName\022)\n\013server"
 operator|+
-literal|"ClusterStatus\0228\n\rhbase_version\030\001 \001(\0132!.h"
+literal|"_load\030\002 \002(\0132\024.hbase.pb.ServerLoad\"\250\003\n\rCl"
 operator|+
-literal|"base.pb.HBaseVersionFileContent\022.\n\014live_"
+literal|"usterStatus\0228\n\rhbase_version\030\001 \001(\0132!.hba"
 operator|+
-literal|"servers\030\002 \003(\0132\030.hbase.pb.LiveServerInfo\022"
+literal|"se.pb.HBaseVersionFileContent\022.\n\014live_se"
 operator|+
-literal|"*\n\014dead_servers\030\003 \003(\0132\024.hbase.pb.ServerN"
+literal|"rvers\030\002 \003(\0132\030.hbase.pb.LiveServerInfo\022*\n"
 operator|+
-literal|"ame\022;\n\025regions_in_transition\030\004 \003(\0132\034.hba"
+literal|"\014dead_servers\030\003 \003(\0132\024.hbase.pb.ServerNam"
 operator|+
-literal|"se.pb.RegionInTransition\022\'\n\ncluster_id\030\005"
+literal|"e\022;\n\025regions_in_transition\030\004 \003(\0132\034.hbase"
 operator|+
-literal|" \001(\0132\023.hbase.pb.ClusterId\0222\n\023master_copr"
+literal|".pb.RegionInTransition\022\'\n\ncluster_id\030\005 \001"
 operator|+
-literal|"ocessors\030\006 \003(\0132\025.hbase.pb.Coprocessor\022$\n"
+literal|"(\0132\023.hbase.pb.ClusterId\0222\n\023master_coproc"
 operator|+
-literal|"\006master\030\007 \001(\0132\024.hbase.pb.ServerName\022,\n\016b"
+literal|"essors\030\006 \003(\0132\025.hbase.pb.Coprocessor\022$\n\006m"
 block|,
-literal|"ackup_masters\030\010 \003(\0132\024.hbase.pb.ServerNam"
+literal|"aster\030\007 \001(\0132\024.hbase.pb.ServerName\022,\n\016bac"
 operator|+
-literal|"e\022\023\n\013balancer_on\030\t \001(\010BF\n*org.apache.had"
+literal|"kup_masters\030\010 \003(\0132\024.hbase.pb.ServerName\022"
 operator|+
-literal|"oop.hbase.protobuf.generatedB\023ClusterSta"
+literal|"\023\n\013balancer_on\030\t \001(\010BF\n*org.apache.hadoo"
 operator|+
-literal|"tusProtosH\001\240\001\001"
+literal|"p.hbase.protobuf.generatedB\023ClusterStatu"
+operator|+
+literal|"sProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -70555,6 +70887,8 @@ block|,
 literal|"LastMajorCompactionTs"
 block|,
 literal|"StoreCompleteSequenceId"
+block|,
+literal|"FilteredReadRequestsCount"
 block|, }
 argument_list|)
 expr_stmt|;

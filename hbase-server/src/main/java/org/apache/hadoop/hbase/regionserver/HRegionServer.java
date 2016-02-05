@@ -8246,6 +8246,14 @@ name|getReadRequestsCount
 argument_list|()
 argument_list|)
 operator|.
+name|setFilteredReadRequestsCount
+argument_list|(
+name|r
+operator|.
+name|getFilteredReadRequestsCount
+argument_list|()
+argument_list|)
+operator|.
 name|setWriteRequestsCount
 argument_list|(
 name|r

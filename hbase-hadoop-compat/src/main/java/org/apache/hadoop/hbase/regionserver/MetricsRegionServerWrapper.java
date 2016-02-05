@@ -106,6 +106,11 @@ name|long
 name|getReadRequestsCount
 parameter_list|()
 function_decl|;
+comment|/**    * Get the number of filtered read requests to regions hosted on this region server.    */
+name|long
+name|getFilteredReadRequestsCount
+parameter_list|()
+function_decl|;
 comment|/**    * Get the number of write requests to regions hosted on this region server.    */
 name|long
 name|getWriteRequestsCount

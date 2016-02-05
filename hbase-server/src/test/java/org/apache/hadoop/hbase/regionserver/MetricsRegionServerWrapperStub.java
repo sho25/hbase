@@ -171,6 +171,17 @@ annotation|@
 name|Override
 specifier|public
 name|long
+name|getFilteredReadRequestsCount
+parameter_list|()
+block|{
+return|return
+literal|1997
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
 name|getWriteRequestsCount
 parameter_list|()
 block|{
