@@ -211,18 +211,6 @@ name|JSONBean
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|owasp
-operator|.
-name|esapi
-operator|.
-name|ESAPI
-import|;
-end_import
-
 begin_comment
 comment|/*  * This servlet is based off of the JMXProxyServlet from Tomcat 7.0.14. It has  * been rewritten to be read only and to output in a JSON format so it is not  * really that close to the original.  */
 end_comment
@@ -436,10 +424,7 @@ name|writer
 operator|.
 name|write
 argument_list|(
-name|encodeJS
-argument_list|(
 name|jsonpcb
-argument_list|)
 operator|+
 literal|"("
 argument_list|)
@@ -755,26 +740,6 @@ name|SC_BAD_REQUEST
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-specifier|private
-name|String
-name|encodeJS
-parameter_list|(
-name|String
-name|inputStr
-parameter_list|)
-block|{
-return|return
-name|ESAPI
-operator|.
-name|encoder
-argument_list|()
-operator|.
-name|encodeForJavaScript
-argument_list|(
-name|inputStr
-argument_list|)
-return|;
 block|}
 block|}
 end_class
