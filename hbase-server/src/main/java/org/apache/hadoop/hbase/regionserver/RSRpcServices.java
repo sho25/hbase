@@ -2974,6 +2974,42 @@ operator|new
 name|Counter
 argument_list|()
 decl_stmt|;
+comment|// Request counter for rpc get
+specifier|final
+name|Counter
+name|rpcGetRequestCount
+init|=
+operator|new
+name|Counter
+argument_list|()
+decl_stmt|;
+comment|// Request counter for rpc scan
+specifier|final
+name|Counter
+name|rpcScanRequestCount
+init|=
+operator|new
+name|Counter
+argument_list|()
+decl_stmt|;
+comment|// Request counter for rpc multi
+specifier|final
+name|Counter
+name|rpcMultiRequestCount
+init|=
+operator|new
+name|Counter
+argument_list|()
+decl_stmt|;
+comment|// Request counter for rpc mutate
+specifier|final
+name|Counter
+name|rpcMutateRequestCount
+init|=
+operator|new
+name|Counter
+argument_list|()
+decl_stmt|;
 comment|// Server to handle client requests.
 specifier|final
 name|RpcServerInterface
@@ -12640,6 +12676,11 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
+name|rpcGetRequestCount
+operator|.
+name|increment
+argument_list|()
+expr_stmt|;
 name|Region
 name|region
 init|=
@@ -13443,6 +13484,13 @@ operator|.
 name|getCurrentCall
 argument_list|()
 decl_stmt|;
+name|this
+operator|.
+name|rpcMultiRequestCount
+operator|.
+name|increment
+argument_list|()
+expr_stmt|;
 for|for
 control|(
 name|RegionAction
@@ -14088,6 +14136,11 @@ name|checkOpen
 argument_list|()
 expr_stmt|;
 name|requestCount
+operator|.
+name|increment
+argument_list|()
+expr_stmt|;
+name|rpcMutateRequestCount
 operator|.
 name|increment
 argument_list|()
@@ -14940,6 +14993,11 @@ name|e
 throw|;
 block|}
 name|requestCount
+operator|.
+name|increment
+argument_list|()
+expr_stmt|;
+name|rpcScanRequestCount
 operator|.
 name|increment
 argument_list|()

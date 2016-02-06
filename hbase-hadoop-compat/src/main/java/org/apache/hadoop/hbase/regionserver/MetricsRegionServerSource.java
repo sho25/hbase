@@ -937,6 +937,46 @@ name|FLUSH_KEY
 init|=
 literal|"flushTime"
 decl_stmt|;
+name|String
+name|RPC_GET_REQUEST_COUNT
+init|=
+literal|"rpcGetRequestCount"
+decl_stmt|;
+name|String
+name|RPC_GET_REQUEST_COUNT_DESC
+init|=
+literal|"Number of rpc get requests this region server has answered."
+decl_stmt|;
+name|String
+name|RPC_SCAN_REQUEST_COUNT
+init|=
+literal|"rpcScanRequestCount"
+decl_stmt|;
+name|String
+name|RPC_SCAN_REQUEST_COUNT_DESC
+init|=
+literal|"Number of rpc scan requests this region server has answered."
+decl_stmt|;
+name|String
+name|RPC_MULTI_REQUEST_COUNT
+init|=
+literal|"rpcMultiRequestCount"
+decl_stmt|;
+name|String
+name|RPC_MULTI_REQUEST_COUNT_DESC
+init|=
+literal|"Number of rpc multi requests this region server has answered."
+decl_stmt|;
+name|String
+name|RPC_MUTATE_REQUEST_COUNT
+init|=
+literal|"rpcMutateRequestCount"
+decl_stmt|;
+name|String
+name|RPC_MUTATE_REQUEST_COUNT_DESC
+init|=
+literal|"Number of rpc mutation requests this region server has answered."
+decl_stmt|;
 block|}
 end_interface
 

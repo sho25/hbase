@@ -369,6 +369,26 @@ name|long
 name|getBlockedRequestsCount
 parameter_list|()
 function_decl|;
+comment|/**    * Get the number of rpc get requests to this region server.    */
+name|long
+name|getRpcGetRequestsCount
+parameter_list|()
+function_decl|;
+comment|/**    * Get the number of rpc scan requests to this region server.    */
+name|long
+name|getRpcScanRequestsCount
+parameter_list|()
+function_decl|;
+comment|/**    * Get the number of rpc multi requests to this region server.    */
+name|long
+name|getRpcMultiRequestsCount
+parameter_list|()
+function_decl|;
+comment|/**    * Get the number of rpc mutate requests to this region server.    */
+name|long
+name|getRpcMutateRequestsCount
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 
