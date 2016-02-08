@@ -136,7 +136,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A {@link java.util.Set} of {@link Cell}s implemented on top of a  * {@link java.util.concurrent.ConcurrentSkipListMap}.  Works like a  * {@link java.util.concurrent.ConcurrentSkipListSet} in all but one regard:  * An add will overwrite if already an entry for the added key.  In other words,  * where CSLS does "Adds the specified element to this set if it is not already  * present.", this implementation "Adds the specified element to this set EVEN  * if it is already present overwriting what was there previous".  The call to  * add returns true if no value in the backing map or false if there was an  * entry with same key (though value may be different).  *<p>Otherwise,  * has same attributes as ConcurrentSkipListSet: e.g. tolerant of concurrent  * get and set and won't throw ConcurrentModificationException when iterating.  */
+comment|/**  * A {@link java.util.Set} of {@link Cell}s, where an add will overwrite the entry if already  * exists in the set.  The call to add returns true if no value in the backing map or false if  * there was an entry with same key (though value may be different).  * implementation is tolerant of concurrent get and set and won't throw  * ConcurrentModificationException when iterating.  */
 end_comment
 
 begin_class
@@ -146,13 +146,18 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|CellSkipListSet
+name|CellSet
 implements|implements
 name|NavigableSet
 argument_list|<
 name|Cell
 argument_list|>
 block|{
+comment|// Implemented on top of a {@link java.util.concurrent.ConcurrentSkipListMap}
+comment|// Differ from CSLS in one respect, where CSLS does "Adds the specified element to this set if it
+comment|// is not already present.", this implementation "Adds the specified element to this set EVEN
+comment|// if it is already present overwriting what was there previous".
+comment|// Otherwise, has same attributes as ConcurrentSkipListSet
 specifier|private
 specifier|final
 name|ConcurrentNavigableMap
@@ -163,7 +168,7 @@ name|Cell
 argument_list|>
 name|delegatee
 decl_stmt|;
-name|CellSkipListSet
+name|CellSet
 parameter_list|(
 specifier|final
 name|CellComparator
@@ -186,7 +191,7 @@ name|c
 argument_list|)
 expr_stmt|;
 block|}
-name|CellSkipListSet
+name|CellSet
 parameter_list|(
 specifier|final
 name|ConcurrentNavigableMap
@@ -314,7 +319,7 @@ parameter_list|)
 block|{
 return|return
 operator|new
-name|CellSkipListSet
+name|CellSet
 argument_list|(
 name|this
 operator|.
@@ -493,7 +498,7 @@ parameter_list|)
 block|{
 return|return
 operator|new
-name|CellSkipListSet
+name|CellSet
 argument_list|(
 name|this
 operator|.

@@ -21,6 +21,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|List
@@ -37,9 +47,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|Cell
 import|;
 end_import
 
@@ -53,7 +61,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Cell
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -93,7 +103,15 @@ name|MemStoreSnapshot
 name|snapshot
 parameter_list|()
 function_decl|;
-comment|/**    * Clears the current snapshot of the Memstore.    * @param id    * @throws UnexpectedStateException    * @see #snapshot()    */
+comment|/**    * Creates a snapshot of the current memstore. Snapshot must be cleared by call to    * {@link #clearSnapshot(long)}.    * @param flushOpSeqId the current sequence number of the wal; to be attached to the flushed    *                     segment    * @return {@link MemStoreSnapshot}    */
+name|MemStoreSnapshot
+name|snapshot
+parameter_list|(
+name|long
+name|flushOpSeqId
+parameter_list|)
+function_decl|;
+comment|/**    * Clears the current snapshot of the Memstore.    * @param id    * @throws UnexpectedStateException    * @see #snapshot(long)    */
 name|void
 name|clearSnapshot
 parameter_list|(
@@ -192,6 +210,8 @@ parameter_list|(
 name|long
 name|readPt
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * @return Total memory occupied by this MemStore.    */
 name|long

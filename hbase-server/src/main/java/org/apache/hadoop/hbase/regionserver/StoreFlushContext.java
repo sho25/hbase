@@ -45,11 +45,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|fs
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|Path
 import|;
 end_import
 
@@ -61,9 +59,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|fs
+name|hbase
 operator|.
-name|Path
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
