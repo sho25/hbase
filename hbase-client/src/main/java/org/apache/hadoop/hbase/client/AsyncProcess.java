@@ -7129,6 +7129,33 @@ name|numAttempt
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+literal|null
+operator|==
+name|tableName
+operator|&&
+name|ClientExceptionsUtil
+operator|.
+name|isMetaClearingException
+argument_list|(
+name|throwable
+argument_list|)
+condition|)
+block|{
+comment|// For multi-actions, we don't have a table name, but we want to make sure to clear the
+comment|// cache in case there were location-related exceptions. We don't to clear the cache
+comment|// for every possible exception that comes through, however.
+name|connection
+operator|.
+name|clearCaches
+argument_list|(
+name|server
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|connection
 operator|.
 name|updateCachedLocations
@@ -7155,6 +7182,7 @@ argument_list|,
 name|server
 argument_list|)
 expr_stmt|;
+block|}
 name|failureCount
 operator|+=
 name|actions

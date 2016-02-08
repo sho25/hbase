@@ -931,38 +931,6 @@ name|int
 name|maxAttempts
 parameter_list|)
 block|{
-return|return
-name|_put
-argument_list|(
-name|tableName
-argument_list|,
-name|put
-argument_list|,
-name|maxAttempts
-argument_list|,
-literal|false
-argument_list|)
-return|;
-block|}
-comment|/**    * Internal "put" which exposes a boolean flag to control whether or not the region location    * cache should be reloaded when trying to queue the {@link Put}.    * @param tableName Destination table for the Put    * @param put The Put to send    * @param maxAttempts Number of attempts to retry the {@code put}    * @param reloadCache Should the region location cache be reloaded    * @return true if the request was accepted in the queue, otherwise false    */
-name|boolean
-name|_put
-parameter_list|(
-specifier|final
-name|TableName
-name|tableName
-parameter_list|,
-specifier|final
-name|Put
-name|put
-parameter_list|,
-name|int
-name|maxAttempts
-parameter_list|,
-name|boolean
-name|reloadCache
-parameter_list|)
-block|{
 if|if
 condition|(
 name|maxAttempts
@@ -995,6 +963,8 @@ operator|)
 name|getConnection
 argument_list|()
 decl_stmt|;
+comment|// AsyncProcess in the FlushWorker should take care of refreshing the location cache
+comment|// as necessary. We shouldn't have to do that here.
 name|HRegionLocation
 name|loc
 init|=
@@ -1009,7 +979,7 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|,
-name|reloadCache
+literal|false
 argument_list|)
 decl_stmt|;
 if|if
@@ -2387,6 +2357,10 @@ name|retryCount
 argument_list|)
 expr_stmt|;
 block|}
+comment|// HBASE-12198, HBASE-15221, HBASE-15232: AsyncProcess should be responsible for updating
+comment|// the region location cache when the Put original failed with some exception. If we keep
+comment|// re-trying the same Put to the same location, AsyncProcess isn't doing the right stuff
+comment|// that we expect it to.
 name|getExecutor
 argument_list|()
 operator|.
@@ -2419,15 +2393,13 @@ operator|.
 name|getMultiplexer
 argument_list|()
 operator|.
-name|_put
+name|put
 argument_list|(
 name|tableName
 argument_list|,
 name|failedPut
 argument_list|,
 name|retryCount
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}
