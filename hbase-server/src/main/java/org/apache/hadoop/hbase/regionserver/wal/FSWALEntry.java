@@ -614,21 +614,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// This has to stay in this order
-name|WALKey
-name|key
-init|=
 name|getKey
 argument_list|()
-decl_stmt|;
-name|key
-operator|.
-name|setLogSeqNum
-argument_list|(
-name|regionSequenceId
-argument_list|)
-expr_stmt|;
-name|key
 operator|.
 name|setWriteEntry
 argument_list|(

@@ -141,50 +141,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|TimeUnit
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|MultiVersionConcurrencyControl
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|ByteStringer
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -208,38 +164,6 @@ operator|.
 name|logging
 operator|.
 name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|exceptions
-operator|.
-name|TimeoutIOException
 import|;
 end_import
 
@@ -282,6 +206,22 @@ operator|.
 name|hbase
 operator|.
 name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -355,7 +295,79 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|MultiVersionConcurrencyControl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|SequenceId
+import|;
+end_import
+
+begin_comment
+comment|// imports for things that haven't moved from regionserver.wal yet.
+end_comment
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|CompressionContext
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|WALCellCodec
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ByteStringer
 import|;
 end_import
 
@@ -418,47 +430,7 @@ import|;
 end_import
 
 begin_comment
-comment|// imports for things that haven't moved from regionserver.wal yet.
-end_comment
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
-name|CompressionContext
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
-name|WALCellCodec
-import|;
-end_import
-
-begin_comment
-comment|/**  * A Key for an entry in the change log.  *  * The log intermingles edits to many tables and rows, so each log entry  * identifies the appropriate table and row.  Within a table and row, they're  * also sorted.  *  *<p>Some Transactional edits (START, COMMIT, ABORT) will not have an  * associated row.  *  * Note that protected members marked @InterfaceAudience.Private are only protected  * to support the legacy HLogKey class, which is in a different package.  *   *<p>  */
+comment|/**  * A Key for an entry in the WAL.  *  * The log intermingles edits to many tables and rows, so each log entry  * identifies the appropriate table and row.  Within a table and row, they're  * also sorted.  *  *<p>Some Transactional edits (START, COMMIT, ABORT) will not have an associated row.  *  * Note that protected members marked @InterfaceAudience.Private are only protected  * to support the legacy HLogKey class, which is in a different package.  */
 end_comment
 
 begin_comment
@@ -467,10 +439,6 @@ end_comment
 
 begin_comment
 comment|//       purposes. They need to be merged into WALEntry.
-end_comment
-
-begin_comment
-comment|// TODO: Cleanup. We have logSeqNum and then WriteEntry, both are sequence id'ing. Fix.
 end_comment
 
 begin_class
@@ -509,6 +477,27 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
+specifier|final
+name|CountDownLatch
+name|sequenceIdAssignedLatch
+init|=
+operator|new
+name|CountDownLatch
+argument_list|(
+literal|1
+argument_list|)
+decl_stmt|;
+comment|/**    * Used to represent when a particular wal key doesn't know/care about the sequence ordering.    */
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|NO_SEQUENCE_ID
+init|=
+operator|-
+literal|1
+decl_stmt|;
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -523,7 +512,7 @@ return|return
 name|mvcc
 return|;
 block|}
-comment|/**    * Will block until a write entry has been assigned by they WAL subsystem.    * @return A WriteEntry gotten from local WAL subsystem. Must be completed by calling    *     {@link MultiVersionConcurrencyControl#complete(MultiVersionConcurrencyControl.WriteEntry)}    *     or    *     {@link MultiVersionConcurrencyControl#complete(MultiVersionConcurrencyControl.WriteEntry)}    * @see #setWriteEntry(MultiVersionConcurrencyControl.WriteEntry)    */
+comment|/**    * Use it to complete mvcc transaction. This WALKey was part of    * (the transaction is started when you call append; see the comment on FSHLog#append). To    * complete call    * {@link MultiVersionConcurrencyControl#complete(MultiVersionConcurrencyControl.WriteEntry)}    * or {@link MultiVersionConcurrencyControl#complete(MultiVersionConcurrencyControl.WriteEntry)}    * @return A WriteEntry gotten from local WAL subsystem.    * @see #setWriteEntry(MultiVersionConcurrencyControl.WriteEntry)    */
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -542,7 +531,7 @@ try|try
 block|{
 name|this
 operator|.
-name|seqNumAssignedLatch
+name|sequenceIdAssignedLatch
 operator|.
 name|await
 argument_list|()
@@ -554,13 +543,20 @@ name|InterruptedException
 name|ie
 parameter_list|)
 block|{
-comment|// If interrupted... clear out our entry else we can block up mvcc.
 name|MultiVersionConcurrencyControl
 name|mvcc
 init|=
 name|getMvcc
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -576,32 +572,6 @@ operator|.
 name|writeEntry
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|mvcc
-operator|!=
-literal|null
-condition|)
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|writeEntry
-operator|!=
-literal|null
-condition|)
-block|{
-name|mvcc
-operator|.
-name|complete
-argument_list|(
-name|this
-operator|.
-name|writeEntry
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 name|InterruptedIOException
 name|iie
@@ -642,21 +612,61 @@ name|WriteEntry
 name|writeEntry
 parameter_list|)
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|writeEntry
+operator|!=
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Non-null!!!"
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|writeEntry
 operator|=
 name|writeEntry
 expr_stmt|;
+comment|// Set our sequenceid now using WriteEntry.
+if|if
+condition|(
 name|this
 operator|.
-name|seqNumAssignedLatch
+name|writeEntry
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|sequenceId
+operator|=
+name|this
+operator|.
+name|writeEntry
+operator|.
+name|getWriteNumber
+argument_list|()
+expr_stmt|;
+block|}
+name|this
+operator|.
+name|sequenceIdAssignedLatch
 operator|.
 name|countDown
 argument_list|()
 expr_stmt|;
 block|}
-comment|// should be< 0 (@see HLogKey#readFields(DataInput))
+comment|// REMOVE!!!! No more Writables!!!!
+comment|// Should be< 0 (@see HLogKey#readFields(DataInput))
 comment|// version 2 supports WAL compression
 comment|// public members here are only public because of HLogKey
 annotation|@
@@ -822,16 +832,6 @@ name|Version
 operator|.
 name|COMPRESSED
 decl_stmt|;
-comment|/** Used to represent when a particular wal key doesn't know/care about the sequence ordering. */
-specifier|public
-specifier|static
-specifier|final
-name|long
-name|NO_SEQUENCE_ID
-init|=
-operator|-
-literal|1
-decl_stmt|;
 comment|// visible for deprecated HLogKey
 annotation|@
 name|InterfaceAudience
@@ -851,30 +851,17 @@ specifier|protected
 name|TableName
 name|tablename
 decl_stmt|;
-comment|// visible for deprecated HLogKey
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
-specifier|protected
+comment|/**    * SequenceId for this edit. Set post-construction at write-to-WAL time. Until then it is    * NO_SEQUENCE_ID. Change it so multiple threads can read it -- e.g. access is synchronized.    */
+specifier|private
 name|long
-name|logSeqNum
+name|sequenceId
 decl_stmt|;
+comment|/**    * Used during WAL replay; the sequenceId of the edit when it came into the system.    */
 specifier|private
 name|long
 name|origLogSeqNum
 init|=
 literal|0
-decl_stmt|;
-specifier|private
-name|CountDownLatch
-name|seqNumAssignedLatch
-init|=
-operator|new
-name|CountDownLatch
-argument_list|(
-literal|1
-argument_list|)
 decl_stmt|;
 comment|// Time at which this edit was written.
 comment|// visible for deprecated HLogKey
@@ -929,6 +916,7 @@ specifier|private
 name|MultiVersionConcurrencyControl
 name|mvcc
 decl_stmt|;
+comment|/**    * Set in a way visible to multiple threads; e.g. synchronized getter/setters.    */
 specifier|private
 name|MultiVersionConcurrencyControl
 operator|.
@@ -1069,6 +1057,10 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @deprecated Remove. Useless.    */
+annotation|@
+name|Deprecated
+comment|// REMOVE
 specifier|public
 name|WALKey
 parameter_list|(
@@ -1095,6 +1087,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|// TODO: Fix being able to pass in sequenceid.
 specifier|public
 name|WALKey
 parameter_list|(
@@ -1181,6 +1174,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Create the log key for writing to somewhere.    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *<p>Used by log splitting and snapshots.    *    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tablename         - name of table    * @param logSeqNum         - log sequence number    * @param now               Time at which this edit was written.    * @param clusterIds        the clusters that have consumed the change(used in Replication)    */
+comment|// TODO: Fix being able to pass in sequenceid.
 specifier|public
 name|WALKey
 parameter_list|(
@@ -1292,6 +1286,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Create the log key for writing to somewhere.    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tablename    * @param logSeqNum    * @param nonceGroup    * @param nonce    */
+comment|// TODO: Fix being able to pass in sequenceid.
 specifier|public
 name|WALKey
 parameter_list|(
@@ -1383,7 +1378,7 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|logSeqNum
+name|sequenceId
 operator|=
 name|logSeqNum
 expr_stmt|;
@@ -1429,6 +1424,39 @@ name|mvcc
 operator|=
 name|mvcc
 expr_stmt|;
+if|if
+condition|(
+name|logSeqNum
+operator|!=
+name|NO_SEQUENCE_ID
+condition|)
+block|{
+name|setSequenceId
+argument_list|(
+name|logSeqNum
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|// For HLogKey and deserialization. DO NOT USE. See setWriteEntry below.
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+specifier|protected
+name|void
+name|setSequenceId
+parameter_list|(
+name|long
+name|sequenceId
+parameter_list|)
+block|{
+name|this
+operator|.
+name|sequenceId
+operator|=
+name|sequenceId
+expr_stmt|;
 block|}
 comment|/**    * @param compressionContext Compression context to use    */
 specifier|public
@@ -1467,57 +1495,37 @@ return|return
 name|tablename
 return|;
 block|}
-comment|/** @return log sequence number */
+comment|/** @return log sequence number    * @deprecated Use {@link #getSequenceId()}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|long
 name|getLogSeqNum
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
-name|logSeqNum
+name|getSequenceId
+argument_list|()
 return|;
 block|}
-comment|/**    * Allow that the log sequence id to be set post-construction    * Only public for org.apache.hadoop.hbase.regionserver.wal.FSWALEntry    * @param sequence    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
-specifier|public
-name|void
-name|setLogSeqNum
-parameter_list|(
-specifier|final
-name|long
-name|sequence
-parameter_list|)
-block|{
-name|this
-operator|.
-name|logSeqNum
-operator|=
-name|sequence
-expr_stmt|;
-block|}
-comment|/**    * Used to set original seq Id for WALKey during wal replay    * @param seqId    */
+comment|/**    * Used to set original sequenceId for WALKey during WAL replay    */
 specifier|public
 name|void
 name|setOrigLogSeqNum
 parameter_list|(
 specifier|final
 name|long
-name|seqId
+name|sequenceId
 parameter_list|)
 block|{
 name|this
 operator|.
 name|origLogSeqNum
 operator|=
-name|seqId
+name|sequenceId
 expr_stmt|;
 block|}
-comment|/**    * Return a positive long if current WALKey is created from a replay edit    * @return original sequence number of the WALEdit    */
+comment|/**    * Return a positive long if current WALKey is created from a replay edit; a replay edit is an    * edit that came in when replaying WALs of a crashed server.    * @return original sequence number of the WALEdit    */
 specifier|public
 name|long
 name|getOrigLogSeqNum
@@ -1529,126 +1537,18 @@ operator|.
 name|origLogSeqNum
 return|;
 block|}
-comment|/**    * Wait for sequence number to be assigned&amp; return the assigned value    * @return long the new assigned sequence number    * @throws IOException    */
+comment|/**    * SequenceId is only available post WAL-assign. Calls before this will get you a    * {@link #NO_SEQUENCE_ID}. See the comment on FSHLog#append and #getWriteNumber in this method    * for more on when this sequenceId comes available.    * @return long the new assigned sequence number    */
 annotation|@
 name|Override
 specifier|public
 name|long
 name|getSequenceId
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 return|return
-name|getSequenceId
-argument_list|(
-operator|-
-literal|1
-argument_list|)
-return|;
-block|}
-comment|/**    * Wait for sequence number to be assigned&amp; return the assigned value.    * @param maxWaitForSeqId maximum time to wait in milliseconds for sequenceid    * @return long the new assigned sequence number    * @throws IOException    */
-specifier|public
-name|long
-name|getSequenceId
-parameter_list|(
-specifier|final
-name|long
-name|maxWaitForSeqId
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-comment|// TODO: This implementation waiting on a latch is problematic because if a higher level
-comment|// determines we should stop or abort, there is no global list of all these blocked WALKeys
-comment|// waiting on a sequence id; they can't be cancelled... interrupted. See getNextSequenceId.
-comment|//
-comment|// UPDATE: I think we can remove the timeout now we are stamping all walkeys with sequenceid,
-comment|// even those that have failed (previously we were not... so they would just hang out...).
-comment|// St.Ack 20150910
-try|try
-block|{
-if|if
-condition|(
-name|maxWaitForSeqId
-operator|<
-literal|0
-condition|)
-block|{
 name|this
 operator|.
-name|seqNumAssignedLatch
-operator|.
-name|await
-argument_list|()
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-operator|!
-name|this
-operator|.
-name|seqNumAssignedLatch
-operator|.
-name|await
-argument_list|(
-name|maxWaitForSeqId
-argument_list|,
-name|TimeUnit
-operator|.
-name|MILLISECONDS
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|TimeoutIOException
-argument_list|(
-literal|"Failed to get sequenceid after "
-operator|+
-name|maxWaitForSeqId
-operator|+
-literal|"ms; WAL system stuck or has gone away?"
-argument_list|)
-throw|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|ie
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Thread interrupted waiting for next log sequence number"
-argument_list|)
-expr_stmt|;
-name|InterruptedIOException
-name|iie
-init|=
-operator|new
-name|InterruptedIOException
-argument_list|()
-decl_stmt|;
-name|iie
-operator|.
-name|initCause
-argument_list|(
-name|ie
-argument_list|)
-expr_stmt|;
-throw|throw
-name|iie
-throw|;
-block|}
-return|return
-name|this
-operator|.
-name|logSeqNum
+name|sequenceId
 return|;
 block|}
 comment|/**    * @return the write time    */
@@ -1940,7 +1840,7 @@ argument_list|)
 operator|+
 literal|"/"
 operator|+
-name|logSeqNum
+name|sequenceId
 return|;
 block|}
 comment|/**    * Produces a string map for this key. Useful for programmatic use and    * manipulation of the data stored in an WALKey, for example, printing    * as JSON.    *    * @return a Map containing data from this key    */
@@ -2000,7 +1900,8 @@ name|put
 argument_list|(
 literal|"sequence"
 argument_list|,
-name|logSeqNum
+name|getSequenceId
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
@@ -2080,9 +1981,8 @@ argument_list|)
 decl_stmt|;
 name|result
 operator|^=
-name|this
-operator|.
-name|logSeqNum
+name|getSequenceId
+argument_list|()
 expr_stmt|;
 name|result
 operator|^=
@@ -2127,15 +2027,25 @@ operator|==
 literal|0
 condition|)
 block|{
-if|if
-condition|(
-name|this
-operator|.
-name|logSeqNum
-operator|<
+name|long
+name|sid
+init|=
+name|getSequenceId
+argument_list|()
+decl_stmt|;
+name|long
+name|otherSid
+init|=
 name|o
 operator|.
-name|logSeqNum
+name|getSequenceId
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|sid
+operator|<
+name|otherSid
 condition|)
 block|{
 name|result
@@ -2147,13 +2057,9 @@ block|}
 elseif|else
 if|if
 condition|(
-name|this
-operator|.
-name|logSeqNum
+name|sid
 operator|>
-name|o
-operator|.
-name|logSeqNum
+name|otherSid
 condition|)
 block|{
 name|result
@@ -2416,9 +2322,8 @@ name|builder
 operator|.
 name|setLogSequenceNumber
 argument_list|(
-name|this
-operator|.
-name|logSeqNum
+name|getSequenceId
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|builder
@@ -2955,14 +2860,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|this
-operator|.
-name|logSeqNum
-operator|=
+name|setSequenceId
+argument_list|(
 name|walKey
 operator|.
 name|getLogSequenceNumber
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|this
 operator|.

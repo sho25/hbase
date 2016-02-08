@@ -1982,7 +1982,7 @@ literal|1L
 argument_list|)
 return|;
 block|}
-comment|/**    * Update or insert the specified KeyValues.    *<p>    * For each KeyValue, insert into MemStore.  This will atomically upsert the    * value for that row/family/qualifier.  If a KeyValue did already exist,    * it will then be removed.    *<p>    * This is called under row lock, so Get operations will still see updates    * atomically.  Scans will only see each KeyValue update as atomic.    *    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @return change in memstore size    */
+comment|/**    * Update or insert the specified KeyValues.    *<p>    * For each KeyValue, insert into MemStore.  This will atomically upsert the    * value for that row/family/qualifier.  If a KeyValue did already exist,    * it will then be removed.    *<p>    * This is called under row lock, so Get operations will still see updates    * atomically.  Scans will only see each KeyValue update as atomic.    *    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @return change in memstore size    */
 annotation|@
 name|Override
 specifier|public
