@@ -6253,6 +6253,8 @@ name|validateBlockChecksum
 argument_list|(
 name|b
 argument_list|,
+name|offset
+argument_list|,
 name|onDiskBlock
 argument_list|,
 name|hdrSize
@@ -6446,6 +6448,9 @@ parameter_list|(
 name|HFileBlock
 name|block
 parameter_list|,
+name|long
+name|offset
+parameter_list|,
 name|byte
 index|[]
 name|data
@@ -6462,6 +6467,8 @@ operator|.
 name|validateBlockChecksum
 argument_list|(
 name|pathName
+argument_list|,
+name|offset
 argument_list|,
 name|block
 argument_list|,

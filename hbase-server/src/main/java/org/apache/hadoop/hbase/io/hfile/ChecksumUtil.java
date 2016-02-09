@@ -182,7 +182,7 @@ operator|.
 name|CHECKSUM_SIZE
 index|]
 decl_stmt|;
-comment|/**     * This is used by unit tests to make checksum failures throw an     * exception instead of returning null. Returning a null value from     * checksum validation will cause the higher layer to retry that     * read with hdfs-level checksums. Instead, we would like checksum     * failures to cause the entire unit test to fail.    */
+comment|/**    * This is used by unit tests to make checksum failures throw an    * exception instead of returning null. Returning a null value from    * checksum validation will cause the higher layer to retry that    * read with hdfs-level checksums. Instead, we would like checksum    * failures to cause the entire unit test to fail.    */
 specifier|private
 specifier|static
 name|boolean
@@ -289,6 +289,9 @@ name|validateBlockChecksum
 parameter_list|(
 name|String
 name|pathName
+parameter_list|,
+name|long
+name|offset
 parameter_list|,
 name|HFileBlock
 name|block
@@ -405,32 +408,36 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"length of data = "
+literal|"dataLength="
 operator|+
 name|data
 operator|.
 name|length
 operator|+
-literal|" OnDiskDataSizeWithHeader = "
+literal|", sizeWithHeader="
 operator|+
 name|sizeWithHeader
 operator|+
-literal|" checksum type = "
+literal|", checksumType="
 operator|+
 name|cktype
 operator|.
 name|getName
 argument_list|()
 operator|+
-literal|" file ="
+literal|", file="
 operator|+
 name|pathName
 operator|+
-literal|" header size = "
+literal|", offset="
+operator|+
+name|offset
+operator|+
+literal|", headerSize="
 operator|+
 name|hdrSize
 operator|+
-literal|" bytesPerChecksum = "
+literal|", bytesPerChecksum="
 operator|+
 name|bytesPerChecksum
 argument_list|)

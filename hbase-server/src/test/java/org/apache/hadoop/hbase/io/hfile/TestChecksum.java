@@ -2308,6 +2308,9 @@ parameter_list|(
 name|HFileBlock
 name|block
 parameter_list|,
+name|long
+name|offset
+parameter_list|,
 name|byte
 index|[]
 name|data

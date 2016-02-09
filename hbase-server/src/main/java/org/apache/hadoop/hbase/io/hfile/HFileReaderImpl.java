@@ -1359,8 +1359,6 @@ name|void
 name|run
 parameter_list|()
 block|{
-try|try
-block|{
 name|long
 name|offset
 init|=
@@ -1369,19 +1367,52 @@ decl_stmt|;
 name|long
 name|end
 init|=
-name|fileSize
-operator|-
+literal|0
+decl_stmt|;
+try|try
+block|{
+name|end
+operator|=
 name|getTrailer
 argument_list|()
 operator|.
-name|getTrailerSize
+name|getLoadOnOpenDataOffset
 argument_list|()
-decl_stmt|;
+expr_stmt|;
 name|HFileBlock
 name|prevBlock
 init|=
 literal|null
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"File="
+operator|+
+name|path
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|", offset="
+operator|+
+name|offset
+operator|+
+literal|", end="
+operator|+
+name|end
+argument_list|)
+expr_stmt|;
+block|}
 while|while
 condition|(
 name|offset
@@ -1483,11 +1514,20 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Exception encountered while prefetching "
+literal|"File="
 operator|+
 name|path
+operator|.
+name|toString
+argument_list|()
 operator|+
-literal|":"
+literal|", offset="
+operator|+
+name|offset
+operator|+
+literal|", end="
+operator|+
+name|end
 argument_list|,
 name|e
 argument_list|)
@@ -1505,11 +1545,20 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Exception encountered while prefetching "
+literal|"File="
 operator|+
 name|path
+operator|.
+name|toString
+argument_list|()
 operator|+
-literal|":"
+literal|", offset="
+operator|+
+name|offset
+operator|+
+literal|", end="
+operator|+
+name|end
 argument_list|,
 name|e
 argument_list|)
@@ -6692,6 +6741,14 @@ literal|"Block index not loaded"
 argument_list|)
 throw|;
 block|}
+name|long
+name|trailerOffset
+init|=
+name|trailer
+operator|.
+name|getLoadOnOpenDataOffset
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|dataBlockOffset
@@ -6700,10 +6757,7 @@ literal|0
 operator|||
 name|dataBlockOffset
 operator|>=
-name|trailer
-operator|.
-name|getLoadOnOpenDataOffset
-argument_list|()
+name|trailerOffset
 condition|)
 block|{
 throw|throw
@@ -6720,6 +6774,10 @@ name|trailer
 operator|.
 name|getLastDataBlockOffset
 argument_list|()
+operator|+
+literal|", trailer.getLoadOnOpenDataOffset: "
+operator|+
+name|trailerOffset
 argument_list|)
 throw|;
 block|}
