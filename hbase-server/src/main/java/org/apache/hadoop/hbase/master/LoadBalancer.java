@@ -192,7 +192,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Makes decisions about the placement and movement of Regions across  * RegionServers.  *  *<p>Cluster-wide load balancing will occur only when there are no regions in  * transition and according to a fixed period of a time using {@link #balanceCluster(Map)}.  *  *<p>Inline region placement with {@link #immediateAssignment} can be used when  * the Master needs to handle closed regions that it currently does not have  * a destination set for.  This can happen during master failover.  *  *<p>On cluster startup, bulk assignment can be used to determine  * locations for all Regions in a cluster.  *  *<p>This classes produces plans for the {@link AssignmentManager} to execute.  */
+comment|/**  * Makes decisions about the placement and movement of Regions across  * RegionServers.  *  *<p>Cluster-wide load balancing will occur only when there are no regions in  * transition and according to a fixed period of a time using {@link #balanceCluster(Map)}.  *  *<p>On cluster startup, bulk assignment can be used to determine  * locations for all Regions in a cluster.  *  *<p>This classes produces plans for the {@link AssignmentManager} to execute.  */
 end_comment
 
 begin_interface
@@ -317,30 +317,6 @@ argument_list|<
 name|HRegionInfo
 argument_list|,
 name|ServerName
-argument_list|>
-name|regions
-parameter_list|,
-name|List
-argument_list|<
-name|ServerName
-argument_list|>
-name|servers
-parameter_list|)
-throws|throws
-name|HBaseIOException
-function_decl|;
-comment|/**    * Sync assign a region    * @param regions    * @param servers     * @return Map regioninfos to servernames    */
-name|Map
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
-name|immediateAssignment
-parameter_list|(
-name|List
-argument_list|<
-name|HRegionInfo
 argument_list|>
 name|regions
 parameter_list|,
