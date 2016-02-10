@@ -787,6 +787,20 @@ name|hadoop
 operator|.
 name|util
 operator|.
+name|GenericOptionsParser
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
 name|Tool
 import|;
 end_import
@@ -3779,6 +3793,15 @@ argument_list|(
 literal|"   -writeTable    The table used for write sniffing."
 operator|+
 literal|" Default is hbase:canary"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -D<configProperty>=<value> assigning or override the configuration params"
 argument_list|)
 expr_stmt|;
 name|System
@@ -6955,6 +6978,15 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
+comment|// loading the generic options to conf
+operator|new
+name|GenericOptionsParser
+argument_list|(
+name|conf
+argument_list|,
+name|args
+argument_list|)
+expr_stmt|;
 name|int
 name|numThreads
 init|=
@@ -6967,6 +6999,15 @@ argument_list|,
 name|MAX_THREADS_NUM
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Number of exection threads "
+operator|+
+name|numThreads
+argument_list|)
+expr_stmt|;
 name|ExecutorService
 name|executor
 init|=
