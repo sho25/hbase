@@ -137,6 +137,8 @@ argument_list|>
 name|nodes
 parameter_list|)
 block|{
+name|this
+operator|.
 name|nodes
 operator|.
 name|addAll
