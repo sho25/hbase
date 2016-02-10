@@ -1199,6 +1199,8 @@ name|TableSplit
 argument_list|(
 name|tableName
 argument_list|,
+name|scan
+argument_list|,
 name|HConstants
 operator|.
 name|EMPTY_BYTE_ARRAY
@@ -1605,6 +1607,8 @@ operator|new
 name|TableSplit
 argument_list|(
 name|tableName
+argument_list|,
+name|scan
 argument_list|,
 name|splitStart
 argument_list|,
@@ -2062,6 +2066,8 @@ name|TableSplit
 argument_list|(
 name|tableName
 argument_list|,
+name|scan
+argument_list|,
 name|ts
 operator|.
 name|getStartRow
@@ -2083,6 +2089,8 @@ operator|new
 name|TableSplit
 argument_list|(
 name|tableName
+argument_list|,
+name|scan
 argument_list|,
 name|splitKey
 argument_list|,
@@ -2239,6 +2247,8 @@ operator|new
 name|TableSplit
 argument_list|(
 name|tableName
+argument_list|,
+name|scan
 argument_list|,
 name|splitStartKey
 argument_list|,

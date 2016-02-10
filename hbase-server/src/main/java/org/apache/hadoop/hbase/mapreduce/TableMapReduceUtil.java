@@ -2279,6 +2279,7 @@ block|}
 block|}
 block|}
 comment|/**    * Writes the given scan into a Base64 encoded string.    *    * @param scan  The scan to write out.    * @return The scan saved in a Base64 encoded string.    * @throws IOException When writing the scan fails.    */
+specifier|public
 specifier|static
 name|String
 name|convertScanToString
@@ -2314,6 +2315,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Converts the given Base64 string back into a Scan instance.    *    * @param base64  The scan details.    * @return The newly created Scan instance.    * @throws IOException When reading the scan instance fails.    */
+specifier|public
 specifier|static
 name|Scan
 name|convertStringToScan
