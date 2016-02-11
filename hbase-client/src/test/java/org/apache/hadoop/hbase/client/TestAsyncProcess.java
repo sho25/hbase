@@ -2680,6 +2680,17 @@ name|loc1
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|hasCellBlockSupport
+parameter_list|()
+block|{
+return|return
+literal|false
+return|;
+block|}
 block|}
 comment|/**    * Returns our async process.    */
 specifier|static
