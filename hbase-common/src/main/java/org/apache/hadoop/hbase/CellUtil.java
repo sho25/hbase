@@ -2382,7 +2382,7 @@ block|{
 return|return
 name|left
 operator|.
-name|getQualifierLength
+name|getRowLength
 argument_list|()
 operator|==
 literal|0
