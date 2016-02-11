@@ -931,6 +931,21 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|hasCellBlockSupport
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|codec
+operator|!=
+literal|null
+return|;
+block|}
 comment|/**    * Encapsulate the ugly casting and RuntimeException conversion in private method.    * @param conf configuration    * @return The compressor to use on this client.    */
 specifier|private
 specifier|static

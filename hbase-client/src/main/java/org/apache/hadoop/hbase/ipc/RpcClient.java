@@ -262,6 +262,11 @@ name|void
 name|close
 parameter_list|()
 function_decl|;
+comment|/**    * @return true when this client uses a {@link org.apache.hadoop.hbase.codec.Codec} and so    *         supports cell blocks.    */
+name|boolean
+name|hasCellBlockSupport
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

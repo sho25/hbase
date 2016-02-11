@@ -10531,6 +10531,22 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|hasCellBlockSupport
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|rpcClient
+operator|.
+name|hasCellBlockSupport
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 
