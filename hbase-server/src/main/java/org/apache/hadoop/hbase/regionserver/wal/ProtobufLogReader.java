@@ -367,6 +367,18 @@ name|CodedInputStream
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|InvalidProtocolBufferException
+import|;
+end_import
+
 begin_comment
 comment|/**  * A Protobuf based WAL has the following structure:  *<p>  *&lt;PB_WAL_MAGIC&gt;&lt;WALHeader&gt;&lt;WALEdits&gt;...&lt;WALEdits&gt;&lt;Trailer&gt;  *&lt;TrailerSize&gt;&lt;PB_WAL_COMPLETE_MAGIC&gt;  *</p>  * The Reader reads meta information (WAL Compression state, WALTrailer, etc) in  * ProtobufLogReader#initReader(FSDataInputStream). A WALTrailer is an extensible structure  * which is appended at the end of the WAL. This is empty for now; it can contain some meta  * information such as Region level stats, etc in future.  */
 end_comment
@@ -1723,7 +1735,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IOException
+name|InvalidProtocolBufferException
 name|ipbe
 parameter_list|)
 block|{
