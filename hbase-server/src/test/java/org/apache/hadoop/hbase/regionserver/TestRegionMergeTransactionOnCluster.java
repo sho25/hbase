@@ -205,6 +205,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CategoryBasedTimeout
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CoordinatedStateManager
 import|;
 end_import
@@ -819,6 +833,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -834,6 +858,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestRule
 import|;
 end_import
 
@@ -911,6 +947,34 @@ name|TestRegionMergeTransactionOnCluster
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+specifier|final
+name|TestRule
+name|timeout
+init|=
+name|CategoryBasedTimeout
+operator|.
+name|builder
+argument_list|()
+operator|.
+name|withTimeout
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+argument_list|)
+operator|.
+name|withLookingForStuckThread
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|build
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
@@ -1012,12 +1076,12 @@ decl_stmt|;
 specifier|private
 specifier|static
 name|HMaster
-name|master
+name|MASTER
 decl_stmt|;
 specifier|private
 specifier|static
 name|Admin
-name|admin
+name|ADMIN
 decl_stmt|;
 annotation|@
 name|BeforeClass
@@ -1055,25 +1119,28 @@ operator|.
 name|getHBaseCluster
 argument_list|()
 decl_stmt|;
-name|master
+name|MASTER
 operator|=
 name|cluster
 operator|.
 name|getMaster
 argument_list|()
 expr_stmt|;
-name|master
+name|MASTER
 operator|.
 name|balanceSwitch
 argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-name|admin
+name|ADMIN
 operator|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getConnection
+argument_list|()
+operator|.
+name|getAdmin
 argument_list|()
 expr_stmt|;
 block|}
@@ -1090,6 +1157,17 @@ block|{
 name|TEST_UTIL
 operator|.
 name|shutdownMiniCluster
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|ADMIN
+operator|!=
+literal|null
+condition|)
+name|ADMIN
+operator|.
+name|close
 argument_list|()
 expr_stmt|;
 block|}
@@ -1126,7 +1204,7 @@ name|table
 init|=
 name|createTableAndLoadData
 argument_list|(
-name|master
+name|MASTER
 argument_list|,
 name|tableName
 argument_list|)
@@ -1134,7 +1212,7 @@ decl_stmt|;
 comment|// Merge 1st and 2nd region
 name|mergeRegionsAndVerifyRegionNum
 argument_list|(
-name|master
+name|MASTER
 argument_list|,
 name|tableName
 argument_list|,
@@ -1156,7 +1234,7 @@ name|mergedRegions
 init|=
 name|mergeRegionsAndVerifyRegionNum
 argument_list|(
-name|master
+name|MASTER
 argument_list|,
 name|tableName
 argument_list|,
@@ -1379,7 +1457,7 @@ name|table
 init|=
 name|createTableAndLoadData
 argument_list|(
-name|master
+name|MASTER
 argument_list|,
 name|tableName
 argument_list|)
@@ -1398,7 +1476,7 @@ expr_stmt|;
 comment|// Merge 1st and 2nd region
 name|mergeRegionsAndVerifyRegionNum
 argument_list|(
-name|master
+name|MASTER
 argument_list|,
 name|tableName
 argument_list|,
@@ -1431,11 +1509,6 @@ argument_list|()
 expr_stmt|;
 block|}
 annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
-annotation|@
 name|Test
 specifier|public
 name|void
@@ -1451,7 +1524,7 @@ argument_list|(
 literal|"Starting testCleanMergeReference"
 argument_list|)
 expr_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|enableCatalogJanitor
 argument_list|(
@@ -1477,7 +1550,7 @@ name|table
 init|=
 name|createTableAndLoadData
 argument_list|(
-name|master
+name|MASTER
 argument_list|,
 name|tableName
 argument_list|)
@@ -1485,7 +1558,7 @@ decl_stmt|;
 comment|// Merge 1st and 2nd region
 name|mergeRegionsAndVerifyRegionNum
 argument_list|(
-name|master
+name|MASTER
 argument_list|,
 name|tableName
 argument_list|,
@@ -1525,7 +1598,7 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegionsAndLocations
 argument_list|(
-name|master
+name|MASTER
 operator|.
 name|getConnection
 argument_list|()
@@ -1549,7 +1622,7 @@ decl_stmt|;
 name|HTableDescriptor
 name|tableDescriptor
 init|=
-name|master
+name|MASTER
 operator|.
 name|getTableDescriptors
 argument_list|()
@@ -1566,7 +1639,7 @@ name|MetaTableAccessor
 operator|.
 name|getRegionResult
 argument_list|(
-name|master
+name|MASTER
 operator|.
 name|getConnection
 argument_list|()
@@ -1647,7 +1720,7 @@ decl_stmt|;
 name|FileSystem
 name|fs
 init|=
-name|master
+name|MASTER
 operator|.
 name|getMasterFileSystem
 argument_list|()
@@ -1658,7 +1731,7 @@ decl_stmt|;
 name|Path
 name|rootDir
 init|=
-name|master
+name|MASTER
 operator|.
 name|getMasterFileSystem
 argument_list|()
@@ -1785,7 +1858,7 @@ name|size
 argument_list|()
 expr_stmt|;
 block|}
-name|admin
+name|ADMIN
 operator|.
 name|compactRegion
 argument_list|(
@@ -1995,7 +2068,7 @@ condition|)
 block|{
 name|cleaned
 operator|=
-name|admin
+name|ADMIN
 operator|.
 name|runCatalogScan
 argument_list|()
@@ -2060,7 +2133,7 @@ name|MetaTableAccessor
 operator|.
 name|getRegionResult
 argument_list|(
-name|master
+name|TEST_UTIL
 operator|.
 name|getConnection
 argument_list|()
@@ -2110,7 +2183,7 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|admin
+name|ADMIN
 operator|.
 name|enableCatalogJanitor
 argument_list|(
@@ -2155,7 +2228,7 @@ name|table
 init|=
 name|createTableAndLoadData
 argument_list|(
-name|master
+name|MASTER
 argument_list|,
 name|tableName
 argument_list|)
@@ -2163,7 +2236,7 @@ decl_stmt|;
 name|RegionStates
 name|regionStates
 init|=
-name|master
+name|MASTER
 operator|.
 name|getAssignmentManager
 argument_list|()
@@ -2215,7 +2288,7 @@ expr_stmt|;
 try|try
 block|{
 comment|// Merge offline region. Region a is offline here
-name|admin
+name|ADMIN
 operator|.
 name|mergeRegions
 argument_list|(
@@ -2278,7 +2351,7 @@ block|}
 try|try
 block|{
 comment|// Merge the same region: b and b.
-name|admin
+name|ADMIN
 operator|.
 name|mergeRegions
 argument_list|(
@@ -2332,7 +2405,7 @@ block|}
 try|try
 block|{
 comment|// Merge unknown regions
-name|admin
+name|ADMIN
 operator|.
 name|mergeRegions
 argument_list|(
@@ -2415,7 +2488,7 @@ decl_stmt|;
 comment|// Create table and load data.
 name|createTableAndLoadData
 argument_list|(
-name|master
+name|MASTER
 argument_list|,
 name|tableName
 argument_list|,
@@ -2439,7 +2512,7 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegionsAndLocations
 argument_list|(
-name|master
+name|TEST_UTIL
 operator|.
 name|getConnection
 argument_list|()
@@ -2456,7 +2529,7 @@ name|mergedRegions
 init|=
 name|mergeRegionsAndVerifyRegionNum
 argument_list|(
-name|master
+name|MASTER
 argument_list|,
 name|tableName
 argument_list|,
@@ -2486,7 +2559,7 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegionsAndLocations
 argument_list|(
-name|master
+name|TEST_UTIL
 operator|.
 name|getConnection
 argument_list|()
@@ -2839,7 +2912,7 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegionsAndLocations
 argument_list|(
-name|master
+name|TEST_UTIL
 operator|.
 name|getConnection
 argument_list|()
@@ -2873,10 +2946,7 @@ operator|.
 name|getFirst
 argument_list|()
 decl_stmt|;
-name|TEST_UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
+name|ADMIN
 operator|.
 name|mergeRegions
 argument_list|(
@@ -2965,7 +3035,7 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegionsAndLocations
 argument_list|(
-name|master
+name|TEST_UTIL
 operator|.
 name|getConnection
 argument_list|()
@@ -3021,7 +3091,7 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegionsAndLocations
 argument_list|(
-name|master
+name|TEST_UTIL
 operator|.
 name|getConnection
 argument_list|()
@@ -3190,7 +3260,7 @@ name|HBaseTestingUtility
 operator|.
 name|setReplicas
 argument_list|(
-name|admin
+name|ADMIN
 argument_list|,
 name|tablename
 argument_list|,
@@ -3248,7 +3318,7 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegionsAndLocations
 argument_list|(
-name|master
+name|TEST_UTIL
 operator|.
 name|getConnection
 argument_list|()
@@ -3282,7 +3352,7 @@ name|MetaTableAccessor
 operator|.
 name|getTableRegionsAndLocations
 argument_list|(
-name|master
+name|TEST_UTIL
 operator|.
 name|getConnection
 argument_list|()
