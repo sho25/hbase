@@ -205,6 +205,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CategoryBasedTimeout
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -461,7 +475,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Test
+name|Rule
 import|;
 end_import
 
@@ -471,7 +485,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
+name|Test
 import|;
 end_import
 
@@ -486,6 +500,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestRule
 import|;
 end_import
 
@@ -525,6 +551,34 @@ name|TestFlushSnapshotFromClient
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+specifier|final
+name|TestRule
+name|timeout
+init|=
+name|CategoryBasedTimeout
+operator|.
+name|builder
+argument_list|()
+operator|.
+name|withTimeout
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+argument_list|)
+operator|.
+name|withLookingForStuckThread
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|build
+argument_list|()
 decl_stmt|;
 specifier|protected
 specifier|static
@@ -577,6 +631,12 @@ name|int
 name|DEFAULT_NUM_ROWS
 init|=
 literal|100
+decl_stmt|;
+specifier|protected
+name|Admin
+name|admin
+init|=
+literal|null
 decl_stmt|;
 annotation|@
 name|BeforeClass
@@ -705,6 +765,18 @@ block|{
 name|createTable
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|admin
+operator|=
+name|UTIL
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|getAdmin
+argument_list|()
+expr_stmt|;
 block|}
 specifier|protected
 name|void
@@ -745,11 +817,17 @@ name|SnapshotTestingUtils
 operator|.
 name|deleteAllSnapshots
 argument_list|(
-name|UTIL
+name|this
 operator|.
-name|getHBaseAdmin
-argument_list|()
+name|admin
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|admin
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 name|SnapshotTestingUtils
 operator|.
@@ -797,11 +875,6 @@ block|}
 comment|/**    * Test simple flush snapshotting a table that is online    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testFlushTableSnapshot
@@ -809,14 +882,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|Admin
-name|admin
-init|=
-name|UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
-decl_stmt|;
 comment|// make sure we don't fail on listing snapshots
 name|SnapshotTestingUtils
 operator|.
@@ -965,11 +1030,6 @@ block|}
 comment|/**    * Test snapshotting a table that is online without flushing    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testSkipFlushTableSnapshot
@@ -977,14 +1037,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|Admin
-name|admin
-init|=
-name|UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
-decl_stmt|;
 comment|// make sure we don't fail on listing snapshots
 name|SnapshotTestingUtils
 operator|.
@@ -1170,11 +1222,6 @@ block|}
 comment|/**    * Test simple flush snapshotting a table that is online    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testFlushTableSnapshotWithProcedure
@@ -1182,14 +1229,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|Admin
-name|admin
-init|=
-name|UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
-decl_stmt|;
 comment|// make sure we don't fail on listing snapshots
 name|SnapshotTestingUtils
 operator|.
@@ -1364,11 +1403,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testSnapshotFailsOnNonExistantTable
@@ -1376,14 +1410,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|Admin
-name|admin
-init|=
-name|UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
-decl_stmt|;
 comment|// make sure we don't fail on listing snapshots
 name|SnapshotTestingUtils
 operator|.
@@ -1509,11 +1535,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testAsyncFlushSnapshot
@@ -1521,14 +1542,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|Admin
-name|admin
-init|=
-name|UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
-decl_stmt|;
 name|SnapshotDescription
 name|snapshot
 init|=
@@ -1629,11 +1642,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testSnapshotStateAfterMerge
@@ -1645,14 +1653,6 @@ name|int
 name|numRows
 init|=
 name|DEFAULT_NUM_ROWS
-decl_stmt|;
-name|Admin
-name|admin
-init|=
-name|UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
 decl_stmt|;
 comment|// make sure we don't fail on listing snapshots
 name|SnapshotTestingUtils
@@ -1953,11 +1953,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testTakeSnapshotAfterMerge
@@ -1969,14 +1964,6 @@ name|int
 name|numRows
 init|=
 name|DEFAULT_NUM_ROWS
-decl_stmt|;
-name|Admin
-name|admin
-init|=
-name|UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
 decl_stmt|;
 comment|// make sure we don't fail on listing snapshots
 name|SnapshotTestingUtils
@@ -2239,11 +2226,6 @@ block|}
 comment|/**    * Basic end-to-end test of simple-flush-based snapshots    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testFlushCreateListDestroy
@@ -2258,14 +2240,6 @@ argument_list|(
 literal|"------- Starting Snapshot test -------------"
 argument_list|)
 expr_stmt|;
-name|Admin
-name|admin
-init|=
-name|UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
-decl_stmt|;
 comment|// make sure we don't fail on listing snapshots
 name|SnapshotTestingUtils
 operator|.
@@ -2355,11 +2329,6 @@ block|}
 comment|/**    * Demonstrate that we reject snapshot requests if there is a snapshot already running on the    * same table currently running and that concurrent snapshots on different tables can both    * succeed concurretly.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testConcurrentSnapshottingAttempts
@@ -2386,14 +2355,6 @@ name|int
 name|ssNum
 init|=
 literal|20
-decl_stmt|;
-name|Admin
-name|admin
-init|=
-name|UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
 decl_stmt|;
 comment|// make sure we don't fail on listing snapshots
 name|SnapshotTestingUtils
@@ -2483,14 +2444,6 @@ parameter_list|()
 block|{
 try|try
 block|{
-name|Admin
-name|admin
-init|=
-name|UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
-decl_stmt|;
 name|LOG
 operator|.
 name|info
@@ -2936,14 +2889,6 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|Admin
-name|admin
-init|=
-name|UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
-decl_stmt|;
 comment|// Verify that there's one region less
 name|long
 name|startTime
