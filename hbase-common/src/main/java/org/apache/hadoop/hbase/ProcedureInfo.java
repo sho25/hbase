@@ -256,6 +256,10 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|ProcedureInfo
 parameter_list|(
