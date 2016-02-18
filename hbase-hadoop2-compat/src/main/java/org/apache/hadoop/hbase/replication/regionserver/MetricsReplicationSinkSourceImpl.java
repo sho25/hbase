@@ -31,7 +31,7 @@ name|metrics2
 operator|.
 name|lib
 operator|.
-name|MutableCounterLong
+name|MutableFastCounter
 import|;
 end_import
 
@@ -65,17 +65,17 @@ name|ageGauge
 decl_stmt|;
 specifier|private
 specifier|final
-name|MutableCounterLong
+name|MutableFastCounter
 name|batchesCounter
 decl_stmt|;
 specifier|private
 specifier|final
-name|MutableCounterLong
+name|MutableFastCounter
 name|opsCounter
 decl_stmt|;
 specifier|private
 specifier|final
-name|MutableCounterLong
+name|MutableFastCounter
 name|hfilesCounter
 decl_stmt|;
 specifier|public
@@ -92,7 +92,7 @@ operator|.
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|getLongGauge
+name|getGauge
 argument_list|(
 name|SINK_AGE_OF_LAST_APPLIED_OP
 argument_list|,
@@ -106,7 +106,7 @@ operator|.
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|getLongCounter
+name|getCounter
 argument_list|(
 name|SINK_APPLIED_BATCHES
 argument_list|,
@@ -120,7 +120,7 @@ operator|.
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|getLongCounter
+name|getCounter
 argument_list|(
 name|SINK_APPLIED_OPS
 argument_list|,
@@ -134,7 +134,7 @@ operator|.
 name|getMetricsRegistry
 argument_list|()
 operator|.
-name|getLongCounter
+name|getCounter
 argument_list|(
 name|SINK_APPLIED_HFILES
 argument_list|,

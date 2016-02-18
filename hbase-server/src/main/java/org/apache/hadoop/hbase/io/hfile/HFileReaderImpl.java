@@ -6933,7 +6933,7 @@ name|HFile
 operator|.
 name|dataBlockReadCnt
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 block|}
@@ -7143,7 +7143,7 @@ name|HFile
 operator|.
 name|dataBlockReadCnt
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 block|}

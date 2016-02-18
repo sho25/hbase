@@ -98,7 +98,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *  Class to handle the ScheduledExecutorService{@link ScheduledExecutorService} used by  *  MetricMutableQuantiles{@link MetricMutableQuantiles}, MetricsRegionAggregateSourceImpl, and  *  JmxCacheBuster  */
+comment|/**  *  Class to handle the ScheduledExecutorService{@link ScheduledExecutorService} used by  *  MetricsRegionAggregateSourceImpl, and  *  JmxCacheBuster  */
 end_comment
 
 begin_class

@@ -105,7 +105,7 @@ name|metrics2
 operator|.
 name|lib
 operator|.
-name|MutableCounterLong
+name|MutableFastCounter
 import|;
 end_import
 
@@ -132,7 +132,7 @@ name|MetricsMasterWrapper
 name|masterWrapper
 decl_stmt|;
 specifier|private
-name|MutableCounterLong
+name|MutableFastCounter
 name|clusterRequestsCounter
 decl_stmt|;
 specifier|public

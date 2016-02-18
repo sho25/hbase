@@ -107,6 +107,22 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FastLongHistogram
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|codehaus
 operator|.
 name|jackson
@@ -171,56 +187,6 @@ name|SerializationConfig
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|codahale
-operator|.
-name|metrics
-operator|.
-name|Histogram
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|codahale
-operator|.
-name|metrics
-operator|.
-name|MetricRegistry
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|codahale
-operator|.
-name|metrics
-operator|.
-name|Snapshot
-import|;
-end_import
-
-begin_import
-import|import static
-name|com
-operator|.
-name|codahale
-operator|.
-name|metrics
-operator|.
-name|MetricRegistry
-operator|.
-name|name
-import|;
-end_import
-
 begin_comment
 comment|/**  * Utilty for aggregating counts in CachedBlocks and toString/toJSON CachedBlocks and BlockCaches.  * No attempt has been made at making this thread safe.  */
 end_comment
@@ -234,17 +200,6 @@ specifier|public
 class|class
 name|BlockCacheUtil
 block|{
-comment|/**    * Needed making histograms.    */
-specifier|private
-specifier|static
-specifier|final
-name|MetricRegistry
-name|METRICS
-init|=
-operator|new
-name|MetricRegistry
-argument_list|()
-decl_stmt|;
 comment|/**    * Needed generating JSON.    */
 specifier|private
 specifier|static
@@ -793,22 +748,12 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|Histogram
-name|age
+name|FastLongHistogram
+name|hist
 init|=
-name|METRICS
-operator|.
-name|histogram
-argument_list|(
-name|name
-argument_list|(
-name|CachedBlocksByFile
-operator|.
-name|class
-argument_list|,
-literal|"age"
-argument_list|)
-argument_list|)
+operator|new
+name|FastLongHistogram
+argument_list|()
 decl_stmt|;
 comment|/**      * @param cb      * @return True if full.... if we won't be adding any more.      */
 specifier|public
@@ -947,11 +892,13 @@ argument_list|()
 decl_stmt|;
 name|this
 operator|.
-name|age
+name|hist
 operator|.
-name|update
+name|add
 argument_list|(
 name|age
+argument_list|,
+literal|1
 argument_list|)
 expr_stmt|;
 return|return
@@ -1043,7 +990,7 @@ name|AgeSnapshot
 argument_list|(
 name|this
 operator|.
-name|age
+name|hist
 argument_list|)
 return|;
 block|}
@@ -1054,12 +1001,10 @@ name|String
 name|toString
 parameter_list|()
 block|{
-name|Snapshot
+name|AgeSnapshot
 name|snapshot
 init|=
-name|age
-operator|.
-name|getSnapshot
+name|getAgeInCacheSnapshot
 argument_list|()
 decl_stmt|;
 return|return
@@ -1087,13 +1032,6 @@ operator|.
 name|getMean
 argument_list|()
 operator|+
-literal|", stddev age="
-operator|+
-name|snapshot
-operator|.
-name|getStdDev
-argument_list|()
-operator|+
 literal|", min age="
 operator|+
 name|snapshot
@@ -1108,6 +1046,13 @@ operator|.
 name|getMax
 argument_list|()
 operator|+
+literal|", 75th percentile age="
+operator|+
+name|snapshot
+operator|.
+name|get75thPercentile
+argument_list|()
+operator|+
 literal|", 95th percentile age="
 operator|+
 name|snapshot
@@ -1115,7 +1060,21 @@ operator|.
 name|get95thPercentile
 argument_list|()
 operator|+
+literal|", 98th percentile age="
+operator|+
+name|snapshot
+operator|.
+name|get98thPercentile
+argument_list|()
+operator|+
 literal|", 99th percentile age="
+operator|+
+name|snapshot
+operator|.
+name|get99thPercentile
+argument_list|()
+operator|+
+literal|", 99.9th percentile age="
 operator|+
 name|snapshot
 operator|.

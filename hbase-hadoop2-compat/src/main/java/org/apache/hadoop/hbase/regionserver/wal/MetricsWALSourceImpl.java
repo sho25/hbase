@@ -77,7 +77,7 @@ name|metrics2
 operator|.
 name|lib
 operator|.
-name|MutableCounterLong
+name|MutableFastCounter
 import|;
 end_import
 
@@ -115,22 +115,22 @@ name|syncTimeHisto
 decl_stmt|;
 specifier|private
 specifier|final
-name|MutableCounterLong
+name|MutableFastCounter
 name|appendCount
 decl_stmt|;
 specifier|private
 specifier|final
-name|MutableCounterLong
+name|MutableFastCounter
 name|slowAppendCount
 decl_stmt|;
 specifier|private
 specifier|final
-name|MutableCounterLong
+name|MutableFastCounter
 name|logRollRequested
 decl_stmt|;
 specifier|private
 specifier|final
-name|MutableCounterLong
+name|MutableFastCounter
 name|lowReplicationLogRollRequested
 decl_stmt|;
 specifier|public

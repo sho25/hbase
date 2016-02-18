@@ -59,9 +59,7 @@ name|hadoop
 operator|.
 name|metrics2
 operator|.
-name|lib
-operator|.
-name|MutableHistogram
+name|MetricHistogram
 import|;
 end_import
 
@@ -79,19 +77,19 @@ implements|implements
 name|MetricsMasterFileSystemSource
 block|{
 specifier|private
-name|MutableHistogram
+name|MetricHistogram
 name|splitSizeHisto
 decl_stmt|;
 specifier|private
-name|MutableHistogram
+name|MetricHistogram
 name|splitTimeHisto
 decl_stmt|;
 specifier|private
-name|MutableHistogram
+name|MetricHistogram
 name|metaSplitTimeHisto
 decl_stmt|;
 specifier|private
-name|MutableHistogram
+name|MetricHistogram
 name|metaSplitSizeHisto
 decl_stmt|;
 specifier|public

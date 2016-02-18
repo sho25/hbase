@@ -69,20 +69,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicLong
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -249,6 +235,22 @@ name|Reader
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Counter
+import|;
+end_import
+
 begin_comment
 comment|/**  * KeyValueScanner adaptor over the Reader.  It also provides hooks into  * bloom filter things.  */
 end_comment
@@ -326,7 +328,7 @@ literal|false
 decl_stmt|;
 specifier|private
 specifier|static
-name|AtomicLong
+name|Counter
 name|seekCount
 decl_stmt|;
 specifier|private
@@ -804,7 +806,7 @@ literal|null
 condition|)
 name|seekCount
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 try|try
@@ -930,7 +932,7 @@ literal|null
 condition|)
 name|seekCount
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 try|try
@@ -1730,7 +1732,7 @@ block|{
 name|seekCount
 operator|=
 operator|new
-name|AtomicLong
+name|Counter
 argument_list|()
 expr_stmt|;
 block|}
@@ -1872,7 +1874,7 @@ literal|null
 condition|)
 name|seekCount
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 if|if
@@ -1922,7 +1924,7 @@ literal|null
 condition|)
 name|seekCount
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 if|if

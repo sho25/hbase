@@ -61,9 +61,7 @@ name|hadoop
 operator|.
 name|metrics2
 operator|.
-name|lib
-operator|.
-name|MutableCounterLong
+name|MetricHistogram
 import|;
 end_import
 
@@ -79,7 +77,7 @@ name|metrics2
 operator|.
 name|lib
 operator|.
-name|MutableHistogram
+name|MutableFastCounter
 import|;
 end_import
 
@@ -97,11 +95,11 @@ implements|implements
 name|MetricsBalancerSource
 block|{
 specifier|private
-name|MutableHistogram
+name|MetricHistogram
 name|blanceClusterHisto
 decl_stmt|;
 specifier|private
-name|MutableCounterLong
+name|MutableFastCounter
 name|miscCount
 decl_stmt|;
 specifier|public

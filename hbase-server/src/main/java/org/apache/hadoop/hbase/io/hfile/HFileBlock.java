@@ -5579,7 +5579,7 @@ name|HFile
 operator|.
 name|checksumFailures
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 comment|// update metrics

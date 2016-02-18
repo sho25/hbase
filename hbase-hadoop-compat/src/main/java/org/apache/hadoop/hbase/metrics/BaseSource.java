@@ -99,17 +99,6 @@ name|long
 name|value
 parameter_list|)
 function_decl|;
-comment|/**    * Add some value to a Quantile (An accurate histogram).    *    * @param name the name of the quantile    * @param value the value to add to the quantile    */
-name|void
-name|updateQuantile
-parameter_list|(
-name|String
-name|name
-parameter_list|,
-name|long
-name|value
-parameter_list|)
-function_decl|;
 comment|/**    * Get the metrics context.  For hadoop metrics2 system this is usually an all lowercased string.    * eg. regionserver, master, thriftserver    *    * @return The string context used to register this source to hadoop's metrics2 system.    */
 name|String
 name|getMetricsContext

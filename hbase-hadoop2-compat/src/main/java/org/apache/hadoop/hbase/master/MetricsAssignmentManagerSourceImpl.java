@@ -59,9 +59,7 @@ name|hadoop
 operator|.
 name|metrics2
 operator|.
-name|lib
-operator|.
-name|MutableGaugeLong
+name|MetricHistogram
 import|;
 end_import
 
@@ -77,7 +75,7 @@ name|metrics2
 operator|.
 name|lib
 operator|.
-name|MutableHistogram
+name|MutableGaugeLong
 import|;
 end_import
 
@@ -107,11 +105,11 @@ name|MutableGaugeLong
 name|ritOldestAgeGauge
 decl_stmt|;
 specifier|private
-name|MutableHistogram
+name|MetricHistogram
 name|assignTimeHisto
 decl_stmt|;
 specifier|private
-name|MutableHistogram
+name|MetricHistogram
 name|bulkAssignTimeHisto
 decl_stmt|;
 specifier|public

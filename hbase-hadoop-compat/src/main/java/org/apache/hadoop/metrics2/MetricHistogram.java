@@ -51,6 +51,11 @@ init|=
 literal|"_median"
 decl_stmt|;
 name|String
+name|TWENTY_FIFTH_PERCENTILE_METRIC_NAME
+init|=
+literal|"_25th_percentile"
+decl_stmt|;
+name|String
 name|SEVENTY_FIFTH_PERCENTILE_METRIC_NAME
 init|=
 literal|"_75th_percentile"
@@ -66,9 +71,19 @@ init|=
 literal|"_95th_percentile"
 decl_stmt|;
 name|String
+name|NINETY_EIGHTH_PERCENTILE_METRIC_NAME
+init|=
+literal|"_98th_percentile"
+decl_stmt|;
+name|String
 name|NINETY_NINETH_PERCENTILE_METRIC_NAME
 init|=
 literal|"_99th_percentile"
+decl_stmt|;
+name|String
+name|NINETY_NINE_POINT_NINETH_PERCENTILE_METRIC_NAME
+init|=
+literal|"_99.9th_percentile"
 decl_stmt|;
 comment|/**    * Add a single value to a histogram's stream of values.    * @param value    */
 name|void
