@@ -33297,9 +33297,15 @@ name|cpResult
 operator|!=
 literal|null
 condition|)
+block|{
 return|return
+name|returnResults
+condition|?
 name|cpResult
+else|:
+literal|null
 return|;
+block|}
 name|Durability
 name|effectiveDurability
 init|=
@@ -33490,6 +33496,8 @@ return|return
 name|results
 operator|!=
 literal|null
+operator|&&
+name|returnResults
 condition|?
 name|Result
 operator|.

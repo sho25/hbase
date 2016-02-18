@@ -212,14 +212,6 @@ name|Append
 extends|extends
 name|Mutation
 block|{
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|RETURN_RESULTS
-init|=
-literal|"_rr_"
-decl_stmt|;
 comment|/**    * @param returnResults    *          True (default) if the append operation should return the results.    *          A client that is not interested in the result can save network    *          bandwidth setting this to false.    */
 specifier|public
 name|Append
@@ -229,16 +221,11 @@ name|boolean
 name|returnResults
 parameter_list|)
 block|{
-name|setAttribute
-argument_list|(
-name|RETURN_RESULTS
-argument_list|,
-name|Bytes
+name|super
 operator|.
-name|toBytes
+name|setReturnResults
 argument_list|(
 name|returnResults
-argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -246,33 +233,17 @@ name|this
 return|;
 block|}
 comment|/**    * @return current setting for returnResults    */
+comment|// This method makes public the superclasses's protected method.
 specifier|public
 name|boolean
 name|isReturnResults
 parameter_list|()
 block|{
-name|byte
-index|[]
-name|v
-init|=
-name|getAttribute
-argument_list|(
-name|RETURN_RESULTS
-argument_list|)
-decl_stmt|;
 return|return
-name|v
-operator|==
-literal|null
-condition|?
-literal|true
-else|:
-name|Bytes
+name|super
 operator|.
-name|toBoolean
-argument_list|(
-name|v
-argument_list|)
+name|isReturnResults
+argument_list|()
 return|;
 block|}
 comment|/**    * Create a Append operation for the specified row.    *<p>    * At least one column must be appended to.    * @param row row key; makes a local copy of passed in array.    */
