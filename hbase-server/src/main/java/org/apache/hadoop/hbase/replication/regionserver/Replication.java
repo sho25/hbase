@@ -1716,6 +1716,12 @@ name|scopes
 operator|.
 name|isEmpty
 argument_list|()
+operator|&&
+operator|!
+name|logEdit
+operator|.
+name|isReplay
+argument_list|()
 condition|)
 block|{
 name|logKey
