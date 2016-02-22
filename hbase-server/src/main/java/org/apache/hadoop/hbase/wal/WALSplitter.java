@@ -3595,13 +3595,14 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Path to a file under RECOVERED_EDITS_DIR directory of the region found in    *<code>logEntry</code> named for the sequenceid in the passed    *<code>logEntry</code>: e.g. /hbase/some_table/2323432434/recovered.edits/2332.    * This method also ensures existence of RECOVERED_EDITS_DIR under the region    * creating it if necessary.    * @param fs    * @param logEntry    * @param rootDir HBase root dir.    * @param fileBeingSplit the file being split currently. Used to generate tmp file name.    * @return Path to file into which to dump split log edits.    * @throws IOException    */
+comment|/**    * Path to a file under RECOVERED_EDITS_DIR directory of the region found in    *<code>logEntry</code> named for the sequenceid in the passed    *<code>logEntry</code>: e.g. /hbase/some_table/2323432434/recovered.edits/2332.    * This method also ensures existence of RECOVERED_EDITS_DIR under the region    * creating it if necessary.    * @param fs    * @param logEntry    * @param rootDir HBase root dir.    * @param fileNameBeingSplit the file being split currently. Used to generate tmp file name.    * @return Path to file into which to dump split log edits.    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
 literal|"deprecation"
 argument_list|)
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|static
 name|Path
 name|getRegionSplitEditsPath
@@ -3618,8 +3619,8 @@ specifier|final
 name|Path
 name|rootDir
 parameter_list|,
-name|FileStatus
-name|fileBeingSplit
+name|String
+name|fileNameBeingSplit
 parameter_list|)
 throws|throws
 name|IOException
@@ -3865,13 +3866,7 @@ name|fileName
 operator|+
 literal|"-"
 operator|+
-name|fileBeingSplit
-operator|.
-name|getPath
-argument_list|()
-operator|.
-name|getName
-argument_list|()
+name|fileNameBeingSplit
 argument_list|)
 expr_stmt|;
 return|return
@@ -8113,6 +8108,12 @@ argument_list|,
 name|rootdir
 argument_list|,
 name|fileBeingSplit
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
