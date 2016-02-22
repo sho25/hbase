@@ -419,6 +419,11 @@ specifier|private
 name|RegionCoprocessorHost
 name|coprocessorHost
 decl_stmt|;
+comment|// timestamp on when the file was created, is 0 and ignored for reference or link files
+specifier|private
+name|long
+name|createdTimestamp
+decl_stmt|;
 comment|/**    * Create a Store File Info    * @param conf the {@link Configuration} to use    * @param fs The current file system to use.    * @param initialPath The {@link Path} of the file    */
 specifier|public
 name|StoreFileInfo
@@ -626,6 +631,20 @@ block|{
 comment|// HFile
 name|this
 operator|.
+name|createdTimestamp
+operator|=
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
+name|initialPath
+argument_list|)
+operator|.
+name|getModificationTime
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
 name|reference
 operator|=
 literal|null
@@ -793,6 +812,15 @@ operator|=
 name|fileStatus
 operator|.
 name|getPath
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|createdTimestamp
+operator|=
+name|fileStatus
+operator|.
+name|getModificationTime
 argument_list|()
 expr_stmt|;
 name|this
@@ -1802,6 +1830,16 @@ name|groupCount
 argument_list|()
 operator|>
 literal|1
+return|;
+block|}
+comment|/**    * @return timestamp when this file was created (as returned by filesystem)    */
+specifier|public
+name|long
+name|getCreatedTimestamp
+parameter_list|()
+block|{
+return|return
+name|createdTimestamp
 return|;
 block|}
 comment|/*    * Return path to the file referred to by a Reference.  Presumes a directory    * hierarchy of<code>${hbase.rootdir}/data/${namespace}/tablename/regionname/familyname</code>.    * @param p Path to a Reference file.    * @return Calculated path to parent region file.    * @throws IllegalArgumentException when path regex fails to match.    */

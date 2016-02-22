@@ -71,6 +71,26 @@ name|long
 name|getFilteredReadRequestCount
 parameter_list|()
 function_decl|;
+comment|/**    * @return Max age of store files under this region    */
+name|long
+name|getMaxStoreFileAge
+parameter_list|()
+function_decl|;
+comment|/**    * @return Min age of store files under this region    */
+name|long
+name|getMinStoreFileAge
+parameter_list|()
+function_decl|;
+comment|/**    *  @return Average age of store files under this region    */
+name|long
+name|getAvgStoreFileAge
+parameter_list|()
+function_decl|;
+comment|/**    *  @return Number of reference files under this region    */
+name|long
+name|getNumReferenceFiles
+parameter_list|()
+function_decl|;
 comment|/**    * Get the total number of mutations that have been issued against this region.    */
 name|long
 name|getWriteRequestCount

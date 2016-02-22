@@ -91,6 +91,26 @@ name|long
 name|getStoreFileSize
 parameter_list|()
 function_decl|;
+comment|/**    * @return Max age of store files hosted on this region server    */
+name|long
+name|getMaxStoreFileAge
+parameter_list|()
+function_decl|;
+comment|/**    * @return Min age of store files hosted on this region server    */
+name|long
+name|getMinStoreFileAge
+parameter_list|()
+function_decl|;
+comment|/**    *  @return Average age of store files hosted on this region server    */
+name|long
+name|getAvgStoreFileAge
+parameter_list|()
+function_decl|;
+comment|/**    *  @return Number of reference files on this region server    */
+name|long
+name|getNumReferenceFiles
+parameter_list|()
+function_decl|;
 comment|/**    * Get the number of requests per second.    */
 name|double
 name|getRequestsPerSecond

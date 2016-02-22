@@ -903,6 +903,31 @@ name|int
 name|getStorefilesCount
 parameter_list|()
 function_decl|;
+comment|/**    * @return Max age of store files in this store    */
+name|long
+name|getMaxStoreFileAge
+parameter_list|()
+function_decl|;
+comment|/**    * @return Min age of store files in this store    */
+name|long
+name|getMinStoreFileAge
+parameter_list|()
+function_decl|;
+comment|/**    *  @return Average age of store files in this store, 0 if no store files    */
+name|long
+name|getAvgStoreFileAge
+parameter_list|()
+function_decl|;
+comment|/**    *  @return Number of reference files in this store    */
+name|long
+name|getNumReferenceFiles
+parameter_list|()
+function_decl|;
+comment|/**    *  @return Number of HFiles in this store    */
+name|long
+name|getNumHFiles
+parameter_list|()
+function_decl|;
 comment|/**    * @return The size of the store files, in bytes, uncompressed.    */
 name|long
 name|getStoreSizeUncompressed

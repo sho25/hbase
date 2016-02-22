@@ -1290,6 +1290,28 @@ name|isReference
 argument_list|()
 return|;
 block|}
+comment|/**    * @return True if this is HFile.    */
+specifier|public
+name|boolean
+name|isHFile
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|fileInfo
+operator|.
+name|isHFile
+argument_list|(
+name|this
+operator|.
+name|fileInfo
+operator|.
+name|getPath
+argument_list|()
+argument_list|)
+return|;
+block|}
 comment|/**    * @return True if this file was made by a major compaction.    */
 specifier|public
 name|boolean

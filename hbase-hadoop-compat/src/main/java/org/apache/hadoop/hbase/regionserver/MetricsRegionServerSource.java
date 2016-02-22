@@ -244,6 +244,46 @@ init|=
 literal|"storeFileSize"
 decl_stmt|;
 name|String
+name|MAX_STORE_FILE_AGE
+init|=
+literal|"maxStoreFileAge"
+decl_stmt|;
+name|String
+name|MIN_STORE_FILE_AGE
+init|=
+literal|"minStoreFileAge"
+decl_stmt|;
+name|String
+name|AVG_STORE_FILE_AGE
+init|=
+literal|"avgStoreFileAge"
+decl_stmt|;
+name|String
+name|NUM_REFERENCE_FILES
+init|=
+literal|"numReferenceFiles"
+decl_stmt|;
+name|String
+name|MAX_STORE_FILE_AGE_DESC
+init|=
+literal|"Max age of store files hosted on this region server"
+decl_stmt|;
+name|String
+name|MIN_STORE_FILE_AGE_DESC
+init|=
+literal|"Min age of store files hosted on this region server"
+decl_stmt|;
+name|String
+name|AVG_STORE_FILE_AGE_DESC
+init|=
+literal|"Average age of store files hosted on this region server"
+decl_stmt|;
+name|String
+name|NUM_REFERENCE_FILES_DESC
+init|=
+literal|"Number of reference file on this region server"
+decl_stmt|;
+name|String
 name|STOREFILE_SIZE_DESC
 init|=
 literal|"Size of storefiles being served."
