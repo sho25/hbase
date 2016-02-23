@@ -21,6 +21,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|nio
 operator|.
 name|ByteBuffer
@@ -190,6 +200,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|public
 specifier|static
 specifier|final
 name|int
@@ -219,7 +230,11 @@ specifier|private
 name|int
 name|bufferCount
 decl_stmt|;
-comment|/**    * We allocate a number of byte buffers as the capacity. In order not to out    * of the array bounds for the last byte(see {@link ByteBufferArray#multiple}),    * we will allocate one additional buffer with capacity 0;    * @param capacity total size of the byte buffer array    * @param directByteBuffer true if we allocate direct buffer    */
+specifier|private
+name|ByteBufferAllocator
+name|allocator
+decl_stmt|;
+comment|/**    * We allocate a number of byte buffers as the capacity. In order not to out    * of the array bounds for the last byte(see {@link ByteBufferArray#multiple}),    * we will allocate one additional buffer with capacity 0;    * @param capacity total size of the byte buffer array    * @param directByteBuffer true if we allocate direct buffer    * @param allocator the ByteBufferAllocator that will create the buffers    * @throws IOException throws IOException if there is an exception thrown by the allocator    */
 specifier|public
 name|ByteBufferArray
 parameter_list|(
@@ -228,7 +243,12 @@ name|capacity
 parameter_list|,
 name|boolean
 name|directByteBuffer
+parameter_list|,
+name|ByteBufferAllocator
+name|allocator
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.
@@ -333,6 +353,12 @@ operator|+
 literal|1
 index|]
 expr_stmt|;
+name|this
+operator|.
+name|allocator
+operator|=
+name|allocator
+expr_stmt|;
 for|for
 control|(
 name|int
@@ -369,25 +395,19 @@ index|[
 name|i
 index|]
 operator|=
-name|directByteBuffer
-condition|?
-name|ByteBuffer
-operator|.
-name|allocateDirect
-argument_list|(
-name|bufferSize
-argument_list|)
-else|:
-name|ByteBuffer
+name|allocator
 operator|.
 name|allocate
 argument_list|(
 name|bufferSize
+argument_list|,
+name|directByteBuffer
 argument_list|)
 expr_stmt|;
 block|}
 else|else
 block|{
+comment|// always create on heap
 name|buffers
 index|[
 name|i

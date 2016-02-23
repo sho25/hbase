@@ -1725,6 +1725,7 @@ argument_list|(
 literal|"file:"
 argument_list|)
 condition|)
+block|{
 return|return
 operator|new
 name|FileIOEngine
@@ -1739,6 +1740,7 @@ argument_list|,
 name|capacity
 argument_list|)
 return|;
+block|}
 elseif|else
 if|if
 condition|(
@@ -1749,6 +1751,7 @@ argument_list|(
 literal|"offheap"
 argument_list|)
 condition|)
+block|{
 return|return
 operator|new
 name|ByteBufferIOEngine
@@ -1758,6 +1761,7 @@ argument_list|,
 literal|true
 argument_list|)
 return|;
+block|}
 elseif|else
 if|if
 condition|(
@@ -1768,6 +1772,7 @@ argument_list|(
 literal|"heap"
 argument_list|)
 condition|)
+block|{
 return|return
 operator|new
 name|ByteBufferIOEngine
@@ -1777,7 +1782,35 @@ argument_list|,
 literal|false
 argument_list|)
 return|;
+block|}
+elseif|else
+if|if
+condition|(
+name|ioEngineName
+operator|.
+name|startsWith
+argument_list|(
+literal|"mmap:"
+argument_list|)
+condition|)
+block|{
+return|return
+operator|new
+name|FileMmapEngine
+argument_list|(
+name|ioEngineName
+operator|.
+name|substring
+argument_list|(
+literal|5
+argument_list|)
+argument_list|,
+name|capacity
+argument_list|)
+return|;
+block|}
 else|else
+block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
@@ -1785,6 +1818,7 @@ argument_list|(
 literal|"Don't understand io engine name for cache - prefix with file:, heap or offheap"
 argument_list|)
 throw|;
+block|}
 block|}
 comment|/**    * Cache the block with the specified name and buffer.    * @param cacheKey block's cache key    * @param buf block buffer    */
 annotation|@
