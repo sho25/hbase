@@ -724,7 +724,7 @@ name|getComparator
 argument_list|()
 return|;
 block|}
-comment|/**    * Get a scanner to scan over this StoreFile. Do not use    * this overload if using this scanner for compactions.    *    * @param cacheBlocks should this scanner cache blocks?    * @param pread use pread (for highly concurrent small readers)    * @return a scanner    */
+comment|/**    * Uses {@link #getStoreFileScanner(boolean, boolean, boolean, long, long)} by setting    * {@code isCompaction} to false, {@code readPt} to 0 and {@code scannerOrder} to 0.    * Do not use this overload if using this scanner for compactions.    *    * @see #getStoreFileScanner(boolean, boolean, boolean, long, long)    */
 specifier|public
 name|StoreFileScanner
 name|getStoreFileScanner
@@ -736,6 +736,8 @@ name|boolean
 name|pread
 parameter_list|)
 block|{
+comment|// 0 is passed as readpoint because this method is only used by test
+comment|// where StoreFile is directly operated upon
 return|return
 name|getStoreFileScanner
 argument_list|(
@@ -745,13 +747,13 @@ name|pread
 argument_list|,
 literal|false
 argument_list|,
-comment|// 0 is passed as readpoint because this method is only used by test
-comment|// where StoreFile is directly operated upon
+literal|0
+argument_list|,
 literal|0
 argument_list|)
 return|;
 block|}
-comment|/**    * Get a scanner to scan over this StoreFile.    *    * @param cacheBlocks should this scanner cache blocks?    * @param pread use pread (for highly concurrent small readers)    * @param isCompaction is scanner being used for compaction?    * @return a scanner    */
+comment|/**    * Uses {@link #getStoreFileScanner(boolean, boolean, boolean, long, long)} by setting    * {@code scannerOrder} to 0.    *    * @see #getStoreFileScanner(boolean, boolean, boolean, long, long)    */
 specifier|public
 name|StoreFileScanner
 name|getStoreFileScanner
@@ -767,6 +769,42 @@ name|isCompaction
 parameter_list|,
 name|long
 name|readPt
+parameter_list|)
+block|{
+return|return
+name|getStoreFileScanner
+argument_list|(
+name|cacheBlocks
+argument_list|,
+name|pread
+argument_list|,
+name|isCompaction
+argument_list|,
+name|readPt
+argument_list|,
+literal|0
+argument_list|)
+return|;
+block|}
+comment|/**    * Get a scanner to scan over this StoreFile.    *    * @param cacheBlocks should this scanner cache blocks?    * @param pread use pread (for highly concurrent small readers)    * @param isCompaction is scanner being used for compaction?    * @param scannerOrder Order of this scanner relative to other scanners. See    *  {@link KeyValueScanner#getScannerOrder()}.    * @return a scanner    */
+specifier|public
+name|StoreFileScanner
+name|getStoreFileScanner
+parameter_list|(
+name|boolean
+name|cacheBlocks
+parameter_list|,
+name|boolean
+name|pread
+parameter_list|,
+name|boolean
+name|isCompaction
+parameter_list|,
+name|long
+name|readPt
+parameter_list|,
+name|long
+name|scannerOrder
 parameter_list|)
 block|{
 comment|// Increment the ref count
@@ -799,6 +837,8 @@ name|hasMVCCInfo
 argument_list|()
 argument_list|,
 name|readPt
+argument_list|,
+name|scannerOrder
 argument_list|)
 return|;
 block|}

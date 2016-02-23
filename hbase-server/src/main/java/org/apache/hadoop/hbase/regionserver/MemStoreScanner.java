@@ -525,13 +525,12 @@ name|cell
 argument_list|)
 return|;
 block|}
-comment|/**    * MemStoreScanner returns max value as sequence id because it will    * always have the latest data among all files.    */
+comment|/**    * MemStoreScanner returns Long.MAX_VALUE because it will always have the latest data among all    * scanners.    * @see KeyValueScanner#getScannerOrder()    */
 annotation|@
 name|Override
 specifier|public
-specifier|synchronized
 name|long
-name|getSequenceID
+name|getScannerOrder
 parameter_list|()
 block|{
 return|return

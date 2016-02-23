@@ -122,9 +122,16 @@ name|SegmentScanner
 implements|implements
 name|KeyValueScanner
 block|{
+comment|/**    * Order of this scanner relative to other scanners. See    * {@link KeyValueScanner#getScannerOrder()}.    */
 specifier|private
 name|long
-name|sequenceID
+name|scannerOrder
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_SCANNER_ORDER
 init|=
 name|Long
 operator|.
@@ -184,6 +191,30 @@ name|readPoint
 parameter_list|)
 block|{
 name|this
+argument_list|(
+name|segment
+argument_list|,
+name|readPoint
+argument_list|,
+name|DEFAULT_SCANNER_ORDER
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * @param scannerOrder see {@link KeyValueScanner#getScannerOrder()}.    */
+specifier|protected
+name|SegmentScanner
+parameter_list|(
+name|Segment
+name|segment
+parameter_list|,
+name|long
+name|readPoint
+parameter_list|,
+name|long
+name|scannerOrder
+parameter_list|)
+block|{
+name|this
 operator|.
 name|segment
 operator|=
@@ -215,6 +246,12 @@ name|segment
 operator|.
 name|incScannerCount
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|scannerOrder
+operator|=
+name|scannerOrder
 expr_stmt|;
 block|}
 comment|/**    * Look at the next Cell in this scanner, but do not iterate the scanner    * @return the currently observed Cell    */
@@ -663,16 +700,16 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Get the sequence id associated with this KeyValueScanner. This is required    * for comparing multiple files (or memstore segments) scanners to find out    * which one has the latest data.    *    */
+comment|/**    * @see KeyValueScanner#getScannerOrder()    */
 annotation|@
 name|Override
 specifier|public
 name|long
-name|getSequenceID
+name|getScannerOrder
 parameter_list|()
 block|{
 return|return
-name|sequenceID
+name|scannerOrder
 return|;
 block|}
 comment|/**    * Close the KeyValue scanner.    */
@@ -804,20 +841,6 @@ name|IOException
 block|{
 comment|// do nothing
 block|}
-comment|/**    * Set the sequence id of the scanner.    * This is used to determine an order between memory segment scanners.    * @param x a unique sequence id    */
-specifier|public
-name|void
-name|setSequenceID
-parameter_list|(
-name|long
-name|x
-parameter_list|)
-block|{
-name|sequenceID
-operator|=
-name|x
-expr_stmt|;
-block|}
 comment|/**    * Returns whether the given scan should seek in this segment    * @return whether the given scan should seek in this segment    */
 specifier|public
 name|boolean
@@ -876,9 +899,9 @@ literal|"; "
 decl_stmt|;
 name|res
 operator|+=
-literal|"sequence id "
+literal|"Scanner order "
 operator|+
-name|getSequenceID
+name|getScannerOrder
 argument_list|()
 operator|+
 literal|"; "

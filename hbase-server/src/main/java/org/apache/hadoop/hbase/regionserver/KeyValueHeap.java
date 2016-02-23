@@ -741,54 +741,25 @@ return|;
 block|}
 else|else
 block|{
-comment|// Since both the keys are exactly the same, we break the tie in favor
-comment|// of the key which came latest.
-name|long
-name|leftSequenceID
-init|=
-name|left
+comment|// Since both the keys are exactly the same, we break the tie in favor of higher ordered
+comment|// scanner since it'll have newer data. Since higher value should come first, we reverse
+comment|// sort here.
+return|return
+name|Long
 operator|.
-name|getSequenceID
-argument_list|()
-decl_stmt|;
-name|long
-name|rightSequenceID
-init|=
+name|compare
+argument_list|(
 name|right
 operator|.
-name|getSequenceID
+name|getScannerOrder
 argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|leftSequenceID
-operator|>
-name|rightSequenceID
-condition|)
-block|{
-return|return
-operator|-
-literal|1
+argument_list|,
+name|left
+operator|.
+name|getScannerOrder
+argument_list|()
+argument_list|)
 return|;
-block|}
-elseif|else
-if|if
-condition|(
-name|leftSequenceID
-operator|<
-name|rightSequenceID
-condition|)
-block|{
-return|return
-literal|1
-return|;
-block|}
-else|else
-block|{
-return|return
-literal|0
-return|;
-block|}
 block|}
 block|}
 comment|/**      * Compares two KeyValue      * @param left      * @param right      * @return less than 0 if left is smaller, 0 if equal etc..      */
@@ -1420,11 +1391,12 @@ operator|.
 name|heap
 return|;
 block|}
+comment|/**    * @see KeyValueScanner#getScannerOrder()    */
 annotation|@
 name|Override
 specifier|public
 name|long
-name|getSequenceID
+name|getScannerOrder
 parameter_list|()
 block|{
 return|return

@@ -160,10 +160,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the sequence id associated with this KeyValueScanner. This is required    * for comparing multiple files to find out which one has the latest data.    * The default implementation for this would be to return 0. A file having    * lower sequence id will be considered to be the older one.    */
-comment|// TODO: Implement SequenceId Interface instead.
+comment|/**    * Get the order of this KeyValueScanner. This is only relevant for StoreFileScanners and    * MemStoreScanners (other scanners simply return 0). This is required for comparing multiple    * files to find out which one has the latest data. StoreFileScanners are ordered from 0    * (oldest) to newest in increasing order. MemStoreScanner gets LONG.max since it always    * contains freshest data.    */
 name|long
-name|getSequenceID
+name|getScannerOrder
 parameter_list|()
 function_decl|;
 comment|/**    * Close the KeyValue scanner.    */

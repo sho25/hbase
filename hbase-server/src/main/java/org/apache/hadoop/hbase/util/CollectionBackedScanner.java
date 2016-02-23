@@ -490,11 +490,12 @@ return|return
 literal|false
 return|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.regionserver.KeyValueScanner#getScannerOrder()    */
 annotation|@
 name|Override
 specifier|public
 name|long
-name|getSequenceID
+name|getScannerOrder
 parameter_list|()
 block|{
 return|return

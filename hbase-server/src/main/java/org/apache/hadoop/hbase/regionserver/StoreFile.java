@@ -696,7 +696,7 @@ argument_list|(
 literal|"BULKLOAD_TIMESTAMP"
 argument_list|)
 decl_stmt|;
-comment|/**    * Map of the metadata entries in the corresponding HFile    */
+comment|/**    * Map of the metadata entries in the corresponding HFile. Populated when Reader is opened    * after which it is not modified again.    */
 specifier|private
 name|Map
 argument_list|<
@@ -918,6 +918,14 @@ operator|=
 name|other
 operator|.
 name|cfBloomType
+expr_stmt|;
+name|this
+operator|.
+name|metadataMap
+operator|=
+name|other
+operator|.
+name|metadataMap
 expr_stmt|;
 block|}
 comment|/**    * Clone a StoreFile for opening private reader.    */
@@ -1262,12 +1270,18 @@ block|}
 return|return
 name|bulkLoadedHFile
 operator|||
+operator|(
+name|metadataMap
+operator|!=
+literal|null
+operator|&&
 name|metadataMap
 operator|.
 name|containsKey
 argument_list|(
 name|BULKLOAD_TIME_KEY
 argument_list|)
+operator|)
 return|;
 block|}
 annotation|@
