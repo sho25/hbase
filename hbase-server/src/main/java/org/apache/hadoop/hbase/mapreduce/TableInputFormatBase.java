@@ -99,16 +99,6 @@ end_import
 
 begin_import
 import|import
-name|javax
-operator|.
-name|naming
-operator|.
-name|NamingException
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -1369,8 +1359,6 @@ decl_stmt|;
 name|String
 name|regionLocation
 decl_stmt|;
-try|try
-block|{
 name|regionLocation
 operator|=
 name|reverseDNS
@@ -1378,34 +1366,6 @@ argument_list|(
 name|regionAddress
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|NamingException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Cannot resolve the host name for "
-operator|+
-name|regionAddress
-operator|+
-literal|" because of "
-operator|+
-name|e
-argument_list|)
-expr_stmt|;
-name|regionLocation
-operator|=
-name|location
-operator|.
-name|getHostname
-argument_list|()
-expr_stmt|;
-block|}
 name|byte
 index|[]
 name|startRow
@@ -1789,8 +1749,6 @@ name|InetAddress
 name|ipAddress
 parameter_list|)
 throws|throws
-name|NamingException
-throws|,
 name|UnknownHostException
 block|{
 name|String

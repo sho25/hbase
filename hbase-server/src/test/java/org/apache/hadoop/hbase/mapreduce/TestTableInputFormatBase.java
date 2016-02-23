@@ -61,16 +61,6 @@ end_import
 
 begin_import
 import|import
-name|javax
-operator|.
-name|naming
-operator|.
-name|NamingException
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -131,8 +121,6 @@ name|testTableInputFormatBaseReverseDNSForIPv6
 parameter_list|()
 throws|throws
 name|UnknownHostException
-throws|,
-name|NamingException
 block|{
 name|String
 name|address
