@@ -608,7 +608,9 @@ literal|"Unable to get table "
 operator|+
 name|tableName
 operator|+
-literal|" state, probably table not exists"
+literal|" state"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 return|return

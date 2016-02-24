@@ -869,6 +869,18 @@ name|junit
 operator|.
 name|rules
 operator|.
+name|TestName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
 name|TestRule
 import|;
 end_import
@@ -947,6 +959,16 @@ name|TestRegionMergeTransactionOnCluster
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 annotation|@
 name|Rule
@@ -1433,13 +1455,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Starting testMergeAndRestartingMaster"
-argument_list|)
-expr_stmt|;
 specifier|final
 name|TableName
 name|tableName
@@ -3249,6 +3264,18 @@ argument_list|,
 name|splitRows
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Created "
+operator|+
+name|table
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|replication
@@ -3267,10 +3294,38 @@ argument_list|,
 name|replication
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Set replication of "
+operator|+
+name|replication
+operator|+
+literal|" on "
+operator|+
+name|table
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 name|loadData
 argument_list|(
 name|table
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Loaded "
+operator|+
+name|table
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|verifyRowCount
@@ -3278,6 +3333,18 @@ argument_list|(
 name|table
 argument_list|,
 name|ROWSIZE
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Verified "
+operator|+
+name|table
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// sleep here is an ugly hack to allow region transitions to finish
@@ -3346,6 +3413,18 @@ literal|250
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Getting regions of "
+operator|+
+name|table
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|tableRegions
 operator|=
 name|MetaTableAccessor
