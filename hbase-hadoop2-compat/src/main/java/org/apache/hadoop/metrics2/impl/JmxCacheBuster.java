@@ -223,9 +223,9 @@ if|if
 condition|(
 operator|(
 name|future
-operator|==
+operator|!=
 literal|null
-operator|||
+operator|&&
 operator|(
 operator|!
 name|future
