@@ -218,6 +218,11 @@ name|long
 name|size
 parameter_list|()
 function_decl|;
+comment|/**    * This method is called when it is clear that the flush to disk is completed.    * The store may do any post-flush actions at this point.    * One example is to update the wal with sequence number that is known only at the store level.    */
+name|void
+name|finalizeFlush
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

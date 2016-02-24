@@ -604,6 +604,13 @@ parameter_list|()
 block|{
 return|return;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|finalizeFlush
+parameter_list|()
+block|{   }
 comment|/**    * Code to help figure if our approximation of object heap sizes is close    * enough.  See hbase-900.  Fills memstores then waits so user can heap    * dump and bring up resultant hprof in something like jprofiler which    * allows you get 'deep size' on objects.    * @param args main args    */
 specifier|public
 specifier|static

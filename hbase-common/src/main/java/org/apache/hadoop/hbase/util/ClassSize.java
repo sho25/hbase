@@ -305,6 +305,12 @@ specifier|final
 name|int
 name|CELL_SKIPLIST_SET
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|STORE_SERVICES
+decl_stmt|;
 comment|/* Are we running on jdk7? */
 specifier|private
 specifier|static
@@ -779,6 +785,17 @@ argument_list|(
 name|OBJECT
 operator|+
 name|REFERENCE
+argument_list|)
+expr_stmt|;
+name|STORE_SERVICES
+operator|=
+name|align
+argument_list|(
+name|OBJECT
+operator|+
+name|REFERENCE
+operator|+
+name|ATOMIC_LONG
 argument_list|)
 expr_stmt|;
 block|}

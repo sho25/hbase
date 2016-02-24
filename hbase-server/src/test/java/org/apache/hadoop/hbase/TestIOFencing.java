@@ -16,30 +16,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -78,6 +54,20 @@ operator|.
 name|concurrent
 operator|.
 name|CountDownLatch
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Lists
 import|;
 end_import
 
@@ -524,16 +514,26 @@ import|;
 end_import
 
 begin_import
-import|import
-name|com
+import|import static
+name|org
 operator|.
-name|google
+name|junit
 operator|.
-name|common
+name|Assert
 operator|.
-name|collect
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
 operator|.
-name|Lists
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -1137,6 +1137,13 @@ name|compactedFiles
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|finalizeFlush
+parameter_list|()
+block|{     }
 block|}
 specifier|private
 specifier|final
