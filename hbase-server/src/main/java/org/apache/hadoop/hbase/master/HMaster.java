@@ -11513,6 +11513,15 @@ literal|0
 return|;
 block|}
 specifier|public
+name|WALProcedureStore
+name|getWalProcedureStore
+parameter_list|()
+block|{
+return|return
+name|procedureStore
+return|;
+block|}
+specifier|public
 name|int
 name|getRegionServerInfoPort
 parameter_list|(

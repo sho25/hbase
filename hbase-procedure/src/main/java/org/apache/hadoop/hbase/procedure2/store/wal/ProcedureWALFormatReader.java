@@ -83,6 +83,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ProcedureInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -102,20 +116,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ProcedureInfo
 import|;
 end_import
 
@@ -149,7 +149,9 @@ name|procedure2
 operator|.
 name|store
 operator|.
-name|ProcedureStoreTracker
+name|ProcedureStore
+operator|.
+name|ProcedureIterator
 import|;
 end_import
 
@@ -167,9 +169,7 @@ name|procedure2
 operator|.
 name|store
 operator|.
-name|ProcedureStore
-operator|.
-name|ProcedureIterator
+name|ProcedureStoreTracker
 import|;
 end_import
 
@@ -208,6 +208,18 @@ operator|.
 name|ProcedureProtos
 operator|.
 name|ProcedureWALEntry
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -498,7 +510,7 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|IOException
+name|InvalidProtocolBufferException
 name|e
 parameter_list|)
 block|{
