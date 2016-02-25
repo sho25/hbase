@@ -191,6 +191,20 @@ name|int
 name|getActiveRpcHandlerCount
 parameter_list|()
 function_decl|;
+comment|/**    * If CoDel-based RPC executors are used, retrieves the number of Calls that were dropped    * from general queue because RPC executor is under high load; returns 0 otherwise.    */
+specifier|public
+specifier|abstract
+name|long
+name|getNumGeneralCallsDropped
+parameter_list|()
+function_decl|;
+comment|/**    * If CoDel-based RPC executors are used, retrieves the number of Calls that were    * picked from the tail of the queue (indicating adaptive LIFO mode, when    * in the period of overloade we serve last requests first); returns 0 otherwise.    */
+specifier|public
+specifier|abstract
+name|long
+name|getNumLifoModeSwitches
+parameter_list|()
+function_decl|;
 block|}
 end_class
 

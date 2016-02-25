@@ -46,6 +46,14 @@ name|int
 name|getActiveRpcHandlerCount
 parameter_list|()
 function_decl|;
+name|long
+name|getNumGeneralCallsDropped
+parameter_list|()
+function_decl|;
+name|long
+name|getNumLifoModeSwitches
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

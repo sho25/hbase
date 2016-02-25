@@ -221,6 +221,30 @@ init|=
 literal|"Number of active rpc handlers."
 decl_stmt|;
 name|String
+name|NUM_GENERAL_CALLS_DROPPED_NAME
+init|=
+literal|"numGeneralCallsDropped"
+decl_stmt|;
+name|String
+name|NUM_GENERAL_CALLS_DROPPED_DESC
+init|=
+literal|"Total number of calls in general queue which "
+operator|+
+literal|"were dropped by CoDel RPC executor"
+decl_stmt|;
+name|String
+name|NUM_LIFO_MODE_SWITCHES_NAME
+init|=
+literal|"numLifoModeSwitches"
+decl_stmt|;
+name|String
+name|NUM_LIFO_MODE_SWITCHES_DESC
+init|=
+literal|"Total number of calls in general queue which "
+operator|+
+literal|"were served from the tail of the queue"
+decl_stmt|;
+name|String
 name|EXCEPTIONS_NAME
 init|=
 literal|"exceptions"
