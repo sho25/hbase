@@ -215,6 +215,13 @@ operator|.
 name|reset
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|histo
+operator|!=
+literal|null
+condition|)
+block|{
 name|updateSnapshotMetrics
 argument_list|(
 name|metricsRecordBuilder
@@ -229,6 +236,7 @@ argument_list|,
 name|histo
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|public
 name|void
