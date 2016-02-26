@@ -373,6 +373,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -424,6 +434,8 @@ name|MethodSorters
 operator|.
 name|NAME_ASCENDING
 argument_list|)
+annotation|@
+name|Ignore
 specifier|public
 class|class
 name|TestStochasticBalancerJmxMetrics
