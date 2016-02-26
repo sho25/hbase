@@ -560,11 +560,6 @@ specifier|private
 name|String
 name|regionNormalizerZNode
 decl_stmt|;
-comment|// znode containing the state of all switches, currently there are split and merge child node.
-specifier|private
-name|String
-name|switchZNode
-decl_stmt|;
 comment|// znode containing the lock for the tables
 specifier|public
 name|String
@@ -2074,24 +2069,6 @@ literal|"normalizer"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|switchZNode
-operator|=
-name|ZKUtil
-operator|.
-name|joinZNode
-argument_list|(
-name|baseZNode
-argument_list|,
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"zookeeper.znode.switch"
-argument_list|,
-literal|"switch"
-argument_list|)
-argument_list|)
-expr_stmt|;
 name|tableLockZNode
 operator|=
 name|ZKUtil
@@ -3184,16 +3161,6 @@ parameter_list|()
 block|{
 return|return
 name|regionNormalizerZNode
-return|;
-block|}
-comment|/**    *  @return ZK node for switch    * */
-specifier|public
-name|String
-name|getSwitchZNode
-parameter_list|()
-block|{
-return|return
-name|switchZNode
 return|;
 block|}
 block|}
