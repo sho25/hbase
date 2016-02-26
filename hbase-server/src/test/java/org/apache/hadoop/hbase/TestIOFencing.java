@@ -1567,9 +1567,14 @@ operator|.
 name|getWAL
 argument_list|()
 argument_list|,
-name|table
+operator|(
+operator|(
+name|HRegion
+operator|)
+name|compactingRegion
+operator|)
 operator|.
-name|getTableDescriptor
+name|getReplicationScope
 argument_list|()
 argument_list|,
 name|oldHri

@@ -99,20 +99,6 @@ name|HRegionInfo
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
-import|;
-end_import
-
 begin_comment
 comment|// imports for things that haven't moved yet
 end_comment
@@ -275,9 +261,6 @@ specifier|public
 name|long
 name|append
 parameter_list|(
-name|HTableDescriptor
-name|htd
-parameter_list|,
 name|HRegionInfo
 name|info
 parameter_list|,
@@ -317,8 +300,6 @@ name|super
 operator|.
 name|append
 argument_list|(
-name|htd
-argument_list|,
 name|info
 argument_list|,
 name|key

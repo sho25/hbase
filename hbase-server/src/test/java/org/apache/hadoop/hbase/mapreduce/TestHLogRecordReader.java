@@ -37,6 +37,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|NavigableMap
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -166,6 +176,15 @@ parameter_list|(
 specifier|final
 name|long
 name|time
+parameter_list|,
+name|NavigableMap
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|Integer
+argument_list|>
+name|scopes
 parameter_list|)
 block|{
 return|return
@@ -182,6 +201,8 @@ argument_list|,
 name|time
 argument_list|,
 name|mvcc
+argument_list|,
+name|scopes
 argument_list|)
 return|;
 block|}

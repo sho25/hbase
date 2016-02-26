@@ -283,7 +283,7 @@ operator|.
 name|getKey
 argument_list|()
 operator|.
-name|getScopes
+name|getReplicationScopes
 argument_list|()
 decl_stmt|;
 if|if

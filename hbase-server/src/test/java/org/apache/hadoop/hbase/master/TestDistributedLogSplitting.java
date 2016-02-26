@@ -8733,8 +8733,6 @@ name|wal
 operator|.
 name|append
 argument_list|(
-name|htd
-argument_list|,
 name|curRegionInfo
 argument_list|,
 operator|new
@@ -8751,6 +8749,8 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 argument_list|,
 name|e
@@ -9432,8 +9432,6 @@ name|wal
 operator|.
 name|append
 argument_list|(
-name|htd
-argument_list|,
 name|curRegionInfo
 argument_list|,
 operator|new
@@ -11053,8 +11051,6 @@ name|log
 operator|.
 name|append
 argument_list|(
-name|htd
-argument_list|,
 name|curRegionInfo
 argument_list|,
 operator|new

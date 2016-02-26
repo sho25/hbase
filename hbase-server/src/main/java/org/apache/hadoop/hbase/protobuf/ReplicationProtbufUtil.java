@@ -855,7 +855,7 @@ name|scopes
 init|=
 name|key
 operator|.
-name|getScopes
+name|getReplicationScopes
 argument_list|()
 decl_stmt|;
 if|if

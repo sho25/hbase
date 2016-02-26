@@ -6692,7 +6692,7 @@ name|this
 operator|.
 name|region
 operator|.
-name|getTableDesc
+name|getReplicationScope
 argument_list|()
 argument_list|,
 name|this

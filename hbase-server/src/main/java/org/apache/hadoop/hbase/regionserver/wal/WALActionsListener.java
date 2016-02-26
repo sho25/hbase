@@ -83,20 +83,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|wal
 operator|.
 name|WALKey
@@ -195,13 +181,10 @@ name|WALEdit
 name|logEdit
 parameter_list|)
 function_decl|;
-comment|/**    * @param htd    * @param logKey    * @param logEdit TODO: Retire this in favor of    *          {@link #visitLogEntryBeforeWrite(HRegionInfo, WALKey, WALEdit)} It only exists to get    *          scope when replicating. Scope should be in the WALKey and not need us passing in a    *<code>htd</code>.    * @throws IOException If failed to parse the WALEdit    */
+comment|/**    * @param logKey    * @param logEdit TODO: Retire this in favor of    *          {@link #visitLogEntryBeforeWrite(HRegionInfo, WALKey, WALEdit)} It only exists to get    *          scope when replicating. Scope should be in the WALKey and not need us passing in a    *<code>htd</code>.    * @throws IOException If failed to parse the WALEdit    */
 name|void
 name|visitLogEntryBeforeWrite
 parameter_list|(
-name|HTableDescriptor
-name|htd
-parameter_list|,
 name|WALKey
 name|logKey
 parameter_list|,
@@ -342,9 +325,6 @@ specifier|public
 name|void
 name|visitLogEntryBeforeWrite
 parameter_list|(
-name|HTableDescriptor
-name|htd
-parameter_list|,
 name|WALKey
 name|logKey
 parameter_list|,

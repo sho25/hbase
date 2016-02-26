@@ -109,6 +109,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|NavigableMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|atomic
@@ -2876,9 +2886,6 @@ specifier|public
 name|void
 name|visitLogEntryBeforeWrite
 parameter_list|(
-name|HTableDescriptor
-name|htd
-parameter_list|,
 name|WALKey
 name|logKey
 parameter_list|,

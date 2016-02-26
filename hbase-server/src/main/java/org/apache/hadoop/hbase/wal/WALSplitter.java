@@ -9398,9 +9398,9 @@ operator|.
 name|getKey
 argument_list|()
 operator|.
-name|setScopes
+name|serializeReplicationScope
 argument_list|(
-literal|null
+literal|false
 argument_list|)
 expr_stmt|;
 name|String
