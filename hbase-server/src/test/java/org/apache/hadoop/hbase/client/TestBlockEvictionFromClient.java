@@ -970,7 +970,7 @@ name|setStrings
 argument_list|(
 literal|"hbase.bucketcache.ioengine"
 argument_list|,
-literal|"heap"
+literal|"offheap"
 argument_list|)
 expr_stmt|;
 name|conf
