@@ -60,13 +60,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .SnapshotFileInfo.Type type = 1;
-comment|/**      *<code>required .SnapshotFileInfo.Type type = 1;</code>      */
+comment|// required .hbase.pb.SnapshotFileInfo.Type type = 1;
+comment|/**      *<code>required .hbase.pb.SnapshotFileInfo.Type type = 1;</code>      */
 name|boolean
 name|hasType
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .SnapshotFileInfo.Type type = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.SnapshotFileInfo.Type type = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -166,7 +166,7 @@ name|getWalNameBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code SnapshotFileInfo}    */
+comment|/**    * Protobuf type {@code hbase.pb.SnapshotFileInfo}    */
 specifier|public
 specifier|static
 specifier|final
@@ -655,7 +655,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotFileInfo_descriptor
+name|internal_static_hbase_pb_SnapshotFileInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -686,7 +686,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotFileInfo_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotFileInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -824,7 +824,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code SnapshotFileInfo.Type}      */
+comment|/**      * Protobuf enum {@code hbase.pb.SnapshotFileInfo.Type}      */
 specifier|public
 enum|enum
 name|Type
@@ -1167,13 +1167,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:SnapshotFileInfo.Type)
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.SnapshotFileInfo.Type)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .SnapshotFileInfo.Type type = 1;
+comment|// required .hbase.pb.SnapshotFileInfo.Type type = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -1202,7 +1202,7 @@ operator|.
 name|Type
 name|type_
 decl_stmt|;
-comment|/**      *<code>required .SnapshotFileInfo.Type type = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.SnapshotFileInfo.Type type = 1;</code>      */
 specifier|public
 name|boolean
 name|hasType
@@ -1220,7 +1220,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .SnapshotFileInfo.Type type = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.SnapshotFileInfo.Type type = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -3368,7 +3368,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code SnapshotFileInfo}      */
+comment|/**      * Protobuf type {@code hbase.pb.SnapshotFileInfo}      */
 specifier|public
 specifier|static
 specifier|final
@@ -3434,7 +3434,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotFileInfo_descriptor
+name|internal_static_hbase_pb_SnapshotFileInfo_descriptor
 return|;
 block|}
 specifier|protected
@@ -3465,7 +3465,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotFileInfo_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotFileInfo_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -3701,7 +3701,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotFileInfo_descriptor
+name|internal_static_hbase_pb_SnapshotFileInfo_descriptor
 return|;
 block|}
 specifier|public
@@ -4343,7 +4343,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .SnapshotFileInfo.Type type = 1;
+comment|// required .hbase.pb.SnapshotFileInfo.Type type = 1;
 specifier|private
 name|org
 operator|.
@@ -4384,7 +4384,7 @@ name|Type
 operator|.
 name|HFILE
 decl_stmt|;
-comment|/**        *<code>required .SnapshotFileInfo.Type type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.SnapshotFileInfo.Type type = 1;</code>        */
 specifier|public
 name|boolean
 name|hasType
@@ -4402,7 +4402,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .SnapshotFileInfo.Type type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.SnapshotFileInfo.Type type = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -4428,7 +4428,7 @@ return|return
 name|type_
 return|;
 block|}
-comment|/**        *<code>required .SnapshotFileInfo.Type type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.SnapshotFileInfo.Type type = 1;</code>        */
 specifier|public
 name|Builder
 name|setType
@@ -4481,7 +4481,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .SnapshotFileInfo.Type type = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.SnapshotFileInfo.Type type = 1;</code>        */
 specifier|public
 name|Builder
 name|clearType
@@ -5431,7 +5431,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:SnapshotFileInfo)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.SnapshotFileInfo)
 block|}
 static|static
 block|{
@@ -5449,7 +5449,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:SnapshotFileInfo)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.SnapshotFileInfo)
 block|}
 specifier|public
 interface|interface
@@ -5474,13 +5474,13 @@ name|int
 name|getVersion
 parameter_list|()
 function_decl|;
-comment|// required .RegionInfo region_info = 2;
-comment|/**      *<code>required .RegionInfo region_info = 2;</code>      */
+comment|// required .hbase.pb.RegionInfo region_info = 2;
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 2;</code>      */
 name|boolean
 name|hasRegionInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionInfo region_info = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -5499,7 +5499,7 @@ name|RegionInfo
 name|getRegionInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionInfo region_info = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -5518,8 +5518,8 @@ name|RegionInfoOrBuilder
 name|getRegionInfoOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;
-comment|/**      *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
+comment|// repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -5547,7 +5547,7 @@ argument_list|>
 name|getFamilyFilesList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -5571,12 +5571,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
 name|int
 name|getFamilyFilesCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
 name|java
 operator|.
 name|util
@@ -5606,7 +5606,7 @@ argument_list|>
 name|getFamilyFilesOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -5631,7 +5631,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code SnapshotRegionManifest}    */
+comment|/**    * Protobuf type {@code hbase.pb.SnapshotRegionManifest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -6216,7 +6216,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotRegionManifest_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_descriptor
 return|;
 block|}
 specifier|protected
@@ -6247,7 +6247,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotRegionManifest_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotRegionManifest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -6423,13 +6423,13 @@ name|ByteString
 name|getNameBytes
 parameter_list|()
 function_decl|;
-comment|// optional .Reference reference = 2;
-comment|/**        *<code>optional .Reference reference = 2;</code>        */
+comment|// optional .hbase.pb.Reference reference = 2;
+comment|/**        *<code>optional .hbase.pb.Reference reference = 2;</code>        */
 name|boolean
 name|hasReference
 parameter_list|()
 function_decl|;
-comment|/**        *<code>optional .Reference reference = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Reference reference = 2;</code>        */
 name|org
 operator|.
 name|apache
@@ -6448,7 +6448,7 @@ name|Reference
 name|getReference
 parameter_list|()
 function_decl|;
-comment|/**        *<code>optional .Reference reference = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Reference reference = 2;</code>        */
 name|org
 operator|.
 name|apache
@@ -6479,7 +6479,7 @@ name|getFileSize
 parameter_list|()
 function_decl|;
 block|}
-comment|/**      * Protobuf type {@code SnapshotRegionManifest.StoreFile}      */
+comment|/**      * Protobuf type {@code hbase.pb.SnapshotRegionManifest.StoreFile}      */
 specifier|public
 specifier|static
 specifier|final
@@ -6968,7 +6968,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotRegionManifest_StoreFile_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_StoreFile_descriptor
 return|;
 block|}
 specifier|protected
@@ -6999,7 +6999,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotRegionManifest_StoreFile_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotRegionManifest_StoreFile_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -7358,7 +7358,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional .Reference reference = 2;
+comment|// optional .hbase.pb.Reference reference = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -7385,7 +7385,7 @@ operator|.
 name|Reference
 name|reference_
 decl_stmt|;
-comment|/**        *<code>optional .Reference reference = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Reference reference = 2;</code>        */
 specifier|public
 name|boolean
 name|hasReference
@@ -7403,7 +7403,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .Reference reference = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Reference reference = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -7427,7 +7427,7 @@ return|return
 name|reference_
 return|;
 block|}
-comment|/**        *<code>optional .Reference reference = 2;</code>        */
+comment|/**        *<code>optional .hbase.pb.Reference reference = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -8892,7 +8892,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**        * Protobuf type {@code SnapshotRegionManifest.StoreFile}        */
+comment|/**        * Protobuf type {@code hbase.pb.SnapshotRegionManifest.StoreFile}        */
 specifier|public
 specifier|static
 specifier|final
@@ -8960,7 +8960,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotRegionManifest_StoreFile_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_StoreFile_descriptor
 return|;
 block|}
 specifier|protected
@@ -8991,7 +8991,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotRegionManifest_StoreFile_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotRegionManifest_StoreFile_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -9237,7 +9237,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotRegionManifest_StoreFile_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_StoreFile_descriptor
 return|;
 block|}
 specifier|public
@@ -10197,7 +10197,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .Reference reference = 2;
+comment|// optional .hbase.pb.Reference reference = 2;
 specifier|private
 name|org
 operator|.
@@ -10296,7 +10296,7 @@ name|ReferenceOrBuilder
 argument_list|>
 name|referenceBuilder_
 decl_stmt|;
-comment|/**          *<code>optional .Reference reference = 2;</code>          */
+comment|/**          *<code>optional .hbase.pb.Reference reference = 2;</code>          */
 specifier|public
 name|boolean
 name|hasReference
@@ -10314,7 +10314,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**          *<code>optional .Reference reference = 2;</code>          */
+comment|/**          *<code>optional .hbase.pb.Reference reference = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -10355,7 +10355,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**          *<code>optional .Reference reference = 2;</code>          */
+comment|/**          *<code>optional .hbase.pb.Reference reference = 2;</code>          */
 specifier|public
 name|Builder
 name|setReference
@@ -10424,7 +10424,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>optional .Reference reference = 2;</code>          */
+comment|/**          *<code>optional .hbase.pb.Reference reference = 2;</code>          */
 specifier|public
 name|Builder
 name|setReference
@@ -10488,7 +10488,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>optional .Reference reference = 2;</code>          */
+comment|/**          *<code>optional .hbase.pb.Reference reference = 2;</code>          */
 specifier|public
 name|Builder
 name|mergeReference
@@ -10613,7 +10613,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>optional .Reference reference = 2;</code>          */
+comment|/**          *<code>optional .hbase.pb.Reference reference = 2;</code>          */
 specifier|public
 name|Builder
 name|clearReference
@@ -10672,7 +10672,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>optional .Reference reference = 2;</code>          */
+comment|/**          *<code>optional .hbase.pb.Reference reference = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -10709,7 +10709,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**          *<code>optional .Reference reference = 2;</code>          */
+comment|/**          *<code>optional .hbase.pb.Reference reference = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -10750,7 +10750,7 @@ name|reference_
 return|;
 block|}
 block|}
-comment|/**          *<code>optional .Reference reference = 2;</code>          */
+comment|/**          *<code>optional .hbase.pb.Reference reference = 2;</code>          */
 specifier|private
 name|com
 operator|.
@@ -10983,7 +10983,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:SnapshotRegionManifest.StoreFile)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.SnapshotRegionManifest.StoreFile)
 block|}
 static|static
 block|{
@@ -11001,7 +11001,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:SnapshotRegionManifest.StoreFile)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.SnapshotRegionManifest.StoreFile)
 block|}
 specifier|public
 interface|interface
@@ -11032,8 +11032,8 @@ name|ByteString
 name|getFamilyName
 parameter_list|()
 function_decl|;
-comment|// repeated .SnapshotRegionManifest.StoreFile store_files = 2;
-comment|/**        *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
+comment|// repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
 name|java
 operator|.
 name|util
@@ -11061,7 +11061,7 @@ argument_list|>
 name|getStoreFilesList
 parameter_list|()
 function_decl|;
-comment|/**        *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
 name|org
 operator|.
 name|apache
@@ -11085,12 +11085,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**        *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
 name|int
 name|getStoreFilesCount
 parameter_list|()
 function_decl|;
-comment|/**        *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
 name|java
 operator|.
 name|util
@@ -11120,7 +11120,7 @@ argument_list|>
 name|getStoreFilesOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**        *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
 name|org
 operator|.
 name|apache
@@ -11145,7 +11145,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**      * Protobuf type {@code SnapshotRegionManifest.FamilyFiles}      */
+comment|/**      * Protobuf type {@code hbase.pb.SnapshotRegionManifest.FamilyFiles}      */
 specifier|public
 specifier|static
 specifier|final
@@ -11629,7 +11629,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotRegionManifest_FamilyFiles_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_FamilyFiles_descriptor
 return|;
 block|}
 specifier|protected
@@ -11660,7 +11660,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotRegionManifest_FamilyFiles_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotRegionManifest_FamilyFiles_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -11859,7 +11859,7 @@ return|return
 name|familyName_
 return|;
 block|}
-comment|// repeated .SnapshotRegionManifest.StoreFile store_files = 2;
+comment|// repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -11895,7 +11895,7 @@ name|StoreFile
 argument_list|>
 name|storeFiles_
 decl_stmt|;
-comment|/**        *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -11928,7 +11928,7 @@ return|return
 name|storeFiles_
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -11963,7 +11963,7 @@ return|return
 name|storeFiles_
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
 specifier|public
 name|int
 name|getStoreFilesCount
@@ -11976,7 +11976,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -12010,7 +12010,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -13329,7 +13329,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**        * Protobuf type {@code SnapshotRegionManifest.FamilyFiles}        */
+comment|/**        * Protobuf type {@code hbase.pb.SnapshotRegionManifest.FamilyFiles}        */
 specifier|public
 specifier|static
 specifier|final
@@ -13397,7 +13397,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotRegionManifest_FamilyFiles_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_FamilyFiles_descriptor
 return|;
 block|}
 specifier|protected
@@ -13428,7 +13428,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotRegionManifest_FamilyFiles_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotRegionManifest_FamilyFiles_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -13659,7 +13659,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotRegionManifest_FamilyFiles_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_FamilyFiles_descriptor
 return|;
 block|}
 specifier|public
@@ -14551,7 +14551,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .SnapshotRegionManifest.StoreFile store_files = 2;
+comment|// repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;
 specifier|private
 name|java
 operator|.
@@ -14711,7 +14711,7 @@ name|StoreFileOrBuilder
 argument_list|>
 name|storeFilesBuilder_
 decl_stmt|;
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|java
 operator|.
@@ -14770,7 +14770,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|int
 name|getStoreFilesCount
@@ -14800,7 +14800,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -14853,7 +14853,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|Builder
 name|setStoreFiles
@@ -14933,7 +14933,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|Builder
 name|setStoreFiles
@@ -15008,7 +15008,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|Builder
 name|addStoreFiles
@@ -15081,7 +15081,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|Builder
 name|addStoreFiles
@@ -15161,7 +15161,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|Builder
 name|addStoreFiles
@@ -15229,7 +15229,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|Builder
 name|addStoreFiles
@@ -15304,7 +15304,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|Builder
 name|addAllStoreFiles
@@ -15375,7 +15375,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|Builder
 name|clearStoreFiles
@@ -15424,7 +15424,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|Builder
 name|removeStoreFiles
@@ -15468,7 +15468,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -15505,7 +15505,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -15558,7 +15558,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|java
 operator|.
@@ -15619,7 +15619,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -15672,7 +15672,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|org
 operator|.
@@ -15730,7 +15730,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**          *<code>repeated .SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
+comment|/**          *<code>repeated .hbase.pb.SnapshotRegionManifest.StoreFile store_files = 2;</code>          */
 specifier|public
 name|java
 operator|.
@@ -15940,7 +15940,7 @@ return|return
 name|storeFilesBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:SnapshotRegionManifest.FamilyFiles)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.SnapshotRegionManifest.FamilyFiles)
 block|}
 static|static
 block|{
@@ -15958,7 +15958,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:SnapshotRegionManifest.FamilyFiles)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.SnapshotRegionManifest.FamilyFiles)
 block|}
 specifier|private
 name|int
@@ -16005,7 +16005,7 @@ return|return
 name|version_
 return|;
 block|}
-comment|// required .RegionInfo region_info = 2;
+comment|// required .hbase.pb.RegionInfo region_info = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -16032,7 +16032,7 @@ operator|.
 name|RegionInfo
 name|regionInfo_
 decl_stmt|;
-comment|/**      *<code>required .RegionInfo region_info = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 2;</code>      */
 specifier|public
 name|boolean
 name|hasRegionInfo
@@ -16050,7 +16050,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionInfo region_info = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -16074,7 +16074,7 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|/**      *<code>required .RegionInfo region_info = 2;</code>      */
+comment|/**      *<code>required .hbase.pb.RegionInfo region_info = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -16098,7 +16098,7 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|// repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;
+comment|// repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -16134,7 +16134,7 @@ name|FamilyFiles
 argument_list|>
 name|familyFiles_
 decl_stmt|;
-comment|/**      *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -16167,7 +16167,7 @@ return|return
 name|familyFiles_
 return|;
 block|}
-comment|/**      *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -16202,7 +16202,7 @@ return|return
 name|familyFiles_
 return|;
 block|}
-comment|/**      *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
 specifier|public
 name|int
 name|getFamilyFilesCount
@@ -16215,7 +16215,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -16249,7 +16249,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -17688,7 +17688,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code SnapshotRegionManifest}      */
+comment|/**      * Protobuf type {@code hbase.pb.SnapshotRegionManifest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -17754,7 +17754,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotRegionManifest_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_descriptor
 return|;
 block|}
 specifier|protected
@@ -17785,7 +17785,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotRegionManifest_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotRegionManifest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -18053,7 +18053,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotRegionManifest_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_descriptor
 return|;
 block|}
 specifier|public
@@ -18949,7 +18949,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .RegionInfo region_info = 2;
+comment|// required .hbase.pb.RegionInfo region_info = 2;
 specifier|private
 name|org
 operator|.
@@ -19048,7 +19048,7 @@ name|RegionInfoOrBuilder
 argument_list|>
 name|regionInfoBuilder_
 decl_stmt|;
-comment|/**        *<code>required .RegionInfo region_info = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 2;</code>        */
 specifier|public
 name|boolean
 name|hasRegionInfo
@@ -19066,7 +19066,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -19107,7 +19107,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 2;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -19176,7 +19176,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 2;</code>        */
 specifier|public
 name|Builder
 name|setRegionInfo
@@ -19240,7 +19240,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 2;</code>        */
 specifier|public
 name|Builder
 name|mergeRegionInfo
@@ -19365,7 +19365,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 2;</code>        */
 specifier|public
 name|Builder
 name|clearRegionInfo
@@ -19424,7 +19424,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -19461,7 +19461,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -19502,7 +19502,7 @@ name|regionInfo_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .RegionInfo region_info = 2;</code>        */
+comment|/**        *<code>required .hbase.pb.RegionInfo region_info = 2;</code>        */
 specifier|private
 name|com
 operator|.
@@ -19652,7 +19652,7 @@ return|return
 name|regionInfoBuilder_
 return|;
 block|}
-comment|// repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;
+comment|// repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;
 specifier|private
 name|java
 operator|.
@@ -19812,7 +19812,7 @@ name|FamilyFilesOrBuilder
 argument_list|>
 name|familyFilesBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -19871,7 +19871,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|int
 name|getFamilyFilesCount
@@ -19901,7 +19901,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -19954,7 +19954,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|Builder
 name|setFamilyFiles
@@ -20034,7 +20034,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|Builder
 name|setFamilyFiles
@@ -20109,7 +20109,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|Builder
 name|addFamilyFiles
@@ -20182,7 +20182,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|Builder
 name|addFamilyFiles
@@ -20262,7 +20262,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|Builder
 name|addFamilyFiles
@@ -20330,7 +20330,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|Builder
 name|addFamilyFiles
@@ -20405,7 +20405,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|Builder
 name|addAllFamilyFiles
@@ -20476,7 +20476,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|Builder
 name|clearFamilyFiles
@@ -20525,7 +20525,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|Builder
 name|removeFamilyFiles
@@ -20569,7 +20569,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20606,7 +20606,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20659,7 +20659,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -20720,7 +20720,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20773,7 +20773,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -20831,7 +20831,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest.FamilyFiles family_files = 3;</code>        */
 specifier|public
 name|java
 operator|.
@@ -21041,7 +21041,7 @@ return|return
 name|familyFilesBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:SnapshotRegionManifest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.SnapshotRegionManifest)
 block|}
 static|static
 block|{
@@ -21059,7 +21059,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:SnapshotRegionManifest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.SnapshotRegionManifest)
 block|}
 specifier|public
 interface|interface
@@ -21073,13 +21073,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .TableSchema table_schema = 1;
-comment|/**      *<code>required .TableSchema table_schema = 1;</code>      */
+comment|// required .hbase.pb.TableSchema table_schema = 1;
+comment|/**      *<code>required .hbase.pb.TableSchema table_schema = 1;</code>      */
 name|boolean
 name|hasTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableSchema table_schema = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema table_schema = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -21098,7 +21098,7 @@ name|TableSchema
 name|getTableSchema
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .TableSchema table_schema = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema table_schema = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -21117,8 +21117,8 @@ name|TableSchemaOrBuilder
 name|getTableSchemaOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .SnapshotRegionManifest region_manifests = 2;
-comment|/**      *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>      */
+comment|// repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -21144,7 +21144,7 @@ argument_list|>
 name|getRegionManifestsList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -21166,12 +21166,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>      */
 name|int
 name|getRegionManifestsCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -21199,7 +21199,7 @@ argument_list|>
 name|getRegionManifestsOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -21222,7 +21222,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code SnapshotDataManifest}    */
+comment|/**    * Protobuf type {@code hbase.pb.SnapshotDataManifest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -21786,7 +21786,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotDataManifest_descriptor
+name|internal_static_hbase_pb_SnapshotDataManifest_descriptor
 return|;
 block|}
 specifier|protected
@@ -21817,7 +21817,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotDataManifest_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotDataManifest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -21959,7 +21959,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .TableSchema table_schema = 1;
+comment|// required .hbase.pb.TableSchema table_schema = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -21986,7 +21986,7 @@ operator|.
 name|TableSchema
 name|tableSchema_
 decl_stmt|;
-comment|/**      *<code>required .TableSchema table_schema = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema table_schema = 1;</code>      */
 specifier|public
 name|boolean
 name|hasTableSchema
@@ -22004,7 +22004,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .TableSchema table_schema = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema table_schema = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -22028,7 +22028,7 @@ return|return
 name|tableSchema_
 return|;
 block|}
-comment|/**      *<code>required .TableSchema table_schema = 1;</code>      */
+comment|/**      *<code>required .hbase.pb.TableSchema table_schema = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -22052,7 +22052,7 @@ return|return
 name|tableSchema_
 return|;
 block|}
-comment|// repeated .SnapshotRegionManifest region_manifests = 2;
+comment|// repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -22086,7 +22086,7 @@ name|SnapshotRegionManifest
 argument_list|>
 name|regionManifests_
 decl_stmt|;
-comment|/**      *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -22117,7 +22117,7 @@ return|return
 name|regionManifests_
 return|;
 block|}
-comment|/**      *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -22150,7 +22150,7 @@ return|return
 name|regionManifests_
 return|;
 block|}
-comment|/**      *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>      */
 specifier|public
 name|int
 name|getRegionManifestsCount
@@ -22163,7 +22163,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -22195,7 +22195,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>      */
+comment|/**      *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -23511,7 +23511,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code SnapshotDataManifest}      */
+comment|/**      * Protobuf type {@code hbase.pb.SnapshotDataManifest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -23577,7 +23577,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotDataManifest_descriptor
+name|internal_static_hbase_pb_SnapshotDataManifest_descriptor
 return|;
 block|}
 specifier|protected
@@ -23608,7 +23608,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotDataManifest_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotDataManifest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -23863,7 +23863,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|internal_static_SnapshotDataManifest_descriptor
+name|internal_static_hbase_pb_SnapshotDataManifest_descriptor
 return|;
 block|}
 specifier|public
@@ -24635,7 +24635,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .TableSchema table_schema = 1;
+comment|// required .hbase.pb.TableSchema table_schema = 1;
 specifier|private
 name|org
 operator|.
@@ -24734,7 +24734,7 @@ name|TableSchemaOrBuilder
 argument_list|>
 name|tableSchemaBuilder_
 decl_stmt|;
-comment|/**        *<code>required .TableSchema table_schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 1;</code>        */
 specifier|public
 name|boolean
 name|hasTableSchema
@@ -24752,7 +24752,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -24793,7 +24793,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 1;</code>        */
 specifier|public
 name|Builder
 name|setTableSchema
@@ -24862,7 +24862,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 1;</code>        */
 specifier|public
 name|Builder
 name|setTableSchema
@@ -24926,7 +24926,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 1;</code>        */
 specifier|public
 name|Builder
 name|mergeTableSchema
@@ -25051,7 +25051,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 1;</code>        */
 specifier|public
 name|Builder
 name|clearTableSchema
@@ -25110,7 +25110,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -25147,7 +25147,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -25188,7 +25188,7 @@ name|tableSchema_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .TableSchema table_schema = 1;</code>        */
+comment|/**        *<code>required .hbase.pb.TableSchema table_schema = 1;</code>        */
 specifier|private
 name|com
 operator|.
@@ -25338,7 +25338,7 @@ return|return
 name|tableSchemaBuilder_
 return|;
 block|}
-comment|// repeated .SnapshotRegionManifest region_manifests = 2;
+comment|// repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;
 specifier|private
 name|java
 operator|.
@@ -25488,7 +25488,7 @@ name|SnapshotRegionManifestOrBuilder
 argument_list|>
 name|regionManifestsBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -25545,7 +25545,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|int
 name|getRegionManifestsCount
@@ -25575,7 +25575,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -25626,7 +25626,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|Builder
 name|setRegionManifests
@@ -25704,7 +25704,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|Builder
 name|setRegionManifests
@@ -25777,7 +25777,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|Builder
 name|addRegionManifests
@@ -25848,7 +25848,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|Builder
 name|addRegionManifests
@@ -25926,7 +25926,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|Builder
 name|addRegionManifests
@@ -25992,7 +25992,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|Builder
 name|addRegionManifests
@@ -26065,7 +26065,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|Builder
 name|addAllRegionManifests
@@ -26134,7 +26134,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|Builder
 name|clearRegionManifests
@@ -26183,7 +26183,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|Builder
 name|removeRegionManifests
@@ -26227,7 +26227,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -26262,7 +26262,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -26313,7 +26313,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -26372,7 +26372,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -26421,7 +26421,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -26475,7 +26475,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .SnapshotRegionManifest region_manifests = 2;</code>        */
+comment|/**        *<code>repeated .hbase.pb.SnapshotRegionManifest region_manifests = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -26671,7 +26671,7 @@ return|return
 name|regionManifestsBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:SnapshotDataManifest)
+comment|// @@protoc_insertion_point(builder_scope:hbase.pb.SnapshotDataManifest)
 block|}
 static|static
 block|{
@@ -26689,7 +26689,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:SnapshotDataManifest)
+comment|// @@protoc_insertion_point(class_scope:hbase.pb.SnapshotDataManifest)
 block|}
 specifier|private
 specifier|static
@@ -26702,7 +26702,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_SnapshotFileInfo_descriptor
+name|internal_static_hbase_pb_SnapshotFileInfo_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -26715,7 +26715,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_SnapshotFileInfo_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotFileInfo_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -26728,7 +26728,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_SnapshotRegionManifest_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -26741,7 +26741,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_SnapshotRegionManifest_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotRegionManifest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -26754,7 +26754,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_SnapshotRegionManifest_StoreFile_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_StoreFile_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -26767,7 +26767,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_SnapshotRegionManifest_StoreFile_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotRegionManifest_StoreFile_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -26780,7 +26780,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_SnapshotRegionManifest_FamilyFiles_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_FamilyFiles_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -26793,7 +26793,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_SnapshotRegionManifest_FamilyFiles_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotRegionManifest_FamilyFiles_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -26806,7 +26806,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_SnapshotDataManifest_descriptor
+name|internal_static_hbase_pb_SnapshotDataManifest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -26819,7 +26819,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_SnapshotDataManifest_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotDataManifest_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -26863,39 +26863,43 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\016Snapshot.proto\032\010FS.proto\032\013HBase.proto\""
+literal|"\n\016Snapshot.proto\022\010hbase.pb\032\010FS.proto\032\013HB"
 operator|+
-literal|"\211\001\n\020SnapshotFileInfo\022$\n\004type\030\001 \002(\0162\026.Sna"
+literal|"ase.proto\"\222\001\n\020SnapshotFileInfo\022-\n\004type\030\001"
 operator|+
-literal|"pshotFileInfo.Type\022\r\n\005hfile\030\003 \001(\t\022\022\n\nwal"
+literal|" \002(\0162\037.hbase.pb.SnapshotFileInfo.Type\022\r\n"
 operator|+
-literal|"_server\030\004 \001(\t\022\020\n\010wal_name\030\005 \001(\t\"\032\n\004Type\022"
+literal|"\005hfile\030\003 \001(\t\022\022\n\nwal_server\030\004 \001(\t\022\020\n\010wal_"
 operator|+
-literal|"\t\n\005HFILE\020\001\022\007\n\003WAL\020\002\"\257\002\n\026SnapshotRegionMa"
+literal|"name\030\005 \001(\t\"\032\n\004Type\022\t\n\005HFILE\020\001\022\007\n\003WAL\020\002\"\323"
 operator|+
-literal|"nifest\022\017\n\007version\030\001 \001(\005\022 \n\013region_info\030\002"
+literal|"\002\n\026SnapshotRegionManifest\022\017\n\007version\030\001 \001"
 operator|+
-literal|" \002(\0132\013.RegionInfo\0229\n\014family_files\030\003 \003(\0132"
+literal|"(\005\022)\n\013region_info\030\002 \002(\0132\024.hbase.pb.Regio"
 operator|+
-literal|"#.SnapshotRegionManifest.FamilyFiles\032K\n\t"
+literal|"nInfo\022B\n\014family_files\030\003 \003(\0132,.hbase.pb.S"
 operator|+
-literal|"StoreFile\022\014\n\004name\030\001 \002(\t\022\035\n\treference\030\002 \001"
+literal|"napshotRegionManifest.FamilyFiles\032T\n\tSto"
 operator|+
-literal|"(\0132\n.Reference\022\021\n\tfile_size\030\003 \001(\004\032Z\n\013Fam"
+literal|"reFile\022\014\n\004name\030\001 \002(\t\022&\n\treference\030\002 \001(\0132"
 block|,
-literal|"ilyFiles\022\023\n\013family_name\030\001 \002(\014\0226\n\013store_f"
+literal|"\023.hbase.pb.Reference\022\021\n\tfile_size\030\003 \001(\004\032"
 operator|+
-literal|"iles\030\002 \003(\0132!.SnapshotRegionManifest.Stor"
+literal|"c\n\013FamilyFiles\022\023\n\013family_name\030\001 \002(\014\022?\n\013s"
 operator|+
-literal|"eFile\"m\n\024SnapshotDataManifest\022\"\n\014table_s"
+literal|"tore_files\030\002 \003(\0132*.hbase.pb.SnapshotRegi"
 operator|+
-literal|"chema\030\001 \002(\0132\014.TableSchema\0221\n\020region_mani"
+literal|"onManifest.StoreFile\"\177\n\024SnapshotDataMani"
 operator|+
-literal|"fests\030\002 \003(\0132\027.SnapshotRegionManifestBD\n*"
+literal|"fest\022+\n\014table_schema\030\001 \002(\0132\025.hbase.pb.Ta"
 operator|+
-literal|"org.apache.hadoop.hbase.protobuf.generat"
+literal|"bleSchema\022:\n\020region_manifests\030\002 \003(\0132 .hb"
 operator|+
-literal|"edB\016SnapshotProtosH\001\210\001\001\240\001\001"
+literal|"ase.pb.SnapshotRegionManifestBD\n*org.apa"
+operator|+
+literal|"che.hadoop.hbase.protobuf.generatedB\016Sna"
+operator|+
+literal|"pshotProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -26951,7 +26955,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_SnapshotFileInfo_descriptor
+name|internal_static_hbase_pb_SnapshotFileInfo_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -26964,7 +26968,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_SnapshotFileInfo_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotFileInfo_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -26977,7 +26981,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_SnapshotFileInfo_descriptor
+name|internal_static_hbase_pb_SnapshotFileInfo_descriptor
 argument_list|,
 operator|new
 name|java
@@ -26997,7 +27001,7 @@ literal|"WalName"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_SnapshotRegionManifest_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -27010,7 +27014,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_SnapshotRegionManifest_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotRegionManifest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -27023,7 +27027,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_SnapshotRegionManifest_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -27041,9 +27045,9 @@ literal|"FamilyFiles"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_SnapshotRegionManifest_StoreFile_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_StoreFile_descriptor
 operator|=
-name|internal_static_SnapshotRegionManifest_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_descriptor
 operator|.
 name|getNestedTypes
 argument_list|()
@@ -27053,7 +27057,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_SnapshotRegionManifest_StoreFile_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotRegionManifest_StoreFile_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -27066,7 +27070,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_SnapshotRegionManifest_StoreFile_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_StoreFile_descriptor
 argument_list|,
 operator|new
 name|java
@@ -27084,9 +27088,9 @@ literal|"FileSize"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_SnapshotRegionManifest_FamilyFiles_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_FamilyFiles_descriptor
 operator|=
-name|internal_static_SnapshotRegionManifest_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_descriptor
 operator|.
 name|getNestedTypes
 argument_list|()
@@ -27096,7 +27100,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_SnapshotRegionManifest_FamilyFiles_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotRegionManifest_FamilyFiles_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -27109,7 +27113,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_SnapshotRegionManifest_FamilyFiles_descriptor
+name|internal_static_hbase_pb_SnapshotRegionManifest_FamilyFiles_descriptor
 argument_list|,
 operator|new
 name|java
@@ -27125,7 +27129,7 @@ literal|"StoreFiles"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_SnapshotDataManifest_descriptor
+name|internal_static_hbase_pb_SnapshotDataManifest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -27138,7 +27142,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_SnapshotDataManifest_fieldAccessorTable
+name|internal_static_hbase_pb_SnapshotDataManifest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -27151,7 +27155,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_SnapshotDataManifest_descriptor
+name|internal_static_hbase_pb_SnapshotDataManifest_descriptor
 argument_list|,
 operator|new
 name|java
