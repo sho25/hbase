@@ -420,7 +420,7 @@ name|filesCompacting
 argument_list|)
 return|;
 block|}
-comment|/**    * @param candidateFiles candidate files, ordered from oldest to newest. All files in store.    * @return subset copy of candidate list that meets compaction criteria    * @throws java.io.IOException    */
+comment|/**    * @param candidateFiles candidate files, ordered from oldest to newest by seqId. We rely on    *   DefaultStoreFileManager to sort the files by seqId to guarantee contiguous compaction based    *   on seqId for data consistency.    * @return subset copy of candidate list that meets compaction criteria    * @throws java.io.IOException    */
 specifier|public
 name|CompactionRequest
 name|selectCompaction
@@ -750,7 +750,7 @@ name|result
 return|;
 block|}
 comment|/**    * @param candidates pre-filtrate    * @return filtered subset    * exclude all files above maxCompactSize    * Also save all references. We MUST compact them    */
-specifier|private
+specifier|protected
 name|ArrayList
 argument_list|<
 name|StoreFile
@@ -855,7 +855,7 @@ name|candidates
 return|;
 block|}
 comment|/**    * @param candidates pre-filtrate    * @return filtered subset    * exclude all bulk load files if configured    */
-specifier|private
+specifier|protected
 name|ArrayList
 argument_list|<
 name|StoreFile
@@ -1012,7 +1012,7 @@ name|candidates
 return|;
 block|}
 comment|/**    * @param candidates pre-filtrate    * @return filtered subset    * forget the compactionSelection if we don't have enough files    */
-specifier|private
+specifier|protected
 name|ArrayList
 argument_list|<
 name|StoreFile
@@ -1961,6 +1961,23 @@ operator|.
 name|getMinFilesToCompact
 argument_list|()
 return|;
+block|}
+comment|/**    * Overwrite min threshold for compaction    * @param minThreshold min to update to    */
+specifier|public
+name|void
+name|setMinThreshold
+parameter_list|(
+name|int
+name|minThreshold
+parameter_list|)
+block|{
+name|comConf
+operator|.
+name|setMinFilesToCompact
+argument_list|(
+name|minThreshold
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class
