@@ -4383,6 +4383,16 @@ argument_list|(
 name|row
 argument_list|)
 decl_stmt|;
+name|put
+operator|.
+name|setFamilyCellMap
+argument_list|(
+name|delete
+operator|.
+name|getFamilyCellMap
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// column to check-the-value
 name|put
 operator|.
