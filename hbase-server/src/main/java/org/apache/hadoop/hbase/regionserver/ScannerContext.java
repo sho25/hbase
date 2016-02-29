@@ -1716,7 +1716,7 @@ block|{
 return|return
 name|this
 operator|.
-name|sizeScope
+name|timeScope
 operator|.
 name|canEnforceLimitFromScope
 argument_list|(
