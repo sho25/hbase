@@ -6888,6 +6888,24 @@ condition|)
 block|{
 if|if
 condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"From Cache "
+operator|+
+name|cachedBlock
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
 name|Trace
 operator|.
 name|isTracing
@@ -6931,7 +6949,7 @@ condition|)
 block|{
 name|HFile
 operator|.
-name|dataBlockReadCnt
+name|DATABLOCK_READ_COUNT
 operator|.
 name|increment
 argument_list|()
@@ -7141,7 +7159,7 @@ condition|)
 block|{
 name|HFile
 operator|.
-name|dataBlockReadCnt
+name|DATABLOCK_READ_COUNT
 operator|.
 name|increment
 argument_list|()

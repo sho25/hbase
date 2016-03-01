@@ -893,14 +893,14 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"HFileContext ["
+literal|"["
 argument_list|)
 expr_stmt|;
 name|sb
 operator|.
 name|append
 argument_list|(
-literal|" usesHBaseChecksum="
+literal|"usesHBaseChecksum="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -914,7 +914,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" checksumType="
+literal|", checksumType="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -928,7 +928,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" bytesPerChecksum="
+literal|", bytesPerChecksum="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -942,7 +942,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" blocksize="
+literal|", blocksize="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -956,7 +956,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" encoding="
+literal|", encoding="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -970,7 +970,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" includesMvcc="
+literal|", includesMvcc="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -984,7 +984,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" includesTags="
+literal|", includesTags="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -998,7 +998,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" compressAlgo="
+literal|", compressAlgo="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -1012,7 +1012,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" compressTags="
+literal|", compressTags="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -1026,7 +1026,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" cryptoContext=[ "
+literal|", cryptoContext=["
 argument_list|)
 expr_stmt|;
 name|sb
@@ -1040,7 +1040,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" ]"
+literal|"]"
 argument_list|)
 expr_stmt|;
 if|if
@@ -1054,7 +1054,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" name="
+literal|", name="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -1069,7 +1069,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" ]"
+literal|"]"
 argument_list|)
 expr_stmt|;
 return|return

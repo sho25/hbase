@@ -1325,9 +1325,10 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|// Default block size is 64K, so we choose more sizes near 64K, you'd better
+comment|// Default block size in hbase is 64K, so we choose more sizes near 64K, you'd better
 comment|// reset it according to your cluster's block size distribution
 comment|// TODO Support the view of block size distribution statistics
+comment|// TODO: Why we add the extra 1024 bytes? Slop?
 specifier|private
 specifier|static
 specifier|final
@@ -1465,6 +1466,7 @@ return|return
 literal|null
 return|;
 block|}
+comment|/**    * So, what is the minimum amount of items we'll tolerate in a single bucket?    */
 specifier|static
 specifier|public
 specifier|final
@@ -1596,7 +1598,13 @@ throw|throw
 operator|new
 name|BucketAllocatorException
 argument_list|(
-literal|"Bucket allocator size too small - must have room for at least "
+literal|"Bucket allocator size too small ("
+operator|+
+name|buckets
+operator|.
+name|length
+operator|+
+literal|"); must have room for at least "
 operator|+
 name|this
 operator|.
@@ -1725,6 +1733,54 @@ operator|)
 operator|*
 name|bucketCapacity
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isInfoEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Cache totalSize="
+operator|+
+name|this
+operator|.
+name|totalSize
+operator|+
+literal|", buckets="
+operator|+
+name|this
+operator|.
+name|buckets
+operator|.
+name|length
+operator|+
+literal|", bucket capacity="
+operator|+
+name|this
+operator|.
+name|bucketCapacity
+operator|+
+literal|"=("
+operator|+
+name|FEWEST_ITEMS_IN_BUCKET
+operator|+
+literal|"*"
+operator|+
+name|this
+operator|.
+name|bigItemSize
+operator|+
+literal|")="
+operator|+
+literal|"(FEWEST_ITEMS_IN_BUCKET*(largest configured bucketcache size))"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Rebuild the allocator's data structures from a persisted map.    * @param availableSpace capacity of cache    * @param map A map stores the block key and BucketEntry(block's meta data    *          like offset, length)    * @param realCacheSize cached data size statistics for bucket cache    * @throws BucketAllocatorException    */
 name|BucketAllocator

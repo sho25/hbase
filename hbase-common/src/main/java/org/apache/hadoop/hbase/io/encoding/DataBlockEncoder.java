@@ -150,6 +150,8 @@ specifier|public
 interface|interface
 name|DataBlockEncoder
 block|{
+comment|// TODO: This Interface should be deprecated and replaced. It presumes hfile and carnal knowledge of
+comment|// Cell internals. It was done for a different time. Remove. Purge.
 comment|/**    * Starts encoding for a block of KeyValues. Call    * {@link #endBlockEncoding(HFileBlockEncodingContext, DataOutputStream, byte[])} to finish    * encoding of a block.    * @param encodingCtx    * @param out    * @throws IOException    */
 name|void
 name|startBlockEncoding

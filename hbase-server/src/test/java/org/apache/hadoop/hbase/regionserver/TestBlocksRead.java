@@ -1507,7 +1507,7 @@ block|{
 return|return
 name|HFile
 operator|.
-name|dataBlockReadCnt
+name|DATABLOCK_READ_COUNT
 operator|.
 name|get
 argument_list|()

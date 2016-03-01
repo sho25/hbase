@@ -580,7 +580,7 @@ literal|null
 expr_stmt|;
 name|HFile
 operator|.
-name|dataBlockReadCnt
+name|DATABLOCK_READ_COUNT
 operator|.
 name|set
 argument_list|(
@@ -715,7 +715,7 @@ literal|0
 argument_list|,
 name|HFile
 operator|.
-name|dataBlockReadCnt
+name|DATABLOCK_READ_COUNT
 operator|.
 name|get
 argument_list|()
@@ -755,7 +755,7 @@ name|assertTrue
 argument_list|(
 name|HFile
 operator|.
-name|dataBlockReadCnt
+name|DATABLOCK_READ_COUNT
 operator|.
 name|get
 argument_list|()

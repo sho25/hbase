@@ -113,6 +113,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|fs
@@ -502,7 +530,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Reading {@link HFile} version 1 and 2 blocks, and writing version 2 blocks.  *<ul>  *<li>In version 1 all blocks are always compressed or uncompressed, as  * specified by the {@link HFile}'s compression algorithm, with a type-specific  * magic record stored in the beginning of the compressed data (i.e. one needs  * to uncompress the compressed block to determine the block type). There is  * only a single compression algorithm setting for all blocks. Offset and size  * information from the block index are required to read a block.  *<li>In version 2 a block is structured as follows:  *<ul>  *<li>header (see Writer#finishBlock())  *<ul>  *<li>Magic record identifying the block type (8 bytes)  *<li>Compressed block size, excluding header, including checksum (4 bytes)  *<li>Uncompressed block size, excluding header, excluding checksum (4 bytes)  *<li>The offset of the previous block of the same type (8 bytes). This is  * used to be able to navigate to the previous block without going to the block  *<li>For minorVersions&gt;=1, the ordinal describing checksum type (1 byte)  *<li>For minorVersions&gt;=1, the number of data bytes/checksum chunk (4 bytes)  *<li>For minorVersions&gt;=1, the size of data on disk, including header,  * excluding checksums (4 bytes)  *</ul>  *</li>  *<li>Raw/Compressed/Encrypted/Encoded data. The compression algorithm is the  * same for all the blocks in the {@link HFile}, similarly to what was done in  * version 1.  *<li>For minorVersions&gt;=1, a series of 4 byte checksums, one each for  * the number of bytes specified by bytesPerChecksum.  *</ul>  *</ul>  */
+comment|/**  * Reads {@link HFile} version 1 and version 2 blocks but writes version 2 blocks only.  * Version 2 was introduced in hbase-0.92.0. Does read and write out to the filesystem but also  * the read and write to Cache.  *  *<h3>HFileBlock: Version 1</h3>  * As of this writing, there should be no more version 1 blocks found out in the wild. Version 2  * as introduced in hbase-0.92.0.  * In version 1 all blocks are always compressed or uncompressed, as  * specified by the {@link HFile}'s compression algorithm, with a type-specific  * magic record stored in the beginning of the compressed data (i.e. one needs  * to uncompress the compressed block to determine the block type). There is  * only a single compression algorithm setting for all blocks. Offset and size  * information from the block index are required to read a block.  *<h3>HFileBlock: Version 2</h3>  * In version 2, a block is structured as follows:  *<ul>  *<li><b>Header:</b> See Writer#putHeader(); header total size is HFILEBLOCK_HEADER_SIZE)  *<ul>  *<li>Magic record identifying the {@link BlockType} (8 bytes): e.g.<code>DATABLK*</code>  *<li>Compressed -- a.k.a 'on disk' -- block size, excluding header, but including  *     tailing checksum bytes (4 bytes)  *<li>Uncompressed block size, excluding header, and excluding checksum bytes (4 bytes)  *<li>The offset of the previous block of the same type (8 bytes). This is  * used to navigate to the previous block without having to go to the block index  *<li>For minorVersions&gt;=1, the ordinal describing checksum type (1 byte)  *<li>For minorVersions&gt;=1, the number of data bytes/checksum chunk (4 bytes)  *<li>For minorVersions&gt;=1, the size of data 'on disk', including header,  * excluding checksums (4 bytes)  *</ul>  *</li>  *<li><b>Raw/Compressed/Encrypted/Encoded data:</b> The compression algorithm is the  * same for all the blocks in the {@link HFile}, similarly to what was done in  * version 1. If compression is NONE, this is just raw, serialized Cells.  *<li><b>Tail:</b> For minorVersions&gt;=1, a series of 4 byte checksums, one each for  * the number of bytes specified by bytesPerChecksum.  *</ul>  *<p>Be aware that when we read from HDFS, we overread pulling in the next blocks' header too.  * We do this to save having to do two seeks to read an HFileBlock; a seek to read the header  * to figure lengths, etc., and then another seek to pull in the data.  */
 end_comment
 
 begin_class
@@ -516,13 +544,36 @@ name|HFileBlock
 implements|implements
 name|Cacheable
 block|{
-comment|/**    * On a checksum failure on a Reader, these many suceeding read    * requests switch back to using hdfs checksums before auto-reenabling    * hbase checksum verification.    */
+specifier|private
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|HFileBlock
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
+comment|/**    * On a checksum failure, do these many succeeding read requests using hdfs checksums before    * auto-reenabling hbase checksum verification.    */
 specifier|static
 specifier|final
 name|int
 name|CHECKSUM_VERIFICATION_NUM_IO_THRESHOLD
 init|=
 literal|3
+decl_stmt|;
+specifier|private
+specifier|static
+name|int
+name|UNSET
+init|=
+operator|-
+literal|1
 decl_stmt|;
 specifier|public
 specifier|static
@@ -539,35 +590,6 @@ name|boolean
 name|DONT_FILL_HEADER
 init|=
 literal|false
-decl_stmt|;
-comment|/**    * The size of block header when blockType is {@link BlockType#ENCODED_DATA}.    * This extends normal header by adding the id of encoder.    */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|ENCODED_HEADER_SIZE
-init|=
-name|HConstants
-operator|.
-name|HFILEBLOCK_HEADER_SIZE
-operator|+
-name|DataBlockEncoding
-operator|.
-name|ID_SIZE
-decl_stmt|;
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|DUMMY_HEADER_NO_CHECKSUM
-init|=
-operator|new
-name|byte
-index|[
-name|HConstants
-operator|.
-name|HFILEBLOCK_HEADER_SIZE_NO_CHECKSUM
-index|]
 decl_stmt|;
 comment|// How to get the estimate correctly? if it is a singleBB?
 specifier|public
@@ -590,7 +612,7 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-comment|// meta.usesHBaseChecksum+offset+nextBlockOnDiskSizeWithHeader
+comment|/**    * See #blockDeserializer method for more info.    * 13 bytes of extra stuff stuck on the end of the HFileBlock that we pull in from HDFS (note,    * when we read from HDFS, we pull in an HFileBlock AND the header of the next block if one).    * The 13 bytes are: usesHBaseChecksum (1 byte) + offset of this block (long) +    * nextBlockOnDiskSizeWithHeader (int).    */
 specifier|public
 specifier|static
 specifier|final
@@ -619,6 +641,21 @@ name|Bytes
 operator|.
 name|SIZEOF_INT
 decl_stmt|;
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|DUMMY_HEADER_NO_CHECKSUM
+init|=
+operator|new
+name|byte
+index|[
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE_NO_CHECKSUM
+index|]
+decl_stmt|;
+comment|/**    * Used deserializing blocks from Cache.    *    * Serializing to cache is a little hard to follow. See Writer#finishBlock for where it is done.    * When we start to append to a new HFileBlock,    * we skip over where the header should go before we start adding Cells. When the block is    * done, we'll then go back and fill in the header and the checksum tail. Be aware that what    * gets serialized into the blockcache is a byte array that contains an HFileBlock followed by    * its checksums and then the header of the next HFileBlock (needed to help navigate), followed    * again by an extra 13 bytes of meta info needed when time to recreate the HFileBlock from cache.    *    * ++++++++++++++    * + HFileBlock +    * ++++++++++++++    * + Checksums  +    * ++++++++++++++    * + NextHeader +    * ++++++++++++++    * + ExtraMeta! +    * ++++++++++++++    *    * TODO: Fix it so we do NOT put the NextHeader into blockcache. It is not necessary.    */
 specifier|static
 specifier|final
 name|CacheableDeserializer
@@ -650,6 +687,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Rewind to just before the EXTRA_SERIALIZATION_SPACE.
 name|buf
 operator|.
 name|limit
@@ -667,6 +705,7 @@ operator|.
 name|rewind
 argument_list|()
 expr_stmt|;
+comment|// Get a new buffer to pass the deserialized HFileBlock for it to 'own'.
 name|ByteBuff
 name|newByteBuffer
 decl_stmt|;
@@ -685,7 +724,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// Used only in tests
 name|int
 name|len
 init|=
@@ -724,6 +762,7 @@ name|len
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Read out the EXTRA_SERIALIZATION_SPACE content and shove into our HFileBlock.
 name|buf
 operator|.
 name|position
@@ -886,24 +925,24 @@ specifier|private
 name|BlockType
 name|blockType
 decl_stmt|;
-comment|/** Size on disk excluding header, including checksum. Header field 1. */
+comment|/**    * Size on disk excluding header, including checksum. Header field 1.    * @see Writer#putHeader(byte[], int, int, int, int)    */
 specifier|private
 name|int
 name|onDiskSizeWithoutHeader
 decl_stmt|;
-comment|/** Size of pure data. Does not include header or checksums. Header field 2. */
+comment|/**    * Size of pure data. Does not include header or checksums. Header field 2.    * @see Writer#putHeader(byte[], int, int, int, int)    */
 specifier|private
 specifier|final
 name|int
 name|uncompressedSizeWithoutHeader
 decl_stmt|;
-comment|/** The offset of the previous block on disk. Header field 3. */
+comment|/**    * The offset of the previous block on disk. Header field 3.    * @see Writer#putHeader(byte[], int, int, int, int)    */
 specifier|private
 specifier|final
 name|long
 name|prevBlockOffset
 decl_stmt|;
-comment|/**    * Size on disk of header + data. Excludes checksum. Header field 6,    * OR calculated from {@link #onDiskSizeWithoutHeader} when using HDFS checksum.    */
+comment|/**    * Size on disk of header + data. Excludes checksum. Header field 6,    * OR calculated from {@link #onDiskSizeWithoutHeader} when using HDFS checksum.    * @see Writer#putHeader(byte[], int, int, int, int)    */
 specifier|private
 specifier|final
 name|int
@@ -924,16 +963,14 @@ specifier|private
 name|long
 name|offset
 init|=
-operator|-
-literal|1
+name|UNSET
 decl_stmt|;
 comment|/**    * The on-disk size of the next block, including the header, obtained by    * peeking into the first {@link HConstants#HFILEBLOCK_HEADER_SIZE} bytes of the next block's    * header, or -1 if unknown.    */
 specifier|private
 name|int
 name|nextBlockOnDiskSizeWithHeader
 init|=
-operator|-
-literal|1
+name|UNSET
 decl_stmt|;
 specifier|private
 name|MemoryType
@@ -943,7 +980,7 @@ name|MemoryType
 operator|.
 name|EXCLUSIVE
 decl_stmt|;
-comment|/**    * Creates a new {@link HFile} block from the given fields. This constructor    * is mostly used when the block data has already been read and uncompressed,    * and is sitting in a byte buffer.    *    * @param blockType the type of this block, see {@link BlockType}    * @param onDiskSizeWithoutHeader see {@link #onDiskSizeWithoutHeader}    * @param uncompressedSizeWithoutHeader see {@link #uncompressedSizeWithoutHeader}    * @param prevBlockOffset see {@link #prevBlockOffset}    * @param buf block header ({@link HConstants#HFILEBLOCK_HEADER_SIZE} bytes) followed by    *          uncompressed data. This    * @param fillHeader when true, parse {@code buf} and override the first 4 header fields.    * @param offset the file offset the block was read from    * @param onDiskDataSizeWithHeader see {@link #onDiskDataSizeWithHeader}    * @param fileContext HFile meta data    */
+comment|/**    * Creates a new {@link HFile} block from the given fields. This constructor    * is used when the block data has already been read and uncompressed,    * and is sitting in a byte buffer.    *    * @param blockType the type of this block, see {@link BlockType}    * @param onDiskSizeWithoutHeader see {@link #onDiskSizeWithoutHeader}    * @param uncompressedSizeWithoutHeader see {@link #uncompressedSizeWithoutHeader}    * @param prevBlockOffset see {@link #prevBlockOffset}    * @param buf block header ({@link HConstants#HFILEBLOCK_HEADER_SIZE} bytes) followed by    *          uncompressed data.    * @param fillHeader when true, write the first 4 header fields into passed buffer.    * @param offset the file offset the block was read from    * @param onDiskDataSizeWithHeader see {@link #onDiskDataSizeWithHeader}    * @param fileContext HFile meta data    */
 name|HFileBlock
 parameter_list|(
 name|BlockType
@@ -1026,9 +1063,11 @@ if|if
 condition|(
 name|fillHeader
 condition|)
+block|{
 name|overwriteHeader
 argument_list|()
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|buf
@@ -1447,7 +1486,6 @@ argument_list|()
 return|;
 block|}
 comment|/**    * @return the on-disk size of the data part + checksum (header excluded).    */
-specifier|public
 name|int
 name|getOnDiskSizeWithoutHeader
 parameter_list|()
@@ -1457,7 +1495,6 @@ name|onDiskSizeWithoutHeader
 return|;
 block|}
 comment|/**    * @return the uncompressed size of data part (header and checksum excluded).    */
-specifier|public
 name|int
 name|getUncompressedSizeWithoutHeader
 parameter_list|()
@@ -1467,7 +1504,6 @@ name|uncompressedSizeWithoutHeader
 return|;
 block|}
 comment|/**    * @return the offset of the previous block of the same type in the file, or    *         -1 if unknown    */
-specifier|public
 name|long
 name|getPrevBlockOffset
 parameter_list|()
@@ -1602,7 +1638,6 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Returns the buffer this block stores internally. The clients must not    * modify the buffer object. This method has to be public because it is used    * in {@link CompoundBloomFilter} to avoid object creation on every Bloom    * filter lookup, but has to be used with caution. Checksum data is not    * included in the returned buffer but header data is.    *    * @return the buffer of this block for read-only operations    */
-specifier|public
 name|ByteBuff
 name|getBufferReadOnly
 parameter_list|()
@@ -1988,12 +2023,22 @@ argument_list|()
 operator|.
 name|append
 argument_list|(
-literal|"HFileBlock ["
+literal|"["
 argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" fileOffset="
+literal|"blockType="
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|blockType
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|", fileOffset="
 argument_list|)
 operator|.
 name|append
@@ -2003,7 +2048,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" headerSize()="
+literal|", headerSize="
 argument_list|)
 operator|.
 name|append
@@ -2014,17 +2059,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" blockType="
-argument_list|)
-operator|.
-name|append
-argument_list|(
-name|blockType
-argument_list|)
-operator|.
-name|append
-argument_list|(
-literal|" onDiskSizeWithoutHeader="
+literal|", onDiskSizeWithoutHeader="
 argument_list|)
 operator|.
 name|append
@@ -2034,7 +2069,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" uncompressedSizeWithoutHeader="
+literal|", uncompressedSizeWithoutHeader="
 argument_list|)
 operator|.
 name|append
@@ -2044,7 +2079,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" prevBlockOffset="
+literal|", prevBlockOffset="
 argument_list|)
 operator|.
 name|append
@@ -2054,7 +2089,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" isUseHBaseChecksum()="
+literal|", isUseHBaseChecksum="
 argument_list|)
 operator|.
 name|append
@@ -2077,7 +2112,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" checksumType="
+literal|", checksumType="
 argument_list|)
 operator|.
 name|append
@@ -2099,7 +2134,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" bytesPerChecksum="
+literal|", bytesPerChecksum="
 argument_list|)
 operator|.
 name|append
@@ -2118,7 +2153,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" onDiskDataSizeWithHeader="
+literal|", onDiskDataSizeWithHeader="
 argument_list|)
 operator|.
 name|append
@@ -2133,7 +2168,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" onDiskDataSizeWithHeader="
+literal|", onDiskDataSizeWithHeader="
 argument_list|)
 operator|.
 name|append
@@ -2277,7 +2312,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" getOnDiskSizeWithHeader()="
+literal|", getOnDiskSizeWithHeader="
 argument_list|)
 operator|.
 name|append
@@ -2288,7 +2323,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" totalChecksumBytes()="
+literal|", totalChecksumBytes="
 argument_list|)
 operator|.
 name|append
@@ -2299,7 +2334,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" isUnpacked()="
+literal|", isUnpacked="
 argument_list|)
 operator|.
 name|append
@@ -2310,7 +2345,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" buf=[ "
+literal|", buf=["
 argument_list|)
 operator|.
 name|append
@@ -2320,12 +2355,12 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" ]"
+literal|"]"
 argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" dataBeginsWith="
+literal|", dataBeginsWith="
 argument_list|)
 operator|.
 name|append
@@ -2335,7 +2370,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" fileContext="
+literal|", fileContext="
 argument_list|)
 operator|.
 name|append
@@ -2345,7 +2380,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" ]"
+literal|"]"
 argument_list|)
 expr_stmt|;
 return|return
@@ -2905,41 +2940,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @param expectedType the expected type of this block    * @throws IOException if this block's type is different than expected    */
-specifier|public
-name|void
-name|expectType
-parameter_list|(
-name|BlockType
-name|expectedType
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-if|if
-condition|(
-name|blockType
-operator|!=
-name|expectedType
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Invalid block type: expected="
-operator|+
-name|expectedType
-operator|+
-literal|", actual="
-operator|+
-name|blockType
-argument_list|)
-throw|;
-block|}
-block|}
 comment|/** @return the offset of this block in the file it was read from */
-specifier|public
 name|long
 name|getOffset
 parameter_list|()
@@ -2964,7 +2965,6 @@ name|offset
 return|;
 block|}
 comment|/**    * @return a byte stream reading the data + checksum of this block    */
-specifier|public
 name|DataInputStream
 name|getByteStream
 parameter_list|()
@@ -3080,8 +3080,7 @@ name|size
 argument_list|)
 return|;
 block|}
-comment|/**    * Read from an input stream. Analogous to    * {@link IOUtils#readFully(InputStream, byte[], int, int)}, but specifies a    * number of "extra" bytes that would be desirable but not absolutely    * necessary to read.    *    * @param in the input stream to read from    * @param buf the buffer to read into    * @param bufOffset the destination offset in the buffer    * @param necessaryLen the number of bytes that are absolutely necessary to    *          read    * @param extraLen the number of extra bytes that would be nice to read    * @return true if succeeded reading the extra bytes    * @throws IOException if failed to read the necessary bytes    */
-specifier|public
+comment|/**    * Read from an input stream at least<code>necessaryLen</code> and if possible,    *<code>extraLen</code> also if available. Analogous to    * {@link IOUtils#readFully(InputStream, byte[], int, int)}, but specifies a    * number of "extra" bytes to also optionally read.    *    * @param in the input stream to read from    * @param buf the buffer to read into    * @param bufOffset the destination offset in the buffer    * @param necessaryLen the number of bytes that are absolutely necessary to read    * @param extraLen the number of extra bytes that would be nice to read    * @return true if succeeded reading the extra bytes    * @throws IOException if failed to read the necessary bytes    */
 specifier|static
 name|boolean
 name|readWithExtra
@@ -3202,7 +3201,7 @@ operator|<=
 literal|0
 return|;
 block|}
-comment|/**    * Read from an input stream. Analogous to    * {@link IOUtils#readFully(InputStream, byte[], int, int)}, but uses    * positional read and specifies a number of "extra" bytes that would be    * desirable but not absolutely necessary to read.    *    * @param in the input stream to read from    * @param position the position within the stream from which to start reading    * @param buf the buffer to read into    * @param bufOffset the destination offset in the buffer    * @param necessaryLen the number of bytes that are absolutely necessary to    *     read    * @param extraLen the number of extra bytes that would be nice to read    * @return true if and only if extraLen is> 0 and reading those extra bytes    *     was successful    * @throws IOException if failed to read the necessary bytes    */
+comment|/**    * Read from an input stream at least<code>necessaryLen</code> and if possible,    *<code>extraLen</code> also if available. Analogous to    * {@link IOUtils#readFully(InputStream, byte[], int, int)}, but uses    * positional read and specifies a number of "extra" bytes that would be    * desirable but not absolutely necessary to read.    *    * @param in the input stream to read from    * @param position the position within the stream from which to start reading    * @param buf the buffer to read into    * @param bufOffset the destination offset in the buffer    * @param necessaryLen the number of bytes that are absolutely necessary to    *     read    * @param extraLen the number of extra bytes that would be nice to read    * @return true if and only if extraLen is> 0 and reading those extra bytes    *     was successful    * @throws IOException if failed to read the necessary bytes    */
 annotation|@
 name|VisibleForTesting
 specifier|static
@@ -3336,8 +3335,7 @@ return|return
 name|nextBlockOnDiskSizeWithHeader
 return|;
 block|}
-comment|/**    * Unified version 2 {@link HFile} block writer. The intended usage pattern    * is as follows:    *<ol>    *<li>Construct an {@link HFileBlock.Writer}, providing a compression algorithm.    *<li>Call {@link Writer#startWriting} and get a data stream to write to.    *<li>Write your data into the stream.    *<li>Call {@link Writer#writeHeaderAndData(FSDataOutputStream)} as many times as you need to.    * store the serialized block into an external stream.    *<li>Repeat to write more blocks.    *</ol>    *<p>    */
-specifier|public
+comment|/**    * Unified version 2 {@link HFile} block writer. The intended usage pattern    * is as follows:    *<ol>    *<li>Construct an {@link HFileBlock.Writer}, providing a compression algorithm.    *<li>Call {@link Writer#startWriting} and get a data stream to write to.    *<li>Write your data into the stream.    *<li>Call Writer#writeHeaderAndData(FSDataOutputStream) as many times as you need to.    * store the serialized block into an external stream.    *<li>Repeat to write more blocks.    *</ol>    *<p>    */
 specifier|static
 class|class
 name|Writer
@@ -3372,7 +3370,7 @@ specifier|private
 name|HFileBlockEncodingContext
 name|dataBlockEncodingCtx
 decl_stmt|;
-comment|/** block encoding context for non-data blocks */
+comment|/** block encoding context for non-data blocks*/
 specifier|private
 name|HFileBlockDefaultEncodingContext
 name|defaultBlockEncodingCtx
@@ -3448,49 +3446,6 @@ name|HFileContext
 name|fileContext
 parameter_list|)
 block|{
-name|this
-operator|.
-name|dataBlockEncoder
-operator|=
-name|dataBlockEncoder
-operator|!=
-literal|null
-condition|?
-name|dataBlockEncoder
-else|:
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
-expr_stmt|;
-name|defaultBlockEncodingCtx
-operator|=
-operator|new
-name|HFileBlockDefaultEncodingContext
-argument_list|(
-literal|null
-argument_list|,
-name|HConstants
-operator|.
-name|HFILEBLOCK_DUMMY_HEADER
-argument_list|,
-name|fileContext
-argument_list|)
-expr_stmt|;
-name|dataBlockEncodingCtx
-operator|=
-name|this
-operator|.
-name|dataBlockEncoder
-operator|.
-name|newDataBlockEncodingContext
-argument_list|(
-name|HConstants
-operator|.
-name|HFILEBLOCK_DUMMY_HEADER
-argument_list|,
-name|fileContext
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|fileContext
@@ -3524,6 +3479,55 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
+name|this
+operator|.
+name|dataBlockEncoder
+operator|=
+name|dataBlockEncoder
+operator|!=
+literal|null
+condition|?
+name|dataBlockEncoder
+else|:
+name|NoOpDataBlockEncoder
+operator|.
+name|INSTANCE
+expr_stmt|;
+name|this
+operator|.
+name|dataBlockEncodingCtx
+operator|=
+name|this
+operator|.
+name|dataBlockEncoder
+operator|.
+name|newDataBlockEncodingContext
+argument_list|(
+name|HConstants
+operator|.
+name|HFILEBLOCK_DUMMY_HEADER
+argument_list|,
+name|fileContext
+argument_list|)
+expr_stmt|;
+comment|// TODO: This should be lazily instantiated since we usually do NOT need this default encoder
+name|this
+operator|.
+name|defaultBlockEncodingCtx
+operator|=
+operator|new
+name|HFileBlockDefaultEncodingContext
+argument_list|(
+literal|null
+argument_list|,
+name|HConstants
+operator|.
+name|HFILEBLOCK_DUMMY_HEADER
+argument_list|,
+name|fileContext
+argument_list|)
+expr_stmt|;
+comment|// TODO: Set BAOS initial size. Use fileContext.getBlocksize() and add for header/checksum
 name|baosInMemory
 operator|=
 operator|new
@@ -3559,14 +3563,17 @@ condition|;
 operator|++
 name|i
 control|)
+block|{
 name|prevOffsetByType
 index|[
 name|i
 index|]
 operator|=
-operator|-
-literal|1
+name|UNSET
 expr_stmt|;
+block|}
+comment|// TODO: Why fileContext saved away when we have dataBlockEncoder and/or
+comment|// defaultDataBlockEncoder?
 name|this
 operator|.
 name|fileContext
@@ -3575,7 +3582,6 @@ name|fileContext
 expr_stmt|;
 block|}
 comment|/**      * Starts writing into the block. The previous block's data is discarded.      *      * @return the stream the user can write their data into      * @throws IOException      */
-specifier|public
 name|DataOutputStream
 name|startWriting
 parameter_list|(
@@ -3682,7 +3688,6 @@ name|userDataStream
 return|;
 block|}
 comment|/**      * Writes the Cell to this block      * @param cell      * @throws IOException      */
-specifier|public
 name|void
 name|write
 parameter_list|(
@@ -3820,6 +3825,7 @@ name|flush
 argument_list|()
 expr_stmt|;
 comment|// This does an array copy, so it is safe to cache this byte array.
+comment|// Header is still the empty, 'dummy' header that is yet to be filled out.
 name|uncompressedBytesWithHeader
 operator|=
 name|baosInMemory
@@ -3875,6 +3881,8 @@ else|else
 block|{
 name|onDiskBytesWithHeader
 operator|=
+name|this
+operator|.
 name|defaultBlockEncodingCtx
 operator|.
 name|compressAndEncrypt
@@ -3883,6 +3891,7 @@ name|uncompressedBytesWithHeader
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Calculate how many bytes we need for checksum on the tail of the block.
 name|int
 name|numBytes
 init|=
@@ -3903,7 +3912,7 @@ name|getBytesPerChecksum
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// put the header for on disk bytes
+comment|// Put the header for the on disk bytes; header currently is unfilled-out
 name|putHeader
 argument_list|(
 name|onDiskBytesWithHeader
@@ -3925,7 +3934,15 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-comment|// set the header for the uncompressed bytes (for cache-on-write)
+comment|// Set the header for the uncompressed bytes (for cache-on-write) -- IFF different from
+comment|// onDiskBytesWithHeader array.
+if|if
+condition|(
+name|onDiskBytesWithHeader
+operator|!=
+name|uncompressedBytesWithHeader
+condition|)
+block|{
 name|putHeader
 argument_list|(
 name|uncompressedBytesWithHeader
@@ -3947,6 +3964,7 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
+block|}
 name|onDiskChecksum
 operator|=
 operator|new
@@ -4111,7 +4129,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**      * Similar to {@link #writeHeaderAndData(FSDataOutputStream)}, but records      * the offset of this block so that it can be referenced in the next block      * of the same type.      *      * @param out      * @throws IOException      */
-specifier|public
 name|void
 name|writeHeaderAndData
 parameter_list|(
@@ -4133,8 +4150,7 @@ if|if
 condition|(
 name|startOffset
 operator|!=
-operator|-
-literal|1
+name|UNSET
 operator|&&
 name|offset
 operator|!=
@@ -4273,7 +4289,6 @@ name|output
 return|;
 block|}
 comment|/**      * Releases resources used by this writer.      */
-specifier|public
 name|void
 name|release
 parameter_list|()
@@ -4402,7 +4417,6 @@ name|length
 return|;
 block|}
 comment|/** @return true if a block is being written  */
-specifier|public
 name|boolean
 name|isWriting
 parameter_list|()
@@ -4416,7 +4430,6 @@ name|WRITING
 return|;
 block|}
 comment|/**      * Returns the number of bytes written into the current block so far, or      * zero if not writing the block at the moment. Note that this will return      * zero in the "block ready" state as well.      *      * @return the number of bytes written      */
-specifier|public
 name|int
 name|blockSizeWritten
 parameter_list|()
@@ -4511,7 +4524,6 @@ throw|;
 block|}
 block|}
 comment|/**      * Takes the given {@link BlockWritable} instance, creates a new block of      * its appropriate type, writes the writable into this block, and flushes      * the block into the output stream. The writer is instructed not to buffer      * uncompressed bytes for cache-on-write.      *      * @param bw the block-writable object to write as a block      * @param out the file system output stream      * @throws IOException      */
-specifier|public
 name|void
 name|writeBlock
 parameter_list|(
@@ -4544,7 +4556,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**      * Creates a new HFileBlock. Checksums have already been validated, so      * the byte buffer passed into the constructor of this newly created      * block does not have checksum data even though the header minor      * version is MINOR_VERSION_WITH_CHECKSUM. This is indicated by setting a      * 0 value in bytesPerChecksum.      */
-specifier|public
 name|HFileBlock
 name|getBlockForCaching
 parameter_list|(
@@ -4679,7 +4690,6 @@ return|;
 block|}
 block|}
 comment|/** Something that can be written into a block. */
-specifier|public
 interface|interface
 name|BlockWritable
 block|{
@@ -4701,7 +4711,6 @@ function_decl|;
 block|}
 comment|// Block readers and writers
 comment|/** An interface allowing to iterate {@link HFileBlock}s. */
-specifier|public
 interface|interface
 name|BlockIterator
 block|{
@@ -4724,7 +4733,6 @@ name|IOException
 function_decl|;
 block|}
 comment|/** A full-fledged reader with iteration ability. */
-specifier|public
 interface|interface
 name|FSReader
 block|{
@@ -4831,8 +4839,32 @@ operator|.
 name|HFILEBLOCK_HEADER_SIZE
 argument_list|)
 decl_stmt|;
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"offset="
+operator|+
+name|this
+operator|.
+name|offset
+operator|+
+literal|", header="
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|header
+argument_list|)
+return|;
 block|}
-comment|/** Reads version 2 blocks from the filesystem. */
+block|}
+comment|/**    * Reads version 2 blocks from the filesystem.    */
 specifier|static
 class|class
 name|FSReaderImpl
@@ -4929,7 +4961,6 @@ specifier|protected
 name|String
 name|pathName
 decl_stmt|;
-specifier|public
 name|FSReaderImpl
 parameter_list|(
 name|FSDataInputStreamWrapper
@@ -5198,7 +5229,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      * Does a positional read or a seek and read into the given buffer. Returns      * the on-disk size of the next block, or -1 if it could not be determined.      *      * @param dest destination buffer      * @param destOffset offset in the destination buffer      * @param size size of the block to be read      * @param peekIntoNextBlock whether to read the next block's on-disk size      * @param fileOffset position in the stream to read at      * @param pread whether we should do a positional read      * @param istream The input source of data      * @return the on-disk size of the next block with header size included, or      *         -1 if it could not be determined      * @throws IOException      */
+comment|/**      * Does a positional read or a seek and read into the given buffer. Returns      * the on-disk size of the next block, or -1 if it could not be determined.      *      * @param dest destination buffer      * @param destOffset offset into the destination buffer at where to put the bytes we read      * @param size size of read      * @param peekIntoNextBlock whether to read the next block's on-disk size      * @param fileOffset position in the stream to read at      * @param pread whether we should do a positional read      * @param istream The input source of data      * @return the on-disk size of the next block with header size included, or      *         -1 if it could not be determined      * @throws IOException      */
 specifier|protected
 name|int
 name|readAtOffset
@@ -5577,7 +5608,7 @@ comment|// cannot happen case here
 block|}
 name|HFile
 operator|.
-name|checksumFailures
+name|CHECKSUM_FAILURES
 operator|.
 name|increment
 argument_list|()
@@ -5847,6 +5878,11 @@ comment|// And we also want to skip reading the header again if it has already
 comment|// been read.
 comment|// TODO: How often does this optimization fire? Has to be same thread so the thread local
 comment|// is pertinent and we have to be reading next block as in a big scan.
+name|ByteBuffer
+name|headerBuf
+init|=
+literal|null
+decl_stmt|;
 name|PrefetchedHeader
 name|prefetchedHeader
 init|=
@@ -5855,21 +5891,35 @@ operator|.
 name|get
 argument_list|()
 decl_stmt|;
-name|ByteBuffer
-name|headerBuf
+name|boolean
+name|preReadHeader
 init|=
+literal|false
+decl_stmt|;
+if|if
+condition|(
+name|prefetchedHeader
+operator|!=
+literal|null
+operator|&&
 name|prefetchedHeader
 operator|.
 name|offset
 operator|==
 name|offset
-condition|?
+condition|)
+block|{
+name|headerBuf
+operator|=
 name|prefetchedHeader
 operator|.
 name|buf
-else|:
-literal|null
-decl_stmt|;
+expr_stmt|;
+name|preReadHeader
+operator|=
+literal|true
+expr_stmt|;
+block|}
 comment|// Allocate enough space to fit the next block's header too.
 name|int
 name|nextBlockOnDiskSize
@@ -5887,6 +5937,16 @@ name|b
 init|=
 literal|null
 decl_stmt|;
+name|boolean
+name|fastPath
+init|=
+literal|false
+decl_stmt|;
+name|boolean
+name|readHdrOnly
+init|=
+literal|false
+decl_stmt|;
 if|if
 condition|(
 name|onDiskSizeWithHeader
@@ -5894,6 +5954,10 @@ operator|>
 literal|0
 condition|)
 block|{
+name|fastPath
+operator|=
+literal|true
+expr_stmt|;
 comment|// We know the total on-disk size. Read the entire block into memory,
 comment|// then parse the header. This code path is used when
 comment|// doing a random read operation relying on the block index, as well as
@@ -6106,6 +6170,10 @@ operator|==
 literal|null
 condition|)
 block|{
+name|readHdrOnly
+operator|=
+literal|true
+expr_stmt|;
 comment|// From the header, determine the on-disk size of the given hfile
 comment|// block, and read the remaining data, thereby incurring two read
 comment|// operations. This might happen when we are doing the first read
@@ -6159,6 +6227,7 @@ name|isUseHBaseChecksum
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// onDiskBlock is whole block + header + checksums then extra hdrSize to read next header
 name|onDiskBlock
 operator|=
 operator|new
@@ -6172,7 +6241,7 @@ operator|+
 name|hdrSize
 index|]
 expr_stmt|;
-comment|// headerBuf is HBB
+comment|// headerBuf is HBB. Copy hdr into onDiskBlock
 name|System
 operator|.
 name|arraycopy
@@ -6372,10 +6441,42 @@ name|isIncludesMvcc
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Read preReadHeader="
+operator|+
+name|preReadHeader
+operator|+
+literal|", fastPath="
+operator|+
+name|fastPath
+operator|+
+literal|", readHdrOnly="
+operator|+
+name|readHdrOnly
+operator|+
+literal|", "
+operator|+
+name|b
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|b
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setIncludesMemstoreTS
@@ -6394,6 +6495,8 @@ name|includesMemstoreTS
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setDataBlockEncoder
@@ -6592,6 +6695,7 @@ name|destination
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Write out the content of EXTRA_SERIALIZATION_SPACE. Public so can be accessed by BucketCache.    */
 specifier|public
 name|void
 name|serializeExtraInfo
@@ -7023,7 +7127,7 @@ operator|.
 name|onDiskDataSizeWithHeader
 return|;
 block|}
-comment|/**    * Calcuate the number of bytes required to store all the checksums    * for this block. Each checksum value is a 4 byte integer.    */
+comment|/**    * Calculate the number of bytes required to store all the checksums    * for this block. Each checksum value is a 4 byte integer.    */
 name|int
 name|totalChecksumBytes
 parameter_list|()
@@ -7101,25 +7205,19 @@ name|boolean
 name|usesHBaseChecksum
 parameter_list|)
 block|{
-if|if
-condition|(
-name|usesHBaseChecksum
-condition|)
-block|{
 return|return
+name|usesHBaseChecksum
+condition|?
 name|HConstants
 operator|.
 name|HFILEBLOCK_HEADER_SIZE
-return|;
-block|}
-return|return
+else|:
 name|HConstants
 operator|.
 name|HFILEBLOCK_HEADER_SIZE_NO_CHECKSUM
 return|;
 block|}
 comment|/**    * Return the appropriate DUMMY_HEADER for the minor version    */
-specifier|public
 name|byte
 index|[]
 name|getDummyHeaderForVersion
@@ -7148,23 +7246,17 @@ name|boolean
 name|usesHBaseChecksum
 parameter_list|)
 block|{
-if|if
-condition|(
-name|usesHBaseChecksum
-condition|)
-block|{
 return|return
+name|usesHBaseChecksum
+condition|?
 name|HConstants
 operator|.
 name|HFILEBLOCK_DUMMY_HEADER
-return|;
-block|}
-return|return
+else|:
 name|DUMMY_HEADER_NO_CHECKSUM
 return|;
 block|}
 comment|/**    * @return the HFileContext used to create this HFileBlock. Not necessary the    * fileContext for the file from which this block's data was originally read.    */
-specifier|public
 name|HFileContext
 name|getHFileContext
 parameter_list|()
@@ -7189,7 +7281,6 @@ name|memType
 return|;
 block|}
 comment|/**    * @return true if this block is backed by a shared memory area(such as that of a BucketCache).    */
-specifier|public
 name|boolean
 name|usesSharedMemory
 parameter_list|()

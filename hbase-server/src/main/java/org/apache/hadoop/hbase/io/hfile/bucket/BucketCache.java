@@ -752,7 +752,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * BucketCache uses {@link BucketAllocator} to allocate/free blocks, and uses  * {@link BucketCache#ramCache} and {@link BucketCache#backingMap} in order to  * determine if a given element is in the cache. The bucket cache can use on-heap or  * off-heap memory {@link ByteBufferIOEngine} or in a file {@link FileIOEngine} to  * store/read the block data.  *  *<p>Eviction is via a similar algorithm as used in  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache}  *  *<p>BucketCache can be used as mainly a block cache (see  * {@link org.apache.hadoop.hbase.io.hfile.CombinedBlockCache}), combined with   * LruBlockCache to decrease CMS GC and heap fragmentation.  *  *<p>It also can be used as a secondary cache (e.g. using a file on ssd/fusionio to store  * blocks) to enlarge cache space via  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache#setVictimCache}  */
+comment|/**  * BucketCache uses {@link BucketAllocator} to allocate/free blocks, and uses  * BucketCache#ramCache and BucketCache#backingMap in order to  * determine if a given element is in the cache. The bucket cache can use on-heap or  * off-heap memory {@link ByteBufferIOEngine} or in a file {@link FileIOEngine} to  * store/read the block data.  *  *<p>Eviction is via a similar algorithm as used in  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache}  *  *<p>BucketCache can be used as mainly a block cache (see  * {@link org.apache.hadoop.hbase.io.hfile.CombinedBlockCache}), combined with  * LruBlockCache to decrease CMS GC and heap fragmentation.  *  *<p>It also can be used as a secondary cache (e.g. using a file on ssd/fusionio to store  * blocks) to enlarge cache space via  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache#setVictimCache}  */
 end_comment
 
 begin_class
@@ -1899,6 +1899,26 @@ parameter_list|)
 block|{
 if|if
 condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Caching key="
+operator|+
+name|cacheKey
+operator|+
+literal|", item="
+operator|+
+name|cachedItem
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
 operator|!
 name|cacheEnabled
 condition|)
@@ -2250,6 +2270,31 @@ operator|.
 name|getLength
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Read offset="
+operator|+
+name|bucketEntry
+operator|.
+name|offset
+argument_list|()
+operator|+
+literal|", len="
+operator|+
+name|len
+argument_list|)
+expr_stmt|;
+block|}
 name|Cacheable
 name|cachedBlock
 init|=
@@ -3386,7 +3431,9 @@ operator|.
 name|tryLock
 argument_list|()
 condition|)
+block|{
 return|return;
+block|}
 try|try
 block|{
 name|freeInProgress
@@ -4621,7 +4668,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|// Make sure data pages are written are on media before we update maps.
+comment|// Make sure data pages are written on media before we update maps.
 try|try
 block|{
 name|ioEngine
@@ -4992,6 +5039,7 @@ operator|.
 name|isPersistent
 argument_list|()
 condition|)
+block|{
 throw|throw
 operator|new
 name|IOException
@@ -4999,6 +5047,7 @@ argument_list|(
 literal|"Attempt to persist non-persistent cache mappings!"
 argument_list|)
 throw|;
+block|}
 name|fos
 operator|=
 operator|new
@@ -5469,7 +5518,7 @@ name|now
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Used to shut down the cache -or- turn it off in the case of something    * broken.    */
+comment|/**    * Used to shut down the cache -or- turn it off in the case of something broken.    */
 specifier|private
 name|void
 name|disableCache
@@ -5541,6 +5590,7 @@ operator|==
 literal|null
 condition|)
 block|{
+comment|// If persistent ioengine and a path, we will serialize out the backingMap.
 name|this
 operator|.
 name|backingMap
@@ -6758,6 +6808,28 @@ argument_list|(
 name|extraInfoBuffer
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Write offset="
+operator|+
+name|offset
+operator|+
+literal|", len="
+operator|+
+name|len
+argument_list|)
+expr_stmt|;
+block|}
 name|ioEngine
 operator|.
 name|write

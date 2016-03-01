@@ -767,18 +767,18 @@ comment|// For measuring number of checksum failures
 specifier|static
 specifier|final
 name|Counter
-name|checksumFailures
+name|CHECKSUM_FAILURES
 init|=
 operator|new
 name|Counter
 argument_list|()
 decl_stmt|;
-comment|// for test purpose
+comment|// For tests. Gets incremented when we read a block whether from HDFS or from Cache.
 specifier|public
 specifier|static
 specifier|final
 name|Counter
-name|dataBlockReadCnt
+name|DATABLOCK_READ_COUNT
 init|=
 operator|new
 name|Counter
@@ -795,12 +795,12 @@ block|{
 name|long
 name|count
 init|=
-name|checksumFailures
+name|CHECKSUM_FAILURES
 operator|.
 name|get
 argument_list|()
 decl_stmt|;
-name|checksumFailures
+name|CHECKSUM_FAILURES
 operator|.
 name|set
 argument_list|(

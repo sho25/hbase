@@ -274,7 +274,9 @@ name|RPC_CURRENT_VERSION
 init|=
 literal|0
 decl_stmt|;
-comment|// HFileBlock constants.
+comment|// HFileBlock constants. TODO!!!! THESE DEFINES BELONG IN HFILEBLOCK, NOT UP HERE.
+comment|// Needed down in hbase-common though by encoders but these encoders should not be dealing
+comment|// in the internals of hfileblocks. Fix encapsulation.
 comment|/** The size data structures with minor version is 0 */
 specifier|public
 specifier|static

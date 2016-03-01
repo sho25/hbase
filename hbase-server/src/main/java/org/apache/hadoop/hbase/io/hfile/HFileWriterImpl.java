@@ -487,6 +487,15 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|UNSET
+init|=
+operator|-
+literal|1
+decl_stmt|;
 comment|/** The Cell previously appended. Becomes the last cell in the file.*/
 specifier|protected
 name|Cell
@@ -668,7 +677,7 @@ specifier|protected
 name|HFileBlock
 operator|.
 name|Writer
-name|fsBlockWriter
+name|blockWriter
 decl_stmt|;
 specifier|private
 name|HFileBlockIndex
@@ -687,13 +696,14 @@ specifier|private
 name|long
 name|firstDataBlockOffset
 init|=
-operator|-
-literal|1
+name|UNSET
 decl_stmt|;
 comment|/** The offset of the last data block or 0 if the file is empty. */
 specifier|protected
 name|long
 name|lastDataBlockOffset
+init|=
+name|UNSET
 decl_stmt|;
 comment|/**    * The last(stop) Cell of the previous data block.    * This reference should be short-lived since we write hfiles in a burst.    */
 specifier|private
@@ -1244,7 +1254,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|fsBlockWriter
+name|blockWriter
 operator|!=
 literal|null
 condition|)
@@ -1257,7 +1267,7 @@ literal|"finishInit called twice"
 argument_list|)
 throw|;
 block|}
-name|fsBlockWriter
+name|blockWriter
 operator|=
 operator|new
 name|HFileBlock
@@ -1285,7 +1295,7 @@ name|HFileBlockIndex
 operator|.
 name|BlockIndexWriter
 argument_list|(
-name|fsBlockWriter
+name|blockWriter
 argument_list|,
 name|cacheIndexesOnWrite
 condition|?
@@ -1355,7 +1365,7 @@ name|IOException
 block|{
 if|if
 condition|(
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|blockSizeWritten
 argument_list|()
@@ -1378,7 +1388,7 @@ name|newBlock
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** Clean up the current data block */
+comment|/** Clean up the data block that is currently being written.*/
 specifier|private
 name|void
 name|finishBlock
@@ -1389,12 +1399,12 @@ block|{
 if|if
 condition|(
 operator|!
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|isWriting
 argument_list|()
 operator|||
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|blockSizeWritten
 argument_list|()
@@ -1402,13 +1412,12 @@ operator|==
 literal|0
 condition|)
 return|return;
-comment|// Update the first data block offset for scanning.
+comment|// Update the first data block offset if UNSET; used scanning.
 if|if
 condition|(
 name|firstDataBlockOffset
 operator|==
-operator|-
-literal|1
+name|UNSET
 condition|)
 block|{
 name|firstDataBlockOffset
@@ -1419,7 +1428,7 @@ name|getPos
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Update the last data block offset
+comment|// Update the last data block offset each time through here.
 name|lastDataBlockOffset
 operator|=
 name|outputStream
@@ -1427,7 +1436,7 @@ operator|.
 name|getPos
 argument_list|()
 expr_stmt|;
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|writeHeaderAndData
 argument_list|(
@@ -1437,7 +1446,7 @@ expr_stmt|;
 name|int
 name|onDiskSize
 init|=
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|getOnDiskSizeWithHeader
 argument_list|()
@@ -1474,7 +1483,7 @@ argument_list|)
 expr_stmt|;
 name|totalUncompressedBytes
 operator|+=
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|getUncompressedSizeWithHeader
 argument_list|()
@@ -2255,7 +2264,7 @@ name|ibw
 operator|.
 name|writeInlineBlock
 argument_list|(
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|startWriting
 argument_list|(
@@ -2266,7 +2275,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|writeHeaderAndData
 argument_list|(
@@ -2279,12 +2288,12 @@ name|blockWritten
 argument_list|(
 name|offset
 argument_list|,
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|getOnDiskSizeWithHeader
 argument_list|()
 argument_list|,
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|getUncompressedSizeWithoutHeader
 argument_list|()
@@ -2292,7 +2301,7 @@ argument_list|)
 expr_stmt|;
 name|totalUncompressedBytes
 operator|+=
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|getUncompressedSizeWithHeader
 argument_list|()
@@ -2323,7 +2332,7 @@ block|{
 name|HFileBlock
 name|cacheFormatBlock
 init|=
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|getBlockForCaching
 argument_list|(
@@ -2358,7 +2367,7 @@ throws|throws
 name|IOException
 block|{
 comment|// This is where the next block begins.
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|startWriting
 argument_list|(
@@ -2581,7 +2590,7 @@ comment|// write the metadata content
 name|DataOutputStream
 name|dos
 init|=
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|startWriting
 argument_list|(
@@ -2602,7 +2611,7 @@ argument_list|(
 name|dos
 argument_list|)
 expr_stmt|;
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|writeHeaderAndData
 argument_list|(
@@ -2611,7 +2620,7 @@ argument_list|)
 expr_stmt|;
 name|totalUncompressedBytes
 operator|+=
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|getUncompressedSizeWithHeader
 argument_list|()
@@ -2630,7 +2639,7 @@ argument_list|)
 argument_list|,
 name|offset
 argument_list|,
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|getOnDiskSizeWithHeader
 argument_list|()
@@ -2667,7 +2676,7 @@ name|metaBlockIndexWriter
 operator|.
 name|writeSingleLevelIndex
 argument_list|(
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|startWriting
 argument_list|(
@@ -2679,7 +2688,7 @@ argument_list|,
 literal|"meta"
 argument_list|)
 expr_stmt|;
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|writeHeaderAndData
 argument_list|(
@@ -2688,7 +2697,7 @@ argument_list|)
 expr_stmt|;
 name|totalUncompressedBytes
 operator|+=
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|getUncompressedSizeWithHeader
 argument_list|()
@@ -2733,7 +2742,7 @@ name|writeFileInfo
 argument_list|(
 name|trailer
 argument_list|,
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|startWriting
 argument_list|(
@@ -2743,7 +2752,7 @@ name|FILE_INFO
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|writeHeaderAndData
 argument_list|(
@@ -2752,7 +2761,7 @@ argument_list|)
 expr_stmt|;
 name|totalUncompressedBytes
 operator|+=
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|getUncompressedSizeWithHeader
 argument_list|()
@@ -2766,7 +2775,7 @@ range|:
 name|additionalLoadOnOpenData
 control|)
 block|{
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|writeBlock
 argument_list|(
@@ -2777,7 +2786,7 @@ argument_list|)
 expr_stmt|;
 name|totalUncompressedBytes
 operator|+=
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|getUncompressedSizeWithHeader
 argument_list|()
@@ -2843,7 +2852,7 @@ argument_list|(
 name|trailer
 argument_list|)
 expr_stmt|;
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|release
 argument_list|()
@@ -3080,7 +3089,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|isWriting
 argument_list|()
@@ -3090,7 +3099,7 @@ name|newBlock
 argument_list|()
 expr_stmt|;
 block|}
-name|fsBlockWriter
+name|blockWriter
 operator|.
 name|write
 argument_list|(
@@ -3128,7 +3137,7 @@ operator|=
 name|cell
 expr_stmt|;
 block|}
-comment|// TODO: What if cell is 10MB and we write infrequently? We hold on to cell here indefinetly?
+comment|// TODO: What if cell is 10MB and we write infrequently? We hold on to cell here indefinitely?
 name|lastCell
 operator|=
 name|cell
