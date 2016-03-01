@@ -23,34 +23,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|lang
-operator|.
-name|NotImplementedException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Cell
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -61,8 +33,24 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|CollectionBackedScanner
+import|;
+end_import
+
 begin_comment
-comment|/**  * ImmutableSegment is an abstract class that extends the API supported by a {@link Segment},  * and is not needed for a {@link MutableSegment}. Specifically, the method  * {@link ImmutableSegment#getKeyValueScanner()} builds a special scanner for the  * {@link MemStoreSnapshot} object.  * In addition, this class overrides methods that are not likely to be supported by an immutable  * segment, e.g. {@link Segment#rollback(Cell)} and {@link Segment#getCellSet()}, which  * can be very inefficient.  */
+comment|/**  * ImmutableSegment is an abstract class that extends the API supported by a {@link Segment},  * and is not needed for a {@link MutableSegment}. Specifically, the method  * {@link ImmutableSegment#getKeyValueScanner()} builds a special scanner for the  * {@link MemStoreSnapshot} object.  */
 end_comment
 
 begin_class
@@ -71,13 +59,12 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
-specifier|abstract
 class|class
 name|ImmutableSegment
 extends|extends
 name|Segment
 block|{
-specifier|public
+specifier|protected
 name|ImmutableSegment
 parameter_list|(
 name|Segment
@@ -90,46 +77,24 @@ name|segment
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Removes the given cell from this segment.    * By default immutable store segment can not rollback    * It may be invoked by tests in specific cases where it is known to be supported {@link    * ImmutableSegmentAdapter}    */
-annotation|@
-name|Override
+comment|/**    * Builds a special scanner for the MemStoreSnapshot object that is different than the    * general segment scanner.    * @return a special scanner for the MemStoreSnapshot object    */
 specifier|public
-name|long
-name|rollback
-parameter_list|(
-name|Cell
-name|cell
-parameter_list|)
-block|{
-return|return
-literal|0
-return|;
-block|}
-comment|/**    * Returns a set of all the cells in the segment.    * The implementation of this method might be very inefficient for some immutable segments    * that do not maintain a cell set. Therefore by default this method is not supported.    * It may be invoked by tests in specific cases where it is known to be supported {@link    * ImmutableSegmentAdapter}    */
-annotation|@
-name|Override
-specifier|public
-name|CellSet
-name|getCellSet
-parameter_list|()
-block|{
-throw|throw
-operator|new
-name|NotImplementedException
-argument_list|(
-literal|"Immutable Segment does not support this operation by "
-operator|+
-literal|"default"
-argument_list|)
-throw|;
-block|}
-comment|/**    * Builds a special scanner for the MemStoreSnapshot object that may be different than the    * general segment scanner.    * @return a special scanner for the MemStoreSnapshot object    */
-specifier|public
-specifier|abstract
 name|KeyValueScanner
 name|getKeyValueScanner
 parameter_list|()
-function_decl|;
+block|{
+return|return
+operator|new
+name|CollectionBackedScanner
+argument_list|(
+name|getCellSet
+argument_list|()
+argument_list|,
+name|getComparator
+argument_list|()
+argument_list|)
+return|;
+block|}
 block|}
 end_class
 

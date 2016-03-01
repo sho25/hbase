@@ -823,6 +823,40 @@ name|getSize
 argument_list|()
 return|;
 block|}
+comment|/**    * Remove n key from the memstore. Only cells that have the same key and the    * same memstoreTS are removed.  It is ok to not update timeRangeTracker    * in this call. It is possible that we can optimize this method by using    * tailMap/iterator, but since this method is called rarely (only for    * error recovery), we can leave those optimization for the future.    * @param cell    */
+annotation|@
+name|Override
+specifier|public
+name|void
+name|rollback
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|)
+block|{
+comment|// If the key is in the active, delete it. Update this.size.
+name|long
+name|sz
+init|=
+name|active
+operator|.
+name|rollback
+argument_list|(
+name|cell
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|sz
+operator|!=
+literal|0
+condition|)
+block|{
+name|setOldestEditTimeToNow
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -895,58 +929,6 @@ operator|.
 name|toString
 argument_list|()
 return|;
-block|}
-specifier|protected
-name|void
-name|rollbackInSnapshot
-parameter_list|(
-name|Cell
-name|cell
-parameter_list|)
-block|{
-comment|// If the key is in the snapshot, delete it. We should not update
-comment|// this.size, because that tracks the size of only the memstore and
-comment|// not the snapshot. The flush of this snapshot to disk has not
-comment|// yet started because Store.flush() waits for all rwcc transactions to
-comment|// commit before starting the flush to disk.
-name|snapshot
-operator|.
-name|rollback
-argument_list|(
-name|cell
-argument_list|)
-expr_stmt|;
-block|}
-specifier|protected
-name|void
-name|rollbackInActive
-parameter_list|(
-name|Cell
-name|cell
-parameter_list|)
-block|{
-comment|// If the key is in the memstore, delete it. Update this.size.
-name|long
-name|sz
-init|=
-name|active
-operator|.
-name|rollback
-argument_list|(
-name|cell
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|sz
-operator|!=
-literal|0
-condition|)
-block|{
-name|setOldestEditTimeToNow
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 specifier|protected
 name|Configuration

@@ -513,28 +513,6 @@ return|return
 name|list
 return|;
 block|}
-comment|/**    * Remove n key from the memstore. Only cells that have the same key and the    * same memstoreTS are removed.  It is ok to not update timeRangeTracker    * in this call. It is possible that we can optimize this method by using    * tailMap/iterator, but since this method is called rarely (only for    * error recovery), we can leave those optimization for the future.    * @param cell    */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|rollback
-parameter_list|(
-name|Cell
-name|cell
-parameter_list|)
-block|{
-name|rollbackInSnapshot
-argument_list|(
-name|cell
-argument_list|)
-expr_stmt|;
-name|rollbackInActive
-argument_list|(
-name|cell
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * @param cell Find the row that comes after this one.  If null, we return the    * first.    * @return Next row or null if none found.    */
 name|Cell
 name|getNextRow
