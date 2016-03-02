@@ -411,7 +411,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestDefaultCompactSelection
+name|TestCompactionPolicy
 operator|.
 name|class
 argument_list|)
@@ -444,7 +444,7 @@ name|TEST_UTIL
 operator|.
 name|getDataTestDir
 argument_list|(
-name|TestDefaultCompactSelection
+name|TestCompactionPolicy
 operator|.
 name|class
 operator|.

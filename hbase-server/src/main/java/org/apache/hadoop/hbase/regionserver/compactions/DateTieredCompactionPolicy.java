@@ -744,6 +744,43 @@ operator|+
 name|buckets
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|buckets
+operator|.
+name|size
+argument_list|()
+operator|>=
+name|storeConfigInfo
+operator|.
+name|getBlockingFileCount
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Number of compaction buckets:"
+operator|+
+name|buckets
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|", exceeds blocking file count setting: "
+operator|+
+name|storeConfigInfo
+operator|.
+name|getBlockingFileCount
+argument_list|()
+operator|+
+literal|", either increase hbase.hstore.blockingStoreFiles or "
+operator|+
+literal|"reduce the number of tiered compaction windows"
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|newestBucket
 argument_list|(
@@ -1241,11 +1278,9 @@ operator|==
 literal|null
 condition|)
 block|{
-throw|throw
-operator|new
-name|NullPointerException
-argument_list|()
-throw|;
+return|return
+literal|false
+return|;
 block|}
 return|return
 name|storeFile
