@@ -1091,20 +1091,6 @@ name|Mockito
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Lists
-import|;
-end_import
-
 begin_comment
 comment|/**  * Simple test for {@link CellSortReducer} and {@link HFileOutputFormat2}.  * Sets up and runs a mapreduce job that writes hfile output.  * Creates a few inner classes to implement splits and an inputformat that  * emits keys and values like those of {@link PerformanceEvaluation}.  */
 end_comment

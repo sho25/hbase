@@ -723,18 +723,6 @@ name|mockito
 operator|.
 name|Mockito
 operator|.
-name|spy
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|mockito
-operator|.
-name|Mockito
-operator|.
 name|when
 import|;
 end_import
