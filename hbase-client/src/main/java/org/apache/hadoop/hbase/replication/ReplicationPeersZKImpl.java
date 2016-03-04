@@ -698,12 +698,8 @@ operator|.
 name|peersZNode
 argument_list|)
 expr_stmt|;
-comment|// If only bulk load hfile replication is enabled then add peerId node to hfile-refs node
-if|if
-condition|(
-name|replicationForBulkLoadEnabled
-condition|)
-block|{
+comment|// Irrespective of bulk load hfile replication is enabled or not we add peerId node to
+comment|// hfile-refs node -- HBASE-15397
 try|try
 block|{
 name|String
@@ -762,7 +758,6 @@ argument_list|,
 name|e
 argument_list|)
 throw|;
-block|}
 block|}
 name|List
 argument_list|<

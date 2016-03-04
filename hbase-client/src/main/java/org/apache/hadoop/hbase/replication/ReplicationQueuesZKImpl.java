@@ -420,12 +420,8 @@ name|e
 argument_list|)
 throw|;
 block|}
-comment|// If only bulk load hfile replication is enabled then create the hfile-refs znode
-if|if
-condition|(
-name|replicationForBulkLoadEnabled
-condition|)
-block|{
+comment|// Irrespective of bulk load hfile replication is enabled or not we add peerId node to
+comment|// hfile-refs node -- HBASE-15397
 try|try
 block|{
 name|ZKUtil
@@ -457,7 +453,6 @@ argument_list|,
 name|e
 argument_list|)
 throw|;
-block|}
 block|}
 block|}
 annotation|@
