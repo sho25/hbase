@@ -1390,6 +1390,14 @@ operator|.
 name|getRegionInfo
 argument_list|()
 decl_stmt|;
+name|String
+name|encodedRegionName
+init|=
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+decl_stmt|;
 name|long
 name|regionSize
 init|=
@@ -1421,6 +1429,8 @@ argument_list|,
 name|splitStop
 argument_list|,
 name|regionHostname
+argument_list|,
+name|encodedRegionName
 argument_list|,
 name|regionSize
 argument_list|)

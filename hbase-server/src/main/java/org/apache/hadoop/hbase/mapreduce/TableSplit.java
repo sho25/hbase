@@ -279,6 +279,13 @@ argument_list|(
 operator|-
 literal|1
 argument_list|)
+block|,
+comment|// Added an encoded region name field for easier identification of split -> region
+name|WITH_ENCODED_REGION_NAME
+argument_list|(
+operator|-
+literal|2
+argument_list|)
 block|;
 specifier|final
 name|int
@@ -396,7 +403,7 @@ name|VERSION
 init|=
 name|Version
 operator|.
-name|INITIAL
+name|WITH_ENCODED_REGION_NAME
 decl_stmt|;
 specifier|private
 name|TableName
@@ -415,6 +422,12 @@ decl_stmt|;
 specifier|private
 name|String
 name|regionLocation
+decl_stmt|;
+specifier|private
+name|String
+name|encodedRegionName
+init|=
+literal|""
 decl_stmt|;
 specifier|private
 name|String
@@ -454,7 +467,7 @@ literal|""
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a new instance while assigning all variables.    * Length of region is set to 0    *    * @param tableName  The name of the current table.    * @param scan The scan associated with this split.    * @param startRow  The start row of the split.    * @param endRow  The end row of the split.    * @param location  The location of the region.    */
+comment|/**    * Creates a new instance while assigning all variables.    * Length of region is set to 0    * Encoded name of the region is set to blank    *    * @param tableName  The name of the current table.    * @param scan The scan associated with this split.    * @param startRow  The start row of the split.    * @param endRow  The end row of the split.    * @param location  The location of the region.    */
 specifier|public
 name|TableSplit
 parameter_list|(
@@ -493,7 +506,7 @@ literal|0L
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a new instance while assigning all variables.    *    * @param tableName  The name of the current table.    * @param scan The scan associated with this split.    * @param startRow  The start row of the split.    * @param endRow  The end row of the split.    * @param location  The location of the region.    */
+comment|/**    * Creates a new instance while assigning all variables.    * Encoded name of region is set to blank    *    * @param tableName  The name of the current table.    * @param scan The scan associated with this split.    * @param startRow  The start row of the split.    * @param endRow  The end row of the split.    * @param location  The location of the region.    */
 specifier|public
 name|TableSplit
 parameter_list|(
@@ -514,6 +527,54 @@ parameter_list|,
 specifier|final
 name|String
 name|location
+parameter_list|,
+name|long
+name|length
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|tableName
+argument_list|,
+name|scan
+argument_list|,
+name|startRow
+argument_list|,
+name|endRow
+argument_list|,
+name|location
+argument_list|,
+literal|""
+argument_list|,
+name|length
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Creates a new instance while assigning all variables.    *    * @param tableName  The name of the current table.    * @param scan The scan associated with this split.    * @param startRow  The start row of the split.    * @param endRow  The end row of the split.    * @param encodedRegionName The region ID.    * @param location  The location of the region.    */
+specifier|public
+name|TableSplit
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|Scan
+name|scan
+parameter_list|,
+name|byte
+index|[]
+name|startRow
+parameter_list|,
+name|byte
+index|[]
+name|endRow
+parameter_list|,
+specifier|final
+name|String
+name|location
+parameter_list|,
+specifier|final
+name|String
+name|encodedRegionName
 parameter_list|,
 name|long
 name|length
@@ -583,12 +644,18 @@ name|location
 expr_stmt|;
 name|this
 operator|.
+name|encodedRegionName
+operator|=
+name|encodedRegionName
+expr_stmt|;
+name|this
+operator|.
 name|length
 operator|=
 name|length
 expr_stmt|;
 block|}
-comment|/**    * Creates a new instance without a scanner.    *    * @param tableName The name of the current table.    * @param startRow The start row of the split.    * @param endRow The end row of the split.    * @param location The location of the region.    */
+comment|/**    * Creates a new instance without a scanner.    * Length of region is set to 0    *    * @param tableName The name of the current table.    * @param startRow The start row of the split.    * @param endRow The end row of the split.    * @param location The location of the region.    */
 specifier|public
 name|TableSplit
 parameter_list|(
@@ -755,6 +822,16 @@ index|[]
 block|{
 name|regionLocation
 block|}
+return|;
+block|}
+comment|/**    * Returns the region's encoded name.    *    * @return The region's encoded name.    */
+specifier|public
+name|String
+name|getEncodedRegionName
+parameter_list|()
+block|{
+return|return
+name|encodedRegionName
 return|;
 block|}
 comment|/**    * Returns the length of the split.    *    * @return The length of the split.    * @see org.apache.hadoop.mapreduce.InputSplit#getLength()    */
@@ -928,6 +1005,33 @@ argument_list|(
 name|in
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|version
+operator|.
+name|atLeast
+argument_list|(
+name|Version
+operator|.
+name|WITH_ENCODED_REGION_NAME
+argument_list|)
+condition|)
+block|{
+name|encodedRegionName
+operator|=
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|Bytes
+operator|.
+name|readByteArray
+argument_list|(
+name|in
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Writes the field values to the output.    *    * @param out  The output to write to.    * @throws IOException When writing the values to the output fails.    */
 annotation|@
@@ -1018,6 +1122,20 @@ argument_list|(
 name|out
 argument_list|,
 name|length
+argument_list|)
+expr_stmt|;
+name|Bytes
+operator|.
+name|writeByteArray
+argument_list|(
+name|out
+argument_list|,
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|encodedRegionName
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1156,6 +1274,18 @@ operator|.
 name|append
 argument_list|(
 name|regionLocation
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|", encoded region name: "
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|encodedRegionName
 argument_list|)
 expr_stmt|;
 name|sb
@@ -1404,6 +1534,25 @@ operator|!=
 literal|null
 condition|?
 name|regionLocation
+operator|.
+name|hashCode
+argument_list|()
+else|:
+literal|0
+operator|)
+expr_stmt|;
+name|result
+operator|=
+literal|31
+operator|*
+name|result
+operator|+
+operator|(
+name|encodedRegionName
+operator|!=
+literal|null
+condition|?
+name|encodedRegionName
 operator|.
 name|hashCode
 argument_list|()

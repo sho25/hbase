@@ -548,8 +548,61 @@ name|str
 init|=
 literal|"HBase table split(table name: table, scan: , start row: row-start, "
 operator|+
-literal|"end row: row-end, region location: location)"
+literal|"end row: row-end, region location: location, "
+operator|+
+literal|"encoded region name: )"
 decl_stmt|;
+name|Assert
+operator|.
+name|assertEquals
+argument_list|(
+name|str
+argument_list|,
+name|split
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|split
+operator|=
+operator|new
+name|TableSplit
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+literal|"table"
+argument_list|)
+argument_list|,
+literal|null
+argument_list|,
+literal|"row-start"
+operator|.
+name|getBytes
+argument_list|()
+argument_list|,
+literal|"row-end"
+operator|.
+name|getBytes
+argument_list|()
+argument_list|,
+literal|"location"
+argument_list|,
+literal|"encoded-region-name"
+argument_list|,
+literal|1000L
+argument_list|)
+expr_stmt|;
+name|str
+operator|=
+literal|"HBase table split(table name: table, scan: , start row: row-start, "
+operator|+
+literal|"end row: row-end, region location: location, "
+operator|+
+literal|"encoded region name: encoded-region-name)"
+expr_stmt|;
 name|Assert
 operator|.
 name|assertEquals
@@ -583,7 +636,52 @@ name|str
 operator|=
 literal|"HBase table split(table name: null, scan: , start row: null, "
 operator|+
-literal|"end row: null, region location: null)"
+literal|"end row: null, region location: null, "
+operator|+
+literal|"encoded region name: )"
+expr_stmt|;
+name|Assert
+operator|.
+name|assertEquals
+argument_list|(
+name|str
+argument_list|,
+name|split
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|split
+operator|=
+operator|new
+name|TableSplit
+argument_list|(
+operator|(
+name|TableName
+operator|)
+literal|null
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|,
+literal|1000L
+argument_list|)
+expr_stmt|;
+name|str
+operator|=
+literal|"HBase table split(table name: null, scan: , start row: null, "
+operator|+
+literal|"end row: null, region location: null, "
+operator|+
+literal|"encoded region name: null)"
 expr_stmt|;
 name|Assert
 operator|.
