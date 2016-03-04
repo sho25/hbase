@@ -300,6 +300,7 @@ operator|.
 name|getSplitPoint
 argument_list|()
 decl_stmt|;
+comment|// Store also returns null if it has references as way of indicating it is not splittable
 name|long
 name|storeSize
 init|=

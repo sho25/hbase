@@ -185,9 +185,7 @@ specifier|final
 name|String
 name|DEPRECATED_NAME_OF_PRESSURE_AWARE_THROUGHPUT_CONTROLLER_CLASS
 init|=
-literal|"org.apache.hadoop.hbase.regionserver.compactions."
-operator|+
-literal|"PressureAwareCompactionThroughputController"
+literal|"org.apache.hadoop.hbase.regionserver.compactions.PressureAwareCompactionThroughputController"
 decl_stmt|;
 specifier|private
 specifier|static
@@ -195,9 +193,7 @@ specifier|final
 name|String
 name|DEPRECATED_NAME_OF_NO_LIMIT_THROUGHPUT_CONTROLLER_CLASS
 init|=
-literal|"org.apache.hadoop.hbase.regionserver.compactions."
-operator|+
-literal|"NoLimitThroughputController.java"
+literal|"org.apache.hadoop.hbase.regionserver.compactions.NoLimitThroughputController"
 decl_stmt|;
 specifier|public
 specifier|static
@@ -346,6 +342,9 @@ name|String
 name|className
 init|=
 name|oldName
+operator|.
+name|trim
+argument_list|()
 decl_stmt|;
 if|if
 condition|(

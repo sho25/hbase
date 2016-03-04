@@ -9340,6 +9340,24 @@ name|hasReferences
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Not splittable; has references: "
+operator|+
+name|this
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|null
 return|;
