@@ -240,7 +240,7 @@ name|void
 name|testCheckAndMutate
 parameter_list|()
 throws|throws
-name|Exception
+name|Throwable
 block|{
 specifier|final
 name|TableName
@@ -828,10 +828,30 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|NoSuchColumnFamilyException
+name|RetriesExhaustedWithDetailsException
 name|e
 parameter_list|)
-block|{       }
+block|{
+try|try
+block|{
+throw|throw
+name|e
+operator|.
+name|getCause
+argument_list|(
+literal|0
+argument_list|)
+throw|;
+block|}
+catch|catch
+parameter_list|(
+name|NoSuchColumnFamilyException
+name|e1
+parameter_list|)
+block|{
+comment|// expected
+block|}
+block|}
 block|}
 finally|finally
 block|{

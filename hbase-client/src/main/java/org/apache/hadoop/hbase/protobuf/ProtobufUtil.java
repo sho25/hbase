@@ -2556,7 +2556,6 @@ argument_list|(
 name|EMPTY_CELL_ARRAY
 argument_list|)
 decl_stmt|;
-specifier|private
 specifier|final
 specifier|static
 name|Result
@@ -2571,7 +2570,6 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
-specifier|private
 specifier|final
 specifier|static
 name|Result

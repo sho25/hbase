@@ -149,6 +149,8 @@ name|Private
 specifier|public
 class|class
 name|ServerStatisticTracker
+implements|implements
+name|StatisticTrackable
 block|{
 specifier|private
 specifier|final
@@ -169,6 +171,8 @@ name|ServerStatistics
 argument_list|>
 argument_list|()
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|void
 name|updateRegionStats

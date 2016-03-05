@@ -32159,12 +32159,12 @@ name|nonce
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @return the current load statistics for the the region    */
+comment|/**    * @return statistics about the current load of the region    */
 specifier|public
 name|ClientProtos
 operator|.
 name|RegionLoadStats
-name|getRegionStats
+name|getLoadStatistics
 parameter_list|()
 block|{
 if|if

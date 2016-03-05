@@ -3634,10 +3634,7 @@ expr_stmt|;
 block|}
 name|Set
 argument_list|<
-name|MultiServerCallable
-argument_list|<
-name|Row
-argument_list|>
+name|PayloadCarryingServerCallable
 argument_list|>
 name|set
 init|=
@@ -3668,10 +3665,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|MultiServerCallable
-argument_list|<
-name|Row
-argument_list|>
+name|PayloadCarryingServerCallable
 name|m
 range|:
 name|set
