@@ -753,7 +753,7 @@ name|peers
 init|=
 name|admin
 operator|.
-name|listValidReplicationPeers
+name|listReplicationPeers
 argument_list|()
 decl_stmt|;
 name|assertEquals
