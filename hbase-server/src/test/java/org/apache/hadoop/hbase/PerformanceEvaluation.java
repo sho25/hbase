@@ -5333,11 +5333,11 @@ name|testName
 decl_stmt|;
 specifier|private
 name|Histogram
-name|latency
+name|latencyHistogram
 decl_stmt|;
 specifier|private
 name|Histogram
-name|valueSize
+name|valueSizeHistogram
 decl_stmt|;
 specifier|private
 name|RandomDistribution
@@ -5740,7 +5740,7 @@ condition|)
 return|return;
 name|this
 operator|.
-name|valueSize
+name|valueSizeHistogram
 operator|.
 name|update
 argument_list|(
@@ -5818,11 +5818,11 @@ block|}
 comment|/**      * Populated by testTakedown. Only implemented by RandomReadTest at the moment.      */
 specifier|public
 name|Histogram
-name|getLatency
+name|getLatencyHistogram
 parameter_list|()
 block|{
 return|return
-name|latency
+name|latencyHistogram
 return|;
 block|}
 name|void
@@ -5854,7 +5854,7 @@ block|}
 name|onStartup
 argument_list|()
 expr_stmt|;
-name|latency
+name|latencyHistogram
 operator|=
 name|YammerHistogramUtils
 operator|.
@@ -5869,7 +5869,7 @@ literal|500
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|valueSize
+name|valueSizeHistogram
 operator|=
 name|YammerHistogramUtils
 operator|.
@@ -5898,15 +5898,115 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|reportLatency
-argument_list|()
-expr_stmt|;
-name|reportValueSize
-argument_list|()
-expr_stmt|;
 name|onTakedown
 argument_list|()
 expr_stmt|;
+comment|// Print all stats for this thread continuously.
+comment|// Synchronize on Test.class so different threads don't intermingle the
+comment|// output. We can't use 'this' here because each thread has its own instance of Test class.
+synchronized|synchronized
+init|(
+name|Test
+operator|.
+name|class
+init|)
+block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Test : "
+operator|+
+name|testName
+operator|+
+literal|", Thread : "
+operator|+
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Latency (us) : "
+operator|+
+name|YammerHistogramUtils
+operator|.
+name|getHistogramReport
+argument_list|(
+name|latencyHistogram
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Num measures (latency) : "
+operator|+
+name|latencyHistogram
+operator|.
+name|getCount
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+name|YammerHistogramUtils
+operator|.
+name|getPrettyHistogramReport
+argument_list|(
+name|latencyHistogram
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"ValueSize (bytes) : "
+operator|+
+name|YammerHistogramUtils
+operator|.
+name|getHistogramReport
+argument_list|(
+name|valueSizeHistogram
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Num measures (ValueSize): "
+operator|+
+name|valueSizeHistogram
+operator|.
+name|getCount
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+name|YammerHistogramUtils
+operator|.
+name|getPrettyHistogramReport
+argument_list|(
+name|valueSizeHistogram
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!
@@ -6153,7 +6253,7 @@ operator|.
 name|measureAfter
 condition|)
 block|{
-name|latency
+name|latencyHistogram
 operator|.
 name|update
 argument_list|(
@@ -6208,247 +6308,6 @@ block|}
 block|}
 block|}
 block|}
-comment|/**      * report percentiles of latency      * @throws IOException      */
-specifier|private
-name|void
-name|reportLatency
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-name|status
-operator|.
-name|setStatus
-argument_list|(
-name|testName
-operator|+
-literal|" latency log (microseconds), on "
-operator|+
-name|latency
-operator|.
-name|getCount
-argument_list|()
-operator|+
-literal|" measures"
-argument_list|)
-expr_stmt|;
-name|reportHistogram
-argument_list|(
-name|this
-operator|.
-name|latency
-argument_list|)
-expr_stmt|;
-block|}
-specifier|private
-name|void
-name|reportValueSize
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-name|status
-operator|.
-name|setStatus
-argument_list|(
-name|testName
-operator|+
-literal|" valueSize after "
-operator|+
-name|valueSize
-operator|.
-name|getCount
-argument_list|()
-operator|+
-literal|" measures"
-argument_list|)
-expr_stmt|;
-name|reportHistogram
-argument_list|(
-name|this
-operator|.
-name|valueSize
-argument_list|)
-expr_stmt|;
-block|}
-specifier|private
-name|void
-name|reportHistogram
-parameter_list|(
-specifier|final
-name|Histogram
-name|h
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|Snapshot
-name|sn
-init|=
-name|h
-operator|.
-name|getSnapshot
-argument_list|()
-decl_stmt|;
-name|status
-operator|.
-name|setStatus
-argument_list|(
-name|testName
-operator|+
-literal|" Min      = "
-operator|+
-name|sn
-operator|.
-name|getMin
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|status
-operator|.
-name|setStatus
-argument_list|(
-name|testName
-operator|+
-literal|" Avg      = "
-operator|+
-name|sn
-operator|.
-name|getMean
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|status
-operator|.
-name|setStatus
-argument_list|(
-name|testName
-operator|+
-literal|" StdDev   = "
-operator|+
-name|sn
-operator|.
-name|getStdDev
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|status
-operator|.
-name|setStatus
-argument_list|(
-name|testName
-operator|+
-literal|" 50th     = "
-operator|+
-name|sn
-operator|.
-name|getMedian
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|status
-operator|.
-name|setStatus
-argument_list|(
-name|testName
-operator|+
-literal|" 75th     = "
-operator|+
-name|sn
-operator|.
-name|get75thPercentile
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|status
-operator|.
-name|setStatus
-argument_list|(
-name|testName
-operator|+
-literal|" 95th     = "
-operator|+
-name|sn
-operator|.
-name|get95thPercentile
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|status
-operator|.
-name|setStatus
-argument_list|(
-name|testName
-operator|+
-literal|" 99th     = "
-operator|+
-name|sn
-operator|.
-name|get99thPercentile
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|status
-operator|.
-name|setStatus
-argument_list|(
-name|testName
-operator|+
-literal|" 99.9th   = "
-operator|+
-name|sn
-operator|.
-name|get999thPercentile
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|status
-operator|.
-name|setStatus
-argument_list|(
-name|testName
-operator|+
-literal|" 99.99th  = "
-operator|+
-name|sn
-operator|.
-name|getValue
-argument_list|(
-literal|0.9999
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|status
-operator|.
-name|setStatus
-argument_list|(
-name|testName
-operator|+
-literal|" 99.999th = "
-operator|+
-name|sn
-operator|.
-name|getValue
-argument_list|(
-literal|0.99999
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|status
-operator|.
-name|setStatus
-argument_list|(
-name|testName
-operator|+
-literal|" Max      = "
-operator|+
-name|sn
-operator|.
-name|getMax
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**      * @return Subset of the histograms' calculation.      */
 specifier|public
 name|String
@@ -6462,7 +6321,7 @@ name|getShortHistogramReport
 argument_list|(
 name|this
 operator|.
-name|latency
+name|latencyHistogram
 argument_list|)
 return|;
 block|}
@@ -6479,7 +6338,7 @@ name|getShortHistogramReport
 argument_list|(
 name|this
 operator|.
-name|valueSize
+name|valueSizeHistogram
 argument_list|)
 return|;
 block|}
@@ -10068,7 +9927,7 @@ name|totalElapsedTime
 argument_list|,
 name|t
 operator|.
-name|getLatency
+name|getLatencyHistogram
 argument_list|()
 argument_list|)
 return|;
@@ -10417,7 +10276,14 @@ name|println
 argument_list|(
 literal|" period          Report every 'period' rows: "
 operator|+
-literal|"Default: opts.perClientRunRows / 10"
+literal|"Default: opts.perClientRunRows / 10 = "
+operator|+
+name|DEFAULT_OPTS
+operator|.
+name|getPerClientRunRows
+argument_list|()
+operator|/
+literal|10
 argument_list|)
 expr_stmt|;
 name|System
@@ -10466,7 +10332,12 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" valueSize       Pass value size to use: Default: 1024"
+literal|" valueSize       Pass value size to use: Default: "
+operator|+
+name|DEFAULT_OPTS
+operator|.
+name|getValueSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|System
@@ -10511,7 +10382,12 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" rows            Rows each client runs. Default: One million"
+literal|" rows            Rows each client runs. Default: "
+operator|+
+name|DEFAULT_OPTS
+operator|.
+name|getPerClientRunRows
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|System
@@ -10850,18 +10726,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" nclients        Integer. Required. Total number of "
+literal|" nclients        Integer. Required. Total number of clients "
 operator|+
-literal|"clients (and HRegionServers)"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"                 running: 1<= value<= 500"
+literal|"(and HRegionServers) running. 1<= value<= 500"
 argument_list|)
 expr_stmt|;
 name|System
