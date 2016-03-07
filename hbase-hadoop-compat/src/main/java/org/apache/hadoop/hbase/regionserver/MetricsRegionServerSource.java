@@ -120,10 +120,18 @@ parameter_list|)
 function_decl|;
 comment|/**    * Update the scan size.    *    * @param scanSize size of the scan    */
 name|void
-name|updateScannerNext
+name|updateScanSize
 parameter_list|(
 name|long
 name|scanSize
+parameter_list|)
+function_decl|;
+comment|/**    * Update the scan time.    * */
+name|void
+name|updateScanTime
+parameter_list|(
+name|long
+name|t
 parameter_list|)
 function_decl|;
 comment|/**    * Increment the number of slow Puts that have happened.    */
@@ -661,9 +669,14 @@ init|=
 literal|"replay"
 decl_stmt|;
 name|String
-name|SCAN_NEXT_KEY
+name|SCAN_SIZE_KEY
 init|=
-literal|"scanNext"
+literal|"scanSize"
+decl_stmt|;
+name|String
+name|SCAN_TIME_KEY
+init|=
+literal|"scanTime"
 decl_stmt|;
 name|String
 name|SLOW_MUTATE_KEY

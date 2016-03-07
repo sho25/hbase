@@ -116,10 +116,18 @@ parameter_list|)
 function_decl|;
 comment|/**    * Update the count and sizes of resultScanner.next()    * @param scanSize Size in bytes of the resulting key values for a next()    */
 name|void
-name|updateScan
+name|updateScanSize
 parameter_list|(
 name|long
 name|scanSize
+parameter_list|)
+function_decl|;
+comment|/**    * Update time used of resultScanner.next().    * */
+name|void
+name|updateScanTime
+parameter_list|(
+name|long
+name|mills
 parameter_list|)
 function_decl|;
 comment|/**    * Update related counts of increments.    */
