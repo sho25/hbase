@@ -286,6 +286,15 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|/**    * Configuration key to cache data blocks on read. Bloom blocks and index blocks are always be    * cached if the block cache is enabled.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CACHE_DATA_ON_READ_KEY
+init|=
+literal|"hbase.block.data.cacheonread"
+decl_stmt|;
 comment|/**    * Configuration key to cache data blocks on write. There are separate    * switches for bloom blocks and non-root index blocks.    */
 specifier|public
 specifier|static
@@ -681,6 +690,15 @@ argument_list|(
 name|conf
 argument_list|)
 argument_list|,
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|CACHE_DATA_ON_READ_KEY
+argument_list|,
+name|DEFAULT_CACHE_DATA_ON_READ
+argument_list|)
+operator|&&
 name|family
 operator|.
 name|isBlockCacheEnabled
@@ -818,7 +836,14 @@ argument_list|(
 name|conf
 argument_list|)
 argument_list|,
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|CACHE_DATA_ON_READ_KEY
+argument_list|,
 name|DEFAULT_CACHE_DATA_ON_READ
+argument_list|)
 argument_list|,
 name|DEFAULT_IN_MEMORY
 argument_list|,
@@ -1330,6 +1355,10 @@ argument_list|()
 operator|&&
 name|this
 operator|.
+name|cacheDataOnRead
+operator|&&
+name|this
+operator|.
 name|cacheDataCompressed
 return|;
 block|}
@@ -1360,6 +1389,10 @@ case|case
 name|DATA
 case|:
 return|return
+name|this
+operator|.
+name|cacheDataOnRead
+operator|&&
 name|this
 operator|.
 name|cacheDataCompressed

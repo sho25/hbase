@@ -6575,8 +6575,15 @@ name|cacheBlock
 operator|&=
 name|cacheConf
 operator|.
-name|shouldCacheDataOnRead
+name|shouldCacheBlockOnRead
+argument_list|(
+name|BlockType
+operator|.
+name|META
+operator|.
+name|getCategory
 argument_list|()
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
