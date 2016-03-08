@@ -2573,6 +2573,27 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|shouldWaitClientAck
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|)
+block|{
+comment|// system tables are created on bootstrap internally by the system
+comment|// the client does not know about this procedures.
+return|return
+operator|!
+name|getTableName
+argument_list|()
+operator|.
+name|isSystemTable
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 

@@ -550,6 +550,20 @@ return|return
 literal|false
 return|;
 block|}
+comment|/**    * By default, the executor will keep the procedure result around util    * the eviction TTL is expired. The client can cut down the waiting time    * by requesting that the result is removed from the executor.    * In case of system started procedure, we can force the executor to auto-ack.    * @param env the environment passed to the ProcedureExecutor    * @return true if the executor should wait the client ack for the result.    *         Defaults to return true.    */
+specifier|protected
+name|boolean
+name|shouldWaitClientAck
+parameter_list|(
+specifier|final
+name|TEnvironment
+name|env
+parameter_list|)
+block|{
+return|return
+literal|true
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public

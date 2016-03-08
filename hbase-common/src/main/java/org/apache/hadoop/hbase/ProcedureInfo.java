@@ -892,8 +892,9 @@ parameter_list|()
 block|{
 return|return
 name|clientAckTime
-operator|>
-literal|0
+operator|!=
+operator|-
+literal|1
 return|;
 block|}
 annotation|@

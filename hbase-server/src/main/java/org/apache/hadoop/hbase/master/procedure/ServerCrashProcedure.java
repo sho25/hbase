@@ -3818,6 +3818,22 @@ return|return
 literal|true
 return|;
 block|}
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|shouldWaitClientAck
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|)
+block|{
+comment|// The operation is triggered internally on the server
+comment|// the client does not know about this procedure.
+return|return
+literal|false
+return|;
+block|}
 block|}
 end_class
 
