@@ -37,6 +37,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -56,20 +70,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ServerName
 import|;
 end_import
 
@@ -108,7 +108,12 @@ name|timeOfFirstFailureMilliSec
 decl_stmt|,
 name|timeOfLatestAttemptMilliSec
 decl_stmt|;
-comment|/**     * @param count     * @param timeOfFirstFailureMilliSec     * @param timeOfLatestAttemptMilliSec     * @param serverName     */
+comment|// If set, we guarantee that no modifications went to server
+specifier|private
+name|boolean
+name|guaranteedClientSideOnly
+decl_stmt|;
+comment|/**    * @param count num of consecutive failures    * @param timeOfFirstFailureMilliSec when first failure happened    * @param timeOfLatestAttemptMilliSec when last attempt happened    * @param serverName server we failed to connect to    */
 specifier|public
 name|PreemptiveFastFailException
 parameter_list|(
@@ -155,6 +160,63 @@ operator|=
 name|timeOfLatestAttemptMilliSec
 expr_stmt|;
 block|}
+comment|/**    * @param count num of consecutive failures    * @param timeOfFirstFailureMilliSec when first failure happened    * @param timeOfLatestAttemptMilliSec when last attempt happened    * @param serverName server we failed to connect to    * @param guaranteedClientSideOnly if true, guarantees that no mutations    *   have been applied on the server    */
+specifier|public
+name|PreemptiveFastFailException
+parameter_list|(
+name|long
+name|count
+parameter_list|,
+name|long
+name|timeOfFirstFailureMilliSec
+parameter_list|,
+name|long
+name|timeOfLatestAttemptMilliSec
+parameter_list|,
+name|ServerName
+name|serverName
+parameter_list|,
+name|boolean
+name|guaranteedClientSideOnly
+parameter_list|)
+block|{
+name|super
+argument_list|(
+literal|"Exception happened "
+operator|+
+name|count
+operator|+
+literal|" times. to"
+operator|+
+name|serverName
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|failureCount
+operator|=
+name|count
+expr_stmt|;
+name|this
+operator|.
+name|timeOfFirstFailureMilliSec
+operator|=
+name|timeOfFirstFailureMilliSec
+expr_stmt|;
+name|this
+operator|.
+name|timeOfLatestAttemptMilliSec
+operator|=
+name|timeOfLatestAttemptMilliSec
+expr_stmt|;
+name|this
+operator|.
+name|guaranteedClientSideOnly
+operator|=
+name|guaranteedClientSideOnly
+expr_stmt|;
+block|}
+comment|/**    * @return time of the fist failure    */
 specifier|public
 name|long
 name|getFirstFailureAt
@@ -164,6 +226,7 @@ return|return
 name|timeOfFirstFailureMilliSec
 return|;
 block|}
+comment|/**    * @return time of the latest attempt    */
 specifier|public
 name|long
 name|getLastAttemptAt
@@ -173,6 +236,7 @@ return|return
 name|timeOfLatestAttemptMilliSec
 return|;
 block|}
+comment|/**    * @return failure count    */
 specifier|public
 name|long
 name|getFailureCount
@@ -182,6 +246,7 @@ return|return
 name|failureCount
 return|;
 block|}
+comment|/**    * @return true if operation was attempted by server, false otherwise.    */
 specifier|public
 name|boolean
 name|wasOperationAttemptedByServer
@@ -189,6 +254,16 @@ parameter_list|()
 block|{
 return|return
 literal|false
+return|;
+block|}
+comment|/**    * @return true if we know no mutation made it to the server, false otherwise.    */
+specifier|public
+name|boolean
+name|isGuaranteedClientSideOnly
+parameter_list|()
+block|{
+return|return
+name|guaranteedClientSideOnly
 return|;
 block|}
 block|}
