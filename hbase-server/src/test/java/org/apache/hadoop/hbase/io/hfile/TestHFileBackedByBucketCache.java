@@ -323,7 +323,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|LargeTests
 import|;
 end_import
 
@@ -399,6 +399,18 @@ begin_comment
 comment|/**  * Test for file-backed BucketCache.  */
 end_comment
 
+begin_comment
+comment|// This is marked a LargeTest so it runs in its own JVM. We do this because we are making use of
+end_comment
+
+begin_comment
+comment|// the cache and the cache is global. We don't want any other concurrent test polluting ours which
+end_comment
+
+begin_comment
+comment|// can happen if more than one test in a single JVM which can happen when tests are small.
+end_comment
+
 begin_class
 annotation|@
 name|Category
@@ -408,7 +420,7 @@ name|IOTests
 operator|.
 name|class
 block|,
-name|SmallTests
+name|LargeTests
 operator|.
 name|class
 block|}
@@ -766,14 +778,18 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
-name|CacheConfig
-name|cacheConfig
+comment|// Write 8 entries which should make for four hfileBlocks.
+specifier|final
+name|int
+name|count
 init|=
-operator|new
-name|CacheConfig
-argument_list|(
-name|conf
-argument_list|)
+literal|8
+decl_stmt|;
+specifier|final
+name|int
+name|hfileBlockCount
+init|=
+literal|4
 decl_stmt|;
 name|Path
 name|hfilePath
@@ -794,18 +810,22 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// Write 8 entries which should make for four hfileBlocks.
-specifier|final
-name|int
-name|count
+comment|// Clear out any existing global cache instance. Will pollute our tests below. Any concurrent
+comment|// running test will pollute our results below.
+name|CacheConfig
+operator|.
+name|GLOBAL_BLOCK_CACHE_INSTANCE
+operator|=
+literal|null
+expr_stmt|;
+name|CacheConfig
+name|cacheConfig
 init|=
-literal|8
-decl_stmt|;
-specifier|final
-name|int
-name|hfileBlockCount
-init|=
-literal|4
+operator|new
+name|CacheConfig
+argument_list|(
+name|conf
+argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
