@@ -3910,27 +3910,6 @@ expr_stmt|;
 block|}
 break|break;
 block|}
-comment|// if the procedure is kind enough to pass the slot to someone else, yield
-if|if
-condition|(
-name|proc
-operator|.
-name|isYieldAfterExecutionStep
-argument_list|(
-name|getEnvironment
-argument_list|()
-argument_list|)
-condition|)
-block|{
-name|runnables
-operator|.
-name|yield
-argument_list|(
-name|proc
-argument_list|)
-expr_stmt|;
-break|break;
-block|}
 block|}
 do|while
 condition|(
@@ -5103,7 +5082,14 @@ block|}
 comment|// if the procedure is kind enough to pass the slot to someone else, yield
 if|if
 condition|(
-name|reExecute
+name|procedure
+operator|.
+name|getState
+argument_list|()
+operator|==
+name|ProcedureState
+operator|.
+name|RUNNABLE
 operator|&&
 name|procedure
 operator|.
@@ -5114,6 +5100,13 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+name|runnables
+operator|.
+name|yield
+argument_list|(
+name|procedure
+argument_list|)
+expr_stmt|;
 return|return;
 block|}
 assert|assert
