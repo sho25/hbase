@@ -97,11 +97,15 @@ end_import
 
 begin_import
 import|import
-name|junit
+name|org
 operator|.
-name|framework
+name|apache
 operator|.
-name|TestCase
+name|hadoop
+operator|.
+name|conf
+operator|.
+name|Configuration
 import|;
 end_import
 
@@ -113,9 +117,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|CategoryBasedTimeout
 import|;
 end_import
 
@@ -319,11 +323,65 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Assert
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestRule
 import|;
 end_import
 
@@ -348,9 +406,45 @@ argument_list|)
 specifier|public
 class|class
 name|TestStoreScanner
-extends|extends
-name|TestCase
 block|{
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+specifier|final
+name|TestRule
+name|timeout
+init|=
+name|CategoryBasedTimeout
+operator|.
+name|builder
+argument_list|()
+operator|.
+name|withTimeout
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+argument_list|)
+operator|.
+name|withLookingForStuckThread
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -420,19 +514,6 @@ name|ScanType
 operator|.
 name|USER_SCAN
 decl_stmt|;
-specifier|public
-name|void
-name|setUp
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
-block|}
 comment|/*    * Test utility for building a NavigableSet for scanners.    * @param strCols    * @return    */
 name|NavigableSet
 argument_list|<
@@ -496,6 +577,8 @@ return|return
 name|cols
 return|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanTimeRange
@@ -680,6 +763,16 @@ operator|.
 name|setMaxVersions
 argument_list|()
 expr_stmt|;
+name|List
+argument_list|<
+name|Cell
+argument_list|>
+name|results
+init|=
+literal|null
+decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|scan
 init|=
@@ -699,20 +792,19 @@ argument_list|)
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
-name|List
-argument_list|<
-name|Cell
-argument_list|>
+init|)
+block|{
 name|results
-init|=
+operator|=
 operator|new
 name|ArrayList
 argument_list|<
 name|Cell
 argument_list|>
 argument_list|()
-decl_stmt|;
+expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -725,6 +817,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|5
@@ -735,6 +829,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -754,6 +850,7 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Scan limited TimeRange
 name|scanSpec
 operator|=
@@ -782,8 +879,11 @@ operator|.
 name|setMaxVersions
 argument_list|()
 expr_stmt|;
+try|try
+init|(
+name|StoreScanner
 name|scan
-operator|=
+init|=
 operator|new
 name|StoreScanner
 argument_list|(
@@ -800,7 +900,8 @@ argument_list|)
 argument_list|,
 name|scanners
 argument_list|)
-expr_stmt|;
+init|)
+block|{
 name|results
 operator|=
 operator|new
@@ -810,6 +911,8 @@ name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -822,6 +925,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|2
@@ -832,6 +937,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Another range.
 name|scanSpec
 operator|=
@@ -860,8 +966,11 @@ operator|.
 name|setMaxVersions
 argument_list|()
 expr_stmt|;
+try|try
+init|(
+name|StoreScanner
 name|scan
-operator|=
+init|=
 operator|new
 name|StoreScanner
 argument_list|(
@@ -878,7 +987,8 @@ argument_list|)
 argument_list|,
 name|scanners
 argument_list|)
-expr_stmt|;
+init|)
+block|{
 name|results
 operator|=
 operator|new
@@ -888,6 +998,8 @@ name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -900,6 +1012,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -910,6 +1024,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// See how TimeRange and Versions interact.
 comment|// Another range.
 name|scanSpec
@@ -941,8 +1056,11 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|StoreScanner
 name|scan
-operator|=
+init|=
 operator|new
 name|StoreScanner
 argument_list|(
@@ -959,7 +1077,8 @@ argument_list|)
 argument_list|,
 name|scanners
 argument_list|)
-expr_stmt|;
+init|)
+block|{
 name|results
 operator|=
 operator|new
@@ -969,6 +1088,8 @@ name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -981,6 +1102,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|3
@@ -992,6 +1115,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanSameTimestamp
@@ -1092,6 +1218,8 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// this only uses maxVersions (default=1) and TimeRange (default=all)
+try|try
+init|(
 name|StoreScanner
 name|scan
 init|=
@@ -1111,7 +1239,8 @@ argument_list|)
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -1125,6 +1254,8 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -1137,6 +1268,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -1147,6 +1280,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -1163,7 +1298,10 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 comment|/*    * Test test shows exactly how the matcher's return codes confuses the StoreScanner    * and prevent it from doing the right thing.  Seeking once, then nexting twice    * should return R1, then R2, but in this case it doesnt.    * TODO this comment makes no sense above. Appears to do the right thing.    * @throws IOException    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testWontNextToNext
@@ -1270,6 +1408,8 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// this only uses maxVersions (default=1) and TimeRange (default=all)
+try|try
+init|(
 name|StoreScanner
 name|scan
 init|=
@@ -1289,7 +1429,8 @@ argument_list|)
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -1310,6 +1451,8 @@ argument_list|(
 name|results
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -1320,6 +1463,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -1349,6 +1494,8 @@ argument_list|(
 name|results
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -1359,6 +1506,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -1386,6 +1535,8 @@ argument_list|(
 name|results
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|0
@@ -1397,6 +1548,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeleteVersionSameTimestamp
@@ -1480,6 +1634,8 @@ literal|"R1"
 argument_list|)
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|scan
 init|=
@@ -1499,7 +1655,8 @@ argument_list|)
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -1513,6 +1670,8 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|Assert
+operator|.
 name|assertFalse
 argument_list|(
 name|scan
@@ -1523,6 +1682,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|0
@@ -1534,7 +1695,10 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 comment|/*    * Test the case where there is a delete row 'in front of' the next row, the scanner    * will move to the next row.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeletedRowThenGoodRow
@@ -1639,6 +1803,8 @@ literal|"R1"
 argument_list|)
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|scan
 init|=
@@ -1658,7 +1824,8 @@ argument_list|)
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -1672,6 +1839,8 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -1684,6 +1853,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|0
@@ -1694,6 +1865,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -1706,6 +1879,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -1716,6 +1891,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -1731,6 +1908,8 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|false
@@ -1743,6 +1922,7 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|public
 name|void
@@ -1899,6 +2079,8 @@ argument_list|,
 name|kvs2
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|scan
 init|=
@@ -1927,7 +2109,8 @@ argument_list|)
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -1944,6 +2127,8 @@ decl_stmt|;
 comment|// the two put at ts=now will be masked by the 1 delete, and
 comment|// since the scan default returns 1 version we'll return the newest
 comment|// key, which is kvs[2], now-100.
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -1956,6 +2141,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -1966,6 +2153,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs2
@@ -1981,6 +2170,7 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|public
 name|void
@@ -2177,6 +2367,8 @@ argument_list|(
 literal|2
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|scan
 init|=
@@ -2196,7 +2388,8 @@ argument_list|)
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -2210,6 +2403,8 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -2222,6 +2417,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|2
@@ -2232,6 +2429,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs2
@@ -2247,6 +2446,8 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs2
@@ -2263,6 +2464,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testWildCardOneVersionScan
@@ -2353,6 +2557,8 @@ argument_list|(
 name|kvs
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|scan
 init|=
@@ -2378,7 +2584,8 @@ literal|null
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -2392,6 +2599,8 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -2404,6 +2613,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|2
@@ -2414,6 +2625,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -2429,6 +2642,8 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -2445,6 +2660,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testWildCardScannerUnderDeletes
@@ -2716,6 +2934,8 @@ argument_list|(
 name|kvs
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|scan
 init|=
@@ -2739,7 +2959,8 @@ literal|null
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -2753,6 +2974,8 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -2765,6 +2988,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|5
@@ -2775,6 +3000,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -2790,6 +3017,8 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -2805,6 +3034,8 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -2820,6 +3051,8 @@ literal|2
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -2835,6 +3068,8 @@ literal|3
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -2851,6 +3086,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeleteFamily
@@ -3130,6 +3368,8 @@ argument_list|(
 name|kvs
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|scan
 init|=
@@ -3155,7 +3395,8 @@ literal|null
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -3169,6 +3410,8 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -3181,6 +3424,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|0
@@ -3191,6 +3436,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -3203,6 +3450,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -3213,6 +3462,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -3232,6 +3483,8 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|false
@@ -3245,6 +3498,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeleteColumn
@@ -3356,6 +3612,8 @@ argument_list|(
 name|kvs
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|scan
 init|=
@@ -3374,7 +3632,8 @@ literal|null
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -3388,6 +3647,8 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -3400,6 +3661,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -3410,6 +3673,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -3425,6 +3690,7 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|private
 specifier|static
@@ -3648,6 +3914,8 @@ literal|"dont-care"
 argument_list|)
 block|,     }
 decl_stmt|;
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSkipColumn
@@ -3666,6 +3934,8 @@ argument_list|(
 name|kvs
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|scan
 init|=
@@ -3689,7 +3959,8 @@ argument_list|)
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -3703,6 +3974,8 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -3715,6 +3988,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|2
@@ -3725,6 +4000,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -3740,6 +4017,8 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -3760,6 +4039,8 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -3772,6 +4053,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -3782,6 +4065,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -3806,6 +4091,8 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|false
@@ -3819,7 +4106,10 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 comment|/*    * Test expiration of KeyValues in combination with a configured TTL for    * a column family (as should be triggered in a major compaction).    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testWildCardTtlScan
@@ -4085,6 +4375,8 @@ name|ScanType
 operator|.
 name|USER_SCAN
 decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|scanner
 init|=
@@ -4101,7 +4393,8 @@ literal|null
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -4115,6 +4408,8 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -4127,6 +4422,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|2
@@ -4137,6 +4434,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -4152,6 +4451,8 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -4172,6 +4473,8 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -4184,6 +4487,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|3
@@ -4194,6 +4499,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -4209,6 +4516,8 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -4224,6 +4533,8 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -4244,6 +4555,8 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|false
@@ -4257,6 +4570,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScannerReseekDoesntNPE
@@ -4275,6 +4591,8 @@ argument_list|(
 name|kvs
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|scan
 init|=
@@ -4298,7 +4616,8 @@ argument_list|)
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Previously a updateReaders twice in a row would cause an NPE.  In test this would also
 comment|// normally cause an NPE because scan.store is null.  So as long as we get through these
 comment|// two calls we are good and the bug was quashed.
@@ -4331,6 +4650,7 @@ operator|.
 name|peek
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 comment|/**    * TODO this fails, since we don't handle deletions, etc, in peek    */
 specifier|public
@@ -4416,6 +4736,8 @@ literal|"R1"
 argument_list|)
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|scan
 init|=
@@ -4435,7 +4757,10 @@ argument_list|)
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
+name|Assert
+operator|.
 name|assertNull
 argument_list|(
 name|scan
@@ -4445,7 +4770,10 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 comment|/**    * Ensure that expired delete family markers don't override valid puts    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testExpiredDeleteFamily
@@ -4583,6 +4911,8 @@ name|ScanType
 operator|.
 name|USER_SCAN
 decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|scanner
 init|=
@@ -4599,7 +4929,8 @@ literal|null
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -4613,6 +4944,8 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -4625,6 +4958,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -4635,6 +4970,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -4655,6 +4992,8 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|false
@@ -4668,6 +5007,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeleteMarkerLongevity
@@ -5192,6 +5534,8 @@ operator|.
 name|COMPARATOR
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|scanner
 init|=
@@ -5214,7 +5558,8 @@ name|HConstants
 operator|.
 name|OLDEST_TIMESTAMP
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -5237,6 +5582,8 @@ name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -5249,6 +5596,8 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -5264,6 +5613,8 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -5279,6 +5630,8 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -5294,6 +5647,8 @@ literal|2
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -5309,6 +5664,8 @@ literal|3
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -5324,6 +5681,8 @@ literal|4
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -5339,6 +5698,8 @@ literal|5
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -5354,6 +5715,8 @@ literal|6
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
 name|assertEquals
 argument_list|(
 literal|7
@@ -5364,11 +5727,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 finally|finally
 block|{
