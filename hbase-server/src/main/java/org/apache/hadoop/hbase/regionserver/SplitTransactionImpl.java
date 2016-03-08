@@ -2949,6 +2949,7 @@ name|Region
 name|r
 decl_stmt|;
 specifier|private
+specifier|volatile
 name|Throwable
 name|t
 init|=
