@@ -1686,8 +1686,7 @@ name|this
 operator|.
 name|caching
 decl_stmt|;
-comment|// We need to reset it if it's a new callable that was created
-comment|// with a countdown in nextScanner
+comment|// We need to reset it if it's a new callable that was created with a countdown in nextScanner
 name|callable
 operator|.
 name|setCaching
@@ -1729,12 +1728,11 @@ argument_list|,
 name|scannerTimeout
 argument_list|)
 expr_stmt|;
-comment|// When the replica switch happens, we need to do certain operations
-comment|// again. The callable will openScanner with the right startkey
-comment|// but we need to pick up from there. Bypass the rest of the loop
-comment|// and let the catch-up happen in the beginning of the loop as it
-comment|// happens for the cases where we see exceptions. Since only openScanner
-comment|// would have happened, values would be null
+comment|// When the replica switch happens, we need to do certain operations again.
+comment|// The callable will openScanner with the right startkey but we need to pick up
+comment|// from there. Bypass the rest of the loop and let the catch-up happen in the beginning
+comment|// of the loop as it happens for the cases where we see exceptions.
+comment|// Since only openScanner would have happened, values would be null
 if|if
 condition|(
 name|values
@@ -1893,8 +1891,7 @@ operator|instanceof
 name|OutOfOrderScannerNextException
 condition|)
 block|{
-comment|// Pass
-comment|// It is easier writing the if loop test as list of what is allowed rather than
+comment|// Pass. It is easier writing the if loop test as list of what is allowed rather than
 comment|// as a list of what is not allowed... so if in here, it means we do not throw.
 block|}
 else|else
@@ -1914,11 +1911,9 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|// The region has moved. We need to open a brand new scanner at
-comment|// the new location.
-comment|// Reset the startRow to the row we've seen last so that the new
-comment|// scanner starts at the correct row. Otherwise we may see previously
-comment|// returned rows again.
+comment|// The region has moved. We need to open a brand new scanner at the new location.
+comment|// Reset the startRow to the row we've seen last so that the new scanner starts at
+comment|// the correct row. Otherwise we may see previously returned rows again.
 comment|// (ScannerCallable by now has "relocated" the correct region)
 if|if
 condition|(
@@ -2122,17 +2117,16 @@ name|rs
 expr_stmt|;
 block|}
 block|}
-comment|// Caller of this method just wants a Result. If we see a heartbeat message, it means
-comment|// processing of the scan is taking a long time server side. Rather than continue to
-comment|// loop until a limit (e.g. size or caching) is reached, break out early to avoid causing
-comment|// unnecesary delays to the caller
 if|if
 condition|(
 name|callable
 operator|.
 name|isHeartbeatMessage
 argument_list|()
-operator|&&
+condition|)
+block|{
+if|if
+condition|(
 name|cache
 operator|.
 name|size
@@ -2141,6 +2135,10 @@ operator|>
 literal|0
 condition|)
 block|{
+comment|// Caller of this method just wants a Result. If we see a heartbeat message, it means
+comment|// processing of the scan is taking a long time server side. Rather than continue to
+comment|// loop until a limit (e.g. size or caching) is reached, break out early to avoid causing
+comment|// unnecesary delays to the caller
 if|if
 condition|(
 name|LOG
@@ -2160,6 +2158,8 @@ argument_list|)
 expr_stmt|;
 block|}
 break|break;
+block|}
+continue|continue;
 block|}
 comment|// We expect that the server won't have more results for us when we exhaust
 comment|// the size (bytes or count) of the results returned. If the server *does* inform us that
@@ -2191,7 +2191,7 @@ name|callable
 operator|.
 name|getServerHasMoreResults
 argument_list|()
-operator|&
+operator|&&
 name|partialResults
 operator|.
 name|isEmpty
@@ -2205,6 +2205,18 @@ comment|// row.
 block|}
 do|while
 condition|(
+operator|(
+name|callable
+operator|!=
+literal|null
+operator|&&
+name|callable
+operator|.
+name|isHeartbeatMessage
+argument_list|()
+operator|)
+operator|||
+operator|(
 name|doneWithRegion
 argument_list|(
 name|remainingResultSize
@@ -2229,6 +2241,7 @@ name|values
 operator|==
 literal|null
 argument_list|)
+operator|)
 operator|)
 condition|)
 do|;
