@@ -451,6 +451,9 @@ argument_list|(
 literal|"METAFAMILY"
 argument_list|)
 decl_stmt|;
+annotation|@
+name|VisibleForTesting
+specifier|public
 specifier|static
 specifier|final
 name|byte
@@ -464,6 +467,9 @@ argument_list|(
 literal|"METAROW"
 argument_list|)
 decl_stmt|;
+annotation|@
+name|VisibleForTesting
+specifier|public
 specifier|static
 specifier|final
 name|byte
@@ -477,6 +483,9 @@ argument_list|(
 literal|"HBASE::COMPACTION"
 argument_list|)
 decl_stmt|;
+annotation|@
+name|VisibleForTesting
+specifier|public
 specifier|static
 specifier|final
 name|byte
@@ -490,6 +499,9 @@ argument_list|(
 literal|"HBASE::FLUSH"
 argument_list|)
 decl_stmt|;
+annotation|@
+name|VisibleForTesting
+specifier|public
 specifier|static
 specifier|final
 name|byte
@@ -1669,7 +1681,7 @@ argument_list|)
 return|;
 comment|//replication scope null so that this won't be replicated
 block|}
-specifier|private
+specifier|public
 specifier|static
 name|byte
 index|[]

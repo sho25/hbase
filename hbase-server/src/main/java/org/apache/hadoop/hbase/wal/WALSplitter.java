@@ -2803,6 +2803,29 @@ operator|++
 expr_stmt|;
 continue|continue;
 block|}
+comment|// Don't send Compaction/Close/Open region events to recovered edit type sinks.
+if|if
+condition|(
+name|entry
+operator|.
+name|getEdit
+argument_list|()
+operator|.
+name|isMetaEdit
+argument_list|()
+operator|&&
+operator|!
+name|outputSink
+operator|.
+name|keepRegionEvents
+argument_list|()
+condition|)
+block|{
+name|editsSkipped
+operator|++
+expr_stmt|;
+continue|continue;
+block|}
 name|entryBuffers
 operator|.
 name|appendEntry
@@ -6724,6 +6747,13 @@ return|return
 literal|false
 return|;
 block|}
+comment|/**      * Some WALEdit's contain only KV's for account on what happened to a region.      * Not all sinks will want to get those edits.      *      * @return Return true if this sink wants to get all WALEdit's regardless of if it's a region      * event.      */
+specifier|public
+specifier|abstract
+name|boolean
+name|keepRegionEvents
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Class that manages the output streams from the log splitting process.    */
 class|class
@@ -8614,6 +8644,17 @@ throw|throw
 name|e
 throw|;
 block|}
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|keepRegionEvents
+parameter_list|()
+block|{
+return|return
+literal|false
+return|;
 block|}
 comment|/**      * @return a map from encoded region ID to the number of edits written out for that region.      */
 annotation|@
@@ -11006,6 +11047,17 @@ return|;
 block|}
 return|return
 literal|false
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|keepRegionEvents
+parameter_list|()
+block|{
+return|return
+literal|true
 return|;
 block|}
 name|void

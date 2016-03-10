@@ -5649,6 +5649,8 @@ argument_list|(
 literal|"Warming up all the Stores"
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|initializeStores
 argument_list|(
 name|reporter
@@ -5656,6 +5658,17 @@ argument_list|,
 name|status
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|status
+operator|.
+name|markComplete
+argument_list|(
+literal|"Done warming up."
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * @return Map of StoreFiles by column family    */
 specifier|private
@@ -30426,7 +30439,7 @@ name|info
 argument_list|,
 name|htd
 argument_list|,
-name|rsServices
+literal|null
 argument_list|)
 decl_stmt|;
 name|r
@@ -30435,11 +30448,6 @@ name|initializeWarmup
 argument_list|(
 name|reporter
 argument_list|)
-expr_stmt|;
-name|r
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 block|}
 specifier|private

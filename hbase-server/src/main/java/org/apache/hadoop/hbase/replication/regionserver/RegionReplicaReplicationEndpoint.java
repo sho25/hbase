@@ -2074,6 +2074,17 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|boolean
+name|keepRegionEvents
+parameter_list|()
+block|{
+return|return
+literal|true
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|List
 argument_list|<
 name|Path
