@@ -25582,6 +25582,11 @@ name|familyPaths
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|boolean
+name|isSuccessful
+init|=
+literal|false
+decl_stmt|;
 try|try
 block|{
 name|this
@@ -25871,7 +25876,7 @@ name|list
 argument_list|)
 expr_stmt|;
 return|return
-literal|false
+name|isSuccessful
 return|;
 block|}
 comment|// We need to assign a sequential ID that's in between two memstores in order to preserve
@@ -26202,9 +26207,10 @@ name|ioe
 throw|;
 block|}
 block|}
-return|return
+name|isSuccessful
+operator|=
 literal|true
-return|;
+expr_stmt|;
 block|}
 finally|finally
 block|{
@@ -26221,7 +26227,7 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-comment|// @rite a bulk load event when not all hfiles are loaded
+comment|// Write a bulk load event for hfiles that are loaded
 try|try
 block|{
 name|WALProtos
@@ -26298,6 +26304,10 @@ condition|)
 block|{
 comment|// Have to abort region server because some hfiles has been loaded but we can't write
 comment|// the event into WAL
+name|isSuccessful
+operator|=
+literal|false
+expr_stmt|;
 name|this
 operator|.
 name|rsServices
@@ -26316,6 +26326,9 @@ name|closeBulkRegionOperation
 argument_list|()
 expr_stmt|;
 block|}
+return|return
+name|isSuccessful
+return|;
 block|}
 annotation|@
 name|Override
