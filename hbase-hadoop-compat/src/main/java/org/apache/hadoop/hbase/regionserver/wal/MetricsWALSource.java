@@ -142,6 +142,16 @@ name|LOW_REPLICA_ROLL_REQUESTED_DESC
 init|=
 literal|"How many times a log roll was requested due to too few DN's in the write pipeline."
 decl_stmt|;
+name|String
+name|WRITTEN_BYTES
+init|=
+literal|"writtenBytes"
+decl_stmt|;
+name|String
+name|WRITTEN_BYTES_DESC
+init|=
+literal|"Size (in bytes) of the data written to the WAL."
+decl_stmt|;
 comment|/**    * Add the append size.    */
 name|void
 name|incrementAppendSize
@@ -186,6 +196,17 @@ parameter_list|()
 function_decl|;
 name|long
 name|getSlowAppendCount
+parameter_list|()
+function_decl|;
+name|void
+name|incrementWrittenBytes
+parameter_list|(
+name|long
+name|val
+parameter_list|)
+function_decl|;
+name|long
+name|getWrittenBytes
 parameter_list|()
 function_decl|;
 block|}

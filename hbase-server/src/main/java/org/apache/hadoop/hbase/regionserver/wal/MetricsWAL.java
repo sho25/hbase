@@ -233,6 +233,13 @@ argument_list|(
 name|size
 argument_list|)
 expr_stmt|;
+name|source
+operator|.
+name|incrementWrittenBytes
+argument_list|(
+name|size
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|time
