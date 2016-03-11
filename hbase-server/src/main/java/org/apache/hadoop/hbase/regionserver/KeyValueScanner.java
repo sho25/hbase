@@ -96,6 +96,9 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+comment|// TODO: Change name from KeyValueScanner to CellScanner only we already have a simple CellScanner
+comment|// so this should be something else altogether, a decoration on our base CellScanner. TODO.
+comment|// This class shows in CPs so do it all in one swell swoop. HBase-2.0.0.
 specifier|public
 interface|interface
 name|KeyValueScanner
@@ -234,7 +237,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @return the next key in the index (the key to seek to the next block)    * if known, or null otherwise    */
+comment|/**    * @return the next key in the index, usually the first key of next block OR a key that falls    * between last key of current block and first key of next block..    * see HFileWriterImpl#getMidpoint, or null if not known.    */
 specifier|public
 name|Cell
 name|getNextIndexedKey
