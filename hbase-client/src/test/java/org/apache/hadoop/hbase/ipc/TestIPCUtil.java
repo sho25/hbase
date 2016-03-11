@@ -638,7 +638,7 @@ name|cellScanner
 operator|=
 name|util
 operator|.
-name|createCellScanner
+name|createCellScannerReusingBuffers
 argument_list|(
 name|codec
 argument_list|,

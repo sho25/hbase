@@ -39,6 +39,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|nio
+operator|.
+name|ByteBuffer
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -140,6 +150,13 @@ name|getDecoder
 parameter_list|(
 name|InputStream
 name|is
+parameter_list|)
+function_decl|;
+name|Decoder
+name|getDecoder
+parameter_list|(
+name|ByteBuffer
+name|buf
 parameter_list|)
 function_decl|;
 name|Encoder

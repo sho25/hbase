@@ -9694,7 +9694,7 @@ name|cellScanner
 operator|=
 name|ipcUtil
 operator|.
-name|createCellScanner
+name|createCellScannerReusingBuffers
 argument_list|(
 name|this
 operator|.

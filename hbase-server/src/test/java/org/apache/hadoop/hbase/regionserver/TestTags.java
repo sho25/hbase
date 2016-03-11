@@ -1653,6 +1653,11 @@ argument_list|()
 operator|==
 name|current
 operator|.
+name|getOffset
+argument_list|()
+operator|+
+name|current
+operator|.
 name|getLength
 argument_list|()
 argument_list|)
@@ -1776,6 +1781,11 @@ operator|.
 name|getValueLength
 argument_list|()
 operator|==
+name|current
+operator|.
+name|getOffset
+argument_list|()
+operator|+
 name|current
 operator|.
 name|getLength
