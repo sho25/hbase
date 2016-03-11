@@ -93,6 +93,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|UnsafeAvailChecker
+import|;
+end_import
+
+begin_import
+import|import
 name|sun
 operator|.
 name|nio
@@ -124,7 +140,7 @@ specifier|final
 name|boolean
 name|UNSAFE_AVAIL
 init|=
-name|UnsafeAccess
+name|UnsafeAvailChecker
 operator|.
 name|isAvailable
 argument_list|()
@@ -135,7 +151,7 @@ specifier|final
 name|boolean
 name|UNSAFE_UNALIGNED
 init|=
-name|UnsafeAccess
+name|UnsafeAvailChecker
 operator|.
 name|unaligned
 argument_list|()

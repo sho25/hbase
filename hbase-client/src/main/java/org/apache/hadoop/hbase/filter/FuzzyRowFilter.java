@@ -261,6 +261,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|UnsafeAvailChecker
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -304,6 +320,17 @@ name|FuzzyRowFilter
 extends|extends
 name|FilterBase
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|boolean
+name|UNSAFE_UNALIGNED
+init|=
+name|UnsafeAvailChecker
+operator|.
+name|unaligned
+argument_list|()
+decl_stmt|;
 specifier|private
 name|List
 argument_list|<
@@ -507,12 +534,8 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|UnsafeAccess
-operator|.
-name|unaligned
-argument_list|()
-operator|==
-literal|false
+operator|!
+name|UNSAFE_UNALIGNED
 condition|)
 block|{
 comment|// do nothing
@@ -585,12 +608,8 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|UnsafeAccess
-operator|.
-name|unaligned
-argument_list|()
-operator|==
-literal|false
+operator|!
+name|UNSAFE_UNALIGNED
 condition|)
 block|{
 comment|// do nothing
@@ -1859,12 +1878,8 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|UnsafeAccess
-operator|.
-name|unaligned
-argument_list|()
-operator|==
-literal|false
+operator|!
+name|UNSAFE_UNALIGNED
 condition|)
 block|{
 return|return

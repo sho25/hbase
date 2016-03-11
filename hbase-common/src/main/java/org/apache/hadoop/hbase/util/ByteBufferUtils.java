@@ -259,7 +259,7 @@ specifier|final
 name|boolean
 name|UNSAFE_AVAIL
 init|=
-name|UnsafeAccess
+name|UnsafeAvailChecker
 operator|.
 name|isAvailable
 argument_list|()
@@ -270,7 +270,7 @@ specifier|final
 name|boolean
 name|UNSAFE_UNALIGNED
 init|=
-name|UnsafeAccess
+name|UnsafeAvailChecker
 operator|.
 name|unaligned
 argument_list|()
@@ -702,10 +702,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|UnsafeAccess
-operator|.
-name|isAvailable
-argument_list|()
+name|UNSAFE_AVAIL
 condition|)
 block|{
 return|return
@@ -958,10 +955,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|UnsafeAccess
-operator|.
-name|isAvailable
-argument_list|()
+name|UNSAFE_AVAIL
 condition|)
 block|{
 return|return
@@ -1639,10 +1633,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|UnsafeAccess
-operator|.
-name|isAvailable
-argument_list|()
+name|UNSAFE_AVAIL
 condition|)
 block|{
 name|int
