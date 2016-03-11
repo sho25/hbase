@@ -2941,6 +2941,38 @@ continue|continue;
 case|case
 name|DONE
 case|:
+comment|// Optimization for Gets! If DONE, no more to get on this row, early exit!
+if|if
+condition|(
+name|this
+operator|.
+name|scan
+operator|.
+name|isGetScan
+argument_list|()
+condition|)
+block|{
+comment|// Then no more to this row... exit.
+name|close
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+comment|// Do all cleanup except heap.close()
+return|return
+name|scannerContext
+operator|.
+name|setScannerState
+argument_list|(
+name|NextState
+operator|.
+name|NO_MORE_VALUES
+argument_list|)
+operator|.
+name|hasMoreValues
+argument_list|()
+return|;
+block|}
 name|matcher
 operator|.
 name|curCell
@@ -3158,8 +3190,10 @@ name|hasMoreValues
 argument_list|()
 return|;
 block|}
-comment|/*    * See if we should actually SEEK or rather just SKIP to the next Cell.    * (see HBASE-13109)    */
-specifier|private
+comment|/**    * See if we should actually SEEK or rather just SKIP to the next Cell (see HBASE-13109).    * This method works together with ColumnTrackers and Filters. ColumnTrackers may issue SEEK    * hints, such as seek to next column, next row, or seek to an arbitrary seek key.    * This method intercepts these qcodes and decides whether a seek is the most efficient _actual_    * way to get us to the requested cell (SEEKs are more expensive than SKIP, SKIP, SKIP inside the    * current, loaded block).    * It does this by looking at the next indexed key of the current HFile. This key    * is then compared with the _SEEK_ key, where a SEEK key is an artificial 'last possible key    * on the row' (only in here, we avoid actually creating a SEEK key; in the compare we work with    * the current Cell but compare as though it were a seek key; see down in    * matcher.compareKeyForNextRow, etc). If the compare gets us onto the    * next block we *_SEEK, otherwise we just INCLUDE or SKIP, and let the ColumnTrackers or Filters    * go through the next Cell, and so on)    *    *<p>The ColumnTrackers and Filters must behave correctly in all cases, i.e. if they are past the    * Cells they care about they must issues a SKIP or SEEK.    *    *<p>Other notes:    *<ul>    *<li>Rows can straddle block boundaries</li>    *<li>Versions of columns can straddle block boundaries (i.e. column C1 at T1 might be in a    * different block than column C1 at T2)</li>    *<li>We want to SKIP and INCLUDE if the chance is high that we'll find the desired Cell after a    * few SKIPs...</li>    *<li>We want to INCLUDE_AND_SEEK and SEEK when the chance is high that we'll be able to seek    * past many Cells, especially if we know we need to go to the next block.</li>    *</ul>    *<p>A good proxy (best effort) to determine whether INCLUDE/SKIP is better than SEEK is whether    * we'll likely end up seeking to the next block (or past the next block) to get our next column.    * Example:    *<pre>    * |    BLOCK 1              |     BLOCK 2                   |    * |  r1/c1, r1/c2, r1/c3    |    r1/c4, r1/c5, r2/c1        |    *                                   ^         ^    *                                   |         |    *                           Next Index Key   SEEK_NEXT_ROW (before r2/c1)    *    *    * |    BLOCK 1                       |     BLOCK 2                      |    * |  r1/c1/t5, r1/c1/t4, r1/c1/t3    |    r1/c1/t2, r1/c1/T1, r1/c2/T3  |    *                                            ^              ^    *                                            |              |    *                                    Next Index Key        SEEK_NEXT_COL    *</pre>    * Now imagine we want columns c1 and c3 (see first diagram above), the 'Next Index Key' of r1/c4    * is> r1/c3 so we should seek to get to the c1 on the next row, r2. In second case, say we only    * want one version of c1, after we have it, a SEEK_COL will be issued to get to c2. Looking at    * the 'Next Index Key', it would land us in the next block, so we should SEEK. In other scenarios    * where the SEEK will not land us in the next block, it is very likely better to issues a series    * of SKIPs.    */
+annotation|@
+name|VisibleForTesting
+specifier|protected
 name|ScanQueryMatcher
 operator|.
 name|MatchCode
@@ -3241,6 +3275,21 @@ case|case
 name|SEEK_NEXT_ROW
 case|:
 block|{
+comment|// If it is a Get Scan, then we know that we are done with this row; there are no more
+comment|// rows beyond the current one: don't try to optimize. We are DONE. Return the *_NEXT_ROW
+comment|// qcode as is. When the caller gets these flags on a Get Scan, it knows it can shut down the
+comment|// Scan.
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|scan
+operator|.
+name|isGetScan
+argument_list|()
+condition|)
+block|{
 name|Cell
 name|nextIndexedKey
 init|=
@@ -3267,7 +3316,7 @@ name|nextIndexedKey
 argument_list|,
 name|cell
 argument_list|)
-operator|>=
+operator|>
 literal|0
 condition|)
 block|{
@@ -3286,6 +3335,7 @@ name|MatchCode
 operator|.
 name|INCLUDE
 return|;
+block|}
 block|}
 break|break;
 block|}
