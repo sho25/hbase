@@ -281,7 +281,7 @@ expr_stmt|;
 name|unaligned
 operator|=
 operator|(
-name|boolean
+name|Boolean
 operator|)
 name|m
 operator|.
