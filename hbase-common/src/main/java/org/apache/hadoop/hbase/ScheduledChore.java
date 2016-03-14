@@ -647,7 +647,12 @@ comment|// Threshold used to determine if the Chore's current run started too la
 return|return
 literal|1.5
 operator|*
+name|timeUnit
+operator|.
+name|toMillis
+argument_list|(
 name|period
+argument_list|)
 return|;
 block|}
 specifier|private
