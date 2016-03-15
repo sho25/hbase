@@ -99,6 +99,22 @@ name|hbase
 operator|.
 name|master
 operator|.
+name|MasterRpcServices
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
 name|MasterServices
 import|;
 end_import
@@ -142,6 +158,14 @@ name|setMasterServices
 parameter_list|(
 name|MasterServices
 name|masterServices
+parameter_list|)
+function_decl|;
+comment|/**    * Set the master RPC service. Must be called before first call to    * {@link #computePlanForTable(TableName)}.    * @param masterRpcServices master RPC services to use    */
+name|void
+name|setMasterRpcServices
+parameter_list|(
+name|MasterRpcServices
+name|masterRpcServices
 parameter_list|)
 function_decl|;
 comment|/**    * Computes next optimal normalization plan.    * @param table table to normalize    * @return normalization actions to perform. Null if no action to take    */
