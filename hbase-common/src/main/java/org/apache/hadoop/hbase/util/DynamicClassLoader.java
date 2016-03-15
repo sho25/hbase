@@ -684,6 +684,13 @@ name|loadNewJars
 parameter_list|()
 block|{
 comment|// Refresh local jar file lists
+if|if
+condition|(
+name|localDir
+operator|!=
+literal|null
+condition|)
+block|{
 for|for
 control|(
 name|File
@@ -784,6 +791,7 @@ argument_list|,
 name|mue
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}

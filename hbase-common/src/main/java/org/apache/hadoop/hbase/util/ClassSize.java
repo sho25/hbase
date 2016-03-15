@@ -334,6 +334,10 @@ decl_stmt|;
 comment|// Verify String looks like this: 1.6.0_29
 if|if
 condition|(
+name|version
+operator|==
+literal|null
+operator|||
 operator|!
 name|version
 operator|.
@@ -1379,13 +1383,23 @@ name|boolean
 name|is32BitJVM
 parameter_list|()
 block|{
-return|return
+specifier|final
+name|String
+name|model
+init|=
 name|System
 operator|.
 name|getProperty
 argument_list|(
 literal|"sun.arch.data.model"
 argument_list|)
+decl_stmt|;
+return|return
+name|model
+operator|!=
+literal|null
+operator|&&
+name|model
 operator|.
 name|equals
 argument_list|(

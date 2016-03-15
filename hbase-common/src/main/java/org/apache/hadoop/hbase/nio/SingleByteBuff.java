@@ -883,6 +883,16 @@ argument_list|,
 name|pair
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|pair
+operator|.
+name|getFirst
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
 name|ByteBufferUtils
 operator|.
 name|copyFromBufferToBuffer
@@ -906,6 +916,7 @@ argument_list|,
 name|length
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|this
