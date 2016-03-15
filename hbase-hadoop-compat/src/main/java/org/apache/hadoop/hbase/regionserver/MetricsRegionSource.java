@@ -108,10 +108,18 @@ parameter_list|()
 function_decl|;
 comment|/**    * Update count and sizes of gets.    * @param getSize size in bytes of the resulting key values for a get    */
 name|void
-name|updateGet
+name|updateGetSize
 parameter_list|(
 name|long
 name|getSize
+parameter_list|)
+function_decl|;
+comment|/**    * Update time of gets    * @param mills time for this get operation.    */
+name|void
+name|updateGet
+parameter_list|(
+name|long
+name|mills
 parameter_list|)
 function_decl|;
 comment|/**    * Update the count and sizes of resultScanner.next()    * @param scanSize Size in bytes of the resulting key values for a next()    */

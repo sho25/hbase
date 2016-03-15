@@ -13278,6 +13278,14 @@ argument_list|)
 return|;
 block|}
 block|}
+name|long
+name|before
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+decl_stmt|;
 name|Scan
 name|scan
 init|=
@@ -13404,6 +13412,8 @@ operator|.
 name|metricsUpdateForGet
 argument_list|(
 name|results
+argument_list|,
+name|before
 argument_list|)
 expr_stmt|;
 return|return

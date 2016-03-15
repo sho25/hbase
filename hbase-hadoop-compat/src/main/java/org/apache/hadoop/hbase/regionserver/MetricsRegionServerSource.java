@@ -644,6 +644,11 @@ init|=
 literal|"delete"
 decl_stmt|;
 name|String
+name|GET_SIZE_KEY
+init|=
+literal|"getSize"
+decl_stmt|;
+name|String
 name|GET_KEY
 init|=
 literal|"get"
