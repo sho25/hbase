@@ -130,7 +130,7 @@ name|setProperty
 argument_list|(
 literal|"shell.test.exclude"
 argument_list|,
-literal|"replication_admin_test.rb"
+literal|"replication_admin_test.rb,rsgroup_shell_test.rb"
 argument_list|)
 expr_stmt|;
 comment|// Start all ruby tests

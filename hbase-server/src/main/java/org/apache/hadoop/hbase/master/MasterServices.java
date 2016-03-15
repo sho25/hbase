@@ -703,6 +703,12 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @return load balancer    */
+specifier|public
+name|LoadBalancer
+name|getLoadBalancer
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

@@ -2295,6 +2295,15 @@ operator|-
 literal|1
 return|;
 block|}
+specifier|public
+name|LoadBalancer
+name|getLoadBalancer
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public

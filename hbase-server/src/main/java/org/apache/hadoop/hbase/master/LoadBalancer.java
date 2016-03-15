@@ -210,6 +210,17 @@ name|Stoppable
 extends|,
 name|ConfigurationObserver
 block|{
+comment|//used to signal to the caller that the region(s) cannot be assigned
+name|ServerName
+name|BOGUS_SERVER_NAME
+init|=
+name|ServerName
+operator|.
+name|parseServerName
+argument_list|(
+literal|"localhost,1,1"
+argument_list|)
+decl_stmt|;
 comment|/**    * Set the current cluster status.  This allows a LoadBalancer to map host name to a server    * @param st    */
 name|void
 name|setClusterStatus

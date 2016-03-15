@@ -2132,8 +2132,7 @@ name|valueOf
 argument_list|(
 literal|"localhost"
 argument_list|,
-operator|-
-literal|1
+literal|0
 argument_list|,
 literal|1L
 argument_list|)
