@@ -165,7 +165,9 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.ipc.server.max.callqueue.length"
+name|RpcScheduler
+operator|.
+name|IPC_SERVER_MAX_CALLQUEUE_LENGTH
 argument_list|,
 name|handlerCount
 operator|*

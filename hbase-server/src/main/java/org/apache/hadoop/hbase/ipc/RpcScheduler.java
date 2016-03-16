@@ -112,6 +112,22 @@ specifier|abstract
 class|class
 name|RpcScheduler
 block|{
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|IPC_SERVER_MAX_CALLQUEUE_LENGTH
+init|=
+literal|"hbase.ipc.server.max.callqueue.length"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|IPC_SERVER_PRIORITY_MAX_CALLQUEUE_LENGTH
+init|=
+literal|"hbase.ipc.server.priority.max.callqueue.length"
+decl_stmt|;
 comment|/** Exposes runtime information of a {@code RpcServer} that a {@code RpcScheduler} may need. */
 specifier|static
 specifier|abstract
