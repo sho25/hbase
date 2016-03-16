@@ -9048,6 +9048,21 @@ literal|null
 condition|)
 block|{
 comment|// we do not know which region, so just remove the cache entry for the row and server
+if|if
+condition|(
+name|metrics
+operator|!=
+literal|null
+condition|)
+block|{
+name|metrics
+operator|.
+name|incrCacheDroppingExceptions
+argument_list|(
+name|exception
+argument_list|)
+expr_stmt|;
+block|}
 name|metaCache
 operator|.
 name|clearCache
@@ -9234,6 +9249,21 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+block|}
+if|if
+condition|(
+name|metrics
+operator|!=
+literal|null
+condition|)
+block|{
+name|metrics
+operator|.
+name|incrCacheDroppingExceptions
+argument_list|(
+name|exception
+argument_list|)
+expr_stmt|;
 block|}
 comment|// If we're here, it means that can cannot be sure about the location, so we remove it from
 comment|// the cache. Do not send the source because source can be a new server in the same host:port

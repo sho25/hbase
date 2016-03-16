@@ -6077,6 +6077,13 @@ condition|(
 name|tableName
 operator|==
 literal|null
+operator|&&
+name|ClientExceptionsUtil
+operator|.
+name|isMetaClearingException
+argument_list|(
+name|t
+argument_list|)
 condition|)
 block|{
 comment|// tableName is null when we made a cross-table RPC call.
