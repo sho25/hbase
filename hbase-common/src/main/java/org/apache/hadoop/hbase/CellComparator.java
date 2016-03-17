@@ -1863,7 +1863,7 @@ name|rlength
 argument_list|)
 return|;
 block|}
-specifier|private
+specifier|public
 specifier|static
 name|int
 name|compareWithoutRow
