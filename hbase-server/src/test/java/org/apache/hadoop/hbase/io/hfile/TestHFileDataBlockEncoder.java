@@ -627,12 +627,12 @@ name|assertEquals
 argument_list|(
 name|block
 operator|.
-name|getBufferWithHeader
+name|getBufferReadOnly
 argument_list|()
 argument_list|,
 name|returnedBlock
 operator|.
-name|getBufferWithHeader
+name|getBufferReadOnly
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -843,6 +843,9 @@ argument_list|,
 literal|0
 argument_list|,
 literal|0
+argument_list|,
+operator|-
+literal|1
 argument_list|,
 name|hfileContext
 argument_list|)
@@ -1248,6 +1251,9 @@ literal|0
 argument_list|,
 literal|0
 argument_list|,
+operator|-
+literal|1
+argument_list|,
 name|meta
 argument_list|)
 decl_stmt|;
@@ -1426,6 +1432,9 @@ name|block
 operator|.
 name|getOnDiskDataSizeWithHeader
 argument_list|()
+argument_list|,
+operator|-
+literal|1
 argument_list|,
 name|block
 operator|.

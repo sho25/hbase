@@ -171,12 +171,16 @@ name|Cell
 name|getCell
 parameter_list|()
 function_decl|;
-comment|/**    * Convenience method to get a copy of the key as a string - interpreting the    * bytes as UTF8. You must call {@link #seekTo(Cell)} before this method.    * @return key as a string    */
+comment|/**    * Convenience method to get a copy of the key as a string - interpreting the    * bytes as UTF8. You must call {@link #seekTo(Cell)} before this method.    * @return key as a string    * @deprecated Since hbase-2.0.0    */
+annotation|@
+name|Deprecated
 name|String
 name|getKeyString
 parameter_list|()
 function_decl|;
-comment|/**    * Convenience method to get a copy of the value as a string - interpreting    * the bytes as UTF8. You must call {@link #seekTo(Cell)} before this method.    * @return value as a string    */
+comment|/**    * Convenience method to get a copy of the value as a string - interpreting    * the bytes as UTF8. You must call {@link #seekTo(Cell)} before this method.    * @return value as a string    * @deprecated Since hbase-2.0.0    */
+annotation|@
+name|Deprecated
 name|String
 name|getValueString
 parameter_list|()

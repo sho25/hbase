@@ -1161,9 +1161,6 @@ name|offset
 argument_list|,
 name|onDiskSize
 argument_list|,
-operator|-
-literal|1
-argument_list|,
 name|pread
 argument_list|)
 expr_stmt|;

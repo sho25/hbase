@@ -1379,11 +1379,6 @@ operator|.
 name|getLoadOnOpenDataOffset
 argument_list|()
 expr_stmt|;
-name|HFileBlock
-name|prevBlock
-init|=
-literal|null
-decl_stmt|;
 if|if
 condition|(
 name|LOG
@@ -1413,6 +1408,12 @@ name|end
 argument_list|)
 expr_stmt|;
 block|}
+comment|// TODO: Could we use block iterator in here? Would that get stuff into the cache?
+name|HFileBlock
+name|prevBlock
+init|=
+literal|null
+decl_stmt|;
 while|while
 condition|(
 name|offset
@@ -1430,27 +1431,25 @@ condition|)
 block|{
 break|break;
 block|}
+comment|// Perhaps we got our block from cache? Unlikely as this may be, if it happens, then
+comment|// the internal-to-hfileblock thread local which holds the overread that gets the
+comment|// next header, will not have happened...so, pass in the onDiskSize gotten from the
+comment|// cached block. This 'optimization' triggers extremely rarely I'd say.
 name|long
 name|onDiskSize
 init|=
-operator|-
-literal|1
-decl_stmt|;
-if|if
-condition|(
 name|prevBlock
 operator|!=
 literal|null
-condition|)
-block|{
-name|onDiskSize
-operator|=
+condition|?
 name|prevBlock
 operator|.
-name|getNextBlockOnDiskSizeWithHeader
+name|getNextBlockOnDiskSize
 argument_list|()
-expr_stmt|;
-block|}
+else|:
+operator|-
+literal|1
+decl_stmt|;
 name|HFileBlock
 name|block
 init|=
@@ -4190,7 +4189,7 @@ argument_list|()
 argument_list|,
 name|block
 operator|.
-name|getNextBlockOnDiskSizeWithHeader
+name|getNextBlockOnDiskSize
 argument_list|()
 argument_list|,
 name|cacheBlocks
@@ -6649,9 +6648,6 @@ name|metaBlockOffset
 argument_list|,
 name|blockSize
 argument_list|,
-operator|-
-literal|1
-argument_list|,
 literal|true
 argument_list|)
 operator|.
@@ -7065,9 +7061,6 @@ argument_list|(
 name|dataBlockOffset
 argument_list|,
 name|onDiskBlockSize
-argument_list|,
-operator|-
-literal|1
 argument_list|,
 name|pread
 argument_list|)
@@ -8423,6 +8416,8 @@ block|}
 comment|/**    * Create a Scanner on this file. No seeks or reads are done on creation. Call    * {@link HFileScanner#seekTo(Cell)} to position an start the read. There is    * nothing to clean up in a Scanner. Letting go of your references to the    * scanner is sufficient. NOTE: Do not use this overload of getScanner for    * compactions. See {@link #getScanner(boolean, boolean, boolean)}    *    * @param cacheBlocks True if we should cache blocks read in by this scanner.    * @param pread Use positional read rather than seek+read if true (pread is    *          better for random reads, seek+read is better scanning).    * @return Scanner on this file.    */
 annotation|@
 name|Override
+annotation|@
+name|VisibleForTesting
 specifier|public
 name|HFileScanner
 name|getScanner

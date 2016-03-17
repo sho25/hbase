@@ -1853,11 +1853,6 @@ name|offset
 init|=
 literal|0
 decl_stmt|;
-name|HFileBlock
-name|prevBlock
-init|=
-literal|null
-decl_stmt|;
 name|EnumMap
 argument_list|<
 name|BlockType
@@ -1932,27 +1927,6 @@ name|getLoadOnOpenDataOffset
 argument_list|()
 condition|)
 block|{
-name|long
-name|onDiskSize
-init|=
-operator|-
-literal|1
-decl_stmt|;
-if|if
-condition|(
-name|prevBlock
-operator|!=
-literal|null
-condition|)
-block|{
-name|onDiskSize
-operator|=
-name|prevBlock
-operator|.
-name|getNextBlockOnDiskSizeWithHeader
-argument_list|()
-expr_stmt|;
-block|}
 comment|// Flags: don't cache the block, use pread, this is not a compaction.
 comment|// Also, pass null for expected block type to avoid checking it.
 name|HFileBlock
@@ -1964,7 +1938,8 @@ name|readBlock
 argument_list|(
 name|offset
 argument_list|,
-name|onDiskSize
+operator|-
+literal|1
 argument_list|,
 literal|false
 argument_list|,
@@ -2235,10 +2210,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|prevBlock
-operator|=
-name|block
-expr_stmt|;
 name|offset
 operator|+=
 name|block

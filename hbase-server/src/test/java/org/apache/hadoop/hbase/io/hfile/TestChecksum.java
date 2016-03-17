@@ -744,9 +744,6 @@ argument_list|,
 operator|-
 literal|1
 argument_list|,
-operator|-
-literal|1
-argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
@@ -911,6 +908,7 @@ condition|;
 operator|++
 name|i
 control|)
+block|{
 name|dos
 operator|.
 name|writeInt
@@ -918,6 +916,7 @@ argument_list|(
 name|i
 argument_list|)
 expr_stmt|;
+block|}
 name|hbw
 operator|.
 name|writeHeaderAndData
@@ -1006,9 +1005,6 @@ operator|.
 name|readBlockData
 argument_list|(
 literal|0
-argument_list|,
-operator|-
-literal|1
 argument_list|,
 operator|-
 literal|1
@@ -1389,9 +1385,6 @@ argument_list|,
 operator|-
 literal|1
 argument_list|,
-operator|-
-literal|1
-argument_list|,
 name|pread
 argument_list|)
 decl_stmt|;
@@ -1524,9 +1517,6 @@ argument_list|,
 operator|-
 literal|1
 argument_list|,
-operator|-
-literal|1
-argument_list|,
 name|pread
 argument_list|)
 expr_stmt|;
@@ -1554,9 +1544,6 @@ argument_list|,
 operator|-
 literal|1
 argument_list|,
-operator|-
-literal|1
-argument_list|,
 name|pread
 argument_list|)
 expr_stmt|;
@@ -1579,9 +1566,6 @@ operator|.
 name|readBlockData
 argument_list|(
 literal|0
-argument_list|,
-operator|-
-literal|1
 argument_list|,
 operator|-
 literal|1
@@ -1664,9 +1648,6 @@ operator|.
 name|readBlockData
 argument_list|(
 literal|0
-argument_list|,
-operator|-
-literal|1
 argument_list|,
 operator|-
 literal|1
@@ -2142,9 +2123,6 @@ operator|.
 name|readBlockData
 argument_list|(
 literal|0
-argument_list|,
-operator|-
-literal|1
 argument_list|,
 operator|-
 literal|1
