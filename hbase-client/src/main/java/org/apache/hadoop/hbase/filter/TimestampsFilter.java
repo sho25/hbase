@@ -81,6 +81,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -182,6 +196,11 @@ name|TimestampsFilter
 extends|extends
 name|FilterBase
 block|{
+specifier|private
+specifier|final
+name|boolean
+name|canHint
+decl_stmt|;
 name|TreeSet
 argument_list|<
 name|Long
@@ -205,7 +224,7 @@ name|Long
 operator|.
 name|MAX_VALUE
 decl_stmt|;
-comment|/**    * Constructor for filter that retains only those    * cells whose timestamp (version) is in the specified    * list of timestamps.    *    * @param timestamps    */
+comment|/**    * Constructor for filter that retains only the specified timestamps in the list.    * @param timestamps    */
 specifier|public
 name|TimestampsFilter
 parameter_list|(
@@ -214,6 +233,28 @@ argument_list|<
 name|Long
 argument_list|>
 name|timestamps
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|timestamps
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Constructor for filter that retains only those    * cells whose timestamp (version) is in the specified    * list of timestamps.    *    * @param timestamps list of timestamps that are wanted.    * @param canHint should the filter provide a seek hint? This can skip    *                past delete tombstones, so it should only be used when that    *                is not an issue ( no deletes, or don't care if data    *                becomes visible)    */
+specifier|public
+name|TimestampsFilter
+parameter_list|(
+name|List
+argument_list|<
+name|Long
+argument_list|>
+name|timestamps
+parameter_list|,
+name|boolean
+name|canHint
 parameter_list|)
 block|{
 for|for
@@ -238,6 +279,12 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|canHint
+operator|=
+name|canHint
+expr_stmt|;
 name|this
 operator|.
 name|timestamps
@@ -399,9 +446,90 @@ name|NEXT_COL
 return|;
 block|}
 return|return
+name|canHint
+condition|?
+name|ReturnCode
+operator|.
+name|SEEK_NEXT_USING_HINT
+else|:
 name|ReturnCode
 operator|.
 name|SKIP
+return|;
+block|}
+comment|/**    * Pick the next cell that the scanner should seek to. Since this can skip any number of cells    * any of which can be a delete this can resurect old data.    *    * The method will only be used if canHint was set to true while creating the filter.    *    * @throws IOException This will never happen.    */
+specifier|public
+name|Cell
+name|getNextCellHint
+parameter_list|(
+name|Cell
+name|currentCell
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+operator|!
+name|canHint
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
+name|Long
+name|nextTimestampObject
+init|=
+name|timestamps
+operator|.
+name|lower
+argument_list|(
+name|currentCell
+operator|.
+name|getTimestamp
+argument_list|()
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|nextTimestampObject
+operator|==
+literal|null
+condition|)
+block|{
+comment|// This should only happen if the current column's
+comment|// timestamp is below the last one in the list.
+comment|//
+comment|// It should never happen as the filterKeyValue should return NEXT_COL
+comment|// but it's always better to be extra safe and protect against future
+comment|// behavioral changes.
+return|return
+name|CellUtil
+operator|.
+name|createLastOnRowCol
+argument_list|(
+name|currentCell
+argument_list|)
+return|;
+block|}
+comment|// Since we know the nextTimestampObject isn't null here there must still be
+comment|// timestamps that can be included. Cast the Long to a long and return the
+comment|// a cell with the current row/cf/col and the next found timestamp.
+name|long
+name|nextTimestamp
+init|=
+name|nextTimestampObject
+decl_stmt|;
+return|return
+name|CellUtil
+operator|.
+name|createFirstOnRowColTS
+argument_list|(
+name|currentCell
+argument_list|,
+name|nextTimestamp
+argument_list|)
 return|;
 block|}
 specifier|public
@@ -509,6 +637,13 @@ operator|.
 name|timestamps
 argument_list|)
 expr_stmt|;
+name|builder
+operator|.
+name|setCanHint
+argument_list|(
+name|canHint
+argument_list|)
+expr_stmt|;
 return|return
 name|builder
 operator|.
@@ -519,7 +654,7 @@ name|toByteArray
 argument_list|()
 return|;
 block|}
-comment|/**    * @param pbBytes A pb serialized {@link TimestampsFilter} instance    * @return An instance of {@link TimestampsFilter} made from<code>bytes</code>    * @throws DeserializationException    * @see #toByteArray    */
+comment|/**    * @param pbBytes A pb serialized {@link TimestampsFilter} instance    *    * @return An instance of {@link TimestampsFilter} made from<code>bytes</code>    * @see #toByteArray    */
 specifier|public
 specifier|static
 name|TimestampsFilter
@@ -573,6 +708,16 @@ argument_list|(
 name|proto
 operator|.
 name|getTimestampsList
+argument_list|()
+argument_list|,
+name|proto
+operator|.
+name|hasCanHint
+argument_list|()
+operator|&&
+name|proto
+operator|.
+name|getCanHint
 argument_list|()
 argument_list|)
 return|;
@@ -725,7 +870,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"%s (%d/%d): [%s]"
+literal|"%s (%d/%d): [%s] canHint: [%b]"
 argument_list|,
 name|this
 operator|.
@@ -748,6 +893,8 @@ name|tsList
 operator|.
 name|toString
 argument_list|()
+argument_list|,
+name|canHint
 argument_list|)
 return|;
 block|}
