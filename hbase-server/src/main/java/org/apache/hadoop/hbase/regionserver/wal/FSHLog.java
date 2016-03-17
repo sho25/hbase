@@ -7576,8 +7576,15 @@ operator|<=
 literal|0
 condition|)
 return|return;
-comment|// Below expects that the offer 'transfers' responsibility for the outstanding syncs to
-comment|// the syncRunner. We should never get an exception in here.
+comment|// syncRunnerIndex is bound to the range [0, Integer.MAX_INT - 1] as follows:
+comment|//   * The maximum value possible for syncRunners.length is Integer.MAX_INT
+comment|//   * syncRunnerIndex starts at 0 and is incremented only here
+comment|//   * after the increment, the value is bounded by the '%' operator to [0, syncRunners.length),
+comment|//     presuming the value was positive prior to the '%' operator.
+comment|//   * after being bound to [0, Integer.MAX_INT - 1], the new value is stored in syncRunnerIndex
+comment|//     ensuring that it can't grow without bound and overflow.
+comment|//   * note that the value after the increment must be positive, because the most it could have
+comment|//     been prior was Integer.MAX_INT - 1 and we only increment by 1.
 name|this
 operator|.
 name|syncRunnerIndex
@@ -7598,6 +7605,8 @@ name|length
 expr_stmt|;
 try|try
 block|{
+comment|// Below expects that the offer 'transfers' responsibility for the outstanding syncs to
+comment|// the syncRunner. We should never get an exception in here.
 name|this
 operator|.
 name|syncRunners
