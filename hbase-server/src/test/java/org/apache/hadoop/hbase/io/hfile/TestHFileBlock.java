@@ -2262,9 +2262,6 @@ argument_list|,
 operator|-
 literal|1
 argument_list|,
-operator|-
-literal|1
-argument_list|,
 name|pread
 argument_list|)
 decl_stmt|;
@@ -2373,9 +2370,6 @@ operator|.
 name|totalChecksumBytes
 argument_list|()
 argument_list|,
-operator|-
-literal|1
-argument_list|,
 name|pread
 argument_list|)
 expr_stmt|;
@@ -2407,9 +2401,6 @@ name|HConstants
 operator|.
 name|HFILEBLOCK_HEADER_SIZE
 argument_list|,
-operator|-
-literal|1
-argument_list|,
 name|pread
 argument_list|)
 expr_stmt|;
@@ -2428,18 +2419,7 @@ block|{
 name|String
 name|expectedPrefix
 init|=
-literal|"On-disk size without header provided is "
-operator|+
-name|wrongCompressedSize
-operator|+
-literal|", but block header contains "
-operator|+
-name|b
-operator|.
-name|getOnDiskSizeWithoutHeader
-argument_list|()
-operator|+
-literal|"."
+literal|"Passed in onDiskSizeWithHeader="
 decl_stmt|;
 name|assertTrue
 argument_list|(
@@ -2952,9 +2932,6 @@ operator|.
 name|readBlockData
 argument_list|(
 name|pos
-argument_list|,
-operator|-
-literal|1
 argument_list|,
 operator|-
 literal|1
@@ -3859,9 +3836,6 @@ argument_list|,
 operator|-
 literal|1
 argument_list|,
-operator|-
-literal|1
-argument_list|,
 name|pread
 argument_list|)
 decl_stmt|;
@@ -3968,9 +3942,6 @@ name|b
 operator|.
 name|getOnDiskSizeWithHeader
 argument_list|()
-argument_list|,
-operator|-
-literal|1
 argument_list|,
 name|pread
 argument_list|)
@@ -4124,7 +4095,7 @@ name|bufRead
 init|=
 name|b
 operator|.
-name|getBufferWithHeader
+name|getBufferReadOnly
 argument_list|()
 decl_stmt|;
 name|ByteBuffer
@@ -4637,9 +4608,6 @@ argument_list|(
 name|offset
 argument_list|,
 name|onDiskSizeArg
-argument_list|,
-operator|-
-literal|1
 argument_list|,
 name|pread
 argument_list|)
@@ -5655,6 +5623,9 @@ operator|-
 literal|1
 argument_list|,
 literal|0
+argument_list|,
+operator|-
+literal|1
 argument_list|,
 name|meta
 argument_list|)

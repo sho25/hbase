@@ -23,6 +23,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|Closeable
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -101,6 +111,8 @@ interface|interface
 name|KeyValueScanner
 extends|extends
 name|Shipper
+extends|,
+name|Closeable
 block|{
 comment|/**    * The byte array represents for NO_NEXT_INDEXED_KEY;    * The actual value is irrelevant because this is always compared by reference.    */
 specifier|public
@@ -146,6 +158,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Get the sequence id associated with this KeyValueScanner. This is required    * for comparing multiple files to find out which one has the latest data.    * The default implementation for this would be to return 0. A file having    * lower sequence id will be considered to be the older one.    */
+comment|// TODO: Implement SequenceId Interface instead.
 name|long
 name|getSequenceID
 parameter_list|()

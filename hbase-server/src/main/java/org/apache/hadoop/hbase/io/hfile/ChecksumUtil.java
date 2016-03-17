@@ -308,7 +308,7 @@ name|IOException
 block|{
 comment|// If this is an older version of the block that does not have
 comment|// checksums, then return false indicating that checksum verification
-comment|// did not succeed. Actually, this methiod should never be called
+comment|// did not succeed. Actually, this method should never be called
 comment|// when the minorVersion is 0, thus this is a defensive check for a
 comment|// cannot-happen case. Since this is a cannot-happen case, it is
 comment|// better to return false to indicate a checksum validation failure.

@@ -1478,9 +1478,6 @@ argument_list|,
 operator|-
 literal|1
 argument_list|,
-operator|-
-literal|1
-argument_list|,
 literal|false
 argument_list|)
 operator|.
@@ -1899,9 +1896,6 @@ operator|.
 name|readBlockData
 argument_list|(
 name|curBlockPos
-argument_list|,
-operator|-
-literal|1
 argument_list|,
 operator|-
 literal|1
