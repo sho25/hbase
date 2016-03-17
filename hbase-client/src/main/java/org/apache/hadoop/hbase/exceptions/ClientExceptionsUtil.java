@@ -480,6 +480,9 @@ return|return
 name|cur
 return|;
 block|}
+comment|// When we receive RemoteException which wraps IOException which has a cause as
+comment|// RemoteException we can get into infinite loop here; so if the cause of the exception
+comment|// is RemoteException, we shouldn't look further.
 block|}
 elseif|else
 if|if
@@ -490,6 +493,16 @@ name|getCause
 argument_list|()
 operator|!=
 literal|null
+operator|&&
+operator|!
+operator|(
+name|cur
+operator|.
+name|getCause
+argument_list|()
+operator|instanceof
+name|RemoteException
+operator|)
 condition|)
 block|{
 name|cur
