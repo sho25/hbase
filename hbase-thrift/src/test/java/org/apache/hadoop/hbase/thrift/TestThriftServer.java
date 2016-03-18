@@ -1486,11 +1486,7 @@ name|createTable
 argument_list|(
 name|tableBname
 argument_list|,
-operator|new
-name|ArrayList
-argument_list|<
-name|ColumnDescriptor
-argument_list|>
+name|getColumnDescriptors
 argument_list|()
 argument_list|)
 expr_stmt|;

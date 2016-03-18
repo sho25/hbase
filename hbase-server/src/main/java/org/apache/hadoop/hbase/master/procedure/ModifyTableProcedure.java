@@ -141,6 +141,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|DoNotRetryIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -1467,6 +1481,35 @@ name|TableNotFoundException
 argument_list|(
 name|getTableName
 argument_list|()
+argument_list|)
+throw|;
+block|}
+comment|// check that we have at least 1 CF
+if|if
+condition|(
+name|modifiedHTableDescriptor
+operator|.
+name|getColumnFamilies
+argument_list|()
+operator|.
+name|length
+operator|==
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+literal|"Table "
+operator|+
+name|getTableName
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" should have at least one column family."
 argument_list|)
 throw|;
 block|}

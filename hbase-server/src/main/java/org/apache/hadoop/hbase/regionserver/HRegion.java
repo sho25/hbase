@@ -4743,6 +4743,34 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|//Refuse to open the region if there is no column family in the table
+if|if
+condition|(
+name|htableDescriptor
+operator|.
+name|getColumnFamilies
+argument_list|()
+operator|.
+name|length
+operator|==
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+literal|"Table "
+operator|+
+name|htableDescriptor
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|" should have at least one column family."
+argument_list|)
+throw|;
+block|}
 name|MonitoredTask
 name|status
 init|=
