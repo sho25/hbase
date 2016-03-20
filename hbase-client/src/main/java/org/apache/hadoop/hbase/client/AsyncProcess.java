@@ -1695,7 +1695,7 @@ comment|// Remember the previous decisions about regions or region servers we pu
 comment|//  final multi.
 name|Map
 argument_list|<
-name|Long
+name|HRegionInfo
 argument_list|,
 name|Boolean
 argument_list|>
@@ -1704,7 +1704,7 @@ init|=
 operator|new
 name|HashMap
 argument_list|<
-name|Long
+name|HRegionInfo
 argument_list|,
 name|Boolean
 argument_list|>
@@ -2364,7 +2364,7 @@ name|loc
 parameter_list|,
 name|Map
 argument_list|<
-name|Long
+name|HRegionInfo
 argument_list|,
 name|Boolean
 argument_list|>
@@ -2379,15 +2379,12 @@ argument_list|>
 name|serversIncluded
 parameter_list|)
 block|{
-name|long
-name|regionId
+name|HRegionInfo
+name|regionInfo
 init|=
 name|loc
 operator|.
 name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionId
 argument_list|()
 decl_stmt|;
 name|Boolean
@@ -2397,7 +2394,7 @@ name|regionsIncluded
 operator|.
 name|get
 argument_list|(
-name|regionId
+name|regionInfo
 argument_list|)
 decl_stmt|;
 if|if
@@ -2442,7 +2439,7 @@ name|regionsIncluded
 operator|.
 name|put
 argument_list|(
-name|regionId
+name|regionInfo
 argument_list|,
 name|Boolean
 operator|.
@@ -2488,7 +2485,7 @@ name|regionsIncluded
 operator|.
 name|put
 argument_list|(
-name|regionId
+name|regionInfo
 argument_list|,
 name|Boolean
 operator|.
@@ -2604,7 +2601,7 @@ name|regionsIncluded
 operator|.
 name|put
 argument_list|(
-name|regionId
+name|regionInfo
 argument_list|,
 name|Boolean
 operator|.
@@ -2661,7 +2658,7 @@ name|regionsIncluded
 operator|.
 name|put
 argument_list|(
-name|regionId
+name|regionInfo
 argument_list|,
 name|Boolean
 operator|.
