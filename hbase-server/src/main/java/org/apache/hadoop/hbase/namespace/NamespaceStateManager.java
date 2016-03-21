@@ -712,7 +712,7 @@ operator|.
 name|getNameAsString
 argument_list|()
 operator|+
-literal|"cannot be created as it would exceed maximum number of tables allowed "
+literal|" cannot be created as it would exceed maximum number of tables allowed "
 operator|+
 literal|" in the namespace.  The total number of tables permitted is "
 operator|+
