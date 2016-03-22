@@ -1305,6 +1305,16 @@ name|RPC_MUTATE_REQUEST_COUNT_DESC
 init|=
 literal|"Number of rpc mutation requests this region server has answered."
 decl_stmt|;
+name|String
+name|AVERAGE_REGION_SIZE
+init|=
+literal|"averageRegionSize"
+decl_stmt|;
+name|String
+name|AVERAGE_REGION_SIZE_DESC
+init|=
+literal|"Average region size over the region server including memstore and storefile sizes."
+decl_stmt|;
 block|}
 end_interface
 

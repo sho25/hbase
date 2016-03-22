@@ -409,6 +409,11 @@ name|long
 name|getRpcMutateRequestsCount
 parameter_list|()
 function_decl|;
+comment|/**    * Get the average region size to this region server.    */
+name|long
+name|getAverageRegionSize
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

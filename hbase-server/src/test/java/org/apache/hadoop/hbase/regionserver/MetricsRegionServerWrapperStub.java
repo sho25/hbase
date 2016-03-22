@@ -869,6 +869,17 @@ return|return
 literal|50
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getAverageRegionSize
+parameter_list|()
+block|{
+return|return
+literal|10000000
+return|;
+block|}
 block|}
 end_class
 
