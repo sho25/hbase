@@ -1026,7 +1026,7 @@ operator|=
 operator|new
 name|RWQueueRpcExecutor
 argument_list|(
-literal|"B.default"
+literal|"RW.default"
 argument_list|,
 name|handlerCount
 argument_list|,

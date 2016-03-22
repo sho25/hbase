@@ -143,6 +143,22 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
 begin_comment
 comment|/**  * Adaptive LIFO blocking queue utilizing CoDel algorithm to prevent queue overloading.  *  * Implementing {@link BlockingQueue} interface to be compatible with {@link RpcExecutor}.  *  * Currently uses milliseconds internally, need to look into whether we should use  * nanoseconds for timeInterval and minDelay.  *  * @see<a href="http://queue.acm.org/detail.cfm?id=2839461">Fail at Scale paper</a>  *  * @see<a href="https://github.com/facebook/wangle/blob/master/wangle/concurrent/Codel.cpp">  *   CoDel version for generic job queues in Wangle library</a>  */
 end_comment
@@ -223,9 +239,9 @@ specifier|volatile
 name|long
 name|intervalTime
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 comment|// switch to ensure only one threads does interval cutoffs
@@ -467,9 +483,9 @@ block|{
 name|long
 name|now
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 name|long
