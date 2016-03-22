@@ -1973,6 +1973,13 @@ name|errorHandler
 init|=
 literal|null
 decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|MAX_REQUEST_SIZE
+init|=
+literal|"hbase.ipc.max.request.size"
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -1990,6 +1997,17 @@ init|=
 literal|"hbase.ipc.warn.response.size"
 decl_stmt|;
 comment|/** Default value for above params */
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_MAX_REQUEST_SIZE
+init|=
+name|DEFAULT_MAX_CALLQUEUE_SIZE
+operator|/
+literal|4
+decl_stmt|;
+comment|// 256M
 specifier|private
 specifier|static
 specifier|final
@@ -2020,6 +2038,11 @@ init|=
 operator|new
 name|ObjectMapper
 argument_list|()
+decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|maxRequestSize
 decl_stmt|;
 specifier|private
 specifier|final
@@ -8320,7 +8343,7 @@ block|{
 comment|// A data length of zero is legal.
 throw|throw
 operator|new
-name|IllegalArgumentException
+name|DoNotRetryIOException
 argument_list|(
 literal|"Unexpected data length "
 operator|+
@@ -8333,7 +8356,38 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
-comment|// TODO: check dataLength against some limit so that the client cannot OOM the server
+if|if
+condition|(
+name|dataLength
+operator|>
+name|maxRequestSize
+condition|)
+block|{
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+literal|"RPC data length of "
+operator|+
+name|dataLength
+operator|+
+literal|" received from "
+operator|+
+name|getHostAddress
+argument_list|()
+operator|+
+literal|" is greater than max allowed "
+operator|+
+name|maxRequestSize
+operator|+
+literal|". Set \""
+operator|+
+name|MAX_REQUEST_SIZE
+operator|+
+literal|"\" on server to override this limit (not recommended)"
+argument_list|)
+throw|;
+block|}
 name|data
 operator|=
 name|ByteBuffer
@@ -10695,6 +10749,19 @@ argument_list|(
 name|WARN_RESPONSE_SIZE
 argument_list|,
 name|DEFAULT_WARN_RESPONSE_SIZE
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|maxRequestSize
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|MAX_REQUEST_SIZE
+argument_list|,
+name|DEFAULT_MAX_REQUEST_SIZE
 argument_list|)
 expr_stmt|;
 comment|// Start the listener here and let it bind to the port
