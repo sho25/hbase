@@ -151,6 +151,11 @@ argument_list|>
 name|getCommittedFiles
 parameter_list|()
 function_decl|;
+comment|/**    * @return the total file size for flush output files, in bytes    */
+name|long
+name|getOutputFileSize
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

@@ -995,6 +995,11 @@ name|long
 name|getFlushedCellsSize
 parameter_list|()
 function_decl|;
+comment|/**    * @return The total size of out output files on disk, in bytes    */
+name|long
+name|getFlushedOutputFileSize
+parameter_list|()
+function_decl|;
 comment|/**    * @return The number of cells processed during minor compactions    */
 name|long
 name|getCompactedCellsCount

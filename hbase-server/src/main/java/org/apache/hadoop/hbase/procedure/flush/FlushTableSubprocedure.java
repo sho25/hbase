@@ -365,6 +365,7 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+comment|// TODO: flush result is not checked?
 block|}
 finally|finally
 block|{

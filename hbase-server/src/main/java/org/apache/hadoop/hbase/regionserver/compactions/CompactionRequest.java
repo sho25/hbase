@@ -521,6 +521,9 @@ name|other
 operator|.
 name|totalSize
 expr_stmt|;
+name|recalculateSize
+argument_list|()
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -901,6 +904,8 @@ name|StoreFile
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|apply
@@ -930,6 +935,8 @@ name|String
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|String
 name|apply

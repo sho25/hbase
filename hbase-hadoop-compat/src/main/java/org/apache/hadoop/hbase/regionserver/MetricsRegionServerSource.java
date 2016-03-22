@@ -185,6 +185,77 @@ name|long
 name|t
 parameter_list|)
 function_decl|;
+comment|/**    * Update the flush memstore size histogram    * @param bytes the number of bytes in the memstore    */
+name|void
+name|updateFlushMemstoreSize
+parameter_list|(
+name|long
+name|bytes
+parameter_list|)
+function_decl|;
+comment|/**    * Update the flush output file size histogram    * @param bytes the number of bytes in the output file    */
+name|void
+name|updateFlushOutputSize
+parameter_list|(
+name|long
+name|bytes
+parameter_list|)
+function_decl|;
+comment|/**    * Update the compaction time histogram, both major and minor    * @param isMajor whether compaction is a major compaction    * @param t time it took, in milliseconds    */
+name|void
+name|updateCompactionTime
+parameter_list|(
+name|boolean
+name|isMajor
+parameter_list|,
+name|long
+name|t
+parameter_list|)
+function_decl|;
+comment|/**    * Update the compaction input number of files histogram    * @param isMajor whether compaction is a major compaction    * @param c number of files    */
+name|void
+name|updateCompactionInputFileCount
+parameter_list|(
+name|boolean
+name|isMajor
+parameter_list|,
+name|long
+name|c
+parameter_list|)
+function_decl|;
+comment|/**    * Update the compaction total input file size histogram    * @param isMajor whether compaction is a major compaction    * @param bytes the number of bytes of the compaction input file    */
+name|void
+name|updateCompactionInputSize
+parameter_list|(
+name|boolean
+name|isMajor
+parameter_list|,
+name|long
+name|bytes
+parameter_list|)
+function_decl|;
+comment|/**    * Update the compaction output number of files histogram    * @param isMajor whether compaction is a major compaction    * @param c number of files    */
+name|void
+name|updateCompactionOutputFileCount
+parameter_list|(
+name|boolean
+name|isMajor
+parameter_list|,
+name|long
+name|c
+parameter_list|)
+function_decl|;
+comment|/**    * Update the compaction total output file size    * @param isMajor whether compaction is a major compaction    * @param bytes the number of bytes of the compaction input file    */
+name|void
+name|updateCompactionOutputSize
+parameter_list|(
+name|boolean
+name|isMajor
+parameter_list|,
+name|long
+name|bytes
+parameter_list|)
+function_decl|;
 comment|// Strings used for exporting to metrics system.
 name|String
 name|REGION_COUNT
@@ -455,6 +526,20 @@ name|String
 name|COMPACTION_QUEUE_LENGTH_DESC
 init|=
 literal|"Length of the queue for compactions."
+decl_stmt|;
+name|String
+name|LARGE_COMPACTION_QUEUE_LENGTH_DESC
+init|=
+literal|"Length of the queue for compactions with input size "
+operator|+
+literal|"larger than throttle threshold (2.5GB by default)"
+decl_stmt|;
+name|String
+name|SMALL_COMPACTION_QUEUE_LENGTH_DESC
+init|=
+literal|"Length of the queue for compactions with input size "
+operator|+
+literal|"smaller than throttle threshold (2.5GB by default)"
 decl_stmt|;
 name|String
 name|FLUSH_QUEUE_LENGTH
@@ -991,9 +1076,194 @@ init|=
 literal|"Number of successfully executed splits"
 decl_stmt|;
 name|String
-name|FLUSH_KEY
+name|FLUSH_TIME
 init|=
 literal|"flushTime"
+decl_stmt|;
+name|String
+name|FLUSH_TIME_DESC
+init|=
+literal|"Histogram for the time in millis for memstore flush"
+decl_stmt|;
+name|String
+name|FLUSH_MEMSTORE_SIZE
+init|=
+literal|"flushMemstoreSize"
+decl_stmt|;
+name|String
+name|FLUSH_MEMSTORE_SIZE_DESC
+init|=
+literal|"Histogram for number of bytes in the memstore for a flush"
+decl_stmt|;
+name|String
+name|FLUSH_OUTPUT_SIZE
+init|=
+literal|"flushOutputSize"
+decl_stmt|;
+name|String
+name|FLUSH_OUTPUT_SIZE_DESC
+init|=
+literal|"Histogram for number of bytes in the resulting file for a flush"
+decl_stmt|;
+name|String
+name|FLUSHED_OUTPUT_BYTES
+init|=
+literal|"flushedOutputBytes"
+decl_stmt|;
+name|String
+name|FLUSHED_OUTPUT_BYTES_DESC
+init|=
+literal|"Total number of bytes written from flush"
+decl_stmt|;
+name|String
+name|FLUSHED_MEMSTORE_BYTES
+init|=
+literal|"flushedMemstoreBytes"
+decl_stmt|;
+name|String
+name|FLUSHED_MEMSTORE_BYTES_DESC
+init|=
+literal|"Total number of bytes of cells in memstore from flush"
+decl_stmt|;
+name|String
+name|COMPACTION_TIME
+init|=
+literal|"compactionTime"
+decl_stmt|;
+name|String
+name|COMPACTION_TIME_DESC
+init|=
+literal|"Histogram for the time in millis for compaction, both major and minor"
+decl_stmt|;
+name|String
+name|COMPACTION_INPUT_FILE_COUNT
+init|=
+literal|"compactionInputFileCount"
+decl_stmt|;
+name|String
+name|COMPACTION_INPUT_FILE_COUNT_DESC
+init|=
+literal|"Histogram for the compaction input number of files, both major and minor"
+decl_stmt|;
+name|String
+name|COMPACTION_INPUT_SIZE
+init|=
+literal|"compactionInputSize"
+decl_stmt|;
+name|String
+name|COMPACTION_INPUT_SIZE_DESC
+init|=
+literal|"Histogram for the compaction total input file sizes, both major and minor"
+decl_stmt|;
+name|String
+name|COMPACTION_OUTPUT_FILE_COUNT
+init|=
+literal|"compactionOutputFileCount"
+decl_stmt|;
+name|String
+name|COMPACTION_OUTPUT_FILE_COUNT_DESC
+init|=
+literal|"Histogram for the compaction output number of files, both major and minor"
+decl_stmt|;
+name|String
+name|COMPACTION_OUTPUT_SIZE
+init|=
+literal|"compactionOutputSize"
+decl_stmt|;
+name|String
+name|COMPACTION_OUTPUT_SIZE_DESC
+init|=
+literal|"Histogram for the compaction total output file sizes, both major and minor"
+decl_stmt|;
+name|String
+name|COMPACTED_INPUT_BYTES
+init|=
+literal|"compactedInputBytes"
+decl_stmt|;
+name|String
+name|COMPACTED_INPUT_BYTES_DESC
+init|=
+literal|"Total number of bytes that is read for compaction, both major and minor"
+decl_stmt|;
+name|String
+name|COMPACTED_OUTPUT_BYTES
+init|=
+literal|"compactedOutputBytes"
+decl_stmt|;
+name|String
+name|COMPACTED_OUTPUT_BYTES_DESC
+init|=
+literal|"Total number of bytes that is output from compaction, both major and minor"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTION_TIME
+init|=
+literal|"majorCompactionTime"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTION_TIME_DESC
+init|=
+literal|"Histogram for the time in millis for compaction, major only"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTION_INPUT_FILE_COUNT
+init|=
+literal|"majorCompactionInputFileCount"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTION_INPUT_FILE_COUNT_DESC
+init|=
+literal|"Histogram for the compaction input number of files, major only"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTION_INPUT_SIZE
+init|=
+literal|"majorCompactionInputSize"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTION_INPUT_SIZE_DESC
+init|=
+literal|"Histogram for the compaction total input file sizes, major only"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTION_OUTPUT_FILE_COUNT
+init|=
+literal|"majorCompactionOutputFileCount"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTION_OUTPUT_FILE_COUNT_DESC
+init|=
+literal|"Histogram for the compaction output number of files, major only"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTION_OUTPUT_SIZE
+init|=
+literal|"majorCompactionOutputSize"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTION_OUTPUT_SIZE_DESC
+init|=
+literal|"Histogram for the compaction total output file sizes, major only"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTED_INPUT_BYTES
+init|=
+literal|"majorCompactedInputBytes"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTED_INPUT_BYTES_DESC
+init|=
+literal|"Total number of bytes that is read for compaction, major only"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTED_OUTPUT_BYTES
+init|=
+literal|"majorCompactedOutputBytes"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTED_OUTPUT_BYTES_DESC
+init|=
+literal|"Total number of bytes that is output from compaction, major only"
 decl_stmt|;
 name|String
 name|RPC_GET_REQUEST_COUNT

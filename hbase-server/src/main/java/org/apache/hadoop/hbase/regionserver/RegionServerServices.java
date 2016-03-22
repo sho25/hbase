@@ -676,6 +676,11 @@ name|double
 name|getFlushPressure
 parameter_list|()
 function_decl|;
+comment|/**    * @return the metrics tracker for the region server    */
+name|MetricsRegionServer
+name|getMetrics
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

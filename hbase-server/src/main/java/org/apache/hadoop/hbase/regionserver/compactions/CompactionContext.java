@@ -200,21 +200,6 @@ operator|=
 name|request
 expr_stmt|;
 block|}
-comment|/**    * Runs the compaction based on current selection. select/forceSelect must have been called.    * @return The new file paths resulting from compaction.    */
-specifier|public
-specifier|abstract
-name|List
-argument_list|<
-name|Path
-argument_list|>
-name|compact
-parameter_list|(
-name|ThroughputController
-name|throughputController
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 specifier|public
 specifier|abstract
 name|List

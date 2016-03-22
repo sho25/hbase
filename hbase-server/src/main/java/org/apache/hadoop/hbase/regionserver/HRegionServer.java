@@ -3984,6 +3984,8 @@ operator|new
 name|SignalHandler
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|handle
@@ -16831,6 +16833,17 @@ argument_list|,
 name|newConf
 argument_list|)
 expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|MetricsRegionServer
+name|getMetrics
+parameter_list|()
+block|{
+return|return
+name|metricsRegionServer
+return|;
 block|}
 block|}
 end_class
