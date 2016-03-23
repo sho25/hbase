@@ -1665,6 +1665,8 @@ name|ProtobufUtil
 operator|.
 name|getServerInfo
 argument_list|(
+literal|null
+argument_list|,
 name|client
 argument_list|)
 decl_stmt|;

@@ -752,6 +752,7 @@ literal|"hidden-start-key"
 argument_list|)
 decl_stmt|;
 comment|/** HRegionInfo for first meta region */
+comment|// TODO: How come Meta regions still do not have encoded region names? Fix.
 specifier|public
 specifier|static
 specifier|final

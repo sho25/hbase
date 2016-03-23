@@ -188,7 +188,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Base class which provides clients with an RPC connection to  * call coprocessor endpoint {@link com.google.protobuf.Service}s.    * Note that clients should not use this class directly, except through  * {@link org.apache.hadoop.hbase.client.HTableInterface#coprocessorService(byte[])}.  */
+comment|/**  * Base class which provides clients with an RPC connection to  * call coprocessor endpoint {@link com.google.protobuf.Service}s.  * Note that clients should not use this class directly, except through  * {@link org.apache.hadoop.hbase.client.HTableInterface#coprocessorService(byte[])}.  */
 end_comment
 
 begin_class
@@ -266,6 +266,8 @@ name|response
 operator|=
 name|callExecService
 argument_list|(
+name|controller
+argument_list|,
 name|method
 argument_list|,
 name|request
@@ -347,6 +349,8 @@ block|{
 return|return
 name|callExecService
 argument_list|(
+name|controller
+argument_list|,
 name|method
 argument_list|,
 name|request
@@ -382,6 +386,9 @@ specifier|abstract
 name|Message
 name|callExecService
 parameter_list|(
+name|RpcController
+name|controller
+parameter_list|,
 name|Descriptors
 operator|.
 name|MethodDescriptor

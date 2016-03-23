@@ -420,11 +420,11 @@ operator|.
 name|getListener
 argument_list|()
 expr_stmt|;
-name|TableConfiguration
+name|ConnectionConfiguration
 name|tableConf
 init|=
 operator|new
-name|TableConfiguration
+name|ConnectionConfiguration
 argument_list|(
 name|conf
 argument_list|)

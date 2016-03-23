@@ -1840,6 +1840,8 @@ operator|new
 name|AccessTestAction
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Object
 name|run
@@ -2721,6 +2723,8 @@ name|ProtobufUtil
 operator|.
 name|grant
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|testUser
@@ -2821,6 +2825,8 @@ name|ProtobufUtil
 operator|.
 name|grant
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|USER_GROUP_NS_ADMIN
@@ -2849,6 +2855,8 @@ operator|new
 name|AccessTestAction
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Object
 name|run
@@ -2908,6 +2916,8 @@ name|ProtobufUtil
 operator|.
 name|revoke
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|testUser
@@ -2946,6 +2956,8 @@ operator|new
 name|AccessTestAction
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Object
 name|run
@@ -3005,6 +3017,8 @@ name|ProtobufUtil
 operator|.
 name|revoke
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|USER_GROUP_NS_ADMIN
@@ -3107,6 +3121,8 @@ name|ProtobufUtil
 operator|.
 name|getUserPermissions
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|Bytes

@@ -821,6 +821,8 @@ name|ProtobufUtil
 operator|.
 name|openRegion
 argument_list|(
+literal|null
+argument_list|,
 name|hrs
 operator|.
 name|getRSRpcServices

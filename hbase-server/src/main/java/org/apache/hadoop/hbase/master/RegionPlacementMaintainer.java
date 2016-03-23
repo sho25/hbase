@@ -4152,6 +4152,8 @@ name|ProtobufUtil
 operator|.
 name|getServerInfo
 argument_list|(
+literal|null
+argument_list|,
 name|currentRegionServer
 argument_list|)
 operator|.

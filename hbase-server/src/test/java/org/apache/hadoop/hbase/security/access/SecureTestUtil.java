@@ -2589,6 +2589,8 @@ name|ProtobufUtil
 operator|.
 name|grant
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|user
@@ -2717,6 +2719,8 @@ name|ProtobufUtil
 operator|.
 name|revoke
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|user
@@ -2849,6 +2853,8 @@ name|ProtobufUtil
 operator|.
 name|grant
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|user
@@ -3175,6 +3181,8 @@ name|ProtobufUtil
 operator|.
 name|revoke
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|user
@@ -3319,6 +3327,8 @@ name|ProtobufUtil
 operator|.
 name|grant
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|user
@@ -3667,6 +3677,8 @@ name|ProtobufUtil
 operator|.
 name|revoke
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|user

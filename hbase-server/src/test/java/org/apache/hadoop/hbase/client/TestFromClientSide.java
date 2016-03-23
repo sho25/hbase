@@ -4409,7 +4409,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-name|TableConfiguration
+name|ConnectionConfiguration
 operator|.
 name|MAX_KEYVALUE_SIZE_KEY
 argument_list|)
@@ -4476,7 +4476,7 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-name|TableConfiguration
+name|ConnectionConfiguration
 operator|.
 name|MAX_KEYVALUE_SIZE_KEY
 argument_list|,
@@ -4566,7 +4566,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-name|TableConfiguration
+name|ConnectionConfiguration
 operator|.
 name|MAX_KEYVALUE_SIZE_KEY
 argument_list|,

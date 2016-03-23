@@ -9404,6 +9404,8 @@ name|ProtobufUtil
 operator|.
 name|mergeRegions
 argument_list|(
+literal|null
+argument_list|,
 name|admin
 argument_list|,
 name|regions

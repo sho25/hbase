@@ -1860,7 +1860,7 @@ parameter_list|(
 name|IllegalArgumentException
 name|iae
 parameter_list|)
-block|{            }
+block|{      }
 finally|finally
 block|{
 name|table

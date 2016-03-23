@@ -179,6 +179,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ipc
+operator|.
+name|RpcControllerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -230,7 +246,7 @@ import|;
 end_import
 
 begin_comment
-comment|/** Internal methods on HConnection that should not be used by user code. */
+comment|/** Internal methods on Connection that should not be used by user code. */
 end_comment
 
 begin_interface
@@ -596,6 +612,21 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|)
+function_decl|;
+comment|/**    * @return Connection's RpcRetryingCallerFactory instance    */
+name|RpcRetryingCallerFactory
+name|getRpcRetryingCallerFactory
+parameter_list|()
+function_decl|;
+comment|/**    * @return Connection's RpcControllerFactory instance    */
+name|RpcControllerFactory
+name|getRpcControllerFactory
+parameter_list|()
+function_decl|;
+comment|/**    * @return a ConnectionConfiguration object holding parsed configuration values    */
+name|ConnectionConfiguration
+name|getConnectionConfiguration
+parameter_list|()
 function_decl|;
 comment|/**    * @return the current statistics tracker associated with this connection    */
 name|ServerStatisticTracker

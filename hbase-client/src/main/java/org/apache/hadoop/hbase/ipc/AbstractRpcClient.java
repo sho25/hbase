@@ -1592,6 +1592,10 @@ condition|(
 name|controller
 operator|!=
 literal|null
+operator|&&
+name|controller
+operator|instanceof
+name|PayloadCarryingRpcController
 condition|)
 block|{
 name|pcrc

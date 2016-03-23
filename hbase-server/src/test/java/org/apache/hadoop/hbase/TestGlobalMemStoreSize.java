@@ -364,7 +364,7 @@ specifier|private
 name|MiniHBaseCluster
 name|cluster
 decl_stmt|;
-comment|/**    * Test the global mem store size in the region server is equal to sum of each    * region's mem store size    * @throws Exception     */
+comment|/**    * Test the global mem store size in the region server is equal to sum of each    * region's mem store size    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
@@ -538,6 +538,8 @@ name|ProtobufUtil
 operator|.
 name|getOnlineRegions
 argument_list|(
+literal|null
+argument_list|,
 name|server
 operator|.
 name|getRSRpcServices
@@ -621,6 +623,8 @@ name|ProtobufUtil
 operator|.
 name|getOnlineRegions
 argument_list|(
+literal|null
+argument_list|,
 name|server
 operator|.
 name|getRSRpcServices
@@ -733,6 +737,8 @@ name|ProtobufUtil
 operator|.
 name|getOnlineRegions
 argument_list|(
+literal|null
+argument_list|,
 name|server
 operator|.
 name|getRSRpcServices

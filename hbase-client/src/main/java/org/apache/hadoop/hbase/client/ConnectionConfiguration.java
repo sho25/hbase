@@ -76,7 +76,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *  * Configuration is a heavy weight registry that does a lot of string operations and regex matching.  * Method calls into Configuration account for high CPU usage and have huge performance impact.  * This class caches the value in the TableConfiguration object to improve performance.  * see HBASE-12128  *  */
+comment|/**  * Configuration parameters for the connection.  * Configuration is a heavy weight registry that does a lot of string operations and regex matching.  * Method calls into Configuration account for high CPU usage and have huge performance impact.  * This class caches connection-related configuration values in the  ConnectionConfiguration  * object so that expensive conf.getXXX() calls are avoided every time HTable, etc is instantiated.  * see HBASE-12128  */
 end_comment
 
 begin_class
@@ -86,7 +86,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|TableConfiguration
+name|ConnectionConfiguration
 block|{
 specifier|public
 specifier|static
@@ -173,7 +173,7 @@ name|boolean
 name|clientScannerAsyncPrefetch
 decl_stmt|;
 comment|/**    * Constructor    * @param conf Configuration object    */
-name|TableConfiguration
+name|ConnectionConfiguration
 parameter_list|(
 name|Configuration
 name|conf
@@ -340,7 +340,7 @@ comment|/**    * Constructor    * This is for internal testing purpose (using th
 annotation|@
 name|VisibleForTesting
 specifier|protected
-name|TableConfiguration
+name|ConnectionConfiguration
 parameter_list|()
 block|{
 name|this

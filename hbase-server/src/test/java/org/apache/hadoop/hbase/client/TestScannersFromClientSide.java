@@ -4296,6 +4296,8 @@ name|ProtobufUtil
 operator|.
 name|closeRegion
 argument_list|(
+literal|null
+argument_list|,
 name|rs
 operator|.
 name|getRSRpcServices
@@ -4405,6 +4407,8 @@ name|ProtobufUtil
 operator|.
 name|openRegion
 argument_list|(
+literal|null
+argument_list|,
 name|rs
 operator|.
 name|getRSRpcServices

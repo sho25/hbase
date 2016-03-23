@@ -7703,6 +7703,8 @@ name|ProtobufUtil
 operator|.
 name|grant
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|USER_RO
@@ -7798,6 +7800,8 @@ name|ProtobufUtil
 operator|.
 name|revoke
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|USER_RO
@@ -7893,6 +7897,8 @@ name|ProtobufUtil
 operator|.
 name|getUserPermissions
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|TEST_TABLE
@@ -7975,6 +7981,8 @@ name|ProtobufUtil
 operator|.
 name|getUserPermissions
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|)
 expr_stmt|;
@@ -10554,6 +10562,8 @@ name|ProtobufUtil
 operator|.
 name|getUserPermissions
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|tableName
@@ -10746,6 +10756,8 @@ name|ProtobufUtil
 operator|.
 name|getUserPermissions
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|tableName
@@ -10908,6 +10920,8 @@ name|ProtobufUtil
 operator|.
 name|getUserPermissions
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|tableName
@@ -11038,6 +11052,8 @@ name|ProtobufUtil
 operator|.
 name|getUserPermissions
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|tableName
@@ -11154,6 +11170,8 @@ name|ProtobufUtil
 operator|.
 name|getUserPermissions
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|,
 name|tableName
@@ -11283,6 +11301,8 @@ name|ProtobufUtil
 operator|.
 name|getUserPermissions
 argument_list|(
+literal|null
+argument_list|,
 name|protocol
 argument_list|)
 expr_stmt|;

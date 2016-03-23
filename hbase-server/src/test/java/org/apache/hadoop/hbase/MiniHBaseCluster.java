@@ -2823,7 +2823,7 @@ name|getRegionServer
 argument_list|()
 decl_stmt|;
 name|Region
-name|metaRegion
+name|region
 init|=
 name|hrs
 operator|.
@@ -2834,7 +2834,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|metaRegion
+name|region
 operator|!=
 literal|null
 condition|)

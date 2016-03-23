@@ -209,6 +209,18 @@ name|Message
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcController
+import|;
+end_import
+
 begin_comment
 comment|/**  * Provides clients with an RPC connection to call coprocessor endpoint  * {@link com.google.protobuf.Service}s against a given region server. An instance of this class may  * be obtained by calling {@link org.apache.hadoop.hbase.client.HBaseAdmin#coprocessorService(ServerName)},  * but should normally only be used in creating a new {@link com.google.protobuf.Service} stub to  * call the endpoint methods.  * @see org.apache.hadoop.hbase.client.HBaseAdmin#coprocessorService(ServerName)  */
 end_comment
@@ -278,6 +290,9 @@ specifier|protected
 name|Message
 name|callExecService
 parameter_list|(
+name|RpcController
+name|controller
+parameter_list|,
 name|Descriptors
 operator|.
 name|MethodDescriptor
@@ -375,6 +390,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
+comment|// TODO: Are we retrying here? Does not seem so. We should use RetryingRpcCaller
 name|CoprocessorServiceResponse
 name|result
 init|=
@@ -382,6 +398,8 @@ name|ProtobufUtil
 operator|.
 name|execRegionServerService
 argument_list|(
+name|controller
+argument_list|,
 name|connection
 operator|.
 name|getClient
