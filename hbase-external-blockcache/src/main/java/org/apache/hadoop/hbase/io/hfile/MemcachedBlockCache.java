@@ -1225,7 +1225,7 @@ name|HFileBlock
 operator|)
 name|HFileBlock
 operator|.
-name|BLOCK_DESERIALIZER
+name|blockDeserializer
 operator|.
 name|deserialize
 argument_list|(

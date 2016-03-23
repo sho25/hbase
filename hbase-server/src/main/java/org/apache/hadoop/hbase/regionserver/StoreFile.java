@@ -5102,7 +5102,7 @@ operator|.
 name|compactedAway
 return|;
 block|}
-comment|/**      * @deprecated Do not write further code which depends on this call. Instead      * use getStoreFileScanner() which uses the StoreFileScanner class/interface      * which is the preferred way to scan a store with higher level concepts.      *      * @param cacheBlocks should we cache the blocks?      * @param pread use pread (for concurrent small readers)      * @return the underlying HFileScanner      */
+comment|/**      * Warning: Do not write further code which depends on this call. Instead      * use getStoreFileScanner() which uses the StoreFileScanner class/interface      * which is the preferred way to scan a store with higher level concepts.      *      * @param cacheBlocks should we cache the blocks?      * @param pread use pread (for concurrent small readers)      * @return the underlying HFileScanner      */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5127,7 +5127,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**      * @deprecated Do not write further code which depends on this call. Instead      * use getStoreFileScanner() which uses the StoreFileScanner class/interface      * which is the preferred way to scan a store with higher level concepts.      *      * @param cacheBlocks      *          should we cache the blocks?      * @param pread      *          use pread (for concurrent small readers)      * @param isCompaction      *          is scanner being used for compaction?      * @return the underlying HFileScanner      */
+comment|/**      * Warning: Do not write further code which depends on this call. Instead      * use getStoreFileScanner() which uses the StoreFileScanner class/interface      * which is the preferred way to scan a store with higher level concepts.      *      * @param cacheBlocks      *          should we cache the blocks?      * @param pread      *          use pread (for concurrent small readers)      * @param isCompaction      *          is scanner being used for compaction?      * @return the underlying HFileScanner      */
 annotation|@
 name|Deprecated
 specifier|public

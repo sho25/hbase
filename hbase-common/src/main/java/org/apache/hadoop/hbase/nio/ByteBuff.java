@@ -1051,40 +1051,6 @@ operator|)
 return|;
 comment|// key not found.
 block|}
-annotation|@
-name|Override
-specifier|public
-name|String
-name|toString
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getSimpleName
-argument_list|()
-operator|+
-literal|"[pos="
-operator|+
-name|position
-argument_list|()
-operator|+
-literal|", lim="
-operator|+
-name|limit
-argument_list|()
-operator|+
-literal|", cap= "
-operator|+
-name|capacity
-argument_list|()
-operator|+
-literal|"]"
-return|;
-block|}
 specifier|public
 specifier|static
 name|String
