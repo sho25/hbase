@@ -472,13 +472,7 @@ specifier|final
 name|boolean
 name|isReversed
 decl_stmt|;
-comment|/**    * True if we are doing a 'Get' Scan. Every Get is actually a one-row Scan.    */
-specifier|private
-specifier|final
-name|boolean
-name|get
-decl_stmt|;
-comment|/**    * Construct a QueryMatcher for a scan    * @param scanInfo The store's immutable scan info    * @param scanType Type of the scan    * @param earliestPutTs Earliest put seen in any of the store files.    * @param oldestUnexpiredTS the oldest timestamp we are interested in, based on TTL    */
+comment|/**    * Construct a QueryMatcher for a scan    * @param scan    * @param scanInfo The store's immutable scan info    * @param columns    * @param scanType Type of the scan    * @param earliestPutTs Earliest put seen in any of the store files.    * @param oldestUnexpiredTS the oldest timestamp we are interested in,    *  based on TTL    * @param regionCoprocessorHost     * @throws IOException     */
 specifier|public
 name|ScanQueryMatcher
 parameter_list|(
@@ -558,15 +552,6 @@ operator|=
 name|timeRange
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|get
-operator|=
-name|scan
-operator|.
-name|isGetScan
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|rowComparator
@@ -883,7 +868,7 @@ return|return
 name|tracker
 return|;
 block|}
-comment|/**    * Construct a QueryMatcher for a scan that drop deletes from a limited range of rows.    * @param scan    * @param scanInfo The store's immutable scan info    * @param columns    * @param earliestPutTs Earliest put seen in any of the store files.    * @param oldestUnexpiredTS the oldest timestamp we are interested in, based on TTL    * @param now the current server time    * @param dropDeletesFromRow The inclusive left bound of the range; can be EMPTY_START_ROW.    * @param dropDeletesToRow The exclusive right bound of the range; can be EMPTY_END_ROW.    * @param regionCoprocessorHost    * @throws IOException    */
+comment|/**    * Construct a QueryMatcher for a scan that drop deletes from a limited range of rows.    * @param scan    * @param scanInfo The store's immutable scan info    * @param columns    * @param earliestPutTs Earliest put seen in any of the store files.    * @param oldestUnexpiredTS the oldest timestamp we are interested in, based on TTL    * @param now the current server time    * @param dropDeletesFromRow The inclusive left bound of the range; can be EMPTY_START_ROW.    * @param dropDeletesToRow The exclusive right bound of the range; can be EMPTY_END_ROW.    * @param regionCoprocessorHost     * @throws IOException     */
 specifier|public
 name|ScanQueryMatcher
 parameter_list|(
@@ -1918,7 +1903,6 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @return Returns false if we know there are no more rows to be scanned (We've reached the    *<code>stopRow</code> or we are scanning on row only because this Scan is for a Get, etc.    */
 specifier|public
 name|boolean
 name|moreRowsMayExistAfter
@@ -1927,49 +1911,15 @@ name|Cell
 name|kv
 parameter_list|)
 block|{
-comment|// If a 'get' Scan -- we are doing a Get (every Get is a single-row Scan in implementation) --
-comment|// then we are looking at one row only, the one specified in the Get coordinate..so we know
-comment|// for sure that there are no more rows on this Scan
 if|if
 condition|(
-name|this
-operator|.
-name|get
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-comment|// If no stopRow, return that there may be more rows. The tests that follow depend on a
-comment|// non-empty, non-default stopRow so this little test below short-circuits out doing the
-comment|// following compares.
-if|if
-condition|(
-name|this
-operator|.
-name|stopRow
-operator|==
-literal|null
-operator|||
-name|this
-operator|.
-name|stopRow
-operator|==
-name|HConstants
-operator|.
-name|EMPTY_BYTE_ARRAY
-condition|)
-block|{
-return|return
-literal|true
-return|;
-block|}
-return|return
 name|this
 operator|.
 name|isReversed
-condition|?
+condition|)
+block|{
+if|if
+condition|(
 name|rowComparator
 operator|.
 name|compareRows
@@ -1984,9 +1934,24 @@ name|stopRow
 operator|.
 name|length
 argument_list|)
-operator|>
+operator|<=
 literal|0
-else|:
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+else|else
+block|{
+return|return
+literal|true
+return|;
+block|}
+block|}
+if|if
+condition|(
+operator|!
 name|Bytes
 operator|.
 name|equals
@@ -1997,7 +1962,7 @@ name|HConstants
 operator|.
 name|EMPTY_END_ROW
 argument_list|)
-operator|||
+operator|&&
 name|rowComparator
 operator|.
 name|compareRows
@@ -2012,9 +1977,22 @@ name|stopRow
 operator|.
 name|length
 argument_list|)
-operator|<
+operator|>=
 literal|0
+condition|)
+block|{
+comment|// KV>= STOPROW
+comment|// then NO there is nothing left.
+return|return
+literal|false
 return|;
+block|}
+else|else
+block|{
+return|return
+literal|true
+return|;
+block|}
 block|}
 comment|/**    * Set the row when there is change in row    * @param curCell    */
 specifier|public

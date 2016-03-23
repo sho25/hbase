@@ -128,7 +128,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Utility scanner that wraps a sortable collection and serves as a KeyValueScanner.  */
+comment|/**  * Utility scanner that wraps a sortable collection and serves  * as a KeyValueScanner.  */
 end_comment
 
 begin_class

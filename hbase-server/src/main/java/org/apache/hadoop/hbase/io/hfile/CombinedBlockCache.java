@@ -250,7 +250,7 @@ name|cacheDataInL1
 parameter_list|)
 block|{
 name|boolean
-name|metaBlock
+name|isMetaBlock
 init|=
 name|buf
 operator|.
@@ -266,7 +266,7 @@ name|DATA
 decl_stmt|;
 if|if
 condition|(
-name|metaBlock
+name|isMetaBlock
 operator|||
 name|cacheDataInL1
 condition|)
@@ -348,14 +348,17 @@ parameter_list|)
 block|{
 comment|// TODO: is there a hole here, or just awkwardness since in the lruCache getBlock
 comment|// we end up calling l2Cache.getBlock.
-return|return
+if|if
+condition|(
 name|lruCache
 operator|.
 name|containsBlock
 argument_list|(
 name|cacheKey
 argument_list|)
-condition|?
+condition|)
+block|{
+return|return
 name|lruCache
 operator|.
 name|getBlock
@@ -368,7 +371,11 @@ name|repeat
 argument_list|,
 name|updateCacheMetrics
 argument_list|)
-else|:
+return|;
+block|}
+name|Cacheable
+name|result
+init|=
 name|l2Cache
 operator|.
 name|getBlock
@@ -381,6 +388,9 @@ name|repeat
 argument_list|,
 name|updateCacheMetrics
 argument_list|)
+decl_stmt|;
+return|return
+name|result
 return|;
 block|}
 annotation|@
