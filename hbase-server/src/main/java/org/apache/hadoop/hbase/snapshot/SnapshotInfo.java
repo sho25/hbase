@@ -2528,13 +2528,7 @@ name|err
 operator|.
 name|printf
 argument_list|(
-literal|"Usage: bin/hbase %s [options]%n"
-argument_list|,
-name|getClass
-argument_list|()
-operator|.
-name|getName
-argument_list|()
+literal|"Usage: bin/hbase snapshot info [options]%n"
 argument_list|)
 expr_stmt|;
 name|System
@@ -2640,12 +2634,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"  hbase "
-operator|+
-name|getClass
-argument_list|()
-operator|+
-literal|" \\"
+literal|"  hbase snapshot info \\"
 argument_list|)
 expr_stmt|;
 name|System

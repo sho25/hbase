@@ -6862,15 +6862,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"  hbase "
-operator|+
-name|getClass
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|" \\"
+literal|"  hbase snapshot export \\"
 argument_list|)
 expr_stmt|;
 name|System
@@ -6904,15 +6896,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"  hbase "
-operator|+
-name|getClass
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|" \\"
+literal|"  hbase snapshot export \\"
 argument_list|)
 expr_stmt|;
 name|System
