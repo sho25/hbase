@@ -6674,7 +6674,6 @@ argument_list|()
 operator|>
 literal|1
 decl_stmt|;
-comment|// force a flush first
 name|MonitoredTask
 name|status
 init|=
@@ -6685,20 +6684,30 @@ argument_list|()
 operator|.
 name|createStatus
 argument_list|(
+literal|"Recovering region "
+operator|+
+name|this
+argument_list|)
+decl_stmt|;
+try|try
+block|{
+comment|// force a flush first
+if|if
+condition|(
+name|forceFlush
+condition|)
+block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
 literal|"Flushing region "
 operator|+
 name|this
 operator|+
 literal|" because recovery is finished"
 argument_list|)
-decl_stmt|;
-try|try
-block|{
-if|if
-condition|(
-name|forceFlush
-condition|)
-block|{
+expr_stmt|;
 name|internalFlushcache
 argument_list|(
 name|status
@@ -6763,7 +6772,7 @@ argument_list|()
 operator|+
 literal|" : was not able to write region opening "
 operator|+
-literal|"event to WAL, continueing"
+literal|"event to WAL, continuing"
 argument_list|,
 name|e
 argument_list|)
@@ -6790,7 +6799,7 @@ argument_list|()
 operator|+
 literal|" : was not able to flush "
 operator|+
-literal|"event to WAL, continueing"
+literal|"event to WAL, continuing"
 argument_list|,
 name|ioe
 argument_list|)
