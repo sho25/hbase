@@ -241,6 +241,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|snapshot
+operator|.
+name|SnapshotManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|procedure2
 operator|.
 name|ProcedureExecutor
@@ -306,6 +324,11 @@ name|MasterServices
 extends|extends
 name|Server
 block|{
+comment|/**    * @return the underlying snapshot manager    */
+name|SnapshotManager
+name|getSnapshotManager
+parameter_list|()
+function_decl|;
 comment|/**    * @return Master's instance of {@link ClusterSchema}    */
 name|ClusterSchema
 name|getClusterSchema

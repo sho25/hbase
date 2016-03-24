@@ -12567,10 +12567,10 @@ operator|.
 name|hfileCleaner
 return|;
 block|}
-comment|/**    * Exposed for TESTING!    * @return the underlying snapshot manager    */
+comment|/**    * @return the underlying snapshot manager    */
 specifier|public
 name|SnapshotManager
-name|getSnapshotManagerForTesting
+name|getSnapshotManager
 parameter_list|()
 block|{
 return|return

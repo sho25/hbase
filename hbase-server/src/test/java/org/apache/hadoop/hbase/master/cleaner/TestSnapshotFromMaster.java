@@ -1088,7 +1088,7 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|getSnapshotManagerForTesting
+name|getSnapshotManager
 argument_list|()
 operator|.
 name|setSnapshotHandlerForTesting
@@ -1337,7 +1337,7 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|getSnapshotManagerForTesting
+name|getSnapshotManager
 argument_list|()
 operator|.
 name|setSnapshotHandlerForTesting
