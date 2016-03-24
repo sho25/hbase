@@ -19,144 +19,6 @@ end_package
 
 begin_import
 import|import
-name|io
-operator|.
-name|netty
-operator|.
-name|bootstrap
-operator|.
-name|Bootstrap
-import|;
-end_import
-
-begin_import
-import|import
-name|io
-operator|.
-name|netty
-operator|.
-name|buffer
-operator|.
-name|ByteBuf
-import|;
-end_import
-
-begin_import
-import|import
-name|io
-operator|.
-name|netty
-operator|.
-name|buffer
-operator|.
-name|ByteBufOutputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|io
-operator|.
-name|netty
-operator|.
-name|channel
-operator|.
-name|Channel
-import|;
-end_import
-
-begin_import
-import|import
-name|io
-operator|.
-name|netty
-operator|.
-name|channel
-operator|.
-name|ChannelFuture
-import|;
-end_import
-
-begin_import
-import|import
-name|io
-operator|.
-name|netty
-operator|.
-name|channel
-operator|.
-name|ChannelFutureListener
-import|;
-end_import
-
-begin_import
-import|import
-name|io
-operator|.
-name|netty
-operator|.
-name|handler
-operator|.
-name|codec
-operator|.
-name|LengthFieldBasedFrameDecoder
-import|;
-end_import
-
-begin_import
-import|import
-name|io
-operator|.
-name|netty
-operator|.
-name|util
-operator|.
-name|Timeout
-import|;
-end_import
-
-begin_import
-import|import
-name|io
-operator|.
-name|netty
-operator|.
-name|util
-operator|.
-name|TimerTask
-import|;
-end_import
-
-begin_import
-import|import
-name|io
-operator|.
-name|netty
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|GenericFutureListener
-import|;
-end_import
-
-begin_import
-import|import
-name|io
-operator|.
-name|netty
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|Promise
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -410,6 +272,28 @@ operator|.
 name|generated
 operator|.
 name|AuthenticationProtos
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|AuthenticationProtos
+operator|.
+name|TokenIdentifier
+operator|.
+name|Kind
 import|;
 end_import
 
@@ -727,6 +611,144 @@ name|RpcCallback
 import|;
 end_import
 
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|bootstrap
+operator|.
+name|Bootstrap
+import|;
+end_import
+
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|buffer
+operator|.
+name|ByteBuf
+import|;
+end_import
+
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|buffer
+operator|.
+name|ByteBufOutputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|channel
+operator|.
+name|Channel
+import|;
+end_import
+
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|channel
+operator|.
+name|ChannelFuture
+import|;
+end_import
+
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|channel
+operator|.
+name|ChannelFutureListener
+import|;
+end_import
+
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|handler
+operator|.
+name|codec
+operator|.
+name|LengthFieldBasedFrameDecoder
+import|;
+end_import
+
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|util
+operator|.
+name|Timeout
+import|;
+end_import
+
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|util
+operator|.
+name|TimerTask
+import|;
+end_import
+
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|GenericFutureListener
+import|;
+end_import
+
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|Promise
+import|;
+end_import
+
 begin_comment
 comment|/**  * Netty RPC channel  */
 end_comment
@@ -771,10 +793,6 @@ specifier|final
 specifier|static
 name|Map
 argument_list|<
-name|AuthenticationProtos
-operator|.
-name|TokenIdentifier
-operator|.
 name|Kind
 argument_list|,
 name|TokenSelector
@@ -784,7 +802,7 @@ extends|extends
 name|TokenIdentifier
 argument_list|>
 argument_list|>
-name|tokenHandlers
+name|TOKEN_HANDDLERS
 init|=
 operator|new
 name|HashMap
@@ -793,7 +811,7 @@ argument_list|()
 decl_stmt|;
 static|static
 block|{
-name|tokenHandlers
+name|TOKEN_HANDDLERS
 operator|.
 name|put
 argument_list|(
@@ -928,7 +946,7 @@ expr_stmt|;
 block|}
 block|}
 decl_stmt|;
-comment|/**    * Constructor for netty RPC channel    *    * @param bootstrap to construct channel on    * @param client    to connect with    * @param ticket of user which uses connection    * @param serviceName name of service to connect to    * @param address to connect to    */
+comment|/**    * Constructor for netty RPC channel    * @param bootstrap to construct channel on    * @param client to connect with    * @param ticket of user which uses connection    * @param serviceName name of service to connect to    * @param address to connect to    */
 specifier|public
 name|AsyncRpcChannel
 parameter_list|(
@@ -1023,7 +1041,7 @@ operator|)
 operator|)
 expr_stmt|;
 block|}
-comment|/**    * Connect to channel    *    * @param bootstrap to connect to    * @return future of connection    */
+comment|/**    * Connect to channel    * @param bootstrap to connect to    * @return future of connection    */
 specifier|private
 name|ChannelFuture
 name|connect
@@ -1295,7 +1313,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Start HBase connection    *    * @param ch channel to start connection on    */
+comment|/**    * Start HBase connection    * @param ch channel to start connection on    */
 specifier|private
 name|void
 name|startHBaseConnection
@@ -1603,7 +1621,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Retry to connect or close    *    * @param bootstrap      to connect with    * @param failureCount   failure count    * @param e              exception of fail    */
+comment|/**    * Retry to connect or close    * @param bootstrap to connect with    * @param failureCount failure count    * @param e exception of fail    */
 specifier|private
 name|void
 name|retryOrClose
@@ -1933,7 +1951,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Write the channel header    *    * @param channel to write to    * @return future of write    * @throws java.io.IOException on failure to write    */
+comment|/**    * Write the channel header    * @param channel to write to    * @return future of write    * @throws java.io.IOException on failure to write    */
 specifier|private
 name|ChannelFuture
 name|writeChannelHeader
@@ -2115,7 +2133,7 @@ name|b
 argument_list|)
 return|;
 block|}
-comment|/**    * Write request to channel    *    * @param call    to write    */
+comment|/**    * Write request to channel    * @param call to write    */
 specifier|private
 name|void
 name|writeRequest
@@ -2273,7 +2291,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Only pass priority if there one.  Let zero be same as no priority.
+comment|// Only pass priority if there one. Let zero be same as no priority.
 if|if
 condition|(
 name|call
@@ -2424,7 +2442,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Set up server authorization    *    * @throws java.io.IOException if auth setup failed    */
+comment|/**    * Set up server authorization    * @throws java.io.IOException if auth setup failed    */
 specifier|private
 name|void
 name|setupAuthorization
@@ -2495,7 +2513,7 @@ name|TokenIdentifier
 argument_list|>
 name|tokenSelector
 init|=
-name|tokenHandlers
+name|TOKEN_HANDDLERS
 operator|.
 name|get
 argument_list|(
@@ -2705,7 +2723,7 @@ literal|5000
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Build the user information    *    * @param ugi        User Group Information    * @param authMethod Authorization method    * @return UserInformation protobuf    */
+comment|/**    * Build the user information    * @param ugi User Group Information    * @param authMethod Authorization method    * @return UserInformation protobuf    */
 specifier|private
 name|RPCProtos
 operator|.
@@ -2782,7 +2800,7 @@ operator|.
 name|SIMPLE
 condition|)
 block|{
-comment|//Send both effective user and real user for simple auth
+comment|// Send both effective user and real user for simple auth
 name|userInfoPB
 operator|.
 name|setEffectiveUser
@@ -2825,7 +2843,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Create connection preamble    *    * @param byteBuf    to write to    * @param authMethod to write    */
+comment|/**    * Create connection preamble    * @param byteBuf to write to    * @param authMethod to write    */
 specifier|private
 name|void
 name|createPreamble
@@ -2865,41 +2883,13 @@ name|code
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Close connection    *    * @param e exception on close    */
-specifier|public
+specifier|private
 name|void
-name|close
+name|close0
 parameter_list|(
-specifier|final
 name|Throwable
 name|e
 parameter_list|)
-block|{
-name|client
-operator|.
-name|removeConnection
-argument_list|(
-name|this
-argument_list|)
-expr_stmt|;
-comment|// Move closing from the requesting thread to the channel thread
-name|channel
-operator|.
-name|eventLoop
-argument_list|()
-operator|.
-name|execute
-argument_list|(
-operator|new
-name|Runnable
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|run
-parameter_list|()
 block|{
 name|List
 argument_list|<
@@ -3093,9 +3083,71 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Close connection    * @param e exception on close    */
+specifier|public
+name|void
+name|close
+parameter_list|(
+specifier|final
+name|Throwable
+name|e
+parameter_list|)
+block|{
+name|client
+operator|.
+name|removeConnection
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
+comment|// Move closing from the requesting thread to the channel thread
+if|if
+condition|(
+name|channel
+operator|.
+name|eventLoop
+argument_list|()
+operator|.
+name|inEventLoop
+argument_list|()
+condition|)
+block|{
+name|close0
+argument_list|(
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|channel
+operator|.
+name|eventLoop
+argument_list|()
+operator|.
+name|execute
+argument_list|(
+operator|new
+name|Runnable
+argument_list|()
+block|{
+annotation|@
+name|Override
+specifier|public
+name|void
+name|run
+parameter_list|()
+block|{
+name|close0
+argument_list|(
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Clean up calls.    */
 specifier|private
@@ -3301,7 +3353,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Check if the connection is alive    *    * @return true if alive    */
+comment|/**    * Check if the connection is alive    * @return true if alive    */
 specifier|public
 name|boolean
 name|isAlive
@@ -3314,7 +3366,7 @@ name|isOpen
 argument_list|()
 return|;
 block|}
-comment|/**    * Check if user should authenticate over Kerberos    *    * @return true if should be authenticated over Kerberos    * @throws java.io.IOException on failure of check    */
+comment|/**    * Check if user should authenticate over Kerberos    * @return true if should be authenticated over Kerberos    * @throws java.io.IOException on failure of check    */
 specifier|private
 specifier|synchronized
 name|boolean
@@ -3358,7 +3410,7 @@ name|loginUser
 operator|!=
 literal|null
 operator|&&
-comment|//Make sure user logged in using Kerberos either keytab or TGT
+comment|// Make sure user logged in using Kerberos either keytab or TGT
 name|loginUser
 operator|.
 name|hasKerberosCredentials
@@ -3383,7 +3435,7 @@ argument_list|)
 operator|)
 return|;
 block|}
-comment|/**    * If multiple clients with the same principal try to connect    * to the same server at the same time, the server assumes a    * replay attack is in progress. This is a feature of kerberos.    * In order to work around this, what is done is that the client    * backs off randomly and tries to initiate the connection    * again.    * The other problem is to do with ticket expiry. To handle that,    * a relogin is attempted.    *<p>    * The retry logic is governed by the {@link #shouldAuthenticateOverKrb}    * method. In case when the user doesn't have valid credentials, we don't    * need to retry (from cache or ticket). In such cases, it is prudent to    * throw a runtime exception when we receive a SaslException from the    * underlying authentication implementation, so there is no retry from    * other high level (for eg, HCM or HBaseAdmin).    *</p>    *    * @param currRetries retry count    * @param ex          exception describing fail    * @param user        which is trying to connect    * @throws java.io.IOException  if IO fail    * @throws InterruptedException if thread is interrupted    */
+comment|/**    * If multiple clients with the same principal try to connect to the same server at the same time,    * the server assumes a replay attack is in progress. This is a feature of kerberos. In order to    * work around this, what is done is that the client backs off randomly and tries to initiate the    * connection again. The other problem is to do with ticket expiry. To handle that, a relogin is    * attempted.    *<p>    * The retry logic is governed by the {@link #shouldAuthenticateOverKrb} method. In case when the    * user doesn't have valid credentials, we don't need to retry (from cache or ticket). In such    * cases, it is prudent to throw a runtime exception when we receive a SaslException from the    * underlying authentication implementation, so there is no retry from other high level (for eg,    * HCM or HBaseAdmin).    *</p>    * @param currRetries retry count    * @param ex exception describing fail    * @param user which is trying to connect    * @throws java.io.IOException if IO fail    * @throws InterruptedException if thread is interrupted    */
 specifier|private
 name|void
 name|handleSaslConnectionFailure
@@ -3449,7 +3501,7 @@ operator|+
 name|ex
 argument_list|)
 expr_stmt|;
-comment|//try re-login
+comment|// try re-login
 if|if
 condition|(
 name|UserGroupInformation
