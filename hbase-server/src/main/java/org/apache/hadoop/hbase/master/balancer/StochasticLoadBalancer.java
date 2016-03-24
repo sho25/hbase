@@ -3365,16 +3365,10 @@ name|otherServer
 argument_list|)
 return|;
 block|}
-name|cluster
-operator|.
-name|calculateRegionServerLocalities
-argument_list|()
-expr_stmt|;
-comment|// Pick server with lowest locality
 name|int
 name|thisServer
 init|=
-name|pickLowestLocalityServer
+name|pickRandomServer
 argument_list|(
 name|cluster
 argument_list|)
@@ -3439,6 +3433,8 @@ operator|.
 name|getLeastLoadedTopServerForRegion
 argument_list|(
 name|thisRegion
+argument_list|,
+name|thisServer
 argument_list|)
 decl_stmt|;
 if|if

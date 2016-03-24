@@ -5315,7 +5315,8 @@ decl_stmt|;
 name|int
 name|lowestLocalityRegionIndex
 init|=
-literal|0
+operator|-
+literal|1
 decl_stmt|;
 if|if
 condition|(
@@ -5395,6 +5396,19 @@ name|getHostname
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// skip empty region
+if|if
+condition|(
+name|distribution
+operator|.
+name|getUniqueBlocksTotalWeight
+argument_list|()
+operator|==
+literal|0
+condition|)
+block|{
+continue|continue;
+block|}
 if|if
 condition|(
 name|locality
@@ -5414,6 +5428,19 @@ block|}
 block|}
 if|if
 condition|(
+name|lowestLocalityRegionIndex
+operator|==
+operator|-
+literal|1
+condition|)
+block|{
+return|return
+operator|-
+literal|1
+return|;
+block|}
+if|if
+condition|(
 name|LOG
 operator|.
 name|isTraceEnabled
@@ -5424,9 +5451,25 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|" Lowest locality region index is "
+literal|"Lowest locality region is "
 operator|+
+name|regions
+index|[
+name|regionsPerServer
+index|[
+name|serverIndex
+index|]
+index|[
 name|lowestLocalityRegionIndex
+index|]
+index|]
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" with locality "
+operator|+
+name|lowestLocality
 operator|+
 literal|" and its region server contains "
 operator|+
@@ -5511,11 +5554,15 @@ literal|0f
 return|;
 block|}
 block|}
+comment|/**      * Returns a least loaded server which has better locality for this region      * than the current server.      */
 name|int
 name|getLeastLoadedTopServerForRegion
 parameter_list|(
 name|int
 name|region
+parameter_list|,
+name|int
+name|currentServer
 parameter_list|)
 block|{
 if|if
@@ -5539,6 +5586,14 @@ name|regions
 index|[
 name|region
 index|]
+argument_list|,
+name|servers
+index|[
+name|currentServer
+index|]
+operator|.
+name|getHostname
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|int
@@ -5629,6 +5684,37 @@ operator|=
 name|tempLoad
 expr_stmt|;
 block|}
+block|}
+if|if
+condition|(
+name|leastLoadedServerIndex
+operator|!=
+operator|-
+literal|1
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Pick the least loaded server "
+operator|+
+name|servers
+index|[
+name|leastLoadedServerIndex
+index|]
+operator|.
+name|getHostname
+argument_list|()
+operator|+
+literal|" with better locality for region "
+operator|+
+name|regions
+index|[
+name|region
+index|]
+argument_list|)
+expr_stmt|;
 block|}
 return|return
 name|leastLoadedServerIndex
