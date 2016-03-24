@@ -6179,6 +6179,8 @@ argument_list|()
 decl_stmt|;
 comment|// Do not use the exception for updating cache because it might be coming from
 comment|// any of the regions in the MultiAction.
+try|try
+block|{
 if|if
 condition|(
 name|tableName
@@ -6208,6 +6210,25 @@ else|:
 name|t
 argument_list|,
 name|server
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|ex
+parameter_list|)
+block|{
+comment|// That should never happen, but if it did, we want to make sure
+comment|// we still process errors
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Couldn't update cached region locations: "
+operator|+
+name|ex
 argument_list|)
 expr_stmt|;
 block|}
@@ -6902,6 +6923,8 @@ name|regionFailureRegistered
 operator|=
 literal|true
 expr_stmt|;
+try|try
+block|{
 name|connection
 operator|.
 name|updateCachedLocations
@@ -6920,6 +6943,25 @@ argument_list|,
 name|server
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|ex
+parameter_list|)
+block|{
+comment|// That should never happen, but if it did, we want to make sure
+comment|// we still process errors
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Couldn't update cached region locations: "
+operator|+
+name|ex
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -7225,6 +7267,8 @@ expr_stmt|;
 block|}
 else|else
 block|{
+try|try
+block|{
 name|connection
 operator|.
 name|updateCachedLocations
@@ -7251,6 +7295,25 @@ argument_list|,
 name|server
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|ex
+parameter_list|)
+block|{
+comment|// That should never happen, but if it did, we want to make sure
+comment|// we still process errors
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Couldn't update cached region locations: "
+operator|+
+name|ex
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 name|failureCount
 operator|+=

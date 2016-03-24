@@ -405,6 +405,14 @@ specifier|private
 specifier|static
 specifier|final
 name|String
+name|UNKNOWN_EXCEPTION
+init|=
+literal|"UnknownException"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
 name|CLIENT_SVC
 init|=
 name|ClientService
@@ -2669,6 +2677,13 @@ name|getMetric
 argument_list|(
 name|CACHE_BASE
 operator|+
+operator|(
+name|exception
+operator|==
+literal|null
+condition|?
+name|UNKNOWN_EXCEPTION
+else|:
 name|exception
 operator|.
 name|getClass
@@ -2676,6 +2691,7 @@ argument_list|()
 operator|.
 name|getSimpleName
 argument_list|()
+operator|)
 argument_list|,
 name|cacheDroppingExceptions
 argument_list|,
