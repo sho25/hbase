@@ -1165,8 +1165,6 @@ name|setClusterKey
 argument_list|(
 name|KEY_ONE
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|rq1
@@ -1343,8 +1341,6 @@ name|setClusterKey
 argument_list|(
 name|KEY_ONE
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|rp
@@ -1361,8 +1357,6 @@ name|setClusterKey
 argument_list|(
 name|KEY_TWO
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|List
@@ -1684,8 +1678,6 @@ name|setClusterKey
 argument_list|(
 name|KEY_ONE
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|assertNumberOfPeers
@@ -1707,8 +1699,6 @@ name|setClusterKey
 argument_list|(
 name|KEY_TWO
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|assertNumberOfPeers
@@ -1792,8 +1782,6 @@ name|setClusterKey
 argument_list|(
 name|KEY_ONE
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|rp
@@ -2137,8 +2125,6 @@ literal|"bogus"
 operator|+
 name|i
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}

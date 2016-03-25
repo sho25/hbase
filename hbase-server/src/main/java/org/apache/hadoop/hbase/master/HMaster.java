@@ -1815,6 +1815,24 @@ name|hbase
 operator|.
 name|replication
 operator|.
+name|master
+operator|.
+name|TableCFsUpdater
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
 name|regionserver
 operator|.
 name|Replication
@@ -4284,6 +4302,35 @@ literal|"Initializing ZK system trackers"
 argument_list|)
 expr_stmt|;
 name|initializeZKBasedSystemTrackers
+argument_list|()
+expr_stmt|;
+comment|// This is for backwards compatibility
+comment|// See HBASE-11393
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Update TableCFs node in ZNode"
+argument_list|)
+expr_stmt|;
+name|TableCFsUpdater
+name|tableCFsUpdater
+init|=
+operator|new
+name|TableCFsUpdater
+argument_list|(
+name|zooKeeper
+argument_list|,
+name|conf
+argument_list|,
+name|this
+operator|.
+name|clusterConnection
+argument_list|)
+decl_stmt|;
+name|tableCFsUpdater
+operator|.
+name|update
 argument_list|()
 expr_stmt|;
 comment|// initialize master side coprocessors before we start handling requests

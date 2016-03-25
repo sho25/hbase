@@ -23,6 +23,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -127,7 +137,7 @@ parameter_list|()
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Add a new remote slave cluster for replication.    * @param peerId a short that identifies the cluster    * @param peerConfig configuration for the replication slave cluster    * @param tableCFs the table and column-family list which will be replicated for this peer or null    *          for all table and column families    */
+comment|/**    * Add a new remote slave cluster for replication.    * @param peerId a short that identifies the cluster    * @param peerConfig configuration for the replication slave cluster    */
 name|void
 name|addPeer
 parameter_list|(
@@ -136,9 +146,6 @@ name|peerId
 parameter_list|,
 name|ReplicationPeerConfig
 name|peerConfig
-parameter_list|,
-name|String
-name|tableCFs
 parameter_list|)
 throws|throws
 name|ReplicationException
@@ -191,7 +198,15 @@ name|ReplicationException
 function_decl|;
 comment|/**    * Get the table and column-family list string of the peer from ZK.    * @param peerId a short that identifies the cluster    */
 specifier|public
+name|Map
+argument_list|<
+name|TableName
+argument_list|,
+name|List
+argument_list|<
 name|String
+argument_list|>
+argument_list|>
 name|getPeerTableCFsConfig
 parameter_list|(
 name|String
@@ -208,28 +223,21 @@ parameter_list|(
 name|String
 name|peerId
 parameter_list|,
-name|String
-name|tableCFs
-parameter_list|)
-throws|throws
-name|ReplicationException
-function_decl|;
-comment|/**    * Get the table and column-family-list map of the peer.    * @param peerId a short that identifies the cluster    * @return the table and column-family list which will be replicated for this peer    */
-specifier|public
 name|Map
 argument_list|<
 name|TableName
 argument_list|,
-name|List
+name|?
+extends|extends
+name|Collection
 argument_list|<
 name|String
 argument_list|>
 argument_list|>
-name|getTableCFs
-parameter_list|(
-name|String
-name|peerId
+name|tableCFs
 parameter_list|)
+throws|throws
+name|ReplicationException
 function_decl|;
 comment|/**    * Returns the ReplicationPeer    * @param peerId id for the peer    * @return ReplicationPeer object    */
 name|ReplicationPeer

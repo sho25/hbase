@@ -961,8 +961,6 @@ operator|.
 name|getClusterKey
 argument_list|()
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|rt
@@ -1040,8 +1038,6 @@ operator|.
 name|getClusterKey
 argument_list|()
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|zkw
@@ -1200,8 +1196,6 @@ operator|.
 name|getClusterKey
 argument_list|()
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 try|try
@@ -1223,8 +1217,6 @@ operator|.
 name|getClusterKey
 argument_list|()
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -1257,8 +1249,6 @@ operator|.
 name|getClusterKey
 argument_list|()
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}
