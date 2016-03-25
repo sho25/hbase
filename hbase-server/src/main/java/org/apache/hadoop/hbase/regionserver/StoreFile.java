@@ -1228,6 +1228,20 @@ operator|.
 name|cfBloomType
 expr_stmt|;
 block|}
+comment|/**    * Clone a StoreFile for opening private reader.    */
+specifier|public
+name|StoreFile
+name|cloneForReader
+parameter_list|()
+block|{
+return|return
+operator|new
+name|StoreFile
+argument_list|(
+name|this
+argument_list|)
+return|;
+block|}
 comment|/**    * @return the StoreFile object associated to this StoreFile.    *         null if the StoreFile is not a reference.    */
 specifier|public
 name|StoreFileInfo
@@ -1297,9 +1311,7 @@ name|isHFile
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
-name|fileInfo
+name|StoreFileInfo
 operator|.
 name|isHFile
 argument_list|(

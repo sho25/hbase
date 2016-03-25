@@ -595,18 +595,22 @@ name|CompactionProgress
 name|progress
 decl_stmt|;
 specifier|protected
+specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
 specifier|protected
+specifier|final
 name|Store
 name|store
 decl_stmt|;
 specifier|protected
+specifier|final
 name|int
 name|compactionKVMax
 decl_stmt|;
 specifier|protected
+specifier|final
 name|Compression
 operator|.
 name|Algorithm
@@ -614,6 +618,7 @@ name|compactionCompression
 decl_stmt|;
 comment|/** specify how many days to keep MVCC values during major compaction **/
 specifier|protected
+specifier|final
 name|int
 name|keepSeqIdPeriod
 decl_stmt|;
