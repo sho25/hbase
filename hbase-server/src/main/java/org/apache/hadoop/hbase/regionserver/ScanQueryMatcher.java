@@ -2349,6 +2349,16 @@ argument_list|)
 return|;
 block|}
 block|}
+name|boolean
+name|isUserScan
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|isUserScan
+return|;
+block|}
 comment|//Used only for testing purposes
 specifier|static
 name|MatchCode

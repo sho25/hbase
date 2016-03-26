@@ -1805,6 +1805,11 @@ control|)
 block|{
 if|if
 condition|(
+name|matcher
+operator|.
+name|isUserScan
+argument_list|()
+operator|&&
 name|totalScannersSoughtBytes
 operator|>=
 name|maxRowSize
@@ -2800,6 +2805,11 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|matcher
+operator|.
+name|isUserScan
+argument_list|()
+operator|&&
 name|totalBytesRead
 operator|>
 name|maxRowSize
