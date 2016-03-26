@@ -404,7 +404,13 @@ name|RegionGroupingProvider
 operator|.
 name|class
 parameter_list|)
-constructor_decl|;
+operator|,
+constructor|asyncfs(AsyncFSWALProvider.class
+block|)
+class|;
+end_class
+
+begin_decl_stmt
 name|Class
 argument_list|<
 name|?
@@ -413,8 +419,11 @@ name|WALProvider
 argument_list|>
 name|clazz
 decl_stmt|;
+end_decl_stmt
+
+begin_expr_stmt
 name|Providers
-parameter_list|(
+argument_list|(
 name|Class
 argument_list|<
 name|?
@@ -422,20 +431,18 @@ extends|extends
 name|WALProvider
 argument_list|>
 name|clazz
-parameter_list|)
+argument_list|)
 block|{
 name|this
 operator|.
 name|clazz
 operator|=
 name|clazz
-expr_stmt|;
-block|}
-block|}
-end_class
+block|;     }
+end_expr_stmt
 
 begin_decl_stmt
-specifier|public
+unit|}    public
 specifier|static
 specifier|final
 name|String
@@ -1765,7 +1772,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Create a writer for the WAL.    * should be package-private. public only for tests and    * {@link org.apache.hadoop.hbase.regionserver.wal.Compressor}    * @return A WAL writer.  Close when done with it.    * @throws IOException    */
+comment|/**    * Create a writer for the WAL.    *<p>    * should be package-private. public only for tests and    * {@link org.apache.hadoop.hbase.regionserver.wal.Compressor}    * @return A WAL writer. Close when done with it.    * @throws IOException    */
 end_comment
 
 begin_function

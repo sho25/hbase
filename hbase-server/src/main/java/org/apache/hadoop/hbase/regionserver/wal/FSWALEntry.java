@@ -233,7 +233,7 @@ specifier|private
 specifier|final
 specifier|transient
 name|long
-name|sequence
+name|txid
 decl_stmt|;
 specifier|private
 specifier|final
@@ -249,6 +249,7 @@ name|hri
 decl_stmt|;
 specifier|private
 specifier|final
+specifier|transient
 name|Set
 argument_list|<
 name|byte
@@ -256,11 +257,20 @@ index|[]
 argument_list|>
 name|familyNames
 decl_stmt|;
+comment|// In the new WAL logic, we will rewrite failed WAL entries to new WAL file, so we need to avoid
+comment|// calling stampRegionSequenceId again.
+specifier|private
+specifier|transient
+name|boolean
+name|stamped
+init|=
+literal|false
+decl_stmt|;
 name|FSWALEntry
 parameter_list|(
 specifier|final
 name|long
-name|sequence
+name|txid
 parameter_list|,
 specifier|final
 name|WALKey
@@ -300,9 +310,9 @@ name|hri
 expr_stmt|;
 name|this
 operator|.
-name|sequence
+name|txid
 operator|=
-name|sequence
+name|txid
 expr_stmt|;
 if|if
 condition|(
@@ -444,7 +454,7 @@ literal|"sequence="
 operator|+
 name|this
 operator|.
-name|sequence
+name|txid
 operator|+
 literal|", "
 operator|+
@@ -475,24 +485,41 @@ operator|.
 name|hri
 return|;
 block|}
-comment|/**    * @return The sequence on the ring buffer when this edit was added.    */
+comment|/**    * @return The transaction id of this edit.    */
 name|long
-name|getSequence
+name|getTxid
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|sequence
+name|txid
 return|;
 block|}
-comment|/**    * Here is where a WAL edit gets its sequenceid.    * SIDE-EFFECT is our stamping the sequenceid into every Cell AND setting the sequenceid into the    * MVCC WriteEntry!!!!    * @return The sequenceid we stamped on this edit.    * @throws IOException    */
+comment|/**    * Here is where a WAL edit gets its sequenceid.    * SIDE-EFFECT is our stamping the sequenceid into every Cell AND setting the sequenceid into the    * MVCC WriteEntry!!!!    * @return The sequenceid we stamped on this edit.    */
 name|long
 name|stampRegionSequenceId
 parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|stamped
+condition|)
+block|{
+return|return
+name|getKey
+argument_list|()
+operator|.
+name|getSequenceId
+argument_list|()
+return|;
+block|}
+name|stamped
+operator|=
+literal|true
+expr_stmt|;
 name|long
 name|regionSequenceId
 init|=

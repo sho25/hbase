@@ -587,7 +587,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestLogRolling
+name|AbstractTestLogRolling
 operator|.
 name|class
 argument_list|)
@@ -607,7 +607,7 @@ specifier|static
 name|MiniHBaseCluster
 name|cluster
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 specifier|static
 name|HBaseTestingUtility
@@ -1418,7 +1418,10 @@ argument_list|()
 expr_stmt|;
 operator|(
 operator|(
-name|FSHLog
+name|AbstractFSWAL
+argument_list|<
+name|?
+argument_list|>
 operator|)
 name|log
 operator|)
@@ -1434,8 +1437,6 @@ operator|)
 operator|.
 name|getOldPath
 argument_list|()
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|,
