@@ -653,12 +653,15 @@ expr_stmt|;
 block|}
 block|}
 block|}
-specifier|private
+specifier|static
 name|void
 name|writeAndVerify
 parameter_list|(
 name|EventLoop
 name|eventLoop
+parameter_list|,
+name|DistributedFileSystem
+name|dfs
 parameter_list|,
 name|Path
 name|f
@@ -769,7 +772,7 @@ name|b
 operator|.
 name|length
 argument_list|,
-name|FS
+name|dfs
 operator|.
 name|getFileStatus
 argument_list|(
@@ -797,7 +800,7 @@ init|(
 name|FSDataInputStream
 name|in
 init|=
-name|FS
+name|dfs
 operator|.
 name|open
 argument_list|(
@@ -888,6 +891,8 @@ decl_stmt|;
 name|writeAndVerify
 argument_list|(
 name|eventLoop
+argument_list|,
+name|FS
 argument_list|,
 name|f
 argument_list|,
@@ -1276,6 +1281,8 @@ comment|// the connection to datanode should still alive.
 name|writeAndVerify
 argument_list|(
 name|eventLoop
+argument_list|,
+name|FS
 argument_list|,
 name|f
 argument_list|,
