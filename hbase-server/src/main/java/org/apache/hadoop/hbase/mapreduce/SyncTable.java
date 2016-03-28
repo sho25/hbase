@@ -3745,7 +3745,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"                  if not specified, then all data will be scanned"
+literal|"                  (see org.apache.hadoop.hbase.mapreduce.HashTable)"
 argument_list|)
 expr_stmt|;
 name|System
