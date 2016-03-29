@@ -557,6 +557,18 @@ name|getSimpleName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|writerClsNames
+operator|.
+name|add
+argument_list|(
+name|AsyncProtobufLogWriter
+operator|.
+name|class
+operator|.
+name|getSimpleName
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 comment|// cell codec classname
 specifier|private
