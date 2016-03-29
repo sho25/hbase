@@ -690,7 +690,6 @@ name|InterfaceStability
 operator|.
 name|Evolving
 specifier|public
-specifier|abstract
 class|class
 name|BaseRegionObserver
 implements|implements
