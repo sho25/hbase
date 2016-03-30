@@ -20,6 +20,42 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -93,7 +129,7 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|FileSystem
+name|Path
 import|;
 end_import
 
@@ -105,9 +141,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|fs
+name|hbase
 operator|.
-name|Path
+name|CategoryBasedTimeout
 import|;
 end_import
 
@@ -413,7 +449,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MasterTests
+name|LargeTests
 import|;
 end_import
 
@@ -429,7 +465,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|LargeTests
+name|MasterTests
 import|;
 end_import
 
@@ -507,6 +543,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -529,45 +575,21 @@ begin_import
 import|import
 name|org
 operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestRule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|mockito
 operator|.
 name|Mockito
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|fail
 import|;
 end_import
 
@@ -603,6 +625,34 @@ name|TestMasterFailoverWithProcedures
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+specifier|final
+name|TestRule
+name|timeout
+init|=
+name|CategoryBasedTimeout
+operator|.
+name|builder
+argument_list|()
+operator|.
+name|withTimeout
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+argument_list|)
+operator|.
+name|withLookingForStuckThread
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|build
+argument_list|()
 decl_stmt|;
 specifier|protected
 specifier|static
@@ -752,11 +802,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testWalRecoverLease
@@ -1486,11 +1531,6 @@ comment|//  Test Create Table
 comment|// ==========================================================================
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testCreateWithFailover
@@ -1663,11 +1703,6 @@ comment|//  Test Delete Table
 comment|// ==========================================================================
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testDeleteWithFailover
@@ -1875,11 +1910,6 @@ comment|//  Test Truncate Table
 comment|// ==========================================================================
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|90000
-argument_list|)
 specifier|public
 name|void
 name|testTruncateWithFailover
@@ -2242,11 +2272,6 @@ comment|//  Test Disable Table
 comment|// ==========================================================================
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testDisableTableWithFailover
@@ -2419,11 +2444,6 @@ comment|//  Test Enable Table
 comment|// ==========================================================================
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testEnableTableWithFailover
@@ -2908,19 +2928,6 @@ comment|// =====================================================================
 comment|//  Helpers
 comment|// ==========================================================================
 specifier|private
-name|MasterProcedureEnv
-name|getMasterProcedureEnv
-parameter_list|()
-block|{
-return|return
-name|getMasterProcedureExecutor
-argument_list|()
-operator|.
-name|getEnvironment
-argument_list|()
-return|;
-block|}
-specifier|private
 name|ProcedureExecutor
 argument_list|<
 name|MasterProcedureEnv
@@ -2942,27 +2949,6 @@ argument_list|()
 return|;
 block|}
 specifier|private
-name|FileSystem
-name|getFileSystem
-parameter_list|()
-block|{
-return|return
-name|UTIL
-operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|getMasterFileSystem
-argument_list|()
-operator|.
-name|getFileSystem
-argument_list|()
-return|;
-block|}
-specifier|private
 name|Path
 name|getRootDir
 parameter_list|()
@@ -2980,27 +2966,6 @@ name|getMasterFileSystem
 argument_list|()
 operator|.
 name|getRootDir
-argument_list|()
-return|;
-block|}
-specifier|private
-name|Path
-name|getTempDir
-parameter_list|()
-block|{
-return|return
-name|UTIL
-operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|getMasterFileSystem
-argument_list|()
-operator|.
-name|getTempDir
 argument_list|()
 return|;
 block|}
