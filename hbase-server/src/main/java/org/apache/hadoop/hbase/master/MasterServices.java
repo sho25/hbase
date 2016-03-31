@@ -259,6 +259,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|procedure
+operator|.
+name|MasterProcedureManagerHost
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|procedure2
 operator|.
 name|ProcedureExecutor
@@ -327,6 +343,11 @@ block|{
 comment|/**    * @return the underlying snapshot manager    */
 name|SnapshotManager
 name|getSnapshotManager
+parameter_list|()
+function_decl|;
+comment|/**    * @return the underlying MasterProcedureManagerHost    */
+name|MasterProcedureManagerHost
+name|getMasterProcedureManagerHost
 parameter_list|()
 function_decl|;
 comment|/**    * @return Master's instance of {@link ClusterSchema}    */

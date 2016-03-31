@@ -2799,6 +2799,7 @@ name|SnapshotManager
 name|snapshotManager
 decl_stmt|;
 comment|// monitor for distributed procedures
+specifier|private
 name|MasterProcedureManagerHost
 name|mpmHost
 decl_stmt|;
@@ -12624,6 +12625,16 @@ return|return
 name|this
 operator|.
 name|snapshotManager
+return|;
+block|}
+comment|/**    * @return the underlying MasterProcedureManagerHost    */
+specifier|public
+name|MasterProcedureManagerHost
+name|getMasterProcedureManagerHost
+parameter_list|()
+block|{
+return|return
+name|mpmHost
 return|;
 block|}
 annotation|@

@@ -4321,7 +4321,8 @@ name|mpm
 init|=
 name|master
 operator|.
-name|mpmHost
+name|getMasterProcedureManagerHost
+argument_list|()
 operator|.
 name|getProcedureManager
 argument_list|(
@@ -4467,7 +4468,8 @@ name|mpm
 init|=
 name|master
 operator|.
-name|mpmHost
+name|getMasterProcedureManagerHost
+argument_list|()
 operator|.
 name|getProcedureManager
 argument_list|(
@@ -5477,7 +5479,8 @@ name|mpm
 init|=
 name|master
 operator|.
-name|mpmHost
+name|getMasterProcedureManagerHost
+argument_list|()
 operator|.
 name|getProcedureManager
 argument_list|(
