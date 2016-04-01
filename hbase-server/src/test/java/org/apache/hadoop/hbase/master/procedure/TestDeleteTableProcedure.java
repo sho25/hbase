@@ -943,10 +943,6 @@ name|getMaster
 argument_list|()
 argument_list|,
 name|tableName
-argument_list|,
-name|regions
-argument_list|,
-literal|"f"
 argument_list|)
 expr_stmt|;
 comment|// Second delete should fail with TableNotFound
@@ -1145,10 +1141,6 @@ name|getMaster
 argument_list|()
 argument_list|,
 name|tableName
-argument_list|,
-name|regions
-argument_list|,
-literal|"f"
 argument_list|)
 expr_stmt|;
 comment|// Second delete should not fail, because it is the same delete
@@ -1376,12 +1368,6 @@ name|getMaster
 argument_list|()
 argument_list|,
 name|tableName
-argument_list|,
-name|regions
-argument_list|,
-literal|"f1"
-argument_list|,
-literal|"f2"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1530,12 +1516,6 @@ name|getMaster
 argument_list|()
 argument_list|,
 name|tableName
-argument_list|,
-name|regions
-argument_list|,
-literal|"f1"
-argument_list|,
-literal|"f2"
 argument_list|)
 expr_stmt|;
 block|}

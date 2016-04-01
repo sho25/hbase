@@ -975,9 +975,11 @@ name|IOException
 block|{
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
-literal|"starting restore"
+literal|"starting restore table regions using snapshot="
+operator|+
+name|snapshotDesc
 argument_list|)
 expr_stmt|;
 name|Map
@@ -1419,6 +1421,15 @@ literal|"Finished cloning regions."
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"finishing restore table regions using snapshot="
+operator|+
+name|snapshotDesc
+argument_list|)
+expr_stmt|;
 return|return
 name|metaChanges
 return|;
@@ -1476,6 +1487,7 @@ name|regionsToAdd
 init|=
 literal|null
 decl_stmt|;
+specifier|public
 name|RestoreMetaChanges
 parameter_list|(
 name|HTableDescriptor
@@ -1515,6 +1527,28 @@ parameter_list|()
 block|{
 return|return
 name|htd
+return|;
+block|}
+comment|/**      * Returns the map of parent-children_pair.      * @return the map      */
+specifier|public
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|Pair
+argument_list|<
+name|String
+argument_list|,
+name|String
+argument_list|>
+argument_list|>
+name|getParentToChildrenPairMap
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|parentsMap
 return|;
 block|}
 comment|/**      * @return true if there're new regions      */

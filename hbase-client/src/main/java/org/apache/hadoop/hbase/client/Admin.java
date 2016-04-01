@@ -2061,6 +2061,22 @@ name|IOException
 throws|,
 name|RestoreSnapshotException
 function_decl|;
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If the    * "hbase.snapshot.restore.take.failsafe.snapshot" configuration property is set to true, a    * snapshot of the current table is taken before executing the restore operation. In case of    * restore failure, the failsafe snapshot will be restored. If the restore completes without    * problem the failsafe snapshot is deleted.    *    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @return the result of the async restore snapshot. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|restoreSnapshotAsync
+parameter_list|(
+specifier|final
+name|String
+name|snapshotName
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|RestoreSnapshotException
+function_decl|;
 comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to true, a snapshot of the current table is taken before    * executing the restore operation. In case of restore failure, the failsafe snapshot will be    * restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    *    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot true if the failsafe snapshot should be taken    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
 name|void
 name|restoreSnapshot
@@ -2087,6 +2103,7 @@ specifier|final
 name|String
 name|snapshotName
 parameter_list|,
+specifier|final
 name|boolean
 name|takeFailSafeSnapshot
 parameter_list|)
@@ -2133,6 +2150,26 @@ throws|,
 name|TableExistsException
 throws|,
 name|RestoreSnapshotException
+function_decl|;
+comment|/**    * Create a new table by cloning the snapshot content, but does not block    * and wait for it be completely cloned.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be cloned already exists    * @return the result of the async clone snapshot. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|cloneSnapshotAsync
+parameter_list|(
+specifier|final
+name|String
+name|snapshotName
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|TableExistsException
 function_decl|;
 comment|/**    * Execute a distributed procedure on a cluster.    *    * @param signature A distributed procedure is uniquely identified by its signature (default the    * root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    * @throws IOException    */
 name|void

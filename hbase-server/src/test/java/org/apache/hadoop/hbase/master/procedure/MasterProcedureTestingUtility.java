@@ -1161,15 +1161,6 @@ parameter_list|,
 specifier|final
 name|TableName
 name|tableName
-parameter_list|,
-specifier|final
-name|HRegionInfo
-index|[]
-name|regions
-parameter_list|,
-name|String
-modifier|...
-name|family
 parameter_list|)
 throws|throws
 name|IOException
