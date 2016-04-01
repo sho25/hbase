@@ -35,6 +35,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -74,6 +84,22 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALKey
 import|;
 end_import
 
@@ -212,7 +238,17 @@ parameter_list|,
 specifier|final
 name|long
 name|time
+parameter_list|,
+specifier|final
+name|WALKey
+name|logkey
+parameter_list|,
+specifier|final
+name|WALEdit
+name|logEdit
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|source
 operator|.

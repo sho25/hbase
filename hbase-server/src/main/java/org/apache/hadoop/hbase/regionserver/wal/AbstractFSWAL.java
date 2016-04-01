@@ -4097,6 +4097,8 @@ specifier|final
 name|long
 name|elapsedTime
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|long
 name|len
@@ -4151,6 +4153,16 @@ argument_list|(
 name|len
 argument_list|,
 name|elapsedTime
+argument_list|,
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|,
+name|e
+operator|.
+name|getEdit
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

@@ -3832,6 +3832,14 @@ parameter_list|,
 specifier|final
 name|long
 name|elapsedTime
+parameter_list|,
+specifier|final
+name|WALKey
+name|logkey
+parameter_list|,
+specifier|final
+name|WALEdit
+name|logEdit
 parameter_list|)
 block|{
 name|appendMeter

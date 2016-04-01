@@ -787,6 +787,8 @@ parameter_list|,
 name|boolean
 name|inMemstore
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
@@ -847,7 +849,7 @@ operator|-
 name|start
 operator|)
 operator|/
-literal|1000000l
+literal|1000000L
 decl_stmt|;
 for|for
 control|(
@@ -866,6 +868,10 @@ argument_list|(
 name|len
 argument_list|,
 name|elapsed
+argument_list|,
+name|key
+argument_list|,
+name|edits
 argument_list|)
 expr_stmt|;
 block|}

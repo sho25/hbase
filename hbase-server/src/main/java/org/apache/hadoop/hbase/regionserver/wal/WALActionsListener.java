@@ -194,7 +194,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * For notification post append to the writer.  Used by metrics system at least.    * TODO: Combine this with above.    * @param entryLen approx length of cells in this append.    * @param elapsedTimeMillis elapsed time in milliseconds.    */
+comment|/**    * For notification post append to the writer.  Used by metrics system at least.    * TODO: Combine this with above.    * @param entryLen approx length of cells in this append.    * @param elapsedTimeMillis elapsed time in milliseconds.    * @param logKey A WAL key    * @param logEdit A WAL edit containing list of cells.    * @throws IOException if any network or I/O error occurred    */
 name|void
 name|postAppend
 parameter_list|(
@@ -205,7 +205,17 @@ parameter_list|,
 specifier|final
 name|long
 name|elapsedTimeMillis
+parameter_list|,
+specifier|final
+name|WALKey
+name|logKey
+parameter_list|,
+specifier|final
+name|WALEdit
+name|logEdit
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * For notification post writer sync.  Used by metrics system at least.    * @param timeInNanos How long the filesystem sync took in nanoseconds.    * @param handlerSyncs How many sync handler calls were released by this call to filesystem    * sync.    */
 name|void
@@ -347,8 +357,18 @@ parameter_list|,
 specifier|final
 name|long
 name|elapsedTimeMillis
+parameter_list|,
+specifier|final
+name|WALKey
+name|logKey
+parameter_list|,
+specifier|final
+name|WALEdit
+name|logEdit
 parameter_list|)
-block|{}
+throws|throws
+name|IOException
+block|{     }
 annotation|@
 name|Override
 specifier|public

@@ -322,6 +322,10 @@ argument_list|(
 literal|1
 argument_list|,
 literal|900
+argument_list|,
+literal|null
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// Two slow appends (> 1000)
@@ -332,6 +336,10 @@ argument_list|(
 literal|1
 argument_list|,
 literal|1010
+argument_list|,
+literal|null
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|metricsWAL
@@ -341,6 +349,10 @@ argument_list|(
 literal|1
 argument_list|,
 literal|2000
+argument_list|,
+literal|null
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -389,6 +401,10 @@ argument_list|(
 literal|100
 argument_list|,
 literal|900
+argument_list|,
+literal|null
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|metricsWAL
@@ -398,6 +414,10 @@ argument_list|(
 literal|200
 argument_list|,
 literal|2000
+argument_list|,
+literal|null
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|verify
