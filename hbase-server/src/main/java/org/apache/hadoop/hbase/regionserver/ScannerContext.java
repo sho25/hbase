@@ -582,6 +582,31 @@ operator|.
 name|TIME_LIMIT_REACHED_MID_ROW
 return|;
 block|}
+comment|/**    * @return true when a mid-row result is formed.    */
+name|boolean
+name|midRowResultFormed
+parameter_list|()
+block|{
+return|return
+name|scannerState
+operator|==
+name|NextState
+operator|.
+name|SIZE_LIMIT_REACHED_MID_ROW
+operator|||
+name|scannerState
+operator|==
+name|NextState
+operator|.
+name|TIME_LIMIT_REACHED_MID_ROW
+operator|||
+name|scannerState
+operator|==
+name|NextState
+operator|.
+name|BATCH_LIMIT_REACHED
+return|;
+block|}
 comment|/**    * @param checkerScope    * @return true if the batch limit can be enforced in the checker's scope    */
 name|boolean
 name|hasBatchLimit

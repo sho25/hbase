@@ -27347,7 +27347,7 @@ condition|(
 operator|!
 name|scannerContext
 operator|.
-name|partialResultFormed
+name|midRowResultFormed
 argument_list|()
 condition|)
 name|resetFilters
@@ -27630,6 +27630,8 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|moreCellsInRow
+operator|&&
 name|scannerContext
 operator|.
 name|checkBatchLimit
