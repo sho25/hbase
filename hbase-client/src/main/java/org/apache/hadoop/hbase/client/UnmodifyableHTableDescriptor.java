@@ -195,7 +195,7 @@ comment|/**    * Does NOT add a column family. This object is immutable    * @pa
 annotation|@
 name|Override
 specifier|public
-name|HTableDescriptor
+name|UnmodifyableHTableDescriptor
 name|addFamily
 parameter_list|(
 specifier|final
@@ -214,7 +214,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HTableDescriptor
+name|UnmodifyableHTableDescriptor
 name|modifyFamily
 parameter_list|(
 name|HColumnDescriptor
@@ -254,7 +254,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setReadOnly(boole
 annotation|@
 name|Override
 specifier|public
-name|HTableDescriptor
+name|UnmodifyableHTableDescriptor
 name|setReadOnly
 parameter_list|(
 name|boolean
@@ -273,7 +273,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setValue(byte[], 
 annotation|@
 name|Override
 specifier|public
-name|HTableDescriptor
+name|UnmodifyableHTableDescriptor
 name|setValue
 parameter_list|(
 name|byte
@@ -297,7 +297,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setValue(java.lan
 annotation|@
 name|Override
 specifier|public
-name|HTableDescriptor
+name|UnmodifyableHTableDescriptor
 name|setValue
 parameter_list|(
 name|String
@@ -319,7 +319,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setMaxFileSize(lo
 annotation|@
 name|Override
 specifier|public
-name|HTableDescriptor
+name|UnmodifyableHTableDescriptor
 name|setMaxFileSize
 parameter_list|(
 name|long
@@ -338,7 +338,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setMemStoreFlushS
 annotation|@
 name|Override
 specifier|public
-name|HTableDescriptor
+name|UnmodifyableHTableDescriptor
 name|setMemStoreFlushSize
 parameter_list|(
 name|long
