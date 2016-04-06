@@ -671,6 +671,8 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setCacheOn
@@ -692,6 +694,8 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setCacheOff
@@ -867,6 +871,14 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|TableInfoMissingException
+name|e
+parameter_list|)
+block|{
+comment|// ignore. This is regular operation
 block|}
 catch|catch
 parameter_list|(
