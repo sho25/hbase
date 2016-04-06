@@ -3289,6 +3289,38 @@ argument_list|,
 name|newPath
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Create new "
+operator|+
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+operator|+
+literal|" writer with pipeline: "
+operator|+
+name|Arrays
+operator|.
+name|toString
+argument_list|(
+name|getPipeline
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Can we delete any of the old log files?
 if|if
 condition|(

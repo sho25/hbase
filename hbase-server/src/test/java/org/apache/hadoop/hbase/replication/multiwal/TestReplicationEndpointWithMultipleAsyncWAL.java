@@ -31,23 +31,7 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|TestReplicationBase
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|replication
-operator|.
-name|TestReplicationSyncUpTool
+name|TestReplicationEndpoint
 import|;
 end_import
 
@@ -63,7 +47,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|LargeTests
+name|MediumTests
 import|;
 end_import
 
@@ -148,16 +132,16 @@ name|ReplicationTests
 operator|.
 name|class
 block|,
-name|LargeTests
+name|MediumTests
 operator|.
 name|class
 block|}
 argument_list|)
 specifier|public
 class|class
-name|TestReplicationSyncUpToolWithMultipleWAL
+name|TestReplicationEndpointWithMultipleAsyncWAL
 extends|extends
-name|TestReplicationSyncUpTool
+name|TestReplicationEndpoint
 block|{
 annotation|@
 name|BeforeClass
@@ -188,10 +172,10 @@ name|RegionGroupingProvider
 operator|.
 name|DELEGATE_PROVIDER
 argument_list|,
-literal|"filesystem"
+literal|"asyncfs"
 argument_list|)
 expr_stmt|;
-name|TestReplicationBase
+name|TestReplicationEndpoint
 operator|.
 name|setUpBeforeClass
 argument_list|()

@@ -388,7 +388,7 @@ operator|new
 name|Object
 argument_list|()
 decl_stmt|;
-comment|/**    * @param factory factory that made us, identity used for FS layout. may not be null    * @param conf may not be null    * @param listeners may be null    * @param providerId differentiate between providers from one facotry, used for FS layout. may be    *          null    */
+comment|/**    * @param factory factory that made us, identity used for FS layout. may not be null    * @param conf may not be null    * @param listeners may be null    * @param providerId differentiate between providers from one factory, used for FS layout. may be    *          null    */
 annotation|@
 name|Override
 specifier|public
@@ -530,7 +530,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|WAL
+name|T
 name|getWAL
 parameter_list|(
 name|byte

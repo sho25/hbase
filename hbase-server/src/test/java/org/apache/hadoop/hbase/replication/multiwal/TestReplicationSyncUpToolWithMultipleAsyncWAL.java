@@ -155,7 +155,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestReplicationSyncUpToolWithMultipleWAL
+name|TestReplicationSyncUpToolWithMultipleAsyncWAL
 extends|extends
 name|TestReplicationSyncUpTool
 block|{
@@ -188,7 +188,7 @@ name|RegionGroupingProvider
 operator|.
 name|DELEGATE_PROVIDER
 argument_list|,
-literal|"filesystem"
+literal|"asyncfs"
 argument_list|)
 expr_stmt|;
 name|TestReplicationBase
