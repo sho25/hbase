@@ -464,7 +464,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A job with a a map and reduce phase to count cells in a table.  * The counter lists the following stats for a given table:  *<pre>  * 1. Total number of rows in the table  * 2. Total number of CFs across all rows  * 3. Total qualifiers across all rows  * 4. Total occurrence of each CF  * 5. Total occurrence  of each qualifier  * 6. Total number of versions of each qualifier.  *</pre>  *  * The cellcounter takes two optional parameters one to use a user  * supplied row/family/qualifier string to use in the report and  * second a regex based or prefix based row filter to restrict the  * count operation to a limited subset of rows from the table.  */
+comment|/**  * A job with a a map and reduce phase to count cells in a table.  * The counter lists the following stats for a given table:  *<pre>  * 1. Total number of rows in the table  * 2. Total number of CFs across all rows  * 3. Total qualifiers across all rows  * 4. Total occurrence of each CF  * 5. Total occurrence  of each qualifier  * 6. Total number of versions of each qualifier.  *</pre>  *  * The cellcounter can take optional parameters to use a user  * supplied row/family/qualifier string to use in the report and  * second a regex based or prefix based row filter to restrict the  * count operation to a limited subset of rows from the table or a  * start time and/or end time to limit the count to a time range.  */
 end_comment
 
 begin_class
