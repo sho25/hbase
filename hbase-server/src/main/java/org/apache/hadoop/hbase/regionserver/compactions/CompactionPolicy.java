@@ -158,7 +158,7 @@ comment|/**    * @param filesToCompact Files to compact. Can be null.    * @retu
 specifier|public
 specifier|abstract
 name|boolean
-name|isMajorCompaction
+name|shouldPerformMajorCompaction
 parameter_list|(
 specifier|final
 name|Collection

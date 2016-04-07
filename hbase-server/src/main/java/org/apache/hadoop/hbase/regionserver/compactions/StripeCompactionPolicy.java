@@ -1001,7 +1001,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|isMajorCompaction
+name|shouldPerformMajorCompaction
 parameter_list|(
 name|Collection
 argument_list|<

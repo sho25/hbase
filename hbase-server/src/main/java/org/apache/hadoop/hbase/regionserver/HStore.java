@@ -7931,7 +7931,7 @@ operator|.
 name|getCompactionPolicy
 argument_list|()
 operator|.
-name|isMajorCompaction
+name|shouldPerformMajorCompaction
 argument_list|(
 name|this
 operator|.

@@ -85,11 +85,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|Configuration
 import|;
 end_import
 
@@ -101,9 +99,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -192,6 +192,7 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
+specifier|protected
 specifier|final
 name|ArrayList
 argument_list|<

@@ -342,7 +342,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|isMajorCompaction
+name|shouldPerformMajorCompaction
 parameter_list|(
 name|Collection
 argument_list|<
@@ -378,7 +378,7 @@ expr_stmt|;
 return|return
 name|super
 operator|.
-name|isMajorCompaction
+name|shouldPerformMajorCompaction
 argument_list|(
 name|filesToCompact
 argument_list|)
