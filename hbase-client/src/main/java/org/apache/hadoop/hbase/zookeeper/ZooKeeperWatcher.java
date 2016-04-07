@@ -565,6 +565,11 @@ specifier|private
 name|String
 name|switchZNode
 decl_stmt|;
+comment|// znode containing the lock for the switches
+specifier|private
+name|String
+name|switchLockZNode
+decl_stmt|;
 comment|// znode containing the lock for the tables
 specifier|public
 name|String
@@ -2092,6 +2097,17 @@ literal|"switch"
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|switchLockZNode
+operator|=
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|switchZNode
+argument_list|,
+literal|"locks"
+argument_list|)
+expr_stmt|;
 name|tableLockZNode
 operator|=
 name|ZKUtil
@@ -3194,6 +3210,16 @@ parameter_list|()
 block|{
 return|return
 name|switchZNode
+return|;
+block|}
+comment|/**    *  @return ZK node for switchLock node.    * */
+specifier|public
+name|String
+name|getSwitchLockZNode
+parameter_list|()
+block|{
+return|return
+name|switchLockZNode
 return|;
 block|}
 block|}
