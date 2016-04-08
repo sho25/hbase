@@ -609,15 +609,6 @@ name|long
 name|timeOfOldestEdit
 parameter_list|()
 function_decl|;
-comment|/**    * Removes a Cell from the memstore. The Cell is removed only if its key    *&amp; memstoreTS match the key&amp; memstoreTS value of the cell    * parameter.    * @param cell    */
-name|void
-name|rollback
-parameter_list|(
-specifier|final
-name|Cell
-name|cell
-parameter_list|)
-function_decl|;
 name|FileSystem
 name|getFileSystem
 parameter_list|()

@@ -145,15 +145,6 @@ name|long
 name|timeOfOldestEdit
 parameter_list|()
 function_decl|;
-comment|/**    * Remove n key from the memstore. Only kvs that have the same key and the same memstoreTS are    * removed. It is ok to not update timeRangeTracker in this call.    * @param cell    */
-name|void
-name|rollback
-parameter_list|(
-specifier|final
-name|Cell
-name|cell
-parameter_list|)
-function_decl|;
 comment|/**    * Write a delete    * @param deleteCell    * @return approximate size of the passed key and value.    */
 name|long
 name|delete
