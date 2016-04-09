@@ -317,6 +317,18 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
+name|void
+name|updatePeerConfig
+parameter_list|(
+name|String
+name|id
+parameter_list|,
+name|ReplicationPeerConfig
+name|peerConfig
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
 block|}
 end_interface
 

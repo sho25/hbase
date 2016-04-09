@@ -2601,8 +2601,6 @@ argument_list|()
 argument_list|,
 name|fs
 argument_list|,
-name|peerConfig
-argument_list|,
 name|peerId
 argument_list|,
 name|clusterId

@@ -166,6 +166,13 @@ argument_list|>
 name|getTableCFs
 parameter_list|()
 function_decl|;
+name|void
+name|trackPeerConfigChanges
+parameter_list|(
+name|ReplicationPeerConfigListener
+name|listener
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 

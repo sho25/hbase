@@ -190,6 +190,8 @@ interface|interface
 name|ReplicationEndpoint
 extends|extends
 name|Service
+extends|,
+name|ReplicationPeerConfigListener
 block|{
 annotation|@
 name|InterfaceAudience
@@ -217,11 +219,6 @@ specifier|private
 specifier|final
 name|TableDescriptors
 name|tableDescriptors
-decl_stmt|;
-specifier|private
-specifier|final
-name|ReplicationPeerConfig
-name|peerConfig
 decl_stmt|;
 specifier|private
 specifier|final
@@ -259,10 +256,6 @@ name|FileSystem
 name|fs
 parameter_list|,
 specifier|final
-name|ReplicationPeerConfig
-name|peerConfig
-parameter_list|,
-specifier|final
 name|String
 name|peerId
 parameter_list|,
@@ -283,12 +276,6 @@ name|TableDescriptors
 name|tableDescriptors
 parameter_list|)
 block|{
-name|this
-operator|.
-name|peerConfig
-operator|=
-name|peerConfig
-expr_stmt|;
 name|this
 operator|.
 name|conf
@@ -374,7 +361,10 @@ name|getPeerConfig
 parameter_list|()
 block|{
 return|return
-name|peerConfig
+name|replicationPeer
+operator|.
+name|getPeerConfig
+argument_list|()
 return|;
 block|}
 specifier|public
