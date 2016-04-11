@@ -965,6 +965,36 @@ name|env
 argument_list|)
 condition|)
 block|{
+comment|// isMetaAssignedQuickTest does not really wait. Let's delay a little before
+comment|// another round of execution.
+name|long
+name|wait
+init|=
+name|env
+operator|.
+name|getMasterConfiguration
+argument_list|()
+operator|.
+name|getLong
+argument_list|(
+name|KEY_SHORT_WAIT_ON_META
+argument_list|,
+name|DEFAULT_SHORT_WAIT_ON_META
+argument_list|)
+decl_stmt|;
+name|wait
+operator|=
+name|wait
+operator|/
+literal|10
+expr_stmt|;
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+name|wait
+argument_list|)
+expr_stmt|;
 name|throwProcedureYieldException
 argument_list|(
 literal|"Waiting on hbase:meta assignment"
@@ -1300,6 +1330,38 @@ name|state
 argument_list|)
 throw|;
 block|}
+block|}
+catch|catch
+parameter_list|(
+name|ProcedureYieldException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed serverName="
+operator|+
+name|this
+operator|.
+name|serverName
+operator|+
+literal|", state="
+operator|+
+name|state
+operator|+
+literal|"; retry "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
+throw|;
 block|}
 catch|catch
 parameter_list|(
