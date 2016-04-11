@@ -112,13 +112,6 @@ name|age
 parameter_list|)
 function_decl|;
 name|void
-name|setSizeOfLogQueue
-parameter_list|(
-name|int
-name|size
-parameter_list|)
-function_decl|;
-name|void
 name|incrSizeOfLogQueue
 parameter_list|(
 name|int
@@ -180,6 +173,10 @@ parameter_list|()
 function_decl|;
 name|long
 name|getLastShippedAge
+parameter_list|()
+function_decl|;
+name|int
+name|getSizeOfLogQueue
 parameter_list|()
 function_decl|;
 name|void
