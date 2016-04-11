@@ -3869,9 +3869,9 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|HTableDescriptor
+name|ProtobufUtil
 operator|.
-name|convert
+name|convertToHTableDesc
 argument_list|(
 name|htds
 operator|.
@@ -12543,9 +12543,9 @@ index|[
 name|i
 index|]
 operator|=
-name|HTableDescriptor
+name|ProtobufUtil
 operator|.
-name|convert
+name|convertToHTableDesc
 argument_list|(
 name|list
 operator|.

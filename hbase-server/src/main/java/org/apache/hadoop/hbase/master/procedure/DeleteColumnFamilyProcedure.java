@@ -1126,10 +1126,12 @@ name|deleteCFMsg
 operator|.
 name|setUnmodifiedTableSchema
 argument_list|(
-name|unmodifiedHTableDescriptor
+name|ProtobufUtil
 operator|.
-name|convert
-argument_list|()
+name|convertToTableSchema
+argument_list|(
+name|unmodifiedHTableDescriptor
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1222,9 +1224,9 @@ condition|)
 block|{
 name|unmodifiedHTableDescriptor
 operator|=
-name|HTableDescriptor
+name|ProtobufUtil
 operator|.
-name|convert
+name|convertToHTableDesc
 argument_list|(
 name|deleteCFMsg
 operator|.

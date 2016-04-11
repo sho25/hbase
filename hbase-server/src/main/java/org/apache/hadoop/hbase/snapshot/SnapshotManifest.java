@@ -2004,9 +2004,9 @@ condition|)
 block|{
 name|htd
 operator|=
-name|HTableDescriptor
+name|ProtobufUtil
 operator|.
-name|convert
+name|convertToHTableDesc
 argument_list|(
 name|dataManifest
 operator|.
@@ -2462,10 +2462,12 @@ name|dataManifestBuilder
 operator|.
 name|setTableSchema
 argument_list|(
-name|htd
+name|ProtobufUtil
 operator|.
-name|convert
-argument_list|()
+name|convertToTableSchema
+argument_list|(
+name|htd
+argument_list|)
 argument_list|)
 expr_stmt|;
 if|if

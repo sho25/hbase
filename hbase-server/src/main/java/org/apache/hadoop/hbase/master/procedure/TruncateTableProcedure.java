@@ -1168,10 +1168,12 @@ name|state
 operator|.
 name|setTableSchema
 argument_list|(
-name|hTableDescriptor
+name|ProtobufUtil
 operator|.
-name|convert
-argument_list|()
+name|convertToTableSchema
+argument_list|(
+name|hTableDescriptor
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1286,9 +1288,9 @@ condition|)
 block|{
 name|hTableDescriptor
 operator|=
-name|HTableDescriptor
+name|ProtobufUtil
 operator|.
-name|convert
+name|convertToHTableDesc
 argument_list|(
 name|state
 operator|.

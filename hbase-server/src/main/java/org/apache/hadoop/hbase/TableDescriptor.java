@@ -223,10 +223,12 @@ argument_list|()
 operator|.
 name|setSchema
 argument_list|(
-name|hTableDescriptor
+name|ProtobufUtil
 operator|.
-name|convert
-argument_list|()
+name|convertToTableSchema
+argument_list|(
+name|hTableDescriptor
+argument_list|)
 argument_list|)
 decl_stmt|;
 return|return
@@ -252,9 +254,9 @@ return|return
 operator|new
 name|TableDescriptor
 argument_list|(
-name|HTableDescriptor
+name|ProtobufUtil
 operator|.
-name|convert
+name|convertToHTableDesc
 argument_list|(
 name|proto
 operator|.
