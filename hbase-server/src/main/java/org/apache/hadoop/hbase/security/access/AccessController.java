@@ -14352,7 +14352,7 @@ else|:
 literal|"null"
 operator|)
 operator|+
-literal|"is not system or super user."
+literal|"' is not system or super user."
 argument_list|)
 throw|;
 block|}
