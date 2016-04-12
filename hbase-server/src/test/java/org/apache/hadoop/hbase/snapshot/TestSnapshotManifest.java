@@ -860,8 +860,8 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|InvalidProtocolBufferException
-name|ipbe
+name|CorruptedSnapshotException
+name|cse
 parameter_list|)
 block|{
 try|try
@@ -904,8 +904,8 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|InvalidProtocolBufferException
-name|ipbe2
+name|CorruptedSnapshotException
+name|cse2
 parameter_list|)
 block|{
 name|fail
