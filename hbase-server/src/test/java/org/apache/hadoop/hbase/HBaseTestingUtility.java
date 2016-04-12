@@ -14473,7 +14473,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Wait until all regions for a table in hbase:meta have a non-empty    * info:server, up to 60 seconds. This means all regions have been deployed,    * master has been informed and updated hbase:meta with the regions deployed    * server.    * @param tableName the table name    * @throws IOException    */
+comment|/**    * Wait until all regions for a table in hbase:meta have a non-empty    * info:server, up to a configuable timeout value (default is 60 seconds)    * This means all regions have been deployed,    * master has been informed and updated hbase:meta with the regions deployed    * server.    * @param tableName the table name    * @throws IOException    */
 end_comment
 
 begin_function
@@ -14492,7 +14492,16 @@ name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tableName
 argument_list|,
+name|this
+operator|.
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.client.sync.wait.timeout.msec"
+argument_list|,
 literal|60000
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
