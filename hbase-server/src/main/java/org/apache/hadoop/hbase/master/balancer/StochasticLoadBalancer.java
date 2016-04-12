@@ -4584,7 +4584,7 @@ specifier|final
 name|float
 name|DEFAULT_MOVE_COST
 init|=
-literal|100
+literal|7
 decl_stmt|;
 specifier|private
 specifier|static
