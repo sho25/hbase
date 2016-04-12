@@ -107,24 +107,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|StoreFile
-operator|.
-name|Writer
-import|;
-end_import
-
 begin_comment
 comment|/**  * class for cell sink that separates the provided cells into multiple files for date tiered  * compaction.  */
 end_comment
@@ -146,9 +128,7 @@ name|NavigableMap
 argument_list|<
 name|Long
 argument_list|,
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 argument_list|>
 name|lowerBoundary2Writer
 init|=
@@ -157,9 +137,7 @@ name|TreeMap
 argument_list|<
 name|Long
 argument_list|,
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -225,9 +203,7 @@ name|Entry
 argument_list|<
 name|Long
 argument_list|,
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 argument_list|>
 name|entry
 init|=
@@ -241,9 +217,7 @@ name|getTimestamp
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|writer
 init|=
 name|entry
@@ -291,7 +265,7 @@ name|Override
 specifier|protected
 name|Collection
 argument_list|<
-name|Writer
+name|StoreFileWriter
 argument_list|>
 name|writers
 parameter_list|()
@@ -322,9 +296,7 @@ return|return;
 block|}
 for|for
 control|(
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|writer
 range|:
 name|lowerBoundary2Writer

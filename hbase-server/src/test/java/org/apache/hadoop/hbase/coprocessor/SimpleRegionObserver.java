@@ -661,9 +661,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 import|;
 end_import
 
@@ -4564,7 +4562,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|Reader
+name|StoreFileReader
 name|preStoreFileReaderOpen
 parameter_list|(
 name|ObserverContext
@@ -4591,7 +4589,7 @@ parameter_list|,
 name|Reference
 name|r
 parameter_list|,
-name|Reader
+name|StoreFileReader
 name|reader
 parameter_list|)
 throws|throws
@@ -4609,7 +4607,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|Reader
+name|StoreFileReader
 name|postStoreFileReaderOpen
 parameter_list|(
 name|ObserverContext
@@ -4636,7 +4634,7 @@ parameter_list|,
 name|Reference
 name|r
 parameter_list|,
-name|Reader
+name|StoreFileReader
 name|reader
 parameter_list|)
 throws|throws

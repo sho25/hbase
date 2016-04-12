@@ -245,9 +245,7 @@ range|:
 name|candidates
 control|)
 block|{
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|r
 init|=
 name|sf

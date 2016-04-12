@@ -423,9 +423,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileReader
 import|;
 end_import
 
@@ -442,6 +440,22 @@ operator|.
 name|regionserver
 operator|.
 name|StoreFileScanner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|StoreFileWriter
 import|;
 end_import
 
@@ -1031,9 +1045,7 @@ argument_list|,
 name|seqNum
 argument_list|)
 expr_stmt|;
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|r
 init|=
 name|file
@@ -1591,7 +1603,7 @@ block|}
 decl_stmt|;
 comment|/**    * Creates a writer for a new file in a temporary directory.    * @param fd The file details.    * @return Writer for a new StoreFile in the tmp dir.    * @throws IOException if creation failed    */
 specifier|protected
-name|Writer
+name|StoreFileWriter
 name|createTmpWriter
 parameter_list|(
 name|FileDetails

@@ -514,15 +514,13 @@ name|build
 argument_list|()
 decl_stmt|;
 comment|// Make a store file and write data to it.
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|writer
 init|=
 operator|new
-name|StoreFile
+name|StoreFileWriter
 operator|.
-name|WriterBuilder
+name|Builder
 argument_list|(
 name|conf
 argument_list|,
@@ -554,15 +552,11 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|reader
 init|=
 operator|new
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 argument_list|(
 name|fs
 argument_list|,
@@ -737,9 +731,7 @@ name|void
 name|writeStoreFile
 parameter_list|(
 specifier|final
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|writer
 parameter_list|)
 throws|throws

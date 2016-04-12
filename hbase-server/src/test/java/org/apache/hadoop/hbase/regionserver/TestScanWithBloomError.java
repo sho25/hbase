@@ -1097,9 +1097,7 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|lastStoreFileReader
 init|=
 literal|null

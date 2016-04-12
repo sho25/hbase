@@ -165,7 +165,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreFileWriter
 import|;
 end_import
 
@@ -298,9 +298,7 @@ name|void
 name|writeStoreFile
 parameter_list|(
 specifier|final
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|writer
 parameter_list|,
 name|String
@@ -336,9 +334,7 @@ name|void
 name|writeStoreFile
 parameter_list|(
 specifier|final
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|writer
 parameter_list|,
 name|byte

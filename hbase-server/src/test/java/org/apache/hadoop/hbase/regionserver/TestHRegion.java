@@ -29171,9 +29171,7 @@ range|:
 name|storeFiles
 control|)
 block|{
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|reader
 init|=
 name|storefile
@@ -29237,9 +29235,7 @@ range|:
 name|storeFiles
 control|)
 block|{
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|reader
 init|=
 name|storefile

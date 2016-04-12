@@ -193,9 +193,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 import|;
 end_import
 
@@ -301,7 +299,7 @@ block|{
 annotation|@
 name|Override
 specifier|public
-name|Writer
+name|StoreFileWriter
 name|createWriter
 parameter_list|()
 throws|throws

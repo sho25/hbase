@@ -8710,9 +8710,7 @@ range|:
 name|storeFiles
 control|)
 block|{
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|sfReader
 init|=
 name|file

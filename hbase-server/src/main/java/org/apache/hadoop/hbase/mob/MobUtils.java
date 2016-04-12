@@ -713,6 +713,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|StoreFileWriter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -2211,9 +2227,7 @@ block|}
 comment|/**    * Creates a writer for the mob file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param date The date string, its format is yyyymmmdd.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param startKey The hex string of the start key.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @return The writer for the mob file.    * @throws IOException    */
 specifier|public
 specifier|static
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|createWriter
 parameter_list|(
 name|Configuration
@@ -2306,9 +2320,7 @@ block|}
 comment|/**    * Creates a writer for the ref file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @return The writer for the mob file.    * @throws IOException    */
 specifier|public
 specifier|static
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|createRefFileWriter
 parameter_list|(
 name|Configuration
@@ -2451,15 +2463,13 @@ literal|""
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|w
 init|=
 operator|new
-name|StoreFile
+name|StoreFileWriter
 operator|.
-name|WriterBuilder
+name|Builder
 argument_list|(
 name|conf
 argument_list|,
@@ -2508,9 +2518,7 @@ block|}
 comment|/**    * Creates a writer for the mob file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param date The date string, its format is yyyymmmdd.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param startKey The start key.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @return The writer for the mob file.    * @throws IOException    */
 specifier|public
 specifier|static
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|createWriter
 parameter_list|(
 name|Configuration
@@ -2604,9 +2612,7 @@ block|}
 comment|/**    * Creates a writer for the del file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param date The date string, its format is yyyymmmdd.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param startKey The start key.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @return The writer for the del file.    * @throws IOException    */
 specifier|public
 specifier|static
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|createDelFileWriter
 parameter_list|(
 name|Configuration
@@ -2707,9 +2713,7 @@ block|}
 comment|/**    * Creates a writer for the mob file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param mobFileName The mob file name.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @return The writer for the mob file.    * @throws IOException    */
 specifier|private
 specifier|static
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|createWriter
 parameter_list|(
 name|Configuration
@@ -2833,15 +2837,13 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|w
 init|=
 operator|new
-name|StoreFile
+name|StoreFileWriter
 operator|.
-name|WriterBuilder
+name|Builder
 argument_list|(
 name|conf
 argument_list|,

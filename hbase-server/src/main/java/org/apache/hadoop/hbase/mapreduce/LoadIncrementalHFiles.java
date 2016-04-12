@@ -731,7 +731,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreFileInfo
 import|;
 end_import
 
@@ -747,7 +747,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFileInfo
+name|StoreFileWriter
 import|;
 end_import
 
@@ -5280,9 +5280,7 @@ name|halfReader
 init|=
 literal|null
 decl_stmt|;
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|halfWriter
 init|=
 literal|null
@@ -5400,9 +5398,9 @@ decl_stmt|;
 name|halfWriter
 operator|=
 operator|new
-name|StoreFile
+name|StoreFileWriter
 operator|.
-name|WriterBuilder
+name|Builder
 argument_list|(
 name|conf
 argument_list|,

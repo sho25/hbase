@@ -7152,9 +7152,7 @@ expr_stmt|;
 block|}
 comment|/**    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @return a Reader instance to use instead of the base reader if overriding    * default behavior, null otherwise    * @throws IOException    */
 specifier|public
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|preStoreFileReaderOpen
 parameter_list|(
 specifier|final
@@ -7199,9 +7197,7 @@ else|:
 operator|new
 name|RegionOperationWithResult
 argument_list|<
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 argument_list|>
 argument_list|()
 block|{
@@ -7255,9 +7251,7 @@ return|;
 block|}
 comment|/**    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader instance    * @return The reader to use    * @throws IOException    */
 specifier|public
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|postStoreFileReaderOpen
 parameter_list|(
 specifier|final
@@ -7285,9 +7279,7 @@ name|Reference
 name|r
 parameter_list|,
 specifier|final
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|reader
 parameter_list|)
 throws|throws
@@ -7308,9 +7300,7 @@ else|:
 operator|new
 name|RegionOperationWithResult
 argument_list|<
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 argument_list|>
 argument_list|()
 block|{

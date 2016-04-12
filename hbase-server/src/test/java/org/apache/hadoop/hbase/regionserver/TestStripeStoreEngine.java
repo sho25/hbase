@@ -884,9 +884,7 @@ name|thenReturn
 argument_list|(
 name|mock
 argument_list|(
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 operator|.
 name|class
 argument_list|)

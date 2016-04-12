@@ -229,7 +229,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreFileReader
 import|;
 end_import
 
@@ -262,9 +262,7 @@ specifier|public
 class|class
 name|HalfStoreFileReader
 extends|extends
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 block|{
 specifier|private
 specifier|static

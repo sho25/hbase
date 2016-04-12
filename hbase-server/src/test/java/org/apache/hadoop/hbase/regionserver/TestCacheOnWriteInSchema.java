@@ -1429,9 +1429,7 @@ throws|throws
 name|IOException
 block|{
 comment|// Write some random data into the store
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|writer
 init|=
 name|store
@@ -1811,9 +1809,7 @@ specifier|private
 name|void
 name|writeStoreFile
 parameter_list|(
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|writer
 parameter_list|)
 throws|throws

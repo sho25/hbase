@@ -938,9 +938,7 @@ return|;
 block|}
 comment|/**    * Open a Reader for the StoreFile    * @param fs The current file system to use.    * @param cacheConf The cache configuration and block cache reference.    * @return The StoreFile.Reader for the file    */
 specifier|public
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|open
 parameter_list|(
 specifier|final
@@ -1097,9 +1095,7 @@ argument_list|(
 name|fs
 argument_list|)
 expr_stmt|;
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|reader
 init|=
 literal|null
@@ -1183,9 +1179,7 @@ block|{
 name|reader
 operator|=
 operator|new
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 argument_list|(
 name|fs
 argument_list|,

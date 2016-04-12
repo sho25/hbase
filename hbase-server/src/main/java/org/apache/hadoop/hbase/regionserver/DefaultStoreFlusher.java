@@ -313,9 +313,7 @@ name|result
 return|;
 comment|// NULL scanner returned from coprocessor hooks means skip normal processing
 block|}
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|writer
 decl_stmt|;
 try|try

@@ -1263,9 +1263,7 @@ return|;
 block|}
 comment|/**    * Creates the writer for the mob file in temp directory.    * @param date The latest date of written cells.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param startKey The start key.    * @return The writer for the mob file.    * @throws IOException    */
 specifier|public
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|createWriterInTmp
 parameter_list|(
 name|Date
@@ -1328,9 +1326,7 @@ return|;
 block|}
 comment|/**    * Creates the writer for the del file in temp directory.    * The del file keeps tracking the delete markers. Its name has a suffix _del,    * the format is [0-9a-f]+(_del)?.    * @param date The latest date of written cells.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param startKey The start key.    * @return The writer for the del file.    * @throws IOException    */
 specifier|public
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|createDelFileWriterInTmp
 parameter_list|(
 name|Date
@@ -1425,9 +1421,7 @@ return|;
 block|}
 comment|/**    * Creates the writer for the mob file in temp directory.    * @param date The date string, its format is yyyymmmdd.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param startKey The start key.    * @return The writer for the mob file.    * @throws IOException    */
 specifier|public
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|createWriterInTmp
 parameter_list|(
 name|String
@@ -1493,9 +1487,7 @@ return|;
 block|}
 comment|/**    * Creates the writer for the mob file in temp directory.    * @param mobFileName The mob file name.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @return The writer for the mob file.    * @throws IOException    */
 specifier|public
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|createWriterInTmp
 parameter_list|(
 name|MobFileName
@@ -1596,15 +1588,13 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|w
 init|=
 operator|new
-name|StoreFile
+name|StoreFileWriter
 operator|.
-name|WriterBuilder
+name|Builder
 argument_list|(
 name|conf
 argument_list|,

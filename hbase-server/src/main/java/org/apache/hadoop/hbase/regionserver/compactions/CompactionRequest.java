@@ -213,9 +213,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 import|;
 end_import
 
@@ -1068,7 +1066,7 @@ operator|.
 name|filesToCompact
 control|)
 block|{
-name|Reader
+name|StoreFileReader
 name|r
 init|=
 name|sf

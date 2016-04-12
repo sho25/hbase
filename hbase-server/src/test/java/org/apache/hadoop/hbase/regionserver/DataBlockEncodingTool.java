@@ -3287,9 +3287,7 @@ operator|.
 name|NONE
 argument_list|)
 decl_stmt|;
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|reader
 init|=
 name|hsf

@@ -1579,9 +1579,7 @@ name|keys
 operator|.
 name|length
 decl_stmt|;
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|mobWriter
 init|=
 name|store

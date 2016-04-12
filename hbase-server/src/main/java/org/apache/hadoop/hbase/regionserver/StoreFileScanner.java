@@ -227,24 +227,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|StoreFile
-operator|.
-name|Reader
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Counter
@@ -272,9 +254,7 @@ block|{
 comment|// the reader it comes from:
 specifier|private
 specifier|final
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|reader
 decl_stmt|;
 specifier|private
@@ -343,9 +323,7 @@ comment|/**    * Implements a {@link KeyValueScanner} on top of the specified {@
 specifier|public
 name|StoreFileScanner
 parameter_list|(
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|reader
 parameter_list|,
 name|HFileScanner
@@ -564,9 +542,7 @@ range|:
 name|files
 control|)
 block|{
-name|StoreFile
-operator|.
-name|Reader
+name|StoreFileReader
 name|r
 init|=
 name|file
@@ -1619,7 +1595,7 @@ return|return
 literal|true
 return|;
 block|}
-name|Reader
+name|StoreFileReader
 name|getReader
 parameter_list|()
 block|{

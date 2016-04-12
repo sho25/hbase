@@ -337,7 +337,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreFileWriter
 import|;
 end_import
 
@@ -621,9 +621,7 @@ name|result
 return|;
 comment|// NULL scanner returned from coprocessor hooks means skip normal processing
 block|}
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|writer
 decl_stmt|;
 try|try
@@ -789,9 +787,7 @@ parameter_list|,
 name|InternalScanner
 name|scanner
 parameter_list|,
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|writer
 parameter_list|,
 name|MonitoredTask
@@ -800,9 +796,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|mobFileWriter
 init|=
 literal|null

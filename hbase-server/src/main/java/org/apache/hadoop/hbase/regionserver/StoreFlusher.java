@@ -311,9 +311,7 @@ specifier|protected
 name|void
 name|finalizeWriter
 parameter_list|(
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|writer
 parameter_list|,
 name|long

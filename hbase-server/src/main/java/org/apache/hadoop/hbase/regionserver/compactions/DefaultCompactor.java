@@ -181,9 +181,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 import|;
 end_import
 
@@ -268,7 +266,7 @@ name|DefaultCompactor
 extends|extends
 name|Compactor
 argument_list|<
-name|Writer
+name|StoreFileWriter
 argument_list|>
 block|{
 specifier|private
@@ -310,21 +308,21 @@ specifier|private
 specifier|final
 name|CellSinkFactory
 argument_list|<
-name|Writer
+name|StoreFileWriter
 argument_list|>
 name|writerFactory
 init|=
 operator|new
 name|CellSinkFactory
 argument_list|<
-name|Writer
+name|StoreFileWriter
 argument_list|>
 argument_list|()
 block|{
 annotation|@
 name|Override
 specifier|public
-name|Writer
+name|StoreFileWriter
 name|createWriter
 parameter_list|(
 name|InternalScanner
@@ -461,7 +459,7 @@ name|Path
 argument_list|>
 name|commitWriter
 parameter_list|(
-name|Writer
+name|StoreFileWriter
 name|writer
 parameter_list|,
 name|FileDetails
@@ -518,7 +516,7 @@ specifier|protected
 name|void
 name|abortWriter
 parameter_list|(
-name|Writer
+name|StoreFileWriter
 name|writer
 parameter_list|)
 throws|throws

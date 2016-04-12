@@ -367,9 +367,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileScanner
 import|;
 end_import
 
@@ -385,7 +383,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFileScanner
+name|StoreFileWriter
 import|;
 end_import
 
@@ -671,21 +669,21 @@ specifier|private
 specifier|final
 name|CellSinkFactory
 argument_list|<
-name|Writer
+name|StoreFileWriter
 argument_list|>
 name|writerFactory
 init|=
 operator|new
 name|CellSinkFactory
 argument_list|<
-name|Writer
+name|StoreFileWriter
 argument_list|>
 argument_list|()
 block|{
 annotation|@
 name|Override
 specifier|public
-name|Writer
+name|StoreFileWriter
 name|createWriter
 parameter_list|(
 name|InternalScanner
@@ -951,7 +949,7 @@ name|fileName
 init|=
 literal|null
 decl_stmt|;
-name|Writer
+name|StoreFileWriter
 name|mobFileWriter
 init|=
 literal|null

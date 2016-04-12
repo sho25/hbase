@@ -259,7 +259,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreFileWriter
 import|;
 end_import
 
@@ -950,9 +950,7 @@ argument_list|(
 name|tn
 argument_list|)
 decl_stmt|;
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|mobWriter
 init|=
 name|mobStore

@@ -247,7 +247,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreFileWriter
 import|;
 end_import
 
@@ -686,15 +686,13 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|storeFileWriter
 init|=
 operator|new
-name|StoreFile
+name|StoreFileWriter
 operator|.
-name|WriterBuilder
+name|Builder
 argument_list|(
 name|conf
 argument_list|,

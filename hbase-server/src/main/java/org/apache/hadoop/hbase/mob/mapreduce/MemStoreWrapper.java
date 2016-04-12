@@ -427,7 +427,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreFileWriter
 import|;
 end_import
 
@@ -786,9 +786,7 @@ operator|.
 name|WORKING_FILES_DIR_KEY
 argument_list|)
 decl_stmt|;
-name|StoreFile
-operator|.
-name|Writer
+name|StoreFileWriter
 name|mobFileWriter
 init|=
 name|MobUtils

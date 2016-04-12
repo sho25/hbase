@@ -147,6 +147,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|StoreFileWriter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|BloomFilterChunk
@@ -614,7 +630,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * Adds a Bloom filter key. This key must be greater than the previous key,    * as defined by the comparator this compound Bloom filter is configured    * with. For efficiency, key monotonicity is not checked here. See    * {@link org.apache.hadoop.hbase.regionserver.StoreFile.Writer#append(    * org.apache.hadoop.hbase.Cell)} for the details of deduplication.    */
+comment|/**    * Adds a Bloom filter key. This key must be greater than the previous key,    * as defined by the comparator this compound Bloom filter is configured    * with. For efficiency, key monotonicity is not checked here. See    * {@link StoreFileWriter#append(    * org.apache.hadoop.hbase.Cell)} for the details of deduplication.    */
 annotation|@
 name|Override
 specifier|public
