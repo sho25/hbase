@@ -2232,6 +2232,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|coprocessorHost
+operator|.
+name|preWALRoll
+argument_list|(
+name|oldPath
+argument_list|,
+name|newPath
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -2313,6 +2322,15 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|coprocessorHost
+operator|.
+name|postWALRoll
+argument_list|(
+name|oldPath
+argument_list|,
+name|newPath
+argument_list|)
+expr_stmt|;
 block|}
 comment|// public only until class moves to o.a.h.h.wal
 comment|/** @return the number of rolled log files */
