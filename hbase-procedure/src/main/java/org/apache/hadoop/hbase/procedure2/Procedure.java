@@ -723,9 +723,16 @@ name|getLastUpdate
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|int
+index|[]
+name|stackIndices
+init|=
+name|getStackIndexes
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
-name|stackIndexes
+name|stackIndices
 operator|!=
 literal|null
 condition|)
@@ -752,8 +759,7 @@ name|Arrays
 operator|.
 name|toString
 argument_list|(
-name|getStackIndexes
-argument_list|()
+name|stackIndices
 argument_list|)
 argument_list|)
 expr_stmt|;
