@@ -835,7 +835,7 @@ operator|.
 name|getTimeRangeTracker
 argument_list|()
 operator|.
-name|getMaximumTimestamp
+name|getMax
 argument_list|()
 decl_stmt|;
 name|mobFileWriter

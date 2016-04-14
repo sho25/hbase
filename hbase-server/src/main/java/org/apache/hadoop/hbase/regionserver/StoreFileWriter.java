@@ -459,9 +459,9 @@ operator|new
 name|TimeRangeTracker
 argument_list|()
 decl_stmt|;
-comment|/* isTimeRangeTrackerSet keeps track if the timeRange has already been set    * When flushing a memstore, we set TimeRange and use this variable to    * indicate that it doesn't need to be calculated again while    * appending KeyValues.    * It is not set in cases of compactions when it is recalculated using only    * the appended KeyValues*/
+comment|/**    * timeRangeTrackerSet is used to figure if we were passed a filled-out TimeRangeTracker or not.    * When flushing a memstore, we set the TimeRangeTracker that it accumulated during updates to    * memstore in here into this Writer and use this variable to indicate that we do not need to    * recalculate the timeRangeTracker bounds; it was done already as part of add-to-memstore.    * A completed TimeRangeTracker is not set in cases of compactions when it is recalculated.    */
 name|boolean
-name|isTimeRangeTrackerSet
+name|timeRangeTrackerSet
 init|=
 literal|false
 decl_stmt|;
@@ -904,7 +904,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Set TimeRangeTracker    */
+comment|/**    * Set TimeRangeTracker.    * Called when flushing to pass us a pre-calculated TimeRangeTracker, one made during updates    * to memstore so we don't have to make one ourselves as Cells get appended. Call before first    * append. If this method is not called, we will calculate our own range of the Cells that    * comprise this StoreFile (and write them on the end as metadata). It is good to have this stuff    * passed because it is expensive to make.    */
 specifier|public
 name|void
 name|setTimeRangeTracker
@@ -920,7 +920,7 @@ name|timeRangeTracker
 operator|=
 name|trt
 expr_stmt|;
-name|isTimeRangeTrackerSet
+name|timeRangeTrackerSet
 operator|=
 literal|true
 expr_stmt|;
@@ -970,7 +970,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|isTimeRangeTrackerSet
+name|timeRangeTrackerSet
 condition|)
 block|{
 name|timeRangeTracker

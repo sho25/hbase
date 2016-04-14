@@ -531,7 +531,7 @@ literal|null
 else|:
 name|timeRangeTracker
 operator|.
-name|getMinimumTimestamp
+name|getMin
 argument_list|()
 return|;
 block|}
@@ -551,7 +551,7 @@ literal|null
 else|:
 name|timeRangeTracker
 operator|.
-name|getMaximumTimestamp
+name|getMax
 argument_list|()
 return|;
 block|}
@@ -594,7 +594,7 @@ name|length
 decl_stmt|;
 specifier|final
 name|TimeRangeTracker
-name|timeRange
+name|timeRangeTracker
 init|=
 name|this
 operator|.
@@ -640,9 +640,10 @@ name|Long
 operator|.
 name|MAX_VALUE
 else|:
-name|timeRange
+name|timeRangeTracker
 operator|.
-name|maximumTimestamp
+name|getMax
+argument_list|()
 return|;
 block|}
 annotation|@

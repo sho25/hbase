@@ -2299,14 +2299,14 @@ name|info
 argument_list|(
 name|timeRangeTracker
 operator|.
-name|getMinimumTimestamp
+name|getMin
 argument_list|()
 operator|+
 literal|"...."
 operator|+
 name|timeRangeTracker
 operator|.
-name|getMaximumTimestamp
+name|getMax
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2316,7 +2316,7 @@ literal|1000
 argument_list|,
 name|timeRangeTracker
 operator|.
-name|getMinimumTimestamp
+name|getMin
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2326,7 +2326,7 @@ literal|2000
 argument_list|,
 name|timeRangeTracker
 operator|.
-name|getMaximumTimestamp
+name|getMax
 argument_list|()
 argument_list|)
 expr_stmt|;

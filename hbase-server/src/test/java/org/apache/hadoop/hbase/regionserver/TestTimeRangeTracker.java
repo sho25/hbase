@@ -192,19 +192,19 @@ name|assertTrue
 argument_list|(
 name|trr
 operator|.
-name|getMinimumTimestamp
+name|getMin
 argument_list|()
 operator|!=
 name|TimeRangeTracker
 operator|.
-name|INITIAL_MINIMUM_TIMESTAMP
+name|INITIAL_MIN_TIMESTAMP
 argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
 name|trr
 operator|.
-name|getMaximumTimestamp
+name|getMax
 argument_list|()
 operator|!=
 operator|-
@@ -463,7 +463,7 @@ name|assertTrue
 argument_list|(
 name|trr
 operator|.
-name|getMaximumTimestamp
+name|getMax
 argument_list|()
 operator|==
 name|calls
@@ -475,7 +475,7 @@ name|assertTrue
 argument_list|(
 name|trr
 operator|.
-name|getMinimumTimestamp
+name|getMin
 argument_list|()
 operator|==
 literal|0
@@ -901,14 +901,14 @@ name|println
 argument_list|(
 name|trr
 operator|.
-name|getMinimumTimestamp
+name|getMin
 argument_list|()
 operator|+
 literal|" "
 operator|+
 name|trr
 operator|.
-name|getMaximumTimestamp
+name|getMax
 argument_list|()
 operator|+
 literal|" "
