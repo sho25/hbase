@@ -3335,13 +3335,6 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-name|Superusers
-operator|.
-name|initialize
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 name|FSUtils
 operator|.
 name|setupShortCircuitRead
@@ -3644,6 +3637,15 @@ argument_list|(
 name|userProvider
 argument_list|,
 name|hostName
+argument_list|)
+expr_stmt|;
+comment|// init superusers and add the server principal (if using security)
+comment|// or process owner as default super user.
+name|Superusers
+operator|.
+name|initialize
+argument_list|(
+name|conf
 argument_list|)
 expr_stmt|;
 name|regionServerAccounting
