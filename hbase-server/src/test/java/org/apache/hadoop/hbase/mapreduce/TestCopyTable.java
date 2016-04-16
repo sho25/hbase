@@ -910,9 +910,9 @@ name|ROW0
 init|=
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
-literal|"row0"
+literal|"\\x01row0"
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -922,9 +922,9 @@ name|ROW1
 init|=
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
-literal|"row1"
+literal|"\\x01row1"
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -934,9 +934,9 @@ name|ROW2
 init|=
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
-literal|"row2"
+literal|"\\x01row2"
 argument_list|)
 decl_stmt|;
 name|Table
@@ -1077,9 +1077,9 @@ literal|"--new.name="
 operator|+
 name|TABLENAME2
 block|,
-literal|"--startrow=row1"
+literal|"--startrow=\\x01row1"
 block|,
-literal|"--stoprow=row2"
+literal|"--stoprow=\\x01row2"
 block|,
 name|TABLENAME1
 operator|.

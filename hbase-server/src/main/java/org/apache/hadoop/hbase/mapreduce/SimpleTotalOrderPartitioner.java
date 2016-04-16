@@ -455,7 +455,7 @@ expr_stmt|;
 return|return
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
 name|oldStyleVal
 argument_list|)

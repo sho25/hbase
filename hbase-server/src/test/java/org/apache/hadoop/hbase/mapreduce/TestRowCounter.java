@@ -712,7 +712,7 @@ index|[]
 block|{
 name|TABLE_NAME
 block|,
-literal|"--range=rov,rox"
+literal|"--range=\\x00rov,\\x00rox"
 block|,
 name|COL_FAM
 operator|+
@@ -1260,15 +1260,16 @@ name|i
 operator|++
 control|)
 block|{
+comment|// Use binary rows values to test for HBASE-15287.
 name|byte
 index|[]
 name|row
 init|=
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
-literal|"row"
+literal|"\\x00row"
 operator|+
 name|i
 argument_list|)

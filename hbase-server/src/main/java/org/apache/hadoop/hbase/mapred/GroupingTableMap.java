@@ -700,7 +700,7 @@ name|ImmutableBytesWritable
 argument_list|(
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
 name|sb
 operator|.

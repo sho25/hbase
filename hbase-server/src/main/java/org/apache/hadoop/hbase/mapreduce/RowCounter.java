@@ -828,7 +828,7 @@ name|setStartRow
 argument_list|(
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
 name|startKey
 argument_list|)
@@ -856,7 +856,7 @@ name|setStopRow
 argument_list|(
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
 name|endKey
 argument_list|)

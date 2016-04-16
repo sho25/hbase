@@ -1494,7 +1494,7 @@ name|PrefixFilter
 argument_list|(
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
 name|filterCriteria
 argument_list|)
