@@ -33,6 +33,22 @@ name|BaseSource
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|metrics
+operator|.
+name|JvmPauseMonitorSource
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface for classes that expose metrics about the regionserver.  */
 end_comment
@@ -43,6 +59,8 @@ interface|interface
 name|MetricsRegionServerSource
 extends|extends
 name|BaseSource
+extends|,
+name|JvmPauseMonitorSource
 block|{
 comment|/**    * The name of the metrics    */
 name|String
