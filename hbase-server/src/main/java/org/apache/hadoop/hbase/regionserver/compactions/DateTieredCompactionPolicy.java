@@ -1136,7 +1136,6 @@ argument_list|,
 name|now
 argument_list|)
 decl_stmt|;
-comment|// Make sure the store files is sorted by SeqId then maxTimestamp
 name|List
 argument_list|<
 name|StoreFile
@@ -1155,19 +1154,6 @@ name|oldestToCompact
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|Collections
-operator|.
-name|sort
-argument_list|(
-name|storeFileList
-argument_list|,
-name|StoreFile
-operator|.
-name|Comparators
-operator|.
-name|SEQ_ID_MAX_TIMESTAMP
-argument_list|)
-expr_stmt|;
 name|List
 argument_list|<
 name|Pair

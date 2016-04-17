@@ -43,6 +43,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Comparator
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Iterator
 import|;
 end_import
@@ -59,17 +69,15 @@ end_import
 
 begin_import
 import|import
-name|org
+name|com
 operator|.
-name|apache
+name|google
 operator|.
-name|hadoop
+name|common
 operator|.
-name|hbase
+name|collect
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|ImmutableCollection
 import|;
 end_import
 
@@ -103,15 +111,17 @@ end_import
 
 begin_import
 import|import
-name|com
+name|org
 operator|.
-name|google
+name|apache
 operator|.
-name|common
+name|hadoop
 operator|.
-name|collect
+name|hbase
 operator|.
-name|ImmutableCollection
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -304,6 +314,14 @@ function_decl|;
 comment|/**    * @return the compaction pressure used for compaction throughput tuning.    * @see Store#getCompactionPressure()    */
 name|double
 name|getCompactionPressure
+parameter_list|()
+function_decl|;
+comment|/**    * @return the comparator used to sort storefiles. Usually, the    *         {@link StoreFile#getMaxSequenceId()} is the first priority.    */
+name|Comparator
+argument_list|<
+name|StoreFile
+argument_list|>
+name|getStoreFileComparator
 parameter_list|()
 function_decl|;
 block|}

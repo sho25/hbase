@@ -324,6 +324,12 @@ name|DefaultStoreFileManager
 argument_list|(
 name|kvComparator
 argument_list|,
+name|StoreFile
+operator|.
+name|Comparators
+operator|.
+name|SEQ_ID_MAX_TIMESTAMP
+argument_list|,
 name|conf
 argument_list|,
 name|compactionPolicy
