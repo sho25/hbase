@@ -116,6 +116,11 @@ name|retries
 decl_stmt|;
 specifier|private
 specifier|final
+name|int
+name|rpcTimeout
+decl_stmt|;
+specifier|private
+specifier|final
 name|RetryingCallerInterceptor
 name|interceptor
 decl_stmt|;
@@ -232,6 +237,21 @@ operator|.
 name|DEFAULT_ENABLE_CLIENT_BACKPRESSURE
 argument_list|)
 expr_stmt|;
+name|rpcTimeout
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_RPC_TIMEOUT_KEY
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_RPC_TIMEOUT
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Set the tracker that should be used for tracking statistics about the server    */
 specifier|public
@@ -249,6 +269,51 @@ operator|=
 name|statisticTracker
 expr_stmt|;
 block|}
+comment|/**    * Create a new RetryingCaller with specific rpc timeout.    */
+specifier|public
+parameter_list|<
+name|T
+parameter_list|>
+name|RpcRetryingCaller
+argument_list|<
+name|T
+argument_list|>
+name|newCaller
+parameter_list|(
+name|int
+name|rpcTimeout
+parameter_list|)
+block|{
+comment|// We store the values in the factory instance. This way, constructing new objects
+comment|//  is cheap as it does not require parsing a complex structure.
+name|RpcRetryingCaller
+argument_list|<
+name|T
+argument_list|>
+name|caller
+init|=
+operator|new
+name|RpcRetryingCallerImpl
+argument_list|<
+name|T
+argument_list|>
+argument_list|(
+name|pause
+argument_list|,
+name|retries
+argument_list|,
+name|interceptor
+argument_list|,
+name|startLogErrorsCnt
+argument_list|,
+name|rpcTimeout
+argument_list|)
+decl_stmt|;
+return|return
+name|caller
+return|;
+block|}
+comment|/**    * Create a new RetryingCaller with configured rpc timeout.    */
 specifier|public
 parameter_list|<
 name|T
@@ -281,6 +346,8 @@ argument_list|,
 name|interceptor
 argument_list|,
 name|startLogErrorsCnt
+argument_list|,
+name|rpcTimeout
 argument_list|)
 decl_stmt|;
 return|return

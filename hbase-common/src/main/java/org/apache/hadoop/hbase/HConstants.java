@@ -865,7 +865,7 @@ name|HBASE_CLIENT_IPC_POOL_SIZE
 init|=
 literal|"hbase.client.ipc.pool.size"
 decl_stmt|;
-comment|/** Parameter name for HBase client operation timeout, which overrides RPC timeout */
+comment|/** Parameter name for HBase client operation timeout. */
 specifier|public
 specifier|static
 specifier|final
@@ -874,7 +874,7 @@ name|HBASE_CLIENT_OPERATION_TIMEOUT
 init|=
 literal|"hbase.client.operation.timeout"
 decl_stmt|;
-comment|/** Parameter name for HBase client operation timeout, which overrides RPC timeout */
+comment|/** Parameter name for HBase client operation timeout. */
 specifier|public
 specifier|static
 specifier|final
