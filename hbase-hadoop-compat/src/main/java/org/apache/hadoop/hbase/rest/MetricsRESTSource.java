@@ -33,6 +33,22 @@ name|BaseSource
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|metrics
+operator|.
+name|JvmPauseMonitorSource
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface of the Metrics Source that will export data to Hadoop's Metrics2 system.  */
 end_comment
@@ -43,6 +59,8 @@ interface|interface
 name|MetricsRESTSource
 extends|extends
 name|BaseSource
+extends|,
+name|JvmPauseMonitorSource
 block|{
 name|String
 name|METRICS_NAME
