@@ -6253,6 +6253,32 @@ operator|.
 name|measureAfter
 condition|)
 block|{
+comment|// If multiget is enabled, say set to 10, testRow() returns immediately first 9 times
+comment|// and sends the actual get request in the 10th iteration. We should only set latency
+comment|// when actual request is sent because otherwise it turns out to be 0.
+if|if
+condition|(
+name|opts
+operator|.
+name|multiGet
+operator|==
+literal|0
+operator|||
+operator|(
+name|i
+operator|-
+name|startRow
+operator|+
+literal|1
+operator|)
+operator|%
+name|opts
+operator|.
+name|multiGet
+operator|==
+literal|0
+condition|)
+block|{
 name|latencyHistogram
 operator|.
 name|update
@@ -6269,6 +6295,7 @@ operator|/
 literal|1000
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|status
@@ -10356,6 +10383,27 @@ operator|.
 name|err
 operator|.
 name|println
+argument_list|(
+literal|" blockEncoding   Block encoding to use. Value should be one of "
+operator|+
+name|Arrays
+operator|.
+name|toString
+argument_list|(
+name|DataBlockEncoding
+operator|.
+name|values
+argument_list|()
+argument_list|)
+operator|+
+literal|". Default: NONE"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
 argument_list|()
 expr_stmt|;
 name|System
@@ -10456,9 +10504,11 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" presplit        Create presplit table. Recommended for accurate perf "
+literal|" presplit        Create presplit table. If a table with same name exists,"
 operator|+
-literal|"analysis (see guide).  Default: disabled"
+literal|" it'll be deleted and recreated (instead of verifying count of its existing regions). "
+operator|+
+literal|"Recommended for accurate perf analysis (see guide). Default: disabled"
 argument_list|)
 expr_stmt|;
 name|System
@@ -10480,7 +10530,11 @@ name|println
 argument_list|(
 literal|" numoftags       Specify the no of tags that would be needed. "
 operator|+
-literal|"This works only if usetags is true."
+literal|"This works only if usetags is true. Default: "
+operator|+
+name|DEFAULT_OPTS
+operator|.
+name|noOfTags
 argument_list|)
 expr_stmt|;
 name|System
