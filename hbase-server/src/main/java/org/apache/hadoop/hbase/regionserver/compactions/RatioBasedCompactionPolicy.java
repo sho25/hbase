@@ -398,9 +398,9 @@ operator|&&
 operator|(
 name|cfTTL
 operator|==
-name|HConstants
+name|Long
 operator|.
-name|FOREVER
+name|MAX_VALUE
 operator|||
 name|oldest
 operator|<
