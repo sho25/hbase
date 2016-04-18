@@ -497,6 +497,7 @@ name|expectedSleep
 decl_stmt|;
 try|try
 block|{
+comment|// bad cache entries are cleared in the call to RetryingCallable#throwable() in catch block
 name|callable
 operator|.
 name|prepare
@@ -506,7 +507,6 @@ operator|!=
 literal|0
 argument_list|)
 expr_stmt|;
-comment|// if called with false, check table status on ZK
 name|interceptor
 operator|.
 name|intercept

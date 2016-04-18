@@ -7757,6 +7757,9 @@ name|rsh
 return|;
 block|}
 comment|/**    * Find the HRegion based on a region specifier    *    * @param regionSpecifier the region specifier    * @return the corresponding region    * @throws IOException if the specifier is not null,    *    but failed to find the region    */
+annotation|@
+name|VisibleForTesting
+specifier|public
 name|Region
 name|getRegion
 parameter_list|(

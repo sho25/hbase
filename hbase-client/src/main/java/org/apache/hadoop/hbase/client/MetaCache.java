@@ -297,7 +297,7 @@ argument_list|()
 decl_stmt|;
 comment|// The presence of a server in the map implies it's likely that there is an
 comment|// entry in cachedRegionLocations that map to this server; but the absence
-comment|// of a server in this map guarentees that there is no entry in cache that
+comment|// of a server in this map guarantees that there is no entry in cache that
 comment|// maps to the absent server.
 comment|// The access to this attribute must be protected by a lock on cachedRegionLocations
 specifier|private

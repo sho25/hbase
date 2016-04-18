@@ -107,6 +107,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableNotEnabledException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -255,7 +269,7 @@ operator|=
 name|row
 expr_stmt|;
 block|}
-comment|/**    * Prepare for connection to the server hosting region with row from tablename.  Does lookup    * to find region location and hosting server.    * @param reload Set this to true if connection should re-find the region    * @throws IOException e    */
+comment|/**    * Prepare for connection to the server hosting region with row from tablename.  Does lookup    * to find region location and hosting server.    * @param reload Set to true to re-check the table state    * @throws IOException e    */
 annotation|@
 name|Override
 specifier|public
@@ -269,6 +283,43 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// check table state if this is a retry
+if|if
+condition|(
+name|reload
+operator|&&
+operator|!
+name|tableName
+operator|.
+name|equals
+argument_list|(
+name|TableName
+operator|.
+name|META_TABLE_NAME
+argument_list|)
+operator|&&
+name|getConnection
+argument_list|()
+operator|.
+name|isTableDisabled
+argument_list|(
+name|tableName
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|TableNotEnabledException
+argument_list|(
+name|tableName
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|" is disabled."
+argument_list|)
+throw|;
+block|}
 try|try
 init|(
 name|RegionLocator
@@ -291,8 +342,6 @@ operator|.
 name|getRegionLocation
 argument_list|(
 name|row
-argument_list|,
-name|reload
 argument_list|)
 expr_stmt|;
 block|}
