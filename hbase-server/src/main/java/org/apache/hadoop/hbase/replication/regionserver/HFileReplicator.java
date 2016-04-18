@@ -2290,7 +2290,7 @@ name|e1
 parameter_list|)
 block|{
 comment|// This will mean that the hfile does not exists any where in source cluster FS. So we
-comment|// cannot do anything here just log and return.
+comment|// cannot do anything here just log and continue.
 name|LOG
 operator|.
 name|error
@@ -2308,9 +2308,7 @@ argument_list|,
 name|e1
 argument_list|)
 expr_stmt|;
-return|return
-literal|null
-return|;
+continue|continue;
 block|}
 block|}
 name|sinkFs
