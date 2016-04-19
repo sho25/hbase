@@ -130,7 +130,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Keeps track of live procedures.  *  * It can be used by the ProcedureStore to identify which procedures are already  * deleted/completed to avoid the deserialization step on restart.  */
+comment|/**  * Keeps track of live procedures.  *  * It can be used by the ProcedureStore to identify which procedures are already  * deleted/completed to avoid the deserialization step on restart  */
 end_comment
 
 begin_class
@@ -146,6 +146,7 @@ specifier|public
 class|class
 name|ProcedureStoreTracker
 block|{
+comment|// Key is procedure id corresponding to first bit of the bitmap.
 specifier|private
 specifier|final
 name|TreeMap
@@ -165,12 +166,14 @@ name|BitSetNode
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|/**    * If true, do not remove bits corresponding to deleted procedures. Note that this can result    * in huge bitmaps overtime.    * Currently, it's set to true only when building tracker state from logs during recovery. During    * recovery, if we are sure that a procedure has been deleted, reading its old update entries    * can be skipped.    */
 specifier|private
 name|boolean
 name|keepDeletes
 init|=
 literal|false
 decl_stmt|;
+comment|/**    * If true, it means tracker has incomplete information about the active/deleted procedures.    * It's set to true only when recovering from old logs. See {@link #isDeleted(long)} docs to    * understand it's real use.    */
 specifier|private
 name|boolean
 name|partial
@@ -203,6 +206,7 @@ name|NO
 block|,
 name|MAYBE
 block|}
+comment|/**    * A bitmap which can grow/merge with other {@link BitSetNode} (if certain conditions are met).    * Boundaries of bitmap are aligned to multiples of {@link BitSetNode#BITS_PER_WORD}. So the    * range of a {@link BitSetNode} is from [x * K, y * K) where x and y are integers, y> x and K    * is BITS_PER_WORD.    */
 specifier|public
 specifier|static
 class|class
@@ -244,21 +248,25 @@ literal|1
 operator|<<
 name|ADDRESS_BITS_PER_WORD
 decl_stmt|;
+comment|/**      * Mimics {@link ProcedureStoreTracker#partial}.      */
 specifier|private
 specifier|final
 name|boolean
 name|partial
 decl_stmt|;
+comment|/**      * Set of procedures which have been updated since last {@link #resetUpdates()}.      * Useful to track procedures which have been updated since last WAL write.      */
 specifier|private
 name|long
 index|[]
 name|updated
 decl_stmt|;
+comment|/**      * Keeps track of procedure ids which belong to this bitmap's range and have been deleted.      */
 specifier|private
 name|long
 index|[]
 name|deleted
 decl_stmt|;
+comment|/**      * Offset of bitmap i.e. procedure id corresponding to first bit.      */
 specifier|private
 name|long
 name|start
@@ -282,10 +290,10 @@ argument_list|,
 name|getEnd
 argument_list|()
 argument_list|,
-name|getMinProcId
+name|getActiveMinProcId
 argument_list|()
 argument_list|,
-name|getMaxProcId
+name|getActiveMaxProcId
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -844,6 +852,7 @@ return|return
 literal|true
 return|;
 block|}
+comment|/**      * @return true, if there are no active procedures in this BitSetNode, else false.      */
 specifier|public
 name|boolean
 name|isEmpty
@@ -917,6 +926,7 @@ literal|0
 expr_stmt|;
 block|}
 block|}
+comment|/**      * Clears the {@link #deleted} bitmaps.      */
 specifier|public
 name|void
 name|undeleteAll
@@ -1018,6 +1028,9 @@ block|}
 block|}
 block|}
 block|}
+comment|// ========================================================================
+comment|//  Convert to/from Protocol Buffer.
+comment|// ========================================================================
 specifier|public
 name|ProcedureProtos
 operator|.
@@ -1232,13 +1245,13 @@ name|BitSetNode
 name|rightNode
 parameter_list|)
 block|{
+comment|// Can just compare 'starts' since boundaries are aligned to multiples of BITS_PER_WORD.
 assert|assert
 name|start
 operator|<
 name|rightNode
 operator|.
-name|getEnd
-argument_list|()
+name|start
 assert|;
 return|return
 operator|(
@@ -1686,7 +1699,7 @@ comment|//  Min/Max Helpers
 comment|// ========================================================================
 specifier|public
 name|long
-name|getMinProcId
+name|getActiveMinProcId
 parameter_list|()
 block|{
 name|long
@@ -1789,7 +1802,7 @@ return|;
 block|}
 specifier|public
 name|long
-name|getMaxProcId
+name|getActiveMaxProcId
 parameter_list|()
 block|{
 name|long
@@ -2001,6 +2014,7 @@ block|}
 comment|// ========================================================================
 comment|//  Helpers
 comment|// ========================================================================
+comment|/**      * @return upper boundary (aligned to multiple of BITS_PER_WORD) of bitmap range x belongs to.      */
 specifier|private
 specifier|static
 name|long
@@ -2026,6 +2040,7 @@ operator|-
 name|BITS_PER_WORD
 return|;
 block|}
+comment|/**      * @return lower boundary (aligned to multiple of BITS_PER_WORD) of bitmap range x belongs to.      */
 specifier|private
 specifier|static
 name|long
@@ -2398,6 +2413,7 @@ name|resetUpdates
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * If {@link #partial} is false, returns state from the bitmap. If no state is found for    * {@code procId}, returns YES.    * If partial is true, tracker doesn't have complete view of system state, so it returns MAYBE    * if there is no update for the procedure or if it doesn't have a state in bitmap. Otherwise,    * returns state from the bitmap.    */
 specifier|public
 name|DeleteState
 name|isDeleted
@@ -2490,7 +2506,7 @@ return|;
 block|}
 specifier|public
 name|long
-name|getMinProcId
+name|getActiveMinProcId
 parameter_list|()
 block|{
 comment|// TODO: Cache?
@@ -2521,7 +2537,7 @@ operator|.
 name|getValue
 argument_list|()
 operator|.
-name|getMinProcId
+name|getActiveMinProcId
 argument_list|()
 return|;
 block|}
@@ -2539,6 +2555,8 @@ name|keepDeletes
 operator|=
 name|keepDeletes
 expr_stmt|;
+comment|// If not to keep deletes, remove the BitSetNodes which are empty (i.e. contains ids of deleted
+comment|// procedures).
 if|if
 condition|(
 operator|!
@@ -2662,6 +2680,7 @@ operator|=
 name|isPartial
 expr_stmt|;
 block|}
+comment|/**    * @return true, if no procedure is active, else false.    */
 specifier|public
 name|boolean
 name|isEmpty
@@ -2707,6 +2726,7 @@ return|return
 literal|true
 return|;
 block|}
+comment|/**    * @return true if any procedure was updated since last call to {@link #resetUpdates()}.    */
 specifier|public
 name|boolean
 name|isUpdated
@@ -2784,6 +2804,7 @@ operator|!=
 literal|null
 return|;
 block|}
+comment|/**    * Clears the list of updated procedure ids. This doesn't affect global list of active    * procedure ids.    */
 specifier|public
 name|void
 name|resetUpdates
@@ -2871,7 +2892,7 @@ name|long
 name|procId
 parameter_list|)
 block|{
-comment|// can procId fit in the left node?
+comment|// If procId can fit in left node (directly or by growing it)
 name|BitSetNode
 name|leftNode
 init|=
@@ -2937,6 +2958,7 @@ name|procId
 argument_list|)
 expr_stmt|;
 block|}
+comment|// If procId can fit in right node (directly or by growing it)
 name|BitSetNode
 name|rightNode
 init|=
@@ -3014,6 +3036,7 @@ name|rightNode
 argument_list|)
 return|;
 block|}
+comment|// If left and right nodes can not merge, decide which one to grow.
 if|if
 condition|(
 name|leftCanGrow
@@ -3042,7 +3065,6 @@ name|procId
 operator|)
 condition|)
 block|{
-comment|// grow the left node
 return|return
 name|growNode
 argument_list|(
@@ -3052,7 +3074,6 @@ name|procId
 argument_list|)
 return|;
 block|}
-comment|// grow the right node
 return|return
 name|growNode
 argument_list|(
@@ -3094,7 +3115,7 @@ name|procId
 argument_list|)
 return|;
 block|}
-comment|// add new node
+comment|// add new node if there are no left/right nodes which can be used.
 name|BitSetNode
 name|node
 init|=
@@ -3122,6 +3143,7 @@ return|return
 name|node
 return|;
 block|}
+comment|/**    * Grows {@code node} to contain {@code procId} and updates the map.    * @return {@link BitSetNode} instance which contains {@code procId}.    */
 specifier|private
 name|BitSetNode
 name|growNode
@@ -3166,6 +3188,7 @@ return|return
 name|node
 return|;
 block|}
+comment|/**    * Merges {@code leftNode}& {@code rightNode} and updates the map.    */
 specifier|private
 name|BitSetNode
 name|mergeNodes
@@ -3280,6 +3303,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Builds    * {@link org.apache.hadoop.hbase.protobuf.generated.ProcedureProtos.ProcedureStoreTracker}    * protocol buffer from current state, serializes it and writes to the {@code stream}.    */
 specifier|public
 name|void
 name|writeTo
@@ -3348,6 +3372,7 @@ name|stream
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Reads serialized    * {@link org.apache.hadoop.hbase.protobuf.generated.ProcedureProtos.ProcedureStoreTracker}    * protocol buffer from the {@code stream}, and use it to build the state.    */
 specifier|public
 name|void
 name|readFrom

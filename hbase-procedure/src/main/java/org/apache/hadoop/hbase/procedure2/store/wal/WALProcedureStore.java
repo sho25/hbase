@@ -3890,7 +3890,7 @@ name|setMinProcId
 argument_list|(
 name|storeTracker
 operator|.
-name|getMinProcId
+name|getActiveMinProcId
 argument_list|()
 argument_list|)
 operator|.
@@ -4268,6 +4268,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Remove all logs with logId<= {@code lastLogId}.    */
 specifier|private
 name|void
 name|removeAllLogs
@@ -4525,29 +4526,6 @@ argument_list|)
 operator|+
 literal|1
 decl_stmt|;
-while|while
-condition|(
-name|start
-operator|<
-name|end
-condition|)
-block|{
-if|if
-condition|(
-name|name
-operator|.
-name|charAt
-argument_list|(
-name|start
-argument_list|)
-operator|!=
-literal|'0'
-condition|)
-break|break;
-name|start
-operator|++
-expr_stmt|;
-block|}
 return|return
 name|Long
 operator|.

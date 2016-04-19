@@ -773,6 +773,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Beginning of the Trailer Jump. 17 = 1 byte version + 8 byte magic + 8 byte offset
 name|long
 name|trailerPos
 init|=
@@ -780,7 +781,6 @@ name|size
 operator|-
 literal|17
 decl_stmt|;
-comment|// Beginning of the Trailer Jump
 if|if
 condition|(
 name|trailerPos
