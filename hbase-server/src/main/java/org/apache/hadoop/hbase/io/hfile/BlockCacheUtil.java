@@ -674,6 +674,7 @@ operator|.
 name|nanoTime
 argument_list|()
 decl_stmt|;
+comment|/**      * How many blocks to look at before we give up.      * There could be many millions of blocks. We don't want the      * ui to freeze while we run through 1B blocks... users will      * think hbase dead. UI displays warning in red when stats      * are incomplete.      */
 specifier|private
 specifier|final
 name|int
@@ -685,7 +686,7 @@ specifier|final
 name|int
 name|DEFAULT_MAX
 init|=
-literal|100000
+literal|1000000
 decl_stmt|;
 name|CachedBlocksByFile
 parameter_list|()

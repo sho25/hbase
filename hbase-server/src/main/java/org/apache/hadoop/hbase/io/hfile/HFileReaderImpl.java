@@ -1391,20 +1391,16 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Prefetch="
+literal|"Prefetch start "
 operator|+
+name|getPathOffsetEndStr
+argument_list|(
 name|path
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|", offset="
-operator|+
+argument_list|,
 name|offset
-operator|+
-literal|", end="
-operator|+
+argument_list|,
 name|end
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1513,25 +1509,46 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Prefetch="
+literal|"Prefetch "
 operator|+
+name|getPathOffsetEndStr
+argument_list|(
 name|path
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|", offset="
-operator|+
+argument_list|,
 name|offset
-operator|+
-literal|", end="
-operator|+
+argument_list|,
 name|end
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+catch|catch
+parameter_list|(
+name|NullPointerException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Stream moved/closed or prefetch cancelled?"
+operator|+
+name|getPathOffsetEndStr
+argument_list|(
+name|path
+argument_list|,
+name|offset
+argument_list|,
+name|end
+argument_list|)
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -1544,20 +1561,16 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Prefetch="
+literal|"Prefetch "
 operator|+
+name|getPathOffsetEndStr
+argument_list|(
 name|path
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|", offset="
-operator|+
+argument_list|,
 name|offset
-operator|+
-literal|", end="
-operator|+
+argument_list|,
 name|end
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -1640,6 +1653,41 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+specifier|private
+specifier|static
+name|String
+name|getPathOffsetEndStr
+parameter_list|(
+specifier|final
+name|Path
+name|path
+parameter_list|,
+specifier|final
+name|long
+name|offset
+parameter_list|,
+specifier|final
+name|long
+name|end
+parameter_list|)
+block|{
+return|return
+literal|"path="
+operator|+
+name|path
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|", offset="
+operator|+
+name|offset
+operator|+
+literal|", end="
+operator|+
+name|end
+return|;
 block|}
 comment|/**    * File version check is a little sloppy. We read v3 files but can also read v2 files if their    * content has been pb'd; files written with 0.98.    */
 specifier|private
