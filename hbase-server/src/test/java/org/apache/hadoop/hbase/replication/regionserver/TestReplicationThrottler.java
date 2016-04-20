@@ -312,11 +312,11 @@ condition|)
 block|{
 name|assertTrue
 argument_list|(
-name|ticks1
+name|ticks2
 operator|>=
 literal|7500
 operator|&&
-name|ticks1
+name|ticks2
 operator|<=
 literal|10000
 argument_list|)
