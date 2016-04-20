@@ -818,8 +818,24 @@ name|DROP_BEHIND_CACHE_COMPACTION_DEFAULT
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Created cacheConfig for "
+operator|+
+name|family
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|": "
+operator|+
+name|this
+argument_list|)
+expr_stmt|;
 block|}
-comment|/**    * Create a cache configuration using the specified configuration object and    * defaults for family level settings.    * @param conf hbase configuration    */
+comment|/**    * Create a cache configuration using the specified configuration object and    * defaults for family level settings. Only use if no column family context. Prefer    * {@link CacheConfig#CacheConfig(Configuration, HColumnDescriptor)}    * @see #CacheConfig(Configuration, HColumnDescriptor)    * @param conf hbase configuration    */
 specifier|public
 name|CacheConfig
 parameter_list|(
@@ -924,6 +940,15 @@ name|DROP_BEHIND_CACHE_COMPACTION_KEY
 argument_list|,
 name|DROP_BEHIND_CACHE_COMPACTION_DEFAULT
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Created cacheConfig: "
+operator|+
+name|this
 argument_list|)
 expr_stmt|;
 block|}
@@ -1040,13 +1065,6 @@ operator|.
 name|dropBehindCompaction
 operator|=
 name|dropBehindCompaction
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|this
-argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Constructs a cache configuration copied from the specified configuration.    * @param cacheConf    */

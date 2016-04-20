@@ -1391,7 +1391,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"File="
+literal|"Prefetch="
 operator|+
 name|path
 operator|.
@@ -1513,7 +1513,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"File="
+literal|"Prefetch="
 operator|+
 name|path
 operator|.
@@ -1544,7 +1544,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"File="
+literal|"Prefetch="
 operator|+
 name|path
 operator|.
