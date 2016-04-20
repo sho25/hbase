@@ -18,44 +18,61 @@ package|;
 end_package
 
 begin_comment
-comment|/**  * Interface of a factory to create Metrics Sources used inside of regionservers.  */
+comment|/**  * This interface will be implemented to allow region server to push table metrics into  * MetricsRegionAggregateSource that will in turn push data to the Hadoop metrics system.  */
 end_comment
 
 begin_interface
 specifier|public
 interface|interface
-name|MetricsRegionServerSourceFactory
-block|{
-comment|/**    * Given a wrapper create a MetricsRegionServerSource.    *    * @param regionServerWrapper The wrapped region server    * @return a Metrics Source.    */
-name|MetricsRegionServerSource
-name|createServer
-parameter_list|(
-name|MetricsRegionServerWrapper
-name|regionServerWrapper
-parameter_list|)
-function_decl|;
-comment|/**    * Create a MetricsRegionSource from a MetricsRegionWrapper.    *    * @param wrapper The wrapped region    * @return A metrics region source    */
-name|MetricsRegionSource
-name|createRegion
-parameter_list|(
-name|MetricsRegionWrapper
-name|wrapper
-parameter_list|)
-function_decl|;
-comment|/**    * Create a MetricsTableSource from a MetricsTableWrapper.    *    * @param table The table name    * @param wrapper The wrapped table aggregate    * @return A metrics table source    */
 name|MetricsTableSource
-name|createTable
-parameter_list|(
+extends|extends
+name|Comparable
+argument_list|<
+name|MetricsTableSource
+argument_list|>
+block|{
 name|String
-name|table
-parameter_list|,
-name|MetricsTableWrapperAggregate
-name|wrapper
-parameter_list|)
+name|READ_REQUEST_COUNT
+init|=
+literal|"readRequestCount"
+decl_stmt|;
+name|String
+name|READ_REQUEST_COUNT_DESC
+init|=
+literal|"Number fo read requests"
+decl_stmt|;
+name|String
+name|WRITE_REQUEST_COUNT
+init|=
+literal|"writeRequestCount"
+decl_stmt|;
+name|String
+name|WRITE_REQUEST_COUNT_DESC
+init|=
+literal|"Number fo write requests"
+decl_stmt|;
+name|String
+name|TOTAL_REQUEST_COUNT
+init|=
+literal|"totalRequestCount"
+decl_stmt|;
+name|String
+name|TOTAL_REQUEST_COUNT_DESC
+init|=
+literal|"Number fo total requests"
+decl_stmt|;
+name|String
+name|getTableName
+parameter_list|()
 function_decl|;
-comment|/**    * Get a MetricsTableAggregateSource    *    * @return A metrics table aggregate source    */
+comment|/**    * Close the table's metrics as all the region are closing.    */
+name|void
+name|close
+parameter_list|()
+function_decl|;
+comment|/**    * Get the aggregate source to which this reports.    */
 name|MetricsTableAggregateSource
-name|getTableAggregate
+name|getAggregateSource
 parameter_list|()
 function_decl|;
 block|}

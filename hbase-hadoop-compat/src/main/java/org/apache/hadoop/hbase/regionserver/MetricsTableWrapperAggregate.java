@@ -18,45 +18,37 @@ package|;
 end_package
 
 begin_comment
-comment|/**  * Interface of a factory to create Metrics Sources used inside of regionservers.  */
+comment|/**  * Interface of class that will wrap a MetricsTableSource and export numbers so they can be  * used in MetricsTableSource  */
 end_comment
 
 begin_interface
 specifier|public
 interface|interface
-name|MetricsRegionServerSourceFactory
+name|MetricsTableWrapperAggregate
 block|{
-comment|/**    * Given a wrapper create a MetricsRegionServerSource.    *    * @param regionServerWrapper The wrapped region server    * @return a Metrics Source.    */
-name|MetricsRegionServerSource
-name|createServer
-parameter_list|(
-name|MetricsRegionServerWrapper
-name|regionServerWrapper
-parameter_list|)
-function_decl|;
-comment|/**    * Create a MetricsRegionSource from a MetricsRegionWrapper.    *    * @param wrapper The wrapped region    * @return A metrics region source    */
-name|MetricsRegionSource
-name|createRegion
-parameter_list|(
-name|MetricsRegionWrapper
-name|wrapper
-parameter_list|)
-function_decl|;
-comment|/**    * Create a MetricsTableSource from a MetricsTableWrapper.    *    * @param table The table name    * @param wrapper The wrapped table aggregate    * @return A metrics table source    */
-name|MetricsTableSource
-name|createTable
+comment|/**    * Get the number of read requests that have been issued against this table    */
+name|long
+name|getReadRequestsCount
 parameter_list|(
 name|String
 name|table
-parameter_list|,
-name|MetricsTableWrapperAggregate
-name|wrapper
 parameter_list|)
 function_decl|;
-comment|/**    * Get a MetricsTableAggregateSource    *    * @return A metrics table aggregate source    */
-name|MetricsTableAggregateSource
-name|getTableAggregate
-parameter_list|()
+comment|/**    * Get the number of write requests that have been issued against this table    */
+name|long
+name|getWriteRequestsCount
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+function_decl|;
+comment|/**    * Get the total number of requests that have been issued against this table    */
+name|long
+name|getTotalRequestsCount
+parameter_list|(
+name|String
+name|table
+parameter_list|)
 function_decl|;
 block|}
 end_interface
