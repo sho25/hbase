@@ -3202,9 +3202,9 @@ name|updateLatestStamp
 argument_list|(
 name|cell
 argument_list|,
-name|Long
-operator|.
-name|MIN_VALUE
+name|byteNow
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 return|return;
