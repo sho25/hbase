@@ -1379,7 +1379,9 @@ name|long
 name|getMin
 parameter_list|()
 block|{
-return|return
+name|long
+name|min
+init|=
 name|this
 operator|.
 name|bins
@@ -1388,7 +1390,19 @@ name|min
 operator|.
 name|get
 argument_list|()
+decl_stmt|;
+return|return
+name|min
+operator|==
+name|Long
+operator|.
+name|MAX_VALUE
+condition|?
+literal|0
+else|:
+name|min
 return|;
+comment|// in case it is not initialized
 block|}
 specifier|public
 name|long
