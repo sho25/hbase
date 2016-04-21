@@ -50,6 +50,30 @@ name|String
 name|table
 parameter_list|)
 function_decl|;
+comment|/**    * Get the memory store size against this table    */
+name|long
+name|getMemstoresSize
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+function_decl|;
+comment|/**    * Get the store file size against this table    */
+name|long
+name|getStoreFilesSize
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+function_decl|;
+comment|/**    * Get the table region size against this table    */
+name|long
+name|getTableSize
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 

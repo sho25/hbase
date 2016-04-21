@@ -62,6 +62,36 @@ init|=
 literal|"Number fo total requests"
 decl_stmt|;
 name|String
+name|MEMSTORE_SIZE
+init|=
+literal|"memstoreSize"
+decl_stmt|;
+name|String
+name|MEMSTORE_SIZE_DESC
+init|=
+literal|"The size of memory stores"
+decl_stmt|;
+name|String
+name|STORE_FILE_SIZE
+init|=
+literal|"storeFileSize"
+decl_stmt|;
+name|String
+name|STORE_FILE_SIZE_DESC
+init|=
+literal|"The size of store files size"
+decl_stmt|;
+name|String
+name|TABLE_SIZE
+init|=
+literal|"tableSize"
+decl_stmt|;
+name|String
+name|TABLE_SIZE_DESC
+init|=
+literal|"Total size of the table in the region server"
+decl_stmt|;
+name|String
 name|getTableName
 parameter_list|()
 function_decl|;
