@@ -318,6 +318,18 @@ name|void
 name|clearRegionCache
 parameter_list|()
 function_decl|;
+name|void
+name|cacheLocation
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|RegionLocations
+name|location
+parameter_list|)
+function_decl|;
 comment|/**    * Allows flushing the region cache of all locations that pertain to    *<code>tableName</code>    * @param tableName Name of the table whose regions we are to remove from    * cache.    */
 annotation|@
 name|Override

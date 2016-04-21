@@ -5105,7 +5105,9 @@ block|}
 block|}
 block|}
 comment|/**    * Put a newly discovered HRegionLocation into the cache.    * @param tableName The table name.    * @param location the new location    */
-specifier|private
+annotation|@
+name|Override
+specifier|public
 name|void
 name|cacheLocation
 parameter_list|(
