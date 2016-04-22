@@ -213,7 +213,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithErrorsProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationWithErrorsSumRequest
 import|;
 end_import
 
@@ -235,7 +235,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithErrorsProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationWithErrorsSumResponse
 import|;
 end_import
 
@@ -449,12 +449,12 @@ parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|SumRequest
+name|ColumnAggregationWithErrorsSumRequest
 name|request
 parameter_list|,
 name|RpcCallback
 argument_list|<
-name|SumResponse
+name|ColumnAggregationWithErrorsSumResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -751,7 +751,7 @@ name|done
 operator|.
 name|run
 argument_list|(
-name|SumResponse
+name|ColumnAggregationWithErrorsSumResponse
 operator|.
 name|newBuilder
 argument_list|()

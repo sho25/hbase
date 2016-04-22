@@ -201,7 +201,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 import|;
 end_import
 
@@ -223,7 +223,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 import|;
 end_import
 
@@ -435,12 +435,12 @@ parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|request
 parameter_list|,
 name|RpcCallback
 argument_list|<
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -738,7 +738,7 @@ name|done
 operator|.
 name|run
 argument_list|(
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|.
 name|newBuilder
 argument_list|()

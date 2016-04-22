@@ -52,7 +52,7 @@ parameter_list|)
 block|{   }
 specifier|public
 interface|interface
-name|SumRequestOrBuilder
+name|ColumnAggregationNullResponseSumRequestOrBuilder
 extends|extends
 name|com
 operator|.
@@ -97,12 +97,12 @@ name|getQualifier
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code SumRequest}    */
+comment|/**    * Protobuf type {@code ColumnAggregationNullResponseSumRequest}    *    *<pre>    * use unique names for messages in ColumnAggregationXXX.protos due to a bug in    * protoc or hadoop's protoc compiler.    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 extends|extends
 name|com
 operator|.
@@ -112,11 +112,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|SumRequestOrBuilder
+name|ColumnAggregationNullResponseSumRequestOrBuilder
 block|{
-comment|// Use SumRequest.newBuilder() to construct.
+comment|// Use ColumnAggregationNullResponseSumRequest.newBuilder() to construct.
 specifier|private
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 parameter_list|(
 name|com
 operator|.
@@ -149,7 +149,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 parameter_list|(
 name|boolean
 name|noInit
@@ -174,12 +174,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -188,7 +188,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -232,7 +232,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 parameter_list|(
 name|com
 operator|.
@@ -487,7 +487,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|internal_static_SumRequest_descriptor
+name|internal_static_ColumnAggregationNullResponseSumRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -520,7 +520,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|internal_static_SumRequest_fieldAccessorTable
+name|internal_static_ColumnAggregationNullResponseSumRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -540,7 +540,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 operator|.
 name|class
 argument_list|,
@@ -560,7 +560,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 operator|.
 name|Builder
 operator|.
@@ -578,7 +578,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 argument_list|>
 name|PARSER
 init|=
@@ -591,12 +591,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -628,7 +628,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 argument_list|(
 name|input
 argument_list|,
@@ -653,7 +653,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -1130,7 +1130,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 operator|)
 condition|)
 block|{
@@ -1159,7 +1159,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|other
 init|=
 operator|(
@@ -1179,7 +1179,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 operator|)
 name|obj
 decl_stmt|;
@@ -1428,7 +1428,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -1476,7 +1476,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -1535,7 +1535,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -1578,7 +1578,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -1632,7 +1632,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -1676,7 +1676,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -1731,7 +1731,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -1775,7 +1775,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -1830,7 +1830,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -1876,7 +1876,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -1959,7 +1959,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|prototype
 parameter_list|)
 block|{
@@ -2020,7 +2020,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code SumRequest}      */
+comment|/**      * Protobuf type {@code ColumnAggregationNullResponseSumRequest}      *      *<pre>      * use unique names for messages in ColumnAggregationXXX.protos due to a bug in      * protoc or hadoop's protoc compiler.      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -2056,7 +2056,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequestOrBuilder
+name|ColumnAggregationNullResponseSumRequestOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -2090,7 +2090,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|internal_static_SumRequest_descriptor
+name|internal_static_ColumnAggregationNullResponseSumRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -2123,7 +2123,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|internal_static_SumRequest_fieldAccessorTable
+name|internal_static_ColumnAggregationNullResponseSumRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2143,7 +2143,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 operator|.
 name|class
 argument_list|,
@@ -2163,7 +2163,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 operator|.
 name|Builder
 operator|.
@@ -2171,7 +2171,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.coprocessor.protobuf.generated.ColumnAggregationWithNullResponseProtos.SumRequest.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.coprocessor.protobuf.generated.ColumnAggregationWithNullResponseProtos.ColumnAggregationNullResponseSumRequest.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -2337,7 +2337,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|internal_static_SumRequest_descriptor
+name|internal_static_ColumnAggregationNullResponseSumRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -2357,7 +2357,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -2378,7 +2378,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -2401,7 +2401,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|build
 parameter_list|()
 block|{
@@ -2421,7 +2421,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|result
 init|=
 name|buildPartial
@@ -2464,7 +2464,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|buildPartial
 parameter_list|()
 block|{
@@ -2484,7 +2484,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|result
 init|=
 operator|new
@@ -2504,7 +2504,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 argument_list|(
 name|this
 argument_list|)
@@ -2614,7 +2614,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 condition|)
 block|{
 return|return
@@ -2637,7 +2637,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 operator|)
 name|other
 argument_list|)
@@ -2677,7 +2677,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|other
 parameter_list|)
 block|{
@@ -2701,7 +2701,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -2823,7 +2823,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|parsedMessage
 init|=
 literal|null
@@ -2873,7 +2873,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 operator|)
 name|e
 operator|.
@@ -3164,14 +3164,14 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:SumRequest)
+comment|// @@protoc_insertion_point(builder_scope:ColumnAggregationNullResponseSumRequest)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 argument_list|(
 literal|true
 argument_list|)
@@ -3182,11 +3182,11 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:SumRequest)
+comment|// @@protoc_insertion_point(class_scope:ColumnAggregationNullResponseSumRequest)
 block|}
 specifier|public
 interface|interface
-name|SumResponseOrBuilder
+name|ColumnAggregationNullResponseSumResponseOrBuilder
 extends|extends
 name|com
 operator|.
@@ -3208,12 +3208,12 @@ name|getSum
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code SumResponse}    */
+comment|/**    * Protobuf type {@code ColumnAggregationNullResponseSumResponse}    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 extends|extends
 name|com
 operator|.
@@ -3223,11 +3223,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|SumResponseOrBuilder
+name|ColumnAggregationNullResponseSumResponseOrBuilder
 block|{
-comment|// Use SumResponse.newBuilder() to construct.
+comment|// Use ColumnAggregationNullResponseSumResponse.newBuilder() to construct.
 specifier|private
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 parameter_list|(
 name|com
 operator|.
@@ -3260,7 +3260,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 parameter_list|(
 name|boolean
 name|noInit
@@ -3285,12 +3285,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -3299,7 +3299,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -3343,7 +3343,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 parameter_list|(
 name|com
 operator|.
@@ -3581,7 +3581,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|internal_static_SumResponse_descriptor
+name|internal_static_ColumnAggregationNullResponseSumResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -3614,7 +3614,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|internal_static_SumResponse_fieldAccessorTable
+name|internal_static_ColumnAggregationNullResponseSumResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -3634,7 +3634,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|.
 name|class
 argument_list|,
@@ -3654,7 +3654,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|.
 name|Builder
 operator|.
@@ -3672,7 +3672,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 argument_list|>
 name|PARSER
 init|=
@@ -3685,12 +3685,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -3722,7 +3722,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 argument_list|(
 name|input
 argument_list|,
@@ -3747,7 +3747,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -4070,7 +4070,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|)
 condition|)
 block|{
@@ -4099,7 +4099,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|other
 init|=
 operator|(
@@ -4119,7 +4119,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|)
 name|obj
 decl_stmt|;
@@ -4300,7 +4300,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -4348,7 +4348,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -4407,7 +4407,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|parseFrom
 parameter_list|(
 name|byte
@@ -4450,7 +4450,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|parseFrom
 parameter_list|(
 name|byte
@@ -4504,7 +4504,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|parseFrom
 parameter_list|(
 name|java
@@ -4548,7 +4548,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|parseFrom
 parameter_list|(
 name|java
@@ -4603,7 +4603,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -4647,7 +4647,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -4702,7 +4702,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -4748,7 +4748,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -4831,7 +4831,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|prototype
 parameter_list|)
 block|{
@@ -4892,7 +4892,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code SumResponse}      */
+comment|/**      * Protobuf type {@code ColumnAggregationNullResponseSumResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -4928,7 +4928,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponseOrBuilder
+name|ColumnAggregationNullResponseSumResponseOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -4962,7 +4962,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|internal_static_SumResponse_descriptor
+name|internal_static_ColumnAggregationNullResponseSumResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -4995,7 +4995,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|internal_static_SumResponse_fieldAccessorTable
+name|internal_static_ColumnAggregationNullResponseSumResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -5015,7 +5015,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|.
 name|class
 argument_list|,
@@ -5035,7 +5035,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|.
 name|Builder
 operator|.
@@ -5043,7 +5043,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.coprocessor.protobuf.generated.ColumnAggregationWithNullResponseProtos.SumResponse.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.coprocessor.protobuf.generated.ColumnAggregationWithNullResponseProtos.ColumnAggregationNullResponseSumResponse.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -5180,7 +5180,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|internal_static_SumResponse_descriptor
+name|internal_static_ColumnAggregationNullResponseSumResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -5200,7 +5200,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -5221,7 +5221,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -5244,7 +5244,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|build
 parameter_list|()
 block|{
@@ -5264,7 +5264,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|result
 init|=
 name|buildPartial
@@ -5307,7 +5307,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|buildPartial
 parameter_list|()
 block|{
@@ -5327,7 +5327,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|result
 init|=
 operator|new
@@ -5347,7 +5347,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 argument_list|(
 name|this
 argument_list|)
@@ -5433,7 +5433,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 condition|)
 block|{
 return|return
@@ -5456,7 +5456,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|)
 name|other
 argument_list|)
@@ -5496,7 +5496,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|other
 parameter_list|)
 block|{
@@ -5520,7 +5520,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -5614,7 +5614,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|parsedMessage
 init|=
 literal|null
@@ -5664,7 +5664,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|)
 name|e
 operator|.
@@ -5782,14 +5782,14 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:SumResponse)
+comment|// @@protoc_insertion_point(builder_scope:ColumnAggregationNullResponseSumResponse)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 argument_list|(
 literal|true
 argument_list|)
@@ -5800,7 +5800,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:SumResponse)
+comment|// @@protoc_insertion_point(class_scope:ColumnAggregationNullResponseSumResponse)
 block|}
 comment|/**    * Protobuf service {@code ColumnAggregationServiceNullResponse}    */
 specifier|public
@@ -5825,7 +5825,7 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc sum(.SumRequest) returns (.SumResponse);</code>        */
+comment|/**        *<code>rpc sum(.ColumnAggregationNullResponseSumRequest) returns (.ColumnAggregationNullResponseSumResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -5856,7 +5856,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|request
 parameter_list|,
 name|com
@@ -5883,7 +5883,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -5945,7 +5945,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|request
 parameter_list|,
 name|com
@@ -5972,7 +5972,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -6147,7 +6147,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 operator|)
 name|request
 argument_list|)
@@ -6242,7 +6242,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -6337,7 +6337,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -6359,7 +6359,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc sum(.SumRequest) returns (.SumResponse);</code>      */
+comment|/**      *<code>rpc sum(.ColumnAggregationNullResponseSumRequest) returns (.ColumnAggregationNullResponseSumResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -6390,7 +6390,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|request
 parameter_list|,
 name|com
@@ -6417,7 +6417,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -6597,7 +6597,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 operator|)
 name|request
 argument_list|,
@@ -6626,7 +6626,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|>
 name|specializeCallback
 argument_list|(
@@ -6725,7 +6725,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -6820,7 +6820,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -6963,7 +6963,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|request
 parameter_list|,
 name|com
@@ -6990,7 +6990,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -7030,7 +7030,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -7063,7 +7063,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|.
 name|class
 argument_list|,
@@ -7083,7 +7083,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -7136,7 +7136,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|sum
 parameter_list|(
 name|com
@@ -7164,7 +7164,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|request
 parameter_list|)
 throws|throws
@@ -7233,7 +7233,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 name|sum
 parameter_list|(
 name|com
@@ -7261,7 +7261,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumRequest
+name|ColumnAggregationNullResponseSumRequest
 name|request
 parameter_list|)
 throws|throws
@@ -7291,7 +7291,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|)
 name|channel
 operator|.
@@ -7328,7 +7328,7 @@ name|generated
 operator|.
 name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|SumResponse
+name|ColumnAggregationNullResponseSumResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -7349,7 +7349,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_SumRequest_descriptor
+name|internal_static_ColumnAggregationNullResponseSumRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -7362,7 +7362,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_SumRequest_fieldAccessorTable
+name|internal_static_ColumnAggregationNullResponseSumRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -7375,7 +7375,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_SumResponse_descriptor
+name|internal_static_ColumnAggregationNullResponseSumResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -7388,7 +7388,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_SumResponse_fieldAccessorTable
+name|internal_static_ColumnAggregationNullResponseSumResponse_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -7434,19 +7434,25 @@ init|=
 block|{
 literal|"\n+ColumnAggregationNullResponseProtocol."
 operator|+
-literal|"proto\"/\n\nSumRequest\022\016\n\006family\030\001 \002(\014\022\021\n\tq"
+literal|"proto\"L\n\'ColumnAggregationNullResponseSu"
 operator|+
-literal|"ualifier\030\002 \001(\014\"\032\n\013SumResponse\022\013\n\003sum\030\001 \001"
+literal|"mRequest\022\016\n\006family\030\001 \002(\014\022\021\n\tqualifier\030\002 "
 operator|+
-literal|"(\0032H\n$ColumnAggregationServiceNullRespon"
+literal|"\001(\014\"7\n(ColumnAggregationNullResponseSumR"
 operator|+
-literal|"se\022 \n\003sum\022\013.SumRequest\032\014.SumResponseBg\n6"
+literal|"esponse\022\013\n\003sum\030\001 \001(\0032\202\001\n$ColumnAggregati"
 operator|+
-literal|"org.apache.hadoop.hbase.coprocessor.prot"
+literal|"onServiceNullResponse\022Z\n\003sum\022(.ColumnAgg"
 operator|+
-literal|"obuf.generatedB\'ColumnAggregationWithNul"
+literal|"regationNullResponseSumRequest\032).ColumnA"
 operator|+
-literal|"lResponseProtos\210\001\001\240\001\001"
+literal|"ggregationNullResponseSumResponseBg\n6org"
+operator|+
+literal|".apache.hadoop.hbase.coprocessor.protobu"
+operator|+
+literal|"f.generatedB\'ColumnAggregationWithNullRe"
+block|,
+literal|"sponseProtos\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -7502,7 +7508,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_SumRequest_descriptor
+name|internal_static_ColumnAggregationNullResponseSumRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -7515,7 +7521,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_SumRequest_fieldAccessorTable
+name|internal_static_ColumnAggregationNullResponseSumRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -7528,7 +7534,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_SumRequest_descriptor
+name|internal_static_ColumnAggregationNullResponseSumRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -7544,7 +7550,7 @@ literal|"Qualifier"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_SumResponse_descriptor
+name|internal_static_ColumnAggregationNullResponseSumResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -7557,7 +7563,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_SumResponse_fieldAccessorTable
+name|internal_static_ColumnAggregationNullResponseSumResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -7570,7 +7576,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_SumResponse_descriptor
+name|internal_static_ColumnAggregationNullResponseSumResponse_descriptor
 argument_list|,
 operator|new
 name|java
