@@ -3033,24 +3033,23 @@ name|hasParent
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Long
+comment|// Initialize the Procedure ID
+name|long
 name|currentProcId
+init|=
+name|nextProcId
+argument_list|()
 decl_stmt|;
-comment|// The following part of the code has to be synchronized to prevent multiple request
-comment|// with the same nonce to execute at the same time.
-synchronized|synchronized
-init|(
-name|this
-init|)
-block|{
+name|proc
+operator|.
+name|setProcId
+argument_list|(
+name|currentProcId
+argument_list|)
+expr_stmt|;
 comment|// Check whether the proc exists.  If exist, just return the proc id.
 comment|// This is to prevent the same proc to submit multiple times (it could happen
 comment|// when client could not talk to server and resubmit the same request).
-name|NonceKey
-name|noncekey
-init|=
-literal|null
-decl_stmt|;
 if|if
 condition|(
 name|nonce
@@ -3060,8 +3059,9 @@ operator|.
 name|NO_NONCE
 condition|)
 block|{
+name|NonceKey
 name|noncekey
-operator|=
+init|=
 operator|new
 name|NonceKey
 argument_list|(
@@ -3069,50 +3069,7 @@ name|nonceGroup
 argument_list|,
 name|nonce
 argument_list|)
-expr_stmt|;
-name|currentProcId
-operator|=
-name|nonceKeysToProcIdsMap
-operator|.
-name|get
-argument_list|(
-name|noncekey
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|currentProcId
-operator|!=
-literal|null
-condition|)
-block|{
-comment|// Found the proc
-return|return
-name|currentProcId
-return|;
-block|}
-block|}
-comment|// Initialize the Procedure ID
-name|currentProcId
-operator|=
-name|nextProcId
-argument_list|()
-expr_stmt|;
-name|proc
-operator|.
-name|setProcId
-argument_list|(
-name|currentProcId
-argument_list|)
-expr_stmt|;
-comment|// This is new procedure. Set the noncekey and insert into the map.
-if|if
-condition|(
-name|noncekey
-operator|!=
-literal|null
-condition|)
-block|{
+decl_stmt|;
 name|proc
 operator|.
 name|setNonceKey
@@ -3120,18 +3077,34 @@ argument_list|(
 name|noncekey
 argument_list|)
 expr_stmt|;
+name|Long
+name|oldProcId
+init|=
 name|nonceKeysToProcIdsMap
 operator|.
-name|put
+name|putIfAbsent
 argument_list|(
 name|noncekey
 argument_list|,
 name|currentProcId
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+if|if
+condition|(
+name|oldProcId
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// Found the proc
+return|return
+name|oldProcId
+operator|.
+name|longValue
+argument_list|()
+return|;
 block|}
 block|}
-comment|// end of synchronized (this)
 comment|// Commit the transaction
 name|store
 operator|.
