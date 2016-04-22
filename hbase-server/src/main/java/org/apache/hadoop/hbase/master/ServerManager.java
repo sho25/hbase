@@ -2315,14 +2315,9 @@ name|services
 operator|==
 literal|null
 operator|||
-operator|(
-operator|(
-name|HMaster
-operator|)
 name|this
 operator|.
 name|services
-operator|)
 operator|.
 name|isInitialized
 argument_list|()

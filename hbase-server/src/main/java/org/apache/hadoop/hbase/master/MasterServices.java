@@ -664,12 +664,17 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @return true if master is the active one    */
+name|boolean
+name|isActiveMaster
+parameter_list|()
+function_decl|;
 comment|/**    * @return true if master is initialized    */
 name|boolean
 name|isInitialized
 parameter_list|()
 function_decl|;
-comment|/**    * Abort a procedure.    * @param procId ID of the procedure    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return true if aborted, false if procedure already completed or does not exist    * @throws IOException     */
+comment|/**    * Abort a procedure.    * @param procId ID of the procedure    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return true if aborted, false if procedure already completed or does not exist    * @throws IOException    */
 specifier|public
 name|boolean
 name|abortProcedure

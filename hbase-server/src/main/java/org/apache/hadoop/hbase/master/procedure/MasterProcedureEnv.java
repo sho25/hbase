@@ -376,14 +376,14 @@ name|LeaseRecovery
 block|{
 specifier|private
 specifier|final
-name|HMaster
+name|MasterServices
 name|master
 decl_stmt|;
 specifier|public
 name|WALStoreLeaseRecovery
 parameter_list|(
 specifier|final
-name|HMaster
+name|MasterServices
 name|master
 parameter_list|)
 block|{
@@ -490,14 +490,14 @@ name|ProcedureStoreListener
 block|{
 specifier|private
 specifier|final
-name|HMaster
+name|MasterServices
 name|master
 decl_stmt|;
 specifier|public
 name|MasterProcedureStoreListener
 parameter_list|(
 specifier|final
-name|HMaster
+name|MasterServices
 name|master
 parameter_list|)
 block|{
@@ -529,6 +529,8 @@ operator|.
 name|abort
 argument_list|(
 literal|"The Procedure Store lost the lease"
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
