@@ -13,7 +13,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|io
+operator|.
+name|asyncfs
 package|;
 end_package
 
