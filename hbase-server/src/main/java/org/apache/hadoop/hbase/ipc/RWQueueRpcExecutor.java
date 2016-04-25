@@ -1183,10 +1183,16 @@ name|this
 operator|.
 name|scanBalancer
 operator|=
+name|numScanQueues
+operator|>
+literal|0
+condition|?
 name|getBalancer
 argument_list|(
 name|numScanQueues
 argument_list|)
+else|:
+literal|null
 expr_stmt|;
 name|queues
 operator|=
