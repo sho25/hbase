@@ -19,6 +19,20 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Throwables
+import|;
+end_import
+
+begin_import
+import|import
 name|io
 operator|.
 name|netty
@@ -509,6 +523,17 @@ argument_list|(
 literal|"Error instantiating log writer."
 argument_list|,
 name|e
+argument_list|)
+expr_stmt|;
+name|Throwables
+operator|.
+name|propagateIfPossible
+argument_list|(
+name|e
+argument_list|,
+name|IOException
+operator|.
+name|class
 argument_list|)
 expr_stmt|;
 throw|throw

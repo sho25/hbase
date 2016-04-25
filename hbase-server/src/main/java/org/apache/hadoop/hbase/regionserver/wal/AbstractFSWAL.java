@@ -3777,7 +3777,11 @@ name|syncFuture
 operator|=
 operator|new
 name|SyncFuture
-argument_list|()
+argument_list|(
+name|sequence
+argument_list|,
+name|span
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -3794,7 +3798,8 @@ name|syncFuture
 argument_list|)
 expr_stmt|;
 block|}
-return|return
+else|else
+block|{
 name|syncFuture
 operator|.
 name|reset
@@ -3803,6 +3808,10 @@ name|sequence
 argument_list|,
 name|span
 argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|syncFuture
 return|;
 block|}
 specifier|protected

@@ -80,27 +80,23 @@ specifier|final
 name|long
 name|NOT_DONE
 init|=
-literal|0
+operator|-
+literal|1L
 decl_stmt|;
 comment|/**    * The transaction id of this operation, monotonically increases.    */
 specifier|private
 name|long
 name|txid
 decl_stmt|;
-comment|/**    * The transaction id that was set in here when we were marked done. Should be equal or> txnId.    * Put this data member into the NOT_DONE state while this class is in use. But for the first    * position on construction, let it be -1 so we can immediately call {@link #reset(long, Span)}    * below and it will work.    */
+comment|/**    * The transaction id that was set in here when we were marked done. Should be equal or> txnId.    * Put this data member into the NOT_DONE state while this class is in use.    */
 specifier|private
 name|long
 name|doneTxid
-init|=
-operator|-
-literal|1
 decl_stmt|;
 comment|/**    * If error, the associated throwable. Set when the future is 'done'.    */
 specifier|private
 name|Throwable
 name|throwable
-init|=
-literal|null
 decl_stmt|;
 specifier|private
 name|Thread
@@ -111,33 +107,51 @@ specifier|private
 name|Span
 name|span
 decl_stmt|;
-comment|/**    * Call this method to clear old usage and get it ready for new deploy. Call this method even if    * it is being used for the first time.    * @param txnId the new transaction id    * @return this    */
-specifier|synchronized
 name|SyncFuture
-name|reset
 parameter_list|(
-specifier|final
 name|long
-name|txnId
+name|txid
+parameter_list|,
+name|Span
+name|span
 parameter_list|)
 block|{
-return|return
-name|reset
-argument_list|(
-name|txnId
-argument_list|,
-literal|null
-argument_list|)
-return|;
+name|this
+operator|.
+name|t
+operator|=
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|txid
+operator|=
+name|txid
+expr_stmt|;
+name|this
+operator|.
+name|span
+operator|=
+name|span
+expr_stmt|;
+name|this
+operator|.
+name|doneTxid
+operator|=
+name|NOT_DONE
+expr_stmt|;
 block|}
-comment|/**    * Call this method to clear old usage and get it ready for new deploy. Call this method even if    * it is being used for the first time.    * @param sequence sequenceId from this Future's position in the RingBuffer    * @param span curren span, detached from caller. Don't forget to attach it when resuming after a    *          call to {@link #get()}.    * @return this    */
+comment|/**    * Call this method to clear old usage and get it ready for new deploy.    * @param txid the new transaction id    * @param span current span, detached from caller. Don't forget to attach it when resuming after a    *          call to {@link #get()}.    * @return this    */
 specifier|synchronized
 name|SyncFuture
 name|reset
 parameter_list|(
 specifier|final
 name|long
-name|txnId
+name|txid
 parameter_list|,
 name|Span
 name|span
@@ -183,7 +197,7 @@ name|IllegalStateException
 argument_list|(
 literal|""
 operator|+
-name|txnId
+name|txid
 operator|+
 literal|" "
 operator|+
@@ -204,7 +218,7 @@ name|this
 operator|.
 name|txid
 operator|=
-name|txnId
+name|txid
 expr_stmt|;
 name|this
 operator|.
@@ -358,7 +372,6 @@ return|return
 literal|true
 return|;
 block|}
-specifier|public
 name|boolean
 name|cancel
 parameter_list|(
@@ -372,7 +385,6 @@ name|UnsupportedOperationException
 argument_list|()
 throw|;
 block|}
-specifier|public
 specifier|synchronized
 name|long
 name|get
