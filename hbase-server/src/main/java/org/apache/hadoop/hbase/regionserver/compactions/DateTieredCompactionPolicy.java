@@ -628,6 +628,28 @@ operator|==
 literal|0
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"filesToCompact: "
+operator|+
+name|filesToCompact
+operator|+
+literal|" mcTime: "
+operator|+
+name|mcTime
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|false
 return|;
@@ -666,6 +688,36 @@ name|mcTime
 operator|)
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"lowTimestamp: "
+operator|+
+name|lowTimestamp
+operator|+
+literal|" lowTimestamp: "
+operator|+
+name|lowTimestamp
+operator|+
+literal|" now: "
+operator|+
+name|now
+operator|+
+literal|" mcTime: "
+operator|+
+name|mcTime
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|false
 return|;

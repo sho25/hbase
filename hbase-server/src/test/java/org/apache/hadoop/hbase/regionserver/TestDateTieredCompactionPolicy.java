@@ -291,7 +291,7 @@ name|HConstants
 operator|.
 name|MAJOR_COMPACTION_PERIOD
 argument_list|,
-literal|10
+literal|5
 argument_list|)
 expr_stmt|;
 block|}
