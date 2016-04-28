@@ -2372,6 +2372,14 @@ operator|+
 literal|"),?"
 argument_list|)
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CP_HTD_ATTR_INCLUSION_KEY
+init|=
+literal|"hbase.coprocessor.classloader.included.classes"
+decl_stmt|;
 comment|/** The delay when re-trying a socket operation in a loop (HBASE-4712) */
 specifier|public
 specifier|static
