@@ -482,7 +482,7 @@ name|readable
 argument_list|)
 throw|;
 block|}
-comment|// update mask ( 0 -> -1 (0xff), 1 -> 0)
+comment|// update mask ( 0 -> -1 (0xff), 1 -> 2)
 name|p
 operator|.
 name|setSecond
@@ -584,8 +584,9 @@ index|[
 name|i
 index|]
 operator|==
-literal|0
+literal|2
 condition|)
+block|{
 name|key
 index|[
 name|i
@@ -595,7 +596,8 @@ literal|0
 expr_stmt|;
 block|}
 block|}
-comment|/**    * We need to preprocess mask array, as since we treat 0's as unfixed positions and -1 (0xff) as    * fixed positions    * @param mask    * @return mask array    */
+block|}
+comment|/**    * We need to preprocess mask array, as since we treat 2's as unfixed positions and -1 (0xff) as    * fixed positions    * @param mask    * @return mask array    */
 specifier|private
 name|byte
 index|[]
@@ -680,9 +682,9 @@ index|[
 name|i
 index|]
 operator|=
-literal|0
+literal|2
 expr_stmt|;
-comment|// 1 -> 0
+comment|// 1 -> 2
 block|}
 block|}
 return|return
@@ -730,7 +732,7 @@ index|[
 name|i
 index|]
 operator|!=
-literal|0
+literal|2
 condition|)
 block|{
 return|return
@@ -815,6 +817,38 @@ argument_list|(
 name|index
 argument_list|)
 decl_stmt|;
+comment|// This shift is idempotent - always end up with 0 and -1 as mask values.
+for|for
+control|(
+name|int
+name|j
+init|=
+literal|0
+init|;
+name|j
+operator|<
+name|fuzzyData
+operator|.
+name|getSecond
+argument_list|()
+operator|.
+name|length
+condition|;
+name|j
+operator|++
+control|)
+block|{
+name|fuzzyData
+operator|.
+name|getSecond
+argument_list|()
+index|[
+name|j
+index|]
+operator|>>=
+literal|2
+expr_stmt|;
+block|}
 name|SatisfiesCode
 name|satisfiesCode
 init|=
