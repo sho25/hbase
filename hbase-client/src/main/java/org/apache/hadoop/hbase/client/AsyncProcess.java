@@ -603,6 +603,15 @@ name|DEFAULT_START_LOG_ERRORS_AFTER_COUNT
 init|=
 literal|9
 decl_stmt|;
+comment|/**    * Configuration to decide whether to log details for batch error    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|LOG_DETAILS_FOR_BATCH_ERROR
+init|=
+literal|"hbase.client.log.batcherrors.details"
+decl_stmt|;
 comment|/**    * The context used to wait for results from one submit call.    * 1) If AsyncProcess is set to track errors globally, and not per call (for HTable puts),    *    then errors and failed operations in this object will reflect global errors.    * 2) If submit call is made with needResults false, results will not be saved.    *  */
 specifier|public
 specifier|static
@@ -910,6 +919,12 @@ specifier|protected
 name|long
 name|primaryCallTimeoutMicroseconds
 decl_stmt|;
+comment|/** Whether to log details for batch errors */
+specifier|private
+specifier|final
+name|boolean
+name|logBatchErrorDetails
+decl_stmt|;
 comment|// End configuration settings.
 specifier|protected
 specifier|static
@@ -1041,8 +1056,30 @@ specifier|private
 specifier|synchronized
 name|RetriesExhaustedWithDetailsException
 name|makeException
-parameter_list|()
+parameter_list|(
+name|boolean
+name|logDetails
+parameter_list|)
 block|{
+if|if
+condition|(
+name|logDetails
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Exception occurred! Exception details: "
+operator|+
+name|throwables
+operator|+
+literal|";\nActions: "
+operator|+
+name|actions
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 operator|new
 name|RetriesExhaustedWithDetailsException
@@ -1449,6 +1486,19 @@ operator|.
 name|rpcFactory
 operator|=
 name|rpcFactory
+expr_stmt|;
+name|this
+operator|.
+name|logBatchErrorDetails
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|LOG_DETAILS_FOR_BATCH_ERROR
+argument_list|,
+literal|false
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @return pool if non null, otherwise returns this.pool if non null, otherwise throws    *         RuntimeException    */
@@ -8881,7 +8931,9 @@ return|return
 name|errors
 operator|.
 name|makeException
-argument_list|()
+argument_list|(
+name|logBatchErrorDetails
+argument_list|)
 return|;
 block|}
 annotation|@
@@ -9498,7 +9550,9 @@ init|=
 name|globalErrors
 operator|.
 name|makeException
-argument_list|()
+argument_list|(
+name|logBatchErrorDetails
+argument_list|)
 decl_stmt|;
 name|globalErrors
 operator|.
