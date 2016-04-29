@@ -9611,12 +9611,6 @@ argument_list|(
 name|CALL_QUEUE_TOO_BIG_EXCEPTION
 argument_list|)
 expr_stmt|;
-name|InetSocketAddress
-name|address
-init|=
-name|getListenerAddress
-argument_list|()
-decl_stmt|;
 name|setupResponse
 argument_list|(
 name|responseBuffer
@@ -9627,15 +9621,10 @@ name|CALL_QUEUE_TOO_BIG_EXCEPTION
 argument_list|,
 literal|"Call queue is full on "
 operator|+
-operator|(
-name|address
-operator|!=
-literal|null
-condition|?
-name|address
-else|:
-literal|"(channel closed)"
-operator|)
+name|server
+operator|.
+name|getServerName
+argument_list|()
 operator|+
 literal|", is hbase.ipc.server.max.callqueue.size too small?"
 argument_list|)
@@ -10066,12 +10055,6 @@ argument_list|(
 name|CALL_QUEUE_TOO_BIG_EXCEPTION
 argument_list|)
 expr_stmt|;
-name|InetSocketAddress
-name|address
-init|=
-name|getListenerAddress
-argument_list|()
-decl_stmt|;
 name|setupResponse
 argument_list|(
 name|responseBuffer
@@ -10082,15 +10065,10 @@ name|CALL_QUEUE_TOO_BIG_EXCEPTION
 argument_list|,
 literal|"Call queue is full on "
 operator|+
-operator|(
-name|address
-operator|!=
-literal|null
-condition|?
-name|address
-else|:
-literal|"(channel closed)"
-operator|)
+name|server
+operator|.
+name|getServerName
+argument_list|()
 operator|+
 literal|", too many items queued ?"
 argument_list|)
