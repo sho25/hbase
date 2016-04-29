@@ -2588,12 +2588,10 @@ argument_list|,
 name|i
 operator|++
 argument_list|,
-name|TagUtil
-operator|.
-name|getValueAsString
-argument_list|(
 name|tag
-argument_list|)
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
