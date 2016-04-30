@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -507,6 +517,30 @@ operator|.
 name|close
 argument_list|(
 name|cause
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|channelInactive
+parameter_list|(
+name|ChannelHandlerContext
+name|ctx
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+name|channel
+operator|.
+name|close
+argument_list|(
+operator|new
+name|IOException
+argument_list|(
+literal|"connection closed"
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
