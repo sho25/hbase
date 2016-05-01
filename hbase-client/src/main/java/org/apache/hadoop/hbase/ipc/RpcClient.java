@@ -110,108 +110,69 @@ name|RpcClient
 extends|extends
 name|Closeable
 block|{
-specifier|public
-specifier|final
-specifier|static
 name|String
 name|FAILED_SERVER_EXPIRY_KEY
 init|=
 literal|"hbase.ipc.client.failed.servers.expiry"
 decl_stmt|;
-specifier|public
-specifier|final
-specifier|static
 name|int
 name|FAILED_SERVER_EXPIRY_DEFAULT
 init|=
 literal|2000
 decl_stmt|;
-specifier|public
-specifier|final
-specifier|static
 name|String
 name|IDLE_TIME
 init|=
 literal|"hbase.ipc.client.connection.minIdleTimeBeforeClose"
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
 name|String
 name|IPC_CLIENT_FALLBACK_TO_SIMPLE_AUTH_ALLOWED_KEY
 init|=
 literal|"hbase.ipc.client.fallback-to-simple-auth-allowed"
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
 name|boolean
 name|IPC_CLIENT_FALLBACK_TO_SIMPLE_AUTH_ALLOWED_DEFAULT
 init|=
 literal|false
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
 name|String
 name|SPECIFIC_WRITE_THREAD
 init|=
 literal|"hbase.ipc.client.specificThreadForWriting"
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
 name|String
 name|DEFAULT_CODEC_CLASS
 init|=
 literal|"hbase.client.default.rpc.codec"
 decl_stmt|;
-specifier|public
-specifier|final
-specifier|static
 name|String
 name|SOCKET_TIMEOUT_CONNECT
 init|=
 literal|"hbase.ipc.client.socket.timeout.connect"
 decl_stmt|;
 comment|/**    * How long we wait when we wait for an answer. It's not the operation time, it's the time    * we wait when we start to receive an answer, when the remote write starts to send the data.    */
-specifier|public
-specifier|final
-specifier|static
 name|String
 name|SOCKET_TIMEOUT_READ
 init|=
 literal|"hbase.ipc.client.socket.timeout.read"
 decl_stmt|;
-specifier|public
-specifier|final
-specifier|static
 name|String
 name|SOCKET_TIMEOUT_WRITE
 init|=
 literal|"hbase.ipc.client.socket.timeout.write"
 decl_stmt|;
-specifier|public
-specifier|final
-specifier|static
 name|int
 name|DEFAULT_SOCKET_TIMEOUT_CONNECT
 init|=
 literal|10000
 decl_stmt|;
 comment|// 10 seconds
-specifier|public
-specifier|final
-specifier|static
 name|int
 name|DEFAULT_SOCKET_TIMEOUT_READ
 init|=
 literal|20000
 decl_stmt|;
 comment|// 20 seconds
-specifier|public
-specifier|final
-specifier|static
 name|int
 name|DEFAULT_SOCKET_TIMEOUT_WRITE
 init|=
@@ -220,8 +181,6 @@ decl_stmt|;
 comment|// 60 seconds
 comment|// Used by the server, for compatibility with old clients.
 comment|// The client in 0.99+ does not ping the server.
-specifier|final
-specifier|static
 name|int
 name|PING_CALL_ID
 init|=
@@ -229,7 +188,6 @@ operator|-
 literal|1
 decl_stmt|;
 comment|/**    * Creates a "channel" that can be used by a blocking protobuf service.  Useful setting up    * protobuf blocking stubs.    *    * @param sn server name describing location of server    * @param user which is to use the connection    * @param rpcTimeout default rpc operation timeout    *    * @return A blocking rpc channel that goes via this rpc client instance.    * @throws IOException when channel could not be created    */
-specifier|public
 name|BlockingRpcChannel
 name|createBlockingRpcChannel
 parameter_list|(
@@ -246,7 +204,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Interrupt the connections to the given server. This should be called if the server    * is known as actually dead. This will not prevent current operation to be retried, and,    * depending on their own behavior, they may retry on the same server. This can be a feature,    * for example at startup. In any case, they're likely to get connection refused (if the    * process died) or no route to host: i.e. their next retries should be faster and with a    * safe exception.    * @param sn server location to cancel connections of    */
-specifier|public
 name|void
 name|cancelConnections
 parameter_list|(
@@ -257,7 +214,6 @@ function_decl|;
 comment|/**    * Stop all threads related to this client.  No further calls may be made    * using this client.    */
 annotation|@
 name|Override
-specifier|public
 name|void
 name|close
 parameter_list|()

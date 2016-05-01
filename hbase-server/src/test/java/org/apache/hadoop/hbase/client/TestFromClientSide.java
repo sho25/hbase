@@ -43393,7 +43393,7 @@ name|put
 argument_list|)
 expr_stmt|;
 block|}
-comment|// nomal scan
+comment|// normal scan
 name|ResultScanner
 name|scanner
 init|=

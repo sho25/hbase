@@ -101,7 +101,7 @@ name|IOException
 throws|,
 name|RuntimeException
 function_decl|;
-comment|/**    * Call the server once only.    * {@link RetryingCallable} has a strange shape so we can do retrys.  Use this invocation if you    * want to do a single call only (A call to {@link RetryingCallable#call(int)} will not likely    * succeed).    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
+comment|/**    * Call the server once only.    * {@link RetryingCallable} has a strange shape so we can do retries.  Use this invocation if you    * want to do a single call only (A call to {@link RetryingCallable#call(int)} will not likely    * succeed).    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
 name|T
 name|callWithoutRetries
 parameter_list|(
