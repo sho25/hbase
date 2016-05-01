@@ -63,10 +63,7 @@ specifier|abstract
 name|RetryingCallerInterceptorContext
 name|prepare
 parameter_list|(
-name|RetryingCallable
-argument_list|<
-name|?
-argument_list|>
+name|RetryingCallableBase
 name|callable
 parameter_list|)
 function_decl|;
@@ -76,10 +73,7 @@ specifier|abstract
 name|RetryingCallerInterceptorContext
 name|prepare
 parameter_list|(
-name|RetryingCallable
-argument_list|<
-name|?
-argument_list|>
+name|RetryingCallableBase
 name|callable
 parameter_list|,
 name|int

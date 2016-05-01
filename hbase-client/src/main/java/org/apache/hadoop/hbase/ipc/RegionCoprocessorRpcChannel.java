@@ -252,7 +252,7 @@ specifier|public
 class|class
 name|RegionCoprocessorRpcChannel
 extends|extends
-name|CoprocessorRpcChannel
+name|SyncCoprocessorRpcChannel
 block|{
 specifier|private
 specifier|static
@@ -302,6 +302,7 @@ specifier|private
 name|RpcControllerFactory
 name|rpcControllerFactory
 decl_stmt|;
+comment|/**    * Constructor    * @param conn connection to use    * @param table to connect to    * @param row to locate region with    */
 specifier|public
 name|RegionCoprocessorRpcChannel
 parameter_list|(
@@ -686,6 +687,7 @@ return|return
 name|response
 return|;
 block|}
+comment|/**    * Get last region this RpcChannel communicated with    * @return region name as byte array    */
 specifier|public
 name|byte
 index|[]

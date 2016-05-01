@@ -204,7 +204,7 @@ specifier|public
 class|class
 name|MasterCoprocessorRpcChannel
 extends|extends
-name|CoprocessorRpcChannel
+name|SyncCoprocessorRpcChannel
 block|{
 specifier|private
 specifier|static

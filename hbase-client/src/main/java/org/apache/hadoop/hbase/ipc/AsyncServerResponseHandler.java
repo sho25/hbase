@@ -185,14 +185,14 @@ argument_list|>
 block|{
 specifier|private
 specifier|final
-name|AsyncRpcChannel
+name|AsyncRpcChannelImpl
 name|channel
 decl_stmt|;
 comment|/**    * Constructor    * @param channel on which this response handler operates    */
 specifier|public
 name|AsyncServerResponseHandler
 parameter_list|(
-name|AsyncRpcChannel
+name|AsyncRpcChannelImpl
 name|channel
 parameter_list|)
 block|{

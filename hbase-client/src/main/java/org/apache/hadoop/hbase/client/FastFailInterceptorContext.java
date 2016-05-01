@@ -343,10 +343,7 @@ specifier|public
 name|FastFailInterceptorContext
 name|prepare
 parameter_list|(
-name|RetryingCallable
-argument_list|<
-name|?
-argument_list|>
+name|RetryingCallableBase
 name|callable
 parameter_list|)
 block|{
@@ -363,10 +360,7 @@ specifier|public
 name|FastFailInterceptorContext
 name|prepare
 parameter_list|(
-name|RetryingCallable
-argument_list|<
-name|?
-argument_list|>
+name|RetryingCallableBase
 name|callable
 parameter_list|,
 name|int

@@ -2200,7 +2200,8 @@ literal|"Removing dead channel from server="
 operator|+
 name|rpcChannel
 operator|.
-name|address
+name|getAddress
+argument_list|()
 operator|.
 name|toString
 argument_list|()
@@ -2224,7 +2225,7 @@ block|{
 name|rpcChannel
 operator|=
 operator|new
-name|AsyncRpcChannel
+name|AsyncRpcChannelImpl
 argument_list|(
 name|this
 operator|.
@@ -2290,7 +2291,8 @@ argument_list|()
 operator|&&
 name|rpcChannel
 operator|.
-name|address
+name|getAddress
+argument_list|()
 operator|.
 name|getPort
 argument_list|()
@@ -2302,7 +2304,8 @@ argument_list|()
 operator|&&
 name|rpcChannel
 operator|.
-name|address
+name|getAddress
+argument_list|()
 operator|.
 name|getHostName
 argument_list|()
