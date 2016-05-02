@@ -57,6 +57,10 @@ name|InterfaceStability
 import|;
 end_import
 
+begin_comment
+comment|/**  * Returned to the clients when their request was discarded due to server being overloaded.  * Clients should retry upon receiving it.  */
+end_comment
+
 begin_class
 annotation|@
 name|SuppressWarnings
@@ -73,12 +77,12 @@ operator|.
 name|Evolving
 specifier|public
 class|class
-name|CallQueueTooBigException
+name|CallDroppedException
 extends|extends
 name|IOException
 block|{
 specifier|public
-name|CallQueueTooBigException
+name|CallDroppedException
 parameter_list|()
 block|{
 name|super
@@ -88,7 +92,7 @@ block|}
 comment|// Absence of this constructor prevents proper unwrapping of
 comment|// remote exception on the client side
 specifier|public
-name|CallQueueTooBigException
+name|CallDroppedException
 parameter_list|(
 name|String
 name|message

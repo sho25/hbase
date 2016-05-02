@@ -115,20 +115,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|locks
-operator|.
-name|ReentrantLock
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -198,16 +184,6 @@ decl_stmt|;
 specifier|private
 name|AtomicLong
 name|numLifoModeSwitches
-decl_stmt|;
-comment|/**    * Lock held by take ops, all other locks are inside queue impl.    *    * NOTE: We want to have this lock so that in case when there're lot of already expired    * calls in the call queue a handler thread calling take() can just grab lock once and    * then fast-forward through the expired calls to the first non-expired without having    * to contend for locks on every element in underlying queue.    */
-specifier|private
-specifier|final
-name|ReentrantLock
-name|lock
-init|=
-operator|new
-name|ReentrantLock
-argument_list|()
 decl_stmt|;
 comment|// Both are in milliseconds
 specifier|private
@@ -375,21 +351,6 @@ parameter_list|()
 throws|throws
 name|InterruptedException
 block|{
-specifier|final
-name|ReentrantLock
-name|lock
-init|=
-name|this
-operator|.
-name|lock
-decl_stmt|;
-name|lock
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-try|try
-block|{
 name|CallRunner
 name|cr
 decl_stmt|;
@@ -453,6 +414,11 @@ operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
+name|cr
+operator|.
+name|drop
+argument_list|()
+expr_stmt|;
 block|}
 else|else
 block|{
@@ -460,15 +426,6 @@ return|return
 name|cr
 return|;
 block|}
-block|}
-block|}
-finally|finally
-block|{
-name|lock
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 comment|/**    * @param callRunner to validate    * @return true if this call needs to be skipped based on call timestamp    *   and internal queue state (deemed overloaded).    */

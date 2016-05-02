@@ -765,6 +765,13 @@ name|isCallQueueTooBigException
 argument_list|(
 name|t2
 argument_list|)
+operator|||
+name|ClientExceptionsUtil
+operator|.
+name|isCallDroppedException
+argument_list|(
+name|t2
+argument_list|)
 condition|)
 block|{
 name|couldNotCommunicateWithServer
