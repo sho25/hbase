@@ -1332,7 +1332,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the client performs a Get    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param get the Get request    * @param result the result to return to the client, modify as necessary    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after the client performs a Get    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'result' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param get the Get request    * @param result the result to return to the client, modify as necessary    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|postGetOp
 parameter_list|(
@@ -1401,7 +1401,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the client stores a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object that will be written to the wal    * @param durability Persistence guarantee for this Put    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before the client stores a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object that will be written to the wal    * @param durability Persistence guarantee for this Put    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|prePut
 parameter_list|(
@@ -1427,7 +1427,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the client stores a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Put    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after the client stores a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Put    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|postPut
 parameter_list|(
@@ -1453,7 +1453,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the client deletes a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Delete    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before the client deletes a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Delete    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|preDelete
 parameter_list|(
@@ -1510,7 +1510,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the client deletes a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Delete    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after the client deletes a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Delete    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|postDelete
 parameter_list|(
@@ -1536,7 +1536,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This will be called for every batch mutation operation happening at the server. This will be    * called after acquiring the locks on the mutating rows and after applying the proper timestamp    * for each Mutation at the server. The batch may contain Put/Delete. By setting OperationStatus    * of Mutations ({@link MiniBatchOperationInProgress#setOperationStatus(int, OperationStatus)}),    * {@link RegionObserver} can make Region to skip these Mutations.    * @param c the environment provided by the region server    * @param miniBatchOp batch of Mutations getting applied to region.    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * This will be called for every batch mutation operation happening at the server. This will be    * called after acquiring the locks on the mutating rows and after applying the proper timestamp    * for each Mutation at the server. The batch may contain Put/Delete. By setting OperationStatus    * of Mutations ({@link MiniBatchOperationInProgress#setOperationStatus(int, OperationStatus)}),    * {@link RegionObserver} can make Region to skip these Mutations.    *<p>    * Note: Do not retain references to any Cells in Mutations beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param miniBatchOp batch of Mutations getting applied to region.    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|preBatchMutate
 parameter_list|(
@@ -1557,7 +1557,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This will be called after applying a batch of Mutations on a region. The Mutations are added to    * memstore and WAL.    * @param c the environment provided by the region server    * @param miniBatchOp batch of Mutations applied to region.    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * This will be called after applying a batch of Mutations on a region. The Mutations are added to    * memstore and WAL.    *<p>    * Note: Do not retain references to any Cells in Mutations beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param miniBatchOp batch of Mutations applied to region.    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|postBatchMutate
 parameter_list|(
@@ -1612,7 +1612,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the completion of batch put/delete and will be called even if the batch operation    * fails    * @param ctx    * @param miniBatchOp    * @param success true if batch operation is successful otherwise false.    * @throws IOException    */
+comment|/**    * Called after the completion of batch put/delete and will be called even if the batch operation    * fails.    *<p>    * Note: Do not retain references to any Cells in Mutations beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param ctx    * @param miniBatchOp    * @param success true if batch operation is successful otherwise false.    * @throws IOException    */
 name|void
 name|postBatchMutateIndispensably
 parameter_list|(
@@ -1636,7 +1636,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before checkAndPut.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result    * @return the return value to return to client if bypassing default    * processing    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before checkAndPut.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result    * @return the return value to return to client if bypassing default    * processing    * @throws IOException if an error occurred on the coprocessor    */
 name|boolean
 name|preCheckAndPut
 parameter_list|(
@@ -1681,7 +1681,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before checkAndPut but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result    * @return the return value to return to client if bypassing default    * processing    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before checkAndPut but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result    * @return the return value to return to client if bypassing default    * processing    * @throws IOException if an error occurred on the coprocessor    */
 name|boolean
 name|preCheckAndPutAfterRowLock
 parameter_list|(
@@ -1726,7 +1726,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after checkAndPut    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result from the checkAndPut    * @return the possibly transformed return value to return to client    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after checkAndPut    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result from the checkAndPut    * @return the possibly transformed return value to return to client    * @throws IOException if an error occurred on the coprocessor    */
 name|boolean
 name|postCheckAndPut
 parameter_list|(
@@ -1771,7 +1771,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before checkAndDelete.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result    * @return the value to return to client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before checkAndDelete.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result    * @return the value to return to client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
 name|boolean
 name|preCheckAndDelete
 parameter_list|(
@@ -1816,7 +1816,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before checkAndDelete but after acquiring rowock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result    * @return the value to return to client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before checkAndDelete but after acquiring rowock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result    * @return the value to return to client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
 name|boolean
 name|preCheckAndDeleteAfterRowLock
 parameter_list|(
@@ -1861,7 +1861,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after checkAndDelete    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result from the CheckAndDelete    * @return the possibly transformed returned value to return to client    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after checkAndDelete    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result from the CheckAndDelete    * @return the possibly transformed returned value to return to client    * @throws IOException if an error occurred on the coprocessor    */
 name|boolean
 name|postCheckAndDelete
 parameter_list|(
@@ -1988,7 +1988,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before Append.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param append Append object    * @return result to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before Append.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'append' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param append Append object    * @return result to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
 name|Result
 name|preAppend
 parameter_list|(
@@ -2006,7 +2006,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before Append but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param append Append object    * @return result to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before Append but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'append' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param append Append object    * @return result to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
 name|Result
 name|preAppendAfterRowLock
 parameter_list|(
@@ -2024,7 +2024,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after Append    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param append Append object    * @param result the result returned by increment    * @return the result to return to the client    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after Append    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'append' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param append Append object    * @param result the result returned by increment    * @return the result to return to the client    * @throws IOException if an error occurred on the coprocessor    */
 name|Result
 name|postAppend
 parameter_list|(
@@ -2046,7 +2046,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before Increment.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param increment increment object    * @return result to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before Increment.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'increment' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param increment increment object    * @return result to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
 name|Result
 name|preIncrement
 parameter_list|(
@@ -2064,7 +2064,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before Increment but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained coprocessors    *    * @param c    *          the environment provided by the region server    * @param increment    *          increment object    * @return result to return to the client if bypassing default processing    * @throws IOException    *           if an error occurred on the coprocessor    */
+comment|/**    * Called before Increment but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained coprocessors    *<p>    * Note: Do not retain references to any Cells in 'increment' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    *    * @param c    *          the environment provided by the region server    * @param increment    *          increment object    * @return result to return to the client if bypassing default processing    * @throws IOException    *           if an error occurred on the coprocessor    */
 name|Result
 name|preIncrementAfterRowLock
 parameter_list|(
@@ -2082,7 +2082,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after increment    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param increment increment object    * @param result the result returned by increment    * @return the result to return to the client    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after increment    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'increment' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param increment increment object    * @param result the result returned by increment    * @return the result to return to the client    * @throws IOException if an error occurred on the coprocessor    */
 name|Result
 name|postIncrement
 parameter_list|(
@@ -2104,7 +2104,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the client opens a new scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param scan the Scan specification    * @param s if not null, the base scanner    * @return an RegionScanner instance to use instead of the base scanner if    * overriding default behavior, null otherwise    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before the client opens a new scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param scan the Scan specification    * @param s if not null, the base scanner    * @return an RegionScanner instance to use instead of the base scanner if    * overriding default behavior, null otherwise    * @throws IOException if an error occurred on the coprocessor    */
 name|RegionScanner
 name|preScannerOpen
 parameter_list|(
@@ -2126,7 +2126,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner)}    * and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner)}    * and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @throws IOException if an error occurred on the coprocessor    */
 name|KeyValueScanner
 name|preStoreScannerOpen
 parameter_list|(
@@ -2160,7 +2160,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the client opens a new scanner.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param scan the Scan specification    * @param s if not null, the base scanner    * @return the scanner instance to use    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after the client opens a new scanner.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param scan the Scan specification    * @param s if not null, the base scanner    * @return the scanner instance to use    * @throws IOException if an error occurred on the coprocessor    */
 name|RegionScanner
 name|postScannerOpen
 parameter_list|(
@@ -2182,7 +2182,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the client asks for the next row on a scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param s the scanner    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be returned if default processing    * is not bypassed.    * @param limit the maximum number of results to return    * @param hasNext the 'has more' indication    * @return 'has more' indication that should be sent to client    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before the client asks for the next row on a scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param s the scanner    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be returned if default processing    * is not bypassed.    * @param limit the maximum number of results to return    * @param hasNext the 'has more' indication    * @return 'has more' indication that should be sent to client    * @throws IOException if an error occurred on the coprocessor    */
 name|boolean
 name|preScannerNext
 parameter_list|(
@@ -2215,7 +2215,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the client asks for the next row on a scanner.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param s the scanner    * @param result the result to return to the client, can be modified    * @param limit the maximum number of results to return    * @param hasNext the 'has more' indication    * @return 'has more' indication that should be sent to client    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after the client asks for the next row on a scanner.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param s the scanner    * @param result the result to return to the client, can be modified    * @param limit the maximum number of results to return    * @param hasNext the 'has more' indication    * @return 'has more' indication that should be sent to client    * @throws IOException if an error occurred on the coprocessor    */
 name|boolean
 name|postScannerNext
 parameter_list|(
@@ -2285,7 +2285,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This will be called by the scan flow when the current scanned row is being filtered out by the    * filter. The filter may be filtering out the row via any of the below scenarios    *<ol>    *<li>    *<code>boolean filterRowKey(byte [] buffer, int offset, int length)</code> returning true</li>    *<li>    *<code>boolean filterRow()</code> returning true</li>    *<li>    *<code>void filterRow(List&lt;KeyValue&gt; kvs)</code> removing all the kvs from    * the passed List</li>    *</ol>    * @param c the environment provided by the region server    * @param s the scanner    * @param curRowCell The cell in the current row which got filtered out    * @param hasMore the 'has more' indication    * @return whether more rows are available for the scanner or not    * @throws IOException    */
+comment|/**    * This will be called by the scan flow when the current scanned row is being filtered out by the    * filter. The filter may be filtering out the row via any of the below scenarios    *<ol>    *<li>    *<code>boolean filterRowKey(byte [] buffer, int offset, int length)</code> returning true</li>    *<li>    *<code>boolean filterRow()</code> returning true</li>    *<li>    *<code>void filterRow(List&lt;KeyValue&gt; kvs)</code> removing all the kvs from    * the passed List</li>    *</ol>    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param s the scanner    * @param curRowCell The cell in the current row which got filtered out    * @param hasMore the 'has more' indication    * @return whether more rows are available for the scanner or not    * @throws IOException    */
 name|boolean
 name|postScannerFilterRow
 parameter_list|(

@@ -13143,8 +13143,6 @@ operator|.
 name|getScanner
 argument_list|(
 name|scan
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|scanner
@@ -15048,11 +15046,6 @@ name|isSmallScan
 init|=
 literal|false
 decl_stmt|;
-name|RegionScanner
-name|actualRegionScanner
-init|=
-literal|null
-decl_stmt|;
 name|ScanResponse
 operator|.
 name|Builder
@@ -15334,25 +15327,14 @@ condition|)
 block|{
 name|scanner
 operator|=
-operator|(
-operator|(
-name|HRegion
-operator|)
 name|region
-operator|)
 operator|.
 name|getScanner
 argument_list|(
 name|scan
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
-name|actualRegionScanner
-operator|=
-name|scanner
-expr_stmt|;
 if|if
 condition|(
 name|region
@@ -15377,38 +15359,6 @@ argument_list|,
 name|scanner
 argument_list|)
 expr_stmt|;
-block|}
-if|if
-condition|(
-name|actualRegionScanner
-operator|!=
-name|scanner
-condition|)
-block|{
-comment|// It means the RegionScanner has been wrapped
-if|if
-condition|(
-name|actualRegionScanner
-operator|instanceof
-name|RegionScannerImpl
-condition|)
-block|{
-comment|// Copy the results when nextRaw is called from the CP so that
-comment|// CP can have a cloned version of the results without bothering
-comment|// about the eviction. Ugly, yes!!!
-operator|(
-operator|(
-name|RegionScannerImpl
-operator|)
-name|actualRegionScanner
-operator|)
-operator|.
-name|setCopyCellsFromSharedMem
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 name|scannerId
 operator|=
