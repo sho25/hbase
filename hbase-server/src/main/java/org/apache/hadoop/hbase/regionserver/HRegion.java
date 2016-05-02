@@ -14743,7 +14743,7 @@ try|try
 block|{
 name|rowLock
 operator|=
-name|getRowLock
+name|getRowLockInternal
 argument_list|(
 name|mutation
 operator|.
@@ -16929,15 +16929,24 @@ name|qualifier
 argument_list|)
 expr_stmt|;
 comment|// Lock row - note that doBatchMutate will relock this row if called
+name|checkRow
+argument_list|(
+name|row
+argument_list|,
+literal|"doCheckAndRowMutate"
+argument_list|)
+expr_stmt|;
 name|RowLock
 name|rowLock
 init|=
-name|getRowLock
+name|getRowLockInternal
 argument_list|(
 name|get
 operator|.
 name|getRow
 argument_list|()
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 try|try
@@ -24752,7 +24761,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Make sure the row is inside of this region before getting the lock for it.
 name|checkRow
 argument_list|(
 name|row
@@ -24760,6 +24768,29 @@ argument_list|,
 literal|"row lock"
 argument_list|)
 expr_stmt|;
+return|return
+name|getRowLockInternal
+argument_list|(
+name|row
+argument_list|,
+name|readLock
+argument_list|)
+return|;
+block|}
+specifier|protected
+name|RowLock
+name|getRowLockInternal
+parameter_list|(
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|boolean
+name|readLock
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 comment|// create an object to use a a key in the row lock map
 name|HashedBytes
 name|rowKey
@@ -32517,9 +32548,11 @@ name|acquiredRowLocks
 operator|.
 name|add
 argument_list|(
-name|getRowLock
+name|getRowLockInternal
 argument_list|(
 name|row
+argument_list|,
+literal|false
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -33448,12 +33481,14 @@ decl_stmt|;
 name|RowLock
 name|rowLock
 init|=
-name|getRowLock
+name|getRowLockInternal
 argument_list|(
 name|mutation
 operator|.
 name|getRow
 argument_list|()
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 try|try
