@@ -1431,6 +1431,22 @@ name|hbase
 operator|.
 name|ipc
 operator|.
+name|CoprocessorRpcUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
 name|RpcCallContext
 import|;
 end_import
@@ -35752,16 +35768,23 @@ operator|.
 name|getDescriptorForType
 argument_list|()
 decl_stmt|;
+name|String
+name|serviceName
+init|=
+name|CoprocessorRpcUtils
+operator|.
+name|getServiceName
+argument_list|(
+name|serviceDesc
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|coprocessorServiceHandlers
 operator|.
 name|containsKey
 argument_list|(
-name|serviceDesc
-operator|.
-name|getFullName
-argument_list|()
+name|serviceName
 argument_list|)
 condition|)
 block|{
@@ -35771,10 +35794,7 @@ name|error
 argument_list|(
 literal|"Coprocessor service "
 operator|+
-name|serviceDesc
-operator|.
-name|getFullName
-argument_list|()
+name|serviceName
 operator|+
 literal|" already registered, rejecting request from "
 operator|+
@@ -35789,10 +35809,7 @@ name|coprocessorServiceHandlers
 operator|.
 name|put
 argument_list|(
-name|serviceDesc
-operator|.
-name|getFullName
-argument_list|()
+name|serviceName
 argument_list|,
 name|instance
 argument_list|)
@@ -35824,10 +35841,7 @@ argument_list|)
 operator|+
 literal|" service="
 operator|+
-name|serviceDesc
-operator|.
-name|getFullName
-argument_list|()
+name|serviceName
 argument_list|)
 expr_stmt|;
 block|}
