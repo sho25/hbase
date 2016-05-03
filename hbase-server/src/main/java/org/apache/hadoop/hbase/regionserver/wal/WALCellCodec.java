@@ -441,6 +441,7 @@ operator|=
 name|compression
 expr_stmt|;
 block|}
+specifier|public
 specifier|static
 name|String
 name|getWALCellCodecClass
