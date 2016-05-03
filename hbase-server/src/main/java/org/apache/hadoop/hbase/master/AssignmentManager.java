@@ -559,7 +559,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Admin
+name|MasterSwitchType
 import|;
 end_import
 
@@ -11336,8 +11336,6 @@ argument_list|()
 operator|.
 name|isSplitOrMergeEnabled
 argument_list|(
-name|Admin
-operator|.
 name|MasterSwitchType
 operator|.
 name|SPLIT
@@ -12281,8 +12279,6 @@ argument_list|()
 operator|.
 name|isSplitOrMergeEnabled
 argument_list|(
-name|Admin
-operator|.
 name|MasterSwitchType
 operator|.
 name|MERGE

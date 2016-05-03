@@ -257,7 +257,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Admin
+name|MasterSwitchType
 import|;
 end_import
 
@@ -4533,8 +4533,6 @@ name|boolean
 name|newValue
 parameter_list|,
 specifier|final
-name|Admin
-operator|.
 name|MasterSwitchType
 name|switchType
 parameter_list|)
@@ -4598,8 +4596,6 @@ name|boolean
 name|newValue
 parameter_list|,
 specifier|final
-name|Admin
-operator|.
 name|MasterSwitchType
 name|switchType
 parameter_list|)

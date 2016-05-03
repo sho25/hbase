@@ -79,6 +79,22 @@ name|Admin
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|CompactType
+import|;
+end_import
+
 begin_comment
 comment|/**  * Action that queues a table compaction.  */
 end_comment
@@ -239,8 +255,6 @@ name|majorCompact
 argument_list|(
 name|tableName
 argument_list|,
-name|Admin
-operator|.
 name|CompactType
 operator|.
 name|MOB
@@ -255,8 +269,6 @@ name|compact
 argument_list|(
 name|tableName
 argument_list|,
-name|Admin
-operator|.
 name|CompactType
 operator|.
 name|MOB

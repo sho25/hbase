@@ -801,7 +801,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Admin
+name|MasterSwitchType
 import|;
 end_import
 
@@ -14246,13 +14246,11 @@ name|isNormalizerOn
 argument_list|()
 return|;
 block|}
-comment|/**    * Queries the state of the {@link SplitOrMergeTracker}. If it is not initialized,    * false is returned. If switchType is illegal, false will return.    * @param switchType see {@link org.apache.hadoop.hbase.client.Admin.MasterSwitchType}    * @return The state of the switch    */
+comment|/**    * Queries the state of the {@link SplitOrMergeTracker}. If it is not initialized,    * false is returned. If switchType is illegal, false will return.    * @param switchType see {@link org.apache.hadoop.hbase.client.MasterSwitchType}    * @return The state of the switch    */
 specifier|public
 name|boolean
 name|isSplitOrMergeEnabled
 parameter_list|(
-name|Admin
-operator|.
 name|MasterSwitchType
 name|switchType
 parameter_list|)

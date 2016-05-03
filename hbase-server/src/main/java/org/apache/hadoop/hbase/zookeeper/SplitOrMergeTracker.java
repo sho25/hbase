@@ -103,7 +103,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Admin
+name|MasterSwitchType
 import|;
 end_import
 
@@ -455,8 +455,6 @@ specifier|public
 name|boolean
 name|isSplitOrMergeEnabled
 parameter_list|(
-name|Admin
-operator|.
 name|MasterSwitchType
 name|switchType
 parameter_list|)
@@ -498,8 +496,6 @@ parameter_list|(
 name|boolean
 name|enabled
 parameter_list|,
-name|Admin
-operator|.
 name|MasterSwitchType
 name|switchType
 parameter_list|)
@@ -869,8 +865,6 @@ name|splitEnabled
 init|=
 name|isSplitOrMergeEnabled
 argument_list|(
-name|Admin
-operator|.
 name|MasterSwitchType
 operator|.
 name|SPLIT
@@ -881,8 +875,6 @@ name|mergeEnabled
 init|=
 name|isSplitOrMergeEnabled
 argument_list|(
-name|Admin
-operator|.
 name|MasterSwitchType
 operator|.
 name|MERGE

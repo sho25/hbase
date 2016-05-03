@@ -157,8 +157,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Admin
-operator|.
 name|MasterSwitchType
 import|;
 end_import

@@ -205,22 +205,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Admin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Append
 import|;
 end_import
@@ -286,6 +270,22 @@ operator|.
 name|client
 operator|.
 name|Increment
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|MasterSwitchType
 import|;
 end_import
 
@@ -8530,14 +8530,12 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Creates a protocol buffer IsSplitOrMergeEnabledRequest    *    * @param switchType see {@link org.apache.hadoop.hbase.client.Admin.MasterSwitchType}    * @return a IsSplitOrMergeEnabledRequest    */
+comment|/**    * Creates a protocol buffer IsSplitOrMergeEnabledRequest    *    * @param switchType see {@link org.apache.hadoop.hbase.client.MasterSwitchType}    * @return a IsSplitOrMergeEnabledRequest    */
 specifier|public
 specifier|static
 name|IsSplitOrMergeEnabledRequest
 name|buildIsSplitOrMergeEnabledRequest
 parameter_list|(
-name|Admin
-operator|.
 name|MasterSwitchType
 name|switchType
 parameter_list|)
@@ -8592,7 +8590,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Creates a protocol buffer SetSplitOrMergeEnabledRequest    *    * @param enabled switch is enabled or not    * @param synchronous set switch sync?    * @param switchTypes see {@link org.apache.hadoop.hbase.client.Admin.MasterSwitchType}, it is    *                    a list.    * @return a SetSplitOrMergeEnabledRequest    */
+comment|/**    * Creates a protocol buffer SetSplitOrMergeEnabledRequest    *    * @param enabled switch is enabled or not    * @param synchronous set switch sync?    * @param switchTypes see {@link org.apache.hadoop.hbase.client.MasterSwitchType}, it is    *                    a list.    * @return a SetSplitOrMergeEnabledRequest    */
 specifier|public
 specifier|static
 name|SetSplitOrMergeEnabledRequest
@@ -8607,8 +8605,6 @@ parameter_list|,
 name|boolean
 name|skipLock
 parameter_list|,
-name|Admin
-operator|.
 name|MasterSwitchType
 modifier|...
 name|switchTypes
@@ -8647,8 +8643,6 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|Admin
-operator|.
 name|MasterSwitchType
 name|switchType
 range|:
@@ -8680,8 +8674,6 @@ operator|.
 name|MasterSwitchType
 name|convert
 parameter_list|(
-name|Admin
-operator|.
 name|MasterSwitchType
 name|switchType
 parameter_list|)

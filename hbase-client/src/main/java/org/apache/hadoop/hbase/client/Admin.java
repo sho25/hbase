@@ -325,60 +325,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|AdminProtos
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|HBaseProtos
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|MasterProtos
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|quotas
 operator|.
 name|QuotaFilter
@@ -1867,10 +1813,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Get the current compaction state of a table. It could be in a major compaction, a minor    * compaction, both, or none.    *    * @param tableName table to examine    * @return the current compaction state    * @throws IOException if a remote or network exception occurs    */
-name|AdminProtos
-operator|.
-name|GetRegionInfoResponse
-operator|.
 name|CompactionState
 name|getCompactionState
 parameter_list|(
@@ -1882,10 +1824,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Get the current compaction state of region. It could be in a major compaction, a minor    * compaction, both, or none.    *    * @param regionName region to examine    * @return the current compaction state    * @throws IOException if a remote or network exception occurs    */
-name|AdminProtos
-operator|.
-name|GetRegionInfoResponse
-operator|.
 name|CompactionState
 name|getCompactionStateForRegion
 parameter_list|(
@@ -1971,11 +1909,7 @@ specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-name|HBaseProtos
-operator|.
-name|SnapshotDescription
-operator|.
-name|Type
+name|SnapshotType
 name|type
 parameter_list|)
 throws|throws
@@ -1989,8 +1923,6 @@ comment|/**    * Take a snapshot and wait for the server to complete that snapsh
 name|void
 name|snapshot
 parameter_list|(
-name|HBaseProtos
-operator|.
 name|SnapshotDescription
 name|snapshot
 parameter_list|)
@@ -2001,14 +1933,10 @@ name|SnapshotCreationException
 throws|,
 name|IllegalArgumentException
 function_decl|;
-comment|/**    * Take a snapshot without waiting for the server to complete that snapshot (asynchronous) Only a    * single snapshot should be taken at a time, or results may be undefined.    *    * @param snapshot snapshot to take    * @return response from the server indicating the max time to wait for the snapshot    * @throws IOException if the snapshot did not succeed or we lose contact with the master.    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
-name|MasterProtos
-operator|.
-name|SnapshotResponse
+comment|/**    * Take a snapshot without waiting for the server to complete that snapshot (asynchronous) Only a    * single snapshot should be taken at a time, or results may be undefined.    *    * @param snapshot snapshot to take    * @throws IOException if the snapshot did not succeed or we lose contact with the master.    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
+name|void
 name|takeSnapshotAsync
 parameter_list|(
-name|HBaseProtos
-operator|.
 name|SnapshotDescription
 name|snapshot
 parameter_list|)
@@ -2022,8 +1950,6 @@ name|boolean
 name|isSnapshotFinished
 parameter_list|(
 specifier|final
-name|HBaseProtos
-operator|.
 name|SnapshotDescription
 name|snapshot
 parameter_list|)
@@ -2238,8 +2164,6 @@ function_decl|;
 comment|/**    * List completed snapshots.    *    * @return a list of snapshot descriptors for completed snapshots    * @throws IOException if a network error occurs    */
 name|List
 argument_list|<
-name|HBaseProtos
-operator|.
 name|SnapshotDescription
 argument_list|>
 name|listSnapshots
@@ -2250,8 +2174,6 @@ function_decl|;
 comment|/**    * List all the completed snapshots matching the given regular expression.    *    * @param regex The regular expression to match against    * @return - returns a List of SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
-name|HBaseProtos
-operator|.
 name|SnapshotDescription
 argument_list|>
 name|listSnapshots
@@ -2265,8 +2187,6 @@ function_decl|;
 comment|/**    * List all the completed snapshots matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @return - returns a List of SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
-name|HBaseProtos
-operator|.
 name|SnapshotDescription
 argument_list|>
 name|listSnapshots
@@ -2280,8 +2200,6 @@ function_decl|;
 comment|/**    * List all the completed snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNameRegex The table name regular expression to match against    * @param snapshotNameRegex The snapshot name regular expression to match against    * @return - returns a List of completed SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
-name|HBaseProtos
-operator|.
 name|SnapshotDescription
 argument_list|>
 name|listTableSnapshots
@@ -2298,8 +2216,6 @@ function_decl|;
 comment|/**    * List all the completed snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNamePattern The compiled table name regular expression to match against    * @param snapshotNamePattern The compiled snapshot name regular expression to match against    * @return - returns a List of completed SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
-name|HBaseProtos
-operator|.
 name|SnapshotDescription
 argument_list|>
 name|listTableSnapshots
@@ -2444,7 +2360,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Compact a table. Asynchronous operation.    *    * @param tableName table to compact    * @param compactType {@link org.apache.hadoop.hbase.client.Admin.CompactType}    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Compact a table. Asynchronous operation.    *    * @param tableName table to compact    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    * @throws IOException    * @throws InterruptedException    */
 name|void
 name|compact
 parameter_list|(
@@ -2460,7 +2376,7 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Compact a column family within a table. Asynchronous operation.    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @param compactType {@link org.apache.hadoop.hbase.client.Admin.CompactType}    * @throws IOException if not a mob column family or if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Compact a column family within a table. Asynchronous operation.    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    * @throws IOException if not a mob column family or if a remote or network exception occurs    * @throws InterruptedException    */
 name|void
 name|compact
 parameter_list|(
@@ -2481,7 +2397,7 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Major compact a table. Asynchronous operation.    *    * @param tableName table to compact    * @param compactType {@link org.apache.hadoop.hbase.client.Admin.CompactType}    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Major compact a table. Asynchronous operation.    *    * @param tableName table to compact    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    * @throws IOException    * @throws InterruptedException    */
 name|void
 name|majorCompact
 parameter_list|(
@@ -2497,7 +2413,7 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Major compact a column family within a table. Asynchronous operation.    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @param compactType {@link org.apache.hadoop.hbase.client.Admin.CompactType}    * @throws IOException if not a mob column family or if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Major compact a column family within a table. Asynchronous operation.    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    * @throws IOException if not a mob column family or if a remote or network exception occurs    * @throws InterruptedException    */
 name|void
 name|majorCompact
 parameter_list|(
@@ -2518,11 +2434,7 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Get the current compaction state of a table. It could be in a compaction, or none.    *    * @param tableName table to examine    * @param compactType {@link org.apache.hadoop.hbase.client.Admin.CompactType}    * @return the current compaction state    * @throws IOException if a remote or network exception occurs    */
-name|AdminProtos
-operator|.
-name|GetRegionInfoResponse
-operator|.
+comment|/**    * Get the current compaction state of a table. It could be in a compaction, or none.    *    * @param tableName table to examine    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    * @return the current compaction state    * @throws IOException if a remote or network exception occurs    */
 name|CompactionState
 name|getCompactionState
 parameter_list|(
@@ -2589,52 +2501,6 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Currently, there are only two compact types:    * {@code NORMAL} means do store files compaction;    * {@code MOB} means do mob files compaction.    * */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Unstable
-specifier|public
-enum|enum
-name|CompactType
-block|{
-name|NORMAL
-argument_list|(
-literal|0
-argument_list|)
-block|,
-name|MOB
-argument_list|(
-literal|1
-argument_list|)
-block|;
-name|CompactType
-parameter_list|(
-name|int
-name|value
-parameter_list|)
-block|{}
-block|}
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
-specifier|public
-enum|enum
-name|MasterSwitchType
-block|{
-name|SPLIT
-block|,
-name|MERGE
-block|}
 block|}
 end_interface
 

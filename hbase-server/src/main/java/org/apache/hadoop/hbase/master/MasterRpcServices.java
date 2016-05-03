@@ -315,7 +315,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Admin
+name|MasterSwitchType
 import|;
 end_import
 
@@ -8832,6 +8832,8 @@ throw|;
 block|}
 for|for
 control|(
+name|MasterProtos
+operator|.
 name|MasterSwitchType
 name|masterSwitchType
 range|:
@@ -8841,8 +8843,6 @@ name|getSwitchTypesList
 argument_list|()
 control|)
 block|{
-name|Admin
-operator|.
 name|MasterSwitchType
 name|switchType
 init|=
@@ -9496,11 +9496,11 @@ argument_list|()
 return|;
 block|}
 specifier|private
-name|Admin
-operator|.
 name|MasterSwitchType
 name|convert
 parameter_list|(
+name|MasterProtos
+operator|.
 name|MasterSwitchType
 name|switchType
 parameter_list|)
@@ -9514,8 +9514,6 @@ case|case
 name|SPLIT
 case|:
 return|return
-name|Admin
-operator|.
 name|MasterSwitchType
 operator|.
 name|SPLIT
@@ -9524,8 +9522,6 @@ case|case
 name|MERGE
 case|:
 return|return
-name|Admin
-operator|.
 name|MasterSwitchType
 operator|.
 name|MERGE
