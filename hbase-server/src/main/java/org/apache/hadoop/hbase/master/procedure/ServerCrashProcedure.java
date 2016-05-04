@@ -269,7 +269,7 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|MasterFileSystem
+name|MasterServices
 import|;
 end_import
 
@@ -285,7 +285,7 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|MasterServices
+name|MasterWalManager
 import|;
 end_import
 
@@ -1442,19 +1442,19 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|MasterFileSystem
-name|mfs
+name|MasterWalManager
+name|mwm
 init|=
 name|env
 operator|.
 name|getMasterServices
 argument_list|()
 operator|.
-name|getMasterFileSystem
+name|getMasterWalManager
 argument_list|()
 decl_stmt|;
 comment|// Set recovery mode late. This is what the old ServerShutdownHandler used do.
-name|mfs
+name|mwm
 operator|.
 name|setLogRecoveryMode
 argument_list|()
@@ -1463,7 +1463,7 @@ name|this
 operator|.
 name|distributedLogReplay
 operator|=
-name|mfs
+name|mwm
 operator|.
 name|getLogRecoveryMode
 argument_list|()
@@ -1503,15 +1503,15 @@ operator|.
 name|serverName
 argument_list|)
 expr_stmt|;
-name|MasterFileSystem
-name|mfs
+name|MasterWalManager
+name|mwm
 init|=
 name|env
 operator|.
 name|getMasterServices
 argument_list|()
 operator|.
-name|getMasterFileSystem
+name|getMasterWalManager
 argument_list|()
 decl_stmt|;
 name|AssignmentManager
@@ -1557,7 +1557,7 @@ block|}
 else|else
 block|{
 comment|// TODO: Matteo. We BLOCK here but most important thing to be doing at this moment.
-name|mfs
+name|mwm
 operator|.
 name|splitMetaLog
 argument_list|(
@@ -1652,7 +1652,7 @@ block|}
 else|else
 block|{
 comment|// TODO: Matteo. We BLOCK here but most important thing to be doing at this moment.
-name|mfs
+name|mwm
 operator|.
 name|splitMetaLog
 argument_list|(
@@ -1792,15 +1792,15 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
-name|MasterFileSystem
-name|mfs
+name|MasterWalManager
+name|mwm
 init|=
 name|env
 operator|.
 name|getMasterServices
 argument_list|()
 operator|.
-name|getMasterFileSystem
+name|getMasterWalManager
 argument_list|()
 decl_stmt|;
 name|AssignmentManager
@@ -1814,7 +1814,7 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 decl_stmt|;
-name|mfs
+name|mwm
 operator|.
 name|prepareLogReplay
 argument_list|(
@@ -1876,15 +1876,15 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|MasterFileSystem
-name|mfs
+name|MasterWalManager
+name|mwm
 init|=
 name|env
 operator|.
 name|getMasterServices
 argument_list|()
 operator|.
-name|getMasterFileSystem
+name|getMasterWalManager
 argument_list|()
 decl_stmt|;
 name|AssignmentManager
@@ -1899,7 +1899,7 @@ name|getAssignmentManager
 argument_list|()
 decl_stmt|;
 comment|// TODO: For Matteo. Below BLOCKs!!!! Redo so can relinquish executor while it is running.
-name|mfs
+name|mwm
 operator|.
 name|splitLog
 argument_list|(

@@ -365,6 +365,11 @@ name|MasterFileSystem
 name|getMasterFileSystem
 parameter_list|()
 function_decl|;
+comment|/**    * @return Master's WALs {@link MasterWalManager} utility class.    */
+name|MasterWalManager
+name|getMasterWalManager
+parameter_list|()
+function_decl|;
 comment|/**    * @return Master's {@link ServerManager} instance.    */
 name|ServerManager
 name|getServerManager

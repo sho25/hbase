@@ -3721,7 +3721,7 @@ name|this
 operator|.
 name|services
 operator|.
-name|getMasterFileSystem
+name|getMasterWalManager
 argument_list|()
 operator|.
 name|getLogRecoveryMode
@@ -3848,7 +3848,7 @@ name|this
 operator|.
 name|services
 operator|.
-name|getMasterFileSystem
+name|getMasterWalManager
 argument_list|()
 operator|.
 name|getLogRecoveryMode

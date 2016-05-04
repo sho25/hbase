@@ -539,6 +539,17 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|MasterWalManager
+name|getMasterWalManager
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|MasterCoprocessorHost
 name|getMasterCoprocessorHost
 parameter_list|()
