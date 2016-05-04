@@ -527,7 +527,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Zookeeper initialization failed"
+literal|"ZooKeeper initialization failed"
 argument_list|,
 name|ke
 argument_list|)
@@ -720,7 +720,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"ZookeeperWatcher is abort"
+literal|"ZooKeeperWatcher is abort"
 argument_list|)
 expr_stmt|;
 throw|throw
@@ -729,7 +729,7 @@ name|InvalidToken
 argument_list|(
 literal|"Token keys could not be sync from zookeeper"
 operator|+
-literal|" because of ZookeeperWatcher abort"
+literal|" because of ZooKeeperWatcher abort"
 argument_list|)
 throw|;
 block|}

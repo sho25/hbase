@@ -728,7 +728,7 @@ name|watcher
 operator|.
 name|abort
 argument_list|(
-literal|"Zookeeper error obtaining acl node children"
+literal|"ZooKeeper error obtaining acl node children"
 argument_list|,
 name|ke
 argument_list|)
@@ -938,7 +938,7 @@ name|watcher
 operator|.
 name|abort
 argument_list|(
-literal|"Zookeeper error getting data for node "
+literal|"ZooKeeper error getting data for node "
 operator|+
 name|entry
 argument_list|,
@@ -1081,7 +1081,7 @@ name|watcher
 operator|.
 name|abort
 argument_list|(
-literal|"Zookeeper error get node children for path "
+literal|"ZooKeeper error get node children for path "
 operator|+
 name|path
 argument_list|,

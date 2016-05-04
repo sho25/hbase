@@ -1314,7 +1314,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Update Zookeeper.    * @param env MasterProcedureEnv    * @param nsDescriptor NamespaceDescriptor    * @throws IOException    */
+comment|/**    * Update ZooKeeper.    * @param env MasterProcedureEnv    * @param nsDescriptor NamespaceDescriptor    * @throws IOException    */
 specifier|protected
 specifier|static
 name|void
@@ -1342,7 +1342,7 @@ name|nsDescriptor
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * rollback Zookeeper update.    * @param env MasterProcedureEnv    * @throws IOException    */
+comment|/**    * rollback ZooKeeper update.    * @param env MasterProcedureEnv    * @throws IOException    */
 specifier|private
 name|void
 name|rollbackZKNamespaceManagerChange

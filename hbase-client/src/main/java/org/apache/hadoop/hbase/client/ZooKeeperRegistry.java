@@ -588,7 +588,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Can't retrieve clusterId from Zookeeper"
+literal|"Can't retrieve clusterId from ZooKeeper"
 argument_list|,
 name|e
 argument_list|)
@@ -604,7 +604,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Can't retrieve clusterId from Zookeeper"
+literal|"Can't retrieve clusterId from ZooKeeper"
 argument_list|,
 name|e
 argument_list|)

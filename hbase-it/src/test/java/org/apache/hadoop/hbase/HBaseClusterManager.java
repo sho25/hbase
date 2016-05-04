@@ -1290,7 +1290,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Zookeeper home configuration parameter i.e. "
+literal|"ZooKeeper home configuration parameter i.e. "
 operator|+
 literal|"'hbase.it.clustermanager.zookeeper.home' is not configured properly."
 argument_list|)

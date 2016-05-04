@@ -422,7 +422,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An integration test which checks that the znodes in zookeeper and data in the FileSystem  * are protected for secure HBase deployments.  * This test is intended to be run on clusters with kerberos authorization for HBase and Zookeeper.  *  * If hbase.security.authentication is not set to kerberos, the test does not run unless -f is  * specified which bypasses the check. It is recommended to always run with -f on secure clusters  * so that the test checks the actual end result, not the configuration.  *  * The test should be run as hbase user with kinit / TGT cached since it accesses HDFS.  *<p>  * Example usage:  *   hbase org.apache.hadoop.hbase.test.IntegrationTestZnodeACLs -h  */
+comment|/**  * An integration test which checks that the znodes in zookeeper and data in the FileSystem  * are protected for secure HBase deployments.  * This test is intended to be run on clusters with kerberos authorization for HBase and ZooKeeper.  *  * If hbase.security.authentication is not set to kerberos, the test does not run unless -f is  * specified which bypasses the check. It is recommended to always run with -f on secure clusters  * so that the test checks the actual end result, not the configuration.  *  * The test should be run as hbase user with kinit / TGT cached since it accesses HDFS.  *<p>  * Example usage:  *   hbase org.apache.hadoop.hbase.test.IntegrationTestZnodeACLs -h  */
 end_comment
 
 begin_class

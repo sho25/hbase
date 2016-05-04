@@ -871,7 +871,7 @@ name|watcher
 operator|.
 name|abort
 argument_list|(
-literal|"Zookeeper error get node children for path "
+literal|"ZooKeeper error get node children for path "
 operator|+
 name|path
 argument_list|,

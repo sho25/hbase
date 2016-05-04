@@ -196,7 +196,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is a Zookeeper implementation of the ReplicationTracker interface. This class is  * responsible for handling replication events that are defined in the ReplicationListener  * interface.  */
+comment|/**  * This class is a ZooKeeper implementation of the ReplicationTracker interface. This class is  * responsible for handling replication events that are defined in the ReplicationListener  * interface.  */
 end_comment
 
 begin_class

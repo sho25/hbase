@@ -545,7 +545,7 @@ literal|2
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a node and check its ACL. When authentication is enabled on     * Zookeeper, all nodes (except /hbase/root-region-server, /hbase/master    * and /hbase/hbaseid) should be created so that only the hbase server user    * (master or region server user) that created them can access them, and    * this user should have all permissions on this node. For    * /hbase/root-region-server, /hbase/master, and /hbase/hbaseid the    * permissions should be as above, but should also be world-readable. First    * we check the general case of /hbase nodes in the following test, and    * then check the subset of world-readable nodes in the three tests after    * that.    */
+comment|/**    * Create a node and check its ACL. When authentication is enabled on     * ZooKeeper, all nodes (except /hbase/root-region-server, /hbase/master    * and /hbase/hbaseid) should be created so that only the hbase server user    * (master or region server user) that created them can access them, and    * this user should have all permissions on this node. For    * /hbase/root-region-server, /hbase/master, and /hbase/hbaseid the    * permissions should be as above, but should also be world-readable. First    * we check the general case of /hbase nodes in the following test, and    * then check the subset of world-readable nodes in the three tests after    * that.    */
 annotation|@
 name|Test
 argument_list|(
@@ -657,7 +657,7 @@ name|ALL
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * When authentication is enabled on Zookeeper, /hbase/root-region-server    * should be created with 2 ACLs: one specifies that the hbase user has    * full access to the node; the other, that it is world-readable.    */
+comment|/**    * When authentication is enabled on ZooKeeper, /hbase/root-region-server    * should be created with 2 ACLs: one specifies that the hbase user has    * full access to the node; the other, that it is world-readable.    */
 annotation|@
 name|Test
 argument_list|(
@@ -891,7 +891,7 @@ name|foundHBaseOwnerAcl
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * When authentication is enabled on Zookeeper, /hbase/master should be    * created with 2 ACLs: one specifies that the hbase user has full access    * to the node; the other, that it is world-readable.    */
+comment|/**    * When authentication is enabled on ZooKeeper, /hbase/master should be    * created with 2 ACLs: one specifies that the hbase user has full access    * to the node; the other, that it is world-readable.    */
 annotation|@
 name|Test
 argument_list|(
@@ -1125,7 +1125,7 @@ name|foundHBaseOwnerAcl
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * When authentication is enabled on Zookeeper, /hbase/hbaseid should be    * created with 2 ACLs: one specifies that the hbase user has full access    * to the node; the other, that it is world-readable.    */
+comment|/**    * When authentication is enabled on ZooKeeper, /hbase/hbaseid should be    * created with 2 ACLs: one specifies that the hbase user has full access    * to the node; the other, that it is world-readable.    */
 annotation|@
 name|Test
 argument_list|(

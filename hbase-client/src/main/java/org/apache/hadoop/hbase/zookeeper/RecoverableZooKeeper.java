@@ -666,7 +666,7 @@ name|Random
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Try to create a Zookeeper connection. Turns any exception encountered into a    * KeeperException.OperationTimeoutException so it can retried.    * @return The created Zookeeper connection object    * @throws KeeperException    */
+comment|/**    * Try to create a ZooKeeper connection. Turns any exception encountered into a    * KeeperException.OperationTimeoutException so it can retried.    * @return The created ZooKeeper connection object    * @throws KeeperException    */
 specifier|protected
 specifier|synchronized
 name|ZooKeeper
@@ -772,7 +772,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-comment|// reset the Zookeeper connection
+comment|// reset the ZooKeeper connection
 name|zk
 operator|=
 literal|null

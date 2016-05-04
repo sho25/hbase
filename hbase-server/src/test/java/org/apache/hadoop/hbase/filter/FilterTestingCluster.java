@@ -711,7 +711,7 @@ parameter_list|)
 block|{
 name|assertNull
 argument_list|(
-literal|"Cannot connect to Zookeeper"
+literal|"Cannot connect to ZooKeeper"
 argument_list|,
 name|e
 argument_list|)

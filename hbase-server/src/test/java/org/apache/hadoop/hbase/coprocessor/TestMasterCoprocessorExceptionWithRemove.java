@@ -870,7 +870,7 @@ throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-literal|"Fatal Zookeeper tracker error, why="
+literal|"Fatal ZooKeeper tracker error, why="
 argument_list|,
 name|e
 argument_list|)

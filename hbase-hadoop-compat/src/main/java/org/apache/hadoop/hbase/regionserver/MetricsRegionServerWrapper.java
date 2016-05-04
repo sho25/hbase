@@ -36,7 +36,7 @@ name|String
 name|getClusterId
 parameter_list|()
 function_decl|;
-comment|/**    * Get the Zookeeper Quorum Info    *    * @return Zookeeper Quorum Info    */
+comment|/**    * Get the ZooKeeper Quorum Info    *    * @return ZooKeeper Quorum Info    */
 name|String
 name|getZookeeperQuorum
 parameter_list|()

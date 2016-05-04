@@ -194,7 +194,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This tests whether ServerSocketChannel works over ipv6, which Zookeeper  * depends on. On Windows Oracle JDK 6, creating a ServerSocketChannel throws  * java.net.SocketException: Address family not supported by protocol family  * exception. It is a known JVM bug, seems to be only resolved for JDK7:  * http://bugs.sun.com/view_bug.do?bug_id=6230761  *  * For this test, we check that whether we are effected by this bug, and if so  * the test ensures that we are running with java.net.preferIPv4Stack=true, so  * that ZK will not fail to bind to ipv6 address using ClientCnxnSocketNIO.  */
+comment|/**  * This tests whether ServerSocketChannel works over ipv6, which ZooKeeper  * depends on. On Windows Oracle JDK 6, creating a ServerSocketChannel throws  * java.net.SocketException: Address family not supported by protocol family  * exception. It is a known JVM bug, seems to be only resolved for JDK7:  * http://bugs.sun.com/view_bug.do?bug_id=6230761  *  * For this test, we check that whether we are effected by this bug, and if so  * the test ensures that we are running with java.net.preferIPv4Stack=true, so  * that ZK will not fail to bind to ipv6 address using ClientCnxnSocketNIO.  */
 end_comment
 
 begin_class

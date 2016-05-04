@@ -179,7 +179,7 @@ decl_stmt|;
 name|String
 name|ZOOKEEPER_QUORUM_DESC
 init|=
-literal|"Zookeeper Quorum"
+literal|"ZooKeeper Quorum"
 decl_stmt|;
 name|String
 name|SERVER_NAME_DESC

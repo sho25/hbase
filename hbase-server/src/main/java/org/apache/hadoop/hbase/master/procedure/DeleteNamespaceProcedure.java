@@ -1377,7 +1377,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * remove from Zookeeper.    * @param env MasterProcedureEnv    * @param namespaceName name of the namespace in string format    * @throws IOException    */
+comment|/**    * remove from ZooKeeper.    * @param env MasterProcedureEnv    * @param namespaceName name of the namespace in string format    * @throws IOException    */
 specifier|protected
 specifier|static
 name|void
@@ -1405,7 +1405,7 @@ name|namespaceName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * undo the remove from Zookeeper    * @param env MasterProcedureEnv    * @throws IOException    */
+comment|/**    * undo the remove from ZooKeeper    * @param env MasterProcedureEnv    * @throws IOException    */
 specifier|private
 name|void
 name|undoRemoveFromZKNamespaceManager

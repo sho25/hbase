@@ -479,7 +479,7 @@ specifier|private
 name|ZNodeComparator
 parameter_list|()
 block|{     }
-comment|/** Parses sequenceId from the znode name. Zookeeper documentation      * states: The sequence number is always fixed length of 10 digits, 0 padded      */
+comment|/** Parses sequenceId from the znode name. ZooKeeper documentation      * states: The sequence number is always fixed length of 10 digits, 0 padded      */
 specifier|public
 specifier|static
 name|long

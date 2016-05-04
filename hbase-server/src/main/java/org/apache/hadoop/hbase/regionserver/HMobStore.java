@@ -2605,7 +2605,7 @@ name|isAllFiles
 argument_list|()
 condition|)
 block|{
-comment|// Use the Zookeeper to coordinate.
+comment|// Use the ZooKeeper to coordinate.
 comment|// 1. Acquire a operation lock.
 comment|//   1.1. If no, mark the major compaction as retainDeleteMarkers and continue the compaction.
 comment|//   1.2. If the lock is obtained, search the node of sweeping.

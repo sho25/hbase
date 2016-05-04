@@ -746,7 +746,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting Zookeeper node on: "
+literal|"Starting ZooKeeper node on: "
 operator|+
 name|hostname
 argument_list|)
@@ -781,7 +781,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Aborting Zookeeper node on: "
+literal|"Aborting ZooKeeper node on: "
 operator|+
 name|serverName
 operator|.
@@ -825,7 +825,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Stopping Zookeeper node: "
+literal|"Stopping ZooKeeper node: "
 operator|+
 name|serverName
 operator|.

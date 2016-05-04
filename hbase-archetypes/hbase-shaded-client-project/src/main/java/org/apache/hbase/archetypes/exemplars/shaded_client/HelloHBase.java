@@ -371,7 +371,7 @@ name|deleteAllAtEOJ
 init|=
 literal|true
 decl_stmt|;
-comment|/**      * ConnectionFactory#createConnection() automatically looks for      * hbase-site.xml (HBase configuration parameters) on the system's      * CLASSPATH, to enable creation of Connection to HBase via Zookeeper.      */
+comment|/**      * ConnectionFactory#createConnection() automatically looks for      * hbase-site.xml (HBase configuration parameters) on the system's      * CLASSPATH, to enable creation of Connection to HBase via ZooKeeper.      */
 try|try
 init|(
 name|Connection
@@ -405,7 +405,7 @@ name|println
 argument_list|(
 literal|"\n*** Hello HBase! -- Connection has been "
 operator|+
-literal|"established via Zookeeper!!\n"
+literal|"established via ZooKeeper!!\n"
 argument_list|)
 expr_stmt|;
 name|createNamespaceAndTable

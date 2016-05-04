@@ -294,7 +294,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * In a scenario of Replication based Disaster/Recovery, when hbase  * Master-Cluster crashes, this tool is used to sync-up the delta from Master to  * Slave using the info from Zookeeper. The tool will run on Master-Cluser, and  * assume ZK, Filesystem and NetWork still available after hbase crashes  *  * hbase org.apache.hadoop.hbase.replication.regionserver.ReplicationSyncUp  */
+comment|/**  * In a scenario of Replication based Disaster/Recovery, when hbase  * Master-Cluster crashes, this tool is used to sync-up the delta from Master to  * Slave using the info from ZooKeeper. The tool will run on Master-Cluser, and  * assume ZK, Filesystem and NetWork still available after hbase crashes  *  * hbase org.apache.hadoop.hbase.replication.regionserver.ReplicationSyncUp  */
 end_comment
 
 begin_class

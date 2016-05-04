@@ -1140,7 +1140,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Update Zookeeper.    * @param env MasterProcedureEnv    * @throws IOException    */
+comment|/**    * Update ZooKeeper.    * @param env MasterProcedureEnv    * @throws IOException    */
 specifier|private
 name|void
 name|updateZKNamespaceManager
@@ -1163,7 +1163,7 @@ name|newNsDescriptor
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Update Zookeeper during undo.    * @param env MasterProcedureEnv    * @throws IOException    */
+comment|/**    * Update ZooKeeper during undo.    * @param env MasterProcedureEnv    * @throws IOException    */
 specifier|private
 name|void
 name|rollbackZKNamespaceManagerChange

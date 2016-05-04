@@ -928,7 +928,7 @@ literal|3
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* Support functions for Zookeeper async callback */
+comment|/* Support functions for ZooKeeper async callback */
 name|void
 name|getDataSetWatchFailure
 parameter_list|(

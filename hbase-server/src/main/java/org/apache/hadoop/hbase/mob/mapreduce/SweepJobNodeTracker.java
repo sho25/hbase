@@ -256,7 +256,7 @@ literal|"write-"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Registers the watcher on the sweep job node.    * If there's no such a sweep job node, or it's not created by the sweep job that    * owns the current MR, the current process will be aborted.    * This assumes the table lock uses the Zookeeper. It's a workaround and only used    * in the sweep tool, and the sweep tool will be removed after the mob file compaction    * is finished.    */
+comment|/**    * Registers the watcher on the sweep job node.    * If there's no such a sweep job node, or it's not created by the sweep job that    * owns the current MR, the current process will be aborted.    * This assumes the table lock uses the ZooKeeper. It's a workaround and only used    * in the sweep tool, and the sweep tool will be removed after the mob file compaction    * is finished.    */
 specifier|public
 name|void
 name|start

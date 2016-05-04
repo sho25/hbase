@@ -9283,7 +9283,7 @@ name|ERROR_CODE
 operator|.
 name|NULL_META_REGION
 argument_list|,
-literal|"META region was not found in Zookeeper"
+literal|"META region was not found in ZooKeeper"
 argument_list|)
 expr_stmt|;
 return|return

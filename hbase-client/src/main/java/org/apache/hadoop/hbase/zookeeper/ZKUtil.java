@@ -3940,7 +3940,7 @@ literal|"Znode ACL setting for group "
 operator|+
 name|groups
 operator|+
-literal|" is skipped, Zookeeper doesn't support this feature presently."
+literal|" is skipped, ZooKeeper doesn't support this feature presently."
 argument_list|)
 expr_stmt|;
 block|}
@@ -5311,7 +5311,7 @@ range|:
 name|pathRoots
 control|)
 block|{
-comment|// Zookeeper Watches are one time triggers; When children of parent nodes are deleted
+comment|// ZooKeeper Watches are one time triggers; When children of parent nodes are deleted
 comment|// recursively, must set another watch, get notified of delete node
 name|List
 argument_list|<

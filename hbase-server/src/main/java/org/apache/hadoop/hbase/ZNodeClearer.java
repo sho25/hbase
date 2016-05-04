@@ -813,7 +813,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Zookeeper exception deleting znode"
+literal|"ZooKeeper exception deleting znode"
 argument_list|,
 name|e
 argument_list|)
