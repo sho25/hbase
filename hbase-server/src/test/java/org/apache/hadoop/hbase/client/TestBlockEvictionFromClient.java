@@ -1503,8 +1503,6 @@ argument_list|,
 literal|false
 argument_list|,
 literal|false
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 for|for
@@ -2102,8 +2100,6 @@ argument_list|,
 literal|false
 argument_list|,
 literal|false
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|CustomInnerRegionObserver
@@ -2118,8 +2114,6 @@ expr_stmt|;
 name|checkForBlockEviction
 argument_list|(
 name|cache
-argument_list|,
-literal|false
 argument_list|,
 literal|false
 argument_list|,
@@ -2156,8 +2150,6 @@ argument_list|(
 name|cache
 argument_list|,
 literal|true
-argument_list|,
-literal|false
 argument_list|,
 literal|false
 argument_list|)
@@ -2208,8 +2200,6 @@ argument_list|,
 literal|true
 argument_list|,
 literal|true
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -2581,8 +2571,6 @@ argument_list|(
 name|cache
 argument_list|,
 literal|true
-argument_list|,
-literal|false
 argument_list|,
 literal|false
 argument_list|)
@@ -3157,8 +3145,6 @@ argument_list|(
 name|cache
 argument_list|,
 literal|true
-argument_list|,
-literal|false
 argument_list|,
 literal|false
 argument_list|)
@@ -3797,8 +3783,6 @@ argument_list|(
 name|cache
 argument_list|,
 literal|true
-argument_list|,
-literal|false
 argument_list|,
 literal|false
 argument_list|)
@@ -5296,8 +5280,6 @@ argument_list|,
 literal|true
 argument_list|,
 literal|false
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -5639,8 +5621,6 @@ argument_list|,
 literal|false
 argument_list|,
 literal|false
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// countdown the latch
@@ -8431,9 +8411,6 @@ name|getClosed
 parameter_list|,
 name|boolean
 name|expectOnlyZero
-parameter_list|,
-name|boolean
-name|wrappedCp
 parameter_list|)
 throws|throws
 name|InterruptedException
@@ -8721,8 +8698,6 @@ condition|(
 name|getLatch
 operator|==
 literal|null
-operator|||
-name|wrappedCp
 condition|)
 block|{
 name|assertEquals
