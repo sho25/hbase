@@ -381,6 +381,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Admin
@@ -828,7 +844,12 @@ comment|/**  * Utilities class for snapshots  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
+specifier|final
 class|class
 name|SnapshotTestingUtils
 block|{
@@ -860,6 +881,12 @@ argument_list|(
 literal|"0123456789"
 argument_list|)
 decl_stmt|;
+specifier|private
+name|SnapshotTestingUtils
+parameter_list|()
+block|{
+comment|// private constructor for utility class
+block|}
 comment|/**    * Assert that we don't have any snapshots lists    *    * @throws IOException    *           if the admin operation fails    */
 specifier|public
 specifier|static
