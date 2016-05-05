@@ -1796,7 +1796,7 @@ name|Exception
 block|{
 name|cpHost
 operator|.
-name|preCreateTableHandler
+name|preCreateTableAction
 argument_list|(
 name|hTableDescriptor
 argument_list|,
@@ -1890,7 +1890,7 @@ name|Exception
 block|{
 name|cpHost
 operator|.
-name|postCreateTableHandler
+name|postCompletedCreateTableAction
 argument_list|(
 name|hTableDescriptor
 argument_list|,

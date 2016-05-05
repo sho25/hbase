@@ -6148,7 +6148,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postCreateTableHandler
+name|postCompletedCreateTableAction
 parameter_list|(
 specifier|final
 name|ObserverContext
@@ -6157,9 +6157,11 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|,
+specifier|final
 name|HTableDescriptor
 name|desc
 parameter_list|,
+specifier|final
 name|HRegionInfo
 index|[]
 name|regions

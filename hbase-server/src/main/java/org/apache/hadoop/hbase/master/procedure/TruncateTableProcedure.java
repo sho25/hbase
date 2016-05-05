@@ -1493,7 +1493,7 @@ name|Exception
 block|{
 name|cpHost
 operator|.
-name|preTruncateTableHandler
+name|preTruncateTableAction
 argument_list|(
 name|tableName
 argument_list|)
@@ -1568,7 +1568,7 @@ name|Exception
 block|{
 name|cpHost
 operator|.
-name|postTruncateTableHandler
+name|postCompletedTruncateTableAction
 argument_list|(
 name|tableName
 argument_list|)

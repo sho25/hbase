@@ -1651,7 +1651,7 @@ name|MODIFY_COLUMN_FAMILY_PRE_OPERATION
 case|:
 name|cpHost
 operator|.
-name|preModifyColumnHandler
+name|preModifyColumnFamilyAction
 argument_list|(
 name|tableName
 argument_list|,
@@ -1664,7 +1664,7 @@ name|MODIFY_COLUMN_FAMILY_POST_OPERATION
 case|:
 name|cpHost
 operator|.
-name|postModifyColumnHandler
+name|postCompletedModifyColumnFamilyAction
 argument_list|(
 name|tableName
 argument_list|,

@@ -1373,7 +1373,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postCreateTableHandler
+name|postCompletedCreateTableAction
 parameter_list|(
 specifier|final
 name|ObserverContext
@@ -1382,9 +1382,11 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+specifier|final
 name|HTableDescriptor
 name|desc
 parameter_list|,
+specifier|final
 name|HRegionInfo
 index|[]
 name|regions
@@ -1392,7 +1394,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// the AccessController test, some times calls only and directly the postCreateTableHandler()
+comment|// the AccessController test, some times calls only and directly the
+comment|// postCompletedCreateTableAction()
 if|if
 condition|(
 name|tableCreationLatch
@@ -1411,7 +1414,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postDeleteTableHandler
+name|postCompletedDeleteTableAction
 parameter_list|(
 specifier|final
 name|ObserverContext
@@ -1420,6 +1423,7 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|)

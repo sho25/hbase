@@ -395,6 +395,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.  Called as part of create    * table handler and it is async to the create RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #preCreateTableAction(ObserverContext, HTableDescriptor, HRegionInfo[])}.    */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -422,6 +425,34 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|preCreateTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|desc
+parameter_list|,
+specifier|final
+name|HRegionInfo
+index|[]
+name|regions
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after the createTable operation has been requested.  Called as part    * of create table RPC call.  Called as part of create table handler and    * it is async to the create RPC call.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *   (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *   Use {@link #postCompletedCreateTableAction(ObserverContext, HTableDescriptor, HRegionInfo[])}    */
+annotation|@
+name|Deprecated
+annotation|@
+name|Override
+specifier|public
+name|void
 name|postCreateTableHandler
 parameter_list|(
 specifier|final
@@ -434,6 +465,31 @@ parameter_list|,
 name|HTableDescriptor
 name|desc
 parameter_list|,
+name|HRegionInfo
+index|[]
+name|regions
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|postCompletedCreateTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|desc
+parameter_list|,
+specifier|final
 name|HRegionInfo
 index|[]
 name|regions
@@ -521,6 +577,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table handler and    * it is async to the delete RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #preDeleteTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -544,6 +603,29 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|preDeleteTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table handler and it is async to the    * delete RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #postCompletedDeleteTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
+annotation|@
+name|Override
+specifier|public
+name|void
 name|postDeleteTableHandler
 parameter_list|(
 specifier|final
@@ -553,6 +635,26 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|postCompletedDeleteTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -595,6 +697,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table handler and it is sync    * to the truncate RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #preTruncateTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -618,6 +723,29 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|preTruncateTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table handler and it is sync to the    * truncate RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #postCompletedTruncateTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
+annotation|@
+name|Override
+specifier|public
+name|void
 name|postTruncateTableHandler
 parameter_list|(
 specifier|final
@@ -627,6 +755,26 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|postCompletedTruncateTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -658,7 +806,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postModifyTableHandler
+name|postModifyTable
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -675,6 +823,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called prior to modifying a table's properties.  Called as part of modify    * table handler and it is async to the modify table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #preModifyTableAction(ObserverContext, TableName, HTableDescriptor)}.    */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -700,7 +851,34 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postModifyTable
+name|preModifyTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|htd
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after to modifying a table's properties.  Called as part of modify    * table handler and it is async to the modify table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *     Use {@link #postCompletedModifyTableAction(ObserverContext, TableName, HTableDescriptor)}.    */
+annotation|@
+name|Deprecated
+annotation|@
+name|Override
+specifier|public
+name|void
+name|postModifyTableHandler
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -711,6 +889,30 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
+name|HTableDescriptor
+name|htd
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|postCompletedModifyTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
 name|HTableDescriptor
 name|htd
 parameter_list|)
@@ -903,6 +1105,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called prior to adding a new column family to the table.  Called as part of    * add column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #preAddColumnFamily(ObserverContext, TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -947,6 +1150,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called after the new column family has been created.  Called as part of    * add column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #postAddColumnFamily(ObserverContext, TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -991,6 +1195,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called prior to adding a new column family to the table.  Called as part of    * add column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *          (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>). Use    *          {@link #preAddColumnFamilyAction(ObserverContext, TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -1018,23 +1223,27 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preAddColumnFamilyHandler
+name|preAddColumnFamilyAction
 parameter_list|(
+specifier|final
 name|ObserverContext
 argument_list|<
 name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|,
+specifier|final
 name|HColumnDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called after the new column family has been created.  Called as part of    * add column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>). Use    *     {@link #postCompletedAddColumnFamilyAction(ObserverContext, TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -1062,23 +1271,27 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postAddColumnFamilyHandler
+name|postCompletedAddColumnFamilyAction
 parameter_list|(
+specifier|final
 name|ObserverContext
 argument_list|<
 name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|,
+specifier|final
 name|HColumnDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called prior to modifying a column family's attributes.  Called as part of    * modify column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #preModifyColumnFamily(ObserverContext, TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -1123,6 +1336,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called after the column family has been updated.  Called as part of modify    * column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #postModifyColumnFamily(ObserverContext, TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -1167,6 +1381,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called prior to modifying a column family's attributes.  Called as part of    * modify column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *     Use {@link #preModifyColumnFamilyAction(ObserverContext, TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -1194,23 +1409,27 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preModifyColumnFamilyHandler
+name|preModifyColumnFamilyAction
 parameter_list|(
+specifier|final
 name|ObserverContext
 argument_list|<
 name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|,
+specifier|final
 name|HColumnDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called after the column family has been updated.  Called as part of modify    * column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *   (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>). Use    *   {@link #postCompletedModifyColumnFamilyAction(ObserverContext,TableName,HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -1238,23 +1457,27 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postModifyColumnFamilyHandler
+name|postCompletedModifyColumnFamilyAction
 parameter_list|(
+specifier|final
 name|ObserverContext
 argument_list|<
 name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|,
+specifier|final
 name|HColumnDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called prior to deleting the entire column family.  Called as part of    * delete column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #preDeleteColumnFamily(ObserverContext, TableName, byte[])}.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -1301,6 +1524,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called after the column family has been deleted.  Called as part of delete    * column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #postDeleteColumnFamily(ObserverContext, TableName, byte[])}.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -1347,6 +1571,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called prior to deleting the entire column family.  Called as part of    * delete column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #preDeleteColumnFamilyAction(ObserverContext, TableName, byte[])}.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -1375,17 +1600,20 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preDeleteColumnFamilyHandler
+name|preDeleteColumnFamilyAction
 parameter_list|(
+specifier|final
 name|ObserverContext
 argument_list|<
 name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|,
+specifier|final
 name|byte
 index|[]
 name|columnFamily
@@ -1393,6 +1621,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called after the column family has been deleted.  Called as part of    * delete column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *         (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *         Use {@link #postCompletedDeleteColumnFamilyAction(ObserverContext, TableName, byte[])}.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -1421,17 +1650,20 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postDeleteColumnFamilyHandler
+name|postCompletedDeleteColumnFamilyAction
 parameter_list|(
+specifier|final
 name|ObserverContext
 argument_list|<
 name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|,
+specifier|final
 name|byte
 index|[]
 name|columnFamily
@@ -1475,6 +1707,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called prior to enabling a table.  Called as part of enable table handler    * and it is async to the enable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #preEnableTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -1497,6 +1732,28 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|preEnableTableAction
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after the enableTable operation has been requested.  Called as part    * of enable table handler and it is async to the enable table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #postCompletedEnableTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
+annotation|@
+name|Override
+specifier|public
+name|void
 name|postEnableTableHandler
 parameter_list|(
 name|ObserverContext
@@ -1505,6 +1762,25 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|postCompletedEnableTableAction
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -1547,6 +1823,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called prior to disabling a table.  Called as part of disable table handler    * and it is asyn to the disable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #preDisableTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -1569,6 +1848,28 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|preDisableTableAction
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after the disableTable operation has been requested.  Called as part    * of disable table handler and it is asyn to the disable table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #postCompletedDisableTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
+annotation|@
+name|Override
+specifier|public
+name|void
 name|postDisableTableHandler
 parameter_list|(
 name|ObserverContext
@@ -1577,6 +1878,25 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|postCompletedDisableTableAction
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|)

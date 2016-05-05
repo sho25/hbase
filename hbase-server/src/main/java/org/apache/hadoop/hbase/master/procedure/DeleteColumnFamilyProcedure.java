@@ -1837,7 +1837,7 @@ name|DELETE_COLUMN_FAMILY_PRE_OPERATION
 case|:
 name|cpHost
 operator|.
-name|preDeleteColumnHandler
+name|preDeleteColumnFamilyAction
 argument_list|(
 name|tableName
 argument_list|,
@@ -1850,7 +1850,7 @@ name|DELETE_COLUMN_FAMILY_POST_OPERATION
 case|:
 name|cpHost
 operator|.
-name|postDeleteColumnHandler
+name|postCompletedDeleteColumnFamilyAction
 argument_list|(
 name|tableName
 argument_list|,

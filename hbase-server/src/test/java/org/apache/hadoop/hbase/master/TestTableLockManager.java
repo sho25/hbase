@@ -793,7 +793,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preDeleteColumnFamilyHandler
+name|preDeleteColumnFamilyAction
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -821,7 +821,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postDeleteColumnFamilyHandler
+name|postCompletedDeleteColumnFamilyAction
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -851,7 +851,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preAddColumnFamilyHandler
+name|preAddColumnFamilyAction
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -1149,7 +1149,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preAddColumnFamilyHandler
+name|preAddColumnFamilyAction
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -1183,7 +1183,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postAddColumnFamilyHandler
+name|postCompletedAddColumnFamilyAction
 parameter_list|(
 name|ObserverContext
 argument_list|<

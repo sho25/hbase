@@ -2251,7 +2251,7 @@ name|MODIFY_TABLE_PRE_OPERATION
 case|:
 name|cpHost
 operator|.
-name|preModifyTableHandler
+name|preModifyTableAction
 argument_list|(
 name|getTableName
 argument_list|()
@@ -2265,7 +2265,7 @@ name|MODIFY_TABLE_POST_OPERATION
 case|:
 name|cpHost
 operator|.
-name|postModifyTableHandler
+name|postCompletedModifyTableAction
 argument_list|(
 name|getTableName
 argument_list|()

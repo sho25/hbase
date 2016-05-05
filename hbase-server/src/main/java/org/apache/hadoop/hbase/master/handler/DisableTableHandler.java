@@ -794,7 +794,7 @@ condition|)
 block|{
 name|cpHost
 operator|.
-name|preDisableTableHandler
+name|preDisableTableAction
 argument_list|(
 name|this
 operator|.
@@ -814,7 +814,7 @@ condition|)
 block|{
 name|cpHost
 operator|.
-name|postDisableTableHandler
+name|postCompletedDisableTableAction
 argument_list|(
 name|this
 operator|.

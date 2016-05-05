@@ -1992,7 +1992,7 @@ name|DISABLE_TABLE_PRE_OPERATION
 case|:
 name|cpHost
 operator|.
-name|preDisableTableHandler
+name|preDisableTableAction
 argument_list|(
 name|tableName
 argument_list|)
@@ -2003,7 +2003,7 @@ name|DISABLE_TABLE_POST_OPERATION
 case|:
 name|cpHost
 operator|.
-name|postDisableTableHandler
+name|postCompletedDisableTableAction
 argument_list|(
 name|tableName
 argument_list|)

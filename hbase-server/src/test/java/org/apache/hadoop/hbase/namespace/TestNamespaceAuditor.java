@@ -4010,7 +4010,7 @@ argument_list|)
 expr_stmt|;
 name|MasterSyncObserver
 operator|.
-name|throwExceptionInPreCreateTableHandler
+name|throwExceptionInPreCreateTableAction
 operator|=
 literal|true
 expr_stmt|;
@@ -4089,7 +4089,7 @@ argument_list|)
 expr_stmt|;
 name|MasterSyncObserver
 operator|.
-name|throwExceptionInPreCreateTableHandler
+name|throwExceptionInPreCreateTableAction
 operator|=
 literal|false
 expr_stmt|;
@@ -4168,7 +4168,7 @@ finally|finally
 block|{
 name|MasterSyncObserver
 operator|.
-name|throwExceptionInPreCreateTableHandler
+name|throwExceptionInPreCreateTableAction
 operator|=
 literal|false
 expr_stmt|;
@@ -4945,7 +4945,7 @@ name|tableDeletionLatch
 decl_stmt|;
 specifier|static
 name|boolean
-name|throwExceptionInPreCreateTableHandler
+name|throwExceptionInPreCreateTableAction
 decl_stmt|;
 annotation|@
 name|Override
@@ -4978,7 +4978,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postDeleteTableHandler
+name|postCompletedDeleteTableAction
 parameter_list|(
 specifier|final
 name|ObserverContext
@@ -4987,6 +4987,7 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -5003,7 +5004,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preCreateTableHandler
+name|preCreateTableAction
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -5023,7 +5024,7 @@ name|IOException
 block|{
 if|if
 condition|(
-name|throwExceptionInPreCreateTableHandler
+name|throwExceptionInPreCreateTableAction
 condition|)
 block|{
 throw|throw

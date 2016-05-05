@@ -1735,7 +1735,7 @@ name|ADD_COLUMN_FAMILY_PRE_OPERATION
 case|:
 name|cpHost
 operator|.
-name|preAddColumnHandler
+name|preAddColumnFamilyAction
 argument_list|(
 name|tableName
 argument_list|,
@@ -1748,7 +1748,7 @@ name|ADD_COLUMN_FAMILY_POST_OPERATION
 case|:
 name|cpHost
 operator|.
-name|postAddColumnHandler
+name|postCompletedAddColumnFamilyAction
 argument_list|(
 name|tableName
 argument_list|,

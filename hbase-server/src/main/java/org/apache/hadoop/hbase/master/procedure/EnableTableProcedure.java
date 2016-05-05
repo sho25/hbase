@@ -2563,7 +2563,7 @@ name|ENABLE_TABLE_PRE_OPERATION
 case|:
 name|cpHost
 operator|.
-name|preEnableTableHandler
+name|preEnableTableAction
 argument_list|(
 name|getTableName
 argument_list|()
@@ -2575,7 +2575,7 @@ name|ENABLE_TABLE_POST_OPERATION
 case|:
 name|cpHost
 operator|.
-name|postEnableTableHandler
+name|postCompletedEnableTableAction
 argument_list|(
 name|getTableName
 argument_list|()

@@ -349,7 +349,7 @@ name|MasterObserver
 extends|extends
 name|Coprocessor
 block|{
-comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.  Called as part of create    * table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException    */
+comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.  Called as part of create    * table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException if something went wrong    */
 name|void
 name|preCreateTable
 parameter_list|(
@@ -370,7 +370,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the createTable operation has been requested.  Called as part    * of create table RPC call.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException    */
+comment|/**    * Called after the createTable operation has been requested.  Called as part    * of create table RPC call.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException if something went wrong    */
 name|void
 name|postCreateTable
 parameter_list|(
@@ -391,7 +391,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.  Called as part of create    * table handler and it is async to the create RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException    */
+comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.  Called as part of create    * table handler and it is async to the create RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #preCreateTableAction(ObserverContext, HTableDescriptor, HRegionInfo[])}.    */
+annotation|@
+name|Deprecated
 name|void
 name|preCreateTableHandler
 parameter_list|(
@@ -412,7 +414,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the createTable operation has been requested.  Called as part    * of create table RPC call.  Called as part of create table handler and    * it is async to the create RPC call.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException    */
+comment|/**    * Called after the createTable operation has been requested.  Called as part    * of create table RPC call.  Called as part of create table handler and    * it is async to the create RPC call.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *   (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *   Use {@link #postCompletedCreateTableAction(ObserverContext, HTableDescriptor, HRegionInfo[])}    */
+annotation|@
+name|Deprecated
 name|void
 name|postCreateTableHandler
 parameter_list|(
@@ -433,7 +437,53 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.  Called as part of create    * table procedure and it is async to the create RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * Implementation note: This replaces the deprecated    * {@link #preCreateTableHandler(ObserverContext, HTableDescriptor, HRegionInfo[])} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException if something went wrong    */
+name|void
+name|preCreateTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|desc
+parameter_list|,
+specifier|final
+name|HRegionInfo
+index|[]
+name|regions
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after the createTable operation has been requested.  Called as part    * of create table RPC call.  Called as part of create table procedure and    * it is async to the create RPC call.    *    * Implementation note: This replaces the deprecated    * {@link #postCreateTableHandler(ObserverContext, HTableDescriptor, HRegionInfo[])} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException if something went wrong    */
+name|void
+name|postCompletedCreateTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|desc
+parameter_list|,
+specifier|final
+name|HRegionInfo
+index|[]
+name|regions
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
 name|void
 name|preDeleteTable
 parameter_list|(
@@ -450,7 +500,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the deleteTable operation has been requested.  Called as part    * of delete table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called after the deleteTable operation has been requested.  Called as part    * of delete table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
 name|void
 name|postDeleteTable
 parameter_list|(
@@ -467,7 +517,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table handler and    * it is async to the delete RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table handler and    * it is async to the delete RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #preDeleteTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
 name|void
 name|preDeleteTableHandler
 parameter_list|(
@@ -484,7 +536,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table handler and it is async to the    * delete RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called after {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table handler and it is async to the    * delete RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #postCompletedDeleteTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
 name|void
 name|postDeleteTableHandler
 parameter_list|(
@@ -501,7 +555,43 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table procedure and    * it is async to the delete RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * Implementation note: This replaces the deprecated    * {@link #preDeleteTableHandler(ObserverContext, TableName)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
+name|void
+name|preDeleteTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table procedure and it is async to the    * delete RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * Implementation note: This replaces the deprecated    * {@link #postDeleteTableHandler(ObserverContext, TableName)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
+name|void
+name|postCompletedDeleteTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
 name|void
 name|preTruncateTable
 parameter_list|(
@@ -518,7 +608,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the truncateTable operation has been requested.  Called as part    * of truncate table RPC call.    * The truncate is synchronous, so this method will be called when the    * truncate operation is terminated.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called after the truncateTable operation has been requested.  Called as part    * of truncate table RPC call.    * The truncate is synchronous, so this method will be called when the    * truncate operation is terminated.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
 name|void
 name|postTruncateTable
 parameter_list|(
@@ -535,7 +625,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table handler and it is sync    * to the truncate RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table handler and it is sync    * to the truncate RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #preTruncateTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
 name|void
 name|preTruncateTableHandler
 parameter_list|(
@@ -552,7 +644,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table handler and it is sync to the    * truncate RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called after {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table handler and it is sync to the    * truncate RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #postCompletedTruncateTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
 name|void
 name|postTruncateTableHandler
 parameter_list|(
@@ -569,7 +663,43 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to modifying a table's properties.  Called as part of modify    * table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    */
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table procedure and it is async    * to the truncate RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * Implementation note: This replaces the deprecated    * {@link #preTruncateTableHandler(ObserverContext, TableName)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
+name|void
+name|preTruncateTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table procedure and it is async to the    * truncate RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * Implementation note: This replaces the deprecated    * {@link #postTruncateTableHandler(ObserverContext, TableName)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
+name|void
+name|postCompletedTruncateTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called prior to modifying a table's properties.  Called as part of modify    * table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    * @throws IOException if something went wrong    */
 name|void
 name|preModifyTable
 parameter_list|(
@@ -590,7 +720,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the modifyTable operation has been requested.  Called as part    * of modify table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    */
+comment|/**    * Called after the modifyTable operation has been requested.  Called as part    * of modify table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    * @throws IOException if something went wrong    */
 name|void
 name|postModifyTable
 parameter_list|(
@@ -611,7 +741,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to modifying a table's properties.  Called as part of modify    * table handler and it is async to the modify table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    */
+comment|/**    * Called prior to modifying a table's properties.  Called as part of modify    * table handler and it is async to the modify table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #preModifyTableAction(ObserverContext, TableName, HTableDescriptor)}.    */
+annotation|@
+name|Deprecated
 name|void
 name|preModifyTableHandler
 parameter_list|(
@@ -632,7 +764,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after to modifying a table's properties.  Called as part of modify    * table handler and it is async to the modify table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    */
+comment|/**    * Called after to modifying a table's properties.  Called as part of modify    * table handler and it is async to the modify table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *     Use {@link #postCompletedModifyTableAction(ObserverContext, TableName, HTableDescriptor)}.    */
+annotation|@
+name|Deprecated
 name|void
 name|postModifyTableHandler
 parameter_list|(
@@ -653,7 +787,51 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to adding a new column family to the table.  Called as part of    * add column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #preAddColumnFamily(ObserverContext, TableName, HColumnDescriptor)}.    */
+comment|/**    * Called prior to modifying a table's properties.  Called as part of modify    * table procedure and it is async to the modify table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * Implementation note: This replaces the deprecated    * {@link #preModifyTableHandler(ObserverContext, TableName, HTableDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    * @throws IOException if something went wrong    */
+name|void
+name|preModifyTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|htd
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after to modifying a table's properties.  Called as part of modify    * table procedure and it is async to the modify table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * Implementation note: This replaces the deprecated    * {@link #postModifyTableHandler(ObserverContext, TableName, HTableDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    * @throws IOException if something went wrong    */
+name|void
+name|postCompletedModifyTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|htd
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called prior to adding a new column family to the table.  Called as part of    * add column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #preAddColumnFamily(ObserverContext, TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 name|void
@@ -675,7 +853,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to adding a new column family to the table.  Called as part of    * add column RPC call.    *    * Implementation note: This replaces the deprecated    * {@link #preAddColumn(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    */
+comment|/**    * Called prior to adding a new column family to the table.  Called as part of    * add column RPC call.    *    * Implementation note: This replaces the deprecated    * {@link #preAddColumn(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    */
 name|void
 name|preAddColumnFamily
 parameter_list|(
@@ -695,7 +873,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the new column family has been created.  Called as part of    * add column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #postAddColumnFamily(ObserverContext, TableName, HColumnDescriptor)}.    */
+comment|/**    * Called after the new column family has been created.  Called as part of    * add column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #postAddColumnFamily(ObserverContext, TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 name|void
@@ -717,7 +895,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the new column family has been created.  Called as part of    * add column RPC call.    *    * Implementation note: This replaces the deprecated    * {@link #postAddColumn(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    */
+comment|/**    * Called after the new column family has been created.  Called as part of    * add column RPC call.    *    * Implementation note: This replaces the deprecated    * {@link #postAddColumn(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    */
 name|void
 name|postAddColumnFamily
 parameter_list|(
@@ -737,7 +915,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to adding a new column family to the table.  Called as part of    * add column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>). Use    *             {@link #preAddColumnFamilyHandler(ObserverContext, TableName, HColumnDescriptor)}.    */
+comment|/**    * Called prior to adding a new column family to the table.  Called as part of    * add column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *          (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>). Use    *          {@link #preAddColumnFamilyAction(ObserverContext, TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 name|void
@@ -759,9 +937,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to adding a new column family to the table.  Called as part of    * add column handler.    *    * Implementation note: This replaces the deprecated    * {@link #preAddColumnHandler(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    */
+comment|/**    * Called prior to adding a new column family to the table.  Called as part of    * add column procedure.    *    * Implementation note: This replaces the deprecated    * {@link #preAddColumnHandler(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    */
 name|void
-name|preAddColumnFamilyHandler
+name|preAddColumnFamilyAction
 parameter_list|(
 specifier|final
 name|ObserverContext
@@ -770,16 +948,18 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|,
+specifier|final
 name|HColumnDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the new column family has been created.  Called as part of    * add column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>). Use    *             {@link #postAddColumnFamilyHandler(ObserverContext, TableName, HColumnDescriptor)}.    */
+comment|/**    * Called after the new column family has been created.  Called as part of    * add column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>). Use    *     {@link #postCompletedAddColumnFamilyAction(ObserverContext, TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 name|void
@@ -801,9 +981,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the new column family has been created.  Called as part of    * add column handler.    *    * Implementation note: This replaces the deprecated    * {@link #postAddColumnHandler(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    */
+comment|/**    * Called after the new column family has been created.  Called as part of    * add column procedure.    *    * Implementation note: This replaces the deprecated    * {@link #postAddColumnHandler(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    */
 name|void
-name|postAddColumnFamilyHandler
+name|postCompletedAddColumnFamilyAction
 parameter_list|(
 specifier|final
 name|ObserverContext
@@ -812,16 +992,18 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|,
+specifier|final
 name|HColumnDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to modifying a column family's attributes.  Called as part of    * modify column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #preModifyColumnFamily(ObserverContext, TableName, HColumnDescriptor)}.    */
+comment|/**    * Called prior to modifying a column family's attributes.  Called as part of    * modify column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #preModifyColumnFamily(ObserverContext, TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 name|void
@@ -843,7 +1025,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to modifying a column family's attributes.  Called as part of    * modify column RPC call.    *    * Implementation note: This replaces the deprecated    * {@link #preModifyColumn(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    */
+comment|/**    * Called prior to modifying a column family's attributes.  Called as part of    * modify column RPC call.    *    * Implementation note: This replaces the deprecated    * {@link #preModifyColumn(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    */
 name|void
 name|preModifyColumnFamily
 parameter_list|(
@@ -863,7 +1045,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the column family has been updated.  Called as part of modify    * column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #postModifyColumnFamily(ObserverContext, TableName, HColumnDescriptor)}.    */
+comment|/**    * Called after the column family has been updated.  Called as part of modify    * column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #postModifyColumnFamily(ObserverContext, TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 name|void
@@ -885,7 +1067,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the column family has been updated.  Called as part of modify    * column RPC call.    *    * Implementation note: This replaces the deprecated    * {@link #postModifyColumn(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    */
+comment|/**    * Called after the column family has been updated.  Called as part of modify    * column RPC call.    *    * Implementation note: This replaces the deprecated    * {@link #postModifyColumn(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    */
 name|void
 name|postModifyColumnFamily
 parameter_list|(
@@ -905,7 +1087,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to modifying a column family's attributes.  Called as part of    * modify column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *       (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *       Use {@link #preModifyColumnFamilyHandler(ObserverContext, TableName, HColumnDescriptor)}.    */
+comment|/**    * Called prior to modifying a column family's attributes.  Called as part of    * modify column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *     Use {@link #preModifyColumnFamilyAction(ObserverContext, TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 name|void
@@ -927,9 +1109,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to modifying a column family's attributes.  Called as part of    * modify column handler.    *    * Implementation note: This replaces the deprecated    * {@link #preModifyColumnHandler(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    */
+comment|/**    * Called prior to modifying a column family's attributes.  Called as part of    * modify column procedure.    *    * Implementation note: This replaces the deprecated    * {@link #preModifyColumnHandler(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    */
 name|void
-name|preModifyColumnFamilyHandler
+name|preModifyColumnFamilyAction
 parameter_list|(
 specifier|final
 name|ObserverContext
@@ -938,16 +1120,18 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|,
+specifier|final
 name|HColumnDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the column family has been updated.  Called as part of modify    * column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *      (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *      Use {@link #postModifyColumnFamilyHandler(ObserverContext, TableName, HColumnDescriptor)}.    */
+comment|/**    * Called after the column family has been updated.  Called as part of modify    * column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *   (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>). Use    *   {@link #postCompletedModifyColumnFamilyAction(ObserverContext,TableName,HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 name|void
@@ -969,9 +1153,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the column family has been updated.  Called as part of modify    * column handler.    *    * Implementation note: This replaces the deprecated    * {@link #postModifyColumnHandler(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    */
+comment|/**    * Called after the column family has been updated.  Called as part of modify    * column procedure.    *    * Implementation note: This replaces the deprecated    * {@link #postModifyColumnHandler(ObserverContext, TableName, HColumnDescriptor)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the HColumnDescriptor    * @throws IOException if something went wrong    */
 name|void
-name|postModifyColumnFamilyHandler
+name|postCompletedModifyColumnFamilyAction
 parameter_list|(
 specifier|final
 name|ObserverContext
@@ -980,16 +1164,18 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+specifier|final
 name|TableName
 name|tableName
 parameter_list|,
+specifier|final
 name|HColumnDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to deleting the entire column family.  Called as part of    * delete column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #preDeleteColumnFamily(ObserverContext, TableName, byte[])}.    */
+comment|/**    * Called prior to deleting the entire column family.  Called as part of    * delete column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #preDeleteColumnFamily(ObserverContext, TableName, byte[])}.    */
 annotation|@
 name|Deprecated
 name|void
@@ -1014,7 +1200,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to deleting the entire column family.  Called as part of    * delete column RPC call.    *    * Implementation note: This replaces the deprecated    * {@link #preDeleteColumn(ObserverContext, TableName, byte[])} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column    */
+comment|/**    * Called prior to deleting the entire column family.  Called as part of    * delete column RPC call.    *    * Implementation note: This replaces the deprecated    * {@link #preDeleteColumn(ObserverContext, TableName, byte[])} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column    * @throws IOException if something went wrong    */
 name|void
 name|preDeleteColumnFamily
 parameter_list|(
@@ -1037,7 +1223,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the column family has been deleted.  Called as part of delete    * column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #postDeleteColumnFamily(ObserverContext, TableName, byte[])}.    */
+comment|/**    * Called after the column family has been deleted.  Called as part of delete    * column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #postDeleteColumnFamily(ObserverContext, TableName, byte[])}.    */
 annotation|@
 name|Deprecated
 name|void
@@ -1062,7 +1248,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the column family has been deleted.  Called as part of delete    * column RPC call.    *    * Implementation note: This replaces the deprecated    * {@link #postDeleteColumn(ObserverContext, TableName, byte[])} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    */
+comment|/**    * Called after the column family has been deleted.  Called as part of delete    * column RPC call.    *    * Implementation note: This replaces the deprecated    * {@link #postDeleteColumn(ObserverContext, TableName, byte[])} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    * @throws IOException if something went wrong    */
 name|void
 name|postDeleteColumnFamily
 parameter_list|(
@@ -1085,7 +1271,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to deleting the entire column family.  Called as part of    * delete column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #preDeleteColumnFamilyHandler(ObserverContext, TableName, byte[])}.    */
+comment|/**    * Called prior to deleting the entire column family.  Called as part of    * delete column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #preDeleteColumnFamilyAction(ObserverContext, TableName, byte[])}.    */
 annotation|@
 name|Deprecated
 name|void
@@ -1110,9 +1296,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to deleting the entire column family.  Called as part of    * delete column handler.    *    * Implementation note: This replaces the deprecated    * {@link #preDeleteColumnHandler(ObserverContext, TableName, byte[])} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    */
+comment|/**    * Called prior to deleting the entire column family.  Called as part of    * delete column procedure.    *    * Implementation note: This replaces the deprecated    * {@link #preDeleteColumnHandler(ObserverContext, TableName, byte[])} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    * @throws IOException if something went wrong    */
 name|void
-name|preDeleteColumnFamilyHandler
+name|preDeleteColumnFamilyAction
 parameter_list|(
 specifier|final
 name|ObserverContext
@@ -1133,7 +1319,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the column family has been deleted.  Called as part of    * delete column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *             Use {@link #postDeleteColumnFamilyHandler(ObserverContext, TableName, byte[])}.    */
+comment|/**    * Called after the column family has been deleted.  Called as part of    * delete column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *         (<a href="https://issues.apache.org/jira/browse/HBASE-13645">HBASE-13645</a>).    *         Use {@link #postCompletedDeleteColumnFamilyAction(ObserverContext, TableName, byte[])}.    */
 annotation|@
 name|Deprecated
 name|void
@@ -1158,9 +1344,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the column family has been deleted.  Called as part of    * delete column handler.    *    * Implementation note: This replaces the deprecated    * {@link #postDeleteColumnHandler(ObserverContext, TableName, byte[])} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    */
+comment|/**    * Called after the column family has been deleted.  Called as part of    * delete column procedure.    *    * Implementation note: This replaces the deprecated    * {@link #postDeleteColumnHandler(ObserverContext, TableName, byte[])} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param columnFamily the column family    * @throws IOException if something went wrong    */
 name|void
-name|postDeleteColumnFamilyHandler
+name|postCompletedDeleteColumnFamilyAction
 parameter_list|(
 specifier|final
 name|ObserverContext
@@ -1181,7 +1367,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to enabling a table.  Called as part of enable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called prior to enabling a table.  Called as part of enable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
 name|void
 name|preEnableTable
 parameter_list|(
@@ -1199,7 +1385,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the enableTable operation has been requested.  Called as part    * of enable table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called after the enableTable operation has been requested.  Called as part    * of enable table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
 name|void
 name|postEnableTable
 parameter_list|(
@@ -1217,7 +1403,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to enabling a table.  Called as part of enable table handler    * and it is async to the enable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called prior to enabling a table.  Called as part of enable table handler    * and it is async to the enable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #preEnableTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
 name|void
 name|preEnableTableHandler
 parameter_list|(
@@ -1235,7 +1423,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the enableTable operation has been requested.  Called as part    * of enable table handler and it is async to the enable table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called after the enableTable operation has been requested.  Called as part    * of enable table handler and it is async to the enable table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #postCompletedEnableTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
 name|void
 name|postEnableTableHandler
 parameter_list|(
@@ -1253,7 +1443,43 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to disabling a table.  Called as part of disable table RPC    * call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called prior to enabling a table.  Called as part of enable table procedure    * and it is async to the enable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * Implementation note: This replaces the deprecated    * {@link #preEnableTableHandler(ObserverContext, TableName)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
+name|void
+name|preEnableTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after the enableTable operation has been requested.  Called as part    * of enable table procedure and it is async to the enable table RPC call.    *    * Implementation note: This replaces the deprecated    * {@link #postEnableTableHandler(ObserverContext, TableName)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
+name|void
+name|postCompletedEnableTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called prior to disabling a table.  Called as part of disable table RPC    * call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
 name|void
 name|preDisableTable
 parameter_list|(
@@ -1271,7 +1497,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the disableTable operation has been requested.  Called as part    * of disable table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called after the disableTable operation has been requested.  Called as part    * of disable table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
 name|void
 name|postDisableTable
 parameter_list|(
@@ -1289,7 +1515,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to disabling a table.  Called as part of disable table handler    * and it is asyn to the disable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called prior to disabling a table.  Called as part of disable table handler    * and it is asyn to the disable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #preDisableTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
 name|void
 name|preDisableTableHandler
 parameter_list|(
@@ -1307,7 +1535,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the disableTable operation has been requested.  Called as part    * of disable table handler and it is asyn to the disable table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called after the disableTable operation has been requested.  Called as part    * of disable table handler and it is asyn to the disable table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *     (<a href="https://issues.apache.org/jira/browse/HBASE-15575">HBASE-15575</a>).    *     Use {@link #postCompletedDisableTableAction(ObserverContext, TableName)}.    */
+annotation|@
+name|Deprecated
 name|void
 name|postDisableTableHandler
 parameter_list|(
@@ -1325,7 +1555,43 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a abortProcedure request has been processed.    * @param ctx the environment to interact with the framework and master    * @throws IOException    */
+comment|/**    * Called prior to disabling a table.  Called as part of disable table procedure    * and it is asyn to the disable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * Implementation note: This replaces the deprecated    * {@link #preDisableTableHandler(ObserverContext, TableName)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
+name|void
+name|preDisableTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after the disableTable operation has been requested.  Called as part    * of disable table procedure and it is asyn to the disable table RPC call.    *    * Implementation note: This replaces the deprecated    * {@link #postDisableTableHandler(ObserverContext, TableName)} method.    * Make sure to implement only one of the two as both are called.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
+name|void
+name|postCompletedDisableTableAction
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called before a abortProcedure request has been processed.    * @param ctx the environment to interact with the framework and master    * @param procEnv procedure executor    * @param procId the Id of the procedure    * @throws IOException if something went wrong    */
 specifier|public
 name|void
 name|preAbortProcedure
@@ -1350,7 +1616,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after a abortProcedure request has been processed.    * @param ctx the environment to interact with the framework and master    */
+comment|/**    * Called after a abortProcedure request has been processed.    * @param ctx the environment to interact with the framework and master    * @throws IOException if something went wrong    */
 specifier|public
 name|void
 name|postAbortProcedure
@@ -1364,7 +1630,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a listProcedures request has been processed.    * @param ctx the environment to interact with the framework and master    * @throws IOException    */
+comment|/**    * Called before a listProcedures request has been processed.    * @param ctx the environment to interact with the framework and master    * @throws IOException if something went wrong    */
 name|void
 name|preListProcedures
 parameter_list|(
@@ -1377,7 +1643,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after a listProcedures request has been processed.    * @param ctx the environment to interact with the framework and master    * @param procInfoList the list of procedures about to be returned    */
+comment|/**    * Called after a listProcedures request has been processed.    * @param ctx the environment to interact with the framework and master    * @param procInfoList the list of procedures about to be returned    * @throws IOException if something went wrong    */
 name|void
 name|postListProcedures
 parameter_list|(
@@ -1738,7 +2004,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a new snapshot is taken.    * Called as part of snapshot RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param hTableDescriptor the hTableDescriptor of the table to snapshot    * @throws IOException    */
+comment|/**    * Called before a new snapshot is taken.    * Called as part of snapshot RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param hTableDescriptor the hTableDescriptor of the table to snapshot    * @throws IOException if something went wrong    */
 name|void
 name|preSnapshot
 parameter_list|(
@@ -1760,7 +2026,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the snapshot operation has been requested.    * Called as part of snapshot RPC call.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param hTableDescriptor the hTableDescriptor of the table to snapshot    * @throws IOException    */
+comment|/**    * Called after the snapshot operation has been requested.    * Called as part of snapshot RPC call.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param hTableDescriptor the hTableDescriptor of the table to snapshot    * @throws IOException if something went wrong    */
 name|void
 name|postSnapshot
 parameter_list|(
@@ -1782,7 +2048,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before listSnapshots request has been processed.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to list    * @throws IOException    */
+comment|/**    * Called before listSnapshots request has been processed.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to list    * @throws IOException if something went wrong    */
 name|void
 name|preListSnapshot
 parameter_list|(
@@ -1800,7 +2066,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after listSnapshots request has been processed.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to list    * @throws IOException    */
+comment|/**    * Called after listSnapshots request has been processed.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to list    * @throws IOException if something went wrong    */
 name|void
 name|postListSnapshot
 parameter_list|(
@@ -1818,7 +2084,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a snapshot is cloned.    * Called as part of restoreSnapshot RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param hTableDescriptor the hTableDescriptor of the table to create    * @throws IOException    */
+comment|/**    * Called before a snapshot is cloned.    * Called as part of restoreSnapshot RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param hTableDescriptor the hTableDescriptor of the table to create    * @throws IOException if something went wrong    */
 name|void
 name|preCloneSnapshot
 parameter_list|(
@@ -1840,7 +2106,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after a snapshot clone operation has been requested.    * Called as part of restoreSnapshot RPC call.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param hTableDescriptor the hTableDescriptor of the table to create    * @throws IOException    */
+comment|/**    * Called after a snapshot clone operation has been requested.    * Called as part of restoreSnapshot RPC call.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param hTableDescriptor the hTableDescriptor of the table to create    * @throws IOException if something went wrong    */
 name|void
 name|postCloneSnapshot
 parameter_list|(
@@ -1862,7 +2128,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a snapshot is restored.    * Called as part of restoreSnapshot RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param hTableDescriptor the hTableDescriptor of the table to restore    * @throws IOException    */
+comment|/**    * Called before a snapshot is restored.    * Called as part of restoreSnapshot RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param hTableDescriptor the hTableDescriptor of the table to restore    * @throws IOException if something went wrong    */
 name|void
 name|preRestoreSnapshot
 parameter_list|(
@@ -1884,7 +2150,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after a snapshot restore operation has been requested.    * Called as part of restoreSnapshot RPC call.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param hTableDescriptor the hTableDescriptor of the table to restore    * @throws IOException    */
+comment|/**    * Called after a snapshot restore operation has been requested.    * Called as part of restoreSnapshot RPC call.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param hTableDescriptor the hTableDescriptor of the table to restore    * @throws IOException if something went wrong    */
 name|void
 name|postRestoreSnapshot
 parameter_list|(
@@ -1906,7 +2172,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a snapshot is deleted.    * Called as part of deleteSnapshot RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to delete    * @throws IOException    */
+comment|/**    * Called before a snapshot is deleted.    * Called as part of deleteSnapshot RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to delete    * @throws IOException if something went wrong    */
 name|void
 name|preDeleteSnapshot
 parameter_list|(
@@ -1924,7 +2190,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the delete snapshot operation has been requested.    * Called as part of deleteSnapshot RPC call.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to delete    * @throws IOException    */
+comment|/**    * Called after the delete snapshot operation has been requested.    * Called as part of deleteSnapshot RPC call.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to delete    * @throws IOException if something went wrong    */
 name|void
 name|postDeleteSnapshot
 parameter_list|(
@@ -1942,7 +2208,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a getTableDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param tableNamesList the list of table names, or null if querying for all    * @param descriptors an empty list, can be filled with what to return if bypassing    * @param regex regular expression used for filtering the table names    * @throws IOException    */
+comment|/**    * Called before a getTableDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param tableNamesList the list of table names, or null if querying for all    * @param descriptors an empty list, can be filled with what to return if bypassing    * @param regex regular expression used for filtering the table names    * @throws IOException if something went wrong    */
 name|void
 name|preGetTableDescriptors
 parameter_list|(
@@ -1970,7 +2236,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after a getTableDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param tableNamesList the list of table names, or null if querying for all    * @param descriptors the list of descriptors about to be returned    * @param regex regular expression used for filtering the table names    * @throws IOException    */
+comment|/**    * Called after a getTableDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param tableNamesList the list of table names, or null if querying for all    * @param descriptors the list of descriptors about to be returned    * @param regex regular expression used for filtering the table names    * @throws IOException if something went wrong    */
 name|void
 name|postGetTableDescriptors
 parameter_list|(
@@ -1998,7 +2264,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a getTableNames request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors an empty list, can be filled with what to return if bypassing    * @param regex regular expression used for filtering the table names    * @throws IOException    */
+comment|/**    * Called before a getTableNames request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors an empty list, can be filled with what to return if bypassing    * @param regex regular expression used for filtering the table names    * @throws IOException if something went wrong    */
 name|void
 name|preGetTableNames
 parameter_list|(
@@ -2020,7 +2286,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after a getTableNames request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors the list of descriptors about to be returned    * @param regex regular expression used for filtering the table names    * @throws IOException    */
+comment|/**    * Called after a getTableNames request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors the list of descriptors about to be returned    * @param regex regular expression used for filtering the table names    * @throws IOException if something went wrong    */
 name|void
 name|postGetTableNames
 parameter_list|(
@@ -2042,7 +2308,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a new namespace is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param ns the NamespaceDescriptor for the table    * @throws IOException    */
+comment|/**    * Called before a new namespace is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param ns the NamespaceDescriptor for the table    * @throws IOException if something went wrong    */
 name|void
 name|preCreateNamespace
 parameter_list|(
@@ -2059,7 +2325,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the createNamespace operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param ns the NamespaceDescriptor for the table    * @throws IOException    */
+comment|/**    * Called after the createNamespace operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param ns the NamespaceDescriptor for the table    * @throws IOException if something went wrong    */
 name|void
 name|postCreateNamespace
 parameter_list|(
@@ -2076,7 +2342,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * namespace    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    */
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * namespace    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    * @throws IOException if something went wrong    */
 name|void
 name|preDeleteNamespace
 parameter_list|(
@@ -2093,7 +2359,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the deleteNamespace operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    */
+comment|/**    * Called after the deleteNamespace operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    * @throws IOException if something went wrong    */
 name|void
 name|postDeleteNamespace
 parameter_list|(
@@ -2110,7 +2376,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to modifying a namespace's properties.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param ns the NamespaceDescriptor    */
+comment|/**    * Called prior to modifying a namespace's properties.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param ns the NamespaceDescriptor    * @throws IOException if something went wrong    */
 name|void
 name|preModifyNamespace
 parameter_list|(
@@ -2127,7 +2393,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the modifyNamespace operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param ns the NamespaceDescriptor    */
+comment|/**    * Called after the modifyNamespace operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param ns the NamespaceDescriptor    * @throws IOException if something went wrong    */
 name|void
 name|postModifyNamespace
 parameter_list|(
@@ -2144,7 +2410,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a getNamespaceDescriptor request has been processed.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    * @throws IOException    */
+comment|/**    * Called before a getNamespaceDescriptor request has been processed.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    * @throws IOException if something went wrong    */
 name|void
 name|preGetNamespaceDescriptor
 parameter_list|(
@@ -2160,7 +2426,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after a getNamespaceDescriptor request has been processed.    * @param ctx the environment to interact with the framework and master    * @param ns the NamespaceDescriptor    * @throws IOException    */
+comment|/**    * Called after a getNamespaceDescriptor request has been processed.    * @param ctx the environment to interact with the framework and master    * @param ns the NamespaceDescriptor    * @throws IOException if something went wrong    */
 name|void
 name|postGetNamespaceDescriptor
 parameter_list|(
@@ -2176,7 +2442,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a listNamespaceDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors an empty list, can be filled with what to return if bypassing    * @throws IOException    */
+comment|/**    * Called before a listNamespaceDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors an empty list, can be filled with what to return if bypassing    * @throws IOException if something went wrong    */
 name|void
 name|preListNamespaceDescriptors
 parameter_list|(
@@ -2195,7 +2461,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after a listNamespaceDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors the list of descriptors about to be returned    * @throws IOException    */
+comment|/**    * Called after a listNamespaceDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors the list of descriptors about to be returned    * @throws IOException if something went wrong    */
 name|void
 name|postListNamespaceDescriptors
 parameter_list|(
@@ -2214,7 +2480,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the table memstore is flushed to disk.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException    */
+comment|/**    * Called before the table memstore is flushed to disk.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
 name|void
 name|preTableFlush
 parameter_list|(
@@ -2232,7 +2498,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the table memstore is flushed to disk.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException    */
+comment|/**    * Called after the table memstore is flushed to disk.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException if something went wrong    */
 name|void
 name|postTableFlush
 parameter_list|(
@@ -2250,7 +2516,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the quota for the user is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param quotas the quota settings    * @throws IOException    */
+comment|/**    * Called before the quota for the user is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param quotas the quota settings    * @throws IOException if something went wrong    */
 name|void
 name|preSetUserQuota
 parameter_list|(
@@ -2272,7 +2538,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the quota for the user is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param quotas the quota settings    * @throws IOException    */
+comment|/**    * Called after the quota for the user is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param quotas the quota settings    * @throws IOException if something went wrong    */
 name|void
 name|postSetUserQuota
 parameter_list|(
@@ -2294,7 +2560,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the quota for the user on the specified table is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param tableName the name of the table    * @param quotas the quota settings    * @throws IOException    */
+comment|/**    * Called before the quota for the user on the specified table is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param tableName the name of the table    * @param quotas the quota settings    * @throws IOException if something went wrong    */
 name|void
 name|preSetUserQuota
 parameter_list|(
@@ -2320,7 +2586,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the quota for the user on the specified table is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param tableName the name of the table    * @param quotas the quota settings    * @throws IOException    */
+comment|/**    * Called after the quota for the user on the specified table is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param tableName the name of the table    * @param quotas the quota settings    * @throws IOException if something went wrong    */
 name|void
 name|postSetUserQuota
 parameter_list|(
@@ -2346,7 +2612,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the quota for the user on the specified namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param namespace the name of the namespace    * @param quotas the quota settings    * @throws IOException    */
+comment|/**    * Called before the quota for the user on the specified namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param namespace the name of the namespace    * @param quotas the quota settings    * @throws IOException if something went wrong    */
 name|void
 name|preSetUserQuota
 parameter_list|(
@@ -2372,7 +2638,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the quota for the user on the specified namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param namespace the name of the namespace    * @param quotas the quota settings    * @throws IOException    */
+comment|/**    * Called after the quota for the user on the specified namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param namespace the name of the namespace    * @param quotas the quota settings    * @throws IOException if something went wrong    */
 name|void
 name|postSetUserQuota
 parameter_list|(
@@ -2398,7 +2664,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the quota for the table is stored.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param quotas the quota settings    * @throws IOException    */
+comment|/**    * Called before the quota for the table is stored.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param quotas the quota settings    * @throws IOException if something went wrong    */
 name|void
 name|preSetTableQuota
 parameter_list|(
@@ -2420,7 +2686,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the quota for the table is stored.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param quotas the quota settings    * @throws IOException    */
+comment|/**    * Called after the quota for the table is stored.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param quotas the quota settings    * @throws IOException if something went wrong    */
 name|void
 name|postSetTableQuota
 parameter_list|(
@@ -2442,7 +2708,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the quota for the namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    * @param quotas the quota settings    * @throws IOException    */
+comment|/**    * Called before the quota for the namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    * @param quotas the quota settings    * @throws IOException if something went wrong    */
 name|void
 name|preSetNamespaceQuota
 parameter_list|(
@@ -2464,7 +2730,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the quota for the namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    * @param quotas the quota settings    * @throws IOException    */
+comment|/**    * Called after the quota for the namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    * @param quotas the quota settings    * @throws IOException if something went wrong    */
 name|void
 name|postSetNamespaceQuota
 parameter_list|(

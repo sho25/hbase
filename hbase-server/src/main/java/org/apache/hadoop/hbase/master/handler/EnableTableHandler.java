@@ -888,7 +888,7 @@ condition|)
 block|{
 name|cpHost
 operator|.
-name|preEnableTableHandler
+name|preEnableTableAction
 argument_list|(
 name|this
 operator|.
@@ -908,7 +908,7 @@ condition|)
 block|{
 name|cpHost
 operator|.
-name|postEnableTableHandler
+name|postCompletedEnableTableAction
 argument_list|(
 name|this
 operator|.

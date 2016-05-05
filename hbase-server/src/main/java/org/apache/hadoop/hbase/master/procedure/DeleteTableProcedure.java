@@ -1640,7 +1640,7 @@ name|Exception
 block|{
 name|cpHost
 operator|.
-name|preDeleteTableHandler
+name|preDeleteTableAction
 argument_list|(
 name|tableName
 argument_list|)
@@ -1723,7 +1723,7 @@ name|Exception
 block|{
 name|cpHost
 operator|.
-name|postDeleteTableHandler
+name|postCompletedDeleteTableAction
 argument_list|(
 name|tableName
 argument_list|)
