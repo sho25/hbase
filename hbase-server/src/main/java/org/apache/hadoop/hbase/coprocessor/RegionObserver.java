@@ -2126,7 +2126,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner)}    * and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner)}    * and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @throws IOException if an error occurred on the coprocessor    * @deprecated use {@link #preStoreScannerOpen(ObserverContext, Store, Scan, NavigableSet,    *   KeyValueScanner, long)} instead    */
+annotation|@
+name|Deprecated
 name|KeyValueScanner
 name|preStoreScannerOpen
 parameter_list|(
@@ -2156,6 +2158,44 @@ parameter_list|,
 specifier|final
 name|KeyValueScanner
 name|s
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner)}    * and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param readPt the read point    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @throws IOException if an error occurred on the coprocessor    */
+name|KeyValueScanner
+name|preStoreScannerOpen
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|c
+parameter_list|,
+specifier|final
+name|Store
+name|store
+parameter_list|,
+specifier|final
+name|Scan
+name|scan
+parameter_list|,
+specifier|final
+name|NavigableSet
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|targetCols
+parameter_list|,
+specifier|final
+name|KeyValueScanner
+name|s
+parameter_list|,
+specifier|final
+name|long
+name|readPt
 parameter_list|)
 throws|throws
 name|IOException

@@ -6047,6 +6047,10 @@ name|byte
 index|[]
 argument_list|>
 name|targetCols
+parameter_list|,
+specifier|final
+name|long
+name|readPt
 parameter_list|)
 throws|throws
 name|IOException
@@ -6104,6 +6108,8 @@ name|targetCols
 argument_list|,
 name|getResult
 argument_list|()
+argument_list|,
+name|readPt
 argument_list|)
 argument_list|)
 expr_stmt|;

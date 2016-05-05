@@ -9562,6 +9562,8 @@ argument_list|,
 name|scan
 argument_list|,
 name|targetCols
+argument_list|,
+name|readPt
 argument_list|)
 expr_stmt|;
 block|}
