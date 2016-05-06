@@ -951,6 +951,63 @@ name|BLOCK_DESERIALIZER
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Todo: encapsulate Header related logic in this inner class.
+specifier|static
+class|class
+name|Header
+block|{
+comment|// Format of header is:
+comment|// 8 bytes - block magic
+comment|// 4 bytes int - onDiskSizeWithoutHeader
+comment|// 4 bytes int - uncompressedSizeWithoutHeader
+comment|// 8 bytes long - prevBlockOffset
+comment|// The following 3 are only present if header contains checksum information
+comment|// 1 byte - checksum type
+comment|// 4 byte int - bytes per checksum
+comment|// 4 byte int - onDiskDataSizeWithHeader
+specifier|static
+name|int
+name|BLOCK_MAGIC_INDEX
+init|=
+literal|0
+decl_stmt|;
+specifier|static
+name|int
+name|ON_DISK_SIZE_WITHOUT_HEADER_INDEX
+init|=
+literal|8
+decl_stmt|;
+specifier|static
+name|int
+name|UNCOMPRESSED_SIZE_WITHOUT_HEADER_INDEX
+init|=
+literal|12
+decl_stmt|;
+specifier|static
+name|int
+name|PREV_BLOCK_OFFSET_INDEX
+init|=
+literal|16
+decl_stmt|;
+specifier|static
+name|int
+name|CHECKSUM_TYPE_INDEX
+init|=
+literal|24
+decl_stmt|;
+specifier|static
+name|int
+name|BYTES_PER_CHECKSUM_INDEX
+init|=
+literal|25
+decl_stmt|;
+specifier|static
+name|int
+name|ON_DISK_DATA_SIZE_WITH_HEADER_INDEX
+init|=
+literal|29
+decl_stmt|;
+block|}
 comment|/**    * Copy constructor. Creates a shallow copy of {@code that}'s buffer.    */
 specifier|private
 name|HFileBlock
@@ -1035,7 +1092,7 @@ operator|.
 name|nextBlockOnDiskSize
 expr_stmt|;
 block|}
-comment|/**    * Creates a new {@link HFile} block from the given fields. This constructor    * is used when the block data has already been read and uncompressed,    * and is sitting in a byte buffer and we want to stuff the block into cache.    * See {@link Writer#getBlockForCaching(CacheConfig)}.    *    *<p>TODO: The caller presumes no checksumming    * required of this block instance since going into cache; checksum already verified on    * underlying block data pulled in from filesystem. Is that correct? What if cache is SSD?    *    * @param blockType the type of this block, see {@link BlockType}    * @param onDiskSizeWithoutHeader see {@link #onDiskSizeWithoutHeader}    * @param uncompressedSizeWithoutHeader see {@link #uncompressedSizeWithoutHeader}    * @param prevBlockOffset see {@link #prevBlockOffset}    * @param buf block header ({@link HConstants#HFILEBLOCK_HEADER_SIZE} bytes) followed by    *          uncompressed data.    * @param fillHeader when true, write the first 4 header fields into passed buffer.    * @param offset the file offset the block was read from    * @param onDiskDataSizeWithHeader see {@link #onDiskDataSizeWithHeader}    * @param fileContext HFile meta data    */
+comment|/**    * Creates a new {@link HFile} block from the given fields. This constructor    * is used when the block data has already been read and uncompressed,    * and is sitting in a byte buffer and we want to stuff the block into cache.    * See {@link Writer#getBlockForCaching(CacheConfig)}.    *    *<p>TODO: The caller presumes no checksumming    * required of this block instance since going into cache; checksum already verified on    * underlying block data pulled in from filesystem. Is that correct? What if cache is SSD?    *    * @param blockType the type of this block, see {@link BlockType}    * @param onDiskSizeWithoutHeader see {@link #onDiskSizeWithoutHeader}    * @param uncompressedSizeWithoutHeader see {@link #uncompressedSizeWithoutHeader}    * @param prevBlockOffset see {@link #prevBlockOffset}    * @param b block header ({@link HConstants#HFILEBLOCK_HEADER_SIZE} bytes) followed by    *          uncompressed data.    * @param fillHeader when true, write the first 4 header fields into passed buffer.    * @param offset the file offset the block was read from    * @param onDiskDataSizeWithHeader see {@link #onDiskDataSizeWithHeader}    * @param fileContext HFile meta data    */
 name|HFileBlock
 parameter_list|(
 name|BlockType
@@ -1165,7 +1222,11 @@ init|=
 name|buf
 operator|.
 name|getInt
-argument_list|()
+argument_list|(
+name|Header
+operator|.
+name|ON_DISK_SIZE_WITHOUT_HEADER_INDEX
+argument_list|)
 decl_stmt|;
 specifier|final
 name|int
@@ -1174,7 +1235,11 @@ init|=
 name|buf
 operator|.
 name|getInt
-argument_list|()
+argument_list|(
+name|Header
+operator|.
+name|UNCOMPRESSED_SIZE_WITHOUT_HEADER_INDEX
+argument_list|)
 decl_stmt|;
 specifier|final
 name|long
@@ -1183,7 +1248,11 @@ init|=
 name|buf
 operator|.
 name|getLong
-argument_list|()
+argument_list|(
+name|Header
+operator|.
+name|PREV_BLOCK_OFFSET_INDEX
+argument_list|)
 decl_stmt|;
 name|byte
 name|checksumType
@@ -1191,7 +1260,11 @@ init|=
 name|buf
 operator|.
 name|get
-argument_list|()
+argument_list|(
+name|Header
+operator|.
+name|CHECKSUM_TYPE_INDEX
+argument_list|)
 decl_stmt|;
 name|int
 name|bytesPerChecksum
@@ -1199,7 +1272,11 @@ init|=
 name|buf
 operator|.
 name|getInt
-argument_list|()
+argument_list|(
+name|Header
+operator|.
+name|BYTES_PER_CHECKSUM_INDEX
+argument_list|)
 decl_stmt|;
 name|int
 name|onDiskDataSizeWithHeader
@@ -1207,7 +1284,11 @@ init|=
 name|buf
 operator|.
 name|getInt
-argument_list|()
+argument_list|(
+name|Header
+operator|.
+name|ON_DISK_DATA_SIZE_WITH_HEADER_INDEX
+argument_list|)
 decl_stmt|;
 comment|// This constructor is called when we deserialize a block from cache and when we read a block in
 comment|// from the fs. fileCache is null when deserialized from cache so need to make up one.
@@ -1430,7 +1511,7 @@ operator|=
 name|fileContext
 expr_stmt|;
 block|}
-comment|/**    * Parse total ondisk size including header and checksum. Its second field in header after    * the magic bytes.    * @param headerBuf Header ByteBuffer. Presumed exact size of header.    * @return Size of the block with header included.    */
+comment|/**    * Parse total ondisk size including header and checksum.    * @param headerBuf Header ByteBuffer. Presumed exact size of header.    * @return Size of the block with header included.    */
 specifier|private
 specifier|static
 name|int
@@ -1447,9 +1528,9 @@ name|headerBuf
 operator|.
 name|getInt
 argument_list|(
-name|BlockType
+name|Header
 operator|.
-name|MAGIC_LENGTH
+name|ON_DISK_SIZE_WITHOUT_HEADER_INDEX
 argument_list|)
 operator|+
 name|headerSize
@@ -5686,7 +5767,7 @@ throw|;
 block|}
 block|}
 comment|/**      * Reads a version 2 block.      *      * @param offset the offset in the stream to read at      * @param onDiskSizeWithHeaderL the on-disk size of the block, including      *          the header and checksums if present or -1 if unknown      * @param pread whether to use a positional read      * @param verifyChecksum Whether to use HBase checksums.      *        If HBase checksum is switched off, then use HDFS checksum.      * @return the HFileBlock or null if there is a HBase checksum mismatch      */
-specifier|private
+specifier|protected
 name|HFileBlock
 name|readBlockDataInternal
 parameter_list|(
@@ -5968,6 +6049,43 @@ argument_list|,
 name|offset
 argument_list|)
 expr_stmt|;
+name|ByteBuffer
+name|onDiskBlockByteBuffer
+init|=
+name|ByteBuffer
+operator|.
+name|wrap
+argument_list|(
+name|onDiskBlock
+argument_list|,
+literal|0
+argument_list|,
+name|onDiskSizeWithHeader
+argument_list|)
+decl_stmt|;
+comment|// Verify checksum of the data before using it for building HFileBlock.
+if|if
+condition|(
+name|verifyChecksum
+operator|&&
+operator|!
+name|validateChecksum
+argument_list|(
+name|offset
+argument_list|,
+name|onDiskBlockByteBuffer
+operator|.
+name|asReadOnlyBuffer
+argument_list|()
+argument_list|,
+name|hdrSize
+argument_list|)
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 comment|// The onDiskBlock will become the headerAndDataBuffer for this block.
 comment|// If nextBlockOnDiskSizeWithHeader is not zero, the onDiskBlock already
 comment|// contains the header of next block, so no need to set next block's header in it.
@@ -5980,16 +6098,7 @@ argument_list|(
 operator|new
 name|SingleByteBuff
 argument_list|(
-name|ByteBuffer
-operator|.
-name|wrap
-argument_list|(
-name|onDiskBlock
-argument_list|,
-literal|0
-argument_list|,
-name|onDiskSizeWithHeader
-argument_list|)
+name|onDiskBlockByteBuffer
 argument_list|)
 argument_list|,
 name|this
@@ -6025,27 +6134,6 @@ operator|.
 name|sanityCheckUncompressed
 argument_list|()
 expr_stmt|;
-block|}
-if|if
-condition|(
-name|verifyChecksum
-operator|&&
-operator|!
-name|validateBlockChecksum
-argument_list|(
-name|hFileBlock
-argument_list|,
-name|offset
-argument_list|,
-name|onDiskBlock
-argument_list|,
-name|hdrSize
-argument_list|)
-condition|)
-block|{
-return|return
-literal|null
-return|;
 block|}
 if|if
 condition|(
@@ -6163,19 +6251,15 @@ operator|.
 name|defaultDecodingCtx
 return|;
 block|}
-comment|/**      * Generates the checksum for the header as well as the data and      * then validates that it matches the value stored in the header.      * If there is a checksum mismatch, then return false. Otherwise      * return true.      */
+comment|/**      * Generates the checksum for the header as well as the data and then validates it.      * If the block doesn't uses checksum, returns false.      * @return True if checksum matches, else false.      */
 specifier|protected
 name|boolean
-name|validateBlockChecksum
+name|validateChecksum
 parameter_list|(
-name|HFileBlock
-name|block
-parameter_list|,
 name|long
 name|offset
 parameter_list|,
-name|byte
-index|[]
+name|ByteBuffer
 name|data
 parameter_list|,
 name|int
@@ -6184,18 +6268,34 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// If this is an older version of the block that does not have checksums, then return false
+comment|// indicating that checksum verification did not succeed. Actually, this method should never
+comment|// be called when the minorVersion is 0, thus this is a defensive check for a cannot-happen
+comment|// case. Since this is a cannot-happen case, it is better to return false to indicate a
+comment|// checksum validation failure.
+if|if
+condition|(
+operator|!
+name|fileContext
+operator|.
+name|isUseHBaseChecksum
+argument_list|()
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 return|return
 name|ChecksumUtil
 operator|.
-name|validateBlockChecksum
+name|validateChecksum
 argument_list|(
+name|data
+argument_list|,
 name|pathName
 argument_list|,
 name|offset
-argument_list|,
-name|block
-argument_list|,
-name|data
 argument_list|,
 name|hdrSize
 argument_list|)

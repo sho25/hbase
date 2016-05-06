@@ -282,23 +282,19 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Validates that the data in the specified HFileBlock matches the    * checksum.  Generates the checksum for the data and    * then validate that it matches the value stored in the header.    * If there is a checksum mismatch, then return false. Otherwise    * return true.    * The header is extracted from the specified HFileBlock while the    * data-to-be-verified is extracted from 'data'.    */
+comment|/**    * Validates that the data in the specified HFileBlock matches the checksum. Generates the    * checksums for the data and then validate that it matches those stored in the end of the data.    * @param buffer Contains the data in following order: HFileBlock header, data, checksums.    * @param pathName Path of the HFile to which the {@code data} belongs. Only used for logging.    * @param offset offset of the data being validated. Only used for logging.    * @param hdrSize Size of the block header in {@code data}. Only used for logging.    * @return True if checksum matches, else false.    */
 specifier|static
 name|boolean
-name|validateBlockChecksum
+name|validateChecksum
 parameter_list|(
+name|ByteBuffer
+name|buffer
+parameter_list|,
 name|String
 name|pathName
 parameter_list|,
 name|long
 name|offset
-parameter_list|,
-name|HFileBlock
-name|block
-parameter_list|,
-name|byte
-index|[]
-name|data
 parameter_list|,
 name|int
 name|hdrSize
@@ -306,32 +302,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// If this is an older version of the block that does not have
-comment|// checksums, then return false indicating that checksum verification
-comment|// did not succeed. Actually, this method should never be called
-comment|// when the minorVersion is 0, thus this is a defensive check for a
-comment|// cannot-happen case. Since this is a cannot-happen case, it is
-comment|// better to return false to indicate a checksum validation failure.
-if|if
-condition|(
-operator|!
-name|block
-operator|.
-name|getHFileContext
-argument_list|()
-operator|.
-name|isUseHBaseChecksum
-argument_list|()
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-comment|// Get a checksum object based on the type of checksum that is
-comment|// set in the HFileBlock header. A ChecksumType.NULL indicates that
-comment|// the caller is not interested in validating checksums, so we
-comment|// always return true.
+comment|// A ChecksumType.NULL indicates that the caller is not interested in validating checksums,
+comment|// so we always return true.
 name|ChecksumType
 name|cktype
 init|=
@@ -339,10 +311,16 @@ name|ChecksumType
 operator|.
 name|codeToType
 argument_list|(
-name|block
+name|buffer
 operator|.
-name|getChecksumType
-argument_list|()
+name|get
+argument_list|(
+name|HFileBlock
+operator|.
+name|Header
+operator|.
+name|CHECKSUM_TYPE_INDEX
+argument_list|)
 argument_list|)
 decl_stmt|;
 if|if
@@ -363,10 +341,16 @@ comment|// read in the stored value of the checksum size from the header.
 name|int
 name|bytesPerChecksum
 init|=
-name|block
+name|buffer
 operator|.
-name|getBytesPerChecksum
-argument_list|()
+name|getInt
+argument_list|(
+name|HFileBlock
+operator|.
+name|Header
+operator|.
+name|BYTES_PER_CHECKSUM_INDEX
+argument_list|)
 decl_stmt|;
 name|DataChecksum
 name|dataChecksum
@@ -389,12 +373,18 @@ operator|!=
 literal|null
 assert|;
 name|int
-name|sizeWithHeader
+name|onDiskDataSizeWithHeader
 init|=
-name|block
+name|buffer
 operator|.
-name|getOnDiskDataSizeWithHeader
-argument_list|()
+name|getInt
+argument_list|(
+name|HFileBlock
+operator|.
+name|Header
+operator|.
+name|ON_DISK_DATA_SIZE_WITH_HEADER_INDEX
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -410,13 +400,14 @@ name|info
 argument_list|(
 literal|"dataLength="
 operator|+
-name|data
+name|buffer
 operator|.
-name|length
+name|capacity
+argument_list|()
 operator|+
 literal|", sizeWithHeader="
 operator|+
-name|sizeWithHeader
+name|onDiskDataSizeWithHeader
 operator|+
 literal|", checksumType="
 operator|+
@@ -445,35 +436,58 @@ expr_stmt|;
 block|}
 try|try
 block|{
+name|ByteBuffer
+name|data
+init|=
+operator|(
+name|ByteBuffer
+operator|)
+name|buffer
+operator|.
+name|duplicate
+argument_list|()
+operator|.
+name|position
+argument_list|(
+literal|0
+argument_list|)
+operator|.
+name|limit
+argument_list|(
+name|onDiskDataSizeWithHeader
+argument_list|)
+decl_stmt|;
+name|ByteBuffer
+name|checksums
+init|=
+operator|(
+name|ByteBuffer
+operator|)
+name|buffer
+operator|.
+name|duplicate
+argument_list|()
+operator|.
+name|position
+argument_list|(
+name|onDiskDataSizeWithHeader
+argument_list|)
+operator|.
+name|limit
+argument_list|(
+name|buffer
+operator|.
+name|capacity
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|dataChecksum
 operator|.
 name|verifyChunkedSums
 argument_list|(
-name|ByteBuffer
-operator|.
-name|wrap
-argument_list|(
 name|data
 argument_list|,
-literal|0
-argument_list|,
-name|sizeWithHeader
-argument_list|)
-argument_list|,
-name|ByteBuffer
-operator|.
-name|wrap
-argument_list|(
-name|data
-argument_list|,
-name|sizeWithHeader
-argument_list|,
-name|data
-operator|.
-name|length
-operator|-
-name|sizeWithHeader
-argument_list|)
+name|checksums
 argument_list|,
 name|pathName
 argument_list|,
