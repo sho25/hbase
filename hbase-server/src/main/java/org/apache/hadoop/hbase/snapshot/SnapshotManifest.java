@@ -983,7 +983,12 @@ operator|.
 name|getVersion
 argument_list|()
 argument_list|,
+name|ProtobufUtil
+operator|.
+name|createSnapshotDesc
+argument_list|(
 name|desc
+argument_list|)
 argument_list|)
 throw|;
 block|}
@@ -2201,7 +2206,12 @@ operator|.
 name|getVersion
 argument_list|()
 argument_list|,
+name|ProtobufUtil
+operator|.
+name|createSnapshotDesc
+argument_list|(
 name|desc
+argument_list|)
 argument_list|)
 throw|;
 block|}

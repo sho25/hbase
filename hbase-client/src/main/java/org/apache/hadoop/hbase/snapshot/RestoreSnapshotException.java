@@ -59,11 +59,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|HBaseProtos
+name|client
 operator|.
 name|SnapshotDescription
 import|;

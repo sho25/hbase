@@ -2579,7 +2579,12 @@ name|msg
 argument_list|,
 name|e
 argument_list|,
+name|ProtobufUtil
+operator|.
+name|createSnapshotDesc
+argument_list|(
 name|snapshot
+argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// these handlers aren't futures so we need to register the error here.
