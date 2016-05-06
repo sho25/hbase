@@ -37082,6 +37082,17 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
+comment|// optional uint64 store_file_size = 4;
+comment|/**      *<code>optional uint64 store_file_size = 4;</code>      *      *<pre>      * size of store file      *</pre>      */
+name|boolean
+name|hasStoreFileSize
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional uint64 store_file_size = 4;</code>      *      *<pre>      * size of store file      *</pre>      */
+name|long
+name|getStoreFileSize
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code hbase.pb.StoreDescriptor}    */
 specifier|public
@@ -37413,6 +37424,23 @@ operator|.
 name|readBytes
 argument_list|()
 argument_list|)
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|32
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|storeFileSize_
+operator|=
+name|input
+operator|.
+name|readUInt64
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -38084,6 +38112,47 @@ name|index
 argument_list|)
 return|;
 block|}
+comment|// optional uint64 store_file_size = 4;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|STORE_FILE_SIZE_FIELD_NUMBER
+init|=
+literal|4
+decl_stmt|;
+specifier|private
+name|long
+name|storeFileSize_
+decl_stmt|;
+comment|/**      *<code>optional uint64 store_file_size = 4;</code>      *      *<pre>      * size of store file      *</pre>      */
+specifier|public
+name|boolean
+name|hasStoreFileSize
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional uint64 store_file_size = 4;</code>      *      *<pre>      * size of store file      *</pre>      */
+specifier|public
+name|long
+name|getStoreFileSize
+parameter_list|()
+block|{
+return|return
+name|storeFileSize_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -38116,6 +38185,10 @@ operator|.
 name|LazyStringArrayList
 operator|.
 name|EMPTY
+expr_stmt|;
+name|storeFileSize_
+operator|=
+literal|0L
 expr_stmt|;
 block|}
 specifier|private
@@ -38289,6 +38362,29 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt64
+argument_list|(
+literal|4
+argument_list|,
+name|storeFileSize_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -38450,6 +38546,37 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt64Size
+argument_list|(
+literal|4
+argument_list|,
+name|storeFileSize_
+argument_list|)
 expr_stmt|;
 block|}
 name|size
@@ -38699,6 +38826,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasStoreFileSize
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasStoreFileSize
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasStoreFileSize
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getStoreFileSize
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getStoreFileSize
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -38854,6 +39016,37 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasStoreFileSize
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|STORE_FILE_SIZE_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getStoreFileSize
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -39736,6 +39929,19 @@ operator|~
 literal|0x00000004
 operator|)
 expr_stmt|;
+name|storeFileSize_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000008
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -40043,6 +40249,30 @@ name|storeFile_
 operator|=
 name|storeFile_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|storeFileSize_
+operator|=
+name|storeFileSize_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -40268,6 +40498,23 @@ expr_stmt|;
 block|}
 name|onChanged
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasStoreFileSize
+argument_list|()
+condition|)
+block|{
+name|setStoreFileSize
+argument_list|(
+name|other
+operator|.
+name|getStoreFileSize
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|this
@@ -41222,6 +41469,89 @@ name|add
 argument_list|(
 name|value
 argument_list|)
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional uint64 store_file_size = 4;
+specifier|private
+name|long
+name|storeFileSize_
+decl_stmt|;
+comment|/**        *<code>optional uint64 store_file_size = 4;</code>        *        *<pre>        * size of store file        *</pre>        */
+specifier|public
+name|boolean
+name|hasStoreFileSize
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional uint64 store_file_size = 4;</code>        *        *<pre>        * size of store file        *</pre>        */
+specifier|public
+name|long
+name|getStoreFileSize
+parameter_list|()
+block|{
+return|return
+name|storeFileSize_
+return|;
+block|}
+comment|/**        *<code>optional uint64 store_file_size = 4;</code>        *        *<pre>        * size of store file        *</pre>        */
+specifier|public
+name|Builder
+name|setStoreFileSize
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000008
+expr_stmt|;
+name|storeFileSize_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional uint64 store_file_size = 4;</code>        *        *<pre>        * size of store file        *</pre>        */
+specifier|public
+name|Builder
+name|clearStoreFileSize
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000008
+operator|)
+expr_stmt|;
+name|storeFileSize_
+operator|=
+literal|0L
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -58404,41 +58734,43 @@ literal|"lushAction\022\017\n\013START_FLUSH\020\000\022\020\n\014COMMIT_FL"
 operator|+
 literal|"USH\020\001\022\017\n\013ABORT_FLUSH\020\002\022\020\n\014CANNOT_FLUSH\020\003"
 block|,
-literal|"\"R\n\017StoreDescriptor\022\023\n\013family_name\030\001 \002(\014"
+literal|"\"k\n\017StoreDescriptor\022\023\n\013family_name\030\001 \002(\014"
 operator|+
 literal|"\022\026\n\016store_home_dir\030\002 \002(\t\022\022\n\nstore_file\030\003"
 operator|+
-literal|" \003(\t\"\237\001\n\022BulkLoadDescriptor\022\'\n\ntable_nam"
+literal|" \003(\t\022\027\n\017store_file_size\030\004 \001(\004\"\237\001\n\022BulkLo"
 operator|+
-literal|"e\030\001 \002(\0132\023.hbase.pb.TableName\022\033\n\023encoded_"
+literal|"adDescriptor\022\'\n\ntable_name\030\001 \002(\0132\023.hbase"
 operator|+
-literal|"region_name\030\002 \002(\014\022)\n\006stores\030\003 \003(\0132\031.hbas"
+literal|".pb.TableName\022\033\n\023encoded_region_name\030\002 \002"
 operator|+
-literal|"e.pb.StoreDescriptor\022\030\n\020bulkload_seq_num"
+literal|"(\014\022)\n\006stores\030\003 \003(\0132\031.hbase.pb.StoreDescr"
 operator|+
-literal|"\030\004 \002(\003\"\272\002\n\025RegionEventDescriptor\022=\n\neven"
+literal|"iptor\022\030\n\020bulkload_seq_num\030\004 \002(\003\"\272\002\n\025Regi"
 operator|+
-literal|"t_type\030\001 \002(\0162).hbase.pb.RegionEventDescr"
+literal|"onEventDescriptor\022=\n\nevent_type\030\001 \002(\0162)."
 operator|+
-literal|"iptor.EventType\022\022\n\ntable_name\030\002 \002(\014\022\033\n\023e"
+literal|"hbase.pb.RegionEventDescriptor.EventType"
 operator|+
-literal|"ncoded_region_name\030\003 \002(\014\022\033\n\023log_sequence"
+literal|"\022\022\n\ntable_name\030\002 \002(\014\022\033\n\023encoded_region_n"
 block|,
-literal|"_number\030\004 \001(\004\022)\n\006stores\030\005 \003(\0132\031.hbase.pb"
+literal|"ame\030\003 \002(\014\022\033\n\023log_sequence_number\030\004 \001(\004\022)"
 operator|+
-literal|".StoreDescriptor\022$\n\006server\030\006 \001(\0132\024.hbase"
+literal|"\n\006stores\030\005 \003(\0132\031.hbase.pb.StoreDescripto"
 operator|+
-literal|".pb.ServerName\022\023\n\013region_name\030\007 \001(\014\".\n\tE"
+literal|"r\022$\n\006server\030\006 \001(\0132\024.hbase.pb.ServerName\022"
 operator|+
-literal|"ventType\022\017\n\013REGION_OPEN\020\000\022\020\n\014REGION_CLOS"
+literal|"\023\n\013region_name\030\007 \001(\014\".\n\tEventType\022\017\n\013REG"
 operator|+
-literal|"E\020\001\"\014\n\nWALTrailer*F\n\tScopeType\022\033\n\027REPLIC"
+literal|"ION_OPEN\020\000\022\020\n\014REGION_CLOSE\020\001\"\014\n\nWALTrail"
 operator|+
-literal|"ATION_SCOPE_LOCAL\020\000\022\034\n\030REPLICATION_SCOPE"
+literal|"er*F\n\tScopeType\022\033\n\027REPLICATION_SCOPE_LOC"
 operator|+
-literal|"_GLOBAL\020\001B?\n*org.apache.hadoop.hbase.pro"
+literal|"AL\020\000\022\034\n\030REPLICATION_SCOPE_GLOBAL\020\001B?\n*or"
 operator|+
-literal|"tobuf.generatedB\tWALProtosH\001\210\001\000\240\001\001"
+literal|"g.apache.hadoop.hbase.protobuf.generated"
+operator|+
+literal|"B\tWALProtosH\001\210\001\000\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -58830,6 +59162,8 @@ block|,
 literal|"StoreHomeDir"
 block|,
 literal|"StoreFile"
+block|,
+literal|"StoreFileSize"
 block|, }
 argument_list|)
 expr_stmt|;
