@@ -1778,7 +1778,8 @@ name|onlineServers
 init|=
 name|master
 operator|.
-name|serverManager
+name|getServerManager
+argument_list|()
 operator|.
 name|getOnlineServers
 argument_list|()
@@ -1835,7 +1836,8 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|serverManager
+name|getServerManager
+argument_list|()
 operator|.
 name|recordNewServerWithLock
 argument_list|(
@@ -1954,7 +1956,8 @@ condition|)
 block|{
 name|master
 operator|.
-name|serverManager
+name|getServerManager
+argument_list|()
 operator|.
 name|expireServer
 argument_list|(
@@ -8352,7 +8355,8 @@ condition|(
 name|enabled
 condition|)
 block|{
-name|serverManager
+name|getServerManager
+argument_list|()
 operator|.
 name|processQueuedDeadServers
 argument_list|()

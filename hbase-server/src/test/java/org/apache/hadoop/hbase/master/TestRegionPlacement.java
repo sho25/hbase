@@ -1692,7 +1692,8 @@ operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|assignmentManager
+name|getAssignmentManager
+argument_list|()
 operator|.
 name|getNumRegionsOpened
 argument_list|()
@@ -1730,7 +1731,8 @@ operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|assignmentManager
+name|getAssignmentManager
+argument_list|()
 operator|.
 name|getNumRegionsOpened
 argument_list|()
@@ -1786,7 +1788,8 @@ operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|assignmentManager
+name|getAssignmentManager
+argument_list|()
 operator|.
 name|getNumRegionsOpened
 argument_list|()
@@ -2538,7 +2541,8 @@ name|lastRegionOpenedCount
 init|=
 name|m
 operator|.
-name|assignmentManager
+name|getAssignmentManager
+argument_list|()
 operator|.
 name|getNumRegionsOpened
 argument_list|()
@@ -2575,7 +2579,8 @@ name|currentRegionOpened
 operator|=
 name|m
 operator|.
-name|assignmentManager
+name|getAssignmentManager
+argument_list|()
 operator|.
 name|getNumRegionsOpened
 argument_list|()

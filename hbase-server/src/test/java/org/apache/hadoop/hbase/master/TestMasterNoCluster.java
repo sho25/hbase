@@ -1779,7 +1779,8 @@ name|initializeZKBasedSystemTrackers
 argument_list|()
 expr_stmt|;
 comment|// Record a newer server in server manager at first
-name|serverManager
+name|getServerManager
+argument_list|()
 operator|.
 name|recordNewServerWithLock
 argument_list|(
@@ -1929,7 +1930,8 @@ literal|"The dead server should not be pulled in"
 argument_list|,
 name|master
 operator|.
-name|serverManager
+name|getServerManager
+argument_list|()
 operator|.
 name|isServerOnline
 argument_list|(

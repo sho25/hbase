@@ -781,7 +781,8 @@ name|regionStates
 init|=
 name|m
 operator|.
-name|assignmentManager
+name|getAssignmentManager
+argument_list|()
 operator|.
 name|getRegionStates
 argument_list|()

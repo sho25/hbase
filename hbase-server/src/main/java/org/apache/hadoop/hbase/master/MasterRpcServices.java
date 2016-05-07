@@ -1618,7 +1618,8 @@ synchronized|synchronized
 init|(
 name|master
 operator|.
-name|balancer
+name|getLoadBalancer
+argument_list|()
 init|)
 block|{
 name|master
@@ -1970,7 +1971,8 @@ name|ids
 init|=
 name|master
 operator|.
-name|serverManager
+name|getServerManager
+argument_list|()
 operator|.
 name|getLastFlushedSequenceId
 argument_list|(
@@ -2036,7 +2038,8 @@ name|oldLoad
 init|=
 name|master
 operator|.
-name|serverManager
+name|getServerManager
+argument_list|()
 operator|.
 name|getLoad
 argument_list|(
@@ -2045,7 +2048,8 @@ argument_list|)
 decl_stmt|;
 name|master
 operator|.
-name|serverManager
+name|getServerManager
+argument_list|()
 operator|.
 name|regionServerReport
 argument_list|(
@@ -2171,7 +2175,8 @@ name|rs
 init|=
 name|master
 operator|.
-name|serverManager
+name|getServerManager
+argument_list|()
 operator|.
 name|regionServerStartup
 argument_list|(
@@ -2516,7 +2521,8 @@ name|regionStates
 init|=
 name|master
 operator|.
-name|assignmentManager
+name|getAssignmentManager
+argument_list|()
 operator|.
 name|getRegionStates
 argument_list|()
@@ -2594,7 +2600,8 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|assignmentManager
+name|getAssignmentManager
+argument_list|()
 operator|.
 name|assign
 argument_list|(
@@ -3503,7 +3510,8 @@ name|regionStates
 init|=
 name|master
 operator|.
-name|assignmentManager
+name|getAssignmentManager
+argument_list|()
 operator|.
 name|getRegionStates
 argument_list|()
@@ -4858,7 +4866,8 @@ name|pair
 init|=
 name|master
 operator|.
-name|assignmentManager
+name|getAssignmentManager
+argument_list|()
 operator|.
 name|getReopenStatus
 argument_list|(
@@ -6925,7 +6934,8 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|assignmentManager
+name|getAssignmentManager
+argument_list|()
 operator|.
 name|regionOffline
 argument_list|(
@@ -7732,7 +7742,8 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|assignmentManager
+name|getAssignmentManager
+argument_list|()
 operator|.
 name|unassign
 argument_list|(
@@ -7834,7 +7845,8 @@ name|regionStates
 init|=
 name|master
 operator|.
-name|assignmentManager
+name|getAssignmentManager
+argument_list|()
 operator|.
 name|getRegionStates
 argument_list|()
@@ -7867,7 +7879,8 @@ operator|&&
 operator|!
 name|master
 operator|.
-name|assignmentManager
+name|getAssignmentManager
+argument_list|()
 operator|.
 name|isFailoverCleanupDone
 argument_list|()
@@ -7901,7 +7914,8 @@ name|error
 init|=
 name|master
 operator|.
-name|assignmentManager
+name|getAssignmentManager
+argument_list|()
 operator|.
 name|onRegionTransition
 argument_list|(

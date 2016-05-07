@@ -2620,6 +2620,7 @@ name|LoadBalancerTracker
 name|loadBalancerTracker
 decl_stmt|;
 comment|// Tracker for split and merge state
+specifier|private
 name|SplitOrMergeTracker
 name|splitOrMergeTracker
 decl_stmt|;
@@ -2647,11 +2648,13 @@ name|MasterWalManager
 name|walManager
 decl_stmt|;
 comment|// server manager to deal with region server info
+specifier|private
 specifier|volatile
 name|ServerManager
 name|serverManager
 decl_stmt|;
 comment|// manager of assignment nodes in zookeeper
+specifier|private
 name|AssignmentManager
 name|assignmentManager
 decl_stmt|;
@@ -2702,6 +2705,7 @@ argument_list|(
 literal|"server crash processing"
 argument_list|)
 decl_stmt|;
+specifier|private
 name|LoadBalancer
 name|balancer
 decl_stmt|;
