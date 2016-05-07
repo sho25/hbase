@@ -876,32 +876,14 @@ parameter_list|()
 block|{
 comment|// This is not exact -- the configuration could have changed on us after connection was set up
 comment|// but it will do for now.
-name|HConnection
-name|connection
+name|ClusterConnection
+name|conn
 init|=
 name|getConnection
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-operator|!
-operator|(
-name|connection
-operator|instanceof
-name|ClusterConnection
-operator|)
-condition|)
 return|return
-literal|true
-return|;
-comment|// Default is to do cellblocks.
-return|return
-operator|(
-operator|(
-name|ClusterConnection
-operator|)
-name|connection
-operator|)
+name|conn
 operator|.
 name|hasCellBlockSupport
 argument_list|()
