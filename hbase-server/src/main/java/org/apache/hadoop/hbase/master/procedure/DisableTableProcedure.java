@@ -1393,9 +1393,6 @@ operator|.
 name|getMasterServices
 argument_list|()
 operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
 name|getTableStateManager
 argument_list|()
 decl_stmt|;
@@ -1529,9 +1526,6 @@ comment|// Set table disabling flag up in zk.
 name|env
 operator|.
 name|getMasterServices
-argument_list|()
-operator|.
-name|getAssignmentManager
 argument_list|()
 operator|.
 name|getTableStateManager
@@ -1846,9 +1840,6 @@ comment|// Flip the table to disabled
 name|env
 operator|.
 name|getMasterServices
-argument_list|()
-operator|.
-name|getAssignmentManager
 argument_list|()
 operator|.
 name|getTableStateManager

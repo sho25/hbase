@@ -632,8 +632,6 @@ name|assertTrue
 argument_list|(
 name|m
 operator|.
-name|assignmentManager
-operator|.
 name|getTableStateManager
 argument_list|()
 operator|.

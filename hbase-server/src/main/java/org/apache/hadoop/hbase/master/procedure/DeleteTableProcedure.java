@@ -2450,6 +2450,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+specifier|final
 name|AssignmentManager
 name|am
 init|=
@@ -2495,7 +2496,10 @@ operator|+
 literal|"' as deleted."
 argument_list|)
 expr_stmt|;
-name|am
+name|env
+operator|.
+name|getMasterServices
+argument_list|()
 operator|.
 name|getTableStateManager
 argument_list|()

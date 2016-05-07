@@ -2599,7 +2599,10 @@ name|regions
 argument_list|)
 expr_stmt|;
 comment|// Enable table
-name|assignmentManager
+name|env
+operator|.
+name|getMasterServices
+argument_list|()
 operator|.
 name|getTableStateManager
 argument_list|()

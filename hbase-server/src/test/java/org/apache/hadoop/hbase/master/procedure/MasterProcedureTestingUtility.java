@@ -1497,9 +1497,6 @@ name|tsm
 init|=
 name|master
 operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
 name|getTableStateManager
 argument_list|()
 decl_stmt|;
@@ -1543,9 +1540,6 @@ name|TableStateManager
 name|tsm
 init|=
 name|master
-operator|.
-name|getAssignmentManager
-argument_list|()
 operator|.
 name|getTableStateManager
 argument_list|()

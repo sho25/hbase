@@ -1570,9 +1570,6 @@ operator|.
 name|getMasterServices
 argument_list|()
 operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
 name|getTableStateManager
 argument_list|()
 operator|.

@@ -1671,9 +1671,6 @@ operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
 name|getTableStateManager
 argument_list|()
 operator|.
@@ -1834,9 +1831,6 @@ name|getHBaseCluster
 argument_list|()
 operator|.
 name|getMaster
-argument_list|()
-operator|.
-name|getAssignmentManager
 argument_list|()
 operator|.
 name|getTableStateManager
@@ -2396,9 +2390,6 @@ name|getHBaseCluster
 argument_list|()
 operator|.
 name|getMaster
-argument_list|()
-operator|.
-name|getAssignmentManager
 argument_list|()
 operator|.
 name|getTableStateManager

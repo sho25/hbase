@@ -1489,9 +1489,6 @@ operator|.
 name|getMasterServices
 argument_list|()
 operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
 name|getTableStateManager
 argument_list|()
 decl_stmt|;
@@ -1636,9 +1633,6 @@ expr_stmt|;
 name|env
 operator|.
 name|getMasterServices
-argument_list|()
-operator|.
-name|getAssignmentManager
 argument_list|()
 operator|.
 name|getTableStateManager
@@ -2267,9 +2261,6 @@ comment|// Flip the table to Enabled
 name|env
 operator|.
 name|getMasterServices
-argument_list|()
-operator|.
-name|getAssignmentManager
 argument_list|()
 operator|.
 name|getTableStateManager

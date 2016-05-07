@@ -5589,6 +5589,9 @@ name|HRegionInfo
 operator|.
 name|DEFAULT_REPLICA_ID
 condition|)
+block|{
+comment|// TODO: should we prevent from using state manager before meta was initialized?
+comment|// tableStateManager.start();
 name|getTableStateManager
 argument_list|()
 operator|.
@@ -5605,8 +5608,7 @@ operator|.
 name|ENABLED
 argument_list|)
 expr_stmt|;
-comment|// TODO: should we prevent from using state manager before meta was initialized?
-comment|// tableStateManager.start();
+block|}
 if|if
 condition|(
 operator|(
@@ -11249,9 +11251,6 @@ block|}
 if|if
 condition|(
 operator|!
-name|getAssignmentManager
-argument_list|()
-operator|.
 name|getTableStateManager
 argument_list|()
 operator|.

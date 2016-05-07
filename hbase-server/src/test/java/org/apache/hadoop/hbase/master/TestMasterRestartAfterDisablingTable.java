@@ -646,9 +646,6 @@ operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
 name|getTableStateManager
 argument_list|()
 operator|.
@@ -752,9 +749,6 @@ argument_list|,
 name|cluster
 operator|.
 name|getMaster
-argument_list|()
-operator|.
-name|getAssignmentManager
 argument_list|()
 operator|.
 name|getTableStateManager
