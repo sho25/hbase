@@ -77,6 +77,7 @@ extends|extends
 name|PayloadCarryingRpcController
 block|{
 specifier|private
+specifier|final
 name|PayloadCarryingRpcController
 name|delegate
 decl_stmt|;

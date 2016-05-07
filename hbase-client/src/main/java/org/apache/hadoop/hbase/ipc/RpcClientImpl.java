@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,6 +16,72 @@ operator|.
 name|ipc
 package|;
 end_package
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Descriptors
+operator|.
+name|MethodDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Message
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Message
+operator|.
+name|Builder
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcCallback
+import|;
+end_import
 
 begin_import
 import|import
@@ -1035,72 +1101,6 @@ name|TraceScope
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Descriptors
-operator|.
-name|MethodDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Message
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Message
-operator|.
-name|Builder
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|RpcCallback
-import|;
-end_import
-
 begin_comment
 comment|/**  * Does RPC against a cluster.  Manages connections per regionserver in the cluster.  *<p>See HBaseServer  */
 end_comment
@@ -1337,6 +1337,7 @@ extends|extends
 name|Thread
 block|{
 specifier|private
+specifier|final
 name|ConnectionHeader
 name|header
 decl_stmt|;
@@ -1361,6 +1362,7 @@ name|DataOutputStream
 name|out
 decl_stmt|;
 specifier|private
+specifier|final
 name|Object
 name|outLock
 init|=
@@ -1369,6 +1371,7 @@ name|Object
 argument_list|()
 decl_stmt|;
 specifier|private
+specifier|final
 name|InetSocketAddress
 name|server
 decl_stmt|;
@@ -1401,6 +1404,7 @@ name|HBaseSaslRpcClient
 name|saslRpcClient
 decl_stmt|;
 specifier|private
+specifier|final
 name|int
 name|reloginMaxBackoff
 decl_stmt|;
@@ -1428,11 +1432,7 @@ name|calls
 init|=
 operator|new
 name|ConcurrentSkipListMap
-argument_list|<
-name|Integer
-argument_list|,
-name|Call
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|protected
@@ -1586,9 +1586,7 @@ name|callsToWrite
 operator|=
 operator|new
 name|ArrayBlockingQueue
-argument_list|<
-name|CallFuture
-argument_list|>
+argument_list|<>
 argument_list|(
 name|queueSize
 argument_list|)
@@ -2720,6 +2718,7 @@ operator|.
 name|isTraceEnabled
 argument_list|()
 condition|)
+block|{
 name|LOG
 operator|.
 name|trace
@@ -2729,6 +2728,7 @@ argument_list|,
 name|ignored
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 try|try
 block|{
@@ -2766,6 +2766,7 @@ operator|.
 name|isTraceEnabled
 argument_list|()
 condition|)
+block|{
 name|LOG
 operator|.
 name|trace
@@ -2775,6 +2776,7 @@ argument_list|,
 name|ignored
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 try|try
 block|{
@@ -2812,6 +2814,7 @@ operator|.
 name|isTraceEnabled
 argument_list|()
 condition|)
+block|{
 name|LOG
 operator|.
 name|trace
@@ -2821,6 +2824,7 @@ argument_list|,
 name|ignored
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 try|try
 block|{
@@ -3922,6 +3926,7 @@ name|ticket
 operator|==
 literal|null
 condition|)
+block|{
 throw|throw
 operator|new
 name|FatalConnectionException
@@ -3929,6 +3934,7 @@ argument_list|(
 literal|"ticket/user is null"
 argument_list|)
 throw|;
+block|}
 try|try
 block|{
 name|continueSasl
@@ -4534,8 +4540,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+try|try
+init|(
 name|TraceScope
-name|ts
+name|ignored
 init|=
 name|Trace
 operator|.
@@ -4543,8 +4551,7 @@ name|continueSpan
 argument_list|(
 name|span
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|writeRequest
 argument_list|(
@@ -4554,14 +4561,6 @@ name|priority
 argument_list|,
 name|span
 argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|ts
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -4757,7 +4756,7 @@ argument_list|)
 expr_stmt|;
 block|}
 name|RequestHeader
-name|header
+name|requestHeader
 init|=
 name|builder
 operator|.
@@ -4792,11 +4791,13 @@ operator|.
 name|interrupted
 argument_list|()
 condition|)
+block|{
 throw|throw
 operator|new
 name|InterruptedIOException
 argument_list|()
 throw|;
+block|}
 name|calls
 operator|.
 name|put
@@ -4829,7 +4830,7 @@ name|this
 operator|.
 name|out
 argument_list|,
-name|header
+name|requestHeader
 argument_list|,
 name|call
 operator|.
@@ -4893,9 +4894,11 @@ name|writeException
 operator|!=
 literal|null
 condition|)
+block|{
 throw|throw
 name|writeException
 throw|;
+block|}
 block|}
 annotation|@
 name|edu
@@ -4944,7 +4947,9 @@ operator|.
 name|get
 argument_list|()
 condition|)
+block|{
 return|return;
+block|}
 name|Call
 name|call
 init|=
@@ -5319,6 +5324,7 @@ if|if
 condition|(
 name|expectedCall
 condition|)
+block|{
 name|call
 operator|.
 name|setException
@@ -5326,6 +5332,7 @@ argument_list|(
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|e
@@ -5343,6 +5350,7 @@ operator|.
 name|isTraceEnabled
 argument_list|()
 condition|)
+block|{
 name|LOG
 operator|.
 name|trace
@@ -5352,6 +5360,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{
@@ -5484,11 +5493,13 @@ name|e
 operator|==
 literal|null
 condition|)
+block|{
 throw|throw
 operator|new
 name|NullPointerException
 argument_list|()
 throw|;
+block|}
 name|boolean
 name|ret
 init|=
@@ -5763,11 +5774,7 @@ name|connections
 operator|=
 operator|new
 name|PoolMap
-argument_list|<
-name|ConnectionId
-argument_list|,
-name|Connection
-argument_list|>
+argument_list|<>
 argument_list|(
 name|getPoolType
 argument_list|(
@@ -5873,6 +5880,7 @@ operator|.
 name|isDebugEnabled
 argument_list|()
 condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -5880,6 +5888,7 @@ argument_list|(
 literal|"Stopping rpc client"
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!
@@ -5892,7 +5901,9 @@ argument_list|,
 literal|false
 argument_list|)
 condition|)
+block|{
 return|return;
+block|}
 name|Set
 argument_list|<
 name|Connection
@@ -5962,9 +5973,7 @@ name|connsToClose
 operator|=
 operator|new
 name|HashSet
-argument_list|<
-name|Connection
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -6067,7 +6076,7 @@ return|return;
 block|}
 block|}
 block|}
-comment|/** Make a call, passing<code>param</code>, to the IPC server running at    *<code>address</code> which is servicing the<code>protocol</code> protocol,    * with the<code>ticket</code> credentials, returning the value.    * Throws exceptions if there are network problems or if the remote code    * threw an exception.    * @param ticket Be careful which ticket you pass. A new user will mean a new Connection.    *          {@link UserProvider#getCurrent()} makes a new instance of User each time so will be a    *          new Connection each time.    * @return A pair with the Message response and the Cell data (if any).    * @throws InterruptedException    * @throws IOException    */
+comment|/** Make a call, passing<code>param</code>, to the IPC server running at    *<code>address</code> which is servicing the<code>protocol</code> protocol,    * with the<code>ticket</code> credentials, returning the value.    * Throws exceptions if there are network problems or if the remote code    * threw an exception.    * @param ticket Be careful which ticket you pass. A new user will mean a new Connection.    *          {@link UserProvider#getCurrent()} makes a new instance of User each time so will be a    *          new Connection each time.    * @return A pair with the Message response and the Cell data (if any).    * @throws InterruptedException if the call is interupted    * @throws IOException if something fails on the connection    */
 annotation|@
 name|Override
 specifier|protected
@@ -6260,11 +6269,7 @@ expr_stmt|;
 return|return
 operator|new
 name|Pair
-argument_list|<
-name|Message
-argument_list|,
-name|CellScanner
-argument_list|>
+argument_list|<>
 argument_list|(
 name|call
 operator|.
@@ -6323,6 +6328,7 @@ name|cts
 operator|!=
 literal|null
 condition|)
+block|{
 name|connection
 operator|.
 name|callSender
@@ -6332,6 +6338,7 @@ argument_list|(
 name|cts
 argument_list|)
 expr_stmt|;
+block|}
 break|break;
 block|}
 if|if
@@ -6375,7 +6382,9 @@ name|call
 operator|.
 name|done
 condition|)
+block|{
 break|break;
+block|}
 name|call
 operator|.
 name|wait
@@ -6418,6 +6427,7 @@ name|cts
 operator|!=
 literal|null
 condition|)
+block|{
 name|connection
 operator|.
 name|callSender
@@ -6427,6 +6437,7 @@ argument_list|(
 name|cts
 argument_list|)
 expr_stmt|;
+block|}
 throw|throw
 name|e
 throw|;
@@ -6478,11 +6489,7 @@ block|}
 return|return
 operator|new
 name|Pair
-argument_list|<
-name|Message
-argument_list|,
-name|CellScanner
-argument_list|>
+argument_list|<>
 argument_list|(
 name|call
 operator|.
@@ -6587,7 +6594,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    *  Get a connection from the pool, or create a new one and add it to the    * pool. Connections to a given host/port are reused.    */
+comment|/**    * Get a connection from the pool, or create a new one and add it to the    * pool. Connections to a given host/port are reused.    */
 specifier|protected
 name|Connection
 name|getConnection
@@ -6612,11 +6619,13 @@ operator|.
 name|get
 argument_list|()
 condition|)
+block|{
 throw|throw
 operator|new
 name|StoppedRpcClientException
 argument_list|()
 throw|;
+block|}
 name|Connection
 name|connection
 decl_stmt|;

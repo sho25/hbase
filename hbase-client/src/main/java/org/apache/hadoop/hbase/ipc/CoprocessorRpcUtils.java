@@ -108,6 +108,7 @@ block|{
 comment|/**    * We assume that all HBase protobuf services share a common package name    * (defined in the .proto files).    */
 specifier|private
 specifier|static
+specifier|final
 name|String
 name|hbaseServicePackage
 decl_stmt|;

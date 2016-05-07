@@ -892,9 +892,11 @@ argument_list|()
 operator|==
 literal|0
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 try|try
 block|{
 return|return
@@ -980,9 +982,11 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 try|try
 block|{
 return|return
@@ -1274,7 +1278,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Make a call, passing<code>param</code>, to the IPC server running at    *<code>address</code> which is servicing the<code>protocol</code> protocol,    * with the<code>ticket</code> credentials, returning the value.    * Throws exceptions if there are network problems or if the remote code    * threw an exception.    *    * @param ticket Be careful which ticket you pass. A new user will mean a new Connection.    *               {@link UserProvider#getCurrent()} makes a new instance of User each time so    *               will be a    *               new Connection each time.    * @return A pair with the Message response and the Cell data (if any).    * @throws InterruptedException    * @throws java.io.IOException    */
+comment|/**    * Make a call, passing<code>param</code>, to the IPC server running at    *<code>address</code> which is servicing the<code>protocol</code> protocol,    * with the<code>ticket</code> credentials, returning the value.    * Throws exceptions if there are network problems or if the remote code    * threw an exception.    *    * @param ticket Be careful which ticket you pass. A new user will mean a new Connection.    *               {@link UserProvider#getCurrent()} makes a new instance of User each time so    *               will be a    *               new Connection each time.    * @return A pair with the Message response and the Cell data (if any).    * @throws InterruptedException if call is interrupted    * @throws java.io.IOException if transport failed    */
 specifier|protected
 specifier|abstract
 name|Pair
