@@ -158,6 +158,7 @@ specifier|final
 name|int
 name|period
 decl_stmt|;
+comment|// in TimeUnit units
 specifier|private
 specifier|final
 name|TimeUnit
@@ -168,6 +169,7 @@ specifier|final
 name|long
 name|initialDelay
 decl_stmt|;
+comment|// in TimeUnit units
 comment|/**    * Interface to the ChoreService that this ScheduledChore is scheduled with. null if the chore is    * not scheduled.    */
 specifier|private
 name|ChoreServicer
@@ -181,6 +183,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+comment|// system time millis
 specifier|private
 name|long
 name|timeOfThisRun
@@ -188,6 +191,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+comment|// system time millis
 specifier|private
 name|boolean
 name|initialChoreComplete
@@ -287,7 +291,7 @@ operator|=
 name|DEFAULT_TIME_UNIT
 expr_stmt|;
 block|}
-comment|/**    * @param name Name assigned to Chore. Useful for identification amongst chores of the same type    * @param stopper When {@link Stoppable#isStopped()} is true, this chore will cancel and cleanup    * @param period Period with which this Chore repeats execution when scheduled.    */
+comment|/**    * @param name Name assigned to Chore. Useful for identification amongst chores of the same type    * @param stopper When {@link Stoppable#isStopped()} is true, this chore will cancel and cleanup    * @param period Period in millis with which this Chore repeats execution when scheduled.    */
 specifier|public
 name|ScheduledChore
 parameter_list|(
@@ -315,7 +319,7 @@ name|DEFAULT_INITIAL_DELAY
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param name Name assigned to Chore. Useful for identification amongst chores of the same type    * @param stopper When {@link Stoppable#isStopped()} is true, this chore will cancel and cleanup    * @param period Period with which this Chore repeats execution when scheduled.    * @param initialDelay Delay before this Chore begins to execute once it has been scheduled. A    *          value of 0 means the chore will begin to execute immediately. Negative delays are    *          invalid and will be corrected to a value of 0.    */
+comment|/**    * @param name Name assigned to Chore. Useful for identification amongst chores of the same type    * @param stopper When {@link Stoppable#isStopped()} is true, this chore will cancel and cleanup    * @param period Period in millis with which this Chore repeats execution when scheduled.    * @param initialDelay Delay before this Chore begins to execute once it has been scheduled. A    *          value of 0 means the chore will begin to execute immediately. Negative delays are    *          invalid and will be corrected to a value of 0.    */
 specifier|public
 name|ScheduledChore
 parameter_list|(
@@ -349,7 +353,7 @@ name|DEFAULT_TIME_UNIT
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param name Name assigned to Chore. Useful for identification amongst chores of the same type    * @param stopper When {@link Stoppable#isStopped()} is true, this chore will cancel and cleanup    * @param period Period with which this Chore repeats execution when scheduled.    * @param initialDelay Delay before this Chore begins to execute once it has been scheduled. A    *          value of 0 means the chore will begin to execute immediately. Negative delays are    *          invalid and will be corrected to a value of 0.    * @param unit The unit that is used to measure period and initialDelay    */
+comment|/**    * @param name Name assigned to Chore. Useful for identification amongst chores of the same type    * @param stopper When {@link Stoppable#isStopped()} is true, this chore will cancel and cleanup    * @param period Period in Timeunit unit with which this Chore repeats execution when scheduled.    * @param initialDelay Delay in Timeunit unit before this Chore begins to execute once it has been    *          scheduled. A value of 0 means the chore will begin to execute immediately. Negative    *          delays are invalid and will be corrected to a value of 0.    * @param unit The unit that is used to measure period and initialDelay    */
 specifier|public
 name|ScheduledChore
 parameter_list|(
@@ -601,7 +605,7 @@ name|this
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @return How long has it been since this chore last run. Useful for checking if the chore has    *         missed its scheduled start time by too large of a margin    */
+comment|/**    * @return How long in millis has it been since this chore last run. Useful for checking if the    *         chore has missed its scheduled start time by too large of a margin    */
 specifier|synchronized
 name|long
 name|getTimeBetweenRuns
@@ -638,6 +642,7 @@ name|getMaximumAllowedTimeBetweenRuns
 argument_list|()
 return|;
 block|}
+comment|/**    * @return max allowed time in millis between runs.    */
 specifier|private
 name|double
 name|getMaximumAllowedTimeBetweenRuns
@@ -655,6 +660,7 @@ name|period
 argument_list|)
 return|;
 block|}
+comment|/**    * @param time in system millis    * @return true if time is earlier or equal to current milli time    */
 specifier|private
 specifier|synchronized
 name|boolean
@@ -809,6 +815,7 @@ return|return
 name|stopper
 return|;
 block|}
+comment|/**    * @return period to execute chore in getTimeUnit() units    */
 specifier|public
 name|int
 name|getPeriod
@@ -818,6 +825,7 @@ return|return
 name|period
 return|;
 block|}
+comment|/**    * @return initial delay before executing chore in getTimeUnit() units    */
 specifier|public
 name|long
 name|getInitialDelay
