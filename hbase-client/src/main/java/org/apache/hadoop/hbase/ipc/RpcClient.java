@@ -31,6 +31,32 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcChannel
+import|;
+end_import
+
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|EventExecutor
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -203,6 +229,40 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Create or fetch AsyncRpcChannel    * @param serviceName to connect to    * @param sn ServerName of the channel to create    * @param user for the service    * @return An async RPC channel fitting given parameters    * @throws FailedServerException if server failed    * @throws StoppedRpcClientException if the RPC client has stopped    */
+name|AsyncRpcChannel
+name|createRpcChannel
+parameter_list|(
+name|String
+name|serviceName
+parameter_list|,
+name|ServerName
+name|sn
+parameter_list|,
+name|User
+name|user
+parameter_list|)
+throws|throws
+name|StoppedRpcClientException
+throws|,
+name|FailedServerException
+function_decl|;
+comment|/**    * Creates a "channel" that can be used by a protobuf service.  Useful setting up    * protobuf stubs.    *    * @param sn server name describing location of server    * @param user which is to use the connection    * @param rpcTimeout default rpc operation timeout    *    * @return A rpc channel that goes via this rpc client instance.    */
+name|RpcChannel
+name|createProtobufRpcChannel
+parameter_list|(
+specifier|final
+name|ServerName
+name|sn
+parameter_list|,
+specifier|final
+name|User
+name|user
+parameter_list|,
+name|int
+name|rpcTimeout
+parameter_list|)
+function_decl|;
 comment|/**    * Interrupt the connections to the given server. This should be called if the server    * is known as actually dead. This will not prevent current operation to be retried, and,    * depending on their own behavior, they may retry on the same server. This can be a feature,    * for example at startup. In any case, they're likely to get connection refused (if the    * process died) or no route to host: i.e. their next retries should be faster and with a    * safe exception.    * @param sn server location to cancel connections of    */
 name|void
 name|cancelConnections
@@ -221,6 +281,11 @@ function_decl|;
 comment|/**    * @return true when this client uses a {@link org.apache.hadoop.hbase.codec.Codec} and so    *         supports cell blocks.    */
 name|boolean
 name|hasCellBlockSupport
+parameter_list|()
+function_decl|;
+comment|/**    * Get an event loop to operate on    * @return EventLoop    */
+name|EventExecutor
+name|getEventExecutor
 parameter_list|()
 function_decl|;
 block|}

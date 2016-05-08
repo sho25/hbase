@@ -111,22 +111,6 @@ name|Future
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|MetricsConnection
-import|;
-end_import
-
 begin_comment
 comment|/**  * Interface for Async Rpc Channels  */
 end_comment
@@ -140,7 +124,7 @@ specifier|public
 interface|interface
 name|AsyncRpcChannel
 block|{
-comment|/**    * Calls method on channel    * @param method to call    * @param request to send    * @param cellScanner with cells to send    * @param responsePrototype to construct response with    * @param messageConverter for the messages to expected result    * @param exceptionConverter for converting exceptions    * @param rpcTimeout timeout for request    * @param priority for request    * @param callStats collects stats of the call    * @return Promise for the response Message    */
+comment|/**    * Calls method on channel    * @param method to call    * @param request to send    * @param cellScanner with cells to send    * @param responsePrototype to construct response with    * @param messageConverter for the messages to expected result    * @param exceptionConverter for converting exceptions    * @param rpcTimeout timeout for request    * @param priority for request    * @return Promise for the response Message    */
 parameter_list|<
 name|R
 extends|extends
@@ -187,11 +171,6 @@ name|rpcTimeout
 parameter_list|,
 name|int
 name|priority
-parameter_list|,
-name|MetricsConnection
-operator|.
-name|CallStats
-name|callStats
 parameter_list|)
 function_decl|;
 comment|/**    * Get the EventLoop on which this channel operated    * @return EventLoop    */

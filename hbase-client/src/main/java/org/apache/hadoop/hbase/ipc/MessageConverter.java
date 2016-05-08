@@ -133,7 +133,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-literal|null
+name|msg
 return|;
 block|}
 block|}

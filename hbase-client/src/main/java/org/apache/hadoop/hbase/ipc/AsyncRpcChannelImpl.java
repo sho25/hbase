@@ -409,22 +409,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|MetricsConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|exceptions
 operator|.
 name|ConnectionClosingException
@@ -1722,6 +1706,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Calls method on channel    * @param method to call    * @param request to send    * @param cellScanner with cells to send    * @param responsePrototype to construct response with    * @param rpcTimeout timeout for request    * @param priority for request    * @return Promise for the response Message    */
+annotation|@
+name|Override
 specifier|public
 parameter_list|<
 name|R
@@ -1769,11 +1755,6 @@ name|rpcTimeout
 parameter_list|,
 name|int
 name|priority
-parameter_list|,
-name|MetricsConnection
-operator|.
-name|CallStats
-name|callStats
 parameter_list|)
 block|{
 specifier|final
@@ -1814,7 +1795,9 @@ name|rpcTimeout
 argument_list|,
 name|priority
 argument_list|,
-name|callStats
+name|client
+operator|.
+name|metrics
 argument_list|)
 decl_stmt|;
 synchronized|synchronized
