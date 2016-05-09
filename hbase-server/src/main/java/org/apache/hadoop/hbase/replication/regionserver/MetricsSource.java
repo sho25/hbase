@@ -480,7 +480,7 @@ name|long
 name|batchSize
 parameter_list|,
 name|int
-name|sizeInKB
+name|sizeInBytes
 parameter_list|)
 block|{
 name|singleSourceSource
@@ -513,16 +513,16 @@ argument_list|)
 expr_stmt|;
 name|singleSourceSource
 operator|.
-name|incrShippedKBs
+name|incrShippedBytes
 argument_list|(
-name|sizeInKB
+name|sizeInBytes
 argument_list|)
 expr_stmt|;
 name|globalSourceSource
 operator|.
-name|incrShippedKBs
+name|incrShippedBytes
 argument_list|(
-name|sizeInKB
+name|sizeInBytes
 argument_list|)
 expr_stmt|;
 block|}
@@ -535,7 +535,7 @@ name|long
 name|batchSize
 parameter_list|,
 name|int
-name|sizeInKB
+name|sizeInBytes
 parameter_list|,
 name|long
 name|hfiles
@@ -545,7 +545,7 @@ name|shipBatch
 argument_list|(
 name|batchSize
 argument_list|,
-name|sizeInKB
+name|sizeInBytes
 argument_list|)
 expr_stmt|;
 name|singleSourceSource

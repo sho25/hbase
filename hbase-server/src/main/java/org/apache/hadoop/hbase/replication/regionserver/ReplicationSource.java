@@ -5632,8 +5632,6 @@ argument_list|(
 name|currentNbOperations
 argument_list|,
 name|currentSize
-operator|/
-literal|1024
 argument_list|,
 name|currentNbHFiles
 argument_list|)

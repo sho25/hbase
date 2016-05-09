@@ -48,6 +48,9 @@ name|SOURCE_SHIPPED_BATCHES
 init|=
 literal|"source.shippedBatches"
 decl_stmt|;
+annotation|@
+name|Deprecated
+comment|/** @deprecated Use SOURCE_SHIPPED_BYTES instead */
 specifier|public
 specifier|static
 specifier|final
@@ -55,6 +58,14 @@ name|String
 name|SOURCE_SHIPPED_KBS
 init|=
 literal|"source.shippedKBs"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SOURCE_SHIPPED_BYTES
+init|=
+literal|"source.shippedBytes"
 decl_stmt|;
 specifier|public
 specifier|static
@@ -147,7 +158,7 @@ name|ops
 parameter_list|)
 function_decl|;
 name|void
-name|incrShippedKBs
+name|incrShippedBytes
 parameter_list|(
 name|long
 name|size
