@@ -429,8 +429,6 @@ init|=
 name|INITIAL_CELLSCANNER_INDEX
 decl_stmt|;
 specifier|private
-name|ClientProtos
-operator|.
 name|RegionLoadStats
 name|stats
 decl_stmt|;
@@ -3509,33 +3507,6 @@ return|return
 name|partial
 return|;
 block|}
-comment|/**    * Add load information about the region to the information about the result    * @param loadStats statistics about the current region from which this was returned    * @deprecated use {@link #setStatistics(ClientProtos.RegionLoadStats)} instead    * @throws UnsupportedOperationException if invoked on instance of EMPTY_RESULT    * (which is supposed to be immutable).    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
-annotation|@
-name|Deprecated
-specifier|public
-name|void
-name|addResults
-parameter_list|(
-name|ClientProtos
-operator|.
-name|RegionLoadStats
-name|loadStats
-parameter_list|)
-block|{
-name|checkReadonly
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|stats
-operator|=
-name|loadStats
-expr_stmt|;
-block|}
 comment|/**    * Set load information about the region to the information about the result    * @param loadStats statistics about the current region from which this was returned    */
 annotation|@
 name|InterfaceAudience
@@ -3545,8 +3516,6 @@ specifier|public
 name|void
 name|setStatistics
 parameter_list|(
-name|ClientProtos
-operator|.
 name|RegionLoadStats
 name|loadStats
 parameter_list|)
@@ -3560,8 +3529,6 @@ expr_stmt|;
 block|}
 comment|/**    * @return the associated statistics about the region from which this was returned. Can be    *<tt>null</tt> if stats are disabled.    */
 specifier|public
-name|ClientProtos
-operator|.
 name|RegionLoadStats
 name|getStats
 parameter_list|()

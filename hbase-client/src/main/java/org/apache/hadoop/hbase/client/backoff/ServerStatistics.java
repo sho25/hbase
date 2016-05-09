@@ -45,11 +45,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|client
 operator|.
-name|generated
-operator|.
-name|ClientProtos
+name|RegionLoadStats
 import|;
 end_import
 
@@ -135,8 +133,6 @@ name|byte
 index|[]
 name|region
 parameter_list|,
-name|ClientProtos
-operator|.
 name|RegionLoadStats
 name|currentStats
 parameter_list|)
@@ -235,8 +231,6 @@ specifier|public
 name|void
 name|update
 parameter_list|(
-name|ClientProtos
-operator|.
 name|RegionLoadStats
 name|currentStats
 parameter_list|)

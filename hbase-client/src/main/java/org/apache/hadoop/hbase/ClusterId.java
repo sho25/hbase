@@ -306,6 +306,7 @@ return|;
 block|}
 block|}
 comment|/**    * @return A pb instance to represent this instance.    */
+specifier|public
 name|ClusterIdProtos
 operator|.
 name|ClusterId
@@ -341,6 +342,7 @@ argument_list|()
 return|;
 block|}
 comment|/**    * @param cid    * @return A {@link ClusterId} made from the passed in<code>cid</code>    */
+specifier|public
 specifier|static
 name|ClusterId
 name|convert

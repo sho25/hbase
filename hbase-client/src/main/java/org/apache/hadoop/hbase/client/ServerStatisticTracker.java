@@ -109,24 +109,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ClientProtos
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|util
@@ -184,8 +166,6 @@ name|byte
 index|[]
 name|region
 parameter_list|,
-name|ClientProtos
-operator|.
 name|RegionLoadStats
 name|currentStats
 parameter_list|)

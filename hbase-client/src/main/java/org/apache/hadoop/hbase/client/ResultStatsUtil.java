@@ -61,24 +61,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ClientProtos
-import|;
-end_import
-
 begin_comment
 comment|/**  * A {@link Result} with some statistics about the server/region status  */
 end_comment
@@ -145,8 +127,6 @@ operator|)
 name|r
 decl_stmt|;
 comment|// early exit if there are no stats to collect
-name|ClientProtos
-operator|.
 name|RegionLoadStats
 name|stats
 init|=
@@ -196,8 +176,6 @@ name|byte
 index|[]
 name|regionName
 parameter_list|,
-name|ClientProtos
-operator|.
 name|RegionLoadStats
 name|stats
 parameter_list|)

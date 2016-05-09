@@ -588,6 +588,9 @@ name|result
 operator|.
 name|getForeignExceptionMessage
 argument_list|()
+operator|.
+name|getForeignExchangeMessage
+argument_list|()
 argument_list|)
 operator|.
 name|unwrapRemoteException
