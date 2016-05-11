@@ -237,7 +237,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|DefaultWALProvider
+name|FSHLogProvider
 import|;
 end_import
 
@@ -367,7 +367,7 @@ specifier|public
 class|class
 name|SequenceFileLogWriter
 implements|implements
-name|DefaultWALProvider
+name|FSHLogProvider
 operator|.
 name|Writer
 block|{

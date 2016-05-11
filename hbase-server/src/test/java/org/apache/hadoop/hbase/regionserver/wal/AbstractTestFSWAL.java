@@ -589,7 +589,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 import|;
 end_import
 
@@ -1504,7 +1504,7 @@ literal|true
 argument_list|,
 literal|null
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|META_WAL_PROVIDER_ID
 argument_list|)

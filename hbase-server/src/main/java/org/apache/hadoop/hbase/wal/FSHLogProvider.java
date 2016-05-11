@@ -214,7 +214,7 @@ operator|.
 name|Evolving
 specifier|public
 class|class
-name|DefaultWALProvider
+name|FSHLogProvider
 extends|extends
 name|AbstractFSWALProvider
 argument_list|<
@@ -231,7 +231,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|DefaultWALProvider
+name|FSHLogProvider
 operator|.
 name|class
 argument_list|)

@@ -1173,7 +1173,7 @@ specifier|final
 name|Path
 name|walPath
 init|=
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getCurrentFileName
 argument_list|(

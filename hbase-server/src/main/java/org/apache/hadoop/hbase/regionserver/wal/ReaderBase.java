@@ -203,7 +203,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 import|;
 end_import
 
@@ -246,7 +246,7 @@ specifier|abstract
 class|class
 name|ReaderBase
 implements|implements
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|Reader
 block|{

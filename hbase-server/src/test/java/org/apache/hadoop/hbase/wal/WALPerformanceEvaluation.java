@@ -2749,7 +2749,7 @@ name|getConf
 argument_list|()
 argument_list|)
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getWALDirectoryName
 argument_list|(
@@ -3775,7 +3775,7 @@ expr_stmt|;
 comment|// We used to do explicit call to rollWriter but changed it to a request
 comment|// to avoid dead lock (there are less threads going on in this class than
 comment|// in the regionserver -- regionserver does not have the issue).
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|requestLogRoll
 argument_list|(

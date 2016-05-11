@@ -139,6 +139,20 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -669,21 +683,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|DefaultWALProvider
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
+name|AbstractFSWALProvider
 import|;
 end_import
 
@@ -1052,7 +1052,7 @@ name|filter
 argument_list|)
 return|;
 block|}
-comment|/**    * Get a list of paths that need to be split given a set of server-specific directories and    * optionally  a filter.    *    * See {@link DefaultWALProvider#getServerNameFromWALDirectoryName} for more info on directory    * layout.    *    * Should be package-private, but is needed by    * {@link org.apache.hadoop.hbase.wal.WALSplitter#split(Path, Path, Path, FileSystem,    *     Configuration, WALFactory)} for tests.    */
+comment|/**    * Get a list of paths that need to be split given a set of server-specific directories and    * optionally  a filter.    *    * See {@link AbstractFSWALProvider#getServerNameFromWALDirectoryName} for more info on directory    * layout.    *    * Should be package-private, but is needed by    * {@link org.apache.hadoop.hbase.wal.WALSplitter#split(Path, Path, Path, FileSystem,    *     Configuration, org.apache.hadoop.hbase.wal.WALFactory)} for tests.    */
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -1298,7 +1298,7 @@ block|{
 name|ServerName
 name|serverName
 init|=
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getServerNameFromWALDirectoryName
 argument_list|(

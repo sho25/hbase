@@ -341,7 +341,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 import|;
 end_import
 
@@ -409,7 +409,7 @@ name|p
 parameter_list|)
 block|{
 return|return
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|isMetaFile
 argument_list|(
@@ -440,7 +440,7 @@ parameter_list|)
 block|{
 return|return
 operator|!
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|isMetaFile
 argument_list|(
@@ -976,7 +976,7 @@ specifier|final
 name|ServerName
 name|serverName
 init|=
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getServerNameFromWALDirectoryName
 argument_list|(
@@ -1383,7 +1383,7 @@ name|this
 operator|.
 name|rootDir
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getWALDirectoryName
 argument_list|(
@@ -1401,7 +1401,7 @@ name|logDir
 operator|.
 name|suffix
 argument_list|(
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|SPLITTING_EXT
 argument_list|)

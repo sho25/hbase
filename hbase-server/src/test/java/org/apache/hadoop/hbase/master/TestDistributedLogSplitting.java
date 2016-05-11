@@ -1185,7 +1185,23 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|DefaultWALProvider
+name|AbstractFSWALProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|FSHLogProvider
 import|;
 end_import
 
@@ -2080,7 +2096,7 @@ name|Path
 argument_list|(
 name|rootdir
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getWALDirectoryName
 argument_list|(
@@ -6940,7 +6956,7 @@ name|Path
 argument_list|(
 name|rootdir
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getWALDirectoryName
 argument_list|(

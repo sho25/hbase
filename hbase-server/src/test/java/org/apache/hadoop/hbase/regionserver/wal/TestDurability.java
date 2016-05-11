@@ -331,7 +331,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 import|;
 end_import
 
@@ -1821,7 +1821,7 @@ block|{
 name|Path
 name|walPath
 init|=
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getCurrentFileName
 argument_list|(

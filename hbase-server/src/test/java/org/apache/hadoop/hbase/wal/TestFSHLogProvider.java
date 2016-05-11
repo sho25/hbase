@@ -351,6 +351,28 @@ name|MultiVersionConcurrencyControl
 import|;
 end_import
 
+begin_comment
+comment|// imports for things that haven't moved from regionserver.wal yet.
+end_comment
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|WALEdit
+import|;
+end_import
+
 begin_import
 import|import
 name|org
@@ -501,28 +523,6 @@ name|TestName
 import|;
 end_import
 
-begin_comment
-comment|// imports for things that haven't moved from regionserver.wal yet.
-end_comment
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
-name|WALEdit
-import|;
-end_import
-
 begin_class
 annotation|@
 name|Category
@@ -539,7 +539,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestDefaultWALProvider
+name|TestFSHLogProvider
 block|{
 specifier|private
 specifier|static
@@ -551,7 +551,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestDefaultWALProvider
+name|TestFSHLogProvider
 operator|.
 name|class
 argument_list|)
@@ -842,7 +842,7 @@ argument_list|)
 operator|+
 literal|"/"
 operator|+
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getWALDirectoryName
 argument_list|(
@@ -855,7 +855,7 @@ decl_stmt|;
 comment|// Must not throw exception
 name|assertNull
 argument_list|(
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getServerNameFromWALDirectoryName
 argument_list|(
@@ -867,7 +867,7 @@ argument_list|)
 expr_stmt|;
 name|assertNull
 argument_list|(
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getServerNameFromWALDirectoryName
 argument_list|(
@@ -890,7 +890,7 @@ argument_list|)
 expr_stmt|;
 name|assertNull
 argument_list|(
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getServerNameFromWALDirectoryName
 argument_list|(
@@ -902,7 +902,7 @@ argument_list|)
 expr_stmt|;
 name|assertNull
 argument_list|(
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getServerNameFromWALDirectoryName
 argument_list|(
@@ -914,7 +914,7 @@ argument_list|)
 expr_stmt|;
 name|assertNull
 argument_list|(
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getServerNameFromWALDirectoryName
 argument_list|(
@@ -926,7 +926,7 @@ argument_list|)
 expr_stmt|;
 name|assertNull
 argument_list|(
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getServerNameFromWALDirectoryName
 argument_list|(
@@ -940,7 +940,7 @@ argument_list|)
 expr_stmt|;
 name|assertNull
 argument_list|(
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getServerNameFromWALDirectoryName
 argument_list|(
@@ -963,7 +963,7 @@ decl_stmt|;
 name|ServerName
 name|parsed
 init|=
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getServerNameFromWALDirectoryName
 argument_list|(
@@ -1000,7 +1000,7 @@ argument_list|)
 expr_stmt|;
 name|parsed
 operator|=
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getServerNameFromWALDirectoryName
 argument_list|(
@@ -1022,7 +1022,7 @@ argument_list|)
 expr_stmt|;
 name|parsed
 operator|=
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getServerNameFromWALDirectoryName
 argument_list|(
@@ -1446,7 +1446,7 @@ name|WALFactory
 operator|.
 name|WAL_PROVIDER
 argument_list|,
-name|DefaultWALProvider
+name|FSHLogProvider
 operator|.
 name|class
 operator|.
@@ -1561,7 +1561,7 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(
@@ -1592,7 +1592,7 @@ name|assertEquals
 argument_list|(
 literal|2
 argument_list|,
-name|DefaultWALProvider
+name|FSHLogProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(
@@ -1662,7 +1662,7 @@ name|assertEquals
 argument_list|(
 literal|3
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(
@@ -1719,7 +1719,7 @@ name|assertEquals
 argument_list|(
 literal|2
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(
@@ -1777,7 +1777,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(
@@ -1974,7 +1974,7 @@ name|WALFactory
 operator|.
 name|WAL_PROVIDER
 argument_list|,
-name|DefaultWALProvider
+name|FSHLogProvider
 operator|.
 name|class
 operator|.
@@ -2018,7 +2018,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(
@@ -2106,7 +2106,7 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(
@@ -2138,7 +2138,7 @@ name|assertEquals
 argument_list|(
 literal|2
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(
@@ -2185,7 +2185,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(
@@ -2216,7 +2216,7 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(
@@ -2247,7 +2247,7 @@ name|assertEquals
 argument_list|(
 literal|2
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(
@@ -2298,7 +2298,7 @@ name|assertEquals
 argument_list|(
 literal|2
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(
@@ -2344,7 +2344,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(
@@ -2452,7 +2452,7 @@ name|WALFactory
 operator|.
 name|WAL_PROVIDER
 argument_list|,
-name|DefaultWALProvider
+name|FSHLogProvider
 operator|.
 name|class
 operator|.

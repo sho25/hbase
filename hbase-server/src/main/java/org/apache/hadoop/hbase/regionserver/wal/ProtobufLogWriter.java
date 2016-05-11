@@ -191,7 +191,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|DefaultWALProvider
+name|FSHLogProvider
 import|;
 end_import
 
@@ -228,7 +228,7 @@ name|ProtobufLogWriter
 extends|extends
 name|AbstractProtobufLogWriter
 implements|implements
-name|DefaultWALProvider
+name|FSHLogProvider
 operator|.
 name|Writer
 block|{

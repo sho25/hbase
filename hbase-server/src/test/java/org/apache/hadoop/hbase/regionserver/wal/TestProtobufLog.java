@@ -105,7 +105,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|DefaultWALProvider
+name|FSHLogProvider
 import|;
 end_import
 
@@ -195,7 +195,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|DefaultWALProvider
+name|FSHLogProvider
 operator|.
 name|createWriter
 argument_list|(

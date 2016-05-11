@@ -123,7 +123,7 @@ specifier|public
 class|class
 name|TestDefaultWALProviderWithHLogKey
 extends|extends
-name|TestDefaultWALProvider
+name|TestFSHLogProvider
 block|{
 annotation|@
 name|Override

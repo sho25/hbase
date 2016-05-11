@@ -112,7 +112,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The Write Ahead Log (WAL) stores all durable edits to the HRegion.  * This interface provides the entry point for all WAL implementors.  *<p>  * See {@link DefaultWALProvider} for an example implementation.  *  * A single WALProvider will be used for retrieving multiple WALs in a particular region server  * and must be threadsafe.  */
+comment|/**  * The Write Ahead Log (WAL) stores all durable edits to the HRegion.  * This interface provides the entry point for all WAL implementors.  *<p>  * See {@link FSHLogProvider} for an example implementation.  *  * A single WALProvider will be used for retrieving multiple WALs in a particular region server  * and must be threadsafe.  */
 end_comment
 
 begin_interface

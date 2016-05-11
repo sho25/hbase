@@ -269,7 +269,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 import|;
 end_import
 
@@ -1566,7 +1566,7 @@ block|{
 name|ServerName
 name|sn
 init|=
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getServerNameFromWALDirectoryName
 argument_list|(

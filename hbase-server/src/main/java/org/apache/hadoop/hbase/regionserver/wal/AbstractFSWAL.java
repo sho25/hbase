@@ -4334,6 +4334,35 @@ expr_stmt|;
 block|}
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+operator|+
+literal|" "
+operator|+
+name|walFilePrefix
+operator|+
+literal|":"
+operator|+
+name|walFileSuffix
+operator|+
+literal|"(num "
+operator|+
+name|filenum
+operator|+
+literal|")"
+return|;
+block|}
 comment|/**    * NOTE: This append, at a time that is usually after this call returns, starts an mvcc    * transaction by calling 'begin' wherein which we assign this update a sequenceid. At assignment    * time, we stamp all the passed in Cells inside WALEdit with their sequenceId. You must    * 'complete' the transaction this mvcc transaction by calling    * MultiVersionConcurrencyControl#complete(...) or a variant otherwise mvcc will get stuck. Do it    * in the finally of a try/finally block within which this append lives and any subsequent    * operations like sync or update of memstore, etc. Get the WriteEntry to pass mvcc out of the    * passed in WALKey<code>walKey</code> parameter. Be warned that the WriteEntry is not    * immediately available on return from this method. It WILL be available subsequent to a sync of    * this append; otherwise, you will just have to wait on the WriteEntry to get filled in.    */
 annotation|@
 name|Override

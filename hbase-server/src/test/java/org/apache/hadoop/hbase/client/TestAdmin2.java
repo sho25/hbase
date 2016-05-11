@@ -561,7 +561,23 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|DefaultWALProvider
+name|AbstractFSWALProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|FSHLogProvider
 import|;
 end_import
 
@@ -3405,7 +3421,7 @@ name|info
 argument_list|(
 literal|"after writing there are "
 operator|+
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(
@@ -3453,7 +3469,7 @@ expr_stmt|;
 name|int
 name|count
 init|=
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(

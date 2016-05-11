@@ -21,6 +21,22 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ThreadFactoryBuilder
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -561,23 +577,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|DefaultWALProvider
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ThreadFactoryBuilder
+name|AbstractFSWALProvider
 import|;
 end_import
 
@@ -1109,7 +1109,7 @@ block|{
 name|String
 name|logPrefix
 init|=
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getWALPrefixFromWALName
 argument_list|(
@@ -1597,7 +1597,7 @@ decl_stmt|;
 name|String
 name|walPrefix
 init|=
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getWALPrefixFromWALName
 argument_list|(
@@ -1895,7 +1895,7 @@ decl_stmt|;
 name|String
 name|logPrefix
 init|=
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getWALPrefixFromWALName
 argument_list|(
@@ -1988,7 +1988,7 @@ decl_stmt|;
 name|String
 name|logPrefix
 init|=
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getWALPrefixFromWALName
 argument_list|(
@@ -3437,7 +3437,7 @@ block|{
 name|String
 name|walPrefix
 init|=
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getWALPrefixFromWALName
 argument_list|(

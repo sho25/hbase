@@ -390,12 +390,12 @@ name|Providers
 block|{
 name|defaultProvider
 parameter_list|(
-name|DefaultWALProvider
+name|FSHLogProvider
 operator|.
 name|class
 parameter_list|)
 operator|,
-constructor|filesystem(DefaultWALProvider.class
+constructor|filesystem(FSHLogProvider.class
 block|)
 enum|,
 name|multiwal
@@ -546,7 +546,7 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|Reader
 argument_list|>
@@ -613,7 +613,7 @@ name|ProtobufLogReader
 operator|.
 name|class
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|Reader
 operator|.
@@ -640,6 +640,9 @@ block|}
 end_constructor
 
 begin_function
+annotation|@
+name|VisibleForTesting
+specifier|public
 name|Class
 argument_list|<
 name|?
@@ -691,9 +694,11 @@ name|getClass
 argument_list|(
 name|key
 argument_list|,
-name|DefaultWALProvider
+name|Providers
 operator|.
-name|class
+name|defaultProvider
+operator|.
+name|clazz
 argument_list|,
 name|WALProvider
 operator|.
@@ -946,7 +951,7 @@ name|ProtobufLogReader
 operator|.
 name|class
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|Reader
 operator|.
@@ -1244,7 +1249,7 @@ name|MetricsWAL
 argument_list|()
 argument_list|)
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|META_WAL_PROVIDER_ID
 argument_list|)
@@ -1396,7 +1401,7 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|Reader
 argument_list|>
@@ -1457,7 +1462,7 @@ name|class
 condition|)
 block|{
 comment|// User is overriding the WAL reader, let them.
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|Reader
 name|reader
@@ -1540,7 +1545,7 @@ operator|.
 name|PB_WAL_MAGIC
 argument_list|)
 decl_stmt|;
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|Reader
 name|reader
@@ -1853,7 +1858,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|DefaultWALProvider
+name|FSHLogProvider
 operator|.
 name|createWriter
 argument_list|(
@@ -1892,7 +1897,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|DefaultWALProvider
+name|FSHLogProvider
 operator|.
 name|createWriter
 argument_list|(
@@ -2213,7 +2218,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|DefaultWALProvider
+name|FSHLogProvider
 operator|.
 name|createWriter
 argument_list|(
@@ -2257,7 +2262,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|DefaultWALProvider
+name|FSHLogProvider
 operator|.
 name|createWriter
 argument_list|(

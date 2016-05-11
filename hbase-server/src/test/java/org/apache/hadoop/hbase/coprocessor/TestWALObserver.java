@@ -585,7 +585,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 import|;
 end_import
 
@@ -1176,7 +1176,7 @@ name|this
 operator|.
 name|hbaseRootDir
 argument_list|,
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|getWALDirectoryName
 argument_list|(

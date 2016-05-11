@@ -111,27 +111,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|After
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|AfterClass
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|Before
 import|;
 end_import
 
@@ -335,26 +315,6 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * @throws java.lang.Exception    */
-annotation|@
-name|Before
-specifier|public
-name|void
-name|setUp
-parameter_list|()
-throws|throws
-name|Exception
-block|{   }
-comment|/**    * @throws java.lang.Exception    */
-annotation|@
-name|After
-specifier|public
-name|void
-name|tearDown
-parameter_list|()
-throws|throws
-name|Exception
-block|{   }
 comment|/**    * Test the whole reconstruction loop. Build a table with regions aaa to zzz    * and load every one of them multiple times with the same date and do a flush    * at some point. Kill one of the region servers and scan the table. We should    * see all the rows.    * @throws Exception    */
 annotation|@
 name|Test

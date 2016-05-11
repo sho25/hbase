@@ -190,7 +190,7 @@ block|{
 name|Configuration
 name|conf
 init|=
-name|TestWALReplay
+name|AbstractTestWALReplay
 operator|.
 name|TEST_UTIL
 operator|.

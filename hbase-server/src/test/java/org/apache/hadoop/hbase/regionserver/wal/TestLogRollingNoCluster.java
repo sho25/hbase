@@ -519,6 +519,17 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|conf
+operator|.
+name|set
+argument_list|(
+name|WALFactory
+operator|.
+name|WAL_PROVIDER
+argument_list|,
+literal|"filesystem"
+argument_list|)
+expr_stmt|;
 name|FSUtils
 operator|.
 name|setRootDir

@@ -463,7 +463,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 import|;
 end_import
 
@@ -2223,7 +2223,7 @@ control|)
 block|{
 if|if
 condition|(
-name|DefaultWALProvider
+name|AbstractFSWALProvider
 operator|.
 name|isMetaFile
 argument_list|(

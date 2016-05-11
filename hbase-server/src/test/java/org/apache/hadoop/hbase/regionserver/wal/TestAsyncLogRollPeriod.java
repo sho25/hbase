@@ -123,7 +123,7 @@ specifier|public
 class|class
 name|TestAsyncLogRollPeriod
 extends|extends
-name|TestLogRollPeriod
+name|AbstractTestLogRollPeriod
 block|{
 annotation|@
 name|BeforeClass
@@ -138,7 +138,7 @@ block|{
 name|Configuration
 name|conf
 init|=
-name|TestLogRollPeriod
+name|AbstractTestLogRollPeriod
 operator|.
 name|TEST_UTIL
 operator|.
@@ -156,7 +156,7 @@ argument_list|,
 literal|"asyncfs"
 argument_list|)
 expr_stmt|;
-name|TestLogRollPeriod
+name|AbstractTestLogRollPeriod
 operator|.
 name|setUpBeforeClass
 argument_list|()
