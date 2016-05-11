@@ -15123,7 +15123,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|warn
 argument_list|(
 literal|"Client tried to access missing scanner "
 operator|+
@@ -15134,11 +15134,21 @@ throw|throw
 operator|new
 name|UnknownScannerException
 argument_list|(
-literal|"Name: "
+literal|"Unknown scanner '"
 operator|+
 name|scannerName
 operator|+
-literal|", already closed?"
+literal|"'. This can happen due to any of the following "
+operator|+
+literal|"reasons: a) Scanner id given is wrong, b) Scanner lease expired because of "
+operator|+
+literal|"long wait between consecutive client checkins, c) Server may be closing down, "
+operator|+
+literal|"d) RegionServer restart during upgrade.\nIf the issue is due to reason (b), a "
+operator|+
+literal|"possible fix would be increasing the value of"
+operator|+
+literal|"'hbase.client.scanner.timeout.period' configuration."
 argument_list|)
 throw|;
 block|}
