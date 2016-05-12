@@ -1219,6 +1219,15 @@ name|CREATE_TABLE_CONF_KEY
 init|=
 literal|"create.table"
 decl_stmt|;
+comment|// We use a '.' prefix which is ignored when walking directory trees
+comment|// above. It is invalid family name.
+specifier|final
+specifier|static
+name|String
+name|TMP_DIR
+init|=
+literal|".tmp"
+decl_stmt|;
 specifier|private
 name|int
 name|maxFilesPerRegionPerFamily
@@ -1617,6 +1626,37 @@ operator|.
 name|getBytes
 argument_list|()
 decl_stmt|;
+comment|// Skip invalid family
+try|try
+block|{
+name|HColumnDescriptor
+operator|.
+name|isLegalFamilyName
+argument_list|(
+name|familyName
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IllegalArgumentException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Skipping invalid "
+operator|+
+name|familyStat
+operator|.
+name|getPath
+argument_list|()
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 name|TFamily
 name|family
 init|=
@@ -3806,14 +3846,6 @@ name|item
 operator|.
 name|hfilePath
 decl_stmt|;
-comment|// We use a '_' prefix which is ignored when walking directory trees
-comment|// above.
-specifier|final
-name|String
-name|TMP_DIR
-init|=
-literal|"_tmp"
-decl_stmt|;
 name|Path
 name|tmpDir
 init|=
@@ -4025,6 +4057,64 @@ name|topOut
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// If the current item is already the result of previous splits,
+comment|// we don't need it anymore. Clean up to save space.
+comment|// It is not part of the original input files.
+try|try
+block|{
+name|tmpDir
+operator|=
+name|item
+operator|.
+name|hfilePath
+operator|.
+name|getParent
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|tmpDir
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|TMP_DIR
+argument_list|)
+condition|)
+block|{
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|item
+operator|.
+name|hfilePath
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unable to delete temporary split file "
+operator|+
+name|item
+operator|.
+name|hfilePath
+argument_list|)
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
