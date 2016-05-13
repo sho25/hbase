@@ -3879,13 +3879,11 @@ control|)
 block|{
 if|if
 condition|(
-name|user
-operator|.
-name|startsWith
-argument_list|(
 name|AuthUtil
 operator|.
-name|GROUP_PREFIX
+name|isGroupPrincipal
+argument_list|(
+name|user
 argument_list|)
 condition|)
 block|{

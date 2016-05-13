@@ -934,9 +934,8 @@ block|{
 name|ChoreService
 name|service
 init|=
+operator|new
 name|ChoreService
-operator|.
-name|getInstance
 argument_list|(
 literal|"testInitialChorePrecedence"
 argument_list|)
@@ -1074,9 +1073,8 @@ decl_stmt|;
 name|ChoreService
 name|service
 init|=
+operator|new
 name|ChoreService
-operator|.
-name|getInstance
 argument_list|(
 literal|"testCancelChore"
 argument_list|)
@@ -1457,9 +1455,8 @@ decl_stmt|;
 name|ChoreService
 name|service
 init|=
+operator|new
 name|ChoreService
-operator|.
-name|getInstance
 argument_list|(
 literal|"testFrequencyOfChores"
 argument_list|)
@@ -1596,9 +1593,8 @@ decl_stmt|;
 name|ChoreService
 name|service
 init|=
+operator|new
 name|ChoreService
-operator|.
-name|getInstance
 argument_list|(
 literal|"testForceTrigger"
 argument_list|)
@@ -3632,9 +3628,8 @@ block|{
 name|ChoreService
 name|service
 init|=
+operator|new
 name|ChoreService
-operator|.
-name|getInstance
 argument_list|(
 literal|"testStopperForScheduledChores"
 argument_list|)

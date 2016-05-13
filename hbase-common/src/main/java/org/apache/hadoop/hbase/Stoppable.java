@@ -55,21 +55,16 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|LimitedPrivate
-argument_list|(
-name|HBaseInterfaceAudience
-operator|.
-name|COPROC
-argument_list|)
+name|Public
 annotation|@
 name|InterfaceStability
 operator|.
-name|Evolving
+name|Stable
 specifier|public
 interface|interface
 name|Stoppable
 block|{
-comment|/**    * Stop this service.    * @param why Why we're stopping.    */
+comment|/**    * Stop this service.    * Implementers should favor logging errors over throwing RuntimeExceptions.    * @param why Why we're stopping.    */
 name|void
 name|stop
 parameter_list|(

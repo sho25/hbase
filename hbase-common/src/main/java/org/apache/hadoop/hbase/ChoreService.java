@@ -181,6 +181,22 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
 begin_comment
 comment|/**  * ChoreService is a service that can be used to schedule instances of {@link ScheduledChore} to run  * periodically while sharing threads. The ChoreService is backed by a  * {@link ScheduledThreadPoolExecutor} whose core pool size changes dynamically depending on the  * number of {@link ScheduledChore} scheduled. All of the threads in the core thread pool of the  * underlying {@link ScheduledThreadPoolExecutor} are set to be daemon threads.  *<p>  * The ChoreService provides the ability to schedule, cancel, and trigger instances of  * {@link ScheduledChore}. The ChoreService also provides the ability to check on the status of  * scheduled chores. The number of threads used by the ChoreService changes based on the scheduling  * load and whether or not the scheduled chores are executing on time. As more chores are scheduled,  * there may be a need to increase the number of threads if it is noticed that chores are no longer  * meeting their scheduled start times. On the other hand, as chores are cancelled, an attempt is  * made to reduce the number of running threads to see if chores can still meet their start times  * with a smaller thread pool.  *<p>  * When finished with a ChoreService it is good practice to call {@link ChoreService#shutdown()}.  * Calling this method ensures that all scheduled chores are cancelled and cleaned up properly.  */
 end_comment
@@ -189,7 +205,11 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 class|class
 name|ChoreService
@@ -212,6 +232,10 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|/**    * The minimum number of threads in the core pool of the underlying ScheduledThreadPoolExecutor    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|final
 specifier|static
@@ -259,6 +283,10 @@ name|coreThreadPoolPrefix
 decl_stmt|;
 comment|/**    *    * @param coreThreadPoolPrefix Prefix that will be applied to the Thread name of all threads    *          spawned by this service    */
 annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+annotation|@
 name|VisibleForTesting
 specifier|public
 name|ChoreService
@@ -278,7 +306,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param jitter Should chore service add some jitter for all of the scheduled chores. When set    *               to true this will add -10% to 10% jitter.    */
+comment|/**    * @param coreThreadPoolPrefix Prefix that will be applied to the Thread name of all threads    *          spawned by this service    * @param jitter Should chore service add some jitter for all of the scheduled chores. When set    *               to true this will add -10% to 10% jitter.    */
 specifier|public
 name|ChoreService
 parameter_list|(
@@ -301,7 +329,7 @@ name|jitter
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param coreThreadPoolPrefix Prefix that will be applied to the Thread name of all threads    *          spawned by this service    * @param corePoolSize The initial size to set the core pool of the ScheduledThreadPoolExecutor     *          to during initialization. The default size is 1, but specifying a larger size may be    *          beneficial if you know that 1 thread will not be enough.    */
+comment|/**    * @param coreThreadPoolPrefix Prefix that will be applied to the Thread name of all threads    *          spawned by this service    * @param corePoolSize The initial size to set the core pool of the ScheduledThreadPoolExecutor     *          to during initialization. The default size is 1, but specifying a larger size may be    *          beneficial if you know that 1 thread will not be enough.    * @param jitter Should chore service add some jitter for all of the scheduled chores. When set    *               to true this will add -10% to 10% jitter.    */
 specifier|public
 name|ChoreService
 parameter_list|(
@@ -407,25 +435,6 @@ name|Boolean
 argument_list|>
 argument_list|()
 expr_stmt|;
-block|}
-comment|/**    * @param coreThreadPoolPrefix Prefix that will be applied to the Thread name of all threads    *          spawned by this service    */
-specifier|public
-specifier|static
-name|ChoreService
-name|getInstance
-parameter_list|(
-specifier|final
-name|String
-name|coreThreadPoolPrefix
-parameter_list|)
-block|{
-return|return
-operator|new
-name|ChoreService
-argument_list|(
-name|coreThreadPoolPrefix
-argument_list|)
-return|;
 block|}
 comment|/**    * @param chore Chore to be scheduled. If the chore is already scheduled with another ChoreService    *          instance, that schedule will be cancelled (i.e. a Chore can only ever be scheduled    *          with a single ChoreService instance).    * @return true when the chore was successfully scheduled. false when the scheduling failed    *         (typically occurs when a chore is scheduled during shutdown of service)    */
 specifier|public
@@ -585,6 +594,10 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+annotation|@
 name|Override
 specifier|public
 specifier|synchronized
@@ -603,6 +616,10 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 annotation|@
 name|Override
 specifier|public
@@ -684,6 +701,10 @@ block|}
 block|}
 block|}
 annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+annotation|@
 name|Override
 specifier|public
 specifier|synchronized
@@ -718,6 +739,10 @@ name|isDone
 argument_list|()
 return|;
 block|}
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 annotation|@
 name|Override
 specifier|public
@@ -958,6 +983,10 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 annotation|@
 name|Override
 specifier|public

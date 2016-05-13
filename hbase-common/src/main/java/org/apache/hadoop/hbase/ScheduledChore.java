@@ -85,6 +85,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -105,7 +121,11 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 specifier|abstract
 class|class
@@ -256,6 +276,12 @@ parameter_list|)
 function_decl|;
 block|}
 comment|/**    * This constructor is for test only. It allows us to create an object and to call chore() on it.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+annotation|@
+name|VisibleForTesting
 specifier|protected
 name|ScheduledChore
 parameter_list|()
@@ -414,7 +440,7 @@ operator|=
 name|unit
 expr_stmt|;
 block|}
-comment|/**    * @see java.lang.Thread#run()    */
+comment|/**    * @see java.lang.Runnable#run()    */
 annotation|@
 name|Override
 specifier|public
@@ -908,6 +934,10 @@ argument_list|)
 return|;
 block|}
 annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+annotation|@
 name|VisibleForTesting
 specifier|public
 specifier|synchronized
@@ -944,6 +974,11 @@ name|void
 name|cleanup
 parameter_list|()
 block|{   }
+comment|/**    * A summation of this chore in human readable format. Downstream users should not presume    * parsing of this string can relaibly be done between versions. Instead, they should rely    * on the public accessor methods to get the information they desire.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 annotation|@
 name|Override
 specifier|public
