@@ -62,6 +62,29 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"NM_SAME_SIMPLE_NAME_AS_INTERFACE"
+argument_list|,
+name|justification
+operator|=
+literal|"Agree that this can be confusing but folks will pull in this and think twice "
+operator|+
+literal|"about pulling in netty; incidence of confusion should be rare in this case."
+argument_list|)
 specifier|public
 interface|interface
 name|Future
@@ -81,7 +104,7 @@ name|Future
 argument_list|<
 name|V
 argument_list|>
-block|{  }
+block|{ }
 end_interface
 
 end_unit
