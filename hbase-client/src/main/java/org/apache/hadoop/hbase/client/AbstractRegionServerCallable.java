@@ -406,7 +406,6 @@ name|int
 name|tries
 parameter_list|)
 block|{
-comment|// Tries hasn't been bumped up yet so we use "tries + 1" to get right pause time
 name|long
 name|sleep
 init|=
@@ -417,8 +416,6 @@ argument_list|(
 name|pause
 argument_list|,
 name|tries
-operator|+
-literal|1
 argument_list|)
 decl_stmt|;
 if|if

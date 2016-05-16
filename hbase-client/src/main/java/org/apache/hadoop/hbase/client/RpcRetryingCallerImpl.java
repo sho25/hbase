@@ -684,7 +684,7 @@ throw|;
 block|}
 comment|// If the server is dead, we need to wait a little before retrying, to give
 comment|//  a chance to the regions to be
-comment|// tries hasn't been bumped up yet so we use "tries + 1" to get right pause time
+comment|// get right pause time, start by RETRY_BACKOFF[0] * pause
 name|expectedSleep
 operator|=
 name|callable
@@ -694,8 +694,6 @@ argument_list|(
 name|pause
 argument_list|,
 name|tries
-operator|+
-literal|1
 argument_list|)
 expr_stmt|;
 comment|// If, after the planned sleep, there won't be enough time left, we stop now.
