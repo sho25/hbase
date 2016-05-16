@@ -61,16 +61,6 @@ end_import
 
 begin_import
 import|import
-name|junit
-operator|.
-name|framework
-operator|.
-name|TestCase
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -122,6 +112,20 @@ operator|.
 name|fs
 operator|.
 name|Path
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CategoryBasedTimeout
 import|;
 end_import
 
@@ -453,11 +457,113 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Before
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestRule
 import|;
 end_import
 
@@ -574,8 +680,6 @@ argument_list|)
 specifier|public
 class|class
 name|TestDefaultMemStore
-extends|extends
-name|TestCase
 block|{
 specifier|private
 specifier|static
@@ -592,11 +696,49 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
-name|DefaultMemStore
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+specifier|final
+name|TestRule
+name|timeout
+init|=
+name|CategoryBasedTimeout
+operator|.
+name|builder
+argument_list|()
+operator|.
+name|withTimeout
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+argument_list|)
+operator|.
+name|withLookingForStuckThread
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
+specifier|protected
+name|AbstractMemStore
 name|memstore
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|int
@@ -604,7 +746,7 @@ name|ROW_COUNT
 init|=
 literal|10
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|int
@@ -612,7 +754,7 @@ name|QUALIFIER_COUNT
 init|=
 name|ROW_COUNT
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|byte
@@ -626,11 +768,11 @@ argument_list|(
 literal|"column"
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 name|MultiVersionConcurrencyControl
 name|mvcc
 decl_stmt|;
-specifier|private
+specifier|protected
 name|AtomicLong
 name|startSeqNum
 init|=
@@ -640,8 +782,22 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+specifier|private
+name|String
+name|getName
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+return|;
+block|}
 annotation|@
-name|Override
+name|Before
 specifier|public
 name|void
 name|setUp
@@ -649,17 +805,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|mvcc
-operator|=
-operator|new
-name|MultiVersionConcurrencyControl
+name|internalSetUp
 argument_list|()
 expr_stmt|;
 name|this
@@ -671,6 +817,24 @@ name|DefaultMemStore
 argument_list|()
 expr_stmt|;
 block|}
+specifier|protected
+name|void
+name|internalSetUp
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+name|this
+operator|.
+name|mvcc
+operator|=
+operator|new
+name|MultiVersionConcurrencyControl
+argument_list|()
+expr_stmt|;
+block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testPutSameKey
@@ -799,6 +963,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test memstore snapshot happening while scanning.    * @throws IOException    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanAcrossSnapshot
@@ -1321,6 +1487,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * A simple test which verifies the 3 possible states when scanning across snapshot.    * @throws IOException    * @throws CloneNotSupportedException    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanAcrossSnapshot2
@@ -1519,7 +1687,7 @@ name|kv2
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 name|void
 name|verifyScanAcrossSnapshot2
 parameter_list|(
@@ -1614,7 +1782,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 name|void
 name|assertScannerResults
 parameter_list|(
@@ -1736,6 +1904,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMemstoreConcurrentControl
@@ -2025,6 +2195,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Regression test for HBASE-2616, HBASE-2670.    * When we insert a higher-memstoreTS version of a cell but with    * the same timestamp, we still need to provide consistent reads    * for the same scanner.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMemstoreEditsVisibilityWithSameKey
@@ -2377,6 +2549,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * When we insert a higher-memstoreTS deletion of a cell but with    * the same timestamp, we still need to provide consistent reads    * for the same scanner.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMemstoreDeletesVisibilityWithSameKey
@@ -2987,6 +3161,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testReadOwnWritesUnderConcurrency
@@ -3110,6 +3286,8 @@ throw|;
 block|}
 block|}
 comment|/**    * Test memstore snapshots    * @throws IOException    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSnapshotting
@@ -3172,6 +3350,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMultipleVersionsSimple
@@ -3385,6 +3565,8 @@ comment|////////////////////////////////////////////////////////////////////////
 comment|// Get tests
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/** Test getNextRow from memstore    * @throws InterruptedException    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGetNextRow
@@ -3417,9 +3599,14 @@ expr_stmt|;
 name|Cell
 name|closestToEmpty
 init|=
+operator|(
+operator|(
+name|DefaultMemStore
+operator|)
 name|this
 operator|.
 name|memstore
+operator|)
 operator|.
 name|getNextRow
 argument_list|(
@@ -3476,9 +3663,14 @@ block|{
 name|Cell
 name|nr
 init|=
+operator|(
+operator|(
+name|DefaultMemStore
+operator|)
 name|this
 operator|.
 name|memstore
+operator|)
 operator|.
 name|getNextRow
 argument_list|(
@@ -3615,6 +3807,8 @@ name|ScanType
 operator|.
 name|USER_SCAN
 decl_stmt|;
+try|try
+init|(
 name|InternalScanner
 name|scanner
 init|=
@@ -3645,7 +3839,8 @@ argument_list|(
 literal|0
 argument_list|)
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -3786,6 +3981,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
+block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGet_memstoreAndSnapShot
@@ -4017,6 +4215,8 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Delete tests
 comment|//////////////////////////////////////////////////////////////////////////////
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGetWithDelete
@@ -4293,6 +4493,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGetWithDeleteColumn
@@ -4569,6 +4771,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGetWithDeleteFamily
@@ -4873,6 +5077,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testKeepDeleteInmemstore
@@ -5006,6 +5212,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testRetainsDeleteVersion
@@ -5093,6 +5301,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testRetainsDeleteColumn
@@ -5180,6 +5390,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testRetainsDeleteFamily
@@ -5271,6 +5483,8 @@ comment|////////////////////////////////////
 comment|//Test for upsert with MSLAB
 comment|////////////////////////////////////
 comment|/**    * Test a pathological pattern that shows why we can't currently    * use the MSLAB for upsert workloads. This test inserts data    * in the following pattern:    *    * - row0001 through row1000 (fills up one 2M Chunk)    * - row0002 through row1001 (fills up another 2M chunk, leaves one reference    *   to the first chunk    * - row0003 through row1002 (another chunk, another dangling reference)    *    * This causes OOME pretty quickly if we use MSLAB for upsert    * since each 2M chunk is held onto by a single reference.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testUpsertMSLAB
@@ -5555,6 +5769,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Add keyvalues with a fixed memstoreTs, and checks that memstore size is decreased    * as older keyvalues are deleted from the memstore.    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testUpsertMemstoreSize
@@ -5823,6 +6039,8 @@ comment|// Test for periodic memstore flushes
 comment|// based on time of oldest edit
 comment|////////////////////////////////////
 comment|/**    * Tests that the timeOfOldestEdit is updated correctly for the    * various edit operations in memstore.    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testUpdateToTimeOfOldestEdit
@@ -6036,6 +6254,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Tests the HRegion.shouldFlush method - adds an edit in the memstore    * and checks that shouldFlush returns true, and another where it disables    * the periodic flush functionality and tests whether shouldFlush returns    * false.    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testShouldFlush
@@ -6088,7 +6308,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 name|void
 name|checkShouldFlush
 parameter_list|(
@@ -6220,14 +6440,13 @@ argument_list|()
 decl_stmt|;
 name|assertTrue
 argument_list|(
+operator|!
 name|region
 operator|.
 name|shouldFlush
 argument_list|(
 name|sb
 argument_list|)
-operator|==
-literal|false
 argument_list|)
 expr_stmt|;
 name|edge
@@ -6261,6 +6480,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testShouldFlushMeta
@@ -6575,12 +6796,12 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Adds {@link #ROW_COUNT} rows and {@link #QUALIFIER_COUNT}    * @param hmc Instance to add rows to.    * @return How many rows we added.    * @throws IOException    */
-specifier|private
+specifier|protected
 name|int
 name|addRows
 parameter_list|(
 specifier|final
-name|MemStore
+name|AbstractMemStore
 name|hmc
 parameter_list|)
 block|{
@@ -6596,7 +6817,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Adds {@link #ROW_COUNT} rows and {@link #QUALIFIER_COUNT}    * @param hmc Instance to add rows to.    * @return How many rows we added.    * @throws IOException    */
-specifier|private
+specifier|protected
 name|int
 name|addRows
 parameter_list|(
@@ -6707,7 +6928,7 @@ name|long
 name|runSnapshot
 parameter_list|(
 specifier|final
-name|DefaultMemStore
+name|AbstractMemStore
 name|hmc
 parameter_list|)
 throws|throws

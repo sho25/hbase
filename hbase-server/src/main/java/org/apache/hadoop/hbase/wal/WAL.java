@@ -19,6 +19,20 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -219,20 +233,6 @@ name|WALEdit
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
 begin_comment
 comment|/**  * A Write Ahead Log (WAL) provides service for reading, writing waledits. This interface provides  * APIs for WAL users (such as RegionServer) to use the WAL (do append, sync, etc).  *  * Note that some internals, such as log rolling and performance evaluation tools, will use  * WAL.equals to determine if they have already seen a given WAL.  */
 end_comment
@@ -325,6 +325,25 @@ name|inMemstore
 parameter_list|)
 throws|throws
 name|IOException
+function_decl|;
+comment|/**    * updates the seuence number of a specific store.    * depending on the flag: replaces current seq number if the given seq id is bigger,    * or even if it is lower than existing one    * @param encodedRegionName    * @param familyName    * @param sequenceid    * @param onlyIfGreater    */
+name|void
+name|updateStore
+parameter_list|(
+name|byte
+index|[]
+name|encodedRegionName
+parameter_list|,
+name|byte
+index|[]
+name|familyName
+parameter_list|,
+name|Long
+name|sequenceid
+parameter_list|,
+name|boolean
+name|onlyIfGreater
+parameter_list|)
 function_decl|;
 comment|/**    * Sync what we have in the WAL.    * @throws IOException    */
 name|void

@@ -364,8 +364,6 @@ name|align
 argument_list|(
 name|FIXED_OVERHEAD
 operator|+
-literal|2
-operator|*
 operator|(
 name|ClassSize
 operator|.
@@ -510,7 +508,7 @@ comment|/**    * Updates the wal with the lowest sequence id (oldest entry) that
 specifier|public
 specifier|abstract
 name|void
-name|updateLowestUnflushedSequenceIdInWal
+name|updateLowestUnflushedSequenceIdInWAL
 parameter_list|(
 name|boolean
 name|onlyIfMoreRecent
@@ -629,20 +627,7 @@ return|return
 name|s
 return|;
 block|}
-comment|/**    * An override on snapshot so the no arg version of the method implies zero seq num,    * like for cases without wal    */
-specifier|public
-name|MemStoreSnapshot
-name|snapshot
-parameter_list|()
-block|{
-return|return
-name|snapshot
-argument_list|(
-literal|0
-argument_list|)
-return|;
-block|}
-comment|/**    * The passed snapshot was successfully persisted; it can be let go.    * @param id Id of the snapshot to clean out.    * @see MemStore#snapshot(long)    */
+comment|/**    * The passed snapshot was successfully persisted; it can be let go.    * @param id Id of the snapshot to clean out.    * @see MemStore#snapshot()    */
 annotation|@
 name|Override
 specifier|public
@@ -746,34 +731,6 @@ name|getSize
 argument_list|()
 return|;
 block|}
-comment|/**    * On flush, how much memory we will clear from the active cell set.    *    * @return size of data that is going to be flushed from active set    */
-annotation|@
-name|Override
-specifier|public
-name|long
-name|getFlushableSize
-parameter_list|()
-block|{
-name|long
-name|snapshotSize
-init|=
-name|getSnapshot
-argument_list|()
-operator|.
-name|getSize
-argument_list|()
-decl_stmt|;
-return|return
-name|snapshotSize
-operator|>
-literal|0
-condition|?
-name|snapshotSize
-else|:
-name|keySize
-argument_list|()
-return|;
-block|}
 comment|/**    * @return a list containing a single memstore scanner.    */
 annotation|@
 name|Override
@@ -849,7 +806,7 @@ control|(
 name|Segment
 name|segment
 range|:
-name|getListOfSegments
+name|getSegments
 argument_list|()
 control|)
 block|{
@@ -1722,24 +1679,11 @@ name|List
 argument_list|<
 name|Segment
 argument_list|>
-name|getListOfSegments
+name|getSegments
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-specifier|public
-name|long
-name|getActiveSize
-parameter_list|()
-block|{
-return|return
-name|getActive
-argument_list|()
-operator|.
-name|getSize
-argument_list|()
-return|;
-block|}
 block|}
 end_class
 

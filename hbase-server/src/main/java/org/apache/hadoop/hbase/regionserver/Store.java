@@ -1078,6 +1078,10 @@ name|void
 name|finalizeFlush
 parameter_list|()
 function_decl|;
+name|MemStore
+name|getMemStore
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

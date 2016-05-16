@@ -103,15 +103,7 @@ name|MemStoreSnapshot
 name|snapshot
 parameter_list|()
 function_decl|;
-comment|/**    * Creates a snapshot of the current memstore. Snapshot must be cleared by call to    * {@link #clearSnapshot(long)}.    * @param flushOpSeqId the current sequence number of the wal; to be attached to the flushed    *                     segment    * @return {@link MemStoreSnapshot}    */
-name|MemStoreSnapshot
-name|snapshot
-parameter_list|(
-name|long
-name|flushOpSeqId
-parameter_list|)
-function_decl|;
-comment|/**    * Clears the current snapshot of the Memstore.    * @param id    * @throws UnexpectedStateException    * @see #snapshot(long)    */
+comment|/**    * Clears the current snapshot of the Memstore.    * @param id    * @throws UnexpectedStateException    * @see #snapshot()    */
 name|void
 name|clearSnapshot
 parameter_list|(
@@ -212,6 +204,11 @@ function_decl|;
 comment|/**    * This method is called when it is clear that the flush to disk is completed.    * The store may do any post-flush actions at this point.    * One example is to update the wal with sequence number that is known only at the store level.    */
 name|void
 name|finalizeFlush
+parameter_list|()
+function_decl|;
+comment|/* Return true if the memstore may need some extra memory space*/
+name|boolean
+name|isSloppy
 parameter_list|()
 function_decl|;
 block|}

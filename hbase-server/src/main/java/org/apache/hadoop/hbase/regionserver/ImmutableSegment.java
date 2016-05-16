@@ -220,27 +220,6 @@ name|getMin
 argument_list|()
 return|;
 block|}
-annotation|@
-name|Override
-specifier|protected
-name|void
-name|updateMetaInfo
-parameter_list|(
-name|Cell
-name|toAdd
-parameter_list|,
-name|long
-name|s
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IllegalAccessError
-argument_list|(
-literal|"This is an immutable segment"
-argument_list|)
-throw|;
-block|}
 block|}
 end_class
 

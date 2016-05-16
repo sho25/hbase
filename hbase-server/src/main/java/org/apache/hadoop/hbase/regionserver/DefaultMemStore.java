@@ -298,16 +298,13 @@ name|LOG
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a snapshot of the current memstore.    * Snapshot must be cleared by call to {@link #clearSnapshot(long)}    * @param flushOpSeqId the sequence id that is attached to the flush operation in the wal    */
+comment|/**    * Creates a snapshot of the current memstore.    * Snapshot must be cleared by call to {@link #clearSnapshot(long)}    */
 annotation|@
 name|Override
 specifier|public
 name|MemStoreSnapshot
 name|snapshot
-parameter_list|(
-name|long
-name|flushOpSeqId
-parameter_list|)
+parameter_list|()
 block|{
 comment|// If snapshot currently has entries, then flusher failed or didn't call
 comment|// cleanup.  Log a warning.
@@ -362,9 +359,6 @@ argument_list|()
 operator|.
 name|createImmutableSegment
 argument_list|(
-name|getConfiguration
-argument_list|()
-argument_list|,
 name|getActive
 argument_list|()
 argument_list|)
@@ -398,8 +392,37 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * On flush, how much memory we will clear from the active cell set.    *    * @return size of data that is going to be flushed from active set    */
 annotation|@
 name|Override
+specifier|public
+name|long
+name|getFlushableSize
+parameter_list|()
+block|{
+name|long
+name|snapshotSize
+init|=
+name|getSnapshot
+argument_list|()
+operator|.
+name|getSize
+argument_list|()
+decl_stmt|;
+return|return
+name|snapshotSize
+operator|>
+literal|0
+condition|?
+name|snapshotSize
+else|:
+name|keySize
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+comment|/*    * Scanners are ordered from 0 (oldest) to newest in increasing order.    */
 specifier|protected
 name|List
 argument_list|<
@@ -440,6 +463,8 @@ operator|.
 name|getSegmentScanner
 argument_list|(
 name|readPt
+argument_list|,
+literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -455,6 +480,8 @@ operator|.
 name|getSegmentScanner
 argument_list|(
 name|readPt
+argument_list|,
+literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -469,7 +496,7 @@ name|List
 argument_list|<
 name|Segment
 argument_list|>
-name|getListOfSegments
+name|getSegments
 parameter_list|()
 throws|throws
 name|IOException
@@ -553,7 +580,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|updateLowestUnflushedSequenceIdInWal
+name|updateLowestUnflushedSequenceIdInWAL
 parameter_list|(
 name|boolean
 name|onlyIfMoreRecent
@@ -589,6 +616,17 @@ name|void
 name|finalizeFlush
 parameter_list|()
 block|{   }
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isSloppy
+parameter_list|()
+block|{
+return|return
+literal|false
+return|;
+block|}
 comment|/**    * Code to help figure if our approximation of object heap sizes is close    * enough.  See hbase-900.  Fills memstores then waits so user can heap    * dump and bring up resultant hprof in something like jprofiler which    * allows you get 'deep size' on objects.    * @param args main args    */
 specifier|public
 specifier|static

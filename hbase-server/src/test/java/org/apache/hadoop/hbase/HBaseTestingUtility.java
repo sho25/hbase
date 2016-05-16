@@ -6547,7 +6547,8 @@ argument_list|,
 name|splitKeys
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are
+comment|// assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tableName
@@ -6673,7 +6674,8 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are
+comment|// assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tableName
@@ -6784,7 +6786,8 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are
+comment|// assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tableName
@@ -6882,7 +6885,8 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are
+comment|// assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tableName
@@ -6956,7 +6960,8 @@ argument_list|,
 name|splitRows
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are
+comment|// assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tableName
@@ -7852,6 +7857,63 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+return|return
+name|createLocalHRegionWithInMemoryFlags
+argument_list|(
+name|tableName
+argument_list|,
+name|startKey
+argument_list|,
+name|stopKey
+argument_list|,
+name|isReadOnly
+argument_list|,
+name|durability
+argument_list|,
+name|wal
+argument_list|,
+literal|null
+argument_list|,
+name|families
+argument_list|)
+return|;
+block|}
+specifier|public
+name|HRegion
+name|createLocalHRegionWithInMemoryFlags
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|startKey
+parameter_list|,
+name|byte
+index|[]
+name|stopKey
+parameter_list|,
+name|boolean
+name|isReadOnly
+parameter_list|,
+name|Durability
+name|durability
+parameter_list|,
+name|WAL
+name|wal
+parameter_list|,
+name|boolean
+index|[]
+name|compactedMemStore
+parameter_list|,
+name|byte
+index|[]
+modifier|...
+name|families
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 name|HTableDescriptor
 name|htd
 init|=
@@ -7868,6 +7930,11 @@ argument_list|(
 name|isReadOnly
 argument_list|)
 expr_stmt|;
+name|int
+name|i
+init|=
+literal|0
+decl_stmt|;
 for|for
 control|(
 name|byte
@@ -7886,6 +7953,40 @@ argument_list|(
 name|family
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|compactedMemStore
+operator|!=
+literal|null
+operator|&&
+name|i
+operator|<
+name|compactedMemStore
+operator|.
+name|length
+condition|)
+block|{
+name|hcd
+operator|.
+name|setInMemoryCompaction
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|hcd
+operator|.
+name|setInMemoryCompaction
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+name|i
+operator|++
+expr_stmt|;
 comment|// Set default to be three versions.
 name|hcd
 operator|.
@@ -8716,7 +8817,9 @@ literal|" has a seen count of "
 operator|+
 name|count
 operator|+
-literal|" instead of "
+literal|" "
+operator|+
+literal|"instead of "
 operator|+
 name|expectedCount
 argument_list|)
@@ -14346,7 +14449,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Set maxRecoveryErrorCount in DFSClient.  In 0.20 pre-append its hard-coded to 5 and    * makes tests linger.  Here is the exception you'll see:    *<pre>    * 2010-06-15 11:52:28,511 WARN  [DataStreamer for file /hbase/.logs/wal.1276627923013 block blk_928005470262850423_1021] hdfs.DFSClient$DFSOutputStream(2657): Error Recovery for block blk_928005470262850423_1021 failed  because recovery from primary datanode 127.0.0.1:53683 failed 4 times.  Pipeline was 127.0.0.1:53687, 127.0.0.1:53683. Will retry...    *</pre>    * @param stream A DFSClient.DFSOutputStream.    * @param max    * @throws NoSuchFieldException    * @throws SecurityException    * @throws IllegalAccessException    * @throws IllegalArgumentException    */
+comment|/**    * Set maxRecoveryErrorCount in DFSClient.  In 0.20 pre-append its hard-coded to 5 and    * makes tests linger.  Here is the exception you'll see:    *<pre>    * 2010-06-15 11:52:28,511 WARN  [DataStreamer for file /hbase/.logs/wal.1276627923013 block    * blk_928005470262850423_1021] hdfs.DFSClient$DFSOutputStream(2657): Error Recovery for block    * blk_928005470262850423_1021 failed  because recovery from primary datanode 127.0.0.1:53683    * failed 4 times.  Pipeline was 127.0.0.1:53687, 127.0.0.1:53683. Will retry...    *</pre>    * @param stream A DFSClient.DFSOutputStream.    * @param max    * @throws NoSuchFieldException    * @throws SecurityException    * @throws IllegalAccessException    * @throws IllegalArgumentException    */
 end_comment
 
 begin_function

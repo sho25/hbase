@@ -200,7 +200,7 @@ name|DEFAULT_SCANNER_ORDER
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param scannerOrder see {@link KeyValueScanner#getScannerOrder()}.    */
+comment|/**    * @param scannerOrder see {@link KeyValueScanner#getScannerOrder()}.    * Scanners are ordered from 0 (oldest) to newest in increasing order.    */
 specifier|protected
 name|SegmentScanner
 parameter_list|(
@@ -492,8 +492,6 @@ name|IOException
 block|{
 name|boolean
 name|keepSeeking
-init|=
-literal|false
 decl_stmt|;
 name|Cell
 name|key

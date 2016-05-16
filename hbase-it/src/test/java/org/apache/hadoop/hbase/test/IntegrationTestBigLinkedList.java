@@ -861,7 +861,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|FlushLargeStoresPolicy
+name|FlushAllLargeStoresPolicy
 import|;
 end_import
 
@@ -9798,7 +9798,7 @@ name|FlushPolicyFactory
 operator|.
 name|HBASE_FLUSH_POLICY_KEY
 argument_list|,
-name|FlushLargeStoresPolicy
+name|FlushAllLargeStoresPolicy
 operator|.
 name|class
 operator|.

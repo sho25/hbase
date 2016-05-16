@@ -176,8 +176,6 @@ decl_stmt|;
 return|return
 name|createImmutableSegment
 argument_list|(
-name|conf
-argument_list|,
 name|segment
 argument_list|)
 return|;
@@ -210,8 +208,6 @@ decl_stmt|;
 return|return
 name|createImmutableSegment
 argument_list|(
-literal|null
-argument_list|,
 name|segment
 argument_list|)
 return|;
@@ -220,10 +216,6 @@ specifier|public
 name|ImmutableSegment
 name|createImmutableSegment
 parameter_list|(
-specifier|final
-name|Configuration
-name|conf
-parameter_list|,
 name|MutableSegment
 name|segment
 parameter_list|)

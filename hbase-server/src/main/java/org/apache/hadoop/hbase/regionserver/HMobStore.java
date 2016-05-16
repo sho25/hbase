@@ -2809,6 +2809,17 @@ name|void
 name|finalizeFlush
 parameter_list|()
 block|{   }
+annotation|@
+name|Override
+specifier|public
+name|MemStore
+name|getMemStore
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
 specifier|public
 name|void
 name|updateCellsCountCompactedToMob

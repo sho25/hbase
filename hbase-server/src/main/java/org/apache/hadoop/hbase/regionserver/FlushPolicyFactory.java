@@ -179,7 +179,7 @@ name|FlushPolicy
 argument_list|>
 name|DEFAULT_FLUSH_POLICY_CLASS
 init|=
-name|FlushLargeStoresPolicy
+name|FlushAllLargeStoresPolicy
 operator|.
 name|class
 decl_stmt|;
