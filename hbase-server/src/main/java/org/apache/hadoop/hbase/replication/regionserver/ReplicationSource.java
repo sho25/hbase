@@ -4058,7 +4058,7 @@ argument_list|(
 name|j
 argument_list|)
 operator|.
-name|getStoreFileSize
+name|getStoreFileSizeBytes
 argument_list|()
 expr_stmt|;
 block|}

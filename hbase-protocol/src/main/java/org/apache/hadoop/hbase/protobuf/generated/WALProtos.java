@@ -5232,7 +5232,7 @@ name|getWriteTime
 parameter_list|()
 function_decl|;
 comment|// optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];
-comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which      *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)      *can be read by the newer releases.      *</pre>      */
 annotation|@
 name|java
 operator|.
@@ -5243,7 +5243,7 @@ name|boolean
 name|hasClusterId
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which      *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)      *can be read by the newer releases.      *</pre>      */
 annotation|@
 name|java
 operator|.
@@ -5268,7 +5268,7 @@ name|UUID
 name|getClusterId
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which      *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)      *can be read by the newer releases.      *</pre>      */
 annotation|@
 name|java
 operator|.
@@ -6743,7 +6743,7 @@ operator|.
 name|UUID
 name|clusterId_
 decl_stmt|;
-comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which      *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)      *can be read by the newer releases.      *</pre>      */
 annotation|@
 name|java
 operator|.
@@ -6767,7 +6767,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which      *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)      *can be read by the newer releases.      *</pre>      */
 annotation|@
 name|java
 operator|.
@@ -6797,7 +6797,7 @@ return|return
 name|clusterId_
 return|;
 block|}
-comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which       *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)       *can be read by the newer releases.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>      *      *<pre>      *      *This parameter is deprecated in favor of clusters which      *contains the list of clusters that have consumed the change.      *It is retained so that the log created by earlier releases (0.94)      *can be read by the newer releases.      *</pre>      */
 annotation|@
 name|java
 operator|.
@@ -12260,7 +12260,7 @@ name|UUIDOrBuilder
 argument_list|>
 name|clusterIdBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which        *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)        *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12284,7 +12284,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which        *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)        *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12331,7 +12331,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which        *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)        *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12406,7 +12406,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which        *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)        *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12476,7 +12476,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which        *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)        *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12607,7 +12607,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which        *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)        *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12672,7 +12672,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which        *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)        *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12715,7 +12715,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which        *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)        *can be read by the newer releases.        *</pre>        */
 annotation|@
 name|java
 operator|.
@@ -12762,7 +12762,7 @@ name|clusterId_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which         *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)         *can be read by the newer releases.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.UUID cluster_id = 5 [deprecated = true];</code>        *        *<pre>        *        *This parameter is deprecated in favor of clusters which        *contains the list of clusters that have consumed the change.        *It is retained so that the log created by earlier releases (0.94)        *can be read by the newer releases.        *</pre>        */
 specifier|private
 name|com
 operator|.
@@ -37082,15 +37082,15 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional uint64 store_file_size = 4;
-comment|/**      *<code>optional uint64 store_file_size = 4;</code>      *      *<pre>      * size of store file      *</pre>      */
+comment|// optional uint64 store_file_size_bytes = 4;
+comment|/**      *<code>optional uint64 store_file_size_bytes = 4;</code>      *      *<pre>      * size of store file      *</pre>      */
 name|boolean
-name|hasStoreFileSize
+name|hasStoreFileSizeBytes
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional uint64 store_file_size = 4;</code>      *      *<pre>      * size of store file      *</pre>      */
+comment|/**      *<code>optional uint64 store_file_size_bytes = 4;</code>      *      *<pre>      * size of store file      *</pre>      */
 name|long
-name|getStoreFileSize
+name|getStoreFileSizeBytes
 parameter_list|()
 function_decl|;
 block|}
@@ -37435,7 +37435,7 @@ name|bitField0_
 operator||=
 literal|0x00000004
 expr_stmt|;
-name|storeFileSize_
+name|storeFileSizeBytes_
 operator|=
 name|input
 operator|.
@@ -38112,23 +38112,23 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional uint64 store_file_size = 4;
+comment|// optional uint64 store_file_size_bytes = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|STORE_FILE_SIZE_FIELD_NUMBER
+name|STORE_FILE_SIZE_BYTES_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
 specifier|private
 name|long
-name|storeFileSize_
+name|storeFileSizeBytes_
 decl_stmt|;
-comment|/**      *<code>optional uint64 store_file_size = 4;</code>      *      *<pre>      * size of store file      *</pre>      */
+comment|/**      *<code>optional uint64 store_file_size_bytes = 4;</code>      *      *<pre>      * size of store file      *</pre>      */
 specifier|public
 name|boolean
-name|hasStoreFileSize
+name|hasStoreFileSizeBytes
 parameter_list|()
 block|{
 return|return
@@ -38143,14 +38143,14 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional uint64 store_file_size = 4;</code>      *      *<pre>      * size of store file      *</pre>      */
+comment|/**      *<code>optional uint64 store_file_size_bytes = 4;</code>      *      *<pre>      * size of store file      *</pre>      */
 specifier|public
 name|long
-name|getStoreFileSize
+name|getStoreFileSizeBytes
 parameter_list|()
 block|{
 return|return
-name|storeFileSize_
+name|storeFileSizeBytes_
 return|;
 block|}
 specifier|private
@@ -38186,7 +38186,7 @@ name|LazyStringArrayList
 operator|.
 name|EMPTY
 expr_stmt|;
-name|storeFileSize_
+name|storeFileSizeBytes_
 operator|=
 literal|0L
 expr_stmt|;
@@ -38381,7 +38381,7 @@ name|writeUInt64
 argument_list|(
 literal|4
 argument_list|,
-name|storeFileSize_
+name|storeFileSizeBytes_
 argument_list|)
 expr_stmt|;
 block|}
@@ -38575,7 +38575,7 @@ name|computeUInt64Size
 argument_list|(
 literal|4
 argument_list|,
-name|storeFileSize_
+name|storeFileSizeBytes_
 argument_list|)
 expr_stmt|;
 block|}
@@ -38827,18 +38827,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasStoreFileSize
+name|hasStoreFileSizeBytes
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasStoreFileSize
+name|hasStoreFileSizeBytes
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasStoreFileSize
+name|hasStoreFileSizeBytes
 argument_list|()
 condition|)
 block|{
@@ -38847,12 +38847,12 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|getStoreFileSize
+name|getStoreFileSizeBytes
 argument_list|()
 operator|==
 name|other
 operator|.
-name|getStoreFileSize
+name|getStoreFileSizeBytes
 argument_list|()
 operator|)
 expr_stmt|;
@@ -39020,7 +39020,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|hasStoreFileSize
+name|hasStoreFileSizeBytes
 argument_list|()
 condition|)
 block|{
@@ -39032,7 +39032,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|STORE_FILE_SIZE_FIELD_NUMBER
+name|STORE_FILE_SIZE_BYTES_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -39044,7 +39044,7 @@ operator|)
 operator|+
 name|hashLong
 argument_list|(
-name|getStoreFileSize
+name|getStoreFileSizeBytes
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -39929,7 +39929,7 @@ operator|~
 literal|0x00000004
 operator|)
 expr_stmt|;
-name|storeFileSize_
+name|storeFileSizeBytes_
 operator|=
 literal|0L
 expr_stmt|;
@@ -40269,9 +40269,9 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|storeFileSize_
+name|storeFileSizeBytes_
 operator|=
-name|storeFileSize_
+name|storeFileSizeBytes_
 expr_stmt|;
 name|result
 operator|.
@@ -40504,15 +40504,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasStoreFileSize
+name|hasStoreFileSizeBytes
 argument_list|()
 condition|)
 block|{
-name|setStoreFileSize
+name|setStoreFileSizeBytes
 argument_list|(
 name|other
 operator|.
-name|getStoreFileSize
+name|getStoreFileSizeBytes
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -41477,15 +41477,15 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint64 store_file_size = 4;
+comment|// optional uint64 store_file_size_bytes = 4;
 specifier|private
 name|long
-name|storeFileSize_
+name|storeFileSizeBytes_
 decl_stmt|;
-comment|/**        *<code>optional uint64 store_file_size = 4;</code>        *        *<pre>        * size of store file        *</pre>        */
+comment|/**        *<code>optional uint64 store_file_size_bytes = 4;</code>        *        *<pre>        * size of store file        *</pre>        */
 specifier|public
 name|boolean
-name|hasStoreFileSize
+name|hasStoreFileSizeBytes
 parameter_list|()
 block|{
 return|return
@@ -41500,20 +41500,20 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional uint64 store_file_size = 4;</code>        *        *<pre>        * size of store file        *</pre>        */
+comment|/**        *<code>optional uint64 store_file_size_bytes = 4;</code>        *        *<pre>        * size of store file        *</pre>        */
 specifier|public
 name|long
-name|getStoreFileSize
+name|getStoreFileSizeBytes
 parameter_list|()
 block|{
 return|return
-name|storeFileSize_
+name|storeFileSizeBytes_
 return|;
 block|}
-comment|/**        *<code>optional uint64 store_file_size = 4;</code>        *        *<pre>        * size of store file        *</pre>        */
+comment|/**        *<code>optional uint64 store_file_size_bytes = 4;</code>        *        *<pre>        * size of store file        *</pre>        */
 specifier|public
 name|Builder
-name|setStoreFileSize
+name|setStoreFileSizeBytes
 parameter_list|(
 name|long
 name|value
@@ -41523,7 +41523,7 @@ name|bitField0_
 operator||=
 literal|0x00000008
 expr_stmt|;
-name|storeFileSize_
+name|storeFileSizeBytes_
 operator|=
 name|value
 expr_stmt|;
@@ -41534,10 +41534,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional uint64 store_file_size = 4;</code>        *        *<pre>        * size of store file        *</pre>        */
+comment|/**        *<code>optional uint64 store_file_size_bytes = 4;</code>        *        *<pre>        * size of store file        *</pre>        */
 specifier|public
 name|Builder
-name|clearStoreFileSize
+name|clearStoreFileSizeBytes
 parameter_list|()
 block|{
 name|bitField0_
@@ -41549,7 +41549,7 @@ operator|~
 literal|0x00000008
 operator|)
 expr_stmt|;
-name|storeFileSize_
+name|storeFileSizeBytes_
 operator|=
 literal|0L
 expr_stmt|;
@@ -58734,43 +58734,43 @@ literal|"lushAction\022\017\n\013START_FLUSH\020\000\022\020\n\014COMMIT_FL"
 operator|+
 literal|"USH\020\001\022\017\n\013ABORT_FLUSH\020\002\022\020\n\014CANNOT_FLUSH\020\003"
 block|,
-literal|"\"k\n\017StoreDescriptor\022\023\n\013family_name\030\001 \002(\014"
+literal|"\"q\n\017StoreDescriptor\022\023\n\013family_name\030\001 \002(\014"
 operator|+
 literal|"\022\026\n\016store_home_dir\030\002 \002(\t\022\022\n\nstore_file\030\003"
 operator|+
-literal|" \003(\t\022\027\n\017store_file_size\030\004 \001(\004\"\237\001\n\022BulkLo"
+literal|" \003(\t\022\035\n\025store_file_size_bytes\030\004 \001(\004\"\237\001\n\022"
 operator|+
-literal|"adDescriptor\022\'\n\ntable_name\030\001 \002(\0132\023.hbase"
+literal|"BulkLoadDescriptor\022\'\n\ntable_name\030\001 \002(\0132\023"
 operator|+
-literal|".pb.TableName\022\033\n\023encoded_region_name\030\002 \002"
+literal|".hbase.pb.TableName\022\033\n\023encoded_region_na"
 operator|+
-literal|"(\014\022)\n\006stores\030\003 \003(\0132\031.hbase.pb.StoreDescr"
+literal|"me\030\002 \002(\014\022)\n\006stores\030\003 \003(\0132\031.hbase.pb.Stor"
 operator|+
-literal|"iptor\022\030\n\020bulkload_seq_num\030\004 \002(\003\"\272\002\n\025Regi"
+literal|"eDescriptor\022\030\n\020bulkload_seq_num\030\004 \002(\003\"\272\002"
 operator|+
-literal|"onEventDescriptor\022=\n\nevent_type\030\001 \002(\0162)."
+literal|"\n\025RegionEventDescriptor\022=\n\nevent_type\030\001 "
 operator|+
-literal|"hbase.pb.RegionEventDescriptor.EventType"
+literal|"\002(\0162).hbase.pb.RegionEventDescriptor.Eve"
 operator|+
-literal|"\022\022\n\ntable_name\030\002 \002(\014\022\033\n\023encoded_region_n"
+literal|"ntType\022\022\n\ntable_name\030\002 \002(\014\022\033\n\023encoded_re"
 block|,
-literal|"ame\030\003 \002(\014\022\033\n\023log_sequence_number\030\004 \001(\004\022)"
+literal|"gion_name\030\003 \002(\014\022\033\n\023log_sequence_number\030\004"
 operator|+
-literal|"\n\006stores\030\005 \003(\0132\031.hbase.pb.StoreDescripto"
+literal|" \001(\004\022)\n\006stores\030\005 \003(\0132\031.hbase.pb.StoreDes"
 operator|+
-literal|"r\022$\n\006server\030\006 \001(\0132\024.hbase.pb.ServerName\022"
+literal|"criptor\022$\n\006server\030\006 \001(\0132\024.hbase.pb.Serve"
 operator|+
-literal|"\023\n\013region_name\030\007 \001(\014\".\n\tEventType\022\017\n\013REG"
+literal|"rName\022\023\n\013region_name\030\007 \001(\014\".\n\tEventType\022"
 operator|+
-literal|"ION_OPEN\020\000\022\020\n\014REGION_CLOSE\020\001\"\014\n\nWALTrail"
+literal|"\017\n\013REGION_OPEN\020\000\022\020\n\014REGION_CLOSE\020\001\"\014\n\nWA"
 operator|+
-literal|"er*F\n\tScopeType\022\033\n\027REPLICATION_SCOPE_LOC"
+literal|"LTrailer*F\n\tScopeType\022\033\n\027REPLICATION_SCO"
 operator|+
-literal|"AL\020\000\022\034\n\030REPLICATION_SCOPE_GLOBAL\020\001B?\n*or"
+literal|"PE_LOCAL\020\000\022\034\n\030REPLICATION_SCOPE_GLOBAL\020\001"
 operator|+
-literal|"g.apache.hadoop.hbase.protobuf.generated"
+literal|"B?\n*org.apache.hadoop.hbase.protobuf.gen"
 operator|+
-literal|"B\tWALProtosH\001\210\001\000\240\001\001"
+literal|"eratedB\tWALProtosH\001\210\001\000\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -59163,7 +59163,7 @@ literal|"StoreHomeDir"
 block|,
 literal|"StoreFile"
 block|,
-literal|"StoreFileSize"
+literal|"StoreFileSizeBytes"
 block|, }
 argument_list|)
 expr_stmt|;

@@ -18442,7 +18442,7 @@ argument_list|)
 decl_stmt|;
 name|builder
 operator|.
-name|setStoreFileSize
+name|setStoreFileSizeBytes
 argument_list|(
 name|size
 argument_list|)
