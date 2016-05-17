@@ -2041,10 +2041,18 @@ argument_list|)
 operator|+
 literal|" outside of group: "
 operator|+
+operator|(
+name|info
+operator|==
+literal|null
+condition|?
+literal|"UNKNOWN"
+else|:
 name|info
 operator|.
 name|getName
 argument_list|()
+operator|)
 argument_list|)
 expr_stmt|;
 name|misplacedRegions
