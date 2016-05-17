@@ -334,7 +334,7 @@ literal|"server"
 argument_list|,
 literal|2181
 argument_list|,
-literal|"hbase"
+literal|"/hbase"
 argument_list|)
 expr_stmt|;
 name|testKey
@@ -343,7 +343,7 @@ literal|"server1,server2,server3"
 argument_list|,
 literal|2181
 argument_list|,
-literal|"hbase"
+literal|"/hbase"
 argument_list|)
 expr_stmt|;
 try|try
@@ -352,7 +352,7 @@ name|ZKConfig
 operator|.
 name|validateClusterKey
 argument_list|(
-literal|"2181:hbase"
+literal|"2181:/hbase"
 argument_list|)
 expr_stmt|;
 block|}
@@ -381,7 +381,7 @@ literal|"server1:2182"
 argument_list|,
 literal|2181
 argument_list|,
-literal|"hbase"
+literal|"/hbase"
 argument_list|,
 literal|true
 argument_list|)
@@ -393,7 +393,7 @@ literal|"server1:2182,server2:2183,server3:2184"
 argument_list|,
 literal|2181
 argument_list|,
-literal|"hbase"
+literal|"/hbase"
 argument_list|,
 literal|true
 argument_list|)
@@ -405,7 +405,7 @@ literal|"server1:2182,server2,server3:2184"
 argument_list|,
 literal|2181
 argument_list|,
-literal|"hbase"
+literal|"/hbase"
 argument_list|,
 literal|true
 argument_list|)
@@ -417,7 +417,7 @@ literal|"server1:2182,server2:2183,server3"
 argument_list|,
 literal|2181
 argument_list|,
-literal|"hbase"
+literal|"/hbase"
 argument_list|,
 literal|true
 argument_list|)
@@ -429,7 +429,7 @@ literal|"server1:2182,server2,server3:2184,server4"
 argument_list|,
 literal|2181
 argument_list|,
-literal|"hbase"
+literal|"/hbase"
 argument_list|,
 literal|true
 argument_list|)
@@ -441,7 +441,7 @@ literal|"server1:2182,server1:2183,server1"
 argument_list|,
 literal|2181
 argument_list|,
-literal|"hbase"
+literal|"/hbase"
 argument_list|,
 literal|true
 argument_list|)
@@ -453,7 +453,7 @@ literal|"server1:2182,server2:2183,server1"
 argument_list|,
 literal|2181
 argument_list|,
-literal|"hbase"
+literal|"/hbase"
 argument_list|,
 literal|true
 argument_list|)
