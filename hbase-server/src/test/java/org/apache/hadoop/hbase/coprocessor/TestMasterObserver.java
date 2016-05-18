@@ -8358,7 +8358,7 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 decl_stmt|;
-name|Collection
+name|Set
 argument_list|<
 name|RegionState
 argument_list|>
@@ -8370,9 +8370,6 @@ name|getRegionStates
 argument_list|()
 operator|.
 name|getRegionsInTransition
-argument_list|()
-operator|.
-name|values
 argument_list|()
 decl_stmt|;
 for|for
@@ -8603,7 +8600,7 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 decl_stmt|;
-name|Collection
+name|Set
 argument_list|<
 name|RegionState
 argument_list|>
@@ -8615,9 +8612,6 @@ name|getRegionStates
 argument_list|()
 operator|.
 name|getRegionsInTransition
-argument_list|()
-operator|.
-name|values
 argument_list|()
 decl_stmt|;
 for|for

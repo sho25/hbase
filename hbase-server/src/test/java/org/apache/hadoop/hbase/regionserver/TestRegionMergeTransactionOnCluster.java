@@ -3830,9 +3830,6 @@ name|regionStates
 operator|.
 name|getRegionsInTransition
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 comment|// Find the merging_new region and remove it

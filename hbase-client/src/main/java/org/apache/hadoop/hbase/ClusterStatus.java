@@ -77,6 +77,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -383,10 +393,8 @@ argument_list|>
 name|backupMasters
 decl_stmt|;
 specifier|private
-name|Map
+name|Set
 argument_list|<
-name|String
-argument_list|,
 name|RegionState
 argument_list|>
 name|intransition
@@ -443,10 +451,8 @@ argument_list|>
 name|backupMasters
 parameter_list|,
 specifier|final
-name|Map
+name|Set
 argument_list|<
-name|String
-argument_list|,
 name|RegionState
 argument_list|>
 name|rit
@@ -1099,10 +1105,8 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
-name|Map
+name|Set
 argument_list|<
-name|String
-argument_list|,
 name|RegionState
 argument_list|>
 name|getRegionsInTransition
@@ -1527,9 +1531,6 @@ name|RegionState
 name|state
 range|:
 name|intransition
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|sb

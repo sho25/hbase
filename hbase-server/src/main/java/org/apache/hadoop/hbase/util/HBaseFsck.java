@@ -3507,10 +3507,8 @@ name|getRegionsCount
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Map
+name|Set
 argument_list|<
-name|String
-argument_list|,
 name|RegionState
 argument_list|>
 name|rits
@@ -3543,9 +3541,6 @@ name|RegionState
 name|state
 range|:
 name|rits
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|errors

@@ -7162,10 +7162,8 @@ name|isRegionsInTransition
 argument_list|()
 condition|)
 block|{
-name|Map
+name|Set
 argument_list|<
-name|String
-argument_list|,
 name|RegionState
 argument_list|>
 name|regionsInTransition
@@ -11565,10 +11563,8 @@ argument_list|()
 else|:
 literal|null
 decl_stmt|;
-name|Map
+name|Set
 argument_list|<
-name|String
-argument_list|,
 name|RegionState
 argument_list|>
 name|regionsInTransition

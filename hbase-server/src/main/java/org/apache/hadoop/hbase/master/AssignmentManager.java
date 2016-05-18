@@ -2310,10 +2310,8 @@ name|failover
 condition|)
 block|{
 comment|// If any region except meta is in transition on a live server, it's a failover.
-name|Map
+name|Set
 argument_list|<
-name|String
-argument_list|,
 name|RegionState
 argument_list|>
 name|regionsInTransition
@@ -2338,9 +2336,6 @@ name|RegionState
 name|regionState
 range|:
 name|regionsInTransition
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|ServerName
@@ -2692,9 +2687,6 @@ argument_list|(
 name|regionStates
 operator|.
 name|getRegionsInTransition
-argument_list|()
-operator|.
-name|values
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -9577,9 +9569,6 @@ range|:
 name|regionStates
 operator|.
 name|getRegionsInTransition
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
