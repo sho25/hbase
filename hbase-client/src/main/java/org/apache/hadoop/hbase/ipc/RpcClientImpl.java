@@ -4796,6 +4796,15 @@ name|priority
 argument_list|)
 expr_stmt|;
 block|}
+name|builder
+operator|.
+name|setTimeout
+argument_list|(
+name|call
+operator|.
+name|timeout
+argument_list|)
+expr_stmt|;
 name|RequestHeader
 name|requestHeader
 init|=
