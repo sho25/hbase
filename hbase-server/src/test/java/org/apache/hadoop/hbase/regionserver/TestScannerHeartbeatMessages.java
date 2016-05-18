@@ -37,18 +37,6 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertNull
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
 name|assertTrue
 import|;
 end_import
@@ -843,13 +831,6 @@ argument_list|(
 name|VALUE_SIZE
 argument_list|)
 decl_stmt|;
-specifier|private
-specifier|static
-name|int
-name|SERVER_TIMEOUT
-init|=
-literal|6000
-decl_stmt|;
 comment|// Time, in milliseconds, that the client will wait for a response from the server before timing
 comment|// out. This value is used server side to determine when it is necessary to send a heartbeat
 comment|// message to the client
@@ -858,9 +839,17 @@ specifier|static
 name|int
 name|CLIENT_TIMEOUT
 init|=
-name|SERVER_TIMEOUT
+literal|2000
+decl_stmt|;
+comment|// The server limits itself to running for half of the CLIENT_TIMEOUT value.
+specifier|private
+specifier|static
+name|int
+name|SERVER_TIME_LIMIT
+init|=
+name|CLIENT_TIMEOUT
 operator|/
-literal|3
+literal|2
 decl_stmt|;
 comment|// By default, at most one row's worth of cells will be retrieved before the time limit is reached
 specifier|private
@@ -868,9 +857,9 @@ specifier|static
 name|int
 name|DEFAULT_ROW_SLEEP_TIME
 init|=
-name|CLIENT_TIMEOUT
+name|SERVER_TIME_LIMIT
 operator|/
-literal|5
+literal|2
 decl_stmt|;
 comment|// By default, at most cells for two column families are retrieved before the time limit is
 comment|// reached
@@ -979,7 +968,7 @@ name|HConstants
 operator|.
 name|HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 argument_list|,
-name|SERVER_TIMEOUT
+name|CLIENT_TIMEOUT
 argument_list|)
 expr_stmt|;
 name|conf
@@ -990,7 +979,7 @@ name|HConstants
 operator|.
 name|HBASE_RPC_TIMEOUT_KEY
 argument_list|,
-name|SERVER_TIMEOUT
+name|CLIENT_TIMEOUT
 argument_list|)
 expr_stmt|;
 name|conf
@@ -1102,20 +1091,6 @@ operator|.
 name|put
 argument_list|(
 name|puts
-argument_list|)
-expr_stmt|;
-name|ht
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
-argument_list|,
-name|CLIENT_TIMEOUT
 argument_list|)
 expr_stmt|;
 return|return
@@ -1643,9 +1618,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-name|CLIENT_TIMEOUT
-operator|/
-literal|2
+name|SERVER_TIME_LIMIT
 operator|+
 literal|10
 argument_list|)
