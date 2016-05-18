@@ -9075,6 +9075,7 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+comment|// still one expired, one not-expired
 name|assertErrors
 argument_list|(
 name|hbck
@@ -9097,7 +9098,6 @@ name|EXPIRED_TABLE_LOCK
 block|}
 argument_list|)
 expr_stmt|;
-comment|// still one expired, one not-expired
 name|edge
 operator|.
 name|incrementTime
@@ -9157,7 +9157,18 @@ block|}
 argument_list|)
 expr_stmt|;
 comment|// both are expired
+name|Configuration
+name|localConf
+init|=
+operator|new
+name|Configuration
+argument_list|(
 name|conf
+argument_list|)
+decl_stmt|;
+comment|// reaping from ZKInterProcessWriteLock uses znode cTime,
+comment|// which is not injectable through EnvironmentEdge
+name|localConf
 operator|.
 name|setLong
 argument_list|(
@@ -9168,8 +9179,6 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
-comment|// reaping from ZKInterProcessWriteLock uses znode cTime,
-comment|// which is not injectable through EnvironmentEdge
 name|Threads
 operator|.
 name|sleep
@@ -9181,7 +9190,7 @@ name|hbck
 operator|=
 name|doFsck
 argument_list|(
-name|conf
+name|localConf
 argument_list|,
 literal|true
 argument_list|)
@@ -9191,7 +9200,7 @@ name|hbck
 operator|=
 name|doFsck
 argument_list|(
-name|conf
+name|localConf
 argument_list|,
 literal|false
 argument_list|)
