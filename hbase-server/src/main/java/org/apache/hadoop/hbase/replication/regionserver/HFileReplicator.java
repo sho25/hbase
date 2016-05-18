@@ -845,7 +845,7 @@ operator|=
 operator|new
 name|ThreadPoolExecutor
 argument_list|(
-literal|1
+name|maxCopyThreads
 argument_list|,
 name|maxCopyThreads
 argument_list|,

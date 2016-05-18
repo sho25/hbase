@@ -542,7 +542,7 @@ block|}
 block|}
 comment|/** Executor service for handling client connections */
 specifier|private
-name|ExecutorService
+name|ThreadPoolExecutor
 name|executorService
 decl_stmt|;
 comment|/** Flag for stopping the server */
@@ -570,6 +570,20 @@ argument_list|(
 name|options
 argument_list|)
 expr_stmt|;
+name|int
+name|minWorkerThreads
+init|=
+name|options
+operator|.
+name|minWorkerThreads
+decl_stmt|;
+name|int
+name|maxWorkerThreads
+init|=
+name|options
+operator|.
+name|maxWorkerThreads
+decl_stmt|;
 if|if
 condition|(
 name|options
@@ -599,6 +613,10 @@ argument_list|)
 argument_list|,
 name|metrics
 argument_list|)
+expr_stmt|;
+name|minWorkerThreads
+operator|=
+name|maxWorkerThreads
 expr_stmt|;
 block|}
 else|else
@@ -647,12 +665,8 @@ operator|=
 operator|new
 name|ThreadPoolExecutor
 argument_list|(
-name|options
-operator|.
 name|minWorkerThreads
 argument_list|,
-name|options
-operator|.
 name|maxWorkerThreads
 argument_list|,
 name|options
@@ -671,6 +685,13 @@ name|tfb
 operator|.
 name|build
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|executorService
+operator|.
+name|allowCoreThreadTimeOut
+argument_list|(
+literal|true
 argument_list|)
 expr_stmt|;
 name|serverOptions

@@ -3811,7 +3811,7 @@ name|callQueue
 argument_list|,
 name|serverArgs
 operator|.
-name|getMinWorkerThreads
+name|getMaxWorkerThreads
 argument_list|()
 argument_list|,
 name|serverArgs
@@ -4200,7 +4200,9 @@ argument_list|(
 literal|"thrift-worker-%d"
 argument_list|)
 expr_stmt|;
-return|return
+name|ThreadPoolExecutor
+name|threadPool
+init|=
 operator|new
 name|ThreadPoolExecutor
 argument_list|(
@@ -4223,6 +4225,16 @@ operator|.
 name|build
 argument_list|()
 argument_list|)
+decl_stmt|;
+name|threadPool
+operator|.
+name|allowCoreThreadTimeOut
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+return|return
+name|threadPool
 return|;
 block|}
 specifier|private

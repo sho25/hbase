@@ -428,15 +428,6 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.hconnection.threads.core"
-argument_list|,
-name|POOL_SIZE
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
 literal|"hbase.hbck.close.timeout"
 argument_list|,
 literal|2
