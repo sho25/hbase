@@ -12260,19 +12260,8 @@ operator|.
 name|numClientThreads
 expr_stmt|;
 block|}
-elseif|else
-if|if
-condition|(
-name|opts
-operator|.
-name|perClientRunRows
-operator|!=
-name|DEFAULT_OPTS
-operator|.
-name|perClientRunRows
-condition|)
+else|else
 block|{
-comment|// number of rows specified
 name|opts
 operator|.
 name|totalRows
