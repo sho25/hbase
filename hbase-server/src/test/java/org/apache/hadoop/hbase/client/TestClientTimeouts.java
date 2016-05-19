@@ -65,6 +65,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|UnknownHostException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|Random
@@ -817,6 +827,8 @@ parameter_list|,
 name|int
 name|rpcTimeout
 parameter_list|)
+throws|throws
+name|UnknownHostException
 block|{
 return|return
 operator|new
@@ -892,6 +904,8 @@ specifier|final
 name|int
 name|rpcTimeout
 parameter_list|)
+throws|throws
+name|UnknownHostException
 block|{
 name|super
 argument_list|(
