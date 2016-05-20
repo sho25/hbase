@@ -491,15 +491,6 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
-name|conf
-operator|.
-name|setFloat
-argument_list|(
-literal|"hbase.master.balancer.stochastic.minCostNeedBalance"
-argument_list|,
-literal|0.0f
-argument_list|)
-expr_stmt|;
 name|loadBalancer
 operator|=
 operator|new

@@ -553,7 +553,7 @@ name|BaseLoadBalancer
 implements|implements
 name|LoadBalancer
 block|{
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|int
