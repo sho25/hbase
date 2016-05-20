@@ -150,7 +150,7 @@ name|void
 name|removeAllQueues
 parameter_list|()
 function_decl|;
-comment|/**    * Get a list of all WALs in the given queue.    * @param queueId a String that identifies the queue    * @return a list of WALs, null if this region server is dead and has no outstanding queues    */
+comment|/**    * Get a list of all WALs in the given queue.    * @param queueId a String that identifies the queue    * @return a list of WALs, null if no such queue exists for this server    */
 name|List
 argument_list|<
 name|String
@@ -161,7 +161,7 @@ name|String
 name|queueId
 parameter_list|)
 function_decl|;
-comment|/**    * Get a list of all queues for this region server.    * @return a list of queueIds, null if this region server is dead and has no outstanding queues    */
+comment|/**    * Get a list of all queues for this region server.    * @return a list of queueIds, an empty list if this region server is dead and has no outstanding queues    */
 name|List
 argument_list|<
 name|String
@@ -193,12 +193,12 @@ argument_list|>
 name|getListOfReplicators
 parameter_list|()
 function_decl|;
-comment|/**    * Checks if the provided znode is the same as this region server's    * @param znode to check    * @return if this is this rs's znode    */
+comment|/**    * Checks if the provided znode is the same as this region server's    * @param regionserver the id of the region server    * @return if this is this rs's znode    */
 name|boolean
-name|isThisOurZnode
+name|isThisOurRegionServer
 parameter_list|(
 name|String
-name|znode
+name|regionserver
 parameter_list|)
 function_decl|;
 comment|/**    * Add a peer to hfile reference queue if peer does not exist.    * @param peerId peer cluster id to be added    * @throws ReplicationException if fails to add a peer id to hfile reference queue    */

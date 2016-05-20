@@ -292,7 +292,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class provides an implementation of the ReplicationQueues interface using ZooKeeper. The  * base znode that this class works at is the myQueuesZnode. The myQueuesZnode contains a list of  * all outstanding WAL files on this region server that need to be replicated. The myQueuesZnode is  * the regionserver name (a concatenation of the region server’s hostname, client port and start  * code). For example:  *  * /hbase/replication/rs/hostname.example.org,6020,1234  *  * Within this znode, the region server maintains a set of WAL replication queues. These queues are  * represented by child znodes named using there give queue id. For example:  *  * /hbase/replication/rs/hostname.example.org,6020,1234/1  * /hbase/replication/rs/hostname.example.org,6020,1234/2  *  * Each queue has one child znode for every WAL that still needs to be replicated. The value of  * these WAL child znodes is the latest position that has been replicated. This position is updated  * every time a WAL entry is replicated. For example:  *  * /hbase/replication/rs/hostname.example.org,6020,1234/1/23522342.23422 [VALUE: 254]  */
+comment|/**  * This class provides an implementation of the  * interface using ZooKeeper. The  * base znode that this class works at is the myQueuesZnode. The myQueuesZnode contains a list of  * all outstanding WAL files on this region server that need to be replicated. The myQueuesZnode is  * the regionserver name (a concatenation of the region server’s hostname, client port and start  * code). For example:  *  * /hbase/replication/rs/hostname.example.org,6020,1234  *  * Within this znode, the region server maintains a set of WAL replication queues. These queues are  * represented by child znodes named using there give queue id. For example:  *  * /hbase/replication/rs/hostname.example.org,6020,1234/1  * /hbase/replication/rs/hostname.example.org,6020,1234/2  *  * Each queue has one child znode for every WAL that still needs to be replicated. The value of  * these WAL child znodes is the latest position that has been replicated. This position is updated  * every time a WAL entry is replicated. For example:  *  * /hbase/replication/rs/hostname.example.org,6020,1234/1/23522342.23422 [VALUE: 254]  */
 end_comment
 
 begin_class
@@ -337,6 +337,32 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|public
+name|ReplicationQueuesZKImpl
+parameter_list|(
+name|ReplicationQueuesArguments
+name|args
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|args
+operator|.
+name|getZk
+argument_list|()
+argument_list|,
+name|args
+operator|.
+name|getConf
+argument_list|()
+argument_list|,
+name|args
+operator|.
+name|getAbort
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 specifier|public
 name|ReplicationQueuesZKImpl
 parameter_list|(
@@ -901,10 +927,10 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|isThisOurZnode
+name|isThisOurRegionServer
 parameter_list|(
 name|String
-name|znode
+name|regionserver
 parameter_list|)
 block|{
 return|return
@@ -916,7 +942,7 @@ name|this
 operator|.
 name|queuesZNode
 argument_list|,
-name|znode
+name|regionserver
 argument_list|)
 operator|.
 name|equals
@@ -1237,6 +1263,17 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
+name|listOfQueues
+operator|==
+literal|null
+condition|?
+operator|new
+name|ArrayList
+argument_list|<
+name|String
+argument_list|>
+argument_list|()
+else|:
 name|listOfQueues
 return|;
 block|}

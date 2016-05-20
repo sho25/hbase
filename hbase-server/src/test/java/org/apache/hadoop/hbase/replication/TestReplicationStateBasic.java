@@ -722,11 +722,16 @@ operator|.
 name|removeAllQueues
 argument_list|()
 expr_stmt|;
-name|assertNull
+name|assertEquals
 argument_list|(
+literal|0
+argument_list|,
 name|rq1
 operator|.
 name|getAllQueues
+argument_list|()
+operator|.
+name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
