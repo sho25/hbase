@@ -153,7 +153,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedMap
+name|Set
 import|;
 end_import
 
@@ -2876,11 +2876,11 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|SortedMap
+name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|Set
 argument_list|<
 name|String
 argument_list|>
@@ -3012,7 +3012,13 @@ name|ReplicationQueueInfo
 argument_list|(
 name|testMap
 operator|.
-name|firstKey
+name|keySet
+argument_list|()
+operator|.
+name|iterator
+argument_list|()
+operator|.
+name|next
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -3807,11 +3813,11 @@ extends|extends
 name|Thread
 block|{
 specifier|private
-name|SortedMap
+name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|Set
 argument_list|<
 name|String
 argument_list|>
@@ -3956,7 +3962,7 @@ parameter_list|()
 block|{
 name|Collection
 argument_list|<
-name|SortedSet
+name|Set
 argument_list|<
 name|String
 argument_list|>
@@ -4001,7 +4007,7 @@ operator|==
 literal|1
 condition|)
 block|{
-name|SortedSet
+name|Set
 argument_list|<
 name|String
 argument_list|>

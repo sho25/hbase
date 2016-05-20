@@ -33,7 +33,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedMap
+name|Map
 import|;
 end_import
 
@@ -43,7 +43,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedSet
+name|Set
 import|;
 end_import
 
@@ -169,12 +169,12 @@ argument_list|>
 name|getAllQueues
 parameter_list|()
 function_decl|;
-comment|/**    * Take ownership for the set of queues belonging to a dead region server.    * @param regionserver the id of the dead region server    * @return A SortedMap of the queues that have been claimed, including a SortedSet of WALs in    *         each queue. Returns an empty map if no queues were failed-over.    */
-name|SortedMap
+comment|/**    * Take ownership for the set of queues belonging to a dead region server.    * @param regionserver the id of the dead region server    * @return A Map of the queues that have been claimed, including a Set of WALs in    *         each queue. Returns an empty map if no queues were failed-over.    */
+name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|Set
 argument_list|<
 name|String
 argument_list|>

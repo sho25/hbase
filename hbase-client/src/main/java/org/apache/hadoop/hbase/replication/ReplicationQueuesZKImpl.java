@@ -33,6 +33,26 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -43,7 +63,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedMap
+name|Map
 import|;
 end_import
 
@@ -53,27 +73,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|TreeMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|TreeSet
+name|Set
 import|;
 end_import
 
@@ -358,7 +358,7 @@ argument_list|()
 argument_list|,
 name|args
 operator|.
-name|getAbort
+name|getAbortable
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -971,11 +971,11 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|SortedMap
+name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|Set
 argument_list|<
 name|String
 argument_list|>
@@ -986,11 +986,11 @@ name|String
 name|regionserverZnode
 parameter_list|)
 block|{
-name|SortedMap
+name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|Set
 argument_list|<
 name|String
 argument_list|>
@@ -998,15 +998,8 @@ argument_list|>
 name|newQueues
 init|=
 operator|new
-name|TreeMap
-argument_list|<
-name|String
-argument_list|,
-name|SortedSet
-argument_list|<
-name|String
-argument_list|>
-argument_list|>
+name|HashMap
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// check whether there is multi support. If yes, use it.
@@ -1589,11 +1582,11 @@ block|}
 block|}
 comment|/**    * It "atomically" copies all the wals queues from another region server and returns them all    * sorted per peer cluster (appended with the dead server's znode).    * @param znode pertaining to the region server to copy the queues from    * @return WAL queues sorted per peer cluster    */
 specifier|private
-name|SortedMap
+name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|Set
 argument_list|<
 name|String
 argument_list|>
@@ -1604,11 +1597,11 @@ name|String
 name|znode
 parameter_list|)
 block|{
-name|SortedMap
+name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|Set
 argument_list|<
 name|String
 argument_list|>
@@ -1616,15 +1609,8 @@ argument_list|>
 name|queues
 init|=
 operator|new
-name|TreeMap
-argument_list|<
-name|String
-argument_list|,
-name|SortedSet
-argument_list|<
-name|String
-argument_list|>
-argument_list|>
+name|HashMap
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// hbase/replication/rs/deadrs
@@ -1816,14 +1802,14 @@ continue|continue;
 comment|// empty log queue.
 block|}
 comment|// create the new cluster znode
-name|SortedSet
+name|Set
 argument_list|<
 name|String
 argument_list|>
 name|logQueue
 init|=
 operator|new
-name|TreeSet
+name|HashSet
 argument_list|<
 name|String
 argument_list|>
@@ -2093,11 +2079,11 @@ return|;
 block|}
 comment|/**    * This methods copies all the wals queues from another region server and returns them all sorted    * per peer cluster (appended with the dead server's znode)    * @param znode server names to copy    * @return all wals for all peers of that cluster, null if an error occurred    */
 specifier|private
-name|SortedMap
+name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|Set
 argument_list|<
 name|String
 argument_list|>
@@ -2110,11 +2096,11 @@ parameter_list|)
 block|{
 comment|// TODO this method isn't atomic enough, we could start copying and then
 comment|// TODO fail for some reason and we would end up with znodes we don't want.
-name|SortedMap
+name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|Set
 argument_list|<
 name|String
 argument_list|>
@@ -2122,15 +2108,8 @@ argument_list|>
 name|queues
 init|=
 operator|new
-name|TreeMap
-argument_list|<
-name|String
-argument_list|,
-name|SortedSet
-argument_list|<
-name|String
-argument_list|>
-argument_list|>
+name|HashMap
+argument_list|<>
 argument_list|()
 decl_stmt|;
 try|try
@@ -2323,14 +2302,14 @@ operator|.
 name|EMPTY_BYTE_ARRAY
 argument_list|)
 expr_stmt|;
-name|SortedSet
+name|Set
 argument_list|<
 name|String
 argument_list|>
 name|logQueue
 init|=
 operator|new
-name|TreeSet
+name|HashSet
 argument_list|<
 name|String
 argument_list|>

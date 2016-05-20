@@ -197,7 +197,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|Abortable
-name|getAbort
+name|getAbortable
 parameter_list|()
 block|{
 return|return
@@ -206,7 +206,7 @@ return|;
 block|}
 specifier|public
 name|void
-name|setAbort
+name|setAbortable
 parameter_list|(
 name|Abortable
 name|abort

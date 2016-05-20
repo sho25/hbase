@@ -55,7 +55,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedMap
+name|Map
 import|;
 end_import
 
@@ -65,7 +65,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedSet
+name|Set
 import|;
 end_import
 
@@ -980,11 +980,11 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|SortedMap
+name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|Set
 argument_list|<
 name|String
 argument_list|>
