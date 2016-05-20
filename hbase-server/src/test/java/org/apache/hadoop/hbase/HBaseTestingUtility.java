@@ -18225,7 +18225,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Wait until no regions in transition.    * @param timeout How long to wait.    * @throws Exception    */
+comment|/**    * Wait until no regions in transition.    * @param timeout How long to wait.    * @throws IOException    */
 end_comment
 
 begin_function
@@ -18238,7 +18238,7 @@ name|long
 name|timeout
 parameter_list|)
 throws|throws
-name|Exception
+name|IOException
 block|{
 name|waitFor
 argument_list|(
@@ -18246,6 +18246,28 @@ name|timeout
 argument_list|,
 name|predicateNoRegionsInTransition
 argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Wait until no regions in transition. (time limit 15min)    * @throws IOException    */
+end_comment
+
+begin_function
+specifier|public
+name|void
+name|waitUntilNoRegionsInTransition
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|waitUntilNoRegionsInTransition
+argument_list|(
+literal|15
+operator|*
+literal|60000
 argument_list|)
 expr_stmt|;
 block|}
