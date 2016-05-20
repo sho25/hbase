@@ -16197,6 +16197,35 @@ operator|==
 literal|1
 argument_list|)
 expr_stmt|;
+for|for
+control|(
+name|UserPermission
+name|namespacePermission
+range|:
+name|namespacePermissions
+control|)
+block|{
+name|assertFalse
+argument_list|(
+name|namespacePermission
+operator|.
+name|isGlobal
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Verify it is not a global user permission
+name|assertEquals
+argument_list|(
+name|namespace
+argument_list|,
+name|namespacePermission
+operator|.
+name|getNamespace
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Verify namespace is set
+block|}
 block|}
 catch|catch
 parameter_list|(
