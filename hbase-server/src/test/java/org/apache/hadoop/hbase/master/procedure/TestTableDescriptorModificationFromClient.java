@@ -15,7 +15,7 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|handler
+name|procedure
 package|;
 end_package
 
@@ -379,7 +379,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestTableDescriptorModification
+name|TestTableDescriptorModificationFromClient
 block|{
 annotation|@
 name|Rule

@@ -15,7 +15,7 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|handler
+name|procedure
 package|;
 end_package
 
@@ -407,7 +407,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestTableDeleteFamilyHandler
+name|TestDeleteColumnFamilyProcedureFromClient
 block|{
 specifier|private
 specifier|static
@@ -1211,13 +1211,11 @@ name|foundCF
 init|=
 literal|false
 decl_stmt|;
-name|int
-name|i
-decl_stmt|;
 for|for
 control|(
+name|int
 name|i
-operator|=
+init|=
 literal|0
 init|;
 name|i
@@ -1302,8 +1300,9 @@ literal|false
 expr_stmt|;
 for|for
 control|(
+name|int
 name|i
-operator|=
+init|=
 literal|0
 init|;
 name|i
@@ -1497,8 +1496,9 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
+name|int
 name|i
-operator|=
+init|=
 literal|0
 init|;
 name|i
