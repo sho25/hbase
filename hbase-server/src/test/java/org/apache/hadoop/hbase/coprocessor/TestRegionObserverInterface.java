@@ -4276,9 +4276,6 @@ expr_stmt|;
 block|}
 block|}
 annotation|@
-name|Ignore
-comment|// TODO: HBASE-13391 to fix flaky test
-annotation|@
 name|Test
 argument_list|(
 name|timeout
@@ -4499,6 +4496,14 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
+comment|// put two times
+name|table
+operator|.
+name|put
+argument_list|(
+name|put
+argument_list|)
+expr_stmt|;
 name|verifyMethodResult
 argument_list|(
 name|SimpleRegionObserver
@@ -4556,6 +4561,10 @@ operator|new
 name|String
 index|[]
 block|{
+literal|"getCtPreReplayWALs"
+block|,
+literal|"getCtPostReplayWALs"
+block|,
 literal|"getCtPreWALRestore"
 block|,
 literal|"getCtPostWALRestore"
@@ -4579,9 +4588,13 @@ literal|0
 block|,
 literal|0
 block|,
-literal|1
+literal|0
 block|,
-literal|1
+literal|0
+block|,
+literal|2
+block|,
+literal|2
 block|,
 literal|0
 block|,
@@ -4634,6 +4647,10 @@ operator|new
 name|String
 index|[]
 block|{
+literal|"getCtPreReplayWALs"
+block|,
+literal|"getCtPostReplayWALs"
+block|,
 literal|"getCtPreWALRestore"
 block|,
 literal|"getCtPostWALRestore"
@@ -4656,6 +4673,10 @@ block|{
 literal|1
 block|,
 literal|1
+block|,
+literal|2
+block|,
+literal|2
 block|,
 literal|0
 block|,
@@ -4684,9 +4705,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|Ignore
-comment|// TODO: HBASE-13391 to fix flaky test
 annotation|@
 name|Test
 argument_list|(
@@ -4910,6 +4928,14 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
+comment|// put two times
+name|table
+operator|.
+name|put
+argument_list|(
+name|put
+argument_list|)
+expr_stmt|;
 name|verifyMethodResult
 argument_list|(
 name|SimpleRegionObserver
@@ -4971,6 +4997,10 @@ operator|new
 name|String
 index|[]
 block|{
+literal|"getCtPreReplayWALs"
+block|,
+literal|"getCtPostReplayWALs"
+block|,
 literal|"getCtPreWALRestore"
 block|,
 literal|"getCtPostWALRestore"
@@ -4994,9 +5024,13 @@ literal|0
 block|,
 literal|0
 block|,
-literal|1
+literal|0
 block|,
-literal|1
+literal|0
+block|,
+literal|2
+block|,
+literal|2
 block|,
 literal|0
 block|,
@@ -5051,6 +5085,10 @@ operator|new
 name|String
 index|[]
 block|{
+literal|"getCtPreReplayWALs"
+block|,
+literal|"getCtPostReplayWALs"
+block|,
 literal|"getCtPreWALRestore"
 block|,
 literal|"getCtPostWALRestore"
@@ -5074,13 +5112,17 @@ literal|1
 block|,
 literal|1
 block|,
-literal|0
+literal|2
+block|,
+literal|2
 block|,
 literal|0
 block|,
-literal|1
+literal|0
 block|,
-literal|1
+literal|2
+block|,
+literal|2
 block|}
 argument_list|)
 expr_stmt|;

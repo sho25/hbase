@@ -2647,6 +2647,52 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|preReplayWALs
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|?
+extends|extends
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|env
+parameter_list|,
+name|HRegionInfo
+name|info
+parameter_list|,
+name|Path
+name|edits
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|postReplayWALs
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|?
+extends|extends
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|env
+parameter_list|,
+name|HRegionInfo
+name|info
+parameter_list|,
+name|Path
+name|edits
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 comment|/**    * Implementers should override this version of the method and leave the deprecated one as-is.    */
 annotation|@
 name|Override
