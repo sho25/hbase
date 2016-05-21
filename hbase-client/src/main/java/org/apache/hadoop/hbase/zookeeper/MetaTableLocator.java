@@ -81,7 +81,7 @@ begin_import
 import|import
 name|java
 operator|.
-name|rmi
+name|net
 operator|.
 name|UnknownHostException
 import|;
