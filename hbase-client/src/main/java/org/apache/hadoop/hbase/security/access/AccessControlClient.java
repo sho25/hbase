@@ -1154,8 +1154,9 @@ operator|==
 literal|'@'
 condition|)
 block|{
+comment|// Namespaces
 name|String
-name|namespace
+name|namespaceRegex
 init|=
 name|tableRegex
 operator|.
@@ -1164,8 +1165,41 @@ argument_list|(
 literal|1
 argument_list|)
 decl_stmt|;
+for|for
+control|(
+name|NamespaceDescriptor
+name|nsds
+range|:
+name|admin
+operator|.
+name|listNamespaceDescriptors
+argument_list|()
+control|)
+block|{
+comment|// Read out all namespaces
+name|String
+name|namespace
+init|=
+name|nsds
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|namespace
+operator|.
+name|matches
+argument_list|(
+name|namespaceRegex
+argument_list|)
+condition|)
+block|{
+comment|// Match the given namespace regex?
 name|permList
-operator|=
+operator|.
+name|addAll
+argument_list|(
 name|ProtobufUtil
 operator|.
 name|getUserPermissions
@@ -1181,10 +1215,14 @@ argument_list|(
 name|namespace
 argument_list|)
 argument_list|)
+argument_list|)
 expr_stmt|;
+block|}
+block|}
 block|}
 else|else
 block|{
+comment|// Tables
 name|htds
 operator|=
 name|admin
