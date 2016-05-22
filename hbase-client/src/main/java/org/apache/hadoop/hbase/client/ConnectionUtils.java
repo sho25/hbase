@@ -33,7 +33,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|Random
+name|concurrent
+operator|.
+name|ExecutorService
 import|;
 end_import
 
@@ -45,7 +47,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|ExecutorService
+name|ThreadLocalRandom
 import|;
 end_import
 
@@ -239,16 +241,6 @@ specifier|private
 name|ConnectionUtils
 parameter_list|()
 block|{}
-specifier|private
-specifier|static
-specifier|final
-name|Random
-name|RANDOM
-init|=
-operator|new
-name|Random
-argument_list|()
-decl_stmt|;
 comment|/**    * Calculate pause time.    * Built on {@link HConstants#RETRY_BACKOFF}.    * @param pause    * @param tries    * @return How long to wait after<code>tries</code> retries    */
 specifier|public
 specifier|static
@@ -315,6 +307,7 @@ index|[
 name|ntries
 index|]
 decl_stmt|;
+comment|// 1% possible jitter
 name|long
 name|jitter
 init|=
@@ -324,7 +317,10 @@ call|)
 argument_list|(
 name|normalPause
 operator|*
-name|RANDOM
+name|ThreadLocalRandom
+operator|.
+name|current
+argument_list|()
 operator|.
 name|nextFloat
 argument_list|()
@@ -332,14 +328,13 @@ operator|*
 literal|0.01f
 argument_list|)
 decl_stmt|;
-comment|// 1% possible jitter
 return|return
 name|normalPause
 operator|+
 name|jitter
 return|;
 block|}
-comment|/**    * Adds / subs a 10% jitter to a pause time. Minimum is 1.    * @param pause the expected pause.    * @param jitter the jitter ratio, between 0 and 1, exclusive.    */
+comment|/**    * Adds / subs an up to 50% jitter to a pause time. Minimum is 1.    * @param pause the expected pause.    * @param jitter the jitter ratio, between 0 and 1, exclusive.    */
 specifier|public
 specifier|static
 name|long
@@ -360,7 +355,10 @@ init|=
 name|pause
 operator|*
 operator|(
-name|RANDOM
+name|ThreadLocalRandom
+operator|.
+name|current
+argument_list|()
 operator|.
 name|nextFloat
 argument_list|()
