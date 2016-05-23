@@ -4588,8 +4588,10 @@ name|ignored
 init|=
 name|Trace
 operator|.
-name|continueSpan
+name|startSpan
 argument_list|(
+literal|"RpcClientImpl.tracedWriteRequest"
+argument_list|,
 name|span
 argument_list|)
 init|)
