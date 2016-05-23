@@ -262,6 +262,7 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
+comment|//NOTE: Below Settings are disabled for taskmonitor_test
 name|TEST_UTIL
 operator|.
 name|getConfiguration
@@ -288,8 +289,21 @@ name|HConstants
 operator|.
 name|REGIONSERVER_INFO_PORT
 argument_list|,
-operator|-
-literal|1
+literal|0
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|REGIONSERVER_INFO_PORT_AUTO
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Security setup configuration
