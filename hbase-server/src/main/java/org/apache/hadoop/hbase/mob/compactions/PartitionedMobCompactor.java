@@ -427,22 +427,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Scan
 import|;
 end_import
@@ -895,18 +879,22 @@ name|int
 name|compactionKVMax
 decl_stmt|;
 specifier|private
+specifier|final
 name|Path
 name|tempPath
 decl_stmt|;
 specifier|private
+specifier|final
 name|Path
 name|bulkloadPath
 decl_stmt|;
 specifier|private
+specifier|final
 name|CacheConfig
 name|compactionCacheConfig
 decl_stmt|;
 specifier|private
+specifier|final
 name|Tag
 name|tableNameTag
 decl_stmt|;
@@ -1193,7 +1181,7 @@ name|request
 argument_list|)
 return|;
 block|}
-comment|/**    * Selects the compacted mob/del files.    * Iterates the candidates to find out all the del files and small mob files.    * @param candidates All the candidates.    * @param allFiles Whether add all mob files into the compaction.    * @return A compaction request.    * @throws IOException    */
+comment|/**    * Selects the compacted mob/del files.    * Iterates the candidates to find out all the del files and small mob files.    * @param candidates All the candidates.    * @param allFiles Whether add all mob files into the compaction.    * @return A compaction request.    * @throws IOException if IO failure is encountered    */
 specifier|protected
 name|PartitionedMobCompactionRequest
 name|select
@@ -1218,9 +1206,7 @@ name|allDelFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|FileStatus
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Map
@@ -1233,11 +1219,7 @@ name|filesToCompact
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|CompactionPartitionId
-argument_list|,
-name|CompactionPartition
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -1530,7 +1512,7 @@ return|return
 name|request
 return|;
 block|}
-comment|/**    * Performs the compaction on the selected files.    *<ol>    *<li>Compacts the del files.</li>    *<li>Compacts the selected small mob files and all the del files.</li>    *<li>If all the candidates are selected, delete the del files.</li>    *</ol>    * @param request The compaction request.    * @return The paths of new mob files generated in the compaction.    * @throws IOException    */
+comment|/**    * Performs the compaction on the selected files.    *<ol>    *<li>Compacts the del files.</li>    *<li>Compacts the selected small mob files and all the del files.</li>    *<li>If all the candidates are selected, delete the del files.</li>    *</ol>    * @param request The compaction request.    * @return The paths of new mob files generated in the compaction.    * @throws IOException if IO failure is encountered    */
 specifier|protected
 name|List
 argument_list|<
@@ -1553,9 +1535,7 @@ name|delFilePaths
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1600,9 +1580,7 @@ name|newDelFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List
@@ -1777,7 +1755,7 @@ return|return
 name|paths
 return|;
 block|}
-comment|/**    * Compacts the selected small mob files and all the del files.    * @param request The compaction request.    * @param delFiles The del files.    * @return The paths of new mob files after compactions.    * @throws IOException    */
+comment|/**    * Compacts the selected small mob files and all the del files.    * @param request The compaction request.    * @param delFiles The del files.    * @return The paths of new mob files after compactions.    * @throws IOException if IO failure is encountered    */
 specifier|protected
 name|List
 argument_list|<
@@ -1843,11 +1821,10 @@ name|paths
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
+specifier|final
 name|Connection
 name|c
 init|=
@@ -1887,17 +1864,7 @@ name|results
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|CompactionPartitionId
-argument_list|,
-name|Future
-argument_list|<
-name|List
-argument_list|<
-name|Path
-argument_list|>
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// compact the mob files by partitions in parallel.
@@ -1966,6 +1933,8 @@ name|partition
 argument_list|,
 name|delFiles
 argument_list|,
+name|c
+argument_list|,
 name|table
 argument_list|)
 return|;
@@ -1984,9 +1953,7 @@ name|failedPartitions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|CompactionPartitionId
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -2101,7 +2068,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to close the HTable"
+literal|"Failed to close the Table"
 argument_list|,
 name|e
 argument_list|)
@@ -2112,7 +2079,7 @@ return|return
 name|paths
 return|;
 block|}
-comment|/**    * Compacts a partition of selected small mob files and all the del files.    * @param request The compaction request.    * @param partition A compaction partition.    * @param delFiles The del files.    * @param table The current table.    * @return The paths of new mob files after compactions.    * @throws IOException    */
+comment|/**    * Compacts a partition of selected small mob files and all the del files.    * @param request The compaction request.    * @param partition A compaction partition.    * @param delFiles The del files.    * @param connection to use    * @param table The current table.  @return The paths of new mob files after compactions.    * @throws IOException if IO failure is encountered    */
 specifier|private
 name|List
 argument_list|<
@@ -2132,6 +2099,9 @@ name|StoreFile
 argument_list|>
 name|delFiles
 parameter_list|,
+name|Connection
+name|connection
+parameter_list|,
 name|Table
 name|table
 parameter_list|)
@@ -2146,9 +2116,7 @@ name|newFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List
@@ -2288,9 +2256,7 @@ name|filesToCompact
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -2358,6 +2324,8 @@ argument_list|(
 name|request
 argument_list|,
 name|partition
+argument_list|,
+name|connection
 argument_list|,
 name|table
 argument_list|,
@@ -2454,7 +2422,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Compacts a partition of selected small mob files and all the del files in a batch.    * @param request The compaction request.    * @param partition A compaction partition.    * @param table The current table.    * @param filesToCompact The files to be compacted.    * @param batch The number of mob files to be compacted in a batch.    * @param bulkloadPathOfPartition The directory where the bulkload column of the current    *        partition is saved.    * @param bulkloadColumnPath The directory where the bulkload files of current partition    *        are saved.    * @param newFiles The paths of new mob files after compactions.    * @throws IOException    */
+comment|/**    * Compacts a partition of selected small mob files and all the del files in a batch.    * @param request The compaction request.    * @param partition A compaction partition.    * @param connection To use for transport    * @param table The current table.    * @param filesToCompact The files to be compacted.    * @param batch The number of mob files to be compacted in a batch.    * @param bulkloadPathOfPartition The directory where the bulkload column of the current    *   partition is saved.    * @param bulkloadColumnPath The directory where the bulkload files of current partition    *   are saved.    * @param newFiles The paths of new mob files after compactions.    * @throws IOException if IO failure is encountered    */
 specifier|private
 name|void
 name|compactMobFilesInBatch
@@ -2464,6 +2432,9 @@ name|request
 parameter_list|,
 name|CompactionPartition
 name|partition
+parameter_list|,
+name|Connection
+name|connection
 parameter_list|,
 name|Table
 name|table
@@ -2671,15 +2642,11 @@ name|cells
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|boolean
 name|hasMore
-init|=
-literal|false
 decl_stmt|;
 name|ScannerContext
 name|scannerContext
@@ -2827,6 +2794,8 @@ expr_stmt|;
 comment|// bulkload the ref file
 name|bulkloadRefFile
 argument_list|(
+name|connection
+argument_list|,
 name|table
 argument_list|,
 name|bulkloadPathOfPartition
@@ -2918,7 +2887,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Compacts the del files in batches which avoids opening too many files.    * @param request The compaction request.    * @param delFilePaths    * @return The paths of new del files after merging or the original files if no merging    *         is necessary.    * @throws IOException    */
+comment|/**    * Compacts the del files in batches which avoids opening too many files.    * @param request The compaction request.    * @param delFilePaths Del file paths to compact    * @return The paths of new del files after merging or the original files if no merging    *         is necessary.    * @throws IOException if IO failure is encountered    */
 specifier|protected
 name|List
 argument_list|<
@@ -2966,9 +2935,7 @@ name|paths
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 while|while
@@ -3017,9 +2984,7 @@ name|batchedDelFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 if|if
@@ -3119,7 +3084,7 @@ name|paths
 argument_list|)
 return|;
 block|}
-comment|/**    * Compacts the del file in a batch.    * @param request The compaction request.    * @param delFiles The del files.    * @return The path of new del file after merging.    * @throws IOException    */
+comment|/**    * Compacts the del file in a batch.    * @param request The compaction request.    * @param delFiles The del files.    * @return The path of new del file after merging.    * @throws IOException if IO failure is encountered    */
 specifier|private
 name|Path
 name|compactDelFilesInBatch
@@ -3221,15 +3186,11 @@ name|cells
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|boolean
 name|hasMore
-init|=
-literal|false
 decl_stmt|;
 name|ScannerContext
 name|scannerContext
@@ -3395,7 +3356,7 @@ return|return
 name|path
 return|;
 block|}
-comment|/**    * Creates a store scanner.    * @param filesToCompact The files to be compacted.    * @param scanType The scan type.    * @return The store scanner.    * @throws IOException    */
+comment|/**    * Creates a store scanner.    * @param filesToCompact The files to be compacted.    * @param scanType The scan type.    * @return The store scanner.    * @throws IOException if IO failure is encountered    */
 specifier|private
 name|StoreScanner
 name|createScanner
@@ -3507,11 +3468,14 @@ return|return
 name|scanner
 return|;
 block|}
-comment|/**    * Bulkloads the current file.    * @param table The current table.    * @param bulkloadDirectory The path of bulkload directory.    * @param fileName The current file name.    * @throws IOException    */
+comment|/**    * Bulkloads the current file.    *    * @param connection to use to get admin/RegionLocator    * @param table The current table.    * @param bulkloadDirectory The path of bulkload directory.    * @param fileName The current file name.    * @throws IOException if IO failure is encountered    */
 specifier|private
 name|void
 name|bulkloadRefFile
 parameter_list|(
+name|Connection
+name|connection
+parameter_list|,
 name|Table
 name|table
 parameter_list|,
@@ -3542,10 +3506,22 @@ name|doBulkLoad
 argument_list|(
 name|bulkloadDirectory
 argument_list|,
-operator|(
-name|HTable
-operator|)
+name|connection
+operator|.
+name|getAdmin
+argument_list|()
+argument_list|,
 name|table
+argument_list|,
+name|connection
+operator|.
+name|getRegionLocator
+argument_list|(
+name|table
+operator|.
+name|getName
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -3585,7 +3561,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Closes the mob file writer.    * @param writer The mob file writer.    * @param maxSeqId Maximum sequence id.    * @param mobCellsCount The number of mob cells.    * @throws IOException    */
+comment|/**    * Closes the mob file writer.    * @param writer The mob file writer.    * @param maxSeqId Maximum sequence id.    * @param mobCellsCount The number of mob cells.    * @throws IOException if IO failure is encountered    */
 specifier|private
 name|void
 name|closeMobFileWriter
@@ -3651,7 +3627,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Closes the ref file writer.    * @param writer The ref file writer.    * @param maxSeqId Maximum sequence id.    * @param bulkloadTime The timestamp at which the bulk load file is created.    * @throws IOException    */
+comment|/**    * Closes the ref file writer.    * @param writer The ref file writer.    * @param maxSeqId Maximum sequence id.    * @param bulkloadTime The timestamp at which the bulk load file is created.    * @throws IOException if IO failure is encountered    */
 specifier|private
 name|void
 name|closeRefFileWriter
@@ -3747,7 +3723,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Gets the max seqId and number of cells of the store files.    * @param storeFiles The store files.    * @return The pair of the max seqId and number of cells of the store files.    * @throws IOException    */
+comment|/**    * Gets the max seqId and number of cells of the store files.    * @param storeFiles The store files.    * @return The pair of the max seqId and number of cells of the store files.    * @throws IOException if IO failure is encountered    */
 specifier|private
 name|Pair
 argument_list|<
@@ -3839,11 +3815,7 @@ block|}
 return|return
 operator|new
 name|Pair
-argument_list|<
-name|Long
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Long
 operator|.
