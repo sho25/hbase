@@ -1640,7 +1640,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Facility for testing HBase. Replacement for  * old HBaseTestCase and HBaseClusterTestCase functionality.  * Create an instance and keep it around testing HBase.  This class is  * meant to be your one-stop shop for anything you might need testing.  Manages  * one cluster at a time only. Managed cluster can be an in-process  * {@link MiniHBaseCluster}, or a deployed cluster of type {@code DistributedHBaseCluster}.  * Not all methods work with the real cluster.  * Depends on log4j being on classpath and  * hbase-site.xml for logging and test-run configuration.  It does not set  * logging levels nor make changes to configuration parameters.  *<p>To preserve test data directories, pass the system property "hbase.testing.preserve.testdir"  * setting it to true.  */
+comment|/**  * Facility for testing HBase. Replacement for  * old HBaseTestCase and HBaseClusterTestCase functionality.  * Create an instance and keep it around testing HBase.  This class is  * meant to be your one-stop shop for anything you might need testing.  Manages  * one cluster at a time only. Managed cluster can be an in-process  * {@link MiniHBaseCluster}, or a deployed cluster of type {@code DistributedHBaseCluster}.  * Not all methods work with the real cluster.  * Depends on log4j being on classpath and  * hbase-site.xml for logging and test-run configuration.  It does not set  * logging levels.  * In the configuration properties, default values for master-info-port and  * region-server-port are overridden such that a random port will be assigned (thus  * avoiding port contention if another local HBase instance is already running).  *<p>To preserve test data directories, pass the system property "hbase.testing.preserve.testdir"  * setting it to true.  */
 end_comment
 
 begin_class
@@ -2353,6 +2353,107 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+comment|// prevent contention for ports if other hbase thread(s) already running
+if|if
+condition|(
+name|conf
+operator|!=
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|MASTER_INFO_PORT
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_MASTER_INFOPORT
+argument_list|)
+operator|==
+name|HConstants
+operator|.
+name|DEFAULT_MASTER_INFOPORT
+condition|)
+block|{
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|MASTER_INFO_PORT
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Config property "
+operator|+
+name|HConstants
+operator|.
+name|MASTER_INFO_PORT
+operator|+
+literal|" changed to -1"
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|REGIONSERVER_PORT
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_REGIONSERVER_PORT
+argument_list|)
+operator|==
+name|HConstants
+operator|.
+name|DEFAULT_REGIONSERVER_PORT
+condition|)
+block|{
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|REGIONSERVER_PORT
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Config property "
+operator|+
+name|HConstants
+operator|.
+name|REGIONSERVER_PORT
+operator|+
+literal|" changed to -1"
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 comment|/**    * Create an HBaseTestingUtility where all tmp files are written to the local test data dir.    * It is needed to properly base FSUtil.getRootDirs so that they drop temp files in the proper    * test dir.  Use this when you aren't using an Mini HDFS cluster.    * @return HBaseTestingUtility that use local fs for temp files.    */
 specifier|public

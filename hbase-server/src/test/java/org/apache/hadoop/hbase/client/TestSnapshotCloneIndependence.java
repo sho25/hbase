@@ -629,27 +629,6 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-comment|// disable the ui
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.regionsever.info.port"
-argument_list|,
-operator|-
-literal|1
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.master.info.port"
-argument_list|,
-operator|-
-literal|1
-argument_list|)
-expr_stmt|;
 comment|// change the flush size to a small amount, regulating number of store files
 name|conf
 operator|.
