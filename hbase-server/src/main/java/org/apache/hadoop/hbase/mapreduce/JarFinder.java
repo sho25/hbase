@@ -693,6 +693,8 @@ argument_list|)
 throw|;
 block|}
 block|}
+try|try
+init|(
 name|JarOutputStream
 name|zos
 init|=
@@ -705,7 +707,8 @@ argument_list|(
 name|jarFile
 argument_list|)
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|jarDir
 argument_list|(
 name|dir
@@ -715,6 +718,7 @@ argument_list|,
 name|zos
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Returns the full path to the Jar containing the class. It always return a    * JAR.    *    * @param klass class.    *    * @return path to the Jar containing the class.    */
 specifier|public

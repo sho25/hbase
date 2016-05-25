@@ -441,6 +441,8 @@ operator|.
 name|connect
 argument_list|()
 expr_stmt|;
+try|try
+init|(
 name|BufferedReader
 name|in
 init|=
@@ -456,7 +458,8 @@ name|getInputStream
 argument_list|()
 argument_list|)
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 for|for
 control|(
 name|String
@@ -474,6 +477,7 @@ operator|!=
 literal|null
 condition|;
 control|)
+block|{
 if|if
 condition|(
 name|line
@@ -504,11 +508,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|in
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
+block|}
 block|}
 catch|catch
 parameter_list|(
