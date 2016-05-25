@@ -1206,11 +1206,14 @@ name|readPt
 operator|)
 condition|)
 block|{
+name|boolean
+name|hasNext
+init|=
 name|hfs
 operator|.
 name|next
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 name|setCurrentCell
 argument_list|(
 name|hfs
@@ -1221,6 +1224,8 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|hasNext
+operator|&&
 name|this
 operator|.
 name|stopSkippingKVsIfNextRow
