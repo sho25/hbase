@@ -4342,7 +4342,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Create a 'smarter' HConnection, one that is capable of by-passing RPC if the request is to    * the local server. Safe to use going to local or remote server.    * Create this instance in a method can be intercepted and mocked in tests.    * @throws IOException    */
+comment|/**    * Create a 'smarter' Connection, one that is capable of by-passing RPC if the request is to    * the local server. Safe to use going to local or remote server.    * Create this instance in a method can be intercepted and mocked in tests.    * @throws IOException    */
 annotation|@
 name|VisibleForTesting
 specifier|protected
@@ -5863,7 +5863,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Attempt to close server's short circuit HConnection failed."
+literal|"Attempt to close server's short circuit ClusterConnection failed."
 argument_list|,
 name|e
 argument_list|)
@@ -9625,7 +9625,7 @@ block|}
 block|}
 comment|// Create the log splitting worker and start it
 comment|// set a smaller retries to fast fail otherwise splitlogworker could be blocked for
-comment|// quite a while inside HConnection layer. The worker won't be available for other
+comment|// quite a while inside Connection layer. The worker won't be available for other
 comment|// tasks even after current task is preempted after a split task times out.
 name|Configuration
 name|sinkConf

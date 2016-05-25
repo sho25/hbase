@@ -1139,7 +1139,7 @@ operator|.
 name|create
 argument_list|()
 expr_stmt|;
-comment|// Run my HConnection overrides.  Use my little ConnectionImplementation below which
+comment|// Run my Connection overrides.  Use my little ConnectionImplementation below which
 comment|// allows me insert mocks and also use my Registry below rather than the default zk based
 comment|// one so tests run faster and don't have zk dependency.
 name|this

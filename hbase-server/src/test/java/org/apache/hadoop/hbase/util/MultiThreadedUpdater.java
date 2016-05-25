@@ -861,7 +861,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|protected
-name|HTableInterface
+name|Table
 name|createTable
 parameter_list|()
 throws|throws

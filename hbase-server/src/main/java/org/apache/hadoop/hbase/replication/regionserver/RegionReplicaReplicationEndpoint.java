@@ -3011,10 +3011,10 @@ condition|)
 block|{
 comment|// The table can be disabled or dropped at this time. For disabled tables, we have no
 comment|// cheap mechanism to detect this case because meta does not contain this information.
-comment|// HConnection.isTableDisabled() is a zk call which we cannot do for every replay RPC.
-comment|// So instead we start the replay RPC with retries and
-comment|// check whether the table is dropped or disabled which might cause
-comment|// SocketTimeoutException, or RetriesExhaustedException or similar if we get IOE.
+comment|// ClusterConnection.isTableDisabled() is a zk call which we cannot do for every replay
+comment|// RPC. So instead we start the replay RPC with retries and check whether the table is
+comment|// dropped or disabled which might cause SocketTimeoutException, or
+comment|// RetriesExhaustedException or similar if we get IOE.
 if|if
 condition|(
 name|cause

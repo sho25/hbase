@@ -695,7 +695,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-comment|// change one of the connection properties so we get a new HConnection with our configuration
+comment|// change one of the connection properties so we get a new Connection with our configuration
 name|conf
 operator|.
 name|setInt

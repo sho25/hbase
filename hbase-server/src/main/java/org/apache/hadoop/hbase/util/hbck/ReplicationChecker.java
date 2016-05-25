@@ -185,7 +185,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|ClusterConnection
 import|;
 end_import
 
@@ -392,23 +392,28 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|final
 name|ErrorReporter
 name|errorReporter
 decl_stmt|;
 specifier|private
+specifier|final
 name|ReplicationQueuesClient
 name|queuesClient
 decl_stmt|;
 specifier|private
+specifier|final
 name|ReplicationPeers
 name|replicationPeers
 decl_stmt|;
 specifier|private
+specifier|final
 name|ReplicationQueueDeletor
 name|queueDeletor
 decl_stmt|;
 comment|// replicator with its queueIds for removed peers
 specifier|private
+specifier|final
 name|Map
 argument_list|<
 name|String
@@ -422,14 +427,7 @@ name|undeletedQueueIds
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|List
-argument_list|<
-name|String
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public
@@ -441,7 +439,7 @@ parameter_list|,
 name|ZooKeeperWatcher
 name|zkw
 parameter_list|,
-name|HConnection
+name|ClusterConnection
 name|connection
 parameter_list|,
 name|ErrorReporter
@@ -576,9 +574,7 @@ name|peerIds
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|this
 operator|.

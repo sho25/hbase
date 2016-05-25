@@ -21,6 +21,20 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -177,20 +191,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -329,7 +329,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ConnectionFactory
+name|ClusterConnection
 import|;
 end_import
 
@@ -345,7 +345,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|ConnectionFactory
 import|;
 end_import
 
@@ -536,7 +536,7 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|HConnection
+name|ClusterConnection
 name|conn
 decl_stmt|;
 specifier|private
@@ -674,7 +674,7 @@ operator|.
 name|conn
 operator|=
 operator|(
-name|HConnection
+name|ClusterConnection
 operator|)
 name|ConnectionFactory
 operator|.

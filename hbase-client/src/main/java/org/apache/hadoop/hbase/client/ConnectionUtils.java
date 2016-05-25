@@ -19,6 +19,20 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -209,20 +223,6 @@ name|UserProvider
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
 begin_comment
 comment|/**  * Utility used by client connections.  */
 end_comment
@@ -241,7 +241,7 @@ specifier|private
 name|ConnectionUtils
 parameter_list|()
 block|{}
-comment|/**    * Calculate pause time.    * Built on {@link HConstants#RETRY_BACKOFF}.    * @param pause    * @param tries    * @return How long to wait after<code>tries</code> retries    */
+comment|/**    * Calculate pause time.    * Built on {@link HConstants#RETRY_BACKOFF}.    * @param pause time to pause    * @param tries amount of tries    * @return How long to wait after<code>tries</code> retries    */
 specifier|public
 specifier|static
 name|long
@@ -417,7 +417,7 @@ name|cnm
 argument_list|)
 return|;
 block|}
-comment|/**    * Changes the configuration to set the number of retries needed when using HConnection    * internally, e.g. for  updating catalog tables, etc.    * Call this method before we create any Connections.    * @param c The Configuration instance to set the retries into.    * @param log Used to log what we set in here.    */
+comment|/**    * Changes the configuration to set the number of retries needed when using Connection    * internally, e.g. for  updating catalog tables, etc.    * Call this method before we create any Connections.    * @param c The Configuration instance to set the retries into.    * @param log Used to log what we set in here.    */
 specifier|public
 specifier|static
 name|void
@@ -491,13 +491,13 @@ name|info
 argument_list|(
 name|sn
 operator|+
-literal|" server-side HConnection retries="
+literal|" server-side Connection retries="
 operator|+
 name|retries
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a short-circuit connection that can bypass the RPC layer (serialization,    * deserialization, networking, etc..) when talking to a local server.    * @param conf the current configuration    * @param pool the thread pool to use for batch operations    * @param user the user the connection is for    * @param serverName the local server name    * @param admin the admin interface of the local server    * @param client the client interface of the local server    * @return an short-circuit connection.    * @throws IOException    */
+comment|/**    * Creates a short-circuit connection that can bypass the RPC layer (serialization,    * deserialization, networking, etc..) when talking to a local server.    * @param conf the current configuration    * @param pool the thread pool to use for batch operations    * @param user the user the connection is for    * @param serverName the local server name    * @param admin the admin interface of the local server    * @param client the client interface of the local server    * @return an short-circuit connection.    * @throws IOException if IO failure occurred    */
 specifier|public
 specifier|static
 name|ClusterConnection
@@ -573,9 +573,6 @@ name|getAdmin
 parameter_list|(
 name|ServerName
 name|sn
-parameter_list|,
-name|boolean
-name|getMaster
 parameter_list|)
 throws|throws
 name|IOException
@@ -595,8 +592,6 @@ operator|.
 name|getAdmin
 argument_list|(
 name|sn
-argument_list|,
-name|getMaster
 argument_list|)
 return|;
 block|}
@@ -651,7 +646,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-name|HConnection
+name|ClusterConnection
 operator|.
 name|HBASE_CLIENT_CONNECTION_IMPL
 argument_list|,

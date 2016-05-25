@@ -1669,7 +1669,7 @@ name|shutdownNow
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Naive test to check that HConnection#getAdmin returns a properly constructed HBaseAdmin object    * @throws IOException Unable to construct admin    */
+comment|/**    * Naive test to check that Connection#getAdmin returns a properly constructed HBaseAdmin object    * @throws IOException Unable to construct admin    */
 annotation|@
 name|Test
 specifier|public
@@ -2956,9 +2956,6 @@ init|=
 operator|new
 name|MasterCallable
 argument_list|(
-operator|(
-name|HConnection
-operator|)
 name|TEST_UTIL
 operator|.
 name|getConnection
@@ -3086,7 +3083,7 @@ name|previousBalance
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|setBalancerRunning
@@ -6412,11 +6409,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// This should be enough to connect
-name|HConnection
+name|ClusterConnection
 name|conn
 init|=
 operator|(
-name|HConnection
+name|ClusterConnection
 operator|)
 name|ConnectionFactory
 operator|.

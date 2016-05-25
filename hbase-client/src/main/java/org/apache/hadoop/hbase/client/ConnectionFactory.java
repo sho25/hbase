@@ -313,7 +313,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-name|HConnection
+name|ClusterConnection
 operator|.
 name|HBASE_CLIENT_CONNECTION_IMPL
 argument_list|,

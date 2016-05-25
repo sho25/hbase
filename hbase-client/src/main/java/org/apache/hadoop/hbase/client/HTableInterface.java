@@ -60,7 +60,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to communicate with a single HBase table.  * Obtain an instance from an {@link HConnection}.  *  * @since 0.21.0  * @deprecated use {@link org.apache.hadoop.hbase.client.Table} instead  */
+comment|/**  * Used to communicate with a single HBase table.  * Obtain an instance from a {@link Connection}.  *  * @since 0.21.0  * @deprecated use {@link org.apache.hadoop.hbase.client.Table} instead  */
 end_comment
 
 begin_interface

@@ -367,7 +367,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|ClusterConnection
 import|;
 end_import
 
@@ -1611,12 +1611,7 @@ name|add
 argument_list|(
 operator|new
 name|Pair
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|fam
 argument_list|,
@@ -1630,12 +1625,15 @@ expr_stmt|;
 block|}
 comment|// bulk load HFiles
 specifier|final
-name|HConnection
+name|ClusterConnection
 name|conn
 init|=
+operator|(
+name|ClusterConnection
+operator|)
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getConnection

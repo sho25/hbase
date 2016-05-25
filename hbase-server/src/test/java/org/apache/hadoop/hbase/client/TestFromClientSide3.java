@@ -799,10 +799,15 @@ operator|.
 name|BlockingInterface
 name|server
 init|=
+operator|(
+operator|(
+name|ClusterConnection
+operator|)
 name|admin
 operator|.
 name|getConnection
 argument_list|()
+operator|)
 operator|.
 name|getAdmin
 argument_list|(

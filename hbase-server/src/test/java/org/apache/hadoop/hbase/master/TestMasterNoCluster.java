@@ -1249,7 +1249,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Insert a mock for the connection, use TESTUTIL.getConfiguration rather than
-comment|// the conf from the master; the conf will already have an HConnection
+comment|// the conf from the master; the conf will already have an ClusterConnection
 comment|// associate so the below mocking of a connection will fail.
 specifier|final
 name|ClusterConnection
@@ -1856,7 +1856,7 @@ name|getConnection
 parameter_list|()
 block|{
 comment|// Insert a mock for the connection, use TESTUTIL.getConfiguration rather than
-comment|// the conf from the master; the conf will already have an HConnection
+comment|// the conf from the master; the conf will already have a Connection
 comment|// associate so the below mocking of a connection will fail.
 try|try
 block|{

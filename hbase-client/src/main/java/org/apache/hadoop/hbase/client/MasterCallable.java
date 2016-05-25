@@ -57,7 +57,7 @@ implements|,
 name|Closeable
 block|{
 specifier|protected
-name|HConnection
+name|ClusterConnection
 name|connection
 decl_stmt|;
 specifier|protected
@@ -68,7 +68,7 @@ specifier|public
 name|MasterCallable
 parameter_list|(
 specifier|final
-name|HConnection
+name|Connection
 name|connection
 parameter_list|)
 block|{
@@ -76,6 +76,9 @@ name|this
 operator|.
 name|connection
 operator|=
+operator|(
+name|ClusterConnection
+operator|)
 name|connection
 expr_stmt|;
 block|}
@@ -121,6 +124,7 @@ name|master
 operator|!=
 literal|null
 condition|)
+block|{
 name|this
 operator|.
 name|master
@@ -128,6 +132,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override

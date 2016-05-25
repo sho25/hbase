@@ -852,7 +852,7 @@ throws|throws
 name|IOException
 block|{
 comment|// Create each regionserver with its own Configuration instance so each has
-comment|// its HConnection instance rather than share (see HBASE_INSTANCES down in
+comment|// its Connection instance rather than share (see HBASE_INSTANCES down in
 comment|// the guts of ConnectionManager).
 comment|// Also, create separate CoordinatedStateManager instance per Server.
 comment|// This is special case when we have to have more than 1 CoordinatedStateManager
@@ -1021,7 +1021,7 @@ throws|throws
 name|IOException
 block|{
 comment|// Create each master with its own Configuration instance so each has
-comment|// its HConnection instance rather than share (see HBASE_INSTANCES down in
+comment|// its Connection instance rather than share (see HBASE_INSTANCES down in
 comment|// the guts of ConnectionManager.
 comment|// Also, create separate CoordinatedStateManager instance per Server.
 comment|// This is special case when we have to have more than 1 CoordinatedStateManager

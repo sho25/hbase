@@ -33659,7 +33659,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * simple test that just executes parts of the client    * API that accept a pre-created HConnection instance    *    * @throws IOException    */
+comment|/**    * simple test that just executes parts of the client    * API that accept a pre-created Connection instance    *    * @throws IOException    */
 annotation|@
 name|Test
 specifier|public

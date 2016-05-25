@@ -725,6 +725,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|ClusterConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|ConnectionFactory
 import|;
 end_import
@@ -774,22 +790,6 @@ operator|.
 name|client
 operator|.
 name|Durability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HConnection
 import|;
 end_import
 
@@ -8892,6 +8892,7 @@ init|=
 literal|"#"
 decl_stmt|;
 specifier|private
+specifier|final
 name|long
 name|waitRegionOnlineTimeOut
 decl_stmt|;
@@ -8927,11 +8928,7 @@ name|writers
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|RegionServerWriter
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// online encoded region name -> region location map
@@ -8955,11 +8952,12 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 specifier|private
+specifier|final
 name|Map
 argument_list|<
 name|TableName
 argument_list|,
-name|HConnection
+name|ClusterConnection
 argument_list|>
 name|tableNameToHConnectionMap
 init|=
@@ -8972,13 +8970,14 @@ name|TreeMap
 argument_list|<
 name|TableName
 argument_list|,
-name|HConnection
+name|ClusterConnection
 argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
 comment|/**      * Map key -> value layout      * {@literal<servername>:<table name> -> Queue<Row>}      */
 specifier|private
+specifier|final
 name|Map
 argument_list|<
 name|String
@@ -8997,22 +8996,11 @@ name|serverToBufferQueueMap
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|List
-argument_list|<
-name|Pair
-argument_list|<
-name|HRegionLocation
-argument_list|,
-name|Entry
-argument_list|>
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
+specifier|final
 name|List
 argument_list|<
 name|Throwable
@@ -9021,9 +9009,7 @@ name|thrown
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Throwable
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// The following sink is used in distrubitedLogReplay mode for entries of regions in a disabling
@@ -9031,6 +9017,7 @@ comment|// table. It's a limitation of distributedLogReplay. Because log replay 
 comment|// assigned and online before it can replay wal edits while regions of disabling/disabled table
 comment|// won't be assigned by AM. We can retire this code after HBASE-8234.
 specifier|private
+specifier|final
 name|LogRecoveredEditsOutputSink
 name|logRecoveredEditsOutputSink
 decl_stmt|;
@@ -9525,13 +9512,11 @@ name|skippedCells
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
-name|HConnection
-name|hconn
+name|ClusterConnection
+name|cconn
 init|=
 name|this
 operator|.
@@ -9697,7 +9682,7 @@ name|loc
 operator|=
 name|locateRegionAndRefreshLastFlushedSequenceId
 argument_list|(
-name|hconn
+name|cconn
 argument_list|,
 name|table
 argument_list|,
@@ -10062,8 +10047,8 @@ specifier|private
 name|HRegionLocation
 name|locateRegionAndRefreshLastFlushedSequenceId
 parameter_list|(
-name|HConnection
-name|hconn
+name|ClusterConnection
+name|cconn
 parameter_list|,
 name|TableName
 name|table
@@ -10101,7 +10086,7 @@ return|;
 comment|// fetch location from hbase:meta directly without using cache to avoid hit old dead server
 name|loc
 operator|=
-name|hconn
+name|cconn
 operator|.
 name|getRegionLocation
 argument_list|(
@@ -10198,7 +10183,7 @@ name|Long
 name|lastFlushedSequenceId
 init|=
 operator|-
-literal|1l
+literal|1L
 decl_stmt|;
 name|AtomicBoolean
 name|isRecovering
@@ -10652,8 +10637,8 @@ block|{
 try|try
 block|{
 comment|// Try and get regioninfo from the hosting server.
-name|HConnection
-name|hconn
+name|ClusterConnection
+name|cconn
 init|=
 name|getConnectionByTableName
 argument_list|(
@@ -10667,7 +10652,7 @@ condition|)
 block|{
 name|loc
 operator|=
-name|hconn
+name|cconn
 operator|.
 name|getRegionLocation
 argument_list|(
@@ -10682,7 +10667,7 @@ block|}
 name|BlockingInterface
 name|remoteSvr
 init|=
-name|hconn
+name|cconn
 operator|.
 name|getAdmin
 argument_list|(
@@ -11369,7 +11354,7 @@ name|Entry
 argument_list|<
 name|TableName
 argument_list|,
-name|HConnection
+name|ClusterConnection
 argument_list|>
 name|entry
 range|:
@@ -11381,8 +11366,8 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|HConnection
-name|hconn
+name|ClusterConnection
+name|cconn
 init|=
 name|entry
 operator|.
@@ -11391,12 +11376,12 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
-name|hconn
+name|cconn
 operator|.
 name|clearRegionCache
 argument_list|()
 expr_stmt|;
-name|hconn
+name|cconn
 operator|.
 name|close
 argument_list|()
@@ -11452,12 +11437,7 @@ name|ret
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -11713,7 +11693,7 @@ literal|" found. Replay aborted."
 argument_list|)
 throw|;
 block|}
-name|HConnection
+name|ClusterConnection
 name|hconn
 init|=
 name|getConnectionByTableName
@@ -11770,7 +11750,7 @@ name|ret
 return|;
 block|}
 specifier|private
-name|HConnection
+name|ClusterConnection
 name|getConnectionByTableName
 parameter_list|(
 specifier|final
@@ -11780,8 +11760,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HConnection
-name|hconn
+name|ClusterConnection
+name|cconn
 init|=
 name|this
 operator|.
@@ -11794,7 +11774,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|hconn
+name|cconn
 operator|==
 literal|null
 condition|)
@@ -11806,7 +11786,7 @@ operator|.
 name|tableNameToHConnectionMap
 init|)
 block|{
-name|hconn
+name|cconn
 operator|=
 name|this
 operator|.
@@ -11819,15 +11799,15 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|hconn
+name|cconn
 operator|==
 literal|null
 condition|)
 block|{
-name|hconn
+name|cconn
 operator|=
 operator|(
-name|HConnection
+name|ClusterConnection
 operator|)
 name|ConnectionFactory
 operator|.
@@ -11844,14 +11824,14 @@ name|put
 argument_list|(
 name|tableName
 argument_list|,
-name|hconn
+name|cconn
 argument_list|)
 expr_stmt|;
 block|}
 block|}
 block|}
 return|return
-name|hconn
+name|cconn
 return|;
 block|}
 specifier|private
@@ -11924,7 +11904,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HConnection
+name|ClusterConnection
 name|conn
 parameter_list|)
 throws|throws

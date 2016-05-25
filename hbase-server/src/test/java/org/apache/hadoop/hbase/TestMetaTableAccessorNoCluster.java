@@ -1176,7 +1176,7 @@ name|build
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Associate a spied-upon HConnection with UTIL.getConfiguration.  Need
+comment|// Associate a spied-upon Connection with UTIL.getConfiguration.  Need
 comment|// to shove this in here first so it gets picked up all over; e.g. by
 comment|// HTable.
 name|connection

@@ -19,6 +19,18 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|InvalidProtocolBufferException
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -244,38 +256,6 @@ operator|.
 name|client
 operator|.
 name|ClusterConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Connection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HConnection
 import|;
 end_import
 
@@ -575,20 +555,8 @@ name|KeeperException
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
-import|;
-end_import
-
 begin_comment
-comment|/**  * Utility class to perform operation (get/wait for/verify/set/delete) on znode in ZooKeeper  * which keeps hbase:meta region server location.  *  * Stateless class with a bunch of static methods. Doesn't manage resources passed in  * (e.g. HConnection, ZooKeeperWatcher etc).  *  * Meta region location is set by<code>RegionServerServices</code>.  * This class doesn't use ZK watchers, rather accesses ZK directly.  *  * This class it stateless. The only reason it's not made a non-instantiable util class  * with a collection of static methods is that it'd be rather hard to mock properly in tests.  *  * TODO: rewrite using RPC calls to master to find out about hbase:meta.  */
+comment|/**  * Utility class to perform operation (get/wait for/verify/set/delete) on znode in ZooKeeper  * which keeps hbase:meta region server location.  *  * Stateless class with a bunch of static methods. Doesn't manage resources passed in  * (e.g. Connection, ZooKeeperWatcher etc).  *  * Meta region location is set by<code>RegionServerServices</code>.  * This class doesn't use ZK watchers, rather accesses ZK directly.  *  * This class it stateless. The only reason it's not made a non-instantiable util class  * with a collection of static methods is that it'd be rather hard to mock properly in tests.  *  * TODO: rewrite using RPC calls to master to find out about hbase:meta.  */
 end_comment
 
 begin_class
@@ -1247,7 +1215,7 @@ specifier|public
 name|boolean
 name|verifyMetaRegionLocation
 parameter_list|(
-name|HConnection
+name|ClusterConnection
 name|hConnection
 parameter_list|,
 name|ZooKeeperWatcher
@@ -1277,13 +1245,13 @@ name|DEFAULT_REPLICA_ID
 argument_list|)
 return|;
 block|}
-comment|/**    * Verify<code>hbase:meta</code> is deployed and accessible.    * @param hConnection    * @param zkw    * @param timeout How long to wait on zk for meta address (passed through to    * @param replicaId    * @return True if the<code>hbase:meta</code> location is healthy.    * @throws InterruptedException    * @throws IOException    */
+comment|/**    * Verify<code>hbase:meta</code> is deployed and accessible.    * @param connection    * @param zkw    * @param timeout How long to wait on zk for meta address (passed through to    * @param replicaId    * @return True if the<code>hbase:meta</code> location is healthy.    * @throws InterruptedException    * @throws IOException    */
 specifier|public
 name|boolean
 name|verifyMetaRegionLocation
 parameter_list|(
-name|HConnection
-name|hConnection
+name|ClusterConnection
+name|connection
 parameter_list|,
 name|ZooKeeperWatcher
 name|zkw
@@ -1315,7 +1283,7 @@ name|service
 operator|=
 name|getMetaServerConnection
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|zkw
 argument_list|,
@@ -1366,7 +1334,7 @@ operator|)
 operator|&&
 name|verifyRegionLocation
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|service
 argument_list|,
@@ -1403,7 +1371,7 @@ name|boolean
 name|verifyRegionLocation
 parameter_list|(
 specifier|final
-name|Connection
+name|ClusterConnection
 name|connection
 parameter_list|,
 name|AdminService
@@ -1447,31 +1415,14 @@ decl_stmt|;
 name|PayloadCarryingRpcController
 name|controller
 init|=
-literal|null
-decl_stmt|;
-if|if
-condition|(
 name|connection
-operator|instanceof
-name|ClusterConnection
-condition|)
-block|{
-name|controller
-operator|=
-operator|(
-operator|(
-name|ClusterConnection
-operator|)
-name|connection
-operator|)
 operator|.
 name|getRpcControllerFactory
 argument_list|()
 operator|.
 name|newController
 argument_list|()
-expr_stmt|;
-block|}
+decl_stmt|;
 try|try
 block|{
 comment|// Try and get regioninfo from the hosting server.
@@ -1628,15 +1579,15 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Gets a connection to the server hosting meta, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    *<p>WARNING: Does not retry.  Use an {@link org.apache.hadoop.hbase.client.HTable} instead.    * @param hConnection    * @param zkw    * @param timeout How long to wait on meta location    * @param replicaId    * @return connection to server hosting meta    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    */
+comment|/**    * Gets a connection to the server hosting meta, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    *<p>WARNING: Does not retry.  Use an {@link org.apache.hadoop.hbase.client.HTable} instead.    * @param connection    * @param zkw    * @param timeout How long to wait on meta location    * @param replicaId    * @return connection to server hosting meta    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    */
 specifier|private
 name|AdminService
 operator|.
 name|BlockingInterface
 name|getMetaServerConnection
 parameter_list|(
-name|HConnection
-name|hConnection
+name|ClusterConnection
+name|connection
 parameter_list|,
 name|ZooKeeperWatcher
 name|zkw
@@ -1657,7 +1608,7 @@ block|{
 return|return
 name|getCachedConnection
 argument_list|(
-name|hConnection
+name|connection
 argument_list|,
 name|waitMetaRegionLocation
 argument_list|(
@@ -1683,8 +1634,8 @@ operator|.
 name|BlockingInterface
 name|getCachedConnection
 parameter_list|(
-name|HConnection
-name|hConnection
+name|ClusterConnection
+name|connection
 parameter_list|,
 name|ServerName
 name|sn
@@ -1714,7 +1665,7 @@ try|try
 block|{
 name|service
 operator|=
-name|hConnection
+name|connection
 operator|.
 name|getAdmin
 argument_list|(

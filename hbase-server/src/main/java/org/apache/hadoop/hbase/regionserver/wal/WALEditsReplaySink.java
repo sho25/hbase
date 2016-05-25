@@ -21,6 +21,18 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ServiceException
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -108,22 +120,6 @@ operator|.
 name|logging
 operator|.
 name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -249,9 +245,41 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
-name|HConnection
+name|ClusterConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Connection
 import|;
 end_import
 
@@ -459,18 +487,6 @@ name|Entry
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ServiceException
-import|;
-end_import
-
 begin_comment
 comment|/**  * This class is responsible for replaying the edits coming from a failed region server.  *<p>  * This class uses the native HBase client in order to replay WAL entries.  *</p>  */
 end_comment
@@ -514,7 +530,7 @@ name|conf
 decl_stmt|;
 specifier|private
 specifier|final
-name|HConnection
+name|ClusterConnection
 name|conn
 decl_stmt|;
 specifier|private
@@ -547,10 +563,11 @@ name|int
 name|replayTimeout
 decl_stmt|;
 specifier|private
+specifier|final
 name|RpcControllerFactory
 name|rpcControllerFactory
 decl_stmt|;
-comment|/**    * Create a sink for WAL log entries replay    * @param conf    * @param tableName    * @param conn    * @throws IOException    */
+comment|/**    * Create a sink for WAL log entries replay    * @param conf configuration    * @param tableName of table to replay edits of    * @param conn connection to use    * @throws IOException on IO failure    */
 specifier|public
 name|WALEditsReplaySink
 parameter_list|(
@@ -560,7 +577,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|HConnection
+name|ClusterConnection
 name|conn
 parameter_list|)
 throws|throws
@@ -635,7 +652,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Replay an array of actions of the same region directly into the newly assigned Region Server    * @param entries    * @throws IOException    */
+comment|/**    * Replay an array of actions of the same region directly into the newly assigned Region Server    * @param entries to replay    * @throws IOException on IO failure    */
 specifier|public
 name|void
 name|replayEntries
@@ -687,14 +704,7 @@ name|entriesByRegion
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|List
-argument_list|<
-name|Entry
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|HRegionLocation
@@ -1154,7 +1164,7 @@ decl_stmt|;
 name|ReplayServerCallable
 parameter_list|(
 specifier|final
-name|HConnection
+name|Connection
 name|connection
 parameter_list|,
 specifier|final

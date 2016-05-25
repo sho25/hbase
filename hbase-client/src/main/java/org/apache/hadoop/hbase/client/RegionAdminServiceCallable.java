@@ -603,8 +603,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @return {@link HConnection} instance used by this Callable.    */
-name|HConnection
+comment|/**    * @return {@link Connection} instance used by this Callable.    */
+name|Connection
 name|getConnection
 parameter_list|()
 block|{

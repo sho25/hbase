@@ -657,22 +657,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|HTable
 import|;
 end_import
@@ -2538,7 +2522,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Returns this classes's instance of {@link Configuration}.  Be careful how    * you use the returned Configuration since {@link HConnection} instances    * can be shared.  The Map of HConnections is keyed by the Configuration.  If    * say, a Connection was being used against a cluster that had been shutdown,    * see {@link #shutdownMiniCluster()}, then the Connection will no longer    * be wholesome.  Rather than use the return direct, its usually best to    * make a copy and use that.  Do    *<code>Configuration c = new Configuration(INSTANCE.getConfiguration());</code>    * @return Instance of Configuration.    */
+comment|/**    * Returns this classes's instance of {@link Configuration}.  Be careful how    * you use the returned Configuration since {@link Connection} instances    * can be shared.  The Map of Connections is keyed by the Configuration.  If    * say, a Connection was being used against a cluster that had been shutdown,    * see {@link #shutdownMiniCluster()}, then the Connection will no longer    * be wholesome.  Rather than use the return direct, its usually best to    * make a copy and use that.  Do    *<code>Configuration c = new Configuration(INSTANCE.getConfiguration());</code>    * @return Instance of Configuration.    */
 annotation|@
 name|Override
 specifier|public

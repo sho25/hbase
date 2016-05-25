@@ -124,7 +124,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A cluster connection encapsulating lower level individual connections to actual servers and  * a connection to zookeeper. Connections are instantiated through the {@link ConnectionFactory}  * class. The lifecycle of the connection is managed by the caller, who has to {@link #close()}  * the connection to release the resources.  *  *<p> The connection object contains logic to find the master, locate regions out on the cluster,  * keeps a cache of locations and then knows how to re-calibrate after they move. The individual  * connections to servers, meta cache, zookeeper connection, etc are all shared by the  * {@link Table} and {@link Admin} instances obtained from this connection.  *  *<p> Connection creation is a heavy-weight operation. Connection implementations are thread-safe,  * so that the client can create a connection once, and share it with different threads.  * {@link Table} and {@link Admin} instances, on the other hand, are light-weight and are not  * thread-safe.  Typically, a single connection per client application is instantiated and every  * thread will obtain its own Table instance. Caching or pooling of {@link Table} and {@link Admin}  * is not recommended.  *  *<p>This class replaces {@link HConnection}, which is now deprecated.  * @see ConnectionFactory  * @since 0.99.0  */
+comment|/**  * A cluster connection encapsulating lower level individual connections to actual servers and  * a connection to zookeeper. Connections are instantiated through the {@link ConnectionFactory}  * class. The lifecycle of the connection is managed by the caller, who has to {@link #close()}  * the connection to release the resources.  *  *<p> The connection object contains logic to find the master, locate regions out on the cluster,  * keeps a cache of locations and then knows how to re-calibrate after they move. The individual  * connections to servers, meta cache, zookeeper connection, etc are all shared by the  * {@link Table} and {@link Admin} instances obtained from this connection.  *  *<p> Connection creation is a heavy-weight operation. Connection implementations are thread-safe,  * so that the client can create a connection once, and share it with different threads.  * {@link Table} and {@link Admin} instances, on the other hand, are light-weight and are not  * thread-safe.  Typically, a single connection per client application is instantiated and every  * thread will obtain its own Table instance. Caching or pooling of {@link Table} and {@link Admin}  * is not recommended.  *  * @see ConnectionFactory  * @since 0.99.0  */
 end_comment
 
 begin_interface
@@ -144,7 +144,7 @@ name|Abortable
 extends|,
 name|Closeable
 block|{
-comment|/*    * Implementation notes:    *  - Only allow new style of interfaces:    *   -- All table names are passed as TableName. No more byte[] and string arguments    *   -- Most of the classes with names H is deprecated in favor of non-H versions    *   (Table, Connection vs HConnection, etc)    *   -- Only real client-facing public methods are allowed    *  - Connection should contain only getTable(), getAdmin() kind of general methods.    */
+comment|/*    * Implementation notes:    *  - Only allow new style of interfaces:    *   -- All table names are passed as TableName. No more byte[] and string arguments    *   -- Most of the classes with names H is deprecated in favor of non-H versions    *   (Table, Connection, etc)    *   -- Only real client-facing public methods are allowed    *  - Connection should contain only getTable(), getAdmin() kind of general methods.    */
 comment|/**    * @return Configuration instance being used by this Connection instance.    */
 name|Configuration
 name|getConfiguration
@@ -174,7 +174,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    *<p>    * Retrieve a {@link BufferedMutator} for performing client-side buffering of writes. The    * {@link BufferedMutator} returned by this method is thread-safe. This BufferedMutator will    * use the Connection's ExecutorService. This object can be used for long lived operations.    *</p>    *<p>    * The caller is responsible for calling {@link BufferedMutator#close()} on    * the returned {@link BufferedMutator} instance.    *</p>    *<p>    * This accessor will use the connection's ExecutorService and will throw an    * exception in the main thread when an asynchronous exception occurs.    *    * @param tableName the name of the table    *    * @return a {@link BufferedMutator} for the supplied tableName.    */
-specifier|public
 name|BufferedMutator
 name|getBufferedMutator
 parameter_list|(
@@ -185,7 +184,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Retrieve a {@link BufferedMutator} for performing client-side buffering of writes. The    * {@link BufferedMutator} returned by this method is thread-safe. This object can be used for    * long lived table operations. The caller is responsible for calling    * {@link BufferedMutator#close()} on the returned {@link BufferedMutator} instance.    *    * @param params details on how to instantiate the {@code BufferedMutator}.    * @return a {@link BufferedMutator} for the supplied tableName.    */
-specifier|public
 name|BufferedMutator
 name|getBufferedMutator
 parameter_list|(
@@ -196,7 +194,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Retrieve a RegionLocator implementation to inspect region information on a table. The returned    * RegionLocator is not thread-safe, so a new instance should be created for each using thread.    *    * This is a lightweight operation.  Pooling or caching of the returned RegionLocator is neither    * required nor desired.    *<br>    * The caller is responsible for calling {@link RegionLocator#close()} on the returned    * RegionLocator instance.    *    * RegionLocator needs to be unmanaged    *    * @param tableName Name of the table who's region is to be examined    * @return A RegionLocator instance    */
-specifier|public
 name|RegionLocator
 name|getRegionLocator
 parameter_list|(
@@ -215,7 +212,6 @@ name|IOException
 function_decl|;
 annotation|@
 name|Override
-specifier|public
 name|void
 name|close
 parameter_list|()

@@ -7047,7 +7047,7 @@ operator|.
 name|toString
 argument_list|()
 decl_stmt|;
-comment|// Set how many times to retry talking to another server over HConnection.
+comment|// Set how many times to retry talking to another server over Connection.
 name|ConnectionUtils
 operator|.
 name|setServerSideHConnectionRetriesConfig

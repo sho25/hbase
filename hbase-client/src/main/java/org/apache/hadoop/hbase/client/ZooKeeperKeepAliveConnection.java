@@ -58,7 +58,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * We inherit the current ZooKeeperWatcher implementation to change the semantic  *  of the close: the new close won't immediately close the connection but  *  will have a keep alive. See {@link HConnection}.  * This allows to make it available with a consistent interface. The whole  *  ZooKeeperWatcher use in HConnection will be then changed to remove the  *   watcher part.  *  * This class is intended to be used internally by HBase classes; but not by  * final user code. Hence it's package protected.  */
+comment|/**  * We inherit the current ZooKeeperWatcher implementation to change the semantic  *  of the close: the new close won't immediately close the connection but  *  will have a keep alive. See {@link ConnectionImplementation}.  * This allows to make it available with a consistent interface. The whole  *  ZooKeeperWatcher use in ConnectionImplementation will be then changed to remove the  *   watcher part.  *  * This class is intended to be used internally by HBase classes; but not by  * final user code. Hence it's package protected.  */
 end_comment
 
 begin_class

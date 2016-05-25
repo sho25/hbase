@@ -1359,8 +1359,8 @@ name|se
 argument_list|)
 throw|;
 block|}
-comment|// Mock an HConnection and a AdminProtocol implementation.  Have the
-comment|// HConnection return the HRI.  Have the HRI return a few mocked up responses
+comment|// Mock an ClusterConnection and a AdminProtocol implementation.  Have the
+comment|// ClusterConnection return the HRI.  Have the HRI return a few mocked up responses
 comment|// to make our test work.
 name|this
 operator|.

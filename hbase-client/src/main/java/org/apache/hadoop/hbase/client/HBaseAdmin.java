@@ -19,6 +19,44 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ServiceException
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -2693,44 +2731,6 @@ name|KeeperException
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ByteString
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ServiceException
-import|;
-end_import
-
 begin_comment
 comment|/**  * HBaseAdmin is no longer a client API. It is marked InterfaceAudience.Private indicating that  * this is an HBase-internal class as defined in  * https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/InterfaceClassification.html  * There are no guarantees for backwards source / binary compatibility and methods or class can  * change or go away without deprecation.  * Use {@link Connection#getAdmin()} to obtain an instance of {@link Admin} instead of constructing  * an HBaseAdmin directly.  *  *<p>Connection should be an<i>unmanaged</i> connection obtained via  * {@link ConnectionFactory#createConnection(Configuration)}  *  * @see ConnectionFactory  * @see Connection  * @see Admin  */
 end_comment
@@ -3284,11 +3284,11 @@ literal|true
 return|;
 block|}
 block|}
-comment|/** @return HConnection used by this object. */
+comment|/** @return Connection used by this object. */
 annotation|@
 name|Override
 specifier|public
-name|HConnection
+name|Connection
 name|getConnection
 parameter_list|()
 block|{
@@ -3781,7 +3781,7 @@ specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-name|HConnection
+name|Connection
 name|connection
 parameter_list|,
 name|RpcRetryingCallerFactory
@@ -4814,11 +4814,16 @@ throws|,
 name|TimeoutException
 block|{
 comment|// Delete cached information to prevent clients from using old locations
+operator|(
+operator|(
+name|ClusterConnection
+operator|)
 name|getAdmin
 argument_list|()
 operator|.
 name|getConnection
 argument_list|()
+operator|)
 operator|.
 name|clearRegionCache
 argument_list|(
@@ -6235,6 +6240,8 @@ operator|.
 name|isTableAvailable
 argument_list|(
 name|tableName
+argument_list|,
+literal|null
 argument_list|)
 return|;
 block|}
@@ -10707,7 +10714,7 @@ name|result
 return|;
 block|}
 block|}
-comment|/**    * @param regionName Name of a region.    * @return a pair of HRegionInfo and ServerName if<code>regionName</code> is    *  a verified region name (we call {@link    *  MetaTableAccessor#getRegionLocation(HConnection, byte[])}    *  else null.    * Throw IllegalArgumentException if<code>regionName</code> is null.    * @throws IOException    */
+comment|/**    * @param regionName Name of a region.    * @return a pair of HRegionInfo and ServerName if<code>regionName</code> is    *  a verified region name (we call {@link    *  MetaTableAccessor#getRegionLocation(Connection, byte[])}    *  else null.    * Throw IllegalArgumentException if<code>regionName</code> is null.    * @throws IOException    */
 name|Pair
 argument_list|<
 name|HRegionInfo

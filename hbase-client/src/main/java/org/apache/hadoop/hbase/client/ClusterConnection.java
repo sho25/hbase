@@ -260,11 +260,15 @@ specifier|public
 interface|interface
 name|ClusterConnection
 extends|extends
-name|HConnection
+name|Connection
 block|{
+comment|/**    * Key for configuration in Configuration whose value is the class we implement making a    * new Connection instance.    */
+name|String
+name|HBASE_CLIENT_CONNECTION_IMPL
+init|=
+literal|"hbase.client.connection.impl"
+decl_stmt|;
 comment|/**    * @return - true if the master server is running    * @deprecated this has been deprecated without a replacement    */
-annotation|@
-name|Override
 annotation|@
 name|Deprecated
 name|boolean
@@ -276,8 +280,6 @@ throws|,
 name|ZooKeeperConnectionException
 function_decl|;
 comment|/**    * Use this api to check if the table has been created with the specified number of    * splitkeys which was used while creating the given table.    * Note : If this api is used after a table's region gets splitted, the api may return    * false.    * @param tableName    *          tableName    * @param splitKeys    *          splitKeys used while creating table    * @throws IOException    *           if a remote or network exception occurs    */
-annotation|@
-name|Override
 name|boolean
 name|isTableAvailable
 parameter_list|(
@@ -292,10 +294,37 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    */
-annotation|@
-name|Override
-specifier|public
+comment|/**    * A table that isTableEnabled == false and isTableDisabled == false    * is possible. This happens when a table has a lot of regions    * that must be processed.    * @param tableName table name    * @return true if the table is enabled, false otherwise    * @throws IOException if a remote or network exception occurs    */
+name|boolean
+name|isTableEnabled
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * @param tableName table name    * @return true if the table is disabled, false otherwise    * @throws IOException if a remote or network exception occurs    */
+name|boolean
+name|isTableDisabled
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Retrieve TableState, represent current table state.    * @param tableName table state for    * @return state of the table    */
+name|TableState
+name|getTableState
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    *   question    * @throws IOException if a remote or network exception occurs    */
 name|HRegionLocation
 name|locateRegion
 parameter_list|(
@@ -312,8 +341,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Allows flushing the region cache.    */
-annotation|@
-name|Override
 name|void
 name|clearRegionCache
 parameter_list|()
@@ -330,9 +357,7 @@ name|RegionLocations
 name|location
 parameter_list|)
 function_decl|;
-comment|/**    * Allows flushing the region cache of all locations that pertain to    *<code>tableName</code>    * @param tableName Name of the table whose regions we are to remove from    * cache.    */
-annotation|@
-name|Override
+comment|/**    * Allows flushing the region cache of all locations that pertain to    *<code>tableName</code>    * @param tableName Name of the table whose regions we are to remove from    *   cache.    */
 name|void
 name|clearRegionCache
 parameter_list|(
@@ -342,8 +367,6 @@ name|tableName
 parameter_list|)
 function_decl|;
 comment|/**    * Deletes cached locations for the specific region.    * @param location The location object for the region, to be purged from cache.    */
-annotation|@
-name|Override
 name|void
 name|deleteCachedRegionLocation
 parameter_list|(
@@ -352,9 +375,7 @@ name|HRegionLocation
 name|location
 parameter_list|)
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    */
-annotation|@
-name|Override
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    *   question    * @throws IOException if a remote or network exception occurs    */
 name|HRegionLocation
 name|relocateRegion
 parameter_list|(
@@ -370,7 +391,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @param replicaId the replicaId of the region    * @return RegionLocations that describe where to find the region in    * question    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @param replicaId the replicaId of the region    * @return RegionLocations that describe where to find the region in    *   question    * @throws IOException if a remote or network exception occurs    */
 name|RegionLocations
 name|relocateRegion
 parameter_list|(
@@ -390,8 +411,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Update the location cache. This is used internally by HBase, in most cases it should not be    *  used by the client application.    * @param tableName the table name    * @param regionName the region name    * @param rowkey the row    * @param exception the exception if any. Can be null.    * @param source the previous location    */
-annotation|@
-name|Override
 name|void
 name|updateCachedLocations
 parameter_list|(
@@ -413,9 +432,7 @@ name|ServerName
 name|source
 parameter_list|)
 function_decl|;
-comment|/**    * Gets the location of the region of<i>regionName</i>.    * @param regionName name of the region to locate    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    */
-annotation|@
-name|Override
+comment|/**    * Gets the location of the region of<i>regionName</i>.    * @param regionName name of the region to locate    * @return HRegionLocation that describes where to find the region in    *   question    * @throws IOException if a remote or network exception occurs    */
 name|HRegionLocation
 name|locateRegion
 parameter_list|(
@@ -427,9 +444,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Gets the locations of all regions in the specified table,<i>tableName</i>.    * @param tableName table to get regions of    * @return list of region locations for all regions of table    * @throws IOException    */
-annotation|@
-name|Override
+comment|/**    * Gets the locations of all regions in the specified table,<i>tableName</i>.    * @param tableName table to get regions of    * @return list of region locations for all regions of table    * @throws IOException if IO failure occurs    */
 name|List
 argument_list|<
 name|HRegionLocation
@@ -443,9 +458,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Gets the locations of all regions in the specified table,<i>tableName</i>.    * @param tableName table to get regions of    * @param useCache Should we use the cache to retrieve the region information.    * @param offlined True if we are to include offlined regions, false and we'll leave out offlined    *          regions from returned list.    * @return list of region locations for all regions of table    * @throws IOException    */
-annotation|@
-name|Override
+comment|/**    * Gets the locations of all regions in the specified table,<i>tableName</i>.    * @param tableName table to get regions of    * @param useCache Should we use the cache to retrieve the region information.    * @param offlined True if we are to include offlined regions, false and we'll leave out offlined    *          regions from returned list.    * @return list of region locations for all regions of table    * @throws IOException if IO failure occurs    */
 name|List
 argument_list|<
 name|HRegionLocation
@@ -467,7 +480,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    *    * @param tableName table to get regions of    * @param row the row    * @param useCache Should we use the cache to retrieve the region information.    * @param retry do we retry    * @return region locations for this row.    * @throws IOException    */
+comment|/**    *    * @param tableName table to get regions of    * @param row the row    * @param useCache Should we use the cache to retrieve the region information.    * @param retry do we retry    * @return region locations for this row.    * @throws IOException if IO failure occurs    */
 name|RegionLocations
 name|locateRegion
 parameter_list|(
@@ -487,7 +500,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**   *   * @param tableName table to get regions of   * @param row the row   * @param useCache Should we use the cache to retrieve the region information.   * @param retry do we retry   * @param replicaId the replicaId for the region   * @return region locations for this row.   * @throws IOException   */
+comment|/**   *   * @param tableName table to get regions of   * @param row the row   * @param useCache Should we use the cache to retrieve the region information.   * @param retry do we retry   * @param replicaId the replicaId for the region   * @return region locations for this row.   * @throws IOException if IO failure occurs   */
 name|RegionLocations
 name|locateRegion
 parameter_list|(
@@ -511,8 +524,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Returns a {@link MasterKeepAliveConnection} to the active master    */
-annotation|@
-name|Override
 name|MasterService
 operator|.
 name|BlockingInterface
@@ -522,8 +533,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Establishes a connection to the region server at the specified address.    * @param serverName    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
-annotation|@
-name|Override
 name|AdminService
 operator|.
 name|BlockingInterface
@@ -537,8 +546,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Establishes a connection to the region server at the specified address, and returns    * a region client protocol.    *    * @param serverName    * @return ClientProtocol proxy for RegionServer    * @throws IOException if a remote or network exception occurs    *    */
-annotation|@
-name|Override
 name|ClientService
 operator|.
 name|BlockingInterface
@@ -552,8 +559,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Find region location hosting passed row    * @param tableName table name    * @param row Row to find.    * @param reload If true do not use cache, otherwise bypass.    * @return Location of row.    * @throws IOException if a remote or network exception occurs    */
-annotation|@
-name|Override
 name|HRegionLocation
 name|getRegionLocation
 parameter_list|(
@@ -571,8 +576,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Clear any caches that pertain to server name<code>sn</code>.    * @param sn A server name    */
-annotation|@
-name|Override
 name|void
 name|clearCaches
 parameter_list|(
@@ -581,9 +584,7 @@ name|ServerName
 name|sn
 parameter_list|)
 function_decl|;
-comment|/**    * This function allows HBaseAdmin and potentially others to get a shared MasterService    * connection.    * @return The shared instance. Never returns null.    * @throws MasterNotRunningException    * @deprecated Since 0.96.0    */
-annotation|@
-name|Override
+comment|/**    * This function allows HBaseAdmin and potentially others to get a shared MasterService    * connection.    * @return The shared instance. Never returns null.    * @throws MasterNotRunningException if master is not running    * @deprecated Since 0.96.0    */
 annotation|@
 name|Deprecated
 name|MasterKeepAliveConnection
@@ -592,9 +593,7 @@ parameter_list|()
 throws|throws
 name|MasterNotRunningException
 function_decl|;
-comment|/**    * @param serverName    * @return true if the server is known as dead, false otherwise.    * @deprecated internal method, do not use thru HConnection */
-annotation|@
-name|Override
+comment|/**    * @param serverName of server to check    * @return true if the server is known as dead, false otherwise.    * @deprecated internal method, do not use thru ClusterConnection */
 annotation|@
 name|Deprecated
 name|boolean
@@ -604,10 +603,7 @@ name|ServerName
 name|serverName
 parameter_list|)
 function_decl|;
-comment|/**    * @return Nonce generator for this HConnection; may be null if disabled in configuration.    */
-annotation|@
-name|Override
-specifier|public
+comment|/**    * @return Nonce generator for this ClusterConnection; may be null if disabled in configuration.    */
 name|NonceGenerator
 name|getNonceGenerator
 parameter_list|()
@@ -617,7 +613,7 @@ name|AsyncProcess
 name|getAsyncProcess
 parameter_list|()
 function_decl|;
-comment|/**    * Returns a new RpcRetryingCallerFactory from the given {@link Configuration}.    * This RpcRetryingCallerFactory lets the users create {@link RpcRetryingCaller}s which can be    * intercepted with the configured {@link RetryingCallerInterceptor}    * @param conf    * @return RpcRetryingCallerFactory    */
+comment|/**    * Returns a new RpcRetryingCallerFactory from the given {@link Configuration}.    * This RpcRetryingCallerFactory lets the users create {@link RpcRetryingCaller}s which can be    * intercepted with the configured {@link RetryingCallerInterceptor}    * @param conf configuration    * @return RpcRetryingCallerFactory    */
 name|RpcRetryingCallerFactory
 name|getNewRpcRetryingCallerFactory
 parameter_list|(
@@ -651,7 +647,6 @@ name|getBackoffPolicy
 parameter_list|()
 function_decl|;
 comment|/**    * @return the MetricsConnection instance associated with this connection.    */
-specifier|public
 name|MetricsConnection
 name|getConnectionMetrics
 parameter_list|()
@@ -660,6 +655,13 @@ comment|/**    * @return true when this connection uses a {@link org.apache.hado
 name|boolean
 name|hasCellBlockSupport
 parameter_list|()
+function_decl|;
+comment|/**    * @return the number of region servers that are currently running    * @throws IOException if a remote or network exception occurs    */
+name|int
+name|getCurrentNrHRS
+parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
 block|}
 end_interface

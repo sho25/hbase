@@ -1053,7 +1053,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Unexpected: cached HConnection is aborted/closed, removed from cache"
+literal|"Unexpected: cached Connection is aborted/closed, removed from cache"
 argument_list|)
 expr_stmt|;
 name|connections

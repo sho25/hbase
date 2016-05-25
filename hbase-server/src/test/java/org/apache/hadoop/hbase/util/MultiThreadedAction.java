@@ -59,6 +59,20 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Preconditions
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -311,22 +325,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Result
 import|;
 end_import
@@ -403,20 +401,6 @@ name|StringUtils
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Preconditions
-import|;
-end_import
-
 begin_comment
 comment|/**  * Common base class for reader and writer parts of multi-thread HBase load  * test ({@link LoadTestTool}).  */
 end_comment
@@ -454,7 +438,7 @@ name|conf
 decl_stmt|;
 specifier|protected
 specifier|final
-name|HConnection
+name|ClusterConnection
 name|connection
 decl_stmt|;
 comment|// all reader / writer threads will share this connection
@@ -921,7 +905,7 @@ operator|.
 name|connection
 operator|=
 operator|(
-name|HConnection
+name|ClusterConnection
 operator|)
 name|ConnectionFactory
 operator|.

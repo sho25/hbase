@@ -580,8 +580,8 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-comment|// Need to use a new 'Configuration' so we make a new HConnection.
-comment|// Otherwise we're reusing an HConnection that has gone stale because
+comment|// Need to use a new 'Configuration' so we make a new Connection.
+comment|// Otherwise we're reusing an Connection that has gone stale because
 comment|// the shutdown of the cluster also called shut of the connection.
 name|allRegions
 operator|=

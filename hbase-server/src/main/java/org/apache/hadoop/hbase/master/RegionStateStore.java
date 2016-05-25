@@ -869,7 +869,7 @@ name|getConfiguration
 argument_list|()
 decl_stmt|;
 comment|// Config to determine the no of HConnections to META.
-comment|// A single HConnection should be sufficient in most cases. Only if
+comment|// A single Connection should be sufficient in most cases. Only if
 comment|// you are doing lot of writes (>1M) to META,
 comment|// increasing this value might improve the write throughput.
 name|multiHConnection

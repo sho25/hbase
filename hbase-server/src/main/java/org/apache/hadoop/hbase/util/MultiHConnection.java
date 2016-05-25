@@ -31,16 +31,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|InterruptedIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|List
@@ -143,22 +133,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
@@ -203,6 +177,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ClusterConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Connection
@@ -237,7 +243,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|HTable
 import|;
 end_import
 
@@ -275,8 +281,24 @@ name|Batch
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|AsyncRpcClient
+import|;
+end_import
+
 begin_comment
-comment|/**  * Provides ability to create multiple HConnection instances and allows to process a batch of  * actions using HConnection.processBatchCallback()  */
+comment|/**  * Provides ability to create multiple Connection instances and allows to process a batch of  * actions using CHTable.doBatchWithCallback()  */
 end_comment
 
 begin_class
@@ -304,20 +326,21 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|HConnection
+name|Connection
 index|[]
-name|hConnections
+name|connections
 decl_stmt|;
 specifier|private
 specifier|final
 name|Object
-name|hConnectionsLock
+name|connectionsLock
 init|=
 operator|new
 name|Object
 argument_list|()
 decl_stmt|;
 specifier|private
+specifier|final
 name|int
 name|noOfConnections
 decl_stmt|;
@@ -325,7 +348,7 @@ specifier|private
 name|ExecutorService
 name|batchPool
 decl_stmt|;
-comment|/**    * Create multiple HConnection instances and initialize a thread pool executor    * @param conf configuration    * @param noOfConnections total no of HConnections to create    * @throws IOException    */
+comment|/**    * Create multiple Connection instances and initialize a thread pool executor    * @param conf configuration    * @param noOfConnections total no of Connections to create    * @throws IOException if IO failure occurs    */
 specifier|public
 name|MultiHConnection
 parameter_list|(
@@ -348,13 +371,13 @@ synchronized|synchronized
 init|(
 name|this
 operator|.
-name|hConnectionsLock
+name|connectionsLock
 init|)
 block|{
-name|hConnections
+name|connections
 operator|=
 operator|new
-name|HConnection
+name|Connection
 index|[
 name|noOfConnections
 index|]
@@ -374,12 +397,9 @@ name|i
 operator|++
 control|)
 block|{
-name|HConnection
+name|Connection
 name|conn
 init|=
-operator|(
-name|HConnection
-operator|)
 name|ConnectionFactory
 operator|.
 name|createConnection
@@ -387,7 +407,7 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|hConnections
+name|connections
 index|[
 name|i
 index|]
@@ -410,12 +430,12 @@ parameter_list|()
 block|{
 synchronized|synchronized
 init|(
-name|hConnectionsLock
+name|connectionsLock
 init|)
 block|{
 if|if
 condition|(
-name|hConnections
+name|connections
 operator|!=
 literal|null
 condition|)
@@ -425,7 +445,7 @@ control|(
 name|Connection
 name|conn
 range|:
-name|hConnections
+name|connections
 control|)
 block|{
 if|if
@@ -468,7 +488,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-name|hConnections
+name|connections
 operator|=
 literal|null
 expr_stmt|;
@@ -542,7 +562,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Randomly pick a connection and process the batch of actions for a given table    * @param actions the actions    * @param tableName table name    * @param results the results array    * @param callback     * @throws IOException    */
+comment|/**    * Randomly pick a connection and process the batch of actions for a given table    * @param actions the actions    * @param tableName table name    * @param results the results array    * @param callback to run when results are in    * @throws IOException If IO failure occurs    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -582,13 +602,13 @@ throws|throws
 name|IOException
 block|{
 comment|// Currently used by RegionStateStore
-comment|// A deprecated method is used as multiple threads accessing RegionStateStore do a single put
-comment|// and htable is not thread safe. Alternative would be to create an Htable instance for each
-comment|// put but that is not very efficient.
-comment|// See HBASE-11610 for more details.
-try|try
-block|{
-name|hConnections
+name|ClusterConnection
+name|conn
+init|=
+operator|(
+name|ClusterConnection
+operator|)
+name|connections
 index|[
 name|ThreadLocalRandom
 operator|.
@@ -600,43 +620,27 @@ argument_list|(
 name|noOfConnections
 argument_list|)
 index|]
+decl_stmt|;
+name|HTable
 operator|.
-name|processBatchCallback
+name|doBatchWithCallback
 argument_list|(
 name|actions
-argument_list|,
-name|tableName
-argument_list|,
-name|this
-operator|.
-name|batchPool
 argument_list|,
 name|results
 argument_list|,
 name|callback
+argument_list|,
+name|conn
+argument_list|,
+name|batchPool
+argument_list|,
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|InterruptedIOException
-argument_list|(
-name|e
-operator|.
-name|getMessage
-argument_list|()
-argument_list|)
-throw|;
-block|}
-block|}
 comment|// Copied from ConnectionImplementation.getBatchPool()
-comment|// We should get rid of this when HConnection.processBatchCallback is un-deprecated and provides
+comment|// We should get rid of this when Connection.processBatchCallback is un-deprecated and provides
 comment|// an API to manage a batch pool
 specifier|private
 name|void
@@ -699,9 +703,7 @@ name|workQueue
 init|=
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Runnable
-argument_list|>
+argument_list|<>
 argument_list|(
 name|maxThreads
 operator|*

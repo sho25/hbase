@@ -654,9 +654,7 @@ name|argv
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -674,7 +672,7 @@ name|String
 name|argv
 parameter_list|)
 block|{
-comment|// TODO: this API is awkward, should take HConnection, not HBaseAdmin
+comment|// TODO: this API is awkward, should take Connection, not Admin
 name|this
 operator|.
 name|admin

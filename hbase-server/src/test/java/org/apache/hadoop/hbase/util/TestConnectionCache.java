@@ -143,7 +143,7 @@ operator|new
 name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
-comment|/**    * test for ConnectionCache cleaning expired HConnection    */
+comment|/**    * test for ConnectionCache cleaning expired Connection    */
 annotation|@
 name|Test
 specifier|public

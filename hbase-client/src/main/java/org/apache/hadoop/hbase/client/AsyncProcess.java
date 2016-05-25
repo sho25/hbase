@@ -1222,7 +1222,7 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"HConnection cannot be null."
+literal|"ClusterConnection cannot be null."
 argument_list|)
 throw|;
 block|}

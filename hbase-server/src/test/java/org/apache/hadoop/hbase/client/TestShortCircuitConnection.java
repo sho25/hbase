@@ -447,7 +447,7 @@ operator|.
 name|getClusterConnection
 argument_list|()
 decl_stmt|;
-name|HTableInterface
+name|Table
 name|tableIf
 init|=
 name|connection
