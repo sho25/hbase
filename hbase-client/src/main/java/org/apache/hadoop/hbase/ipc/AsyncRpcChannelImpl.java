@@ -3565,6 +3565,8 @@ operator|.
 name|warn
 argument_list|(
 name|msg
+argument_list|,
+name|ex
 argument_list|)
 expr_stmt|;
 throw|throw
