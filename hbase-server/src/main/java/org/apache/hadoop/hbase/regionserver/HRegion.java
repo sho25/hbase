@@ -6401,7 +6401,9 @@ name|memStoreSize
 argument_list|)
 expr_stmt|;
 block|}
-return|return
+name|long
+name|size
+init|=
 name|this
 operator|.
 name|memstoreSize
@@ -6410,6 +6412,47 @@ name|addAndGet
 argument_list|(
 name|memStoreSize
 argument_list|)
+decl_stmt|;
+comment|// This is extremely bad if we make memstoreSize negative. Log as much info on the offending
+comment|// caller as possible. (memStoreSize might be a negative value already -- freeing memory)
+if|if
+condition|(
+name|size
+operator|<
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Asked to modify this region's ("
+operator|+
+name|this
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|") memstoreSize to a negative value which is incorrect. Current memstoreSize="
+operator|+
+operator|(
+name|size
+operator|-
+name|memStoreSize
+operator|)
+operator|+
+literal|", delta="
+operator|+
+name|memStoreSize
+argument_list|,
+operator|new
+name|Exception
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|size
 return|;
 block|}
 annotation|@
@@ -11556,7 +11599,7 @@ name|byteDesc
 argument_list|(
 name|store
 operator|.
-name|getMemStoreSize
+name|getFlushableSize
 argument_list|()
 argument_list|)
 argument_list|)
@@ -14365,23 +14408,18 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
-name|long
-name|addedSize
-init|=
 name|doMiniBatchMutate
 argument_list|(
 name|batchOp
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|long
 name|newSize
 init|=
 name|this
 operator|.
-name|addAndGetGlobalMemstoreSize
-argument_list|(
-name|addedSize
-argument_list|)
+name|getMemstoreSize
+argument_list|()
 decl_stmt|;
 name|requestFlushIfNeeded
 argument_list|(
@@ -14783,6 +14821,11 @@ name|operations
 operator|.
 name|length
 argument_list|)
+decl_stmt|;
+name|long
+name|addedSize
+init|=
+literal|0
 decl_stmt|;
 try|try
 block|{
@@ -15745,11 +15788,6 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// STEP 5. Write back to memstore
-name|long
-name|addedSize
-init|=
-literal|0
-decl_stmt|;
 for|for
 control|(
 name|int
@@ -16092,6 +16130,13 @@ operator|.
 name|complete
 argument_list|(
 name|writeEntry
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|addAndGetGlobalMemstoreSize
+argument_list|(
+name|addedSize
 argument_list|)
 expr_stmt|;
 if|if
