@@ -2661,7 +2661,7 @@ init|=
 literal|','
 decl_stmt|;
 comment|/**    * QOS attributes: these attributes are used to demarcate RPC call processing    * by different set of handlers. For example, HIGH_QOS tagged methods are    * handled by high priority handlers.    */
-comment|// normal_QOS< QOS_threshold< replication_QOS< replay_QOS< admin_QOS< high_QOS
+comment|// normal_QOS< replication_QOS< replay_QOS< QOS_threshold< admin_QOS< high_QOS
 specifier|public
 specifier|static
 specifier|final
@@ -2669,22 +2669,6 @@ name|int
 name|NORMAL_QOS
 init|=
 literal|0
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|QOS_THRESHOLD
-init|=
-literal|10
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|HIGH_QOS
-init|=
-literal|200
 decl_stmt|;
 specifier|public
 specifier|static
@@ -2706,9 +2690,25 @@ specifier|public
 specifier|static
 specifier|final
 name|int
+name|QOS_THRESHOLD
+init|=
+literal|10
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
 name|ADMIN_QOS
 init|=
 literal|100
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|HIGH_QOS
+init|=
+literal|200
 decl_stmt|;
 specifier|public
 specifier|static
