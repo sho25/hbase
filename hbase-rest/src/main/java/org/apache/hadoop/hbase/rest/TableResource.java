@@ -1336,7 +1336,7 @@ return|;
 block|}
 catch|catch
 parameter_list|(
-name|Exception
+name|IOException
 name|exp
 parameter_list|)
 block|{
