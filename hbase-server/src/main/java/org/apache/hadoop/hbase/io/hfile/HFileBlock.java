@@ -6074,9 +6074,6 @@ argument_list|(
 name|offset
 argument_list|,
 name|onDiskBlockByteBuffer
-operator|.
-name|asReadOnlyBuffer
-argument_list|()
 argument_list|,
 name|hdrSize
 argument_list|)
